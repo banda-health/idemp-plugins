@@ -1,0 +1,6 @@
+extend type BH_Concept_Mapping {
+	FromBH_Concept: BH_Concept!
+	ToBH_Concept: BH_Concept
+	FromBH_Concept_Mappings: [BH_Concept_Mapping!] # Provides a way to skip over From concept to it's From mappings 
+	ToBH_Concept_Mappings: [BH_Concept_Mapping!]   # Provides a way to skip over To concept to it's To mappings
+}

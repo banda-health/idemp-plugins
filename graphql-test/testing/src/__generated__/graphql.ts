@@ -18474,6 +18474,300 @@ export type Bh_Coded_Diagnosis_MappingInput = {
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type Bh_Concept = {
+  __typename?: 'BH_Concept';
+  /** Tenant for this installation. */
+  AD_Client: Ad_Client;
+  /** Organizational entity within tenant */
+  AD_Org: Ad_Org;
+  BH_Concept_Extras?: Maybe<Array<Bh_Concept_Extra>>;
+  BH_Concept_Names?: Maybe<Array<Bh_Concept_Name>>;
+  BH_Concept_Type?: Maybe<Scalars['String']['output']>;
+  BH_Data_Type?: Maybe<Scalars['String']['output']>;
+  BH_Display_Locale?: Maybe<Scalars['String']['output']>;
+  BH_Display_Name?: Maybe<Scalars['String']['output']>;
+  /** BH_External_ID */
+  BH_ExternalID?: Maybe<Scalars['String']['output']>;
+  /** A generic ID of type string */
+  BH_OclID?: Maybe<Scalars['String']['output']>;
+  /** BH_Owner */
+  BH_Owner?: Maybe<Scalars['String']['output']>;
+  /** Source */
+  BH_Source?: Maybe<Scalars['String']['output']>;
+  /** Date this record was created */
+  Created?: Maybe<Scalars['Date']['output']>;
+  /** User who created this records */
+  CreatedBy?: Maybe<Ad_User>;
+  /** Optional short description of the record */
+  Description?: Maybe<Scalars['String']['output']>;
+  FromBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
+  /** The record is active in the system */
+  IsActive: Scalars['Boolean']['output'];
+  /** Parent mappings (usually 1) */
+  ToBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
+  /** Full URL address - e.g. http://www.idempiere.org */
+  URL?: Maybe<Scalars['String']['output']>;
+  UU: Scalars['ID']['output'];
+  /** Date this record was updated */
+  Updated?: Maybe<Scalars['Date']['output']>;
+  /** User who updated this records */
+  UpdatedBy?: Maybe<Ad_User>;
+  bh_concept_class?: Maybe<Scalars['String']['output']>;
+};
+
+export type Bh_ConceptConnection = {
+  __typename?: 'BH_ConceptConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<Bh_Concept>;
+};
+
+export type Bh_ConceptInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
+  BH_Concept_Type?: InputMaybe<Scalars['String']['input']>;
+  BH_Data_Type?: InputMaybe<Scalars['String']['input']>;
+  BH_Display_Locale?: InputMaybe<Scalars['String']['input']>;
+  BH_Display_Name?: InputMaybe<Scalars['String']['input']>;
+  /** BH_External_ID */
+  BH_ExternalID?: InputMaybe<Scalars['String']['input']>;
+  /** A generic ID of type string */
+  BH_OclID?: InputMaybe<Scalars['String']['input']>;
+  /** BH_Owner */
+  BH_Owner?: InputMaybe<Scalars['String']['input']>;
+  /** Source */
+  BH_Source?: InputMaybe<Scalars['String']['input']>;
+  /** Optional short description of the record */
+  Description?: InputMaybe<Scalars['String']['input']>;
+  /** The record is active in the system */
+  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Full URL address - e.g. http://www.idempiere.org */
+  URL?: InputMaybe<Scalars['String']['input']>;
+  UU?: InputMaybe<Scalars['ID']['input']>;
+  bh_concept_class?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Bh_Concept_Description = {
+  __typename?: 'BH_Concept_Description';
+  /** Tenant for this installation. */
+  AD_Client?: Maybe<Ad_Client>;
+  /** Organizational entity within tenant */
+  AD_Org?: Maybe<Ad_Org>;
+  BH_Concept: Bh_Concept;
+  BH_Concept_Description_Type?: Maybe<Scalars['String']['output']>;
+  BH_Concept_Locale?: Maybe<Scalars['String']['output']>;
+  BH_Concept_Type?: Maybe<Scalars['String']['output']>;
+  /** BH_External_ID */
+  BH_ExternalID?: Maybe<Scalars['String']['output']>;
+  /** Date this record was created */
+  Created?: Maybe<Scalars['Date']['output']>;
+  /** User who created this records */
+  CreatedBy?: Maybe<Ad_User>;
+  /** The record is active in the system */
+  IsActive: Scalars['Boolean']['output'];
+  /** Alphanumeric identifier of the entity */
+  Name?: Maybe<Scalars['String']['output']>;
+  UU: Scalars['ID']['output'];
+  /** Date this record was updated */
+  Updated?: Maybe<Scalars['Date']['output']>;
+  /** User who updated this records */
+  UpdatedBy?: Maybe<Ad_User>;
+};
+
+export type Bh_Concept_DescriptionConnection = {
+  __typename?: 'BH_Concept_DescriptionConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<Bh_Concept_Description>;
+};
+
+export type Bh_Concept_DescriptionInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
+  BH_Concept_Description_Type?: InputMaybe<Scalars['String']['input']>;
+  BH_Concept_Locale?: InputMaybe<Scalars['String']['input']>;
+  BH_Concept_Type?: InputMaybe<Scalars['String']['input']>;
+  /** BH_External_ID */
+  BH_ExternalID?: InputMaybe<Scalars['String']['input']>;
+  /** The record is active in the system */
+  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Alphanumeric identifier of the entity */
+  Name?: InputMaybe<Scalars['String']['input']>;
+  UU?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type Bh_Concept_Extra = {
+  __typename?: 'BH_Concept_Extra';
+  /** Tenant for this installation. */
+  AD_Client?: Maybe<Ad_Client>;
+  /** Organizational entity within tenant */
+  AD_Org?: Maybe<Ad_Org>;
+  BH_Concept?: Maybe<Bh_Concept>;
+  BH_Concept_Mapping?: Maybe<Bh_Concept_Mapping>;
+  BH_Key?: Maybe<Scalars['String']['output']>;
+  /** BH_Value */
+  BH_Value?: Maybe<Scalars['String']['output']>;
+  /** Date this record was created */
+  Created?: Maybe<Scalars['Date']['output']>;
+  /** User who created this records */
+  CreatedBy?: Maybe<Ad_User>;
+  /** The record is active in the system */
+  IsActive: Scalars['Boolean']['output'];
+  UU: Scalars['ID']['output'];
+  /** Date this record was updated */
+  Updated?: Maybe<Scalars['Date']['output']>;
+  /** User who updated this records */
+  UpdatedBy?: Maybe<Ad_User>;
+};
+
+export type Bh_Concept_ExtraConnection = {
+  __typename?: 'BH_Concept_ExtraConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<Bh_Concept_Extra>;
+};
+
+export type Bh_Concept_ExtraInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
+  BH_Concept_Mapping?: InputMaybe<ForeignEntityInput>;
+  BH_Key?: InputMaybe<Scalars['String']['input']>;
+  /** BH_Value */
+  BH_Value?: InputMaybe<Scalars['String']['input']>;
+  /** The record is active in the system */
+  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  UU?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type Bh_Concept_Mapping = {
+  __typename?: 'BH_Concept_Mapping';
+  /** Tenant for this installation. */
+  AD_Client?: Maybe<Ad_Client>;
+  /** Organizational entity within tenant */
+  AD_Org?: Maybe<Ad_Org>;
+  BH_Concept: Bh_Concept;
+  /** BH_External_ID */
+  BH_ExternalID?: Maybe<Scalars['String']['output']>;
+  BH_From_Concept_Code?: Maybe<Scalars['String']['output']>;
+  BH_From_Concept_Name?: Maybe<Scalars['String']['output']>;
+  BH_From_Concept_Name_Resolved?: Maybe<Scalars['String']['output']>;
+  BH_From_Concept_Url?: Maybe<Scalars['String']['output']>;
+  /** BH_Map_Type */
+  BH_Map_Type?: Maybe<Scalars['String']['output']>;
+  /** A generic ID of type string */
+  BH_OclID?: Maybe<Scalars['String']['output']>;
+  /** BH_Owner */
+  BH_Owner?: Maybe<Scalars['String']['output']>;
+  /** Source */
+  BH_Source?: Maybe<Scalars['String']['output']>;
+  BH_To_Concept_Code?: Maybe<Scalars['String']['output']>;
+  BH_To_Concept_Name?: Maybe<Scalars['String']['output']>;
+  BH_To_Concept_Name_Resolved?: Maybe<Scalars['String']['output']>;
+  BH_To_Concept_Url?: Maybe<Scalars['String']['output']>;
+  BH_To_Source_Name?: Maybe<Scalars['String']['output']>;
+  /** Date this record was created */
+  Created?: Maybe<Scalars['Date']['output']>;
+  /** User who created this records */
+  CreatedBy?: Maybe<Ad_User>;
+  /** Should typically be 1, but nothing in database requires this */
+  FromBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
+  /** The record is active in the system */
+  IsActive: Scalars['Boolean']['output'];
+  /** Provides a way to skip over From concept to it's From mappings */
+  ToBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
+  /** We don't map FromBH_Concepts, as that is already provided through the BH_Concept attribute */
+  ToBH_Concepts?: Maybe<Array<Bh_Concept>>;
+  UU: Scalars['ID']['output'];
+  /** Date this record was updated */
+  Updated?: Maybe<Scalars['Date']['output']>;
+  /** User who updated this records */
+  UpdatedBy?: Maybe<Ad_User>;
+};
+
+export type Bh_Concept_MappingConnection = {
+  __typename?: 'BH_Concept_MappingConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<Bh_Concept_Mapping>;
+};
+
+export type Bh_Concept_MappingInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
+  /** BH_External_ID */
+  BH_ExternalID?: InputMaybe<Scalars['String']['input']>;
+  BH_From_Concept_Code?: InputMaybe<Scalars['String']['input']>;
+  BH_From_Concept_Name?: InputMaybe<Scalars['String']['input']>;
+  BH_From_Concept_Name_Resolved?: InputMaybe<Scalars['String']['input']>;
+  BH_From_Concept_Url?: InputMaybe<Scalars['String']['input']>;
+  /** BH_Map_Type */
+  BH_Map_Type?: InputMaybe<Scalars['String']['input']>;
+  /** A generic ID of type string */
+  BH_OclID?: InputMaybe<Scalars['String']['input']>;
+  /** BH_Owner */
+  BH_Owner?: InputMaybe<Scalars['String']['input']>;
+  /** Source */
+  BH_Source?: InputMaybe<Scalars['String']['input']>;
+  BH_To_Concept_Code?: InputMaybe<Scalars['String']['input']>;
+  BH_To_Concept_Name?: InputMaybe<Scalars['String']['input']>;
+  BH_To_Concept_Name_Resolved?: InputMaybe<Scalars['String']['input']>;
+  BH_To_Concept_Url?: InputMaybe<Scalars['String']['input']>;
+  BH_To_Source_Name?: InputMaybe<Scalars['String']['input']>;
+  /** The record is active in the system */
+  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  UU?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type Bh_Concept_Name = {
+  __typename?: 'BH_Concept_Name';
+  /** Tenant for this installation. */
+  AD_Client?: Maybe<Ad_Client>;
+  /** Organizational entity within tenant */
+  AD_Org?: Maybe<Ad_Org>;
+  BH_Concept: Bh_Concept;
+  BH_Concept_Locale?: Maybe<Scalars['String']['output']>;
+  BH_Concept_Locale_Preferred: Scalars['Boolean']['output'];
+  BH_Concept_Name_Type?: Maybe<Scalars['String']['output']>;
+  BH_Concept_Type?: Maybe<Scalars['String']['output']>;
+  /** BH_External_ID */
+  BH_ExternalID?: Maybe<Scalars['String']['output']>;
+  /** Date this record was created */
+  Created?: Maybe<Scalars['Date']['output']>;
+  /** User who created this records */
+  CreatedBy?: Maybe<Ad_User>;
+  /** The record is active in the system */
+  IsActive: Scalars['Boolean']['output'];
+  /** Alphanumeric identifier of the entity */
+  Name?: Maybe<Scalars['String']['output']>;
+  UU: Scalars['ID']['output'];
+  /** Date this record was updated */
+  Updated?: Maybe<Scalars['Date']['output']>;
+  /** User who updated this records */
+  UpdatedBy?: Maybe<Ad_User>;
+};
+
+export type Bh_Concept_NameConnection = {
+  __typename?: 'BH_Concept_NameConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<Bh_Concept_Name>;
+};
+
+export type Bh_Concept_NameInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
+  BH_Concept_Locale?: InputMaybe<Scalars['String']['input']>;
+  BH_Concept_Locale_Preferred?: InputMaybe<Scalars['Boolean']['input']>;
+  BH_Concept_Name_Type?: InputMaybe<Scalars['String']['input']>;
+  BH_Concept_Type?: InputMaybe<Scalars['String']['input']>;
+  /** BH_External_ID */
+  BH_ExternalID?: InputMaybe<Scalars['String']['input']>;
+  /** The record is active in the system */
+  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Alphanumeric identifier of the entity */
+  Name?: InputMaybe<Scalars['String']['input']>;
+  UU?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type Bh_DefaultIncludedRole = {
   __typename?: 'BH_DefaultIncludedRole';
   /** Tenant for this installation. */
@@ -51290,6 +51584,21 @@ export type Mutation = {
   BH_Coded_Diagnosis_MappingDelete: Scalars['Boolean']['output'];
   BH_Coded_Diagnosis_MappingSave: Bh_Coded_Diagnosis_Mapping;
   BH_Coded_Diagnosis_MappingSaveMany: Array<Bh_Coded_Diagnosis_Mapping>;
+  BH_ConceptDelete: Scalars['Boolean']['output'];
+  BH_ConceptSave: Bh_Concept;
+  BH_ConceptSaveMany: Array<Bh_Concept>;
+  BH_Concept_DescriptionDelete: Scalars['Boolean']['output'];
+  BH_Concept_DescriptionSave: Bh_Concept_Description;
+  BH_Concept_DescriptionSaveMany: Array<Bh_Concept_Description>;
+  BH_Concept_ExtraDelete: Scalars['Boolean']['output'];
+  BH_Concept_ExtraSave: Bh_Concept_Extra;
+  BH_Concept_ExtraSaveMany: Array<Bh_Concept_Extra>;
+  BH_Concept_MappingDelete: Scalars['Boolean']['output'];
+  BH_Concept_MappingSave: Bh_Concept_Mapping;
+  BH_Concept_MappingSaveMany: Array<Bh_Concept_Mapping>;
+  BH_Concept_NameDelete: Scalars['Boolean']['output'];
+  BH_Concept_NameSave: Bh_Concept_Name;
+  BH_Concept_NameSaveMany: Array<Bh_Concept_Name>;
   BH_DefaultIncludedRoleDelete: Scalars['Boolean']['output'];
   BH_DefaultIncludedRoleSave: Bh_DefaultIncludedRole;
   BH_DefaultIncludedRoleSaveMany: Array<Bh_DefaultIncludedRole>;
@@ -57394,6 +57703,96 @@ export type MutationBh_Coded_Diagnosis_MappingSaveArgs = {
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationBh_Coded_Diagnosis_MappingSaveManyArgs = {
   Entities: Array<Bh_Coded_Diagnosis_MappingInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_ConceptDeleteArgs = {
+  UUs: Array<Scalars['String']['input']>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_ConceptSaveArgs = {
+  Entity: Bh_ConceptInput;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_ConceptSaveManyArgs = {
+  Entities: Array<Bh_ConceptInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_DescriptionDeleteArgs = {
+  UUs: Array<Scalars['String']['input']>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_DescriptionSaveArgs = {
+  Entity: Bh_Concept_DescriptionInput;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_DescriptionSaveManyArgs = {
+  Entities: Array<Bh_Concept_DescriptionInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_ExtraDeleteArgs = {
+  UUs: Array<Scalars['String']['input']>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_ExtraSaveArgs = {
+  Entity: Bh_Concept_ExtraInput;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_ExtraSaveManyArgs = {
+  Entities: Array<Bh_Concept_ExtraInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_MappingDeleteArgs = {
+  UUs: Array<Scalars['String']['input']>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_MappingSaveArgs = {
+  Entity: Bh_Concept_MappingInput;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_MappingSaveManyArgs = {
+  Entities: Array<Bh_Concept_MappingInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_NameDeleteArgs = {
+  UUs: Array<Scalars['String']['input']>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_NameSaveArgs = {
+  Entity: Bh_Concept_NameInput;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Concept_NameSaveManyArgs = {
+  Entities: Array<Bh_Concept_NameInput>;
 };
 
 
@@ -70435,756 +70834,1518 @@ export type Qm_SpecificationLineInput = {
 /** Define the root query type that can be extended in any files that want to add a query */
 export type Query = {
   __typename?: 'Query';
+  AD_AccessLog?: Maybe<Ad_AccessLog>;
   AD_AccessLogGet: Ad_AccessLogConnection;
+  AD_Alert?: Maybe<Ad_Alert>;
   AD_AlertGet: Ad_AlertConnection;
+  AD_AlertProcessor?: Maybe<Ad_AlertProcessor>;
   AD_AlertProcessorGet: Ad_AlertProcessorConnection;
+  AD_AlertProcessorLog?: Maybe<Ad_AlertProcessorLog>;
   AD_AlertProcessorLogGet: Ad_AlertProcessorLogConnection;
+  AD_AlertRecipient?: Maybe<Ad_AlertRecipient>;
   AD_AlertRecipientGet: Ad_AlertRecipientConnection;
+  AD_AlertRule?: Maybe<Ad_AlertRule>;
   AD_AlertRuleGet: Ad_AlertRuleConnection;
+  AD_AllClients_V?: Maybe<Ad_AllClients_V>;
   AD_AllClients_VGet: Ad_AllClients_VConnection;
+  AD_AllUsers_V?: Maybe<Ad_AllUsers_V>;
   AD_AllUsers_VGet: Ad_AllUsers_VConnection;
+  AD_Archive?: Maybe<Ad_Archive>;
   AD_ArchiveGet: Ad_ArchiveConnection;
+  AD_Attachment?: Maybe<Ad_Attachment>;
   AD_AttachmentGet: Ad_AttachmentConnection;
+  AD_AttachmentNote?: Maybe<Ad_AttachmentNote>;
   AD_AttachmentNoteGet: Ad_AttachmentNoteConnection;
+  AD_Attribute?: Maybe<Ad_Attribute>;
   AD_AttributeGet: Ad_AttributeConnection;
+  AD_Attribute_Value?: Maybe<Ad_Attribute_Value>;
   AD_Attribute_ValueGet: Ad_Attribute_ValueConnection;
+  AD_AuthorizationAccount?: Maybe<Ad_AuthorizationAccount>;
   AD_AuthorizationAccountGet: Ad_AuthorizationAccountConnection;
+  AD_AuthorizationCredential?: Maybe<Ad_AuthorizationCredential>;
   AD_AuthorizationCredentialGet: Ad_AuthorizationCredentialConnection;
+  AD_AuthorizationProvider?: Maybe<Ad_AuthorizationProvider>;
   AD_AuthorizationProviderGet: Ad_AuthorizationProviderConnection;
+  AD_BroadcastMessage?: Maybe<Ad_BroadcastMessage>;
   AD_BroadcastMessageGet: Ad_BroadcastMessageConnection;
+  AD_ChangeLog?: Maybe<Ad_ChangeLog>;
   AD_ChangeLogGet: Ad_ChangeLogConnection;
+  AD_Chart?: Maybe<Ad_Chart>;
+  AD_ChartDatasource?: Maybe<Ad_ChartDatasource>;
   AD_ChartDatasourceGet: Ad_ChartDatasourceConnection;
   AD_ChartGet: Ad_ChartConnection;
+  AD_Client?: Maybe<Ad_Client>;
   AD_ClientGet: Ad_ClientConnection;
+  AD_ClientInfo?: Maybe<Ad_ClientInfo>;
   AD_ClientInfoGet: Ad_ClientInfoConnection;
+  AD_ClientShare?: Maybe<Ad_ClientShare>;
   AD_ClientShareGet: Ad_ClientShareConnection;
+  AD_Color?: Maybe<Ad_Color>;
   AD_ColorGet: Ad_ColorConnection;
+  AD_Column?: Maybe<Ad_Column>;
   AD_ColumnGet: Ad_ColumnConnection;
+  AD_Column_Access?: Maybe<Ad_Column_Access>;
   AD_Column_AccessGet: Ad_Column_AccessConnection;
+  AD_CtxHelp?: Maybe<Ad_CtxHelp>;
   AD_CtxHelpGet: Ad_CtxHelpConnection;
+  AD_CtxHelpMsg?: Maybe<Ad_CtxHelpMsg>;
   AD_CtxHelpMsgGet: Ad_CtxHelpMsgConnection;
+  AD_CtxHelpSuggestion?: Maybe<Ad_CtxHelpSuggestion>;
   AD_CtxHelpSuggestionGet: Ad_CtxHelpSuggestionConnection;
+  AD_Document_Action_Access?: Maybe<Ad_Document_Action_Access>;
   AD_Document_Action_AccessGet: Ad_Document_Action_AccessConnection;
+  AD_Element?: Maybe<Ad_Element>;
   AD_ElementGet: Ad_ElementConnection;
+  AD_EntityType?: Maybe<Ad_EntityType>;
   AD_EntityTypeGet: Ad_EntityTypeConnection;
+  AD_Error?: Maybe<Ad_Error>;
   AD_ErrorGet: Ad_ErrorConnection;
+  AD_Field?: Maybe<Ad_Field>;
   AD_FieldGet: Ad_FieldConnection;
+  AD_FieldGroup?: Maybe<Ad_FieldGroup>;
   AD_FieldGroupGet: Ad_FieldGroupConnection;
+  AD_FieldSuggestion?: Maybe<Ad_FieldSuggestion>;
   AD_FieldSuggestionGet: Ad_FieldSuggestionConnection;
+  AD_Find?: Maybe<Ad_Find>;
   AD_FindGet: Ad_FindConnection;
+  AD_Form?: Maybe<Ad_Form>;
   AD_FormGet: Ad_FormConnection;
+  AD_Form_Access?: Maybe<Ad_Form_Access>;
   AD_Form_AccessGet: Ad_Form_AccessConnection;
+  AD_HouseKeeping?: Maybe<Ad_HouseKeeping>;
   AD_HouseKeepingGet: Ad_HouseKeepingConnection;
+  AD_Image?: Maybe<Ad_Image>;
   AD_ImageGet: Ad_ImageConnection;
+  AD_ImpFormat?: Maybe<Ad_ImpFormat>;
   AD_ImpFormatGet: Ad_ImpFormatConnection;
+  AD_ImpFormat_Row?: Maybe<Ad_ImpFormat_Row>;
   AD_ImpFormat_RowGet: Ad_ImpFormat_RowConnection;
+  AD_ImportTemplate?: Maybe<Ad_ImportTemplate>;
+  AD_ImportTemplateAccess?: Maybe<Ad_ImportTemplateAccess>;
   AD_ImportTemplateAccessGet: Ad_ImportTemplateAccessConnection;
   AD_ImportTemplateGet: Ad_ImportTemplateConnection;
+  AD_IndexColumn?: Maybe<Ad_IndexColumn>;
   AD_IndexColumnGet: Ad_IndexColumnConnection;
+  AD_InfoColumn?: Maybe<Ad_InfoColumn>;
   AD_InfoColumnGet: Ad_InfoColumnConnection;
+  AD_InfoProcess?: Maybe<Ad_InfoProcess>;
   AD_InfoProcessGet: Ad_InfoProcessConnection;
+  AD_InfoRelated?: Maybe<Ad_InfoRelated>;
   AD_InfoRelatedGet: Ad_InfoRelatedConnection;
+  AD_InfoWindow?: Maybe<Ad_InfoWindow>;
   AD_InfoWindowGet: Ad_InfoWindowConnection;
+  AD_InfoWindow_Access?: Maybe<Ad_InfoWindow_Access>;
   AD_InfoWindow_AccessGet: Ad_InfoWindow_AccessConnection;
+  AD_Issue?: Maybe<Ad_Issue>;
   AD_IssueGet: Ad_IssueConnection;
+  AD_LabelPrinter?: Maybe<Ad_LabelPrinter>;
+  AD_LabelPrinterFunction?: Maybe<Ad_LabelPrinterFunction>;
   AD_LabelPrinterFunctionGet: Ad_LabelPrinterFunctionConnection;
   AD_LabelPrinterGet: Ad_LabelPrinterConnection;
+  AD_Language?: Maybe<Ad_Language>;
   AD_LanguageGet: Ad_LanguageConnection;
+  AD_LdapAccess?: Maybe<Ad_LdapAccess>;
   AD_LdapAccessGet: Ad_LdapAccessConnection;
+  AD_LdapProcessor?: Maybe<Ad_LdapProcessor>;
   AD_LdapProcessorGet: Ad_LdapProcessorConnection;
+  AD_LdapProcessorLog?: Maybe<Ad_LdapProcessorLog>;
   AD_LdapProcessorLogGet: Ad_LdapProcessorLogConnection;
+  AD_Menu?: Maybe<Ad_Menu>;
   AD_MenuGet: Ad_MenuConnection;
+  AD_Message?: Maybe<Ad_Message>;
   AD_MessageGet: Ad_MessageConnection;
+  AD_MigrationScript?: Maybe<Ad_MigrationScript>;
   AD_MigrationScriptGet: Ad_MigrationScriptConnection;
+  AD_ModelValidator?: Maybe<Ad_ModelValidator>;
   AD_ModelValidatorGet: Ad_ModelValidatorConnection;
+  AD_Modification?: Maybe<Ad_Modification>;
   AD_ModificationGet: Ad_ModificationConnection;
+  AD_Note?: Maybe<Ad_Note>;
   AD_NoteGet: Ad_NoteConnection;
+  AD_Org?: Maybe<Ad_Org>;
   AD_OrgGet: Ad_OrgConnection;
+  AD_OrgInfo?: Maybe<Ad_OrgInfo>;
   AD_OrgInfoGet: Ad_OrgInfoConnection;
+  AD_OrgType?: Maybe<Ad_OrgType>;
   AD_OrgTypeGet: Ad_OrgTypeConnection;
+  AD_PInstance?: Maybe<Ad_PInstance>;
   AD_PInstanceGet: Ad_PInstanceConnection;
+  AD_PInstance_Log?: Maybe<Ad_PInstance_Log>;
   AD_PInstance_LogGet: Ad_PInstance_LogConnection;
+  AD_PInstance_Para?: Maybe<Ad_PInstance_Para>;
   AD_PInstance_ParaGet: Ad_PInstance_ParaConnection;
+  AD_Package_Exp?: Maybe<Ad_Package_Exp>;
   AD_Package_ExpGet: Ad_Package_ExpConnection;
+  AD_Package_Exp_Detail?: Maybe<Ad_Package_Exp_Detail>;
   AD_Package_Exp_DetailGet: Ad_Package_Exp_DetailConnection;
+  AD_Package_Imp?: Maybe<Ad_Package_Imp>;
   AD_Package_ImpGet: Ad_Package_ImpConnection;
+  AD_Package_Imp_Backup?: Maybe<Ad_Package_Imp_Backup>;
   AD_Package_Imp_BackupGet: Ad_Package_Imp_BackupConnection;
+  AD_Package_Imp_Detail?: Maybe<Ad_Package_Imp_Detail>;
   AD_Package_Imp_DetailGet: Ad_Package_Imp_DetailConnection;
+  AD_Package_Imp_Inst?: Maybe<Ad_Package_Imp_Inst>;
   AD_Package_Imp_InstGet: Ad_Package_Imp_InstConnection;
+  AD_Package_Imp_Proc?: Maybe<Ad_Package_Imp_Proc>;
   AD_Package_Imp_ProcGet: Ad_Package_Imp_ProcConnection;
+  AD_Package_UUID_Map?: Maybe<Ad_Package_Uuid_Map>;
   AD_Package_UUID_MapGet: Ad_Package_Uuid_MapConnection;
+  AD_PasswordRule?: Maybe<Ad_PasswordRule>;
   AD_PasswordRuleGet: Ad_PasswordRuleConnection;
+  AD_Password_History?: Maybe<Ad_Password_History>;
   AD_Password_HistoryGet: Ad_Password_HistoryConnection;
+  AD_PostIt?: Maybe<Ad_PostIt>;
   AD_PostItGet: Ad_PostItConnection;
+  AD_Preference?: Maybe<Ad_Preference>;
   AD_PreferenceGet: Ad_PreferenceConnection;
+  AD_PrintColor?: Maybe<Ad_PrintColor>;
   AD_PrintColorGet: Ad_PrintColorConnection;
+  AD_PrintFont?: Maybe<Ad_PrintFont>;
   AD_PrintFontGet: Ad_PrintFontConnection;
+  AD_PrintForm?: Maybe<Ad_PrintForm>;
   AD_PrintFormGet: Ad_PrintFormConnection;
+  AD_PrintFormat?: Maybe<Ad_PrintFormat>;
   AD_PrintFormatGet: Ad_PrintFormatConnection;
+  AD_PrintFormatItem?: Maybe<Ad_PrintFormatItem>;
   AD_PrintFormatItemGet: Ad_PrintFormatItemConnection;
+  AD_PrintGraph?: Maybe<Ad_PrintGraph>;
   AD_PrintGraphGet: Ad_PrintGraphConnection;
+  AD_PrintHeaderFooter?: Maybe<Ad_PrintHeaderFooter>;
   AD_PrintHeaderFooterGet: Ad_PrintHeaderFooterConnection;
+  AD_PrintLabel?: Maybe<Ad_PrintLabel>;
   AD_PrintLabelGet: Ad_PrintLabelConnection;
+  AD_PrintLabelLine?: Maybe<Ad_PrintLabelLine>;
   AD_PrintLabelLineGet: Ad_PrintLabelLineConnection;
+  AD_PrintPaper?: Maybe<Ad_PrintPaper>;
   AD_PrintPaperGet: Ad_PrintPaperConnection;
+  AD_PrintTableFormat?: Maybe<Ad_PrintTableFormat>;
   AD_PrintTableFormatGet: Ad_PrintTableFormatConnection;
+  AD_Private_Access?: Maybe<Ad_Private_Access>;
   AD_Private_AccessGet: Ad_Private_AccessConnection;
+  AD_Process?: Maybe<Ad_Process>;
   AD_ProcessGet: Ad_ProcessConnection;
+  AD_Process_Access?: Maybe<Ad_Process_Access>;
   AD_Process_AccessGet: Ad_Process_AccessConnection;
+  AD_Process_Para?: Maybe<Ad_Process_Para>;
   AD_Process_ParaGet: Ad_Process_ParaConnection;
+  AD_RecentItem?: Maybe<Ad_RecentItem>;
   AD_RecentItemGet: Ad_RecentItemConnection;
+  AD_Record_Access?: Maybe<Ad_Record_Access>;
   AD_Record_AccessGet: Ad_Record_AccessConnection;
+  AD_Ref_List?: Maybe<Ad_Ref_List>;
   AD_Ref_ListGet: Ad_Ref_ListConnection;
+  AD_Ref_Table?: Maybe<Ad_Ref_Table>;
   AD_Ref_TableGet: Ad_Ref_TableConnection;
+  AD_Reference?: Maybe<Ad_Reference>;
   AD_ReferenceGet: Ad_ReferenceConnection;
+  AD_Registration?: Maybe<Ad_Registration>;
   AD_RegistrationGet: Ad_RegistrationConnection;
+  AD_RelationType?: Maybe<Ad_RelationType>;
   AD_RelationTypeGet: Ad_RelationTypeConnection;
+  AD_Replication?: Maybe<Ad_Replication>;
+  AD_ReplicationDocument?: Maybe<Ad_ReplicationDocument>;
   AD_ReplicationDocumentGet: Ad_ReplicationDocumentConnection;
   AD_ReplicationGet: Ad_ReplicationConnection;
+  AD_ReplicationStrategy?: Maybe<Ad_ReplicationStrategy>;
   AD_ReplicationStrategyGet: Ad_ReplicationStrategyConnection;
+  AD_ReplicationTable?: Maybe<Ad_ReplicationTable>;
   AD_ReplicationTableGet: Ad_ReplicationTableConnection;
+  AD_Replication_Log?: Maybe<Ad_Replication_Log>;
   AD_Replication_LogGet: Ad_Replication_LogConnection;
+  AD_Replication_Run?: Maybe<Ad_Replication_Run>;
   AD_Replication_RunGet: Ad_Replication_RunConnection;
+  AD_ReportView?: Maybe<Ad_ReportView>;
   AD_ReportViewGet: Ad_ReportViewConnection;
+  AD_ReportView_Col?: Maybe<Ad_ReportView_Col>;
   AD_ReportView_ColGet: Ad_ReportView_ColConnection;
+  AD_ReportView_Column?: Maybe<Ad_ReportView_Column>;
   AD_ReportView_ColumnGet: Ad_ReportView_ColumnConnection;
+  AD_Role?: Maybe<Ad_Role>;
   AD_RoleGet: Ad_RoleConnection;
+  AD_Role_Included?: Maybe<Ad_Role_Included>;
   AD_Role_IncludedGet: Ad_Role_IncludedConnection;
+  AD_Role_OrgAccess?: Maybe<Ad_Role_OrgAccess>;
   AD_Role_OrgAccessGet: Ad_Role_OrgAccessConnection;
+  AD_Rule?: Maybe<Ad_Rule>;
   AD_RuleGet: Ad_RuleConnection;
+  AD_Schedule?: Maybe<Ad_Schedule>;
   AD_ScheduleGet: Ad_ScheduleConnection;
+  AD_Scheduler?: Maybe<Ad_Scheduler>;
   AD_SchedulerGet: Ad_SchedulerConnection;
+  AD_SchedulerLog?: Maybe<Ad_SchedulerLog>;
   AD_SchedulerLogGet: Ad_SchedulerLogConnection;
+  AD_SchedulerRecipient?: Maybe<Ad_SchedulerRecipient>;
   AD_SchedulerRecipientGet: Ad_SchedulerRecipientConnection;
+  AD_Scheduler_Para?: Maybe<Ad_Scheduler_Para>;
   AD_Scheduler_ParaGet: Ad_Scheduler_ParaConnection;
+  AD_SearchDefinition?: Maybe<Ad_SearchDefinition>;
   AD_SearchDefinitionGet: Ad_SearchDefinitionConnection;
+  AD_Sequence?: Maybe<Ad_Sequence>;
   AD_SequenceGet: Ad_SequenceConnection;
+  AD_Sequence_Audit?: Maybe<Ad_Sequence_Audit>;
   AD_Sequence_AuditGet: Ad_Sequence_AuditConnection;
+  AD_Sequence_No?: Maybe<Ad_Sequence_No>;
   AD_Sequence_NoGet: Ad_Sequence_NoConnection;
+  AD_Session?: Maybe<Ad_Session>;
   AD_SessionGet: Ad_SessionConnection;
+  AD_StatusLine?: Maybe<Ad_StatusLine>;
   AD_StatusLineGet: Ad_StatusLineConnection;
+  AD_StatusLineUsedIn?: Maybe<Ad_StatusLineUsedIn>;
   AD_StatusLineUsedInGet: Ad_StatusLineUsedInConnection;
+  AD_StorageProvider?: Maybe<Ad_StorageProvider>;
   AD_StorageProviderGet: Ad_StorageProviderConnection;
+  AD_Style?: Maybe<Ad_Style>;
   AD_StyleGet: Ad_StyleConnection;
+  AD_StyleLine?: Maybe<Ad_StyleLine>;
   AD_StyleLineGet: Ad_StyleLineConnection;
+  AD_SysConfig?: Maybe<Ad_SysConfig>;
   AD_SysConfigGet: Ad_SysConfigConnection;
+  AD_System?: Maybe<Ad_System>;
   AD_SystemGet: Ad_SystemConnection;
+  AD_Tab?: Maybe<Ad_Tab>;
   AD_TabGet: Ad_TabConnection;
+  AD_Tab_Customization?: Maybe<Ad_Tab_Customization>;
   AD_Tab_CustomizationGet: Ad_Tab_CustomizationConnection;
+  AD_Table?: Maybe<Ad_Table>;
   AD_TableGet: Ad_TableConnection;
+  AD_TableIndex?: Maybe<Ad_TableIndex>;
   AD_TableIndexGet: Ad_TableIndexConnection;
+  AD_Table_Access?: Maybe<Ad_Table_Access>;
   AD_Table_AccessGet: Ad_Table_AccessConnection;
+  AD_Table_ScriptValidator?: Maybe<Ad_Table_ScriptValidator>;
   AD_Table_ScriptValidatorGet: Ad_Table_ScriptValidatorConnection;
+  AD_Task?: Maybe<Ad_Task>;
   AD_TaskGet: Ad_TaskConnection;
+  AD_TaskInstance?: Maybe<Ad_TaskInstance>;
   AD_TaskInstanceGet: Ad_TaskInstanceConnection;
+  AD_Task_Access?: Maybe<Ad_Task_Access>;
   AD_Task_AccessGet: Ad_Task_AccessConnection;
+  AD_ToolBarButton?: Maybe<Ad_ToolBarButton>;
   AD_ToolBarButtonGet: Ad_ToolBarButtonConnection;
+  AD_ToolBarButtonRestrict?: Maybe<Ad_ToolBarButtonRestrict>;
   AD_ToolBarButtonRestrictGet: Ad_ToolBarButtonRestrictConnection;
+  AD_Tree?: Maybe<Ad_Tree>;
   AD_TreeGet: Ad_TreeConnection;
+  AD_TreeNode?: Maybe<Ad_TreeNode>;
+  AD_TreeNodeBP?: Maybe<Ad_TreeNodeBp>;
   AD_TreeNodeBPGet: Ad_TreeNodeBpConnection;
+  AD_TreeNodeCMC?: Maybe<Ad_TreeNodeCmc>;
   AD_TreeNodeCMCGet: Ad_TreeNodeCmcConnection;
+  AD_TreeNodeCMM?: Maybe<Ad_TreeNodeCmm>;
   AD_TreeNodeCMMGet: Ad_TreeNodeCmmConnection;
+  AD_TreeNodeCMS?: Maybe<Ad_TreeNodeCms>;
   AD_TreeNodeCMSGet: Ad_TreeNodeCmsConnection;
+  AD_TreeNodeCMT?: Maybe<Ad_TreeNodeCmt>;
   AD_TreeNodeCMTGet: Ad_TreeNodeCmtConnection;
   AD_TreeNodeGet: Ad_TreeNodeConnection;
+  AD_TreeNodeMM?: Maybe<Ad_TreeNodeMm>;
   AD_TreeNodeMMGet: Ad_TreeNodeMmConnection;
+  AD_TreeNodePR?: Maybe<Ad_TreeNodePr>;
   AD_TreeNodePRGet: Ad_TreeNodePrConnection;
+  AD_TreeNodeU1?: Maybe<Ad_TreeNodeU1>;
   AD_TreeNodeU1Get: Ad_TreeNodeU1Connection;
+  AD_TreeNodeU2?: Maybe<Ad_TreeNodeU2>;
   AD_TreeNodeU2Get: Ad_TreeNodeU2Connection;
+  AD_TreeNodeU3?: Maybe<Ad_TreeNodeU3>;
   AD_TreeNodeU3Get: Ad_TreeNodeU3Connection;
+  AD_TreeNodeU4?: Maybe<Ad_TreeNodeU4>;
   AD_TreeNodeU4Get: Ad_TreeNodeU4Connection;
+  AD_Tree_Favorite?: Maybe<Ad_Tree_Favorite>;
   AD_Tree_FavoriteGet: Ad_Tree_FavoriteConnection;
+  AD_Tree_Favorite_Node?: Maybe<Ad_Tree_Favorite_Node>;
   AD_Tree_Favorite_NodeGet: Ad_Tree_Favorite_NodeConnection;
+  AD_User?: Maybe<Ad_User>;
+  AD_UserBPAccess?: Maybe<Ad_UserBpAccess>;
   AD_UserBPAccessGet: Ad_UserBpAccessConnection;
+  AD_UserDef_Field?: Maybe<Ad_UserDef_Field>;
   AD_UserDef_FieldGet: Ad_UserDef_FieldConnection;
+  AD_UserDef_Info?: Maybe<Ad_UserDef_Info>;
   AD_UserDef_InfoGet: Ad_UserDef_InfoConnection;
+  AD_UserDef_Info_Column?: Maybe<Ad_UserDef_Info_Column>;
   AD_UserDef_Info_ColumnGet: Ad_UserDef_Info_ColumnConnection;
+  AD_UserDef_Info_Related?: Maybe<Ad_UserDef_Info_Related>;
   AD_UserDef_Info_RelatedGet: Ad_UserDef_Info_RelatedConnection;
+  AD_UserDef_Proc?: Maybe<Ad_UserDef_Proc>;
   AD_UserDef_ProcGet: Ad_UserDef_ProcConnection;
+  AD_UserDef_Proc_Parameter?: Maybe<Ad_UserDef_Proc_Parameter>;
   AD_UserDef_Proc_ParameterGet: Ad_UserDef_Proc_ParameterConnection;
+  AD_UserDef_Tab?: Maybe<Ad_UserDef_Tab>;
   AD_UserDef_TabGet: Ad_UserDef_TabConnection;
+  AD_UserDef_Win?: Maybe<Ad_UserDef_Win>;
   AD_UserDef_WinGet: Ad_UserDef_WinConnection;
   AD_UserGet: Ad_UserConnection;
+  AD_UserMail?: Maybe<Ad_UserMail>;
   AD_UserMailGet: Ad_UserMailConnection;
+  AD_UserPreference?: Maybe<Ad_UserPreference>;
   AD_UserPreferenceGet: Ad_UserPreferenceConnection;
+  AD_UserQuery?: Maybe<Ad_UserQuery>;
   AD_UserQueryGet: Ad_UserQueryConnection;
+  AD_User_OrgAccess?: Maybe<Ad_User_OrgAccess>;
   AD_User_OrgAccessGet: Ad_User_OrgAccessConnection;
+  AD_User_Roles?: Maybe<Ad_User_Roles>;
   AD_User_RolesGet: Ad_User_RolesConnection;
+  AD_User_Substitute?: Maybe<Ad_User_Substitute>;
   AD_User_SubstituteGet: Ad_User_SubstituteConnection;
+  AD_Val_Rule?: Maybe<Ad_Val_Rule>;
   AD_Val_RuleGet: Ad_Val_RuleConnection;
+  AD_ViewColumn?: Maybe<Ad_ViewColumn>;
   AD_ViewColumnGet: Ad_ViewColumnConnection;
+  AD_ViewComponent?: Maybe<Ad_ViewComponent>;
   AD_ViewComponentGet: Ad_ViewComponentConnection;
+  AD_WF_Activity?: Maybe<Ad_Wf_Activity>;
+  AD_WF_ActivityApprover?: Maybe<Ad_Wf_ActivityApprover>;
   AD_WF_ActivityApproverGet: Ad_Wf_ActivityApproverConnection;
   AD_WF_ActivityGet: Ad_Wf_ActivityConnection;
+  AD_WF_ActivityResult?: Maybe<Ad_Wf_ActivityResult>;
   AD_WF_ActivityResultGet: Ad_Wf_ActivityResultConnection;
+  AD_WF_Block?: Maybe<Ad_Wf_Block>;
   AD_WF_BlockGet: Ad_Wf_BlockConnection;
+  AD_WF_EventAudit?: Maybe<Ad_Wf_EventAudit>;
   AD_WF_EventAuditGet: Ad_Wf_EventAuditConnection;
+  AD_WF_NextCondition?: Maybe<Ad_Wf_NextCondition>;
   AD_WF_NextConditionGet: Ad_Wf_NextConditionConnection;
+  AD_WF_Node?: Maybe<Ad_Wf_Node>;
   AD_WF_NodeGet: Ad_Wf_NodeConnection;
+  AD_WF_NodeNext?: Maybe<Ad_Wf_NodeNext>;
   AD_WF_NodeNextGet: Ad_Wf_NodeNextConnection;
+  AD_WF_Node_Para?: Maybe<Ad_Wf_Node_Para>;
   AD_WF_Node_ParaGet: Ad_Wf_Node_ParaConnection;
+  AD_WF_Process?: Maybe<Ad_Wf_Process>;
+  AD_WF_ProcessData?: Maybe<Ad_Wf_ProcessData>;
   AD_WF_ProcessDataGet: Ad_Wf_ProcessDataConnection;
   AD_WF_ProcessGet: Ad_Wf_ProcessConnection;
+  AD_WF_Responsible?: Maybe<Ad_Wf_Responsible>;
   AD_WF_ResponsibleGet: Ad_Wf_ResponsibleConnection;
+  AD_Window?: Maybe<Ad_Window>;
   AD_WindowGet: Ad_WindowConnection;
+  AD_Window_Access?: Maybe<Ad_Window_Access>;
   AD_Window_AccessGet: Ad_Window_AccessConnection;
+  AD_WizardProcess?: Maybe<Ad_WizardProcess>;
   AD_WizardProcessGet: Ad_WizardProcessConnection;
+  AD_Workflow?: Maybe<Ad_Workflow>;
   AD_WorkflowGet: Ad_WorkflowConnection;
+  AD_WorkflowProcessor?: Maybe<Ad_WorkflowProcessor>;
   AD_WorkflowProcessorGet: Ad_WorkflowProcessorConnection;
+  AD_WorkflowProcessorLog?: Maybe<Ad_WorkflowProcessorLog>;
   AD_WorkflowProcessorLogGet: Ad_WorkflowProcessorLogConnection;
+  AD_Workflow_Access?: Maybe<Ad_Workflow_Access>;
   AD_Workflow_AccessGet: Ad_Workflow_AccessConnection;
+  AD_ZoomCondition?: Maybe<Ad_ZoomCondition>;
   AD_ZoomConditionGet: Ad_ZoomConditionConnection;
+  ASP_ClientException?: Maybe<Asp_ClientException>;
   ASP_ClientExceptionGet: Asp_ClientExceptionConnection;
+  ASP_ClientLevel?: Maybe<Asp_ClientLevel>;
   ASP_ClientLevelGet: Asp_ClientLevelConnection;
+  ASP_Field?: Maybe<Asp_Field>;
   ASP_FieldGet: Asp_FieldConnection;
+  ASP_Form?: Maybe<Asp_Form>;
   ASP_FormGet: Asp_FormConnection;
+  ASP_Level?: Maybe<Asp_Level>;
   ASP_LevelGet: Asp_LevelConnection;
+  ASP_Module?: Maybe<Asp_Module>;
   ASP_ModuleGet: Asp_ModuleConnection;
+  ASP_Process?: Maybe<Asp_Process>;
   ASP_ProcessGet: Asp_ProcessConnection;
+  ASP_Process_Para?: Maybe<Asp_Process_Para>;
   ASP_Process_ParaGet: Asp_Process_ParaConnection;
+  ASP_Ref_List?: Maybe<Asp_Ref_List>;
   ASP_Ref_ListGet: Asp_Ref_ListConnection;
+  ASP_Tab?: Maybe<Asp_Tab>;
   ASP_TabGet: Asp_TabConnection;
+  ASP_Task?: Maybe<Asp_Task>;
   ASP_TaskGet: Asp_TaskConnection;
+  ASP_Window?: Maybe<Asp_Window>;
   ASP_WindowGet: Asp_WindowConnection;
+  ASP_Workflow?: Maybe<Asp_Workflow>;
   ASP_WorkflowGet: Asp_WorkflowConnection;
+  A_Asset?: Maybe<A_Asset>;
   A_AssetGet: A_AssetConnection;
+  A_Asset_Acct?: Maybe<A_Asset_Acct>;
   A_Asset_AcctGet: A_Asset_AcctConnection;
+  A_Asset_Addition?: Maybe<A_Asset_Addition>;
   A_Asset_AdditionGet: A_Asset_AdditionConnection;
+  A_Asset_Change?: Maybe<A_Asset_Change>;
   A_Asset_ChangeGet: A_Asset_ChangeConnection;
+  A_Asset_Class?: Maybe<A_Asset_Class>;
   A_Asset_ClassGet: A_Asset_ClassConnection;
+  A_Asset_Delivery?: Maybe<A_Asset_Delivery>;
   A_Asset_DeliveryGet: A_Asset_DeliveryConnection;
+  A_Asset_Disposed?: Maybe<A_Asset_Disposed>;
   A_Asset_DisposedGet: A_Asset_DisposedConnection;
+  A_Asset_Group?: Maybe<A_Asset_Group>;
   A_Asset_GroupGet: A_Asset_GroupConnection;
+  A_Asset_Group_Acct?: Maybe<A_Asset_Group_Acct>;
   A_Asset_Group_AcctGet: A_Asset_Group_AcctConnection;
+  A_Asset_Info_Fin?: Maybe<A_Asset_Info_Fin>;
   A_Asset_Info_FinGet: A_Asset_Info_FinConnection;
+  A_Asset_Info_Ins?: Maybe<A_Asset_Info_Ins>;
   A_Asset_Info_InsGet: A_Asset_Info_InsConnection;
+  A_Asset_Info_Lic?: Maybe<A_Asset_Info_Lic>;
   A_Asset_Info_LicGet: A_Asset_Info_LicConnection;
+  A_Asset_Info_Oth?: Maybe<A_Asset_Info_Oth>;
   A_Asset_Info_OthGet: A_Asset_Info_OthConnection;
+  A_Asset_Info_Tax?: Maybe<A_Asset_Info_Tax>;
   A_Asset_Info_TaxGet: A_Asset_Info_TaxConnection;
+  A_Asset_Product?: Maybe<A_Asset_Product>;
   A_Asset_ProductGet: A_Asset_ProductConnection;
+  A_Asset_Retirement?: Maybe<A_Asset_Retirement>;
   A_Asset_RetirementGet: A_Asset_RetirementConnection;
+  A_Asset_Reval?: Maybe<A_Asset_Reval>;
   A_Asset_RevalGet: A_Asset_RevalConnection;
+  A_Asset_Reval_Entry?: Maybe<A_Asset_Reval_Entry>;
   A_Asset_Reval_EntryGet: A_Asset_Reval_EntryConnection;
+  A_Asset_Reval_Index?: Maybe<A_Asset_Reval_Index>;
   A_Asset_Reval_IndexGet: A_Asset_Reval_IndexConnection;
+  A_Asset_Split?: Maybe<A_Asset_Split>;
   A_Asset_SplitGet: A_Asset_SplitConnection;
+  A_Asset_Transfer?: Maybe<A_Asset_Transfer>;
   A_Asset_TransferGet: A_Asset_TransferConnection;
+  A_Asset_Type?: Maybe<A_Asset_Type>;
   A_Asset_TypeGet: A_Asset_TypeConnection;
+  A_Asset_Use?: Maybe<A_Asset_Use>;
   A_Asset_UseGet: A_Asset_UseConnection;
+  A_Depreciation?: Maybe<A_Depreciation>;
   A_DepreciationGet: A_DepreciationConnection;
+  A_Depreciation_Build?: Maybe<A_Depreciation_Build>;
   A_Depreciation_BuildGet: A_Depreciation_BuildConnection;
+  A_Depreciation_Convention?: Maybe<A_Depreciation_Convention>;
   A_Depreciation_ConventionGet: A_Depreciation_ConventionConnection;
+  A_Depreciation_Entry?: Maybe<A_Depreciation_Entry>;
   A_Depreciation_EntryGet: A_Depreciation_EntryConnection;
+  A_Depreciation_Exp?: Maybe<A_Depreciation_Exp>;
   A_Depreciation_ExpGet: A_Depreciation_ExpConnection;
+  A_Depreciation_Forecast?: Maybe<A_Depreciation_Forecast>;
   A_Depreciation_ForecastGet: A_Depreciation_ForecastConnection;
+  A_Depreciation_Method?: Maybe<A_Depreciation_Method>;
   A_Depreciation_MethodGet: A_Depreciation_MethodConnection;
+  A_Depreciation_Table_Detail?: Maybe<A_Depreciation_Table_Detail>;
   A_Depreciation_Table_DetailGet: A_Depreciation_Table_DetailConnection;
+  A_Depreciation_Table_Header?: Maybe<A_Depreciation_Table_Header>;
   A_Depreciation_Table_HeaderGet: A_Depreciation_Table_HeaderConnection;
+  A_Depreciation_Workfile?: Maybe<A_Depreciation_Workfile>;
   A_Depreciation_WorkfileGet: A_Depreciation_WorkfileConnection;
+  A_FundingMode?: Maybe<A_FundingMode>;
   A_FundingModeGet: A_FundingModeConnection;
+  A_FundingMode_Acct?: Maybe<A_FundingMode_Acct>;
   A_FundingMode_AcctGet: A_FundingMode_AcctConnection;
+  A_Registration?: Maybe<A_Registration>;
+  A_RegistrationAttribute?: Maybe<A_RegistrationAttribute>;
   A_RegistrationAttributeGet: A_RegistrationAttributeConnection;
   A_RegistrationGet: A_RegistrationConnection;
+  A_RegistrationProduct?: Maybe<A_RegistrationProduct>;
   A_RegistrationProductGet: A_RegistrationProductConnection;
+  A_RegistrationValue?: Maybe<A_RegistrationValue>;
   A_RegistrationValueGet: A_RegistrationValueConnection;
+  BH_BP_General_Payer_Info?: Maybe<Bh_Bp_General_Payer_Info>;
   BH_BP_General_Payer_InfoGet: Bh_Bp_General_Payer_InfoConnection;
+  BH_BP_Payer_Info?: Maybe<Bh_Bp_Payer_Info>;
   BH_BP_Payer_InfoGet: Bh_Bp_Payer_InfoConnection;
+  BH_BP_Specific_Payer_Info?: Maybe<Bh_Bp_Specific_Payer_Info>;
   BH_BP_Specific_Payer_InfoGet: Bh_Bp_Specific_Payer_InfoConnection;
+  BH_Coded_Diagnosis?: Maybe<Bh_Coded_Diagnosis>;
   BH_Coded_DiagnosisGet: Bh_Coded_DiagnosisConnection;
+  BH_Coded_Diagnosis_Mapping?: Maybe<Bh_Coded_Diagnosis_Mapping>;
   BH_Coded_Diagnosis_MappingGet: Bh_Coded_Diagnosis_MappingConnection;
+  BH_Concept?: Maybe<Bh_Concept>;
+  BH_ConceptGet: Bh_ConceptConnection;
+  BH_Concept_Description?: Maybe<Bh_Concept_Description>;
+  BH_Concept_DescriptionGet: Bh_Concept_DescriptionConnection;
+  BH_Concept_Extra?: Maybe<Bh_Concept_Extra>;
+  BH_Concept_ExtraGet: Bh_Concept_ExtraConnection;
+  BH_Concept_Mapping?: Maybe<Bh_Concept_Mapping>;
+  BH_Concept_MappingGet: Bh_Concept_MappingConnection;
+  BH_Concept_Name?: Maybe<Bh_Concept_Name>;
+  BH_Concept_NameGet: Bh_Concept_NameConnection;
+  BH_DefaultIncludedRole?: Maybe<Bh_DefaultIncludedRole>;
   BH_DefaultIncludedRoleGet: Bh_DefaultIncludedRoleConnection;
+  BH_Default_DocAction_Access?: Maybe<Bh_Default_DocAction_Access>;
   BH_Default_DocAction_AccessGet: Bh_Default_DocAction_AccessConnection;
+  BH_Encounter?: Maybe<Bh_Encounter>;
   BH_EncounterGet: Bh_EncounterConnection;
+  BH_Encounter_Diagnosis?: Maybe<Bh_Encounter_Diagnosis>;
   BH_Encounter_DiagnosisGet: Bh_Encounter_DiagnosisConnection;
+  BH_Encounter_Type_Window?: Maybe<Bh_Encounter_Type_Window>;
   BH_Encounter_Type_WindowGet: Bh_Encounter_Type_WindowConnection;
+  BH_I_Product_Quantity?: Maybe<Bh_I_Product_Quantity>;
   BH_I_Product_QuantityGet: Bh_I_Product_QuantityConnection;
+  BH_Observation?: Maybe<Bh_Observation>;
   BH_ObservationGet: Bh_ObservationConnection;
+  BH_Payer_Info_Fld?: Maybe<Bh_Payer_Info_Fld>;
   BH_Payer_Info_FldGet: Bh_Payer_Info_FldConnection;
+  BH_Payer_Info_Fld_Sug?: Maybe<Bh_Payer_Info_Fld_Sug>;
   BH_Payer_Info_Fld_SugGet: Bh_Payer_Info_Fld_SugConnection;
+  BH_Payer_Info_Fld_Val?: Maybe<Bh_Payer_Info_Fld_Val>;
   BH_Payer_Info_Fld_ValGet: Bh_Payer_Info_Fld_ValConnection;
+  BH_Payer_Info_Fld_Val_Sug?: Maybe<Bh_Payer_Info_Fld_Val_Sug>;
   BH_Payer_Info_Fld_Val_SugGet: Bh_Payer_Info_Fld_Val_SugConnection;
+  BH_PaymentRef?: Maybe<Bh_PaymentRef>;
   BH_PaymentRefGet: Bh_PaymentRefConnection;
+  BH_PaymentRef_BankAcct?: Maybe<Bh_PaymentRef_BankAcct>;
   BH_PaymentRef_BankAcctGet: Bh_PaymentRef_BankAcctConnection;
+  BH_Product_CategoryDefault?: Maybe<Bh_Product_CategoryDefault>;
   BH_Product_CategoryDefaultGet: Bh_Product_CategoryDefaultConnection;
+  BH_Role_WarehouseAccess?: Maybe<Bh_Role_WarehouseAccess>;
   BH_Role_WarehouseAccessGet: Bh_Role_WarehouseAccessConnection;
+  BH_Visit?: Maybe<Bh_Visit>;
   BH_VisitGet: Bh_VisitConnection;
+  BH_Voided_Reason?: Maybe<Bh_Voided_Reason>;
   BH_Voided_ReasonGet: Bh_Voided_ReasonConnection;
+  B_Bid?: Maybe<B_Bid>;
+  B_BidComment?: Maybe<B_BidComment>;
   B_BidCommentGet: B_BidCommentConnection;
   B_BidGet: B_BidConnection;
+  B_Buyer?: Maybe<B_Buyer>;
+  B_BuyerFunds?: Maybe<B_BuyerFunds>;
   B_BuyerFundsGet: B_BuyerFundsConnection;
   B_BuyerGet: B_BuyerConnection;
+  B_Offer?: Maybe<B_Offer>;
   B_OfferGet: B_OfferConnection;
+  B_Seller?: Maybe<B_Seller>;
+  B_SellerFunds?: Maybe<B_SellerFunds>;
   B_SellerFundsGet: B_SellerFundsConnection;
   B_SellerGet: B_SellerConnection;
+  B_Topic?: Maybe<B_Topic>;
+  B_TopicCategory?: Maybe<B_TopicCategory>;
   B_TopicCategoryGet: B_TopicCategoryConnection;
   B_TopicGet: B_TopicConnection;
+  B_TopicType?: Maybe<B_TopicType>;
   B_TopicTypeGet: B_TopicTypeConnection;
+  CM_Chat?: Maybe<Cm_Chat>;
+  CM_ChatEntry?: Maybe<Cm_ChatEntry>;
   CM_ChatEntryGet: Cm_ChatEntryConnection;
   CM_ChatGet: Cm_ChatConnection;
+  CM_ChatType?: Maybe<Cm_ChatType>;
   CM_ChatTypeGet: Cm_ChatTypeConnection;
+  CM_ChatTypeUpdate?: Maybe<Cm_ChatTypeUpdate>;
   CM_ChatTypeUpdateGet: Cm_ChatTypeUpdateConnection;
+  CM_ChatUpdate?: Maybe<Cm_ChatUpdate>;
   CM_ChatUpdateGet: Cm_ChatUpdateConnection;
+  C_1099Box?: Maybe<C_1099Box>;
   C_1099BoxGet: C_1099BoxConnection;
+  C_AcctProcessor?: Maybe<C_AcctProcessor>;
   C_AcctProcessorGet: C_AcctProcessorConnection;
+  C_AcctProcessorLog?: Maybe<C_AcctProcessorLog>;
   C_AcctProcessorLogGet: C_AcctProcessorLogConnection;
+  C_AcctSchema?: Maybe<C_AcctSchema>;
   C_AcctSchemaGet: C_AcctSchemaConnection;
+  C_AcctSchema_Default?: Maybe<C_AcctSchema_Default>;
   C_AcctSchema_DefaultGet: C_AcctSchema_DefaultConnection;
+  C_AcctSchema_Element?: Maybe<C_AcctSchema_Element>;
   C_AcctSchema_ElementGet: C_AcctSchema_ElementConnection;
+  C_AcctSchema_GL?: Maybe<C_AcctSchema_Gl>;
   C_AcctSchema_GLGet: C_AcctSchema_GlConnection;
+  C_Activity?: Maybe<C_Activity>;
   C_ActivityGet: C_ActivityConnection;
+  C_AddressTransaction?: Maybe<C_AddressTransaction>;
   C_AddressTransactionGet: C_AddressTransactionConnection;
+  C_AddressValidation?: Maybe<C_AddressValidation>;
+  C_AddressValidationCfg?: Maybe<C_AddressValidationCfg>;
   C_AddressValidationCfgGet: C_AddressValidationCfgConnection;
   C_AddressValidationGet: C_AddressValidationConnection;
+  C_AllocationHdr?: Maybe<C_AllocationHdr>;
   C_AllocationHdrGet: C_AllocationHdrConnection;
+  C_AllocationLine?: Maybe<C_AllocationLine>;
   C_AllocationLineGet: C_AllocationLineConnection;
+  C_BP_BankAccount?: Maybe<C_Bp_BankAccount>;
   C_BP_BankAccountGet: C_Bp_BankAccountConnection;
+  C_BP_Customer_Acct?: Maybe<C_Bp_Customer_Acct>;
   C_BP_Customer_AcctGet: C_Bp_Customer_AcctConnection;
+  C_BP_EDI?: Maybe<C_Bp_Edi>;
   C_BP_EDIGet: C_Bp_EdiConnection;
+  C_BP_Employee_Acct?: Maybe<C_Bp_Employee_Acct>;
   C_BP_Employee_AcctGet: C_Bp_Employee_AcctConnection;
+  C_BP_Group?: Maybe<C_Bp_Group>;
   C_BP_GroupGet: C_Bp_GroupConnection;
+  C_BP_Group_Acct?: Maybe<C_Bp_Group_Acct>;
   C_BP_Group_AcctGet: C_Bp_Group_AcctConnection;
+  C_BP_Relation?: Maybe<C_Bp_Relation>;
   C_BP_RelationGet: C_Bp_RelationConnection;
+  C_BP_ShippingAcct?: Maybe<C_Bp_ShippingAcct>;
   C_BP_ShippingAcctGet: C_Bp_ShippingAcctConnection;
+  C_BP_Vendor_Acct?: Maybe<C_Bp_Vendor_Acct>;
   C_BP_Vendor_AcctGet: C_Bp_Vendor_AcctConnection;
+  C_BP_Withholding?: Maybe<C_Bp_Withholding>;
   C_BP_WithholdingGet: C_Bp_WithholdingConnection;
+  C_BPartner?: Maybe<C_BPartner>;
   C_BPartnerGet: C_BPartnerConnection;
+  C_BPartner_Location?: Maybe<C_BPartner_Location>;
   C_BPartner_LocationGet: C_BPartner_LocationConnection;
+  C_BPartner_Product?: Maybe<C_BPartner_Product>;
   C_BPartner_ProductGet: C_BPartner_ProductConnection;
+  C_Bank?: Maybe<C_Bank>;
+  C_BankAccount?: Maybe<C_BankAccount>;
+  C_BankAccountDoc?: Maybe<C_BankAccountDoc>;
   C_BankAccountDocGet: C_BankAccountDocConnection;
   C_BankAccountGet: C_BankAccountConnection;
+  C_BankAccount_Acct?: Maybe<C_BankAccount_Acct>;
   C_BankAccount_AcctGet: C_BankAccount_AcctConnection;
+  C_BankAccount_Processor?: Maybe<C_BankAccount_Processor>;
   C_BankAccount_ProcessorGet: C_BankAccount_ProcessorConnection;
   C_BankGet: C_BankConnection;
+  C_BankStatement?: Maybe<C_BankStatement>;
   C_BankStatementGet: C_BankStatementConnection;
+  C_BankStatementLine?: Maybe<C_BankStatementLine>;
   C_BankStatementLineGet: C_BankStatementLineConnection;
+  C_BankStatementLoader?: Maybe<C_BankStatementLoader>;
   C_BankStatementLoaderGet: C_BankStatementLoaderConnection;
+  C_BankStatementMatcher?: Maybe<C_BankStatementMatcher>;
   C_BankStatementMatcherGet: C_BankStatementMatcherConnection;
+  C_BankTransfer?: Maybe<C_BankTransfer>;
   C_BankTransferGet: C_BankTransferConnection;
+  C_Calendar?: Maybe<C_Calendar>;
   C_CalendarGet: C_CalendarConnection;
+  C_Campaign?: Maybe<C_Campaign>;
   C_CampaignGet: C_CampaignConnection;
+  C_Cash?: Maybe<C_Cash>;
+  C_CashBook?: Maybe<C_CashBook>;
   C_CashBookGet: C_CashBookConnection;
+  C_CashBook_Acct?: Maybe<C_CashBook_Acct>;
   C_CashBook_AcctGet: C_CashBook_AcctConnection;
   C_CashGet: C_CashConnection;
+  C_CashLine?: Maybe<C_CashLine>;
   C_CashLineGet: C_CashLineConnection;
+  C_CashPlan?: Maybe<C_CashPlan>;
   C_CashPlanGet: C_CashPlanConnection;
+  C_CashPlanLine?: Maybe<C_CashPlanLine>;
   C_CashPlanLineGet: C_CashPlanLineConnection;
+  C_Channel?: Maybe<C_Channel>;
   C_ChannelGet: C_ChannelConnection;
+  C_Charge?: Maybe<C_Charge>;
   C_ChargeGet: C_ChargeConnection;
+  C_ChargeType?: Maybe<C_ChargeType>;
   C_ChargeTypeGet: C_ChargeTypeConnection;
+  C_ChargeType_DocType?: Maybe<C_ChargeType_DocType>;
   C_ChargeType_DocTypeGet: C_ChargeType_DocTypeConnection;
+  C_Charge_Acct?: Maybe<C_Charge_Acct>;
   C_Charge_AcctGet: C_Charge_AcctConnection;
+  C_City?: Maybe<C_City>;
   C_CityGet: C_CityConnection;
+  C_Commission?: Maybe<C_Commission>;
+  C_CommissionAmt?: Maybe<C_CommissionAmt>;
   C_CommissionAmtGet: C_CommissionAmtConnection;
+  C_CommissionDetail?: Maybe<C_CommissionDetail>;
   C_CommissionDetailGet: C_CommissionDetailConnection;
   C_CommissionGet: C_CommissionConnection;
+  C_CommissionLine?: Maybe<C_CommissionLine>;
   C_CommissionLineGet: C_CommissionLineConnection;
+  C_CommissionRun?: Maybe<C_CommissionRun>;
   C_CommissionRunGet: C_CommissionRunConnection;
+  C_ContactActivity?: Maybe<C_ContactActivity>;
   C_ContactActivityGet: C_ContactActivityConnection;
+  C_ConversionType?: Maybe<C_ConversionType>;
   C_ConversionTypeGet: C_ConversionTypeConnection;
+  C_Conversion_Rate?: Maybe<C_Conversion_Rate>;
   C_Conversion_RateGet: C_Conversion_RateConnection;
+  C_Country?: Maybe<C_Country>;
   C_CountryGet: C_CountryConnection;
+  C_CountryGroup?: Maybe<C_CountryGroup>;
+  C_CountryGroupCountry?: Maybe<C_CountryGroupCountry>;
   C_CountryGroupCountryGet: C_CountryGroupCountryConnection;
   C_CountryGroupGet: C_CountryGroupConnection;
+  C_Currency?: Maybe<C_Currency>;
   C_CurrencyGet: C_CurrencyConnection;
+  C_Currency_Acct?: Maybe<C_Currency_Acct>;
   C_Currency_AcctGet: C_Currency_AcctConnection;
+  C_Cycle?: Maybe<C_Cycle>;
   C_CycleGet: C_CycleConnection;
+  C_CyclePhase?: Maybe<C_CyclePhase>;
   C_CyclePhaseGet: C_CyclePhaseConnection;
+  C_CycleStep?: Maybe<C_CycleStep>;
   C_CycleStepGet: C_CycleStepConnection;
+  C_DepositBatch?: Maybe<C_DepositBatch>;
   C_DepositBatchGet: C_DepositBatchConnection;
+  C_DepositBatchLine?: Maybe<C_DepositBatchLine>;
   C_DepositBatchLineGet: C_DepositBatchLineConnection;
+  C_DocType?: Maybe<C_DocType>;
+  C_DocTypeCounter?: Maybe<C_DocTypeCounter>;
   C_DocTypeCounterGet: C_DocTypeCounterConnection;
   C_DocTypeGet: C_DocTypeConnection;
+  C_Dunning?: Maybe<C_Dunning>;
   C_DunningGet: C_DunningConnection;
+  C_DunningLevel?: Maybe<C_DunningLevel>;
   C_DunningLevelGet: C_DunningLevelConnection;
+  C_DunningRun?: Maybe<C_DunningRun>;
+  C_DunningRunEntry?: Maybe<C_DunningRunEntry>;
   C_DunningRunEntryGet: C_DunningRunEntryConnection;
   C_DunningRunGet: C_DunningRunConnection;
+  C_DunningRunLine?: Maybe<C_DunningRunLine>;
   C_DunningRunLineGet: C_DunningRunLineConnection;
+  C_Element?: Maybe<C_Element>;
   C_ElementGet: C_ElementConnection;
+  C_ElementValue?: Maybe<C_ElementValue>;
   C_ElementValueGet: C_ElementValueConnection;
+  C_Greeting?: Maybe<C_Greeting>;
   C_GreetingGet: C_GreetingConnection;
+  C_InterOrg_Acct?: Maybe<C_InterOrg_Acct>;
   C_InterOrg_AcctGet: C_InterOrg_AcctConnection;
+  C_Invoice?: Maybe<C_Invoice>;
+  C_InvoiceBatch?: Maybe<C_InvoiceBatch>;
   C_InvoiceBatchGet: C_InvoiceBatchConnection;
+  C_InvoiceBatchLine?: Maybe<C_InvoiceBatchLine>;
   C_InvoiceBatchLineGet: C_InvoiceBatchLineConnection;
   C_InvoiceGet: C_InvoiceConnection;
+  C_InvoiceLine?: Maybe<C_InvoiceLine>;
   C_InvoiceLineGet: C_InvoiceLineConnection;
+  C_InvoicePaySchedule?: Maybe<C_InvoicePaySchedule>;
   C_InvoicePayScheduleGet: C_InvoicePayScheduleConnection;
+  C_InvoiceSchedule?: Maybe<C_InvoiceSchedule>;
   C_InvoiceScheduleGet: C_InvoiceScheduleConnection;
+  C_InvoiceTax?: Maybe<C_InvoiceTax>;
   C_InvoiceTaxGet: C_InvoiceTaxConnection;
+  C_Job?: Maybe<C_Job>;
+  C_JobAssignment?: Maybe<C_JobAssignment>;
   C_JobAssignmentGet: C_JobAssignmentConnection;
+  C_JobCategory?: Maybe<C_JobCategory>;
   C_JobCategoryGet: C_JobCategoryConnection;
   C_JobGet: C_JobConnection;
+  C_JobRemuneration?: Maybe<C_JobRemuneration>;
   C_JobRemunerationGet: C_JobRemunerationConnection;
+  C_LandedCost?: Maybe<C_LandedCost>;
+  C_LandedCostAllocation?: Maybe<C_LandedCostAllocation>;
   C_LandedCostAllocationGet: C_LandedCostAllocationConnection;
   C_LandedCostGet: C_LandedCostConnection;
+  C_Location?: Maybe<C_Location>;
   C_LocationGet: C_LocationConnection;
+  C_NonBusinessDay?: Maybe<C_NonBusinessDay>;
   C_NonBusinessDayGet: C_NonBusinessDayConnection;
+  C_OnlineTrxHistory?: Maybe<C_OnlineTrxHistory>;
   C_OnlineTrxHistoryGet: C_OnlineTrxHistoryConnection;
+  C_Opportunity?: Maybe<C_Opportunity>;
   C_OpportunityGet: C_OpportunityConnection;
+  C_Order?: Maybe<C_Order>;
   C_OrderGet: C_OrderConnection;
+  C_OrderLandedCost?: Maybe<C_OrderLandedCost>;
+  C_OrderLandedCostAllocation?: Maybe<C_OrderLandedCostAllocation>;
   C_OrderLandedCostAllocationGet: C_OrderLandedCostAllocationConnection;
   C_OrderLandedCostGet: C_OrderLandedCostConnection;
+  C_OrderLine?: Maybe<C_OrderLine>;
   C_OrderLineGet: C_OrderLineConnection;
+  C_OrderPaySchedule?: Maybe<C_OrderPaySchedule>;
   C_OrderPayScheduleGet: C_OrderPayScheduleConnection;
+  C_OrderSource?: Maybe<C_OrderSource>;
   C_OrderSourceGet: C_OrderSourceConnection;
+  C_OrderTax?: Maybe<C_OrderTax>;
   C_OrderTaxGet: C_OrderTaxConnection;
+  C_OrgAssignment?: Maybe<C_OrgAssignment>;
   C_OrgAssignmentGet: C_OrgAssignmentConnection;
+  C_POS?: Maybe<C_Pos>;
   C_POSGet: C_PosConnection;
+  C_POSKey?: Maybe<C_PosKey>;
   C_POSKeyGet: C_PosKeyConnection;
+  C_POSKeyLayout?: Maybe<C_PosKeyLayout>;
   C_POSKeyLayoutGet: C_PosKeyLayoutConnection;
+  C_POSPayment?: Maybe<C_PosPayment>;
   C_POSPaymentGet: C_PosPaymentConnection;
+  C_POSTenderType?: Maybe<C_PosTenderType>;
   C_POSTenderTypeGet: C_PosTenderTypeConnection;
+  C_PaySchedule?: Maybe<C_PaySchedule>;
   C_PayScheduleGet: C_PayScheduleConnection;
+  C_PaySelection?: Maybe<C_PaySelection>;
+  C_PaySelectionCheck?: Maybe<C_PaySelectionCheck>;
   C_PaySelectionCheckGet: C_PaySelectionCheckConnection;
   C_PaySelectionGet: C_PaySelectionConnection;
+  C_PaySelectionLine?: Maybe<C_PaySelectionLine>;
   C_PaySelectionLineGet: C_PaySelectionLineConnection;
+  C_Payment?: Maybe<C_Payment>;
+  C_PaymentAllocate?: Maybe<C_PaymentAllocate>;
   C_PaymentAllocateGet: C_PaymentAllocateConnection;
+  C_PaymentBatch?: Maybe<C_PaymentBatch>;
   C_PaymentBatchGet: C_PaymentBatchConnection;
   C_PaymentGet: C_PaymentConnection;
+  C_PaymentProcessor?: Maybe<C_PaymentProcessor>;
   C_PaymentProcessorGet: C_PaymentProcessorConnection;
+  C_PaymentTerm?: Maybe<C_PaymentTerm>;
   C_PaymentTermGet: C_PaymentTermConnection;
+  C_PaymentTransaction?: Maybe<C_PaymentTransaction>;
   C_PaymentTransactionGet: C_PaymentTransactionConnection;
+  C_Period?: Maybe<C_Period>;
+  C_PeriodControl?: Maybe<C_PeriodControl>;
   C_PeriodControlGet: C_PeriodControlConnection;
   C_PeriodGet: C_PeriodConnection;
+  C_Phase?: Maybe<C_Phase>;
   C_PhaseGet: C_PhaseConnection;
+  C_Project?: Maybe<C_Project>;
   C_ProjectGet: C_ProjectConnection;
+  C_ProjectIssue?: Maybe<C_ProjectIssue>;
   C_ProjectIssueGet: C_ProjectIssueConnection;
+  C_ProjectIssueMA?: Maybe<C_ProjectIssueMa>;
   C_ProjectIssueMAGet: C_ProjectIssueMaConnection;
+  C_ProjectLine?: Maybe<C_ProjectLine>;
   C_ProjectLineGet: C_ProjectLineConnection;
+  C_ProjectPhase?: Maybe<C_ProjectPhase>;
   C_ProjectPhaseGet: C_ProjectPhaseConnection;
+  C_ProjectTask?: Maybe<C_ProjectTask>;
   C_ProjectTaskGet: C_ProjectTaskConnection;
+  C_ProjectType?: Maybe<C_ProjectType>;
   C_ProjectTypeGet: C_ProjectTypeConnection;
+  C_Project_Acct?: Maybe<C_Project_Acct>;
   C_Project_AcctGet: C_Project_AcctConnection;
+  C_Recurring?: Maybe<C_Recurring>;
   C_RecurringGet: C_RecurringConnection;
+  C_RecurringGroup?: Maybe<C_RecurringGroup>;
   C_RecurringGroupGet: C_RecurringGroupConnection;
+  C_Recurring_Run?: Maybe<C_Recurring_Run>;
   C_Recurring_RunGet: C_Recurring_RunConnection;
+  C_Region?: Maybe<C_Region>;
   C_RegionGet: C_RegionConnection;
+  C_Remuneration?: Maybe<C_Remuneration>;
   C_RemunerationGet: C_RemunerationConnection;
+  C_RevenueRecog_Service?: Maybe<C_RevenueRecog_Service>;
   C_RevenueRecog_ServiceGet: C_RevenueRecog_ServiceConnection;
+  C_RevenueRecognition?: Maybe<C_RevenueRecognition>;
   C_RevenueRecognitionGet: C_RevenueRecognitionConnection;
+  C_RevenueRecognition_Plan?: Maybe<C_RevenueRecognition_Plan>;
   C_RevenueRecognition_PlanGet: C_RevenueRecognition_PlanConnection;
+  C_RevenueRecognition_Run?: Maybe<C_RevenueRecognition_Run>;
   C_RevenueRecognition_RunGet: C_RevenueRecognition_RunConnection;
+  C_RfQ?: Maybe<C_RfQ>;
   C_RfQGet: C_RfQConnection;
+  C_RfQLine?: Maybe<C_RfQLine>;
   C_RfQLineGet: C_RfQLineConnection;
+  C_RfQLineQty?: Maybe<C_RfQLineQty>;
   C_RfQLineQtyGet: C_RfQLineQtyConnection;
+  C_RfQResponse?: Maybe<C_RfQResponse>;
   C_RfQResponseGet: C_RfQResponseConnection;
+  C_RfQResponseLine?: Maybe<C_RfQResponseLine>;
   C_RfQResponseLineGet: C_RfQResponseLineConnection;
+  C_RfQResponseLineQty?: Maybe<C_RfQResponseLineQty>;
   C_RfQResponseLineQtyGet: C_RfQResponseLineQtyConnection;
+  C_RfQ_Topic?: Maybe<C_RfQ_Topic>;
   C_RfQ_TopicGet: C_RfQ_TopicConnection;
+  C_RfQ_TopicSubscriber?: Maybe<C_RfQ_TopicSubscriber>;
   C_RfQ_TopicSubscriberGet: C_RfQ_TopicSubscriberConnection;
+  C_RfQ_TopicSubscriberOnly?: Maybe<C_RfQ_TopicSubscriberOnly>;
   C_RfQ_TopicSubscriberOnlyGet: C_RfQ_TopicSubscriberOnlyConnection;
+  C_SalesRegion?: Maybe<C_SalesRegion>;
   C_SalesRegionGet: C_SalesRegionConnection;
+  C_SalesStage?: Maybe<C_SalesStage>;
   C_SalesStageGet: C_SalesStageConnection;
+  C_ServiceLevel?: Maybe<C_ServiceLevel>;
   C_ServiceLevelGet: C_ServiceLevelConnection;
+  C_ServiceLevelLine?: Maybe<C_ServiceLevelLine>;
   C_ServiceLevelLineGet: C_ServiceLevelLineConnection;
+  C_SubAcct?: Maybe<C_SubAcct>;
   C_SubAcctGet: C_SubAcctConnection;
+  C_Subscription?: Maybe<C_Subscription>;
   C_SubscriptionGet: C_SubscriptionConnection;
+  C_SubscriptionType?: Maybe<C_SubscriptionType>;
   C_SubscriptionTypeGet: C_SubscriptionTypeConnection;
+  C_Subscription_Delivery?: Maybe<C_Subscription_Delivery>;
   C_Subscription_DeliveryGet: C_Subscription_DeliveryConnection;
+  C_Task?: Maybe<C_Task>;
   C_TaskGet: C_TaskConnection;
+  C_Tax?: Maybe<C_Tax>;
+  C_TaxBase?: Maybe<C_TaxBase>;
   C_TaxBaseGet: C_TaxBaseConnection;
+  C_TaxCategory?: Maybe<C_TaxCategory>;
   C_TaxCategoryGet: C_TaxCategoryConnection;
+  C_TaxDeclaration?: Maybe<C_TaxDeclaration>;
+  C_TaxDeclarationAcct?: Maybe<C_TaxDeclarationAcct>;
   C_TaxDeclarationAcctGet: C_TaxDeclarationAcctConnection;
   C_TaxDeclarationGet: C_TaxDeclarationConnection;
+  C_TaxDeclarationLine?: Maybe<C_TaxDeclarationLine>;
   C_TaxDeclarationLineGet: C_TaxDeclarationLineConnection;
+  C_TaxDefinition?: Maybe<C_TaxDefinition>;
   C_TaxDefinitionGet: C_TaxDefinitionConnection;
   C_TaxGet: C_TaxConnection;
+  C_TaxGroup?: Maybe<C_TaxGroup>;
   C_TaxGroupGet: C_TaxGroupConnection;
+  C_TaxPostal?: Maybe<C_TaxPostal>;
   C_TaxPostalGet: C_TaxPostalConnection;
+  C_TaxProvider?: Maybe<C_TaxProvider>;
+  C_TaxProviderCfg?: Maybe<C_TaxProviderCfg>;
   C_TaxProviderCfgGet: C_TaxProviderCfgConnection;
   C_TaxProviderGet: C_TaxProviderConnection;
+  C_TaxType?: Maybe<C_TaxType>;
   C_TaxTypeGet: C_TaxTypeConnection;
+  C_Tax_Acct?: Maybe<C_Tax_Acct>;
   C_Tax_AcctGet: C_Tax_AcctConnection;
+  C_UOM?: Maybe<C_Uom>;
   C_UOMGet: C_UomConnection;
   C_UOMGetDefault: C_Uom;
+  C_UOM_Conversion?: Maybe<C_Uom_Conversion>;
   C_UOM_ConversionGet: C_Uom_ConversionConnection;
+  C_UserRemuneration?: Maybe<C_UserRemuneration>;
   C_UserRemunerationGet: C_UserRemunerationConnection;
+  C_ValidCombination?: Maybe<C_ValidCombination>;
   C_ValidCombinationGet: C_ValidCombinationConnection;
+  C_Withholding?: Maybe<C_Withholding>;
   C_WithholdingGet: C_WithholdingConnection;
+  C_Withholding_Acct?: Maybe<C_Withholding_Acct>;
   C_Withholding_AcctGet: C_Withholding_AcctConnection;
+  C_Year?: Maybe<C_Year>;
   C_YearGet: C_YearConnection;
+  DD_NetworkDistribution?: Maybe<Dd_NetworkDistribution>;
   DD_NetworkDistributionGet: Dd_NetworkDistributionConnection;
+  DD_NetworkDistributionLine?: Maybe<Dd_NetworkDistributionLine>;
   DD_NetworkDistributionLineGet: Dd_NetworkDistributionLineConnection;
+  DD_Order?: Maybe<Dd_Order>;
   DD_OrderGet: Dd_OrderConnection;
+  DD_OrderLine?: Maybe<Dd_OrderLine>;
   DD_OrderLineGet: Dd_OrderLineConnection;
   /** Get a stringified JSON object of the available status actions */
   DocumentStatusActionMap: Scalars['String']['output'];
+  EXP_Format?: Maybe<Exp_Format>;
   EXP_FormatGet: Exp_FormatConnection;
+  EXP_FormatLine?: Maybe<Exp_FormatLine>;
   EXP_FormatLineGet: Exp_FormatLineConnection;
+  EXP_Processor?: Maybe<Exp_Processor>;
   EXP_ProcessorGet: Exp_ProcessorConnection;
+  EXP_ProcessorParameter?: Maybe<Exp_ProcessorParameter>;
   EXP_ProcessorParameterGet: Exp_ProcessorParameterConnection;
+  EXP_Processor_Type?: Maybe<Exp_Processor_Type>;
   EXP_Processor_TypeGet: Exp_Processor_TypeConnection;
+  Fact_Acct?: Maybe<Fact_Acct>;
   Fact_AcctGet: Fact_AcctConnection;
+  Fact_Acct_Summary?: Maybe<Fact_Acct_Summary>;
   Fact_Acct_SummaryGet: Fact_Acct_SummaryConnection;
+  Fact_Reconciliation?: Maybe<Fact_Reconciliation>;
   Fact_ReconciliationGet: Fact_ReconciliationConnection;
+  GL_Budget?: Maybe<Gl_Budget>;
+  GL_BudgetControl?: Maybe<Gl_BudgetControl>;
   GL_BudgetControlGet: Gl_BudgetControlConnection;
   GL_BudgetGet: Gl_BudgetConnection;
+  GL_Category?: Maybe<Gl_Category>;
   GL_CategoryGet: Gl_CategoryConnection;
+  GL_Distribution?: Maybe<Gl_Distribution>;
   GL_DistributionGet: Gl_DistributionConnection;
+  GL_DistributionLine?: Maybe<Gl_DistributionLine>;
   GL_DistributionLineGet: Gl_DistributionLineConnection;
+  GL_Fund?: Maybe<Gl_Fund>;
   GL_FundGet: Gl_FundConnection;
+  GL_FundRestriction?: Maybe<Gl_FundRestriction>;
   GL_FundRestrictionGet: Gl_FundRestrictionConnection;
+  GL_Journal?: Maybe<Gl_Journal>;
+  GL_JournalBatch?: Maybe<Gl_JournalBatch>;
   GL_JournalBatchGet: Gl_JournalBatchConnection;
+  GL_JournalGenerator?: Maybe<Gl_JournalGenerator>;
   GL_JournalGeneratorGet: Gl_JournalGeneratorConnection;
+  GL_JournalGeneratorLine?: Maybe<Gl_JournalGeneratorLine>;
   GL_JournalGeneratorLineGet: Gl_JournalGeneratorLineConnection;
+  GL_JournalGeneratorSource?: Maybe<Gl_JournalGeneratorSource>;
   GL_JournalGeneratorSourceGet: Gl_JournalGeneratorSourceConnection;
   GL_JournalGet: Gl_JournalConnection;
+  GL_JournalLine?: Maybe<Gl_JournalLine>;
   GL_JournalLineGet: Gl_JournalLineConnection;
+  HR_Attribute?: Maybe<Hr_Attribute>;
   HR_AttributeGet: Hr_AttributeConnection;
+  HR_Concept?: Maybe<Hr_Concept>;
   HR_ConceptGet: Hr_ConceptConnection;
+  HR_Concept_Acct?: Maybe<Hr_Concept_Acct>;
   HR_Concept_AcctGet: Hr_Concept_AcctConnection;
+  HR_Concept_Category?: Maybe<Hr_Concept_Category>;
   HR_Concept_CategoryGet: Hr_Concept_CategoryConnection;
+  HR_Contract?: Maybe<Hr_Contract>;
   HR_ContractGet: Hr_ContractConnection;
+  HR_Department?: Maybe<Hr_Department>;
   HR_DepartmentGet: Hr_DepartmentConnection;
+  HR_Employee?: Maybe<Hr_Employee>;
   HR_EmployeeGet: Hr_EmployeeConnection;
+  HR_Job?: Maybe<Hr_Job>;
   HR_JobGet: Hr_JobConnection;
+  HR_List?: Maybe<Hr_List>;
   HR_ListGet: Hr_ListConnection;
+  HR_ListLine?: Maybe<Hr_ListLine>;
   HR_ListLineGet: Hr_ListLineConnection;
+  HR_ListType?: Maybe<Hr_ListType>;
   HR_ListTypeGet: Hr_ListTypeConnection;
+  HR_ListVersion?: Maybe<Hr_ListVersion>;
   HR_ListVersionGet: Hr_ListVersionConnection;
+  HR_Movement?: Maybe<Hr_Movement>;
   HR_MovementGet: Hr_MovementConnection;
+  HR_Payroll?: Maybe<Hr_Payroll>;
+  HR_PayrollConcept?: Maybe<Hr_PayrollConcept>;
   HR_PayrollConceptGet: Hr_PayrollConceptConnection;
   HR_PayrollGet: Hr_PayrollConnection;
+  HR_Period?: Maybe<Hr_Period>;
   HR_PeriodGet: Hr_PeriodConnection;
+  HR_Process?: Maybe<Hr_Process>;
   HR_ProcessGet: Hr_ProcessConnection;
+  HR_Year?: Maybe<Hr_Year>;
   HR_YearGet: Hr_YearConnection;
+  IMP_Processor?: Maybe<Imp_Processor>;
   IMP_ProcessorGet: Imp_ProcessorConnection;
+  IMP_ProcessorLog?: Maybe<Imp_ProcessorLog>;
   IMP_ProcessorLogGet: Imp_ProcessorLogConnection;
+  IMP_ProcessorParameter?: Maybe<Imp_ProcessorParameter>;
   IMP_ProcessorParameterGet: Imp_ProcessorParameterConnection;
+  IMP_Processor_Type?: Maybe<Imp_Processor_Type>;
   IMP_Processor_TypeGet: Imp_Processor_TypeConnection;
+  I_Asset?: Maybe<I_Asset>;
   I_AssetGet: I_AssetConnection;
+  I_BPartner?: Maybe<I_BPartner>;
   I_BPartnerGet: I_BPartnerConnection;
+  I_BankStatement?: Maybe<I_BankStatement>;
   I_BankStatementGet: I_BankStatementConnection;
+  I_Conversion_Rate?: Maybe<I_Conversion_Rate>;
   I_Conversion_RateGet: I_Conversion_RateConnection;
+  I_ElementValue?: Maybe<I_ElementValue>;
   I_ElementValueGet: I_ElementValueConnection;
+  I_FAJournal?: Maybe<I_FaJournal>;
   I_FAJournalGet: I_FaJournalConnection;
+  I_FixedAsset?: Maybe<I_FixedAsset>;
   I_FixedAssetGet: I_FixedAssetConnection;
+  I_GLJournal?: Maybe<I_GlJournal>;
   I_GLJournalGet: I_GlJournalConnection;
+  I_HR_Movement?: Maybe<I_Hr_Movement>;
   I_HR_MovementGet: I_Hr_MovementConnection;
+  I_InOutLineConfirm?: Maybe<I_InOutLineConfirm>;
   I_InOutLineConfirmGet: I_InOutLineConfirmConnection;
+  I_Inventory?: Maybe<I_Inventory>;
   I_InventoryGet: I_InventoryConnection;
+  I_Invoice?: Maybe<I_Invoice>;
   I_InvoiceGet: I_InvoiceConnection;
+  I_Movement?: Maybe<I_Movement>;
   I_MovementGet: I_MovementConnection;
+  I_Order?: Maybe<I_Order>;
   I_OrderGet: I_OrderConnection;
+  I_Payment?: Maybe<I_Payment>;
   I_PaymentGet: I_PaymentConnection;
+  I_PriceList?: Maybe<I_PriceList>;
   I_PriceListGet: I_PriceListConnection;
+  I_Product?: Maybe<I_Product>;
   I_ProductGet: I_ProductConnection;
+  I_ProductPlanning?: Maybe<I_ProductPlanning>;
   I_ProductPlanningGet: I_ProductPlanningConnection;
+  I_ReportLine?: Maybe<I_ReportLine>;
   I_ReportLineGet: I_ReportLineConnection;
   InventoryTransactionGet: InventoryTransactionConnection;
+  M_Attribute?: Maybe<M_Attribute>;
   M_AttributeGet: M_AttributeConnection;
+  M_AttributeInstance?: Maybe<M_AttributeInstance>;
   M_AttributeInstanceGet: M_AttributeInstanceConnection;
+  M_AttributeSearch?: Maybe<M_AttributeSearch>;
   M_AttributeSearchGet: M_AttributeSearchConnection;
+  M_AttributeSet?: Maybe<M_AttributeSet>;
+  M_AttributeSetExclude?: Maybe<M_AttributeSetExclude>;
   M_AttributeSetExcludeGet: M_AttributeSetExcludeConnection;
   M_AttributeSetGet: M_AttributeSetConnection;
+  M_AttributeSetInstance?: Maybe<M_AttributeSetInstance>;
   M_AttributeSetInstanceGet: M_AttributeSetInstanceConnection;
+  M_AttributeUse?: Maybe<M_AttributeUse>;
   M_AttributeUseGet: M_AttributeUseConnection;
+  M_AttributeValue?: Maybe<M_AttributeValue>;
   M_AttributeValueGet: M_AttributeValueConnection;
+  M_BOMAlternative?: Maybe<M_BomAlternative>;
   M_BOMAlternativeGet: M_BomAlternativeConnection;
+  M_BP_Price?: Maybe<M_Bp_Price>;
   M_BP_PriceGet: M_Bp_PriceConnection;
+  M_ChangeNotice?: Maybe<M_ChangeNotice>;
   M_ChangeNoticeGet: M_ChangeNoticeConnection;
+  M_ChangeRequest?: Maybe<M_ChangeRequest>;
   M_ChangeRequestGet: M_ChangeRequestConnection;
+  M_CommodityShipment?: Maybe<M_CommodityShipment>;
   M_CommodityShipmentGet: M_CommodityShipmentConnection;
+  M_Cost?: Maybe<M_Cost>;
+  M_CostDetail?: Maybe<M_CostDetail>;
   M_CostDetailGet: M_CostDetailConnection;
+  M_CostElement?: Maybe<M_CostElement>;
   M_CostElementGet: M_CostElementConnection;
   M_CostGet: M_CostConnection;
+  M_CostHistory?: Maybe<M_CostHistory>;
   M_CostHistoryGet: M_CostHistoryConnection;
+  M_CostQueue?: Maybe<M_CostQueue>;
   M_CostQueueGet: M_CostQueueConnection;
+  M_CostType?: Maybe<M_CostType>;
   M_CostTypeGet: M_CostTypeConnection;
+  M_Demand?: Maybe<M_Demand>;
+  M_DemandDetail?: Maybe<M_DemandDetail>;
   M_DemandDetailGet: M_DemandDetailConnection;
   M_DemandGet: M_DemandConnection;
+  M_DemandLine?: Maybe<M_DemandLine>;
   M_DemandLineGet: M_DemandLineConnection;
+  M_DiscountSchema?: Maybe<M_DiscountSchema>;
+  M_DiscountSchemaBreak?: Maybe<M_DiscountSchemaBreak>;
   M_DiscountSchemaBreakGet: M_DiscountSchemaBreakConnection;
   M_DiscountSchemaGet: M_DiscountSchemaConnection;
+  M_DiscountSchemaLine?: Maybe<M_DiscountSchemaLine>;
   M_DiscountSchemaLineGet: M_DiscountSchemaLineConnection;
+  M_DistributionList?: Maybe<M_DistributionList>;
   M_DistributionListGet: M_DistributionListConnection;
+  M_DistributionListLine?: Maybe<M_DistributionListLine>;
   M_DistributionListLineGet: M_DistributionListLineConnection;
+  M_DistributionRun?: Maybe<M_DistributionRun>;
   M_DistributionRunGet: M_DistributionRunConnection;
+  M_DistributionRunLine?: Maybe<M_DistributionRunLine>;
   M_DistributionRunLineGet: M_DistributionRunLineConnection;
+  M_Forecast?: Maybe<M_Forecast>;
   M_ForecastGet: M_ForecastConnection;
+  M_ForecastLine?: Maybe<M_ForecastLine>;
   M_ForecastLineGet: M_ForecastLineConnection;
+  M_Freight?: Maybe<M_Freight>;
+  M_FreightCategory?: Maybe<M_FreightCategory>;
   M_FreightCategoryGet: M_FreightCategoryConnection;
   M_FreightGet: M_FreightConnection;
+  M_InOut?: Maybe<M_InOut>;
+  M_InOutConfirm?: Maybe<M_InOutConfirm>;
   M_InOutConfirmGet: M_InOutConfirmConnection;
   M_InOutGet: M_InOutConnection;
+  M_InOutLine?: Maybe<M_InOutLine>;
+  M_InOutLineConfirm?: Maybe<M_InOutLineConfirm>;
   M_InOutLineConfirmGet: M_InOutLineConfirmConnection;
   M_InOutLineGet: M_InOutLineConnection;
+  M_InOutLineMA?: Maybe<M_InOutLineMa>;
   M_InOutLineMAGet: M_InOutLineMaConnection;
+  M_Inventory?: Maybe<M_Inventory>;
   M_InventoryGet: M_InventoryConnection;
+  M_InventoryLine?: Maybe<M_InventoryLine>;
   M_InventoryLineGet: M_InventoryLineConnection;
+  M_InventoryLineMA?: Maybe<M_InventoryLineMa>;
   M_InventoryLineMAGet: M_InventoryLineMaConnection;
+  M_Locator?: Maybe<M_Locator>;
   M_LocatorGet: M_LocatorConnection;
+  M_LocatorType?: Maybe<M_LocatorType>;
   M_LocatorTypeGet: M_LocatorTypeConnection;
+  M_Lot?: Maybe<M_Lot>;
+  M_LotCtl?: Maybe<M_LotCtl>;
+  M_LotCtlExclude?: Maybe<M_LotCtlExclude>;
   M_LotCtlExcludeGet: M_LotCtlExcludeConnection;
   M_LotCtlGet: M_LotCtlConnection;
   M_LotGet: M_LotConnection;
+  M_MatchInv?: Maybe<M_MatchInv>;
   M_MatchInvGet: M_MatchInvConnection;
+  M_MatchPO?: Maybe<M_MatchPo>;
   M_MatchPOGet: M_MatchPoConnection;
+  M_Movement?: Maybe<M_Movement>;
+  M_MovementConfirm?: Maybe<M_MovementConfirm>;
   M_MovementConfirmGet: M_MovementConfirmConnection;
   M_MovementGet: M_MovementConnection;
+  M_MovementLine?: Maybe<M_MovementLine>;
+  M_MovementLineConfirm?: Maybe<M_MovementLineConfirm>;
   M_MovementLineConfirmGet: M_MovementLineConfirmConnection;
   M_MovementLineGet: M_MovementLineConnection;
+  M_MovementLineMA?: Maybe<M_MovementLineMa>;
   M_MovementLineMAGet: M_MovementLineMaConnection;
+  M_OperationResource?: Maybe<M_OperationResource>;
   M_OperationResourceGet: M_OperationResourceConnection;
+  M_Package?: Maybe<M_Package>;
   M_PackageGet: M_PackageConnection;
+  M_PackageLine?: Maybe<M_PackageLine>;
   M_PackageLineGet: M_PackageLineConnection;
+  M_PackageMPS?: Maybe<M_PackageMps>;
   M_PackageMPSGet: M_PackageMpsConnection;
+  M_PartType?: Maybe<M_PartType>;
   M_PartTypeGet: M_PartTypeConnection;
+  M_PerpetualInv?: Maybe<M_PerpetualInv>;
   M_PerpetualInvGet: M_PerpetualInvConnection;
+  M_PriceList?: Maybe<M_PriceList>;
   M_PriceListGet: M_PriceListConnection;
+  M_PriceList_Version?: Maybe<M_PriceList_Version>;
   M_PriceList_VersionGet: M_PriceList_VersionConnection;
+  M_Product?: Maybe<M_Product>;
+  M_ProductDownload?: Maybe<M_ProductDownload>;
   M_ProductDownloadGet: M_ProductDownloadConnection;
   M_ProductGet: M_ProductConnection;
+  M_ProductOperation?: Maybe<M_ProductOperation>;
   M_ProductOperationGet: M_ProductOperationConnection;
+  M_ProductPrice?: Maybe<M_ProductPrice>;
   M_ProductPriceGet: M_ProductPriceConnection;
+  M_ProductPriceVendorBreak?: Maybe<M_ProductPriceVendorBreak>;
   M_ProductPriceVendorBreakGet: M_ProductPriceVendorBreakConnection;
+  M_Product_Acct?: Maybe<M_Product_Acct>;
   M_Product_AcctGet: M_Product_AcctConnection;
+  M_Product_Category?: Maybe<M_Product_Category>;
   M_Product_CategoryGet: M_Product_CategoryConnection;
+  M_Product_Category_Acct?: Maybe<M_Product_Category_Acct>;
   M_Product_Category_AcctGet: M_Product_Category_AcctConnection;
+  M_Product_PO?: Maybe<M_Product_Po>;
   M_Product_POGet: M_Product_PoConnection;
+  M_Product_QualityTest?: Maybe<M_Product_QualityTest>;
   M_Product_QualityTestGet: M_Product_QualityTestConnection;
+  M_Production?: Maybe<M_Production>;
   M_ProductionGet: M_ProductionConnection;
+  M_ProductionLine?: Maybe<M_ProductionLine>;
   M_ProductionLineGet: M_ProductionLineConnection;
+  M_ProductionLineMA?: Maybe<M_ProductionLineMa>;
   M_ProductionLineMAGet: M_ProductionLineMaConnection;
+  M_ProductionPlan?: Maybe<M_ProductionPlan>;
   M_ProductionPlanGet: M_ProductionPlanConnection;
+  M_Promotion?: Maybe<M_Promotion>;
+  M_PromotionDistribution?: Maybe<M_PromotionDistribution>;
   M_PromotionDistributionGet: M_PromotionDistributionConnection;
   M_PromotionGet: M_PromotionConnection;
+  M_PromotionGroup?: Maybe<M_PromotionGroup>;
   M_PromotionGroupGet: M_PromotionGroupConnection;
+  M_PromotionGroupLine?: Maybe<M_PromotionGroupLine>;
   M_PromotionGroupLineGet: M_PromotionGroupLineConnection;
+  M_PromotionLine?: Maybe<M_PromotionLine>;
   M_PromotionLineGet: M_PromotionLineConnection;
+  M_PromotionPreCondition?: Maybe<M_PromotionPreCondition>;
   M_PromotionPreConditionGet: M_PromotionPreConditionConnection;
+  M_PromotionReward?: Maybe<M_PromotionReward>;
   M_PromotionRewardGet: M_PromotionRewardConnection;
+  M_QualityTest?: Maybe<M_QualityTest>;
   M_QualityTestGet: M_QualityTestConnection;
+  M_QualityTestResult?: Maybe<M_QualityTestResult>;
   M_QualityTestResultGet: M_QualityTestResultConnection;
+  M_RMA?: Maybe<M_Rma>;
   M_RMAGet: M_RmaConnection;
+  M_RMALine?: Maybe<M_RmaLine>;
   M_RMALineGet: M_RmaLineConnection;
+  M_RMATax?: Maybe<M_RmaTax>;
   M_RMATaxGet: M_RmaTaxConnection;
+  M_RMAType?: Maybe<M_RmaType>;
   M_RMATypeGet: M_RmaTypeConnection;
+  M_RelatedProduct?: Maybe<M_RelatedProduct>;
   M_RelatedProductGet: M_RelatedProductConnection;
+  M_Replenish?: Maybe<M_Replenish>;
   M_ReplenishGet: M_ReplenishConnection;
+  M_Requisition?: Maybe<M_Requisition>;
   M_RequisitionGet: M_RequisitionConnection;
+  M_RequisitionLine?: Maybe<M_RequisitionLine>;
   M_RequisitionLineGet: M_RequisitionLineConnection;
+  M_SerNoCtl?: Maybe<M_SerNoCtl>;
+  M_SerNoCtlExclude?: Maybe<M_SerNoCtlExclude>;
   M_SerNoCtlExcludeGet: M_SerNoCtlExcludeConnection;
   M_SerNoCtlGet: M_SerNoCtlConnection;
+  M_Shipper?: Maybe<M_Shipper>;
+  M_ShipperCfg?: Maybe<M_ShipperCfg>;
   M_ShipperCfgGet: M_ShipperCfgConnection;
   M_ShipperGet: M_ShipperConnection;
+  M_ShipperLabels?: Maybe<M_ShipperLabels>;
+  M_ShipperLabelsCfg?: Maybe<M_ShipperLabelsCfg>;
   M_ShipperLabelsCfgGet: M_ShipperLabelsCfgConnection;
   M_ShipperLabelsGet: M_ShipperLabelsConnection;
+  M_ShipperPackaging?: Maybe<M_ShipperPackaging>;
+  M_ShipperPackagingCfg?: Maybe<M_ShipperPackagingCfg>;
   M_ShipperPackagingCfgGet: M_ShipperPackagingCfgConnection;
   M_ShipperPackagingGet: M_ShipperPackagingConnection;
+  M_ShipperPickupTypes?: Maybe<M_ShipperPickupTypes>;
+  M_ShipperPickupTypesCfg?: Maybe<M_ShipperPickupTypesCfg>;
   M_ShipperPickupTypesCfgGet: M_ShipperPickupTypesCfgConnection;
   M_ShipperPickupTypesGet: M_ShipperPickupTypesConnection;
+  M_ShippingProcessor?: Maybe<M_ShippingProcessor>;
+  M_ShippingProcessorCfg?: Maybe<M_ShippingProcessorCfg>;
   M_ShippingProcessorCfgGet: M_ShippingProcessorCfgConnection;
   M_ShippingProcessorGet: M_ShippingProcessorConnection;
+  M_ShippingTransaction?: Maybe<M_ShippingTransaction>;
   M_ShippingTransactionGet: M_ShippingTransactionConnection;
+  M_ShippingTransactionLine?: Maybe<M_ShippingTransactionLine>;
   M_ShippingTransactionLineGet: M_ShippingTransactionLineConnection;
+  M_StorageOnHand?: Maybe<M_StorageOnHand>;
   M_StorageOnHandGet: M_StorageOnHandConnection;
+  M_StorageReservation?: Maybe<M_StorageReservation>;
   M_StorageReservationGet: M_StorageReservationConnection;
+  M_Substitute?: Maybe<M_Substitute>;
   M_SubstituteGet: M_SubstituteConnection;
+  M_Transaction?: Maybe<M_Transaction>;
+  M_TransactionAllocation?: Maybe<M_TransactionAllocation>;
   M_TransactionAllocationGet: M_TransactionAllocationConnection;
   M_TransactionGet: M_TransactionConnection;
+  M_Warehouse?: Maybe<M_Warehouse>;
   M_WarehouseGet: M_WarehouseConnection;
+  M_Warehouse_Acct?: Maybe<M_Warehouse_Acct>;
   M_Warehouse_AcctGet: M_Warehouse_AcctConnection;
+  PA_Achievement?: Maybe<Pa_Achievement>;
   PA_AchievementGet: Pa_AchievementConnection;
+  PA_Benchmark?: Maybe<Pa_Benchmark>;
+  PA_BenchmarkData?: Maybe<Pa_BenchmarkData>;
   PA_BenchmarkDataGet: Pa_BenchmarkDataConnection;
   PA_BenchmarkGet: Pa_BenchmarkConnection;
+  PA_ColorSchema?: Maybe<Pa_ColorSchema>;
   PA_ColorSchemaGet: Pa_ColorSchemaConnection;
+  PA_DashboardContent?: Maybe<Pa_DashboardContent>;
   PA_DashboardContentGet: Pa_DashboardContentConnection;
+  PA_DashboardContent_Access?: Maybe<Pa_DashboardContent_Access>;
   PA_DashboardContent_AccessGet: Pa_DashboardContent_AccessConnection;
+  PA_DashboardPreference?: Maybe<Pa_DashboardPreference>;
   PA_DashboardPreferenceGet: Pa_DashboardPreferenceConnection;
+  PA_DocumentStatus?: Maybe<Pa_DocumentStatus>;
   PA_DocumentStatusGet: Pa_DocumentStatusConnection;
+  PA_Goal?: Maybe<Pa_Goal>;
   PA_GoalGet: Pa_GoalConnection;
+  PA_GoalRestriction?: Maybe<Pa_GoalRestriction>;
   PA_GoalRestrictionGet: Pa_GoalRestrictionConnection;
+  PA_Hierarchy?: Maybe<Pa_Hierarchy>;
   PA_HierarchyGet: Pa_HierarchyConnection;
+  PA_Measure?: Maybe<Pa_Measure>;
+  PA_MeasureCalc?: Maybe<Pa_MeasureCalc>;
   PA_MeasureCalcGet: Pa_MeasureCalcConnection;
   PA_MeasureGet: Pa_MeasureConnection;
+  PA_Ratio?: Maybe<Pa_Ratio>;
+  PA_RatioElement?: Maybe<Pa_RatioElement>;
   PA_RatioElementGet: Pa_RatioElementConnection;
   PA_RatioGet: Pa_RatioConnection;
+  PA_Report?: Maybe<Pa_Report>;
+  PA_ReportColumn?: Maybe<Pa_ReportColumn>;
   PA_ReportColumnGet: Pa_ReportColumnConnection;
+  PA_ReportColumnSet?: Maybe<Pa_ReportColumnSet>;
   PA_ReportColumnSetGet: Pa_ReportColumnSetConnection;
+  PA_ReportCube?: Maybe<Pa_ReportCube>;
   PA_ReportCubeGet: Pa_ReportCubeConnection;
   PA_ReportGet: Pa_ReportConnection;
+  PA_ReportLine?: Maybe<Pa_ReportLine>;
   PA_ReportLineGet: Pa_ReportLineConnection;
+  PA_ReportLineSet?: Maybe<Pa_ReportLineSet>;
   PA_ReportLineSetGet: Pa_ReportLineSetConnection;
+  PA_ReportSource?: Maybe<Pa_ReportSource>;
   PA_ReportSourceGet: Pa_ReportSourceConnection;
+  PA_SLA_Criteria?: Maybe<Pa_Sla_Criteria>;
   PA_SLA_CriteriaGet: Pa_Sla_CriteriaConnection;
+  PA_SLA_Goal?: Maybe<Pa_Sla_Goal>;
   PA_SLA_GoalGet: Pa_Sla_GoalConnection;
+  PA_SLA_Measure?: Maybe<Pa_Sla_Measure>;
   PA_SLA_MeasureGet: Pa_Sla_MeasureConnection;
+  PP_Cost_Collector?: Maybe<Pp_Cost_Collector>;
   PP_Cost_CollectorGet: Pp_Cost_CollectorConnection;
+  PP_Cost_CollectorMA?: Maybe<Pp_Cost_CollectorMa>;
   PP_Cost_CollectorMAGet: Pp_Cost_CollectorMaConnection;
+  PP_MRP?: Maybe<Pp_Mrp>;
   PP_MRPGet: Pp_MrpConnection;
+  PP_Order?: Maybe<Pp_Order>;
   PP_OrderGet: Pp_OrderConnection;
+  PP_Order_BOM?: Maybe<Pp_Order_Bom>;
   PP_Order_BOMGet: Pp_Order_BomConnection;
+  PP_Order_BOMLine?: Maybe<Pp_Order_BomLine>;
   PP_Order_BOMLineGet: Pp_Order_BomLineConnection;
+  PP_Order_Cost?: Maybe<Pp_Order_Cost>;
   PP_Order_CostGet: Pp_Order_CostConnection;
+  PP_Order_Node?: Maybe<Pp_Order_Node>;
   PP_Order_NodeGet: Pp_Order_NodeConnection;
+  PP_Order_NodeNext?: Maybe<Pp_Order_NodeNext>;
   PP_Order_NodeNextGet: Pp_Order_NodeNextConnection;
+  PP_Order_Node_Asset?: Maybe<Pp_Order_Node_Asset>;
   PP_Order_Node_AssetGet: Pp_Order_Node_AssetConnection;
+  PP_Order_Node_Product?: Maybe<Pp_Order_Node_Product>;
   PP_Order_Node_ProductGet: Pp_Order_Node_ProductConnection;
+  PP_Order_Workflow?: Maybe<Pp_Order_Workflow>;
   PP_Order_WorkflowGet: Pp_Order_WorkflowConnection;
+  PP_Product_BOM?: Maybe<Pp_Product_Bom>;
   PP_Product_BOMGet: Pp_Product_BomConnection;
+  PP_Product_BOMLine?: Maybe<Pp_Product_BomLine>;
   PP_Product_BOMLineGet: Pp_Product_BomLineConnection;
+  PP_Product_Planning?: Maybe<Pp_Product_Planning>;
   PP_Product_PlanningGet: Pp_Product_PlanningConnection;
+  PP_WF_Node_Asset?: Maybe<Pp_Wf_Node_Asset>;
   PP_WF_Node_AssetGet: Pp_Wf_Node_AssetConnection;
+  PP_WF_Node_Product?: Maybe<Pp_Wf_Node_Product>;
   PP_WF_Node_ProductGet: Pp_Wf_Node_ProductConnection;
+  QM_Specification?: Maybe<Qm_Specification>;
   QM_SpecificationGet: Qm_SpecificationConnection;
+  QM_SpecificationLine?: Maybe<Qm_SpecificationLine>;
   QM_SpecificationLineGet: Qm_SpecificationLineConnection;
+  RV_BPartner?: Maybe<Rv_BPartner>;
   RV_BPartnerGet: Rv_BPartnerConnection;
+  RV_WarehousePrice?: Maybe<Rv_WarehousePrice>;
   RV_WarehousePriceGet: Rv_WarehousePriceConnection;
+  R_Category?: Maybe<R_Category>;
   R_CategoryGet: R_CategoryConnection;
+  R_CategoryUpdates?: Maybe<R_CategoryUpdates>;
   R_CategoryUpdatesGet: R_CategoryUpdatesConnection;
+  R_ContactInterest?: Maybe<R_ContactInterest>;
   R_ContactInterestGet: R_ContactInterestConnection;
+  R_Group?: Maybe<R_Group>;
   R_GroupGet: R_GroupConnection;
+  R_GroupUpdates?: Maybe<R_GroupUpdates>;
   R_GroupUpdatesGet: R_GroupUpdatesConnection;
+  R_InterestArea?: Maybe<R_InterestArea>;
   R_InterestAreaGet: R_InterestAreaConnection;
+  R_IssueKnown?: Maybe<R_IssueKnown>;
   R_IssueKnownGet: R_IssueKnownConnection;
+  R_IssueProject?: Maybe<R_IssueProject>;
   R_IssueProjectGet: R_IssueProjectConnection;
+  R_IssueRecommendation?: Maybe<R_IssueRecommendation>;
   R_IssueRecommendationGet: R_IssueRecommendationConnection;
+  R_IssueStatus?: Maybe<R_IssueStatus>;
   R_IssueStatusGet: R_IssueStatusConnection;
+  R_IssueSystem?: Maybe<R_IssueSystem>;
   R_IssueSystemGet: R_IssueSystemConnection;
+  R_IssueUser?: Maybe<R_IssueUser>;
   R_IssueUserGet: R_IssueUserConnection;
+  R_MailText?: Maybe<R_MailText>;
   R_MailTextGet: R_MailTextConnection;
+  R_Request?: Maybe<R_Request>;
+  R_RequestAction?: Maybe<R_RequestAction>;
   R_RequestActionGet: R_RequestActionConnection;
   R_RequestGet: R_RequestConnection;
+  R_RequestProcessor?: Maybe<R_RequestProcessor>;
   R_RequestProcessorGet: R_RequestProcessorConnection;
+  R_RequestProcessorLog?: Maybe<R_RequestProcessorLog>;
   R_RequestProcessorLogGet: R_RequestProcessorLogConnection;
+  R_RequestProcessor_Route?: Maybe<R_RequestProcessor_Route>;
   R_RequestProcessor_RouteGet: R_RequestProcessor_RouteConnection;
+  R_RequestType?: Maybe<R_RequestType>;
   R_RequestTypeGet: R_RequestTypeConnection;
+  R_RequestTypeUpdates?: Maybe<R_RequestTypeUpdates>;
   R_RequestTypeUpdatesGet: R_RequestTypeUpdatesConnection;
+  R_RequestUpdate?: Maybe<R_RequestUpdate>;
   R_RequestUpdateGet: R_RequestUpdateConnection;
+  R_RequestUpdates?: Maybe<R_RequestUpdates>;
   R_RequestUpdatesGet: R_RequestUpdatesConnection;
+  R_Resolution?: Maybe<R_Resolution>;
   R_ResolutionGet: R_ResolutionConnection;
+  R_StandardResponse?: Maybe<R_StandardResponse>;
   R_StandardResponseGet: R_StandardResponseConnection;
+  R_Status?: Maybe<R_Status>;
+  R_StatusCategory?: Maybe<R_StatusCategory>;
   R_StatusCategoryGet: R_StatusCategoryConnection;
   R_StatusGet: R_StatusConnection;
+  S_ExpenseType?: Maybe<S_ExpenseType>;
   S_ExpenseTypeGet: S_ExpenseTypeConnection;
+  S_Resource?: Maybe<S_Resource>;
+  S_ResourceAssignment?: Maybe<S_ResourceAssignment>;
   S_ResourceAssignmentGet: S_ResourceAssignmentConnection;
   S_ResourceGet: S_ResourceConnection;
+  S_ResourceType?: Maybe<S_ResourceType>;
   S_ResourceTypeGet: S_ResourceTypeConnection;
+  S_ResourceUnAvailable?: Maybe<S_ResourceUnAvailable>;
   S_ResourceUnAvailableGet: S_ResourceUnAvailableConnection;
+  S_TimeExpense?: Maybe<S_TimeExpense>;
   S_TimeExpenseGet: S_TimeExpenseConnection;
+  S_TimeExpenseLine?: Maybe<S_TimeExpenseLine>;
   S_TimeExpenseLineGet: S_TimeExpenseLineConnection;
+  S_TimeType?: Maybe<S_TimeType>;
   S_TimeTypeGet: S_TimeTypeConnection;
+  S_Training?: Maybe<S_Training>;
   S_TrainingGet: S_TrainingConnection;
+  S_Training_Class?: Maybe<S_Training_Class>;
   S_Training_ClassGet: S_Training_ClassConnection;
+  T_1099Extract?: Maybe<T_1099Extract>;
   T_1099ExtractGet: T_1099ExtractConnection;
+  T_Aging?: Maybe<T_Aging>;
   T_AgingGet: T_AgingConnection;
+  T_BOMLine?: Maybe<T_BomLine>;
   T_BOMLineGet: T_BomLineConnection;
+  T_BOM_Indented?: Maybe<T_Bom_Indented>;
   T_BOM_IndentedGet: T_Bom_IndentedConnection;
+  T_BankRegister?: Maybe<T_BankRegister>;
   T_BankRegisterGet: T_BankRegisterConnection;
+  T_CashFlow?: Maybe<T_CashFlow>;
   T_CashFlowGet: T_CashFlowConnection;
+  T_DistributionRunDetail?: Maybe<T_DistributionRunDetail>;
   T_DistributionRunDetailGet: T_DistributionRunDetailConnection;
+  T_InventoryValue?: Maybe<T_InventoryValue>;
   T_InventoryValueGet: T_InventoryValueConnection;
+  T_InvoiceGL?: Maybe<T_InvoiceGl>;
   T_InvoiceGLGet: T_InvoiceGlConnection;
+  T_MRP_CRP?: Maybe<T_Mrp_Crp>;
   T_MRP_CRPGet: T_Mrp_CrpConnection;
+  T_Reconciliation?: Maybe<T_Reconciliation>;
   T_ReconciliationGet: T_ReconciliationConnection;
+  T_Replenish?: Maybe<T_Replenish>;
   T_ReplenishGet: T_ReplenishConnection;
+  T_Report?: Maybe<T_Report>;
   T_ReportGet: T_ReportConnection;
+  T_ReportStatement?: Maybe<T_ReportStatement>;
   T_ReportStatementGet: T_ReportStatementConnection;
+  T_Transaction?: Maybe<T_Transaction>;
   T_TransactionGet: T_TransactionConnection;
+  Test?: Maybe<Test>;
   TestGet: TestConnection;
+  U_POSTerminal?: Maybe<U_PosTerminal>;
   U_POSTerminalGet: U_PosTerminalConnection;
+  U_RoleMenu?: Maybe<U_RoleMenu>;
   U_RoleMenuGet: U_RoleMenuConnection;
+  U_WebMenu?: Maybe<U_WebMenu>;
   U_WebMenuGet: U_WebMenuConnection;
+  U_Web_Properties?: Maybe<U_Web_Properties>;
   U_Web_PropertiesGet: U_Web_PropertiesConnection;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AccessLogArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71198,11 +72359,23 @@ export type QueryAd_AccessLogGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AlertArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_AlertGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AlertProcessorArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71216,11 +72389,23 @@ export type QueryAd_AlertProcessorGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AlertProcessorLogArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_AlertProcessorLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AlertRecipientArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71234,11 +72419,23 @@ export type QueryAd_AlertRecipientGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AlertRuleArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_AlertRuleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AllClients_VArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71252,11 +72449,23 @@ export type QueryAd_AllClients_VGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AllUsers_VArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_AllUsers_VGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ArchiveArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71270,11 +72479,23 @@ export type QueryAd_ArchiveGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AttachmentArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_AttachmentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AttachmentNoteArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71288,11 +72509,23 @@ export type QueryAd_AttachmentNoteGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AttributeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_AttributeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Attribute_ValueArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71306,11 +72539,23 @@ export type QueryAd_Attribute_ValueGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AuthorizationAccountArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_AuthorizationAccountGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AuthorizationCredentialArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71324,11 +72569,23 @@ export type QueryAd_AuthorizationCredentialGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_AuthorizationProviderArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_AuthorizationProviderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_BroadcastMessageArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71342,11 +72599,29 @@ export type QueryAd_BroadcastMessageGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ChangeLogArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ChangeLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ChartArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ChartDatasourceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71369,11 +72644,23 @@ export type QueryAd_ChartGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ClientArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ClientGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ClientInfoArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71387,11 +72674,23 @@ export type QueryAd_ClientInfoGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ClientShareArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ClientShareGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ColorArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71405,11 +72704,23 @@ export type QueryAd_ColorGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ColumnArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Column_AccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71423,11 +72734,23 @@ export type QueryAd_Column_AccessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_CtxHelpArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_CtxHelpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_CtxHelpMsgArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71441,11 +72764,23 @@ export type QueryAd_CtxHelpMsgGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_CtxHelpSuggestionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_CtxHelpSuggestionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Document_Action_AccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71459,11 +72794,23 @@ export type QueryAd_Document_Action_AccessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ElementArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ElementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_EntityTypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71477,11 +72824,23 @@ export type QueryAd_EntityTypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ErrorArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ErrorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_FieldArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71495,11 +72854,23 @@ export type QueryAd_FieldGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_FieldGroupArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_FieldGroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_FieldSuggestionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71513,11 +72884,23 @@ export type QueryAd_FieldSuggestionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_FindArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_FindGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_FormArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71531,11 +72914,23 @@ export type QueryAd_FormGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Form_AccessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Form_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_HouseKeepingArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71549,11 +72944,23 @@ export type QueryAd_HouseKeepingGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ImageArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ImageGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ImpFormatArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71567,11 +72974,29 @@ export type QueryAd_ImpFormatGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ImpFormat_RowArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ImpFormat_RowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ImportTemplateArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ImportTemplateAccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71594,11 +73019,23 @@ export type QueryAd_ImportTemplateGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_IndexColumnArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_IndexColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_InfoColumnArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71612,11 +73049,23 @@ export type QueryAd_InfoColumnGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_InfoProcessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_InfoProcessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_InfoRelatedArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71630,11 +73079,23 @@ export type QueryAd_InfoRelatedGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_InfoWindowArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_InfoWindowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_InfoWindow_AccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71648,11 +73109,29 @@ export type QueryAd_InfoWindow_AccessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_IssueArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_IssueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_LabelPrinterArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_LabelPrinterFunctionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71675,11 +73154,23 @@ export type QueryAd_LabelPrinterGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_LanguageArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_LanguageGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_LdapAccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71693,11 +73184,23 @@ export type QueryAd_LdapAccessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_LdapProcessorArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_LdapProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_LdapProcessorLogArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71711,11 +73214,23 @@ export type QueryAd_LdapProcessorLogGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_MenuArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_MenuGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_MessageArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71729,11 +73244,23 @@ export type QueryAd_MessageGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_MigrationScriptArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_MigrationScriptGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ModelValidatorArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71747,11 +73274,23 @@ export type QueryAd_ModelValidatorGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ModificationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ModificationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_NoteArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71765,11 +73304,23 @@ export type QueryAd_NoteGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_OrgArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_OrgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_OrgInfoArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71783,11 +73334,23 @@ export type QueryAd_OrgInfoGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_OrgTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_OrgTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PInstanceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71801,11 +73364,23 @@ export type QueryAd_PInstanceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PInstance_LogArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_PInstance_LogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PInstance_ParaArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71819,11 +73394,23 @@ export type QueryAd_PInstance_ParaGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Package_ExpArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Package_ExpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Package_Exp_DetailArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71837,11 +73424,23 @@ export type QueryAd_Package_Exp_DetailGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Package_ImpArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Package_ImpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Package_Imp_BackupArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71855,11 +73454,23 @@ export type QueryAd_Package_Imp_BackupGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Package_Imp_DetailArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Package_Imp_DetailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Package_Imp_InstArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71873,11 +73484,23 @@ export type QueryAd_Package_Imp_InstGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Package_Imp_ProcArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Package_Imp_ProcGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Package_Uuid_MapArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71891,11 +73514,23 @@ export type QueryAd_Package_Uuid_MapGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PasswordRuleArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_PasswordRuleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Password_HistoryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71909,11 +73544,23 @@ export type QueryAd_Password_HistoryGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PostItArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_PostItGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PreferenceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71927,11 +73574,23 @@ export type QueryAd_PreferenceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintColorArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_PrintColorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintFontArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71945,11 +73604,23 @@ export type QueryAd_PrintFontGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintFormArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_PrintFormGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintFormatArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71963,11 +73634,23 @@ export type QueryAd_PrintFormatGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintFormatItemArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_PrintFormatItemGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintGraphArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71981,11 +73664,23 @@ export type QueryAd_PrintGraphGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintHeaderFooterArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_PrintHeaderFooterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintLabelArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -71999,11 +73694,23 @@ export type QueryAd_PrintLabelGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintLabelLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_PrintLabelLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintPaperArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72017,11 +73724,23 @@ export type QueryAd_PrintPaperGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_PrintTableFormatArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_PrintTableFormatGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Private_AccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72035,11 +73754,23 @@ export type QueryAd_Private_AccessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ProcessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ProcessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Process_AccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72053,11 +73784,23 @@ export type QueryAd_Process_AccessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Process_ParaArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Process_ParaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_RecentItemArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72071,11 +73814,23 @@ export type QueryAd_RecentItemGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Record_AccessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Record_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Ref_ListArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72089,11 +73844,23 @@ export type QueryAd_Ref_ListGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Ref_TableArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Ref_TableGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ReferenceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72107,6 +73874,12 @@ export type QueryAd_ReferenceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_RegistrationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_RegistrationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -72116,11 +73889,29 @@ export type QueryAd_RegistrationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_RelationTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_RelationTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ReplicationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ReplicationDocumentArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72143,11 +73934,23 @@ export type QueryAd_ReplicationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ReplicationStrategyArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ReplicationStrategyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ReplicationTableArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72161,11 +73964,23 @@ export type QueryAd_ReplicationTableGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Replication_LogArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Replication_LogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Replication_RunArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72179,11 +73994,23 @@ export type QueryAd_Replication_RunGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ReportViewArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ReportViewGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ReportView_ColArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72197,11 +74024,23 @@ export type QueryAd_ReportView_ColGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ReportView_ColumnArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ReportView_ColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_RoleArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72215,11 +74054,23 @@ export type QueryAd_RoleGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Role_IncludedArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Role_IncludedGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Role_OrgAccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72233,11 +74084,23 @@ export type QueryAd_Role_OrgAccessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_RuleArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_RuleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ScheduleArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72251,11 +74114,23 @@ export type QueryAd_ScheduleGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_SchedulerArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_SchedulerGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_SchedulerLogArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72269,11 +74144,23 @@ export type QueryAd_SchedulerLogGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_SchedulerRecipientArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_SchedulerRecipientGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Scheduler_ParaArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72287,11 +74174,23 @@ export type QueryAd_Scheduler_ParaGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_SearchDefinitionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_SearchDefinitionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_SequenceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72305,11 +74204,23 @@ export type QueryAd_SequenceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Sequence_AuditArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Sequence_AuditGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Sequence_NoArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72323,11 +74234,23 @@ export type QueryAd_Sequence_NoGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_SessionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_SessionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_StatusLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72341,11 +74264,23 @@ export type QueryAd_StatusLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_StatusLineUsedInArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_StatusLineUsedInGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_StorageProviderArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72359,11 +74294,23 @@ export type QueryAd_StorageProviderGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_StyleArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_StyleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_StyleLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72377,11 +74324,23 @@ export type QueryAd_StyleLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_SysConfigArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_SysConfigGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_SystemArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72395,11 +74354,23 @@ export type QueryAd_SystemGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TabArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_TabGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Tab_CustomizationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72413,11 +74384,23 @@ export type QueryAd_Tab_CustomizationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TableArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_TableGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TableIndexArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72431,11 +74414,23 @@ export type QueryAd_TableIndexGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Table_AccessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Table_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Table_ScriptValidatorArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72449,11 +74444,23 @@ export type QueryAd_Table_ScriptValidatorGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TaskArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_TaskGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TaskInstanceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72467,11 +74474,23 @@ export type QueryAd_TaskInstanceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Task_AccessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Task_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ToolBarButtonArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72485,11 +74504,23 @@ export type QueryAd_ToolBarButtonGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ToolBarButtonRestrictArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ToolBarButtonRestrictGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72503,11 +74534,29 @@ export type QueryAd_TreeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeBpArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_TreeNodeBpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeCmcArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72521,6 +74570,12 @@ export type QueryAd_TreeNodeCmcGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeCmmArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_TreeNodeCmmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -72530,11 +74585,23 @@ export type QueryAd_TreeNodeCmmGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeCmsArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_TreeNodeCmsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeCmtArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72557,11 +74624,23 @@ export type QueryAd_TreeNodeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeMmArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_TreeNodeMmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodePrArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72575,11 +74654,23 @@ export type QueryAd_TreeNodePrGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeU1Args = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_TreeNodeU1GetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeU2Args = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72593,11 +74684,23 @@ export type QueryAd_TreeNodeU2GetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeU3Args = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_TreeNodeU3GetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_TreeNodeU4Args = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72611,11 +74714,23 @@ export type QueryAd_TreeNodeU4GetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Tree_FavoriteArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Tree_FavoriteGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Tree_Favorite_NodeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72629,11 +74744,29 @@ export type QueryAd_Tree_Favorite_NodeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserBpAccessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_UserBpAccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserDef_FieldArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72647,11 +74780,23 @@ export type QueryAd_UserDef_FieldGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserDef_InfoArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_UserDef_InfoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserDef_Info_ColumnArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72665,11 +74810,23 @@ export type QueryAd_UserDef_Info_ColumnGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserDef_Info_RelatedArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_UserDef_Info_RelatedGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserDef_ProcArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72683,6 +74840,12 @@ export type QueryAd_UserDef_ProcGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserDef_Proc_ParameterArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_UserDef_Proc_ParameterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -72692,11 +74855,23 @@ export type QueryAd_UserDef_Proc_ParameterGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserDef_TabArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_UserDef_TabGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserDef_WinArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72719,11 +74894,23 @@ export type QueryAd_UserGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserMailArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_UserMailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserPreferenceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72737,11 +74924,23 @@ export type QueryAd_UserPreferenceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_UserQueryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_UserQueryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_User_OrgAccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72755,11 +74954,23 @@ export type QueryAd_User_OrgAccessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_User_RolesArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_User_RolesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_User_SubstituteArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72773,11 +74984,23 @@ export type QueryAd_User_SubstituteGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Val_RuleArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Val_RuleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ViewColumnArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72791,11 +75014,29 @@ export type QueryAd_ViewColumnGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ViewComponentArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ViewComponentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_ActivityArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_ActivityApproverArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72818,11 +75059,23 @@ export type QueryAd_Wf_ActivityGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_ActivityResultArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Wf_ActivityResultGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_BlockArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72836,11 +75089,23 @@ export type QueryAd_Wf_BlockGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_EventAuditArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Wf_EventAuditGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_NextConditionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72854,11 +75119,23 @@ export type QueryAd_Wf_NextConditionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_NodeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Wf_NodeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_NodeNextArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72872,11 +75149,29 @@ export type QueryAd_Wf_NodeNextGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_Node_ParaArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Wf_Node_ParaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_ProcessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_ProcessDataArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72899,11 +75194,23 @@ export type QueryAd_Wf_ProcessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Wf_ResponsibleArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Wf_ResponsibleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_WindowArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72917,11 +75224,23 @@ export type QueryAd_WindowGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Window_AccessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_Window_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_WizardProcessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72935,11 +75254,23 @@ export type QueryAd_WizardProcessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_WorkflowArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_WorkflowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_WorkflowProcessorArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72953,11 +75284,23 @@ export type QueryAd_WorkflowProcessorGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_WorkflowProcessorLogArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_WorkflowProcessorLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_Workflow_AccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72971,11 +75314,23 @@ export type QueryAd_Workflow_AccessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAd_ZoomConditionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAd_ZoomConditionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_ClientExceptionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -72989,11 +75344,23 @@ export type QueryAsp_ClientExceptionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_ClientLevelArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAsp_ClientLevelGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_FieldArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73007,11 +75374,23 @@ export type QueryAsp_FieldGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_FormArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAsp_FormGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_LevelArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73025,11 +75404,23 @@ export type QueryAsp_LevelGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_ModuleArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAsp_ModuleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_ProcessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73043,11 +75434,23 @@ export type QueryAsp_ProcessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_Process_ParaArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAsp_Process_ParaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_Ref_ListArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73061,11 +75464,23 @@ export type QueryAsp_Ref_ListGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_TabArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAsp_TabGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_TaskArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73079,11 +75494,23 @@ export type QueryAsp_TaskGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_WindowArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryAsp_WindowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryAsp_WorkflowArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73097,11 +75524,23 @@ export type QueryAsp_WorkflowGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_AssetArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_AssetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73115,11 +75554,23 @@ export type QueryA_Asset_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_AdditionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_AdditionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_ChangeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73133,11 +75584,23 @@ export type QueryA_Asset_ChangeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_ClassArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_ClassGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_DeliveryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73151,11 +75614,23 @@ export type QueryA_Asset_DeliveryGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_DisposedArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_DisposedGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_GroupArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73169,11 +75644,23 @@ export type QueryA_Asset_GroupGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_Group_AcctArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_Group_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_Info_FinArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73187,11 +75674,23 @@ export type QueryA_Asset_Info_FinGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_Info_InsArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_Info_InsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_Info_LicArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73205,11 +75704,23 @@ export type QueryA_Asset_Info_LicGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_Info_OthArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_Info_OthGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_Info_TaxArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73223,11 +75734,23 @@ export type QueryA_Asset_Info_TaxGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_ProductArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_ProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_RetirementArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73241,11 +75764,23 @@ export type QueryA_Asset_RetirementGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_RevalArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_RevalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_Reval_EntryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73259,11 +75794,23 @@ export type QueryA_Asset_Reval_EntryGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_Reval_IndexArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_Reval_IndexGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_SplitArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73277,11 +75824,23 @@ export type QueryA_Asset_SplitGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_TransferArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_TransferGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_TypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73295,11 +75854,23 @@ export type QueryA_Asset_TypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Asset_UseArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Asset_UseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_DepreciationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73313,11 +75884,23 @@ export type QueryA_DepreciationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Depreciation_BuildArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Depreciation_BuildGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Depreciation_ConventionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73331,11 +75914,23 @@ export type QueryA_Depreciation_ConventionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Depreciation_EntryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Depreciation_EntryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Depreciation_ExpArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73349,11 +75944,23 @@ export type QueryA_Depreciation_ExpGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Depreciation_ForecastArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Depreciation_ForecastGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Depreciation_MethodArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73367,11 +75974,23 @@ export type QueryA_Depreciation_MethodGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Depreciation_Table_DetailArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Depreciation_Table_DetailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Depreciation_Table_HeaderArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73385,11 +76004,23 @@ export type QueryA_Depreciation_Table_HeaderGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_Depreciation_WorkfileArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_Depreciation_WorkfileGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_FundingModeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73403,11 +76034,29 @@ export type QueryA_FundingModeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_FundingMode_AcctArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_FundingMode_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_RegistrationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_RegistrationAttributeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73430,11 +76079,23 @@ export type QueryA_RegistrationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_RegistrationProductArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryA_RegistrationProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryA_RegistrationValueArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73448,11 +76109,23 @@ export type QueryA_RegistrationValueGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Bp_General_Payer_InfoArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Bp_General_Payer_InfoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Bp_Payer_InfoArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73466,11 +76139,23 @@ export type QueryBh_Bp_Payer_InfoGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Bp_Specific_Payer_InfoArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Bp_Specific_Payer_InfoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Coded_DiagnosisArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73484,11 +76169,98 @@ export type QueryBh_Coded_DiagnosisGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Coded_Diagnosis_MappingArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Coded_Diagnosis_MappingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_ConceptArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_ConceptGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Concept_DescriptionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Concept_DescriptionGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Concept_ExtraArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Concept_ExtraGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Concept_MappingArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Concept_MappingGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Concept_NameArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Concept_NameGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_DefaultIncludedRoleArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73502,11 +76274,23 @@ export type QueryBh_DefaultIncludedRoleGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Default_DocAction_AccessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Default_DocAction_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_EncounterArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73520,11 +76304,23 @@ export type QueryBh_EncounterGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Encounter_DiagnosisArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Encounter_DiagnosisGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Encounter_Type_WindowArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73538,11 +76334,23 @@ export type QueryBh_Encounter_Type_WindowGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_I_Product_QuantityArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_I_Product_QuantityGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_ObservationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73556,11 +76364,23 @@ export type QueryBh_ObservationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Payer_Info_FldArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Payer_Info_FldGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Payer_Info_Fld_SugArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73574,11 +76394,23 @@ export type QueryBh_Payer_Info_Fld_SugGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Payer_Info_Fld_ValArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Payer_Info_Fld_ValGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Payer_Info_Fld_Val_SugArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73592,11 +76424,23 @@ export type QueryBh_Payer_Info_Fld_Val_SugGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_PaymentRefArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_PaymentRefGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_PaymentRef_BankAcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73610,11 +76454,23 @@ export type QueryBh_PaymentRef_BankAcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Product_CategoryDefaultArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Product_CategoryDefaultGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Role_WarehouseAccessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73628,6 +76484,12 @@ export type QueryBh_Role_WarehouseAccessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_VisitArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_VisitGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -73637,11 +76499,29 @@ export type QueryBh_VisitGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Voided_ReasonArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Voided_ReasonGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryB_BidArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryB_BidCommentArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73664,6 +76544,18 @@ export type QueryB_BidGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryB_BuyerArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryB_BuyerFundsArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryB_BuyerFundsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -73682,11 +76574,29 @@ export type QueryB_BuyerGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryB_OfferArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryB_OfferGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryB_SellerArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryB_SellerFundsArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73709,6 +76619,18 @@ export type QueryB_SellerGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryB_TopicArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryB_TopicCategoryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryB_TopicCategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -73727,11 +76649,29 @@ export type QueryB_TopicGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryB_TopicTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryB_TopicTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryCm_ChatArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryCm_ChatEntryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73754,11 +76694,23 @@ export type QueryCm_ChatGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryCm_ChatTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryCm_ChatTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryCm_ChatTypeUpdateArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73772,11 +76724,23 @@ export type QueryCm_ChatTypeUpdateGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryCm_ChatUpdateArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryCm_ChatUpdateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_1099BoxArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73790,11 +76754,23 @@ export type QueryC_1099BoxGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AcctProcessorArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_AcctProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AcctProcessorLogArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73808,11 +76784,23 @@ export type QueryC_AcctProcessorLogGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AcctSchemaArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_AcctSchemaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AcctSchema_DefaultArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73826,11 +76814,23 @@ export type QueryC_AcctSchema_DefaultGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AcctSchema_ElementArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_AcctSchema_ElementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AcctSchema_GlArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73844,6 +76844,12 @@ export type QueryC_AcctSchema_GlGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ActivityArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_ActivityGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -73853,11 +76859,29 @@ export type QueryC_ActivityGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AddressTransactionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_AddressTransactionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AddressValidationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AddressValidationCfgArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73880,11 +76904,23 @@ export type QueryC_AddressValidationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AllocationHdrArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_AllocationHdrGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_AllocationLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73898,11 +76934,23 @@ export type QueryC_AllocationLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Bp_BankAccountArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_Bp_BankAccountGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Bp_Customer_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73916,11 +76964,23 @@ export type QueryC_Bp_Customer_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Bp_EdiArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_Bp_EdiGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Bp_Employee_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73934,11 +76994,23 @@ export type QueryC_Bp_Employee_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Bp_GroupArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_Bp_GroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Bp_Group_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73952,11 +77024,23 @@ export type QueryC_Bp_Group_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Bp_RelationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_Bp_RelationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Bp_ShippingAcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73970,11 +77054,23 @@ export type QueryC_Bp_ShippingAcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Bp_Vendor_AcctArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_Bp_Vendor_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Bp_WithholdingArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -73988,11 +77084,23 @@ export type QueryC_Bp_WithholdingGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BPartnerArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_BPartnerGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BPartner_LocationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74006,11 +77114,35 @@ export type QueryC_BPartner_LocationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BPartner_ProductArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_BPartner_ProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BankArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BankAccountArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BankAccountDocArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74033,11 +77165,23 @@ export type QueryC_BankAccountGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BankAccount_AcctArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_BankAccount_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BankAccount_ProcessorArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74060,11 +77204,23 @@ export type QueryC_BankGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BankStatementArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_BankStatementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BankStatementLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74078,11 +77234,23 @@ export type QueryC_BankStatementLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BankStatementLoaderArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_BankStatementLoaderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BankStatementMatcherArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74096,11 +77264,23 @@ export type QueryC_BankStatementMatcherGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_BankTransferArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_BankTransferGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CalendarArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74114,6 +77294,12 @@ export type QueryC_CalendarGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CampaignArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CampaignGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -74123,11 +77309,29 @@ export type QueryC_CampaignGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CashArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CashBookArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CashBookGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CashBook_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74150,11 +77354,23 @@ export type QueryC_CashGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CashLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CashLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CashPlanArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74168,11 +77384,23 @@ export type QueryC_CashPlanGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CashPlanLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CashPlanLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ChannelArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74186,11 +77414,23 @@ export type QueryC_ChannelGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ChargeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_ChargeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ChargeTypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74204,11 +77444,23 @@ export type QueryC_ChargeTypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ChargeType_DocTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_ChargeType_DocTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Charge_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74222,6 +77474,12 @@ export type QueryC_Charge_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CityArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CityGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -74231,11 +77489,29 @@ export type QueryC_CityGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CommissionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CommissionAmtArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CommissionAmtGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CommissionDetailArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74258,11 +77534,23 @@ export type QueryC_CommissionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CommissionLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CommissionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CommissionRunArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74276,11 +77564,23 @@ export type QueryC_CommissionRunGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ContactActivityArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_ContactActivityGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ConversionTypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74294,6 +77594,12 @@ export type QueryC_ConversionTypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Conversion_RateArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_Conversion_RateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -74303,11 +77609,29 @@ export type QueryC_Conversion_RateGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CountryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CountryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CountryGroupArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CountryGroupCountryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74330,11 +77654,23 @@ export type QueryC_CountryGroupGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CurrencyArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CurrencyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Currency_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74348,11 +77684,23 @@ export type QueryC_Currency_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CycleArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CycleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CyclePhaseArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74366,11 +77714,23 @@ export type QueryC_CyclePhaseGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_CycleStepArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_CycleStepGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_DepositBatchArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74384,11 +77744,29 @@ export type QueryC_DepositBatchGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_DepositBatchLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_DepositBatchLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_DocTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_DocTypeCounterArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74411,6 +77789,12 @@ export type QueryC_DocTypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_DunningArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_DunningGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -74420,11 +77804,29 @@ export type QueryC_DunningGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_DunningLevelArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_DunningLevelGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_DunningRunArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_DunningRunEntryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74447,11 +77849,23 @@ export type QueryC_DunningRunGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_DunningRunLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_DunningRunLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ElementArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74465,11 +77879,23 @@ export type QueryC_ElementGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ElementValueArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_ElementValueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_GreetingArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74483,6 +77909,12 @@ export type QueryC_GreetingGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_InterOrg_AcctArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_InterOrg_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -74492,11 +77924,29 @@ export type QueryC_InterOrg_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_InvoiceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_InvoiceBatchArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_InvoiceBatchGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_InvoiceBatchLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74519,11 +77969,23 @@ export type QueryC_InvoiceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_InvoiceLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_InvoiceLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_InvoicePayScheduleArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74537,11 +77999,23 @@ export type QueryC_InvoicePayScheduleGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_InvoiceScheduleArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_InvoiceScheduleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_InvoiceTaxArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74555,11 +78029,29 @@ export type QueryC_InvoiceTaxGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_JobArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_JobAssignmentArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_JobAssignmentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_JobCategoryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74582,11 +78074,29 @@ export type QueryC_JobGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_JobRemunerationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_JobRemunerationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_LandedCostArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_LandedCostAllocationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74609,11 +78119,23 @@ export type QueryC_LandedCostGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_LocationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_LocationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_NonBusinessDayArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74627,11 +78149,23 @@ export type QueryC_NonBusinessDayGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_OnlineTrxHistoryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_OnlineTrxHistoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_OpportunityArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74645,11 +78179,29 @@ export type QueryC_OpportunityGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_OrderArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_OrderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_OrderLandedCostArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_OrderLandedCostAllocationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74672,11 +78224,23 @@ export type QueryC_OrderLandedCostGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_OrderLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_OrderLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_OrderPayScheduleArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74690,11 +78254,23 @@ export type QueryC_OrderPayScheduleGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_OrderSourceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_OrderSourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_OrderTaxArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74708,11 +78284,23 @@ export type QueryC_OrderTaxGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_OrgAssignmentArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_OrgAssignmentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PosArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74726,11 +78314,23 @@ export type QueryC_PosGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PosKeyArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_PosKeyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PosKeyLayoutArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74744,11 +78344,23 @@ export type QueryC_PosKeyLayoutGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PosPaymentArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_PosPaymentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PosTenderTypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74762,11 +78374,29 @@ export type QueryC_PosTenderTypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PayScheduleArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_PayScheduleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PaySelectionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PaySelectionCheckArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74789,6 +78419,12 @@ export type QueryC_PaySelectionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PaySelectionLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_PaySelectionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -74798,11 +78434,29 @@ export type QueryC_PaySelectionLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PaymentArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PaymentAllocateArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_PaymentAllocateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PaymentBatchArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74825,11 +78479,23 @@ export type QueryC_PaymentGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PaymentProcessorArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_PaymentProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PaymentTermArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74843,11 +78509,29 @@ export type QueryC_PaymentTermGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PaymentTransactionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_PaymentTransactionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PeriodArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PeriodControlArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74870,11 +78554,23 @@ export type QueryC_PeriodGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_PhaseArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_PhaseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ProjectArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74888,11 +78584,23 @@ export type QueryC_ProjectGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ProjectIssueArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_ProjectIssueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ProjectIssueMaArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74906,11 +78614,23 @@ export type QueryC_ProjectIssueMaGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ProjectLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_ProjectLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ProjectPhaseArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74924,11 +78644,23 @@ export type QueryC_ProjectPhaseGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ProjectTaskArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_ProjectTaskGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ProjectTypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74942,11 +78674,23 @@ export type QueryC_ProjectTypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Project_AcctArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_Project_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RecurringArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74960,11 +78704,23 @@ export type QueryC_RecurringGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RecurringGroupArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_RecurringGroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Recurring_RunArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74978,11 +78734,23 @@ export type QueryC_Recurring_RunGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RegionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_RegionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RemunerationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -74996,11 +78764,23 @@ export type QueryC_RemunerationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RevenueRecog_ServiceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_RevenueRecog_ServiceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RevenueRecognitionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75014,11 +78794,23 @@ export type QueryC_RevenueRecognitionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RevenueRecognition_PlanArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_RevenueRecognition_PlanGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RevenueRecognition_RunArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75032,11 +78824,23 @@ export type QueryC_RevenueRecognition_RunGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RfQArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_RfQGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RfQLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75050,11 +78854,23 @@ export type QueryC_RfQLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RfQLineQtyArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_RfQLineQtyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RfQResponseArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75068,11 +78884,23 @@ export type QueryC_RfQResponseGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RfQResponseLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_RfQResponseLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RfQResponseLineQtyArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75086,11 +78914,23 @@ export type QueryC_RfQResponseLineQtyGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RfQ_TopicArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_RfQ_TopicGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RfQ_TopicSubscriberArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75104,11 +78944,23 @@ export type QueryC_RfQ_TopicSubscriberGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_RfQ_TopicSubscriberOnlyArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_RfQ_TopicSubscriberOnlyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_SalesRegionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75122,11 +78974,23 @@ export type QueryC_SalesRegionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_SalesStageArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_SalesStageGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ServiceLevelArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75140,11 +79004,23 @@ export type QueryC_ServiceLevelGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ServiceLevelLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_ServiceLevelLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_SubAcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75158,11 +79034,23 @@ export type QueryC_SubAcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_SubscriptionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_SubscriptionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_SubscriptionTypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75176,11 +79064,23 @@ export type QueryC_SubscriptionTypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Subscription_DeliveryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_Subscription_DeliveryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaskArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75194,6 +79094,18 @@ export type QueryC_TaskGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxBaseArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_TaxBaseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -75203,11 +79115,29 @@ export type QueryC_TaxBaseGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxCategoryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_TaxCategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxDeclarationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxDeclarationAcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75230,11 +79160,23 @@ export type QueryC_TaxDeclarationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxDeclarationLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_TaxDeclarationLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxDefinitionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75257,6 +79199,12 @@ export type QueryC_TaxGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxGroupArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_TaxGroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -75266,11 +79214,29 @@ export type QueryC_TaxGroupGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxPostalArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_TaxPostalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxProviderArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxProviderCfgArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75293,11 +79259,23 @@ export type QueryC_TaxProviderGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_TaxTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_TaxTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Tax_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75311,11 +79289,23 @@ export type QueryC_Tax_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_UomArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_UomGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Uom_ConversionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75329,11 +79319,23 @@ export type QueryC_Uom_ConversionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_UserRemunerationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_UserRemunerationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_ValidCombinationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75347,11 +79349,23 @@ export type QueryC_ValidCombinationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_WithholdingArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_WithholdingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_Withholding_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75365,11 +79379,23 @@ export type QueryC_Withholding_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryC_YearArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryC_YearGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDd_NetworkDistributionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75383,11 +79409,23 @@ export type QueryDd_NetworkDistributionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDd_NetworkDistributionLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryDd_NetworkDistributionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDd_OrderArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75401,11 +79439,23 @@ export type QueryDd_OrderGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDd_OrderLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryDd_OrderLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryExp_FormatArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75419,11 +79469,23 @@ export type QueryExp_FormatGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryExp_FormatLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryExp_FormatLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryExp_ProcessorArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75437,11 +79499,23 @@ export type QueryExp_ProcessorGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryExp_ProcessorParameterArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryExp_ProcessorParameterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryExp_Processor_TypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75455,11 +79529,23 @@ export type QueryExp_Processor_TypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryFact_AcctArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryFact_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryFact_Acct_SummaryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75473,11 +79559,29 @@ export type QueryFact_Acct_SummaryGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryFact_ReconciliationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryFact_ReconciliationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_BudgetArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_BudgetControlArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75500,11 +79604,23 @@ export type QueryGl_BudgetGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_CategoryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryGl_CategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_DistributionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75518,11 +79634,23 @@ export type QueryGl_DistributionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_DistributionLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryGl_DistributionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_FundArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75536,11 +79664,29 @@ export type QueryGl_FundGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_FundRestrictionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryGl_FundRestrictionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_JournalArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_JournalBatchArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75554,6 +79700,12 @@ export type QueryGl_JournalBatchGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_JournalGeneratorArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryGl_JournalGeneratorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -75563,11 +79715,23 @@ export type QueryGl_JournalGeneratorGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_JournalGeneratorLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryGl_JournalGeneratorLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_JournalGeneratorSourceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75590,11 +79754,23 @@ export type QueryGl_JournalGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryGl_JournalLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryGl_JournalLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_AttributeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75608,11 +79784,23 @@ export type QueryHr_AttributeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_ConceptArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryHr_ConceptGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_Concept_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75626,11 +79814,23 @@ export type QueryHr_Concept_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_Concept_CategoryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryHr_Concept_CategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_ContractArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75644,11 +79844,23 @@ export type QueryHr_ContractGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_DepartmentArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryHr_DepartmentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_EmployeeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75662,11 +79874,23 @@ export type QueryHr_EmployeeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_JobArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryHr_JobGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_ListArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75680,11 +79904,23 @@ export type QueryHr_ListGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_ListLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryHr_ListLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_ListTypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75698,6 +79934,12 @@ export type QueryHr_ListTypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_ListVersionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryHr_ListVersionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -75707,11 +79949,29 @@ export type QueryHr_ListVersionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_MovementArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryHr_MovementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_PayrollArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_PayrollConceptArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75734,11 +79994,23 @@ export type QueryHr_PayrollGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_PeriodArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryHr_PeriodGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_ProcessArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75752,11 +80024,23 @@ export type QueryHr_ProcessGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryHr_YearArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryHr_YearGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryImp_ProcessorArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75770,11 +80054,23 @@ export type QueryImp_ProcessorGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryImp_ProcessorLogArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryImp_ProcessorLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryImp_ProcessorParameterArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75788,11 +80084,23 @@ export type QueryImp_ProcessorParameterGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryImp_Processor_TypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryImp_Processor_TypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_AssetArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75806,11 +80114,23 @@ export type QueryI_AssetGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_BPartnerArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryI_BPartnerGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_BankStatementArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75824,11 +80144,23 @@ export type QueryI_BankStatementGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_Conversion_RateArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryI_Conversion_RateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_ElementValueArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75842,11 +80174,23 @@ export type QueryI_ElementValueGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_FaJournalArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryI_FaJournalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_FixedAssetArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75860,11 +80204,23 @@ export type QueryI_FixedAssetGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_GlJournalArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryI_GlJournalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_Hr_MovementArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75878,11 +80234,23 @@ export type QueryI_Hr_MovementGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_InOutLineConfirmArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryI_InOutLineConfirmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_InventoryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75896,11 +80264,23 @@ export type QueryI_InventoryGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_InvoiceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryI_InvoiceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_MovementArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75914,11 +80294,23 @@ export type QueryI_MovementGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_OrderArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryI_OrderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_PaymentArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75932,11 +80324,23 @@ export type QueryI_PaymentGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_PriceListArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryI_PriceListGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_ProductArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75950,11 +80354,23 @@ export type QueryI_ProductGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_ProductPlanningArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryI_ProductPlanningGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryI_ReportLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75977,11 +80393,23 @@ export type QueryInventoryTransactionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_AttributeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_AttributeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_AttributeInstanceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -75995,11 +80423,29 @@ export type QueryM_AttributeInstanceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_AttributeSearchArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_AttributeSearchGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_AttributeSetArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_AttributeSetExcludeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76022,11 +80468,23 @@ export type QueryM_AttributeSetGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_AttributeSetInstanceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_AttributeSetInstanceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_AttributeUseArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76040,11 +80498,23 @@ export type QueryM_AttributeUseGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_AttributeValueArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_AttributeValueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_BomAlternativeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76058,11 +80528,23 @@ export type QueryM_BomAlternativeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_Bp_PriceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_Bp_PriceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ChangeNoticeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76076,11 +80558,23 @@ export type QueryM_ChangeNoticeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ChangeRequestArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ChangeRequestGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_CommodityShipmentArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76094,11 +80588,29 @@ export type QueryM_CommodityShipmentGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_CostArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_CostDetailArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_CostDetailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_CostElementArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76121,11 +80633,23 @@ export type QueryM_CostGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_CostHistoryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_CostHistoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_CostQueueArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76139,11 +80663,29 @@ export type QueryM_CostQueueGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_CostTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_CostTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_DemandArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_DemandDetailArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76166,11 +80708,29 @@ export type QueryM_DemandGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_DemandLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_DemandLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_DiscountSchemaArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_DiscountSchemaBreakArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76193,11 +80753,23 @@ export type QueryM_DiscountSchemaGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_DiscountSchemaLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_DiscountSchemaLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_DistributionListArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76211,11 +80783,23 @@ export type QueryM_DistributionListGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_DistributionListLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_DistributionListLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_DistributionRunArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76229,11 +80813,23 @@ export type QueryM_DistributionRunGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_DistributionRunLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_DistributionRunLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ForecastArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76247,11 +80843,29 @@ export type QueryM_ForecastGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ForecastLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ForecastLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_FreightArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_FreightCategoryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76274,6 +80888,18 @@ export type QueryM_FreightGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_InOutArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_InOutConfirmArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_InOutConfirmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -76288,6 +80914,18 @@ export type QueryM_InOutGetArgs = {
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_InOutLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_InOutLineConfirmArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76310,11 +80948,23 @@ export type QueryM_InOutLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_InOutLineMaArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_InOutLineMaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_InventoryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76328,11 +80978,23 @@ export type QueryM_InventoryGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_InventoryLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_InventoryLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_InventoryLineMaArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76346,6 +81008,12 @@ export type QueryM_InventoryLineMaGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_LocatorArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_LocatorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -76355,11 +81023,35 @@ export type QueryM_LocatorGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_LocatorTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_LocatorTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_LotArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_LotCtlArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_LotCtlExcludeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76391,6 +81083,12 @@ export type QueryM_LotGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_MatchInvArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_MatchInvGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -76400,11 +81098,29 @@ export type QueryM_MatchInvGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_MatchPoArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_MatchPoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_MovementArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_MovementConfirmArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76427,6 +81143,18 @@ export type QueryM_MovementGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_MovementLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_MovementLineConfirmArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_MovementLineConfirmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -76445,11 +81173,23 @@ export type QueryM_MovementLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_MovementLineMaArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_MovementLineMaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_OperationResourceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76463,11 +81203,23 @@ export type QueryM_OperationResourceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PackageArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_PackageGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PackageLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76481,11 +81233,23 @@ export type QueryM_PackageLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PackageMpsArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_PackageMpsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PartTypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76499,11 +81263,23 @@ export type QueryM_PartTypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PerpetualInvArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_PerpetualInvGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PriceListArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76517,11 +81293,29 @@ export type QueryM_PriceListGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PriceList_VersionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_PriceList_VersionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ProductArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ProductDownloadArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76544,11 +81338,23 @@ export type QueryM_ProductGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ProductOperationArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ProductOperationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ProductPriceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76562,11 +81368,23 @@ export type QueryM_ProductPriceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ProductPriceVendorBreakArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ProductPriceVendorBreakGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_Product_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76580,11 +81398,23 @@ export type QueryM_Product_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_Product_CategoryArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_Product_CategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_Product_Category_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76598,11 +81428,23 @@ export type QueryM_Product_Category_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_Product_PoArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_Product_PoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_Product_QualityTestArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76616,11 +81458,23 @@ export type QueryM_Product_QualityTestGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ProductionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ProductionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ProductionLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76634,6 +81488,12 @@ export type QueryM_ProductionLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ProductionLineMaArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ProductionLineMaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -76643,11 +81503,29 @@ export type QueryM_ProductionLineMaGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ProductionPlanArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ProductionPlanGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PromotionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PromotionDistributionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76670,11 +81548,23 @@ export type QueryM_PromotionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PromotionGroupArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_PromotionGroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PromotionGroupLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76688,11 +81578,23 @@ export type QueryM_PromotionGroupLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PromotionLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_PromotionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PromotionPreConditionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76706,11 +81608,23 @@ export type QueryM_PromotionPreConditionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_PromotionRewardArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_PromotionRewardGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_QualityTestArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76724,11 +81638,23 @@ export type QueryM_QualityTestGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_QualityTestResultArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_QualityTestResultGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_RmaArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76742,11 +81668,23 @@ export type QueryM_RmaGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_RmaLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_RmaLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_RmaTaxArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76760,11 +81698,23 @@ export type QueryM_RmaTaxGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_RmaTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_RmaTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_RelatedProductArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76778,11 +81728,23 @@ export type QueryM_RelatedProductGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ReplenishArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ReplenishGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_RequisitionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76796,11 +81758,29 @@ export type QueryM_RequisitionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_RequisitionLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_RequisitionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_SerNoCtlArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_SerNoCtlExcludeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76823,6 +81803,18 @@ export type QueryM_SerNoCtlGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShipperArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShipperCfgArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ShipperCfgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -76837,6 +81829,18 @@ export type QueryM_ShipperGetArgs = {
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShipperLabelsArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShipperLabelsCfgArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76859,6 +81863,18 @@ export type QueryM_ShipperLabelsGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShipperPackagingArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShipperPackagingCfgArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ShipperPackagingCfgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -76873,6 +81889,18 @@ export type QueryM_ShipperPackagingGetArgs = {
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShipperPickupTypesArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShipperPickupTypesCfgArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76895,6 +81923,18 @@ export type QueryM_ShipperPickupTypesGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShippingProcessorArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShippingProcessorCfgArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ShippingProcessorCfgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -76913,11 +81953,23 @@ export type QueryM_ShippingProcessorGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShippingTransactionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_ShippingTransactionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_ShippingTransactionLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76931,11 +81983,23 @@ export type QueryM_ShippingTransactionLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_StorageOnHandArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_StorageOnHandGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_StorageReservationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76949,11 +82013,29 @@ export type QueryM_StorageReservationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_SubstituteArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_SubstituteGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_TransactionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_TransactionAllocationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76976,11 +82058,23 @@ export type QueryM_TransactionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_WarehouseArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_WarehouseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryM_Warehouse_AcctArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -76994,11 +82088,29 @@ export type QueryM_Warehouse_AcctGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_AchievementArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_AchievementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_BenchmarkArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_BenchmarkDataArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77021,11 +82133,23 @@ export type QueryPa_BenchmarkGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_ColorSchemaArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_ColorSchemaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_DashboardContentArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77039,11 +82163,23 @@ export type QueryPa_DashboardContentGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_DashboardContent_AccessArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_DashboardContent_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_DashboardPreferenceArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77057,11 +82193,23 @@ export type QueryPa_DashboardPreferenceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_DocumentStatusArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_DocumentStatusGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_GoalArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77075,6 +82223,12 @@ export type QueryPa_GoalGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_GoalRestrictionArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_GoalRestrictionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -77084,11 +82238,29 @@ export type QueryPa_GoalRestrictionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_HierarchyArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_HierarchyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_MeasureArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_MeasureCalcArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77111,6 +82283,18 @@ export type QueryPa_MeasureGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_RatioArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_RatioElementArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_RatioElementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -77129,6 +82313,18 @@ export type QueryPa_RatioGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_ReportArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_ReportColumnArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_ReportColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -77138,11 +82334,23 @@ export type QueryPa_ReportColumnGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_ReportColumnSetArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_ReportColumnSetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_ReportCubeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77165,11 +82373,23 @@ export type QueryPa_ReportGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_ReportLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_ReportLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_ReportLineSetArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77183,11 +82403,23 @@ export type QueryPa_ReportLineSetGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_ReportSourceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_ReportSourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_Sla_CriteriaArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77201,11 +82433,23 @@ export type QueryPa_Sla_CriteriaGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_Sla_GoalArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPa_Sla_GoalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPa_Sla_MeasureArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77219,11 +82463,23 @@ export type QueryPa_Sla_MeasureGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Cost_CollectorArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPp_Cost_CollectorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Cost_CollectorMaArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77237,11 +82493,23 @@ export type QueryPp_Cost_CollectorMaGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_MrpArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPp_MrpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_OrderArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77255,11 +82523,23 @@ export type QueryPp_OrderGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Order_BomArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPp_Order_BomGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Order_BomLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77273,11 +82553,23 @@ export type QueryPp_Order_BomLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Order_CostArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPp_Order_CostGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Order_NodeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77291,11 +82583,23 @@ export type QueryPp_Order_NodeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Order_NodeNextArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPp_Order_NodeNextGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Order_Node_AssetArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77309,11 +82613,23 @@ export type QueryPp_Order_Node_AssetGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Order_Node_ProductArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPp_Order_Node_ProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Order_WorkflowArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77327,11 +82643,23 @@ export type QueryPp_Order_WorkflowGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Product_BomArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPp_Product_BomGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Product_BomLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77345,11 +82673,23 @@ export type QueryPp_Product_BomLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Product_PlanningArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPp_Product_PlanningGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Wf_Node_AssetArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77363,11 +82703,23 @@ export type QueryPp_Wf_Node_AssetGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPp_Wf_Node_ProductArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPp_Wf_Node_ProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryQm_SpecificationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77381,11 +82733,23 @@ export type QueryQm_SpecificationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryQm_SpecificationLineArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryQm_SpecificationLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryRv_BPartnerArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77399,11 +82763,23 @@ export type QueryRv_BPartnerGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryRv_WarehousePriceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryRv_WarehousePriceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_CategoryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77417,11 +82793,23 @@ export type QueryR_CategoryGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_CategoryUpdatesArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_CategoryUpdatesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_ContactInterestArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77435,11 +82823,23 @@ export type QueryR_ContactInterestGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_GroupArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_GroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_GroupUpdatesArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77453,11 +82853,23 @@ export type QueryR_GroupUpdatesGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_InterestAreaArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_InterestAreaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_IssueKnownArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77471,11 +82883,23 @@ export type QueryR_IssueKnownGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_IssueProjectArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_IssueProjectGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_IssueRecommendationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77489,11 +82913,23 @@ export type QueryR_IssueRecommendationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_IssueStatusArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_IssueStatusGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_IssueSystemArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77507,6 +82943,12 @@ export type QueryR_IssueSystemGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_IssueUserArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_IssueUserGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -77516,11 +82958,29 @@ export type QueryR_IssueUserGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_MailTextArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_MailTextGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_RequestArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_RequestActionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77543,11 +83003,23 @@ export type QueryR_RequestGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_RequestProcessorArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_RequestProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_RequestProcessorLogArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77561,11 +83033,23 @@ export type QueryR_RequestProcessorLogGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_RequestProcessor_RouteArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_RequestProcessor_RouteGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_RequestTypeArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77579,11 +83063,23 @@ export type QueryR_RequestTypeGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_RequestTypeUpdatesArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_RequestTypeUpdatesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_RequestUpdateArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77597,11 +83093,23 @@ export type QueryR_RequestUpdateGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_RequestUpdatesArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_RequestUpdatesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_ResolutionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77615,11 +83123,29 @@ export type QueryR_ResolutionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_StandardResponseArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryR_StandardResponseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_StatusArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryR_StatusCategoryArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77642,11 +83168,29 @@ export type QueryR_StatusGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryS_ExpenseTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryS_ExpenseTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryS_ResourceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryS_ResourceAssignmentArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77669,11 +83213,23 @@ export type QueryS_ResourceGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryS_ResourceTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryS_ResourceTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryS_ResourceUnAvailableArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77687,11 +83243,23 @@ export type QueryS_ResourceUnAvailableGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryS_TimeExpenseArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryS_TimeExpenseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryS_TimeExpenseLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77705,11 +83273,23 @@ export type QueryS_TimeExpenseLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryS_TimeTypeArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryS_TimeTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryS_TrainingArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77723,11 +83303,23 @@ export type QueryS_TrainingGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryS_Training_ClassArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryS_Training_ClassGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_1099ExtractArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77741,11 +83333,23 @@ export type QueryT_1099ExtractGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_AgingArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryT_AgingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_BomLineArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77759,11 +83363,23 @@ export type QueryT_BomLineGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_Bom_IndentedArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryT_Bom_IndentedGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_BankRegisterArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77777,11 +83393,23 @@ export type QueryT_BankRegisterGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_CashFlowArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryT_CashFlowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_DistributionRunDetailArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77795,11 +83423,23 @@ export type QueryT_DistributionRunDetailGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_InventoryValueArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryT_InventoryValueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_InvoiceGlArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77813,11 +83453,23 @@ export type QueryT_InvoiceGlGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_Mrp_CrpArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryT_Mrp_CrpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_ReconciliationArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77831,11 +83483,23 @@ export type QueryT_ReconciliationGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_ReplenishArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryT_ReplenishGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_ReportArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77849,11 +83513,23 @@ export type QueryT_ReportGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_ReportStatementArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryT_ReportStatementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryT_TransactionArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77867,11 +83543,23 @@ export type QueryT_TransactionGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryTestArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryTestGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryU_PosTerminalArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -77885,6 +83573,12 @@ export type QueryU_PosTerminalGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryU_RoleMenuArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryU_RoleMenuGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -77894,11 +83588,23 @@ export type QueryU_RoleMenuGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryU_WebMenuArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryU_WebMenuGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryU_Web_PropertiesArgs = {
+  UU: Scalars['String']['input'];
 };
 
 
@@ -83473,6 +89179,16 @@ export type Bh_Coded_DiagnosisGetQueryVariables = Exact<{
 
 export type Bh_Coded_DiagnosisGetQuery = { __typename?: 'Query', BH_Coded_DiagnosisGet: { __typename?: 'BH_Coded_DiagnosisConnection', Results: Array<{ __typename?: 'BH_Coded_Diagnosis', UU: string, bh_cielname?: string | null, bh_icd10who?: string | null, bh_searchterms?: string | null }> } };
 
+export type Bh_ConceptGetQueryVariables = Exact<{
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+  Filter?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type Bh_ConceptGetQuery = { __typename?: 'Query', BH_ConceptGet: { __typename?: 'BH_ConceptConnection', Results: Array<{ __typename?: 'BH_Concept', UU: string, bh_concept_class?: string | null, BH_Display_Name?: string | null, BH_Concept_Type?: string | null }> } };
+
 export type Bh_Encounter_Type_WindowGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
@@ -83711,7 +89427,7 @@ export type M_AttributeSetGetQueryVariables = Exact<{
 }>;
 
 
-export type M_AttributeSetGetQuery = { __typename?: 'Query', M_AttributeSetGet: { __typename?: 'M_AttributeSetConnection', Results: Array<{ __typename?: 'M_AttributeSet', UU: string }> } };
+export type M_AttributeSetGetQuery = { __typename?: 'Query', M_AttributeSetGet: { __typename?: 'M_AttributeSetConnection', Results: Array<{ __typename?: 'M_AttributeSet', UU: string, IsGuaranteeDate: boolean }> } };
 
 export type M_DiscountSchemaGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -83876,6 +89592,7 @@ export const Ad_RoleGetWindowAccessDocument = {"kind":"Document","definitions":[
 export const Ad_RoleLocationPriceListsCurrencyGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_RoleLocationPriceListsCurrencyGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"AD_RoleFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"C_LocationFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"M_PriceListFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_RoleGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"AD_RoleFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AD_RoleFields"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Window_AccessList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_Window"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_CanDeactivate"}},{"kind":"Field","name":{"kind":"Name","value":"IsReadWrite"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_LocationGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"C_LocationFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_LocationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"M_PriceListGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"M_PriceListFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Created"}},{"kind":"Field","name":{"kind":"Name","value":"IsSOPriceList"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_AcctSchemaGet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"C_Currency"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AD_RoleFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AD_Role"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsMasterRole"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Role_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Included_Role"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_LocationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Location"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Region"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<Ad_RoleLocationPriceListsCurrencyGetQuery, Ad_RoleLocationPriceListsCurrencyGetQueryVariables>;
 export const Ad_UserGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_UserGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_UserGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_User_Roles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Role"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Role_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Included_Role"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"IsActive"}}]}}]}}]}}]} as unknown as DocumentNode<Ad_UserGetQuery, Ad_UserGetQueryVariables>;
 export const Bh_Coded_DiagnosisGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Coded_DiagnosisGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Coded_DiagnosisGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"bh_cielname"}},{"kind":"Field","name":{"kind":"Name","value":"bh_icd10who"}},{"kind":"Field","name":{"kind":"Name","value":"bh_searchterms"}}]}}]}}]}}]} as unknown as DocumentNode<Bh_Coded_DiagnosisGetQuery, Bh_Coded_DiagnosisGetQueryVariables>;
+export const Bh_ConceptGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_ConceptGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_ConceptGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"bh_concept_class"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Display_Name"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept_Type"}}]}}]}}]}}]} as unknown as DocumentNode<Bh_ConceptGetQuery, Bh_ConceptGetQueryVariables>;
 export const Bh_Encounter_Type_WindowGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Encounter_Type_WindowGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Type_WindowGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Window"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Tabs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_Fields"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Bh_Encounter_Type_WindowGetQuery, Bh_Encounter_Type_WindowGetQueryVariables>;
 export const Bh_EncounterGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_EncounterGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_EncounterGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<Bh_EncounterGetQuery, Bh_EncounterGetQueryVariables>;
 export const Bh_Payer_Info_Fld_SugGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Payer_Info_Fld_SugGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Payer_Info_Fld_SugGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_SubType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_PayerInfoFieldDataType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Bh_Payer_Info_Fld_SugGetQuery, Bh_Payer_Info_Fld_SugGetQueryVariables>;
@@ -83900,7 +89617,7 @@ export const C_UomGetDefaultDocument = {"kind":"Document","definitions":[{"kind"
 export const DocumentStatusActionMapDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DocumentStatusActionMap"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocumentStatusActionMap"}}]}}]} as unknown as DocumentNode<DocumentStatusActionMapQuery, DocumentStatusActionMapQueryVariables>;
 export const InventoryTransactionGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InventoryTransactionGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"InventoryTransactionGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Order"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<InventoryTransactionGetQuery, InventoryTransactionGetQueryVariables>;
 export const M_AttributeSetInstanceGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_AttributeSetInstanceGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_AttributeSetInstanceGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<M_AttributeSetInstanceGetQuery, M_AttributeSetInstanceGetQueryVariables>;
-export const M_AttributeSetGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_AttributeSetGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_AttributeSetGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<M_AttributeSetGetQuery, M_AttributeSetGetQueryVariables>;
+export const M_AttributeSetGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_AttributeSetGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_AttributeSetGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsGuaranteeDate"}}]}}]}}]}}]} as unknown as DocumentNode<M_AttributeSetGetQuery, M_AttributeSetGetQueryVariables>;
 export const M_DiscountSchemaGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_DiscountSchemaGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_DiscountSchemaGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<M_DiscountSchemaGetQuery, M_DiscountSchemaGetQueryVariables>;
 export const M_PriceList_VersionGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_PriceList_VersionGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_PriceList_VersionGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PagingInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"TotalCount"}}]}}]}}]}}]} as unknown as DocumentNode<M_PriceList_VersionGetQuery, M_PriceList_VersionGetQueryVariables>;
 export const M_PriceListGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_PriceListGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_PriceListGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<M_PriceListGetQuery, M_PriceListGetQueryVariables>;

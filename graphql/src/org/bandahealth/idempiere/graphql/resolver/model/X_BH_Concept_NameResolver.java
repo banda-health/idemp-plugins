@@ -25,7 +25,7 @@ public class X_BH_Concept_NameResolver extends POResolver<MBHConceptName> implem
 	 * @return Concept
 	 */
 	public CompletableFuture<MBHConcept> BH_Concept(MBHConceptName entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Concept_ID() <= 0) {
+		if (entity.getBH_Concept_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBHConcept> dataLoader =

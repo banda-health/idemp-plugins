@@ -312,9 +312,18 @@ public class FilterUtil {
 			boolean isFilteringOnIdColumn = dbColumnName.toLowerCase().endsWith("_id");
 			Object comparisons = comparisonQuerySelectors.get(dbColumnName);
 
-			// If the column doesn't exist on this table as specified (or it does, but it's supposed to be mapped to another
-			// table), we need to follow a different workflow
+			// If the column doesn't exist on this table as specified, we need to follow a different workflow
 			if (!tableData.doesTableHaveColumn(dbColumnName)) {
+				// There could be a case where the comparisons may be final and may not be an object, so re-jigger it
+				if (doesTableAliasExistOnColumn(dbColumnName) && comparisons instanceof String comparison) {
+					// Get the value after the alias
+					String newComparisonsKey = dbColumnName.substring(dbColumnName.indexOf(".") + 1);
+					// Get the alias and say it's the DB column
+					dbColumnName = dbColumnName.split("\\.")[0];
+					comparisons = new HashMap<String, Object>() {{
+						put(newComparisonsKey, comparison);
+					}};
+				}
 				String subWhereClause =
 						getForeignTableSubQueryWhereClause(tableData, dbColumnName, (Map<String, Object>) comparisons, parameters,
 								negate);
@@ -527,11 +536,9 @@ public class FilterUtil {
 				String foreignIdColumn = tableMapping.foreignColumnName;
 				// We have a match! Begin constructing the sub-query
 				whereClause.append(tableData.getTableOrFunctionName()).append(".").append(idColumn).append(negate ? " NOT" :
-								"")
-						.append(" IN " +
-								"(SELECT ").append(foreignIdColumn).append(" FROM ");
-				// Sub-clauses should never be negated (i.e. so we don't have not in (... not in (... not in (...))) but
-				// instead of not in (... in (... in (...))))
+								"").append(" IN (SELECT ").append(foreignIdColumn).append(" FROM ");
+				// Sub-clauses should never be negated (i.e. so we don't have "not in (... not in (... not in (...)))" but
+				// instead "not in (... in (... in (...))))"
 				negate = false;
 				// If we have an aggregate on the comparisons, this will need to be a sub-table with an alias
 				Map<String, Object> aggregateComparisons = comparisonQuerySelectors.entrySet().stream().filter(
