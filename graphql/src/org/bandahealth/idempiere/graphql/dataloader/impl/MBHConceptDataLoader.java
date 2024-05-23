@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
 import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.QueryUtil;
 import org.dataloader.DataLoader;
@@ -23,7 +24,7 @@ public class MBHConceptDataLoader extends X_BH_ConceptDataLoader {
 				DataLoader.newMappedDataLoader(getByOclIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
-	private MappedBatchLoaderWithContext<String, List<MBHConcept>> getByOclIdBatchLoader() {
+	private MappedBatchLoaderWithContext<String, MBHConcept> getByOclIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
 			List<Object> parameters = new ArrayList<>();
 			String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(keys, parameters);
@@ -32,7 +33,7 @@ public class MBHConceptDataLoader extends X_BH_ConceptDataLoader {
 					Repository.getQuery(batchLoaderEnvironment.getContext(), getTableName(), null, true, false,
 							getTableName() + "." + MBHConcept.COLUMNNAME_BH_OclID + " IN (" + whereCondition +
 									")", parameters).list();
-			return models.stream().collect(Collectors.groupingBy(MBHConcept::getBH_OclID));	
+			return models.stream().collect(Collectors.toMap(MBHConcept::getBH_OclID, concept -> concept));
 		});
 	}
 }
