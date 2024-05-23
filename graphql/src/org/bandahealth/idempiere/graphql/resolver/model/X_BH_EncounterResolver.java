@@ -30,6 +30,7 @@ public class X_BH_EncounterResolver extends POResolver<MBHEncounter> implements 
 			put("m", "ba49a71c-938a-4e16-9cd9-e0819e4e9d3b");
 			put("D", "9bd78d1a-3ec7-46eb-a7b9-58c183b823ae");
 			put("C", "e822496b-fc64-4db9-9b89-39c7ee6e9986");
+			put("l", "12071666-e1ad-4a91-9fd4-ca46c8ebb622");
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_Encounter_Type(MBHEncounter entity, DataFetchingEnvironment environment) {

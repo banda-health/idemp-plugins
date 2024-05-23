@@ -83,6 +83,8 @@ public class GraphQLInputModelInterfaceGenerator {
 		}
 
 		GraphQLUtil.writeToFile(generatedColumns, directory + fileName + ".java");
+		
+		classesToImport.clear();
 	}
 
 	/**
@@ -95,14 +97,19 @@ public class GraphQLInputModelInterfaceGenerator {
 	private String createHeader(int AD_Table_ID, StringBuilder generatedColumns) {
 		String tableName = null;
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
-		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = DB.prepareStatement(sql, null);
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tableName = resultSet.getString(1);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
+		} finally {
+			DB.close(resultSet, preparedStatement);
 		}
 		if (tableName == null) {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
@@ -144,9 +151,12 @@ public class GraphQLInputModelInterfaceGenerator {
 				+ " AND c.IsActive = 'Y' "
 				+ (!Util.isEmpty(entityTypeFilter) ? " AND c." + entityTypeFilter : "")
 				+ " ORDER BY c.ColumnName";
-		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = DB.prepareStatement(sql, null);
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String columnName = resultSet.getString(1);
 				int displayType = resultSet.getInt(2);
@@ -164,6 +174,8 @@ public class GraphQLInputModelInterfaceGenerator {
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
+		} finally {
+			DB.close(resultSet, preparedStatement);
 		}
 		return generatedColumns;
 	}

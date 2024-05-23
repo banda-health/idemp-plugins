@@ -548,7 +548,7 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			// If we just selected the empty value, don't do anything
 			MBHGraphqlGeneratorTemplate selectedTemplate;
 			if (generatorTemplates.getSelectedIndex() == 0 || (selectedTemplate =
-					templates.stream().filter(template -> template.getName() == generatorTemplates.getSelectedItem()).findFirst()
+					templates.stream().filter(template -> template.getName().equals(generatorTemplates.getSelectedItem())).findFirst()
 							.orElse(null)) == null) {
 				return;
 			}

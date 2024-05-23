@@ -25,6 +25,20 @@ public interface I_BH_Encounter_DiagnosisInput extends I_BH_Encounter_Diagnosis 
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Set BH_Concept.
+	 *
+	 * @param BH_Concept BH_Concept
+	 */
+	void setBH_ConceptInput(ForeignEntityInput BH_Concept);
+
+	/**
+	 * Get BH_Concept.
+	 *
+	 * @return BH_Concept
+	 */
+	ForeignEntityInput BH_Concept();
+
+	/**
 	 * Set UU.
 	 *
 	 * @param UU UU

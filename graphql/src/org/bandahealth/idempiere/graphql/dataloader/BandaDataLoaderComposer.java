@@ -817,7 +817,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_T_ReportStatementData
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_T_TransactionDataLoader;
 import org.dataloader.DataLoaderRegistry;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -836,7 +835,7 @@ public class BandaDataLoaderComposer {
 	 * in hot-swapping in development without having to restart iDempiere
 	 */
 	public BandaDataLoaderComposer() {
-		dataLoaders = Arrays.asList(
+		dataLoaders = List.of(
 				new M_ElementDataLoader(),
 				new M_RegistrationDataLoader(),
 				new MAccessLogDataLoader(),

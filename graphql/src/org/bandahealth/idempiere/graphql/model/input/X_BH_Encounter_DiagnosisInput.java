@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -21,6 +22,7 @@ import java.sql.ResultSet;
 public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis implements I_BH_Encounter_DiagnosisInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_Concept;
 	private ForeignEntityInput mBH_Encounter;
 
 	/**
@@ -72,6 +74,42 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 		return mAD_Org;
 	}
 
+	/**
+	 * Set Concept.
+	 *
+	 * @param BH_Concept Concept
+	 */
+	@JsonProperty("BH_Concept")
+	public void setBH_ConceptInput(ForeignEntityInput BH_Concept) {
+		this.mBH_Concept = BH_Concept;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (BH_Concept != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHConcept foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "BH_Concept", "BH_Concept_UU=?", get_TrxName())
+							.setParameters(BH_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setBH_Concept_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table BH_Concept with UU " + BH_Concept.getUU());
+			}
+		} else {
+			this.setBH_Concept_ID(0);
+		}
+	}
+
+	/**
+	 * Get Concept.
+	 *
+	 * @return Concept
+	 */
+	@JsonProperty("BH_Concept")
+	public ForeignEntityInput BH_Concept() {
+		return mBH_Concept;
+	}
 	/**
 	 * Set Encounter Diagnosis.
 	 *

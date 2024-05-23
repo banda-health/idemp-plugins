@@ -93,6 +93,8 @@ public class GraphQLDataLoaderGenerator {
 
 			// Save
 			GraphQLUtil.writeToFile(generatedFile, directory + fileName + ".java");
+		} else {
+			classesToImport.clear();
 		}
 	}
 
@@ -106,15 +108,21 @@ public class GraphQLDataLoaderGenerator {
 	private String createHeader(int AD_Table_ID, StringBuilder generatedFile) {
 		String tableName = null;
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
-		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = DB.prepareStatement(sql, null);
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tableName = resultSet.getString(1);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
+		} finally {
+			DB.close(resultSet, preparedStatement);
 		}
+		
 		if (tableName == null) {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
 		}
@@ -179,14 +187,19 @@ public class GraphQLDataLoaderGenerator {
 	private String createTranslationHeader(int translationTableId, int relatedTableId, StringBuilder generatedFile) {
 		String tableName = null;
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
-		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = DB.prepareStatement(sql, null);
 			preparedStatement.setInt(1, translationTableId);
-			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tableName = resultSet.getString(1);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
+		} finally {
+			DB.close(resultSet, preparedStatement);
 		}
 		if (tableName == null) {
 			throw new RuntimeException("TableName not found for ID=" + translationTableId);
@@ -278,6 +291,9 @@ public class GraphQLDataLoaderGenerator {
 				.append("}\n");
 
 		generatedFile.insert(0, generatedClass);
+		
+		// prevent memory leak.
+		classesToImport.clear();
 
 		return className;
 	}
