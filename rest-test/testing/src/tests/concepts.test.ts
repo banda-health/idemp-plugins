@@ -51,7 +51,7 @@ test('get coded diagnosis fields', async () => {
 					undefined,
 					undefined,
 					undefined,
-					JSON.stringify({ bh_searchterms: { $nnull: true }, bh_source: { $eq: 'BHGO'} }),
+					JSON.stringify({ bh_source: { $eq: 'BHGO'} }),
 			)
 	).results;
 

@@ -23,7 +23,7 @@ fragment BH_VisitFields on BH_Visit {
 		UU
 		BH_Encounter_DiagnosisList {
 			UU
-			BH_Coded_Diagnosis {
+			BH_Concept {
 				UU
 			}
 			BH_Uncoded_Diagnosis

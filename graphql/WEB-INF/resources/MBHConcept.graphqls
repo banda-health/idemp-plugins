@@ -3,4 +3,5 @@ extend type BH_Concept {
 	BH_Concept_Names: [BH_Concept_Name!]
 	FromBH_Concept_Mappings: [BH_Concept_Mapping!]  # Parent mappings (usually 1)
 	ToBH_Concept_Mappings: [BH_Concept_Mapping!]    # Child mappings
+	BH_Client_Concept_Extras: [BH_Client_Concept_Extra!]
 }
