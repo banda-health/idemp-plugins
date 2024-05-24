@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_SchedulerResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MMailText;
 import org.compiere.model.MOrg;
@@ -298,7 +299,12 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	public void setReportOutputTypeInput(ForeignEntityInput ReportOutputType) {
 		this.mReportOutputType = ReportOutputType;
 		if (ReportOutputType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_SchedulerResolver.REPORTOUTPUTTYPE_UUIDS_BY_VALUE.containsValue(ReportOutputType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ReportOutputType.getUU() +
+						" is not in the list defined for the ReportOutputType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_AttributeResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAttribute;
 import org.compiere.model.MOrg;
@@ -190,7 +191,12 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	public void setAttributeValueTypeInput(ForeignEntityInput AttributeValueType) {
 		this.mAttributeValueType = AttributeValueType;
 		if (AttributeValueType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_AttributeResolver.ATTRIBUTEVALUETYPE_UUIDS_BY_VALUE.containsValue(AttributeValueType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AttributeValueType.getUU() +
+						" is not in the list defined for the AttributeValueType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

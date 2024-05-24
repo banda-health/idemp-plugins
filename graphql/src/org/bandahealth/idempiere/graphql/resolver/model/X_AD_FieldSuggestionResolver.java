@@ -237,10 +237,10 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
-	static Map<String, String> FIELDSUGGESTIONTARGET_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> FIELDSUGGESTIONTARGET_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "83c118b7-0a50-47b8-b4e4-0e0e80eb06a6");
-			put("F", "74ebcb91-f3ad-4931-9049-259c936186ca");
+			put("E", "83c118b7-0a50-47b8-b4e4-0e0e80eb06a6"); // Element
+			put("F", "74ebcb91-f3ad-4931-9049-259c936186ca"); // Field
 		}
 	};
 	public CompletableFuture<MRefList_BH> FieldSuggestionTarget(MFieldSuggestion entity, DataFetchingEnvironment environment) {

@@ -80,11 +80,11 @@ public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLR
 		return dataLoader.load(entity.getC_Calendar_ID());
 	}
 
-	static Map<String, String> EXCLUDEADJUSTMENTPERIODS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> EXCLUDEADJUSTMENTPERIODS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("0", "f04dfda3-2f17-4d27-83d2-696941a8a181");
-			put("1", "540fdd4a-4c09-46ee-b1b1-92c6b79c2f76");
-			put("2", "3b897a74-e4c7-4832-87ee-936bf71cf182");
+			put("0", "f04dfda3-2f17-4d27-83d2-696941a8a181"); // No
+			put("1", "540fdd4a-4c09-46ee-b1b1-92c6b79c2f76"); // Only Report Period
+			put("2", "3b897a74-e4c7-4832-87ee-936bf71cf182"); // All Adjustment Periods
 		}
 	};
 	public CompletableFuture<MRefList_BH> ExcludeAdjustmentPeriods(MReport entity, DataFetchingEnvironment environment) {

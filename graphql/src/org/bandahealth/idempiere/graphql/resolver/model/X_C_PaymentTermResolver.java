@@ -94,15 +94,15 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 						entity.getName());
 	}
 
-	static Map<String, String> NETDAY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> NETDAY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("7", "ad54c61a-75e4-4257-9c70-4e6b1b772686");
-			put("1", "a225bd22-7f57-493e-aee5-d0cf71891cd0");
-			put("2", "6c7920e4-dc0e-436f-b220-0729aad44bf2");
-			put("3", "f0e5917d-cfa7-460c-a0b1-b9610e9506f1");
-			put("4", "7862d4ca-778b-4425-974e-6002d925e8d5");
-			put("5", "e2bdb391-5b9a-41f9-a3b0-8309e47b299a");
-			put("6", "13efb0f3-7cc6-4339-85e5-bcaadf0ca31c");
+			put("7", "ad54c61a-75e4-4257-9c70-4e6b1b772686"); // Sunday
+			put("1", "a225bd22-7f57-493e-aee5-d0cf71891cd0"); // Monday
+			put("2", "6c7920e4-dc0e-436f-b220-0729aad44bf2"); // Tuesday
+			put("3", "f0e5917d-cfa7-460c-a0b1-b9610e9506f1"); // Wednesday
+			put("4", "7862d4ca-778b-4425-974e-6002d925e8d5"); // Thursday
+			put("5", "e2bdb391-5b9a-41f9-a3b0-8309e47b299a"); // Friday
+			put("6", "13efb0f3-7cc6-4339-85e5-bcaadf0ca31c"); // Saturday
 		}
 	};
 	public CompletableFuture<MRefList_BH> NetDay(MPaymentTerm entity, DataFetchingEnvironment environment) {
@@ -114,11 +114,11 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 		return dataLoader.load(NETDAY_UUIDS_BY_VALUE.get(entity.getNetDay()));
 	}
 
-	static Map<String, String> PAYMENTTERMUSAGE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PAYMENTTERMUSAGE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "e53178f3-c4d9-4506-8057-0e78e4307496");
-			put("S", "30236d5e-9737-4bae-a6df-d7066fce1293");
-			put("P", "9ac2a127-4566-42bc-8e58-3ec461b76822");
+			put("B", "e53178f3-c4d9-4506-8057-0e78e4307496"); // Both
+			put("S", "30236d5e-9737-4bae-a6df-d7066fce1293"); // Sales
+			put("P", "9ac2a127-4566-42bc-8e58-3ec461b76822"); // Purchases
 		}
 	};
 	public CompletableFuture<MRefList_BH> PaymentTermUsage(MPaymentTerm entity, DataFetchingEnvironment environment) {

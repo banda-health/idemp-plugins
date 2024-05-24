@@ -187,10 +187,10 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		return dataLoader.load(entity.getAD_Val_Rule_Lookup_ID());
 	}
 
-	static Map<String, String> ISALWAYSUPDATEABLE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISALWAYSUPDATEABLE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsAlwaysUpdateable(MUserDefField entity, DataFetchingEnvironment environment) {
@@ -202,10 +202,10 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		return dataLoader.load(ISALWAYSUPDATEABLE_UUIDS_BY_VALUE.get(entity.getIsAlwaysUpdateable()));
 	}
 
-	static Map<String, String> ISAUTOCOMPLETE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISAUTOCOMPLETE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsAutocomplete(MUserDefField entity, DataFetchingEnvironment environment) {
@@ -217,10 +217,10 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		return dataLoader.load(ISAUTOCOMPLETE_UUIDS_BY_VALUE.get(entity.getIsAutocomplete()));
 	}
 
-	static Map<String, String> ISDISPLAYED_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISDISPLAYED_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsDisplayed(MUserDefField entity, DataFetchingEnvironment environment) {
@@ -232,10 +232,10 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		return dataLoader.load(ISDISPLAYED_UUIDS_BY_VALUE.get(entity.getIsDisplayed()));
 	}
 
-	static Map<String, String> ISDISPLAYEDGRID_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISDISPLAYEDGRID_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsDisplayedGrid(MUserDefField entity, DataFetchingEnvironment environment) {
@@ -247,10 +247,10 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		return dataLoader.load(ISDISPLAYEDGRID_UUIDS_BY_VALUE.get(entity.getIsDisplayedGrid()));
 	}
 
-	static Map<String, String> ISMANDATORY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISMANDATORY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsMandatory(MUserDefField entity, DataFetchingEnvironment environment) {
@@ -262,10 +262,10 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		return dataLoader.load(ISMANDATORY_UUIDS_BY_VALUE.get(entity.getIsMandatory()));
 	}
 
-	static Map<String, String> ISREADONLY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISREADONLY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsReadOnly(MUserDefField entity, DataFetchingEnvironment environment) {
@@ -277,10 +277,10 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		return dataLoader.load(ISREADONLY_UUIDS_BY_VALUE.get(entity.getIsReadOnly()));
 	}
 
-	static Map<String, String> ISSAMELINE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISSAMELINE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsSameLine(MUserDefField entity, DataFetchingEnvironment environment) {
@@ -292,11 +292,11 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		return dataLoader.load(ISSAMELINE_UUIDS_BY_VALUE.get(entity.getIsSameLine()));
 	}
 
-	static Map<String, String> ISTOOLBARBUTTON_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISTOOLBARBUTTON_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "5803fda0-fda8-4100-85f2-a4fe8142a059");
-			put("N", "eb2f6365-a357-4655-9102-d622360aacce");
-			put("B", "5b8b7285-d4da-4513-8941-a280d501ea19");
+			put("Y", "5803fda0-fda8-4100-85f2-a4fe8142a059"); // Toolbar
+			put("N", "eb2f6365-a357-4655-9102-d622360aacce"); // Window
+			put("B", "5b8b7285-d4da-4513-8941-a280d501ea19"); // Both
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsToolbarButton(MUserDefField entity, DataFetchingEnvironment environment) {
@@ -308,10 +308,10 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		return dataLoader.load(ISTOOLBARBUTTON_UUIDS_BY_VALUE.get(entity.getIsToolbarButton()));
 	}
 
-	static Map<String, String> ISUPDATEABLE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISUPDATEABLE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsUpdateable(MUserDefField entity, DataFetchingEnvironment environment) {

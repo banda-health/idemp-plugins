@@ -193,24 +193,24 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 		return dataLoader.load(entity.getC_SalesRegion_ID());
 	}
 
-	static Map<String, String> ELEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ELEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("OO", "d15b0ca3-92b1-4cce-aaa5-35c6f7a280bb");
-			put("AC", "5f958db7-cf6c-48e9-81d3-c8e828851414");
-			put("PR", "2ec6d3e4-3ea4-4fa9-aacb-78cd2e3dc43a");
-			put("BP", "ec6e158b-920d-4f3a-bdb7-3c3f03afe541");
-			put("OT", "1d0896d6-0f16-4b8c-871e-69c1d922d82f");
-			put("LF", "b0f3ae88-b52d-463c-b4b8-63cd9cba5e59");
-			put("LT", "41d08859-a5d2-45cf-baf4-34a53d0e306c");
-			put("SR", "dfe59663-bbb3-4a11-a6bf-60858e67a265");
-			put("PJ", "819b427e-31e5-4d7d-aa31-7d41f9421ce5");
-			put("MC", "7346df73-2a50-46f2-a435-7d86e9fe83dc");
-			put("U1", "1b984e77-6630-4c63-be01-12b4425503ac");
-			put("U2", "4250d8d7-abd5-4c7b-a31b-996a376a2aa4");
-			put("AY", "11878937-5632-4ac8-ac70-92b6cea4fe18");
-			put("SA", "f29d88fa-50e7-4b0c-aa7b-2bbe85951df8");
-			put("X1", "6cdd21cc-a4e3-4d99-870c-121cf43918e7");
-			put("X2", "048bac2d-b21f-44d5-9bf1-936cf1d7a73c");
+			put("OO", "d15b0ca3-92b1-4cce-aaa5-35c6f7a280bb"); // Organization
+			put("AC", "5f958db7-cf6c-48e9-81d3-c8e828851414"); // Account
+			put("PR", "2ec6d3e4-3ea4-4fa9-aacb-78cd2e3dc43a"); // Product
+			put("BP", "ec6e158b-920d-4f3a-bdb7-3c3f03afe541"); // BPartner
+			put("OT", "1d0896d6-0f16-4b8c-871e-69c1d922d82f"); // Org Trx
+			put("LF", "b0f3ae88-b52d-463c-b4b8-63cd9cba5e59"); // Location From
+			put("LT", "41d08859-a5d2-45cf-baf4-34a53d0e306c"); // Location To
+			put("SR", "dfe59663-bbb3-4a11-a6bf-60858e67a265"); // Sales Region
+			put("PJ", "819b427e-31e5-4d7d-aa31-7d41f9421ce5"); // Project
+			put("MC", "7346df73-2a50-46f2-a435-7d86e9fe83dc"); // Campaign
+			put("U1", "1b984e77-6630-4c63-be01-12b4425503ac"); // User Element List 1
+			put("U2", "4250d8d7-abd5-4c7b-a31b-996a376a2aa4"); // User Element List 2
+			put("AY", "11878937-5632-4ac8-ac70-92b6cea4fe18"); // Activity
+			put("SA", "f29d88fa-50e7-4b0c-aa7b-2bbe85951df8"); // Sub Account
+			put("X1", "6cdd21cc-a4e3-4d99-870c-121cf43918e7"); // User Column 1
+			put("X2", "048bac2d-b21f-44d5-9bf1-936cf1d7a73c"); // User Column 2
 		}
 	};
 	public CompletableFuture<MRefList_BH> ElementType(MAcctSchemaElement entity, DataFetchingEnvironment environment) {

@@ -61,9 +61,9 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 		return entity.isSerNoMandatory();
 	}
 
-	static Map<String, String> M_ATTRIBUTESET_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> M_ATTRIBUTESET_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("MMS", "4455f892-2ea1-499d-a0b9-c01b3226f97d");
+			put("MMS", "4455f892-2ea1-499d-a0b9-c01b3226f97d"); // Material Management System
 		}
 	};
 	public CompletableFuture<MRefList_BH> M_AttributeSet_Type(MAttributeSet_BH entity, DataFetchingEnvironment environment) {
@@ -105,11 +105,11 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 		return dataLoader.load(entity.getM_SerNoCtl_ID());
 	}
 
-	static Map<String, String> MANDATORYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MANDATORYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("N", "4591d5a6-31a3-4b6e-bbf3-41946a2f891e");
-			put("Y", "8e954367-a681-4bc5-b4f6-8ce3ac3bb746");
-			put("S", "7744e8d4-5f72-49bb-a1fb-ded1e5ec5055");
+			put("N", "4591d5a6-31a3-4b6e-bbf3-41946a2f891e"); // Not Mandatory
+			put("Y", "8e954367-a681-4bc5-b4f6-8ce3ac3bb746"); // Always Mandatory
+			put("S", "7744e8d4-5f72-49bb-a1fb-ded1e5ec5055"); // When Shipping
 		}
 	};
 	public CompletableFuture<MRefList_BH> MandatoryType(MAttributeSet_BH entity, DataFetchingEnvironment environment) {

@@ -375,6 +375,20 @@ public interface I_C_InvoiceInput extends I_C_Invoice {
 	ForeignEntityInput M_RMA();
 
 	/**
+	 * Set PaymentRule.
+	 *
+	 * @param PaymentRule How you pay the invoice
+	 */
+	void setPaymentRuleInput(ForeignEntityInput PaymentRule);
+
+	/**
+	 * Get PaymentRule.
+	 *
+	 * @return How you pay the invoice
+	 */
+	ForeignEntityInput PaymentRule();
+
+	/**
 	 * Set RelatedInvoice.
 	 *
 	 * @param RelatedInvoice RelatedInvoice

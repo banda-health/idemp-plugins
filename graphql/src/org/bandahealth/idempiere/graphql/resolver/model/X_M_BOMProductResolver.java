@@ -33,13 +33,13 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements GraphQLResolver<MBOMProduct> {
 
 
-	static Map<String, String> BOMPRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BOMPRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "728307cc-05d2-4b77-8a68-8c1efc553989");
-			put("O", "155c7d45-2d22-4117-8c2b-e0bef703f887");
-			put("A", "035fbac7-27bc-4924-bc0e-1c831ffa171f");
-			put("D", "dffcf4b7-4ef8-48a2-b774-72a90d7dc045");
-			put("X", "01be865c-435b-435d-b88c-398401e7f245");
+			put("S", "728307cc-05d2-4b77-8a68-8c1efc553989"); // Standard Product
+			put("O", "155c7d45-2d22-4117-8c2b-e0bef703f887"); // Optional Product
+			put("A", "035fbac7-27bc-4924-bc0e-1c831ffa171f"); // Alternative
+			put("D", "dffcf4b7-4ef8-48a2-b774-72a90d7dc045"); // Alternative (Default)
+			put("X", "01be865c-435b-435d-b88c-398401e7f245"); // Outside Processing
 		}
 	};
 	public CompletableFuture<MRefList_BH> BOMProductType(MBOMProduct entity, DataFetchingEnvironment environment) {

@@ -67,12 +67,12 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
-	static Map<String, String> COLUMNTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COLUMNTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "46a2b315-1c28-4506-87ae-f00dd7b5f9f4");
-			put("D", "9e57d0dd-3029-495c-8308-18c4057b54eb");
-			put("Q", "6e737d16-9389-46f0-a70e-29ed51b3262f");
-			put("T", "0f97b122-1a18-4aba-b069-11c0ac550e04");
+			put("A", "46a2b315-1c28-4506-87ae-f00dd7b5f9f4"); // Amount
+			put("D", "9e57d0dd-3029-495c-8308-18c4057b54eb"); // Date
+			put("Q", "6e737d16-9389-46f0-a70e-29ed51b3262f"); // Quantity
+			put("T", "0f97b122-1a18-4aba-b069-11c0ac550e04"); // Text
 		}
 	};
 	public CompletableFuture<MRefList_BH> ColumnType(X_HR_Attribute entity, DataFetchingEnvironment environment) {

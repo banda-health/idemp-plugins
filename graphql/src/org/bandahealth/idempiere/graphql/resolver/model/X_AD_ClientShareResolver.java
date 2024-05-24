@@ -38,11 +38,11 @@ public class X_AD_ClientShareResolver extends POResolver<MClientShare> implement
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
-	static Map<String, String> SHARETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SHARETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "94999ff0-5a0b-4f23-974e-d6def024337c");
-			put("O", "a4b14df4-df8d-498e-ae56-e27ddce00d0d");
-			put("x", "de29f581-c452-42b2-a8d7-56ed54267b58");
+			put("C", "94999ff0-5a0b-4f23-974e-d6def024337c"); // Client (all shared)
+			put("O", "a4b14df4-df8d-498e-ae56-e27ddce00d0d"); // Org (not shared)
+			put("x", "de29f581-c452-42b2-a8d7-56ed54267b58"); // Client or Org
 		}
 	};
 	public CompletableFuture<MRefList_BH> ShareType(MClientShare entity, DataFetchingEnvironment environment) {

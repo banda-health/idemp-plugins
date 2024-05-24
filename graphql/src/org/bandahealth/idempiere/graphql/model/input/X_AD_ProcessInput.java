@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_ProcessResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
@@ -59,7 +60,12 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	public void setAccessLevelInput(ForeignEntityInput AccessLevel) {
 		this.mAccessLevel = AccessLevel;
 		if (AccessLevel != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ProcessResolver.ACCESSLEVEL_UUIDS_BY_VALUE.containsValue(AccessLevel.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AccessLevel.getUU() +
+						" is not in the list defined for the AccessLevel column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -329,7 +335,12 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	public void setAllowMultipleExecutionInput(ForeignEntityInput AllowMultipleExecution) {
 		this.mAllowMultipleExecution = AllowMultipleExecution;
 		if (AllowMultipleExecution != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ProcessResolver.ALLOWMULTIPLEEXECUTION_UUIDS_BY_VALUE.containsValue(AllowMultipleExecution.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AllowMultipleExecution.getUU() +
+						" is not in the list defined for the AllowMultipleExecution column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -397,7 +408,12 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	public void setExecutionTypeInput(ForeignEntityInput ExecutionType) {
 		this.mExecutionType = ExecutionType;
 		if (ExecutionType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ProcessResolver.EXECUTIONTYPE_UUIDS_BY_VALUE.containsValue(ExecutionType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ExecutionType.getUU() +
+						" is not in the list defined for the ExecutionType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -431,7 +447,12 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	public void setShowHelpInput(ForeignEntityInput ShowHelp) {
 		this.mShowHelp = ShowHelp;
 		if (ShowHelp != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ProcessResolver.SHOWHELP_UUIDS_BY_VALUE.containsValue(ShowHelp.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ShowHelp.getUU() +
+						" is not in the list defined for the ShowHelp column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

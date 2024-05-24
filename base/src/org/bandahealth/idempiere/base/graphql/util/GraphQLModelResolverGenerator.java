@@ -25,6 +25,7 @@ import org.compiere.Adempiere;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
 import org.compiere.model.MTable;
+import org.compiere.model.SystemIDs;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.DisplayType;
@@ -51,6 +52,10 @@ public class GraphQLModelResolverGenerator {
 	private final ModelMap tableStructureExtensions;
 	private final Map<String, ModelMap> modelsForTables;
 	private final String dataLoaderPackageName;
+
+	public static String getGeneratedName(String tableName) {
+		return "X_" + tableName + "Resolver";
+	}
 
 	/**
 	 * Generate Schema
@@ -109,7 +114,7 @@ public class GraphQLModelResolverGenerator {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
 		}
 
-		String className = "X_" + tableName + "Resolver";
+		String className = getGeneratedName(tableName);
 		StringBuilder generatedClass = new StringBuilder()
 				.append("package ").append(packageName).append(";\n\n");
 
@@ -289,9 +294,12 @@ public class GraphQLModelResolverGenerator {
 		}
 
 		// If the code is updatable from this point forward, the parent class can handle it
-		if (AD_Reference_ID > 0 &&
-				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
-				clazz.equals(String.class)) {
+		if ((AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) ||
+				displayType == DisplayType.Payment) && clazz.equals(String.class)) {
+			if (displayType == DisplayType.Payment) {
+				AD_Reference_ID = SystemIDs.REFERENCE_PAYMENTRULE;
+			}
 			ModelMap classToUseMap = modelsForTables.get(MRefList.Table_Name);
 			classesToImport.add(classToUseMap.getClassPackageName() + "." + classToUseMap.getClassName());
 			ModelMap foreignModelMap = modelsForTables.get("AD_Ref_List");
@@ -381,6 +389,10 @@ public class GraphQLModelResolverGenerator {
 		return "";
 	}
 
+	public static String getListValidationReferenceUuidsByValuePropertyName(String columnName) {
+		return columnName.toUpperCase() + "_UUIDS_BY_VALUE";
+	}
+
 	/**
 	 * Since the DB stores values and we want reference lists, we need a way to map the values to the reference UUID so
 	 * it can be loaded via a data loader
@@ -400,22 +412,24 @@ public class GraphQLModelResolverGenerator {
 	 */
 	private String addListValidationCodeAndReturnReferenceUuidsByValueProperty(StringBuilder generatedCode,
 			int AD_Reference_ID, String columnName) {
-		String uuidsByValuePropertyName = columnName.toUpperCase() + "_UUIDS_BY_VALUE";
+		String uuidsByValuePropertyName = getListValidationReferenceUuidsByValuePropertyName(columnName);
 		classesToImport.add("java.util.HashMap");
 		classesToImport.add("java.util.Map");
-		generatedCode.append("\tstatic Map<String, String> ").append(uuidsByValuePropertyName)
+		generatedCode.append("\tpublic static Map<String, String> ").append(uuidsByValuePropertyName)
 				.append(" = new HashMap<>() {\n")
 				.append("\t\t{\n");
 		//
-		String sql = "SELECT Value, AD_Ref_List_UU FROM AD_Ref_List WHERE AD_Reference_ID=? ORDER BY AD_Ref_List_ID";
+		String sql = "SELECT Value, AD_Ref_List_UU, Name FROM AD_Ref_List WHERE AD_Reference_ID=? ORDER BY AD_Ref_List_ID";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Reference_ID);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String value = resultSet.getString(1);
 				String uuid = resultSet.getString(2);
+				String name = resultSet.getString(3);
 
-				generatedCode.append("\t\t\tput(\"").append(value).append("\", \"").append(uuid).append("\");\n");
+				generatedCode.append("\t\t\tput(\"").append(value).append("\", \"").append(uuid).append("\"); // ").append(name)
+						.append("\n");
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);

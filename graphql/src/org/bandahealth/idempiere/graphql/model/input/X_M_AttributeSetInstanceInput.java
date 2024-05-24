@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_AttributeSetInstanceResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLot;
 import org.compiere.model.MOrg;
@@ -85,7 +86,12 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	public void setbh_update_reasonInput(ForeignEntityInput bh_update_reason) {
 		this.mbh_update_reason = bh_update_reason;
 		if (bh_update_reason != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_AttributeSetInstanceResolver.BH_UPDATE_REASON_UUIDS_BY_VALUE.containsValue(bh_update_reason.getUU())) {
+				throw new AdempiereException("The reference list UU of " + bh_update_reason.getUU() +
+						" is not in the list defined for the bh_update_reason column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

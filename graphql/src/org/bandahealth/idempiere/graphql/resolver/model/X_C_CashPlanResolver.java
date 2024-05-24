@@ -91,11 +91,11 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
-	static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926");
-			put("I", "a98fda35-3822-42d3-8e4f-83880822e028");
-			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190");
+			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926"); // Financing
+			put("I", "a98fda35-3822-42d3-8e4f-83880822e028"); // Investment
+			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190"); // Operational
 		}
 	};
 	public CompletableFuture<MRefList_BH> CashFlowType(MCashPlan entity, DataFetchingEnvironment environment) {

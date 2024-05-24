@@ -61,14 +61,14 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 		return dataLoader.load(entity.getC_Period_ID());
 	}
 
-	static Map<String, String> COMMITMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COMMITMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "1be67031-d46a-4519-8888-d9c63e01d3dd");
-			put("B", "eee976d9-bd85-477f-be29-c6a84875af91");
-			put("N", "0d79afb6-a0b9-4a89-8802-da1d6966944d");
-			put("A", "6a24d75b-d67a-419e-afbe-ff685ad306ec");
-			put("S", "14f78d5d-456b-4f9f-844b-85fe3506b60a");
-			put("O", "fcc2f5f5-6882-440b-8ce8-46050cf2e9d3");
+			put("C", "1be67031-d46a-4519-8888-d9c63e01d3dd"); // PO Commitment only
+			put("B", "eee976d9-bd85-477f-be29-c6a84875af91"); // PO Commitment & Reservation
+			put("N", "0d79afb6-a0b9-4a89-8802-da1d6966944d"); // None
+			put("A", "6a24d75b-d67a-419e-afbe-ff685ad306ec"); // PO/SO Commitment & Reservation
+			put("S", "14f78d5d-456b-4f9f-844b-85fe3506b60a"); // SO Commitment only
+			put("O", "fcc2f5f5-6882-440b-8ce8-46050cf2e9d3"); // PO/SO Commitment
 		}
 	};
 	public CompletableFuture<MRefList_BH> CommitmentType(MAcctSchema entity, DataFetchingEnvironment environment) {
@@ -80,11 +80,11 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 		return dataLoader.load(COMMITMENTTYPE_UUIDS_BY_VALUE.get(entity.getCommitmentType()));
 	}
 
-	static Map<String, String> COSTINGLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COSTINGLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "b9ccb6ca-ac26-47cd-9bc5-86d3ab30fa2f");
-			put("O", "94923c72-8b13-4fe6-8d48-510bbd85ab5d");
-			put("B", "582aa0b8-f288-4ad0-a1a0-eaf48e93e00d");
+			put("C", "b9ccb6ca-ac26-47cd-9bc5-86d3ab30fa2f"); // Client
+			put("O", "94923c72-8b13-4fe6-8d48-510bbd85ab5d"); // Organization
+			put("B", "582aa0b8-f288-4ad0-a1a0-eaf48e93e00d"); // Batch/Lot
 		}
 	};
 	public CompletableFuture<MRefList_BH> CostingLevel(MAcctSchema entity, DataFetchingEnvironment environment) {
@@ -96,17 +96,17 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 		return dataLoader.load(COSTINGLEVEL_UUIDS_BY_VALUE.get(entity.getCostingLevel()));
 	}
 
-	static Map<String, String> COSTINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COSTINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "d3ba6803-5479-4b30-ba20-6b40e658c5d8");
-			put("A", "29b356c5-1757-4bab-a331-a01b9415f4e6");
-			put("L", "fb47834b-767e-4ffe-b7ea-f690279d4345");
-			put("F", "835a19ab-521e-406c-b0b2-f3e4c64c44b7");
-			put("p", "01741faf-094c-46ed-9266-2d3adac2c504");
-			put("I", "9127a623-4d9b-4a1a-8462-b31d8ddb24ed");
-			put("i", "f4296d4f-761c-4545-a2ec-ca5c86e1b741");
-			put("U", "10ca122c-b77e-410e-8755-5033f17405d4");
-			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b");
+			put("S", "d3ba6803-5479-4b30-ba20-6b40e658c5d8"); // Standard Costing
+			put("A", "29b356c5-1757-4bab-a331-a01b9415f4e6"); // Average PO
+			put("L", "fb47834b-767e-4ffe-b7ea-f690279d4345"); // Lifo
+			put("F", "835a19ab-521e-406c-b0b2-f3e4c64c44b7"); // Fifo
+			put("p", "01741faf-094c-46ed-9266-2d3adac2c504"); // Last PO Price
+			put("I", "9127a623-4d9b-4a1a-8462-b31d8ddb24ed"); // Average Invoice
+			put("i", "f4296d4f-761c-4545-a2ec-ca5c86e1b741"); // Last Invoice
+			put("U", "10ca122c-b77e-410e-8755-5033f17405d4"); // User Defined
+			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b"); // _
 		}
 	};
 	public CompletableFuture<MRefList_BH> CostingMethod(MAcctSchema entity, DataFetchingEnvironment environment) {
@@ -118,13 +118,13 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 		return dataLoader.load(COSTINGMETHOD_UUIDS_BY_VALUE.get(entity.getCostingMethod()));
 	}
 
-	static Map<String, String> GAAP_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> GAAP_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("UN", "1d934a30-398b-4ddc-a9ba-38deb4abb3ee");
-			put("US", "7e422d7f-0ec7-4be3-8873-7fe52a27bc16");
-			put("DE", "dcf29b12-aad4-4f35-81d4-11f6b8abcf46");
-			put("FR", "9178fdf5-55f7-4443-bb75-b13734a2d8b9");
-			put("XX", "1d43bbff-e3f6-4c95-8dc8-b12af94558c2");
+			put("UN", "1d934a30-398b-4ddc-a9ba-38deb4abb3ee"); // International GAAP
+			put("US", "7e422d7f-0ec7-4be3-8873-7fe52a27bc16"); // US GAAP
+			put("DE", "dcf29b12-aad4-4f35-81d4-11f6b8abcf46"); // German HGB
+			put("FR", "9178fdf5-55f7-4443-bb75-b13734a2d8b9"); // French Accounting Standard
+			put("XX", "1d43bbff-e3f6-4c95-8dc8-b12af94558c2"); // Custom Accounting Rules
 		}
 	};
 	public CompletableFuture<MRefList_BH> GAAP(MAcctSchema entity, DataFetchingEnvironment environment) {
@@ -195,12 +195,12 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> TAXCORRECTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TAXCORRECTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("N", "cfca959d-5054-4516-9b12-8b6c9ca6ab6c");
-			put("W", "52f20f99-823e-4528-851d-30834782dc4b");
-			put("D", "d7ca69d7-ed0b-4646-8b9b-9363da37ffc0");
-			put("B", "0b419d8a-34cc-4dbb-8378-529df0598282");
+			put("N", "cfca959d-5054-4516-9b12-8b6c9ca6ab6c"); // None
+			put("W", "52f20f99-823e-4528-851d-30834782dc4b"); // Write-off only
+			put("D", "d7ca69d7-ed0b-4646-8b9b-9363da37ffc0"); // Discount only
+			put("B", "0b419d8a-34cc-4dbb-8378-529df0598282"); // Write-off and Discount
 		}
 	};
 	public CompletableFuture<MRefList_BH> TaxCorrectionType(MAcctSchema entity, DataFetchingEnvironment environment) {

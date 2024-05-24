@@ -21,10 +21,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_A_Depreciation_Table_DetailResolver extends POResolver<X_A_Depreciation_Table_Detail> implements GraphQLResolver<X_A_Depreciation_Table_Detail> {
 
 
-	static Map<String, String> A_TABLE_RATE_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_TABLE_RATE_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("AM", "6c03c647-961b-4fb9-ab48-881b071e4077");
-			put("RT", "6181fac0-c69e-49ea-bd8c-2a7e61acccad");
+			put("AM", "6c03c647-961b-4fb9-ab48-881b071e4077"); // Amount
+			put("RT", "6181fac0-c69e-49ea-bd8c-2a7e61acccad"); // Rate
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Table_Rate_Type(X_A_Depreciation_Table_Detail entity, DataFetchingEnvironment environment) {

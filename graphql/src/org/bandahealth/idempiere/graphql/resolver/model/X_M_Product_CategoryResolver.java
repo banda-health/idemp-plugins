@@ -61,10 +61,10 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 		return dataLoader.load(entity.getAD_PrintColor_ID());
 	}
 
-	static Map<String, String> BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("P", "305558d1-db4a-456f-9c25-057750949060");
-			put("S", "f3c40565-4bb3-4e82-b280-1ad24f6701cd");
+			put("P", "305558d1-db4a-456f-9c25-057750949060"); // Product
+			put("S", "f3c40565-4bb3-4e82-b280-1ad24f6701cd"); // Service
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_Product_Category_Type(MProductCategory_BH entity, DataFetchingEnvironment environment) {
@@ -115,10 +115,10 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 		return dataLoader.load(entity.getM_Product_Category_Parent_ID());
 	}
 
-	static Map<String, String> MMPOLICY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MMPOLICY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("L", "80bfacfa-9e34-4d5c-8388-5cb45e52447a");
-			put("F", "b1ed1550-7c2f-402b-b47a-b700929da0f6");
+			put("L", "80bfacfa-9e34-4d5c-8388-5cb45e52447a"); // LiFo
+			put("F", "b1ed1550-7c2f-402b-b47a-b700929da0f6"); // FiFo
 		}
 	};
 	public CompletableFuture<MRefList_BH> MMPolicy(MProductCategory_BH entity, DataFetchingEnvironment environment) {

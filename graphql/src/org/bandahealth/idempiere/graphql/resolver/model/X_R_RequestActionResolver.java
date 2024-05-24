@@ -192,12 +192,12 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
-	static Map<String, String> CONFIDENTIALTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CONFIDENTIALTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "1eb43dd1-53c0-4b5c-aae4-585c7d3fc9c2");
-			put("C", "0f1983c1-e543-4a8f-9b8a-4a00d2a111f4");
-			put("I", "7c6def43-3d72-4c5b-93ce-dfbefd8545e4");
-			put("P", "467c826c-2a44-4f65-8026-8dc6b1d7edec");
+			put("A", "1eb43dd1-53c0-4b5c-aae4-585c7d3fc9c2"); // Public Information
+			put("C", "0f1983c1-e543-4a8f-9b8a-4a00d2a111f4"); // Partner Confidential
+			put("I", "7c6def43-3d72-4c5b-93ce-dfbefd8545e4"); // Internal
+			put("P", "467c826c-2a44-4f65-8026-8dc6b1d7edec"); // Private Information
 		}
 	};
 	public CompletableFuture<MRefList_BH> ConfidentialType(MRequestAction entity, DataFetchingEnvironment environment) {
@@ -209,10 +209,10 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 		return dataLoader.load(CONFIDENTIALTYPE_UUIDS_BY_VALUE.get(entity.getConfidentialType()));
 	}
 
-	static Map<String, String> ISESCALATED_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISESCALATED_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsEscalated(MRequestAction entity, DataFetchingEnvironment environment) {
@@ -228,10 +228,10 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 		return entity.isInvoiced();
 	}
 
-	static Map<String, String> ISSELFSERVICE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISSELFSERVICE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsSelfService(MRequestAction entity, DataFetchingEnvironment environment) {
@@ -303,13 +303,13 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 		return dataLoader.load(entity.getM_RMA_ID());
 	}
 
-	static Map<String, String> PRIORITY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PRIORITY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("3", "eb2a15e0-e10d-47df-9ddd-d12d39b32007");
-			put("5", "6ca5bed6-2fd6-4afd-b3a8-d9c91452e829");
-			put("7", "74703c05-07aa-47d6-8ee3-e884ce2f505e");
-			put("1", "6d26a706-aa9f-4111-8b5b-741aa48476d9");
-			put("9", "c349e252-ad91-483f-b53f-0e92fabbaca5");
+			put("3", "eb2a15e0-e10d-47df-9ddd-d12d39b32007"); // High
+			put("5", "6ca5bed6-2fd6-4afd-b3a8-d9c91452e829"); // Medium
+			put("7", "74703c05-07aa-47d6-8ee3-e884ce2f505e"); // Low
+			put("1", "6d26a706-aa9f-4111-8b5b-741aa48476d9"); // Urgent
+			put("9", "c349e252-ad91-483f-b53f-0e92fabbaca5"); // Minor
 		}
 	};
 	public CompletableFuture<MRefList_BH> Priority(MRequestAction entity, DataFetchingEnvironment environment) {
@@ -321,13 +321,13 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 		return dataLoader.load(PRIORITY_UUIDS_BY_VALUE.get(entity.getPriority()));
 	}
 
-	static Map<String, String> PRIORITYUSER_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PRIORITYUSER_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("3", "eb2a15e0-e10d-47df-9ddd-d12d39b32007");
-			put("5", "6ca5bed6-2fd6-4afd-b3a8-d9c91452e829");
-			put("7", "74703c05-07aa-47d6-8ee3-e884ce2f505e");
-			put("1", "6d26a706-aa9f-4111-8b5b-741aa48476d9");
-			put("9", "c349e252-ad91-483f-b53f-0e92fabbaca5");
+			put("3", "eb2a15e0-e10d-47df-9ddd-d12d39b32007"); // High
+			put("5", "6ca5bed6-2fd6-4afd-b3a8-d9c91452e829"); // Medium
+			put("7", "74703c05-07aa-47d6-8ee3-e884ce2f505e"); // Low
+			put("1", "6d26a706-aa9f-4111-8b5b-741aa48476d9"); // Urgent
+			put("9", "c349e252-ad91-483f-b53f-0e92fabbaca5"); // Minor
 		}
 	};
 	public CompletableFuture<MRefList_BH> PriorityUser(MRequestAction entity, DataFetchingEnvironment environment) {
@@ -444,17 +444,17 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 
-	static Map<String, String> TASKSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TASKSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("0", "8728eddd-a152-49f0-8dc3-e727b50eebfc");
-			put("D", "d12b8255-6269-4ceb-9639-120d25403f66");
-			put("2", "354c2e39-18b6-4bf0-93f0-cace4a95d32e");
-			put("8", "13ece71e-835f-4e05-896b-af58c911ff18");
-			put("4", "5563abac-cd40-4e65-a669-7140b01a3d92");
-			put("6", "53d07eb1-d958-4fca-bac6-c27bc3f78d1a");
-			put("9", "29e46947-417d-4b7f-b60e-3fba408ed0bf");
-			put("A", "e3d9120e-4007-46cc-9606-8e7b8539fcf4");
-			put("C", "50253188-b105-47b2-ae84-b952a82b07a5");
+			put("0", "8728eddd-a152-49f0-8dc3-e727b50eebfc"); //  0% Not Started
+			put("D", "d12b8255-6269-4ceb-9639-120d25403f66"); // 100% Complete
+			put("2", "354c2e39-18b6-4bf0-93f0-cace4a95d32e"); //  20% Started
+			put("8", "13ece71e-835f-4e05-896b-af58c911ff18"); //  80% Nearly Done
+			put("4", "5563abac-cd40-4e65-a669-7140b01a3d92"); //  40% Busy
+			put("6", "53d07eb1-d958-4fca-bac6-c27bc3f78d1a"); //  60% Good Progress
+			put("9", "29e46947-417d-4b7f-b60e-3fba408ed0bf"); //  90% Finishing
+			put("A", "e3d9120e-4007-46cc-9606-8e7b8539fcf4"); //  95% Almost Done
+			put("C", "50253188-b105-47b2-ae84-b952a82b07a5"); //  99% Cleaning up
 		}
 	};
 	public CompletableFuture<MRefList_BH> TaskStatus(MRequestAction entity, DataFetchingEnvironment environment) {

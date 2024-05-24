@@ -130,11 +130,11 @@ public class X_AD_PrintGraphResolver extends POResolver<X_AD_PrintGraph> impleme
 		return dataLoader.load(entity.getDescription_PrintFormatItem_ID());
 	}
 
-	static Map<String, String> GRAPHTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> GRAPHTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("P", "fcb7a61a-0a50-4b34-81c0-2fa928e81b9b");
-			put("L", "fd92fba9-2a1e-409f-9112-16926a51006e");
-			put("B", "eacbdb95-e916-43aa-a3a1-29916173a3be");
+			put("P", "fcb7a61a-0a50-4b34-81c0-2fa928e81b9b"); // Pie Chart
+			put("L", "fd92fba9-2a1e-409f-9112-16926a51006e"); // Line Chart
+			put("B", "eacbdb95-e916-43aa-a3a1-29916173a3be"); // Bar Chart
 		}
 	};
 	public CompletableFuture<MRefList_BH> GraphType(X_AD_PrintGraph entity, DataFetchingEnvironment environment) {

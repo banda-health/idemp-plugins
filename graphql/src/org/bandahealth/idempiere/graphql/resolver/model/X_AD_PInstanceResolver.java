@@ -135,12 +135,12 @@ public class X_AD_PInstanceResolver extends POResolver<MPInstance> implements Gr
 		return entity.isSummary();
 	}
 
-	static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650");
-			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3");
-			put("X", "ca78475e-7191-402b-9d15-7244e87620f1");
-			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427");
+			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650"); // EMail
+			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3"); // Notice
+			put("X", "ca78475e-7191-402b-9d15-7244e87620f1"); // None
+			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427"); // EMail+Notice
 		}
 	};
 	public CompletableFuture<MRefList_BH> NotificationType(MPInstance entity, DataFetchingEnvironment environment) {

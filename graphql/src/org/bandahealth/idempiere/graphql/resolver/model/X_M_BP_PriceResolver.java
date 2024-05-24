@@ -76,10 +76,10 @@ public class X_M_BP_PriceResolver extends POResolver<X_M_BP_Price> implements Gr
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
-	static Map<String, String> PRICEOVERRIDETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PRICEOVERRIDETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("P", "616cebd1-4773-46ea-94e4-2e6798dc2f70");
-			put("D", "8444767e-f62f-4fb6-82c2-e7d4c113f8a7");
+			put("P", "616cebd1-4773-46ea-94e4-2e6798dc2f70"); // Fixed Price
+			put("D", "8444767e-f62f-4fb6-82c2-e7d4c113f8a7"); // Discount
 		}
 	};
 	public CompletableFuture<MRefList_BH> PriceOverrideType(X_M_BP_Price entity, DataFetchingEnvironment environment) {

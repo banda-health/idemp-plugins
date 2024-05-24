@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_ViewColumnResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -151,7 +152,12 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 	public void setDBDataTypeInput(ForeignEntityInput DBDataType) {
 		this.mDBDataType = DBDataType;
 		if (DBDataType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ViewColumnResolver.DBDATATYPE_UUIDS_BY_VALUE.containsValue(DBDataType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DBDataType.getUU() +
+						" is not in the list defined for the DBDataType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

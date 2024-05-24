@@ -180,12 +180,12 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 		return entity.isOverwritePriceLimit();
 	}
 
-	static Map<String, String> PREFERENCETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PREFERENCETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "83843d71-2a13-4c6f-912f-dd92b1faeaa5");
-			put("O", "925937f5-882b-459e-a044-6156cd642415");
-			put("U", "1e3cec47-4ddd-4543-b9de-0b52125f464b");
-			put("N", "7b6855b5-554c-4350-a4c1-605523bc56e1");
+			put("C", "83843d71-2a13-4c6f-912f-dd92b1faeaa5"); // Client
+			put("O", "925937f5-882b-459e-a044-6156cd642415"); // Organization
+			put("U", "1e3cec47-4ddd-4543-b9de-0b52125f464b"); // User
+			put("N", "7b6855b5-554c-4350-a4c1-605523bc56e1"); // None
 		}
 	};
 	public CompletableFuture<MRefList_BH> PreferenceType(X_AD_Role entity, DataFetchingEnvironment environment) {
@@ -197,18 +197,18 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 		return dataLoader.load(PREFERENCETYPE_UUIDS_BY_VALUE.get(entity.getPreferenceType()));
 	}
 
-	static Map<String, String> ROLETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ROLETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("ZK", "af5be523-6318-4b6c-bc8b-f51ecd0de2d0");
-			put("WS", "ff7ae569-ea86-4c21-9aff-6a9073f4b677");
-			put("SS", "3b6ad66c-e962-46a5-a3ec-b8787ee4c754");
-			put("MO", "78962d5b-b6bb-4798-8f9d-fd36381b58ed");
-			put("SW", "b6d02ebf-6845-47d9-b91e-b956084333e8");
-			put("E1", "d6bc8c6d-d5bf-458c-81f7-4d3f11303d6d");
-			put("E2", "79a2e44a-dfd6-4114-b835-5392c4736eb9");
-			put("E3", "f158da0d-6ad6-4f2e-aa65-099417d6217b");
-			put("E4", "d136b0f9-658a-4e79-b22f-3cf995da34ff");
-			put("E5", "b06729fb-ce8e-4bff-b6da-0f38bdefa55e");
+			put("ZK", "af5be523-6318-4b6c-bc8b-f51ecd0de2d0"); // WebUI
+			put("WS", "ff7ae569-ea86-4c21-9aff-6a9073f4b677"); // WebService
+			put("SS", "3b6ad66c-e962-46a5-a3ec-b8787ee4c754"); // System Support
+			put("MO", "78962d5b-b6bb-4798-8f9d-fd36381b58ed"); // Mobile
+			put("SW", "b6d02ebf-6845-47d9-b91e-b956084333e8"); // Swing
+			put("E1", "d6bc8c6d-d5bf-458c-81f7-4d3f11303d6d"); // External App 1
+			put("E2", "79a2e44a-dfd6-4114-b835-5392c4736eb9"); // External App 2
+			put("E3", "f158da0d-6ad6-4f2e-aa65-099417d6217b"); // External App 3
+			put("E4", "d136b0f9-658a-4e79-b22f-3cf995da34ff"); // External App 4
+			put("E5", "b06729fb-ce8e-4bff-b6da-0f38bdefa55e"); // External App 5
 		}
 	};
 	public CompletableFuture<MRefList_BH> RoleType(X_AD_Role entity, DataFetchingEnvironment environment) {
@@ -235,12 +235,12 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 		return dataLoader.load(entity.getSupervisor_ID());
 	}
 
-	static Map<String, String> USERLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> USERLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S  ", "e8d54adf-89fa-43f6-90aa-32f3d57c1bfc");
-			put(" C ", "1c9b74bd-a284-4c2b-9ad1-826e53c01bae");
-			put("  O", "23b5d43e-7691-4a8f-b9ee-969cca173609");
-			put(" CO", "ac273750-1ebd-4bf1-9637-b693fa7a5794");
+			put("S  ", "e8d54adf-89fa-43f6-90aa-32f3d57c1bfc"); // System
+			put(" C ", "1c9b74bd-a284-4c2b-9ad1-826e53c01bae"); // Client
+			put("  O", "23b5d43e-7691-4a8f-b9ee-969cca173609"); // Organization
+			put(" CO", "ac273750-1ebd-4bf1-9637-b693fa7a5794"); // Client+Organization
 		}
 	};
 	public CompletableFuture<MRefList_BH> UserLevel(X_AD_Role entity, DataFetchingEnvironment environment) {

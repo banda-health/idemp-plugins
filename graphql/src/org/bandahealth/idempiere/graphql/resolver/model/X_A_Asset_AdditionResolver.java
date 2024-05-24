@@ -66,10 +66,10 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
-	static Map<String, String> A_CAPVSEXP_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_CAPVSEXP_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Cap", "f494c22f-2ce5-471d-aabb-887f528c60da");
-			put("Exp", "4a84ac91-9720-40a2-8529-6a139dabb96a");
+			put("Cap", "f494c22f-2ce5-471d-aabb-887f528c60da"); // Capital
+			put("Exp", "4a84ac91-9720-40a2-8529-6a139dabb96a"); // Expense
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_CapvsExp(MAssetAddition entity, DataFetchingEnvironment environment) {
@@ -85,13 +85,13 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 		return entity.isA_CreateAsset();
 	}
 
-	static Map<String, String> A_SOURCETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_SOURCETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("IMP", "e805e50b-d411-4e2d-9010-e9fafd0493f0");
-			put("INV", "2bded02d-c497-43be-8c3e-7c579ded5f1e");
-			put("JRN", "f446c726-8083-4a37-8b2e-459a415e6476");
-			put("MAN", "8b8cf8d0-dfbf-4532-a0b9-22136bae0c31");
-			put("PRJ", "3773d29e-2de2-42bb-a4f9-8b5bfbe771ac");
+			put("IMP", "e805e50b-d411-4e2d-9010-e9fafd0493f0"); // Imported
+			put("INV", "2bded02d-c497-43be-8c3e-7c579ded5f1e"); // Invoice
+			put("JRN", "f446c726-8083-4a37-8b2e-459a415e6476"); // Journal Entry
+			put("MAN", "8b8cf8d0-dfbf-4532-a0b9-22136bae0c31"); // Manual
+			put("PRJ", "3773d29e-2de2-42bb-a4f9-8b5bfbe771ac"); // Project
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_SourceType(MAssetAddition entity, DataFetchingEnvironment environment) {
@@ -208,22 +208,22 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
-	static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("CO", "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
-			put("AP", "f80665a4-0db1-4609-be56-5d69b762d169");
-			put("RJ", "8fffbfd1-560a-4a78-9181-e5b76bbb3354");
-			put("PO", "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9");
-			put("VO", "930f9be7-85bc-4002-83a6-fe4e1b8cfce3");
-			put("CL", "d0a6de04-9c59-4d37-998d-f8070db820b0");
-			put("RC", "597e3e98-f1cd-4157-885a-1fae6424a3a6");
-			put("RA", "1a3904b9-86bc-4831-a4af-0281dcafa8f8");
-			put("IN", "69ff146b-fe0e-44a0-98d1-80b2f7958edf");
-			put("RE", "c8f55635-67a3-42ae-b626-2064acb2e260");
-			put("--", "ea523fb8-e21b-4a77-a657-6f5a7d12a591");
-			put("PR", "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76");
-			put("XL", "b2d93bde-a7e7-43f0-9b1c-82527992f6d5");
-			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
+			put("CO", "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da"); // Complete
+			put("AP", "f80665a4-0db1-4609-be56-5d69b762d169"); // Approve
+			put("RJ", "8fffbfd1-560a-4a78-9181-e5b76bbb3354"); // Reject
+			put("PO", "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9"); // Post
+			put("VO", "930f9be7-85bc-4002-83a6-fe4e1b8cfce3"); // Void
+			put("CL", "d0a6de04-9c59-4d37-998d-f8070db820b0"); // Close
+			put("RC", "597e3e98-f1cd-4157-885a-1fae6424a3a6"); // Reverse - Correct
+			put("RA", "1a3904b9-86bc-4831-a4af-0281dcafa8f8"); // Reverse - Accrual
+			put("IN", "69ff146b-fe0e-44a0-98d1-80b2f7958edf"); // Invalidate
+			put("RE", "c8f55635-67a3-42ae-b626-2064acb2e260"); // Re-activate
+			put("--", "ea523fb8-e21b-4a77-a657-6f5a7d12a591"); // <None>
+			put("PR", "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76"); // Prepare
+			put("XL", "b2d93bde-a7e7-43f0-9b1c-82527992f6d5"); // Unlock
+			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0"); // Wait Complete
 		}
 	};
 	public CompletableFuture<MRefList_BH> DocAction(MAssetAddition entity, DataFetchingEnvironment environment) {
@@ -235,20 +235,20 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
 
-	static Map<String, String> DOCSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DOCSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("DR", "d27f8a6b-e8b5-4fea-a6b2-3e7049c473ec");
-			put("CO", "50702660-bbfc-422a-8acc-5ed3a2dce204");
-			put("AP", "a838dad1-b7fc-4b26-9d80-d45f2d8484c5");
-			put("NA", "c8c414ee-3e4e-480b-aa0e-bc6c1d100bd2");
-			put("VO", "d35dfd1d-1eb2-46ef-ab2f-23973d68a570");
-			put("IN", "c2d506ba-1916-4ca2-abde-da3127c11d77");
-			put("RE", "029a78cf-d45c-4fb2-a6c9-fb92c2311af6");
-			put("CL", "ab9df095-8aa8-4338-98b6-4b09ab9d459e");
-			put("??", "0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2");
-			put("IP", "9f864275-6135-452f-a5a7-9377d9ed32bc");
-			put("WP", "4a9871d9-ec70-489f-aca5-05adb7e61df9");
-			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
+			put("DR", "d27f8a6b-e8b5-4fea-a6b2-3e7049c473ec"); // Drafted
+			put("CO", "50702660-bbfc-422a-8acc-5ed3a2dce204"); // Completed
+			put("AP", "a838dad1-b7fc-4b26-9d80-d45f2d8484c5"); // Approved
+			put("NA", "c8c414ee-3e4e-480b-aa0e-bc6c1d100bd2"); // Not Approved
+			put("VO", "d35dfd1d-1eb2-46ef-ab2f-23973d68a570"); // Voided
+			put("IN", "c2d506ba-1916-4ca2-abde-da3127c11d77"); // Invalid
+			put("RE", "029a78cf-d45c-4fb2-a6c9-fb92c2311af6"); // Reversed
+			put("CL", "ab9df095-8aa8-4338-98b6-4b09ab9d459e"); // Closed
+			put("??", "0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2"); // Unknown
+			put("IP", "9f864275-6135-452f-a5a7-9377d9ed32bc"); // In Progress
+			put("WP", "4a9871d9-ec70-489f-aca5-05adb7e61df9"); // Waiting Payment
+			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6"); // Waiting Confirmation
 		}
 	};
 	public CompletableFuture<MRefList_BH> DocStatus(MAssetAddition entity, DataFetchingEnvironment environment) {
@@ -373,13 +373,13 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 		return entity.isPosted();
 	}
 
-	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc"); // Actual
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e"); // Budget
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d"); // Commitment
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb"); // Statistical
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5"); // Reservation
 		}
 	};
 	public CompletableFuture<MRefList_BH> PostingType(MAssetAddition entity, DataFetchingEnvironment environment) {

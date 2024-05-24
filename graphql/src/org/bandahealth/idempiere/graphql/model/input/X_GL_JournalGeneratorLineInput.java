@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_GL_JournalGeneratorLineResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MJournalGenerator;
@@ -88,7 +89,12 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 	public void setBPDimensionTypeInput(ForeignEntityInput BPDimensionType) {
 		this.mBPDimensionType = BPDimensionType;
 		if (BPDimensionType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_GL_JournalGeneratorLineResolver.BPDIMENSIONTYPE_UUIDS_BY_VALUE.containsValue(BPDimensionType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BPDimensionType.getUU() +
+						" is not in the list defined for the BPDimensionType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

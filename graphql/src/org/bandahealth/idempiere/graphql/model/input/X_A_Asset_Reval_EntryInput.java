@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_Asset_Reval_EntryResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MGLCategory;
@@ -87,7 +88,12 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	public void setA_Rev_CodeInput(ForeignEntityInput A_Rev_Code) {
 		this.mA_Rev_Code = A_Rev_Code;
 		if (A_Rev_Code != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_Reval_EntryResolver.A_REV_CODE_UUIDS_BY_VALUE.containsValue(A_Rev_Code.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Rev_Code.getUU() +
+						" is not in the list defined for the A_Rev_Code column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -121,7 +127,12 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	public void setA_Reval_Cal_MethodInput(ForeignEntityInput A_Reval_Cal_Method) {
 		this.mA_Reval_Cal_Method = A_Reval_Cal_Method;
 		if (A_Reval_Cal_Method != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_Reval_EntryResolver.A_REVAL_CAL_METHOD_UUIDS_BY_VALUE.containsValue(A_Reval_Cal_Method.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Reval_Cal_Method.getUU() +
+						" is not in the list defined for the A_Reval_Cal_Method column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -155,7 +166,12 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	public void setA_Reval_Effective_DateInput(ForeignEntityInput A_Reval_Effective_Date) {
 		this.mA_Reval_Effective_Date = A_Reval_Effective_Date;
 		if (A_Reval_Effective_Date != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_Reval_EntryResolver.A_REVAL_EFFECTIVE_DATE_UUIDS_BY_VALUE.containsValue(A_Reval_Effective_Date.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Reval_Effective_Date.getUU() +
+						" is not in the list defined for the A_Reval_Effective_Date column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -189,7 +205,12 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	public void setA_Reval_MultiplierInput(ForeignEntityInput A_Reval_Multiplier) {
 		this.mA_Reval_Multiplier = A_Reval_Multiplier;
 		if (A_Reval_Multiplier != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_Reval_EntryResolver.A_REVAL_MULTIPLIER_UUIDS_BY_VALUE.containsValue(A_Reval_Multiplier.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Reval_Multiplier.getUU() +
+						" is not in the list defined for the A_Reval_Multiplier column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -427,7 +448,12 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_Reval_EntryResolver.POSTINGTYPE_UUIDS_BY_VALUE.containsValue(PostingType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PostingType.getUU() +
+						" is not in the list defined for the PostingType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

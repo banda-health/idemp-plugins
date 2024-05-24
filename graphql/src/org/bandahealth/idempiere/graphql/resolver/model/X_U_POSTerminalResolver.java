@@ -127,10 +127,10 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 		return dataLoader.load(entity.getCardTransferCashBook_ID());
 	}
 
-	static Map<String, String> CARDTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CARDTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827");
-			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1");
+			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827"); // Bank Account
+			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1"); // CashBook
 		}
 	};
 	public CompletableFuture<MRefList_BH> CardTransferType(MPOSTerminal entity, DataFetchingEnvironment environment) {
@@ -142,10 +142,10 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 		return dataLoader.load(CARDTRANSFERTYPE_UUIDS_BY_VALUE.get(entity.getCardTransferType()));
 	}
 
-	static Map<String, String> CASHBOOKTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CASHBOOKTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827");
-			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1");
+			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827"); // Bank Account
+			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1"); // CashBook
 		}
 	};
 	public CompletableFuture<MRefList_BH> CashBookTransferType(MPOSTerminal entity, DataFetchingEnvironment environment) {
@@ -232,10 +232,10 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 		return dataLoader.load(entity.getCheckTransferCashBook_ID());
 	}
 
-	static Map<String, String> CHECKTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CHECKTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827");
-			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1");
+			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827"); // Bank Account
+			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1"); // CashBook
 		}
 	};
 	public CompletableFuture<MRefList_BH> CheckTransferType(MPOSTerminal entity, DataFetchingEnvironment environment) {

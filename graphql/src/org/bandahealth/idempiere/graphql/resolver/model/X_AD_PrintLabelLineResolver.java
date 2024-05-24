@@ -77,10 +77,10 @@ public class X_AD_PrintLabelLineResolver extends POResolver<X_AD_PrintLabelLine>
 		return dataLoader.load(entity.getAD_PrintLabel_ID());
 	}
 
-	static Map<String, String> LABELFORMATTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> LABELFORMATTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("F", "6c3c7cc6-db53-43ba-96e0-997cfe7adcfb");
-			put("T", "57e49325-7b0d-406c-bf07-e87bf44e930e");
+			put("F", "6c3c7cc6-db53-43ba-96e0-997cfe7adcfb"); // Field
+			put("T", "57e49325-7b0d-406c-bf07-e87bf44e930e"); // Text
 		}
 	};
 	public CompletableFuture<MRefList_BH> LabelFormatType(X_AD_PrintLabelLine entity, DataFetchingEnvironment environment) {

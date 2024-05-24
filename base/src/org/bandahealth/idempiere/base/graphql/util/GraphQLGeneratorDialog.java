@@ -398,7 +398,7 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			}
 			String modelResolverFolder = "";
 			String modelResolverPackageName = "";
-			if (generateModelResolverCheckbox.isSelected()) {
+			if (generateModelResolverCheckbox.isSelected() || generateInputModelCheckbox.isSelected()) {
 				modelResolverFolder = modelResolverDirectoryNameField.getText();
 				if (modelResolverFolder == null || modelResolverFolder.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(this, "Please enter model resolver folder name", "Error",
@@ -431,7 +431,8 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 				GraphQLInputModelInterfaceGenerator.generateSource(entityType, tableName, columnEntityType, inputModelFolder,
 						inputModelPackageName, customModelFolderName, customModelPackageName, modelsForTables);
 				GraphQLInputModelClassGenerator.generateSource(entityType, tableName, columnEntityType, inputModelFolder,
-						inputModelPackageName, customModelFolderName, customModelPackageName, modelsForTables);
+						inputModelPackageName, customModelFolderName, customModelPackageName, modelResolverPackageName,
+						modelsForTables);
 			}
 			if (generateQueryResolverCheckbox.isSelected()) {
 				GraphQLQueryResolverGenerator.generateSource(entityType, tableName, columnEntityType, queryResolverFolder,

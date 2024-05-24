@@ -55,11 +55,11 @@ public class X_C_POSKeyLayoutResolver extends POResolver<MPOSKeyLayout> implemen
 		return dataLoader.load(entity.getAD_PrintFont_ID());
 	}
 
-	static Map<String, String> POSKEYLAYOUTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> POSKEYLAYOUTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("K", "2740bb60-24ef-4fd4-a741-77440c9ed491");
-			put("N", "518e5b11-cbc2-42bd-b21e-6b66e040d9eb");
-			put("P", "b52db13f-965c-4a2b-9f23-12576332795a");
+			put("K", "2740bb60-24ef-4fd4-a741-77440c9ed491"); // Keyboard
+			put("N", "518e5b11-cbc2-42bd-b21e-6b66e040d9eb"); // Numberpad
+			put("P", "b52db13f-965c-4a2b-9f23-12576332795a"); // Product
 		}
 	};
 	public CompletableFuture<MRefList_BH> POSKeyLayoutType(MPOSKeyLayout entity, DataFetchingEnvironment environment) {

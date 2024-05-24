@@ -53,11 +53,11 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 		return dataLoader.load(entity.getAD_Image_ID());
 	}
 
-	static Map<String, String> AUTHENTICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> AUTHENTICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("SSO", "d726bc83-5d69-4082-b224-e0803b5c234d");
-			put("APO", "32f2269c-8c71-40f1-a128-d6f805030a69");
-			put("AAS", "7cd3af94-1e49-4d9f-9e33-dbdc0dfce7bb");
+			put("SSO", "d726bc83-5d69-4082-b224-e0803b5c234d"); // SSO Only
+			put("APO", "32f2269c-8c71-40f1-a128-d6f805030a69"); // Application Only
+			put("AAS", "7cd3af94-1e49-4d9f-9e33-dbdc0dfce7bb"); // Application and SSO
 		}
 	};
 	public CompletableFuture<MRefList_BH> AuthenticationType(MUser_BH entity, DataFetchingEnvironment environment) {
@@ -202,10 +202,10 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 		return entity.isLocked();
 	}
 
-	static Map<String, String> ISMENUAUTOEXPAND_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISMENUAUTOEXPAND_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsMenuAutoExpand(MUser_BH entity, DataFetchingEnvironment environment) {
@@ -241,17 +241,17 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 		return entity.isVendorLead();
 	}
 
-	static Map<String, String> LEADSOURCE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> LEADSOURCE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("CC", "b5d3961b-0c9a-4f54-adda-8b5d2f99f5a5");
-			put("EC", "770aeea9-0580-491e-8047-ccb10d5f1551");
-			put("EM", "096bfbc5-011d-436e-b5c3-649bc4061d78");
-			put("PT", "1329c248-b567-41d2-a48b-290b1edf8e2f");
-			put("CN", "80579a39-d728-4f29-b490-9212d19e2193");
-			put("TS", "86e0594b-436a-4adc-99d5-3d0149975cc9");
-			put("WS", "24401e99-2c0d-4a5d-a7f6-cfabb92a15bf");
-			put("WM", "21dc34d8-87af-40c5-88df-941e6c3c08dd");
-			put("EL", "ff1640ae-b5ab-4278-96b7-75ec3f5df3b9");
+			put("CC", "b5d3961b-0c9a-4f54-adda-8b5d2f99f5a5"); // Cold Call
+			put("EC", "770aeea9-0580-491e-8047-ccb10d5f1551"); // Existing Customer
+			put("EM", "096bfbc5-011d-436e-b5c3-649bc4061d78"); // Employee
+			put("PT", "1329c248-b567-41d2-a48b-290b1edf8e2f"); // Partner
+			put("CN", "80579a39-d728-4f29-b490-9212d19e2193"); // Conference
+			put("TS", "86e0594b-436a-4adc-99d5-3d0149975cc9"); // Trade Show
+			put("WS", "24401e99-2c0d-4a5d-a7f6-cfabb92a15bf"); // Web Site
+			put("WM", "21dc34d8-87af-40c5-88df-941e6c3c08dd"); // Word of Mouth
+			put("EL", "ff1640ae-b5ab-4278-96b7-75ec3f5df3b9"); // Email
 		}
 	};
 	public CompletableFuture<MRefList_BH> LeadSource(MUser_BH entity, DataFetchingEnvironment environment) {
@@ -263,13 +263,13 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 		return dataLoader.load(LEADSOURCE_UUIDS_BY_VALUE.get(entity.getLeadSource()));
 	}
 
-	static Map<String, String> LEADSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> LEADSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("N", "8a664fb3-96ef-4b5b-879b-c32d340b4ca4");
-			put("W", "bb1547ea-5e2f-4886-bcd3-1c2f0ffb19f0");
-			put("E", "844fc440-4d79-4151-92c3-f4cd457be6dd");
-			put("R", "7eee557a-482b-4520-ac84-ccab00c258ed");
-			put("C", "bda2ba73-4d25-4964-861c-cb3c36d44ae2");
+			put("N", "8a664fb3-96ef-4b5b-879b-c32d340b4ca4"); // New
+			put("W", "bb1547ea-5e2f-4886-bcd3-1c2f0ffb19f0"); // Working
+			put("E", "844fc440-4d79-4151-92c3-f4cd457be6dd"); // Expired
+			put("R", "7eee557a-482b-4520-ac84-ccab00c258ed"); // Recycled
+			put("C", "bda2ba73-4d25-4964-861c-cb3c36d44ae2"); // Converted
 		}
 	};
 	public CompletableFuture<MRefList_BH> LeadStatus(MUser_BH entity, DataFetchingEnvironment environment) {
@@ -281,12 +281,12 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 		return dataLoader.load(LEADSTATUS_UUIDS_BY_VALUE.get(entity.getLeadStatus()));
 	}
 
-	static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650");
-			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3");
-			put("X", "ca78475e-7191-402b-9d15-7244e87620f1");
-			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427");
+			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650"); // EMail
+			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3"); // Notice
+			put("X", "ca78475e-7191-402b-9d15-7244e87620f1"); // None
+			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427"); // EMail+Notice
 		}
 	};
 	public CompletableFuture<MRefList_BH> NotificationType(MUser_BH entity, DataFetchingEnvironment environment) {

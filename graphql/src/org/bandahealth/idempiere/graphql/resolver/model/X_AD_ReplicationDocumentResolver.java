@@ -72,12 +72,12 @@ public class X_AD_ReplicationDocumentResolver extends POResolver<X_AD_Replicatio
 		return dataLoader.load(entity.getC_DocType_ID());
 	}
 
-	static Map<String, String> REPLICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> REPLICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("L", "c829969e-9927-491f-89a8-f200b8d29f57");
-			put("M", "41211ac8-1137-49f5-9efb-7d8e75682a45");
-			put("R", "959a0839-d0f2-43c5-b8da-d0f1fd76d8dd");
-			put("B", "1be8a931-6954-4fd9-bc76-e67c6f73fc00");
+			put("L", "c829969e-9927-491f-89a8-f200b8d29f57"); // Local
+			put("M", "41211ac8-1137-49f5-9efb-7d8e75682a45"); // Merge
+			put("R", "959a0839-d0f2-43c5-b8da-d0f1fd76d8dd"); // Reference
+			put("B", "1be8a931-6954-4fd9-bc76-e67c6f73fc00"); // Broadcast
 		}
 	};
 	public CompletableFuture<MRefList_BH> ReplicationType(X_AD_ReplicationDocument entity, DataFetchingEnvironment environment) {

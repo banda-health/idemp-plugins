@@ -33,10 +33,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_TransactionAllocationResolver extends POResolver<X_M_TransactionAllocation> implements GraphQLResolver<X_M_TransactionAllocation> {
 
 
-	static Map<String, String> ALLOCATIONSTRATEGYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ALLOCATIONSTRATEGYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("L", "e717816c-9a66-4eea-b14e-34662cb43fd0");
-			put("F", "f9fbe7ec-09e3-43a6-a438-4ec5778ee496");
+			put("L", "e717816c-9a66-4eea-b14e-34662cb43fd0"); // LiFo
+			put("F", "f9fbe7ec-09e3-43a6-a438-4ec5778ee496"); // FiFo
 		}
 	};
 	public CompletableFuture<MRefList_BH> AllocationStrategyType(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {

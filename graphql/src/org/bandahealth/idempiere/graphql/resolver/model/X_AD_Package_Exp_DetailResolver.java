@@ -310,16 +310,16 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
-	static Map<String, String> DBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("ALL", "2f54cf12-a78f-4d40-8561-db566c5df12f");
-			put("DB2", "38017bf1-7336-4e46-904e-9a1f262156b3");
-			put("Firebird", "1d22c56c-d4ea-4f20-92f4-a3a22f07b120");
-			put("MySQL", "3b24e285-a892-420e-bb0a-8a89bcd93025");
-			put("Oracle", "264365f3-21e1-4c68-a202-86641344c5b4");
-			put("Postgres", "ff9d6bf3-c576-40af-b7ed-a0e4baf1b8e3");
-			put("SQL", "f2439cba-6556-4eaf-883f-bf1fabde7068");
-			put("Sybase", "faa945f1-15c2-44e8-989d-c090eada7615");
+			put("ALL", "2f54cf12-a78f-4d40-8561-db566c5df12f"); // All Database Types
+			put("DB2", "38017bf1-7336-4e46-904e-9a1f262156b3"); // DB2
+			put("Firebird", "1d22c56c-d4ea-4f20-92f4-a3a22f07b120"); // Firebird
+			put("MySQL", "3b24e285-a892-420e-bb0a-8a89bcd93025"); // MySQL
+			put("Oracle", "264365f3-21e1-4c68-a202-86641344c5b4"); // Oracle
+			put("Postgres", "ff9d6bf3-c576-40af-b7ed-a0e4baf1b8e3"); // Postgres
+			put("SQL", "f2439cba-6556-4eaf-883f-bf1fabde7068"); // SQL Server
+			put("Sybase", "faa945f1-15c2-44e8-989d-c090eada7615"); // Sybase
 		}
 	};
 	public CompletableFuture<MRefList_BH> DBType(MPackageExpDetail entity, DataFetchingEnvironment environment) {
@@ -339,19 +339,19 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> RELEASENO_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> RELEASENO_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Release 2.5.2a", "d975e574-2e8e-47db-b541-cd9eb65056d9");
-			put("Release 2.5.2b", "cd25b4fe-5dba-44b5-9a9d-39f36a898ac8");
-			put("Release 2.5.2c", "78ee505b-f70a-49ad-8fc5-c9e8fe7cffd0");
-			put("Release 2.5.2d", "e9ef48ac-4288-4016-bde2-6efbaa764ce5");
-			put("Release 2.5.2e", "b6aeb737-b529-4365-a02d-e67588fb1abb");
-			put("Release 2.5.3a", "592848cc-9c95-452a-a977-a4980f136740");
-			put("Release 2.5.3b", "97d816d9-ecf7-4812-ab18-d14868a3af36");
-			put("all", "b4557873-6a91-4219-b37c-295f62f1eb1e");
-			put("Release 3.1.0", "02a67c21-a1ce-4943-a356-121fa3fd1c41");
-			put("Release 3.2.0", "5046d1f5-6961-4c28-98ed-aebcde52f1a4");
-			put("Release 3.3.0", "e2f98be7-ed36-4b40-b678-a957793ee8e4");
+			put("Release 2.5.2a", "d975e574-2e8e-47db-b541-cd9eb65056d9"); // Release 2.5.2a
+			put("Release 2.5.2b", "cd25b4fe-5dba-44b5-9a9d-39f36a898ac8"); // Release 2.5.2b
+			put("Release 2.5.2c", "78ee505b-f70a-49ad-8fc5-c9e8fe7cffd0"); // Release 2.5.2c
+			put("Release 2.5.2d", "e9ef48ac-4288-4016-bde2-6efbaa764ce5"); // Release 2.5.2d
+			put("Release 2.5.2e", "b6aeb737-b529-4365-a02d-e67588fb1abb"); // Release 2.5.2e
+			put("Release 2.5.3a", "592848cc-9c95-452a-a977-a4980f136740"); // Release 2.5.3a
+			put("Release 2.5.3b", "97d816d9-ecf7-4812-ab18-d14868a3af36"); // Release 2.5.3b
+			put("all", "b4557873-6a91-4219-b37c-295f62f1eb1e"); // No specific release
+			put("Release 3.1.0", "02a67c21-a1ce-4943-a356-121fa3fd1c41"); // Release 3.1.0
+			put("Release 3.2.0", "5046d1f5-6961-4c28-98ed-aebcde52f1a4"); // Release 3.2.0
+			put("Release 3.3.0", "e2f98be7-ed36-4b40-b678-a957793ee8e4"); // Release 3.3.0
 		}
 	};
 	public CompletableFuture<MRefList_BH> ReleaseNo(MPackageExpDetail entity, DataFetchingEnvironment environment) {
@@ -363,33 +363,33 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 		return dataLoader.load(RELEASENO_UUIDS_BY_VALUE.get(entity.getReleaseNo()));
 	}
 
-	static Map<String, String> TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "a35c0eb5-e62e-4c31-8757-7c0f448458b6");
-			put("C", "0a0c196e-7b95-4765-b1f9-ff2a18fbe6bb");
-			put("D", "97f11708-c94c-4314-8967-204989224832");
-			put("F", "84a42d1d-fb1b-42e2-b658-0e9d005601e8");
-			put("IMP", "b154a444-c4db-4678-a2a7-5948c4b8c302");
-			put("M", "8991c6f4-dd48-4b9a-8e0f-e5e6537d7a3e");
-			put("P", "969caf02-c2a7-4eed-8d77-c9e74e7efe32");
-			put("R", "b5a3f1e8-dfde-47f0-8213-bdd4581b4a65");
-			put("S", "33b42dff-997b-48d1-ac5f-e121e624fe61");
-			put("SNI", "f4c6398e-f40c-46a6-bf94-b5a1818860b0");
-			put("SQL", "fd7db47d-3c36-4176-866b-ba069d22ebb0");
-			put("T", "ca867fbc-c2bf-44c1-94c3-232397b476ca");
-			put("W", "29eadafd-906c-49c7-a22d-098d3f707a47");
-			put("X", "66bc4085-92f6-4209-a22f-7abf3dff723e");
-			put("V", "f9daf3dd-48f6-4db5-9d2f-ec3ba39ecd9d");
-			put("MSG", "300328cf-1bd2-4bc1-a225-4c0933d06588");
-			put("PFT", "5415dc1a-1e7f-4ffe-805a-2c5221e2d351");
-			put("REF", "df633d27-88d1-4391-b326-2ef81c8d7676");
-			put("MV", "59c565aa-99f3-42dd-93d8-4a25b59b09f3");
-			put("ET", "19020e49-1e7c-4dea-9957-1f434714c8b3");
-			put("SQM", "63605262-3ba3-4140-b839-4e5b0f8ad23d");
-			put("IW", "c1e5ee93-987c-43cd-90e9-e4cf5d592105");
-			put("DS", "bb6620c6-4cef-4796-90d6-007b83fe213f");
-			put("SCJ", "9a9c315b-9af4-4e83-be41-5f5057c13061");
-			put("SH", "48522ab7-f47c-4ee9-a6b3-21fb762b3e1a");
+			put("B", "a35c0eb5-e62e-4c31-8757-7c0f448458b6"); // Workbench
+			put("C", "0a0c196e-7b95-4765-b1f9-ff2a18fbe6bb"); // File - Code or other
+			put("D", "97f11708-c94c-4314-8967-204989224832"); // Data
+			put("F", "84a42d1d-fb1b-42e2-b658-0e9d005601e8"); // Workflow
+			put("IMP", "b154a444-c4db-4678-a2a7-5948c4b8c302"); // Import Format
+			put("M", "8991c6f4-dd48-4b9a-8e0f-e5e6537d7a3e"); // Application or Module
+			put("P", "969caf02-c2a7-4eed-8d77-c9e74e7efe32"); // Process/Report
+			put("R", "b5a3f1e8-dfde-47f0-8213-bdd4581b4a65"); // ReportView
+			put("S", "33b42dff-997b-48d1-ac5f-e121e624fe61"); // Role
+			put("SNI", "f4c6398e-f40c-46a6-bf94-b5a1818860b0"); // Code Snippet
+			put("SQL", "fd7db47d-3c36-4176-866b-ba069d22ebb0"); // SQL Statement
+			put("T", "ca867fbc-c2bf-44c1-94c3-232397b476ca"); // Table
+			put("W", "29eadafd-906c-49c7-a22d-098d3f707a47"); // Window
+			put("X", "66bc4085-92f6-4209-a22f-7abf3dff723e"); // Form
+			put("V", "f9daf3dd-48f6-4db5-9d2f-ec3ba39ecd9d"); // Dynamic Validation Rule
+			put("MSG", "300328cf-1bd2-4bc1-a225-4c0933d06588"); // Message
+			put("PFT", "5415dc1a-1e7f-4ffe-805a-2c5221e2d351"); // PrintFormat
+			put("REF", "df633d27-88d1-4391-b326-2ef81c8d7676"); // Reference
+			put("MV", "59c565aa-99f3-42dd-93d8-4a25b59b09f3"); // Model Validator
+			put("ET", "19020e49-1e7c-4dea-9957-1f434714c8b3"); // Entity Type
+			put("SQM", "63605262-3ba3-4140-b839-4e5b0f8ad23d"); // SQL Mandatory
+			put("IW", "c1e5ee93-987c-43cd-90e9-e4cf5d592105"); // Info Window
+			put("DS", "bb6620c6-4cef-4796-90d6-007b83fe213f"); // Data Single
+			put("SCJ", "9a9c315b-9af4-4e83-be41-5f5057c13061"); // Script JSR223
+			put("SH", "48522ab7-f47c-4ee9-a6b3-21fb762b3e1a"); // Shell Script
 		}
 	};
 	public CompletableFuture<MRefList_BH> Type(MPackageExpDetail entity, DataFetchingEnvironment environment) {

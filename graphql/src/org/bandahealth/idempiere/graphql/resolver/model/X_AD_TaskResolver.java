@@ -30,14 +30,14 @@ import java.util.concurrent.CompletableFuture;
 public class X_AD_TaskResolver extends POResolver<MTask> implements GraphQLResolver<MTask> {
 
 
-	static Map<String, String> ACCESSLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ACCESSLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("1", "3cc495d2-7e46-4d2d-b8b8-a38bfa97fa60");
-			put("3", "b8062c9f-fb7c-4e91-98ec-0a913a3b367f");
-			put("4", "6e8bdb2d-b494-401c-b586-7d20727b5eab");
-			put("7", "04c9829a-008e-4a71-9598-224f770491dc");
-			put("6", "e05482a2-71be-461d-b522-9cda71a9fa5d");
-			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59");
+			put("1", "3cc495d2-7e46-4d2d-b8b8-a38bfa97fa60"); // Organization
+			put("3", "b8062c9f-fb7c-4e91-98ec-0a913a3b367f"); // Client+Organization
+			put("4", "6e8bdb2d-b494-401c-b586-7d20727b5eab"); // System only
+			put("7", "04c9829a-008e-4a71-9598-224f770491dc"); // All
+			put("6", "e05482a2-71be-461d-b522-9cda71a9fa5d"); // System+Client
+			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59"); // Client only
 		}
 	};
 	public CompletableFuture<MRefList_BH> AccessLevel(MTask entity, DataFetchingEnvironment environment) {

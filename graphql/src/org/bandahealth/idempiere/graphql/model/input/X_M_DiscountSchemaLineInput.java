@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_DiscountSchemaLineResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MConversionType;
 import org.compiere.model.MDiscountSchema;
@@ -164,7 +165,12 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setLimit_BaseInput(ForeignEntityInput Limit_Base) {
 		this.mLimit_Base = Limit_Base;
 		if (Limit_Base != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_DiscountSchemaLineResolver.LIMIT_BASE_UUIDS_BY_VALUE.containsValue(Limit_Base.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Limit_Base.getUU() +
+						" is not in the list defined for the Limit_Base column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -198,7 +204,12 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setLimit_RoundingInput(ForeignEntityInput Limit_Rounding) {
 		this.mLimit_Rounding = Limit_Rounding;
 		if (Limit_Rounding != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_DiscountSchemaLineResolver.LIMIT_ROUNDING_UUIDS_BY_VALUE.containsValue(Limit_Rounding.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Limit_Rounding.getUU() +
+						" is not in the list defined for the Limit_Rounding column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -232,7 +243,12 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setList_BaseInput(ForeignEntityInput List_Base) {
 		this.mList_Base = List_Base;
 		if (List_Base != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_DiscountSchemaLineResolver.LIST_BASE_UUIDS_BY_VALUE.containsValue(List_Base.getUU())) {
+				throw new AdempiereException("The reference list UU of " + List_Base.getUU() +
+						" is not in the list defined for the List_Base column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -266,7 +282,12 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setList_RoundingInput(ForeignEntityInput List_Rounding) {
 		this.mList_Rounding = List_Rounding;
 		if (List_Rounding != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_DiscountSchemaLineResolver.LIST_ROUNDING_UUIDS_BY_VALUE.containsValue(List_Rounding.getUU())) {
+				throw new AdempiereException("The reference list UU of " + List_Rounding.getUU() +
+						" is not in the list defined for the List_Rounding column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -434,7 +455,12 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setStd_BaseInput(ForeignEntityInput Std_Base) {
 		this.mStd_Base = Std_Base;
 		if (Std_Base != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_DiscountSchemaLineResolver.STD_BASE_UUIDS_BY_VALUE.containsValue(Std_Base.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Std_Base.getUU() +
+						" is not in the list defined for the Std_Base column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -468,7 +494,12 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setStd_RoundingInput(ForeignEntityInput Std_Rounding) {
 		this.mStd_Rounding = Std_Rounding;
 		if (Std_Rounding != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_DiscountSchemaLineResolver.STD_ROUNDING_UUIDS_BY_VALUE.containsValue(Std_Rounding.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Std_Rounding.getUU() +
+						" is not in the list defined for the Std_Rounding column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

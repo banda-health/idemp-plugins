@@ -48,15 +48,15 @@ import java.util.concurrent.CompletableFuture;
 public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLResolver<MAsset> {
 
 
-	static Map<String, String> A_ASSET_ACTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_ASSET_ACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("DI", "fee6717e-7137-4035-9a83-bb96a6d111f8");
-			put("IB", "538261b3-5e19-445d-b54d-350c9b9fac92");
-			put("MD", "c72b48b9-f248-4e9d-9fd8-4afae918bef8");
-			put("OB", "c81b8475-74d3-41d5-8ff5-6de9e2db2436");
-			put("RE", "084daa2e-0720-47e2-8923-01793426c9a2");
-			put("RT", "3a74baee-45d7-4d09-84eb-37efa01e9ca0");
-			put("TR", "194f5d34-a04e-48c2-8e5a-8a81c326657c");
+			put("DI", "fee6717e-7137-4035-9a83-bb96a6d111f8"); // Dispose
+			put("IB", "538261b3-5e19-445d-b54d-350c9b9fac92"); // Inbound
+			put("MD", "c72b48b9-f248-4e9d-9fd8-4afae918bef8"); // Modify
+			put("OB", "c81b8475-74d3-41d5-8ff5-6de9e2db2436"); // Outbound
+			put("RE", "084daa2e-0720-47e2-8923-01793426c9a2"); // Reevaluate
+			put("RT", "3a74baee-45d7-4d09-84eb-37efa01e9ca0"); // Retire
+			put("TR", "194f5d34-a04e-48c2-8e5a-8a81c326657c"); // Transfer
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Asset_Action(MAsset entity, DataFetchingEnvironment environment) {
@@ -98,15 +98,15 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 		return dataLoader.load(entity.getA_Asset_Group_ID());
 	}
 
-	static Map<String, String> A_ASSET_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_ASSET_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("AC", "d2cdd31e-4373-4f35-8d01-22946c3c6211");
-			put("DI", "dd8c1848-6fb8-4829-8855-7c3b314514fd");
-			put("DP", "583c5228-ad5d-48cd-819b-97673805b1fa");
-			put("NW", "3f742175-42b0-4775-9eb3-ed5fefd0ca7a");
-			put("PR", "785b94f6-fbd7-49a7-b752-45a6d0df3888");
-			put("RE", "9ac1f818-4159-463f-81c4-b55923e94c9e");
-			put("SO", "b2aa86a9-566c-4762-98d5-c4b5c243a2cd");
+			put("AC", "d2cdd31e-4373-4f35-8d01-22946c3c6211"); // Activated
+			put("DI", "dd8c1848-6fb8-4829-8855-7c3b314514fd"); // Disposed
+			put("DP", "583c5228-ad5d-48cd-819b-97673805b1fa"); // Depreciated
+			put("NW", "3f742175-42b0-4775-9eb3-ed5fefd0ca7a"); // New
+			put("PR", "785b94f6-fbd7-49a7-b752-45a6d0df3888"); // Preservation
+			put("RE", "9ac1f818-4159-463f-81c4-b55923e94c9e"); // Retired
+			put("SO", "b2aa86a9-566c-4762-98d5-c4b5c243a2cd"); // Sold
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Asset_Status(MAsset entity, DataFetchingEnvironment environment) {

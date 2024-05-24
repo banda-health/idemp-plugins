@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_AuthorizationProviderResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAuthorizationProvider;
 import org.compiere.model.MOrg;
@@ -73,7 +74,12 @@ public class X_AD_AuthorizationProviderInput extends MAuthorizationProvider impl
 	public void setAD_AuthorizationTypeInput(ForeignEntityInput AD_AuthorizationType) {
 		this.mAD_AuthorizationType = AD_AuthorizationType;
 		if (AD_AuthorizationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_AuthorizationProviderResolver.AD_AUTHORIZATIONTYPE_UUIDS_BY_VALUE.containsValue(AD_AuthorizationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AD_AuthorizationType.getUU() +
+						" is not in the list defined for the AD_AuthorizationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

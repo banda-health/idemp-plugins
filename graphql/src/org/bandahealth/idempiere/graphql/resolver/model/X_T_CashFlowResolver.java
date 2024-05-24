@@ -210,12 +210,12 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
-	static Map<String, String> CASHFLOWSOURCE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CASHFLOWSOURCE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("1", "3044d420-7c6b-45f0-a3ff-8922edb12d95");
-			put("2", "71d468d0-f632-402a-9c6f-b6e2b13c8321");
-			put("3", "6141e6da-dd4a-4f1d-b46f-0a950380c2bf");
-			put("4", "59c5999a-ffe1-4bd5-9659-30e1a08bcde4");
+			put("1", "3044d420-7c6b-45f0-a3ff-8922edb12d95"); // 1_Initial Balance
+			put("2", "71d468d0-f632-402a-9c6f-b6e2b13c8321"); // 2_Plan
+			put("3", "6141e6da-dd4a-4f1d-b46f-0a950380c2bf"); // 3_Commitments (Orders)
+			put("4", "59c5999a-ffe1-4bd5-9659-30e1a08bcde4"); // 4_Actual Debt (Invoices)
 		}
 	};
 	public CompletableFuture<MRefList_BH> CashFlowSource(X_T_CashFlow entity, DataFetchingEnvironment environment) {
@@ -227,11 +227,11 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 		return dataLoader.load(CASHFLOWSOURCE_UUIDS_BY_VALUE.get(entity.getCashFlowSource()));
 	}
 
-	static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926");
-			put("I", "a98fda35-3822-42d3-8e4f-83880822e028");
-			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190");
+			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926"); // Financing
+			put("I", "a98fda35-3822-42d3-8e4f-83880822e028"); // Investment
+			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190"); // Operational
 		}
 	};
 	public CompletableFuture<MRefList_BH> CashFlowType(X_T_CashFlow entity, DataFetchingEnvironment environment) {

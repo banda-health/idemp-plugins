@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_ColumnResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChart;
 import org.compiere.model.MColumn;
@@ -512,7 +513,12 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	public void setFKConstraintTypeInput(ForeignEntityInput FKConstraintType) {
 		this.mFKConstraintType = FKConstraintType;
 		if (FKConstraintType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ColumnResolver.FKCONSTRAINTTYPE_UUIDS_BY_VALUE.containsValue(FKConstraintType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FKConstraintType.getUU() +
+						" is not in the list defined for the FKConstraintType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -546,7 +552,12 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	public void setIsEncryptedInput(ForeignEntityInput IsEncrypted) {
 		this.mIsEncrypted = IsEncrypted;
 		if (IsEncrypted != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ColumnResolver.ISENCRYPTED_UUIDS_BY_VALUE.containsValue(IsEncrypted.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsEncrypted.getUU() +
+						" is not in the list defined for the IsEncrypted column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -580,7 +591,12 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	public void setIsToolbarButtonInput(ForeignEntityInput IsToolbarButton) {
 		this.mIsToolbarButton = IsToolbarButton;
 		if (IsToolbarButton != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ColumnResolver.ISTOOLBARBUTTON_UUIDS_BY_VALUE.containsValue(IsToolbarButton.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsToolbarButton.getUU() +
+						" is not in the list defined for the IsToolbarButton column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -648,7 +664,12 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	public void setPartitioningMethodInput(ForeignEntityInput PartitioningMethod) {
 		this.mPartitioningMethod = PartitioningMethod;
 		if (PartitioningMethod != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ColumnResolver.PARTITIONINGMETHOD_UUIDS_BY_VALUE.containsValue(PartitioningMethod.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PartitioningMethod.getUU() +
+						" is not in the list defined for the PartitioningMethod column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

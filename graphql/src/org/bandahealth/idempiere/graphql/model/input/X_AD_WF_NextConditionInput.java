@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_WF_NextConditionResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MEntityType;
@@ -188,7 +189,12 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	public void setAndOrInput(ForeignEntityInput AndOr) {
 		this.mAndOr = AndOr;
 		if (AndOr != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NextConditionResolver.ANDOR_UUIDS_BY_VALUE.containsValue(AndOr.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AndOr.getUU() +
+						" is not in the list defined for the AndOr column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -256,7 +262,12 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	public void setOperationInput(ForeignEntityInput Operation) {
 		this.mOperation = Operation;
 		if (Operation != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NextConditionResolver.OPERATION_UUIDS_BY_VALUE.containsValue(Operation.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Operation.getUU() +
+						" is not in the list defined for the Operation column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

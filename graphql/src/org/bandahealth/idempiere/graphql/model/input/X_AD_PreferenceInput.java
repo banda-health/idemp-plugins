@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_PreferenceResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MForm;
 import org.compiere.model.MInfoWindow;
@@ -290,7 +291,12 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 	public void setPreferenceForInput(ForeignEntityInput PreferenceFor) {
 		this.mPreferenceFor = PreferenceFor;
 		if (PreferenceFor != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_PreferenceResolver.PREFERENCEFOR_UUIDS_BY_VALUE.containsValue(PreferenceFor.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PreferenceFor.getUU() +
+						" is not in the list defined for the PreferenceFor column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

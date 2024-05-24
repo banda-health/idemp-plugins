@@ -139,14 +139,14 @@ public class X_I_ProductResolver extends POResolver<X_I_Product> implements Grap
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> PRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "59dcc5c9-ab37-4f5c-9987-6e2347f50093");
-			put("S", "265e0369-47e4-4be9-b6d5-e344230f5588");
-			put("R", "42694712-fdf0-42ec-aa93-bf19009c3a98");
-			put("E", "6a973557-0387-4173-8b31-af735b9eeb75");
-			put("O", "8de4f3a8-057c-4540-96d8-38369776b2e7");
-			put("A", "a45dcc33-c973-4744-955e-dd24518ef099");
+			put("I", "59dcc5c9-ab37-4f5c-9987-6e2347f50093"); // Item
+			put("S", "265e0369-47e4-4be9-b6d5-e344230f5588"); // Service
+			put("R", "42694712-fdf0-42ec-aa93-bf19009c3a98"); // Resource
+			put("E", "6a973557-0387-4173-8b31-af735b9eeb75"); // Expense type
+			put("O", "8de4f3a8-057c-4540-96d8-38369776b2e7"); // Online
+			put("A", "a45dcc33-c973-4744-955e-dd24518ef099"); // Asset
 		}
 	};
 	public CompletableFuture<MRefList_BH> ProductType(X_I_Product entity, DataFetchingEnvironment environment) {

@@ -215,11 +215,11 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 		return entity.isRequiresTaxCertificate();
 	}
 
-	static Map<String, String> SOPOTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SOPOTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "4d7e51ff-cf6b-401d-b70b-fa87ba05a913");
-			put("S", "178a8145-a858-4705-9feb-d2428b7c2427");
-			put("P", "5d8aad9d-36bf-4f30-bbb2-639726c133f5");
+			put("B", "4d7e51ff-cf6b-401d-b70b-fa87ba05a913"); // Both
+			put("S", "178a8145-a858-4705-9feb-d2428b7c2427"); // Sales Tax
+			put("P", "5d8aad9d-36bf-4f30-bbb2-639726c133f5"); // Purchase Tax
 		}
 	};
 	public CompletableFuture<MRefList_BH> SOPOType(MTax entity, DataFetchingEnvironment environment) {
@@ -247,10 +247,10 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 						entity.getTaxIndicator());
 	}
 
-	static Map<String, String> TAXPOSTINGINDICATOR_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TAXPOSTINGINDICATOR_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("0", "e84b618c-a8b3-47cf-89a6-dd674e52d3e4");
-			put("1", "3e8e0d29-29ac-4c67-ae2c-92c0ee43d2e6");
+			put("0", "e84b618c-a8b3-47cf-89a6-dd674e52d3e4"); // Separate Tax Posting
+			put("1", "3e8e0d29-29ac-4c67-ae2c-92c0ee43d2e6"); // Distribute Tax with Relevant Expense
 		}
 	};
 	public CompletableFuture<MRefList_BH> TaxPostingIndicator(MTax entity, DataFetchingEnvironment environment) {

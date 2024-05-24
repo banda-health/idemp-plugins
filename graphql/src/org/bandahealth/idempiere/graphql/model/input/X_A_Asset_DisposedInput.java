@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_Asset_DisposedResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MAssetDisposed;
@@ -61,7 +62,12 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	public void setA_Activation_MethodInput(ForeignEntityInput A_Activation_Method) {
 		this.mA_Activation_Method = A_Activation_Method;
 		if (A_Activation_Method != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_DisposedResolver.A_ACTIVATION_METHOD_UUIDS_BY_VALUE.containsValue(A_Activation_Method.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Activation_Method.getUU() +
+						" is not in the list defined for the A_Activation_Method column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -158,7 +164,12 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	public void setA_Asset_StatusInput(ForeignEntityInput A_Asset_Status) {
 		this.mA_Asset_Status = A_Asset_Status;
 		if (A_Asset_Status != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_DisposedResolver.A_ASSET_STATUS_UUIDS_BY_VALUE.containsValue(A_Asset_Status.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Asset_Status.getUU() +
+						" is not in the list defined for the A_Asset_Status column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -226,7 +237,12 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	public void setA_Disposed_MethodInput(ForeignEntityInput A_Disposed_Method) {
 		this.mA_Disposed_Method = A_Disposed_Method;
 		if (A_Disposed_Method != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_DisposedResolver.A_DISPOSED_METHOD_UUIDS_BY_VALUE.containsValue(A_Disposed_Method.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Disposed_Method.getUU() +
+						" is not in the list defined for the A_Disposed_Method column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -260,7 +276,12 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	public void setA_Disposed_ReasonInput(ForeignEntityInput A_Disposed_Reason) {
 		this.mA_Disposed_Reason = A_Disposed_Reason;
 		if (A_Disposed_Reason != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_DisposedResolver.A_DISPOSED_REASON_UUIDS_BY_VALUE.containsValue(A_Disposed_Reason.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Disposed_Reason.getUU() +
+						" is not in the list defined for the A_Disposed_Reason column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -464,7 +485,12 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_DisposedResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -498,7 +524,12 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_DisposedResolver.DOCSTATUS_UUIDS_BY_VALUE.containsValue(DocStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocStatus.getUU() +
+						" is not in the list defined for the DocStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -554,7 +585,12 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_DisposedResolver.POSTINGTYPE_UUIDS_BY_VALUE.containsValue(PostingType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PostingType.getUU() +
+						" is not in the list defined for the PostingType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

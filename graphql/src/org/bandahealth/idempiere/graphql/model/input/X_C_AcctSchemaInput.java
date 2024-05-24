@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_AcctSchemaResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCostType;
@@ -191,7 +192,12 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	public void setCommitmentTypeInput(ForeignEntityInput CommitmentType) {
 		this.mCommitmentType = CommitmentType;
 		if (CommitmentType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_AcctSchemaResolver.COMMITMENTTYPE_UUIDS_BY_VALUE.containsValue(CommitmentType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CommitmentType.getUU() +
+						" is not in the list defined for the CommitmentType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -225,7 +231,12 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	public void setCostingLevelInput(ForeignEntityInput CostingLevel) {
 		this.mCostingLevel = CostingLevel;
 		if (CostingLevel != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_AcctSchemaResolver.COSTINGLEVEL_UUIDS_BY_VALUE.containsValue(CostingLevel.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CostingLevel.getUU() +
+						" is not in the list defined for the CostingLevel column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -259,7 +270,12 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	public void setCostingMethodInput(ForeignEntityInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
 		if (CostingMethod != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_AcctSchemaResolver.COSTINGMETHOD_UUIDS_BY_VALUE.containsValue(CostingMethod.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CostingMethod.getUU() +
+						" is not in the list defined for the CostingMethod column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -293,7 +309,12 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	public void setGAAPInput(ForeignEntityInput GAAP) {
 		this.mGAAP = GAAP;
 		if (GAAP != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_AcctSchemaResolver.GAAP_UUIDS_BY_VALUE.containsValue(GAAP.getUU())) {
+				throw new AdempiereException("The reference list UU of " + GAAP.getUU() +
+						" is not in the list defined for the GAAP column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -361,7 +382,12 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	public void setTaxCorrectionTypeInput(ForeignEntityInput TaxCorrectionType) {
 		this.mTaxCorrectionType = TaxCorrectionType;
 		if (TaxCorrectionType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_AcctSchemaResolver.TAXCORRECTIONTYPE_UUIDS_BY_VALUE.containsValue(TaxCorrectionType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TaxCorrectionType.getUU() +
+						" is not in the list defined for the TaxCorrectionType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

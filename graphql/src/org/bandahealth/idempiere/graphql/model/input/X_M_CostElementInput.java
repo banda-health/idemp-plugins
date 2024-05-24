@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_CostElementResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCostElement;
 import org.compiere.model.MOrg;
@@ -82,7 +83,12 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	public void setCostElementTypeInput(ForeignEntityInput CostElementType) {
 		this.mCostElementType = CostElementType;
 		if (CostElementType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_CostElementResolver.COSTELEMENTTYPE_UUIDS_BY_VALUE.containsValue(CostElementType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CostElementType.getUU() +
+						" is not in the list defined for the CostElementType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -116,7 +122,12 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	public void setCostingMethodInput(ForeignEntityInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
 		if (CostingMethod != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_CostElementResolver.COSTINGMETHOD_UUIDS_BY_VALUE.containsValue(CostingMethod.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CostingMethod.getUU() +
+						" is not in the list defined for the CostingMethod column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

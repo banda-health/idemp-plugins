@@ -29,7 +29,7 @@ type BH_Coded_Diagnosis_Mapping {
 	# BH_Concept_Name_Resolved
 	BH_Concept_Name_Resolved: String
 	# BH_External_ID
-	BH_External_ID: String
+	BH_ExternalID: String
 	# BH_Map_Type
 	BH_Map_Type: String
 	# BH_Owner
@@ -58,7 +58,7 @@ input BH_Coded_Diagnosis_MappingInput {
 	# BH_Concept_Name_Resolved
 	BH_Concept_Name_Resolved: String
 	# BH_External_ID
-	BH_External_ID: String
+	BH_ExternalID: String
 	# BH_Map_Type
 	BH_Map_Type: String
 	# BH_Owner

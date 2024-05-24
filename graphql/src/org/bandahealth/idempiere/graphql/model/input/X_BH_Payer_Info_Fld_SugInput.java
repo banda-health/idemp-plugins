@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFldSug;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_BH_Payer_Info_Fld_SugResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -111,7 +112,12 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 	public void setBH_PayerInfoFieldDataTypeInput(ForeignEntityInput BH_PayerInfoFieldDataType) {
 		this.mBH_PayerInfoFieldDataType = BH_PayerInfoFieldDataType;
 		if (BH_PayerInfoFieldDataType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_BH_Payer_Info_Fld_SugResolver.BH_PAYERINFOFIELDDATATYPE_UUIDS_BY_VALUE.containsValue(BH_PayerInfoFieldDataType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_PayerInfoFieldDataType.getUU() +
+						" is not in the list defined for the BH_PayerInfoFieldDataType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -145,7 +151,12 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 	public void setBH_SubTypeInput(ForeignEntityInput BH_SubType) {
 		this.mBH_SubType = BH_SubType;
 		if (BH_SubType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_BH_Payer_Info_Fld_SugResolver.BH_SUBTYPE_UUIDS_BY_VALUE.containsValue(BH_SubType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_SubType.getUU() +
+						" is not in the list defined for the BH_SubType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

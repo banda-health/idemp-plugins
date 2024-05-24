@@ -227,15 +227,15 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		return dataLoader.load(entity.getFKConstraintMsg_ID());
 	}
 
-	static Map<String, String> FKCONSTRAINTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> FKCONSTRAINTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("D", "ad2bedf7-814f-4b7d-ae4e-dac0a8a406f6");
-			put("N", "49ed557e-0170-4594-a65d-fae6e895ffde");
-			put("C", "e3ef6ea1-87c4-4141-9f5a-882741a167cd");
-			put("S", "324b9a18-fc1f-44ba-a1ce-c83e63c7b63b");
-			put("M", "c0542a52-fe58-4b87-8bd4-9dc2fe3afa7a");
-			put("T", "6591e7a2-e8f9-4cd4-9ef2-afea1275e578");
-			put("O", "8300ca2c-50f9-4882-8776-dfdc949db534");
+			put("D", "ad2bedf7-814f-4b7d-ae4e-dac0a8a406f6"); // Do Not Create - Ignore
+			put("N", "49ed557e-0170-4594-a65d-fae6e895ffde"); // No Action - Forbid Deletion
+			put("C", "e3ef6ea1-87c4-4141-9f5a-882741a167cd"); // Cascade
+			put("S", "324b9a18-fc1f-44ba-a1ce-c83e63c7b63b"); // Set Null
+			put("M", "c0542a52-fe58-4b87-8bd4-9dc2fe3afa7a"); // Model Cascade
+			put("T", "6591e7a2-e8f9-4cd4-9ef2-afea1275e578"); // Model Set Null
+			put("O", "8300ca2c-50f9-4882-8776-dfdc949db534"); // Model No Action - Forbid Deletion
 		}
 	};
 	public CompletableFuture<MRefList_BH> FKConstraintType(MColumn entity, DataFetchingEnvironment environment) {
@@ -263,10 +263,10 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		return entity.isAutocomplete();
 	}
 
-	static Map<String, String> ISENCRYPTED_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISENCRYPTED_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "6cc61ac6-b554-4f3e-8438-c8793bb8ca0a");
-			put("N", "3581aa8a-7a64-4485-b0f6-e6948f3d00d7");
+			put("Y", "6cc61ac6-b554-4f3e-8438-c8793bb8ca0a"); // Encrypted
+			put("N", "3581aa8a-7a64-4485-b0f6-e6948f3d00d7"); // Not Encrypted
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsEncrypted(MColumn entity, DataFetchingEnvironment environment) {
@@ -310,11 +310,11 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		return entity.isSelectionColumn();
 	}
 
-	static Map<String, String> ISTOOLBARBUTTON_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISTOOLBARBUTTON_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "5803fda0-fda8-4100-85f2-a4fe8142a059");
-			put("N", "eb2f6365-a357-4655-9102-d622360aacce");
-			put("B", "5b8b7285-d4da-4513-8941-a280d501ea19");
+			put("Y", "5803fda0-fda8-4100-85f2-a4fe8142a059"); // Toolbar
+			put("N", "eb2f6365-a357-4655-9102-d622360aacce"); // Window
+			put("B", "5b8b7285-d4da-4513-8941-a280d501ea19"); // Both
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsToolbarButton(MColumn entity, DataFetchingEnvironment environment) {
@@ -365,10 +365,10 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		return dataLoader.load(entity.getPA_DashboardContent_ID());
 	}
 
-	static Map<String, String> PARTITIONINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PARTITIONINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("R", "d8a5f9ab-574e-4926-93eb-e4a392c36e3c");
-			put("L", "d909c15e-9b97-4171-87bb-7de77cee4eb8");
+			put("R", "d8a5f9ab-574e-4926-93eb-e4a392c36e3c"); // Range
+			put("L", "d909c15e-9b97-4171-87bb-7de77cee4eb8"); // List
 		}
 	};
 	public CompletableFuture<MRefList_BH> PartitioningMethod(MColumn entity, DataFetchingEnvironment environment) {

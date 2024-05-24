@@ -89,10 +89,10 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
-	static Map<String, String> A_CAPVSEXP_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_CAPVSEXP_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Cap", "f494c22f-2ce5-471d-aabb-887f528c60da");
-			put("Exp", "4a84ac91-9720-40a2-8529-6a139dabb96a");
+			put("Cap", "f494c22f-2ce5-471d-aabb-887f528c60da"); // Capital
+			put("Exp", "4a84ac91-9720-40a2-8529-6a139dabb96a"); // Expense
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_CapvsExp(MInvoiceLine entity, DataFetchingEnvironment environment) {

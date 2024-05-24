@@ -55,12 +55,12 @@ public class X_AD_ImpFormat_RowResolver extends POResolver<X_AD_ImpFormat_Row> i
 		return dataLoader.load(entity.getAD_ImpFormat_ID());
 	}
 
-	static Map<String, String> DATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "9c5f2acd-b1fb-4a75-9639-ebe2bb41f06a");
-			put("N", "af08143b-df3b-476f-8ca6-0ea9f93a2358");
-			put("D", "72d8d47c-60ed-43fc-b72a-97d4f033e639");
-			put("C", "6d62b598-f1c6-4a41-84a3-c4710f3c99ef");
+			put("S", "9c5f2acd-b1fb-4a75-9639-ebe2bb41f06a"); // String
+			put("N", "af08143b-df3b-476f-8ca6-0ea9f93a2358"); // Number
+			put("D", "72d8d47c-60ed-43fc-b72a-97d4f033e639"); // Date
+			put("C", "6d62b598-f1c6-4a41-84a3-c4710f3c99ef"); // Constant
 		}
 	};
 	public CompletableFuture<MRefList_BH> DataType(X_AD_ImpFormat_Row entity, DataFetchingEnvironment environment) {

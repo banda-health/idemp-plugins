@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_T_ReplenishResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPInstance;
@@ -306,7 +307,12 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	public void setReplenishmentCreateInput(ForeignEntityInput ReplenishmentCreate) {
 		this.mReplenishmentCreate = ReplenishmentCreate;
 		if (ReplenishmentCreate != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_T_ReplenishResolver.REPLENISHMENTCREATE_UUIDS_BY_VALUE.containsValue(ReplenishmentCreate.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ReplenishmentCreate.getUU() +
+						" is not in the list defined for the ReplenishmentCreate column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -340,7 +346,12 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	public void setReplenishTypeInput(ForeignEntityInput ReplenishType) {
 		this.mReplenishType = ReplenishType;
 		if (ReplenishType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_T_ReplenishResolver.REPLENISHTYPE_UUIDS_BY_VALUE.containsValue(ReplenishType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ReplenishType.getUU() +
+						" is not in the list defined for the ReplenishType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

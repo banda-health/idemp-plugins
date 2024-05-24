@@ -48,10 +48,10 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 		return dataLoader.load(entity.getC_ProjectType_ID());
 	}
 
-	static Map<String, String> MEASUREDATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MEASUREDATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("T", "92f9f1ed-782f-4212-bda0-c5a03109c47f");
-			put("S", "a727a324-22de-4213-8696-2a37aaddd164");
+			put("T", "92f9f1ed-782f-4212-bda0-c5a03109c47f"); // Qty/Amount in Time
+			put("S", "a727a324-22de-4213-8696-2a37aaddd164"); // Status Qty/Amount
 		}
 	};
 	public CompletableFuture<MRefList_BH> MeasureDataType(MMeasure entity, DataFetchingEnvironment environment) {
@@ -63,15 +63,15 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 		return dataLoader.load(MEASUREDATATYPE_UUIDS_BY_VALUE.get(entity.getMeasureDataType()));
 	}
 
-	static Map<String, String> MEASURETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MEASURETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("M", "460a942e-8437-4195-94de-e27c752b9752");
-			put("C", "f0b63f0b-2b04-43a2-ba93-10aa95c73fb0");
-			put("A", "22adca17-dfc5-466a-a642-eee1ced9b515");
-			put("U", "ff4a3f01-b575-4e64-a301-67f31f14ad27");
-			put("R", "75dfcc11-cf4d-4a1c-a4ff-ea31f35030ff");
-			put("Q", "7b86d06c-e1ea-4a53-8c90-96a2a9e7397d");
-			put("P", "1a7a939a-0716-4f97-8883-cf913668d5e8");
+			put("M", "460a942e-8437-4195-94de-e27c752b9752"); // Manual
+			put("C", "f0b63f0b-2b04-43a2-ba93-10aa95c73fb0"); // Calculated
+			put("A", "22adca17-dfc5-466a-a642-eee1ced9b515"); // Achievements
+			put("U", "ff4a3f01-b575-4e64-a301-67f31f14ad27"); // User defined
+			put("R", "75dfcc11-cf4d-4a1c-a4ff-ea31f35030ff"); // Ratio
+			put("Q", "7b86d06c-e1ea-4a53-8c90-96a2a9e7397d"); // Request
+			put("P", "1a7a939a-0716-4f97-8883-cf913668d5e8"); // Project
 		}
 	};
 	public CompletableFuture<MRefList_BH> MeasureType(MMeasure entity, DataFetchingEnvironment environment) {

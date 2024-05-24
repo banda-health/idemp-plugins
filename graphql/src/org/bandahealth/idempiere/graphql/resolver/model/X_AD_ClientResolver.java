@@ -186,11 +186,11 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 		return dataLoader.load(entity.getAD_ReplicationStrategy_ID());
 	}
 
-	static Map<String, String> AUTHENTICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> AUTHENTICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("SSO", "d726bc83-5d69-4082-b224-e0803b5c234d");
-			put("APO", "32f2269c-8c71-40f1-a128-d6f805030a69");
-			put("AAS", "7cd3af94-1e49-4d9f-9e33-dbdc0dfce7bb");
+			put("SSO", "d726bc83-5d69-4082-b224-e0803b5c234d"); // SSO Only
+			put("APO", "32f2269c-8c71-40f1-a128-d6f805030a69"); // Application Only
+			put("AAS", "7cd3af94-1e49-4d9f-9e33-dbdc0dfce7bb"); // Application and SSO
 		}
 	};
 	public CompletableFuture<MRefList_BH> AuthenticationType(MClient_BH entity, DataFetchingEnvironment environment) {
@@ -202,12 +202,12 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 		return dataLoader.load(AUTHENTICATIONTYPE_UUIDS_BY_VALUE.get(entity.getAuthenticationType()));
 	}
 
-	static Map<String, String> AUTOARCHIVE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> AUTOARCHIVE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("N", "5be4ba0d-256b-48c6-bba5-e94d76c0b391");
-			put("1", "001d29fb-a915-4660-ae36-406c9028610b");
-			put("2", "17f95f60-8447-406e-89ce-becf0c7496a8");
-			put("3", "c647f6d8-6c62-4f1d-95b7-9512e4e0af07");
+			put("N", "5be4ba0d-256b-48c6-bba5-e94d76c0b391"); // None
+			put("1", "001d29fb-a915-4660-ae36-406c9028610b"); // All (Reports, Documents)
+			put("2", "17f95f60-8447-406e-89ce-becf0c7496a8"); // Documents
+			put("3", "c647f6d8-6c62-4f1d-95b7-9512e4e0af07"); // External Documents
 		}
 	};
 	public CompletableFuture<MRefList_BH> AutoArchive(MClient_BH entity, DataFetchingEnvironment environment) {
@@ -243,10 +243,10 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 		return entity.isUseBetaFunctions();
 	}
 
-	static Map<String, String> MMPOLICY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MMPOLICY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("L", "80bfacfa-9e34-4d5c-8388-5cb45e52447a");
-			put("F", "b1ed1550-7c2f-402b-b47a-b700929da0f6");
+			put("L", "80bfacfa-9e34-4d5c-8388-5cb45e52447a"); // LiFo
+			put("F", "b1ed1550-7c2f-402b-b47a-b700929da0f6"); // FiFo
 		}
 	};
 	public CompletableFuture<MRefList_BH> MMPolicy(MClient_BH entity, DataFetchingEnvironment environment) {

@@ -18668,14 +18668,13 @@ export type Bh_Concept_Mapping = {
   Created?: Maybe<Scalars['Date']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
-  /** Should typically be 1, but nothing in database requires this */
+  FromBH_Concept: Bh_Concept;
   FromBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  ToBH_Concept?: Maybe<Bh_Concept>;
   /** Provides a way to skip over From concept to it's From mappings */
   ToBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
-  /** We don't map FromBH_Concepts, as that is already provided through the BH_Concept attribute */
-  ToBH_Concepts?: Maybe<Array<Bh_Concept>>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;

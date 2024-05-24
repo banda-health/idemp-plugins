@@ -25,12 +25,12 @@ public class X_C_InvoiceScheduleResolver extends POResolver<MInvoiceSchedule> im
 		return entity.isEvenInvoiceWeek();
 	}
 
-	static Map<String, String> INVOICEFREQUENCY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> INVOICEFREQUENCY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("D", "bf4cbb08-95aa-49e8-8e3b-08cefb38f567");
-			put("W", "8420e699-cb99-4ed5-ab74-9fd60f22ce77");
-			put("M", "18f0c2b7-8eb6-429e-ab02-396a09ed85a2");
-			put("T", "51e4ee52-319d-4bfd-be0b-c6a86c6d69df");
+			put("D", "bf4cbb08-95aa-49e8-8e3b-08cefb38f567"); // Daily
+			put("W", "8420e699-cb99-4ed5-ab74-9fd60f22ce77"); // Weekly
+			put("M", "18f0c2b7-8eb6-429e-ab02-396a09ed85a2"); // Monthly
+			put("T", "51e4ee52-319d-4bfd-be0b-c6a86c6d69df"); // Twice Monthly
 		}
 	};
 	public CompletableFuture<MRefList_BH> InvoiceFrequency(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
@@ -42,15 +42,15 @@ public class X_C_InvoiceScheduleResolver extends POResolver<MInvoiceSchedule> im
 		return dataLoader.load(INVOICEFREQUENCY_UUIDS_BY_VALUE.get(entity.getInvoiceFrequency()));
 	}
 
-	static Map<String, String> INVOICEWEEKDAY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> INVOICEWEEKDAY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("7", "ad54c61a-75e4-4257-9c70-4e6b1b772686");
-			put("1", "a225bd22-7f57-493e-aee5-d0cf71891cd0");
-			put("2", "6c7920e4-dc0e-436f-b220-0729aad44bf2");
-			put("3", "f0e5917d-cfa7-460c-a0b1-b9610e9506f1");
-			put("4", "7862d4ca-778b-4425-974e-6002d925e8d5");
-			put("5", "e2bdb391-5b9a-41f9-a3b0-8309e47b299a");
-			put("6", "13efb0f3-7cc6-4339-85e5-bcaadf0ca31c");
+			put("7", "ad54c61a-75e4-4257-9c70-4e6b1b772686"); // Sunday
+			put("1", "a225bd22-7f57-493e-aee5-d0cf71891cd0"); // Monday
+			put("2", "6c7920e4-dc0e-436f-b220-0729aad44bf2"); // Tuesday
+			put("3", "f0e5917d-cfa7-460c-a0b1-b9610e9506f1"); // Wednesday
+			put("4", "7862d4ca-778b-4425-974e-6002d925e8d5"); // Thursday
+			put("5", "e2bdb391-5b9a-41f9-a3b0-8309e47b299a"); // Friday
+			put("6", "13efb0f3-7cc6-4339-85e5-bcaadf0ca31c"); // Saturday
 		}
 	};
 	public CompletableFuture<MRefList_BH> InvoiceWeekDay(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
@@ -62,15 +62,15 @@ public class X_C_InvoiceScheduleResolver extends POResolver<MInvoiceSchedule> im
 		return dataLoader.load(INVOICEWEEKDAY_UUIDS_BY_VALUE.get(entity.getInvoiceWeekDay()));
 	}
 
-	static Map<String, String> INVOICEWEEKDAYCUTOFF_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> INVOICEWEEKDAYCUTOFF_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("7", "ad54c61a-75e4-4257-9c70-4e6b1b772686");
-			put("1", "a225bd22-7f57-493e-aee5-d0cf71891cd0");
-			put("2", "6c7920e4-dc0e-436f-b220-0729aad44bf2");
-			put("3", "f0e5917d-cfa7-460c-a0b1-b9610e9506f1");
-			put("4", "7862d4ca-778b-4425-974e-6002d925e8d5");
-			put("5", "e2bdb391-5b9a-41f9-a3b0-8309e47b299a");
-			put("6", "13efb0f3-7cc6-4339-85e5-bcaadf0ca31c");
+			put("7", "ad54c61a-75e4-4257-9c70-4e6b1b772686"); // Sunday
+			put("1", "a225bd22-7f57-493e-aee5-d0cf71891cd0"); // Monday
+			put("2", "6c7920e4-dc0e-436f-b220-0729aad44bf2"); // Tuesday
+			put("3", "f0e5917d-cfa7-460c-a0b1-b9610e9506f1"); // Wednesday
+			put("4", "7862d4ca-778b-4425-974e-6002d925e8d5"); // Thursday
+			put("5", "e2bdb391-5b9a-41f9-a3b0-8309e47b299a"); // Friday
+			put("6", "13efb0f3-7cc6-4339-85e5-bcaadf0ca31c"); // Saturday
 		}
 	};
 	public CompletableFuture<MRefList_BH> InvoiceWeekDayCutoff(MInvoiceSchedule entity, DataFetchingEnvironment environment) {

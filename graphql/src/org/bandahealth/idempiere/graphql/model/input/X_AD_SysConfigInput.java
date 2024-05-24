@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_SysConfigResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -112,7 +113,12 @@ public class X_AD_SysConfigInput extends MSysConfig_BH implements I_AD_SysConfig
 	public void setConfigurationLevelInput(ForeignEntityInput ConfigurationLevel) {
 		this.mConfigurationLevel = ConfigurationLevel;
 		if (ConfigurationLevel != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_SysConfigResolver.CONFIGURATIONLEVEL_UUIDS_BY_VALUE.containsValue(ConfigurationLevel.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ConfigurationLevel.getUU() +
+						" is not in the list defined for the ConfigurationLevel column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

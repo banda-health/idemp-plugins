@@ -21,12 +21,12 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_ProjectTypeResolver extends POResolver<MProjectType> implements GraphQLResolver<MProjectType> {
 
 
-	static Map<String, String> PROJECTCATEGORY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PROJECTCATEGORY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("N", "0ee15c1f-fd85-4277-a4ba-5019cfefa415");
-			put("A", "8325d87d-5eb8-482e-803d-215889471ef5");
-			put("W", "7e8413bf-2c7a-4ecd-b00e-684ef95ff4eb");
-			put("S", "8a6796ad-4e16-412c-a34b-0e92bf6f5e00");
+			put("N", "0ee15c1f-fd85-4277-a4ba-5019cfefa415"); // General
+			put("A", "8325d87d-5eb8-482e-803d-215889471ef5"); // Asset Project
+			put("W", "7e8413bf-2c7a-4ecd-b00e-684ef95ff4eb"); // Work Order (Job)
+			put("S", "8a6796ad-4e16-412c-a34b-0e92bf6f5e00"); // Service (Charge) Project
 		}
 	};
 	public CompletableFuture<MRefList_BH> ProjectCategory(MProjectType entity, DataFetchingEnvironment environment) {

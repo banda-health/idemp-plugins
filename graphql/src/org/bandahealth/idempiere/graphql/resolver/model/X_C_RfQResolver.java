@@ -151,11 +151,11 @@ public class X_C_RfQResolver extends POResolver<MRfQ> implements GraphQLResolver
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> QUOTETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> QUOTETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("T", "18f2ccf6-c2e3-4863-b7b5-b3422a212bc5");
-			put("S", "5ba28387-2277-4a42-be90-514049aad4e6");
-			put("A", "317f3134-990e-4104-89fa-2ca00916d1e9");
+			put("T", "18f2ccf6-c2e3-4863-b7b5-b3422a212bc5"); // Quote Total only
+			put("S", "5ba28387-2277-4a42-be90-514049aad4e6"); // Quote Selected Lines
+			put("A", "317f3134-990e-4104-89fa-2ca00916d1e9"); // Quote All Lines
 		}
 	};
 	public CompletableFuture<MRefList_BH> QuoteType(MRfQ entity, DataFetchingEnvironment environment) {
