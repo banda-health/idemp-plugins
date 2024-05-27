@@ -11,17 +11,26 @@ import java.util.Properties;
 
 public class MBHConceptExtraDataLoader extends X_BH_Concept_ExtraDataLoader {
 	public static String DATALOADER_BH_Concept_Extra_BY_Concept_ID = "DATALOADER_BH_Concept_Extra_BY_Concept_ID";
+	public static String DATALOADER_BH_Concept_Extra_BY_Concept_Mapping_ID = "DATALOADER_BH_Concept_Extra_BY_Concept_Mapping_ID";
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
 		registry.register(DATALOADER_BH_Concept_Extra_BY_Concept_ID,
 				DataLoader.newMappedDataLoader(getByConceptIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
+		registry.register(DATALOADER_BH_Concept_Extra_BY_Concept_Mapping_ID,
+				DataLoader.newMappedDataLoader(getByConceptMappingIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
 	private MappedBatchLoaderWithContext<String, List<MBHConceptExtra>> getByConceptIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getGroupsByModelKeysCompletableFuture(
 				batchLoaderEnvironment.getContext(), getTableName(), null, MBHConceptExtra::getBH_Concept_ID,
 				MBHConceptExtra.COLUMNNAME_BH_Concept_ID, keys);
+	}
+
+	private MappedBatchLoaderWithContext<String, List<MBHConceptExtra>> getByConceptMappingIdBatchLoader() {
+		return (keys, batchLoaderEnvironment) -> Repository.getGroupsByModelKeysCompletableFuture(
+				batchLoaderEnvironment.getContext(), getTableName(), null, MBHConceptExtra::getBH_Concept_Mapping_ID,
+				MBHConceptExtra.COLUMNNAME_BH_Concept_Mapping_ID, keys);
 	}
 }
