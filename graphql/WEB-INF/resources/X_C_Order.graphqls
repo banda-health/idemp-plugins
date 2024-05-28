@@ -146,7 +146,7 @@ type C_Order {
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# How you pay the invoice
-	PaymentRule: String!
+	PaymentRule: AD_Ref_List!
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status
@@ -308,7 +308,7 @@ input C_OrderInput {
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# How you pay the invoice
-	PaymentRule: String
+	PaymentRule: ForeignEntityInput
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status

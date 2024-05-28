@@ -108,14 +108,14 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 		return dataLoader.load(entity.getA_Depreciation_Entry_ID());
 	}
 
-	static Map<String, String> A_ENTRY_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_ENTRY_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("DEP", "ac52889b-ad80-4c72-8a90-35eaf234de74");
-			put("DIS", "0775c222-fe4d-44bb-9ec1-6bccce458a83");
-			put("FOR", "b8f42168-eb32-4eb2-beda-8d7e1f4cc9e6");
-			put("NEW", "1320a810-50d5-4b98-922b-6f04dea06cb8");
-			put("SPL", "5695ac1e-1cf6-4ef7-9255-16b9c6780643");
-			put("TRN", "52189c27-fea7-4c43-a88f-ca2a9b5511a0");
+			put("DEP", "ac52889b-ad80-4c72-8a90-35eaf234de74"); // Depreciation
+			put("DIS", "0775c222-fe4d-44bb-9ec1-6bccce458a83"); // Disposals
+			put("FOR", "b8f42168-eb32-4eb2-beda-8d7e1f4cc9e6"); // Forecasts
+			put("NEW", "1320a810-50d5-4b98-922b-6f04dea06cb8"); // New
+			put("SPL", "5695ac1e-1cf6-4ef7-9255-16b9c6780643"); // Splits
+			put("TRN", "52189c27-fea7-4c43-a88f-ca2a9b5511a0"); // Transfers
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Entry_Type(MDepreciationExp entity, DataFetchingEnvironment environment) {
@@ -176,13 +176,13 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 		return entity.isDepreciated();
 	}
 
-	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc"); // Actual
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e"); // Budget
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d"); // Commitment
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb"); // Statistical
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5"); // Reservation
 		}
 	};
 	public CompletableFuture<MRefList_BH> PostingType(MDepreciationExp entity, DataFetchingEnvironment environment) {

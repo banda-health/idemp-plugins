@@ -65,12 +65,12 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
-	static Map<String, String> MANUFACTURINGRESOURCETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MANUFACTURINGRESOURCETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("PL", "aa555fe3-54bb-4493-81b1-a7d01b4e5901");
-			put("PT", "0aa926a5-b50d-4d53-9bf6-9d23980a818e");
-			put("WC", "376e0f68-8652-4356-a738-4a30fda3fcbb");
-			put("WS", "662bdb0e-3f0f-4dcf-8869-0880f7ced397");
+			put("PL", "aa555fe3-54bb-4493-81b1-a7d01b4e5901"); // Production Line
+			put("PT", "0aa926a5-b50d-4d53-9bf6-9d23980a818e"); // Plant
+			put("WC", "376e0f68-8652-4356-a738-4a30fda3fcbb"); // Work Center
+			put("WS", "662bdb0e-3f0f-4dcf-8869-0880f7ced397"); // Work Station
 		}
 	};
 	public CompletableFuture<MRefList_BH> ManufacturingResourceType(MResource entity, DataFetchingEnvironment environment) {

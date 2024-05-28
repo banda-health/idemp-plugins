@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_WF_NodeResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MCtxHelp;
@@ -83,7 +84,12 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	public void setActionInput(ForeignEntityInput Action) {
 		this.mAction = Action;
 		if (Action != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NodeResolver.ACTION_UUIDS_BY_VALUE.containsValue(Action.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Action.getUU() +
+						" is not in the list defined for the Action column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -594,7 +600,12 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NodeResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -628,7 +639,12 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	public void setDynPriorityUnitInput(ForeignEntityInput DynPriorityUnit) {
 		this.mDynPriorityUnit = DynPriorityUnit;
 		if (DynPriorityUnit != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NodeResolver.DYNPRIORITYUNIT_UUIDS_BY_VALUE.containsValue(DynPriorityUnit.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DynPriorityUnit.getUU() +
+						" is not in the list defined for the DynPriorityUnit column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -662,7 +678,12 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	public void setEMailRecipientInput(ForeignEntityInput EMailRecipient) {
 		this.mEMailRecipient = EMailRecipient;
 		if (EMailRecipient != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NodeResolver.EMAILRECIPIENT_UUIDS_BY_VALUE.containsValue(EMailRecipient.getUU())) {
+				throw new AdempiereException("The reference list UU of " + EMailRecipient.getUU() +
+						" is not in the list defined for the EMailRecipient column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -730,7 +751,12 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	public void setFinishModeInput(ForeignEntityInput FinishMode) {
 		this.mFinishMode = FinishMode;
 		if (FinishMode != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NodeResolver.FINISHMODE_UUIDS_BY_VALUE.containsValue(FinishMode.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FinishMode.getUU() +
+						" is not in the list defined for the FinishMode column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -764,7 +790,12 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	public void setJoinElementInput(ForeignEntityInput JoinElement) {
 		this.mJoinElement = JoinElement;
 		if (JoinElement != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NodeResolver.JOINELEMENT_UUIDS_BY_VALUE.containsValue(JoinElement.getUU())) {
+				throw new AdempiereException("The reference list UU of " + JoinElement.getUU() +
+						" is not in the list defined for the JoinElement column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -866,7 +897,12 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	public void setSplitElementInput(ForeignEntityInput SplitElement) {
 		this.mSplitElement = SplitElement;
 		if (SplitElement != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NodeResolver.SPLITELEMENT_UUIDS_BY_VALUE.containsValue(SplitElement.getUU())) {
+				throw new AdempiereException("The reference list UU of " + SplitElement.getUU() +
+						" is not in the list defined for the SplitElement column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -900,7 +936,12 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	public void setStartModeInput(ForeignEntityInput StartMode) {
 		this.mStartMode = StartMode;
 		if (StartMode != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NodeResolver.STARTMODE_UUIDS_BY_VALUE.containsValue(StartMode.getUU())) {
+				throw new AdempiereException("The reference list UU of " + StartMode.getUU() +
+						" is not in the list defined for the StartMode column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -934,7 +975,12 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	public void setSubflowExecutionInput(ForeignEntityInput SubflowExecution) {
 		this.mSubflowExecution = SubflowExecution;
 		if (SubflowExecution != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_NodeResolver.SUBFLOWEXECUTION_UUIDS_BY_VALUE.containsValue(SubflowExecution.getUU())) {
+				throw new AdempiereException("The reference list UU of " + SubflowExecution.getUU() +
+						" is not in the list defined for the SubflowExecution column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

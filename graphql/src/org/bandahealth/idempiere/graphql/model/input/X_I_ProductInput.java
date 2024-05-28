@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_I_ProductResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MUOM;
@@ -326,7 +327,12 @@ public class X_I_ProductInput extends X_I_Product implements I_I_ProductInput {
 	public void setProductTypeInput(ForeignEntityInput ProductType) {
 		this.mProductType = ProductType;
 		if (ProductType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_ProductResolver.PRODUCTTYPE_UUIDS_BY_VALUE.containsValue(ProductType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ProductType.getUU() +
+						" is not in the list defined for the ProductType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

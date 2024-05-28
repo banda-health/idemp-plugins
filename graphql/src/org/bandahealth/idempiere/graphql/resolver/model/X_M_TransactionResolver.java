@@ -159,20 +159,20 @@ public class X_M_TransactionResolver extends POResolver<MTransaction> implements
 		return dataLoader.load(entity.getM_ProductionLine_ID());
 	}
 
-	static Map<String, String> MOVEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MOVEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C-", "00fd790c-e7d8-4399-8407-ce735e91a3a8");
-			put("C+", "65a33af1-d135-4c2d-980c-2c299cb0bb1c");
-			put("V+", "edfd62f3-f88e-4efe-a2cd-6e24452bf30e");
-			put("V-", "1be42e0f-3096-4796-9c70-d6e40de09a06");
-			put("I-", "76be392a-c953-4d09-9ee7-d688dd3fda7d");
-			put("I+", "ec8fde60-8853-46dc-ab07-2208e7c309c0");
-			put("M-", "eafaee32-9f7a-439b-89d6-3470367fc02b");
-			put("M+", "fb18d31f-977e-4b86-9516-84bbb420d830");
-			put("P+", "1d7891c4-ff13-46f4-8c9c-c07ae46c214c");
-			put("P-", "0ae07aaa-5d4a-4cea-9151-cbdf38f3c8e6");
-			put("W+", "251b4cb0-7d98-4183-9114-6784d48359da");
-			put("W-", "aca9152b-34cb-44fa-8a5b-d519dd804637");
+			put("C-", "00fd790c-e7d8-4399-8407-ce735e91a3a8"); // Customer Shipment
+			put("C+", "65a33af1-d135-4c2d-980c-2c299cb0bb1c"); // Customer Returns
+			put("V+", "edfd62f3-f88e-4efe-a2cd-6e24452bf30e"); // Vendor Receipts
+			put("V-", "1be42e0f-3096-4796-9c70-d6e40de09a06"); // Vendor Returns
+			put("I-", "76be392a-c953-4d09-9ee7-d688dd3fda7d"); // Inventory Out
+			put("I+", "ec8fde60-8853-46dc-ab07-2208e7c309c0"); // Inventory In
+			put("M-", "eafaee32-9f7a-439b-89d6-3470367fc02b"); // Movement From
+			put("M+", "fb18d31f-977e-4b86-9516-84bbb420d830"); // Movement To
+			put("P+", "1d7891c4-ff13-46f4-8c9c-c07ae46c214c"); // Production +
+			put("P-", "0ae07aaa-5d4a-4cea-9151-cbdf38f3c8e6"); // Production -
+			put("W+", "251b4cb0-7d98-4183-9114-6784d48359da"); // Work Order +
+			put("W-", "aca9152b-34cb-44fa-8a5b-d519dd804637"); // Work Order -
 		}
 	};
 	public CompletableFuture<MRefList_BH> MovementType(MTransaction entity, DataFetchingEnvironment environment) {

@@ -36,11 +36,11 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 		return entity.isBH_Locked();
 	}
 
-	static Map<String, String> BH_SUBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BH_SUBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "d8547f6d-5ad0-4025-b8f8-0f4796cf9d0f");
-			put("W", "406d22a4-b3ee-48e4-9bba-7031f653aa06");
-			put("D", "4782b135-a84e-4eb9-ae3d-88c872a030ce");
+			put("I", "d8547f6d-5ad0-4025-b8f8-0f4796cf9d0f"); // Insurance
+			put("W", "406d22a4-b3ee-48e4-9bba-7031f653aa06"); // Waiver
+			put("D", "4782b135-a84e-4eb9-ae3d-88c872a030ce"); // Donation
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_SubType(MCharge_BH entity, DataFetchingEnvironment environment) {

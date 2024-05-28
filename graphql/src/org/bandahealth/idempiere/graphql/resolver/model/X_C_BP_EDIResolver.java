@@ -57,11 +57,11 @@ public class X_C_BP_EDIResolver extends POResolver<X_C_BP_EDI> implements GraphQ
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
-	static Map<String, String> EDITYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> EDITYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("X", "cff0e010-d9b7-4dce-8261-c7dd9542cf63");
-			put("E", "e46a81e4-9249-486e-b352-135924b95ea1");
-			put("M", "6a96a77c-272e-41e1-a900-12666c58e9c0");
+			put("X", "cff0e010-d9b7-4dce-8261-c7dd9542cf63"); // ASC X12 
+			put("E", "e46a81e4-9249-486e-b352-135924b95ea1"); // EDIFACT
+			put("M", "6a96a77c-272e-41e1-a900-12666c58e9c0"); // Email EDI
 		}
 	};
 	public CompletableFuture<MRefList_BH> EDIType(X_C_BP_EDI entity, DataFetchingEnvironment environment) {

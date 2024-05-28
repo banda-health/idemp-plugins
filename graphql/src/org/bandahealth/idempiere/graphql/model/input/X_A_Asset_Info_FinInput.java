@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_Asset_Info_FinResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
@@ -115,7 +116,12 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	public void setA_Due_OnInput(ForeignEntityInput A_Due_On) {
 		this.mA_Due_On = A_Due_On;
 		if (A_Due_On != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_Info_FinResolver.A_DUE_ON_UUIDS_BY_VALUE.containsValue(A_Due_On.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Due_On.getUU() +
+						" is not in the list defined for the A_Due_On column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -149,7 +155,12 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	public void setA_Finance_MethInput(ForeignEntityInput A_Finance_Meth) {
 		this.mA_Finance_Meth = A_Finance_Meth;
 		if (A_Finance_Meth != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_Info_FinResolver.A_FINANCE_METH_UUIDS_BY_VALUE.containsValue(A_Finance_Meth.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Finance_Meth.getUU() +
+						" is not in the list defined for the A_Finance_Meth column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

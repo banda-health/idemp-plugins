@@ -303,16 +303,16 @@ public class X_I_FAJournalResolver extends POResolver<MXIFAJournal> implements G
 		return dataLoader.load(entity.getC_ValidCombination_ID());
 	}
 
-	static Map<String, String> CURRENCYRATETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CURRENCYRATETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "7e046d87-539f-4ff9-8de0-cbe0ca981405");
-			put("P", "5f4d34be-d6d0-43ec-9043-6bbc3f9f3313");
-			put("N", "cdf719c4-b4a7-4829-a4ef-9a8cd9c7d761");
-			put("F", "f0169bf9-24d7-4427-a9ea-c8c902535324");
-			put("A", "c13118d6-5fbe-4755-ba9f-20cc356f6d42");
-			put("C", "f22545fa-12dd-4c18-b472-6f8c8a6b4ede");
-			put("U", "cef79b78-a986-4b40-a423-65d8b1c355c1");
-			put("M", "4387df67-7fc7-4a37-adba-e0a9dbe01c1a");
+			put("S", "7e046d87-539f-4ff9-8de0-cbe0ca981405"); // Spot
+			put("P", "5f4d34be-d6d0-43ec-9043-6bbc3f9f3313"); // Period End
+			put("N", "cdf719c4-b4a7-4829-a4ef-9a8cd9c7d761"); // None
+			put("F", "f0169bf9-24d7-4427-a9ea-c8c902535324"); // Fixed
+			put("A", "c13118d6-5fbe-4755-ba9f-20cc356f6d42"); // Average
+			put("C", "f22545fa-12dd-4c18-b472-6f8c8a6b4ede"); // Company
+			put("U", "cef79b78-a986-4b40-a423-65d8b1c355c1"); // User Type
+			put("M", "4387df67-7fc7-4a37-adba-e0a9dbe01c1a"); // Manual Rate
 		}
 	};
 	public CompletableFuture<MRefList_BH> CurrencyRateType(MXIFAJournal entity, DataFetchingEnvironment environment) {
@@ -418,13 +418,13 @@ public class X_I_FAJournalResolver extends POResolver<MXIFAJournal> implements G
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
-	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc"); // Actual
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e"); // Budget
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d"); // Commitment
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb"); // Statistical
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5"); // Reservation
 		}
 	};
 	public CompletableFuture<MRefList_BH> PostingType(MXIFAJournal entity, DataFetchingEnvironment environment) {

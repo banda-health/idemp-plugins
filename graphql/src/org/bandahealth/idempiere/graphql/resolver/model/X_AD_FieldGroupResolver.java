@@ -75,12 +75,12 @@ public class X_AD_FieldGroupResolver extends POResolver<MFieldGroup_BH> implemen
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
-	static Map<String, String> FIELDGROUPTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> FIELDGROUPTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("T", "b5911f94-b7c6-4bdc-b582-62397f857c4f");
-			put("L", "057e1b4e-c934-4e45-82eb-9a2eddfb2eb3");
-			put("C", "20ff8355-8157-4b8a-96c6-04062c02a59e");
-			put("D", "5621157f-37ae-4134-95b2-65a957b258a7");
+			put("T", "b5911f94-b7c6-4bdc-b582-62397f857c4f"); // Tab
+			put("L", "057e1b4e-c934-4e45-82eb-9a2eddfb2eb3"); // Label
+			put("C", "20ff8355-8157-4b8a-96c6-04062c02a59e"); // Collapse
+			put("D", "5621157f-37ae-4134-95b2-65a957b258a7"); // Do Nothing
 		}
 	};
 	public CompletableFuture<MRefList_BH> FieldGroupType(MFieldGroup_BH entity, DataFetchingEnvironment environment) {

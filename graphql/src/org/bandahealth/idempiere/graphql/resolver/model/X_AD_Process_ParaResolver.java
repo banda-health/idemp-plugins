@@ -128,10 +128,10 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
 	}
 
-	static Map<String, String> DATERANGEOPTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DATERANGEOPTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("D", "e56a4c96-0480-4c0e-9f25-e68d1d70d082");
-			put("T", "6ee1efd4-d59f-4efb-b0ca-722d2dd39ce5");
+			put("D", "e56a4c96-0480-4c0e-9f25-e68d1d70d082"); // Date Editor and Range Picker
+			put("T", "6ee1efd4-d59f-4efb-b0ca-722d2dd39ce5"); // Text and Range Picker
 		}
 	};
 	public CompletableFuture<MRefList_BH> DateRangeOption(MProcessPara entity, DataFetchingEnvironment environment) {

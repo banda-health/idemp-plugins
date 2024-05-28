@@ -55,14 +55,14 @@ public class X_AD_WizardProcessResolver extends POResolver<X_AD_WizardProcess> i
 		return dataLoader.load(entity.getAD_WF_Node_ID());
 	}
 
-	static Map<String, String> WIZARDSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> WIZARDSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("N", "dd3f4502-2914-44af-b66f-1620f64c50a3");
-			put("P", "00609fa8-5d40-4d42-ba37-b5919acdc782");
-			put("F", "9829c724-da26-4442-ba9d-2d93d6e7858f");
-			put("I", "c79db7f7-2646-483b-bb19-36164ffbabb9");
-			put("S", "a3d49831-ba26-4f4b-91f4-24f44b09b812");
-			put("D", "4e09d396-3fa6-461d-9cca-b2aede0c6e2a");
+			put("N", "dd3f4502-2914-44af-b66f-1620f64c50a3"); // New
+			put("P", "00609fa8-5d40-4d42-ba37-b5919acdc782"); // Pending
+			put("F", "9829c724-da26-4442-ba9d-2d93d6e7858f"); // Finished
+			put("I", "c79db7f7-2646-483b-bb19-36164ffbabb9"); // In-Progress
+			put("S", "a3d49831-ba26-4f4b-91f4-24f44b09b812"); // Skipped
+			put("D", "4e09d396-3fa6-461d-9cca-b2aede0c6e2a"); // Delayed
 		}
 	};
 	public CompletableFuture<MRefList_BH> WizardStatus(X_AD_WizardProcess entity, DataFetchingEnvironment environment) {

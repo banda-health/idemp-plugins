@@ -303,9 +303,9 @@ public class GraphQLSchemaGenerator {
 			if (!shouldSkipInputField) {
 				generatedColumns.inputModel.append("Binary");
 			}
-		} else if (AD_Reference_ID > 0 &&
-				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
-				clazz.equals(String.class)) {
+		} else if ((AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) ||
+				displayType == DisplayType.Payment) && clazz.equals(String.class)) {
 			generatedColumns.regularModel.append("AD_Ref_List");
 			if (!shouldSkipInputField) {
 				generatedColumns.inputModel.append("ForeignEntityInput");

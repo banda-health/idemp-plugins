@@ -157,12 +157,12 @@ public class X_AD_WindowResolver extends POResolver<MWindow> implements GraphQLR
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> WINDOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> WINDOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "240e7f4f-f266-419b-872f-2dd99a1efbc4");
-			put("M", "156c6465-fda8-47fb-95b1-f3adb3f59a30");
-			put("T", "3ab9298c-b0f2-4163-8c13-f0d81111c350");
-			put("Q", "3d0b1e25-fa17-4730-b347-3500ec2de112");
+			put("S", "240e7f4f-f266-419b-872f-2dd99a1efbc4"); // Single Record
+			put("M", "156c6465-fda8-47fb-95b1-f3adb3f59a30"); // Maintain
+			put("T", "3ab9298c-b0f2-4163-8c13-f0d81111c350"); // Transaction
+			put("Q", "3d0b1e25-fa17-4730-b347-3500ec2de112"); // Query Only
 		}
 	};
 	public CompletableFuture<MRefList_BH> WindowType(MWindow entity, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_ChargeResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTaxCategory;
@@ -87,7 +88,12 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	public void setBH_SubTypeInput(ForeignEntityInput BH_SubType) {
 		this.mBH_SubType = BH_SubType;
 		if (BH_SubType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_ChargeResolver.BH_SUBTYPE_UUIDS_BY_VALUE.containsValue(BH_SubType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_SubType.getUU() +
+						" is not in the list defined for the BH_SubType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

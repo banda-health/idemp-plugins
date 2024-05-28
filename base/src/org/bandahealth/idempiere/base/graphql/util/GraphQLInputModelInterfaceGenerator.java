@@ -250,9 +250,9 @@ public class GraphQLInputModelInterfaceGenerator {
 			return "";
 		}
 
-		if (AD_Reference_ID > 0 &&
-				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
-				clazz.equals(String.class)) {
+		if ((AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) ||
+				displayType == DisplayType.Payment) && clazz.equals(String.class)) {
 			columnBuilder.append("\n");
 			GraphQLUtil.generateJavaSetComment(columnName, columnName, Description, columnBuilder);
 			columnBuilder.append("\tvoid set").append(columnName).append("Input(ForeignEntityInput ").append(columnName)

@@ -106,12 +106,12 @@ public class X_AD_PreferenceResolver extends POResolver<MPreference> implements 
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
-	static Map<String, String> PREFERENCEFOR_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PREFERENCEFOR_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("W", "d16e365d-8cc1-489e-b909-89054fdf58af");
-			put("P", "a9497c99-06dd-40ab-b866-b37d3fb60bc7");
-			put("X", "0b1e6c9b-2cc6-4a53-bb47-42dee6f1105d");
-			put("I", "4e05c125-8a96-4a0c-8e7a-57781c141f3a");
+			put("W", "d16e365d-8cc1-489e-b909-89054fdf58af"); // Window
+			put("P", "a9497c99-06dd-40ab-b866-b37d3fb60bc7"); // Process
+			put("X", "0b1e6c9b-2cc6-4a53-bb47-42dee6f1105d"); // Form
+			put("I", "4e05c125-8a96-4a0c-8e7a-57781c141f3a"); // Info Window
 		}
 	};
 	public CompletableFuture<MRefList_BH> PreferenceFor(MPreference entity, DataFetchingEnvironment environment) {

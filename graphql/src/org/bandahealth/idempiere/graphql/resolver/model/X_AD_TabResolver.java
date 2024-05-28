@@ -146,10 +146,10 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
-	static Map<String, String> AD_TABTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> AD_TABTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("FORM", "590c7ccd-4400-4208-aca4-d86e508e0f4d");
-			put("SORT", "47729861-5eed-4209-8228-7858e0ae7c13");
+			put("FORM", "590c7ccd-4400-4208-aca4-d86e508e0f4d"); // Form
+			put("SORT", "47729861-5eed-4209-8228-7858e0ae7c13"); // Sort
 		}
 	};
 	public CompletableFuture<MRefList_BH> AD_TabType(MTab entity, DataFetchingEnvironment environment) {
@@ -282,10 +282,10 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 		return entity.isAllowAdvancedLookup();
 	}
 
-	static Map<String, String> ISHIGHVOLUME_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISHIGHVOLUME_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsHighVolume(MTab entity, DataFetchingEnvironment environment) {
@@ -360,11 +360,11 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> TREEDISPLAYEDON_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TREEDISPLAYEDON_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "4b99f0aa-846d-459e-a361-8df1018ea08b");
-			put("D", "0a125aed-6b96-41c2-86c7-6b196830dbcc");
-			put("M", "8b216882-c0c4-47c1-a2a8-d75721082def");
+			put("B", "4b99f0aa-846d-459e-a361-8df1018ea08b"); // Both
+			put("D", "0a125aed-6b96-41c2-86c7-6b196830dbcc"); // Detail Tab
+			put("M", "8b216882-c0c4-47c1-a2a8-d75721082def"); // Master Tab
 		}
 	};
 	public CompletableFuture<MRefList_BH> TreeDisplayedOn(MTab entity, DataFetchingEnvironment environment) {

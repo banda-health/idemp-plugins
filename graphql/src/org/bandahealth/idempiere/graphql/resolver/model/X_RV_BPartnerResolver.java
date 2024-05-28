@@ -687,14 +687,14 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return entity.isc_region_isactive();
 	}
 
-	static Map<String, String> DELIVERYRULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DELIVERYRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("R", "20fd42a7-54c5-4a60-8e1a-4cda5c9856ee");
-			put("A", "89125067-1315-434e-a112-2593bb681a9d");
-			put("L", "613c2dee-60a6-46ea-8a0a-646cd4a10c61");
-			put("O", "3f011d8d-6d3d-4d12-aa4c-c5adea40b464");
-			put("F", "3db26d28-62ee-454c-b25b-5abbef460042");
-			put("M", "d9b69f78-edb1-4179-a56e-33cbca133673");
+			put("R", "20fd42a7-54c5-4a60-8e1a-4cda5c9856ee"); // After Payment
+			put("A", "89125067-1315-434e-a112-2593bb681a9d"); // Availability
+			put("L", "613c2dee-60a6-46ea-8a0a-646cd4a10c61"); // Complete Line
+			put("O", "3f011d8d-6d3d-4d12-aa4c-c5adea40b464"); // Complete Order
+			put("F", "3db26d28-62ee-454c-b25b-5abbef460042"); // Force
+			put("M", "d9b69f78-edb1-4179-a56e-33cbca133673"); // Manual
 		}
 	};
 	public CompletableFuture<MRefList_BH> DeliveryRule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -706,11 +706,11 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(DELIVERYRULE_UUIDS_BY_VALUE.get(entity.getDeliveryRule()));
 	}
 
-	static Map<String, String> DELIVERYVIARULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DELIVERYVIARULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("P", "701ff061-98de-431b-b6ab-b14da4987285");
-			put("D", "9d1b379c-84b1-43b1-b735-8c7467cb1b1a");
-			put("S", "19951c20-3a06-4eb5-a0c2-fc8b27e408a7");
+			put("P", "701ff061-98de-431b-b6ab-b14da4987285"); // Pickup
+			put("D", "9d1b379c-84b1-43b1-b735-8c7467cb1b1a"); // Delivery
+			put("S", "19951c20-3a06-4eb5-a0c2-fc8b27e408a7"); // Shipper
 		}
 	};
 	public CompletableFuture<MRefList_BH> DeliveryViaRule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -722,13 +722,13 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(DELIVERYVIARULE_UUIDS_BY_VALUE.get(entity.getDeliveryViaRule()));
 	}
 
-	static Map<String, String> FREIGHTCOSTRULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> FREIGHTCOSTRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "82df2976-c23f-43fb-91e9-b2b4ab27063f");
-			put("F", "3c97df02-d8ed-4bca-91b2-c4ca115533c4");
-			put("C", "43e070a0-f583-4b5d-a11c-6e5945a99272");
-			put("L", "623c0263-3294-4073-9884-e5cb78edb1bd");
-			put("U", "7ed34a5f-ffe5-499e-afd0-f074cca9d1f6");
+			put("I", "82df2976-c23f-43fb-91e9-b2b4ab27063f"); // Freight included
+			put("F", "3c97df02-d8ed-4bca-91b2-c4ca115533c4"); // Fix price
+			put("C", "43e070a0-f583-4b5d-a11c-6e5945a99272"); // Calculated
+			put("L", "623c0263-3294-4073-9884-e5cb78edb1bd"); // Line
+			put("U", "7ed34a5f-ffe5-499e-afd0-f074cca9d1f6"); // Customer Account
 		}
 	};
 	public CompletableFuture<MRefList_BH> FreightCostRule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -755,12 +755,12 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(entity.getInvoice_PrintFormat_ID());
 	}
 
-	static Map<String, String> INVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> INVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("O", "f0b52a34-6ff9-40b0-8668-cb458e21328e");
-			put("D", "8d21d623-1f99-4510-aec4-6e475d587264");
-			put("S", "f522d449-bea8-42aa-90e7-b5190db85b68");
-			put("I", "1e030a09-94f2-4bd4-8810-d739aa9f25a6");
+			put("O", "f0b52a34-6ff9-40b0-8668-cb458e21328e"); // After Order delivered
+			put("D", "8d21d623-1f99-4510-aec4-6e475d587264"); // After Delivery
+			put("S", "f522d449-bea8-42aa-90e7-b5190db85b68"); // Customer Schedule after Delivery
+			put("I", "1e030a09-94f2-4bd4-8810-d739aa9f25a6"); // Immediate
 		}
 	};
 	public CompletableFuture<MRefList_BH> InvoiceRule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -846,12 +846,12 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(entity.getM_PriceList_ID());
 	}
 
-	static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650");
-			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3");
-			put("X", "ca78475e-7191-402b-9d15-7244e87620f1");
-			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427");
+			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650"); // EMail
+			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3"); // Notice
+			put("X", "ca78475e-7191-402b-9d15-7244e87620f1"); // None
+			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427"); // EMail+Notice
 		}
 	};
 	public CompletableFuture<MRefList_BH> NotificationType(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -863,17 +863,17 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(NOTIFICATIONTYPE_UUIDS_BY_VALUE.get(entity.getNotificationType()));
 	}
 
-	static Map<String, String> PAYMENTRULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PAYMENTRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "917130e3-2144-496c-9344-6cf4f7136293");
-			put("K", "68dda00d-c015-498e-b91c-811bab809dab");
-			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf");
-			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e");
-			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
-			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e");
-			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb");
-			put("A", "c524815a-e048-4052-bab5-b7812e27cd64");
-			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
+			put("B", "917130e3-2144-496c-9344-6cf4f7136293"); // Cash
+			put("K", "68dda00d-c015-498e-b91c-811bab809dab"); // Credit Card
+			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf"); // Direct Deposit
+			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e"); // Check
+			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a"); // On Credit
+			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e"); // Direct Debit
+			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb"); // Mixed POS Payment
+			put("A", "c524815a-e048-4052-bab5-b7812e27cd64"); // Mobile Account
+			put("b", "72629357-494a-4cb3-aecf-807141f1968b"); // Cash Drawer
 		}
 	};
 	public CompletableFuture<MRefList_BH> PaymentRule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -885,17 +885,17 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
 	}
 
-	static Map<String, String> PAYMENTRULEPO_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PAYMENTRULEPO_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "917130e3-2144-496c-9344-6cf4f7136293");
-			put("K", "68dda00d-c015-498e-b91c-811bab809dab");
-			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf");
-			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e");
-			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
-			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e");
-			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb");
-			put("A", "c524815a-e048-4052-bab5-b7812e27cd64");
-			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
+			put("B", "917130e3-2144-496c-9344-6cf4f7136293"); // Cash
+			put("K", "68dda00d-c015-498e-b91c-811bab809dab"); // Credit Card
+			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf"); // Direct Deposit
+			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e"); // Check
+			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a"); // On Credit
+			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e"); // Direct Debit
+			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb"); // Mixed POS Payment
+			put("A", "c524815a-e048-4052-bab5-b7812e27cd64"); // Mobile Account
+			put("b", "72629357-494a-4cb3-aecf-807141f1968b"); // Cash Drawer
 		}
 	};
 	public CompletableFuture<MRefList_BH> PaymentRulePO(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -971,13 +971,13 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return entity.isSendEMail();
 	}
 
-	static Map<String, String> SOCREDITSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SOCREDITSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "ebd6f716-efbe-4a4f-9d3a-e3848f4a3b75");
-			put("H", "5801b69d-7f76-4cfc-98ea-5d5f8e1a9279");
-			put("W", "562a254f-6346-4cc3-95a6-130edbe6dccc");
-			put("X", "ce7efb85-ccc7-403d-b42f-e276bd9f2f06");
-			put("O", "d2130138-c9f1-4314-a0c3-e46cecaae025");
+			put("S", "ebd6f716-efbe-4a4f-9d3a-e3848f4a3b75"); // Credit Stop
+			put("H", "5801b69d-7f76-4cfc-98ea-5d5f8e1a9279"); // Credit Hold
+			put("W", "562a254f-6346-4cc3-95a6-130edbe6dccc"); // Credit Watch
+			put("X", "ce7efb85-ccc7-403d-b42f-e276bd9f2f06"); // No Credit Check
+			put("O", "d2130138-c9f1-4314-a0c3-e46cecaae025"); // Credit OK
 		}
 	};
 	public CompletableFuture<MRefList_BH> SOCreditStatus(MBPartnerInfo entity, DataFetchingEnvironment environment) {

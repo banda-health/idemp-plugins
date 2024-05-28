@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PA_RatioElementResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MMeasureCalc;
@@ -258,7 +259,12 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_RatioElementResolver.POSTINGTYPE_UUIDS_BY_VALUE.containsValue(PostingType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PostingType.getUU() +
+						" is not in the list defined for the PostingType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -292,7 +298,12 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	public void setRatioElementTypeInput(ForeignEntityInput RatioElementType) {
 		this.mRatioElementType = RatioElementType;
 		if (RatioElementType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_RatioElementResolver.RATIOELEMENTTYPE_UUIDS_BY_VALUE.containsValue(RatioElementType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + RatioElementType.getUU() +
+						" is not in the list defined for the RatioElementType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -326,7 +337,12 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	public void setRatioOperandInput(ForeignEntityInput RatioOperand) {
 		this.mRatioOperand = RatioOperand;
 		if (RatioOperand != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_RatioElementResolver.RATIOOPERAND_UUIDS_BY_VALUE.containsValue(RatioOperand.getUU())) {
+				throw new AdempiereException("The reference list UU of " + RatioOperand.getUU() +
+						" is not in the list defined for the RatioOperand column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

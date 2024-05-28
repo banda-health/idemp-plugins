@@ -42,11 +42,11 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
-	static Map<String, String> COSTINGLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COSTINGLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "b9ccb6ca-ac26-47cd-9bc5-86d3ab30fa2f");
-			put("O", "94923c72-8b13-4fe6-8d48-510bbd85ab5d");
-			put("B", "582aa0b8-f288-4ad0-a1a0-eaf48e93e00d");
+			put("C", "b9ccb6ca-ac26-47cd-9bc5-86d3ab30fa2f"); // Client
+			put("O", "94923c72-8b13-4fe6-8d48-510bbd85ab5d"); // Organization
+			put("B", "582aa0b8-f288-4ad0-a1a0-eaf48e93e00d"); // Batch/Lot
 		}
 	};
 	public CompletableFuture<MRefList_BH> CostingLevel(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
@@ -58,17 +58,17 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 		return dataLoader.load(COSTINGLEVEL_UUIDS_BY_VALUE.get(entity.getCostingLevel()));
 	}
 
-	static Map<String, String> COSTINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COSTINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "d3ba6803-5479-4b30-ba20-6b40e658c5d8");
-			put("A", "29b356c5-1757-4bab-a331-a01b9415f4e6");
-			put("L", "fb47834b-767e-4ffe-b7ea-f690279d4345");
-			put("F", "835a19ab-521e-406c-b0b2-f3e4c64c44b7");
-			put("p", "01741faf-094c-46ed-9266-2d3adac2c504");
-			put("I", "9127a623-4d9b-4a1a-8462-b31d8ddb24ed");
-			put("i", "f4296d4f-761c-4545-a2ec-ca5c86e1b741");
-			put("U", "10ca122c-b77e-410e-8755-5033f17405d4");
-			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b");
+			put("S", "d3ba6803-5479-4b30-ba20-6b40e658c5d8"); // Standard Costing
+			put("A", "29b356c5-1757-4bab-a331-a01b9415f4e6"); // Average PO
+			put("L", "fb47834b-767e-4ffe-b7ea-f690279d4345"); // Lifo
+			put("F", "835a19ab-521e-406c-b0b2-f3e4c64c44b7"); // Fifo
+			put("p", "01741faf-094c-46ed-9266-2d3adac2c504"); // Last PO Price
+			put("I", "9127a623-4d9b-4a1a-8462-b31d8ddb24ed"); // Average Invoice
+			put("i", "f4296d4f-761c-4545-a2ec-ca5c86e1b741"); // Last Invoice
+			put("U", "10ca122c-b77e-410e-8755-5033f17405d4"); // User Defined
+			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b"); // _
 		}
 	};
 	public CompletableFuture<MRefList_BH> CostingMethod(MProductCategoryAcct entity, DataFetchingEnvironment environment) {

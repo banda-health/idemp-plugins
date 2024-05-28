@@ -350,14 +350,14 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
-	static Map<String, String> DELIVERYRULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DELIVERYRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("R", "20fd42a7-54c5-4a60-8e1a-4cda5c9856ee");
-			put("A", "89125067-1315-434e-a112-2593bb681a9d");
-			put("L", "613c2dee-60a6-46ea-8a0a-646cd4a10c61");
-			put("O", "3f011d8d-6d3d-4d12-aa4c-c5adea40b464");
-			put("F", "3db26d28-62ee-454c-b25b-5abbef460042");
-			put("M", "d9b69f78-edb1-4179-a56e-33cbca133673");
+			put("R", "20fd42a7-54c5-4a60-8e1a-4cda5c9856ee"); // After Payment
+			put("A", "89125067-1315-434e-a112-2593bb681a9d"); // Availability
+			put("L", "613c2dee-60a6-46ea-8a0a-646cd4a10c61"); // Complete Line
+			put("O", "3f011d8d-6d3d-4d12-aa4c-c5adea40b464"); // Complete Order
+			put("F", "3db26d28-62ee-454c-b25b-5abbef460042"); // Force
+			put("M", "d9b69f78-edb1-4179-a56e-33cbca133673"); // Manual
 		}
 	};
 	public CompletableFuture<MRefList_BH> DeliveryRule(X_I_Order entity, DataFetchingEnvironment environment) {

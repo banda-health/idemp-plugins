@@ -163,11 +163,11 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 						entity.getDescription());
 	}
 
-	static Map<String, String> GOALDISPLAY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> GOALDISPLAY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("T", "2cd129ed-3973-4e05-a770-94af63a68791");
-			put("C", "4b2f72dc-2ab6-4e4a-9b9a-acf550d12290");
-			put("G", "38f8439b-0232-4ea6-9e3f-98574b2b7326");
+			put("T", "2cd129ed-3973-4e05-a770-94af63a68791"); // HTML Table
+			put("C", "4b2f72dc-2ab6-4e4a-9b9a-acf550d12290"); // Chart
+			put("G", "38f8439b-0232-4ea6-9e3f-98574b2b7326"); // Gauge Indicator
 		}
 	};
 	public CompletableFuture<MRefList_BH> GoalDisplay(MDashboardContent entity, DataFetchingEnvironment environment) {

@@ -23,11 +23,11 @@ import java.util.concurrent.CompletableFuture;
 public class X_IMP_ProcessorResolver extends POResolver<MIMPProcessor> implements GraphQLResolver<MIMPProcessor> {
 
 
-	static Map<String, String> FREQUENCYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> FREQUENCYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("M", "80320e2a-1a3c-462f-9af1-09c0af1aab5f");
-			put("H", "817d1ba9-4dbe-4105-8ca5-61cf554ac837");
-			put("D", "6360c9c7-dbf3-4b2f-bd8b-3465a7fde7a7");
+			put("M", "80320e2a-1a3c-462f-9af1-09c0af1aab5f"); // Minute
+			put("H", "817d1ba9-4dbe-4105-8ca5-61cf554ac837"); // Hour
+			put("D", "6360c9c7-dbf3-4b2f-bd8b-3465a7fde7a7"); // Day
 		}
 	};
 	public CompletableFuture<MRefList_BH> FrequencyType(MIMPProcessor entity, DataFetchingEnvironment environment) {

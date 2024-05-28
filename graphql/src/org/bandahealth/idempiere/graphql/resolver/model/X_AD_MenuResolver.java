@@ -40,17 +40,17 @@ import java.util.concurrent.CompletableFuture;
 public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLResolver<MMenu_BH> {
 
 
-	static Map<String, String> ACTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("W", "50032107-b314-40a1-ae3a-809f3e643572");
-			put("T", "df7f040f-75dd-4025-947e-34479cf8811b");
-			put("F", "9a71d7fd-585b-4896-a454-9b823d2ae291");
-			put("P", "172a85d0-4f69-4486-9f95-bfd30c092519");
-			put("R", "e3f9a66b-72b1-4552-9c6a-ff27de1cb83c");
-			put("X", "96201326-b894-4f80-a572-ccac1d7dd878");
-			put("B", "df913f43-3e3b-45bc-9d03-26e0d506f9f3");
-			put("I", "5484a32f-202c-4316-9ae7-c295ed508aee");
-			put("D", "c08370ea-385c-4569-bc28-1b6a869f700a");
+			put("W", "50032107-b314-40a1-ae3a-809f3e643572"); // Window
+			put("T", "df7f040f-75dd-4025-947e-34479cf8811b"); // Task
+			put("F", "9a71d7fd-585b-4896-a454-9b823d2ae291"); // WorkFlow
+			put("P", "172a85d0-4f69-4486-9f95-bfd30c092519"); // Process
+			put("R", "e3f9a66b-72b1-4552-9c6a-ff27de1cb83c"); // Report
+			put("X", "96201326-b894-4f80-a572-ccac1d7dd878"); // Form
+			put("B", "df913f43-3e3b-45bc-9d03-26e0d506f9f3"); // Workbench
+			put("I", "5484a32f-202c-4316-9ae7-c295ed508aee"); // Info
+			put("D", "c08370ea-385c-4569-bc28-1b6a869f700a"); // Detail
 		}
 	};
 	public CompletableFuture<MRefList_BH> Action(MMenu_BH entity, DataFetchingEnvironment environment) {

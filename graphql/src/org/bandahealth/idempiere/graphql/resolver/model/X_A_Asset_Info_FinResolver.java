@@ -40,12 +40,12 @@ public class X_A_Asset_Info_FinResolver extends POResolver<X_A_Asset_Info_Fin> i
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
-	static Map<String, String> A_DUE_ON_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_DUE_ON_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("15T", "2a7fd03c-83ac-412f-84fe-05119af3794d");
-			put("1st", "e983ee93-7e72-4d22-bc9c-657d61a583f3");
-			put("BEG", "21d933d8-38d7-4092-83ae-cd40498dc3e6");
-			put("YER", "5d2f4dbe-d00b-4d8f-ab12-bbf445e2cc45");
+			put("15T", "2a7fd03c-83ac-412f-84fe-05119af3794d"); // 15th of every month
+			put("1st", "e983ee93-7e72-4d22-bc9c-657d61a583f3"); // 1st of every month
+			put("BEG", "21d933d8-38d7-4092-83ae-cd40498dc3e6"); // Beginning of every month
+			put("YER", "5d2f4dbe-d00b-4d8f-ab12-bbf445e2cc45"); // Yearly on or before contract date
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Due_On(X_A_Asset_Info_Fin entity, DataFetchingEnvironment environment) {
@@ -57,12 +57,12 @@ public class X_A_Asset_Info_FinResolver extends POResolver<X_A_Asset_Info_Fin> i
 		return dataLoader.load(A_DUE_ON_UUIDS_BY_VALUE.get(entity.getA_Due_On()));
 	}
 
-	static Map<String, String> A_FINANCE_METH_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_FINANCE_METH_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("CL", "5ee7a631-64da-4d26-a809-aff598643ec1");
-			put("NL", "411c5e65-0846-4984-ab10-009190a4c61d");
-			put("OW", "588fd084-de7d-46fc-819d-e7a2ce3ac705");
-			put("RE", "d7cbc9fa-35e6-4e71-9c8e-69f2777e33d4");
+			put("CL", "5ee7a631-64da-4d26-a809-aff598643ec1"); // Capitalized Lease
+			put("NL", "411c5e65-0846-4984-ab10-009190a4c61d"); // Non-Capitalized Lease
+			put("OW", "588fd084-de7d-46fc-819d-e7a2ce3ac705"); // Owned
+			put("RE", "d7cbc9fa-35e6-4e71-9c8e-69f2777e33d4"); // Rented
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Finance_Meth(X_A_Asset_Info_Fin entity, DataFetchingEnvironment environment) {

@@ -32,14 +32,14 @@ import java.util.concurrent.CompletableFuture;
 public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLResolver<MTable> {
 
 
-	static Map<String, String> ACCESSLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ACCESSLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("1", "3cc495d2-7e46-4d2d-b8b8-a38bfa97fa60");
-			put("3", "b8062c9f-fb7c-4e91-98ec-0a913a3b367f");
-			put("4", "6e8bdb2d-b494-401c-b586-7d20727b5eab");
-			put("7", "04c9829a-008e-4a71-9598-224f770491dc");
-			put("6", "e05482a2-71be-461d-b522-9cda71a9fa5d");
-			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59");
+			put("1", "3cc495d2-7e46-4d2d-b8b8-a38bfa97fa60"); // Organization
+			put("3", "b8062c9f-fb7c-4e91-98ec-0a913a3b367f"); // Client+Organization
+			put("4", "6e8bdb2d-b494-401c-b586-7d20727b5eab"); // System only
+			put("7", "04c9829a-008e-4a71-9598-224f770491dc"); // All
+			put("6", "e05482a2-71be-461d-b522-9cda71a9fa5d"); // System+Client
+			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59"); // Client only
 		}
 	};
 	public CompletableFuture<MRefList_BH> AccessLevel(MTable entity, DataFetchingEnvironment environment) {
@@ -179,12 +179,12 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> REPLICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> REPLICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("L", "c829969e-9927-491f-89a8-f200b8d29f57");
-			put("M", "41211ac8-1137-49f5-9efb-7d8e75682a45");
-			put("R", "959a0839-d0f2-43c5-b8da-d0f1fd76d8dd");
-			put("B", "1be8a931-6954-4fd9-bc76-e67c6f73fc00");
+			put("L", "c829969e-9927-491f-89a8-f200b8d29f57"); // Local
+			put("M", "41211ac8-1137-49f5-9efb-7d8e75682a45"); // Merge
+			put("R", "959a0839-d0f2-43c5-b8da-d0f1fd76d8dd"); // Reference
+			put("B", "1be8a931-6954-4fd9-bc76-e67c6f73fc00"); // Broadcast
 		}
 	};
 	public CompletableFuture<MRefList_BH> ReplicationType(MTable entity, DataFetchingEnvironment environment) {

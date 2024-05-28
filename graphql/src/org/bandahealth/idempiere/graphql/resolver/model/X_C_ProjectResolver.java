@@ -226,12 +226,12 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> PROJECTCATEGORY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PROJECTCATEGORY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("N", "0ee15c1f-fd85-4277-a4ba-5019cfefa415");
-			put("A", "8325d87d-5eb8-482e-803d-215889471ef5");
-			put("W", "7e8413bf-2c7a-4ecd-b00e-684ef95ff4eb");
-			put("S", "8a6796ad-4e16-412c-a34b-0e92bf6f5e00");
+			put("N", "0ee15c1f-fd85-4277-a4ba-5019cfefa415"); // General
+			put("A", "8325d87d-5eb8-482e-803d-215889471ef5"); // Asset Project
+			put("W", "7e8413bf-2c7a-4ecd-b00e-684ef95ff4eb"); // Work Order (Job)
+			put("S", "8a6796ad-4e16-412c-a34b-0e92bf6f5e00"); // Service (Charge) Project
 		}
 	};
 	public CompletableFuture<MRefList_BH> ProjectCategory(MProject entity, DataFetchingEnvironment environment) {
@@ -243,11 +243,11 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 		return dataLoader.load(PROJECTCATEGORY_UUIDS_BY_VALUE.get(entity.getProjectCategory()));
 	}
 
-	static Map<String, String> PROJECTLINELEVEL_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PROJECTLINELEVEL_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("P", "8ce67166-ddc3-47ce-b7a4-26d876445eb5");
-			put("A", "e9321764-fa27-4715-9707-8e568c21ebf5");
-			put("T", "5eab135d-e477-4fb0-8203-38a3c4b8f043");
+			put("P", "8ce67166-ddc3-47ce-b7a4-26d876445eb5"); // Project
+			put("A", "e9321764-fa27-4715-9707-8e568c21ebf5"); // Phase
+			put("T", "5eab135d-e477-4fb0-8203-38a3c4b8f043"); // Task
 		}
 	};
 	public CompletableFuture<MRefList_BH> ProjectLineLevel(MProject entity, DataFetchingEnvironment environment) {
@@ -259,13 +259,13 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 		return dataLoader.load(PROJECTLINELEVEL_UUIDS_BY_VALUE.get(entity.getProjectLineLevel()));
 	}
 
-	static Map<String, String> PROJINVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PROJINVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("-", "b2c13436-dfd4-4b95-a0fe-a0429485d425");
-			put("C", "4311a616-dbf6-4e2a-bc9b-a7726e4f075c");
-			put("c", "e9bbae09-f9ce-4dfd-a9d6-487109574052");
-			put("T", "f724e224-f0fb-4575-94ae-b4aa8e6c8c54");
-			put("P", "c6d2fa2b-6f89-41b1-9e53-db77217d3ff1");
+			put("-", "b2c13436-dfd4-4b95-a0fe-a0429485d425"); // None
+			put("C", "4311a616-dbf6-4e2a-bc9b-a7726e4f075c"); // Committed Amount
+			put("c", "e9bbae09-f9ce-4dfd-a9d6-487109574052"); // Time&Material max Comitted
+			put("T", "f724e224-f0fb-4575-94ae-b4aa8e6c8c54"); // Time&Material
+			put("P", "c6d2fa2b-6f89-41b1-9e53-db77217d3ff1"); // Product  Quantity
 		}
 	};
 	public CompletableFuture<MRefList_BH> ProjInvoiceRule(MProject entity, DataFetchingEnvironment environment) {

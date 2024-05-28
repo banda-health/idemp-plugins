@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_RuleResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -48,7 +49,12 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	public void setAccessLevelInput(ForeignEntityInput AccessLevel) {
 		this.mAccessLevel = AccessLevel;
 		if (AccessLevel != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_RuleResolver.ACCESSLEVEL_UUIDS_BY_VALUE.containsValue(AccessLevel.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AccessLevel.getUU() +
+						" is not in the list defined for the AccessLevel column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -182,7 +188,12 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	public void setEventTypeInput(ForeignEntityInput EventType) {
 		this.mEventType = EventType;
 		if (EventType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_RuleResolver.EVENTTYPE_UUIDS_BY_VALUE.containsValue(EventType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + EventType.getUU() +
+						" is not in the list defined for the EventType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -216,7 +227,12 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	public void setRuleTypeInput(ForeignEntityInput RuleType) {
 		this.mRuleType = RuleType;
 		if (RuleType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_RuleResolver.RULETYPE_UUIDS_BY_VALUE.containsValue(RuleType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + RuleType.getUU() +
+						" is not in the list defined for the RuleType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_CashPlanResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
@@ -255,7 +256,12 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public void setCashFlowTypeInput(ForeignEntityInput CashFlowType) {
 		this.mCashFlowType = CashFlowType;
 		if (CashFlowType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_CashPlanResolver.CASHFLOWTYPE_UUIDS_BY_VALUE.containsValue(CashFlowType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CashFlowType.getUU() +
+						" is not in the list defined for the CashFlowType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

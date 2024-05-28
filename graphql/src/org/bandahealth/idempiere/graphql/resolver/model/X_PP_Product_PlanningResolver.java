@@ -115,11 +115,11 @@ public class X_PP_Product_PlanningResolver extends POResolver<MPPProductPlanning
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
-	static Map<String, String> ORDER_POLICY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ORDER_POLICY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("FOQ", "23800f29-d1b6-448a-aa21-2e4673ff6cd5");
-			put("LFL", "e28144cc-6e05-4848-8b12-98d45ddc36da");
-			put("POQ", "15ee1e1f-267a-49fb-97c5-109589058690");
+			put("FOQ", "23800f29-d1b6-448a-aa21-2e4673ff6cd5"); // Fixed Order Quantity
+			put("LFL", "e28144cc-6e05-4848-8b12-98d45ddc36da"); // Lot-for-Lot
+			put("POQ", "15ee1e1f-267a-49fb-97c5-109589058690"); // Period Order Quantity
 		}
 	};
 	public CompletableFuture<MRefList_BH> Order_Policy(MPPProductPlanning entity, DataFetchingEnvironment environment) {

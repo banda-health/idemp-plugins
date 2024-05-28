@@ -220,10 +220,10 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
-	static Map<String, String> ISSHOWINDASHBOARD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISSHOWINDASHBOARD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsShowInDashboard(MUserDefInfo entity, DataFetchingEnvironment environment) {

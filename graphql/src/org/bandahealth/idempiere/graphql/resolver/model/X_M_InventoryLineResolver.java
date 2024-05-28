@@ -47,10 +47,10 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine> implem
 		return dataLoader.load(entity.getC_Charge_ID());
 	}
 
-	static Map<String, String> INVENTORYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> INVENTORYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("D", "00dad9c4-c001-4ce1-b5df-b0e6709492f4");
-			put("C", "3159e11b-bc67-450f-960f-93b2dc5f0c31");
+			put("D", "00dad9c4-c001-4ce1-b5df-b0e6709492f4"); // Inventory Difference
+			put("C", "3159e11b-bc67-450f-960f-93b2dc5f0c31"); // Charge Account
 		}
 	};
 	public CompletableFuture<MRefList_BH> InventoryType(MInventoryLine entity, DataFetchingEnvironment environment) {

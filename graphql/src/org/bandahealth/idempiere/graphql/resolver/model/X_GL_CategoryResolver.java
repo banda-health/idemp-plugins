@@ -26,12 +26,12 @@ import java.util.concurrent.CompletableFuture;
 public class X_GL_CategoryResolver extends POResolver<MGLCategory> implements GraphQLResolver<MGLCategory> {
 
 
-	static Map<String, String> CATEGORYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CATEGORYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("M", "e1853645-b246-4427-8ee8-0e52ff261d7c");
-			put("I", "5bf27e3d-dda9-469b-8b34-11cf416d98ab");
-			put("D", "9ec68463-45cd-4b45-ac89-7f5d6bb79b71");
-			put("S", "5714a6aa-33e6-4280-9145-752da180d821");
+			put("M", "e1853645-b246-4427-8ee8-0e52ff261d7c"); // Manual
+			put("I", "5bf27e3d-dda9-469b-8b34-11cf416d98ab"); // Import
+			put("D", "9ec68463-45cd-4b45-ac89-7f5d6bb79b71"); // Document
+			put("S", "5714a6aa-33e6-4280-9145-752da180d821"); // System generated
 		}
 	};
 	public CompletableFuture<MRefList_BH> CategoryType(MGLCategory entity, DataFetchingEnvironment environment) {

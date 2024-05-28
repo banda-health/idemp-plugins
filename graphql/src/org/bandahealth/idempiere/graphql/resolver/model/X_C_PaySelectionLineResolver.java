@@ -80,17 +80,17 @@ public class X_C_PaySelectionLineResolver extends POResolver<MPaySelectionLine> 
 		return entity.isSOTrx();
 	}
 
-	static Map<String, String> PAYMENTRULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PAYMENTRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "917130e3-2144-496c-9344-6cf4f7136293");
-			put("K", "68dda00d-c015-498e-b91c-811bab809dab");
-			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf");
-			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e");
-			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
-			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e");
-			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb");
-			put("A", "c524815a-e048-4052-bab5-b7812e27cd64");
-			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
+			put("B", "917130e3-2144-496c-9344-6cf4f7136293"); // Cash
+			put("K", "68dda00d-c015-498e-b91c-811bab809dab"); // Credit Card
+			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf"); // Direct Deposit
+			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e"); // Check
+			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a"); // On Credit
+			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e"); // Direct Debit
+			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb"); // Mixed POS Payment
+			put("A", "c524815a-e048-4052-bab5-b7812e27cd64"); // Mobile Account
+			put("b", "72629357-494a-4cb3-aecf-807141f1968b"); // Cash Drawer
 		}
 	};
 	public CompletableFuture<MRefList_BH> PaymentRule(MPaySelectionLine entity, DataFetchingEnvironment environment) {

@@ -117,12 +117,12 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 		return dataLoader.load(entity.getHdrLine_PrintColor_ID());
 	}
 
-	static Map<String, String> HDRSTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> HDRSTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "9ad32e3a-041c-4b8f-a55d-0690f76aad33");
-			put("D", "14819462-54d8-4253-aeb8-f6d21310f7ec");
-			put("d", "6d0afb30-9ebc-4fa6-992b-493962dc04ec");
-			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222");
+			put("S", "9ad32e3a-041c-4b8f-a55d-0690f76aad33"); // Solid Line
+			put("D", "14819462-54d8-4253-aeb8-f6d21310f7ec"); // Dashed Line
+			put("d", "6d0afb30-9ebc-4fa6-992b-493962dc04ec"); // Dotted Line
+			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222"); // Dash-Dotted Line
 		}
 	};
 	public CompletableFuture<MRefList_BH> HdrStrokeType(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
@@ -211,12 +211,12 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 		return dataLoader.load(entity.getLine_PrintColor_ID());
 	}
 
-	static Map<String, String> LINESTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> LINESTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "9ad32e3a-041c-4b8f-a55d-0690f76aad33");
-			put("D", "14819462-54d8-4253-aeb8-f6d21310f7ec");
-			put("d", "6d0afb30-9ebc-4fa6-992b-493962dc04ec");
-			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222");
+			put("S", "9ad32e3a-041c-4b8f-a55d-0690f76aad33"); // Solid Line
+			put("D", "14819462-54d8-4253-aeb8-f6d21310f7ec"); // Dashed Line
+			put("d", "6d0afb30-9ebc-4fa6-992b-493962dc04ec"); // Dotted Line
+			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222"); // Dash-Dotted Line
 		}
 	};
 	public CompletableFuture<MRefList_BH> LineStrokeType(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {

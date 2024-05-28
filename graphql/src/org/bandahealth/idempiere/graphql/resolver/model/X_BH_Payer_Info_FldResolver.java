@@ -42,10 +42,10 @@ public class X_BH_Payer_Info_FldResolver extends POResolver<MBHPayerInfoFld> imp
 		return dataLoader.load(entity.getBH_Payer_ID());
 	}
 
-	static Map<String, String> BH_PAYERINFOFIELDDATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BH_PAYERINFOFIELDDATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("T", "30c39cd3-e132-4b80-811e-74c5e06f8fae");
-			put("L", "5be1018a-8aa1-4f9a-8ec9-a022fa3675b9");
+			put("T", "30c39cd3-e132-4b80-811e-74c5e06f8fae"); // Text
+			put("L", "5be1018a-8aa1-4f9a-8ec9-a022fa3675b9"); // List
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_PayerInfoFieldDataType(MBHPayerInfoFld entity, DataFetchingEnvironment environment) {

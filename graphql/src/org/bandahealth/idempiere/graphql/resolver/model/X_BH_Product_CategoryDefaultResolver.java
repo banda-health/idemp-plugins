@@ -21,10 +21,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_BH_Product_CategoryDefaultResolver extends POResolver<MBHProductCategoryDefault> implements GraphQLResolver<MBHProductCategoryDefault> {
 
 
-	static Map<String, String> BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("P", "305558d1-db4a-456f-9c25-057750949060");
-			put("S", "f3c40565-4bb3-4e82-b280-1ad24f6701cd");
+			put("P", "305558d1-db4a-456f-9c25-057750949060"); // Product
+			put("S", "f3c40565-4bb3-4e82-b280-1ad24f6701cd"); // Service
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_Product_Category_Type(MBHProductCategoryDefault entity, DataFetchingEnvironment environment) {

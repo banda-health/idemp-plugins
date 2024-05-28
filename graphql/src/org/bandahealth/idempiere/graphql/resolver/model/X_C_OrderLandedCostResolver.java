@@ -40,13 +40,13 @@ public class X_C_OrderLandedCostResolver extends POResolver<MOrderLandedCost> im
 		return dataLoader.load(entity.getC_Order_ID());
 	}
 
-	static Map<String, String> LANDEDCOSTDISTRIBUTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> LANDEDCOSTDISTRIBUTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Q", "50d100e4-2858-45bd-879a-f5b1d87bd29a");
-			put("L", "0ea8969b-c655-4d56-bcfe-5c6aa5f2a60e");
-			put("V", "22944d38-a239-48c2-a16b-07b262313c12");
-			put("W", "c48079eb-eed7-44c7-9656-136001c30e83");
-			put("C", "42bd1312-993d-42c1-83ff-4af920699f12");
+			put("Q", "50d100e4-2858-45bd-879a-f5b1d87bd29a"); // Quantity
+			put("L", "0ea8969b-c655-4d56-bcfe-5c6aa5f2a60e"); // Line
+			put("V", "22944d38-a239-48c2-a16b-07b262313c12"); // Volume
+			put("W", "c48079eb-eed7-44c7-9656-136001c30e83"); // Weight
+			put("C", "42bd1312-993d-42c1-83ff-4af920699f12"); // Costs
 		}
 	};
 	public CompletableFuture<MRefList_BH> LandedCostDistribution(MOrderLandedCost entity, DataFetchingEnvironment environment) {

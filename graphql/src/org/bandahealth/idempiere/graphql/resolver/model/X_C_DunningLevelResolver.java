@@ -85,12 +85,12 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 		return dataLoader.load(entity.getDunning_PrintFormat_ID());
 	}
 
-	static Map<String, String> INVOICECOLLECTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> INVOICECOLLECTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("D", "451767f3-eea6-4809-9d1f-bccd5831913c");
-			put("C", "d5422428-9e78-45ec-b83d-30e52302aac9");
-			put("L", "18587352-5a00-4c61-9b78-91424935e13d");
-			put("U", "60a1b77c-d200-4adc-b845-7ec3760ce5b7");
+			put("D", "451767f3-eea6-4809-9d1f-bccd5831913c"); // Dunning
+			put("C", "d5422428-9e78-45ec-b83d-30e52302aac9"); // Collection Agency
+			put("L", "18587352-5a00-4c61-9b78-91424935e13d"); // Legal Procedure
+			put("U", "60a1b77c-d200-4adc-b845-7ec3760ce5b7"); // Uncollectable
 		}
 	};
 	public CompletableFuture<MRefList_BH> InvoiceCollectionType(MDunningLevel entity, DataFetchingEnvironment environment) {

@@ -13,6 +13,7 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_PaymentResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPBankAccount;
@@ -808,7 +809,12 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setCreditCardTypeInput(ForeignEntityInput CreditCardType) {
 		this.mCreditCardType = CreditCardType;
 		if (CreditCardType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PaymentResolver.CREDITCARDTYPE_UUIDS_BY_VALUE.containsValue(CreditCardType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CreditCardType.getUU() +
+						" is not in the list defined for the CreditCardType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -842,7 +848,12 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PaymentResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -876,7 +887,12 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PaymentResolver.DOCSTATUS_UUIDS_BY_VALUE.containsValue(DocStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocStatus.getUU() +
+						" is not in the list defined for the DocStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -957,7 +973,12 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 			return;
 		}
 		if (R_AvsAddr != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PaymentResolver.R_AVSADDR_UUIDS_BY_VALUE.containsValue(R_AvsAddr.getUU())) {
+				throw new AdempiereException("The reference list UU of " + R_AvsAddr.getUU() +
+						" is not in the list defined for the R_AvsAddr column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -994,7 +1015,12 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 			return;
 		}
 		if (R_AvsZip != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PaymentResolver.R_AVSZIP_UUIDS_BY_VALUE.containsValue(R_AvsZip.getUU())) {
+				throw new AdempiereException("The reference list UU of " + R_AvsZip.getUU() +
+						" is not in the list defined for the R_AvsZip column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1176,7 +1202,12 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setTenderTypeInput(ForeignEntityInput TenderType) {
 		this.mTenderType = TenderType;
 		if (TenderType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PaymentResolver.TENDERTYPE_UUIDS_BY_VALUE.containsValue(TenderType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TenderType.getUU() +
+						" is not in the list defined for the TenderType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1210,7 +1241,12 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setTrxTypeInput(ForeignEntityInput TrxType) {
 		this.mTrxType = TrxType;
 		if (TrxType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PaymentResolver.TRXTYPE_UUIDS_BY_VALUE.containsValue(TrxType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TrxType.getUU() +
+						" is not in the list defined for the TrxType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

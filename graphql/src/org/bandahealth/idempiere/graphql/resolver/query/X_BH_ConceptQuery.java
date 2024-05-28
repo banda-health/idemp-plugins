@@ -19,6 +19,6 @@ public class X_BH_ConceptQuery extends POQuery<MBHConcept> implements GraphQLQue
 
 	public Connection<MBHConcept> BH_ConceptGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(Page, PageSize, Sort, Filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

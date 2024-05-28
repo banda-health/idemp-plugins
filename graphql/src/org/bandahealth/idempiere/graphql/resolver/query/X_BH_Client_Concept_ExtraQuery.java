@@ -19,6 +19,6 @@ public class X_BH_Client_Concept_ExtraQuery extends POQuery<MBHClientConceptExtr
 
 	public Connection<MBHClientConceptExtra> BH_Client_Concept_ExtraGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(Page, PageSize, Sort, Filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

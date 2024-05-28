@@ -40,13 +40,13 @@ public class X_AD_AuthorizationAccountResolver extends POResolver<MAuthorization
 		return dataLoader.load(entity.getAD_AuthorizationCredential_ID());
 	}
 
-	static Map<String, String> AD_AUTHORIZATIONSCOPES_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> AD_AUTHORIZATIONSCOPES_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Calendar", "2d70e5ab-b291-44dc-b610-e4de4170e635");
-			put("EMail", "d104581f-ad0b-41f2-9922-174d8e27487a");
-			put("Document", "b2c69b9e-c59d-4bec-8b2d-d871047a0904");
-			put("Profile", "2961bff8-d875-4b01-84f2-1f311b41a15f");
-			put("Storage", "df766e64-dad7-4970-a026-fa759e4de151");
+			put("Calendar", "2d70e5ab-b291-44dc-b610-e4de4170e635"); // Calendar
+			put("EMail", "d104581f-ad0b-41f2-9922-174d8e27487a"); // EMail
+			put("Document", "b2c69b9e-c59d-4bec-8b2d-d871047a0904"); // Document
+			put("Profile", "2961bff8-d875-4b01-84f2-1f311b41a15f"); // Profile
+			put("Storage", "df766e64-dad7-4970-a026-fa759e4de151"); // Storage
 		}
 	};
 	public CompletableFuture<MRefList_BH> AD_AuthorizationScopes(MAuthorizationAccount entity, DataFetchingEnvironment environment) {

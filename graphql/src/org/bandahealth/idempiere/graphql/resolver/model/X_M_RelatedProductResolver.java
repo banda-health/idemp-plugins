@@ -53,11 +53,11 @@ public class X_M_RelatedProductResolver extends POResolver<X_M_RelatedProduct> i
 		return dataLoader.load(entity.getRelatedProduct_ID());
 	}
 
-	static Map<String, String> RELATEDPRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> RELATEDPRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("P", "74f84269-bf01-4300-b855-1768c085a473");
-			put("A", "f634f40c-28dc-4cdb-9e56-0318a7a65fb2");
-			put("S", "c38a308e-5685-4c2e-b3f6-bbad06470705");
+			put("P", "74f84269-bf01-4300-b855-1768c085a473"); // Web Promotion
+			put("A", "f634f40c-28dc-4cdb-9e56-0318a7a65fb2"); // Alternative
+			put("S", "c38a308e-5685-4c2e-b3f6-bbad06470705"); // Supplemental
 		}
 	};
 	public CompletableFuture<MRefList_BH> RelatedProductType(X_M_RelatedProduct entity, DataFetchingEnvironment environment) {

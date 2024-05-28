@@ -43,12 +43,12 @@ public class X_AD_ColorResolver extends POResolver<MColor> implements GraphQLRes
 		return dataLoader.load(entity.getAD_Image_ID());
 	}
 
-	static Map<String, String> COLORTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COLORTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("F", "88532852-a8ee-4d5b-ba71-1d7d9cccba52");
-			put("G", "4c7701f0-6634-42d0-b099-eceb09c71cc0");
-			put("L", "a1f7e2d9-ca8d-4570-ae2b-389eb3da0fb6");
-			put("T", "5fb3957b-a5bc-4b9d-93a1-a61da4d990e4");
+			put("F", "88532852-a8ee-4d5b-ba71-1d7d9cccba52"); // Normal (Flat)
+			put("G", "4c7701f0-6634-42d0-b099-eceb09c71cc0"); // Gradient
+			put("L", "a1f7e2d9-ca8d-4570-ae2b-389eb3da0fb6"); // Line
+			put("T", "5fb3957b-a5bc-4b9d-93a1-a61da4d990e4"); // Texture (Picture)
 		}
 	};
 	public CompletableFuture<MRefList_BH> ColorType(MColor entity, DataFetchingEnvironment environment) {
@@ -80,16 +80,16 @@ public class X_AD_ColorResolver extends POResolver<MColor> implements GraphQLRes
 						entity.getName());
 	}
 
-	static Map<String, String> STARTPOINT_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> STARTPOINT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("1", "5ffafd53-f087-438c-909e-e51b2183df07");
-			put("2", "d738f8db-037f-4a83-898a-6d25fa8c3a58");
-			put("3", "77df7a8c-39b7-4bd3-9b69-d21c05820b37");
-			put("4", "c0ac335d-bc7e-4273-b70c-c98cdd97320b");
-			put("5", "70492ef3-423f-49ae-882f-3a8b3a92ba7a");
-			put("6", "8e961acb-4533-40a4-820a-e4e4ac5ea83a");
-			put("7", "b08af11e-8671-49a9-93dd-048bb1ea3c49");
-			put("8", "b37ca5ca-7313-4f43-9f00-12c2b8a77f2c");
+			put("1", "5ffafd53-f087-438c-909e-e51b2183df07"); // North
+			put("2", "d738f8db-037f-4a83-898a-6d25fa8c3a58"); // North East
+			put("3", "77df7a8c-39b7-4bd3-9b69-d21c05820b37"); // East
+			put("4", "c0ac335d-bc7e-4273-b70c-c98cdd97320b"); // South East
+			put("5", "70492ef3-423f-49ae-882f-3a8b3a92ba7a"); // South
+			put("6", "8e961acb-4533-40a4-820a-e4e4ac5ea83a"); // South West
+			put("7", "b08af11e-8671-49a9-93dd-048bb1ea3c49"); // West
+			put("8", "b37ca5ca-7313-4f43-9f00-12c2b8a77f2c"); // North West
 		}
 	};
 	public CompletableFuture<MRefList_BH> StartPoint(MColor entity, DataFetchingEnvironment environment) {

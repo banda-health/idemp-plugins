@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_BH_VisitResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -123,7 +124,12 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public void setBH_PatientTypeInput(ForeignEntityInput BH_PatientType) {
 		this.mBH_PatientType = BH_PatientType;
 		if (BH_PatientType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_BH_VisitResolver.BH_PATIENTTYPE_UUIDS_BY_VALUE.containsValue(BH_PatientType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_PatientType.getUU() +
+						" is not in the list defined for the BH_PatientType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -157,7 +163,12 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public void setBH_Process_StageInput(ForeignEntityInput BH_Process_Stage) {
 		this.mBH_Process_Stage = BH_Process_Stage;
 		if (BH_Process_Stage != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_BH_VisitResolver.BH_PROCESS_STAGE_UUIDS_BY_VALUE.containsValue(BH_Process_Stage.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_Process_Stage.getUU() +
+						" is not in the list defined for the BH_Process_Stage column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -191,7 +202,12 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public void setbh_referralInput(ForeignEntityInput bh_referral) {
 		this.mbh_referral = bh_referral;
 		if (bh_referral != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_BH_VisitResolver.BH_REFERRAL_UUIDS_BY_VALUE.containsValue(bh_referral.getUU())) {
+				throw new AdempiereException("The reference list UU of " + bh_referral.getUU() +
+						" is not in the list defined for the bh_referral column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

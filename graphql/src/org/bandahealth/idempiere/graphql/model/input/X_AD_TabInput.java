@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_TabResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MCtxHelp;
@@ -368,7 +369,12 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	public void setAD_TabTypeInput(ForeignEntityInput AD_TabType) {
 		this.mAD_TabType = AD_TabType;
 		if (AD_TabType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_TabResolver.AD_TABTYPE_UUIDS_BY_VALUE.containsValue(AD_TabType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AD_TabType.getUU() +
+						" is not in the list defined for the AD_TabType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -507,7 +513,12 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	public void setIsHighVolumeInput(ForeignEntityInput IsHighVolume) {
 		this.mIsHighVolume = IsHighVolume;
 		if (IsHighVolume != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_TabResolver.ISHIGHVOLUME_UUIDS_BY_VALUE.containsValue(IsHighVolume.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsHighVolume.getUU() +
+						" is not in the list defined for the IsHighVolume column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -575,7 +586,12 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	public void setTreeDisplayedOnInput(ForeignEntityInput TreeDisplayedOn) {
 		this.mTreeDisplayedOn = TreeDisplayedOn;
 		if (TreeDisplayedOn != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_TabResolver.TREEDISPLAYEDON_UUIDS_BY_VALUE.containsValue(TreeDisplayedOn.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TreeDisplayedOn.getUU() +
+						" is not in the list defined for the TreeDisplayedOn column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

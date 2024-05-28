@@ -112,13 +112,13 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 		return dataLoader.load(entity.getR_MailText_ID());
 	}
 
-	static Map<String, String> REPORTOUTPUTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> REPORTOUTPUTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("PDF", "303c23cc-5dcf-4f5a-a105-8b62f856165a");
-			put("HTML", "67cf2cdf-75a2-441c-ab33-12033e121e69");
-			put("XLS", "0190b839-041b-43ae-a5f5-a52efb120e9d");
-			put("CSV", "e0aa166a-b354-46d5-8a60-e2e21bf49f44");
-			put("XLSX", "2ebce9b0-ffa1-429d-aa8e-42be54bc161b");
+			put("PDF", "303c23cc-5dcf-4f5a-a105-8b62f856165a"); // PDF
+			put("HTML", "67cf2cdf-75a2-441c-ab33-12033e121e69"); // HTML
+			put("XLS", "0190b839-041b-43ae-a5f5-a52efb120e9d"); // XLS
+			put("CSV", "e0aa166a-b354-46d5-8a60-e2e21bf49f44"); // CSV
+			put("XLSX", "2ebce9b0-ffa1-429d-aa8e-42be54bc161b"); // XLSX
 		}
 	};
 	public CompletableFuture<MRefList_BH> ReportOutputType(MScheduler entity, DataFetchingEnvironment environment) {

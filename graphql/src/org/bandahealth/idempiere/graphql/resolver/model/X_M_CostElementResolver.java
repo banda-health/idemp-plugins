@@ -21,13 +21,13 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_CostElementResolver extends POResolver<MCostElement> implements GraphQLResolver<MCostElement> {
 
 
-	static Map<String, String> COSTELEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COSTELEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("M", "7584057d-06fd-4576-9d52-0ec754e6dd52");
-			put("O", "c87ce13d-1133-4cc9-ad8b-23eb9ff2c22b");
-			put("B", "f3c861cc-8f8d-4ec8-897b-611d97e279c1");
-			put("X", "64ec11a2-2a30-4c83-9e32-b21c334291ba");
-			put("R", "c03ac230-49bc-4dde-a4fd-bf76647f173c");
+			put("M", "7584057d-06fd-4576-9d52-0ec754e6dd52"); // Material
+			put("O", "c87ce13d-1133-4cc9-ad8b-23eb9ff2c22b"); // Overhead
+			put("B", "f3c861cc-8f8d-4ec8-897b-611d97e279c1"); // Burden (M.Overhead)
+			put("X", "64ec11a2-2a30-4c83-9e32-b21c334291ba"); // Outside Processing
+			put("R", "c03ac230-49bc-4dde-a4fd-bf76647f173c"); // Resource
 		}
 	};
 	public CompletableFuture<MRefList_BH> CostElementType(MCostElement entity, DataFetchingEnvironment environment) {
@@ -39,17 +39,17 @@ public class X_M_CostElementResolver extends POResolver<MCostElement> implements
 		return dataLoader.load(COSTELEMENTTYPE_UUIDS_BY_VALUE.get(entity.getCostElementType()));
 	}
 
-	static Map<String, String> COSTINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COSTINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "d3ba6803-5479-4b30-ba20-6b40e658c5d8");
-			put("A", "29b356c5-1757-4bab-a331-a01b9415f4e6");
-			put("L", "fb47834b-767e-4ffe-b7ea-f690279d4345");
-			put("F", "835a19ab-521e-406c-b0b2-f3e4c64c44b7");
-			put("p", "01741faf-094c-46ed-9266-2d3adac2c504");
-			put("I", "9127a623-4d9b-4a1a-8462-b31d8ddb24ed");
-			put("i", "f4296d4f-761c-4545-a2ec-ca5c86e1b741");
-			put("U", "10ca122c-b77e-410e-8755-5033f17405d4");
-			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b");
+			put("S", "d3ba6803-5479-4b30-ba20-6b40e658c5d8"); // Standard Costing
+			put("A", "29b356c5-1757-4bab-a331-a01b9415f4e6"); // Average PO
+			put("L", "fb47834b-767e-4ffe-b7ea-f690279d4345"); // Lifo
+			put("F", "835a19ab-521e-406c-b0b2-f3e4c64c44b7"); // Fifo
+			put("p", "01741faf-094c-46ed-9266-2d3adac2c504"); // Last PO Price
+			put("I", "9127a623-4d9b-4a1a-8462-b31d8ddb24ed"); // Average Invoice
+			put("i", "f4296d4f-761c-4545-a2ec-ca5c86e1b741"); // Last Invoice
+			put("U", "10ca122c-b77e-410e-8755-5033f17405d4"); // User Defined
+			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b"); // _
 		}
 	};
 	public CompletableFuture<MRefList_BH> CostingMethod(MCostElement entity, DataFetchingEnvironment environment) {
