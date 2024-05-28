@@ -105,9 +105,10 @@ public class GraphQLInputModelClassGenerator {
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				tableName = resultSet.getString(1);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					tableName = resultSet.getString(1);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -199,21 +200,22 @@ public class GraphQLInputModelClassGenerator {
 				+ " ORDER BY c.ColumnName";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				String columnName = resultSet.getString(1);
-				boolean isUpdatable = "Y".equals(resultSet.getString(2));
-				int displayType = resultSet.getInt(3);
-				int AD_Reference_Value_ID = resultSet.getInt(4);
-				String Name = resultSet.getString(5);
-				String Description = resultSet.getString(6);
-				String ColumnSQL = resultSet.getString(7);
-				boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
-				boolean IsKey = "Y".equals(resultSet.getString(8));
-				//
-				generatedColumns.append(
-						createColumnMethods(columnName, isUpdatable, displayType, AD_Reference_Value_ID, Name, Description,
-								virtualColumn, IsKey, AD_Table_ID));
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				while (resultSet.next()) {
+					String columnName = resultSet.getString(1);
+					boolean isUpdatable = "Y".equals(resultSet.getString(2));
+					int displayType = resultSet.getInt(3);
+					int AD_Reference_Value_ID = resultSet.getInt(4);
+					String Name = resultSet.getString(5);
+					String Description = resultSet.getString(6);
+					String ColumnSQL = resultSet.getString(7);
+					boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
+					boolean IsKey = "Y".equals(resultSet.getString(8));
+					//
+					generatedColumns.append(
+							createColumnMethods(columnName, isUpdatable, displayType, AD_Reference_Value_ID, Name, Description,
+									virtualColumn, IsKey, AD_Table_ID));
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
