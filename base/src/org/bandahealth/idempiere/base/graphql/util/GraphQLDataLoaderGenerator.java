@@ -52,10 +52,6 @@ public class GraphQLDataLoaderGenerator {
 		return "DATALOADER_" + tableName + "_BY_UUID";
 	}
 
-	public static String getGeneratedName(String tableName) {
-		return "X_" + tableName + "DataLoader";
-	}
-
 	/**
 	 * Generate Schema
 	 *
@@ -93,8 +89,6 @@ public class GraphQLDataLoaderGenerator {
 
 			// Save
 			GraphQLUtil.writeToFile(generatedFile, directory + fileName + ".java");
-		} else {
-			classesToImport.clear();
 		}
 	}
 
@@ -108,21 +102,15 @@ public class GraphQLDataLoaderGenerator {
 	private String createHeader(int AD_Table_ID, StringBuilder generatedFile) {
 		String tableName = null;
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tableName = resultSet.getString(1);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
-		
 		if (tableName == null) {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
 		}
@@ -130,7 +118,7 @@ public class GraphQLDataLoaderGenerator {
 		String getByIdDataLoaderIdentifierProperty = getDataLoaderByIdProperty(tableStructureExtensions.getTableName());
 		String getByUuidDataLoaderIdentifierProperty =
 				getDataLoaderByUuidProperty(tableStructureExtensions.getTableName());
-		String className = getGeneratedName(tableName);
+		String className = "X_" + tableName + "DataLoader";
 		StringBuilder generatedClass = new StringBuilder()
 				.append("package ").append(packageName).append(";\n\n");
 
@@ -187,19 +175,14 @@ public class GraphQLDataLoaderGenerator {
 	private String createTranslationHeader(int translationTableId, int relatedTableId, StringBuilder generatedFile) {
 		String tableName = null;
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, translationTableId);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tableName = resultSet.getString(1);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 		if (tableName == null) {
 			throw new RuntimeException("TableName not found for ID=" + translationTableId);
@@ -207,7 +190,7 @@ public class GraphQLDataLoaderGenerator {
 
 		String getByIdDataLoaderIdentifierProperty = getDataLoaderByIdProperty(tableName);
 		String getByUuidDataLoaderIdentifierProperty = getDataLoaderByUuidProperty(tableName);
-		String className = getGeneratedName(tableName);
+		String className = "X_" + tableName + "DataLoader";
 		StringBuilder generatedClass = new StringBuilder()
 				.append("package ").append(packageName).append(";\n\n");
 
@@ -291,9 +274,6 @@ public class GraphQLDataLoaderGenerator {
 				.append("}\n");
 
 		generatedFile.insert(0, generatedClass);
-		
-		// prevent memory leak.
-		classesToImport.clear();
 
 		return className;
 	}

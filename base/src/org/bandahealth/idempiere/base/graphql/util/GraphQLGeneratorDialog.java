@@ -381,8 +381,7 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			}
 			String dataLoaderFolder = "";
 			String dataLoaderPackageName = "";
-			if (generateDataLoaderCheckbox.isSelected() || generateModelResolverCheckbox.isSelected() ||
-					generateQueryResolverCheckbox.isSelected()) {
+			if (generateDataLoaderCheckbox.isSelected() || generateModelResolverCheckbox.isSelected()) {
 				dataLoaderFolder = dataLoaderDirectoryNameField.getText();
 				if (dataLoaderFolder == null || dataLoaderFolder.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(this, "Please enter data loader folder name", "Error",
@@ -435,7 +434,7 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			}
 			if (generateQueryResolverCheckbox.isSelected()) {
 				GraphQLQueryResolverGenerator.generateSource(entityType, tableName, columnEntityType, queryResolverFolder,
-						queryResolverPackageName, dataLoaderPackageName, modelsForTables);
+						queryResolverPackageName, modelsForTables);
 			}
 			if (generateMutationResolverCheckbox.isSelected()) {
 				GraphQLMutationResolverGenerator.generateSource(entityType, tableName, mutationResolverFolder,
@@ -548,7 +547,7 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			// If we just selected the empty value, don't do anything
 			MBHGraphqlGeneratorTemplate selectedTemplate;
 			if (generatorTemplates.getSelectedIndex() == 0 || (selectedTemplate =
-					templates.stream().filter(template -> template.getName().equals(generatorTemplates.getSelectedItem())).findFirst()
+					templates.stream().filter(template -> template.getName() == generatorTemplates.getSelectedItem()).findFirst()
 							.orElse(null)) == null) {
 				return;
 			}

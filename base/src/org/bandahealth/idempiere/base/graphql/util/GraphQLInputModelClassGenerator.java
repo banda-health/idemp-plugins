@@ -36,6 +36,7 @@ import java.io.FileNotFoundException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -87,9 +88,6 @@ public class GraphQLInputModelClassGenerator {
 		}
 
 		GraphQLUtil.writeToFile(generatedColumns, directory + fileName + ".java");
-		
-		classesToImport.clear();
-		privateProperties.clear();
 	}
 
 	/**
@@ -102,19 +100,14 @@ public class GraphQLInputModelClassGenerator {
 	private String createHeader(int AD_Table_ID, StringBuilder generatedColumns) {
 		String tableName = null;
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tableName = resultSet.getString(1);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 		if (tableName == null) {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
@@ -201,12 +194,9 @@ public class GraphQLInputModelClassGenerator {
 				+ " AND c.IsActive='Y'"
 				+ (!Util.isEmpty(entityTypeFilter) ? " AND c." + entityTypeFilter : "")
 				+ " ORDER BY c.ColumnName";
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String columnName = resultSet.getString(1);
 				boolean isUpdatable = "Y".equals(resultSet.getString(2));
@@ -224,8 +214,6 @@ public class GraphQLInputModelClassGenerator {
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 		return generatedColumns;
 	}
@@ -386,7 +374,7 @@ public class GraphQLInputModelClassGenerator {
 
 		// If the code is updatable from this point forward, the parent class can (potentially) handle it
 		// Also, if the method is final somewhere in the iDempiere model tree, skip it
-		List<String> columnsWhosSettersAreFinalInIDempiere = List.of("AD_Org_ID", "IsActive");
+		List<String> columnsWhosSettersAreFinalInIDempiere = Arrays.asList("AD_Org_ID", "IsActive");
 		if ((isUpdateable && AD_Reference_ID <= 0) || columnsWhosSettersAreFinalInIDempiere.contains(columnName)) {
 			return columnBuilder.toString();
 		} else if (AD_Reference_ID > 0 &&

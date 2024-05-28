@@ -84,8 +84,6 @@ public class GraphQLModelResolverGenerator {
 		}
 
 		GraphQLUtil.writeToFile(generatedColumns, directory + fileName + ".java");
-		
-		classesToImport.clear();
 	}
 
 	/**
@@ -98,19 +96,14 @@ public class GraphQLModelResolverGenerator {
 	private String createHeader(int AD_Table_ID, StringBuilder generatedColumns) {
 		String tableName = null;
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tableName = resultSet.getString(1);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 		if (tableName == null) {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
@@ -159,12 +152,9 @@ public class GraphQLModelResolverGenerator {
 				+ " AND c.IsActive='Y'"
 				+ (!Util.isEmpty(entityTypeFilter) ? " AND c." + entityTypeFilter : "")
 				+ " ORDER BY c.ColumnName";
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String columnName = resultSet.getString(1);
 				int displayType = resultSet.getInt(2);
@@ -180,8 +170,6 @@ public class GraphQLModelResolverGenerator {
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 		return generatedColumns;
 	}
@@ -230,7 +218,7 @@ public class GraphQLModelResolverGenerator {
 				referenceClassName = packagePath[packagePath.length - 1].substring(2);
 				entityName = fieldName;
 				foreignEntityTable = referenceClassName;
-				defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
+				defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 			} else if (columnName.equals("AD_Language")) {
 				entityName = columnName;
 				foreignEntityTable = columnName;
@@ -253,15 +241,15 @@ public class GraphQLModelResolverGenerator {
 						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = entityName;
-					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 				} else if (columnName.equals("Logo_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "AD_Image";
-					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "M_Warehouse";
-					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";
@@ -420,12 +408,9 @@ public class GraphQLModelResolverGenerator {
 				.append("\t\t{\n");
 		//
 		String sql = "SELECT Value, AD_Ref_List_UU FROM AD_Ref_List WHERE AD_Reference_ID=? ORDER BY AD_Ref_List_ID";
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Reference_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String value = resultSet.getString(1);
 				String uuid = resultSet.getString(2);
@@ -434,8 +419,6 @@ public class GraphQLModelResolverGenerator {
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 
 		generatedCode.append("\t\t}\n")
@@ -461,11 +444,8 @@ public class GraphQLModelResolverGenerator {
 				.append("\t\t{\n");
 		//
 		String sql = "SELECT entitytype, ad_entitytype_id FROM AD_EntityType ORDER BY AD_EntityType_ID";
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
-			resultSet = preparedStatement.executeQuery();
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String value = resultSet.getString(1);
 				Integer id = resultSet.getInt(2);
@@ -474,8 +454,6 @@ public class GraphQLModelResolverGenerator {
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 
 		generatedCode.append("\t\t}\n")
@@ -501,11 +479,8 @@ public class GraphQLModelResolverGenerator {
 				.append("\t\t{\n");
 		//
 		String sql = "SELECT ad_language, ad_language_id FROM ad_language ORDER BY ad_language";
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
-			resultSet = preparedStatement.executeQuery();
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String value = resultSet.getString(1);
 				Integer id = resultSet.getInt(2);
@@ -514,8 +489,6 @@ public class GraphQLModelResolverGenerator {
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 
 		generatedCode.append("\t\t}\n")

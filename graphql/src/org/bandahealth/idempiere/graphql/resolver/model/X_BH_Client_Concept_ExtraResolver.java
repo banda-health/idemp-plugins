@@ -25,7 +25,7 @@ public class X_BH_Client_Concept_ExtraResolver extends POResolver<MBHClientConce
 	 * @return Concept Extra
 	 */
 	public CompletableFuture<MBHConceptExtra> BH_Concept_Extra(MBHClientConceptExtra entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Concept_Extra_ID() < 0) {
+		if (entity.getBH_Concept_Extra_ID() <= 0) {
 			return null;
 		}
 		DataLoader<Integer, MBHConceptExtra> dataLoader =

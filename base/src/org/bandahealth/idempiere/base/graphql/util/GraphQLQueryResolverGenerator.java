@@ -41,7 +41,6 @@ import java.util.TreeSet;
 public class GraphQLQueryResolverGenerator {
 	private final String packageName;
 	private final ModelMap tableStructureExtensions;
-	private final String dataLoaderPackageName;
 
 	/**
 	 * Generate Schema
@@ -51,9 +50,8 @@ public class GraphQLQueryResolverGenerator {
 	 * @param entityTypeFilter entity type filter for columns
 	 */
 	public GraphQLQueryResolverGenerator(int AD_Table_ID, String entityTypeFilter, String directory, String packageName,
-			String dataLoaderPackageName, Map<String, ModelMap> modelsForTables) throws FileNotFoundException {
+			Map<String, ModelMap> modelsForTables) throws FileNotFoundException {
 		this.packageName = packageName;
-		this.dataLoaderPackageName = dataLoaderPackageName;
 
 		// Get the name of the model to extend
 		tableStructureExtensions = modelsForTables.get(MTable.get(AD_Table_ID).getTableName());
@@ -71,8 +69,6 @@ public class GraphQLQueryResolverGenerator {
 		}
 
 		GraphQLUtil.writeToFile(generatedFile, directory + fileName + ".java");
-		
-		classesToImport.clear();
 	}
 
 	/**
@@ -85,19 +81,14 @@ public class GraphQLQueryResolverGenerator {
 	private String createHeader(int AD_Table_ID, StringBuilder generatedFile) {
 		String tableName = null;
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tableName = resultSet.getString(1);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 		if (tableName == null) {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
@@ -111,9 +102,6 @@ public class GraphQLQueryResolverGenerator {
 		classesToImport.add("graphql.schema.DataFetchingEnvironment");
 		classesToImport.add(tableStructureExtensions.getClassPackageName() + "." + tableStructureExtensions.getClassName());
 		classesToImport.add("org.bandahealth.idempiere.graphql.model.Connection");
-		classesToImport.add("java.util.concurrent.CompletableFuture");
-		classesToImport.add(dataLoaderPackageName + "." + GraphQLDataLoaderGenerator.getGeneratedName(tableName));
-		classesToImport.add("org.dataloader.DataLoader");
 		GraphQLUtil.createImports(classesToImport, generatedClass);
 		generatedClass
 				.append("/**\n * Generated Query Resolver for ").append(tableName).append(" - DO NOT CHANGE\n *\n")
@@ -131,21 +119,11 @@ public class GraphQLQueryResolverGenerator {
 				.append("\t}\n\n")
 
 				// Default Queries from the Schema
-				.append("\tpublic CompletableFuture<").append(tableStructureExtensions.getClassName()).append("> ")
-				.append(tableStructureExtensions.getTableName()).append("(String UU, DataFetchingEnvironment environment) {\n")
-				.append("\t\tDataLoader<String, ").append(tableStructureExtensions.getClassName())
-				.append("> dataLoader = environment.getDataLoaderRegistry()\n")
-				.append("\t\t\t\t.getDataLoader(")
-				.append(GraphQLDataLoaderGenerator.getGeneratedName(tableStructureExtensions.getTableName())).append(".")
-				.append(GraphQLDataLoaderGenerator.getDataLoaderByUuidProperty(tableStructureExtensions.getTableName()))
-				.append(");\n")
-				.append("\t\treturn dataLoader.load(UU);\n")
-				.append("\t}\n\n")
 				.append("\tpublic Connection<").append(tableStructureExtensions.getClassName()).append("> ")
 				.append(tableStructureExtensions.getTableName())
 				.append("Get(int Page, int PageSize, String Sort, String Filter,\n")
 				.append("\t\t\tDataFetchingEnvironment environment) {\n")
-				.append("\t\treturn super.Get(Page, PageSize, Sort, Filter, environment);\n")
+				.append("\t\treturn super.get(Page, PageSize, Sort, Filter, environment);\n")
 				.append("\t}\n")
 				.append("}\n");
 
@@ -166,7 +144,7 @@ public class GraphQLQueryResolverGenerator {
 	 * @param columnEntityType
 	 */
 	public static void generateSource(String entityType, String tableName, String columnEntityType, String sourceFolder,
-			String packageName, String dataLoaderPackageName, Map<String, ModelMap> modelsForTables) {
+			String packageName, Map<String, ModelMap> modelsForTables) {
 		//
 		String directory =
 				GraphQLUtil.validateSourceFolderTableNamePackageNameAndGetFileOutputDirectory(sourceFolder, tableName,
@@ -175,6 +153,6 @@ public class GraphQLQueryResolverGenerator {
 		//
 		GraphQLUtil.buildAndExecuteTableSql(tableName, entityType,
 				(resultSet -> new GraphQLQueryResolverGenerator(resultSet.getInt(1), columnFilter, directory, packageName,
-						dataLoaderPackageName, modelsForTables)));
+						modelsForTables)));
 	}
 }

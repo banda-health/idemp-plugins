@@ -79,19 +79,14 @@ public class GraphQLSchemaGenerator {
 	private String createHeader(int AD_Table_ID, StringBuilder stringBuilder, GeneratedColumns generatedColumns) {
 		String tableName = "";
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tableName = resultSet.getString(1);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 		if (tableName == null) {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
@@ -105,7 +100,6 @@ public class GraphQLSchemaGenerator {
 
 				// Default Queries
 				.append("extend type Query {\n")
-				.append("\t").append(tableName).append("(UU: String!): ").append(tableName).append("\n")
 				.append("\t").append(tableName).append("Get(Page: Int, Size: Int, Sort: String, Filter: String): ")
 				.append(tableName).append("Connection!\n")
 				.append("}\n\n")
@@ -152,12 +146,9 @@ public class GraphQLSchemaGenerator {
 				+ (!Util.isEmpty(entityTypeFilter) ? " AND c." + entityTypeFilter : "")
 				+ " ORDER BY c.ColumnName";
 		boolean isKeyNamePairCreated = false; // true if the method "getKeyNamePair" is already generated
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String columnName = resultSet.getString(1);
 				boolean isMandatory = "Y".equals(resultSet.getString(2));
@@ -186,8 +177,6 @@ public class GraphQLSchemaGenerator {
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
 		}
 		return generatedColumns;
 	}
