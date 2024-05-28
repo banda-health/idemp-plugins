@@ -103,9 +103,10 @@ public class GraphQLModelResolverGenerator {
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				tableName = resultSet.getString(1);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					tableName = resultSet.getString(1);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -159,19 +160,21 @@ public class GraphQLModelResolverGenerator {
 				+ " ORDER BY c.ColumnName";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				String columnName = resultSet.getString(1);
-				int displayType = resultSet.getInt(2);
-				int AD_Reference_Value_ID = resultSet.getInt(3);
-				String Name = resultSet.getString(4);
-				String Description = resultSet.getString(5);
-				boolean IsKey = "Y".equals(resultSet.getString(6));
-				boolean isTranslated = "Y".equals(resultSet.getString(7));
-				//
-				generatedColumns.append(
-						createColumnMethods(columnName, displayType, AD_Reference_Value_ID, Name, Description, IsKey, isTranslated,
-								AD_Table_ID));
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				while (resultSet.next()) {
+					String columnName = resultSet.getString(1);
+					int displayType = resultSet.getInt(2);
+					int AD_Reference_Value_ID = resultSet.getInt(3);
+					String Name = resultSet.getString(4);
+					String Description = resultSet.getString(5);
+					boolean IsKey = "Y".equals(resultSet.getString(6));
+					boolean isTranslated = "Y".equals(resultSet.getString(7));
+					//
+					generatedColumns.append(
+							createColumnMethods(columnName, displayType, AD_Reference_Value_ID, Name, Description, IsKey,
+									isTranslated,
+									AD_Table_ID));
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -422,14 +425,15 @@ public class GraphQLModelResolverGenerator {
 		String sql = "SELECT Value, AD_Ref_List_UU, Name FROM AD_Ref_List WHERE AD_Reference_ID=? ORDER BY AD_Ref_List_ID";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Reference_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				String value = resultSet.getString(1);
-				String uuid = resultSet.getString(2);
-				String name = resultSet.getString(3);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				while (resultSet.next()) {
+					String value = resultSet.getString(1);
+					String uuid = resultSet.getString(2);
+					String name = resultSet.getString(3);
 
-				generatedCode.append("\t\t\tput(\"").append(value).append("\", \"").append(uuid).append("\"); // ").append(name)
-						.append("\n");
+					generatedCode.append("\t\t\tput(\"").append(value).append("\", \"").append(uuid).append("\"); // ")
+							.append(name).append("\n");
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -458,8 +462,8 @@ public class GraphQLModelResolverGenerator {
 				.append("\t\t{\n");
 		//
 		String sql = "SELECT entitytype, ad_entitytype_id FROM AD_EntityType ORDER BY AD_EntityType_ID";
-		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
-			ResultSet resultSet = preparedStatement.executeQuery();
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null);
+		     ResultSet resultSet = preparedStatement.executeQuery()) {
 			while (resultSet.next()) {
 				String value = resultSet.getString(1);
 				Integer id = resultSet.getInt(2);
@@ -493,8 +497,8 @@ public class GraphQLModelResolverGenerator {
 				.append("\t\t{\n");
 		//
 		String sql = "SELECT ad_language, ad_language_id FROM ad_language ORDER BY ad_language";
-		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
-			ResultSet resultSet = preparedStatement.executeQuery();
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null);
+		     ResultSet resultSet = preparedStatement.executeQuery()) {
 			while (resultSet.next()) {
 				String value = resultSet.getString(1);
 				Integer id = resultSet.getInt(2);
