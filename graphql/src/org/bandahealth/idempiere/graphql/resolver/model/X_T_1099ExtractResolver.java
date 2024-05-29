@@ -29,7 +29,7 @@ public class X_T_1099ExtractResolver extends POResolver<X_T_1099Extract> impleme
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_1099Extract entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -44,7 +44,7 @@ public class X_T_1099ExtractResolver extends POResolver<X_T_1099Extract> impleme
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_T_1099Extract entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_T_1099ExtractResolver extends POResolver<X_T_1099Extract> impleme
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(X_T_1099Extract entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() <= 0) {
+		if (entity.getC_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =

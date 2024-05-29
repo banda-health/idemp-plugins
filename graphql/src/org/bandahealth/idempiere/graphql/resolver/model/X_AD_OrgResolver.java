@@ -25,7 +25,7 @@ public class X_AD_OrgResolver extends POResolver<MOrg> implements GraphQLResolve
 	 * @return Data Replication Strategy
 	 */
 	public CompletableFuture<MReplicationStrategy> AD_ReplicationStrategy(MOrg entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReplicationStrategy_ID() <= 0) {
+		if (entity.getAD_ReplicationStrategy_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReplicationStrategy> dataLoader =

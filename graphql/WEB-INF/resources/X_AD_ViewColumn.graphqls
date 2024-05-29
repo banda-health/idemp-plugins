@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_ViewColumn(UU: String!): AD_ViewColumn
 	AD_ViewColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ViewColumnConnection!
 }
 

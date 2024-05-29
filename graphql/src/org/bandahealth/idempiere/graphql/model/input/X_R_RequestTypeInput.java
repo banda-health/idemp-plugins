@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_R_RequestTypeResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRequestType;
@@ -83,7 +84,12 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 	public void setConfidentialTypeInput(ForeignEntityInput ConfidentialType) {
 		this.mConfidentialType = ConfidentialType;
 		if (ConfidentialType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestTypeResolver.CONFIDENTIALTYPE_UUIDS_BY_VALUE.containsValue(ConfidentialType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ConfidentialType.getUU() +
+						" is not in the list defined for the ConfidentialType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

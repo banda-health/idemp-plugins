@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHProductCategoryDefault;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_BH_Product_CategoryDefaultResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -81,7 +82,12 @@ public class X_BH_Product_CategoryDefaultInput extends MBHProductCategoryDefault
 	public void setBH_Product_Category_TypeInput(ForeignEntityInput BH_Product_Category_Type) {
 		this.mBH_Product_Category_Type = BH_Product_Category_Type;
 		if (BH_Product_Category_Type != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_BH_Product_CategoryDefaultResolver.BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE.containsValue(BH_Product_Category_Type.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_Product_Category_Type.getUU() +
+						" is not in the list defined for the BH_Product_Category_Type column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

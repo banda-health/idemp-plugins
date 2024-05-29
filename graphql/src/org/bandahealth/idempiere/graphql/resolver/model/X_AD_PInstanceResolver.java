@@ -40,7 +40,7 @@ public class X_AD_PInstanceResolver extends POResolver<MPInstance> implements Gr
 	 * @return Language ID
 	 */
 	public CompletableFuture<MLanguage> AD_Language(MPInstance entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Language_ID() <= 0) {
+		if (entity.getAD_Language_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLanguage> dataLoader =
@@ -55,7 +55,7 @@ public class X_AD_PInstanceResolver extends POResolver<MPInstance> implements Gr
 	 * @return Data Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(MPInstance entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormat_ID() <= 0) {
+		if (entity.getAD_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -70,7 +70,7 @@ public class X_AD_PInstanceResolver extends POResolver<MPInstance> implements Gr
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MPInstance entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -85,7 +85,7 @@ public class X_AD_PInstanceResolver extends POResolver<MPInstance> implements Gr
 	 * @return User Session Online or Web
 	 */
 	public CompletableFuture<MSession> AD_Session(MPInstance entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Session_ID() <= 0) {
+		if (entity.getAD_Session_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSession> dataLoader =
@@ -100,7 +100,7 @@ public class X_AD_PInstanceResolver extends POResolver<MPInstance> implements Gr
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MPInstance entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -115,7 +115,7 @@ public class X_AD_PInstanceResolver extends POResolver<MPInstance> implements Gr
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MPInstance entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -135,12 +135,12 @@ public class X_AD_PInstanceResolver extends POResolver<MPInstance> implements Gr
 		return entity.isSummary();
 	}
 
-	static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650");
-			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3");
-			put("X", "ca78475e-7191-402b-9d15-7244e87620f1");
-			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427");
+			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650"); // EMail
+			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3"); // Notice
+			put("X", "ca78475e-7191-402b-9d15-7244e87620f1"); // None
+			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427"); // EMail+Notice
 		}
 	};
 	public CompletableFuture<MRefList_BH> NotificationType(MPInstance entity, DataFetchingEnvironment environment) {

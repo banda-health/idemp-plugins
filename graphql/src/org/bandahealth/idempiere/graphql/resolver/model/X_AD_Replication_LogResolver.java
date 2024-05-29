@@ -27,7 +27,7 @@ public class X_AD_Replication_LogResolver extends POResolver<MReplicationLog> im
 	 * @return Data Replication Run
 	 */
 	public CompletableFuture<MReplicationRun> AD_Replication_Run(MReplicationLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Replication_Run_ID() <= 0) {
+		if (entity.getAD_Replication_Run_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReplicationRun> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_Replication_LogResolver extends POResolver<MReplicationLog> im
 	 * @return Data Replication Strategy Table Info
 	 */
 	public CompletableFuture<X_AD_ReplicationTable> AD_ReplicationTable(MReplicationLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReplicationTable_ID() <= 0) {
+		if (entity.getAD_ReplicationTable_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_ReplicationTable> dataLoader =

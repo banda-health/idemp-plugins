@@ -31,7 +31,7 @@ public class X_M_QualityTestResultResolver extends POResolver<MQualityTestResult
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MQualityTestResult entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_QualityTestResultResolver extends POResolver<MQualityTestResult
 	 * @return Quality Test
 	 */
 	public CompletableFuture<MQualityTest> M_QualityTest(MQualityTestResult entity, DataFetchingEnvironment environment) {
-		if (entity.getM_QualityTest_ID() <= 0) {
+		if (entity.getM_QualityTest_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MQualityTest> dataLoader =

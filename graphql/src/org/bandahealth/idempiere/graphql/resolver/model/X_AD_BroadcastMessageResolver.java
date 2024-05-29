@@ -37,7 +37,7 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(X_AD_BroadcastMessage entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -52,7 +52,7 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_AD_BroadcastMessage entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -60,12 +60,12 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
-	static Map<String, String> BROADCASTFREQUENCY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BROADCASTFREQUENCY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("J", "eb20103b-6c47-449d-b7f5-2e28c797beaf");
-			put("E", "e60b5002-3fa4-49bf-aca3-d8146471a538");
-			put("A", "d6b87260-502d-4984-b9e3-8daafde1acd9");
-			put("O", "aa345f63-dfbe-4d18-aae4-e5ed06cd4407");
+			put("J", "eb20103b-6c47-449d-b7f5-2e28c797beaf"); // Just Once
+			put("E", "e60b5002-3fa4-49bf-aca3-d8146471a538"); // Until Expiration
+			put("A", "d6b87260-502d-4984-b9e3-8daafde1acd9"); // Until Acknowledge
+			put("O", "aa345f63-dfbe-4d18-aae4-e5ed06cd4407"); // Until Expiration or Acknowledge
 		}
 	};
 	public CompletableFuture<MRefList_BH> BroadcastFrequency(X_AD_BroadcastMessage entity, DataFetchingEnvironment environment) {
@@ -93,11 +93,11 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 						entity.getBroadcastMessage());
 	}
 
-	static Map<String, String> BROADCASTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BROADCASTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "616b30c8-b810-4eb8-97c7-69ac8c5d042f");
-			put("IL", "6237108e-64f8-4873-9d9b-4523d5b86f77");
-			put("L", "6cd78804-e0f9-4f33-bd0d-b7fdde926648");
+			put("I", "616b30c8-b810-4eb8-97c7-69ac8c5d042f"); // Immediate
+			put("IL", "6237108e-64f8-4873-9d9b-4523d5b86f77"); // Immediate + Login
+			put("L", "6cd78804-e0f9-4f33-bd0d-b7fdde926648"); // Login
 		}
 	};
 	public CompletableFuture<MRefList_BH> BroadcastType(X_AD_BroadcastMessage entity, DataFetchingEnvironment environment) {
@@ -125,12 +125,12 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 		return entity.isProcessed();
 	}
 
-	static Map<String, String> TARGET_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TARGET_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "1371569d-a605-41c8-86b6-f175ef4eb390");
-			put("E", "294904a2-0672-46f4-91ba-cbe14be17fe0");
-			put("R", "ea261c96-1b82-43ce-8f6a-e1e170f2851c");
-			put("U", "3ff1c5d6-9c71-49e7-b3ea-73ee6d025b28");
+			put("C", "1371569d-a605-41c8-86b6-f175ef4eb390"); // Client
+			put("E", "294904a2-0672-46f4-91ba-cbe14be17fe0"); // Everybody
+			put("R", "ea261c96-1b82-43ce-8f6a-e1e170f2851c"); // Role
+			put("U", "3ff1c5d6-9c71-49e7-b3ea-73ee6d025b28"); // User
 		}
 	};
 	public CompletableFuture<MRefList_BH> Target(X_AD_BroadcastMessage entity, DataFetchingEnvironment environment) {

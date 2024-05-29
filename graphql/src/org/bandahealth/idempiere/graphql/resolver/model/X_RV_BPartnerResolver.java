@@ -196,7 +196,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return AD_User_C_BPartner_ID
 	 */
 	public CompletableFuture<MBPartner_BH> AD_User_C_BPartner(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_C_BPartner_ID() <= 0) {
+		if (entity.getAD_User_C_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -211,7 +211,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return AD_User_C_BPartner_Location_ID
 	 */
 	public CompletableFuture<MBPartnerLocation> AD_User_C_BPartner_Location(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_C_BPartner_Location_ID() <= 0) {
+		if (entity.getAD_User_C_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -230,7 +230,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return ad_user_createdby
 	 */
 	public CompletableFuture<MUser_BH> AD_User_Create(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_CreatedBy() <= 0) {
+		if (entity.getAD_User_CreatedBy() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -245,7 +245,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -268,7 +268,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return ad_user_updatedby
 	 */
 	public CompletableFuture<MUser_BH> AD_User_Update(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_UpdatedBy() <= 0) {
+		if (entity.getAD_User_UpdatedBy() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -287,7 +287,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Business Partner Parent
 	 */
 	public CompletableFuture<MBPartner_BH> BPartner_Parent(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getBPartner_Parent_ID() <= 0) {
+		if (entity.getBPartner_Parent_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -302,7 +302,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Greeting for Business Partner Contact
 	 */
 	public CompletableFuture<X_C_Greeting> BPContactGreet(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getBPContactGreeting() <= 0) {
+		if (entity.getBPContactGreeting() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Greeting> dataLoader =
@@ -317,7 +317,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return c_bp_c_taxgroup_id
 	 */
 	public CompletableFuture<X_C_TaxGroup> C_BP_C_TaxGroup(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_C_TaxGroup_ID() <= 0) {
+		if (entity.getC_BP_C_TaxGroup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxGroup> dataLoader =
@@ -336,7 +336,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() <= 0) {
+		if (entity.getC_BP_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -359,7 +359,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return c_bpartner_location_c_bpartner_id
 	 */
 	public CompletableFuture<MBPartner_BH> C_BP_Location_C_BPartner(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Location_C_BPartner_ID() <= 0) {
+		if (entity.getC_BP_Location_C_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -374,7 +374,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return c_bp_location_c_location_id
 	 */
 	public CompletableFuture<MLocation> C_BP_Location_C_Location(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Location_C_Location_ID() <= 0) {
+		if (entity.getC_BP_Location_C_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -393,7 +393,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return c_bp_location_createdby
 	 */
 	public CompletableFuture<MUser_BH> C_BP_Location_Create(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Location_CreatedBy() <= 0) {
+		if (entity.getC_BP_Location_CreatedBy() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -448,7 +448,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return c_bp_location_salesregion_id
 	 */
 	public CompletableFuture<MSalesRegion> C_BP_Location_SalesRegion(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Location_SalesRegion_ID() <= 0) {
+		if (entity.getC_BP_Location_SalesRegion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -467,7 +467,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return c_bp_location_updatedby
 	 */
 	public CompletableFuture<MUser_BH> C_BP_Location_Update(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Location_UpdatedBy() <= 0) {
+		if (entity.getC_BP_Location_UpdatedBy() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -482,7 +482,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -497,7 +497,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return City
 	 */
 	public CompletableFuture<MCity> C_City(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_City_ID() <= 0) {
+		if (entity.getC_City_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCity> dataLoader =
@@ -516,7 +516,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return c_country_c_currency_id
 	 */
 	public CompletableFuture<MCurrency_BH> C_Country_C_Currency(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_C_Currency_ID() <= 0) {
+		if (entity.getC_Country_C_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -535,7 +535,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() <= 0) {
+		if (entity.getC_Country_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
@@ -554,7 +554,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Dunning Rules for overdue invoices
 	 */
 	public CompletableFuture<MDunning> C_Dunning(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Dunning_ID() <= 0) {
+		if (entity.getC_Dunning_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDunning> dataLoader =
@@ -569,7 +569,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Greeting to print on correspondence
 	 */
 	public CompletableFuture<X_C_Greeting> C_Greeting(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Greeting_ID() <= 0) {
+		if (entity.getC_Greeting_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Greeting> dataLoader =
@@ -584,7 +584,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Schedule for generating Invoices
 	 */
 	public CompletableFuture<MInvoiceSchedule> C_InvoiceSchedule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceSchedule_ID() <= 0) {
+		if (entity.getC_InvoiceSchedule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceSchedule> dataLoader =
@@ -603,7 +603,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return c_location_createdby
 	 */
 	public CompletableFuture<MUser_BH> C_Location_Create(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_CreatedBy() <= 0) {
+		if (entity.getC_Location_CreatedBy() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -618,7 +618,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() <= 0) {
+		if (entity.getC_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -641,7 +641,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return c_location_updatedby
 	 */
 	public CompletableFuture<MUser_BH> C_Location_Update(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_UpdatedBy() <= 0) {
+		if (entity.getC_Location_UpdatedBy() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -656,7 +656,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return The terms of Payment (timing, discount)
 	 */
 	public CompletableFuture<MPaymentTerm> C_PaymentTerm(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentTerm_ID() <= 0) {
+		if (entity.getC_PaymentTerm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
@@ -675,7 +675,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Identifies a geographical Region
 	 */
 	public CompletableFuture<MRegion> C_Region(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Region_ID() <= 0) {
+		if (entity.getC_Region_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
@@ -687,14 +687,14 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return entity.isc_region_isactive();
 	}
 
-	static Map<String, String> DELIVERYRULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DELIVERYRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("R", "20fd42a7-54c5-4a60-8e1a-4cda5c9856ee");
-			put("A", "89125067-1315-434e-a112-2593bb681a9d");
-			put("L", "613c2dee-60a6-46ea-8a0a-646cd4a10c61");
-			put("O", "3f011d8d-6d3d-4d12-aa4c-c5adea40b464");
-			put("F", "3db26d28-62ee-454c-b25b-5abbef460042");
-			put("M", "d9b69f78-edb1-4179-a56e-33cbca133673");
+			put("R", "20fd42a7-54c5-4a60-8e1a-4cda5c9856ee"); // After Payment
+			put("A", "89125067-1315-434e-a112-2593bb681a9d"); // Availability
+			put("L", "613c2dee-60a6-46ea-8a0a-646cd4a10c61"); // Complete Line
+			put("O", "3f011d8d-6d3d-4d12-aa4c-c5adea40b464"); // Complete Order
+			put("F", "3db26d28-62ee-454c-b25b-5abbef460042"); // Force
+			put("M", "d9b69f78-edb1-4179-a56e-33cbca133673"); // Manual
 		}
 	};
 	public CompletableFuture<MRefList_BH> DeliveryRule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -706,11 +706,11 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(DELIVERYRULE_UUIDS_BY_VALUE.get(entity.getDeliveryRule()));
 	}
 
-	static Map<String, String> DELIVERYVIARULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DELIVERYVIARULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("P", "701ff061-98de-431b-b6ab-b14da4987285");
-			put("D", "9d1b379c-84b1-43b1-b735-8c7467cb1b1a");
-			put("S", "19951c20-3a06-4eb5-a0c2-fc8b27e408a7");
+			put("P", "701ff061-98de-431b-b6ab-b14da4987285"); // Pickup
+			put("D", "9d1b379c-84b1-43b1-b735-8c7467cb1b1a"); // Delivery
+			put("S", "19951c20-3a06-4eb5-a0c2-fc8b27e408a7"); // Shipper
 		}
 	};
 	public CompletableFuture<MRefList_BH> DeliveryViaRule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -722,13 +722,13 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(DELIVERYVIARULE_UUIDS_BY_VALUE.get(entity.getDeliveryViaRule()));
 	}
 
-	static Map<String, String> FREIGHTCOSTRULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> FREIGHTCOSTRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "82df2976-c23f-43fb-91e9-b2b4ab27063f");
-			put("F", "3c97df02-d8ed-4bca-91b2-c4ca115533c4");
-			put("C", "43e070a0-f583-4b5d-a11c-6e5945a99272");
-			put("L", "623c0263-3294-4073-9884-e5cb78edb1bd");
-			put("U", "7ed34a5f-ffe5-499e-afd0-f074cca9d1f6");
+			put("I", "82df2976-c23f-43fb-91e9-b2b4ab27063f"); // Freight included
+			put("F", "3c97df02-d8ed-4bca-91b2-c4ca115533c4"); // Fix price
+			put("C", "43e070a0-f583-4b5d-a11c-6e5945a99272"); // Calculated
+			put("L", "623c0263-3294-4073-9884-e5cb78edb1bd"); // Line
+			put("U", "7ed34a5f-ffe5-499e-afd0-f074cca9d1f6"); // Customer Account
 		}
 	};
 	public CompletableFuture<MRefList_BH> FreightCostRule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -747,7 +747,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Print Format for printing Invoices
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Invoice_PrintFormat(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getInvoice_PrintFormat_ID() <= 0) {
+		if (entity.getInvoice_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -755,12 +755,12 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(entity.getInvoice_PrintFormat_ID());
 	}
 
-	static Map<String, String> INVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> INVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("O", "f0b52a34-6ff9-40b0-8668-cb458e21328e");
-			put("D", "8d21d623-1f99-4510-aec4-6e475d587264");
-			put("S", "f522d449-bea8-42aa-90e7-b5190db85b68");
-			put("I", "1e030a09-94f2-4bd4-8810-d739aa9f25a6");
+			put("O", "f0b52a34-6ff9-40b0-8668-cb458e21328e"); // After Order delivered
+			put("D", "8d21d623-1f99-4510-aec4-6e475d587264"); // After Delivery
+			put("S", "f522d449-bea8-42aa-90e7-b5190db85b68"); // Customer Schedule after Delivery
+			put("I", "1e030a09-94f2-4bd4-8810-d739aa9f25a6"); // Immediate
 		}
 	};
 	public CompletableFuture<MRefList_BH> InvoiceRule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -823,7 +823,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Schema to calculate the trade discount percentage
 	 */
 	public CompletableFuture<MDiscountSchema> M_DiscountSchema(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DiscountSchema_ID() <= 0) {
+		if (entity.getM_DiscountSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
@@ -838,7 +838,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() <= 0) {
+		if (entity.getM_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -846,12 +846,12 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(entity.getM_PriceList_ID());
 	}
 
-	static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650");
-			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3");
-			put("X", "ca78475e-7191-402b-9d15-7244e87620f1");
-			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427");
+			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650"); // EMail
+			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3"); // Notice
+			put("X", "ca78475e-7191-402b-9d15-7244e87620f1"); // None
+			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427"); // EMail+Notice
 		}
 	};
 	public CompletableFuture<MRefList_BH> NotificationType(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -863,17 +863,17 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(NOTIFICATIONTYPE_UUIDS_BY_VALUE.get(entity.getNotificationType()));
 	}
 
-	static Map<String, String> PAYMENTRULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PAYMENTRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "917130e3-2144-496c-9344-6cf4f7136293");
-			put("K", "68dda00d-c015-498e-b91c-811bab809dab");
-			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf");
-			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e");
-			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
-			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e");
-			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb");
-			put("A", "c524815a-e048-4052-bab5-b7812e27cd64");
-			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
+			put("B", "917130e3-2144-496c-9344-6cf4f7136293"); // Cash
+			put("K", "68dda00d-c015-498e-b91c-811bab809dab"); // Credit Card
+			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf"); // Direct Deposit
+			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e"); // Check
+			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a"); // On Credit
+			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e"); // Direct Debit
+			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb"); // Mixed POS Payment
+			put("A", "c524815a-e048-4052-bab5-b7812e27cd64"); // Mobile Account
+			put("b", "72629357-494a-4cb3-aecf-807141f1968b"); // Cash Drawer
 		}
 	};
 	public CompletableFuture<MRefList_BH> PaymentRule(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -885,17 +885,17 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
 	}
 
-	static Map<String, String> PAYMENTRULEPO_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PAYMENTRULEPO_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "917130e3-2144-496c-9344-6cf4f7136293");
-			put("K", "68dda00d-c015-498e-b91c-811bab809dab");
-			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf");
-			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e");
-			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
-			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e");
-			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb");
-			put("A", "c524815a-e048-4052-bab5-b7812e27cd64");
-			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
+			put("B", "917130e3-2144-496c-9344-6cf4f7136293"); // Cash
+			put("K", "68dda00d-c015-498e-b91c-811bab809dab"); // Credit Card
+			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf"); // Direct Deposit
+			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e"); // Check
+			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a"); // On Credit
+			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e"); // Direct Debit
+			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb"); // Mixed POS Payment
+			put("A", "c524815a-e048-4052-bab5-b7812e27cd64"); // Mobile Account
+			put("b", "72629357-494a-4cb3-aecf-807141f1968b"); // Cash Drawer
 		}
 	};
 	public CompletableFuture<MRefList_BH> PaymentRulePO(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -914,7 +914,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Schema to calculate the purchase trade discount percentage
 	 */
 	public CompletableFuture<MDiscountSchema> PO_DiscountSchema(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_DiscountSchema_ID() <= 0) {
+		if (entity.getPO_DiscountSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
@@ -929,7 +929,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Payment rules for a purchase order
 	 */
 	public CompletableFuture<MPaymentTerm> PO_PaymentTerm(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_PaymentTerm_ID() <= 0) {
+		if (entity.getPO_PaymentTerm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
@@ -944,7 +944,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Price List used by this Business Partner
 	 */
 	public CompletableFuture<MPriceList> PO_PriceList(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_PriceList_ID() <= 0) {
+		if (entity.getPO_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -959,7 +959,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -971,13 +971,13 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		return entity.isSendEMail();
 	}
 
-	static Map<String, String> SOCREDITSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SOCREDITSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "ebd6f716-efbe-4a4f-9d3a-e3848f4a3b75");
-			put("H", "5801b69d-7f76-4cfc-98ea-5d5f8e1a9279");
-			put("W", "562a254f-6346-4cc3-95a6-130edbe6dccc");
-			put("X", "ce7efb85-ccc7-403d-b42f-e276bd9f2f06");
-			put("O", "d2130138-c9f1-4314-a0c3-e46cecaae025");
+			put("S", "ebd6f716-efbe-4a4f-9d3a-e3848f4a3b75"); // Credit Stop
+			put("H", "5801b69d-7f76-4cfc-98ea-5d5f8e1a9279"); // Credit Hold
+			put("W", "562a254f-6346-4cc3-95a6-130edbe6dccc"); // Credit Watch
+			put("X", "ce7efb85-ccc7-403d-b42f-e276bd9f2f06"); // No Credit Check
+			put("O", "d2130138-c9f1-4314-a0c3-e46cecaae025"); // Credit OK
 		}
 	};
 	public CompletableFuture<MRefList_BH> SOCreditStatus(MBPartnerInfo entity, DataFetchingEnvironment environment) {
@@ -996,7 +996,7 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	public CompletableFuture<MUser_BH> Supervisor(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getSupervisor_ID() <= 0) {
+		if (entity.getSupervisor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

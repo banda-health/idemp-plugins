@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_PaymentProcessorResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentProcessor;
@@ -221,7 +222,12 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	public void setTrxTypeInput(ForeignEntityInput TrxType) {
 		this.mTrxType = TrxType;
 		if (TrxType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PaymentProcessorResolver.TRXTYPE_UUIDS_BY_VALUE.containsValue(TrxType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TrxType.getUU() +
+						" is not in the list defined for the TrxType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

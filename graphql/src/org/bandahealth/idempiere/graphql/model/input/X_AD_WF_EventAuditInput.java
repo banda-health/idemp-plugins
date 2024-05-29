@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_WF_EventAuditResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTable;
@@ -291,7 +292,12 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	public void setEventTypeInput(ForeignEntityInput EventType) {
 		this.mEventType = EventType;
 		if (EventType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_EventAuditResolver.EVENTTYPE_UUIDS_BY_VALUE.containsValue(EventType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + EventType.getUU() +
+						" is not in the list defined for the EventType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -325,7 +331,12 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	public void setWFStateInput(ForeignEntityInput WFState) {
 		this.mWFState = WFState;
 		if (WFState != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_EventAuditResolver.WFSTATE_UUIDS_BY_VALUE.containsValue(WFState.getUU())) {
+				throw new AdempiereException("The reference list UU of " + WFState.getUU() +
+						" is not in the list defined for the WFState column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

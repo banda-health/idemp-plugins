@@ -25,10 +25,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_PromotionDistributionResolver extends POResolver<X_M_PromotionDistribution> implements GraphQLResolver<X_M_PromotionDistribution> {
 
 
-	static Map<String, String> DISTRIBUTIONSORTING_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DISTRIBUTIONSORTING_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "f461440f-bd1c-4273-b040-470ee206d785");
-			put("D", "3b112dc7-356a-4c6a-a6b2-fc4dd284ed6d");
+			put("A", "f461440f-bd1c-4273-b040-470ee206d785"); // Ascending
+			put("D", "3b112dc7-356a-4c6a-a6b2-fc4dd284ed6d"); // Descending
 		}
 	};
 	public CompletableFuture<MRefList_BH> DistributionSorting(X_M_PromotionDistribution entity, DataFetchingEnvironment environment) {
@@ -40,11 +40,11 @@ public class X_M_PromotionDistributionResolver extends POResolver<X_M_PromotionD
 		return dataLoader.load(DISTRIBUTIONSORTING_UUIDS_BY_VALUE.get(entity.getDistributionSorting()));
 	}
 
-	static Map<String, String> DISTRIBUTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DISTRIBUTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "fa5f2e0e-cd4f-40aa-a5bc-29505c472c9b");
-			put("X", "06fdaecc-7420-4571-81b7-6d187494f0f7");
-			put("N", "dabb99f2-9c41-43cd-be7e-6e8ece54fee3");
+			put("I", "fa5f2e0e-cd4f-40aa-a5bc-29505c472c9b"); // Min
+			put("X", "06fdaecc-7420-4571-81b7-6d187494f0f7"); // Max
+			put("N", "dabb99f2-9c41-43cd-be7e-6e8ece54fee3"); // Minus
 		}
 	};
 	public CompletableFuture<MRefList_BH> DistributionType(X_M_PromotionDistribution entity, DataFetchingEnvironment environment) {
@@ -63,7 +63,7 @@ public class X_M_PromotionDistributionResolver extends POResolver<X_M_PromotionD
 	 * @return Promotion
 	 */
 	public CompletableFuture<X_M_Promotion> M_Promotion(X_M_PromotionDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Promotion_ID() <= 0) {
+		if (entity.getM_Promotion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_Promotion> dataLoader =
@@ -78,7 +78,7 @@ public class X_M_PromotionDistributionResolver extends POResolver<X_M_PromotionD
 	 * @return Promotion Line
 	 */
 	public CompletableFuture<X_M_PromotionLine> M_PromotionLine(X_M_PromotionDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PromotionLine_ID() <= 0) {
+		if (entity.getM_PromotionLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_PromotionLine> dataLoader =
@@ -86,10 +86,10 @@ public class X_M_PromotionDistributionResolver extends POResolver<X_M_PromotionD
 		return dataLoader.load(entity.getM_PromotionLine_ID());
 	}
 
-	static Map<String, String> OPERATION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> OPERATION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(">=", "515c0104-46a5-40f0-8b4e-4fb57c7dee83");
-			put("<=", "092bf206-2888-4392-b432-c3bbb2c6c980");
+			put(">=", "515c0104-46a5-40f0-8b4e-4fb57c7dee83"); // >=
+			put("<=", "092bf206-2888-4392-b432-c3bbb2c6c980"); // <=
 		}
 	};
 	public CompletableFuture<MRefList_BH> Operation(X_M_PromotionDistribution entity, DataFetchingEnvironment environment) {

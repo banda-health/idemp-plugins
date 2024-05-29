@@ -50,7 +50,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Accumulated Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Accumdepreciation_A(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Accumdepreciation_Acct() <= 0) {
+		if (entity.getA_Accumdepreciation_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -65,7 +65,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Asset Acct
 	 */
 	public CompletableFuture<MAccount> A_Asset_A(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Acct() <= 0) {
+		if (entity.getA_Asset_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -80,7 +80,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Group of Assets
 	 */
 	public CompletableFuture<MAssetGroup> A_Asset_Group(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Group_ID() <= 0) {
+		if (entity.getA_Asset_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
@@ -95,7 +95,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -110,7 +110,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Depreciation_A(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Acct() <= 0) {
+		if (entity.getA_Depreciation_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -118,10 +118,10 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 		return dataLoader.load(entity.getA_Depreciation_Acct());
 	}
 
-	static Map<String, String> A_DEPRECIATION_MANUAL_PERIOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_DEPRECIATION_MANUAL_PERIOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("PR", "35e7efb6-c084-458c-89e6-bdeeb3757add");
-			put("YR", "d34572f8-bbc3-4768-9662-8ae6f48f7398");
+			put("PR", "35e7efb6-c084-458c-89e6-bdeeb3757add"); // Period
+			put("YR", "d34572f8-bbc3-4768-9662-8ae6f48f7398"); // Yearly
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Depreciation_Manual_Period(X_I_Asset entity, DataFetchingEnvironment environment) {
@@ -140,7 +140,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return A_Depreciation_Table_Header_ID
 	 */
 	public CompletableFuture<X_A_Depreciation_Table_Header> A_Depreciation_Table_Header(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Table_Header_ID() <= 0) {
+		if (entity.getA_Depreciation_Table_Header_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_A_Depreciation_Table_Header> dataLoader =
@@ -148,11 +148,11 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 		return dataLoader.load(entity.getA_Depreciation_Table_Header_ID());
 	}
 
-	static Map<String, String> A_REVAL_CAL_METHOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_REVAL_CAL_METHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("DFT", "c11a5c1d-7b50-4462-92f3-5fd512c7c3f9");
-			put("IDF", "82c0032e-1d8f-4001-b365-39f9a8cc2b05");
-			put("YBF", "2e54c6d4-f45a-474c-b4ab-6c7679f913dd");
+			put("DFT", "c11a5c1d-7b50-4462-92f3-5fd512c7c3f9"); // Default
+			put("IDF", "82c0032e-1d8f-4001-b365-39f9a8cc2b05"); // Inception to date
+			put("YBF", "2e54c6d4-f45a-474c-b4ab-6c7679f913dd"); // Year Balances
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Reval_Cal_Method(X_I_Asset entity, DataFetchingEnvironment environment) {
@@ -171,7 +171,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -186,7 +186,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -201,7 +201,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -216,7 +216,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() <= 0) {
+		if (entity.getC_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -255,7 +255,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -270,7 +270,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -285,7 +285,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -293,13 +293,13 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
-	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc"); // Actual
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e"); // Budget
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d"); // Commitment
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb"); // Statistical
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5"); // Reservation
 		}
 	};
 	public CompletableFuture<MRefList_BH> PostingType(X_I_Asset entity, DataFetchingEnvironment environment) {

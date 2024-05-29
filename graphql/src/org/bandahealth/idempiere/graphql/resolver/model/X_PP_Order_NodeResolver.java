@@ -56,21 +56,21 @@ import java.util.concurrent.CompletableFuture;
 public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> implements GraphQLResolver<X_PP_Order_Node> {
 
 
-	static Map<String, String> ACTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Z", "8ef4a18d-9f67-434b-8f83-067fade09bc8");
-			put("C", "59eede55-ead5-4a13-96c5-e0a712afff81");
-			put("F", "88a81162-95de-4ec6-b100-a283296be057");
-			put("V", "f8b72207-17c2-4ecf-9cd4-50a16758a17e");
-			put("W", "73a291eb-e6ec-4708-9f26-2fb95c1d417b");
-			put("X", "fd67ca8e-2076-4ba0-9607-2fcafba2eded");
-			put("T", "5195d723-cadc-4c3e-95b4-32d8df931ac6");
-			put("R", "221219e5-eed5-46bb-903b-87870578ca32");
-			put("P", "15681176-2ff7-4433-8eef-47048a97b2c1");
-			put("D", "ca24d80e-62d2-48de-b00a-0834a7dc1317");
-			put("M", "0ceb65e4-9e53-4ffb-a320-5d0d52865d41");
-			put("B", "f95b359f-f513-4525-9e53-5772f3d60d0b");
-			put("I", "eaf4fa91-3fa3-47f9-9b7f-6ac5b475da68");
+			put("Z", "8ef4a18d-9f67-434b-8f83-067fade09bc8"); // Wait (Sleep)
+			put("C", "59eede55-ead5-4a13-96c5-e0a712afff81"); // User Choice
+			put("F", "88a81162-95de-4ec6-b100-a283296be057"); // Sub Workflow
+			put("V", "f8b72207-17c2-4ecf-9cd4-50a16758a17e"); // Set Variable
+			put("W", "73a291eb-e6ec-4708-9f26-2fb95c1d417b"); // User Window
+			put("X", "fd67ca8e-2076-4ba0-9607-2fcafba2eded"); // User Form
+			put("T", "5195d723-cadc-4c3e-95b4-32d8df931ac6"); // Apps Task
+			put("R", "221219e5-eed5-46bb-903b-87870578ca32"); // Apps Report
+			put("P", "15681176-2ff7-4433-8eef-47048a97b2c1"); // Apps Process
+			put("D", "ca24d80e-62d2-48de-b00a-0834a7dc1317"); // Document Action
+			put("M", "0ceb65e4-9e53-4ffb-a320-5d0d52865d41"); // EMail
+			put("B", "f95b359f-f513-4525-9e53-5772f3d60d0b"); // User Workbench
+			put("I", "eaf4fa91-3fa3-47f9-9b7f-6ac5b475da68"); // User Info
 		}
 	};
 	public CompletableFuture<MRefList_BH> Action(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
@@ -89,7 +89,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -104,7 +104,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() <= 0) {
+		if (entity.getAD_Form_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -119,7 +119,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Image or Icon
 	 */
 	public CompletableFuture<MImage> AD_Image(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Image_ID() <= 0) {
+		if (entity.getAD_Image_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -134,7 +134,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -149,7 +149,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Operation System Task
 	 */
 	public CompletableFuture<MTask> AD_Task(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Task_ID() <= 0) {
+		if (entity.getAD_Task_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =
@@ -164,7 +164,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Workflow Transaction Execution Block
 	 */
 	public CompletableFuture<X_AD_WF_Block> AD_WF_Block(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Block_ID() <= 0) {
+		if (entity.getAD_WF_Block_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Block> dataLoader =
@@ -179,7 +179,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Node(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Node_ID() <= 0) {
+		if (entity.getAD_WF_Node_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
@@ -194,7 +194,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Responsible for Workflow Execution
 	 */
 	public CompletableFuture<X_AD_WF_Responsible> AD_WF_Responsible(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Responsible_ID() <= 0) {
+		if (entity.getAD_WF_Responsible_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Responsible> dataLoader =
@@ -209,7 +209,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -224,7 +224,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() <= 0) {
+		if (entity.getAD_Workflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
@@ -239,7 +239,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -263,22 +263,22 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 						entity.getDescription());
 	}
 
-	static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("CO", "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
-			put("AP", "f80665a4-0db1-4609-be56-5d69b762d169");
-			put("RJ", "8fffbfd1-560a-4a78-9181-e5b76bbb3354");
-			put("PO", "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9");
-			put("VO", "930f9be7-85bc-4002-83a6-fe4e1b8cfce3");
-			put("CL", "d0a6de04-9c59-4d37-998d-f8070db820b0");
-			put("RC", "597e3e98-f1cd-4157-885a-1fae6424a3a6");
-			put("RA", "1a3904b9-86bc-4831-a4af-0281dcafa8f8");
-			put("IN", "69ff146b-fe0e-44a0-98d1-80b2f7958edf");
-			put("RE", "c8f55635-67a3-42ae-b626-2064acb2e260");
-			put("--", "ea523fb8-e21b-4a77-a657-6f5a7d12a591");
-			put("PR", "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76");
-			put("XL", "b2d93bde-a7e7-43f0-9b1c-82527992f6d5");
-			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
+			put("CO", "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da"); // Complete
+			put("AP", "f80665a4-0db1-4609-be56-5d69b762d169"); // Approve
+			put("RJ", "8fffbfd1-560a-4a78-9181-e5b76bbb3354"); // Reject
+			put("PO", "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9"); // Post
+			put("VO", "930f9be7-85bc-4002-83a6-fe4e1b8cfce3"); // Void
+			put("CL", "d0a6de04-9c59-4d37-998d-f8070db820b0"); // Close
+			put("RC", "597e3e98-f1cd-4157-885a-1fae6424a3a6"); // Reverse - Correct
+			put("RA", "1a3904b9-86bc-4831-a4af-0281dcafa8f8"); // Reverse - Accrual
+			put("IN", "69ff146b-fe0e-44a0-98d1-80b2f7958edf"); // Invalidate
+			put("RE", "c8f55635-67a3-42ae-b626-2064acb2e260"); // Re-activate
+			put("--", "ea523fb8-e21b-4a77-a657-6f5a7d12a591"); // <None>
+			put("PR", "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76"); // Prepare
+			put("XL", "b2d93bde-a7e7-43f0-9b1c-82527992f6d5"); // Unlock
+			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0"); // Wait Complete
 		}
 	};
 	public CompletableFuture<MRefList_BH> DocAction(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
@@ -290,20 +290,20 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
 
-	static Map<String, String> DOCSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DOCSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("DR", "d27f8a6b-e8b5-4fea-a6b2-3e7049c473ec");
-			put("CO", "50702660-bbfc-422a-8acc-5ed3a2dce204");
-			put("AP", "a838dad1-b7fc-4b26-9d80-d45f2d8484c5");
-			put("NA", "c8c414ee-3e4e-480b-aa0e-bc6c1d100bd2");
-			put("VO", "d35dfd1d-1eb2-46ef-ab2f-23973d68a570");
-			put("IN", "c2d506ba-1916-4ca2-abde-da3127c11d77");
-			put("RE", "029a78cf-d45c-4fb2-a6c9-fb92c2311af6");
-			put("CL", "ab9df095-8aa8-4338-98b6-4b09ab9d459e");
-			put("??", "0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2");
-			put("IP", "9f864275-6135-452f-a5a7-9377d9ed32bc");
-			put("WP", "4a9871d9-ec70-489f-aca5-05adb7e61df9");
-			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
+			put("DR", "d27f8a6b-e8b5-4fea-a6b2-3e7049c473ec"); // Drafted
+			put("CO", "50702660-bbfc-422a-8acc-5ed3a2dce204"); // Completed
+			put("AP", "a838dad1-b7fc-4b26-9d80-d45f2d8484c5"); // Approved
+			put("NA", "c8c414ee-3e4e-480b-aa0e-bc6c1d100bd2"); // Not Approved
+			put("VO", "d35dfd1d-1eb2-46ef-ab2f-23973d68a570"); // Voided
+			put("IN", "c2d506ba-1916-4ca2-abde-da3127c11d77"); // Invalid
+			put("RE", "029a78cf-d45c-4fb2-a6c9-fb92c2311af6"); // Reversed
+			put("CL", "ab9df095-8aa8-4338-98b6-4b09ab9d459e"); // Closed
+			put("??", "0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2"); // Unknown
+			put("IP", "9f864275-6135-452f-a5a7-9377d9ed32bc"); // In Progress
+			put("WP", "4a9871d9-ec70-489f-aca5-05adb7e61df9"); // Waiting Payment
+			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6"); // Waiting Confirmation
 		}
 	};
 	public CompletableFuture<MRefList_BH> DocStatus(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
@@ -346,10 +346,10 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
-	static Map<String, String> FINISHMODE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> FINISHMODE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "75f0266b-88f1-409c-bbab-a6e3aac2ed6a");
-			put("M", "4c311a91-6f6e-47c0-9e48-cce7b415044f");
+			put("A", "75f0266b-88f1-409c-bbab-a6e3aac2ed6a"); // Automatic
+			put("M", "4c311a91-6f6e-47c0-9e48-cce7b415044f"); // Manual
 		}
 	};
 	public CompletableFuture<MRefList_BH> FinishMode(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
@@ -389,10 +389,10 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 		return entity.isSubcontracting();
 	}
 
-	static Map<String, String> JOINELEMENT_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> JOINELEMENT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "7d07cf62-b385-4d2d-a596-27ce10dd3726");
-			put("X", "6b126336-1c5b-4970-b68b-671585e2fb95");
+			put("A", "7d07cf62-b385-4d2d-a596-27ce10dd3726"); // AND
+			put("X", "6b126336-1c5b-4970-b68b-671585e2fb95"); // XOR
 		}
 	};
 	public CompletableFuture<MRefList_BH> JoinElement(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
@@ -427,7 +427,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Manufacturing Order
 	 */
 	public CompletableFuture<X_PP_Order> PP_Order(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_ID() <= 0) {
+		if (entity.getPP_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
@@ -442,7 +442,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Manufacturing Order Workflow
 	 */
 	public CompletableFuture<X_PP_Order_Workflow> PP_Order_Workflow(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_Workflow_ID() <= 0) {
+		if (entity.getPP_Order_Workflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Workflow> dataLoader =
@@ -457,7 +457,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() <= 0) {
+		if (entity.getS_Resource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
@@ -465,10 +465,10 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 		return dataLoader.load(entity.getS_Resource_ID());
 	}
 
-	static Map<String, String> SPLITELEMENT_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SPLITELEMENT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "7d07cf62-b385-4d2d-a596-27ce10dd3726");
-			put("X", "6b126336-1c5b-4970-b68b-671585e2fb95");
+			put("A", "7d07cf62-b385-4d2d-a596-27ce10dd3726"); // AND
+			put("X", "6b126336-1c5b-4970-b68b-671585e2fb95"); // XOR
 		}
 	};
 	public CompletableFuture<MRefList_BH> SplitElement(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
@@ -480,10 +480,10 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 		return dataLoader.load(SPLITELEMENT_UUIDS_BY_VALUE.get(entity.getSplitElement()));
 	}
 
-	static Map<String, String> STARTMODE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> STARTMODE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "75f0266b-88f1-409c-bbab-a6e3aac2ed6a");
-			put("M", "4c311a91-6f6e-47c0-9e48-cce7b415044f");
+			put("A", "75f0266b-88f1-409c-bbab-a6e3aac2ed6a"); // Automatic
+			put("M", "4c311a91-6f6e-47c0-9e48-cce7b415044f"); // Manual
 		}
 	};
 	public CompletableFuture<MRefList_BH> StartMode(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
@@ -495,10 +495,10 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 		return dataLoader.load(STARTMODE_UUIDS_BY_VALUE.get(entity.getStartMode()));
 	}
 
-	static Map<String, String> SUBFLOWEXECUTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SUBFLOWEXECUTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "87643e66-85b7-497e-840a-ed604d269801");
-			put("S", "1583b819-da0c-4fdf-99e6-4567b756ac56");
+			put("A", "87643e66-85b7-497e-840a-ed604d269801"); // Asynchronously
+			put("S", "1583b819-da0c-4fdf-99e6-4567b756ac56"); // Synchronously
 		}
 	};
 	public CompletableFuture<MRefList_BH> SubflowExecution(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
@@ -517,7 +517,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Workflow or tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> Workflow(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getWorkflow_ID() <= 0) {
+		if (entity.getWorkflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =

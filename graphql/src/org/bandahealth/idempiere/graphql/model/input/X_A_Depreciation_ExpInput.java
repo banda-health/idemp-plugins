@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_Depreciation_ExpResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
@@ -258,7 +259,12 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	public void setA_Entry_TypeInput(ForeignEntityInput A_Entry_Type) {
 		this.mA_Entry_Type = A_Entry_Type;
 		if (A_Entry_Type != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Depreciation_ExpResolver.A_ENTRY_TYPE_UUIDS_BY_VALUE.containsValue(A_Entry_Type.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Entry_Type.getUU() +
+						" is not in the list defined for the A_Entry_Type column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -442,7 +448,12 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Depreciation_ExpResolver.POSTINGTYPE_UUIDS_BY_VALUE.containsValue(PostingType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PostingType.getUU() +
+						" is not in the list defined for the PostingType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

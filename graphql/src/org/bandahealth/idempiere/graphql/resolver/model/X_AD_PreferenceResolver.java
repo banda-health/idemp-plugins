@@ -38,7 +38,7 @@ public class X_AD_PreferenceResolver extends POResolver<MPreference> implements 
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(MPreference entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() <= 0) {
+		if (entity.getAD_Form_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -53,7 +53,7 @@ public class X_AD_PreferenceResolver extends POResolver<MPreference> implements 
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(MPreference entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() <= 0) {
+		if (entity.getAD_InfoWindow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -68,7 +68,7 @@ public class X_AD_PreferenceResolver extends POResolver<MPreference> implements 
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MPreference entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -83,7 +83,7 @@ public class X_AD_PreferenceResolver extends POResolver<MPreference> implements 
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<X_AD_AllUsers_V> AD_User(MPreference entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllUsers_V> dataLoader =
@@ -98,7 +98,7 @@ public class X_AD_PreferenceResolver extends POResolver<MPreference> implements 
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MPreference entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -106,12 +106,12 @@ public class X_AD_PreferenceResolver extends POResolver<MPreference> implements 
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
-	static Map<String, String> PREFERENCEFOR_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PREFERENCEFOR_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("W", "d16e365d-8cc1-489e-b909-89054fdf58af");
-			put("P", "a9497c99-06dd-40ab-b866-b37d3fb60bc7");
-			put("X", "0b1e6c9b-2cc6-4a53-bb47-42dee6f1105d");
-			put("I", "4e05c125-8a96-4a0c-8e7a-57781c141f3a");
+			put("W", "d16e365d-8cc1-489e-b909-89054fdf58af"); // Window
+			put("P", "a9497c99-06dd-40ab-b866-b37d3fb60bc7"); // Process
+			put("X", "0b1e6c9b-2cc6-4a53-bb47-42dee6f1105d"); // Form
+			put("I", "4e05c125-8a96-4a0c-8e7a-57781c141f3a"); // Info Window
 		}
 	};
 	public CompletableFuture<MRefList_BH> PreferenceFor(MPreference entity, DataFetchingEnvironment environment) {

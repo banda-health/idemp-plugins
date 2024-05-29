@@ -34,7 +34,7 @@ public class X_AD_WF_ResponsibleResolver extends POResolver<X_AD_WF_Responsible>
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(X_AD_WF_Responsible entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_WF_ResponsibleResolver extends POResolver<X_AD_WF_Responsible>
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_AD_WF_Responsible entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -88,13 +88,13 @@ public class X_AD_WF_ResponsibleResolver extends POResolver<X_AD_WF_Responsible>
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
-	static Map<String, String> RESPONSIBLETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> RESPONSIBLETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("O", "283330be-8314-4c6b-ad2a-3b1bb3b7f8e2");
-			put("H", "03c43742-6077-4b9b-9c58-95b2705d70e0");
-			put("R", "b1adc7b9-4a2b-4760-bebf-912b01abfff7");
-			put("S", "3fa9e107-a3d4-4103-94b5-b3c59c053dd7");
-			put("M", "a9c99476-070e-4377-960d-19dbe7dff024");
+			put("O", "283330be-8314-4c6b-ad2a-3b1bb3b7f8e2"); // Organization
+			put("H", "03c43742-6077-4b9b-9c58-95b2705d70e0"); // Human
+			put("R", "b1adc7b9-4a2b-4760-bebf-912b01abfff7"); // Role
+			put("S", "3fa9e107-a3d4-4103-94b5-b3c59c053dd7"); // System Resource
+			put("M", "a9c99476-070e-4377-960d-19dbe7dff024"); // Manual
 		}
 	};
 	public CompletableFuture<MRefList_BH> ResponsibleType(X_AD_WF_Responsible entity, DataFetchingEnvironment environment) {

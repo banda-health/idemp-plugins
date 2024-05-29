@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	T_1099Extract(UU: String!): T_1099Extract
 	T_1099ExtractGet(Page: Int, Size: Int, Sort: String, Filter: String): T_1099ExtractConnection!
 }
 

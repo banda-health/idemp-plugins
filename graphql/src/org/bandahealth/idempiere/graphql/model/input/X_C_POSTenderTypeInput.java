@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_POSTenderTypeResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -110,7 +111,12 @@ public class X_C_POSTenderTypeInput extends X_C_POSTenderType implements I_C_POS
 	public void setTenderTypeInput(ForeignEntityInput TenderType) {
 		this.mTenderType = TenderType;
 		if (TenderType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_POSTenderTypeResolver.TENDERTYPE_UUIDS_BY_VALUE.containsValue(TenderType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TenderType.getUU() +
+						" is not in the list defined for the TenderType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

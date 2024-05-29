@@ -49,7 +49,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Chart
 	 */
 	public CompletableFuture<MChart> AD_Chart(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Chart_ID() <= 0) {
+		if (entity.getAD_Chart_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChart> dataLoader =
@@ -64,7 +64,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -79,7 +79,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Logical grouping of fields
 	 */
 	public CompletableFuture<MFieldGroup_BH> AD_FieldGroup(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldGroup_ID() <= 0) {
+		if (entity.getAD_FieldGroup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MFieldGroup_BH> dataLoader =
@@ -94,7 +94,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Field CSS Style 
 	 */
 	public CompletableFuture<MStyle> AD_FieldStyle(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldStyle_ID() <= 0) {
+		if (entity.getAD_FieldStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -109,7 +109,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Label CSS Style
 	 */
 	public CompletableFuture<MStyle> AD_LabelStyle(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_LabelStyle_ID() <= 0) {
+		if (entity.getAD_LabelStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -124,7 +124,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -139,7 +139,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() <= 0) {
+		if (entity.getAD_Reference_Value_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -154,7 +154,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() <= 0) {
+		if (entity.getAD_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -169,7 +169,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() <= 0) {
+		if (entity.getAD_Val_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -184,7 +184,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Override Dynamic Validation Rule for Lookup Window
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule_Lookup(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_Lookup_ID() <= 0) {
+		if (entity.getAD_Val_Rule_Lookup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -278,7 +278,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Included Tab in this Tab (Master Detail)
 	 */
 	public CompletableFuture<MTab> Included_Tab(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getIncluded_Tab_ID() <= 0) {
+		if (entity.getIncluded_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -290,10 +290,10 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		return entity.isAdvancedField();
 	}
 
-	static Map<String, String> ISALLOWCOPY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISALLOWCOPY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsAllowCopy(MField_BH entity, DataFetchingEnvironment environment) {
@@ -305,10 +305,10 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		return dataLoader.load(ISALLOWCOPY_UUIDS_BY_VALUE.get(entity.getIsAllowCopy()));
 	}
 
-	static Map<String, String> ISALWAYSUPDATEABLE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISALWAYSUPDATEABLE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsAlwaysUpdateable(MField_BH entity, DataFetchingEnvironment environment) {
@@ -348,10 +348,10 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		return entity.isHeading();
 	}
 
-	static Map<String, String> ISMANDATORY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISMANDATORY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsMandatory(MField_BH entity, DataFetchingEnvironment environment) {
@@ -379,10 +379,10 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		return entity.isSameLine();
 	}
 
-	static Map<String, String> ISSELECTIONCOLUMN_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISSELECTIONCOLUMN_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsSelectionColumn(MField_BH entity, DataFetchingEnvironment environment) {
@@ -394,11 +394,11 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		return dataLoader.load(ISSELECTIONCOLUMN_UUIDS_BY_VALUE.get(entity.getIsSelectionColumn()));
 	}
 
-	static Map<String, String> ISTOOLBARBUTTON_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISTOOLBARBUTTON_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "5803fda0-fda8-4100-85f2-a4fe8142a059");
-			put("N", "eb2f6365-a357-4655-9102-d622360aacce");
-			put("B", "5b8b7285-d4da-4513-8941-a280d501ea19");
+			put("Y", "5803fda0-fda8-4100-85f2-a4fe8142a059"); // Toolbar
+			put("N", "eb2f6365-a357-4655-9102-d622360aacce"); // Window
+			put("B", "5b8b7285-d4da-4513-8941-a280d501ea19"); // Both
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsToolbarButton(MField_BH entity, DataFetchingEnvironment environment) {
@@ -410,10 +410,10 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		return dataLoader.load(ISTOOLBARBUTTON_UUIDS_BY_VALUE.get(entity.getIsToolbarButton()));
 	}
 
-	static Map<String, String> ISUPDATEABLE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISUPDATEABLE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsUpdateable(MField_BH entity, DataFetchingEnvironment environment) {
@@ -441,12 +441,12 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 						entity.getName());
 	}
 
-	static Map<String, String> OBSCURETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> OBSCURETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("904", "d2adcd7e-cd5e-48a4-8dcc-639eded252f8");
-			put("944", "ebd7e22e-b841-4d27-b7e0-629f8edadd74");
-			put("A44", "74a13194-a048-42f9-9496-012d14f26c46");
-			put("A04", "8d738332-8860-40bb-9ea4-f3c50c9a0102");
+			put("904", "d2adcd7e-cd5e-48a4-8dcc-639eded252f8"); // Obscure Digits but last 4
+			put("944", "ebd7e22e-b841-4d27-b7e0-629f8edadd74"); // Obscure Digits but first/last 4
+			put("A44", "74a13194-a048-42f9-9496-012d14f26c46"); // Obscure AlphaNumeric but first/last 4
+			put("A04", "8d738332-8860-40bb-9ea4-f3c50c9a0102"); // Obscure AlphaNumeric but last 4
 		}
 	};
 	public CompletableFuture<MRefList_BH> ObscureType(MField_BH entity, DataFetchingEnvironment environment) {

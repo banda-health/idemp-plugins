@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_U_POSTerminalResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCashBook;
 import org.compiere.model.MOrg;
@@ -308,7 +309,12 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCardTransferTypeInput(ForeignEntityInput CardTransferType) {
 		this.mCardTransferType = CardTransferType;
 		if (CardTransferType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_U_POSTerminalResolver.CARDTRANSFERTYPE_UUIDS_BY_VALUE.containsValue(CardTransferType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CardTransferType.getUU() +
+						" is not in the list defined for the CardTransferType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -342,7 +348,12 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCashBookTransferTypeInput(ForeignEntityInput CashBookTransferType) {
 		this.mCashBookTransferType = CashBookTransferType;
 		if (CashBookTransferType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_U_POSTerminalResolver.CASHBOOKTRANSFERTYPE_UUIDS_BY_VALUE.containsValue(CashBookTransferType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CashBookTransferType.getUU() +
+						" is not in the list defined for the CashBookTransferType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -546,7 +557,12 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCheckTransferTypeInput(ForeignEntityInput CheckTransferType) {
 		this.mCheckTransferType = CheckTransferType;
 		if (CheckTransferType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_U_POSTerminalResolver.CHECKTRANSFERTYPE_UUIDS_BY_VALUE.containsValue(CheckTransferType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CheckTransferType.getUU() +
+						" is not in the list defined for the CheckTransferType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

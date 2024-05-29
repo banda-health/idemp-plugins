@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	R_MailText(UU: String!): R_MailText
 	R_MailTextGet(Page: Int, Size: Int, Sort: String, Filter: String): R_MailTextConnection!
 }
 

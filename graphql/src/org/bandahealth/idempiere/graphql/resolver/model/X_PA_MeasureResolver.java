@@ -40,7 +40,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Type of the project
 	 */
 	public CompletableFuture<MProjectType> C_ProjectType(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectType_ID() <= 0) {
+		if (entity.getC_ProjectType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectType> dataLoader =
@@ -48,10 +48,10 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 		return dataLoader.load(entity.getC_ProjectType_ID());
 	}
 
-	static Map<String, String> MEASUREDATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MEASUREDATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("T", "92f9f1ed-782f-4212-bda0-c5a03109c47f");
-			put("S", "a727a324-22de-4213-8696-2a37aaddd164");
+			put("T", "92f9f1ed-782f-4212-bda0-c5a03109c47f"); // Qty/Amount in Time
+			put("S", "a727a324-22de-4213-8696-2a37aaddd164"); // Status Qty/Amount
 		}
 	};
 	public CompletableFuture<MRefList_BH> MeasureDataType(MMeasure entity, DataFetchingEnvironment environment) {
@@ -63,15 +63,15 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 		return dataLoader.load(MEASUREDATATYPE_UUIDS_BY_VALUE.get(entity.getMeasureDataType()));
 	}
 
-	static Map<String, String> MEASURETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MEASURETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("M", "460a942e-8437-4195-94de-e27c752b9752");
-			put("C", "f0b63f0b-2b04-43a2-ba93-10aa95c73fb0");
-			put("A", "22adca17-dfc5-466a-a642-eee1ced9b515");
-			put("U", "ff4a3f01-b575-4e64-a301-67f31f14ad27");
-			put("R", "75dfcc11-cf4d-4a1c-a4ff-ea31f35030ff");
-			put("Q", "7b86d06c-e1ea-4a53-8c90-96a2a9e7397d");
-			put("P", "1a7a939a-0716-4f97-8883-cf913668d5e8");
+			put("M", "460a942e-8437-4195-94de-e27c752b9752"); // Manual
+			put("C", "f0b63f0b-2b04-43a2-ba93-10aa95c73fb0"); // Calculated
+			put("A", "22adca17-dfc5-466a-a642-eee1ced9b515"); // Achievements
+			put("U", "ff4a3f01-b575-4e64-a301-67f31f14ad27"); // User defined
+			put("R", "75dfcc11-cf4d-4a1c-a4ff-ea31f35030ff"); // Ratio
+			put("Q", "7b86d06c-e1ea-4a53-8c90-96a2a9e7397d"); // Request
+			put("P", "1a7a939a-0716-4f97-8883-cf913668d5e8"); // Project
 		}
 	};
 	public CompletableFuture<MRefList_BH> MeasureType(MMeasure entity, DataFetchingEnvironment environment) {
@@ -90,7 +90,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Performance Benchmark
 	 */
 	public CompletableFuture<X_PA_Benchmark> PA_Benchmark(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Benchmark_ID() <= 0) {
+		if (entity.getPA_Benchmark_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PA_Benchmark> dataLoader =
@@ -105,7 +105,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	 */
 	public CompletableFuture<MHierarchy> PA_Hierarchy(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Hierarchy_ID() <= 0) {
+		if (entity.getPA_Hierarchy_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MHierarchy> dataLoader =
@@ -120,7 +120,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Calculation method for measuring performance
 	 */
 	public CompletableFuture<MMeasureCalc> PA_MeasureCalc(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_MeasureCalc_ID() <= 0) {
+		if (entity.getPA_MeasureCalc_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMeasureCalc> dataLoader =
@@ -135,7 +135,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Performance Ratio
 	 */
 	public CompletableFuture<X_PA_Ratio> PA_Ratio(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Ratio_ID() <= 0) {
+		if (entity.getPA_Ratio_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PA_Ratio> dataLoader =
@@ -150,7 +150,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Type of request (e.g. Inquiry, Complaint, ..)
 	 */
 	public CompletableFuture<MRequestType> R_RequestType(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getR_RequestType_ID() <= 0) {
+		if (entity.getR_RequestType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequestType> dataLoader =

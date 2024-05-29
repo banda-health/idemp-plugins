@@ -40,7 +40,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() <= 0) {
+		if (entity.getC_BankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -55,7 +55,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return Cash Journal
 	 */
 	public CompletableFuture<MCash> C_Cash(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Cash_ID() <= 0) {
+		if (entity.getC_Cash_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCash> dataLoader =
@@ -70,7 +70,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -85,7 +85,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -100,7 +100,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -115,7 +115,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() <= 0) {
+		if (entity.getC_Payment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -123,14 +123,14 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 		return dataLoader.load(entity.getC_Payment_ID());
 	}
 
-	static Map<String, String> CASHTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CASHTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("T", "bdc83ab7-2487-4c9c-8f11-642f84ad8a11");
-			put("I", "8183e06f-d8e3-4fc5-a3fc-7419c1195e40");
-			put("E", "e628fa15-edf5-4eaa-b9db-75993c7f4c06");
-			put("R", "b0622456-7b1c-48e4-b314-c2cf674fa650");
-			put("C", "f88991f2-5aa4-4b9b-9099-94b05afb28d9");
-			put("D", "c4b005a2-2805-400b-a8d4-d9d4b2ab70ec");
+			put("T", "bdc83ab7-2487-4c9c-8f11-642f84ad8a11"); // Bank Account Transfer
+			put("I", "8183e06f-d8e3-4fc5-a3fc-7419c1195e40"); // Invoice
+			put("E", "e628fa15-edf5-4eaa-b9db-75993c7f4c06"); // General Expense
+			put("R", "b0622456-7b1c-48e4-b314-c2cf674fa650"); // General Receipts
+			put("C", "f88991f2-5aa4-4b9b-9099-94b05afb28d9"); // Charge
+			put("D", "c4b005a2-2805-400b-a8d4-d9d4b2ab70ec"); // Difference
 		}
 	};
 	public CompletableFuture<MRefList_BH> CashType(MCashLine entity, DataFetchingEnvironment environment) {

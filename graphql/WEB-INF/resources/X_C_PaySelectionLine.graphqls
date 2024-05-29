@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_PaySelectionLine(UU: String!): C_PaySelectionLine
 	C_PaySelectionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaySelectionLineConnection!
 }
 

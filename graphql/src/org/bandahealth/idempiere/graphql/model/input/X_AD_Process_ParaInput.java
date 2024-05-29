@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_Process_ParaResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -330,7 +331,12 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	public void setDateRangeOptionInput(ForeignEntityInput DateRangeOption) {
 		this.mDateRangeOption = DateRangeOption;
 		if (DateRangeOption != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_Process_ParaResolver.DATERANGEOPTION_UUIDS_BY_VALUE.containsValue(DateRangeOption.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DateRangeOption.getUU() +
+						" is not in the list defined for the DateRangeOption column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

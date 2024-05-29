@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_TreeNodeU2(UU: String!): AD_TreeNodeU2
 	AD_TreeNodeU2Get(Page: Int, Size: Int, Sort: String, Filter: String): AD_TreeNodeU2Connection!
 }
 

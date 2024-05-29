@@ -45,12 +45,12 @@ public class X_AD_SystemResolver extends POResolver<MSystem> implements GraphQLR
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> REPLICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> REPLICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("L", "c829969e-9927-491f-89a8-f200b8d29f57");
-			put("M", "41211ac8-1137-49f5-9efb-7d8e75682a45");
-			put("R", "959a0839-d0f2-43c5-b8da-d0f1fd76d8dd");
-			put("B", "1be8a931-6954-4fd9-bc76-e67c6f73fc00");
+			put("L", "c829969e-9927-491f-89a8-f200b8d29f57"); // Local
+			put("M", "41211ac8-1137-49f5-9efb-7d8e75682a45"); // Merge
+			put("R", "959a0839-d0f2-43c5-b8da-d0f1fd76d8dd"); // Reference
+			put("B", "1be8a931-6954-4fd9-bc76-e67c6f73fc00"); // Broadcast
 		}
 	};
 	public CompletableFuture<MRefList_BH> ReplicationType(MSystem entity, DataFetchingEnvironment environment) {
@@ -62,11 +62,11 @@ public class X_AD_SystemResolver extends POResolver<MSystem> implements GraphQLR
 		return dataLoader.load(REPLICATIONTYPE_UUIDS_BY_VALUE.get(entity.getReplicationType()));
 	}
 
-	static Map<String, String> SYSTEMSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SYSTEMSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "80ee3010-2e49-4aa8-934e-2c5662b1b70d");
-			put("I", "d3239ec8-bbdc-42c3-997b-c3be8d89d914");
-			put("P", "1b3201b9-d2a4-4101-a4a0-a53571550f32");
+			put("E", "80ee3010-2e49-4aa8-934e-2c5662b1b70d"); // Evaluation
+			put("I", "d3239ec8-bbdc-42c3-997b-c3be8d89d914"); // Implementation
+			put("P", "1b3201b9-d2a4-4101-a4a0-a53571550f32"); // Production
 		}
 	};
 	public CompletableFuture<MRefList_BH> SystemStatus(MSystem entity, DataFetchingEnvironment environment) {

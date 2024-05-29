@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_WF_ResponsibleResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -218,7 +219,12 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	public void setResponsibleTypeInput(ForeignEntityInput ResponsibleType) {
 		this.mResponsibleType = ResponsibleType;
 		if (ResponsibleType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_WF_ResponsibleResolver.RESPONSIBLETYPE_UUIDS_BY_VALUE.containsValue(ResponsibleType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ResponsibleType.getUU() +
+						" is not in the list defined for the ResponsibleType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -42,7 +42,7 @@ public class X_PP_Product_PlanningResolver extends POResolver<MPPProductPlanning
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(MPPProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() <= 0) {
+		if (entity.getAD_Workflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
@@ -57,7 +57,7 @@ public class X_PP_Product_PlanningResolver extends POResolver<MPPProductPlanning
 	 * @return Network Distribution
 	 */
 	public CompletableFuture<X_DD_NetworkDistribution> DD_NetworkDistribution(MPPProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getDD_NetworkDistribution_ID() <= 0) {
+		if (entity.getDD_NetworkDistribution_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_DD_NetworkDistribution> dataLoader =
@@ -92,7 +92,7 @@ public class X_PP_Product_PlanningResolver extends POResolver<MPPProductPlanning
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MPPProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -107,7 +107,7 @@ public class X_PP_Product_PlanningResolver extends POResolver<MPPProductPlanning
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MPPProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -115,11 +115,11 @@ public class X_PP_Product_PlanningResolver extends POResolver<MPPProductPlanning
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
-	static Map<String, String> ORDER_POLICY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ORDER_POLICY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("FOQ", "23800f29-d1b6-448a-aa21-2e4673ff6cd5");
-			put("LFL", "e28144cc-6e05-4848-8b12-98d45ddc36da");
-			put("POQ", "15ee1e1f-267a-49fb-97c5-109589058690");
+			put("FOQ", "23800f29-d1b6-448a-aa21-2e4673ff6cd5"); // Fixed Order Quantity
+			put("LFL", "e28144cc-6e05-4848-8b12-98d45ddc36da"); // Lot-for-Lot
+			put("POQ", "15ee1e1f-267a-49fb-97c5-109589058690"); // Period Order Quantity
 		}
 	};
 	public CompletableFuture<MRefList_BH> Order_Policy(MPPProductPlanning entity, DataFetchingEnvironment environment) {
@@ -138,7 +138,7 @@ public class X_PP_Product_PlanningResolver extends POResolver<MPPProductPlanning
 	 * @return Planner
 	 */
 	public CompletableFuture<MUser_BH> Planner(MPPProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getPlanner_ID() <= 0) {
+		if (entity.getPlanner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -153,7 +153,7 @@ public class X_PP_Product_PlanningResolver extends POResolver<MPPProductPlanning
 	 * @return BOM & Formula
 	 */
 	public CompletableFuture<MPPProductBOM> PP_Product_BOM(MPPProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_BOM_ID() <= 0) {
+		if (entity.getPP_Product_BOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =
@@ -168,7 +168,7 @@ public class X_PP_Product_PlanningResolver extends POResolver<MPPProductPlanning
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(MPPProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() <= 0) {
+		if (entity.getS_Resource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =

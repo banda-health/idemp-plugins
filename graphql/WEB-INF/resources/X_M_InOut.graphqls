@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_InOut(UU: String!): M_InOut
 	M_InOutGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InOutConnection!
 }
 

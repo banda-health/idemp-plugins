@@ -32,7 +32,7 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 	 * @return Source Reference
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Source(X_AD_RelationType entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Source_ID() <= 0) {
+		if (entity.getAD_Reference_Source_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 	 * @return Target Reference
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Target(X_AD_RelationType entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Target_ID() <= 0) {
+		if (entity.getAD_Reference_Target_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -90,10 +90,10 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 		return entity.isDirected();
 	}
 
-	static Map<String, String> ROLE_SOURCE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ROLE_SOURCE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Order", "a7720fdf-927d-4f4e-9408-ee7b87f2a569");
-			put("Invoice", "30d0392a-5c63-4be9-a4fe-1707b285cba2");
+			put("Order", "a7720fdf-927d-4f4e-9408-ee7b87f2a569"); // Order
+			put("Invoice", "30d0392a-5c63-4be9-a4fe-1707b285cba2"); // Invoice
 		}
 	};
 	public CompletableFuture<MRefList_BH> Role_Source(X_AD_RelationType entity, DataFetchingEnvironment environment) {
@@ -105,10 +105,10 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 		return dataLoader.load(ROLE_SOURCE_UUIDS_BY_VALUE.get(entity.getRole_Source()));
 	}
 
-	static Map<String, String> ROLE_TARGET_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ROLE_TARGET_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Order", "a7720fdf-927d-4f4e-9408-ee7b87f2a569");
-			put("Invoice", "30d0392a-5c63-4be9-a4fe-1707b285cba2");
+			put("Order", "a7720fdf-927d-4f4e-9408-ee7b87f2a569"); // Order
+			put("Invoice", "30d0392a-5c63-4be9-a4fe-1707b285cba2"); // Invoice
 		}
 	};
 	public CompletableFuture<MRefList_BH> Role_Target(X_AD_RelationType entity, DataFetchingEnvironment environment) {
@@ -120,10 +120,10 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 		return dataLoader.load(ROLE_TARGET_UUIDS_BY_VALUE.get(entity.getRole_Target()));
 	}
 
-	static Map<String, String> TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "2e12a173-2159-4d97-aa2f-8f958a5f0ece");
-			put("E", "9cc497b9-98ee-41a2-b593-2efecab345ba");
+			put("I", "2e12a173-2159-4d97-aa2f-8f958a5f0ece"); // Implicit
+			put("E", "9cc497b9-98ee-41a2-b593-2efecab345ba"); // Explicit
 		}
 	};
 	public CompletableFuture<MRefList_BH> Type(X_AD_RelationType entity, DataFetchingEnvironment environment) {

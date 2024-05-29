@@ -21,10 +21,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_AD_PrintPaperResolver extends POResolver<X_AD_PrintPaper> implements GraphQLResolver<X_AD_PrintPaper> {
 
 
-	static Map<String, String> DIMENSIONUNITS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DIMENSIONUNITS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("M", "4ef40a19-ee82-4261-992a-0c564cb8fb6c");
-			put("I", "66271167-86b4-41fb-9343-ad5224a30f70");
+			put("M", "4ef40a19-ee82-4261-992a-0c564cb8fb6c"); // MM
+			put("I", "66271167-86b4-41fb-9343-ad5224a30f70"); // Inch
 		}
 	};
 	public CompletableFuture<MRefList_BH> DimensionUnits(X_AD_PrintPaper entity, DataFetchingEnvironment environment) {

@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_R_RequestResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MAsset;
@@ -552,7 +553,12 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	public void setConfidentialTypeInput(ForeignEntityInput ConfidentialType) {
 		this.mConfidentialType = ConfidentialType;
 		if (ConfidentialType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestResolver.CONFIDENTIALTYPE_UUIDS_BY_VALUE.containsValue(ConfidentialType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ConfidentialType.getUU() +
+						" is not in the list defined for the ConfidentialType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -586,7 +592,12 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	public void setConfidentialTypeEntryInput(ForeignEntityInput ConfidentialTypeEntry) {
 		this.mConfidentialTypeEntry = ConfidentialTypeEntry;
 		if (ConfidentialTypeEntry != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestResolver.CONFIDENTIALTYPEENTRY_UUIDS_BY_VALUE.containsValue(ConfidentialTypeEntry.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ConfidentialTypeEntry.getUU() +
+						" is not in the list defined for the ConfidentialTypeEntry column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -631,7 +642,12 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	public void setDueTypeInput(ForeignEntityInput DueType) {
 		this.mDueType = DueType;
 		if (DueType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestResolver.DUETYPE_UUIDS_BY_VALUE.containsValue(DueType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DueType.getUU() +
+						" is not in the list defined for the DueType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -880,7 +896,12 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	public void setNextActionInput(ForeignEntityInput NextAction) {
 		this.mNextAction = NextAction;
 		if (NextAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestResolver.NEXTACTION_UUIDS_BY_VALUE.containsValue(NextAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + NextAction.getUU() +
+						" is not in the list defined for the NextAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -914,7 +935,12 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	public void setPriorityInput(ForeignEntityInput Priority) {
 		this.mPriority = Priority;
 		if (Priority != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestResolver.PRIORITY_UUIDS_BY_VALUE.containsValue(Priority.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Priority.getUU() +
+						" is not in the list defined for the Priority column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -948,7 +974,12 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	public void setPriorityUserInput(ForeignEntityInput PriorityUser) {
 		this.mPriorityUser = PriorityUser;
 		if (PriorityUser != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestResolver.PRIORITYUSER_UUIDS_BY_VALUE.containsValue(PriorityUser.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PriorityUser.getUU() +
+						" is not in the list defined for the PriorityUser column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1317,7 +1348,12 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	public void setTaskStatusInput(ForeignEntityInput TaskStatus) {
 		this.mTaskStatus = TaskStatus;
 		if (TaskStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestResolver.TASKSTATUS_UUIDS_BY_VALUE.containsValue(TaskStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TaskStatus.getUU() +
+						" is not in the list defined for the TaskStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

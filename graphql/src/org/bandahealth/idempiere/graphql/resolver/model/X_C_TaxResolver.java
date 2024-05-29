@@ -46,7 +46,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Rule
 	 */
 	public CompletableFuture<MRule> AD_Rule(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Rule_ID() <= 0) {
+		if (entity.getAD_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRule> dataLoader =
@@ -61,7 +61,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() <= 0) {
+		if (entity.getC_Country_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
@@ -76,7 +76,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Country Group From
 	 */
 	public CompletableFuture<MCountryGroup> C_CountryGroupFrom(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CountryGroupFrom_ID() <= 0) {
+		if (entity.getC_CountryGroupFrom_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountryGroup> dataLoader =
@@ -91,7 +91,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Country Group To
 	 */
 	public CompletableFuture<MCountryGroup> C_CountryGroupTo(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CountryGroupTo_ID() <= 0) {
+		if (entity.getC_CountryGroupTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountryGroup> dataLoader =
@@ -106,7 +106,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Identifies a geographical Region
 	 */
 	public CompletableFuture<MRegion> C_Region(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Region_ID() <= 0) {
+		if (entity.getC_Region_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
@@ -121,7 +121,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Tax Category
 	 */
 	public CompletableFuture<MTaxCategory> C_TaxCategory(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxCategory_ID() <= 0) {
+		if (entity.getC_TaxCategory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
@@ -136,7 +136,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Tax Provider
 	 */
 	public CompletableFuture<MTaxProvider> C_TaxProvider(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxProvider_ID() <= 0) {
+		if (entity.getC_TaxProvider_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTaxProvider> dataLoader =
@@ -203,7 +203,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Parent Tax indicates a tax that is made up of multiple taxes
 	 */
 	public CompletableFuture<MTax> Parent_Tax(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getParent_Tax_ID() <= 0) {
+		if (entity.getParent_Tax_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -215,11 +215,11 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 		return entity.isRequiresTaxCertificate();
 	}
 
-	static Map<String, String> SOPOTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SOPOTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "4d7e51ff-cf6b-401d-b70b-fa87ba05a913");
-			put("S", "178a8145-a858-4705-9feb-d2428b7c2427");
-			put("P", "5d8aad9d-36bf-4f30-bbb2-639726c133f5");
+			put("B", "4d7e51ff-cf6b-401d-b70b-fa87ba05a913"); // Both
+			put("S", "178a8145-a858-4705-9feb-d2428b7c2427"); // Sales Tax
+			put("P", "5d8aad9d-36bf-4f30-bbb2-639726c133f5"); // Purchase Tax
 		}
 	};
 	public CompletableFuture<MRefList_BH> SOPOType(MTax entity, DataFetchingEnvironment environment) {
@@ -247,10 +247,10 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 						entity.getTaxIndicator());
 	}
 
-	static Map<String, String> TAXPOSTINGINDICATOR_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TAXPOSTINGINDICATOR_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("0", "e84b618c-a8b3-47cf-89a6-dd674e52d3e4");
-			put("1", "3e8e0d29-29ac-4c67-ae2c-92c0ee43d2e6");
+			put("0", "e84b618c-a8b3-47cf-89a6-dd674e52d3e4"); // Separate Tax Posting
+			put("1", "3e8e0d29-29ac-4c67-ae2c-92c0ee43d2e6"); // Distribute Tax with Relevant Expense
 		}
 	};
 	public CompletableFuture<MRefList_BH> TaxPostingIndicator(MTax entity, DataFetchingEnvironment environment) {
@@ -269,7 +269,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Receiving Region
 	 */
 	public CompletableFuture<MRegion> To_Region(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getTo_Region_ID() <= 0) {
+		if (entity.getTo_Region_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =

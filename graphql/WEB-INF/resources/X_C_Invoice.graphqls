@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_Invoice(UU: String!): C_Invoice
 	C_InvoiceGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceConnection!
 }
 
@@ -125,7 +126,7 @@ type C_Invoice {
 	# Return Material Authorization
 	M_RMA: M_RMA
 	# How you pay the invoice
-	PaymentRule: String!
+	PaymentRule: AD_Ref_List!
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status
@@ -255,7 +256,7 @@ input C_InvoiceInput {
 	# Return Material Authorization
 	M_RMA: ForeignEntityInput
 	# How you pay the invoice
-	PaymentRule: String
+	PaymentRule: ForeignEntityInput
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status

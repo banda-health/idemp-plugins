@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_Depreciation_Table_HeaderResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -74,7 +75,12 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	public void setA_Table_Rate_TypeInput(ForeignEntityInput A_Table_Rate_Type) {
 		this.mA_Table_Rate_Type = A_Table_Rate_Type;
 		if (A_Table_Rate_Type != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Depreciation_Table_HeaderResolver.A_TABLE_RATE_TYPE_UUIDS_BY_VALUE.containsValue(A_Table_Rate_Type.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Table_Rate_Type.getUU() +
+						" is not in the list defined for the A_Table_Rate_Type column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -108,7 +114,12 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	public void setA_TermInput(ForeignEntityInput A_Term) {
 		this.mA_Term = A_Term;
 		if (A_Term != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Depreciation_Table_HeaderResolver.A_TERM_UUIDS_BY_VALUE.containsValue(A_Term.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Term.getUU() +
+						" is not in the list defined for the A_Term column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

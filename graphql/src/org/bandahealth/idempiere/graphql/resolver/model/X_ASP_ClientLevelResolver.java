@@ -27,7 +27,7 @@ public class X_ASP_ClientLevelResolver extends POResolver<X_ASP_ClientLevel> imp
 	 * @return ASP Level
 	 */
 	public CompletableFuture<X_ASP_Level> ASP_Level(X_ASP_ClientLevel entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Level_ID() <= 0) {
+		if (entity.getASP_Level_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Level> dataLoader =
@@ -42,7 +42,7 @@ public class X_ASP_ClientLevelResolver extends POResolver<X_ASP_ClientLevel> imp
 	 * @return ASP Module
 	 */
 	public CompletableFuture<X_ASP_Module> ASP_Module(X_ASP_ClientLevel entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Module_ID() <= 0) {
+		if (entity.getASP_Module_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Module> dataLoader =

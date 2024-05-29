@@ -31,7 +31,7 @@ public class X_A_Asset_DeliveryResolver extends POResolver<MAssetDelivery> imple
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MAssetDelivery entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -46,7 +46,7 @@ public class X_A_Asset_DeliveryResolver extends POResolver<MAssetDelivery> imple
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MAssetDelivery entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -61,7 +61,7 @@ public class X_A_Asset_DeliveryResolver extends POResolver<MAssetDelivery> imple
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MAssetDelivery entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -76,7 +76,7 @@ public class X_A_Asset_DeliveryResolver extends POResolver<MAssetDelivery> imple
 	 * @return Product downloads
 	 */
 	public CompletableFuture<MProductDownload> M_ProductDownload(MAssetDelivery entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductDownload_ID() <= 0) {
+		if (entity.getM_ProductDownload_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductDownload> dataLoader =

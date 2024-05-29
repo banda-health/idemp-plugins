@@ -42,7 +42,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Accumulated Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Accumdepreciation_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Accumdepreciation_Acct() <= 0) {
+		if (entity.getA_Accumdepreciation_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -57,7 +57,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Asset Acct
 	 */
 	public CompletableFuture<MAccount> A_Asset_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Acct() <= 0) {
+		if (entity.getA_Asset_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -72,7 +72,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Group of Assets
 	 */
 	public CompletableFuture<MAssetGroup> A_Asset_Group(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Group_ID() <= 0) {
+		if (entity.getA_Asset_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
@@ -87,7 +87,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Depreciation_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Acct() <= 0) {
+		if (entity.getA_Depreciation_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -102,7 +102,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation Convention (fiscal)
 	 */
 	public CompletableFuture<MDepreciationConvention> A_Depreciation_Conv_F(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Conv_F_ID() <= 0) {
+		if (entity.getA_Depreciation_Conv_F_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciationConvention> dataLoader =
@@ -117,7 +117,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Convention Type
 	 */
 	public CompletableFuture<MDepreciationConvention> A_Depreciation_Conv(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Conv_ID() <= 0) {
+		if (entity.getA_Depreciation_Conv_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciationConvention> dataLoader =
@@ -132,7 +132,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation (fiscal)
 	 */
 	public CompletableFuture<MDepreciation> A_Depreciation_F(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_F_ID() <= 0) {
+		if (entity.getA_Depreciation_F_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciation> dataLoader =
@@ -147,7 +147,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation
 	 */
 	public CompletableFuture<MDepreciation> A_Depreciation(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_ID() <= 0) {
+		if (entity.getA_Depreciation_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciation> dataLoader =
@@ -155,10 +155,10 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 		return dataLoader.load(entity.getA_Depreciation_ID());
 	}
 
-	static Map<String, String> A_DEPRECIATION_MANUAL_PERIOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_DEPRECIATION_MANUAL_PERIOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("PR", "35e7efb6-c084-458c-89e6-bdeeb3757add");
-			put("YR", "d34572f8-bbc3-4768-9662-8ae6f48f7398");
+			put("PR", "35e7efb6-c084-458c-89e6-bdeeb3757add"); // Period
+			put("YR", "d34572f8-bbc3-4768-9662-8ae6f48f7398"); // Yearly
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Depreciation_Manual_Period(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
@@ -177,7 +177,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation Method (fiscal)
 	 */
 	public CompletableFuture<MDepreciationMethod> A_Depreciation_Method_F(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Method_F_ID() <= 0) {
+		if (entity.getA_Depreciation_Method_F_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciationMethod> dataLoader =
@@ -192,7 +192,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation Method
 	 */
 	public CompletableFuture<MDepreciationMethod> A_Depreciation_Method(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Method_ID() <= 0) {
+		if (entity.getA_Depreciation_Method_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciationMethod> dataLoader =
@@ -207,7 +207,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return A_Depreciation_Table_Header_ID
 	 */
 	public CompletableFuture<X_A_Depreciation_Table_Header> A_Depreciation_Table_Header(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Table_Header_ID() <= 0) {
+		if (entity.getA_Depreciation_Table_Header_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_A_Depreciation_Table_Header> dataLoader =
@@ -222,7 +222,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Disposal Gain Acct
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Gain_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Gain_Acct() <= 0) {
+		if (entity.getA_Disposal_Gain_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -237,7 +237,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Disposal Loss Acct
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Loss_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Loss_Acct() <= 0) {
+		if (entity.getA_Disposal_Loss_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -252,7 +252,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Disposal Revenue Acct
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Revenue_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Revenue_Acct() <= 0) {
+		if (entity.getA_Disposal_Revenue_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -267,7 +267,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return A_Reval_Accumdep_Offset_Cur
 	 */
 	public CompletableFuture<MAccount> A_Reval_Adep_Offset_Cur_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Reval_Adep_Offset_Cur_Acct() <= 0) {
+		if (entity.getA_Reval_Adep_Offset_Cur_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -282,7 +282,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return A_Reval_Accumdep_Offset_Prior
 	 */
 	public CompletableFuture<MAccount> A_Reval_Adep_Offset_Prior_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Reval_Adep_Offset_Prior_Acct() <= 0) {
+		if (entity.getA_Reval_Adep_Offset_Prior_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -290,11 +290,11 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 		return dataLoader.load(entity.getA_Reval_Adep_Offset_Prior_Acct());
 	}
 
-	static Map<String, String> A_REVAL_CAL_METHOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_REVAL_CAL_METHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("DFT", "c11a5c1d-7b50-4462-92f3-5fd512c7c3f9");
-			put("IDF", "82c0032e-1d8f-4001-b365-39f9a8cc2b05");
-			put("YBF", "2e54c6d4-f45a-474c-b4ab-6c7679f913dd");
+			put("DFT", "c11a5c1d-7b50-4462-92f3-5fd512c7c3f9"); // Default
+			put("IDF", "82c0032e-1d8f-4001-b365-39f9a8cc2b05"); // Inception to date
+			put("YBF", "2e54c6d4-f45a-474c-b4ab-6c7679f913dd"); // Year Balances
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Reval_Cal_Method(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
@@ -313,7 +313,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Reval Cost Offset Acct
 	 */
 	public CompletableFuture<MAccount> A_Reval_Cost_Offset_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Reval_Cost_Offset_Acct() <= 0) {
+		if (entity.getA_Reval_Cost_Offset_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -328,7 +328,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Reval Cost Offset Prior Acct
 	 */
 	public CompletableFuture<MAccount> A_Reval_Cost_Offset_Prior_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Reval_Cost_Offset_Prior_Acct() <= 0) {
+		if (entity.getA_Reval_Cost_Offset_Prior_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -343,7 +343,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Reval Depexp Offset Acct
 	 */
 	public CompletableFuture<MAccount> A_Reval_Depexp_Offset_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Reval_Depexp_Offset_Acct() <= 0) {
+		if (entity.getA_Reval_Depexp_Offset_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -358,7 +358,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -366,13 +366,13 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
-	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc"); // Actual
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e"); // Budget
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d"); // Commitment
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb"); // Statistical
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5"); // Reservation
 		}
 	};
 	public CompletableFuture<MRefList_BH> PostingType(MAssetGroupAcct entity, DataFetchingEnvironment environment) {

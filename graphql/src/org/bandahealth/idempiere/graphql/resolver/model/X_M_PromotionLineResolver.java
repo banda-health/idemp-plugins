@@ -31,7 +31,7 @@ public class X_M_PromotionLineResolver extends POResolver<X_M_PromotionLine> imp
 	 * @return Promotion
 	 */
 	public CompletableFuture<X_M_Promotion> M_Promotion(X_M_PromotionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Promotion_ID() <= 0) {
+		if (entity.getM_Promotion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_Promotion> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_PromotionLineResolver extends POResolver<X_M_PromotionLine> imp
 	 * @return Promotion Group
 	 */
 	public CompletableFuture<X_M_PromotionGroup> M_PromotionGroup(X_M_PromotionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PromotionGroup_ID() <= 0) {
+		if (entity.getM_PromotionGroup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_PromotionGroup> dataLoader =

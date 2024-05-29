@@ -37,7 +37,7 @@ public class X_M_ProductionLineResolver extends POResolver<MProductionLine> impl
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MProductionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -52,7 +52,7 @@ public class X_M_ProductionLineResolver extends POResolver<MProductionLine> impl
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MProductionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -67,7 +67,7 @@ public class X_M_ProductionLineResolver extends POResolver<MProductionLine> impl
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MProductionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -82,7 +82,7 @@ public class X_M_ProductionLineResolver extends POResolver<MProductionLine> impl
 	 * @return Plan for producing a product
 	 */
 	public CompletableFuture<MProduction> M_Production(MProductionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Production_ID() <= 0) {
+		if (entity.getM_Production_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduction> dataLoader =
@@ -97,7 +97,7 @@ public class X_M_ProductionLineResolver extends POResolver<MProductionLine> impl
 	 * @return Plan for how a product is produced
 	 */
 	public CompletableFuture<MProductionPlan> M_ProductionPlan(MProductionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductionPlan_ID() <= 0) {
+		if (entity.getM_ProductionPlan_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductionPlan> dataLoader =

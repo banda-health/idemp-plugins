@@ -31,7 +31,7 @@ public class X_I_HR_MovementResolver extends POResolver<X_I_HR_Movement> impleme
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -46,7 +46,7 @@ public class X_I_HR_MovementResolver extends POResolver<X_I_HR_Movement> impleme
 	 * @return Payroll Concept
 	 */
 	public CompletableFuture<X_HR_Concept> HR_Concept(X_I_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Concept_ID() <= 0) {
+		if (entity.getHR_Concept_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Concept> dataLoader =
@@ -61,7 +61,7 @@ public class X_I_HR_MovementResolver extends POResolver<X_I_HR_Movement> impleme
 	 * @return Payroll Movement
 	 */
 	public CompletableFuture<X_HR_Movement> HR_Movement(X_I_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Movement_ID() <= 0) {
+		if (entity.getHR_Movement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Movement> dataLoader =
@@ -76,7 +76,7 @@ public class X_I_HR_MovementResolver extends POResolver<X_I_HR_Movement> impleme
 	 * @return Payroll Process
 	 */
 	public CompletableFuture<X_HR_Process> HR_Process(X_I_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Process_ID() <= 0) {
+		if (entity.getHR_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Process> dataLoader =

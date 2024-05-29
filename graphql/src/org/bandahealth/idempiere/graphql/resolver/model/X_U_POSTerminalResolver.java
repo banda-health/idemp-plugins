@@ -44,7 +44,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Cash Book for recording petty cash transactions
 	 */
 	public CompletableFuture<MCashBook> C_CashBook(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashBook_ID() <= 0) {
+		if (entity.getC_CashBook_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
@@ -59,7 +59,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return BPartner to be used for Cash transactions
 	 */
 	public CompletableFuture<MBPartner_BH> C_CashBPartner(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashBPartner_ID() <= 0) {
+		if (entity.getC_CashBPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -74,7 +74,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return BPartner that is to be used as template when new customers are created
 	 */
 	public CompletableFuture<MBPartner_BH> C_TemplateBPartner(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TemplateBPartner_ID() <= 0) {
+		if (entity.getC_TemplateBPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -89,7 +89,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Bank Account on which card transactions will be processed
 	 */
 	public CompletableFuture<MBankAccount_BH> Card_BankAccount(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getCard_BankAccount_ID() <= 0) {
+		if (entity.getCard_BankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -104,7 +104,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Bank account on which to transfer Card transactions
 	 */
 	public CompletableFuture<MBankAccount_BH> CardTransferBankAccount(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getCardTransferBankAccount_ID() <= 0) {
+		if (entity.getCardTransferBankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -119,7 +119,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Cash Book on which to transfer all Card transactions
 	 */
 	public CompletableFuture<MCashBook> CardTransferCashBook(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getCardTransferCashBook_ID() <= 0) {
+		if (entity.getCardTransferCashBook_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
@@ -127,10 +127,10 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 		return dataLoader.load(entity.getCardTransferCashBook_ID());
 	}
 
-	static Map<String, String> CARDTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CARDTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827");
-			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1");
+			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827"); // Bank Account
+			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1"); // CashBook
 		}
 	};
 	public CompletableFuture<MRefList_BH> CardTransferType(MPOSTerminal entity, DataFetchingEnvironment environment) {
@@ -142,10 +142,10 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 		return dataLoader.load(CARDTRANSFERTYPE_UUIDS_BY_VALUE.get(entity.getCardTransferType()));
 	}
 
-	static Map<String, String> CASHBOOKTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CASHBOOKTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827");
-			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1");
+			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827"); // Bank Account
+			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1"); // CashBook
 		}
 	};
 	public CompletableFuture<MRefList_BH> CashBookTransferType(MPOSTerminal entity, DataFetchingEnvironment environment) {
@@ -164,7 +164,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Bank Account on which to transfer all Cash transactions
 	 */
 	public CompletableFuture<MBankAccount_BH> CashTransferBankAccount(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getCashTransferBankAccount_ID() <= 0) {
+		if (entity.getCashTransferBankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -179,7 +179,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Cash Book on which to transfer all Cash transactions
 	 */
 	public CompletableFuture<MCashBook> CashTransferCashBook(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getCashTransferCashBook_ID() <= 0) {
+		if (entity.getCashTransferCashBook_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
@@ -194,7 +194,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Bank Account to be used for processing Check transactions
 	 */
 	public CompletableFuture<MBankAccount_BH> Check_BankAccount(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getCheck_BankAccount_ID() <= 0) {
+		if (entity.getCheck_BankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -209,7 +209,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Bank account on which to transfer Check transactions
 	 */
 	public CompletableFuture<MBankAccount_BH> CheckTransferBankAccount(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getCheckTransferBankAccount_ID() <= 0) {
+		if (entity.getCheckTransferBankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -224,7 +224,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Cash Book on which to transfer all Check transactions
 	 */
 	public CompletableFuture<MCashBook> CheckTransferCashBook(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getCheckTransferCashBook_ID() <= 0) {
+		if (entity.getCheckTransferCashBook_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
@@ -232,10 +232,10 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 		return dataLoader.load(entity.getCheckTransferCashBook_ID());
 	}
 
-	static Map<String, String> CHECKTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CHECKTRANSFERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827");
-			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1");
+			put("B", "2564e1bc-067f-4dbf-af2e-30246bb9d827"); // Bank Account
+			put("C", "a8bbe89f-3ea0-41d2-bb0d-6c69436a26f1"); // CashBook
 		}
 	};
 	public CompletableFuture<MRefList_BH> CheckTransferType(MPOSTerminal entity, DataFetchingEnvironment environment) {
@@ -258,7 +258,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -273,7 +273,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Price List used by this Business Partner
 	 */
 	public CompletableFuture<MPriceList> PO_PriceList(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_PriceList_ID() <= 0) {
+		if (entity.getPO_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -288,7 +288,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -303,7 +303,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 	 * @return Sales Price List
 	 */
 	public CompletableFuture<MPriceList> SO_PriceList(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getSO_PriceList_ID() <= 0) {
+		if (entity.getSO_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =

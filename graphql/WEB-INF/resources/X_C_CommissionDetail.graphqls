@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_CommissionDetail(UU: String!): C_CommissionDetail
 	C_CommissionDetailGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CommissionDetailConnection!
 }
 

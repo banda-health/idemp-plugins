@@ -25,12 +25,12 @@ import java.util.concurrent.CompletableFuture;
 public class X_R_RequestUpdateResolver extends POResolver<MRequestUpdate> implements GraphQLResolver<MRequestUpdate> {
 
 
-	static Map<String, String> CONFIDENTIALTYPEENTRY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CONFIDENTIALTYPEENTRY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "1eb43dd1-53c0-4b5c-aae4-585c7d3fc9c2");
-			put("C", "0f1983c1-e543-4a8f-9b8a-4a00d2a111f4");
-			put("I", "7c6def43-3d72-4c5b-93ce-dfbefd8545e4");
-			put("P", "467c826c-2a44-4f65-8026-8dc6b1d7edec");
+			put("A", "1eb43dd1-53c0-4b5c-aae4-585c7d3fc9c2"); // Public Information
+			put("C", "0f1983c1-e543-4a8f-9b8a-4a00d2a111f4"); // Partner Confidential
+			put("I", "7c6def43-3d72-4c5b-93ce-dfbefd8545e4"); // Internal
+			put("P", "467c826c-2a44-4f65-8026-8dc6b1d7edec"); // Private Information
 		}
 	};
 	public CompletableFuture<MRefList_BH> ConfidentialTypeEntry(MRequestUpdate entity, DataFetchingEnvironment environment) {
@@ -49,7 +49,7 @@ public class X_R_RequestUpdateResolver extends POResolver<MRequestUpdate> implem
 	 * @return Product/Resource/Service used in Request
 	 */
 	public CompletableFuture<MProduct_BH> M_ProductSpent(MRequestUpdate entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductSpent_ID() <= 0) {
+		if (entity.getM_ProductSpent_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -64,7 +64,7 @@ public class X_R_RequestUpdateResolver extends POResolver<MRequestUpdate> implem
 	 * @return Request from a Business Partner or Prospect
 	 */
 	public CompletableFuture<MRequest> R_Request(MRequestUpdate entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Request_ID() <= 0) {
+		if (entity.getR_Request_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequest> dataLoader =

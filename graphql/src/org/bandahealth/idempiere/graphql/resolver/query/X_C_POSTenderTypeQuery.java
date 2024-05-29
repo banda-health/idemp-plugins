@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_POSTenderTypeDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_C_POSTenderType;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for C_POSTenderType - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_C_POSTenderTypeQuery extends POQuery<X_C_POSTenderType> implement
 	@Override
 	protected String getTableName() {
 		return X_C_POSTenderType.Table_Name;
+	}
+
+	public CompletableFuture<X_C_POSTenderType> C_POSTenderType(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_C_POSTenderType> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_POSTenderTypeDataLoader.DATALOADER_C_POSTenderType_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_C_POSTenderType> C_POSTenderTypeGet(int Page, int PageSize, String Sort, String Filter,

@@ -27,7 +27,7 @@ public class X_C_OrderPayScheduleResolver extends POResolver<MOrderPaySchedule> 
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MOrderPaySchedule entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_OrderPayScheduleResolver extends POResolver<MOrderPaySchedule> 
 	 * @return Payment Schedule Template
 	 */
 	public CompletableFuture<MPaySchedule> C_PaySchedule(MOrderPaySchedule entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaySchedule_ID() <= 0) {
+		if (entity.getC_PaySchedule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaySchedule> dataLoader =

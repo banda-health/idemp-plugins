@@ -27,7 +27,7 @@ public class X_AD_AlertProcessorResolver extends POResolver<MAlertProcessor> imp
 	 * @return Schedule
 	 */
 	public CompletableFuture<MSchedule> AD_Schedule(MAlertProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Schedule_ID() <= 0) {
+		if (entity.getAD_Schedule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSchedule> dataLoader =
@@ -46,7 +46,7 @@ public class X_AD_AlertProcessorResolver extends POResolver<MAlertProcessor> imp
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	public CompletableFuture<MUser_BH> Supervisor(MAlertProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getSupervisor_ID() <= 0) {
+		if (entity.getSupervisor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

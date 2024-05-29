@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	B_TopicCategory(UU: String!): B_TopicCategory
 	B_TopicCategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): B_TopicCategoryConnection!
 }
 

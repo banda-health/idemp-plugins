@@ -28,7 +28,7 @@ public class X_AD_Tree_Favorite_NodeResolver extends POResolver<MTreeFavoriteNod
 	 * @return Identifies a Menu
 	 */
 	public CompletableFuture<MMenu_BH> AD_Menu(MTreeFavoriteNode entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Menu_ID() <= 0) {
+		if (entity.getAD_Menu_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMenu_BH> dataLoader =
@@ -43,7 +43,7 @@ public class X_AD_Tree_Favorite_NodeResolver extends POResolver<MTreeFavoriteNod
 	 * @return Favorite Tree
 	 */
 	public CompletableFuture<MTreeFavorite> AD_Tree_Favorite(MTreeFavoriteNode entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Favorite_ID() <= 0) {
+		if (entity.getAD_Tree_Favorite_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTreeFavorite> dataLoader =
@@ -70,7 +70,7 @@ public class X_AD_Tree_Favorite_NodeResolver extends POResolver<MTreeFavoriteNod
 	 * @return Parent of Entity
 	 */
 	public CompletableFuture<MTreeFavoriteNode> Parent(MTreeFavoriteNode entity, DataFetchingEnvironment environment) {
-		if (entity.getParent_ID() <= 0) {
+		if (entity.getParent_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTreeFavoriteNode> dataLoader =

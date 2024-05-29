@@ -45,7 +45,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
 	public CompletableFuture<M_Element> AD_Element(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Element_ID() <= 0) {
+		if (entity.getAD_Element_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, M_Element> dataLoader =
@@ -60,7 +60,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return Field CSS Style 
 	 */
 	public CompletableFuture<MStyle> AD_FieldStyle(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldStyle_ID() <= 0) {
+		if (entity.getAD_FieldStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -75,7 +75,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() <= 0) {
+		if (entity.getAD_InfoWindow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -90,7 +90,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -105,7 +105,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() <= 0) {
+		if (entity.getAD_Reference_Value_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -120,7 +120,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() <= 0) {
+		if (entity.getAD_Val_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -279,16 +279,16 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 						entity.getPlaceholder2());
 	}
 
-	static Map<String, String> QUERYOPERATOR_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> QUERYOPERATOR_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Like", "cd02fd21-8913-4bc7-9ef4-a405069f8665");
-			put("=", "1e99d0eb-d4ba-46ad-98be-1e9f0a20d387");
-			put(">", "da5910a0-4b7a-4986-ada4-ecba7eb953ad");
-			put(">=", "653d78b9-8a2b-40cd-a0f1-c7e8bf5cea1c");
-			put("<", "2673aa9f-3efc-4625-9659-9242f8140d8c");
-			put("<=", "dc557f72-fae9-463f-86ab-7d078eef739f");
-			put("!=", "bc2fee0b-7738-4d57-9d12-e60d55ff2256");
-			put("LIKE", "9562f4db-97a9-4df5-99d0-b2f5bc0e2b4c");
+			put("Like", "cd02fd21-8913-4bc7-9ef4-a405069f8665"); // Like
+			put("=", "1e99d0eb-d4ba-46ad-98be-1e9f0a20d387"); // =
+			put(">", "da5910a0-4b7a-4986-ada4-ecba7eb953ad"); // >
+			put(">=", "653d78b9-8a2b-40cd-a0f1-c7e8bf5cea1c"); // >=
+			put("<", "2673aa9f-3efc-4625-9659-9242f8140d8c"); // <
+			put("<=", "dc557f72-fae9-463f-86ab-7d078eef739f"); // <=
+			put("!=", "bc2fee0b-7738-4d57-9d12-e60d55ff2256"); // !=
+			put("LIKE", "9562f4db-97a9-4df5-99d0-b2f5bc0e2b4c"); // Full Like
 		}
 	};
 	public CompletableFuture<MRefList_BH> QueryOperator(MInfoColumn entity, DataFetchingEnvironment environment) {

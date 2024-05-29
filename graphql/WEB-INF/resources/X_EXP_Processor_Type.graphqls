@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	EXP_Processor_Type(UU: String!): EXP_Processor_Type
 	EXP_Processor_TypeGet(Page: Int, Size: Int, Sort: String, Filter: String): EXP_Processor_TypeConnection!
 }
 

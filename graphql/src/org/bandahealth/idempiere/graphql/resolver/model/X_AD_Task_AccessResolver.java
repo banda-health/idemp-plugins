@@ -27,7 +27,7 @@ public class X_AD_Task_AccessResolver extends POResolver<MTaskAccess> implements
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MTaskAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_Task_AccessResolver extends POResolver<MTaskAccess> implements
 	 * @return Operation System Task
 	 */
 	public CompletableFuture<MTask> AD_Task(MTaskAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Task_ID() <= 0) {
+		if (entity.getAD_Task_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =

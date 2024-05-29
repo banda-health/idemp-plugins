@@ -30,7 +30,7 @@ public class X_AD_ImpFormatResolver extends POResolver<X_AD_ImpFormat> implement
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_ImpFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -38,13 +38,13 @@ public class X_AD_ImpFormatResolver extends POResolver<X_AD_ImpFormat> implement
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
-	static Map<String, String> FORMATTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> FORMATTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("F", "142c8cd7-51cb-4f48-ae47-b97a59a67d74");
-			put("C", "e02316a4-a5e8-4fa0-a6d6-75c8b21c9da0");
-			put("T", "1a321c70-01a6-4e18-a684-4e43e011811f");
-			put("X", "acdf2952-a33f-4ddf-853c-cee7e4e6d3d7");
-			put("U", "22622479-b1a2-4176-b5f1-9dc19585d0d9");
+			put("F", "142c8cd7-51cb-4f48-ae47-b97a59a67d74"); // Fixed Position
+			put("C", "e02316a4-a5e8-4fa0-a6d6-75c8b21c9da0"); // Comma Separated
+			put("T", "1a321c70-01a6-4e18-a684-4e43e011811f"); // Tab Separated
+			put("X", "acdf2952-a33f-4ddf-853c-cee7e4e6d3d7"); // XML
+			put("U", "22622479-b1a2-4176-b5f1-9dc19585d0d9"); // Custom Separator Char
 		}
 	};
 	public CompletableFuture<MRefList_BH> FormatType(X_AD_ImpFormat entity, DataFetchingEnvironment environment) {

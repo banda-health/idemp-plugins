@@ -21,10 +21,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_AD_AuthorizationProviderResolver extends POResolver<MAuthorizationProvider> implements GraphQLResolver<MAuthorizationProvider> {
 
 
-	static Map<String, String> AD_AUTHORIZATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> AD_AUTHORIZATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("OAuth2", "ee3a6b03-f7fc-4bc1-8022-43ee69d35164");
-			put("SAML", "33116e52-3591-4455-a4b5-581602cd06cb");
+			put("OAuth2", "ee3a6b03-f7fc-4bc1-8022-43ee69d35164"); // OAuth2
+			put("SAML", "33116e52-3591-4455-a4b5-581602cd06cb"); // SAML (not implemented yet)
 		}
 	};
 	public CompletableFuture<MRefList_BH> AD_AuthorizationType(MAuthorizationProvider entity, DataFetchingEnvironment environment) {

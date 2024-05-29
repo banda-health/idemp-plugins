@@ -7,7 +7,12 @@ ADD
 UPDATE
     bh_encounter
 SET
-    bh_encounter_date = created;
+	bh_encounter_date = created
+WHERE
+	bh_encounter_date IS NULL;
+
+ALTER TABLE bh_encounter
+	ALTER COLUMN bh_encounter_date SET NOT NULL;
 
 -- Add entry into AD_Element table
 INSERT INTO

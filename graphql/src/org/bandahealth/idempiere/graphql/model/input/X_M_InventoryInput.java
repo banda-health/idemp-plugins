@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_InventoryResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
@@ -104,7 +105,12 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	public void setbh_update_reasonInput(ForeignEntityInput bh_update_reason) {
 		this.mbh_update_reason = bh_update_reason;
 		if (bh_update_reason != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InventoryResolver.BH_UPDATE_REASON_UUIDS_BY_VALUE.containsValue(bh_update_reason.getUU())) {
+				throw new AdempiereException("The reference list UU of " + bh_update_reason.getUU() +
+						" is not in the list defined for the bh_update_reason column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -342,7 +348,12 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	public void setCostingMethodInput(ForeignEntityInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
 		if (CostingMethod != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InventoryResolver.COSTINGMETHOD_UUIDS_BY_VALUE.containsValue(CostingMethod.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CostingMethod.getUU() +
+						" is not in the list defined for the CostingMethod column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -376,7 +387,12 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InventoryResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -410,7 +426,12 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InventoryResolver.DOCSTATUS_UUIDS_BY_VALUE.containsValue(DocStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocStatus.getUU() +
+						" is not in the list defined for the DocStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

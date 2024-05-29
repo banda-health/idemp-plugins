@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	PP_Product_Planning(UU: String!): PP_Product_Planning
 	PP_Product_PlanningGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Product_PlanningConnection!
 }
 

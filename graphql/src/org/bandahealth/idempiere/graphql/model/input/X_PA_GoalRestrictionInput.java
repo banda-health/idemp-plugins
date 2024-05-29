@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PA_GoalRestrictionResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MGoal;
 import org.compiere.model.MGoalRestriction;
@@ -159,7 +160,12 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	public void setGoalRestrictionTypeInput(ForeignEntityInput GoalRestrictionType) {
 		this.mGoalRestrictionType = GoalRestrictionType;
 		if (GoalRestrictionType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_GoalRestrictionResolver.GOALRESTRICTIONTYPE_UUIDS_BY_VALUE.containsValue(GoalRestrictionType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + GoalRestrictionType.getUU() +
+						" is not in the list defined for the GoalRestrictionType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

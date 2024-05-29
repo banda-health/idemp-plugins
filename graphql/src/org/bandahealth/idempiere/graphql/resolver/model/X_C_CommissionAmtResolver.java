@@ -27,7 +27,7 @@ public class X_C_CommissionAmtResolver extends POResolver<MCommissionAmt> implem
 	 * @return Commission Line
 	 */
 	public CompletableFuture<MCommissionLine> C_CommissionLine(MCommissionAmt entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CommissionLine_ID() <= 0) {
+		if (entity.getC_CommissionLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCommissionLine> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_CommissionAmtResolver extends POResolver<MCommissionAmt> implem
 	 * @return Commission Run or Process
 	 */
 	public CompletableFuture<MCommissionRun> C_CommissionRun(MCommissionAmt entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CommissionRun_ID() <= 0) {
+		if (entity.getC_CommissionRun_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCommissionRun> dataLoader =

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_CommodityShipment(UU: String!): M_CommodityShipment
 	M_CommodityShipmentGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CommodityShipmentConnection!
 }
 

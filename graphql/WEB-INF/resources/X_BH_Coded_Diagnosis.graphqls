@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	BH_Coded_Diagnosis(UU: String!): BH_Coded_Diagnosis
 	BH_Coded_DiagnosisGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Coded_DiagnosisConnection!
 }
 

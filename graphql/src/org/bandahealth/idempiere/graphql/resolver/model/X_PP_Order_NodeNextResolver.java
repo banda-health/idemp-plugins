@@ -34,7 +34,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 	 * @return Next Node in workflow
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Next(X_PP_Order_NodeNext entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Next_ID() <= 0) {
+		if (entity.getAD_WF_Next_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
@@ -49,7 +49,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Node(X_PP_Order_NodeNext entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Node_ID() <= 0) {
+		if (entity.getAD_WF_Node_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
@@ -99,7 +99,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 	 * @return Manufacturing Order
 	 */
 	public CompletableFuture<X_PP_Order> PP_Order(X_PP_Order_NodeNext entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_ID() <= 0) {
+		if (entity.getPP_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
@@ -114,7 +114,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 	 * @return Manufacturing Order Activity Next
 	 */
 	public CompletableFuture<X_PP_Order_Node> PP_Order_Next(X_PP_Order_NodeNext entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_Next_ID() <= 0) {
+		if (entity.getPP_Order_Next_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Node> dataLoader =
@@ -129,7 +129,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_PP_Order_Node> PP_Order_Node(X_PP_Order_NodeNext entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_Node_ID() <= 0) {
+		if (entity.getPP_Order_Node_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Node> dataLoader =

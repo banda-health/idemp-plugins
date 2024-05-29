@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_Issue(UU: String!): AD_Issue
 	AD_IssueGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_IssueConnection!
 }
 

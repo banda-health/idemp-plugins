@@ -37,7 +37,7 @@ public class X_AD_ChartDatasourceResolver extends POResolver<MChartDatasource> i
 	 * @return Chart
 	 */
 	public CompletableFuture<MChart> AD_Chart(MChartDatasource entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Chart_ID() <= 0) {
+		if (entity.getAD_Chart_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChart> dataLoader =
@@ -52,7 +52,7 @@ public class X_AD_ChartDatasourceResolver extends POResolver<MChartDatasource> i
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MChartDatasource entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

@@ -50,6 +50,7 @@ import java.util.TreeSet;
 public class GraphQLInputModelClassGenerator {
 	private static final CLogger log = CLogger.getCLogger(GraphQLInputModelClassGenerator.class);
 	private String packageName = "";
+	private final String modelResolverPackageName;
 	private final ModelMap tableStructureExtensions;
 	private final Map<String, ModelMap> modelsForTables;
 	private final TreeSet<String> privateProperties = new TreeSet<>();
@@ -66,9 +67,11 @@ public class GraphQLInputModelClassGenerator {
 	 * @param entityTypeFilter entity type filter for columns
 	 */
 	public GraphQLInputModelClassGenerator(int AD_Table_ID, String entityTypeFilter, String directory,
-			String packageName, Map<String, ModelMap> modelsForTables) throws FileNotFoundException {
+			String packageName, String modelResolverPackageName, Map<String, ModelMap> modelsForTables)
+			throws FileNotFoundException {
 		this.packageName = packageName;
 		this.modelsForTables = modelsForTables;
+		this.modelResolverPackageName = modelResolverPackageName;
 
 		// Get the name of the model to extend
 		tableStructureExtensions = modelsForTables.get(MTable.get(AD_Table_ID).getTableName());
@@ -102,9 +105,10 @@ public class GraphQLInputModelClassGenerator {
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				tableName = resultSet.getString(1);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					tableName = resultSet.getString(1);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -196,21 +200,22 @@ public class GraphQLInputModelClassGenerator {
 				+ " ORDER BY c.ColumnName";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				String columnName = resultSet.getString(1);
-				boolean isUpdatable = "Y".equals(resultSet.getString(2));
-				int displayType = resultSet.getInt(3);
-				int AD_Reference_Value_ID = resultSet.getInt(4);
-				String Name = resultSet.getString(5);
-				String Description = resultSet.getString(6);
-				String ColumnSQL = resultSet.getString(7);
-				boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
-				boolean IsKey = "Y".equals(resultSet.getString(8));
-				//
-				generatedColumns.append(
-						createColumnMethods(columnName, isUpdatable, displayType, AD_Reference_Value_ID, Name, Description,
-								virtualColumn, IsKey, AD_Table_ID));
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				while (resultSet.next()) {
+					String columnName = resultSet.getString(1);
+					boolean isUpdatable = "Y".equals(resultSet.getString(2));
+					int displayType = resultSet.getInt(3);
+					int AD_Reference_Value_ID = resultSet.getInt(4);
+					String Name = resultSet.getString(5);
+					String Description = resultSet.getString(6);
+					String ColumnSQL = resultSet.getString(7);
+					boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
+					boolean IsKey = "Y".equals(resultSet.getString(8));
+					//
+					generatedColumns.append(
+							createColumnMethods(columnName, isUpdatable, displayType, AD_Reference_Value_ID, Name, Description,
+									virtualColumn, IsKey, AD_Table_ID));
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -375,16 +380,21 @@ public class GraphQLInputModelClassGenerator {
 		// If the code is updatable from this point forward, the parent class can (potentially) handle it
 		// Also, if the method is final somewhere in the iDempiere model tree, skip it
 		List<String> columnsWhosSettersAreFinalInIDempiere = Arrays.asList("AD_Org_ID", "IsActive");
-		if ((isUpdateable && AD_Reference_ID <= 0) || columnsWhosSettersAreFinalInIDempiere.contains(columnName)) {
+		if ((isUpdateable && AD_Reference_ID <= 0 && displayType != DisplayType.Payment) ||
+				columnsWhosSettersAreFinalInIDempiere.contains(columnName)) {
 			return columnBuilder.toString();
-		} else if (AD_Reference_ID > 0 &&
-				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
-				clazz.equals(String.class)) {
+		} else if ((AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) ||
+				displayType == DisplayType.Payment) && clazz.equals(String.class)) {
 			ModelMap classToUseMap = modelsForTables.get(MRefList.Table_Name);
 			classesToImport.add(classToUseMap.getClassPackageName() + "." + classToUseMap.getClassName());
 			classesToImport.add("com.fasterxml.jackson.annotation.JsonProperty");
 			columnBuilder.append("\n");
 			String returnType = "ForeignEntityInput";
+
+			String modelResolverClassWithReferenceValuesList =
+					GraphQLModelResolverGenerator.getGeneratedName(tableStructureExtensions.getTableName());
+			classesToImport.add(modelResolverPackageName + "." + modelResolverClassWithReferenceValuesList);
 
 			// Make sure that a private property is set correctly
 			String propertyName = "m" + columnName;
@@ -404,7 +414,15 @@ public class GraphQLInputModelClassGenerator {
 			}
 			columnBuilder
 					.append("\t\tif (").append(columnName).append(" != null) {\n")
-					.append("\t\t\t// Since an entity was passed, make sure it's in the DB\n")
+					.append("\t\t\t// Since an entity was passed, make sure it's in the list of acceptable values\n")
+					.append("\t\t\tif (!").append(modelResolverClassWithReferenceValuesList).append(".")
+					.append(GraphQLModelResolverGenerator.getListValidationReferenceUuidsByValuePropertyName(columnName))
+					.append(".containsValue(").append(columnName).append(".getUU())) {\n")
+					.append("\t\t\t\tthrow new AdempiereException(\"The reference list UU of \" + ").append(columnName)
+					.append(".getUU() +\n")
+					.append("\t\t\t\t\t\t\" is not in the list defined for the ").append(columnName).append(" column\");\n")
+					.append("\t\t\t}\n")
+					.append("\t\t\t// Now make sure it's in the DB\n")
 					.append("\t\t\t").append(modelForForeignEntity).append(" foreignEntity;\n")
 					.append("\t\t\tif ((foreignEntity =\n")
 					.append("\t\t\t\t\tnew Query(getCtx(), ").append(modelForForeignEntity).append(".Table_Name, ")
@@ -504,7 +522,7 @@ public class GraphQLInputModelClassGenerator {
 	 */
 	public static void generateSource(String entityType, String tableName, String columnEntityType, String sourceFolder,
 			String packageName, String customModelSourceFolder, String customModelPackageName,
-			Map<String, ModelMap> modelsForTables) {
+			String modelResolverPackageName, Map<String, ModelMap> modelsForTables) {
 		//
 		GraphQLUtil.validateCustomModelsFolderAndPackageName(customModelSourceFolder, customModelPackageName);
 		String directory =
@@ -514,6 +532,6 @@ public class GraphQLInputModelClassGenerator {
 		//
 		GraphQLUtil.buildAndExecuteTableSql(tableName, entityType,
 				(resultSet -> new GraphQLInputModelClassGenerator(resultSet.getInt(1), columnFilter, directory, packageName,
-						modelsForTables)));
+						modelResolverPackageName, modelsForTables)));
 	}
 }

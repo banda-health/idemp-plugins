@@ -27,7 +27,7 @@ public class X_M_LotResolver extends POResolver<MLot> implements GraphQLResolver
 	 * @return Product Lot Control
 	 */
 	public CompletableFuture<MLotCtl> M_LotCtl(MLot entity, DataFetchingEnvironment environment) {
-		if (entity.getM_LotCtl_ID() <= 0) {
+		if (entity.getM_LotCtl_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLotCtl> dataLoader =
@@ -42,7 +42,7 @@ public class X_M_LotResolver extends POResolver<MLot> implements GraphQLResolver
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MLot entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

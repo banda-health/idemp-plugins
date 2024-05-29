@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_Depreciation_Table_DetailResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -87,7 +88,12 @@ public class X_A_Depreciation_Table_DetailInput extends X_A_Depreciation_Table_D
 			return;
 		}
 		if (A_Table_Rate_Type != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Depreciation_Table_DetailResolver.A_TABLE_RATE_TYPE_UUIDS_BY_VALUE.containsValue(A_Table_Rate_Type.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Table_Rate_Type.getUU() +
+						" is not in the list defined for the A_Table_Rate_Type column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_InvoiceScheduleResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInvoiceSchedule;
 import org.compiere.model.MOrg;
@@ -112,7 +113,12 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	public void setInvoiceFrequencyInput(ForeignEntityInput InvoiceFrequency) {
 		this.mInvoiceFrequency = InvoiceFrequency;
 		if (InvoiceFrequency != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_InvoiceScheduleResolver.INVOICEFREQUENCY_UUIDS_BY_VALUE.containsValue(InvoiceFrequency.getUU())) {
+				throw new AdempiereException("The reference list UU of " + InvoiceFrequency.getUU() +
+						" is not in the list defined for the InvoiceFrequency column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -146,7 +152,12 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	public void setInvoiceWeekDayInput(ForeignEntityInput InvoiceWeekDay) {
 		this.mInvoiceWeekDay = InvoiceWeekDay;
 		if (InvoiceWeekDay != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_InvoiceScheduleResolver.INVOICEWEEKDAY_UUIDS_BY_VALUE.containsValue(InvoiceWeekDay.getUU())) {
+				throw new AdempiereException("The reference list UU of " + InvoiceWeekDay.getUU() +
+						" is not in the list defined for the InvoiceWeekDay column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -180,7 +191,12 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	public void setInvoiceWeekDayCutoffInput(ForeignEntityInput InvoiceWeekDayCutoff) {
 		this.mInvoiceWeekDayCutoff = InvoiceWeekDayCutoff;
 		if (InvoiceWeekDayCutoff != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_InvoiceScheduleResolver.INVOICEWEEKDAYCUTOFF_UUIDS_BY_VALUE.containsValue(InvoiceWeekDayCutoff.getUU())) {
+				throw new AdempiereException("The reference list UU of " + InvoiceWeekDayCutoff.getUU() +
+						" is not in the list defined for the InvoiceWeekDayCutoff column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

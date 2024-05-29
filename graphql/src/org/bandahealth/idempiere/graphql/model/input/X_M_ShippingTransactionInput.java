@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_ShippingTransactionResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MOrg;
@@ -91,7 +92,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public void setActionInput(ForeignEntityInput Action) {
 		this.mAction = Action;
 		if (Action != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ShippingTransactionResolver.ACTION_UUIDS_BY_VALUE.containsValue(Action.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Action.getUU() +
+						" is not in the list defined for the Action column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -502,7 +508,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public void setDeliveryConfirmationTypeInput(ForeignEntityInput DeliveryConfirmationType) {
 		this.mDeliveryConfirmationType = DeliveryConfirmationType;
 		if (DeliveryConfirmationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ShippingTransactionResolver.DELIVERYCONFIRMATIONTYPE_UUIDS_BY_VALUE.containsValue(DeliveryConfirmationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DeliveryConfirmationType.getUU() +
+						" is not in the list defined for the DeliveryConfirmationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -536,7 +547,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public void setDotHazardClassOrDivisionInput(ForeignEntityInput DotHazardClassOrDivision) {
 		this.mDotHazardClassOrDivision = DotHazardClassOrDivision;
 		if (DotHazardClassOrDivision != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ShippingTransactionResolver.DOTHAZARDCLASSORDIVISION_UUIDS_BY_VALUE.containsValue(DotHazardClassOrDivision.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DotHazardClassOrDivision.getUU() +
+						" is not in the list defined for the DotHazardClassOrDivision column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -573,7 +589,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			return;
 		}
 		if (FOB != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ShippingTransactionResolver.FOB_UUIDS_BY_VALUE.containsValue(FOB.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FOB.getUU() +
+						" is not in the list defined for the FOB column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -610,7 +631,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			return;
 		}
 		if (FreightCharges != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ShippingTransactionResolver.FREIGHTCHARGES_UUIDS_BY_VALUE.containsValue(FreightCharges.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FreightCharges.getUU() +
+						" is not in the list defined for the FreightCharges column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -678,7 +704,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public void setHomeDeliveryPremiumTypeInput(ForeignEntityInput HomeDeliveryPremiumType) {
 		this.mHomeDeliveryPremiumType = HomeDeliveryPremiumType;
 		if (HomeDeliveryPremiumType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ShippingTransactionResolver.HOMEDELIVERYPREMIUMTYPE_UUIDS_BY_VALUE.containsValue(HomeDeliveryPremiumType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + HomeDeliveryPremiumType.getUU() +
+						" is not in the list defined for the HomeDeliveryPremiumType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -715,7 +746,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			return;
 		}
 		if (Insurance != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ShippingTransactionResolver.INSURANCE_UUIDS_BY_VALUE.containsValue(Insurance.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Insurance.getUU() +
+						" is not in the list defined for the Insurance column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1056,7 +1092,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public void setNotificationTypeInput(ForeignEntityInput NotificationType) {
 		this.mNotificationType = NotificationType;
 		if (NotificationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ShippingTransactionResolver.NOTIFICATIONTYPE_UUIDS_BY_VALUE.containsValue(NotificationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + NotificationType.getUU() +
+						" is not in the list defined for the NotificationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1090,7 +1131,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
 		if (PaymentRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ShippingTransactionResolver.PAYMENTRULE_UUIDS_BY_VALUE.containsValue(PaymentRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PaymentRule.getUU() +
+						" is not in the list defined for the PaymentRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

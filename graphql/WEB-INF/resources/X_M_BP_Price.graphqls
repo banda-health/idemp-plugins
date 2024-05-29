@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_BP_Price(UU: String!): M_BP_Price
 	M_BP_PriceGet(Page: Int, Size: Int, Sort: String, Filter: String): M_BP_PriceConnection!
 }
 

@@ -30,7 +30,7 @@ public class X_C_PeriodResolver extends POResolver<MPeriod> implements GraphQLRe
 	 * @return Calendar Year
 	 */
 	public CompletableFuture<MYear> C_Year(MPeriod entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Year_ID() <= 0) {
+		if (entity.getC_Year_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MYear> dataLoader =
@@ -38,10 +38,10 @@ public class X_C_PeriodResolver extends POResolver<MPeriod> implements GraphQLRe
 		return dataLoader.load(entity.getC_Year_ID());
 	}
 
-	static Map<String, String> PERIODTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PERIODTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "108b2f61-695d-4949-b813-19c71ad24a07");
-			put("A", "99d0bc20-9668-4335-8b52-4d8a9594f76c");
+			put("S", "108b2f61-695d-4949-b813-19c71ad24a07"); // Standard Calendar Period
+			put("A", "99d0bc20-9668-4335-8b52-4d8a9594f76c"); // Adjustment Period
 		}
 	};
 	public CompletableFuture<MRefList_BH> PeriodType(MPeriod entity, DataFetchingEnvironment environment) {

@@ -31,7 +31,7 @@ public class X_PP_Order_Node_AssetResolver extends POResolver<X_PP_Order_Node_As
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_PP_Order_Node_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -46,7 +46,7 @@ public class X_PP_Order_Node_AssetResolver extends POResolver<X_PP_Order_Node_As
 	 * @return Manufacturing Order
 	 */
 	public CompletableFuture<X_PP_Order> PP_Order(X_PP_Order_Node_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_ID() <= 0) {
+		if (entity.getPP_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
@@ -61,7 +61,7 @@ public class X_PP_Order_Node_AssetResolver extends POResolver<X_PP_Order_Node_As
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_PP_Order_Node> PP_Order_Node(X_PP_Order_Node_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_Node_ID() <= 0) {
+		if (entity.getPP_Order_Node_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Node> dataLoader =
@@ -76,7 +76,7 @@ public class X_PP_Order_Node_AssetResolver extends POResolver<X_PP_Order_Node_As
 	 * @return Manufacturing Order Workflow
 	 */
 	public CompletableFuture<X_PP_Order_Workflow> PP_Order_Workflow(X_PP_Order_Node_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_Workflow_ID() <= 0) {
+		if (entity.getPP_Order_Workflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Workflow> dataLoader =

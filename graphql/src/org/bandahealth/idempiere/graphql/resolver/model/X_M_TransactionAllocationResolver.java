@@ -33,10 +33,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_TransactionAllocationResolver extends POResolver<X_M_TransactionAllocation> implements GraphQLResolver<X_M_TransactionAllocation> {
 
 
-	static Map<String, String> ALLOCATIONSTRATEGYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ALLOCATIONSTRATEGYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("L", "e717816c-9a66-4eea-b14e-34662cb43fd0");
-			put("F", "f9fbe7ec-09e3-43a6-a438-4ec5778ee496");
+			put("L", "e717816c-9a66-4eea-b14e-34662cb43fd0"); // LiFo
+			put("F", "f9fbe7ec-09e3-43a6-a438-4ec5778ee496"); // FiFo
 		}
 	};
 	public CompletableFuture<MRefList_BH> AllocationStrategyType(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
@@ -63,7 +63,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -78,7 +78,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -93,7 +93,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 * @return Unique line in an Inventory document
 	 */
 	public CompletableFuture<MInventoryLine> M_InventoryLine(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InventoryLine_ID() <= 0) {
+		if (entity.getM_InventoryLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine> dataLoader =
@@ -108,7 +108,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -123,7 +123,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 * @return Document Line representing a production
 	 */
 	public CompletableFuture<MProductionLine> M_ProductionLine(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductionLine_ID() <= 0) {
+		if (entity.getM_ProductionLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductionLine> dataLoader =
@@ -138,7 +138,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 * @return Inventory Transaction
 	 */
 	public CompletableFuture<MTransaction> M_Transaction(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Transaction_ID() <= 0) {
+		if (entity.getM_Transaction_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTransaction> dataLoader =
@@ -153,7 +153,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 * @return Outgoing Shipment/Receipt
 	 */
 	public CompletableFuture<MInOutLine> Out_M_InOutLine(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getOut_M_InOutLine_ID() <= 0) {
+		if (entity.getOut_M_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -168,7 +168,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 * @return Outgoing Inventory Line
 	 */
 	public CompletableFuture<MInventoryLine> Out_M_InventoryLine(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getOut_M_InventoryLine_ID() <= 0) {
+		if (entity.getOut_M_InventoryLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine> dataLoader =
@@ -183,7 +183,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 * @return Outgoing Production Line
 	 */
 	public CompletableFuture<MProductionLine> Out_M_ProductionLine(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getOut_M_ProductionLine_ID() <= 0) {
+		if (entity.getOut_M_ProductionLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductionLine> dataLoader =
@@ -198,7 +198,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 * @return Outgoing Transaction
 	 */
 	public CompletableFuture<MTransaction> Out_M_Transaction(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getOut_M_Transaction_ID() <= 0) {
+		if (entity.getOut_M_Transaction_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTransaction> dataLoader =

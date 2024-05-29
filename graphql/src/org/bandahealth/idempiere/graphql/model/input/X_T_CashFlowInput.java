@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_T_CashFlowResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MActivity;
@@ -483,7 +484,12 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	public void setCashFlowSourceInput(ForeignEntityInput CashFlowSource) {
 		this.mCashFlowSource = CashFlowSource;
 		if (CashFlowSource != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_T_CashFlowResolver.CASHFLOWSOURCE_UUIDS_BY_VALUE.containsValue(CashFlowSource.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CashFlowSource.getUU() +
+						" is not in the list defined for the CashFlowSource column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -517,7 +523,12 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	public void setCashFlowTypeInput(ForeignEntityInput CashFlowType) {
 		this.mCashFlowType = CashFlowType;
 		if (CashFlowType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_T_CashFlowResolver.CASHFLOWTYPE_UUIDS_BY_VALUE.containsValue(CashFlowType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CashFlowType.getUU() +
+						" is not in the list defined for the CashFlowType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

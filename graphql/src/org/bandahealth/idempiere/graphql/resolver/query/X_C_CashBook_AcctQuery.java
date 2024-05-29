@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CashBook_AcctDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_C_CashBook_Acct;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for C_CashBook_Acct - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_C_CashBook_AcctQuery extends POQuery<X_C_CashBook_Acct> implement
 	@Override
 	protected String getTableName() {
 		return X_C_CashBook_Acct.Table_Name;
+	}
+
+	public CompletableFuture<X_C_CashBook_Acct> C_CashBook_Acct(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_C_CashBook_Acct> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_CashBook_AcctDataLoader.DATALOADER_C_CashBook_Acct_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_C_CashBook_Acct> C_CashBook_AcctGet(int Page, int PageSize, String Sort, String Filter,

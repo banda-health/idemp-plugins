@@ -1,0 +1,62 @@
+# Generated Schema for BH_Concept_Name - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_Concept_Name(UU: String!): BH_Concept_Name
+	BH_Concept_NameGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Concept_NameConnection!
+}
+
+extend type Mutation {
+	BH_Concept_NameSave(Entity: BH_Concept_NameInput!): BH_Concept_Name!
+	BH_Concept_NameSaveMany(Entities: [BH_Concept_NameInput!]!): [BH_Concept_Name!]!
+	BH_Concept_NameDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Concept_NameConnection {
+	Results: [BH_Concept_Name!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Concept_Name {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	BH_Concept: BH_Concept!
+	BH_Concept_Locale: String
+	BH_Concept_Locale_Preferred: Boolean!
+	BH_Concept_Name_Type: String
+	UU: ID!
+	BH_Concept_Type: String
+	# BH_External_ID
+	BH_ExternalID: String
+	# Date this record was created
+	Created: Date
+	# User who created this records
+	CreatedBy: AD_User
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date this record was updated
+	Updated: Date
+	# User who updated this records
+	UpdatedBy: AD_User
+}
+
+input BH_Concept_NameInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Concept: ForeignEntityInput
+	BH_Concept_Locale: String
+	BH_Concept_Locale_Preferred: Boolean
+	BH_Concept_Name_Type: String
+	UU: ID
+	BH_Concept_Type: String
+	# BH_External_ID
+	BH_ExternalID: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

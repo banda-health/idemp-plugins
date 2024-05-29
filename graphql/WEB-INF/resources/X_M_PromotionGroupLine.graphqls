@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_PromotionGroupLine(UU: String!): M_PromotionGroupLine
 	M_PromotionGroupLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionGroupLineConnection!
 }
 
