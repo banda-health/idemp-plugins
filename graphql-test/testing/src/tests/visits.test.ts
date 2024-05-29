@@ -2089,7 +2089,7 @@ test(`visit invoice updates work`, async () => {
 					UU: encounterUuid,
 					BH_Visit: { UU: visitUuid },
 					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
-					BH_encounter_Date: valueObject.date?.getTime(),
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			BH_EncounterDiagnoses: [
