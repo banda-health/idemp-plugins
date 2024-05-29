@@ -78,7 +78,7 @@ public class BandaSchemaFileComposer {
 //						"WEB-INF/resources/MBHEncounterTypeWindow.graphqls",
 //						"WEB-INF/resources/MBHObservation.graphqls",
 						"WEB-INF/resources/MBHPayerInfoFld.graphqls",
-//						"WEB-INF/resources/MBHPayerInfoFldSug.graphqls",
+						"WEB-INF/resources/MBHPayerInfoFldSug.graphqls",
 //						"WEB-INF/resources/MBHPayerInfoFldVal.graphqls",
 //						"WEB-INF/resources/MBHPayerInfoFldValSug.graphqls",
 //						"WEB-INF/resources/MBHPaymentRef.graphqls",
