@@ -379,8 +379,8 @@ public class GraphQLUtil {
 		}
 		sql.append(" ORDER BY TableName");
 
-		try (PreparedStatement preparedStatement = DB.prepareStatement(sql.toString(), null)) {
-			ResultSet resultSet = preparedStatement.executeQuery();
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql.toString(), null);
+		     ResultSet resultSet = preparedStatement.executeQuery()) {
 			while (resultSet.next()) {
 				resultSetConsumer.accept(resultSet);
 			}

@@ -104,9 +104,10 @@ public class GraphQLDataLoaderGenerator {
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				tableName = resultSet.getString(1);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					tableName = resultSet.getString(1);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -177,9 +178,10 @@ public class GraphQLDataLoaderGenerator {
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, translationTableId);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				tableName = resultSet.getString(1);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					tableName = resultSet.getString(1);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
