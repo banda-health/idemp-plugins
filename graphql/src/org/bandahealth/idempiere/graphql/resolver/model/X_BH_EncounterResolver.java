@@ -23,14 +23,14 @@ import java.util.concurrent.CompletableFuture;
 public class X_BH_EncounterResolver extends POResolver<MBHEncounter> implements GraphQLResolver<MBHEncounter> {
 
 
-	static Map<String, String> BH_ENCOUNTER_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BH_ENCOUNTER_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "c03f4d1d-fcec-4f91-a673-0ab1c3327578");
-			put("V", "6b25aa54-bbae-4432-a4e9-7a9a3116fc95");
-			put("m", "ba49a71c-938a-4e16-9cd9-e0819e4e9d3b");
-			put("D", "9bd78d1a-3ec7-46eb-a7b9-58c183b823ae");
-			put("C", "e822496b-fc64-4db9-9b89-39c7ee6e9986");
-			put("l", "12071666-e1ad-4a91-9fd4-ca46c8ebb622");
+			put("I", "c03f4d1d-fcec-4f91-a673-0ab1c3327578"); // Immunizations
+			put("V", "6b25aa54-bbae-4432-a4e9-7a9a3116fc95"); // Capture Vitals
+			put("m", "ba49a71c-938a-4e16-9cd9-e0819e4e9d3b"); // Diagnosis
+			put("D", "9bd78d1a-3ec7-46eb-a7b9-58c183b823ae"); // Clinical Details
+			put("C", "e822496b-fc64-4db9-9b89-39c7ee6e9986"); // Chief Complaint
+			put("l", "12071666-e1ad-4a91-9fd4-ca46c8ebb622"); // Lab Diagnostics
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_Encounter_Type(MBHEncounter entity, DataFetchingEnvironment environment) {
