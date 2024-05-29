@@ -29,7 +29,7 @@ public class X_PA_AchievementResolver extends POResolver<MAchievement> implement
 	 * @return Concrete Performance Measurement
 	 */
 	public CompletableFuture<MMeasure> PA_Measure(MAchievement entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Measure_ID() <= 0) {
+		if (entity.getPA_Measure_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMeasure> dataLoader =

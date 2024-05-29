@@ -31,7 +31,7 @@ public class X_M_ChangeRequestResolver extends POResolver<MChangeRequest> implem
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	public CompletableFuture<MChangeNotice> M_ChangeNotice(MChangeRequest entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ChangeNotice_ID() <= 0) {
+		if (entity.getM_ChangeNotice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_ChangeRequestResolver extends POResolver<MChangeRequest> implem
 	 * @return Fixed in Change Notice
 	 */
 	public CompletableFuture<MChangeNotice> M_FixChangeNotice(MChangeRequest entity, DataFetchingEnvironment environment) {
-		if (entity.getM_FixChangeNotice_ID() <= 0) {
+		if (entity.getM_FixChangeNotice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
@@ -61,7 +61,7 @@ public class X_M_ChangeRequestResolver extends POResolver<MChangeRequest> implem
 	 * @return BOM & Formula
 	 */
 	public CompletableFuture<MPPProductBOM> PP_Product_BOM(MChangeRequest entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_BOM_ID() <= 0) {
+		if (entity.getPP_Product_BOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =

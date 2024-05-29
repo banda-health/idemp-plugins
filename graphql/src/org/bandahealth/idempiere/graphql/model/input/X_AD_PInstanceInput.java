@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_PInstanceResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
@@ -332,7 +333,12 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	public void setNotificationTypeInput(ForeignEntityInput NotificationType) {
 		this.mNotificationType = NotificationType;
 		if (NotificationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_PInstanceResolver.NOTIFICATIONTYPE_UUIDS_BY_VALUE.containsValue(NotificationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + NotificationType.getUU() +
+						" is not in the list defined for the NotificationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

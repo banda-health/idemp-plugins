@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_I_PaymentResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -335,7 +336,12 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	public void setCreditCardTypeInput(ForeignEntityInput CreditCardType) {
 		this.mCreditCardType = CreditCardType;
 		if (CreditCardType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_PaymentResolver.CREDITCARDTYPE_UUIDS_BY_VALUE.containsValue(CreditCardType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CreditCardType.getUU() +
+						" is not in the list defined for the CreditCardType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -398,7 +404,12 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	public void setTenderTypeInput(ForeignEntityInput TenderType) {
 		this.mTenderType = TenderType;
 		if (TenderType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_PaymentResolver.TENDERTYPE_UUIDS_BY_VALUE.containsValue(TenderType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TenderType.getUU() +
+						" is not in the list defined for the TenderType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -432,7 +443,12 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	public void setTrxTypeInput(ForeignEntityInput TrxType) {
 		this.mTrxType = TrxType;
 		if (TrxType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_PaymentResolver.TRXTYPE_UUIDS_BY_VALUE.containsValue(TrxType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TrxType.getUU() +
+						" is not in the list defined for the TrxType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

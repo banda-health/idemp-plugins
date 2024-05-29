@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_TaxType(UU: String!): C_TaxType
 	C_TaxTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxTypeConnection!
 }
 

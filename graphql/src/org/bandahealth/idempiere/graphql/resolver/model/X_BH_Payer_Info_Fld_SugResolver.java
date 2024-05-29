@@ -25,10 +25,10 @@ public class X_BH_Payer_Info_Fld_SugResolver extends POResolver<MBHPayerInfoFldS
 		return entity.isBH_FillFromPatient();
 	}
 
-	static Map<String, String> BH_PAYERINFOFIELDDATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BH_PAYERINFOFIELDDATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("T", "30c39cd3-e132-4b80-811e-74c5e06f8fae");
-			put("L", "5be1018a-8aa1-4f9a-8ec9-a022fa3675b9");
+			put("T", "30c39cd3-e132-4b80-811e-74c5e06f8fae"); // Text
+			put("L", "5be1018a-8aa1-4f9a-8ec9-a022fa3675b9"); // List
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_PayerInfoFieldDataType(MBHPayerInfoFldSug entity, DataFetchingEnvironment environment) {
@@ -40,11 +40,11 @@ public class X_BH_Payer_Info_Fld_SugResolver extends POResolver<MBHPayerInfoFldS
 		return dataLoader.load(BH_PAYERINFOFIELDDATATYPE_UUIDS_BY_VALUE.get(entity.getBH_PayerInfoFieldDataType()));
 	}
 
-	static Map<String, String> BH_SUBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BH_SUBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "d8547f6d-5ad0-4025-b8f8-0f4796cf9d0f");
-			put("W", "406d22a4-b3ee-48e4-9bba-7031f653aa06");
-			put("D", "4782b135-a84e-4eb9-ae3d-88c872a030ce");
+			put("I", "d8547f6d-5ad0-4025-b8f8-0f4796cf9d0f"); // Insurance
+			put("W", "406d22a4-b3ee-48e4-9bba-7031f653aa06"); // Waiver
+			put("D", "4782b135-a84e-4eb9-ae3d-88c872a030ce"); // Donation
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_SubType(MBHPayerInfoFldSug entity, DataFetchingEnvironment environment) {

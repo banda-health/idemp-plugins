@@ -30,7 +30,7 @@ public class X_AD_ViewComponentResolver extends POResolver<MViewComponent> imple
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MViewComponent entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -84,7 +84,7 @@ public class X_AD_ViewComponentResolver extends POResolver<MViewComponent> imple
 	 * @return Referenced Table
 	 */
 	public CompletableFuture<MTable> Referenced_Table(MViewComponent entity, DataFetchingEnvironment environment) {
-		if (entity.getReferenced_Table_ID() <= 0) {
+		if (entity.getReferenced_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

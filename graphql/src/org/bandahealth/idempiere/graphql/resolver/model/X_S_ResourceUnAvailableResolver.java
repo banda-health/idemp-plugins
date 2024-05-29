@@ -25,7 +25,7 @@ public class X_S_ResourceUnAvailableResolver extends POResolver<MResourceUnAvail
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(MResourceUnAvailable entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() <= 0) {
+		if (entity.getS_Resource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =

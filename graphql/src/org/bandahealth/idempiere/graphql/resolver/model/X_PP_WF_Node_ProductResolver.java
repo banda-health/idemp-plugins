@@ -34,7 +34,7 @@ public class X_PP_WF_Node_ProductResolver extends POResolver<X_PP_WF_Node_Produc
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Node(X_PP_WF_Node_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Node_ID() <= 0) {
+		if (entity.getAD_WF_Node_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
@@ -42,11 +42,11 @@ public class X_PP_WF_Node_ProductResolver extends POResolver<X_PP_WF_Node_Produc
 		return dataLoader.load(entity.getAD_WF_Node_ID());
 	}
 
-	static Map<String, String> CONFIGURATIONLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CONFIGURATIONLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "5082304d-ef0d-4a87-bbbd-9ccbd6ebef70");
-			put("C", "fb37a0ab-7f1d-4d10-a10e-45e7abd78912");
-			put("O", "9a59998a-05e5-44ed-a9d4-588c932a6726");
+			put("S", "5082304d-ef0d-4a87-bbbd-9ccbd6ebef70"); // System
+			put("C", "fb37a0ab-7f1d-4d10-a10e-45e7abd78912"); // Client
+			put("O", "9a59998a-05e5-44ed-a9d4-588c932a6726"); // Organization
 		}
 	};
 	public CompletableFuture<MRefList_BH> ConfigurationLevel(X_PP_WF_Node_Product entity, DataFetchingEnvironment environment) {
@@ -100,7 +100,7 @@ public class X_PP_WF_Node_ProductResolver extends POResolver<X_PP_WF_Node_Produc
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_PP_WF_Node_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

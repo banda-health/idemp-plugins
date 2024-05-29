@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_InfoWindow_Access(UU: String!): AD_InfoWindow_Access
 	AD_InfoWindow_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_InfoWindow_AccessConnection!
 }
 

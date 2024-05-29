@@ -27,7 +27,7 @@ public class X_AD_Form_AccessResolver extends POResolver<MFormAccess> implements
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(MFormAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() <= 0) {
+		if (entity.getAD_Form_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_Form_AccessResolver extends POResolver<MFormAccess> implements
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MFormAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =

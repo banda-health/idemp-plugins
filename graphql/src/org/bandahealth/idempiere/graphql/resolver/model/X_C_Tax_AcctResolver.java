@@ -29,7 +29,7 @@ public class X_C_Tax_AcctResolver extends POResolver<X_C_Tax_Acct> implements Gr
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_C_Tax_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_Tax_AcctResolver extends POResolver<X_C_Tax_Acct> implements Gr
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(X_C_Tax_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() <= 0) {
+		if (entity.getC_Tax_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_Tax_AcctResolver extends POResolver<X_C_Tax_Acct> implements Gr
 	 * @return Account for Tax you can reclaim
 	 */
 	public CompletableFuture<MAccount> T_Credit_A(X_C_Tax_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getT_Credit_Acct() <= 0) {
+		if (entity.getT_Credit_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -74,7 +74,7 @@ public class X_C_Tax_AcctResolver extends POResolver<X_C_Tax_Acct> implements Gr
 	 * @return Account for Tax you have to pay
 	 */
 	public CompletableFuture<MAccount> T_Due_A(X_C_Tax_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getT_Due_Acct() <= 0) {
+		if (entity.getT_Due_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_Tax_AcctResolver extends POResolver<X_C_Tax_Acct> implements Gr
 	 * @return Account for paid tax you cannot reclaim
 	 */
 	public CompletableFuture<MAccount> T_Expense_A(X_C_Tax_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getT_Expense_Acct() <= 0) {
+		if (entity.getT_Expense_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

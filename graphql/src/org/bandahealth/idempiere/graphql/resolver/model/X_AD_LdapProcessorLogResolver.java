@@ -25,7 +25,7 @@ public class X_AD_LdapProcessorLogResolver extends POResolver<MLdapProcessorLog>
 	 * @return LDAP Server to authenticate and authorize external systems based on iDempiere
 	 */
 	public CompletableFuture<MLdapProcessor> AD_LdapProcessor(MLdapProcessorLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_LdapProcessor_ID() <= 0) {
+		if (entity.getAD_LdapProcessor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLdapProcessor> dataLoader =

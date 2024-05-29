@@ -34,7 +34,7 @@ public class X_AD_SearchDefinitionResolver extends POResolver<MSearchDefinition>
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MSearchDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_SearchDefinitionResolver extends POResolver<MSearchDefinition>
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MSearchDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -64,7 +64,7 @@ public class X_AD_SearchDefinitionResolver extends POResolver<MSearchDefinition>
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MSearchDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -114,7 +114,7 @@ public class X_AD_SearchDefinitionResolver extends POResolver<MSearchDefinition>
 	 * @return Purchase Order Window
 	 */
 	public CompletableFuture<MWindow> PO_Window(MSearchDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_Window_ID() <= 0) {
+		if (entity.getPO_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

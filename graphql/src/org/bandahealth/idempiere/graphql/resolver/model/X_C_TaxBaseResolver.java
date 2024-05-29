@@ -21,12 +21,12 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_TaxBaseResolver extends POResolver<X_C_TaxBase> implements GraphQLResolver<X_C_TaxBase> {
 
 
-	static Map<String, String> BASE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BASE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "43591f8f-4a8b-40c3-9418-165c0f8ae93b");
-			put("P", "44c04e7c-02e7-4bc0-b2ef-29d579e041c2");
-			put("Q", "f3a61fa4-4e81-4c25-9a18-5c505b1a1f3f");
-			put("W", "960bcc55-b06f-423f-b401-2dd150d98703");
+			put("C", "43591f8f-4a8b-40c3-9418-165c0f8ae93b"); // Cost
+			put("P", "44c04e7c-02e7-4bc0-b2ef-29d579e041c2"); // Price
+			put("Q", "f3a61fa4-4e81-4c25-9a18-5c505b1a1f3f"); // Quantity
+			put("W", "960bcc55-b06f-423f-b401-2dd150d98703"); // Weight
 		}
 	};
 	public CompletableFuture<MRefList_BH> Base(X_C_TaxBase entity, DataFetchingEnvironment environment) {

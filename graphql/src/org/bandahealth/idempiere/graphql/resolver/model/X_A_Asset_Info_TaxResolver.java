@@ -30,7 +30,7 @@ public class X_A_Asset_Info_TaxResolver extends POResolver<X_A_Asset_Info_Tax> i
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_A_Asset_Info_Tax entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -38,12 +38,12 @@ public class X_A_Asset_Info_TaxResolver extends POResolver<X_A_Asset_Info_Tax> i
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
-	static Map<String, String> A_FINANCE_METH_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_FINANCE_METH_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("CL", "5ee7a631-64da-4d26-a809-aff598643ec1");
-			put("NL", "411c5e65-0846-4984-ab10-009190a4c61d");
-			put("OW", "588fd084-de7d-46fc-819d-e7a2ce3ac705");
-			put("RE", "d7cbc9fa-35e6-4e71-9c8e-69f2777e33d4");
+			put("CL", "5ee7a631-64da-4d26-a809-aff598643ec1"); // Capitalized Lease
+			put("NL", "411c5e65-0846-4984-ab10-009190a4c61d"); // Non-Capitalized Lease
+			put("OW", "588fd084-de7d-46fc-819d-e7a2ce3ac705"); // Owned
+			put("RE", "d7cbc9fa-35e6-4e71-9c8e-69f2777e33d4"); // Rented
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Finance_Meth(X_A_Asset_Info_Tax entity, DataFetchingEnvironment environment) {

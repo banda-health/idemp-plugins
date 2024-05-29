@@ -48,7 +48,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Account used
 	 */
 	public CompletableFuture<MElementValue> Account(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getAccount_ID() <= 0) {
+		if (entity.getAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -115,7 +115,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -130,7 +130,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -145,7 +145,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -160,7 +160,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -175,7 +175,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -190,7 +190,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Location that inventory was moved from
 	 */
 	public CompletableFuture<MLocation> C_LocFrom(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocFrom_ID() <= 0) {
+		if (entity.getC_LocFrom_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -205,7 +205,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Location that inventory was moved to
 	 */
 	public CompletableFuture<MLocation> C_LocTo(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocTo_ID() <= 0) {
+		if (entity.getC_LocTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -220,7 +220,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -235,7 +235,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() <= 0) {
+		if (entity.getC_SalesRegion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -258,7 +258,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -266,13 +266,13 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
-	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc"); // Actual
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e"); // Budget
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d"); // Commitment
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb"); // Statistical
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5"); // Reservation
 		}
 	};
 	public CompletableFuture<MRefList_BH> PostingType(MDistribution entity, DataFetchingEnvironment environment) {
@@ -295,7 +295,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -310,7 +310,7 @@ public class X_GL_DistributionResolver extends POResolver<MDistribution> impleme
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

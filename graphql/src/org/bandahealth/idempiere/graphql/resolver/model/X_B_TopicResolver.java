@@ -27,7 +27,7 @@ public class X_B_TopicResolver extends POResolver<X_B_Topic> implements GraphQLR
 	 * @return Auction Topic Category
 	 */
 	public CompletableFuture<X_B_TopicCategory> B_TopicCategory(X_B_Topic entity, DataFetchingEnvironment environment) {
-		if (entity.getB_TopicCategory_ID() <= 0) {
+		if (entity.getB_TopicCategory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_B_TopicCategory> dataLoader =
@@ -42,7 +42,7 @@ public class X_B_TopicResolver extends POResolver<X_B_Topic> implements GraphQLR
 	 * @return Auction Topic Type
 	 */
 	public CompletableFuture<X_B_TopicType> B_TopicType(X_B_Topic entity, DataFetchingEnvironment environment) {
-		if (entity.getB_TopicType_ID() <= 0) {
+		if (entity.getB_TopicType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_B_TopicType> dataLoader =

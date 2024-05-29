@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_T_ReportDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_T_Report;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for T_Report - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_T_ReportQuery extends POQuery<X_T_Report> implements GraphQLQuery
 	@Override
 	protected String getTableName() {
 		return X_T_Report.Table_Name;
+	}
+
+	public CompletableFuture<X_T_Report> T_Report(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_T_Report> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_T_ReportDataLoader.DATALOADER_T_Report_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_T_Report> T_ReportGet(int Page, int PageSize, String Sort, String Filter,

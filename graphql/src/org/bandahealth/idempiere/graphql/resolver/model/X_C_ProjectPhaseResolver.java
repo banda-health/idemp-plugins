@@ -36,7 +36,7 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MProjectPhase entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -51,7 +51,7 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 	 * @return Standard Phase of the Project Type
 	 */
 	public CompletableFuture<MProjectTypePhase> C_Phase(MProjectPhase entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Phase_ID() <= 0) {
+		if (entity.getC_Phase_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTypePhase> dataLoader =
@@ -66,7 +66,7 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MProjectPhase entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MProjectPhase entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -97,13 +97,13 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
-	static Map<String, String> PROJINVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PROJINVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("-", "b2c13436-dfd4-4b95-a0fe-a0429485d425");
-			put("C", "4311a616-dbf6-4e2a-bc9b-a7726e4f075c");
-			put("c", "e9bbae09-f9ce-4dfd-a9d6-487109574052");
-			put("T", "f724e224-f0fb-4575-94ae-b4aa8e6c8c54");
-			put("P", "c6d2fa2b-6f89-41b1-9e53-db77217d3ff1");
+			put("-", "b2c13436-dfd4-4b95-a0fe-a0429485d425"); // None
+			put("C", "4311a616-dbf6-4e2a-bc9b-a7726e4f075c"); // Committed Amount
+			put("c", "e9bbae09-f9ce-4dfd-a9d6-487109574052"); // Time&Material max Comitted
+			put("T", "f724e224-f0fb-4575-94ae-b4aa8e6c8c54"); // Time&Material
+			put("P", "c6d2fa2b-6f89-41b1-9e53-db77217d3ff1"); // Product  Quantity
 		}
 	};
 	public CompletableFuture<MRefList_BH> ProjInvoiceRule(MProjectPhase entity, DataFetchingEnvironment environment) {

@@ -35,7 +35,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(X_M_PromotionPreCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -50,7 +50,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(X_M_PromotionPreCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() <= 0) {
+		if (entity.getC_BP_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -65,7 +65,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_M_PromotionPreCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -80,7 +80,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(X_M_PromotionPreCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() <= 0) {
+		if (entity.getM_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -95,7 +95,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 	 * @return Promotion
 	 */
 	public CompletableFuture<X_M_Promotion> M_Promotion(X_M_PromotionPreCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Promotion_ID() <= 0) {
+		if (entity.getM_Promotion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_Promotion> dataLoader =
@@ -110,7 +110,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_M_PromotionPreCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

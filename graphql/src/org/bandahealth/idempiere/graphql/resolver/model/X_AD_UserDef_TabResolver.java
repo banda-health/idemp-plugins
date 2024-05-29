@@ -34,7 +34,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MUserDefTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MUserDefTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() <= 0) {
+		if (entity.getAD_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -64,7 +64,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 	 * @return User defined Window
 	 */
 	public CompletableFuture<MUserDefWin> AD_UserDef_Win(MUserDefTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_UserDef_Win_ID() <= 0) {
+		if (entity.getAD_UserDef_Win_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUserDefWin> dataLoader =
@@ -72,10 +72,10 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 		return dataLoader.load(entity.getAD_UserDef_Win_ID());
 	}
 
-	static Map<String, String> ISALLOWADVANCEDLOOKUP_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISALLOWADVANCEDLOOKUP_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsAllowAdvancedLookup(MUserDefTab entity, DataFetchingEnvironment environment) {
@@ -87,10 +87,10 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 		return dataLoader.load(ISALLOWADVANCEDLOOKUP_UUIDS_BY_VALUE.get(entity.getIsAllowAdvancedLookup()));
 	}
 
-	static Map<String, String> ISHIGHVOLUME_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISHIGHVOLUME_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsHighVolume(MUserDefTab entity, DataFetchingEnvironment environment) {
@@ -102,10 +102,10 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 		return dataLoader.load(ISHIGHVOLUME_UUIDS_BY_VALUE.get(entity.getIsHighVolume()));
 	}
 
-	static Map<String, String> ISLOOKUPONLYSELECTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISLOOKUPONLYSELECTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsLookupOnlySelection(MUserDefTab entity, DataFetchingEnvironment environment) {
@@ -121,10 +121,10 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 		return entity.isMultiRowOnly();
 	}
 
-	static Map<String, String> ISREADONLY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISREADONLY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsReadOnly(MUserDefTab entity, DataFetchingEnvironment environment) {
@@ -136,10 +136,10 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 		return dataLoader.load(ISREADONLY_UUIDS_BY_VALUE.get(entity.getIsReadOnly()));
 	}
 
-	static Map<String, String> ISSINGLEROW_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISSINGLEROW_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsSingleRow(MUserDefTab entity, DataFetchingEnvironment environment) {

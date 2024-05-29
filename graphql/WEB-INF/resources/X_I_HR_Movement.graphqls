@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	I_HR_Movement(UU: String!): I_HR_Movement
 	I_HR_MovementGet(Page: Int, Size: Int, Sort: String, Filter: String): I_HR_MovementConnection!
 }
 

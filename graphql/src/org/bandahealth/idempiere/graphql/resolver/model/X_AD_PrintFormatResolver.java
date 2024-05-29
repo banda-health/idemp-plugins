@@ -46,7 +46,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 	 * @return Color used for printing and display
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor_ID() <= 0) {
+		if (entity.getAD_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -61,7 +61,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 	 * @return Maintain Print Font
 	 */
 	public CompletableFuture<X_AD_PrintFont> AD_PrintFont(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFont_ID() <= 0) {
+		if (entity.getAD_PrintFont_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
@@ -76,7 +76,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 	 * @return Print Header/Footer
 	 */
 	public CompletableFuture<X_AD_PrintHeaderFooter> AD_PrintHeaderFooter(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintHeaderFooter_ID() <= 0) {
+		if (entity.getAD_PrintHeaderFooter_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintHeaderFooter> dataLoader =
@@ -91,7 +91,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 	 * @return Printer paper definition
 	 */
 	public CompletableFuture<X_AD_PrintPaper> AD_PrintPaper(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintPaper_ID() <= 0) {
+		if (entity.getAD_PrintPaper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintPaper> dataLoader =
@@ -106,7 +106,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 	 * @return Table Format in Reports
 	 */
 	public CompletableFuture<X_AD_PrintTableFormat> AD_PrintTableFormat(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintTableFormat_ID() <= 0) {
+		if (entity.getAD_PrintTableFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintTableFormat> dataLoader =
@@ -121,7 +121,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 	 * @return View used to generate this report
 	 */
 	public CompletableFuture<MReportView> AD_ReportView(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReportView_ID() <= 0) {
+		if (entity.getAD_ReportView_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReportView> dataLoader =
@@ -136,7 +136,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -151,7 +151,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -218,7 +218,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 	 * @return The Jasper Process used by the print engine if any process defined
 	 */
 	public CompletableFuture<MProcess_BH> JasperProcess(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getJasperProcess_ID() <= 0) {
+		if (entity.getJasperProcess_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =

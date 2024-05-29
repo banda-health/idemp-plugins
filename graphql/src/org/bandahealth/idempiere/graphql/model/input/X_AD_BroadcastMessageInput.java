@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_BroadcastMessageResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -184,7 +185,12 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	public void setBroadcastFrequencyInput(ForeignEntityInput BroadcastFrequency) {
 		this.mBroadcastFrequency = BroadcastFrequency;
 		if (BroadcastFrequency != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_BroadcastMessageResolver.BROADCASTFREQUENCY_UUIDS_BY_VALUE.containsValue(BroadcastFrequency.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BroadcastFrequency.getUU() +
+						" is not in the list defined for the BroadcastFrequency column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -218,7 +224,12 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	public void setBroadcastTypeInput(ForeignEntityInput BroadcastType) {
 		this.mBroadcastType = BroadcastType;
 		if (BroadcastType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_BroadcastMessageResolver.BROADCASTTYPE_UUIDS_BY_VALUE.containsValue(BroadcastType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BroadcastType.getUU() +
+						" is not in the list defined for the BroadcastType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -252,7 +263,12 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	public void setTargetInput(ForeignEntityInput Target) {
 		this.mTarget = Target;
 		if (Target != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_BroadcastMessageResolver.TARGET_UUIDS_BY_VALUE.containsValue(Target.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Target.getUU() +
+						" is not in the list defined for the Target column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

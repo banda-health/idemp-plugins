@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_ASP_ModuleDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_ASP_Module;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for ASP_Module - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_ASP_ModuleQuery extends POQuery<X_ASP_Module> implements GraphQLQ
 	@Override
 	protected String getTableName() {
 		return X_ASP_Module.Table_Name;
+	}
+
+	public CompletableFuture<X_ASP_Module> ASP_Module(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_ASP_Module> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_ASP_ModuleDataLoader.DATALOADER_ASP_Module_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_ASP_Module> ASP_ModuleGet(int Page, int PageSize, String Sort, String Filter,

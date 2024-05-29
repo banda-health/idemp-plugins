@@ -27,7 +27,7 @@ public class X_C_AcctSchema_GLResolver extends POResolver<MAcctSchemaGL> impleme
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MAcctSchemaGL entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_AcctSchema_GLResolver extends POResolver<MAcctSchemaGL> impleme
 	 * @return Budgetary Commitment Offset Account
 	 */
 	public CompletableFuture<MAccount> CommitmentOffset_A(MAcctSchemaGL entity, DataFetchingEnvironment environment) {
-		if (entity.getCommitmentOffset_Acct() <= 0) {
+		if (entity.getCommitmentOffset_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -57,7 +57,7 @@ public class X_C_AcctSchema_GLResolver extends POResolver<MAcctSchemaGL> impleme
 	 * @return Budgetary Commitment Offset Account for Sales
 	 */
 	public CompletableFuture<MAccount> CommitmentOffsetSales_A(MAcctSchemaGL entity, DataFetchingEnvironment environment) {
-		if (entity.getCommitmentOffsetSales_Acct() <= 0) {
+		if (entity.getCommitmentOffsetSales_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -72,7 +72,7 @@ public class X_C_AcctSchema_GLResolver extends POResolver<MAcctSchemaGL> impleme
 	 * @return Account used when a currency is out of balance
 	 */
 	public CompletableFuture<MAccount> CurrencyBalancing_A(MAcctSchemaGL entity, DataFetchingEnvironment environment) {
-		if (entity.getCurrencyBalancing_Acct() <= 0) {
+		if (entity.getCurrencyBalancing_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -87,7 +87,7 @@ public class X_C_AcctSchema_GLResolver extends POResolver<MAcctSchemaGL> impleme
 	 * @return Intercompany Due From / Receivables Account
 	 */
 	public CompletableFuture<MAccount> IntercompanyDueFrom_A(MAcctSchemaGL entity, DataFetchingEnvironment environment) {
-		if (entity.getIntercompanyDueFrom_Acct() <= 0) {
+		if (entity.getIntercompanyDueFrom_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -102,7 +102,7 @@ public class X_C_AcctSchema_GLResolver extends POResolver<MAcctSchemaGL> impleme
 	 * @return Intercompany Due To / Payable Account
 	 */
 	public CompletableFuture<MAccount> IntercompanyDueTo_A(MAcctSchemaGL entity, DataFetchingEnvironment environment) {
-		if (entity.getIntercompanyDueTo_Acct() <= 0) {
+		if (entity.getIntercompanyDueTo_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -117,7 +117,7 @@ public class X_C_AcctSchema_GLResolver extends POResolver<MAcctSchemaGL> impleme
 	 * @return Purchase Price Variance Offset Account
 	 */
 	public CompletableFuture<MAccount> PPVOffset_A(MAcctSchemaGL entity, DataFetchingEnvironment environment) {
-		if (entity.getPPVOffset_Acct() <= 0) {
+		if (entity.getPPVOffset_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -132,7 +132,7 @@ public class X_C_AcctSchema_GLResolver extends POResolver<MAcctSchemaGL> impleme
 	 * @return Suspense Balancing Acct
 	 */
 	public CompletableFuture<MAccount> SuspenseBalancing_A(MAcctSchemaGL entity, DataFetchingEnvironment environment) {
-		if (entity.getSuspenseBalancing_Acct() <= 0) {
+		if (entity.getSuspenseBalancing_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

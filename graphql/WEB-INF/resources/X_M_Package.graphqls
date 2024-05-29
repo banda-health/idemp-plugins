@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_Package(UU: String!): M_Package
 	M_PackageGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PackageConnection!
 }
 

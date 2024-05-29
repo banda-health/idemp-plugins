@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_AllUsers_V(UU: String!): AD_AllUsers_V
 	AD_AllUsers_VGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AllUsers_VConnection!
 }
 

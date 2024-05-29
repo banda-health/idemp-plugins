@@ -27,7 +27,7 @@ public class X_C_CyclePhaseResolver extends POResolver<X_C_CyclePhase> implement
 	 * @return The step for this Cycle
 	 */
 	public CompletableFuture<X_C_CycleStep> C_CycleStep(X_C_CyclePhase entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CycleStep_ID() <= 0) {
+		if (entity.getC_CycleStep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_CycleStep> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_CyclePhaseResolver extends POResolver<X_C_CyclePhase> implement
 	 * @return Standard Phase of the Project Type
 	 */
 	public CompletableFuture<MProjectTypePhase> C_Phase(X_C_CyclePhase entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Phase_ID() <= 0) {
+		if (entity.getC_Phase_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTypePhase> dataLoader =

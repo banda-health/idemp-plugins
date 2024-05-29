@@ -32,7 +32,7 @@ public class X_M_MatchInvResolver extends POResolver<MMatchInv> implements Graph
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MMatchInv entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() <= 0) {
+		if (entity.getC_InvoiceLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -47,7 +47,7 @@ public class X_M_MatchInvResolver extends POResolver<MMatchInv> implements Graph
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MMatchInv entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -62,7 +62,7 @@ public class X_M_MatchInvResolver extends POResolver<MMatchInv> implements Graph
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MMatchInv entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -77,7 +77,7 @@ public class X_M_MatchInvResolver extends POResolver<MMatchInv> implements Graph
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MMatchInv entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -104,7 +104,7 @@ public class X_M_MatchInvResolver extends POResolver<MMatchInv> implements Graph
 	 * @return Referenced Match Invoice
 	 */
 	public CompletableFuture<MMatchInv> Ref_MatchInv(MMatchInv entity, DataFetchingEnvironment environment) {
-		if (entity.getRef_MatchInv_ID() <= 0) {
+		if (entity.getRef_MatchInv_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMatchInv> dataLoader =
@@ -119,7 +119,7 @@ public class X_M_MatchInvResolver extends POResolver<MMatchInv> implements Graph
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MMatchInv> Reversal(MMatchInv entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() <= 0) {
+		if (entity.getReversal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMatchInv> dataLoader =

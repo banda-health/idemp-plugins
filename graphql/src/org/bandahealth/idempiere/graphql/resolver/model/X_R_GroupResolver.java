@@ -27,7 +27,7 @@ public class X_R_GroupResolver extends POResolver<MGroup> implements GraphQLReso
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	public CompletableFuture<MChangeNotice> M_ChangeNotice(MGroup entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ChangeNotice_ID() <= 0) {
+		if (entity.getM_ChangeNotice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
@@ -42,7 +42,7 @@ public class X_R_GroupResolver extends POResolver<MGroup> implements GraphQLReso
 	 * @return BOM & Formula
 	 */
 	public CompletableFuture<MPPProductBOM> PP_Product_BOM(MGroup entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_BOM_ID() <= 0) {
+		if (entity.getPP_Product_BOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =

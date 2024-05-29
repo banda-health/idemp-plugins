@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_UserBPAccessResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRequestType;
@@ -149,7 +150,12 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	public void setBPAccessTypeInput(ForeignEntityInput BPAccessType) {
 		this.mBPAccessType = BPAccessType;
 		if (BPAccessType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserBPAccessResolver.BPACCESSTYPE_UUIDS_BY_VALUE.containsValue(BPAccessType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BPAccessType.getUU() +
+						" is not in the list defined for the BPAccessType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -183,7 +189,12 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	public void setDocBaseTypeInput(ForeignEntityInput DocBaseType) {
 		this.mDocBaseType = DocBaseType;
 		if (DocBaseType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserBPAccessResolver.DOCBASETYPE_UUIDS_BY_VALUE.containsValue(DocBaseType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocBaseType.getUU() +
+						" is not in the list defined for the DocBaseType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

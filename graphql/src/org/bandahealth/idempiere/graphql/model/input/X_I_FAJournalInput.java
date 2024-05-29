@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_I_FAJournalResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
@@ -668,7 +669,12 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	public void setCurrencyRateTypeInput(ForeignEntityInput CurrencyRateType) {
 		this.mCurrencyRateType = CurrencyRateType;
 		if (CurrencyRateType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_FAJournalResolver.CURRENCYRATETYPE_UUIDS_BY_VALUE.containsValue(CurrencyRateType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CurrencyRateType.getUU() +
+						" is not in the list defined for the CurrencyRateType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -935,7 +941,12 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_FAJournalResolver.POSTINGTYPE_UUIDS_BY_VALUE.containsValue(PostingType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PostingType.getUU() +
+						" is not in the list defined for the PostingType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

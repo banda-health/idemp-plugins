@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PA_DashboardContentResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChart;
 import org.compiere.model.MDashboardContent;
@@ -335,7 +336,12 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	public void setGoalDisplayInput(ForeignEntityInput GoalDisplay) {
 		this.mGoalDisplay = GoalDisplay;
 		if (GoalDisplay != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_DashboardContentResolver.GOALDISPLAY_UUIDS_BY_VALUE.containsValue(GoalDisplay.getUU())) {
+				throw new AdempiereException("The reference list UU of " + GoalDisplay.getUU() +
+						" is not in the list defined for the GoalDisplay column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

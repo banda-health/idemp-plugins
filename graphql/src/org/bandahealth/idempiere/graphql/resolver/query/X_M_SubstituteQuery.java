@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_SubstituteDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_M_Substitute;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for M_Substitute - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_M_SubstituteQuery extends POQuery<X_M_Substitute> implements Grap
 	@Override
 	protected String getTableName() {
 		return X_M_Substitute.Table_Name;
+	}
+
+	public CompletableFuture<X_M_Substitute> M_Substitute(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_M_Substitute> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_SubstituteDataLoader.DATALOADER_M_Substitute_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_M_Substitute> M_SubstituteGet(int Page, int PageSize, String Sort, String Filter,

@@ -27,7 +27,7 @@ public class X_S_Training_ClassResolver extends POResolver<X_S_Training_Class> i
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_S_Training_Class entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_S_Training_ClassResolver extends POResolver<X_S_Training_Class> i
 	 * @return Repeated Training
 	 */
 	public CompletableFuture<X_S_Training> S_Training(X_S_Training_Class entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Training_ID() <= 0) {
+		if (entity.getS_Training_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_S_Training> dataLoader =

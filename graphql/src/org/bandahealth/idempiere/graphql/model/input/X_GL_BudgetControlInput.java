@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_GL_BudgetControlResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MOrg;
@@ -83,7 +84,12 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	public void setBudgetControlScopeInput(ForeignEntityInput BudgetControlScope) {
 		this.mBudgetControlScope = BudgetControlScope;
 		if (BudgetControlScope != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_GL_BudgetControlResolver.BUDGETCONTROLSCOPE_UUIDS_BY_VALUE.containsValue(BudgetControlScope.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BudgetControlScope.getUU() +
+						" is not in the list defined for the BudgetControlScope column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -151,7 +157,12 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	public void setCommitmentTypeInput(ForeignEntityInput CommitmentType) {
 		this.mCommitmentType = CommitmentType;
 		if (CommitmentType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_GL_BudgetControlResolver.COMMITMENTTYPE_UUIDS_BY_VALUE.containsValue(CommitmentType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CommitmentType.getUU() +
+						" is not in the list defined for the CommitmentType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

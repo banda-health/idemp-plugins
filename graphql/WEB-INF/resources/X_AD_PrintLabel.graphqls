@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_PrintLabel(UU: String!): AD_PrintLabel
 	AD_PrintLabelGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintLabelConnection!
 }
 

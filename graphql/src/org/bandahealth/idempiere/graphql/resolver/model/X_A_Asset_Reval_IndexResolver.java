@@ -21,11 +21,11 @@ import java.util.concurrent.CompletableFuture;
 public class X_A_Asset_Reval_IndexResolver extends POResolver<X_A_Asset_Reval_Index> implements GraphQLResolver<X_A_Asset_Reval_Index> {
 
 
-	static Map<String, String> A_REVAL_CODE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_REVAL_CODE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("R01", "f9d5c700-9d0a-46c7-bf06-bf22a808b37d");
-			put("R02", "678f01f7-e046-4f14-a64e-f8fd86e64ff4");
-			put("R03", "374da497-243b-46a1-a10d-5690d37271c5");
+			put("R01", "f9d5c700-9d0a-46c7-bf06-bf22a808b37d"); // Revaluation Code #1
+			put("R02", "678f01f7-e046-4f14-a64e-f8fd86e64ff4"); // Revaluation Code #2
+			put("R03", "374da497-243b-46a1-a10d-5690d37271c5"); // Revaluation Code #3
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Reval_Code(X_A_Asset_Reval_Index entity, DataFetchingEnvironment environment) {
@@ -37,10 +37,10 @@ public class X_A_Asset_Reval_IndexResolver extends POResolver<X_A_Asset_Reval_In
 		return dataLoader.load(A_REVAL_CODE_UUIDS_BY_VALUE.get(entity.getA_Reval_Code()));
 	}
 
-	static Map<String, String> A_REVAL_MULTIPLIER_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_REVAL_MULTIPLIER_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("FAC", "4d179af6-49ab-4e58-907f-ba46f9b7d071");
-			put("IND", "a3202410-8fba-4439-95fb-de3a1f32c568");
+			put("FAC", "4d179af6-49ab-4e58-907f-ba46f9b7d071"); // Factor
+			put("IND", "a3202410-8fba-4439-95fb-de3a1f32c568"); // Index
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Reval_Multiplier(X_A_Asset_Reval_Index entity, DataFetchingEnvironment environment) {

@@ -13,6 +13,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_InOutResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPartnerLocation;
@@ -524,7 +525,12 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public void setDeliveryRuleInput(ForeignEntityInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
 		if (DeliveryRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.DELIVERYRULE_UUIDS_BY_VALUE.containsValue(DeliveryRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DeliveryRule.getUU() +
+						" is not in the list defined for the DeliveryRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -558,7 +564,12 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public void setDeliveryViaRuleInput(ForeignEntityInput DeliveryViaRule) {
 		this.mDeliveryViaRule = DeliveryViaRule;
 		if (DeliveryViaRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.DELIVERYVIARULE_UUIDS_BY_VALUE.containsValue(DeliveryViaRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DeliveryViaRule.getUU() +
+						" is not in the list defined for the DeliveryViaRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -592,7 +603,12 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -626,7 +642,12 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.DOCSTATUS_UUIDS_BY_VALUE.containsValue(DocStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocStatus.getUU() +
+						" is not in the list defined for the DocStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -773,7 +794,12 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public void setFOBInput(ForeignEntityInput FOB) {
 		this.mFOB = FOB;
 		if (FOB != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.FOB_UUIDS_BY_VALUE.containsValue(FOB.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FOB.getUU() +
+						" is not in the list defined for the FOB column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -807,7 +833,12 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public void setFreightChargesInput(ForeignEntityInput FreightCharges) {
 		this.mFreightCharges = FreightCharges;
 		if (FreightCharges != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.FREIGHTCHARGES_UUIDS_BY_VALUE.containsValue(FreightCharges.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FreightCharges.getUU() +
+						" is not in the list defined for the FreightCharges column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -841,7 +872,12 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public void setFreightCostRuleInput(ForeignEntityInput FreightCostRule) {
 		this.mFreightCostRule = FreightCostRule;
 		if (FreightCostRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.FREIGHTCOSTRULE_UUIDS_BY_VALUE.containsValue(FreightCostRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FreightCostRule.getUU() +
+						" is not in the list defined for the FreightCostRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -875,7 +911,12 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public void setInsuranceInput(ForeignEntityInput Insurance) {
 		this.mInsurance = Insurance;
 		if (Insurance != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.INSURANCE_UUIDS_BY_VALUE.containsValue(Insurance.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Insurance.getUU() +
+						" is not in the list defined for the Insurance column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1046,7 +1087,12 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 			return;
 		}
 		if (MovementType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.MOVEMENTTYPE_UUIDS_BY_VALUE.containsValue(MovementType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + MovementType.getUU() +
+						" is not in the list defined for the MovementType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1091,7 +1137,12 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public void setPriorityRuleInput(ForeignEntityInput PriorityRule) {
 		this.mPriorityRule = PriorityRule;
 		if (PriorityRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.PRIORITYRULE_UUIDS_BY_VALUE.containsValue(PriorityRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PriorityRule.getUU() +
+						" is not in the list defined for the PriorityRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

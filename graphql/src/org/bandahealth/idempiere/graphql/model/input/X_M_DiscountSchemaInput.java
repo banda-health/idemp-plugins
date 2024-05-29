@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_DiscountSchemaResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MOrg;
@@ -82,7 +83,12 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	public void setCumulativeLevelInput(ForeignEntityInput CumulativeLevel) {
 		this.mCumulativeLevel = CumulativeLevel;
 		if (CumulativeLevel != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_DiscountSchemaResolver.CUMULATIVELEVEL_UUIDS_BY_VALUE.containsValue(CumulativeLevel.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CumulativeLevel.getUU() +
+						" is not in the list defined for the CumulativeLevel column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -116,7 +122,12 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	public void setDiscountTypeInput(ForeignEntityInput DiscountType) {
 		this.mDiscountType = DiscountType;
 		if (DiscountType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_DiscountSchemaResolver.DISCOUNTTYPE_UUIDS_BY_VALUE.containsValue(DiscountType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DiscountType.getUU() +
+						" is not in the list defined for the DiscountType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

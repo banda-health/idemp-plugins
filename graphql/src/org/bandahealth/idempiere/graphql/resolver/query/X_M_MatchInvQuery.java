@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_MatchInvDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MMatchInv;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for M_MatchInv - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_M_MatchInvQuery extends POQuery<MMatchInv> implements GraphQLQuer
 	@Override
 	protected String getTableName() {
 		return MMatchInv.Table_Name;
+	}
+
+	public CompletableFuture<MMatchInv> M_MatchInv(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MMatchInv> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_MatchInvDataLoader.DATALOADER_M_MatchInv_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MMatchInv> M_MatchInvGet(int Page, int PageSize, String Sort, String Filter,

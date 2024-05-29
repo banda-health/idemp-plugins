@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ModelValidatorDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_AD_ModelValidator;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_ModelValidator - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_ModelValidatorQuery extends POQuery<X_AD_ModelValidator> imple
 	@Override
 	protected String getTableName() {
 		return X_AD_ModelValidator.Table_Name;
+	}
+
+	public CompletableFuture<X_AD_ModelValidator> AD_ModelValidator(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_AD_ModelValidator> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_ModelValidatorDataLoader.DATALOADER_AD_ModelValidator_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_AD_ModelValidator> AD_ModelValidatorGet(int Page, int PageSize, String Sort, String Filter,

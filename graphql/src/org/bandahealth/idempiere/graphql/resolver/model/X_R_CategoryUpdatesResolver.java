@@ -27,7 +27,7 @@ public class X_R_CategoryUpdatesResolver extends POResolver<X_R_CategoryUpdates>
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_R_CategoryUpdates entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -46,7 +46,7 @@ public class X_R_CategoryUpdatesResolver extends POResolver<X_R_CategoryUpdates>
 	 * @return Request Category
 	 */
 	public CompletableFuture<MRequestCategory> R_Category(X_R_CategoryUpdates entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Category_ID() <= 0) {
+		if (entity.getR_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequestCategory> dataLoader =

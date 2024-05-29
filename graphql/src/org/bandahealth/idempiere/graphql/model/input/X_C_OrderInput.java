@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_OrderResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPartnerLocation;
@@ -83,6 +84,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	private ForeignEntityInput mM_PriceList;
 	private ForeignEntityInput mM_Shipper;
 	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mPaymentRule;
 	private ForeignEntityInput mPriorityRule;
 	private ForeignEntityInput mQuotationOrder;
 	private ForeignEntityInput mRef_Order;
@@ -962,7 +964,12 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public void setDeliveryRuleInput(ForeignEntityInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
 		if (DeliveryRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_OrderResolver.DELIVERYRULE_UUIDS_BY_VALUE.containsValue(DeliveryRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DeliveryRule.getUU() +
+						" is not in the list defined for the DeliveryRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -996,7 +1003,12 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public void setDeliveryViaRuleInput(ForeignEntityInput DeliveryViaRule) {
 		this.mDeliveryViaRule = DeliveryViaRule;
 		if (DeliveryViaRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_OrderResolver.DELIVERYVIARULE_UUIDS_BY_VALUE.containsValue(DeliveryViaRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DeliveryViaRule.getUU() +
+						" is not in the list defined for the DeliveryViaRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1030,7 +1042,12 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_OrderResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1064,7 +1081,12 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_OrderResolver.DOCSTATUS_UUIDS_BY_VALUE.containsValue(DocStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocStatus.getUU() +
+						" is not in the list defined for the DocStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1211,7 +1233,12 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public void setFreightCostRuleInput(ForeignEntityInput FreightCostRule) {
 		this.mFreightCostRule = FreightCostRule;
 		if (FreightCostRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_OrderResolver.FREIGHTCOSTRULE_UUIDS_BY_VALUE.containsValue(FreightCostRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FreightCostRule.getUU() +
+						" is not in the list defined for the FreightCostRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1256,7 +1283,12 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public void setInvoiceRuleInput(ForeignEntityInput InvoiceRule) {
 		this.mInvoiceRule = InvoiceRule;
 		if (InvoiceRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_OrderResolver.INVOICERULE_UUIDS_BY_VALUE.containsValue(InvoiceRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + InvoiceRule.getUU() +
+						" is not in the list defined for the InvoiceRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1519,6 +1551,45 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
+
+	/**
+	 * Set Payment Rule.
+	 *
+	 * @param PaymentRule How you pay the invoice
+	 */
+	@JsonProperty("PaymentRule")
+	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
+		this.mPaymentRule = PaymentRule;
+		if (PaymentRule != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_OrderResolver.PAYMENTRULE_UUIDS_BY_VALUE.containsValue(PaymentRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PaymentRule.getUU() +
+						" is not in the list defined for the PaymentRule column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PaymentRule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setPaymentRule(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PaymentRule.getUU());
+			}
+		} else {
+			this.setPaymentRule(null);
+		}
+	}
+
+	/**
+	 * Get Payment Rule.
+	 *
+	 * @return How you pay the invoice
+	 */
+	@JsonProperty("PaymentRule")
+	public ForeignEntityInput PaymentRule() {
+		return mPaymentRule;
+	}
 	/**
 	 * Set Posted.
 	 *
@@ -1540,7 +1611,12 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public void setPriorityRuleInput(ForeignEntityInput PriorityRule) {
 		this.mPriorityRule = PriorityRule;
 		if (PriorityRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_OrderResolver.PRIORITYRULE_UUIDS_BY_VALUE.containsValue(PriorityRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PriorityRule.getUU() +
+						" is not in the list defined for the PriorityRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	R_IssueProject(UU: String!): R_IssueProject
 	R_IssueProjectGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueProjectConnection!
 }
 

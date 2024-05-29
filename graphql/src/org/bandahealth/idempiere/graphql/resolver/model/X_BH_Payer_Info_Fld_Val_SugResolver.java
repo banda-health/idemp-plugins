@@ -25,7 +25,7 @@ public class X_BH_Payer_Info_Fld_Val_SugResolver extends POResolver<MBHPayerInfo
 	 * @return Payer Info Field Suggestion
 	 */
 	public CompletableFuture<MBHPayerInfoFldSug> BH_Payer_Info_Fld_Sug(MBHPayerInfoFldValSug entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Payer_Info_Fld_Sug_ID() <= 0) {
+		if (entity.getBH_Payer_Info_Fld_Sug_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBHPayerInfoFldSug> dataLoader =

@@ -42,7 +42,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() <= 0) {
+		if (entity.getAD_Workflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
@@ -57,7 +57,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -65,17 +65,17 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
-	static Map<String, String> COSTINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COSTINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "d3ba6803-5479-4b30-ba20-6b40e658c5d8");
-			put("A", "29b356c5-1757-4bab-a331-a01b9415f4e6");
-			put("L", "fb47834b-767e-4ffe-b7ea-f690279d4345");
-			put("F", "835a19ab-521e-406c-b0b2-f3e4c64c44b7");
-			put("p", "01741faf-094c-46ed-9266-2d3adac2c504");
-			put("I", "9127a623-4d9b-4a1a-8462-b31d8ddb24ed");
-			put("i", "f4296d4f-761c-4545-a2ec-ca5c86e1b741");
-			put("U", "10ca122c-b77e-410e-8755-5033f17405d4");
-			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b");
+			put("S", "d3ba6803-5479-4b30-ba20-6b40e658c5d8"); // Standard Costing
+			put("A", "29b356c5-1757-4bab-a331-a01b9415f4e6"); // Average PO
+			put("L", "fb47834b-767e-4ffe-b7ea-f690279d4345"); // Lifo
+			put("F", "835a19ab-521e-406c-b0b2-f3e4c64c44b7"); // Fifo
+			put("p", "01741faf-094c-46ed-9266-2d3adac2c504"); // Last PO Price
+			put("I", "9127a623-4d9b-4a1a-8462-b31d8ddb24ed"); // Average Invoice
+			put("i", "f4296d4f-761c-4545-a2ec-ca5c86e1b741"); // Last Invoice
+			put("U", "10ca122c-b77e-410e-8755-5033f17405d4"); // User Defined
+			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b"); // _
 		}
 	};
 	public CompletableFuture<MRefList_BH> CostingMethod(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {
@@ -94,7 +94,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -109,7 +109,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 	 * @return Product Cost Element
 	 */
 	public CompletableFuture<MCostElement> M_CostElement(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostElement_ID() <= 0) {
+		if (entity.getM_CostElement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
@@ -124,7 +124,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
 	public CompletableFuture<MCostType> M_CostType(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostType_ID() <= 0) {
+		if (entity.getM_CostType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostType> dataLoader =
@@ -139,7 +139,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -154,7 +154,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 	 * @return Manufacturing Order
 	 */
 	public CompletableFuture<X_PP_Order> PP_Order(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_ID() <= 0) {
+		if (entity.getPP_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_Year(UU: String!): C_Year
 	C_YearGet(Page: Int, Size: Int, Sort: String, Filter: String): C_YearConnection!
 }
 

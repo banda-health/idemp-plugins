@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	PP_Order_Workflow(UU: String!): PP_Order_Workflow
 	PP_Order_WorkflowGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_WorkflowConnection!
 }
 

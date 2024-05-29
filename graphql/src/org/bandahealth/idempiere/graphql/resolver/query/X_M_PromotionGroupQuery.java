@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PromotionGroupDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_M_PromotionGroup;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for M_PromotionGroup - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_M_PromotionGroupQuery extends POQuery<X_M_PromotionGroup> impleme
 	@Override
 	protected String getTableName() {
 		return X_M_PromotionGroup.Table_Name;
+	}
+
+	public CompletableFuture<X_M_PromotionGroup> M_PromotionGroup(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_M_PromotionGroup> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_PromotionGroupDataLoader.DATALOADER_M_PromotionGroup_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_M_PromotionGroup> M_PromotionGroupGet(int Page, int PageSize, String Sort, String Filter,

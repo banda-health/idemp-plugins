@@ -32,7 +32,7 @@ public class X_AD_Tab_CustomizationResolver extends POResolver<X_AD_Tab_Customiz
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(X_AD_Tab_Customization entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() <= 0) {
+		if (entity.getAD_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_Tab_CustomizationResolver extends POResolver<X_AD_Tab_Customiz
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_AD_Tab_Customization entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -55,10 +55,10 @@ public class X_AD_Tab_CustomizationResolver extends POResolver<X_AD_Tab_Customiz
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
-	static Map<String, String> ISAUTOHIDEEMPTYCOLUMN_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISAUTOHIDEEMPTYCOLUMN_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsAutoHideEmptyColumn(X_AD_Tab_Customization entity, DataFetchingEnvironment environment) {
@@ -70,10 +70,10 @@ public class X_AD_Tab_CustomizationResolver extends POResolver<X_AD_Tab_Customiz
 		return dataLoader.load(ISAUTOHIDEEMPTYCOLUMN_UUIDS_BY_VALUE.get(entity.getIsAutoHideEmptyColumn()));
 	}
 
-	static Map<String, String> ISDISPLAYEDGRID_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISDISPLAYEDGRID_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsDisplayedGrid(X_AD_Tab_Customization entity, DataFetchingEnvironment environment) {

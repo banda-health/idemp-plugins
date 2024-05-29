@@ -37,7 +37,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_InventoryValue entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -52,7 +52,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(X_T_InventoryValue entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -67,7 +67,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_T_InventoryValue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -82,7 +82,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 	 * @return Product Cost Element
 	 */
 	public CompletableFuture<MCostElement> M_CostElement(X_T_InventoryValue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostElement_ID() <= 0) {
+		if (entity.getM_CostElement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
@@ -97,7 +97,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 	 * @return Identifies a unique instance of a Price List
 	 */
 	public CompletableFuture<MPriceListVersion> M_PriceList_Version(X_T_InventoryValue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_Version_ID() <= 0) {
+		if (entity.getM_PriceList_Version_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceListVersion> dataLoader =
@@ -112,7 +112,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_T_InventoryValue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -127,7 +127,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_T_InventoryValue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

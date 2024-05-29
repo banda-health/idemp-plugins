@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_ChartResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChart;
 import org.compiere.model.MEntityType;
@@ -111,7 +112,12 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	public void setChartOrientationInput(ForeignEntityInput ChartOrientation) {
 		this.mChartOrientation = ChartOrientation;
 		if (ChartOrientation != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ChartResolver.CHARTORIENTATION_UUIDS_BY_VALUE.containsValue(ChartOrientation.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ChartOrientation.getUU() +
+						" is not in the list defined for the ChartOrientation column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -145,7 +151,12 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	public void setChartTypeInput(ForeignEntityInput ChartType) {
 		this.mChartType = ChartType;
 		if (ChartType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ChartResolver.CHARTTYPE_UUIDS_BY_VALUE.containsValue(ChartType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ChartType.getUU() +
+						" is not in the list defined for the ChartType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -213,7 +224,12 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	public void setTimeUnitInput(ForeignEntityInput TimeUnit) {
 		this.mTimeUnit = TimeUnit;
 		if (TimeUnit != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ChartResolver.TIMEUNIT_UUIDS_BY_VALUE.containsValue(TimeUnit.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TimeUnit.getUU() +
+						" is not in the list defined for the TimeUnit column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

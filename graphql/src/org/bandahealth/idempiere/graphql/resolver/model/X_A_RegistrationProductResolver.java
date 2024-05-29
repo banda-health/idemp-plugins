@@ -27,7 +27,7 @@ public class X_A_RegistrationProductResolver extends POResolver<X_A_Registration
 	 * @return Asset Registration Attribute
 	 */
 	public CompletableFuture<X_A_RegistrationAttribute> A_RegistrationAttribute(X_A_RegistrationProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_RegistrationAttribute_ID() <= 0) {
+		if (entity.getA_RegistrationAttribute_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_A_RegistrationAttribute> dataLoader =
@@ -42,7 +42,7 @@ public class X_A_RegistrationProductResolver extends POResolver<X_A_Registration
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_A_RegistrationProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

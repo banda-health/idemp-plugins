@@ -28,7 +28,7 @@ public class X_HR_JobResolver extends POResolver<X_HR_Job> implements GraphQLRes
 	 * @return Payroll Department
 	 */
 	public CompletableFuture<X_HR_Department> HR_Department(X_HR_Job entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Department_ID() <= 0) {
+		if (entity.getHR_Department_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
@@ -47,7 +47,7 @@ public class X_HR_JobResolver extends POResolver<X_HR_Job> implements GraphQLRes
 	 * @return Next Job
 	 */
 	public CompletableFuture<X_HR_Job> Next_Job(X_HR_Job entity, DataFetchingEnvironment environment) {
-		if (entity.getNext_Job_ID() <= 0) {
+		if (entity.getNext_Job_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Job> dataLoader =
@@ -62,7 +62,7 @@ public class X_HR_JobResolver extends POResolver<X_HR_Job> implements GraphQLRes
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	public CompletableFuture<MUser_BH> Supervisor(X_HR_Job entity, DataFetchingEnvironment environment) {
-		if (entity.getSupervisor_ID() <= 0) {
+		if (entity.getSupervisor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

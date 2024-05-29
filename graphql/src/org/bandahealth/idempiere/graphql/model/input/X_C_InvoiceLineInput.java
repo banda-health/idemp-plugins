@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_InvoiceLineResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MAsset;
@@ -152,7 +153,12 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	public void setA_CapvsExpInput(ForeignEntityInput A_CapvsExp) {
 		this.mA_CapvsExp = A_CapvsExp;
 		if (A_CapvsExp != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_InvoiceLineResolver.A_CAPVSEXP_UUIDS_BY_VALUE.containsValue(A_CapvsExp.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_CapvsExp.getUU() +
+						" is not in the list defined for the A_CapvsExp column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

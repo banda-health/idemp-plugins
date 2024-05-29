@@ -25,7 +25,7 @@ public class X_C_OnlineTrxHistoryResolver extends POResolver<MOnlineTrxHistory> 
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MOnlineTrxHistory entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

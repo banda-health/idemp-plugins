@@ -41,7 +41,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -56,7 +56,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -71,7 +71,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() <= 0) {
+		if (entity.getC_BP_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -86,7 +86,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -101,7 +101,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -116,7 +116,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -131,7 +131,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -146,7 +146,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 	 * @return Invoice Payment Schedule
 	 */
 	public CompletableFuture<MInvoicePaySchedule> C_InvoicePaySchedule(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoicePaySchedule_ID() <= 0) {
+		if (entity.getC_InvoicePaySchedule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoicePaySchedule> dataLoader =
@@ -161,7 +161,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -176,7 +176,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 	 * @return Convert Amounts in Currency
 	 */
 	public CompletableFuture<MCurrency_BH> ConvertAmountsInCurrency(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getConvertAmountsInCurrency_ID() <= 0) {
+		if (entity.getConvertAmountsInCurrency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =

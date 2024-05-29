@@ -32,7 +32,7 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_C_ContactActivity entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -47,7 +47,7 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 	 * @return Sales Opportunity
 	 */
 	public CompletableFuture<MOpportunity> C_Opportunity(X_C_ContactActivity entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Opportunity_ID() <= 0) {
+		if (entity.getC_Opportunity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOpportunity> dataLoader =
@@ -55,12 +55,12 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 		return dataLoader.load(entity.getC_Opportunity_ID());
 	}
 
-	static Map<String, String> CONTACTACTIVITYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CONTACTACTIVITYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("EM", "7aaa10b7-533b-466b-af01-483a2a446410");
-			put("PC", "2e5297d8-2465-4010-b344-604c4a9eeb91");
-			put("ME", "bda29ee3-2d43-4666-ac94-4603102b3437");
-			put("TA", "1a636c57-9c1d-4e9b-b8a1-87530849df3c");
+			put("EM", "7aaa10b7-533b-466b-af01-483a2a446410"); // Email
+			put("PC", "2e5297d8-2465-4010-b344-604c4a9eeb91"); // Phone call
+			put("ME", "bda29ee3-2d43-4666-ac94-4603102b3437"); // Meeting
+			put("TA", "1a636c57-9c1d-4e9b-b8a1-87530849df3c"); // Task
 		}
 	};
 	public CompletableFuture<MRefList_BH> ContactActivityType(X_C_ContactActivity entity, DataFetchingEnvironment environment) {
@@ -83,7 +83,7 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(X_C_ContactActivity entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

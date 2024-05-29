@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	PA_GoalRestriction(UU: String!): PA_GoalRestriction
 	PA_GoalRestrictionGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_GoalRestrictionConnection!
 }
 

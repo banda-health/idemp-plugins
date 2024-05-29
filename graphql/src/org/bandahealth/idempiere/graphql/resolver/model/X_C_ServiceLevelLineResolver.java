@@ -25,7 +25,7 @@ public class X_C_ServiceLevelLineResolver extends POResolver<X_C_ServiceLevelLin
 	 * @return Product Revenue Recognition Service Level 
 	 */
 	public CompletableFuture<X_C_ServiceLevel> C_ServiceLevel(X_C_ServiceLevelLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ServiceLevel_ID() <= 0) {
+		if (entity.getC_ServiceLevel_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_ServiceLevel> dataLoader =

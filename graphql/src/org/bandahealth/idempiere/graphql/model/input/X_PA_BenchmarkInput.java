@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PA_BenchmarkResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -44,7 +45,12 @@ public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_Benchmar
 	public void setAccumulationTypeInput(ForeignEntityInput AccumulationType) {
 		this.mAccumulationType = AccumulationType;
 		if (AccumulationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_BenchmarkResolver.ACCUMULATIONTYPE_UUIDS_BY_VALUE.containsValue(AccumulationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AccumulationType.getUU() +
+						" is not in the list defined for the AccumulationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

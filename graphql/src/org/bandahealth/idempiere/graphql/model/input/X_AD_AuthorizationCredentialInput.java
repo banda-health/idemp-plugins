@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_AuthorizationCredentialResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAuthorizationCredential;
 import org.compiere.model.MAuthorizationProvider;
@@ -109,7 +110,12 @@ public class X_AD_AuthorizationCredentialInput extends MAuthorizationCredential 
 	public void setAD_AuthorizationScopeListInput(ForeignEntityInput AD_AuthorizationScopeList) {
 		this.mAD_AuthorizationScopeList = AD_AuthorizationScopeList;
 		if (AD_AuthorizationScopeList != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_AuthorizationCredentialResolver.AD_AUTHORIZATIONSCOPELIST_UUIDS_BY_VALUE.containsValue(AD_AuthorizationScopeList.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AD_AuthorizationScopeList.getUU() +
+						" is not in the list defined for the AD_AuthorizationScopeList column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

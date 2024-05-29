@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_InvoiceResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPartnerLocation;
@@ -68,6 +69,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	private ForeignEntityInput mInvoiceCollectionType;
 	private ForeignEntityInput mM_PriceList;
 	private ForeignEntityInput mM_RMA;
+	private ForeignEntityInput mPaymentRule;
 	private ForeignEntityInput mRelatedInvoice;
 	private ForeignEntityInput mReversal;
 	private ForeignEntityInput mSalesRep;
@@ -821,7 +823,12 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_InvoiceResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -855,7 +862,12 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_InvoiceResolver.DOCSTATUS_UUIDS_BY_VALUE.containsValue(DocStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocStatus.getUU() +
+						" is not in the list defined for the DocStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -911,7 +923,12 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	public void setInvoiceCollectionTypeInput(ForeignEntityInput InvoiceCollectionType) {
 		this.mInvoiceCollectionType = InvoiceCollectionType;
 		if (InvoiceCollectionType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_InvoiceResolver.INVOICECOLLECTIONTYPE_UUIDS_BY_VALUE.containsValue(InvoiceCollectionType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + InvoiceCollectionType.getUU() +
+						" is not in the list defined for the InvoiceCollectionType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1057,6 +1074,45 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	@JsonProperty("M_RMA")
 	public ForeignEntityInput M_RMA() {
 		return mM_RMA;
+	}
+
+	/**
+	 * Set Payment Rule.
+	 *
+	 * @param PaymentRule How you pay the invoice
+	 */
+	@JsonProperty("PaymentRule")
+	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
+		this.mPaymentRule = PaymentRule;
+		if (PaymentRule != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_InvoiceResolver.PAYMENTRULE_UUIDS_BY_VALUE.containsValue(PaymentRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PaymentRule.getUU() +
+						" is not in the list defined for the PaymentRule column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PaymentRule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setPaymentRule(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PaymentRule.getUU());
+			}
+		} else {
+			this.setPaymentRule(null);
+		}
+	}
+
+	/**
+	 * Get Payment Rule.
+	 *
+	 * @return How you pay the invoice
+	 */
+	@JsonProperty("PaymentRule")
+	public ForeignEntityInput PaymentRule() {
+		return mPaymentRule;
 	}
 	/**
 	 * Set Posted.

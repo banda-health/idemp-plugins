@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	GL_JournalBatch(UU: String!): GL_JournalBatch
 	GL_JournalBatchGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_JournalBatchConnection!
 }
 

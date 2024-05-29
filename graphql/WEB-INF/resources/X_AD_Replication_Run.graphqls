@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_Replication_Run(UU: String!): AD_Replication_Run
 	AD_Replication_RunGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Replication_RunConnection!
 }
 

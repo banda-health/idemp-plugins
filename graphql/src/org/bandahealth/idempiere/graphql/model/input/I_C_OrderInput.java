@@ -557,6 +557,20 @@ public interface I_C_OrderInput extends I_C_Order {
 	ForeignEntityInput M_Warehouse();
 
 	/**
+	 * Set PaymentRule.
+	 *
+	 * @param PaymentRule How you pay the invoice
+	 */
+	void setPaymentRuleInput(ForeignEntityInput PaymentRule);
+
+	/**
+	 * Get PaymentRule.
+	 *
+	 * @return How you pay the invoice
+	 */
+	ForeignEntityInput PaymentRule();
+
+	/**
 	 * Set PriorityRule.
 	 *
 	 * @param PriorityRule Priority of a document

@@ -39,7 +39,7 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MPOS entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() <= 0) {
+		if (entity.getC_BankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -54,7 +54,7 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 	 * @return Business Partner used for creating new Business Partners on the fly
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartnerCashTrx(MPOS entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartnerCashTrx_ID() <= 0) {
+		if (entity.getC_BPartnerCashTrx_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -69,7 +69,7 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 	 * @return Cash Book for recording petty cash transactions
 	 */
 	public CompletableFuture<MCashBook> C_CashBook(MPOS entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashBook_ID() <= 0) {
+		if (entity.getC_CashBook_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
@@ -84,7 +84,7 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MPOS entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -99,7 +99,7 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 	 * @return POS Function Key Layout
 	 */
 	public CompletableFuture<MPOSKeyLayout> C_POSKeyLayout(MPOS entity, DataFetchingEnvironment environment) {
-		if (entity.getC_POSKeyLayout_ID() <= 0) {
+		if (entity.getC_POSKeyLayout_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPOSKeyLayout> dataLoader =
@@ -118,7 +118,7 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(MPOS entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() <= 0) {
+		if (entity.getM_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -133,7 +133,7 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MPOS entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -148,7 +148,7 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 	 * @return The key layout to use for on screen keyboard for text fields.
 	 */
 	public CompletableFuture<MPOSKeyLayout> OSK_KeyLayout(MPOS entity, DataFetchingEnvironment environment) {
-		if (entity.getOSK_KeyLayout_ID() <= 0) {
+		if (entity.getOSK_KeyLayout_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPOSKeyLayout> dataLoader =
@@ -163,7 +163,7 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 	 * @return The key layout to use for on screen number pad for numeric fields.
 	 */
 	public CompletableFuture<MPOSKeyLayout> OSNP_KeyLayout(MPOS entity, DataFetchingEnvironment environment) {
-		if (entity.getOSNP_KeyLayout_ID() <= 0) {
+		if (entity.getOSNP_KeyLayout_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPOSKeyLayout> dataLoader =
@@ -178,7 +178,7 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MPOS entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

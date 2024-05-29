@@ -34,7 +34,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -49,7 +49,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 	 * @return Asset Funding Mode
 	 */
 	public CompletableFuture<X_A_FundingMode> A_FundingMode(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
-		if (entity.getA_FundingMode_ID() <= 0) {
+		if (entity.getA_FundingMode_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_A_FundingMode> dataLoader =
@@ -57,11 +57,11 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 		return dataLoader.load(entity.getA_FundingMode_ID());
 	}
 
-	static Map<String, String> A_TIP_FINANTARE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_TIP_FINANTARE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "1bddac4c-bcc8-4758-8630-d80555b14a62");
-			put("P", "2d7b24ae-5735-41a6-88f6-7aa5cc143493");
-			put("T", "51a1b186-6af4-4373-9788-f9105aa65cfa");
+			put("C", "1bddac4c-bcc8-4758-8630-d80555b14a62"); // Cofinantare
+			put("P", "2d7b24ae-5735-41a6-88f6-7aa5cc143493"); // Proprie
+			put("T", "51a1b186-6af4-4373-9788-f9105aa65cfa"); // Terti
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Tip_Finantare(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
@@ -80,7 +80,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -92,13 +92,13 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 		return entity.isDepreciated();
 	}
 
-	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc"); // Actual
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e"); // Budget
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d"); // Commitment
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb"); // Statistical
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5"); // Reservation
 		}
 	};
 	public CompletableFuture<MRefList_BH> PostingType(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {

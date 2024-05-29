@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	PP_Product_BOM(UU: String!): PP_Product_BOM
 	PP_Product_BOMGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Product_BOMConnection!
 }
 

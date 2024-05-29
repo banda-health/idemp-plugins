@@ -299,7 +299,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 		List<MBHCodedDiagnosisMapping> mCodedDiagnosisMappings = new Query(getCtx(),
 				MBHCodedDiagnosisMapping.Table_Name,
-				MBHCodedDiagnosisMapping.COLUMNNAME_BH_External_ID + " IN ( " + inClause + " )", null)
+				MBHCodedDiagnosisMapping.COLUMNNAME_BH_ExternalID + " IN ( " + inClause + " )", null)
 				.setParameters(parameters).list();
 
 		// save every mapping and check underlying concepts
@@ -307,13 +307,13 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 			// search mapping in db list
 			MBHCodedDiagnosisMapping foundCodedDiagnosisMapping = mCodedDiagnosisMappings.stream()
 					.filter(filterCodedDiagnosisMapping -> mapping.getExternalId()
-							.equals(filterCodedDiagnosisMapping.getBH_External_ID()))
+							.equals(filterCodedDiagnosisMapping.getBH_ExternalID()))
 					.findFirst().orElse(null);
 
 			if (foundCodedDiagnosisMapping == null) {
 				// new record
 				foundCodedDiagnosisMapping = new MBHCodedDiagnosisMapping(getCtx(), 0, null);
-				foundCodedDiagnosisMapping.setBH_External_ID(mapping.getExternalId());
+				foundCodedDiagnosisMapping.setBH_ExternalID(mapping.getExternalId());
 			}
 
 			foundCodedDiagnosisMapping.setIsActive(mapping.isRetired());

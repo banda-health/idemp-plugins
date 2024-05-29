@@ -32,7 +32,7 @@ public class X_AD_UserMailResolver extends POResolver<MUserMail> implements Grap
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MUserMail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -40,10 +40,10 @@ public class X_AD_UserMailResolver extends POResolver<MUserMail> implements Grap
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
-	static Map<String, String> ISDELIVERED_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISDELIVERED_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsDelivered(MUserMail entity, DataFetchingEnvironment environment) {
@@ -62,7 +62,7 @@ public class X_AD_UserMailResolver extends POResolver<MUserMail> implements Grap
 	 * @return Text templates for mailings
 	 */
 	public CompletableFuture<MMailText> R_MailText(MUserMail entity, DataFetchingEnvironment environment) {
-		if (entity.getR_MailText_ID() <= 0) {
+		if (entity.getR_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =

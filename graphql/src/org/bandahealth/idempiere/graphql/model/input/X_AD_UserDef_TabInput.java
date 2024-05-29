@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_UserDef_TabResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTab;
@@ -228,7 +229,12 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	public void setIsAllowAdvancedLookupInput(ForeignEntityInput IsAllowAdvancedLookup) {
 		this.mIsAllowAdvancedLookup = IsAllowAdvancedLookup;
 		if (IsAllowAdvancedLookup != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_TabResolver.ISALLOWADVANCEDLOOKUP_UUIDS_BY_VALUE.containsValue(IsAllowAdvancedLookup.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsAllowAdvancedLookup.getUU() +
+						" is not in the list defined for the IsAllowAdvancedLookup column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -262,7 +268,12 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	public void setIsHighVolumeInput(ForeignEntityInput IsHighVolume) {
 		this.mIsHighVolume = IsHighVolume;
 		if (IsHighVolume != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_TabResolver.ISHIGHVOLUME_UUIDS_BY_VALUE.containsValue(IsHighVolume.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsHighVolume.getUU() +
+						" is not in the list defined for the IsHighVolume column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -296,7 +307,12 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	public void setIsLookupOnlySelectionInput(ForeignEntityInput IsLookupOnlySelection) {
 		this.mIsLookupOnlySelection = IsLookupOnlySelection;
 		if (IsLookupOnlySelection != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_TabResolver.ISLOOKUPONLYSELECTION_UUIDS_BY_VALUE.containsValue(IsLookupOnlySelection.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsLookupOnlySelection.getUU() +
+						" is not in the list defined for the IsLookupOnlySelection column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -330,7 +346,12 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	public void setIsReadOnlyInput(ForeignEntityInput IsReadOnly) {
 		this.mIsReadOnly = IsReadOnly;
 		if (IsReadOnly != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_TabResolver.ISREADONLY_UUIDS_BY_VALUE.containsValue(IsReadOnly.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsReadOnly.getUU() +
+						" is not in the list defined for the IsReadOnly column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -364,7 +385,12 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	public void setIsSingleRowInput(ForeignEntityInput IsSingleRow) {
 		this.mIsSingleRow = IsSingleRow;
 		if (IsSingleRow != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_TabResolver.ISSINGLEROW_UUIDS_BY_VALUE.containsValue(IsSingleRow.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsSingleRow.getUU() +
+						" is not in the list defined for the IsSingleRow column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

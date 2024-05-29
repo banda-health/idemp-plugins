@@ -33,7 +33,7 @@ public class X_S_ResourceTypeResolver extends POResolver<MResourceType> implemen
 	 * @return Tax Category
 	 */
 	public CompletableFuture<MTaxCategory> C_TaxCategory(MResourceType entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxCategory_ID() <= 0) {
+		if (entity.getC_TaxCategory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
@@ -48,7 +48,7 @@ public class X_S_ResourceTypeResolver extends POResolver<MResourceType> implemen
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MResourceType entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -75,7 +75,7 @@ public class X_S_ResourceTypeResolver extends POResolver<MResourceType> implemen
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(MResourceType entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() <= 0) {
+		if (entity.getM_Product_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
