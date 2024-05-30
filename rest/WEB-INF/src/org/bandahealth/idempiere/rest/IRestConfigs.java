@@ -82,5 +82,5 @@ public interface IRestConfigs {
 	
 	String CONCEPTS_PATH = AUTHENTICATION_PATH + "/concepts";
 	
-	String CLIENT_CONCEPTS_PATH = AUTHENTICATION_PATH + "/client-concepts";
+	String CLIENT_CONCEPT_EXTRAS_PATH = AUTHENTICATION_PATH + "/client-concept-extras";
 }
