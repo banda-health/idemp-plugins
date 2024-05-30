@@ -25,19 +25,13 @@ public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer
 
 	public PODataLoader() {
 		Type genericSuperclass = getClass().getGenericSuperclass();
-		Class<?> childClass = null;
-		if (genericSuperclass instanceof ParameterizedType parameterizedType) {
-			childClass = ((Class<?>) (parameterizedType).getActualTypeArguments()[0]);
-		} else if (genericSuperclass instanceof Class<?> clazz) {
-			Type superGenericSuperclass = clazz.getGenericSuperclass();
-			if (superGenericSuperclass instanceof ParameterizedType superParameterizedType) {
-                childClass = (Class<?>) superParameterizedType.getActualTypeArguments()[0];
-            }
+		Class<?> childClass;
+		if (genericSuperclass instanceof ParameterizedType) {
+			childClass = ((Class<?>) ((ParameterizedType) genericSuperclass).getActualTypeArguments()[0]);
 		} else {
-			// add error handling
-			throw new IllegalStateException("Cannot determine the child class type.");
+			childClass =
+					((Class<?>) ((ParameterizedType) ((Class<?>) genericSuperclass).getGenericSuperclass()).getActualTypeArguments()[0]);
 		}
-		
 		log = CLogger.getCLogger(childClass);
 	}
 
@@ -69,12 +63,13 @@ public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer
 	 * @param idempiereContext The context since Env.getCtx() isn't thread-safe
 	 */
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
-		DataLoaderOptions dataLoaderOptions = getOptionsWithoutCache(idempiereContext);
 		if (!StringUtil.isNullOrEmpty(getByIdDataLoaderName())) {
-			registry.register(getByIdDataLoaderName(), DataLoader.newMappedDataLoader(getByIdBatchLoader(), dataLoaderOptions));
+			registry.register(getByIdDataLoaderName(), DataLoader.newMappedDataLoader(getByIdBatchLoader(),
+					getOptionsWithoutCache(idempiereContext)));
 		}
 		if (!StringUtil.isNullOrEmpty(getByUuidDataLoaderName())) {
-			registry.register(getByUuidDataLoaderName(), DataLoader.newMappedDataLoader(getByUuidBatchLoader(),dataLoaderOptions));
+			registry.register(getByUuidDataLoaderName(), DataLoader.newMappedDataLoader(getByUuidBatchLoader(),
+					getOptionsWithoutCache(idempiereContext)));
 		}
 	}
 
