@@ -27,7 +27,7 @@ public class X_BH_Encounter_DiagnosisResolver extends POResolver<MBHEncounterDia
 	 * @return Concept
 	 */
 	public CompletableFuture<MBHConcept> BH_Concept(MBHEncounterDiagnosis entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Concept_ID() <= 0) {
+		if (entity.getBH_Concept_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBHConcept> dataLoader =
@@ -42,7 +42,7 @@ public class X_BH_Encounter_DiagnosisResolver extends POResolver<MBHEncounterDia
 	 * @return Encounter
 	 */
 	public CompletableFuture<MBHEncounter> BH_Encounter(MBHEncounterDiagnosis entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Encounter_ID() <= 0) {
+		if (entity.getBH_Encounter_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBHEncounter> dataLoader =

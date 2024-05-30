@@ -226,7 +226,7 @@ public class GraphQLModelResolverGenerator {
 				referenceClassName = packagePath[packagePath.length - 1].substring(2);
 				entityName = fieldName;
 				foreignEntityTable = referenceClassName;
-				defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
+				defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
 			} else if (columnName.equals("AD_Language")) {
 				entityName = columnName;
 				foreignEntityTable = columnName;
@@ -249,15 +249,15 @@ public class GraphQLModelResolverGenerator {
 						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = entityName;
-					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
 				} else if (columnName.equals("Logo_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "AD_Image";
-					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
 				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "M_Warehouse";
-					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";

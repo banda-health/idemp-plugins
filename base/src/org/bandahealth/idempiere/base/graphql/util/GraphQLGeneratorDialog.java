@@ -381,7 +381,8 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			}
 			String dataLoaderFolder = "";
 			String dataLoaderPackageName = "";
-			if (generateDataLoaderCheckbox.isSelected() || generateModelResolverCheckbox.isSelected()) {
+			if (generateDataLoaderCheckbox.isSelected() || generateModelResolverCheckbox.isSelected() ||
+					generateQueryResolverCheckbox.isSelected()) {
 				dataLoaderFolder = dataLoaderDirectoryNameField.getText();
 				if (dataLoaderFolder == null || dataLoaderFolder.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(this, "Please enter data loader folder name", "Error",
@@ -435,7 +436,7 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			}
 			if (generateQueryResolverCheckbox.isSelected()) {
 				GraphQLQueryResolverGenerator.generateSource(entityType, tableName, columnEntityType, queryResolverFolder,
-						queryResolverPackageName, modelsForTables);
+						queryResolverPackageName, dataLoaderPackageName, modelsForTables);
 			}
 			if (generateMutationResolverCheckbox.isSelected()) {
 				GraphQLMutationResolverGenerator.generateSource(entityType, tableName, mutationResolverFolder,

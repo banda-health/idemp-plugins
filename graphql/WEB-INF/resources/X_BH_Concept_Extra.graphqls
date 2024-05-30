@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	BH_Concept_Extra(UU: String!): BH_Concept_Extra
 	BH_Concept_ExtraGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Concept_ExtraConnection!
 }
 

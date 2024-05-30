@@ -35,7 +35,7 @@ public class MBHClientConceptExtraDataLoader extends X_BH_Client_Concept_ExtraDa
 				batchLoaderEnvironment.getContext(),
 				// Get the table name for the query
 				getTableName(),
-				// No additional filters are used
+				// No transaction used
 				null,
 				// Pass a functional interface to get the BH_Concept_Extra_ID
 				MBHClientConceptExtra::getBH_Concept_Extra_ID,
