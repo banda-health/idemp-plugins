@@ -51,12 +51,12 @@ test('get coded diagnosis fields', async () => {
 
 	const codedDiagnosis = codedDiagnoses[0];
 	expect(codedDiagnosis.BH_Display_Name).toBeTruthy();
-
+	
 	const conceptExtras = codedDiagnosis.BH_Concept_Extras;
 
-	expect(conceptExtras.filter((extra) => extra.BH_Key === 'index_terms')).toBeTruthy();
-	expect(conceptExtras.filter((extra) => extra.BH_Key === 'MOH-705A-LESSTHAN5')).toBeTruthy();
-	expect(conceptExtras.filter((extra) => extra.BH_Key === 'MOH-705B-GREATERTHAN5')).toBeTruthy();
+	expect(conceptExtras?.filter((extra) => extra.BH_Key === 'index_terms')).toBeTruthy();
+	expect(conceptExtras?.filter((extra) => extra.BH_Key === 'MOH-705A-LESSTHAN5')).toBeTruthy();
+	expect(conceptExtras?.filter((extra) => extra.BH_Key === 'MOH-705B-GREATERTHAN5')).toBeTruthy();
 });
 
 test('the correct diagnoses are returned', async () => {
