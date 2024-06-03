@@ -50,8 +50,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MAuthorizationProviderD
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPGeneralPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPSpecificPayerInfoDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.MBHCodedDiagnosisDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.MBHCodedDiagnosisMappingDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHClientConceptExtraDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptDescriptionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptExtraDataLoader;
@@ -819,7 +818,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_T_ReportStatementData
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_T_TransactionDataLoader;
 import org.dataloader.DataLoaderRegistry;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -838,7 +836,7 @@ public class BandaDataLoaderComposer {
 	 * in hot-swapping in development without having to restart iDempiere
 	 */
 	public BandaDataLoaderComposer() {
-		dataLoaders = Arrays.asList(
+		dataLoaders = List.of(
 				new M_ElementDataLoader(),
 				new M_RegistrationDataLoader(),
 				new MAccessLogDataLoader(),
@@ -899,8 +897,7 @@ public class BandaDataLoaderComposer {
 				new MBHBPGeneralPayerInfoDataLoader(),
 				new MBHBPPayerInfoDataLoader(),
 				new MBHBPSpecificPayerInfoDataLoader(),
-				new MBHCodedDiagnosisDataLoader(),
-				new MBHCodedDiagnosisMappingDataLoader(),
+				new MBHClientConceptExtraDataLoader(),
 				new MBHConceptDataLoader(),
 				new MBHConceptDescriptionDataLoader(),
 				new MBHConceptExtraDataLoader(),

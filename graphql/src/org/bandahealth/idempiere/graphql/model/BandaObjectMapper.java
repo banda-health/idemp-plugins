@@ -299,8 +299,7 @@ public class BandaObjectMapper {
 							addMapping(I_BH_BP_General_Payer_InfoInput.class, MBHBPGeneralPayerInfoInput.class);
 							addMapping(I_BH_BP_Payer_InfoInput.class, MBHBPPayerInfoInput.class);
 							addMapping(I_BH_BP_Specific_Payer_InfoInput.class, MBHBPSpecificPayerInfoInput.class);
-							addMapping(I_BH_Coded_DiagnosisInput.class, MBHCodedDiagnosisInput.class);
-							addMapping(I_BH_Coded_Diagnosis_MappingInput.class, MBHCodedDiagnosisMappingInput.class);
+							addMapping(I_BH_Client_Concept_ExtraInput.class, MBHClientConceptExtraInput.class);
 							addMapping(I_BH_Concept_DescriptionInput.class, MBHConceptDescriptionInput.class);
 							addMapping(I_BH_Concept_ExtraInput.class, MBHConceptExtraInput.class);
 							addMapping(I_BH_Concept_MappingInput.class, MBHConceptMappingInput.class);
