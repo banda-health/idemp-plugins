@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_FundingMode_AcctDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_A_FundingMode_Acct;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for A_FundingMode_Acct - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_A_FundingMode_AcctQuery extends POQuery<X_A_FundingMode_Acct> imp
 	@Override
 	protected String getTableName() {
 		return X_A_FundingMode_Acct.Table_Name;
+	}
+
+	public CompletableFuture<X_A_FundingMode_Acct> A_FundingMode_Acct(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_A_FundingMode_Acct> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_A_FundingMode_AcctDataLoader.DATALOADER_A_FundingMode_Acct_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_A_FundingMode_Acct> A_FundingMode_AcctGet(int Page, int PageSize, String Sort, String Filter,

@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_Package_Exp_DetailResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MForm;
@@ -716,7 +717,12 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setDBTypeInput(ForeignEntityInput DBType) {
 		this.mDBType = DBType;
 		if (DBType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_Package_Exp_DetailResolver.DBTYPE_UUIDS_BY_VALUE.containsValue(DBType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DBType.getUU() +
+						" is not in the list defined for the DBType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -750,7 +756,12 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setReleaseNoInput(ForeignEntityInput ReleaseNo) {
 		this.mReleaseNo = ReleaseNo;
 		if (ReleaseNo != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_Package_Exp_DetailResolver.RELEASENO_UUIDS_BY_VALUE.containsValue(ReleaseNo.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ReleaseNo.getUU() +
+						" is not in the list defined for the ReleaseNo column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -784,7 +795,12 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setTypeInput(ForeignEntityInput Type) {
 		this.mType = Type;
 		if (Type != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_Package_Exp_DetailResolver.TYPE_UUIDS_BY_VALUE.containsValue(Type.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Type.getUU() +
+						" is not in the list defined for the Type column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

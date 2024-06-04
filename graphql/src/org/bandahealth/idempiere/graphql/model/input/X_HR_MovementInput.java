@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_HR_MovementResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPBankAccount;
@@ -81,7 +82,12 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			return;
 		}
 		if (AccountSign != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_HR_MovementResolver.ACCOUNTSIGN_UUIDS_BY_VALUE.containsValue(AccountSign.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AccountSign.getUU() +
+						" is not in the list defined for the AccountSign column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -464,7 +470,12 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	public void setColumnTypeInput(ForeignEntityInput ColumnType) {
 		this.mColumnType = ColumnType;
 		if (ColumnType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_HR_MovementResolver.COLUMNTYPE_UUIDS_BY_VALUE.containsValue(ColumnType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ColumnType.getUU() +
+						" is not in the list defined for the ColumnType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

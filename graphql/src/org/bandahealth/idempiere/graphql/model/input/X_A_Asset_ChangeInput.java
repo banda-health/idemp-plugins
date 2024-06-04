@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_Asset_ChangeResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
@@ -317,7 +318,12 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	public void setA_Depreciation_Manual_PeriodInput(ForeignEntityInput A_Depreciation_Manual_Period) {
 		this.mA_Depreciation_Manual_Period = A_Depreciation_Manual_Period;
 		if (A_Depreciation_Manual_Period != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_ChangeResolver.A_DEPRECIATION_MANUAL_PERIOD_UUIDS_BY_VALUE.containsValue(A_Depreciation_Manual_Period.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Depreciation_Manual_Period.getUU() +
+						" is not in the list defined for the A_Depreciation_Manual_Period column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -487,7 +493,12 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	public void setA_Reval_Cal_MethodInput(ForeignEntityInput A_Reval_Cal_Method) {
 		this.mA_Reval_Cal_Method = A_Reval_Cal_Method;
 		if (A_Reval_Cal_Method != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_ChangeResolver.A_REVAL_CAL_METHOD_UUIDS_BY_VALUE.containsValue(A_Reval_Cal_Method.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Reval_Cal_Method.getUU() +
+						" is not in the list defined for the A_Reval_Cal_Method column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -853,7 +864,12 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 			return;
 		}
 		if (ChangeType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_ChangeResolver.CHANGETYPE_UUIDS_BY_VALUE.containsValue(ChangeType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ChangeType.getUU() +
+						" is not in the list defined for the ChangeType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -909,7 +925,12 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_ChangeResolver.POSTINGTYPE_UUIDS_BY_VALUE.containsValue(PostingType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PostingType.getUU() +
+						" is not in the list defined for the PostingType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

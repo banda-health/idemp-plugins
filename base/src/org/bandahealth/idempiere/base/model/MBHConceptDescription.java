@@ -8,6 +8,18 @@ public class MBHConceptDescription extends X_BH_Concept_Description {
 		super(ctx, BH_Concept_Description_ID, trxName);
 	}
 
+	public MBHConceptDescription(Properties ctx, int BH_Concept_Description_ID, String trxName, String... virtualColumns) {
+		super(ctx, BH_Concept_Description_ID, trxName, virtualColumns);
+	}
+
+	public MBHConceptDescription(Properties ctx, String BH_Concept_Description_UU, String trxName) {
+		super(ctx, BH_Concept_Description_UU, trxName);
+	}
+
+	public MBHConceptDescription(Properties ctx, String BH_Concept_Description_UU, String trxName, String... virtualColumns) {
+		super(ctx, BH_Concept_Description_UU, trxName, virtualColumns);
+	}
+
 	public MBHConceptDescription(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}

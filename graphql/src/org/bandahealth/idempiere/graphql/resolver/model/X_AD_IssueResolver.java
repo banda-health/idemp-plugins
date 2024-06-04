@@ -46,7 +46,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -61,7 +61,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() <= 0) {
+		if (entity.getAD_Form_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -76,7 +76,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -91,7 +91,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -99,10 +99,10 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
-	static Map<String, String> ISREPRODUCIBLE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISREPRODUCIBLE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsReproducible(MIssue entity, DataFetchingEnvironment environment) {
@@ -114,17 +114,17 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 		return dataLoader.load(ISREPRODUCIBLE_UUIDS_BY_VALUE.get(entity.getIsReproducible()));
 	}
 
-	static Map<String, String> ISSUESOURCE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISSUESOURCE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("W", "50032107-b314-40a1-ae3a-809f3e643572");
-			put("T", "df7f040f-75dd-4025-947e-34479cf8811b");
-			put("F", "9a71d7fd-585b-4896-a454-9b823d2ae291");
-			put("P", "172a85d0-4f69-4486-9f95-bfd30c092519");
-			put("R", "e3f9a66b-72b1-4552-9c6a-ff27de1cb83c");
-			put("X", "96201326-b894-4f80-a572-ccac1d7dd878");
-			put("B", "df913f43-3e3b-45bc-9d03-26e0d506f9f3");
-			put("I", "5484a32f-202c-4316-9ae7-c295ed508aee");
-			put("D", "c08370ea-385c-4569-bc28-1b6a869f700a");
+			put("W", "50032107-b314-40a1-ae3a-809f3e643572"); // Window
+			put("T", "df7f040f-75dd-4025-947e-34479cf8811b"); // Task
+			put("F", "9a71d7fd-585b-4896-a454-9b823d2ae291"); // WorkFlow
+			put("P", "172a85d0-4f69-4486-9f95-bfd30c092519"); // Process
+			put("R", "e3f9a66b-72b1-4552-9c6a-ff27de1cb83c"); // Report
+			put("X", "96201326-b894-4f80-a572-ccac1d7dd878"); // Form
+			put("B", "df913f43-3e3b-45bc-9d03-26e0d506f9f3"); // Workbench
+			put("I", "5484a32f-202c-4316-9ae7-c295ed508aee"); // Info
+			put("D", "c08370ea-385c-4569-bc28-1b6a869f700a"); // Detail
 		}
 	};
 	public CompletableFuture<MRefList_BH> IssueSource(MIssue entity, DataFetchingEnvironment environment) {
@@ -136,10 +136,10 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 		return dataLoader.load(ISSUESOURCE_UUIDS_BY_VALUE.get(entity.getIssueSource()));
 	}
 
-	static Map<String, String> ISVANILLASYSTEM_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISVANILLASYSTEM_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsVanillaSystem(MIssue entity, DataFetchingEnvironment environment) {
@@ -166,7 +166,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Known Issue
 	 */
 	public CompletableFuture<X_R_IssueKnown> R_IssueKnown(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getR_IssueKnown_ID() <= 0) {
+		if (entity.getR_IssueKnown_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueKnown> dataLoader =
@@ -181,7 +181,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Implementation Projects
 	 */
 	public CompletableFuture<X_R_IssueProject> R_IssueProject(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getR_IssueProject_ID() <= 0) {
+		if (entity.getR_IssueProject_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueProject> dataLoader =
@@ -196,7 +196,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return System creating the issue
 	 */
 	public CompletableFuture<X_R_IssueSystem> R_IssueSystem(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getR_IssueSystem_ID() <= 0) {
+		if (entity.getR_IssueSystem_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueSystem> dataLoader =
@@ -211,7 +211,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return User who reported issues
 	 */
 	public CompletableFuture<X_R_IssueUser> R_IssueUser(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getR_IssueUser_ID() <= 0) {
+		if (entity.getR_IssueUser_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueUser> dataLoader =
@@ -226,7 +226,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Request from a Business Partner or Prospect
 	 */
 	public CompletableFuture<MRequest> R_Request(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Request_ID() <= 0) {
+		if (entity.getR_Request_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequest> dataLoader =
@@ -234,11 +234,11 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 		return dataLoader.load(entity.getR_Request_ID());
 	}
 
-	static Map<String, String> SYSTEMSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SYSTEMSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "80ee3010-2e49-4aa8-934e-2c5662b1b70d");
-			put("I", "d3239ec8-bbdc-42c3-997b-c3be8d89d914");
-			put("P", "1b3201b9-d2a4-4101-a4a0-a53571550f32");
+			put("E", "80ee3010-2e49-4aa8-934e-2c5662b1b70d"); // Evaluation
+			put("I", "d3239ec8-bbdc-42c3-997b-c3be8d89d914"); // Implementation
+			put("P", "1b3201b9-d2a4-4101-a4a0-a53571550f32"); // Production
 		}
 	};
 	public CompletableFuture<MRefList_BH> SystemStatus(MIssue entity, DataFetchingEnvironment environment) {

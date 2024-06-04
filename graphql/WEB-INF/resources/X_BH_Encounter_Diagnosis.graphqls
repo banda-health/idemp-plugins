@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	BH_Encounter_Diagnosis(UU: String!): BH_Encounter_Diagnosis
 	BH_Encounter_DiagnosisGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Encounter_DiagnosisConnection!
 }
 
@@ -21,7 +22,7 @@ type BH_Encounter_Diagnosis {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	BH_Coded_Diagnosis: BH_Coded_Diagnosis
+	BH_Concept: BH_Concept
 	UU: ID!
 	BH_Encounter: BH_Encounter!
 	# uncoded diagnosis
@@ -43,7 +44,7 @@ type BH_Encounter_Diagnosis {
 input BH_Encounter_DiagnosisInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	BH_Coded_Diagnosis: ForeignEntityInput
+	BH_Concept: ForeignEntityInput
 	UU: ID
 	BH_Encounter: ForeignEntityInput
 	# uncoded diagnosis

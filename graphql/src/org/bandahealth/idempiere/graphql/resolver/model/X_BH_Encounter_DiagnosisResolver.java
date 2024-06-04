@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
-import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Coded_DiagnosisDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_ConceptDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_EncounterDataLoader;
 import org.dataloader.DataLoader;
 
@@ -22,17 +22,17 @@ public class X_BH_Encounter_DiagnosisResolver extends POResolver<MBHEncounterDia
 
 
 	/**
-	 * Get Coded Diagnosis.
+	 * Get Concept.
 	 *
-	 * @return Coded Diagnosis
+	 * @return Concept
 	 */
-	public CompletableFuture<MBHCodedDiagnosis> BH_Coded_Diagnosis(MBHEncounterDiagnosis entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Coded_Diagnosis_ID() <= 0) {
+	public CompletableFuture<MBHConcept> BH_Concept(MBHEncounterDiagnosis entity, DataFetchingEnvironment environment) {
+		if (entity.getBH_Concept_ID() < 0) {
 			return null;
 		}
-		DataLoader<Integer, MBHCodedDiagnosis> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_Coded_DiagnosisDataLoader.DATALOADER_BH_Coded_Diagnosis_BY_ID);
-		return dataLoader.load(entity.getBH_Coded_Diagnosis_ID());
+		DataLoader<Integer, MBHConcept> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_ConceptDataLoader.DATALOADER_BH_Concept_BY_ID);
+		return dataLoader.load(entity.getBH_Concept_ID());
 	}
 
 
@@ -42,7 +42,7 @@ public class X_BH_Encounter_DiagnosisResolver extends POResolver<MBHEncounterDia
 	 * @return Encounter
 	 */
 	public CompletableFuture<MBHEncounter> BH_Encounter(MBHEncounterDiagnosis entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Encounter_ID() <= 0) {
+		if (entity.getBH_Encounter_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBHEncounter> dataLoader =

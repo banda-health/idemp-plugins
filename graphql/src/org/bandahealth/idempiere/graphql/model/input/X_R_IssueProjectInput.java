@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_R_IssueProjectResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
@@ -182,7 +183,12 @@ public class X_R_IssueProjectInput extends X_R_IssueProject implements I_R_Issue
 	public void setSystemStatusInput(ForeignEntityInput SystemStatus) {
 		this.mSystemStatus = SystemStatus;
 		if (SystemStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_IssueProjectResolver.SYSTEMSTATUS_UUIDS_BY_VALUE.containsValue(SystemStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + SystemStatus.getUU() +
+						" is not in the list defined for the SystemStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -29,11 +29,11 @@ public class X_M_ShipperLabelsResolver extends POResolver<MShipperLabels> implem
 		return entity.isDefault();
 	}
 
-	static Map<String, String> LABELPRINTMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> LABELPRINTMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "30f489ba-1343-4132-8ed5-af624c38a565");
-			put("I", "68594d7b-e52d-4755-a921-29d3b112e8bd");
-			put("Z", "0ee3f5cd-f1a0-416a-831c-687456fbc0fc");
+			put("E", "30f489ba-1343-4132-8ed5-af624c38a565"); // Eltron
+			put("I", "68594d7b-e52d-4755-a921-29d3b112e8bd"); // Image
+			put("Z", "0ee3f5cd-f1a0-416a-831c-687456fbc0fc"); // Zebra
 		}
 	};
 	public CompletableFuture<MRefList_BH> LabelPrintMethod(MShipperLabels entity, DataFetchingEnvironment environment) {
@@ -52,7 +52,7 @@ public class X_M_ShipperLabelsResolver extends POResolver<MShipperLabels> implem
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(MShipperLabels entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() <= 0) {
+		if (entity.getM_Shipper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -67,7 +67,7 @@ public class X_M_ShipperLabelsResolver extends POResolver<MShipperLabels> implem
 	 * @return Shipper Labels Configuration
 	 */
 	public CompletableFuture<X_M_ShipperLabelsCfg> M_ShipperLabelsCfg(MShipperLabels entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperLabelsCfg_ID() <= 0) {
+		if (entity.getM_ShipperLabelsCfg_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_ShipperLabelsCfg> dataLoader =

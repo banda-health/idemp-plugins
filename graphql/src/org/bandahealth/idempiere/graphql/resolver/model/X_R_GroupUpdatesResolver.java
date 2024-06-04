@@ -27,7 +27,7 @@ public class X_R_GroupUpdatesResolver extends POResolver<X_R_GroupUpdates> imple
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_R_GroupUpdates entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -46,7 +46,7 @@ public class X_R_GroupUpdatesResolver extends POResolver<X_R_GroupUpdates> imple
 	 * @return Request Group
 	 */
 	public CompletableFuture<MGroup> R_Group(X_R_GroupUpdates entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Group_ID() <= 0) {
+		if (entity.getR_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MGroup> dataLoader =

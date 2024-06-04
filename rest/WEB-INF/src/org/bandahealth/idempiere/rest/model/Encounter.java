@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Encounter extends BaseMetadata {
 	private List<Observation> observations = new ArrayList<>();
 	private List<EncounterDiagnosis> encounterDiagnoses = new ArrayList<>();
 	private List<EncounterDiagnostic> encounterDiagnostics = new ArrayList<>();
+	private Timestamp encounterDate;
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,6 +30,7 @@ public class Encounter extends BaseMetadata {
 		super(entity);
 
 		this.visitId = entity.getBH_Visit_ID();
+		this.encounterDate = entity.getBH_Encounter_Date();
 	}
 
 	public int getVisitId() {
@@ -68,5 +71,13 @@ public class Encounter extends BaseMetadata {
 
 	public void setEncounterDiagnostics(List<EncounterDiagnostic> encounterDiagnostics) {
 		this.encounterDiagnostics = encounterDiagnostics;
+	}
+
+	public Timestamp getEncounterDate() {
+		return encounterDate;
+	}
+
+	public void setEncounterDate(Timestamp encounterDate) {
+		this.encounterDate = encounterDate;
 	}
 }

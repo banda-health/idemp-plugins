@@ -23,11 +23,11 @@ import java.util.concurrent.CompletableFuture;
 public class X_AD_SysConfigResolver extends POResolver<MSysConfig_BH> implements GraphQLResolver<MSysConfig_BH> {
 
 
-	static Map<String, String> CONFIGURATIONLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CONFIGURATIONLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "5082304d-ef0d-4a87-bbbd-9ccbd6ebef70");
-			put("C", "fb37a0ab-7f1d-4d10-a10e-45e7abd78912");
-			put("O", "9a59998a-05e5-44ed-a9d4-588c932a6726");
+			put("S", "5082304d-ef0d-4a87-bbbd-9ccbd6ebef70"); // System
+			put("C", "fb37a0ab-7f1d-4d10-a10e-45e7abd78912"); // Client
+			put("O", "9a59998a-05e5-44ed-a9d4-588c932a6726"); // Organization
 		}
 	};
 	public CompletableFuture<MRefList_BH> ConfigurationLevel(MSysConfig_BH entity, DataFetchingEnvironment environment) {

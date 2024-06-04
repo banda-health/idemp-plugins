@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_Asset_TypeResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAssetType;
 import org.compiere.model.MOrg;
@@ -112,7 +113,12 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	public void setIsDepreciableInput(ForeignEntityInput IsDepreciable) {
 		this.mIsDepreciable = IsDepreciable;
 		if (IsDepreciable != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_TypeResolver.ISDEPRECIABLE_UUIDS_BY_VALUE.containsValue(IsDepreciable.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsDepreciable.getUU() +
+						" is not in the list defined for the IsDepreciable column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -146,7 +152,12 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	public void setIsInPosessionInput(ForeignEntityInput IsInPosession) {
 		this.mIsInPosession = IsInPosession;
 		if (IsInPosession != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_TypeResolver.ISINPOSESSION_UUIDS_BY_VALUE.containsValue(IsInPosession.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsInPosession.getUU() +
+						" is not in the list defined for the IsInPosession column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -180,7 +191,12 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	public void setIsOwnedInput(ForeignEntityInput IsOwned) {
 		this.mIsOwned = IsOwned;
 		if (IsOwned != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_TypeResolver.ISOWNED_UUIDS_BY_VALUE.containsValue(IsOwned.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsOwned.getUU() +
+						" is not in the list defined for the IsOwned column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

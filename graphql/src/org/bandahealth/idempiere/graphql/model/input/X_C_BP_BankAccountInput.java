@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_BP_BankAccountResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBPBankAccount;
 import org.compiere.model.MBank;
@@ -127,7 +128,12 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	public void setBankAccountTypeInput(ForeignEntityInput BankAccountType) {
 		this.mBankAccountType = BankAccountType;
 		if (BankAccountType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_BP_BankAccountResolver.BANKACCOUNTTYPE_UUIDS_BY_VALUE.containsValue(BankAccountType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BankAccountType.getUU() +
+						" is not in the list defined for the BankAccountType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -161,7 +167,12 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	public void setBPBankAcctUseInput(ForeignEntityInput BPBankAcctUse) {
 		this.mBPBankAcctUse = BPBankAcctUse;
 		if (BPBankAcctUse != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_BP_BankAccountResolver.BPBANKACCTUSE_UUIDS_BY_VALUE.containsValue(BPBankAcctUse.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BPBankAcctUse.getUU() +
+						" is not in the list defined for the BPBankAcctUse column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -329,7 +340,12 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	public void setCreditCardTypeInput(ForeignEntityInput CreditCardType) {
 		this.mCreditCardType = CreditCardType;
 		if (CreditCardType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_BP_BankAccountResolver.CREDITCARDTYPE_UUIDS_BY_VALUE.containsValue(CreditCardType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CreditCardType.getUU() +
+						" is not in the list defined for the CreditCardType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -366,7 +382,12 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			return;
 		}
 		if (R_AvsAddr != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_BP_BankAccountResolver.R_AVSADDR_UUIDS_BY_VALUE.containsValue(R_AvsAddr.getUU())) {
+				throw new AdempiereException("The reference list UU of " + R_AvsAddr.getUU() +
+						" is not in the list defined for the R_AvsAddr column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -403,7 +424,12 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			return;
 		}
 		if (R_AvsZip != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_BP_BankAccountResolver.R_AVSZIP_UUIDS_BY_VALUE.containsValue(R_AvsZip.getUU())) {
+				throw new AdempiereException("The reference list UU of " + R_AvsZip.getUU() +
+						" is not in the list defined for the R_AvsZip column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

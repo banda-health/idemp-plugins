@@ -28,7 +28,7 @@ public class X_U_WebMenuResolver extends POResolver<MWebMenu> implements GraphQL
 	 * @return Parent Menu
 	 */
 	public CompletableFuture<MWebMenu> ParentMenu(MWebMenu entity, DataFetchingEnvironment environment) {
-		if (entity.getParentMenu_ID() <= 0) {
+		if (entity.getParentMenu_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWebMenu> dataLoader =

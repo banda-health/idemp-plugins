@@ -64,16 +64,16 @@ public interface I_BH_Encounter_Diagnosis
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_Coded_Diagnosis_ID */
-    public static final String COLUMNNAME_BH_Coded_Diagnosis_ID = "BH_Coded_Diagnosis_ID";
+    /** Column name BH_Concept_ID */
+    public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
 
-	/** Set Coded Diagnosis	  */
-	public void setBH_Coded_Diagnosis_ID (int BH_Coded_Diagnosis_ID);
+	/** Set Concept	  */
+	public void setBH_Concept_ID (int BH_Concept_ID);
 
-	/** Get Coded Diagnosis	  */
-	public int getBH_Coded_Diagnosis_ID();
+	/** Get Concept	  */
+	public int getBH_Concept_ID();
 
-	public I_BH_Coded_Diagnosis getBH_Coded_Diagnosis() throws RuntimeException;
+	public I_BH_Concept getBH_Concept() throws RuntimeException;
 
     /** Column name BH_Encounter_Diagnosis_ID */
     public static final String COLUMNNAME_BH_Encounter_Diagnosis_ID = "BH_Encounter_Diagnosis_ID";

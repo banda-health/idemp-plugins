@@ -9,7 +9,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
@@ -73,10 +73,10 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create coded diagnosis");
 		valueObject.setRandom();
-		MBHCodedDiagnosis codedDiagnosis =
-				new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-		codedDiagnosis.setbh_cielname(String.valueOf(valueObject.getRandomNumber()));
-		String diagnosisName = codedDiagnosis.getbh_cielname();
+		MBHConcept codedDiagnosis =
+				new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		String diagnosisName = codedDiagnosis.getBH_Display_Name();
 		codedDiagnosis.saveEx();
 		commitEx();
 
@@ -89,12 +89,13 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		MBHEncounterDiagnosis encounterDiagnosis =
 				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Uncoded_Diagnosis(nonCodedDiagnosis);
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -147,9 +148,9 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create coded diagnosis");
 		valueObject.setRandom();
-		MBHCodedDiagnosis codedDiagnosis =
-				new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-		codedDiagnosis.setbh_cielname(String.valueOf(valueObject.getRandomNumber()));
+		MBHConcept codedDiagnosis =
+				new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
 		codedDiagnosis.saveEx();
 		commitEx();
 
@@ -166,12 +167,13 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		MBHEncounterDiagnosis encounterDiagnosis =
 				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Uncoded_Diagnosis("Something wacky");
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -186,9 +188,9 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create second coded diagnosis");
 		valueObject.setRandom();
-		codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-		codedDiagnosis.setbh_cielname(String.valueOf(valueObject.getRandomNumber()));
-		String diagnosisName = codedDiagnosis.getbh_cielname();
+		codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		String diagnosisName = codedDiagnosis.getBH_Display_Name();
 		codedDiagnosis.saveEx();
 		commitEx();
 
@@ -201,12 +203,13 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		String nonCodedDiagnosis = "The Diagnosis of the Century";
 		encounterDiagnosis.setBH_Uncoded_Diagnosis(nonCodedDiagnosis);
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -278,9 +281,9 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create first coded diagnosis");
 		valueObject.setRandom();
-		MBHCodedDiagnosis codedDiagnosis =
-				new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-		codedDiagnosis.setbh_cielname(String.valueOf(valueObject.getRandomNumber()));
+		MBHConcept codedDiagnosis =
+				new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
 		codedDiagnosis.saveEx();
 		commitEx();
 
@@ -292,11 +295,12 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		MBHEncounterDiagnosis firstEncounterDiagnosis =
 				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		firstEncounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		firstEncounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		firstEncounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		firstEncounterDiagnosis.setLineNo(10);
 		firstEncounterDiagnosis.saveEx();
 
@@ -311,8 +315,8 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create another coded diagnosis");
 		valueObject.setRandom();
-		codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-		codedDiagnosis.setbh_cielname(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
 		codedDiagnosis.saveEx();
 		commitEx();
 
@@ -324,12 +328,13 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		MBHEncounterDiagnosis secondEncounterDiagnosis =
 				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		secondEncounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		secondEncounterDiagnosis.setBH_Uncoded_Diagnosis("The Diagnosis of the Century");
-		secondEncounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		secondEncounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		secondEncounterDiagnosis.setLineNo(10);
 		secondEncounterDiagnosis.saveEx();
 
@@ -349,8 +354,8 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create final coded diagnosis");
 		valueObject.setRandom();
-		codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-		codedDiagnosis.setbh_cielname(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
 		codedDiagnosis.saveEx();
 		commitEx();
 
@@ -362,12 +367,13 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		MBHEncounterDiagnosis thirdEncounterDiagnosis =
 				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		thirdEncounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		thirdEncounterDiagnosis.setBH_Uncoded_Diagnosis("This is getting out of control!");
-		thirdEncounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		thirdEncounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		thirdEncounterDiagnosis.setLineNo(10);
 		thirdEncounterDiagnosis.saveEx();
 
@@ -408,7 +414,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 			assertEquals(1, visitRows.size(), "Only the completed visit shows on the report");
 
 			Row visitRow = visitRows.get(0);
-			assertEquals(codedDiagnosis.getbh_cielname(), visitRow.getCell(primaryCodedDiagnosisIndex).getStringCellValue(),
+			assertEquals(codedDiagnosis.getBH_Display_Name(), visitRow.getCell(primaryCodedDiagnosisIndex).getStringCellValue(),
 					"Primary coded diagnosis is correct");
 			assertEquals(thirdEncounterDiagnosis.getBH_Uncoded_Diagnosis(),
 					visitRow.getCell(primaryNonCodedDiagnosisIndex).getStringCellValue(),

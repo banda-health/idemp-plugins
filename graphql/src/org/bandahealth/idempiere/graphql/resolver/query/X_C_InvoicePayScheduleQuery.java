@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoicePayScheduleDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MInvoicePaySchedule;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for C_InvoicePaySchedule - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_C_InvoicePayScheduleQuery extends POQuery<MInvoicePaySchedule> im
 	@Override
 	protected String getTableName() {
 		return MInvoicePaySchedule.Table_Name;
+	}
+
+	public CompletableFuture<MInvoicePaySchedule> C_InvoicePaySchedule(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MInvoicePaySchedule> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_InvoicePayScheduleDataLoader.DATALOADER_C_InvoicePaySchedule_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MInvoicePaySchedule> C_InvoicePayScheduleGet(int Page, int PageSize, String Sort, String Filter,

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	GL_Journal(UU: String!): GL_Journal
 	GL_JournalGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_JournalConnection!
 }
 

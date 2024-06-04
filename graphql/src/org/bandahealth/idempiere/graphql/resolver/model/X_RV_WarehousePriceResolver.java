@@ -31,7 +31,7 @@ public class X_RV_WarehousePriceResolver extends POResolver<MWarehousePrice> imp
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MWarehousePrice entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -50,7 +50,7 @@ public class X_RV_WarehousePriceResolver extends POResolver<MWarehousePrice> imp
 	 * @return Identifies a unique instance of a Price List
 	 */
 	public CompletableFuture<MPriceListVersion> M_PriceList_Version(MWarehousePrice entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_Version_ID() <= 0) {
+		if (entity.getM_PriceList_Version_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceListVersion> dataLoader =
@@ -65,7 +65,7 @@ public class X_RV_WarehousePriceResolver extends POResolver<MWarehousePrice> imp
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MWarehousePrice entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -80,7 +80,7 @@ public class X_RV_WarehousePriceResolver extends POResolver<MWarehousePrice> imp
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MWarehousePrice entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

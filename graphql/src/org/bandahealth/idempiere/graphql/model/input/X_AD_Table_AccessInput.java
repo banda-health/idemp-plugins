@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_Table_AccessResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTable;
@@ -51,7 +52,12 @@ public class X_AD_Table_AccessInput extends MTableAccess implements I_AD_Table_A
 			return;
 		}
 		if (AccessTypeRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_Table_AccessResolver.ACCESSTYPERULE_UUIDS_BY_VALUE.containsValue(AccessTypeRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AccessTypeRule.getUU() +
+						" is not in the list defined for the AccessTypeRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

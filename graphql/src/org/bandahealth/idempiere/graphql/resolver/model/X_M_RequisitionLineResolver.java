@@ -37,7 +37,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MRequisitionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -52,7 +52,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MRequisitionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -67,7 +67,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(MRequisitionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() <= 0) {
+		if (entity.getC_OrderLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -82,7 +82,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MRequisitionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -97,7 +97,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MRequisitionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -112,7 +112,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MRequisitionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -127,7 +127,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 	 * @return Material Requisition
 	 */
 	public CompletableFuture<MRequisition> M_Requisition(MRequisitionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Requisition_ID() <= 0) {
+		if (entity.getM_Requisition_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequisition> dataLoader =

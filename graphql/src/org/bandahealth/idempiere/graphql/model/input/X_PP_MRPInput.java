@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PP_MRPResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MForecast;
 import org.compiere.model.MForecastLine;
@@ -283,7 +284,12 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_MRPResolver.DOCSTATUS_UUIDS_BY_VALUE.containsValue(DocStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocStatus.getUU() +
+						" is not in the list defined for the DocStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -521,7 +527,12 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	public void setOrderTypeInput(ForeignEntityInput OrderType) {
 		this.mOrderType = OrderType;
 		if (OrderType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_MRPResolver.ORDERTYPE_UUIDS_BY_VALUE.containsValue(OrderType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + OrderType.getUU() +
+						" is not in the list defined for the OrderType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -720,7 +731,12 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	public void setTypeMRPInput(ForeignEntityInput TypeMRP) {
 		this.mTypeMRP = TypeMRP;
 		if (TypeMRP != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_MRPResolver.TYPEMRP_UUIDS_BY_VALUE.containsValue(TypeMRP.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TypeMRP.getUU() +
+						" is not in the list defined for the TypeMRP column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_UserDef_Proc(UU: String!): AD_UserDef_Proc
 	AD_UserDef_ProcGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_ProcConnection!
 }
 

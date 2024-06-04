@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_Tab_CustomizationResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTab;
@@ -183,7 +184,12 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	public void setIsAutoHideEmptyColumnInput(ForeignEntityInput IsAutoHideEmptyColumn) {
 		this.mIsAutoHideEmptyColumn = IsAutoHideEmptyColumn;
 		if (IsAutoHideEmptyColumn != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_Tab_CustomizationResolver.ISAUTOHIDEEMPTYCOLUMN_UUIDS_BY_VALUE.containsValue(IsAutoHideEmptyColumn.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsAutoHideEmptyColumn.getUU() +
+						" is not in the list defined for the IsAutoHideEmptyColumn column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -217,7 +223,12 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	public void setIsDisplayedGridInput(ForeignEntityInput IsDisplayedGrid) {
 		this.mIsDisplayedGrid = IsDisplayedGrid;
 		if (IsDisplayedGrid != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_Tab_CustomizationResolver.ISDISPLAYEDGRID_UUIDS_BY_VALUE.containsValue(IsDisplayedGrid.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsDisplayedGrid.getUU() +
+						" is not in the list defined for the IsDisplayedGrid column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

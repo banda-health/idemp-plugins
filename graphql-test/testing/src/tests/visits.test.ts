@@ -26,7 +26,7 @@ import {
 import {
 	Ad_LanguageGetDocument,
 	Ad_Ref_ListGetDocument,
-	Bh_Coded_DiagnosisGetDocument,
+	Bh_ConceptGetDocument,
 	Bh_EncounterAndObservationsSaveManyDocument,
 	Bh_EncounterDeleteDocument,
 	Bh_EncounterGetDocument,
@@ -1663,6 +1663,7 @@ test('visit can be saved with really long chief complaint', async () => {
 					UU: encounterUuid,
 					BH_Encounter_Type: { UU: chiefComplaintEncounterTypeWindow.BH_Encounter_Type.UU },
 					BH_Visit: { UU: valueObject.visit!.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			BH_Observations: [
@@ -1708,8 +1709,13 @@ test('clinical vitals fields', async () => {
 	const heightValue = '200';
 	const weightValue = '100';
 
-	const codedDiagnosis = (await query(valueObject)({ query: Bh_Coded_DiagnosisGetDocument, variables: { Size: 1 } }))
-		.data.BH_Coded_DiagnosisGet.Results[0];
+	const codedDiagnosis = (await query(valueObject)({
+		query: Bh_ConceptGetDocument, variables: {
+			Size: 1,
+			Filter: JSON.stringify({ BH_Source: { $text: 'BHGO' } })
+		}
+	}))
+		.data.BH_ConceptGet.Results[0];
 	expect(codedDiagnosis).toBeTruthy();
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounterUuid = v4();
@@ -1721,11 +1727,12 @@ test('clinical vitals fields', async () => {
 					UU: encounterUuid,
 					BH_Visit: { UU: valueObject.visit!.UU },
 					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			BH_Observations: [
 				{
-					BH_Encounter: { UU: encounterUuid },
+					BH_Encounter: { UU: encounterUuid, },
 					AD_Field: { UU: fields.find((field) => field.UU === HEIGHT_FIELD_UUID)!.UU },
 					BH_Value: heightValue,
 				},
@@ -1739,7 +1746,7 @@ test('clinical vitals fields', async () => {
 				{
 					BH_Encounter: { UU: encounterUuid },
 					LineNo: 2,
-					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
+					BH_Concept: { UU: codedDiagnosis.UU },
 				},
 			],
 		},
@@ -1759,8 +1766,8 @@ test('clinical vitals fields', async () => {
 	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![0].BH_Uncoded_Diagnosis).toBe(
 		uncodedDiagnosisValue,
 	);
-	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Coded_Diagnosis!.UU).toBeTruthy();
-	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Coded_Diagnosis!.UU).toBe(
+	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Concept!.UU).toBeTruthy();
+	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Concept!.UU).toBe(
 		codedDiagnosis.UU,
 	);
 
@@ -2087,11 +2094,12 @@ test(`visit invoice updates work`, async () => {
 					UU: encounterUuid,
 					BH_Visit: { UU: visitUuid },
 					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			BH_EncounterDiagnoses: [
 				{
-					BH_Encounter: { UU: encounterUuid },
+					BH_Encounter: { UU: encounterUuid, },
 					LineNo: 1,
 					BH_Uncoded_Diagnosis: 'In some pain...',
 				},
@@ -2763,6 +2771,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				{
 					BH_Visit: { UU: visitUuid },
 					BH_Encounter_Type: { UU: encounterTypes.find((referenceList) => referenceList.Value === 'V')!.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			C_Orders: [
@@ -2881,8 +2890,13 @@ test('can delete encounters', async () => {
 	const fields = clinicalVitalsEncounterTypeWindow.AD_Window.AD_Tabs?.[0].AD_Fields!;
 	expect(fields).toBeTruthy();
 
-	const codedDiagnosis = (await query(valueObject)({ query: Bh_Coded_DiagnosisGetDocument, variables: { Size: 1 } }))
-		.data.BH_Coded_DiagnosisGet.Results[0];
+	const codedDiagnosis = (await query(valueObject)({
+		query: Bh_ConceptGetDocument, variables: {
+			Size: 1,
+			Filter: JSON.stringify({ BH_Source: { $text: 'BHGO' } })
+		}
+	}))
+		.data.BH_ConceptGet.Results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter1Uuid = v4();
 	const encounter2Uuid = v4();
@@ -2894,11 +2908,13 @@ test('can delete encounters', async () => {
 					UU: encounter1Uuid,
 					BH_Visit: { UU: valueObject.visit!.UU },
 					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 				{
 					UU: encounter2Uuid,
 					BH_Visit: { UU: valueObject.visit!.UU },
 					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			BH_Observations: [
@@ -2922,7 +2938,7 @@ test('can delete encounters', async () => {
 				{
 					BH_Encounter: { UU: encounter1Uuid },
 					LineNo: 2,
-					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
+					BH_Concept: { UU: codedDiagnosis.UU },
 				},
 				{
 					BH_Encounter: { UU: encounter2Uuid },
@@ -2932,7 +2948,7 @@ test('can delete encounters', async () => {
 				{
 					BH_Encounter: { UU: encounter2Uuid },
 					LineNo: 2,
-					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
+					BH_Concept: { UU: codedDiagnosis.UU },
 				},
 			],
 		},

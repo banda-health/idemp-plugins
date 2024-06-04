@@ -29,7 +29,7 @@ public class X_C_BP_Customer_AcctResolver extends POResolver<X_C_BP_Customer_Acc
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_C_BP_Customer_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_BP_Customer_AcctResolver extends POResolver<X_C_BP_Customer_Acc
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_C_BP_Customer_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_BP_Customer_AcctResolver extends POResolver<X_C_BP_Customer_Acc
 	 * @return Account for customer prepayments
 	 */
 	public CompletableFuture<MAccount> C_Prepayment_A(X_C_BP_Customer_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Prepayment_Acct() <= 0) {
+		if (entity.getC_Prepayment_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -74,7 +74,7 @@ public class X_C_BP_Customer_AcctResolver extends POResolver<X_C_BP_Customer_Acc
 	 * @return Account for Customer Receivables
 	 */
 	public CompletableFuture<MAccount> C_Receivable_A(X_C_BP_Customer_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Receivable_Acct() <= 0) {
+		if (entity.getC_Receivable_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_BP_Customer_AcctResolver extends POResolver<X_C_BP_Customer_Acc
 	 * @return Customer Accounts Receivables Services Account
 	 */
 	public CompletableFuture<MAccount> C_Receivable_Services_A(X_C_BP_Customer_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Receivable_Services_Acct() <= 0) {
+		if (entity.getC_Receivable_Services_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

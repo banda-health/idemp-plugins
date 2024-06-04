@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_Asset_Reval_IndexResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -74,7 +75,12 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	public void setA_Reval_CodeInput(ForeignEntityInput A_Reval_Code) {
 		this.mA_Reval_Code = A_Reval_Code;
 		if (A_Reval_Code != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_Reval_IndexResolver.A_REVAL_CODE_UUIDS_BY_VALUE.containsValue(A_Reval_Code.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Reval_Code.getUU() +
+						" is not in the list defined for the A_Reval_Code column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -108,7 +114,12 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	public void setA_Reval_MultiplierInput(ForeignEntityInput A_Reval_Multiplier) {
 		this.mA_Reval_Multiplier = A_Reval_Multiplier;
 		if (A_Reval_Multiplier != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_Reval_IndexResolver.A_REVAL_MULTIPLIER_UUIDS_BY_VALUE.containsValue(A_Reval_Multiplier.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Reval_Multiplier.getUU() +
+						" is not in the list defined for the A_Reval_Multiplier column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Replication_RunDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MReplicationRun;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_Replication_Run - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_Replication_RunQuery extends POQuery<MReplicationRun> implemen
 	@Override
 	protected String getTableName() {
 		return MReplicationRun.Table_Name;
+	}
+
+	public CompletableFuture<MReplicationRun> AD_Replication_Run(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MReplicationRun> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_Replication_RunDataLoader.DATALOADER_AD_Replication_Run_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MReplicationRun> AD_Replication_RunGet(int Page, int PageSize, String Sort, String Filter,

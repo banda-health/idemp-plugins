@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_AssetResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MAsset;
@@ -75,7 +76,12 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	public void setA_Asset_ActionInput(ForeignEntityInput A_Asset_Action) {
 		this.mA_Asset_Action = A_Asset_Action;
 		if (A_Asset_Action != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_AssetResolver.A_ASSET_ACTION_UUIDS_BY_VALUE.containsValue(A_Asset_Action.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Asset_Action.getUU() +
+						" is not in the list defined for the A_Asset_Action column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -199,7 +205,12 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	public void setA_Asset_StatusInput(ForeignEntityInput A_Asset_Status) {
 		this.mA_Asset_Status = A_Asset_Status;
 		if (A_Asset_Status != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_AssetResolver.A_ASSET_STATUS_UUIDS_BY_VALUE.containsValue(A_Asset_Status.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Asset_Status.getUU() +
+						" is not in the list defined for the A_Asset_Status column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

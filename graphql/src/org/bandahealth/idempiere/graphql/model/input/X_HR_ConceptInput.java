@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_HR_ConceptResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -56,7 +57,12 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	public void setAccountSignInput(ForeignEntityInput AccountSign) {
 		this.mAccountSign = AccountSign;
 		if (AccountSign != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_HR_ConceptResolver.ACCOUNTSIGN_UUIDS_BY_VALUE.containsValue(AccountSign.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AccountSign.getUU() +
+						" is not in the list defined for the AccountSign column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -161,7 +167,12 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	public void setColumnTypeInput(ForeignEntityInput ColumnType) {
 		this.mColumnType = ColumnType;
 		if (ColumnType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_HR_ConceptResolver.COLUMNTYPE_UUIDS_BY_VALUE.containsValue(ColumnType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ColumnType.getUU() +
+						" is not in the list defined for the ColumnType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -360,7 +371,12 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	public void setTypeInput(ForeignEntityInput Type) {
 		this.mType = Type;
 		if (Type != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_HR_ConceptResolver.TYPE_UUIDS_BY_VALUE.containsValue(Type.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Type.getUU() +
+						" is not in the list defined for the Type column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

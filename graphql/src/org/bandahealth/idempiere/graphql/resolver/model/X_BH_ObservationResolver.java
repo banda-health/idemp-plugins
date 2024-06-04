@@ -27,7 +27,7 @@ public class X_BH_ObservationResolver extends POResolver<MBHObservation> impleme
 	 * @return Field on a database table
 	 */
 	public CompletableFuture<MField_BH> AD_Field(MBHObservation entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Field_ID() <= 0) {
+		if (entity.getAD_Field_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MField_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_BH_ObservationResolver extends POResolver<MBHObservation> impleme
 	 * @return Encounter
 	 */
 	public CompletableFuture<MBHEncounter> BH_Encounter(MBHObservation entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Encounter_ID() <= 0) {
+		if (entity.getBH_Encounter_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBHEncounter> dataLoader =

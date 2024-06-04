@@ -27,7 +27,7 @@ public class X_M_DemandResolver extends POResolver<X_M_Demand> implements GraphQ
 	 * @return Accounting Calendar Name
 	 */
 	public CompletableFuture<MCalendar> C_Calendar(X_M_Demand entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Calendar_ID() <= 0) {
+		if (entity.getC_Calendar_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =
@@ -42,7 +42,7 @@ public class X_M_DemandResolver extends POResolver<X_M_Demand> implements GraphQ
 	 * @return Calendar Year
 	 */
 	public CompletableFuture<MYear> C_Year(X_M_Demand entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Year_ID() <= 0) {
+		if (entity.getC_Year_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MYear> dataLoader =

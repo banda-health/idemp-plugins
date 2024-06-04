@@ -38,7 +38,7 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MCashPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -53,7 +53,7 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MCashPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -68,7 +68,7 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MCashPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -83,7 +83,7 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MCashPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -91,11 +91,11 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
-	static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926");
-			put("I", "a98fda35-3822-42d3-8e4f-83880822e028");
-			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190");
+			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926"); // Financing
+			put("I", "a98fda35-3822-42d3-8e4f-83880822e028"); // Investment
+			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190"); // Operational
 		}
 	};
 	public CompletableFuture<MRefList_BH> CashFlowType(MCashPlan entity, DataFetchingEnvironment environment) {
@@ -126,7 +126,7 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MCashPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -141,7 +141,7 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MCashPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

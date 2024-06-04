@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 
 public class Repository {
 	private static final ThreadLocal<Boolean> isApplyAccessFilterNeeded = ThreadLocal.withInitial(() -> Boolean.TRUE);
+	private static final ThreadLocal<Boolean> isClientIdNeeded = ThreadLocal.withInitial(() -> Boolean.FALSE);
 
 	public static void setApplyAccessFilterNotNeeded() {
 		isApplyAccessFilterNeeded.set(Boolean.FALSE);
@@ -36,6 +37,14 @@ public class Repository {
 
 	public static void clearApplyAccessFilterNotNeeded() {
 		isApplyAccessFilterNeeded.set(Boolean.TRUE);
+	}
+
+	public static void setClientIdNeeded() {
+		isClientIdNeeded.set(Boolean.TRUE);
+	}
+
+	public static void clearClientIdNeeded() {
+		isClientIdNeeded.set(Boolean.FALSE);
 	}
 
 	/**
@@ -66,6 +75,9 @@ public class Repository {
 		Query query = new Query(idempiereContext, tableName, whereClause, transactionName).setNoVirtualColumn(true);
 		if (isApplyAccessFilterNeeded.get()) {
 			query.setApplyAccessFilter(fullyQualifiedWhere, isReadWrite);
+		}
+		if (isClientIdNeeded.get()) {
+			query.setClient_ID();
 		}
 		if (!parametersToUse.isEmpty()) {
 			query.setParameters(parametersToUse);
@@ -216,7 +228,7 @@ public class Repository {
 		}
 		setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 		return getQuery(idempiereContext, tableName, transactionName, true, false, tableName + "." + tableName + "_ID=?",
-				id).first();
+				id).setClient_ID(isClientIdNeeded.get()).first();
 	}
 
 	/**
@@ -240,7 +252,8 @@ public class Repository {
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 		List<T> models = getQuery(idempiereContext, tableName, transactionName, true, false,
-				tableName + "." + tableName + "_ID IN (" + whereCondition + ")", parameters).list();
+				tableName + "." + tableName + "_ID IN (" + whereCondition + ")", parameters).setClient_ID(
+				isClientIdNeeded.get()).list();
 		return models.stream().collect(Collectors.toMap(T::get_ID, m -> m));
 	}
 
@@ -272,7 +285,7 @@ public class Repository {
 		}
 		setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 		return getQuery(idempiereContext, tableName, transactionName, true, false, tableName + "." + tableName + "_UU=?",
-				uuid).first();
+				uuid).setClient_ID(isClientIdNeeded.get()).first();
 	}
 
 	/**
@@ -296,7 +309,8 @@ public class Repository {
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(uuids, parameters);
 		setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 		List<T> models = getQuery(idempiereContext, tableName, transactionName, true, false,
-				tableName + "." + tableName + "_UU IN (" + whereCondition + ")", parameters).list();
+				tableName + "." + tableName + "_UU IN (" + whereCondition + ")", parameters).setClient_ID(
+				isClientIdNeeded.get()).list();
 		return models.stream().collect(
 				Collectors.toMap(model -> model.get_Value(model.get_ColumnIndex(model.getUUIDColumnName())).toString(),
 						model -> model));

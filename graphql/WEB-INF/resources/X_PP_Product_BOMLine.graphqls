@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	PP_Product_BOMLine(UU: String!): PP_Product_BOMLine
 	PP_Product_BOMLineGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Product_BOMLineConnection!
 }
 

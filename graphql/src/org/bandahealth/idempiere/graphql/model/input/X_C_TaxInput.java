@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_TaxResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCountry;
 import org.compiere.model.MCountryGroup;
@@ -398,7 +399,12 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setSOPOTypeInput(ForeignEntityInput SOPOType) {
 		this.mSOPOType = SOPOType;
 		if (SOPOType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_TaxResolver.SOPOTYPE_UUIDS_BY_VALUE.containsValue(SOPOType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + SOPOType.getUU() +
+						" is not in the list defined for the SOPOType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -432,7 +438,12 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setTaxPostingIndicatorInput(ForeignEntityInput TaxPostingIndicator) {
 		this.mTaxPostingIndicator = TaxPostingIndicator;
 		if (TaxPostingIndicator != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_TaxResolver.TAXPOSTINGINDICATOR_UUIDS_BY_VALUE.containsValue(TaxPostingIndicator.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TaxPostingIndicator.getUU() +
+						" is not in the list defined for the TaxPostingIndicator column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

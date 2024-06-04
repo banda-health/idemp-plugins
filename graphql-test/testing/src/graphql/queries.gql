@@ -222,13 +222,17 @@ query AD_UserGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	}
 }
 
-query BH_Coded_DiagnosisGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
-	BH_Coded_DiagnosisGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+query BH_ConceptGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_ConceptGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			UU
-			bh_cielname
-			bh_icd10who
-			bh_searchterms
+			bh_concept_class
+			BH_Display_Name
+			BH_Concept_Type
+			BH_Concept_Extras {
+				UU
+				BH_Key
+			}
 		}
 	}
 }
@@ -256,6 +260,7 @@ query BH_EncounterGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_EncounterGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			UU
+			BH_Encounter_Date
 		}
 	}
 }
@@ -469,6 +474,7 @@ query M_AttributeSetGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) 
 	M_AttributeSetGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			UU
+			IsGuaranteeDate
 		}
 	}
 }

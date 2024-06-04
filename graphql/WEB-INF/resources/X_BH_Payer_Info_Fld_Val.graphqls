@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	BH_Payer_Info_Fld_Val(UU: String!): BH_Payer_Info_Fld_Val
 	BH_Payer_Info_Fld_ValGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Payer_Info_Fld_ValConnection!
 }
 

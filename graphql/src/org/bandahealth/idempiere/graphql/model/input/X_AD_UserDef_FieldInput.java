@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_UserDef_FieldResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChart;
 import org.compiere.model.MDashboardContent;
@@ -480,7 +481,12 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	public void setIsAlwaysUpdateableInput(ForeignEntityInput IsAlwaysUpdateable) {
 		this.mIsAlwaysUpdateable = IsAlwaysUpdateable;
 		if (IsAlwaysUpdateable != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_FieldResolver.ISALWAYSUPDATEABLE_UUIDS_BY_VALUE.containsValue(IsAlwaysUpdateable.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsAlwaysUpdateable.getUU() +
+						" is not in the list defined for the IsAlwaysUpdateable column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -514,7 +520,12 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	public void setIsAutocompleteInput(ForeignEntityInput IsAutocomplete) {
 		this.mIsAutocomplete = IsAutocomplete;
 		if (IsAutocomplete != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_FieldResolver.ISAUTOCOMPLETE_UUIDS_BY_VALUE.containsValue(IsAutocomplete.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsAutocomplete.getUU() +
+						" is not in the list defined for the IsAutocomplete column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -548,7 +559,12 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	public void setIsDisplayedInput(ForeignEntityInput IsDisplayed) {
 		this.mIsDisplayed = IsDisplayed;
 		if (IsDisplayed != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_FieldResolver.ISDISPLAYED_UUIDS_BY_VALUE.containsValue(IsDisplayed.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsDisplayed.getUU() +
+						" is not in the list defined for the IsDisplayed column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -582,7 +598,12 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	public void setIsDisplayedGridInput(ForeignEntityInput IsDisplayedGrid) {
 		this.mIsDisplayedGrid = IsDisplayedGrid;
 		if (IsDisplayedGrid != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_FieldResolver.ISDISPLAYEDGRID_UUIDS_BY_VALUE.containsValue(IsDisplayedGrid.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsDisplayedGrid.getUU() +
+						" is not in the list defined for the IsDisplayedGrid column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -616,7 +637,12 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	public void setIsMandatoryInput(ForeignEntityInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
 		if (IsMandatory != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_FieldResolver.ISMANDATORY_UUIDS_BY_VALUE.containsValue(IsMandatory.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsMandatory.getUU() +
+						" is not in the list defined for the IsMandatory column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -650,7 +676,12 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	public void setIsReadOnlyInput(ForeignEntityInput IsReadOnly) {
 		this.mIsReadOnly = IsReadOnly;
 		if (IsReadOnly != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_FieldResolver.ISREADONLY_UUIDS_BY_VALUE.containsValue(IsReadOnly.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsReadOnly.getUU() +
+						" is not in the list defined for the IsReadOnly column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -684,7 +715,12 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	public void setIsSameLineInput(ForeignEntityInput IsSameLine) {
 		this.mIsSameLine = IsSameLine;
 		if (IsSameLine != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_FieldResolver.ISSAMELINE_UUIDS_BY_VALUE.containsValue(IsSameLine.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsSameLine.getUU() +
+						" is not in the list defined for the IsSameLine column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -718,7 +754,12 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	public void setIsToolbarButtonInput(ForeignEntityInput IsToolbarButton) {
 		this.mIsToolbarButton = IsToolbarButton;
 		if (IsToolbarButton != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_FieldResolver.ISTOOLBARBUTTON_UUIDS_BY_VALUE.containsValue(IsToolbarButton.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsToolbarButton.getUU() +
+						" is not in the list defined for the IsToolbarButton column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -752,7 +793,12 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	public void setIsUpdateableInput(ForeignEntityInput IsUpdateable) {
 		this.mIsUpdateable = IsUpdateable;
 		if (IsUpdateable != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_FieldResolver.ISUPDATEABLE_UUIDS_BY_VALUE.containsValue(IsUpdateable.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsUpdateable.getUU() +
+						" is not in the list defined for the IsUpdateable column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

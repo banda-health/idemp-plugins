@@ -30,7 +30,7 @@ public class X_AD_UserPreferenceResolver extends POResolver<MUserPreference> imp
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MUserPreference entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -58,11 +58,11 @@ public class X_AD_UserPreferenceResolver extends POResolver<MUserPreference> imp
 		return entity.isToggleOnDoubleClick();
 	}
 
-	static Map<String, String> VIEWFINDRESULT_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> VIEWFINDRESULT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("0", "f4ec3670-1ae8-4442-afb3-c74d2df7a06e");
-			put("1", "ca0109d2-766d-4123-832c-f614c8c52ef2");
-			put("2", "a81e98ac-ddae-410c-8a20-d447ceed5486");
+			put("0", "f4ec3670-1ae8-4442-afb3-c74d2df7a06e"); // Default
+			put("1", "ca0109d2-766d-4123-832c-f614c8c52ef2"); // Always in Grid View
+			put("2", "a81e98ac-ddae-410c-8a20-d447ceed5486"); // According to threshold
 		}
 	};
 	public CompletableFuture<MRefList_BH> ViewFindResult(MUserPreference entity, DataFetchingEnvironment environment) {

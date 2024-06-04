@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_PeriodControlResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
@@ -154,7 +155,12 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			return;
 		}
 		if (DocBaseType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PeriodControlResolver.DOCBASETYPE_UUIDS_BY_VALUE.containsValue(DocBaseType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocBaseType.getUU() +
+						" is not in the list defined for the DocBaseType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -188,7 +194,12 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	public void setPeriodActionInput(ForeignEntityInput PeriodAction) {
 		this.mPeriodAction = PeriodAction;
 		if (PeriodAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PeriodControlResolver.PERIODACTION_UUIDS_BY_VALUE.containsValue(PeriodAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PeriodAction.getUU() +
+						" is not in the list defined for the PeriodAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -225,7 +236,12 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			return;
 		}
 		if (PeriodStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PeriodControlResolver.PERIODSTATUS_UUIDS_BY_VALUE.containsValue(PeriodStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PeriodStatus.getUU() +
+						" is not in the list defined for the PeriodStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

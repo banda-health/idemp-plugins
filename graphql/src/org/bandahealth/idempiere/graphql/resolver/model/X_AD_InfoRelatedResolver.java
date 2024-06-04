@@ -32,7 +32,7 @@ public class X_AD_InfoRelatedResolver extends POResolver<X_AD_InfoRelated> imple
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(X_AD_InfoRelated entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() <= 0) {
+		if (entity.getAD_InfoWindow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -78,7 +78,7 @@ public class X_AD_InfoRelatedResolver extends POResolver<X_AD_InfoRelated> imple
 	 * @return column in parent info window, link with column in this relate info
 	 */
 	public CompletableFuture<MInfoColumn> ParentRelatedColumn(X_AD_InfoRelated entity, DataFetchingEnvironment environment) {
-		if (entity.getParentRelatedColumn_ID() <= 0) {
+		if (entity.getParentRelatedColumn_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoColumn> dataLoader =
@@ -93,7 +93,7 @@ public class X_AD_InfoRelatedResolver extends POResolver<X_AD_InfoRelated> imple
 	 * @return Related Info Column
 	 */
 	public CompletableFuture<MInfoColumn> RelatedColumn(X_AD_InfoRelated entity, DataFetchingEnvironment environment) {
-		if (entity.getRelatedColumn_ID() <= 0) {
+		if (entity.getRelatedColumn_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoColumn> dataLoader =
@@ -108,7 +108,7 @@ public class X_AD_InfoRelatedResolver extends POResolver<X_AD_InfoRelated> imple
 	 * @return Related Info Window
 	 */
 	public CompletableFuture<MInfoWindow> RelatedInfo(X_AD_InfoRelated entity, DataFetchingEnvironment environment) {
-		if (entity.getRelatedInfo_ID() <= 0) {
+		if (entity.getRelatedInfo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =

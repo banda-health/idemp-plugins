@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_BOMProductResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBOM;
 import org.compiere.model.MBOMProduct;
@@ -93,7 +94,12 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	public void setBOMProductTypeInput(ForeignEntityInput BOMProductType) {
 		this.mBOMProductType = BOMProductType;
 		if (BOMProductType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_BOMProductResolver.BOMPRODUCTTYPE_UUIDS_BY_VALUE.containsValue(BOMProductType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BOMProductType.getUU() +
+						" is not in the list defined for the BOMProductType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

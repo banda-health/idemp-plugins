@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_Tab_Customization(UU: String!): AD_Tab_Customization
 	AD_Tab_CustomizationGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Tab_CustomizationConnection!
 }
 

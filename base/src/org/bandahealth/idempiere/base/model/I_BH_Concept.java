@@ -64,14 +64,14 @@ public interface I_BH_Concept
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_Concept_Class */
-    public static final String COLUMNNAME_BH_Concept_Class = "BH_Concept_Class";
+    /** Column name bh_concept_class */
+    public static final String COLUMNNAME_bh_concept_class = "bh_concept_class";
 
-	/** Set BH_Concept_Class	  */
-	public void setBH_Concept_Class (String BH_Concept_Class);
+	/** Set bh_concept_class	  */
+	public void setbh_concept_class (String bh_concept_class);
 
-	/** Get BH_Concept_Class	  */
-	public String getBH_Concept_Class();
+	/** Get bh_concept_class	  */
+	public String getbh_concept_class();
 
     /** Column name BH_Concept_ID */
     public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";

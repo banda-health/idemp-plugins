@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_RfQResponse(UU: String!): C_RfQResponse
 	C_RfQResponseGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQResponseConnection!
 }
 

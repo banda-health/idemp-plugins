@@ -34,7 +34,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MRMALine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -49,7 +49,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MRMALine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() <= 0) {
+		if (entity.getC_Tax_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -64,7 +64,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MRMALine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -79,7 +79,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MRMALine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -94,7 +94,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 	 * @return Return Material Authorization
 	 */
 	public CompletableFuture<MRMA> M_RMA(MRMALine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_RMA_ID() <= 0) {
+		if (entity.getM_RMA_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRMA> dataLoader =
@@ -113,7 +113,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 	 * @return Referenced RMA Line
 	 */
 	public CompletableFuture<MRMALine> Ref_RMALine(MRMALine entity, DataFetchingEnvironment environment) {
-		if (entity.getRef_RMALine_ID() <= 0) {
+		if (entity.getRef_RMALine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRMALine> dataLoader =

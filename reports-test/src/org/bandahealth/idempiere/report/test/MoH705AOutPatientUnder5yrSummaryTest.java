@@ -4,7 +4,8 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
-import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHVisit;
@@ -33,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryVO {
 	private static final String reportUuid = "c9f91d23-48ea-4990-af5d-f3e7f0db77de";
+	private static final String MOH705ALESSTHAN5 = "MOH-705A-LESSTHAN5";
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
@@ -51,23 +53,61 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
-		String diagnosisToSearchFor = "Burns";
-		String diagnosisAfterDiagnosisToSearchForOnReport = "Snakebites";
+		String diagnosisToSearchFor = "Pneumonia";
+		String diagnosisAfterDiagnosisToSearchForOnReport = "Burns";
 
 		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
-		MBHCodedDiagnosis codedDiagnosis = null;
+		MBHConcept codedDiagnosis = null;
 		try {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
-			codedDiagnosis = new Query(valueObject.getContext(), MBHCodedDiagnosis.Table_Name,
-					MBHCodedDiagnosis.COLUMNNAME_bh_cielname + "=?", valueObject.getTransactionName())
+			codedDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
 							.setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
-				valueObject.setStepName("Create the burns coded diagnosis");
-				codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-				codedDiagnosis.setbh_cielname(diagnosisToSearchFor);
+				valueObject.setStepName("Create the pneumonia coded diagnosis");
+				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
 			}
-			codedDiagnosis.setbh_moh705a_lessthan5("Burns");
 			codedDiagnosis.saveEx();
+
+			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+			if (extra == null) {
+				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra.setBH_Key(MOH705ALESSTHAN5);
+				extra.setBH_Value(diagnosisToSearchFor);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
+				extra.saveEx();
+			}
+
+			commitEx();
+			
+			// verify second diagnosis exists
+			MBHConcept codedDiagnosis2 = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
+							.setParameters(diagnosisAfterDiagnosisToSearchForOnReport).first();
+			if (codedDiagnosis2 == null) {
+				valueObject.setStepName("Create the burns coded diagnosis");
+				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+			}
+			codedDiagnosis2.saveEx();
+
+			MBHConceptExtra extra2 = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+			if (extra2 == null) {
+				extra2 = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra2.setBH_Key(MOH705ALESSTHAN5);
+				extra2.setBH_Value(diagnosisAfterDiagnosisToSearchForOnReport);
+				extra2.setBH_Concept_ID(codedDiagnosis2.getBH_Concept_ID());
+				extra2.saveEx();
+			}
 			commitEx();
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
@@ -120,10 +160,11 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -150,10 +191,11 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -192,19 +234,56 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		String diagnosisAfterDiagnosisToSearchForOnReport = "Suspected Malaria";
 
 		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
-		MBHCodedDiagnosis codedDiagnosis = null;
+		MBHConcept codedDiagnosis = null;
 		try {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
-			codedDiagnosis = new Query(valueObject.getContext(), MBHCodedDiagnosis.Table_Name,
-					MBHCodedDiagnosis.COLUMNNAME_bh_cielname + "=?", valueObject.getTransactionName())
+			codedDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
 							.setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create asthma coded diagnosis");
-				codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-				codedDiagnosis.setbh_cielname(diagnosisToSearchFor);
+				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
 			}
-			codedDiagnosis.setbh_moh705a_lessthan5("Asthma");
+
 			codedDiagnosis.saveEx();
+			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+			if (extra == null) {
+				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra.setBH_Key(MOH705ALESSTHAN5);
+				extra.setBH_Value(diagnosisToSearchFor);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
+				extra.saveEx();
+			}
+			commitEx();
+			
+			// verify second diagnosis exists
+			MBHConcept codedDiagnosis2 = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
+							.setParameters(diagnosisAfterDiagnosisToSearchForOnReport).first();
+			if (codedDiagnosis2 == null) {
+				valueObject.setStepName("Create the suspected malaria coded diagnosis");
+				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+			}
+			codedDiagnosis2.saveEx();
+
+			MBHConceptExtra extra2 = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+			if (extra2 == null) {
+				extra2 = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra2.setBH_Key(MOH705ALESSTHAN5);
+				extra2.setBH_Value(diagnosisAfterDiagnosisToSearchForOnReport);
+				extra2.setBH_Concept_ID(codedDiagnosis2.getBH_Concept_ID());
+				extra2.saveEx();
+			}
 			commitEx();
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
@@ -255,10 +334,11 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -287,10 +367,11 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -330,19 +411,55 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		String diagnosisAfterDiagnosisToSearchForOnReport = "Suspected Malaria";
 
 		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
-		MBHCodedDiagnosis codedDiagnosis = null;
+		MBHConcept codedDiagnosis = null;
 		try {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
-			codedDiagnosis = new Query(valueObject.getContext(), MBHCodedDiagnosis.Table_Name,
-					MBHCodedDiagnosis.COLUMNNAME_bh_cielname + "=?", valueObject.getTransactionName())
+			codedDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
 							.setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create asthma coded diagnosis");
-				codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-				codedDiagnosis.setbh_cielname(diagnosisToSearchFor);
+				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
 			}
-			codedDiagnosis.setbh_moh705a_lessthan5("Asthma");
 			codedDiagnosis.saveEx();
+			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+			if (extra == null) {
+				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra.setBH_Key(MOH705ALESSTHAN5);
+				extra.setBH_Value(diagnosisToSearchFor);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
+				extra.saveEx();
+			}
+			commitEx();
+			// verify second diagnosis exists
+			MBHConcept codedDiagnosis2 = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
+							.setParameters(diagnosisAfterDiagnosisToSearchForOnReport).first();
+			if (codedDiagnosis2 == null) {
+				valueObject.setStepName("Create the suspected malaria coded diagnosis");
+				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+			}
+			codedDiagnosis2.saveEx();
+
+			MBHConceptExtra extra2 = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+			if (extra2 == null) {
+				extra2 = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra2.setBH_Key(MOH705ALESSTHAN5);
+				extra2.setBH_Value(diagnosisAfterDiagnosisToSearchForOnReport);
+				extra2.setBH_Concept_ID(codedDiagnosis2.getBH_Concept_ID());
+				extra2.saveEx();
+			}
+
 			commitEx();
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
@@ -393,10 +510,11 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -425,10 +543,11 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -463,10 +582,11 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
 		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 

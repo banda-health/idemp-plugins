@@ -27,7 +27,7 @@ public class Concept extends BaseMetadata {
 	private List<ConceptExtra> conceptExtras = new ArrayList<>();
 	private List<Concept> fromConceptMappings = new ArrayList<>();
 	private List<ConceptName> conceptNames = new ArrayList<>();
-	private List<ClientConcept> clientConcepts = new ArrayList<>();
+	private List<ClientConceptExtra> clientConceptExtras = new ArrayList<>();
 	
 	public Concept() {
 	}
@@ -35,7 +35,7 @@ public class Concept extends BaseMetadata {
 	public Concept(MBHConcept entity) {
 		super(entity);
 		setUuid(entity.getBH_Concept_UU());
-		setConceptClass(entity.getBH_Concept_Class());
+		setConceptClass(entity.getbh_concept_class());
 		setConceptType(entity.getBH_Concept_Type());
 		setDisplayLocale(entity.getBH_Display_Locale());
 		setDisplayName(entity.getBH_Display_Name());
@@ -168,11 +168,11 @@ public class Concept extends BaseMetadata {
 		this.conceptNames = conceptNames;
 	}
 
-	public List<ClientConcept> getClientConcepts() {
-		return clientConcepts;
+	public List<ClientConceptExtra> getClientConceptExtras() {
+		return clientConceptExtras;
 	}
 	
-	public void setClientConcepts(List<ClientConcept> clientConcepts) {
-		this.clientConcepts = clientConcepts;
+	public void setClientConceptExtras(List<ClientConceptExtra> clientConceptExtras) {
+		this.clientConceptExtras = clientConceptExtras;
 	}
 }

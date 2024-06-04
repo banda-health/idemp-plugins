@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	I_Conversion_Rate(UU: String!): I_Conversion_Rate
 	I_Conversion_RateGet(Page: Int, Size: Int, Sort: String, Filter: String): I_Conversion_RateConnection!
 }
 

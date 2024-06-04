@@ -38,7 +38,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -53,7 +53,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -68,7 +68,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -83,7 +83,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -98,7 +98,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -113,7 +113,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Optional Warehouse to replenish from
 	 */
 	public CompletableFuture<MWarehouse_BH> M_WarehouseSource(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getM_WarehouseSource_ID() <= 0) {
+		if (entity.getM_WarehouseSource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -121,12 +121,12 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 		return dataLoader.load(entity.getM_WarehouseSource_ID());
 	}
 
-	static Map<String, String> REPLENISHMENTCREATE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> REPLENISHMENTCREATE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("POO", "b3daba11-9275-44c0-89f3-f296e5402cfa");
-			put("POR", "32478382-1f8e-4ed4-9d64-98112e01ee15");
-			put("MMM", "8ef00caf-c49a-44c1-97f9-392d7dd45062");
-			put("DOO", "9ac1fdd2-dfb4-4da0-82c6-4193c23b6364");
+			put("POO", "b3daba11-9275-44c0-89f3-f296e5402cfa"); // Purchase Order
+			put("POR", "32478382-1f8e-4ed4-9d64-98112e01ee15"); // Requisition
+			put("MMM", "8ef00caf-c49a-44c1-97f9-392d7dd45062"); // Inventory Move
+			put("DOO", "9ac1fdd2-dfb4-4da0-82c6-4193c23b6364"); // Distribution Order
 		}
 	};
 	public CompletableFuture<MRefList_BH> ReplenishmentCreate(X_T_Replenish entity, DataFetchingEnvironment environment) {
@@ -138,12 +138,12 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 		return dataLoader.load(REPLENISHMENTCREATE_UUIDS_BY_VALUE.get(entity.getReplenishmentCreate()));
 	}
 
-	static Map<String, String> REPLENISHTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> REPLENISHTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("2", "ffd6c420-3c4d-496e-9aa2-6b8233df56d8");
-			put("0", "e41e99de-d51a-4bc7-b3ae-7562ba8896c4");
-			put("1", "1f3b5c0e-491a-4356-89fb-90b6cfd18252");
-			put("9", "d32a0909-824f-4d2e-a7ce-c066af987363");
+			put("2", "ffd6c420-3c4d-496e-9aa2-6b8233df56d8"); // Maintain Maximum Level
+			put("0", "e41e99de-d51a-4bc7-b3ae-7562ba8896c4"); // Manual
+			put("1", "1f3b5c0e-491a-4356-89fb-90b6cfd18252"); // Reorder below Minimum Level
+			put("9", "d32a0909-824f-4d2e-a7ce-c066af987363"); // Custom
 		}
 	};
 	public CompletableFuture<MRefList_BH> ReplenishType(X_T_Replenish entity, DataFetchingEnvironment environment) {

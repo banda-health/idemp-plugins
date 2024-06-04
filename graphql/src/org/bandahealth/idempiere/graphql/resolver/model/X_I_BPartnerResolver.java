@@ -39,7 +39,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_I_BPartner entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -54,7 +54,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(X_I_BPartner entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() <= 0) {
+		if (entity.getC_BP_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -69,7 +69,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_BPartner entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -84,7 +84,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(X_I_BPartner entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -99,7 +99,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(X_I_BPartner entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() <= 0) {
+		if (entity.getC_Country_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
@@ -114,7 +114,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 	 * @return Greeting to print on correspondence
 	 */
 	public CompletableFuture<X_C_Greeting> C_Greeting(X_I_BPartner entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Greeting_ID() <= 0) {
+		if (entity.getC_Greeting_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Greeting> dataLoader =
@@ -129,7 +129,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 	 * @return Identifies a geographical Region
 	 */
 	public CompletableFuture<MRegion> C_Region(X_I_BPartner entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Region_ID() <= 0) {
+		if (entity.getC_Region_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
@@ -168,7 +168,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 	 * @return Interest Area or Topic
 	 */
 	public CompletableFuture<MInterestArea> R_InterestArea(X_I_BPartner entity, DataFetchingEnvironment environment) {
-		if (entity.getR_InterestArea_ID() <= 0) {
+		if (entity.getR_InterestArea_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInterestArea> dataLoader =

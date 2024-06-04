@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatItemDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_AD_PrintFormatItem;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_PrintFormatItem - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_PrintFormatItemQuery extends POQuery<X_AD_PrintFormatItem> imp
 	@Override
 	protected String getTableName() {
 		return X_AD_PrintFormatItem.Table_Name;
+	}
+
+	public CompletableFuture<X_AD_PrintFormatItem> AD_PrintFormatItem(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_AD_PrintFormatItem> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_PrintFormatItemDataLoader.DATALOADER_AD_PrintFormatItem_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_AD_PrintFormatItem> AD_PrintFormatItemGet(int Page, int PageSize, String Sort, String Filter,

@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_UserResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCampaign;
@@ -168,7 +169,12 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	public void setAuthenticationTypeInput(ForeignEntityInput AuthenticationType) {
 		this.mAuthenticationType = AuthenticationType;
 		if (AuthenticationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserResolver.AUTHENTICATIONTYPE_UUIDS_BY_VALUE.containsValue(AuthenticationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AuthenticationType.getUU() +
+						" is not in the list defined for the AuthenticationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -462,7 +468,12 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	public void setIsMenuAutoExpandInput(ForeignEntityInput IsMenuAutoExpand) {
 		this.mIsMenuAutoExpand = IsMenuAutoExpand;
 		if (IsMenuAutoExpand != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserResolver.ISMENUAUTOEXPAND_UUIDS_BY_VALUE.containsValue(IsMenuAutoExpand.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsMenuAutoExpand.getUU() +
+						" is not in the list defined for the IsMenuAutoExpand column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -496,7 +507,12 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	public void setLeadSourceInput(ForeignEntityInput LeadSource) {
 		this.mLeadSource = LeadSource;
 		if (LeadSource != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserResolver.LEADSOURCE_UUIDS_BY_VALUE.containsValue(LeadSource.getUU())) {
+				throw new AdempiereException("The reference list UU of " + LeadSource.getUU() +
+						" is not in the list defined for the LeadSource column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -530,7 +546,12 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	public void setLeadStatusInput(ForeignEntityInput LeadStatus) {
 		this.mLeadStatus = LeadStatus;
 		if (LeadStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserResolver.LEADSTATUS_UUIDS_BY_VALUE.containsValue(LeadStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + LeadStatus.getUU() +
+						" is not in the list defined for the LeadStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -564,7 +585,12 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	public void setNotificationTypeInput(ForeignEntityInput NotificationType) {
 		this.mNotificationType = NotificationType;
 		if (NotificationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserResolver.NOTIFICATIONTYPE_UUIDS_BY_VALUE.containsValue(NotificationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + NotificationType.getUU() +
+						" is not in the list defined for the NotificationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

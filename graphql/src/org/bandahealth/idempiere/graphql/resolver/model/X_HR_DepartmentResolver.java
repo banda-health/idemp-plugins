@@ -25,7 +25,7 @@ public class X_HR_DepartmentResolver extends POResolver<X_HR_Department> impleme
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(X_HR_Department entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =

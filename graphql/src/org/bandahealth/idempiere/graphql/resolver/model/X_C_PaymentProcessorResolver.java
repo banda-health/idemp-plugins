@@ -74,7 +74,7 @@ public class X_C_PaymentProcessorResolver extends POResolver<MPaymentProcessor> 
 	 * @return Document Sequence
 	 */
 	public CompletableFuture<MSequence_BH> AD_Sequence(MPaymentProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Sequence_ID() <= 0) {
+		if (entity.getAD_Sequence_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_PaymentProcessorResolver extends POResolver<MPaymentProcessor> 
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MPaymentProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() <= 0) {
+		if (entity.getC_BankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -104,7 +104,7 @@ public class X_C_PaymentProcessorResolver extends POResolver<MPaymentProcessor> 
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MPaymentProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -116,14 +116,14 @@ public class X_C_PaymentProcessorResolver extends POResolver<MPaymentProcessor> 
 		return entity.isRequireVV();
 	}
 
-	static Map<String, String> TRXTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TRXTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "62ede000-ce9c-48fd-b805-24dfa336bef6");
-			put("D", "65ae32d1-fb46-4b5c-8b6e-ca692bc9071f");
-			put("C", "3ec6abf2-3776-4bc6-b0ad-e26a805e8fa4");
-			put("F", "fa969983-3f23-444e-bb5b-91e584657242");
-			put("A", "d70a8f1d-2bdc-4aee-b07c-831aae57eb30");
-			put("V", "0778d779-1c5a-47eb-b68e-c94771517f0f");
+			put("S", "62ede000-ce9c-48fd-b805-24dfa336bef6"); // Sales
+			put("D", "65ae32d1-fb46-4b5c-8b6e-ca692bc9071f"); // Delayed Capture
+			put("C", "3ec6abf2-3776-4bc6-b0ad-e26a805e8fa4"); // Credit (Payment)
+			put("F", "fa969983-3f23-444e-bb5b-91e584657242"); // Voice Authorization
+			put("A", "d70a8f1d-2bdc-4aee-b07c-831aae57eb30"); // Authorization
+			put("V", "0778d779-1c5a-47eb-b68e-c94771517f0f"); // Void
 		}
 	};
 	public CompletableFuture<MRefList_BH> TrxType(MPaymentProcessor entity, DataFetchingEnvironment environment) {

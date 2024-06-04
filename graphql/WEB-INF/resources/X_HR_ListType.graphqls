@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	HR_ListType(UU: String!): HR_ListType
 	HR_ListTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_ListTypeConnection!
 }
 

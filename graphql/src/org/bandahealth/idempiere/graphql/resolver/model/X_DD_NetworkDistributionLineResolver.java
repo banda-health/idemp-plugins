@@ -29,7 +29,7 @@ public class X_DD_NetworkDistributionLineResolver extends POResolver<X_DD_Networ
 	 * @return Network Distribution
 	 */
 	public CompletableFuture<X_DD_NetworkDistribution> DD_NetworkDistribution(X_DD_NetworkDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getDD_NetworkDistribution_ID() <= 0) {
+		if (entity.getDD_NetworkDistribution_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_DD_NetworkDistribution> dataLoader =
@@ -44,7 +44,7 @@ public class X_DD_NetworkDistributionLineResolver extends POResolver<X_DD_Networ
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(X_DD_NetworkDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() <= 0) {
+		if (entity.getM_Shipper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -59,7 +59,7 @@ public class X_DD_NetworkDistributionLineResolver extends POResolver<X_DD_Networ
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_DD_NetworkDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -74,7 +74,7 @@ public class X_DD_NetworkDistributionLineResolver extends POResolver<X_DD_Networ
 	 * @return Optional Warehouse to replenish from
 	 */
 	public CompletableFuture<MWarehouse_BH> M_WarehouseSource(X_DD_NetworkDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_WarehouseSource_ID() <= 0) {
+		if (entity.getM_WarehouseSource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

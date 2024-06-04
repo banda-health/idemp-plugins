@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PP_Product_BOMLineResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChangeNotice;
 import org.compiere.model.MOrg;
@@ -126,7 +127,12 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	public void setComponentTypeInput(ForeignEntityInput ComponentType) {
 		this.mComponentType = ComponentType;
 		if (ComponentType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Product_BOMLineResolver.COMPONENTTYPE_UUIDS_BY_VALUE.containsValue(ComponentType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ComponentType.getUU() +
+						" is not in the list defined for the ComponentType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -160,7 +166,12 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	public void setIssueMethodInput(ForeignEntityInput IssueMethod) {
 		this.mIssueMethod = IssueMethod;
 		if (IssueMethod != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Product_BOMLineResolver.ISSUEMETHOD_UUIDS_BY_VALUE.containsValue(IssueMethod.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IssueMethod.getUU() +
+						" is not in the list defined for the IssueMethod column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	S_TimeExpense(UU: String!): S_TimeExpense
 	S_TimeExpenseGet(Page: Int, Size: Int, Sort: String, Filter: String): S_TimeExpenseConnection!
 }
 

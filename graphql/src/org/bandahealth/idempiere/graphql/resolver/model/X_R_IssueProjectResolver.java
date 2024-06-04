@@ -32,7 +32,7 @@ public class X_R_IssueProjectResolver extends POResolver<X_R_IssueProject> imple
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_R_IssueProject entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -47,7 +47,7 @@ public class X_R_IssueProjectResolver extends POResolver<X_R_IssueProject> imple
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_R_IssueProject entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -55,11 +55,11 @@ public class X_R_IssueProjectResolver extends POResolver<X_R_IssueProject> imple
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
-	static Map<String, String> SYSTEMSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SYSTEMSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "80ee3010-2e49-4aa8-934e-2c5662b1b70d");
-			put("I", "d3239ec8-bbdc-42c3-997b-c3be8d89d914");
-			put("P", "1b3201b9-d2a4-4101-a4a0-a53571550f32");
+			put("E", "80ee3010-2e49-4aa8-934e-2c5662b1b70d"); // Evaluation
+			put("I", "d3239ec8-bbdc-42c3-997b-c3be8d89d914"); // Implementation
+			put("P", "1b3201b9-d2a4-4101-a4a0-a53571550f32"); // Production
 		}
 	};
 	public CompletableFuture<MRefList_BH> SystemStatus(X_R_IssueProject entity, DataFetchingEnvironment environment) {

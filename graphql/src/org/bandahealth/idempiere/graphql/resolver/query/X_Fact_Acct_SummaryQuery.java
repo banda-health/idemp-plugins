@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_Fact_Acct_SummaryDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_Fact_Acct_Summary;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for Fact_Acct_Summary - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_Fact_Acct_SummaryQuery extends POQuery<X_Fact_Acct_Summary> imple
 	@Override
 	protected String getTableName() {
 		return X_Fact_Acct_Summary.Table_Name;
+	}
+
+	public CompletableFuture<X_Fact_Acct_Summary> Fact_Acct_Summary(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_Fact_Acct_Summary> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_Fact_Acct_SummaryDataLoader.DATALOADER_Fact_Acct_Summary_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_Fact_Acct_Summary> Fact_Acct_SummaryGet(int Page, int PageSize, String Sort, String Filter,

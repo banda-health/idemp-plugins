@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_PrintFormatItemResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MOrg;
@@ -369,7 +370,12 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	public void setBarcodeTypeInput(ForeignEntityInput BarcodeType) {
 		this.mBarcodeType = BarcodeType;
 		if (BarcodeType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_PrintFormatItemResolver.BARCODETYPE_UUIDS_BY_VALUE.containsValue(BarcodeType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BarcodeType.getUU() +
+						" is not in the list defined for the BarcodeType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -403,7 +409,12 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	public void setFieldAlignmentTypeInput(ForeignEntityInput FieldAlignmentType) {
 		this.mFieldAlignmentType = FieldAlignmentType;
 		if (FieldAlignmentType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_PrintFormatItemResolver.FIELDALIGNMENTTYPE_UUIDS_BY_VALUE.containsValue(FieldAlignmentType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FieldAlignmentType.getUU() +
+						" is not in the list defined for the FieldAlignmentType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -437,7 +448,12 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	public void setLineAlignmentTypeInput(ForeignEntityInput LineAlignmentType) {
 		this.mLineAlignmentType = LineAlignmentType;
 		if (LineAlignmentType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_PrintFormatItemResolver.LINEALIGNMENTTYPE_UUIDS_BY_VALUE.containsValue(LineAlignmentType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + LineAlignmentType.getUU() +
+						" is not in the list defined for the LineAlignmentType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -471,7 +487,12 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	public void setPrintAreaTypeInput(ForeignEntityInput PrintAreaType) {
 		this.mPrintAreaType = PrintAreaType;
 		if (PrintAreaType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_PrintFormatItemResolver.PRINTAREATYPE_UUIDS_BY_VALUE.containsValue(PrintAreaType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PrintAreaType.getUU() +
+						" is not in the list defined for the PrintAreaType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -505,7 +526,12 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	public void setPrintFormatTypeInput(ForeignEntityInput PrintFormatType) {
 		this.mPrintFormatType = PrintFormatType;
 		if (PrintFormatType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_PrintFormatItemResolver.PRINTFORMATTYPE_UUIDS_BY_VALUE.containsValue(PrintFormatType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PrintFormatType.getUU() +
+						" is not in the list defined for the PrintFormatType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -539,7 +565,12 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	public void setShapeTypeInput(ForeignEntityInput ShapeType) {
 		this.mShapeType = ShapeType;
 		if (ShapeType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_PrintFormatItemResolver.SHAPETYPE_UUIDS_BY_VALUE.containsValue(ShapeType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ShapeType.getUU() +
+						" is not in the list defined for the ShapeType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

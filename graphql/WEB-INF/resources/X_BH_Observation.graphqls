@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	BH_Observation(UU: String!): BH_Observation
 	BH_ObservationGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_ObservationConnection!
 }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_I_ReportLineResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
@@ -127,7 +128,12 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	public void setCalculationTypeInput(ForeignEntityInput CalculationType) {
 		this.mCalculationType = CalculationType;
 		if (CalculationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_ReportLineResolver.CALCULATIONTYPE_UUIDS_BY_VALUE.containsValue(CalculationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CalculationType.getUU() +
+						" is not in the list defined for the CalculationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -190,7 +196,12 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	public void setLineTypeInput(ForeignEntityInput LineType) {
 		this.mLineType = LineType;
 		if (LineType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_ReportLineResolver.LINETYPE_UUIDS_BY_VALUE.containsValue(LineType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + LineType.getUU() +
+						" is not in the list defined for the LineType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -326,7 +337,12 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	public void setPAAmountTypeInput(ForeignEntityInput PAAmountType) {
 		this.mPAAmountType = PAAmountType;
 		if (PAAmountType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_ReportLineResolver.PAAMOUNTTYPE_UUIDS_BY_VALUE.containsValue(PAAmountType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PAAmountType.getUU() +
+						" is not in the list defined for the PAAmountType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -360,7 +376,12 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	public void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType) {
 		this.mPAPeriodType = PAPeriodType;
 		if (PAPeriodType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_ReportLineResolver.PAPERIODTYPE_UUIDS_BY_VALUE.containsValue(PAPeriodType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PAPeriodType.getUU() +
+						" is not in the list defined for the PAPeriodType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -394,7 +415,12 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_ReportLineResolver.POSTINGTYPE_UUIDS_BY_VALUE.containsValue(PostingType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PostingType.getUU() +
+						" is not in the list defined for the PostingType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
