@@ -1,0 +1,8 @@
+INSERT INTO adempiere.ad_importtemplate (ad_client_id, ad_importtemplate_id, ad_importtemplate_uu, ad_org_id, ad_tab_id, ad_window_id, characterset, created, createdby, csvaliasheader, csvheader, description, isactive, name, updated, updatedby) VALUES (0, (SELECT COALESCE(MAX(ad_importtemplate_id) + 1, 1000000) FROM ad_importtemplate), 'b8193e08-67b5-481a-aab5-0862543bf419', 0, 220, 123, 'UTF-8', '2024-06-04 11:54:57.400000', 100, null, 'Name,C_BP_Group_ID[Value],IsCustomer,IsProspect,bh_gender,BH_Birthday,BH_Local_PatientID,BH_Phone,C_BPartner_Location>Name,C_BPartner_Location>C_Location>Address1,C_BPartner_Location>C_Location>C_Country_ID[Name]', 'Import business partners along with a few Banda Health fields such as Gender and Local Patient ID, as well as demographics like Birthdate, Phone, and Address', 'Y', 'Business Partner w/ Banda fields', '2024-06-04 11:54:57.400000', 100) ON CONFLICT DO NOTHING;
+
+INSERT INTO adempiere.ad_importtemplateaccess (ad_client_id, ad_importtemplateaccess_id, ad_importtemplateaccess_uu, ad_importtemplate_id, ad_org_id, ad_role_id, created, createdby, isactive, isallowinsert, isallowmerge, isallowupdate, updated, updatedby) VALUES (0, (SELECT COALESCE(MAX(ad_importtemplateaccess_id) + 1, 1000000) FROM ad_importtemplateaccess), 'c8788340-df17-4ae7-b6d2-0493255e7010', (SELECT ad_importtemplate_id FROM ad_importtemplate WHERE ad_importtemplate_uu = 'b8193e08-67b5-481a-aab5-0862543bf419'), 0, 0, '2024-06-04 14:52:36.746000', 100, 'Y', 'Y', 'Y', 'Y', '2024-06-04 14:52:36.746000', 100) ON CONFLICT DO NOTHING;
+
+SELECT
+	register_migration_script('202406041444_GO-2934.sql')
+FROM
+	dual;
