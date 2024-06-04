@@ -39,27 +39,15 @@ VALUES
 ON CONFLICT DO NOTHING;
 
 -- Step 2:
-DROP TABLE IF EXISTS tmp_bh_encounter_diagnosis_coded_diagnosis_ids;
-
-SELECT
-	e.bh_coded_diagnosis_id,
-	c.bh_concept_id
-INTO TEMP TABLE
-	tmp_bh_encounter_diagnosis_coded_diagnosis_ids
-FROM
-	bh_encounter_diagnosis e
-		INNER JOIN bh_coded_diagnosis cd
-		ON e.bh_coded_diagnosis_id = cd.bh_coded_diagnosis_id
-		INNER JOIN bh_concept c
-		ON cd.bh_cielname = c.bh_display_name AND c.bh_source = 'BHGO';
-
 UPDATE bh_encounter_diagnosis ed
 SET
-	bh_concept_id = tmp.bh_concept_id
+	bh_concept_id = c.bh_concept_id
 FROM
-	tmp_bh_encounter_diagnosis_coded_diagnosis_ids tmp
+	bh_coded_diagnosis cd
+		JOIN bh_concept c
+		ON cd.bh_cielname = c.bh_display_name AND c.bh_source = 'BHGO'
 WHERE
-	ed.bh_coded_diagnosis_id = tmp.bh_coded_diagnosis_id;
+	ed.bh_coded_diagnosis_id = cd.bh_coded_diagnosis_id;
 
 -- Step 3:
 DELETE
@@ -554,7 +542,7 @@ CREATE TEMP TABLE tmp_bh_client_concept_extra
 	ad_org_id                  numeric(10)                     NOT NULL,
 	bh_concept_extra_id        numeric(10)                     NOT NULL,
 	bh_client_concept_extra_uu uuid        DEFAULT uuid_generate_v4(),
-	bh_client_concept_extra_id numeric(10)                     NOT NULL,
+	bh_client_concept_extra_id serial                          NOT NULL,
 	created                    timestamp   DEFAULT NOW()       NOT NULL,
 	createdby                  numeric(10) DEFAULT 100         NOT NULL,
 	isactive                   char        DEFAULT 'Y'::bpchar NOT NULL,
@@ -562,6 +550,13 @@ CREATE TEMP TABLE tmp_bh_client_concept_extra
 	updatedby                  numeric(10) DEFAULT 100         NOT NULL,
 	bh_value                   text                            NOT NULL
 );
+
+SELECT
+	SETVAL(
+		'tmp_bh_client_concept_extra_bh_client_concept_extra_id_seq',
+		1000000,
+		FALSE
+	);
 
 -- Insert the values into our temp table
 INSERT
@@ -675,6 +670,9 @@ SET
 	columnname = 'BH_Voided_Reason_UU'
 WHERE
 	ad_element_uu = '17226899-35c3-41d9-8b3a-79a78f3c4dbb';
+
+SELECT
+	update_sequences();
 
 SELECT
 	register_migration_script('202404041052_GO-2923.sql')
