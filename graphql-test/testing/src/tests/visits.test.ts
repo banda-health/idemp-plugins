@@ -1663,6 +1663,7 @@ test('visit can be saved with really long chief complaint', async () => {
 					UU: encounterUuid,
 					BH_Encounter_Type: { UU: chiefComplaintEncounterTypeWindow.BH_Encounter_Type.UU },
 					BH_Visit: { UU: valueObject.visit!.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			BH_Observations: [
@@ -1726,11 +1727,12 @@ test('clinical vitals fields', async () => {
 					UU: encounterUuid,
 					BH_Visit: { UU: valueObject.visit!.UU },
 					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			BH_Observations: [
 				{
-					BH_Encounter: { UU: encounterUuid },
+					BH_Encounter: { UU: encounterUuid, },
 					AD_Field: { UU: fields.find((field) => field.UU === HEIGHT_FIELD_UUID)!.UU },
 					BH_Value: heightValue,
 				},
@@ -2092,11 +2094,12 @@ test(`visit invoice updates work`, async () => {
 					UU: encounterUuid,
 					BH_Visit: { UU: visitUuid },
 					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			BH_EncounterDiagnoses: [
 				{
-					BH_Encounter: { UU: encounterUuid },
+					BH_Encounter: { UU: encounterUuid, },
 					LineNo: 1,
 					BH_Uncoded_Diagnosis: 'In some pain...',
 				},
@@ -2768,6 +2771,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				{
 					BH_Visit: { UU: visitUuid },
 					BH_Encounter_Type: { UU: encounterTypes.find((referenceList) => referenceList.Value === 'V')!.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			C_Orders: [
@@ -2904,11 +2908,13 @@ test('can delete encounters', async () => {
 					UU: encounter1Uuid,
 					BH_Visit: { UU: valueObject.visit!.UU },
 					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 				{
 					UU: encounter2Uuid,
 					BH_Visit: { UU: valueObject.visit!.UU },
 					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
+					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
 			BH_Observations: [

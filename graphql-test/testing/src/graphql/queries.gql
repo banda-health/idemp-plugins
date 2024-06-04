@@ -260,6 +260,7 @@ query BH_EncounterGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_EncounterGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			UU
+			BH_Encounter_Date
 		}
 	}
 }

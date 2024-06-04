@@ -1417,6 +1417,7 @@ test('visit can be saved with really long chief complaint', async () => {
 
 	valueObject.visit!.encounters!.push({
 		encounterType: chiefComplaintEncounterTypeWindow?.encounterType,
+		encounterDate: valueObject.date,
 		observations: [
 			{
 				value: longChiefComplaint,
@@ -1460,6 +1461,7 @@ test('clinical vitals fields', async () => {
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter: Partial<Encounter> = {
 		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
+		encounterDate: valueObject.date,
 		observations: [
 			{
 				value: heightValue,
@@ -1880,6 +1882,7 @@ test(`visit invoice updates work`, async () => {
 		encounters: [
 			{
 				encounterType: clinicalVitalsEncounterTypeWindow.encounterType,
+				encounterDate: valueObject.date,
 				observations: [
 					{
 						value: '100',
@@ -2355,6 +2358,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				createdBy: createdUser,
 				updatedBy: createdUser,
 				updated: new Date(1688636248131),
+				encounterDate: new Date(1688636248131)
 			},
 			{
 				clientId: 1000000,
@@ -2383,6 +2387,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				createdBy: createdUser,
 				updatedBy: createdUser,
 				updated: new Date(1688636248131),
+				encounterDate: new Date(1688636248131)
 			},
 		],
 		orders: [
@@ -2562,6 +2567,7 @@ test('can delete encounters', async () => {
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter: Partial<Encounter> = {
 		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
+		encounterDate: valueObject.date,
 		observations: [
 			{
 				value: '200',
@@ -2670,6 +2676,7 @@ test('lab diagnostic fields', async () => {
 	const concepts = (await conceptApi.get(valueObject)).results;
 	const encounter: Partial<Encounter> = {
 		encounterType: labDiagnosticEncounterTypeWindow?.encounterType,
+		encounterDate: valueObject.date,
 		observations: [
 			{
 				value: LAB_NOTES_VALUE,
