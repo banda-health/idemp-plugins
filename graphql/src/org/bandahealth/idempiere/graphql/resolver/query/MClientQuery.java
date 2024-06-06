@@ -42,7 +42,7 @@ public class MClientQuery extends X_AD_ClientQuery {
 							AND cli.IsActive='Y'
 							AND cli.AuthenticationType IN ('APO', 'AAS')
 							AND ur.AD_User_ID=?
-						ORDER BY cli.Name""";
+						ORDER BY cli.AD_Client_ID""";
 				List<Integer> clientIdsForUser = new ArrayList<>();
 				try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 					preparedStatement.setInt(1, Env.getAD_User_ID(iDempiereContext));
