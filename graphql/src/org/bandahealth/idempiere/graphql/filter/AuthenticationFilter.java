@@ -143,7 +143,8 @@ public class AuthenticationFilter implements Filter {
 //						requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 //					}
 //				}
-					if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID)) || session.isProcessed()) {
+					if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID)) ||
+							Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID)) || session.isProcessed()) {
 						abortRequest(requestQuery, response, ERROR_UNAUTHORIZED);
 						return;
 					}
