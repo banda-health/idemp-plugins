@@ -107,7 +107,7 @@ public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 		assertThat("Process ran successfully", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
 		commitEx();
 
-		// Count the number of business partners before the import
+		// Count the number of business partners after the import
 		int numberOfBusinessPartnersAfterImport =
 				new Query(valueObject.getContext(), MBPartner_BH.Table_Name, null, valueObject.getTransactionName()).count();
 		assertEquals(numberOfBusinessPartnersBeforeImport + 1, numberOfBusinessPartnersAfterImport, 
