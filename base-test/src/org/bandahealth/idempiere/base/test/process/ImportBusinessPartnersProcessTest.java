@@ -17,7 +17,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,14 +31,35 @@ public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 	private static int BUSINESS_PARTNER_WINDOW_ID = 123;
 	private static int BUSINESS_PARTNER_TAB_ID = 220;
 	private static String BUSINESS_PARTNER_IMPORT_HEADER = "Name,C_BP_Group_ID[Value],IsCustomer,IsProspect,bh_gender,BH_Birthday,BH_Local_PatientID,BH_Phone,C_BPartner_Location>Name,C_BPartner_Location>C_Location>Address1,C_BPartner_Location>C_Location>C_Country_ID[Name]";
-	private static String BUSINESS_PARTNER_IMPORT_CSV_FILENAME = "./data/import/BandaBusinessPartnerImportTest.csv";
-	
+	private static String BUSINESS_PARTNER_IMPORT_CSV_FILENAME = "/testdata/BandaBusinessPartnerImportTest.csv";
+	private static String TEMP_FILE_PREFIX = "TempBusinessPartnerImport";
+
+	@IPopulateAnnotation.CanRunBeforeClass
+	public void prepareIt() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
+
+		valueObject.setStepName("Open needed periods");
+		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
+		commitEx();
+	}
+
 	@IPopulateAnnotation.CanRun
-	public void businessPartnerIsImportedProperly() throws SQLException {
+	public void businessPartnerIsImportedProperly() throws SQLException, IOException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
+		// Copy the contents of the test CSV file in this package into a temp file so the
+		// iDempiere import can read it
+		InputStream in = getClass().getResourceAsStream(BUSINESS_PARTNER_IMPORT_CSV_FILENAME);
+		File tempCSVFile = File.createTempFile(TEMP_FILE_PREFIX, ".csv");
+		OutputStream out = new FileOutputStream(tempCSVFile);
+		in.transferTo(out);
+		in.close();
+		out.close();
+		
 		// Check if an import template already exists with the required elements
 		List<MImportTemplate> importTemplateList = new Query(valueObject.getContext(), MImportTemplate.Table_Name,
 				MImportTemplate.COLUMNNAME_AD_Client_ID + " IN (0,?) AND " +
@@ -99,7 +126,7 @@ public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(List.of(
 				new ProcessInfoParameter("AD_ImportTemplate_ID", importTemplateId, null, null, null),
-				new ProcessInfoParameter("FileName", BUSINESS_PARTNER_IMPORT_CSV_FILENAME, null, null, null),
+				new ProcessInfoParameter("FileName", tempCSVFile.getAbsolutePath(), null, null, null),
 				new ProcessInfoParameter("ImportMode", "I", null, null, null)
 		));
 
@@ -121,5 +148,8 @@ public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 			newImportTemplate.deleteEx(true);
 		}
 		commitEx();
+		
+		// Delete the temp file that was created
+		tempCSVFile.delete();
     }
 }

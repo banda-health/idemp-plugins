@@ -1,2 +1,2 @@
 Name,C_BP_Group_ID[Value],IsCustomer,IsProspect,bh_gender,BH_Birthday,BH_Local_PatientID,BH_Phone,C_BPartner_Location>Name,C_BPartner_Location>C_Location>Address1,C_BPartner_Location>C_Location>C_Country_ID[Name]
-ImportBusinessPartners Test,Patients,Y,Y,male,1982-04-11,ADA283,23456789,Default Location,123 Some St,Kenya
+Test ImportBusinessPartners,Patients,Y,Y,male,1982-04-11,ADA283,23456789,Default Location,123 Some St,Kenya
