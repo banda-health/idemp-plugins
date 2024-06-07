@@ -5,7 +5,9 @@ import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.model.Connection;
+import org.bandahealth.idempiere.graphql.model.PagingInfo;
 import org.bandahealth.idempiere.graphql.repository.Repository;
+import org.bandahealth.idempiere.graphql.utils.QueryUtil;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 
@@ -13,21 +15,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 public class MClientQuery extends X_AD_ClientQuery {
 	@Override
 	public Connection<MClient_BH> AD_ClientGet(int page, int pageSize, String sort, String filter,
 			DataFetchingEnvironment environment) {
 		Properties iDempiereContext = BandaGraphQLContext.getCtx(environment);
+		List<Object> parameters = new ArrayList<>();
+		String clientLimitingWhereClause = "";
 		// If the user is currently the system client, we can get everything
 		if (Env.getAD_Client_ID(iDempiereContext) == 0) {
 			Repository.setApplyAccessFilterNotNeeded();
-		}
-		var clients = super.AD_ClientGet(page, pageSize, sort, filter, environment);
-		if (Env.getAD_Client_ID(iDempiereContext) == 0) {
-			Repository.clearApplyAccessFilterNotNeeded();
 			// If the user isn't the super user, limit what they can see
 			if (!MUser_BH.get(iDempiereContext).isAdministrator()) {
 				// Copied from org.compiere.util.Login#getClients
@@ -43,7 +45,7 @@ public class MClientQuery extends X_AD_ClientQuery {
 							AND cli.AuthenticationType IN ('APO', 'AAS')
 							AND ur.AD_User_ID=?
 						ORDER BY cli.AD_Client_ID""";
-				List<Integer> clientIdsForUser = new ArrayList<>();
+				Set<Integer> clientIdsForUser = new HashSet<>();
 				try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 					preparedStatement.setInt(1, Env.getAD_User_ID(iDempiereContext));
 					try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -54,9 +56,15 @@ public class MClientQuery extends X_AD_ClientQuery {
 				} catch (SQLException e) {
 					throw new RuntimeException(e);
 				}
-				clients.setResults(
-						clients.getResults().stream().filter(client -> clientIdsForUser.contains(client.get_ID())).toList());
+				clientLimitingWhereClause = "AD_Client.AD_Client_ID IN (" +
+						QueryUtil.getWhereClauseAndSetParametersForSet(clientIdsForUser, parameters) + ")";
 			}
+		}
+		Connection<MClient_BH> clients =
+				Repository.get(getTableName(), null, new PagingInfo(page, pageSize), sort, filter, clientLimitingWhereClause,
+						parameters, environment);
+		if (Env.getAD_Client_ID(iDempiereContext) == 0) {
+			Repository.clearApplyAccessFilterNotNeeded();
 		}
 		return clients;
 	}
