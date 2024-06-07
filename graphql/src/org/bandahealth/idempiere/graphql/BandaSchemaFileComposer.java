@@ -384,7 +384,7 @@ public class BandaSchemaFileComposer {
 //						"WEB-INF/resources/MSchedulerRecipient.graphqls",
 //						"WEB-INF/resources/MSearchDefinition.graphqls",
 //						"WEB-INF/resources/MSequence.graphqls",
-//						"WEB-INF/resources/MSerNoCtl.graphqls",
+						"WEB-INF/resources/MSerNoCtl.graphqls",
 //						"WEB-INF/resources/MSerNoCtlExclude.graphqls",
 //						"WEB-INF/resources/MSession.graphqls",
 //						"WEB-INF/resources/MShipper.graphqls",

@@ -7,6 +7,7 @@ import {
 	C_OrderGetDocument,
 	C_OrderLineSaveDocument,
 	C_OrderProcessDocument,
+	C_OrderSaveDocument,
 	M_AttributeSetGetDocument,
 	M_AttributeSetInstanceSaveDocument,
 	M_ProductGetDocument,
@@ -396,4 +397,38 @@ test(`reactivating a PO resets the quantity correctly`, async () => {
 			})
 		).data.M_ProductGet.Results[0].TotalQuantity,
 	).toBe(0);
+});
+
+test(`POs can be saved multiple times`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.setSalesPrice(200);
+	valueObject.setPurchasePrice(100);
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Re-save PO';
+	valueObject.setDateOffset(-1);
+	const savedUU = (
+		await mutate(valueObject)({
+			mutation: C_OrderSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.order!.UU,
+					DateOrdered: valueObject.date!.getTime(),
+					C_BPartner: { UU: valueObject.businessPartner?.UU! },
+				},
+			},
+		})
+	).data?.C_OrderSave.UU;
+
+	expect(savedUU).toBeTruthy();
 });

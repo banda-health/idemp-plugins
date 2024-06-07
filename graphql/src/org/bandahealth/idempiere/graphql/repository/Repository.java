@@ -31,6 +31,9 @@ public class Repository {
 	private static final ThreadLocal<Boolean> isApplyAccessFilterNeeded = ThreadLocal.withInitial(() -> Boolean.TRUE);
 	private static final ThreadLocal<Boolean> isClientIdNeeded = ThreadLocal.withInitial(() -> Boolean.FALSE);
 
+	/**
+	 *
+	 */
 	public static void setApplyAccessFilterNotNeeded() {
 		isApplyAccessFilterNeeded.set(Boolean.FALSE);
 	}
@@ -39,10 +42,16 @@ public class Repository {
 		isApplyAccessFilterNeeded.set(Boolean.TRUE);
 	}
 
+	/**
+	 * Make sure the client ID is used when running a query
+	 */
 	public static void setClientIdNeeded() {
 		isClientIdNeeded.set(Boolean.TRUE);
 	}
 
+	/**
+	 * Ensure that the client ID is not used when running a query
+	 */
 	public static void clearClientIdNeeded() {
 		isClientIdNeeded.set(Boolean.FALSE);
 	}
@@ -85,13 +94,51 @@ public class Repository {
 		return query;
 	}
 
+	/**
+	 * Get an entity in connection form, only returning what was requested by the API caller
+	 *
+	 * @param tableName       The table to fetch data from
+	 * @param transactionName A transaction name, if any, to use in the query
+	 * @param pagingInfo      The pagination data to help in query limiting
+	 * @param sort            Any sorting criteria to use in JSON-string form
+	 * @param filter          Any filter criteria to use in JSON-string form
+	 * @param environment     The data fetching environment passed in to the GraphQL endpoint
+	 * @param <T>             A type that extends iDempiere's PO type
+	 * @return A connection of data requested
+	 */
 	public static <T extends PO> Connection<T> get(String tableName, String transactionName, PagingInfo pagingInfo,
 			String sort, String filter, DataFetchingEnvironment environment) {
+		return get(tableName, transactionName, pagingInfo, sort, filter, null, null, environment);
+	}
+
+	/**
+	 * Get an entity in connection form, only returning what was requested by the API caller
+	 *
+	 * @param tableName       The table to fetch data from
+	 * @param transactionName A transaction name, if any, to use in the query
+	 * @param pagingInfo      The pagination data to help in query limiting
+	 * @param sort            Any sorting criteria to use in JSON-string form
+	 * @param filter          Any filter criteria to use in JSON-string form
+	 * @param whereClause     An additional where clause to add to any filter passed in from outside the API
+	 * @param whereClause     Any parameters for the additional where clause
+	 * @param environment     The data fetching environment passed in to the GraphQL endpoint
+	 * @param <T>             A type that extends iDempiere's PO type
+	 * @return A connection of data requested
+	 */
+	public static <T extends PO> Connection<T> get(String tableName, String transactionName, PagingInfo pagingInfo,
+			String sort, String filter, String whereClause, List<Object> parameters, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
 		try {
-			List<Object> parameters = new ArrayList<>();
-			String whereClause =
+			if (parameters == null) {
+				parameters = new ArrayList<>();
+			}
+			String filterWhereClause =
 					FilterUtil.getWhereClauseFromFilter(tableName, filter, parameters, idempiereContext);
+			if (StringUtil.isNullOrEmpty(whereClause)) {
+				whereClause = filterWhereClause;
+			} else {
+				whereClause += " AND " + filterWhereClause;
+			}
 			setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 			Query query =
 					getQuery(idempiereContext, tableName, transactionName, true, false, whereClause, parameters);
