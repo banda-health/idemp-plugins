@@ -66,7 +66,7 @@ public class GraphQLUtil {
 		Map<String, String> manualClassByExtendedClass = new HashMap<>();
 		Map<String, String> packageByClass = new HashMap<>();
 		List<String> filesToSkip =
-				List.of("PO.java", "Lookup.java", "TestCase.java", "EventObject.java", "EventListener.java");
+				Arrays.asList("PO.java", "Lookup.java", "TestCase.java", "EventObject.java", "EventListener.java");
 		String deprecatedClass = "@Deprecated" + System.lineSeparator() + "public class ";
 
 		// Cycle through the interfaces to find which tables we have

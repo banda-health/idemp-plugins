@@ -26,7 +26,7 @@ import {
 import {
 	Ad_LanguageGetDocument,
 	Ad_Ref_ListGetDocument,
-	Bh_ConceptGetDocument,
+	Bh_Coded_DiagnosisGetDocument,
 	Bh_EncounterAndObservationsSaveManyDocument,
 	Bh_EncounterDeleteDocument,
 	Bh_EncounterGetDocument,
@@ -1709,13 +1709,8 @@ test('clinical vitals fields', async () => {
 	const heightValue = '200';
 	const weightValue = '100';
 
-	const codedDiagnosis = (await query(valueObject)({
-		query: Bh_ConceptGetDocument, variables: {
-			Size: 1,
-			Filter: JSON.stringify({ BH_Source: { $text: 'BHGO' } })
-		}
-	}))
-		.data.BH_ConceptGet.Results[0];
+	const codedDiagnosis = (await query(valueObject)({ query: Bh_Coded_DiagnosisGetDocument, variables: { Size: 1 } }))
+		.data.BH_Coded_DiagnosisGet.Results[0];
 	expect(codedDiagnosis).toBeTruthy();
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounterUuid = v4();
@@ -1746,7 +1741,7 @@ test('clinical vitals fields', async () => {
 				{
 					BH_Encounter: { UU: encounterUuid },
 					LineNo: 2,
-					BH_Concept: { UU: codedDiagnosis.UU },
+					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
 				},
 			],
 		},
@@ -1766,8 +1761,8 @@ test('clinical vitals fields', async () => {
 	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![0].BH_Uncoded_Diagnosis).toBe(
 		uncodedDiagnosisValue,
 	);
-	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Concept!.UU).toBeTruthy();
-	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Concept!.UU).toBe(
+	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Coded_Diagnosis!.UU).toBeTruthy();
+	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Coded_Diagnosis!.UU).toBe(
 		codedDiagnosis.UU,
 	);
 
@@ -2890,13 +2885,8 @@ test('can delete encounters', async () => {
 	const fields = clinicalVitalsEncounterTypeWindow.AD_Window.AD_Tabs?.[0].AD_Fields!;
 	expect(fields).toBeTruthy();
 
-	const codedDiagnosis = (await query(valueObject)({
-		query: Bh_ConceptGetDocument, variables: {
-			Size: 1,
-			Filter: JSON.stringify({ BH_Source: { $text: 'BHGO' } })
-		}
-	}))
-		.data.BH_ConceptGet.Results[0];
+	const codedDiagnosis = (await query(valueObject)({ query: Bh_Coded_DiagnosisGetDocument, variables: { Size: 1 } }))
+		.data.BH_Coded_DiagnosisGet.Results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter1Uuid = v4();
 	const encounter2Uuid = v4();
@@ -2938,7 +2928,7 @@ test('can delete encounters', async () => {
 				{
 					BH_Encounter: { UU: encounter1Uuid },
 					LineNo: 2,
-					BH_Concept: { UU: codedDiagnosis.UU },
+					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
 				},
 				{
 					BH_Encounter: { UU: encounter2Uuid },
@@ -2948,7 +2938,7 @@ test('can delete encounters', async () => {
 				{
 					BH_Encounter: { UU: encounter2Uuid },
 					LineNo: 2,
-					BH_Concept: { UU: codedDiagnosis.UU },
+					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
 				},
 			],
 		},

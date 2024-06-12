@@ -1,3 +1,0 @@
-# If you want to add to this file, delete this line and uncomment the file in BandaSchemaFileComposer
-extend type BH_Client_Concept_Extra {
-}
