@@ -38,7 +38,7 @@ $$
 WITH visit_diagnoses AS (
 	SELECT
 		v.bh_visit_id,
-		ev.bh_concept_id,
+		ev.bh_coded_diagnosis_id,
 		ev.bh_uncoded_diagnosis,
 		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
 	FROM
@@ -69,8 +69,8 @@ SELECT
 	bp.bh_birthday                                   AS patient_birthday,
 	bp.bh_gender                                     AS patient_gender,
 	bp.bh_phone                                      AS patient_phoneNumber,
-	pd.bh_concept_id				   AS primary_coded,
-	sd.bh_concept_id                         	   AS secondary_coded,
+	pd.bh_coded_diagnosis_id                         AS primary_coded,
+	sd.bh_coded_diagnosis_id                         AS secondary_coded,
 	pd.bh_uncoded_diagnosis                          AS primary_uncoded,
 	sd.bh_uncoded_diagnosis                          AS secondary_uncoded,
 	o.docstatus                                      AS docstatus,

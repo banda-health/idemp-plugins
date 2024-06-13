@@ -14,7 +14,7 @@
 		<![CDATA[WITH visit_diagnoses AS (
 	SELECT
 		v.bh_visit_id,
-		ev.bh_concept_id,
+		ev.bh_coded_diagnosis_id,
 		ev.bh_uncoded_diagnosis,
 		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
 	FROM
@@ -31,17 +31,15 @@ FROM
 	bh_visit v
 		LEFT JOIN visit_diagnoses pd
 		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
-		LEFT JOIN bh_concept cd
-		ON cd.bh_concept_id = pd.bh_concept_id
-		LEFT JOIN bh_concept_extra ce
-		ON cd.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
+		LEFT JOIN bh_coded_diagnosis cd
+		ON cd.bh_coded_diagnosis_id = pd.bh_coded_diagnosis_id
 		RIGHT JOIN ad_org o
 			ON v.ad_client_id = o.ad_client_id
 		AND o.isactive = 'Y'
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY
-	v.bh_visitdate, o.name, ce.bh_value]]>
+	v.bh_visitdate, o.name, cd.bh_moh705b_greaterthan5]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date"/>
 	<field name="name" class="java.lang.String"/>

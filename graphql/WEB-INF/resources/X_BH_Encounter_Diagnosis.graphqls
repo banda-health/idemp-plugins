@@ -22,7 +22,7 @@ type BH_Encounter_Diagnosis {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	BH_Concept: BH_Concept
+	BH_Coded_Diagnosis: BH_Coded_Diagnosis
 	UU: ID!
 	BH_Encounter: BH_Encounter!
 	# uncoded diagnosis
@@ -44,7 +44,7 @@ type BH_Encounter_Diagnosis {
 input BH_Encounter_DiagnosisInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	BH_Concept: ForeignEntityInput
+	BH_Coded_Diagnosis: ForeignEntityInput
 	UU: ID
 	BH_Encounter: ForeignEntityInput
 	# uncoded diagnosis
