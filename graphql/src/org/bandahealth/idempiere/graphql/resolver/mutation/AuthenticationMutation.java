@@ -351,4 +351,35 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		response.setSecurityQuestions(securityQuestions);
 		return response;
 	}
+
+	/**
+	 * Check if a particular username and password have access to any clients other than this one.
+	 * This is used when creating or updating a username and/or password, to try to ensure someone
+	 * doesn't accidentally set up a user at one client that matches one at a DIFFERENT client,
+	 * inadvertantly giving them access to both.
+	 *
+	 * @param credentials
+	 * @return true if the username/password has access to other clients, false if they don't
+	 */
+	public boolean LoginCheckOtherClients(AuthenticationInput credentials, DataFetchingEnvironment environment) {
+		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
+		Login login = new Login(idempiereContext);
+
+		int currentClient = Env.getAD_Client_ID(idempiereContext);
+
+		// Retrieve list of clients that the passed in username and password already has access to.
+		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
+		if (clients == null) {
+			return false;
+		}
+
+		for (KeyNamePair client : clients) {
+			if (client.getKey() != currentClient) {
+				// We found a client that the given username and password has access to, that is NOT the same is THIS client.
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
