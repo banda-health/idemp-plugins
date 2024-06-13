@@ -31,7 +31,7 @@ public class X_M_MovementLineMAResolver extends POResolver<MMovementLineMA> impl
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MMovementLineMA entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_MovementLineMAResolver extends POResolver<MMovementLineMA> impl
 	 * @return Inventory Move document Line
 	 */
 	public CompletableFuture<MMovementLine> M_MovementLine(MMovementLineMA entity, DataFetchingEnvironment environment) {
-		if (entity.getM_MovementLine_ID() <= 0) {
+		if (entity.getM_MovementLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovementLine> dataLoader =

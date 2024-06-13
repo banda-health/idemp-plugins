@@ -13,9 +13,13 @@ public class MInvoiceInput extends X_C_InvoiceInput {
 	 * @param UUID The C_Invoice_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInvoiceInput(@JsonProperty("UU") String UUID, @JsonProperty("C_Order") ForeignEntityInput C_Order) {
+	public MInvoiceInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
-		setC_OrderInput(C_Order);
+	}
+
+	@Override
+	public void setC_OrderInput(ForeignEntityInput C_Order) {
+		super.setC_OrderInput(C_Order);
 		if (getC_Order_ID() > 0) {
 			this.setOrder(new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?",
 					get_TrxName()).setParameters(getC_Order_ID()).first());

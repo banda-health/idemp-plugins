@@ -25,13 +25,13 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> implements GraphQLResolver<MBankAccount_BH> {
 
 
-	static Map<String, String> BANKACCOUNTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BANKACCOUNTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "c6fb4b16-162e-4ab0-a613-2a6fb63dbae4");
-			put("S", "de51279d-e4d6-4450-8048-093e48e5dd0a");
-			put("B", "efdadde5-1f09-4e32-9fff-ab94a7caf845");
-			put("D", "0246f122-2d14-4aee-ba91-c72b43d6e85e");
-			put("M", "be1ae458-a3aa-4d16-995a-8d23d34b5c08");
+			put("C", "c6fb4b16-162e-4ab0-a613-2a6fb63dbae4"); // Checking
+			put("S", "de51279d-e4d6-4450-8048-093e48e5dd0a"); // Savings
+			put("B", "efdadde5-1f09-4e32-9fff-ab94a7caf845"); // Cash
+			put("D", "0246f122-2d14-4aee-ba91-c72b43d6e85e"); // Card
+			put("M", "be1ae458-a3aa-4d16-995a-8d23d34b5c08"); // Mobile
 		}
 	};
 	public CompletableFuture<MRefList_BH> BankAccountType(MBankAccount_BH entity, DataFetchingEnvironment environment) {
@@ -50,7 +50,7 @@ public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> impleme
 	 * @return Bank
 	 */
 	public CompletableFuture<MBank> C_Bank(MBankAccount_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Bank_ID() <= 0) {
+		if (entity.getC_Bank_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBank> dataLoader =
@@ -65,7 +65,7 @@ public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> impleme
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MBankAccount_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =

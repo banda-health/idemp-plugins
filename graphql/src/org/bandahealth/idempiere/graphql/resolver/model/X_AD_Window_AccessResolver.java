@@ -27,7 +27,7 @@ public class X_AD_Window_AccessResolver extends POResolver<MWindowAccess_BH> imp
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MWindowAccess_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_Window_AccessResolver extends POResolver<MWindowAccess_BH> imp
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MWindowAccess_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

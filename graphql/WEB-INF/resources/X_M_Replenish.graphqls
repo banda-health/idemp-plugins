@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_Replenish(UU: String!): M_Replenish
 	M_ReplenishGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ReplenishConnection!
 }
 

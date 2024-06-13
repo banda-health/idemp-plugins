@@ -27,7 +27,7 @@ public class X_AD_Package_Imp_DetailResolver extends POResolver<X_AD_Package_Imp
 	 * @return Package Imp.
 	 */
 	public CompletableFuture<X_AD_Package_Imp> AD_Package_Imp(X_AD_Package_Imp_Detail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Package_Imp_ID() <= 0) {
+		if (entity.getAD_Package_Imp_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Package_Imp> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_Package_Imp_DetailResolver extends POResolver<X_AD_Package_Imp
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_Package_Imp_Detail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

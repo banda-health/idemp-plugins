@@ -30,7 +30,7 @@ public class X_CM_ChatTypeResolver extends POResolver<MChatType> implements Grap
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MChatType entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -38,11 +38,11 @@ public class X_CM_ChatTypeResolver extends POResolver<MChatType> implements Grap
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
-	static Map<String, String> MODERATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MODERATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("N", "09318ba5-7fc0-4f9c-9470-4df2fbe8fb8d");
-			put("B", "e6f0ed41-923b-46a7-ad1c-962173583ac4");
-			put("A", "16fa5956-4594-4cfc-a406-7d76d60c8876");
+			put("N", "09318ba5-7fc0-4f9c-9470-4df2fbe8fb8d"); // Not moderated
+			put("B", "e6f0ed41-923b-46a7-ad1c-962173583ac4"); // Before Publishing
+			put("A", "16fa5956-4594-4cfc-a406-7d76d60c8876"); // After Publishing
 		}
 	};
 	public CompletableFuture<MRefList_BH> ModerationType(MChatType entity, DataFetchingEnvironment environment) {

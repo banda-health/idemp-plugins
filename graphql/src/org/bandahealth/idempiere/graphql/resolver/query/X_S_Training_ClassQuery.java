@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_Training_ClassDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_S_Training_Class;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for S_Training_Class - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_S_Training_ClassQuery extends POQuery<X_S_Training_Class> impleme
 	@Override
 	protected String getTableName() {
 		return X_S_Training_Class.Table_Name;
+	}
+
+	public CompletableFuture<X_S_Training_Class> S_Training_Class(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_S_Training_Class> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_S_Training_ClassDataLoader.DATALOADER_S_Training_Class_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_S_Training_Class> S_Training_ClassGet(int Page, int PageSize, String Sort, String Filter,

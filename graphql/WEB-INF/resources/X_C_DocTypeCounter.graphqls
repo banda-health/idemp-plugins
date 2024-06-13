@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_DocTypeCounter(UU: String!): C_DocTypeCounter
 	C_DocTypeCounterGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DocTypeCounterConnection!
 }
 

@@ -116,9 +116,10 @@ public class ModelUtil {
 		try (PreparedStatement preparedStatement = DB.prepareStatement(
 				"SELECT " + keyColumn + " FROM " + tableName + " WHERE " + tableName + "_UU=?", null)) {
 			DB.setParameters(preparedStatement, Collections.singletonList(uuid));
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				uuidToReturn = uuid;
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				while (resultSet.next()) {
+					uuidToReturn = uuid;
+				}
 			}
 		} catch (SQLException e) {
 			log.log(Level.INFO, "NO data found for " + tableName + " with UUID " + uuid, new Exception());
@@ -180,13 +181,14 @@ public class ModelUtil {
 				"SELECT DISTINCT a.AD_Window_ID FROM AD_Window a JOIN AD_Tab b ON a.AD_Window_ID=b.AD_Window_ID " +
 						"WHERE a.IsActive='Y' AND b.IsActive='Y' AND b.AD_Table_ID=?", null)) {
 			stmt.setInt(1, table.getAD_Table_ID());
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				int windowId = rs.getInt(1);
-				Boolean hasReadWriteAccess = role.getWindowAccess(windowId);
-				if (hasReadWriteAccess != null) {
-					if (!isReadWrite || hasReadWriteAccess) {
-						return true;
+			try (ResultSet rs = stmt.executeQuery()) {
+				while (rs.next()) {
+					int windowId = rs.getInt(1);
+					Boolean hasReadWriteAccess = role.getWindowAccess(windowId);
+					if (hasReadWriteAccess != null) {
+						if (!isReadWrite || hasReadWriteAccess) {
+							return true;
+						}
 					}
 				}
 			}

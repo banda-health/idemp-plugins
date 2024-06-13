@@ -21,10 +21,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_GL_BudgetResolver extends POResolver<X_GL_Budget> implements GraphQLResolver<X_GL_Budget> {
 
 
-	static Map<String, String> BUDGETSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BUDGETSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("D", "4c031892-77e7-4aaa-b9ab-b94b711cd744");
-			put("A", "64d20b2c-6615-4ea0-a1d4-b518a7199159");
+			put("D", "4c031892-77e7-4aaa-b9ab-b94b711cd744"); // Draft
+			put("A", "64d20b2c-6615-4ea0-a1d4-b518a7199159"); // Approved
 		}
 	};
 	public CompletableFuture<MRefList_BH> BudgetStatus(X_GL_Budget entity, DataFetchingEnvironment environment) {

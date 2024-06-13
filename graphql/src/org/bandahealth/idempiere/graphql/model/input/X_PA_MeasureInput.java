@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PA_MeasureResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MHierarchy;
 import org.compiere.model.MMeasure;
@@ -128,7 +129,12 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setMeasureDataTypeInput(ForeignEntityInput MeasureDataType) {
 		this.mMeasureDataType = MeasureDataType;
 		if (MeasureDataType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_MeasureResolver.MEASUREDATATYPE_UUIDS_BY_VALUE.containsValue(MeasureDataType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + MeasureDataType.getUU() +
+						" is not in the list defined for the MeasureDataType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -162,7 +168,12 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setMeasureTypeInput(ForeignEntityInput MeasureType) {
 		this.mMeasureType = MeasureType;
 		if (MeasureType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_MeasureResolver.MEASURETYPE_UUIDS_BY_VALUE.containsValue(MeasureType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + MeasureType.getUU() +
+						" is not in the list defined for the MeasureType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

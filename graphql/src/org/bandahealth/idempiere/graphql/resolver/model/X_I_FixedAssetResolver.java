@@ -50,7 +50,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Asset class
 	 */
 	public CompletableFuture<MAssetClass> A_Asset_Class(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Class_ID() <= 0) {
+		if (entity.getA_Asset_Class_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetClass> dataLoader =
@@ -65,7 +65,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Group of Assets
 	 */
 	public CompletableFuture<MAssetGroup> A_Asset_Group(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Group_ID() <= 0) {
+		if (entity.getA_Asset_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
@@ -80,7 +80,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -95,7 +95,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Asset Type
 	 */
 	public CompletableFuture<MAssetType> A_Asset_Type(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Type_ID() <= 0) {
+		if (entity.getA_Asset_Type_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetType> dataLoader =
@@ -110,7 +110,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -125,7 +125,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Business Partner (Agent or Sales Rep)
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartnerSR(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartnerSR_ID() <= 0) {
+		if (entity.getC_BPartnerSR_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -140,7 +140,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return City
 	 */
 	public CompletableFuture<MCity> C_City(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_City_ID() <= 0) {
+		if (entity.getC_City_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCity> dataLoader =
@@ -155,7 +155,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -170,7 +170,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -178,22 +178,22 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
-	static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("CO", "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
-			put("AP", "f80665a4-0db1-4609-be56-5d69b762d169");
-			put("RJ", "8fffbfd1-560a-4a78-9181-e5b76bbb3354");
-			put("PO", "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9");
-			put("VO", "930f9be7-85bc-4002-83a6-fe4e1b8cfce3");
-			put("CL", "d0a6de04-9c59-4d37-998d-f8070db820b0");
-			put("RC", "597e3e98-f1cd-4157-885a-1fae6424a3a6");
-			put("RA", "1a3904b9-86bc-4831-a4af-0281dcafa8f8");
-			put("IN", "69ff146b-fe0e-44a0-98d1-80b2f7958edf");
-			put("RE", "c8f55635-67a3-42ae-b626-2064acb2e260");
-			put("--", "ea523fb8-e21b-4a77-a657-6f5a7d12a591");
-			put("PR", "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76");
-			put("XL", "b2d93bde-a7e7-43f0-9b1c-82527992f6d5");
-			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
+			put("CO", "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da"); // Complete
+			put("AP", "f80665a4-0db1-4609-be56-5d69b762d169"); // Approve
+			put("RJ", "8fffbfd1-560a-4a78-9181-e5b76bbb3354"); // Reject
+			put("PO", "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9"); // Post
+			put("VO", "930f9be7-85bc-4002-83a6-fe4e1b8cfce3"); // Void
+			put("CL", "d0a6de04-9c59-4d37-998d-f8070db820b0"); // Close
+			put("RC", "597e3e98-f1cd-4157-885a-1fae6424a3a6"); // Reverse - Correct
+			put("RA", "1a3904b9-86bc-4831-a4af-0281dcafa8f8"); // Reverse - Accrual
+			put("IN", "69ff146b-fe0e-44a0-98d1-80b2f7958edf"); // Invalidate
+			put("RE", "c8f55635-67a3-42ae-b626-2064acb2e260"); // Re-activate
+			put("--", "ea523fb8-e21b-4a77-a657-6f5a7d12a591"); // <None>
+			put("PR", "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76"); // Prepare
+			put("XL", "b2d93bde-a7e7-43f0-9b1c-82527992f6d5"); // Unlock
+			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0"); // Wait Complete
 		}
 	};
 	public CompletableFuture<MRefList_BH> DocAction(MIFixedAsset entity, DataFetchingEnvironment environment) {
@@ -216,7 +216,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -231,7 +231,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

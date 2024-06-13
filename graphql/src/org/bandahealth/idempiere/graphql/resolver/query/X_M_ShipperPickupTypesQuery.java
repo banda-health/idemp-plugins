@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperPickupTypesDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MShipperPickupTypes;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for M_ShipperPickupTypes - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_M_ShipperPickupTypesQuery extends POQuery<MShipperPickupTypes> im
 	@Override
 	protected String getTableName() {
 		return MShipperPickupTypes.Table_Name;
+	}
+
+	public CompletableFuture<MShipperPickupTypes> M_ShipperPickupTypes(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MShipperPickupTypes> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_ShipperPickupTypesDataLoader.DATALOADER_M_ShipperPickupTypes_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MShipperPickupTypes> M_ShipperPickupTypesGet(int Page, int PageSize, String Sort, String Filter,

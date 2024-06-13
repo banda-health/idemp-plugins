@@ -31,7 +31,7 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20240524L;
 
     /** Standard Constructor */
     public X_BH_Coded_Diagnosis_Mapping (Properties ctx, int BH_Coded_Diagnosis_Mapping_ID, String trxName)
@@ -197,20 +197,20 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 		return (String)get_Value(COLUMNNAME_BH_Concept_Name_Resolved);
 	}
 
-	/** Set BH_External_ID.
-		@param BH_External_ID BH_External_ID
+	/** Set BH_ExternalID.
+		@param BH_ExternalID BH_External_ID
 	*/
-	public void setBH_External_ID (String BH_External_ID)
+	public void setBH_ExternalID (String BH_ExternalID)
 	{
-		set_Value (COLUMNNAME_BH_External_ID, BH_External_ID);
+		set_Value (COLUMNNAME_BH_ExternalID, BH_ExternalID);
 	}
 
-	/** Get BH_External_ID.
+	/** Get BH_ExternalID.
 		@return BH_External_ID
 	  */
-	public String getBH_External_ID()
+	public String getBH_ExternalID()
 	{
-		return (String)get_Value(COLUMNNAME_BH_External_ID);
+		return (String)get_Value(COLUMNNAME_BH_ExternalID);
 	}
 
 	/** Set BH_Map_Type.

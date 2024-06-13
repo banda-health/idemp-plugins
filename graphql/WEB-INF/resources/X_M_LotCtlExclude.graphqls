@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_LotCtlExclude(UU: String!): M_LotCtlExclude
 	M_LotCtlExcludeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_LotCtlExcludeConnection!
 }
 

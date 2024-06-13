@@ -52,6 +52,10 @@ public class GraphQLDataLoaderGenerator {
 		return "DATALOADER_" + tableName + "_BY_UUID";
 	}
 
+	public static String getGeneratedName(String tableName) {
+		return "X_" + tableName + "DataLoader";
+	}
+
 	/**
 	 * Generate Schema
 	 *
@@ -104,9 +108,10 @@ public class GraphQLDataLoaderGenerator {
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				tableName = resultSet.getString(1);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					tableName = resultSet.getString(1);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -118,7 +123,7 @@ public class GraphQLDataLoaderGenerator {
 		String getByIdDataLoaderIdentifierProperty = getDataLoaderByIdProperty(tableStructureExtensions.getTableName());
 		String getByUuidDataLoaderIdentifierProperty =
 				getDataLoaderByUuidProperty(tableStructureExtensions.getTableName());
-		String className = "X_" + tableName + "DataLoader";
+		String className = getGeneratedName(tableName);
 		StringBuilder generatedClass = new StringBuilder()
 				.append("package ").append(packageName).append(";\n\n");
 
@@ -177,9 +182,10 @@ public class GraphQLDataLoaderGenerator {
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, translationTableId);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				tableName = resultSet.getString(1);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					tableName = resultSet.getString(1);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -190,7 +196,7 @@ public class GraphQLDataLoaderGenerator {
 
 		String getByIdDataLoaderIdentifierProperty = getDataLoaderByIdProperty(tableName);
 		String getByUuidDataLoaderIdentifierProperty = getDataLoaderByUuidProperty(tableName);
-		String className = "X_" + tableName + "DataLoader";
+		String className = getGeneratedName(tableName);
 		StringBuilder generatedClass = new StringBuilder()
 				.append("package ").append(packageName).append(";\n\n");
 

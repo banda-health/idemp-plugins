@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_TreeNodeCMT(UU: String!): AD_TreeNodeCMT
 	AD_TreeNodeCMTGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TreeNodeCMTConnection!
 }
 

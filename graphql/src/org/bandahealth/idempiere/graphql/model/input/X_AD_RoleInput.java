@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_RoleResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -221,7 +222,12 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setPreferenceTypeInput(ForeignEntityInput PreferenceType) {
 		this.mPreferenceType = PreferenceType;
 		if (PreferenceType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_RoleResolver.PREFERENCETYPE_UUIDS_BY_VALUE.containsValue(PreferenceType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PreferenceType.getUU() +
+						" is not in the list defined for the PreferenceType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -255,7 +261,12 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setRoleTypeInput(ForeignEntityInput RoleType) {
 		this.mRoleType = RoleType;
 		if (RoleType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_RoleResolver.ROLETYPE_UUIDS_BY_VALUE.containsValue(RoleType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + RoleType.getUU() +
+						" is not in the list defined for the RoleType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -323,7 +334,12 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setUserLevelInput(ForeignEntityInput UserLevel) {
 		this.mUserLevel = UserLevel;
 		if (UserLevel != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_RoleResolver.USERLEVEL_UUIDS_BY_VALUE.containsValue(UserLevel.getUU())) {
+				throw new AdempiereException("The reference list UU of " + UserLevel.getUU() +
+						" is not in the list defined for the UserLevel column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

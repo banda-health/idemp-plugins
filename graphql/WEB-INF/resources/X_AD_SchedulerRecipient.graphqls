@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_SchedulerRecipient(UU: String!): AD_SchedulerRecipient
 	AD_SchedulerRecipientGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_SchedulerRecipientConnection!
 }
 

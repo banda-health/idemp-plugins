@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_ShipperLabelsCfgResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -83,7 +84,12 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	public void setLabelPrintMethodInput(ForeignEntityInput LabelPrintMethod) {
 		this.mLabelPrintMethod = LabelPrintMethod;
 		if (LabelPrintMethod != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ShipperLabelsCfgResolver.LABELPRINTMETHOD_UUIDS_BY_VALUE.containsValue(LabelPrintMethod.getUU())) {
+				throw new AdempiereException("The reference list UU of " + LabelPrintMethod.getUU() +
+						" is not in the list defined for the LabelPrintMethod column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

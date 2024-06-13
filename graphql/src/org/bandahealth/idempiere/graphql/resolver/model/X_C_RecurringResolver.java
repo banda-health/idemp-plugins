@@ -40,7 +40,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -55,7 +55,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -70,7 +70,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() <= 0) {
+		if (entity.getC_Payment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -85,7 +85,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -100,7 +100,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return Recurring Group
 	 */
 	public CompletableFuture<X_C_RecurringGroup> C_RecurringGroup(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RecurringGroup_ID() <= 0) {
+		if (entity.getC_RecurringGroup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_RecurringGroup> dataLoader =
@@ -108,12 +108,12 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 		return dataLoader.load(entity.getC_RecurringGroup_ID());
 	}
 
-	static Map<String, String> FREQUENCYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> FREQUENCYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("D", "a0dc2171-cf3e-43b1-8cce-e1438e53484e");
-			put("W", "e85224da-cc1c-454d-9cd2-fd2b7348bf3c");
-			put("M", "5ed60b0f-03cd-4ad3-923f-c0bdd3640db3");
-			put("Q", "e30f5e5c-0cb7-4a76-bd07-01c4719125aa");
+			put("D", "a0dc2171-cf3e-43b1-8cce-e1438e53484e"); // Daily
+			put("W", "e85224da-cc1c-454d-9cd2-fd2b7348bf3c"); // Weekly
+			put("M", "5ed60b0f-03cd-4ad3-923f-c0bdd3640db3"); // Monthly
+			put("Q", "e30f5e5c-0cb7-4a76-bd07-01c4719125aa"); // Quarterly
 		}
 	};
 	public CompletableFuture<MRefList_BH> FrequencyType(MRecurring entity, DataFetchingEnvironment environment) {
@@ -132,7 +132,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return General Ledger Journal Batch
 	 */
 	public CompletableFuture<MJournalBatch> GL_JournalBatch(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalBatch_ID() <= 0) {
+		if (entity.getGL_JournalBatch_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MJournalBatch> dataLoader =
@@ -144,13 +144,13 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> RECURRINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> RECURRINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "77294857-4ee4-46fe-a6e5-08bbb5f671b5");
-			put("O", "658f69b4-7ec1-424c-972e-9dc7103f914e");
-			put("G", "dc9c720c-8192-4fee-bda0-e6b393217377");
-			put("J", "fbb66437-dc01-450e-80bd-5498a86fc4b1");
-			put("P", "b3e77f8d-0d0d-4bf5-bb42-d998fb0c728c");
+			put("I", "77294857-4ee4-46fe-a6e5-08bbb5f671b5"); // Invoice
+			put("O", "658f69b4-7ec1-424c-972e-9dc7103f914e"); // Order
+			put("G", "dc9c720c-8192-4fee-bda0-e6b393217377"); // GL Journal
+			put("J", "fbb66437-dc01-450e-80bd-5498a86fc4b1"); // Project
+			put("P", "b3e77f8d-0d0d-4bf5-bb42-d998fb0c728c"); // Payment
 		}
 	};
 	public CompletableFuture<MRefList_BH> RecurringType(MRecurring entity, DataFetchingEnvironment environment) {

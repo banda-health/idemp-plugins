@@ -35,7 +35,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MDunningRunEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -50,7 +50,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MDunningRunEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -65,7 +65,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MDunningRunEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -80,7 +80,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MDunningRunEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -95,7 +95,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 	 * @return Dunning Level
 	 */
 	public CompletableFuture<MDunningLevel> C_DunningLevel(MDunningRunEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DunningLevel_ID() <= 0) {
+		if (entity.getC_DunningLevel_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDunningLevel> dataLoader =
@@ -110,7 +110,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 	 * @return Dunning Run
 	 */
 	public CompletableFuture<MDunningRun> C_DunningRun(MDunningRunEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DunningRun_ID() <= 0) {
+		if (entity.getC_DunningRun_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDunningRun> dataLoader =
@@ -129,7 +129,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MDunningRunEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

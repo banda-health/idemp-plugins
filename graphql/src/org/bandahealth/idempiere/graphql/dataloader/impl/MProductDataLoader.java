@@ -23,7 +23,7 @@ public class MProductDataLoader extends X_M_ProductDataLoader {
 	private MappedBatchLoaderWithContext<Integer, Boolean> getIfProductsHaveBeenPurchased() {
 		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
 			List<Integer> productIdsWithNoPurchaserOrders =
-					MProductUtil.getProductIdsWithNoFinishedPurchaseOrders(batchLoaderEnvironment.getContext());
+					MProductUtil.getProductIdsWithNoFinishedPurchaseOrders(batchLoaderEnvironment.getContext(), keys);
 			return keys.stream().collect(
 					Collectors.toMap(productId -> productId, productId -> !productIdsWithNoPurchaserOrders.contains(productId)));
 		});

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_UserDef_Info_Related(UU: String!): AD_UserDef_Info_Related
 	AD_UserDef_Info_RelatedGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_Info_RelatedConnection!
 }
 

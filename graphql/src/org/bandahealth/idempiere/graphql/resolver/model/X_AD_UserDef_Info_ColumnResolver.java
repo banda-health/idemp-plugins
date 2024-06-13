@@ -38,7 +38,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return Field CSS Style 
 	 */
 	public CompletableFuture<MStyle> AD_FieldStyle(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldStyle_ID() <= 0) {
+		if (entity.getAD_FieldStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -53,7 +53,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return Info Window Column
 	 */
 	public CompletableFuture<MInfoColumn> AD_InfoColumn(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoColumn_ID() <= 0) {
+		if (entity.getAD_InfoColumn_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoColumn> dataLoader =
@@ -68,7 +68,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -83,7 +83,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() <= 0) {
+		if (entity.getAD_Reference_Value_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -98,7 +98,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return User defined Info Window
 	 */
 	public CompletableFuture<MUserDefInfo> AD_UserDef_Info(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_UserDef_Info_ID() <= 0) {
+		if (entity.getAD_UserDef_Info_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUserDefInfo> dataLoader =
@@ -113,7 +113,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() <= 0) {
+		if (entity.getAD_Val_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -121,10 +121,10 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
 	}
 
-	static Map<String, String> ISAUTOCOMPLETE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISAUTOCOMPLETE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsAutocomplete(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
@@ -136,10 +136,10 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 		return dataLoader.load(ISAUTOCOMPLETE_UUIDS_BY_VALUE.get(entity.getIsAutocomplete()));
 	}
 
-	static Map<String, String> ISDISPLAYED_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISDISPLAYED_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsDisplayed(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
@@ -151,10 +151,10 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 		return dataLoader.load(ISDISPLAYED_UUIDS_BY_VALUE.get(entity.getIsDisplayed()));
 	}
 
-	static Map<String, String> ISMANDATORY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISMANDATORY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsMandatory(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
@@ -166,10 +166,10 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 		return dataLoader.load(ISMANDATORY_UUIDS_BY_VALUE.get(entity.getIsMandatory()));
 	}
 
-	static Map<String, String> ISQUERYAFTERCHANGE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISQUERYAFTERCHANGE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsQueryAfterChange(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
@@ -181,10 +181,10 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 		return dataLoader.load(ISQUERYAFTERCHANGE_UUIDS_BY_VALUE.get(entity.getIsQueryAfterChange()));
 	}
 
-	static Map<String, String> ISQUERYCRITERIA_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISQUERYCRITERIA_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsQueryCriteria(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
@@ -196,10 +196,10 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 		return dataLoader.load(ISQUERYCRITERIA_UUIDS_BY_VALUE.get(entity.getIsQueryCriteria()));
 	}
 
-	static Map<String, String> ISREADONLY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISREADONLY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsReadOnly(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
@@ -211,16 +211,16 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 		return dataLoader.load(ISREADONLY_UUIDS_BY_VALUE.get(entity.getIsReadOnly()));
 	}
 
-	static Map<String, String> QUERYOPERATOR_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> QUERYOPERATOR_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Like", "cd02fd21-8913-4bc7-9ef4-a405069f8665");
-			put("=", "1e99d0eb-d4ba-46ad-98be-1e9f0a20d387");
-			put(">", "da5910a0-4b7a-4986-ada4-ecba7eb953ad");
-			put(">=", "653d78b9-8a2b-40cd-a0f1-c7e8bf5cea1c");
-			put("<", "2673aa9f-3efc-4625-9659-9242f8140d8c");
-			put("<=", "dc557f72-fae9-463f-86ab-7d078eef739f");
-			put("!=", "bc2fee0b-7738-4d57-9d12-e60d55ff2256");
-			put("LIKE", "9562f4db-97a9-4df5-99d0-b2f5bc0e2b4c");
+			put("Like", "cd02fd21-8913-4bc7-9ef4-a405069f8665"); // Like
+			put("=", "1e99d0eb-d4ba-46ad-98be-1e9f0a20d387"); // =
+			put(">", "da5910a0-4b7a-4986-ada4-ecba7eb953ad"); // >
+			put(">=", "653d78b9-8a2b-40cd-a0f1-c7e8bf5cea1c"); // >=
+			put("<", "2673aa9f-3efc-4625-9659-9242f8140d8c"); // <
+			put("<=", "dc557f72-fae9-463f-86ab-7d078eef739f"); // <=
+			put("!=", "bc2fee0b-7738-4d57-9d12-e60d55ff2256"); // !=
+			put("LIKE", "9562f4db-97a9-4df5-99d0-b2f5bc0e2b4c"); // Full Like
 		}
 	};
 	public CompletableFuture<MRefList_BH> QueryOperator(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {

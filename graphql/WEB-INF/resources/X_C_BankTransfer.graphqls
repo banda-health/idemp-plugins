@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_BankTransfer(UU: String!): C_BankTransfer
 	C_BankTransferGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankTransferConnection!
 }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_ImpFormat_RowResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MOrg;
@@ -185,7 +186,12 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	public void setDataTypeInput(ForeignEntityInput DataType) {
 		this.mDataType = DataType;
 		if (DataType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ImpFormat_RowResolver.DATATYPE_UUIDS_BY_VALUE.containsValue(DataType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DataType.getUU() +
+						" is not in the list defined for the DataType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

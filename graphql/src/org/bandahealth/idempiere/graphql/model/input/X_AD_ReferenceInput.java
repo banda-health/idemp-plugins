@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_ReferenceResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -183,7 +184,12 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	public void setShowInactiveInput(ForeignEntityInput ShowInactive) {
 		this.mShowInactive = ShowInactive;
 		if (ShowInactive != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ReferenceResolver.SHOWINACTIVE_UUIDS_BY_VALUE.containsValue(ShowInactive.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ShowInactive.getUU() +
+						" is not in the list defined for the ShowInactive column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -217,7 +223,12 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	public void setValidationTypeInput(ForeignEntityInput ValidationType) {
 		this.mValidationType = ValidationType;
 		if (ValidationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ReferenceResolver.VALIDATIONTYPE_UUIDS_BY_VALUE.containsValue(ValidationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ValidationType.getUU() +
+						" is not in the list defined for the ValidationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

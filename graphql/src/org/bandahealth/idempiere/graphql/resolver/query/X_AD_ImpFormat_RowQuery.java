@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImpFormat_RowDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_AD_ImpFormat_Row;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_ImpFormat_Row - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_ImpFormat_RowQuery extends POQuery<X_AD_ImpFormat_Row> impleme
 	@Override
 	protected String getTableName() {
 		return X_AD_ImpFormat_Row.Table_Name;
+	}
+
+	public CompletableFuture<X_AD_ImpFormat_Row> AD_ImpFormat_Row(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_AD_ImpFormat_Row> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_ImpFormat_RowDataLoader.DATALOADER_AD_ImpFormat_Row_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_AD_ImpFormat_Row> AD_ImpFormat_RowGet(int Page, int PageSize, String Sort, String Filter,

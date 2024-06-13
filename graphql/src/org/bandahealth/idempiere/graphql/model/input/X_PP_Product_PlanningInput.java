@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PP_Product_PlanningResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MResource;
@@ -256,7 +257,12 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	public void setOrder_PolicyInput(ForeignEntityInput Order_Policy) {
 		this.mOrder_Policy = Order_Policy;
 		if (Order_Policy != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Product_PlanningResolver.ORDER_POLICY_UUIDS_BY_VALUE.containsValue(Order_Policy.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Order_Policy.getUU() +
+						" is not in the list defined for the Order_Policy column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

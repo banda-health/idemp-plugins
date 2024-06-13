@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_WF_Node(UU: String!): AD_WF_Node
 	AD_WF_NodeGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_NodeConnection!
 }
 

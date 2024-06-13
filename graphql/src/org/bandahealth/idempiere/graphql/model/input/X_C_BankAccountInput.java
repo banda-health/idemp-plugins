@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_BankAccountResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBank;
 import org.compiere.model.MOrg;
@@ -85,7 +86,12 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 	public void setBankAccountTypeInput(ForeignEntityInput BankAccountType) {
 		this.mBankAccountType = BankAccountType;
 		if (BankAccountType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_BankAccountResolver.BANKACCOUNTTYPE_UUIDS_BY_VALUE.containsValue(BankAccountType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BankAccountType.getUU() +
+						" is not in the list defined for the BankAccountType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

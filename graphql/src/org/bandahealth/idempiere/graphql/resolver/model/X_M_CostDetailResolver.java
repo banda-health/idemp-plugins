@@ -49,7 +49,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -64,7 +64,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() <= 0) {
+		if (entity.getC_InvoiceLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -79,7 +79,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() <= 0) {
+		if (entity.getC_OrderLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -94,7 +94,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Project Issues (Material, Labor)
 	 */
 	public CompletableFuture<MProjectIssue> C_ProjectIssue(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectIssue_ID() <= 0) {
+		if (entity.getC_ProjectIssue_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectIssue> dataLoader =
@@ -113,7 +113,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -128,7 +128,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Product Cost Element
 	 */
 	public CompletableFuture<MCostElement> M_CostElement(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostElement_ID() <= 0) {
+		if (entity.getM_CostElement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
@@ -143,7 +143,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -158,7 +158,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Unique line in an Inventory document
 	 */
 	public CompletableFuture<MInventoryLine> M_InventoryLine(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InventoryLine_ID() <= 0) {
+		if (entity.getM_InventoryLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine> dataLoader =
@@ -173,7 +173,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Match Shipment/Receipt to Invoice
 	 */
 	public CompletableFuture<MMatchInv> M_MatchInv(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_MatchInv_ID() <= 0) {
+		if (entity.getM_MatchInv_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMatchInv> dataLoader =
@@ -188,7 +188,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Inventory Move document Line
 	 */
 	public CompletableFuture<MMovementLine> M_MovementLine(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_MovementLine_ID() <= 0) {
+		if (entity.getM_MovementLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovementLine> dataLoader =
@@ -203,7 +203,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -218,7 +218,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Document Line representing a production
 	 */
 	public CompletableFuture<MProductionLine> M_ProductionLine(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductionLine_ID() <= 0) {
+		if (entity.getM_ProductionLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductionLine> dataLoader =
@@ -233,7 +233,7 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 * @return Manufacturing Cost Collector
 	 */
 	public CompletableFuture<X_PP_Cost_Collector> PP_Cost_Collector(MCostDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Cost_Collector_ID() <= 0) {
+		if (entity.getPP_Cost_Collector_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Cost_Collector> dataLoader =

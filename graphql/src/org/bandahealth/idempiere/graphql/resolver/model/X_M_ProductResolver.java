@@ -69,7 +69,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Method for recording revenue
 	 */
 	public CompletableFuture<MRevenueRecognition> C_RevenueRecognition(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RevenueRecognition_ID() <= 0) {
+		if (entity.getC_RevenueRecognition_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecognition> dataLoader =
@@ -84,7 +84,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Type of subscription
 	 */
 	public CompletableFuture<X_C_SubscriptionType> C_SubscriptionType(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SubscriptionType_ID() <= 0) {
+		if (entity.getC_SubscriptionType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_SubscriptionType> dataLoader =
@@ -99,7 +99,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Tax Category
 	 */
 	public CompletableFuture<MTaxCategory> C_TaxCategory(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxCategory_ID() <= 0) {
+		if (entity.getC_TaxCategory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
@@ -114,7 +114,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -237,7 +237,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Product Attribute Set
 	 */
 	public CompletableFuture<MAttributeSet_BH> M_AttributeSet(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSet_ID() <= 0) {
+		if (entity.getM_AttributeSet_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSet_BH> dataLoader =
@@ -252,7 +252,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -267,7 +267,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Category of the Freight
 	 */
 	public CompletableFuture<MFreightCategory> M_FreightCategory(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_FreightCategory_ID() <= 0) {
+		if (entity.getM_FreightCategory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MFreightCategory> dataLoader =
@@ -282,7 +282,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -297,7 +297,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Part Type
 	 */
 	public CompletableFuture<X_M_PartType> M_PartType(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PartType_ID() <= 0) {
+		if (entity.getM_PartType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_PartType> dataLoader =
@@ -312,7 +312,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() <= 0) {
+		if (entity.getM_Product_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
@@ -340,14 +340,14 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> PRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "59dcc5c9-ab37-4f5c-9987-6e2347f50093");
-			put("S", "265e0369-47e4-4be9-b6d5-e344230f5588");
-			put("R", "42694712-fdf0-42ec-aa93-bf19009c3a98");
-			put("E", "6a973557-0387-4173-8b31-af735b9eeb75");
-			put("O", "8de4f3a8-057c-4540-96d8-38369776b2e7");
-			put("A", "a45dcc33-c973-4744-955e-dd24518ef099");
+			put("I", "59dcc5c9-ab37-4f5c-9987-6e2347f50093"); // Item
+			put("S", "265e0369-47e4-4be9-b6d5-e344230f5588"); // Service
+			put("R", "42694712-fdf0-42ec-aa93-bf19009c3a98"); // Resource
+			put("E", "6a973557-0387-4173-8b31-af735b9eeb75"); // Expense type
+			put("O", "8de4f3a8-057c-4540-96d8-38369776b2e7"); // Online
+			put("A", "a45dcc33-c973-4744-955e-dd24518ef099"); // Asset
 		}
 	};
 	public CompletableFuture<MRefList_BH> ProductType(MProduct_BH entity, DataFetchingEnvironment environment) {
@@ -366,7 +366,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Text templates for mailings
 	 */
 	public CompletableFuture<MMailText> R_MailText(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getR_MailText_ID() <= 0) {
+		if (entity.getR_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -381,7 +381,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Expense report type
 	 */
 	public CompletableFuture<MExpenseType> S_ExpenseType(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getS_ExpenseType_ID() <= 0) {
+		if (entity.getS_ExpenseType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MExpenseType> dataLoader =
@@ -396,7 +396,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() <= 0) {
+		if (entity.getS_Resource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
@@ -411,7 +411,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

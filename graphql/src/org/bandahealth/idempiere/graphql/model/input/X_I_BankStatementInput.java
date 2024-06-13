@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_I_BankStatementResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBankStatement;
 import org.compiere.model.MBankStatementLine;
@@ -398,7 +399,12 @@ public class X_I_BankStatementInput extends X_I_BankStatement implements I_I_Ban
 	public void setTrxTypeInput(ForeignEntityInput TrxType) {
 		this.mTrxType = TrxType;
 		if (TrxType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_BankStatementResolver.TRXTYPE_UUIDS_BY_VALUE.containsValue(TrxType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + TrxType.getUU() +
+						" is not in the list defined for the TrxType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

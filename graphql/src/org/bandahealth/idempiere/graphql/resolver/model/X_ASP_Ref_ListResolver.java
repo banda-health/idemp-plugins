@@ -32,7 +32,7 @@ public class X_ASP_Ref_ListResolver extends POResolver<X_ASP_Ref_List> implement
 	 * @return Reference List based on Table
 	 */
 	public CompletableFuture<MRefList_BH> AD_Ref_List(X_ASP_Ref_List entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Ref_List_ID() <= 0) {
+		if (entity.getAD_Ref_List_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRefList_BH> dataLoader =
@@ -47,7 +47,7 @@ public class X_ASP_Ref_ListResolver extends POResolver<X_ASP_Ref_List> implement
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(X_ASP_Ref_List entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -62,7 +62,7 @@ public class X_ASP_Ref_ListResolver extends POResolver<X_ASP_Ref_List> implement
 	 * @return ASP Level
 	 */
 	public CompletableFuture<X_ASP_Level> ASP_Level(X_ASP_Ref_List entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Level_ID() <= 0) {
+		if (entity.getASP_Level_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Level> dataLoader =
@@ -70,11 +70,11 @@ public class X_ASP_Ref_ListResolver extends POResolver<X_ASP_Ref_List> implement
 		return dataLoader.load(entity.getASP_Level_ID());
 	}
 
-	static Map<String, String> ASP_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ASP_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("H", "864906b8-9311-4af2-9464-434e25fa6f72");
-			put("S", "e06c95b8-62c4-4d5d-b9fc-e23c5049489e");
-			put("U", "e718a86a-8c1d-490d-9d3f-f1a2dfe6af69");
+			put("H", "864906b8-9311-4af2-9464-434e25fa6f72"); // Hide
+			put("S", "e06c95b8-62c4-4d5d-b9fc-e23c5049489e"); // Show
+			put("U", "e718a86a-8c1d-490d-9d3f-f1a2dfe6af69"); // Undefined
 		}
 	};
 	public CompletableFuture<MRefList_BH> ASP_Status(X_ASP_Ref_List entity, DataFetchingEnvironment environment) {

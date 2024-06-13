@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_InventoryLineResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInventoryLine;
 import org.compiere.model.MLocator;
@@ -138,7 +139,12 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 	public void setInventoryTypeInput(ForeignEntityInput InventoryType) {
 		this.mInventoryType = InventoryType;
 		if (InventoryType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InventoryLineResolver.INVENTORYTYPE_UUIDS_BY_VALUE.containsValue(InventoryType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + InventoryType.getUU() +
+						" is not in the list defined for the InventoryType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

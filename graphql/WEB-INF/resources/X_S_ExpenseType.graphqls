@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	S_ExpenseType(UU: String!): S_ExpenseType
 	S_ExpenseTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): S_ExpenseTypeConnection!
 }
 

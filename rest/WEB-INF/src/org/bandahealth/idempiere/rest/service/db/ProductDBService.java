@@ -445,29 +445,32 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 	public List<Integer> getProductIdsWithNoFinishedPurchaseOrders() {
 		List<Integer> productIds = new ArrayList<>();
 		List<Object> parameters = new ArrayList<>();
-		String sql =
-				"SELECT " +
-						" m_product_id " +
-						"FROM " +
-						" m_product " +
-						"WHERE " +
-						"   m_product_id NOT IN ( " +
-						"   SELECT " +
-						"     m_product_id " +
-						"   FROM " +
-						"     c_orderline " +
-						"   WHERE " +
-						"       c_order_id IN ( " +
-						"       SELECT c_order_id " +
-						"       FROM c_order " +
-						"       WHERE issotrx = ? " +
-						"         AND docstatus IN (?,?) " +
-						"     ) " +
-						"     AND m_product_id IS NOT NULL " +
-						" ) AND ad_client_id = ?";
+		String sql = """
+				SELECT
+					m_product_id
+				FROM
+					m_product
+				WHERE
+					m_product_id NOT IN (
+						SELECT
+							m_product_id
+						FROM
+							c_orderline
+						WHERE
+							c_order_id IN
+							(
+								SELECT c_order_id FROM c_order WHERE issotrx = ? AND docstatus IN (?,?) AND ad_client_id = ?
+							)
+							AND m_product_id IS NOT NULL
+							AND ad_client_id = ?
+					)
+					AND ad_client_id = ?
+				""";
 		parameters.add(false);
 		parameters.add(MOrder_BH.DOCSTATUS_Completed);
 		parameters.add(MOrder_BH.DOCSTATUS_Closed);
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		SqlUtil.executeQuery(sql, parameters, null, data -> {
 			try {

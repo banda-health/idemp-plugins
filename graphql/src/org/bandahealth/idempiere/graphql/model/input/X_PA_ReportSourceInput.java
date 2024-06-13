@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PA_ReportSourceResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
@@ -337,7 +338,12 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	public void setElementTypeInput(ForeignEntityInput ElementType) {
 		this.mElementType = ElementType;
 		if (ElementType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_ReportSourceResolver.ELEMENTTYPE_UUIDS_BY_VALUE.containsValue(ElementType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ElementType.getUU() +
+						" is not in the list defined for the ElementType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

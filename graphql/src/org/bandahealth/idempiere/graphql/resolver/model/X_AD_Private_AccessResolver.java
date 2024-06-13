@@ -27,7 +27,7 @@ public class X_AD_Private_AccessResolver extends POResolver<MPrivateAccess> impl
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MPrivateAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_Private_AccessResolver extends POResolver<MPrivateAccess> impl
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MPrivateAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

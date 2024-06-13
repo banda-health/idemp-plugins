@@ -36,17 +36,17 @@ import java.util.concurrent.CompletableFuture;
 public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implements GraphQLResolver<X_PP_Order_BOM> {
 
 
-	static Map<String, String> BOMTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BOMTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "f40468ef-872e-4574-b9b5-bc09de25cd73");
-			put("O", "88526daf-69bd-4cb5-af6e-ea120ed2555c");
-			put("P", "e422ef8f-51be-49d2-b4bc-51e5626fca87");
-			put("S", "db19dec2-6c7f-4896-ae47-c1f7898ae2e0");
-			put("F", "c3eaeaa0-6177-4a38-880f-5c34910333f9");
-			put("M", "bd5822f8-5b30-4cc4-99e1-998c575dab53");
-			put("R", "28a5712a-519d-434c-932f-71a8e4a02d45");
-			put("C", "d7036054-47a8-4af4-9045-1892c8a563ad");
-			put("K", "3af80a33-db74-4f76-84a4-455286ffdba6");
+			put("A", "f40468ef-872e-4574-b9b5-bc09de25cd73"); // Current Active
+			put("O", "88526daf-69bd-4cb5-af6e-ea120ed2555c"); // Make-To-Order
+			put("P", "e422ef8f-51be-49d2-b4bc-51e5626fca87"); // Previous
+			put("S", "db19dec2-6c7f-4896-ae47-c1f7898ae2e0"); // Previous, Spare
+			put("F", "c3eaeaa0-6177-4a38-880f-5c34910333f9"); // Future
+			put("M", "bd5822f8-5b30-4cc4-99e1-998c575dab53"); // Maintenance
+			put("R", "28a5712a-519d-434c-932f-71a8e4a02d45"); // Repair
+			put("C", "d7036054-47a8-4af4-9045-1892c8a563ad"); // Product Configure
+			put("K", "3af80a33-db74-4f76-84a4-455286ffdba6"); // Make-To-Kit
 		}
 	};
 	public CompletableFuture<MRefList_BH> BOMType(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
@@ -58,13 +58,13 @@ public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implement
 		return dataLoader.load(BOMTYPE_UUIDS_BY_VALUE.get(entity.getBOMType()));
 	}
 
-	static Map<String, String> BOMUSE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BOMUSE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "082b2656-8fb0-4e2a-9611-67ed7f9bdbd0");
-			put("E", "c4ef1193-68f0-478c-b6bb-e1705fcd99e0");
-			put("M", "051be6e2-b091-4e8b-989c-1cb41affbece");
-			put("P", "b7cf6bb8-a498-4d35-b129-6059068df61d");
-			put("Q", "db8fbc75-98b8-4229-b487-e848f6bec73e");
+			put("A", "082b2656-8fb0-4e2a-9611-67ed7f9bdbd0"); // Master
+			put("E", "c4ef1193-68f0-478c-b6bb-e1705fcd99e0"); // Engineering
+			put("M", "051be6e2-b091-4e8b-989c-1cb41affbece"); // Manufacturing
+			put("P", "b7cf6bb8-a498-4d35-b129-6059068df61d"); // Planning
+			put("Q", "db8fbc75-98b8-4229-b487-e848f6bec73e"); // Quality
 		}
 	};
 	public CompletableFuture<MRefList_BH> BOMUse(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
@@ -83,7 +83,7 @@ public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implement
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -130,7 +130,7 @@ public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implement
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -145,7 +145,7 @@ public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implement
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	public CompletableFuture<MChangeNotice> M_ChangeNotice(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ChangeNotice_ID() <= 0) {
+		if (entity.getM_ChangeNotice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
@@ -160,7 +160,7 @@ public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implement
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -191,7 +191,7 @@ public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implement
 	 * @return Manufacturing Order
 	 */
 	public CompletableFuture<X_PP_Order> PP_Order(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_ID() <= 0) {
+		if (entity.getPP_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =

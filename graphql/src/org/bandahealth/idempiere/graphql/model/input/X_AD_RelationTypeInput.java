@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_RelationTypeResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -219,7 +220,12 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	public void setRole_SourceInput(ForeignEntityInput Role_Source) {
 		this.mRole_Source = Role_Source;
 		if (Role_Source != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_RelationTypeResolver.ROLE_SOURCE_UUIDS_BY_VALUE.containsValue(Role_Source.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Role_Source.getUU() +
+						" is not in the list defined for the Role_Source column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -253,7 +259,12 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	public void setRole_TargetInput(ForeignEntityInput Role_Target) {
 		this.mRole_Target = Role_Target;
 		if (Role_Target != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_RelationTypeResolver.ROLE_TARGET_UUIDS_BY_VALUE.containsValue(Role_Target.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Role_Target.getUU() +
+						" is not in the list defined for the Role_Target column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -287,7 +298,12 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	public void setTypeInput(ForeignEntityInput Type) {
 		this.mType = Type;
 		if (Type != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_RelationTypeResolver.TYPE_UUIDS_BY_VALUE.containsValue(Type.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Type.getUU() +
+						" is not in the list defined for the Type column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

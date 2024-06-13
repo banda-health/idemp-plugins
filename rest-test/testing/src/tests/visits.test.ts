@@ -14,9 +14,9 @@ import {
 	languageApi,
 	referenceListApi,
 	roleApi,
+	userApi,
 	visitApi,
 	voidedReasonApi,
-	userApi,
 } from '../api';
 import {
 	documentAction,
@@ -42,9 +42,9 @@ import {
 	Payment,
 	PaymentType,
 	ProcessInfoParameter,
+	User,
 	Visit,
 	VoidedReason,
-	User,
 } from '../types/org.bandahealth.idempiere.rest';
 import {
 	createBusinessPartner,
@@ -1418,6 +1418,7 @@ test('visit can be saved with really long chief complaint', async () => {
 
 	valueObject.visit!.encounters!.push({
 		encounterType: chiefComplaintEncounterTypeWindow?.encounterType,
+		encounterDate: valueObject.date,
 		observations: [
 			{
 				value: longChiefComplaint,
@@ -1453,6 +1454,7 @@ test('clinical vitals fields', async () => {
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter: Partial<Encounter> = {
 		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
+		encounterDate: valueObject.date,
 		observations: [
 			{
 				value: heightValue,
@@ -1656,11 +1658,18 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 	valueObject.visit = await visitApi.save(valueObject, visitToSave);
 	const savedVisit = valueObject.visit!;
 	let fetchedVisit = await visitApi.getByUuid(valueObject, valueObject.visit.uuid);
-	// This is a flaky test, so figure out why it fails (if it does)
-	if (!isEqual(valueObject.visit, fetchedVisit)) {
-		console.log(JSON.stringify(valueObject.visit), JSON.stringify(fetchedVisit));
+	// Invoices don't always come back in the same order, so order them the same way
+	valueObject.visit.invoices.sort((invoiceA) =>
+		invoiceA.businessPartner.uuid === valueObject.visit?.patient.uuid ? -1 : 1,
+	);
+	fetchedVisit.invoices.sort((invoiceA) => (invoiceA.businessPartner.uuid === fetchedVisit.patient.uuid ? -1 : 1));
+	try {
+		// This is a flaky test, so figure out why it fails (if it does)
+		expect(isEqual(valueObject.visit, fetchedVisit)).toBeTruthy();
+	} catch {
+		// Since the above failed, let's just make the comparison that much more explicit
+		expect(JSON.stringify(valueObject.visit)).toBe(JSON.stringify(fetchedVisit));
 	}
-	expect(isEqual(valueObject.visit, fetchedVisit)).toBeTruthy();
 
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, savedVisit, documentAction.Complete);
 	fetchedVisit = await visitApi.getByUuid(valueObject, valueObject.visit.uuid);
@@ -1866,6 +1875,7 @@ test(`visit invoice updates work`, async () => {
 		encounters: [
 			{
 				encounterType: clinicalVitalsEncounterTypeWindow.encounterType,
+				encounterDate: valueObject.date,
 				observations: [
 					{
 						value: '100',
@@ -2296,7 +2306,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	const orderUuid = randomUUID();
 	const orderLine1Uuid = randomUUID();
 	const orderLine2Uuid = randomUUID();
-	
+
 	//valueObject.stepName = 'Create user directly';
 
 	const availableRoles = (await roleApi.get(valueObject)).results;
@@ -2305,11 +2315,10 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	const userToCreate: Partial<User> = {
 		name: valueObject.getDynamicStepMessage(),
 		isActive: true,
-		roles: [cashierRole]
+		roles: [cashierRole],
 	};
 	const createdUser = await userApi.save(valueObject, userToCreate as User);
-	
-	
+
 	const visit: Partial<Visit> = {
 		uuid: randomUUID(),
 		patient: valueObject.businessPartner!,
@@ -2342,6 +2351,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				createdBy: createdUser,
 				updatedBy: createdUser,
 				updated: new Date(1688636248131),
+				encounterDate: new Date(1688636248131)
 			},
 			{
 				clientId: 1000000,
@@ -2370,6 +2380,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				createdBy: createdUser,
 				updatedBy: createdUser,
 				updated: new Date(1688636248131),
+				encounterDate: new Date(1688636248131)
 			},
 		],
 		orders: [
@@ -2541,6 +2552,7 @@ test('can delete encounters', async () => {
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter: Partial<Encounter> = {
 		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
+		encounterDate: valueObject.date,
 		observations: [
 			{
 				value: '200',
@@ -2649,6 +2661,7 @@ test('lab diagnostic fields', async () => {
 	const concepts = (await conceptApi.get(valueObject)).results;
 	const encounter: Partial<Encounter> = {
 		encounterType: labDiagnosticEncounterTypeWindow?.encounterType,
+		encounterDate: valueObject.date,
 		observations: [
 			{
 				value: LAB_NOTES_VALUE,

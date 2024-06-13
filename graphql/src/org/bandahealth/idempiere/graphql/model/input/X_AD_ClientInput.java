@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_ClientResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
@@ -209,7 +210,12 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	public void setAuthenticationTypeInput(ForeignEntityInput AuthenticationType) {
 		this.mAuthenticationType = AuthenticationType;
 		if (AuthenticationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ClientResolver.AUTHENTICATIONTYPE_UUIDS_BY_VALUE.containsValue(AuthenticationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AuthenticationType.getUU() +
+						" is not in the list defined for the AuthenticationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -243,7 +249,12 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	public void setAutoArchiveInput(ForeignEntityInput AutoArchive) {
 		this.mAutoArchive = AutoArchive;
 		if (AutoArchive != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ClientResolver.AUTOARCHIVE_UUIDS_BY_VALUE.containsValue(AutoArchive.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AutoArchive.getUU() +
+						" is not in the list defined for the AutoArchive column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -277,7 +288,12 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	public void setMMPolicyInput(ForeignEntityInput MMPolicy) {
 		this.mMMPolicy = MMPolicy;
 		if (MMPolicy != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ClientResolver.MMPOLICY_UUIDS_BY_VALUE.containsValue(MMPolicy.getUU())) {
+				throw new AdempiereException("The reference list UU of " + MMPolicy.getUU() +
+						" is not in the list defined for the MMPolicy column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

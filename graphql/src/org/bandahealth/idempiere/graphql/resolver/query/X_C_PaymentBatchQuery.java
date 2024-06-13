@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PaymentBatchDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MPaymentBatch;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for C_PaymentBatch - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_C_PaymentBatchQuery extends POQuery<MPaymentBatch> implements Gra
 	@Override
 	protected String getTableName() {
 		return MPaymentBatch.Table_Name;
+	}
+
+	public CompletableFuture<MPaymentBatch> C_PaymentBatch(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MPaymentBatch> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_PaymentBatchDataLoader.DATALOADER_C_PaymentBatch_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MPaymentBatch> C_PaymentBatchGet(int Page, int PageSize, String Sort, String Filter,

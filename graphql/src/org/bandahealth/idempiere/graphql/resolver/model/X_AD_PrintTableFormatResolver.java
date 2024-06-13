@@ -34,7 +34,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Image or Icon
 	 */
 	public CompletableFuture<MImage> AD_Image(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Image_ID() <= 0) {
+		if (entity.getAD_Image_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Function row Font
 	 */
 	public CompletableFuture<X_AD_PrintFont> Funct_PrintFont(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getFunct_PrintFont_ID() <= 0) {
+		if (entity.getFunct_PrintFont_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
@@ -64,7 +64,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Function Background Color
 	 */
 	public CompletableFuture<X_AD_PrintColor> FunctBG_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getFunctBG_PrintColor_ID() <= 0) {
+		if (entity.getFunctBG_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -79,7 +79,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Function Foreground Color
 	 */
 	public CompletableFuture<X_AD_PrintColor> FunctFG_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getFunctFG_PrintColor_ID() <= 0) {
+		if (entity.getFunctFG_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -94,7 +94,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Header row Font
 	 */
 	public CompletableFuture<X_AD_PrintFont> Hdr_PrintFont(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getHdr_PrintFont_ID() <= 0) {
+		if (entity.getHdr_PrintFont_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
@@ -109,7 +109,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Table header row line color
 	 */
 	public CompletableFuture<X_AD_PrintColor> HdrLine_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getHdrLine_PrintColor_ID() <= 0) {
+		if (entity.getHdrLine_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -117,12 +117,12 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 		return dataLoader.load(entity.getHdrLine_PrintColor_ID());
 	}
 
-	static Map<String, String> HDRSTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> HDRSTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "9ad32e3a-041c-4b8f-a55d-0690f76aad33");
-			put("D", "14819462-54d8-4253-aeb8-f6d21310f7ec");
-			put("d", "6d0afb30-9ebc-4fa6-992b-493962dc04ec");
-			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222");
+			put("S", "9ad32e3a-041c-4b8f-a55d-0690f76aad33"); // Solid Line
+			put("D", "14819462-54d8-4253-aeb8-f6d21310f7ec"); // Dashed Line
+			put("d", "6d0afb30-9ebc-4fa6-992b-493962dc04ec"); // Dotted Line
+			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222"); // Dash-Dotted Line
 		}
 	};
 	public CompletableFuture<MRefList_BH> HdrStrokeType(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
@@ -141,7 +141,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Background color of header row
 	 */
 	public CompletableFuture<X_AD_PrintColor> HdrTextBG_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getHdrTextBG_PrintColor_ID() <= 0) {
+		if (entity.getHdrTextBG_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -156,7 +156,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Foreground color if the table header row
 	 */
 	public CompletableFuture<X_AD_PrintColor> HdrTextFG_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getHdrTextFG_PrintColor_ID() <= 0) {
+		if (entity.getHdrTextFG_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -203,7 +203,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Table line color
 	 */
 	public CompletableFuture<X_AD_PrintColor> Line_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getLine_PrintColor_ID() <= 0) {
+		if (entity.getLine_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -211,12 +211,12 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 		return dataLoader.load(entity.getLine_PrintColor_ID());
 	}
 
-	static Map<String, String> LINESTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> LINESTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "9ad32e3a-041c-4b8f-a55d-0690f76aad33");
-			put("D", "14819462-54d8-4253-aeb8-f6d21310f7ec");
-			put("d", "6d0afb30-9ebc-4fa6-992b-493962dc04ec");
-			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222");
+			put("S", "9ad32e3a-041c-4b8f-a55d-0690f76aad33"); // Solid Line
+			put("D", "14819462-54d8-4253-aeb8-f6d21310f7ec"); // Dashed Line
+			put("d", "6d0afb30-9ebc-4fa6-992b-493962dc04ec"); // Dotted Line
+			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222"); // Dash-Dotted Line
 		}
 	};
 	public CompletableFuture<MRefList_BH> LineStrokeType(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {

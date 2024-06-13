@@ -32,7 +32,7 @@ public class X_AD_PInstance_LogResolver extends POResolver<X_AD_PInstance_Log> i
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_AD_PInstance_Log entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_PInstance_LogResolver extends POResolver<X_AD_PInstance_Log> i
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_PInstance_Log entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -55,11 +55,11 @@ public class X_AD_PInstance_LogResolver extends POResolver<X_AD_PInstance_Log> i
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
-	static Map<String, String> PINSTANCELOGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PINSTANCELOGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "c168a678-1b2b-4fe2-9270-8aeb29b635c3");
-			put("P", "2cc965b7-abf2-413a-930e-eff43afd5f81");
-			put("R", "aadce9f4-214c-4c52-b89d-d2696649172b");
+			put("S", "c168a678-1b2b-4fe2-9270-8aeb29b635c3"); // Status
+			put("P", "2cc965b7-abf2-413a-930e-eff43afd5f81"); // Progress
+			put("R", "aadce9f4-214c-4c52-b89d-d2696649172b"); // Result
 		}
 	};
 	public CompletableFuture<MRefList_BH> PInstanceLogType(X_AD_PInstance_Log entity, DataFetchingEnvironment environment) {

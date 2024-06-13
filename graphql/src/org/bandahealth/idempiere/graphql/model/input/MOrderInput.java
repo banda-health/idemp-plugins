@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartner;
 
 public class MOrderInput extends X_C_OrderInput {
@@ -13,8 +12,12 @@ public class MOrderInput extends X_C_OrderInput {
 	 * @param UUID The C_Order_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MOrderInput(@JsonProperty("UU") String UUID) {
+	public MOrderInput(@JsonProperty("UU") String UUID, @JsonProperty("IsSOTrx") Boolean IsSOTrx) {
 		super(UUID);
+		// The sales order transaction needs to be set before the BPartner input would be
+		if (IsSOTrx != null) {
+			setIsSOTrx(IsSOTrx);
+		}
 	}
 
 	@Override

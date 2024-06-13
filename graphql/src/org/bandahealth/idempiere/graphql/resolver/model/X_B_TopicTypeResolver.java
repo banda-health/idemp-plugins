@@ -27,7 +27,7 @@ public class X_B_TopicTypeResolver extends POResolver<X_B_TopicType> implements 
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(X_B_TopicType entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() <= 0) {
+		if (entity.getM_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -42,7 +42,7 @@ public class X_B_TopicTypeResolver extends POResolver<X_B_TopicType> implements 
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_B_TopicType entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -57,7 +57,7 @@ public class X_B_TopicTypeResolver extends POResolver<X_B_TopicType> implements 
 	 * @return Product used to determine the price of the membership for the topic type
 	 */
 	public CompletableFuture<MProduct_BH> M_ProductMember(X_B_TopicType entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductMember_ID() <= 0) {
+		if (entity.getM_ProductMember_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

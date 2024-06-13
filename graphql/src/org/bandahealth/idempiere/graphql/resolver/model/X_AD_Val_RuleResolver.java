@@ -54,11 +54,11 @@ public class X_AD_Val_RuleResolver extends POResolver<MValRule> implements Graph
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
-	static Map<String, String> TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("S", "bd136495-6e5d-463d-bf2e-3c2460f24cf1");
-			put("J", "e2f63b5d-3915-4739-82b3-774b72016057");
-			put("E", "7a735a63-8723-4cac-b02c-1b35fa337287");
+			put("S", "bd136495-6e5d-463d-bf2e-3c2460f24cf1"); // SQL
+			put("J", "e2f63b5d-3915-4739-82b3-774b72016057"); // Java Language
+			put("E", "7a735a63-8723-4cac-b02c-1b35fa337287"); // Java Script
 		}
 	};
 	public CompletableFuture<MRefList_BH> Type(MValRule entity, DataFetchingEnvironment environment) {

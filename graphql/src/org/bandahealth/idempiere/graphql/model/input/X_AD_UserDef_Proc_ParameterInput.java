@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_UserDef_Proc_ParameterResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProcessPara;
@@ -329,7 +330,12 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	public void setIsDisplayedInput(ForeignEntityInput IsDisplayed) {
 		this.mIsDisplayed = IsDisplayed;
 		if (IsDisplayed != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_Proc_ParameterResolver.ISDISPLAYED_UUIDS_BY_VALUE.containsValue(IsDisplayed.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsDisplayed.getUU() +
+						" is not in the list defined for the IsDisplayed column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -363,7 +369,12 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	public void setIsMandatoryInput(ForeignEntityInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
 		if (IsMandatory != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_Proc_ParameterResolver.ISMANDATORY_UUIDS_BY_VALUE.containsValue(IsMandatory.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsMandatory.getUU() +
+						" is not in the list defined for the IsMandatory column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

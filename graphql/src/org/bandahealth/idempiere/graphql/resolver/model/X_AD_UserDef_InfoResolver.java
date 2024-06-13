@@ -38,7 +38,7 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(MUserDefInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() <= 0) {
+		if (entity.getAD_InfoWindow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -182,7 +182,7 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MUserDefInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -197,7 +197,7 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MUserDefInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -212,7 +212,7 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MUserDefInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -220,10 +220,10 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
-	static Map<String, String> ISSHOWINDASHBOARD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISSHOWINDASHBOARD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsShowInDashboard(MUserDefInfo entity, DataFetchingEnvironment environment) {
@@ -242,7 +242,7 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 	 * @return Purchase Order Window
 	 */
 	public CompletableFuture<MWindow> PO_Window(MUserDefInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_Window_ID() <= 0) {
+		if (entity.getPO_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

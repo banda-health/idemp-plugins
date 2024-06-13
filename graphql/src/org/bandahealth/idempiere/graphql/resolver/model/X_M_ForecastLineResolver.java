@@ -33,7 +33,7 @@ public class X_M_ForecastLineResolver extends POResolver<MForecastLine> implemen
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(MForecastLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() <= 0) {
+		if (entity.getC_Period_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
@@ -48,7 +48,7 @@ public class X_M_ForecastLineResolver extends POResolver<MForecastLine> implemen
 	 * @return Material Forecast
 	 */
 	public CompletableFuture<MForecast> M_Forecast(MForecastLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Forecast_ID() <= 0) {
+		if (entity.getM_Forecast_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MForecast> dataLoader =
@@ -63,7 +63,7 @@ public class X_M_ForecastLineResolver extends POResolver<MForecastLine> implemen
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MForecastLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -78,7 +78,7 @@ public class X_M_ForecastLineResolver extends POResolver<MForecastLine> implemen
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MForecastLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -93,7 +93,7 @@ public class X_M_ForecastLineResolver extends POResolver<MForecastLine> implemen
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MForecastLine entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_UserDef_Info_ColumnResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInfoColumn;
 import org.compiere.model.MOrg;
@@ -337,7 +338,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	public void setIsAutocompleteInput(ForeignEntityInput IsAutocomplete) {
 		this.mIsAutocomplete = IsAutocomplete;
 		if (IsAutocomplete != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_Info_ColumnResolver.ISAUTOCOMPLETE_UUIDS_BY_VALUE.containsValue(IsAutocomplete.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsAutocomplete.getUU() +
+						" is not in the list defined for the IsAutocomplete column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -371,7 +377,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	public void setIsDisplayedInput(ForeignEntityInput IsDisplayed) {
 		this.mIsDisplayed = IsDisplayed;
 		if (IsDisplayed != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_Info_ColumnResolver.ISDISPLAYED_UUIDS_BY_VALUE.containsValue(IsDisplayed.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsDisplayed.getUU() +
+						" is not in the list defined for the IsDisplayed column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -405,7 +416,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	public void setIsMandatoryInput(ForeignEntityInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
 		if (IsMandatory != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_Info_ColumnResolver.ISMANDATORY_UUIDS_BY_VALUE.containsValue(IsMandatory.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsMandatory.getUU() +
+						" is not in the list defined for the IsMandatory column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -439,7 +455,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	public void setIsQueryAfterChangeInput(ForeignEntityInput IsQueryAfterChange) {
 		this.mIsQueryAfterChange = IsQueryAfterChange;
 		if (IsQueryAfterChange != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_Info_ColumnResolver.ISQUERYAFTERCHANGE_UUIDS_BY_VALUE.containsValue(IsQueryAfterChange.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsQueryAfterChange.getUU() +
+						" is not in the list defined for the IsQueryAfterChange column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -473,7 +494,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	public void setIsQueryCriteriaInput(ForeignEntityInput IsQueryCriteria) {
 		this.mIsQueryCriteria = IsQueryCriteria;
 		if (IsQueryCriteria != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_Info_ColumnResolver.ISQUERYCRITERIA_UUIDS_BY_VALUE.containsValue(IsQueryCriteria.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsQueryCriteria.getUU() +
+						" is not in the list defined for the IsQueryCriteria column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -507,7 +533,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	public void setIsReadOnlyInput(ForeignEntityInput IsReadOnly) {
 		this.mIsReadOnly = IsReadOnly;
 		if (IsReadOnly != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_Info_ColumnResolver.ISREADONLY_UUIDS_BY_VALUE.containsValue(IsReadOnly.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsReadOnly.getUU() +
+						" is not in the list defined for the IsReadOnly column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -541,7 +572,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	public void setQueryOperatorInput(ForeignEntityInput QueryOperator) {
 		this.mQueryOperator = QueryOperator;
 		if (QueryOperator != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_UserDef_Info_ColumnResolver.QUERYOPERATOR_UUIDS_BY_VALUE.containsValue(QueryOperator.getUU())) {
+				throw new AdempiereException("The reference list UU of " + QueryOperator.getUU() +
+						" is not in the list defined for the QueryOperator column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

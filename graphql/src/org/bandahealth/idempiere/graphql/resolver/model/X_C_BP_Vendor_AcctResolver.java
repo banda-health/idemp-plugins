@@ -29,7 +29,7 @@ public class X_C_BP_Vendor_AcctResolver extends POResolver<X_C_BP_Vendor_Acct> i
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_C_BP_Vendor_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_BP_Vendor_AcctResolver extends POResolver<X_C_BP_Vendor_Acct> i
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_C_BP_Vendor_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_BP_Vendor_AcctResolver extends POResolver<X_C_BP_Vendor_Acct> i
 	 * @return Account for Vendor Liability
 	 */
 	public CompletableFuture<MAccount> V_Liability_A(X_C_BP_Vendor_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getV_Liability_Acct() <= 0) {
+		if (entity.getV_Liability_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -74,7 +74,7 @@ public class X_C_BP_Vendor_AcctResolver extends POResolver<X_C_BP_Vendor_Acct> i
 	 * @return Account for Vendor Service Liability
 	 */
 	public CompletableFuture<MAccount> V_Liability_Services_A(X_C_BP_Vendor_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getV_Liability_Services_Acct() <= 0) {
+		if (entity.getV_Liability_Services_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_BP_Vendor_AcctResolver extends POResolver<X_C_BP_Vendor_Acct> i
 	 * @return Account for Vendor Prepayments
 	 */
 	public CompletableFuture<MAccount> V_Prepayment_A(X_C_BP_Vendor_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getV_Prepayment_Acct() <= 0) {
+		if (entity.getV_Prepayment_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

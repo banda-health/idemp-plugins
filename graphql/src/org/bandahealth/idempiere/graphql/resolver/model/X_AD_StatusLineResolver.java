@@ -30,7 +30,7 @@ public class X_AD_StatusLineResolver extends POResolver<MStatusLine> implements 
 	 * @return System Message
 	 */
 	public CompletableFuture<MMessage_BH> AD_Message(MStatusLine entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Message_ID() <= 0) {
+		if (entity.getAD_Message_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMessage_BH> dataLoader =

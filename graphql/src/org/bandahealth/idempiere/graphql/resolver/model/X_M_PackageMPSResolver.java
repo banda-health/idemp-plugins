@@ -27,7 +27,7 @@ public class X_M_PackageMPSResolver extends POResolver<MPackageMPS> implements G
 	 * @return Standard Unit of Measure for Length
 	 */
 	public CompletableFuture<MUOM> C_UOM_Length(MPackageMPS entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Length_ID() <= 0) {
+		if (entity.getC_UOM_Length_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -42,7 +42,7 @@ public class X_M_PackageMPSResolver extends POResolver<MPackageMPS> implements G
 	 * @return Standard Unit of Measure for Weight
 	 */
 	public CompletableFuture<MUOM> C_UOM_Weight(MPackageMPS entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Weight_ID() <= 0) {
+		if (entity.getC_UOM_Weight_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -57,7 +57,7 @@ public class X_M_PackageMPSResolver extends POResolver<MPackageMPS> implements G
 	 * @return Shipment Package
 	 */
 	public CompletableFuture<MPackage> M_Package(MPackageMPS entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Package_ID() <= 0) {
+		if (entity.getM_Package_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPackage> dataLoader =

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	IMP_Processor_Type(UU: String!): IMP_Processor_Type
 	IMP_Processor_TypeGet(Page: Int, Size: Int, Sort: String, Filter: String): IMP_Processor_TypeConnection!
 }
 

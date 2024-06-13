@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_Package_ExpResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPackageExp;
@@ -108,7 +109,12 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	public void setAD_Package_TypeInput(ForeignEntityInput AD_Package_Type) {
 		this.mAD_Package_Type = AD_Package_Type;
 		if (AD_Package_Type != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_Package_ExpResolver.AD_PACKAGE_TYPE_UUIDS_BY_VALUE.containsValue(AD_Package_Type.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AD_Package_Type.getUU() +
+						" is not in the list defined for the AD_Package_Type column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -142,7 +148,12 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	public void setReleaseNoInput(ForeignEntityInput ReleaseNo) {
 		this.mReleaseNo = ReleaseNo;
 		if (ReleaseNo != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_Package_ExpResolver.RELEASENO_UUIDS_BY_VALUE.containsValue(ReleaseNo.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ReleaseNo.getUU() +
+						" is not in the list defined for the ReleaseNo column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -27,11 +27,11 @@ import java.util.concurrent.CompletableFuture;
 public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGeneratorLine> implements GraphQLResolver<MJournalGeneratorLine> {
 
 
-	static Map<String, String> BPDIMENSIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BPDIMENSIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "20e2b476-b0fd-48ae-85ac-cf6d165a8012");
-			put("F", "ae07960f-9620-4c40-bff7-3171d1f52a10");
-			put("S", "f17a68c5-0488-4718-a249-dd1f96c0f77f");
+			put("C", "20e2b476-b0fd-48ae-85ac-cf6d165a8012"); // Column
+			put("F", "ae07960f-9620-4c40-bff7-3171d1f52a10"); // Fixed
+			put("S", "f17a68c5-0488-4718-a249-dd1f96c0f77f"); // Same
 		}
 	};
 	public CompletableFuture<MRefList_BH> BPDimensionType(MJournalGeneratorLine entity, DataFetchingEnvironment environment) {
@@ -50,7 +50,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MJournalGeneratorLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -65,7 +65,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 	 * @return Account CR
 	 */
 	public CompletableFuture<MElementValue> C_ElementValueCR(MJournalGeneratorLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValueCR_ID() <= 0) {
+		if (entity.getC_ElementValueCR_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -80,7 +80,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 	 * @return Account DR
 	 */
 	public CompletableFuture<MElementValue> C_ElementValueDR(MJournalGeneratorLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValueDR_ID() <= 0) {
+		if (entity.getC_ElementValueDR_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -95,7 +95,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 	 * @return GL Journal Generator
 	 */
 	public CompletableFuture<MJournalGenerator> GL_JournalGenerator(MJournalGeneratorLine entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalGenerator_ID() <= 0) {
+		if (entity.getGL_JournalGenerator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MJournalGenerator> dataLoader =

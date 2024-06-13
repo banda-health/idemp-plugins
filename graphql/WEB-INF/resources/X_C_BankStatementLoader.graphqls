@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_BankStatementLoader(UU: String!): C_BankStatementLoader
 	C_BankStatementLoaderGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankStatementLoaderConnection!
 }
 

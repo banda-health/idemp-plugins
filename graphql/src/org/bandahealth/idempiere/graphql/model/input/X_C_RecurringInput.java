@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_RecurringResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MJournalBatch;
 import org.compiere.model.MOrg;
@@ -305,7 +306,12 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setFrequencyTypeInput(ForeignEntityInput FrequencyType) {
 		this.mFrequencyType = FrequencyType;
 		if (FrequencyType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_RecurringResolver.FREQUENCYTYPE_UUIDS_BY_VALUE.containsValue(FrequencyType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FrequencyType.getUU() +
+						" is not in the list defined for the FrequencyType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -373,7 +379,12 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setRecurringTypeInput(ForeignEntityInput RecurringType) {
 		this.mRecurringType = RecurringType;
 		if (RecurringType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_RecurringResolver.RECURRINGTYPE_UUIDS_BY_VALUE.containsValue(RecurringType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + RecurringType.getUU() +
+						" is not in the list defined for the RecurringType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

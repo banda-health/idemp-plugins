@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DunningRunEntryDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MDunningRunEntry;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for C_DunningRunEntry - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_C_DunningRunEntryQuery extends POQuery<MDunningRunEntry> implemen
 	@Override
 	protected String getTableName() {
 		return MDunningRunEntry.Table_Name;
+	}
+
+	public CompletableFuture<MDunningRunEntry> C_DunningRunEntry(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MDunningRunEntry> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_DunningRunEntryDataLoader.DATALOADER_C_DunningRunEntry_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MDunningRunEntry> C_DunningRunEntryGet(int Page, int PageSize, String Sort, String Filter,

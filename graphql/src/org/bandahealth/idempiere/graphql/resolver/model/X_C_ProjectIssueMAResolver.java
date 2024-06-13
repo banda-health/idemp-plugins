@@ -27,7 +27,7 @@ public class X_C_ProjectIssueMAResolver extends POResolver<X_C_ProjectIssueMA> i
 	 * @return Project Issues (Material, Labor)
 	 */
 	public CompletableFuture<MProjectIssue> C_ProjectIssue(X_C_ProjectIssueMA entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectIssue_ID() <= 0) {
+		if (entity.getC_ProjectIssue_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectIssue> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_ProjectIssueMAResolver extends POResolver<X_C_ProjectIssueMA> i
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_C_ProjectIssueMA entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =

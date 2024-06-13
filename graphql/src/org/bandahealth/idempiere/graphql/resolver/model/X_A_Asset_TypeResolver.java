@@ -21,13 +21,13 @@ import java.util.concurrent.CompletableFuture;
 public class X_A_Asset_TypeResolver extends POResolver<MAssetType> implements GraphQLResolver<MAssetType> {
 
 
-	static Map<String, String> ISDEPRECIABLE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISDEPRECIABLE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("NX", "6939008f-29e0-49b8-a30b-206b28c0d2b1");
-			put("XN", "934235d6-5b13-477f-a2b9-0b194a048d91");
-			put("XX", "44c8053c-dead-4cd4-97a8-920ef2aa7919");
-			put("XY", "09f9094c-2674-4f58-878b-a32e5a38b4d4");
-			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d");
+			put("NX", "6939008f-29e0-49b8-a30b-206b28c0d2b1"); // No
+			put("XN", "934235d6-5b13-477f-a2b9-0b194a048d91"); // - / Default No
+			put("XX", "44c8053c-dead-4cd4-97a8-920ef2aa7919"); // -
+			put("XY", "09f9094c-2674-4f58-878b-a32e5a38b4d4"); // - / Default Yes
+			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d"); // Yes
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsDepreciable(MAssetType entity, DataFetchingEnvironment environment) {
@@ -39,13 +39,13 @@ public class X_A_Asset_TypeResolver extends POResolver<MAssetType> implements Gr
 		return dataLoader.load(ISDEPRECIABLE_UUIDS_BY_VALUE.get(entity.getIsDepreciable()));
 	}
 
-	static Map<String, String> ISINPOSESSION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISINPOSESSION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("NX", "6939008f-29e0-49b8-a30b-206b28c0d2b1");
-			put("XN", "934235d6-5b13-477f-a2b9-0b194a048d91");
-			put("XX", "44c8053c-dead-4cd4-97a8-920ef2aa7919");
-			put("XY", "09f9094c-2674-4f58-878b-a32e5a38b4d4");
-			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d");
+			put("NX", "6939008f-29e0-49b8-a30b-206b28c0d2b1"); // No
+			put("XN", "934235d6-5b13-477f-a2b9-0b194a048d91"); // - / Default No
+			put("XX", "44c8053c-dead-4cd4-97a8-920ef2aa7919"); // -
+			put("XY", "09f9094c-2674-4f58-878b-a32e5a38b4d4"); // - / Default Yes
+			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d"); // Yes
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsInPosession(MAssetType entity, DataFetchingEnvironment environment) {
@@ -57,13 +57,13 @@ public class X_A_Asset_TypeResolver extends POResolver<MAssetType> implements Gr
 		return dataLoader.load(ISINPOSESSION_UUIDS_BY_VALUE.get(entity.getIsInPosession()));
 	}
 
-	static Map<String, String> ISOWNED_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ISOWNED_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("NX", "6939008f-29e0-49b8-a30b-206b28c0d2b1");
-			put("XN", "934235d6-5b13-477f-a2b9-0b194a048d91");
-			put("XX", "44c8053c-dead-4cd4-97a8-920ef2aa7919");
-			put("XY", "09f9094c-2674-4f58-878b-a32e5a38b4d4");
-			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d");
+			put("NX", "6939008f-29e0-49b8-a30b-206b28c0d2b1"); // No
+			put("XN", "934235d6-5b13-477f-a2b9-0b194a048d91"); // - / Default No
+			put("XX", "44c8053c-dead-4cd4-97a8-920ef2aa7919"); // -
+			put("XY", "09f9094c-2674-4f58-878b-a32e5a38b4d4"); // - / Default Yes
+			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d"); // Yes
 		}
 	};
 	public CompletableFuture<MRefList_BH> IsOwned(MAssetType entity, DataFetchingEnvironment environment) {

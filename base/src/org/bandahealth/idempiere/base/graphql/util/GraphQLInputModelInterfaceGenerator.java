@@ -97,9 +97,10 @@ public class GraphQLInputModelInterfaceGenerator {
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				tableName = resultSet.getString(1);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					tableName = resultSet.getString(1);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -146,21 +147,22 @@ public class GraphQLInputModelInterfaceGenerator {
 				+ " ORDER BY c.ColumnName";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				String columnName = resultSet.getString(1);
-				int displayType = resultSet.getInt(2);
-				int AD_Reference_Value_ID = resultSet.getInt(3);
-				String Name = resultSet.getString(4);
-				String Description = resultSet.getString(5);
-				String ColumnSQL = resultSet.getString(6);
-				boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
-				boolean IsKey = "Y".equals(resultSet.getString(7));
-				String entityType = resultSet.getString(8);
-				//
-				generatedColumns.append(
-						createColumnMethods(columnName, displayType, AD_Reference_Value_ID, Name, Description, virtualColumn,
-								IsKey, entityType, AD_Table_ID));
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				while (resultSet.next()) {
+					String columnName = resultSet.getString(1);
+					int displayType = resultSet.getInt(2);
+					int AD_Reference_Value_ID = resultSet.getInt(3);
+					String Name = resultSet.getString(4);
+					String Description = resultSet.getString(5);
+					String ColumnSQL = resultSet.getString(6);
+					boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
+					boolean IsKey = "Y".equals(resultSet.getString(7));
+					String entityType = resultSet.getString(8);
+					//
+					generatedColumns.append(
+							createColumnMethods(columnName, displayType, AD_Reference_Value_ID, Name, Description, virtualColumn,
+									IsKey, entityType, AD_Table_ID));
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -250,9 +252,9 @@ public class GraphQLInputModelInterfaceGenerator {
 			return "";
 		}
 
-		if (AD_Reference_ID > 0 &&
-				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
-				clazz.equals(String.class)) {
+		if ((AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) ||
+				displayType == DisplayType.Payment) && clazz.equals(String.class)) {
 			columnBuilder.append("\n");
 			GraphQLUtil.generateJavaSetComment(columnName, columnName, Description, columnBuilder);
 			columnBuilder.append("\tvoid set").append(columnName).append("Input(ForeignEntityInput ").append(columnName)

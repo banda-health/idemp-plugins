@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_T_TransactionResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInventoryLine;
@@ -626,7 +627,12 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	public void setMovementTypeInput(ForeignEntityInput MovementType) {
 		this.mMovementType = MovementType;
 		if (MovementType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_T_TransactionResolver.MOVEMENTTYPE_UUIDS_BY_VALUE.containsValue(MovementType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + MovementType.getUU() +
+						" is not in the list defined for the MovementType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

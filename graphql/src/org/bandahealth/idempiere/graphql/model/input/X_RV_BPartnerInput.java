@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_RV_BPartnerResolver;
 import org.compiere.model.MBPartnerInfo;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCity;
@@ -1590,7 +1591,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			return;
 		}
 		if (DeliveryRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_RV_BPartnerResolver.DELIVERYRULE_UUIDS_BY_VALUE.containsValue(DeliveryRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DeliveryRule.getUU() +
+						" is not in the list defined for the DeliveryRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1627,7 +1633,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			return;
 		}
 		if (DeliveryViaRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_RV_BPartnerResolver.DELIVERYVIARULE_UUIDS_BY_VALUE.containsValue(DeliveryViaRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DeliveryViaRule.getUU() +
+						" is not in the list defined for the DeliveryViaRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1774,7 +1785,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			return;
 		}
 		if (FreightCostRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_RV_BPartnerResolver.FREIGHTCOSTRULE_UUIDS_BY_VALUE.containsValue(FreightCostRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FreightCostRule.getUU() +
+						" is not in the list defined for the FreightCostRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -1848,7 +1864,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			return;
 		}
 		if (InvoiceRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_RV_BPartnerResolver.INVOICERULE_UUIDS_BY_VALUE.containsValue(InvoiceRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + InvoiceRule.getUU() +
+						" is not in the list defined for the InvoiceRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -2135,7 +2156,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			return;
 		}
 		if (NotificationType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_RV_BPartnerResolver.NOTIFICATIONTYPE_UUIDS_BY_VALUE.containsValue(NotificationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + NotificationType.getUU() +
+						" is not in the list defined for the NotificationType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -2183,7 +2209,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			return;
 		}
 		if (PaymentRule != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_RV_BPartnerResolver.PAYMENTRULE_UUIDS_BY_VALUE.containsValue(PaymentRule.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PaymentRule.getUU() +
+						" is not in the list defined for the PaymentRule column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -2220,7 +2251,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			return;
 		}
 		if (PaymentRulePO != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_RV_BPartnerResolver.PAYMENTRULEPO_UUIDS_BY_VALUE.containsValue(PaymentRulePO.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PaymentRulePO.getUU() +
+						" is not in the list defined for the PaymentRulePO column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -2592,7 +2628,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			return;
 		}
 		if (SOCreditStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_RV_BPartnerResolver.SOCREDITSTATUS_UUIDS_BY_VALUE.containsValue(SOCreditStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + SOCreditStatus.getUU() +
+						" is not in the list defined for the SOCreditStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

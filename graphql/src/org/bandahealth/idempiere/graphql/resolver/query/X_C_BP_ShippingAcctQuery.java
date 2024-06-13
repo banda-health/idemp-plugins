@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BP_ShippingAcctDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_C_BP_ShippingAcct;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for C_BP_ShippingAcct - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_C_BP_ShippingAcctQuery extends POQuery<X_C_BP_ShippingAcct> imple
 	@Override
 	protected String getTableName() {
 		return X_C_BP_ShippingAcct.Table_Name;
+	}
+
+	public CompletableFuture<X_C_BP_ShippingAcct> C_BP_ShippingAcct(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_C_BP_ShippingAcct> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_BP_ShippingAcctDataLoader.DATALOADER_C_BP_ShippingAcct_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_C_BP_ShippingAcct> C_BP_ShippingAcctGet(int Page, int PageSize, String Sort, String Filter,

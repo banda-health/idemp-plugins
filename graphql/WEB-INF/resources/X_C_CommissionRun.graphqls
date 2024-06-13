@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_CommissionRun(UU: String!): C_CommissionRun
 	C_CommissionRunGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CommissionRunConnection!
 }
 

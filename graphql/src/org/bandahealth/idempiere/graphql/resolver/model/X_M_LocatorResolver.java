@@ -31,7 +31,7 @@ public class X_M_LocatorResolver extends POResolver<MLocator> implements GraphQL
 	 * @return Locator Type
 	 */
 	public CompletableFuture<MLocatorType> M_LocatorType(MLocator entity, DataFetchingEnvironment environment) {
-		if (entity.getM_LocatorType_ID() <= 0) {
+		if (entity.getM_LocatorType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocatorType> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_LocatorResolver extends POResolver<MLocator> implements GraphQL
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MLocator entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PP_Order_WorkflowResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -66,7 +67,12 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setAccessLevelInput(ForeignEntityInput AccessLevel) {
 		this.mAccessLevel = AccessLevel;
 		if (AccessLevel != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_WorkflowResolver.ACCESSLEVEL_UUIDS_BY_VALUE.containsValue(AccessLevel.getUU())) {
+				throw new AdempiereException("The reference list UU of " + AccessLevel.getUU() +
+						" is not in the list defined for the AccessLevel column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -304,7 +310,12 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setDurationUnitInput(ForeignEntityInput DurationUnit) {
 		this.mDurationUnit = DurationUnit;
 		if (DurationUnit != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_WorkflowResolver.DURATIONUNIT_UUIDS_BY_VALUE.containsValue(DurationUnit.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DurationUnit.getUU() +
+						" is not in the list defined for the DurationUnit column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -472,7 +483,12 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setProcessTypeInput(ForeignEntityInput ProcessType) {
 		this.mProcessType = ProcessType;
 		if (ProcessType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_WorkflowResolver.PROCESSTYPE_UUIDS_BY_VALUE.containsValue(ProcessType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ProcessType.getUU() +
+						" is not in the list defined for the ProcessType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -506,7 +522,12 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setPublishStatusInput(ForeignEntityInput PublishStatus) {
 		this.mPublishStatus = PublishStatus;
 		if (PublishStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_WorkflowResolver.PUBLISHSTATUS_UUIDS_BY_VALUE.containsValue(PublishStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PublishStatus.getUU() +
+						" is not in the list defined for the PublishStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -574,7 +595,12 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setWorkflowTypeInput(ForeignEntityInput WorkflowType) {
 		this.mWorkflowType = WorkflowType;
 		if (WorkflowType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_WorkflowResolver.WORKFLOWTYPE_UUIDS_BY_VALUE.containsValue(WorkflowType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + WorkflowType.getUU() +
+						" is not in the list defined for the WorkflowType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

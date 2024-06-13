@@ -27,7 +27,7 @@ public class X_AD_ReportView_ColResolver extends POResolver<X_AD_ReportView_Col>
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(X_AD_ReportView_Col entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_ReportView_ColResolver extends POResolver<X_AD_ReportView_Col>
 	 * @return View used to generate this report
 	 */
 	public CompletableFuture<MReportView> AD_ReportView(X_AD_ReportView_Col entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReportView_ID() <= 0) {
+		if (entity.getAD_ReportView_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReportView> dataLoader =

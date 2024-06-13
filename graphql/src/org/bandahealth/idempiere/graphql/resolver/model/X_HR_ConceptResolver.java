@@ -31,11 +31,11 @@ import java.util.concurrent.CompletableFuture;
 public class X_HR_ConceptResolver extends POResolver<X_HR_Concept> implements GraphQLResolver<X_HR_Concept> {
 
 
-	static Map<String, String> ACCOUNTSIGN_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ACCOUNTSIGN_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("N", "546f7a30-b932-4a00-81c1-6f7cb6fdcbb6");
-			put("D", "f494267a-f7e6-49a7-913e-c51e3e093623");
-			put("C", "8c58849d-0535-4df8-85a1-508818db6386");
+			put("N", "546f7a30-b932-4a00-81c1-6f7cb6fdcbb6"); // Natural
+			put("D", "f494267a-f7e6-49a7-913e-c51e3e093623"); // Debit
+			put("C", "8c58849d-0535-4df8-85a1-508818db6386"); // Credit
 		}
 	};
 	public CompletableFuture<MRefList_BH> AccountSign(X_HR_Concept entity, DataFetchingEnvironment environment) {
@@ -54,7 +54,7 @@ public class X_HR_ConceptResolver extends POResolver<X_HR_Concept> implements Gr
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(X_HR_Concept entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -62,12 +62,12 @@ public class X_HR_ConceptResolver extends POResolver<X_HR_Concept> implements Gr
 		return dataLoader.load(entity.getAD_Reference_ID());
 	}
 
-	static Map<String, String> COLUMNTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COLUMNTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "46a2b315-1c28-4506-87ae-f00dd7b5f9f4");
-			put("D", "9e57d0dd-3029-495c-8308-18c4057b54eb");
-			put("Q", "6e737d16-9389-46f0-a70e-29ed51b3262f");
-			put("T", "0f97b122-1a18-4aba-b069-11c0ac550e04");
+			put("A", "46a2b315-1c28-4506-87ae-f00dd7b5f9f4"); // Amount
+			put("D", "9e57d0dd-3029-495c-8308-18c4057b54eb"); // Date
+			put("Q", "6e737d16-9389-46f0-a70e-29ed51b3262f"); // Quantity
+			put("T", "0f97b122-1a18-4aba-b069-11c0ac550e04"); // Text
 		}
 	};
 	public CompletableFuture<MRefList_BH> ColumnType(X_HR_Concept entity, DataFetchingEnvironment environment) {
@@ -86,7 +86,7 @@ public class X_HR_ConceptResolver extends POResolver<X_HR_Concept> implements Gr
 	 * @return Payroll Concept Category
 	 */
 	public CompletableFuture<X_HR_Concept_Category> HR_Concept_Category(X_HR_Concept entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Concept_Category_ID() <= 0) {
+		if (entity.getHR_Concept_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Concept_Category> dataLoader =
@@ -101,7 +101,7 @@ public class X_HR_ConceptResolver extends POResolver<X_HR_Concept> implements Gr
 	 * @return Payroll Department
 	 */
 	public CompletableFuture<X_HR_Department> HR_Department(X_HR_Concept entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Department_ID() <= 0) {
+		if (entity.getHR_Department_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
@@ -116,7 +116,7 @@ public class X_HR_ConceptResolver extends POResolver<X_HR_Concept> implements Gr
 	 * @return Payroll Job
 	 */
 	public CompletableFuture<X_HR_Job> HR_Job(X_HR_Concept entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Job_ID() <= 0) {
+		if (entity.getHR_Job_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Job> dataLoader =
@@ -131,7 +131,7 @@ public class X_HR_ConceptResolver extends POResolver<X_HR_Concept> implements Gr
 	 * @return Payroll
 	 */
 	public CompletableFuture<X_HR_Payroll> HR_Payroll(X_HR_Concept entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Payroll_ID() <= 0) {
+		if (entity.getHR_Payroll_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =
@@ -167,12 +167,12 @@ public class X_HR_ConceptResolver extends POResolver<X_HR_Concept> implements Gr
 		return entity.isRegistered();
 	}
 
-	static Map<String, String> TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "88c43475-159c-4c6d-92e6-d084ce4e4b7e");
-			put("E", "84c7f0b8-39a3-41c6-9e75-1f66775d2a79");
-			put("I", "7dc1dfee-4aa3-407f-addf-b467e1853006");
-			put("R", "e462d931-e643-4f36-b8ac-e429a872046c");
+			put("C", "88c43475-159c-4c6d-92e6-d084ce4e4b7e"); // Concept
+			put("E", "84c7f0b8-39a3-41c6-9e75-1f66775d2a79"); // Rule Engine
+			put("I", "7dc1dfee-4aa3-407f-addf-b467e1853006"); // Information
+			put("R", "e462d931-e643-4f36-b8ac-e429a872046c"); // Reference
 		}
 	};
 	public CompletableFuture<MRefList_BH> Type(X_HR_Concept entity, DataFetchingEnvironment environment) {
