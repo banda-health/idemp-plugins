@@ -134,11 +134,11 @@
 ),
 	diagnosis_list AS (
 		SELECT DISTINCT
-			bh_value AS diagnosis
+			bh_moh705a_lessthan5 AS diagnosis
 		FROM
-			bh_concept_extra
+			bh_coded_diagnosis
 		WHERE
-				bh_value NOT IN ('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Overweight (BMI>25)',
+				bh_moh705a_lessthan5 NOT IN ('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Overweight (BMI>25)',
 				                             'Other Diseases Of Respiratory System', 'Tuberculosis',
 				                             'Sexually Transmitted Infections', 'Fevers',
 				                             'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
@@ -148,13 +148,12 @@
 				                             'Sexual Assault', 'Dracunculiasis (Guinea Worm)', 'Neoplasms',
 				                             'Physical Disability', 'Cardiovascular Conditions', 'Musculoskeletal Conditions',
 				                             'Other Central Nervous System Conditions')
-				AND bh_key = 'MOH-705A-LESSTHAN5'
 
 	),
 	visit_diagnoses AS (
 		SELECT
 			v.bh_visit_id,
-			ev.bh_concept_id,
+			ev.bh_coded_diagnosis_id,
 			ev.bh_uncoded_diagnosis,
 			ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
 		FROM
@@ -170,23 +169,22 @@
 	),
 	diagnosis_count AS (
 		SELECT DISTINCT
-			bh_moh705a_lessthan5       AS diagnosis,
-			calendar,
-			COALESCE(noofdiagnosis, 0) AS noofdiagnosis
+			b.bh_moh705a_lessthan5       AS diagnosis,
+			c.calendar,
+			COALESCE(c.noofdiagnosis, 0) AS noofdiagnosis
 		FROM
-			(
-				SELECT DISTINCT
-					ce.bh_value 					AS bh_moh705a_lessthan5,
+			bh_coded_diagnosis b
+				LEFT JOIN (
+				SELECT
+					bh_moh705a_lessthan5,
 					CAST(bh_visitdate AS date)      AS calendar,
-					COUNT(pd.bh_concept_id) 		AS noofdiagnosis
+					COUNT(pd.bh_coded_diagnosis_id) AS noofdiagnosis
 				FROM
 					bh_visit v
 						JOIN visit_diagnoses pd
 						ON pd.bh_visit_id = v.bh_visit_id AND pd.diagnosis_rank = 1
-						JOIN bh_concept c
-						ON pd.bh_concept_id = c.bh_concept_id
-						JOIN bh_concept_extra ce
-						ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705A-LESSTHAN5'
+						JOIN bh_coded_diagnosis cd
+						ON pd.bh_coded_diagnosis_id = cd.bh_coded_diagnosis_id
 						JOIN date_limitter dl
 						ON dl.calendar = CAST(bh_visitdate AS date)
 						JOIN c_bpartner bp
@@ -195,8 +193,9 @@
 					bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) < 5
 					AND v.bh_patienttype != 'Im'
-				GROUP BY bh_value, CAST(bh_visitdate AS date)
-			)
+				GROUP BY bh_moh705a_lessthan5, CAST(bh_visitdate AS date)
+			) c
+				ON b.bh_moh705a_lessthan5 = c.bh_moh705a_lessthan5
 	)
 SELECT
 	dl.diagnosis,
@@ -290,7 +289,7 @@ ORDER BY
 		</field>
 		<field name="diagnosis" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="diagnosis"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="bh_concept"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_coded_diagnosis"/>
 		</field>
 		<field name="noofdiagnosis" class="java.lang.Integer">
 			<property name="com.jaspersoft.studio.field.label" value="noofdiagnosis"/>
@@ -306,7 +305,7 @@ ORDER BY
 		<![CDATA[WITH visit_diagnoses AS (
 	SELECT
 		v.bh_visit_id,
-		ev.bh_concept_id,
+		ev.bh_coded_diagnosis_id,
 		ev.bh_uncoded_diagnosis,
 		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
 	FROM
@@ -323,17 +322,15 @@ FROM
 	bh_visit v
 		LEFT JOIN visit_diagnoses pd
 		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
-		LEFT JOIN bh_concept c
-		ON c.bh_concept_id = pd.bh_concept_id
-		LEFT JOIN bh_concept_extra ce
-		ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705A-LESSTHAN5'
+		LEFT JOIN bh_coded_diagnosis cd
+		ON cd.bh_coded_diagnosis_id = pd.bh_coded_diagnosis_id
 		RIGHT JOIN ad_org o
 		ON v.ad_client_id = o.ad_client_id
 		AND o.isactive = 'Y'
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY
-	v.bh_visitdate, o.name, ce.bh_value]]>
+	v.bh_visitdate, o.name, cd.bh_moh705a_lessthan5]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date"/>
 	<field name="name" class="java.lang.String"/>

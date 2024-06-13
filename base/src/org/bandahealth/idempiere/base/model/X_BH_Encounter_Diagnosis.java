@@ -105,29 +105,28 @@ public class X_BH_Encounter_Diagnosis extends PO implements I_BH_Encounter_Diagn
       return sb.toString();
     }
 
-	public I_BH_Concept getBH_Concept() throws RuntimeException
+	public I_BH_Coded_Diagnosis getBH_Coded_Diagnosis() throws RuntimeException
 	{
-		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_ID)
-			.getPO(getBH_Concept_ID(), get_TrxName());
+		return (I_BH_Coded_Diagnosis)MTable.get(getCtx(), I_BH_Coded_Diagnosis.Table_ID)
+			.getPO(getBH_Coded_Diagnosis_ID(), get_TrxName());
 	}
 
-	/** Set Concept.
-		@param BH_Concept_ID Concept
+	/** Set Coded Diagnosis.
+		@param BH_Coded_Diagnosis_ID Coded Diagnosis
 	*/
-	public void setBH_Concept_ID (int BH_Concept_ID)
+	public void setBH_Coded_Diagnosis_ID (int BH_Coded_Diagnosis_ID)
 	{
-		if (BH_Concept_ID < 1)
-			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, null);
+		if (BH_Coded_Diagnosis_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_BH_Coded_Diagnosis_ID, null);
 		else
-			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Coded_Diagnosis_ID, Integer.valueOf(BH_Coded_Diagnosis_ID));
 	}
 
-	/** Get Concept.
-		@return Concept	  */
-	public int getBH_Concept_ID()
-
+	/** Get Coded Diagnosis.
+		@return Coded Diagnosis	  */
+	public int getBH_Coded_Diagnosis_ID()
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Coded_Diagnosis_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

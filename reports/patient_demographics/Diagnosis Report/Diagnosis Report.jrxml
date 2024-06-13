@@ -51,12 +51,12 @@
 		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<parameter name="Diagnosis" class="java.lang.String"/>
-		<parameter name="BH_Concept_UU" class="java.lang.String"/>
+		<parameter name="BH_Coded_Diagnosis_UU" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[WITH visit_diagnoses AS (
 	SELECT
 		v.bh_visit_id,
-		ev.bh_concept_id,
+		ev.bh_coded_diagnosis_id,
 		ev.bh_uncoded_diagnosis,
 		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
 	FROM
@@ -77,9 +77,9 @@ SELECT
 	DATE_PART('year', AGE(bp.bh_birthday)) AS age,
 	bp.bh_gender                           AS gender,
 	bp.bh_phone                            AS phonenumber,
-	primary_cd.bh_display_name             AS primary_coded_diagnosis,
+	primary_cd.bh_cielname                 AS primary_coded_diagnosis,
 	pd.bh_uncoded_diagnosis                AS primary_uncoded_diagnosis,
-	secondary_cd.bh_display_name           AS secondary_coded_diagnosis,
+	secondary_cd.bh_cielname               AS secondary_coded_diagnosis,
 	sd.bh_uncoded_diagnosis                AS secondary_uncoded_diagnosis
 FROM
 	bh_visit v
@@ -89,17 +89,17 @@ FROM
 		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
 		LEFT JOIN visit_diagnoses sd
 		ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2
-		LEFT JOIN bh_concept primary_cd
-		ON primary_cd.bh_concept_id = pd.bh_concept_id
-		LEFT JOIN bh_concept secondary_cd
-		ON secondary_cd.bh_concept_id = sd.bh_concept_id
+		LEFT JOIN bh_coded_diagnosis primary_cd
+		ON primary_cd.bh_coded_diagnosis_id = pd.bh_coded_diagnosis_id
+		LEFT JOIN bh_coded_diagnosis secondary_cd
+		ON secondary_cd.bh_coded_diagnosis_id = sd.bh_coded_diagnosis_id
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 	AND (
 			pd.bh_uncoded_diagnosis IS NOT NULL OR
 			sd.bh_uncoded_diagnosis IS NOT NULL OR
-			pd.bh_concept_id IS NOT NULL OR
-			sd.bh_concept_id IS NOT NULL
+			pd.bh_coded_diagnosis_id IS NOT NULL OR
+			sd.bh_coded_diagnosis_id IS NOT NULL
 		)
 	AND (
 			$P{Diagnosis} IS NULL OR
@@ -107,9 +107,9 @@ WHERE
 			LOWER(sd.bh_uncoded_diagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%')
 		)
 	AND (
-			$P{BH_Concept_UU} IS NULL OR
-			primary_cd.bh_concept_uu = $P{BH_Concept_UU} OR
-			secondary_cd.bh_concept_uu = $P{BH_Concept_UU}
+			$P{BH_Coded_Diagnosis_UU} IS NULL OR
+			primary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU} OR
+			secondary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU}
 		)
 	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 ORDER BY
@@ -137,7 +137,7 @@ ORDER BY
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Diagnosis" class="java.lang.String"/>
-	<parameter name="BH_Concept_UU" class="java.lang.String"/>
+	<parameter name="BH_Coded_Diagnosis_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
@@ -191,8 +191,8 @@ ORDER BY
 						<datasetParameter name="Diagnosis">
 							<datasetParameterExpression><![CDATA[$P{Diagnosis}]]></datasetParameterExpression>
 						</datasetParameter>
-						<datasetParameter name="BH_Concept_UU">
-							<datasetParameterExpression><![CDATA[$P{BH_Concept_UU}]]></datasetParameterExpression>
+						<datasetParameter name="BH_Coded_Diagnosis_UU">
+							<datasetParameterExpression><![CDATA[$P{BH_Coded_Diagnosis_UU}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>

@@ -1,8 +1,8 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
-import org.bandahealth.idempiere.rest.model.Concept;
+import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosis, MBHEncounterDiagnosis> {
 
-	private final ConceptDBService conceptDBService = new ConceptDBService();
+	private final CodedDiagnosisDBService codedDiagnosisDBService = new CodedDiagnosisDBService();
 
 	public void deleteEncounterDiagnosisNotInList(int encounterId, List<EncounterDiagnosis> encounterDiagnoses) {
 		// get existing diagnoses
@@ -36,11 +36,11 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 			encounterDiagnosis.setBH_Encounter_Diagnosis_UU(entity.getUuid());
 		}
 
-		if (entity.getConcept() != null) {
-			MBHConcept concept = conceptDBService
-					.getEntityByUuidFromDB(entity.getConcept().getUuid());
-			if (concept != null) {
-				encounterDiagnosis.setBH_Concept_ID(concept.get_ID());
+		if (entity.getCodedDiagnosis() != null) {
+			MBHCodedDiagnosis diagnosis = codedDiagnosisDBService
+					.getEntityByUuidFromDB(entity.getCodedDiagnosis().getUuid());
+			if (diagnosis != null) {
+				encounterDiagnosis.setBH_Coded_Diagnosis_ID(diagnosis.get_ID());
 			}
 		}
 
@@ -93,16 +93,16 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 
 	@Override
 	public List<EncounterDiagnosis> transformData(List<MBHEncounterDiagnosis> dbModels) {
-		// get concept
-		Map<Integer, Concept> codedDiagnosisById = conceptDBService.transformData(new ArrayList<>(
-				conceptDBService.getByIds(
-								dbModels.stream().map(MBHEncounterDiagnosis::getBH_Concept_ID).collect(Collectors.toSet()))
-						.values())).stream().collect(Collectors.toMap(Concept::getId, codedDiagnosis -> codedDiagnosis));
+		// get coded diagnosis
+		Map<Integer, CodedDiagnosis> codedDiagnosisById = codedDiagnosisDBService.transformData(new ArrayList<>(
+				codedDiagnosisDBService.getByIds(
+								dbModels.stream().map(MBHEncounterDiagnosis::getBH_Coded_Diagnosis_ID).collect(Collectors.toSet()))
+						.values())).stream().collect(Collectors.toMap(CodedDiagnosis::getId, codedDiagnosis -> codedDiagnosis));
 
 		return dbModels.stream().map(entity -> {
 			EncounterDiagnosis result = new EncounterDiagnosis(entity);
-			if (codedDiagnosisById.containsKey(entity.getBH_Concept_ID())) {
-				result.setConcept(codedDiagnosisById.get(entity.getBH_Concept_ID()));
+			if (codedDiagnosisById.containsKey(entity.getBH_Coded_Diagnosis_ID())) {
+				result.setCodedDiagnosis(codedDiagnosisById.get(entity.getBH_Coded_Diagnosis_ID()));
 			}
 
 			return result;
