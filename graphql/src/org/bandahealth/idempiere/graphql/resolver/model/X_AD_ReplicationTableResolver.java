@@ -34,7 +34,7 @@ public class X_AD_ReplicationTableResolver extends POResolver<X_AD_ReplicationTa
 	 * @return Data Replication Strategy
 	 */
 	public CompletableFuture<MReplicationStrategy> AD_ReplicationStrategy(X_AD_ReplicationTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReplicationStrategy_ID() <= 0) {
+		if (entity.getAD_ReplicationStrategy_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReplicationStrategy> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_ReplicationTableResolver extends POResolver<X_AD_ReplicationTa
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_ReplicationTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -88,12 +88,12 @@ public class X_AD_ReplicationTableResolver extends POResolver<X_AD_ReplicationTa
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
-	static Map<String, String> REPLICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> REPLICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("L", "c829969e-9927-491f-89a8-f200b8d29f57");
-			put("M", "41211ac8-1137-49f5-9efb-7d8e75682a45");
-			put("R", "959a0839-d0f2-43c5-b8da-d0f1fd76d8dd");
-			put("B", "1be8a931-6954-4fd9-bc76-e67c6f73fc00");
+			put("L", "c829969e-9927-491f-89a8-f200b8d29f57"); // Local
+			put("M", "41211ac8-1137-49f5-9efb-7d8e75682a45"); // Merge
+			put("R", "959a0839-d0f2-43c5-b8da-d0f1fd76d8dd"); // Reference
+			put("B", "1be8a931-6954-4fd9-bc76-e67c6f73fc00"); // Broadcast
 		}
 	};
 	public CompletableFuture<MRefList_BH> ReplicationType(X_AD_ReplicationTable entity, DataFetchingEnvironment environment) {

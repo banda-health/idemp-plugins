@@ -25,11 +25,11 @@ import java.util.concurrent.CompletableFuture;
 public class X_AD_Table_AccessResolver extends POResolver<MTableAccess> implements GraphQLResolver<MTableAccess> {
 
 
-	static Map<String, String> ACCESSTYPERULE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ACCESSTYPERULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "e0f06392-7622-471b-95e6-11b222030fa3");
-			put("R", "5d787615-4084-4740-9030-be3ff730b2d0");
-			put("E", "dfbce347-aa5e-460c-bfbb-6c21892ee396");
+			put("A", "e0f06392-7622-471b-95e6-11b222030fa3"); // Accessing
+			put("R", "5d787615-4084-4740-9030-be3ff730b2d0"); // Reporting
+			put("E", "dfbce347-aa5e-460c-bfbb-6c21892ee396"); // Exporting
 		}
 	};
 	public CompletableFuture<MRefList_BH> AccessTypeRule(MTableAccess entity, DataFetchingEnvironment environment) {
@@ -48,7 +48,7 @@ public class X_AD_Table_AccessResolver extends POResolver<MTableAccess> implemen
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MTableAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -63,7 +63,7 @@ public class X_AD_Table_AccessResolver extends POResolver<MTableAccess> implemen
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MTableAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

@@ -64,6 +64,19 @@ public interface I_BH_Encounter
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name BH_Encounter_Date */
+    public static final String COLUMNNAME_BH_Encounter_Date = "BH_Encounter_Date";
+
+	/** Set Encounter Date.
+	  * the time a vital was taken
+	  */
+	public void setBH_Encounter_Date (Timestamp BH_Encounter_Date);
+
+	/** Get Encounter Date.
+	  * the time a vital was taken
+	  */
+	public Timestamp getBH_Encounter_Date();
+
     /** Column name BH_Encounter_ID */
     public static final String COLUMNNAME_BH_Encounter_ID = "BH_Encounter_ID";
 

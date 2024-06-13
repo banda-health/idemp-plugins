@@ -25,7 +25,7 @@ public class X_C_PaymentBatchResolver extends POResolver<MPaymentBatch> implemen
 	 * @return Payment processor for electronic payments
 	 */
 	public CompletableFuture<MPaymentProcessor> C_PaymentProcessor(MPaymentBatch entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentProcessor_ID() <= 0) {
+		if (entity.getC_PaymentProcessor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentProcessor> dataLoader =

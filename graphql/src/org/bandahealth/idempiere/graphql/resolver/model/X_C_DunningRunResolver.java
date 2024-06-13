@@ -27,7 +27,7 @@ public class X_C_DunningRunResolver extends POResolver<MDunningRun> implements G
 	 * @return Dunning Rules for overdue invoices
 	 */
 	public CompletableFuture<MDunning> C_Dunning(MDunningRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Dunning_ID() <= 0) {
+		if (entity.getC_Dunning_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDunning> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_DunningRunResolver extends POResolver<MDunningRun> implements G
 	 * @return Dunning Level
 	 */
 	public CompletableFuture<MDunningLevel> C_DunningLevel(MDunningRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DunningLevel_ID() <= 0) {
+		if (entity.getC_DunningLevel_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDunningLevel> dataLoader =

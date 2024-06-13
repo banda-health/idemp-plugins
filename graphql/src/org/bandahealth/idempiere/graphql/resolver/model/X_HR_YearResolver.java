@@ -27,7 +27,7 @@ public class X_HR_YearResolver extends POResolver<X_HR_Year> implements GraphQLR
 	 * @return Calendar Year
 	 */
 	public CompletableFuture<MYear> C_Year(X_HR_Year entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Year_ID() <= 0) {
+		if (entity.getC_Year_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MYear> dataLoader =
@@ -42,7 +42,7 @@ public class X_HR_YearResolver extends POResolver<X_HR_Year> implements GraphQLR
 	 * @return Payroll
 	 */
 	public CompletableFuture<X_HR_Payroll> HR_Payroll(X_HR_Year entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Payroll_ID() <= 0) {
+		if (entity.getHR_Payroll_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =

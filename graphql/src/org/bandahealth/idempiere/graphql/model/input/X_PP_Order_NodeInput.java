@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PP_Order_NodeResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MEntityType;
@@ -82,7 +83,12 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public void setActionInput(ForeignEntityInput Action) {
 		this.mAction = Action;
 		if (Action != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_NodeResolver.ACTION_UUIDS_BY_VALUE.containsValue(Action.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Action.getUU() +
+						" is not in the list defined for the Action column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -524,7 +530,12 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_NodeResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -558,7 +569,12 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_NodeResolver.DOCSTATUS_UUIDS_BY_VALUE.containsValue(DocStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocStatus.getUU() +
+						" is not in the list defined for the DocStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -626,7 +642,12 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public void setFinishModeInput(ForeignEntityInput FinishMode) {
 		this.mFinishMode = FinishMode;
 		if (FinishMode != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_NodeResolver.FINISHMODE_UUIDS_BY_VALUE.containsValue(FinishMode.getUU())) {
+				throw new AdempiereException("The reference list UU of " + FinishMode.getUU() +
+						" is not in the list defined for the FinishMode column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -660,7 +681,12 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public void setJoinElementInput(ForeignEntityInput JoinElement) {
 		this.mJoinElement = JoinElement;
 		if (JoinElement != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_NodeResolver.JOINELEMENT_UUIDS_BY_VALUE.containsValue(JoinElement.getUU())) {
+				throw new AdempiereException("The reference list UU of " + JoinElement.getUU() +
+						" is not in the list defined for the JoinElement column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -831,7 +857,12 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public void setSplitElementInput(ForeignEntityInput SplitElement) {
 		this.mSplitElement = SplitElement;
 		if (SplitElement != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_NodeResolver.SPLITELEMENT_UUIDS_BY_VALUE.containsValue(SplitElement.getUU())) {
+				throw new AdempiereException("The reference list UU of " + SplitElement.getUU() +
+						" is not in the list defined for the SplitElement column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -865,7 +896,12 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public void setStartModeInput(ForeignEntityInput StartMode) {
 		this.mStartMode = StartMode;
 		if (StartMode != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_NodeResolver.STARTMODE_UUIDS_BY_VALUE.containsValue(StartMode.getUU())) {
+				throw new AdempiereException("The reference list UU of " + StartMode.getUU() +
+						" is not in the list defined for the StartMode column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -899,7 +935,12 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public void setSubflowExecutionInput(ForeignEntityInput SubflowExecution) {
 		this.mSubflowExecution = SubflowExecution;
 		if (SubflowExecution != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_NodeResolver.SUBFLOWEXECUTION_UUIDS_BY_VALUE.containsValue(SubflowExecution.getUU())) {
+				throw new AdempiereException("The reference list UU of " + SubflowExecution.getUU() +
+						" is not in the list defined for the SubflowExecution column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

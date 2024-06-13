@@ -25,10 +25,10 @@ public class X_AD_Package_Imp_ProcResolver extends POResolver<X_AD_Package_Imp_P
 		return entity.isAD_Override_Dict();
 	}
 
-	static Map<String, String> AD_PACKAGE_SOURCE_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> AD_PACKAGE_SOURCE_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("File", "824614cb-169f-49ae-988f-54bb43f98647");
-			put("WS", "b07945d7-3b60-49b3-9565-63d8b54f7ed3");
+			put("File", "824614cb-169f-49ae-988f-54bb43f98647"); // File
+			put("WS", "b07945d7-3b60-49b3-9565-63d8b54f7ed3"); // WebService
 		}
 	};
 	public CompletableFuture<MRefList_BH> AD_Package_Source_Type(X_AD_Package_Imp_Proc entity, DataFetchingEnvironment environment) {

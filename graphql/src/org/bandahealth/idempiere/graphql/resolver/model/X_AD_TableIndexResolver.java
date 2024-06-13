@@ -32,7 +32,7 @@ public class X_AD_TableIndexResolver extends POResolver<MTableIndex> implements 
 	 * @return System Message
 	 */
 	public CompletableFuture<MMessage_BH> AD_Message(MTableIndex entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Message_ID() <= 0) {
+		if (entity.getAD_Message_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMessage_BH> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_TableIndexResolver extends POResolver<MTableIndex> implements 
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MTableIndex entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

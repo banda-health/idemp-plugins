@@ -41,7 +41,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Storage Provider
 	 */
 	public CompletableFuture<MStorageProvider> AD_StorageProvider(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_StorageProvider_ID() <= 0) {
+		if (entity.getAD_StorageProvider_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStorageProvider> dataLoader =
@@ -56,7 +56,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Activity(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Activity_ID() <= 0) {
+		if (entity.getAD_Tree_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -71,7 +71,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_BPartner(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_BPartner_ID() <= 0) {
+		if (entity.getAD_Tree_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -86,7 +86,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Campaign(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Campaign_ID() <= 0) {
+		if (entity.getAD_Tree_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -101,7 +101,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Tree of the menu
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Menu(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Menu_ID() <= 0) {
+		if (entity.getAD_Tree_Menu_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -116,7 +116,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Trees are used for (financial) reporting and security access (via role)
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Org(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Org_ID() <= 0) {
+		if (entity.getAD_Tree_Org_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -131,7 +131,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Product(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Product_ID() <= 0) {
+		if (entity.getAD_Tree_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -146,7 +146,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Project(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Project_ID() <= 0) {
+		if (entity.getAD_Tree_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -161,7 +161,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_SalesRegion(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_SalesRegion_ID() <= 0) {
+		if (entity.getAD_Tree_SalesRegion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -176,7 +176,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Primary rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema1(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema1_ID() <= 0) {
+		if (entity.getC_AcctSchema1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -191,7 +191,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Business Partner used for creating new Business Partners on the fly
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartnerCashTrx(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartnerCashTrx_ID() <= 0) {
+		if (entity.getC_BPartnerCashTrx_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -206,7 +206,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Accounting Calendar Name
 	 */
 	public CompletableFuture<MCalendar> C_Calendar(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Calendar_ID() <= 0) {
+		if (entity.getC_Calendar_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =
@@ -221,7 +221,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Charge for Freight
 	 */
 	public CompletableFuture<MCharge_BH> C_ChargeFreight(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ChargeFreight_ID() <= 0) {
+		if (entity.getC_ChargeFreight_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -236,7 +236,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Standard Unit of Measure for Length
 	 */
 	public CompletableFuture<MUOM> C_UOM_Length(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Length_ID() <= 0) {
+		if (entity.getC_UOM_Length_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -251,7 +251,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Standard Unit of Measure for Time
 	 */
 	public CompletableFuture<MUOM> C_UOM_Time(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Time_ID() <= 0) {
+		if (entity.getC_UOM_Time_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -266,7 +266,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Standard Unit of Measure for Volume
 	 */
 	public CompletableFuture<MUOM> C_UOM_Volume(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Volume_ID() <= 0) {
+		if (entity.getC_UOM_Volume_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -281,7 +281,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Standard Unit of Measure for Weight
 	 */
 	public CompletableFuture<MUOM> C_UOM_Weight(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Weight_ID() <= 0) {
+		if (entity.getC_UOM_Weight_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -308,7 +308,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Logo
 	 */
 	public CompletableFuture<MImage> Logo(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getLogo_ID() <= 0) {
+		if (entity.getLogo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -323,7 +323,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Product for Freight
 	 */
 	public CompletableFuture<MProduct_BH> M_ProductFreight(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductFreight_ID() <= 0) {
+		if (entity.getM_ProductFreight_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -338,7 +338,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Archive Store
 	 */
 	public CompletableFuture<MStorageProvider> StorageArchive(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getStorageArchive_ID() <= 0) {
+		if (entity.getStorageArchive_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStorageProvider> dataLoader =
@@ -353,7 +353,7 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 * @return Storage provider for Image
 	 */
 	public CompletableFuture<MStorageProvider> StorageImage(MClientInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getStorageImage_ID() <= 0) {
+		if (entity.getStorageImage_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStorageProvider> dataLoader =

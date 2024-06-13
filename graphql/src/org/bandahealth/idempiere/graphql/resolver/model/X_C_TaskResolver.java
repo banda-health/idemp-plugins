@@ -27,7 +27,7 @@ public class X_C_TaskResolver extends POResolver<MProjectTypeTask> implements Gr
 	 * @return Standard Phase of the Project Type
 	 */
 	public CompletableFuture<MProjectTypePhase> C_Phase(MProjectTypeTask entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Phase_ID() <= 0) {
+		if (entity.getC_Phase_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTypePhase> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_TaskResolver extends POResolver<MProjectTypeTask> implements Gr
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MProjectTypeTask entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

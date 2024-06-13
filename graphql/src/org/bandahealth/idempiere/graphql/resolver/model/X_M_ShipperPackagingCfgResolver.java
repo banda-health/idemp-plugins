@@ -29,7 +29,7 @@ public class X_M_ShipperPackagingCfgResolver extends POResolver<X_M_ShipperPacka
 	 * @return Shipper Configuration
 	 */
 	public CompletableFuture<X_M_ShipperCfg> M_ShipperCfg(X_M_ShipperPackagingCfg entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperCfg_ID() <= 0) {
+		if (entity.getM_ShipperCfg_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_ShipperCfg> dataLoader =

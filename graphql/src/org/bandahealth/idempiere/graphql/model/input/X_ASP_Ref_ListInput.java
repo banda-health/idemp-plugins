@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_ASP_Ref_ListResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -217,7 +218,12 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	public void setASP_StatusInput(ForeignEntityInput ASP_Status) {
 		this.mASP_Status = ASP_Status;
 		if (ASP_Status != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_ASP_Ref_ListResolver.ASP_STATUS_UUIDS_BY_VALUE.containsValue(ASP_Status.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ASP_Status.getUU() +
+						" is not in the list defined for the ASP_Status column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

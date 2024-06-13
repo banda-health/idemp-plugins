@@ -35,7 +35,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 	 * @return Log of data changes
 	 */
 	public CompletableFuture<MChangeLog> AD_ChangeLog(MChangeLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ChangeLog_ID() <= 0) {
+		if (entity.getAD_ChangeLog_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChangeLog> dataLoader =
@@ -50,7 +50,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MChangeLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -65,7 +65,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 	 * @return User Session Online or Web
 	 */
 	public CompletableFuture<MSession> AD_Session(MChangeLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Session_ID() <= 0) {
+		if (entity.getAD_Session_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSession> dataLoader =
@@ -80,7 +80,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MChangeLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -88,11 +88,11 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
-	static Map<String, String> EVENTCHANGELOG_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> EVENTCHANGELOG_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "7bf66e6f-3037-4085-85a8-ab787a14083b");
-			put("D", "8e18b7c8-bb4c-45b4-be70-805050354079");
-			put("U", "998022c1-9cdb-48e6-bb4e-7f06563ea5e0");
+			put("I", "7bf66e6f-3037-4085-85a8-ab787a14083b"); // Insert
+			put("D", "8e18b7c8-bb4c-45b4-be70-805050354079"); // Delete
+			put("U", "998022c1-9cdb-48e6-bb4e-7f06563ea5e0"); // Update
 		}
 	};
 	public CompletableFuture<MRefList_BH> EventChangeLog(MChangeLog entity, DataFetchingEnvironment environment) {

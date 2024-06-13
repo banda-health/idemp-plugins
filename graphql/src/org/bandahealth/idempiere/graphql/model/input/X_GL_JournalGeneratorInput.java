@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_GL_JournalGeneratorResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MElementValue;
@@ -289,7 +290,12 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_GL_JournalGeneratorResolver.POSTINGTYPE_UUIDS_BY_VALUE.containsValue(PostingType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PostingType.getUU() +
+						" is not in the list defined for the PostingType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

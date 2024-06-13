@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_AllocationHdrResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MOrg;
@@ -187,7 +188,12 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_AllocationHdrResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -221,7 +227,12 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_AllocationHdrResolver.DOCSTATUS_UUIDS_BY_VALUE.containsValue(DocStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocStatus.getUU() +
+						" is not in the list defined for the DocStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

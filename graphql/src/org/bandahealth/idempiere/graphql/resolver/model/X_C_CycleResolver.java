@@ -25,7 +25,7 @@ public class X_C_CycleResolver extends POResolver<X_C_Cycle> implements GraphQLR
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(X_C_Cycle entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =

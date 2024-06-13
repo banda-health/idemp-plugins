@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_POS(UU: String!): C_POS
 	C_POSGet(Page: Int, Size: Int, Sort: String, Filter: String): C_POSConnection!
 }
 

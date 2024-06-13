@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_BPartner_Product(UU: String!): C_BPartner_Product
 	C_BPartner_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BPartner_ProductConnection!
 }
 

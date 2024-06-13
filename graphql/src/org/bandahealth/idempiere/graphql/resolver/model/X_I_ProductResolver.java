@@ -40,7 +40,7 @@ public class X_I_ProductResolver extends POResolver<X_I_Product> implements Grap
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -55,7 +55,7 @@ public class X_I_ProductResolver extends POResolver<X_I_Product> implements Grap
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(X_I_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -70,7 +70,7 @@ public class X_I_ProductResolver extends POResolver<X_I_Product> implements Grap
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(X_I_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -93,7 +93,7 @@ public class X_I_ProductResolver extends POResolver<X_I_Product> implements Grap
 	 * @return Product Attribute Set
 	 */
 	public CompletableFuture<MAttributeSet_BH> M_AttributeSet(X_I_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSet_ID() <= 0) {
+		if (entity.getM_AttributeSet_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSet_BH> dataLoader =
@@ -108,7 +108,7 @@ public class X_I_ProductResolver extends POResolver<X_I_Product> implements Grap
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(X_I_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() <= 0) {
+		if (entity.getM_Product_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
@@ -123,7 +123,7 @@ public class X_I_ProductResolver extends POResolver<X_I_Product> implements Grap
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_I_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -139,14 +139,14 @@ public class X_I_ProductResolver extends POResolver<X_I_Product> implements Grap
 		return entity.isProcessing();
 	}
 
-	static Map<String, String> PRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "59dcc5c9-ab37-4f5c-9987-6e2347f50093");
-			put("S", "265e0369-47e4-4be9-b6d5-e344230f5588");
-			put("R", "42694712-fdf0-42ec-aa93-bf19009c3a98");
-			put("E", "6a973557-0387-4173-8b31-af735b9eeb75");
-			put("O", "8de4f3a8-057c-4540-96d8-38369776b2e7");
-			put("A", "a45dcc33-c973-4744-955e-dd24518ef099");
+			put("I", "59dcc5c9-ab37-4f5c-9987-6e2347f50093"); // Item
+			put("S", "265e0369-47e4-4be9-b6d5-e344230f5588"); // Service
+			put("R", "42694712-fdf0-42ec-aa93-bf19009c3a98"); // Resource
+			put("E", "6a973557-0387-4173-8b31-af735b9eeb75"); // Expense type
+			put("O", "8de4f3a8-057c-4540-96d8-38369776b2e7"); // Online
+			put("A", "a45dcc33-c973-4744-955e-dd24518ef099"); // Asset
 		}
 	};
 	public CompletableFuture<MRefList_BH> ProductType(X_I_Product entity, DataFetchingEnvironment environment) {

@@ -27,7 +27,7 @@ public class X_AD_PrintLabelResolver extends POResolver<X_AD_PrintLabel> impleme
 	 * @return Label Printer Definition
 	 */
 	public CompletableFuture<X_AD_LabelPrinter> AD_LabelPrinter(X_AD_PrintLabel entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_LabelPrinter_ID() <= 0) {
+		if (entity.getAD_LabelPrinter_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_LabelPrinter> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_PrintLabelResolver extends POResolver<X_AD_PrintLabel> impleme
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_PrintLabel entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

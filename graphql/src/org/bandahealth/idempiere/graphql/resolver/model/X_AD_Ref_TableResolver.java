@@ -38,7 +38,7 @@ public class X_AD_Ref_TableResolver extends POResolver<MRefTable> implements Gra
 	 * @return Column that will display
 	 */
 	public CompletableFuture<MColumn> AD_Disp(MRefTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Display() <= 0) {
+		if (entity.getAD_Display() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -53,7 +53,7 @@ public class X_AD_Ref_TableResolver extends POResolver<MRefTable> implements Gra
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(MRefTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() <= 0) {
+		if (entity.getAD_InfoWindow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -68,7 +68,7 @@ public class X_AD_Ref_TableResolver extends POResolver<MRefTable> implements Gra
 	 * @return Unique identifier of a record
 	 */
 	public CompletableFuture<MColumn> AD_(MRefTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Key() <= 0) {
+		if (entity.getAD_Key() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -83,7 +83,7 @@ public class X_AD_Ref_TableResolver extends POResolver<MRefTable> implements Gra
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MRefTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -98,7 +98,7 @@ public class X_AD_Ref_TableResolver extends POResolver<MRefTable> implements Gra
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MRefTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -113,7 +113,7 @@ public class X_AD_Ref_TableResolver extends POResolver<MRefTable> implements Gra
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MRefTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

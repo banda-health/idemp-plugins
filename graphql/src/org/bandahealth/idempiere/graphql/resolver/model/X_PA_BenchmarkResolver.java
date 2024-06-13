@@ -21,10 +21,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_PA_BenchmarkResolver extends POResolver<X_PA_Benchmark> implements GraphQLResolver<X_PA_Benchmark> {
 
 
-	static Map<String, String> ACCUMULATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ACCUMULATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "3d552877-6635-458d-a8b7-7ef7f83be0c3");
-			put("S", "bfa804a6-caca-443f-92b3-6cc9672f9f52");
+			put("A", "3d552877-6635-458d-a8b7-7ef7f83be0c3"); // Average
+			put("S", "bfa804a6-caca-443f-92b3-6cc9672f9f52"); // Sum
 		}
 	};
 	public CompletableFuture<MRefList_BH> AccumulationType(X_PA_Benchmark entity, DataFetchingEnvironment environment) {

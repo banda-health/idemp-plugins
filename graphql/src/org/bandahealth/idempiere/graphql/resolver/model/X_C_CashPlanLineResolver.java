@@ -43,7 +43,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -58,7 +58,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -73,7 +73,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -88,7 +88,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return Cash Plan
 	 */
 	public CompletableFuture<MCashPlan> C_CashPlan(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashPlan_ID() <= 0) {
+		if (entity.getC_CashPlan_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCashPlan> dataLoader =
@@ -103,7 +103,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -118,7 +118,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -133,7 +133,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return Phase of a Project
 	 */
 	public CompletableFuture<MProjectPhase> C_ProjectPhase(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectPhase_ID() <= 0) {
+		if (entity.getC_ProjectPhase_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
@@ -148,7 +148,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return Actual Project Task in a Phase
 	 */
 	public CompletableFuture<MProjectTask> C_ProjectTask(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectTask_ID() <= 0) {
+		if (entity.getC_ProjectTask_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
@@ -163,7 +163,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -182,7 +182,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -197,7 +197,7 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MCashPlanLine entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

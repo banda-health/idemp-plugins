@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	PP_Order_Node_Product(UU: String!): PP_Order_Node_Product
 	PP_Order_Node_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_Node_ProductConnection!
 }
 

@@ -48,15 +48,15 @@ import java.util.concurrent.CompletableFuture;
 public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLResolver<MAsset> {
 
 
-	static Map<String, String> A_ASSET_ACTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_ASSET_ACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("DI", "fee6717e-7137-4035-9a83-bb96a6d111f8");
-			put("IB", "538261b3-5e19-445d-b54d-350c9b9fac92");
-			put("MD", "c72b48b9-f248-4e9d-9fd8-4afae918bef8");
-			put("OB", "c81b8475-74d3-41d5-8ff5-6de9e2db2436");
-			put("RE", "084daa2e-0720-47e2-8923-01793426c9a2");
-			put("RT", "3a74baee-45d7-4d09-84eb-37efa01e9ca0");
-			put("TR", "194f5d34-a04e-48c2-8e5a-8a81c326657c");
+			put("DI", "fee6717e-7137-4035-9a83-bb96a6d111f8"); // Dispose
+			put("IB", "538261b3-5e19-445d-b54d-350c9b9fac92"); // Inbound
+			put("MD", "c72b48b9-f248-4e9d-9fd8-4afae918bef8"); // Modify
+			put("OB", "c81b8475-74d3-41d5-8ff5-6de9e2db2436"); // Outbound
+			put("RE", "084daa2e-0720-47e2-8923-01793426c9a2"); // Reevaluate
+			put("RT", "3a74baee-45d7-4d09-84eb-37efa01e9ca0"); // Retire
+			put("TR", "194f5d34-a04e-48c2-8e5a-8a81c326657c"); // Transfer
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Asset_Action(MAsset entity, DataFetchingEnvironment environment) {
@@ -75,7 +75,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Asset class
 	 */
 	public CompletableFuture<MAssetClass> A_Asset_Class(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Class_ID() <= 0) {
+		if (entity.getA_Asset_Class_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetClass> dataLoader =
@@ -90,7 +90,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Group of Assets
 	 */
 	public CompletableFuture<MAssetGroup> A_Asset_Group(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Group_ID() <= 0) {
+		if (entity.getA_Asset_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
@@ -98,15 +98,15 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 		return dataLoader.load(entity.getA_Asset_Group_ID());
 	}
 
-	static Map<String, String> A_ASSET_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> A_ASSET_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("AC", "d2cdd31e-4373-4f35-8d01-22946c3c6211");
-			put("DI", "dd8c1848-6fb8-4829-8855-7c3b314514fd");
-			put("DP", "583c5228-ad5d-48cd-819b-97673805b1fa");
-			put("NW", "3f742175-42b0-4775-9eb3-ed5fefd0ca7a");
-			put("PR", "785b94f6-fbd7-49a7-b752-45a6d0df3888");
-			put("RE", "9ac1f818-4159-463f-81c4-b55923e94c9e");
-			put("SO", "b2aa86a9-566c-4762-98d5-c4b5c243a2cd");
+			put("AC", "d2cdd31e-4373-4f35-8d01-22946c3c6211"); // Activated
+			put("DI", "dd8c1848-6fb8-4829-8855-7c3b314514fd"); // Disposed
+			put("DP", "583c5228-ad5d-48cd-819b-97673805b1fa"); // Depreciated
+			put("NW", "3f742175-42b0-4775-9eb3-ed5fefd0ca7a"); // New
+			put("PR", "785b94f6-fbd7-49a7-b752-45a6d0df3888"); // Preservation
+			put("RE", "9ac1f818-4159-463f-81c4-b55923e94c9e"); // Retired
+			put("SO", "b2aa86a9-566c-4762-98d5-c4b5c243a2cd"); // Sold
 		}
 	};
 	public CompletableFuture<MRefList_BH> A_Asset_Status(MAsset entity, DataFetchingEnvironment environment) {
@@ -125,7 +125,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Asset Type
 	 */
 	public CompletableFuture<MAssetType> A_Asset_Type(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Type_ID() <= 0) {
+		if (entity.getA_Asset_Type_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetType> dataLoader =
@@ -140,7 +140,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Parent Asset
 	 */
 	public CompletableFuture<MAsset> A_Parent_Asset(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Parent_Asset_ID() <= 0) {
+		if (entity.getA_Parent_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -155,7 +155,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -170,7 +170,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -185,7 +185,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -200,7 +200,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -215,7 +215,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Business Partner (Agent or Sales Rep)
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartnerSR(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartnerSR_ID() <= 0) {
+		if (entity.getC_BPartnerSR_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -230,7 +230,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() <= 0) {
+		if (entity.getC_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -245,7 +245,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -280,7 +280,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return The Business Partner who rents or leases
 	 */
 	public CompletableFuture<MBPartner_BH> Lease_BPartner(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getLease_BPartner_ID() <= 0) {
+		if (entity.getLease_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -295,7 +295,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -310,7 +310,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -325,7 +325,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -340,7 +340,7 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

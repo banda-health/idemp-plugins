@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	GL_Category(UU: String!): GL_Category
 	GL_CategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_CategoryConnection!
 }
 

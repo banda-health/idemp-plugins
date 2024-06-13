@@ -25,6 +25,7 @@ import org.compiere.Adempiere;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
 import org.compiere.model.MTable;
+import org.compiere.model.SystemIDs;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.DisplayType;
@@ -51,6 +52,10 @@ public class GraphQLModelResolverGenerator {
 	private final ModelMap tableStructureExtensions;
 	private final Map<String, ModelMap> modelsForTables;
 	private final String dataLoaderPackageName;
+
+	public static String getGeneratedName(String tableName) {
+		return "X_" + tableName + "Resolver";
+	}
 
 	/**
 	 * Generate Schema
@@ -98,9 +103,10 @@ public class GraphQLModelResolverGenerator {
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				tableName = resultSet.getString(1);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					tableName = resultSet.getString(1);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -109,7 +115,7 @@ public class GraphQLModelResolverGenerator {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
 		}
 
-		String className = "X_" + tableName + "Resolver";
+		String className = getGeneratedName(tableName);
 		StringBuilder generatedClass = new StringBuilder()
 				.append("package ").append(packageName).append(";\n\n");
 
@@ -154,19 +160,21 @@ public class GraphQLModelResolverGenerator {
 				+ " ORDER BY c.ColumnName";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				String columnName = resultSet.getString(1);
-				int displayType = resultSet.getInt(2);
-				int AD_Reference_Value_ID = resultSet.getInt(3);
-				String Name = resultSet.getString(4);
-				String Description = resultSet.getString(5);
-				boolean IsKey = "Y".equals(resultSet.getString(6));
-				boolean isTranslated = "Y".equals(resultSet.getString(7));
-				//
-				generatedColumns.append(
-						createColumnMethods(columnName, displayType, AD_Reference_Value_ID, Name, Description, IsKey, isTranslated,
-								AD_Table_ID));
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				while (resultSet.next()) {
+					String columnName = resultSet.getString(1);
+					int displayType = resultSet.getInt(2);
+					int AD_Reference_Value_ID = resultSet.getInt(3);
+					String Name = resultSet.getString(4);
+					String Description = resultSet.getString(5);
+					boolean IsKey = "Y".equals(resultSet.getString(6));
+					boolean isTranslated = "Y".equals(resultSet.getString(7));
+					//
+					generatedColumns.append(
+							createColumnMethods(columnName, displayType, AD_Reference_Value_ID, Name, Description, IsKey,
+									isTranslated,
+									AD_Table_ID));
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -218,7 +226,7 @@ public class GraphQLModelResolverGenerator {
 				referenceClassName = packagePath[packagePath.length - 1].substring(2);
 				entityName = fieldName;
 				foreignEntityTable = referenceClassName;
-				defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
+				defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
 			} else if (columnName.equals("AD_Language")) {
 				entityName = columnName;
 				foreignEntityTable = columnName;
@@ -241,15 +249,15 @@ public class GraphQLModelResolverGenerator {
 						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = entityName;
-					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
 				} else if (columnName.equals("Logo_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "AD_Image";
-					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
 				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "M_Warehouse";
-					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";
@@ -289,9 +297,12 @@ public class GraphQLModelResolverGenerator {
 		}
 
 		// If the code is updatable from this point forward, the parent class can handle it
-		if (AD_Reference_ID > 0 &&
-				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
-				clazz.equals(String.class)) {
+		if ((AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) ||
+				displayType == DisplayType.Payment) && clazz.equals(String.class)) {
+			if (displayType == DisplayType.Payment) {
+				AD_Reference_ID = SystemIDs.REFERENCE_PAYMENTRULE;
+			}
 			ModelMap classToUseMap = modelsForTables.get(MRefList.Table_Name);
 			classesToImport.add(classToUseMap.getClassPackageName() + "." + classToUseMap.getClassName());
 			ModelMap foreignModelMap = modelsForTables.get("AD_Ref_List");
@@ -381,6 +392,10 @@ public class GraphQLModelResolverGenerator {
 		return "";
 	}
 
+	public static String getListValidationReferenceUuidsByValuePropertyName(String columnName) {
+		return columnName.toUpperCase() + "_UUIDS_BY_VALUE";
+	}
+
 	/**
 	 * Since the DB stores values and we want reference lists, we need a way to map the values to the reference UUID so
 	 * it can be loaded via a data loader
@@ -400,22 +415,25 @@ public class GraphQLModelResolverGenerator {
 	 */
 	private String addListValidationCodeAndReturnReferenceUuidsByValueProperty(StringBuilder generatedCode,
 			int AD_Reference_ID, String columnName) {
-		String uuidsByValuePropertyName = columnName.toUpperCase() + "_UUIDS_BY_VALUE";
+		String uuidsByValuePropertyName = getListValidationReferenceUuidsByValuePropertyName(columnName);
 		classesToImport.add("java.util.HashMap");
 		classesToImport.add("java.util.Map");
-		generatedCode.append("\tstatic Map<String, String> ").append(uuidsByValuePropertyName)
+		generatedCode.append("\tpublic static Map<String, String> ").append(uuidsByValuePropertyName)
 				.append(" = new HashMap<>() {\n")
 				.append("\t\t{\n");
 		//
-		String sql = "SELECT Value, AD_Ref_List_UU FROM AD_Ref_List WHERE AD_Reference_ID=? ORDER BY AD_Ref_List_ID";
+		String sql = "SELECT Value, AD_Ref_List_UU, Name FROM AD_Ref_List WHERE AD_Reference_ID=? ORDER BY AD_Ref_List_ID";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Reference_ID);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				String value = resultSet.getString(1);
-				String uuid = resultSet.getString(2);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				while (resultSet.next()) {
+					String value = resultSet.getString(1);
+					String uuid = resultSet.getString(2);
+					String name = resultSet.getString(3);
 
-				generatedCode.append("\t\t\tput(\"").append(value).append("\", \"").append(uuid).append("\");\n");
+					generatedCode.append("\t\t\tput(\"").append(value).append("\", \"").append(uuid).append("\"); // ")
+							.append(name).append("\n");
+				}
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -444,8 +462,8 @@ public class GraphQLModelResolverGenerator {
 				.append("\t\t{\n");
 		//
 		String sql = "SELECT entitytype, ad_entitytype_id FROM AD_EntityType ORDER BY AD_EntityType_ID";
-		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
-			ResultSet resultSet = preparedStatement.executeQuery();
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null);
+		     ResultSet resultSet = preparedStatement.executeQuery()) {
 			while (resultSet.next()) {
 				String value = resultSet.getString(1);
 				Integer id = resultSet.getInt(2);
@@ -479,8 +497,8 @@ public class GraphQLModelResolverGenerator {
 				.append("\t\t{\n");
 		//
 		String sql = "SELECT ad_language, ad_language_id FROM ad_language ORDER BY ad_language";
-		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
-			ResultSet resultSet = preparedStatement.executeQuery();
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null);
+		     ResultSet resultSet = preparedStatement.executeQuery()) {
 			while (resultSet.next()) {
 				String value = resultSet.getString(1);
 				Integer id = resultSet.getInt(2);

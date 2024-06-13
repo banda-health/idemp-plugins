@@ -36,11 +36,11 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 		return entity.isBH_Locked();
 	}
 
-	static Map<String, String> BH_SUBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BH_SUBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("I", "d8547f6d-5ad0-4025-b8f8-0f4796cf9d0f");
-			put("W", "406d22a4-b3ee-48e4-9bba-7031f653aa06");
-			put("D", "4782b135-a84e-4eb9-ae3d-88c872a030ce");
+			put("I", "d8547f6d-5ad0-4025-b8f8-0f4796cf9d0f"); // Insurance
+			put("W", "406d22a4-b3ee-48e4-9bba-7031f653aa06"); // Waiver
+			put("D", "4782b135-a84e-4eb9-ae3d-88c872a030ce"); // Donation
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_SubType(MCharge_BH entity, DataFetchingEnvironment environment) {
@@ -59,7 +59,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MCharge_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -74,7 +74,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 	 * @return Charge Type
 	 */
 	public CompletableFuture<MChargeType_BH> C_ChargeType(MCharge_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ChargeType_ID() <= 0) {
+		if (entity.getC_ChargeType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChargeType_BH> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 	 * @return Tax Category
 	 */
 	public CompletableFuture<MTaxCategory> C_TaxCategory(MCharge_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxCategory_ID() <= 0) {
+		if (entity.getC_TaxCategory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =

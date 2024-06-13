@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PP_Order_CostResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCostElement;
@@ -164,7 +165,12 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 			return;
 		}
 		if (CostingMethod != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Order_CostResolver.COSTINGMETHOD_UUIDS_BY_VALUE.containsValue(CostingMethod.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CostingMethod.getUU() +
+						" is not in the list defined for the CostingMethod column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

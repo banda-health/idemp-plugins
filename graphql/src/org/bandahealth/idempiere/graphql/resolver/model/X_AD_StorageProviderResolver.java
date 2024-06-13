@@ -25,10 +25,10 @@ public class X_AD_StorageProviderResolver extends POResolver<MStorageProvider> i
 		return entity.isDefault();
 	}
 
-	static Map<String, String> METHOD_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> METHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("FileSystem", "826c7b7b-8412-4b36-a912-dcf4ae56c9c0");
-			put("DB", "f84a4deb-5b8b-4951-86af-3b0ae957ca9b");
+			put("FileSystem", "826c7b7b-8412-4b36-a912-dcf4ae56c9c0"); // File System
+			put("DB", "f84a4deb-5b8b-4951-86af-3b0ae957ca9b"); // Database
 		}
 	};
 	public CompletableFuture<MRefList_BH> Method(MStorageProvider entity, DataFetchingEnvironment environment) {

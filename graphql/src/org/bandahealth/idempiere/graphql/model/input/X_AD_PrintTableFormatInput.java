@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_PrintTableFormatResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MImage;
 import org.compiere.model.MOrg;
@@ -327,7 +328,12 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	public void setHdrStrokeTypeInput(ForeignEntityInput HdrStrokeType) {
 		this.mHdrStrokeType = HdrStrokeType;
 		if (HdrStrokeType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_PrintTableFormatResolver.HDRSTROKETYPE_UUIDS_BY_VALUE.containsValue(HdrStrokeType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + HdrStrokeType.getUU() +
+						" is not in the list defined for the HdrStrokeType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -463,7 +469,12 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	public void setLineStrokeTypeInput(ForeignEntityInput LineStrokeType) {
 		this.mLineStrokeType = LineStrokeType;
 		if (LineStrokeType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_PrintTableFormatResolver.LINESTROKETYPE_UUIDS_BY_VALUE.containsValue(LineStrokeType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + LineStrokeType.getUU() +
+						" is not in the list defined for the LineStrokeType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

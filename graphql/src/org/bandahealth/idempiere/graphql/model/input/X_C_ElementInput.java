@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MTree_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_ElementResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MElement;
 import org.compiere.model.MOrg;
@@ -152,7 +153,12 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 			return;
 		}
 		if (ElementType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_ElementResolver.ELEMENTTYPE_UUIDS_BY_VALUE.containsValue(ElementType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ElementType.getUU() +
+						" is not in the list defined for the ElementType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

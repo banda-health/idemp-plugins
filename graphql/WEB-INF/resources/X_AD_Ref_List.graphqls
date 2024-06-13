@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_Ref_List(UU: String!): AD_Ref_List
 	AD_Ref_ListGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Ref_ListConnection!
 }
 

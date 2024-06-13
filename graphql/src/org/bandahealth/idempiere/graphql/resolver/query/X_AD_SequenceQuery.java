@@ -3,7 +3,11 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_SequenceDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_Sequence - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_SequenceQuery extends POQuery<MSequence_BH> implements GraphQL
 	@Override
 	protected String getTableName() {
 		return MSequence_BH.Table_Name;
+	}
+
+	public CompletableFuture<MSequence_BH> AD_Sequence(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MSequence_BH> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_SequenceDataLoader.DATALOADER_AD_Sequence_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MSequence_BH> AD_SequenceGet(int Page, int PageSize, String Sort, String Filter,

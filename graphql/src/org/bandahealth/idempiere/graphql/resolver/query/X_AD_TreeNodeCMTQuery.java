@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TreeNodeCMTDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_AD_TreeNodeCMT;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_TreeNodeCMT - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_TreeNodeCMTQuery extends POQuery<X_AD_TreeNodeCMT> implements 
 	@Override
 	protected String getTableName() {
 		return X_AD_TreeNodeCMT.Table_Name;
+	}
+
+	public CompletableFuture<X_AD_TreeNodeCMT> AD_TreeNodeCMT(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_AD_TreeNodeCMT> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_TreeNodeCMTDataLoader.DATALOADER_AD_TreeNodeCMT_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_AD_TreeNodeCMT> AD_TreeNodeCMTGet(int Page, int PageSize, String Sort, String Filter,

@@ -36,7 +36,7 @@ public class X_AD_InfoProcessResolver extends POResolver<X_AD_InfoProcess> imple
 	 * @return Info Window Column
 	 */
 	public CompletableFuture<MInfoColumn> AD_InfoColumn(X_AD_InfoProcess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoColumn_ID() <= 0) {
+		if (entity.getAD_InfoColumn_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoColumn> dataLoader =
@@ -51,7 +51,7 @@ public class X_AD_InfoProcessResolver extends POResolver<X_AD_InfoProcess> imple
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(X_AD_InfoProcess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() <= 0) {
+		if (entity.getAD_InfoWindow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -66,7 +66,7 @@ public class X_AD_InfoProcessResolver extends POResolver<X_AD_InfoProcess> imple
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(X_AD_InfoProcess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -105,11 +105,11 @@ public class X_AD_InfoProcessResolver extends POResolver<X_AD_InfoProcess> imple
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
-	static Map<String, String> LAYOUTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> LAYOUTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("B", "6884dcd1-bc9a-4d16-9b2c-fe40968747f8");
-			put("M", "7b539591-296a-43ee-916c-c87c35acc84d");
-			put("L", "ff0cba3e-e82c-4aa8-9f9b-bedf681b822d");
+			put("B", "6884dcd1-bc9a-4d16-9b2c-fe40968747f8"); // Button
+			put("M", "7b539591-296a-43ee-916c-c87c35acc84d"); // Menu
+			put("L", "ff0cba3e-e82c-4aa8-9f9b-bedf681b822d"); // List
 		}
 	};
 	public CompletableFuture<MRefList_BH> LayoutType(X_AD_InfoProcess entity, DataFetchingEnvironment environment) {

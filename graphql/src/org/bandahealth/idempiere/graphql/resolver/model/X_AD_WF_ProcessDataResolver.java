@@ -25,7 +25,7 @@ public class X_AD_WF_ProcessDataResolver extends POResolver<X_AD_WF_ProcessData>
 	 * @return Actual Workflow Process Instance
 	 */
 	public CompletableFuture<X_AD_WF_Process> AD_WF_Process(X_AD_WF_ProcessData entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Process_ID() <= 0) {
+		if (entity.getAD_WF_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Process> dataLoader =

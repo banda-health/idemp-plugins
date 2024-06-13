@@ -27,7 +27,7 @@ public class X_C_WithholdingResolver extends POResolver<MWithholding> implements
 	 * @return Business Partner to whom payment is made
 	 */
 	public CompletableFuture<MBPartner_BH> Benefici(MWithholding entity, DataFetchingEnvironment environment) {
-		if (entity.getBeneficiary() <= 0) {
+		if (entity.getBeneficiary() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_WithholdingResolver extends POResolver<MWithholding> implements
 	 * @return The terms of Payment (timing, discount)
 	 */
 	public CompletableFuture<MPaymentTerm> C_PaymentTerm(MWithholding entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentTerm_ID() <= 0) {
+		if (entity.getC_PaymentTerm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =

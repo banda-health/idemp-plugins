@@ -25,7 +25,7 @@ public class X_C_SubAcctResolver extends POResolver<X_C_SubAcct> implements Grap
 	 * @return Account Element
 	 */
 	public CompletableFuture<MElementValue> C_ElementValue(X_C_SubAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValue_ID() <= 0) {
+		if (entity.getC_ElementValue_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

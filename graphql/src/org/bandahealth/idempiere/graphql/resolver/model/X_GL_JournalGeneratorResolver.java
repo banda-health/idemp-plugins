@@ -36,7 +36,7 @@ public class X_GL_JournalGeneratorResolver extends POResolver<MJournalGenerator>
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MJournalGenerator entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -51,7 +51,7 @@ public class X_GL_JournalGeneratorResolver extends POResolver<MJournalGenerator>
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MJournalGenerator entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -66,7 +66,7 @@ public class X_GL_JournalGeneratorResolver extends POResolver<MJournalGenerator>
 	 * @return Account Adjust CR
 	 */
 	public CompletableFuture<MElementValue> C_ElementValueAdjustCR(MJournalGenerator entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValueAdjustCR_ID() <= 0) {
+		if (entity.getC_ElementValueAdjustCR_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -81,7 +81,7 @@ public class X_GL_JournalGeneratorResolver extends POResolver<MJournalGenerator>
 	 * @return Account Adjust DR
 	 */
 	public CompletableFuture<MElementValue> C_ElementValueAdjustDR(MJournalGenerator entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValueAdjustDR_ID() <= 0) {
+		if (entity.getC_ElementValueAdjustDR_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -96,7 +96,7 @@ public class X_GL_JournalGeneratorResolver extends POResolver<MJournalGenerator>
 	 * @return General Ledger Category
 	 */
 	public CompletableFuture<MGLCategory> GL_Category(MJournalGenerator entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Category_ID() <= 0) {
+		if (entity.getGL_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
@@ -104,13 +104,13 @@ public class X_GL_JournalGeneratorResolver extends POResolver<MJournalGenerator>
 		return dataLoader.load(entity.getGL_Category_ID());
 	}
 
-	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc"); // Actual
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e"); // Budget
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d"); // Commitment
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb"); // Statistical
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5"); // Reservation
 		}
 	};
 	public CompletableFuture<MRefList_BH> PostingType(MJournalGenerator entity, DataFetchingEnvironment environment) {

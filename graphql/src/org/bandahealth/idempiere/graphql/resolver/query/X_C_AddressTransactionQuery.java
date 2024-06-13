@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_AddressTransactionDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MAddressTransaction;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for C_AddressTransaction - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_C_AddressTransactionQuery extends POQuery<MAddressTransaction> im
 	@Override
 	protected String getTableName() {
 		return MAddressTransaction.Table_Name;
+	}
+
+	public CompletableFuture<MAddressTransaction> C_AddressTransaction(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MAddressTransaction> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_AddressTransactionDataLoader.DATALOADER_C_AddressTransaction_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MAddressTransaction> C_AddressTransactionGet(int Page, int PageSize, String Sort, String Filter,

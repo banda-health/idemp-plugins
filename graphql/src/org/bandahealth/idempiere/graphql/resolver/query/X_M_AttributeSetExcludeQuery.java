@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetExcludeDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MAttributeSetExclude;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for M_AttributeSetExclude - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_M_AttributeSetExcludeQuery extends POQuery<MAttributeSetExclude> 
 	@Override
 	protected String getTableName() {
 		return MAttributeSetExclude.Table_Name;
+	}
+
+	public CompletableFuture<MAttributeSetExclude> M_AttributeSetExclude(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MAttributeSetExclude> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_AttributeSetExcludeDataLoader.DATALOADER_M_AttributeSetExclude_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MAttributeSetExclude> M_AttributeSetExcludeGet(int Page, int PageSize, String Sort, String Filter,

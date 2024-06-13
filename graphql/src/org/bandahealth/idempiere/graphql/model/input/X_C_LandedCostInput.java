@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_LandedCostResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCostElement;
 import org.compiere.model.MInOutLine;
@@ -157,7 +158,12 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	public void setLandedCostDistributionInput(ForeignEntityInput LandedCostDistribution) {
 		this.mLandedCostDistribution = LandedCostDistribution;
 		if (LandedCostDistribution != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_LandedCostResolver.LANDEDCOSTDISTRIBUTION_UUIDS_BY_VALUE.containsValue(LandedCostDistribution.getUU())) {
+				throw new AdempiereException("The reference list UU of " + LandedCostDistribution.getUU() +
+						" is not in the list defined for the LandedCostDistribution column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

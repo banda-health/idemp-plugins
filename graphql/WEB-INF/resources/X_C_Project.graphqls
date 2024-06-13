@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_Project(UU: String!): C_Project
 	C_ProjectGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectConnection!
 }
 

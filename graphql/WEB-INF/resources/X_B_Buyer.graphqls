@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	B_Buyer(UU: String!): B_Buyer
 	B_BuyerGet(Page: Int, Size: Int, Sort: String, Filter: String): B_BuyerConnection!
 }
 

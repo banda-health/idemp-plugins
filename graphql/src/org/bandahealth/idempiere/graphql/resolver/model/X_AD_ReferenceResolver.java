@@ -37,7 +37,7 @@ public class X_AD_ReferenceResolver extends POResolver<MReference_BH> implements
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
 	public CompletableFuture<M_Element> AD_Element(MReference_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Element_ID() <= 0) {
+		if (entity.getAD_Element_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, M_Element> dataLoader =
@@ -128,10 +128,10 @@ public class X_AD_ReferenceResolver extends POResolver<MReference_BH> implements
 						entity.getName());
 	}
 
-	static Map<String, String> SHOWINACTIVE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> SHOWINACTIVE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("N", "f99597a3-8f11-4547-8b62-ab918dad0f8b");
-			put("Y", "4116b567-0f8f-492d-a1f7-4ac3d5a53aaf");
+			put("N", "f99597a3-8f11-4547-8b62-ab918dad0f8b"); // No
+			put("Y", "4116b567-0f8f-492d-a1f7-4ac3d5a53aaf"); // Yes
 		}
 	};
 	public CompletableFuture<MRefList_BH> ShowInactive(MReference_BH entity, DataFetchingEnvironment environment) {
@@ -143,11 +143,11 @@ public class X_AD_ReferenceResolver extends POResolver<MReference_BH> implements
 		return dataLoader.load(SHOWINACTIVE_UUIDS_BY_VALUE.get(entity.getShowInactive()));
 	}
 
-	static Map<String, String> VALIDATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> VALIDATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("L", "6fd23c6a-c10e-4b49-9c48-becb3f819527");
-			put("D", "b5ced8c7-63e7-453b-a0f7-678aa6eff4aa");
-			put("T", "3acb50b1-a8c9-4754-a52e-5e3d427a4fa8");
+			put("L", "6fd23c6a-c10e-4b49-9c48-becb3f819527"); // List Validation
+			put("D", "b5ced8c7-63e7-453b-a0f7-678aa6eff4aa"); // DataType
+			put("T", "3acb50b1-a8c9-4754-a52e-5e3d427a4fa8"); // Table Validation
 		}
 	};
 	public CompletableFuture<MRefList_BH> ValidationType(MReference_BH entity, DataFetchingEnvironment environment) {

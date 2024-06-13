@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	U_WebMenu(UU: String!): U_WebMenu
 	U_WebMenuGet(Page: Int, Size: Int, Sort: String, Filter: String): U_WebMenuConnection!
 }
 

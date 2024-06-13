@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_M_BOMResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBOM;
 import org.compiere.model.MChangeNotice;
@@ -86,7 +87,12 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 	public void setBOMTypeInput(ForeignEntityInput BOMType) {
 		this.mBOMType = BOMType;
 		if (BOMType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_BOMResolver.BOMTYPE_UUIDS_BY_VALUE.containsValue(BOMType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BOMType.getUU() +
+						" is not in the list defined for the BOMType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -120,7 +126,12 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 	public void setBOMUseInput(ForeignEntityInput BOMUse) {
 		this.mBOMUse = BOMUse;
 		if (BOMUse != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_BOMResolver.BOMUSE_UUIDS_BY_VALUE.containsValue(BOMUse.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BOMUse.getUU() +
+						" is not in the list defined for the BOMUse column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

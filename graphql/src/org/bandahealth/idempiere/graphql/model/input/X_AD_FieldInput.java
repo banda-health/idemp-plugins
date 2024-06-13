@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_FieldResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChart;
 import org.compiere.model.MColumn;
@@ -547,7 +548,12 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	public void setIsAllowCopyInput(ForeignEntityInput IsAllowCopy) {
 		this.mIsAllowCopy = IsAllowCopy;
 		if (IsAllowCopy != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_FieldResolver.ISALLOWCOPY_UUIDS_BY_VALUE.containsValue(IsAllowCopy.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsAllowCopy.getUU() +
+						" is not in the list defined for the IsAllowCopy column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -581,7 +587,12 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	public void setIsAlwaysUpdateableInput(ForeignEntityInput IsAlwaysUpdateable) {
 		this.mIsAlwaysUpdateable = IsAlwaysUpdateable;
 		if (IsAlwaysUpdateable != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_FieldResolver.ISALWAYSUPDATEABLE_UUIDS_BY_VALUE.containsValue(IsAlwaysUpdateable.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsAlwaysUpdateable.getUU() +
+						" is not in the list defined for the IsAlwaysUpdateable column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -615,7 +626,12 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	public void setIsMandatoryInput(ForeignEntityInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
 		if (IsMandatory != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_FieldResolver.ISMANDATORY_UUIDS_BY_VALUE.containsValue(IsMandatory.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsMandatory.getUU() +
+						" is not in the list defined for the IsMandatory column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -649,7 +665,12 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	public void setIsSelectionColumnInput(ForeignEntityInput IsSelectionColumn) {
 		this.mIsSelectionColumn = IsSelectionColumn;
 		if (IsSelectionColumn != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_FieldResolver.ISSELECTIONCOLUMN_UUIDS_BY_VALUE.containsValue(IsSelectionColumn.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsSelectionColumn.getUU() +
+						" is not in the list defined for the IsSelectionColumn column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -683,7 +704,12 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	public void setIsToolbarButtonInput(ForeignEntityInput IsToolbarButton) {
 		this.mIsToolbarButton = IsToolbarButton;
 		if (IsToolbarButton != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_FieldResolver.ISTOOLBARBUTTON_UUIDS_BY_VALUE.containsValue(IsToolbarButton.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsToolbarButton.getUU() +
+						" is not in the list defined for the IsToolbarButton column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -717,7 +743,12 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	public void setIsUpdateableInput(ForeignEntityInput IsUpdateable) {
 		this.mIsUpdateable = IsUpdateable;
 		if (IsUpdateable != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_FieldResolver.ISUPDATEABLE_UUIDS_BY_VALUE.containsValue(IsUpdateable.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsUpdateable.getUU() +
+						" is not in the list defined for the IsUpdateable column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -751,7 +782,12 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	public void setObscureTypeInput(ForeignEntityInput ObscureType) {
 		this.mObscureType = ObscureType;
 		if (ObscureType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_FieldResolver.OBSCURETYPE_UUIDS_BY_VALUE.containsValue(ObscureType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ObscureType.getUU() +
+						" is not in the list defined for the ObscureType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

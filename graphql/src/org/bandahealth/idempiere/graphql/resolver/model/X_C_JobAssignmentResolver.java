@@ -27,7 +27,7 @@ public class X_C_JobAssignmentResolver extends POResolver<X_C_JobAssignment> imp
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_C_JobAssignment entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_JobAssignmentResolver extends POResolver<X_C_JobAssignment> imp
 	 * @return Job Position
 	 */
 	public CompletableFuture<X_C_Job> C_Job(X_C_JobAssignment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Job_ID() <= 0) {
+		if (entity.getC_Job_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Job> dataLoader =

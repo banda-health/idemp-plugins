@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_ToolBarButtonRestrictResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTab;
@@ -54,7 +55,12 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	public void setActionInput(ForeignEntityInput Action) {
 		this.mAction = Action;
 		if (Action != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ToolBarButtonRestrictResolver.ACTION_UUIDS_BY_VALUE.containsValue(Action.getUU())) {
+				throw new AdempiereException("The reference list UU of " + Action.getUU() +
+						" is not in the list defined for the Action column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

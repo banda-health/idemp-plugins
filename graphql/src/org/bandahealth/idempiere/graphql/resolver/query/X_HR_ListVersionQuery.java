@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_HR_ListVersionDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
+import org.dataloader.DataLoader;
 import org.eevolution.model.X_HR_ListVersion;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for HR_ListVersion - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_HR_ListVersionQuery extends POQuery<X_HR_ListVersion> implements 
 	@Override
 	protected String getTableName() {
 		return X_HR_ListVersion.Table_Name;
+	}
+
+	public CompletableFuture<X_HR_ListVersion> HR_ListVersion(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_HR_ListVersion> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_HR_ListVersionDataLoader.DATALOADER_HR_ListVersion_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_HR_ListVersion> HR_ListVersionGet(int Page, int PageSize, String Sort, String Filter,

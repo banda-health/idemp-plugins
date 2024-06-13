@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_IssueResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MForm;
@@ -292,7 +293,12 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setIsReproducibleInput(ForeignEntityInput IsReproducible) {
 		this.mIsReproducible = IsReproducible;
 		if (IsReproducible != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_IssueResolver.ISREPRODUCIBLE_UUIDS_BY_VALUE.containsValue(IsReproducible.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsReproducible.getUU() +
+						" is not in the list defined for the IsReproducible column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -326,7 +332,12 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setIssueSourceInput(ForeignEntityInput IssueSource) {
 		this.mIssueSource = IssueSource;
 		if (IssueSource != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_IssueResolver.ISSUESOURCE_UUIDS_BY_VALUE.containsValue(IssueSource.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IssueSource.getUU() +
+						" is not in the list defined for the IssueSource column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -360,7 +371,12 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setIsVanillaSystemInput(ForeignEntityInput IsVanillaSystem) {
 		this.mIsVanillaSystem = IsVanillaSystem;
 		if (IsVanillaSystem != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_IssueResolver.ISVANILLASYSTEM_UUIDS_BY_VALUE.containsValue(IsVanillaSystem.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsVanillaSystem.getUU() +
+						" is not in the list defined for the IsVanillaSystem column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -710,7 +726,12 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setSystemStatusInput(ForeignEntityInput SystemStatus) {
 		this.mSystemStatus = SystemStatus;
 		if (SystemStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_IssueResolver.SYSTEMSTATUS_UUIDS_BY_VALUE.containsValue(SystemStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + SystemStatus.getUU() +
+						" is not in the list defined for the SystemStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

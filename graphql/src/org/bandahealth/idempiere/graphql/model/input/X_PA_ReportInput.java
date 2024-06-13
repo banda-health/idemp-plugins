@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_PA_ReportResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCalendar;
@@ -197,7 +198,12 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public void setExcludeAdjustmentPeriodsInput(ForeignEntityInput ExcludeAdjustmentPeriods) {
 		this.mExcludeAdjustmentPeriods = ExcludeAdjustmentPeriods;
 		if (ExcludeAdjustmentPeriods != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_ReportResolver.EXCLUDEADJUSTMENTPERIODS_UUIDS_BY_VALUE.containsValue(ExcludeAdjustmentPeriods.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ExcludeAdjustmentPeriods.getUU() +
+						" is not in the list defined for the ExcludeAdjustmentPeriods column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

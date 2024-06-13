@@ -34,7 +34,7 @@ public class X_M_MovementLineResolver extends POResolver<MMovementLine> implemen
 	 * @return Distribution Order Line
 	 */
 	public CompletableFuture<MDDOrderLine> DD_OrderLine(MMovementLine entity, DataFetchingEnvironment environment) {
-		if (entity.getDD_OrderLine_ID() <= 0) {
+		if (entity.getDD_OrderLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDDOrderLine> dataLoader =
@@ -49,7 +49,7 @@ public class X_M_MovementLineResolver extends POResolver<MMovementLine> implemen
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MMovementLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -64,7 +64,7 @@ public class X_M_MovementLineResolver extends POResolver<MMovementLine> implemen
 	 * @return Target Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstanceTo(MMovementLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstanceTo_ID() <= 0) {
+		if (entity.getM_AttributeSetInstanceTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -79,7 +79,7 @@ public class X_M_MovementLineResolver extends POResolver<MMovementLine> implemen
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MMovementLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -94,7 +94,7 @@ public class X_M_MovementLineResolver extends POResolver<MMovementLine> implemen
 	 * @return Location inventory is moved to
 	 */
 	public CompletableFuture<MLocator> M_LocatorTo(MMovementLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_LocatorTo_ID() <= 0) {
+		if (entity.getM_LocatorTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -109,7 +109,7 @@ public class X_M_MovementLineResolver extends POResolver<MMovementLine> implemen
 	 * @return Movement of Inventory
 	 */
 	public CompletableFuture<MMovement_BH> M_Movement(MMovementLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Movement_ID() <= 0) {
+		if (entity.getM_Movement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovement_BH> dataLoader =
@@ -124,7 +124,7 @@ public class X_M_MovementLineResolver extends POResolver<MMovementLine> implemen
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MMovementLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -143,7 +143,7 @@ public class X_M_MovementLineResolver extends POResolver<MMovementLine> implemen
 	 * @return Use to keep the reversal line ID for reversing costing purpose
 	 */
 	public CompletableFuture<MMovementLine> ReversalLine(MMovementLine entity, DataFetchingEnvironment environment) {
-		if (entity.getReversalLine_ID() <= 0) {
+		if (entity.getReversalLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovementLine> dataLoader =

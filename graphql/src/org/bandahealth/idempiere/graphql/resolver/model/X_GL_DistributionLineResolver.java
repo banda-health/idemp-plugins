@@ -41,7 +41,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -56,7 +56,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -71,7 +71,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -86,7 +86,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return Location that inventory was moved from
 	 */
 	public CompletableFuture<MLocation> C_LocFrom(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocFrom_ID() <= 0) {
+		if (entity.getC_LocFrom_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -101,7 +101,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return Location that inventory was moved to
 	 */
 	public CompletableFuture<MLocation> C_LocTo(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocTo_ID() <= 0) {
+		if (entity.getC_LocTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -116,7 +116,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -131,7 +131,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() <= 0) {
+		if (entity.getC_SalesRegion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -146,7 +146,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return General Ledger Distribution
 	 */
 	public CompletableFuture<MDistribution> GL_Distribution(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Distribution_ID() <= 0) {
+		if (entity.getGL_Distribution_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDistribution> dataLoader =
@@ -161,7 +161,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -228,7 +228,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -243,7 +243,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MDistributionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

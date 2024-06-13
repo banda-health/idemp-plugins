@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_DistributionList(UU: String!): M_DistributionList
 	M_DistributionListGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DistributionListConnection!
 }
 

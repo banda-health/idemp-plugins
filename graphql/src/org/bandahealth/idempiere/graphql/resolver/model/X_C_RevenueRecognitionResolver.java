@@ -25,11 +25,11 @@ public class X_C_RevenueRecognitionResolver extends POResolver<MRevenueRecogniti
 		return entity.isTimeBased();
 	}
 
-	static Map<String, String> RECOGNITIONFREQUENCY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> RECOGNITIONFREQUENCY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("M", "2e36cfa4-dfe7-4f3f-accd-6c8d1ef06a7d");
-			put("Q", "bfd94785-d2a8-4b42-98d4-0c9e04d49b46");
-			put("Y", "3fb681ad-7138-46e2-8d68-a6992bf1deb7");
+			put("M", "2e36cfa4-dfe7-4f3f-accd-6c8d1ef06a7d"); // Month
+			put("Q", "bfd94785-d2a8-4b42-98d4-0c9e04d49b46"); // Quarter
+			put("Y", "3fb681ad-7138-46e2-8d68-a6992bf1deb7"); // Year
 		}
 	};
 	public CompletableFuture<MRefList_BH> RecognitionFrequency(MRevenueRecognition entity, DataFetchingEnvironment environment) {

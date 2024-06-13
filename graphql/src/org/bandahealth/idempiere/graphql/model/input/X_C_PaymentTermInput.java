@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_PaymentTermResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentTerm;
@@ -111,7 +112,12 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	public void setNetDayInput(ForeignEntityInput NetDay) {
 		this.mNetDay = NetDay;
 		if (NetDay != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PaymentTermResolver.NETDAY_UUIDS_BY_VALUE.containsValue(NetDay.getUU())) {
+				throw new AdempiereException("The reference list UU of " + NetDay.getUU() +
+						" is not in the list defined for the NetDay column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -145,7 +151,12 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	public void setPaymentTermUsageInput(ForeignEntityInput PaymentTermUsage) {
 		this.mPaymentTermUsage = PaymentTermUsage;
 		if (PaymentTermUsage != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_PaymentTermResolver.PAYMENTTERMUSAGE_UUIDS_BY_VALUE.containsValue(PaymentTermUsage.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PaymentTermUsage.getUU() +
+						" is not in the list defined for the PaymentTermUsage column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

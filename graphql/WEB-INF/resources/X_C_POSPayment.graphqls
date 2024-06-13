@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_POSPayment(UU: String!): C_POSPayment
 	C_POSPaymentGet(Page: Int, Size: Int, Sort: String, Filter: String): C_POSPaymentConnection!
 }
 

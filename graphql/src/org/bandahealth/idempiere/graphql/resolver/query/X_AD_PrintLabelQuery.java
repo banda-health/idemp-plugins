@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintLabelDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_AD_PrintLabel;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_PrintLabel - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_PrintLabelQuery extends POQuery<X_AD_PrintLabel> implements Gr
 	@Override
 	protected String getTableName() {
 		return X_AD_PrintLabel.Table_Name;
+	}
+
+	public CompletableFuture<X_AD_PrintLabel> AD_PrintLabel(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_AD_PrintLabel> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_PrintLabelDataLoader.DATALOADER_AD_PrintLabel_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_AD_PrintLabel> AD_PrintLabelGet(int Page, int PageSize, String Sort, String Filter,

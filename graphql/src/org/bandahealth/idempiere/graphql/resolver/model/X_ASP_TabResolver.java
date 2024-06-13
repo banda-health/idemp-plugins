@@ -32,7 +32,7 @@ public class X_ASP_TabResolver extends POResolver<X_ASP_Tab> implements GraphQLR
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(X_ASP_Tab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() <= 0) {
+		if (entity.getAD_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -44,11 +44,11 @@ public class X_ASP_TabResolver extends POResolver<X_ASP_Tab> implements GraphQLR
 		return entity.isAllFields();
 	}
 
-	static Map<String, String> ASP_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ASP_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("H", "864906b8-9311-4af2-9464-434e25fa6f72");
-			put("S", "e06c95b8-62c4-4d5d-b9fc-e23c5049489e");
-			put("U", "e718a86a-8c1d-490d-9d3f-f1a2dfe6af69");
+			put("H", "864906b8-9311-4af2-9464-434e25fa6f72"); // Hide
+			put("S", "e06c95b8-62c4-4d5d-b9fc-e23c5049489e"); // Show
+			put("U", "e718a86a-8c1d-490d-9d3f-f1a2dfe6af69"); // Undefined
 		}
 	};
 	public CompletableFuture<MRefList_BH> ASP_Status(X_ASP_Tab entity, DataFetchingEnvironment environment) {
@@ -67,7 +67,7 @@ public class X_ASP_TabResolver extends POResolver<X_ASP_Tab> implements GraphQLR
 	 * @return ASP Window
 	 */
 	public CompletableFuture<X_ASP_Window> ASP_Window(X_ASP_Tab entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Window_ID() <= 0) {
+		if (entity.getASP_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Window> dataLoader =

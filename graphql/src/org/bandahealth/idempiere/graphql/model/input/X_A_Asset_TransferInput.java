@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_A_Asset_TransferResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
@@ -295,7 +296,12 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_CapvsExpInput(ForeignEntityInput A_CapvsExp) {
 		this.mA_CapvsExp = A_CapvsExp;
 		if (A_CapvsExp != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_TransferResolver.A_CAPVSEXP_UUIDS_BY_VALUE.containsValue(A_CapvsExp.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_CapvsExp.getUU() +
+						" is not in the list defined for the A_CapvsExp column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -716,7 +722,12 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_TransferResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -750,7 +761,12 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_TransferResolver.DOCSTATUS_UUIDS_BY_VALUE.containsValue(DocStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocStatus.getUU() +
+						" is not in the list defined for the DocStatus column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -795,7 +811,12 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_TransferResolver.POSTINGTYPE_UUIDS_BY_VALUE.containsValue(PostingType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PostingType.getUU() +
+						" is not in the list defined for the PostingType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_DocTypeResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MGLCategory;
 import org.compiere.model.MOrg;
@@ -327,7 +328,12 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setDocBaseTypeInput(ForeignEntityInput DocBaseType) {
 		this.mDocBaseType = DocBaseType;
 		if (DocBaseType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_DocTypeResolver.DOCBASETYPE_UUIDS_BY_VALUE.containsValue(DocBaseType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocBaseType.getUU() +
+						" is not in the list defined for the DocBaseType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -395,7 +401,12 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setDocSubTypeInvInput(ForeignEntityInput DocSubTypeInv) {
 		this.mDocSubTypeInv = DocSubTypeInv;
 		if (DocSubTypeInv != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_DocTypeResolver.DOCSUBTYPEINV_UUIDS_BY_VALUE.containsValue(DocSubTypeInv.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocSubTypeInv.getUU() +
+						" is not in the list defined for the DocSubTypeInv column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
@@ -429,7 +440,12 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setDocSubTypeSOInput(ForeignEntityInput DocSubTypeSO) {
 		this.mDocSubTypeSO = DocSubTypeSO;
 		if (DocSubTypeSO != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_DocTypeResolver.DOCSUBTYPESO_UUIDS_BY_VALUE.containsValue(DocSubTypeSO.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocSubTypeSO.getUU() +
+						" is not in the list defined for the DocSubTypeSO column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

@@ -31,7 +31,7 @@ public class X_M_DemandDetailResolver extends POResolver<X_M_DemandDetail> imple
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(X_M_DemandDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() <= 0) {
+		if (entity.getC_OrderLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_DemandDetailResolver extends POResolver<X_M_DemandDetail> imple
 	 * @return Material Demand Line
 	 */
 	public CompletableFuture<X_M_DemandLine> M_DemandLine(X_M_DemandDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DemandLine_ID() <= 0) {
+		if (entity.getM_DemandLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_DemandLine> dataLoader =
@@ -61,7 +61,7 @@ public class X_M_DemandDetailResolver extends POResolver<X_M_DemandDetail> imple
 	 * @return Forecast Line
 	 */
 	public CompletableFuture<MForecastLine> M_ForecastLine(X_M_DemandDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ForecastLine_ID() <= 0) {
+		if (entity.getM_ForecastLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MForecastLine> dataLoader =
@@ -76,7 +76,7 @@ public class X_M_DemandDetailResolver extends POResolver<X_M_DemandDetail> imple
 	 * @return Material Requisition Line
 	 */
 	public CompletableFuture<MRequisitionLine> M_RequisitionLine(X_M_DemandDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_RequisitionLine_ID() <= 0) {
+		if (entity.getM_RequisitionLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequisitionLine> dataLoader =

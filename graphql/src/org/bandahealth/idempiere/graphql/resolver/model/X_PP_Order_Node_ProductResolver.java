@@ -35,7 +35,7 @@ public class X_PP_Order_Node_ProductResolver extends POResolver<X_PP_Order_Node_
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_PP_Order_Node_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -50,7 +50,7 @@ public class X_PP_Order_Node_ProductResolver extends POResolver<X_PP_Order_Node_
 	 * @return Manufacturing Order
 	 */
 	public CompletableFuture<X_PP_Order> PP_Order(X_PP_Order_Node_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_ID() <= 0) {
+		if (entity.getPP_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
@@ -65,7 +65,7 @@ public class X_PP_Order_Node_ProductResolver extends POResolver<X_PP_Order_Node_
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_PP_Order_Node> PP_Order_Node(X_PP_Order_Node_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_Node_ID() <= 0) {
+		if (entity.getPP_Order_Node_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Node> dataLoader =
@@ -80,7 +80,7 @@ public class X_PP_Order_Node_ProductResolver extends POResolver<X_PP_Order_Node_
 	 * @return Manufacturing Order Workflow
 	 */
 	public CompletableFuture<X_PP_Order_Workflow> PP_Order_Workflow(X_PP_Order_Node_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_Workflow_ID() <= 0) {
+		if (entity.getPP_Order_Workflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Workflow> dataLoader =

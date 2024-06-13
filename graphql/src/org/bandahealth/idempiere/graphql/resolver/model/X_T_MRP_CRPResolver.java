@@ -25,7 +25,7 @@ public class X_T_MRP_CRPResolver extends POResolver<X_T_MRP_CRP> implements Grap
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_MRP_CRP entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =

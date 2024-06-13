@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	HR_Attribute(UU: String!): HR_Attribute
 	HR_AttributeGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_AttributeConnection!
 }
 

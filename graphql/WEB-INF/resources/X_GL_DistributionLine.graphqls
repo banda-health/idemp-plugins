@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	GL_DistributionLine(UU: String!): GL_DistributionLine
 	GL_DistributionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_DistributionLineConnection!
 }
 

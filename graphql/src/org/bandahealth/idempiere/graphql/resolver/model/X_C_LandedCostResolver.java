@@ -38,7 +38,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MLandedCost entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() <= 0) {
+		if (entity.getC_InvoiceLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -46,13 +46,13 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
 
-	static Map<String, String> LANDEDCOSTDISTRIBUTION_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> LANDEDCOSTDISTRIBUTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("Q", "50d100e4-2858-45bd-879a-f5b1d87bd29a");
-			put("L", "0ea8969b-c655-4d56-bcfe-5c6aa5f2a60e");
-			put("V", "22944d38-a239-48c2-a16b-07b262313c12");
-			put("W", "c48079eb-eed7-44c7-9656-136001c30e83");
-			put("C", "42bd1312-993d-42c1-83ff-4af920699f12");
+			put("Q", "50d100e4-2858-45bd-879a-f5b1d87bd29a"); // Quantity
+			put("L", "0ea8969b-c655-4d56-bcfe-5c6aa5f2a60e"); // Line
+			put("V", "22944d38-a239-48c2-a16b-07b262313c12"); // Volume
+			put("W", "c48079eb-eed7-44c7-9656-136001c30e83"); // Weight
+			put("C", "42bd1312-993d-42c1-83ff-4af920699f12"); // Costs
 		}
 	};
 	public CompletableFuture<MRefList_BH> LandedCostDistribution(MLandedCost entity, DataFetchingEnvironment environment) {
@@ -71,7 +71,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 	 * @return Product Cost Element
 	 */
 	public CompletableFuture<MCostElement> M_CostElement(MLandedCost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostElement_ID() <= 0) {
+		if (entity.getM_CostElement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
@@ -86,7 +86,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 	 * @return Material Shipment Document
 	 */
 	public CompletableFuture<MInOut_BH> M_InOut(MLandedCost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOut_ID() <= 0) {
+		if (entity.getM_InOut_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOut_BH> dataLoader =
@@ -101,7 +101,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MLandedCost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -116,7 +116,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MLandedCost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

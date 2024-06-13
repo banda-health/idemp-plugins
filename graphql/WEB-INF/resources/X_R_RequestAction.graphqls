@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	R_RequestAction(UU: String!): R_RequestAction
 	R_RequestActionGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestActionConnection!
 }
 

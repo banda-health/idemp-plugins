@@ -25,7 +25,7 @@ public class X_IMP_ProcessorLogResolver extends POResolver<MIMPProcessorLog> imp
 	 * @return Import Processor
 	 */
 	public CompletableFuture<MIMPProcessor> IMP_Processor(MIMPProcessorLog entity, DataFetchingEnvironment environment) {
-		if (entity.getIMP_Processor_ID() <= 0) {
+		if (entity.getIMP_Processor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MIMPProcessor> dataLoader =

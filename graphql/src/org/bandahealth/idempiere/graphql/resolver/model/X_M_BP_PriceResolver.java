@@ -34,7 +34,7 @@ public class X_M_BP_PriceResolver extends POResolver<X_M_BP_Price> implements Gr
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_M_BP_Price entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -49,7 +49,7 @@ public class X_M_BP_PriceResolver extends POResolver<X_M_BP_Price> implements Gr
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(X_M_BP_Price entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -68,7 +68,7 @@ public class X_M_BP_PriceResolver extends POResolver<X_M_BP_Price> implements Gr
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_M_BP_Price entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -76,10 +76,10 @@ public class X_M_BP_PriceResolver extends POResolver<X_M_BP_Price> implements Gr
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
-	static Map<String, String> PRICEOVERRIDETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> PRICEOVERRIDETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("P", "616cebd1-4773-46ea-94e4-2e6798dc2f70");
-			put("D", "8444767e-f62f-4fb6-82c2-e7d4c113f8a7");
+			put("P", "616cebd1-4773-46ea-94e4-2e6798dc2f70"); // Fixed Price
+			put("D", "8444767e-f62f-4fb6-82c2-e7d4c113f8a7"); // Discount
 		}
 	};
 	public CompletableFuture<MRefList_BH> PriceOverrideType(X_M_BP_Price entity, DataFetchingEnvironment environment) {

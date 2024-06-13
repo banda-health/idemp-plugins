@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_DunningRunLine(UU: String!): C_DunningRunLine
 	C_DunningRunLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DunningRunLineConnection!
 }
 

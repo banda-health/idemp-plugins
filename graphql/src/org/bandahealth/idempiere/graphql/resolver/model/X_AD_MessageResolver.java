@@ -91,11 +91,11 @@ public class X_AD_MessageResolver extends POResolver<MMessage_BH> implements Gra
 						entity.getMsgTip());
 	}
 
-	static Map<String, String> MSGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> MSGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("E", "808ce611-a0d2-474d-af99-dddb0f42f84d");
-			put("I", "f79addff-019d-496d-abd2-57f921095b5e");
-			put("M", "5ae78a5d-8df9-4938-9178-1f829489a727");
+			put("E", "808ce611-a0d2-474d-af99-dddb0f42f84d"); // Error
+			put("I", "f79addff-019d-496d-abd2-57f921095b5e"); // Information
+			put("M", "5ae78a5d-8df9-4938-9178-1f829489a727"); // Menu
 		}
 	};
 	public CompletableFuture<MRefList_BH> MsgType(MMessage_BH entity, DataFetchingEnvironment environment) {

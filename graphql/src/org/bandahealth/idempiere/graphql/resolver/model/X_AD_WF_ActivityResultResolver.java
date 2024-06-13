@@ -25,7 +25,7 @@ public class X_AD_WF_ActivityResultResolver extends POResolver<X_AD_WF_ActivityR
 	 * @return Workflow Activity
 	 */
 	public CompletableFuture<X_AD_WF_Activity> AD_WF_Activity(X_AD_WF_ActivityResult entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Activity_ID() <= 0) {
+		if (entity.getAD_WF_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Activity> dataLoader =

@@ -18,6 +18,7 @@
 package org.bandahealth.idempiere.base.model;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Properties;
 import org.compiere.model.*;
 
@@ -31,7 +32,8 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20240425L;
+
 
     /** Standard Constructor */
     public X_BH_Encounter (Properties ctx, int BH_Encounter_ID, String trxName)
@@ -108,6 +110,22 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	/** Set Encounter Date.
+		@param BH_Encounter_Date the time a vital was taken
+	*/
+	public void setBH_Encounter_Date (Timestamp BH_Encounter_Date)
+	{
+		set_Value (COLUMNNAME_BH_Encounter_Date, BH_Encounter_Date);
+	}
+
+	/** Get Encounter Date.
+		@return the time a vital was taken
+	  */
+	public Timestamp getBH_Encounter_Date()
+	{
+		return (Timestamp)get_Value(COLUMNNAME_BH_Encounter_Date);
+	}
 
 	/** Set Encounter.
 		@param BH_Encounter_ID Encounter

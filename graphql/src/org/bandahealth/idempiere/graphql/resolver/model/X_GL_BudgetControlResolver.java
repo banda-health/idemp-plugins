@@ -25,11 +25,11 @@ import java.util.concurrent.CompletableFuture;
 public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> implements GraphQLResolver<X_GL_BudgetControl> {
 
 
-	static Map<String, String> BUDGETCONTROLSCOPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> BUDGETCONTROLSCOPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("P", "5f9dbdd7-0440-43a7-b378-73205f6a617b");
-			put("Y", "3e08b16d-04c2-4a76-880d-b560c611c12b");
-			put("T", "f673be33-b26a-44e6-b2ea-606d51340d33");
+			put("P", "5f9dbdd7-0440-43a7-b378-73205f6a617b"); // Period only
+			put("Y", "3e08b16d-04c2-4a76-880d-b560c611c12b"); // Year To Date
+			put("T", "f673be33-b26a-44e6-b2ea-606d51340d33"); // Total
 		}
 	};
 	public CompletableFuture<MRefList_BH> BudgetControlScope(X_GL_BudgetControl entity, DataFetchingEnvironment environment) {
@@ -48,7 +48,7 @@ public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> i
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_GL_BudgetControl entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -56,14 +56,14 @@ public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> i
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
-	static Map<String, String> COMMITMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> COMMITMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("C", "1be67031-d46a-4519-8888-d9c63e01d3dd");
-			put("B", "eee976d9-bd85-477f-be29-c6a84875af91");
-			put("N", "0d79afb6-a0b9-4a89-8802-da1d6966944d");
-			put("A", "6a24d75b-d67a-419e-afbe-ff685ad306ec");
-			put("S", "14f78d5d-456b-4f9f-844b-85fe3506b60a");
-			put("O", "fcc2f5f5-6882-440b-8ce8-46050cf2e9d3");
+			put("C", "1be67031-d46a-4519-8888-d9c63e01d3dd"); // PO Commitment only
+			put("B", "eee976d9-bd85-477f-be29-c6a84875af91"); // PO Commitment & Reservation
+			put("N", "0d79afb6-a0b9-4a89-8802-da1d6966944d"); // None
+			put("A", "6a24d75b-d67a-419e-afbe-ff685ad306ec"); // PO/SO Commitment & Reservation
+			put("S", "14f78d5d-456b-4f9f-844b-85fe3506b60a"); // SO Commitment only
+			put("O", "fcc2f5f5-6882-440b-8ce8-46050cf2e9d3"); // PO/SO Commitment
 		}
 	};
 	public CompletableFuture<MRefList_BH> CommitmentType(X_GL_BudgetControl entity, DataFetchingEnvironment environment) {
@@ -82,7 +82,7 @@ public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> i
 	 * @return General Ledger Budget
 	 */
 	public CompletableFuture<X_GL_Budget> GL_Budget(X_GL_BudgetControl entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Budget_ID() <= 0) {
+		if (entity.getGL_Budget_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =

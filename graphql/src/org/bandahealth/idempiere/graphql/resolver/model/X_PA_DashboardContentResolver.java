@@ -49,7 +49,7 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 	 * @return Chart
 	 */
 	public CompletableFuture<MChart> AD_Chart(MDashboardContent entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Chart_ID() <= 0) {
+		if (entity.getAD_Chart_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChart> dataLoader =
@@ -64,7 +64,7 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 	 * @return Data Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(MDashboardContent entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormat_ID() <= 0) {
+		if (entity.getAD_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -79,7 +79,7 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MDashboardContent entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -94,7 +94,7 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MDashboardContent entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -109,7 +109,7 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 	 * @return Status Line
 	 */
 	public CompletableFuture<MStatusLine> AD_StatusLine(MDashboardContent entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_StatusLine_ID() <= 0) {
+		if (entity.getAD_StatusLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStatusLine> dataLoader =
@@ -124,7 +124,7 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MDashboardContent entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -139,7 +139,7 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MDashboardContent entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -163,11 +163,11 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 						entity.getDescription());
 	}
 
-	static Map<String, String> GOALDISPLAY_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> GOALDISPLAY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("T", "2cd129ed-3973-4e05-a770-94af63a68791");
-			put("C", "4b2f72dc-2ab6-4e4a-9b9a-acf550d12290");
-			put("G", "38f8439b-0232-4ea6-9e3f-98574b2b7326");
+			put("T", "2cd129ed-3973-4e05-a770-94af63a68791"); // HTML Table
+			put("C", "4b2f72dc-2ab6-4e4a-9b9a-acf550d12290"); // Chart
+			put("G", "38f8439b-0232-4ea6-9e3f-98574b2b7326"); // Gauge Indicator
 		}
 	};
 	public CompletableFuture<MRefList_BH> GoalDisplay(MDashboardContent entity, DataFetchingEnvironment environment) {
@@ -246,7 +246,7 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 	 * @return Performance Goal
 	 */
 	public CompletableFuture<MGoal> PA_Goal(MDashboardContent entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Goal_ID() <= 0) {
+		if (entity.getPA_Goal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MGoal> dataLoader =

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_C_DunningLevelResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDunning;
 import org.compiere.model.MDunningLevel;
@@ -221,7 +222,12 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	public void setInvoiceCollectionTypeInput(ForeignEntityInput InvoiceCollectionType) {
 		this.mInvoiceCollectionType = InvoiceCollectionType;
 		if (InvoiceCollectionType != null) {
-			// Since an entity was passed, make sure it's in the DB
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_DunningLevelResolver.INVOICECOLLECTIONTYPE_UUIDS_BY_VALUE.containsValue(InvoiceCollectionType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + InvoiceCollectionType.getUU() +
+						" is not in the list defined for the InvoiceCollectionType column");
+			}
+			// Now make sure it's in the DB
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())

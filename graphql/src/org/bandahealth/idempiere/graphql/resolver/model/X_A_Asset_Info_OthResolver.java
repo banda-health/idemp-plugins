@@ -26,7 +26,7 @@ public class X_A_Asset_Info_OthResolver extends POResolver<X_A_Asset_Info_Oth> i
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_A_Asset_Info_Oth entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -41,7 +41,7 @@ public class X_A_Asset_Info_OthResolver extends POResolver<X_A_Asset_Info_Oth> i
 	 * @return A_Asset_Info_Oth_ID
 	 */
 	public CompletableFuture<X_A_Asset_Info_Oth> A_Asset_Info_Oth(X_A_Asset_Info_Oth entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Info_Oth_ID() <= 0) {
+		if (entity.getA_Asset_Info_Oth_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_A_Asset_Info_Oth> dataLoader =

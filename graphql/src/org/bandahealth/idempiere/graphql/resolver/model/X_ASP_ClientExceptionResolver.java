@@ -46,7 +46,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 	 * @return Field on a database table
 	 */
 	public CompletableFuture<MField_BH> AD_Field(X_ASP_ClientException entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Field_ID() <= 0) {
+		if (entity.getAD_Field_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MField_BH> dataLoader =
@@ -61,7 +61,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(X_ASP_ClientException entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() <= 0) {
+		if (entity.getAD_Form_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -76,7 +76,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(X_ASP_ClientException entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -91,7 +91,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 	 * @return Process Parameter
 	 */
 	public CompletableFuture<MProcessPara> AD_Process_Para(X_ASP_ClientException entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_Para_ID() <= 0) {
+		if (entity.getAD_Process_Para_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcessPara> dataLoader =
@@ -106,7 +106,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(X_ASP_ClientException entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() <= 0) {
+		if (entity.getAD_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -121,7 +121,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 	 * @return Operation System Task
 	 */
 	public CompletableFuture<MTask> AD_Task(X_ASP_ClientException entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Task_ID() <= 0) {
+		if (entity.getAD_Task_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =
@@ -136,7 +136,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Node(X_ASP_ClientException entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Node_ID() <= 0) {
+		if (entity.getAD_WF_Node_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
@@ -151,7 +151,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(X_ASP_ClientException entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -166,7 +166,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_ASP_ClientException entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() <= 0) {
+		if (entity.getAD_Workflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
@@ -174,11 +174,11 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
-	static Map<String, String> ASP_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
+	public static Map<String, String> ASP_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("H", "864906b8-9311-4af2-9464-434e25fa6f72");
-			put("S", "e06c95b8-62c4-4d5d-b9fc-e23c5049489e");
-			put("U", "e718a86a-8c1d-490d-9d3f-f1a2dfe6af69");
+			put("H", "864906b8-9311-4af2-9464-434e25fa6f72"); // Hide
+			put("S", "e06c95b8-62c4-4d5d-b9fc-e23c5049489e"); // Show
+			put("U", "e718a86a-8c1d-490d-9d3f-f1a2dfe6af69"); // Undefined
 		}
 	};
 	public CompletableFuture<MRefList_BH> ASP_Status(X_ASP_ClientException entity, DataFetchingEnvironment environment) {

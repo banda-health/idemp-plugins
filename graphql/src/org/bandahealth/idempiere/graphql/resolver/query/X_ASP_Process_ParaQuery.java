@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_ASP_Process_ParaDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_ASP_Process_Para;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for ASP_Process_Para - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_ASP_Process_ParaQuery extends POQuery<X_ASP_Process_Para> impleme
 	@Override
 	protected String getTableName() {
 		return X_ASP_Process_Para.Table_Name;
+	}
+
+	public CompletableFuture<X_ASP_Process_Para> ASP_Process_Para(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_ASP_Process_Para> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_ASP_Process_ParaDataLoader.DATALOADER_ASP_Process_Para_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_ASP_Process_Para> ASP_Process_ParaGet(int Page, int PageSize, String Sort, String Filter,

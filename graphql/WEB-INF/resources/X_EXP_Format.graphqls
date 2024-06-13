@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	EXP_Format(UU: String!): EXP_Format
 	EXP_FormatGet(Page: Int, Size: Int, Sort: String, Filter: String): EXP_FormatConnection!
 }
 
