@@ -1,3 +1,4 @@
 extend type BH_Payer_Info_Fld {
+	BH_BP_General_Payer_InfoList: [BH_BP_General_Payer_Info!]
 	BH_Payer_Info_Fld_ValList: [BH_Payer_Info_Fld_Val!]
 }
