@@ -726,6 +726,7 @@ public class BandaSchemaFileComposer {
 						"WEB-INF/resources/X_BH_BP_General_Payer_Info.graphqls",
 						"WEB-INF/resources/X_BH_BP_Payer_Info.graphqls",
 						"WEB-INF/resources/X_BH_BP_Specific_Payer_Info.graphqls",
+						"WEB-INF/resources/X_BH_Client_Concept.graphqls",
 						"WEB-INF/resources/X_BH_Coded_Diagnosis.graphqls",
 						"WEB-INF/resources/X_BH_Coded_Diagnosis_Mapping.graphqls",
 						"WEB-INF/resources/X_BH_Concept_Description.graphqls",
