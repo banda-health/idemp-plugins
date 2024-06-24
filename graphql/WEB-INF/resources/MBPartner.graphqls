@@ -1,4 +1,6 @@
 extend type C_BPartner {
+	BH_BP_Payer_Info_BPList: [BH_BP_Payer_Info!]
+	BH_BP_Payer_Info_PayerList: [BH_BP_Payer_Info!]
 	BH_Payer_Info_FldList: [BH_Payer_Info_Fld!]
 	C_BPartner_Locations: [C_BPartner_Location!]
 	C_BP_BankAccounts: [C_BP_BankAccount!]
