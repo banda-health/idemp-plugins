@@ -1,9 +1,12 @@
 package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MBHBPPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPGeneralPayerInfoDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHPayerInfoFldDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHVisitDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBPBankAccountDataLoader;
@@ -19,6 +22,20 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MBPartnerResolver extends X_C_BPartnerResolver {
+	public CompletableFuture<List<MBHBPPayerInfo>> BH_BP_Payer_Info_BPList(MBPartner_BH entity,
+			DataFetchingEnvironment environment) {
+		DataLoader<String, List<MBHBPPayerInfo>> dataLoader = environment.getDataLoaderRegistry().getDataLoader(
+				MBHBPPayerInfoDataLoader.BH_BP_Payer_Info_BY_C_BPartner_ID_DATA_LOADER);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getC_BPartner_ID()));
+	}
+
+	public CompletableFuture<List<MBHBPPayerInfo>> BH_BP_Payer_Info_PayerList(MBPartner_BH entity,
+			DataFetchingEnvironment environment) {
+		DataLoader<String, List<MBHBPPayerInfo>> dataLoader = environment.getDataLoaderRegistry().getDataLoader(
+				MBHBPPayerInfoDataLoader.BH_BP_Payer_Info_BY_BH_Payer_ID_DATA_LOADER);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getC_BPartner_ID()));
+	}
+
 	public CompletableFuture<List<MBHPayerInfoFld>> BH_Payer_Info_FldList(MBPartner_BH entity,
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MBHPayerInfoFld>> dataLoader = environment.getDataLoaderRegistry().getDataLoader(
