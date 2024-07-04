@@ -31,7 +31,7 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240418L;
+	private static final long serialVersionUID = 20240704L;
 
     /** Standard Constructor */
     public X_BH_Client_Concept (Properties ctx, int BH_Client_Concept_ID, String trxName)
@@ -97,7 +97,7 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
     public String toString()
     {
       StringBuilder sb = new StringBuilder ("X_BH_Client_Concept[")
-        .append(get_ID()).append(",Name=").append(getName()).append("]");
+        .append(get_ID()).append("]");
       return sb.toString();
     }
 
@@ -137,27 +137,6 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 		return (String)get_Value(COLUMNNAME_BH_Client_Concept_UU);
 	}
 
-	/** Set Client Mapping ID.
-		@param BH_Client_Mapping_ID Client Mapping ID
-	*/
-	public void setBH_Client_Mapping_ID (int BH_Client_Mapping_ID)
-	{
-		if (BH_Client_Mapping_ID < 1)
-			set_Value (COLUMNNAME_BH_Client_Mapping_ID, null);
-		else
-			set_Value (COLUMNNAME_BH_Client_Mapping_ID, Integer.valueOf(BH_Client_Mapping_ID));
-	}
-
-	/** Get Client Mapping ID.
-		@return Client Mapping ID	  */
-	public int getBH_Client_Mapping_ID()
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Client_Mapping_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
 	public I_BH_Concept getBH_Concept() throws RuntimeException
 	{
 		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_ID)
@@ -185,19 +164,18 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 		return ii.intValue();
 	}
 
-	/** Set Name.
-		@param Name Alphanumeric identifier of the entity
+	/** Set Display Name.
+		@param BH_Display_Name Display Name
 	*/
-	public void setName (String Name)
+	public void setBH_Display_Name (String BH_Display_Name)
 	{
-		set_Value (COLUMNNAME_Name, Name);
+		set_Value (COLUMNNAME_BH_Display_Name, BH_Display_Name);
 	}
 
-	/** Get Name.
-		@return Alphanumeric identifier of the entity
-	  */
-	public String getName()
+	/** Get Display Name.
+		@return Display Name	  */
+	public String getBH_Display_Name()
 	{
-		return (String)get_Value(COLUMNNAME_Name);
+		return (String)get_Value(COLUMNNAME_BH_Display_Name);
 	}
 }

@@ -356,7 +356,7 @@ public class ConceptSyncProcess extends SvrProcess {
 				}
 
 				foundConceptMapping.setIsActive(mapping.isRetired());
-				foundConceptMapping.setBH_Concept_ID(parentConcept.get_ID());
+				foundConceptMapping.setFrom_BH_Concept_ID(parentConcept.get_ID());
 				foundConceptMapping.setBH_Source(mapping.getToSourceOwner());
 				foundConceptMapping.setBH_Map_Type(mapping.getMapType());
 				foundConceptMapping.setBH_Owner(mapping.getOwner());

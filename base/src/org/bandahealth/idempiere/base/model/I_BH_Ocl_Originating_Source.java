@@ -21,18 +21,18 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Client_Concept
+/** Generated Interface for BH_Ocl_Originating_Source
  *  @author iDempiere (generated) 
  *  @version Release 11
  */
 @SuppressWarnings("all")
-public interface I_BH_Client_Concept 
+public interface I_BH_Ocl_Originating_Source 
 {
 
-    /** TableName=BH_Client_Concept */
-    public static final String Table_Name = "BH_Client_Concept";
+    /** TableName=BH_Ocl_Originating_Source */
+    public static final String Table_Name = "BH_Ocl_Originating_Source";
 
-    /** AD_Table_ID=1000059 */
+    /** AD_Table_ID=1000061 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -64,43 +64,23 @@ public interface I_BH_Client_Concept
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_Client_Concept_ID */
-    public static final String COLUMNNAME_BH_Client_Concept_ID = "BH_Client_Concept_ID";
+    /** Column name BH_Ocl_Originating_Source_ID */
+    public static final String COLUMNNAME_BH_Ocl_Originating_Source_ID = "BH_Ocl_Originating_Source_ID";
 
-	/** Set Client Concept	  */
-	public void setBH_Client_Concept_ID (int BH_Client_Concept_ID);
+	/** Set OCL Originating Source	  */
+	public void setBH_Ocl_Originating_Source_ID (int BH_Ocl_Originating_Source_ID);
 
-	/** Get Client Concept	  */
-	public int getBH_Client_Concept_ID();
+	/** Get OCL Originating Source	  */
+	public int getBH_Ocl_Originating_Source_ID();
 
-    /** Column name BH_Client_Concept_UU */
-    public static final String COLUMNNAME_BH_Client_Concept_UU = "BH_Client_Concept_UU";
+    /** Column name BH_Ocl_Originating_Source_UU */
+    public static final String COLUMNNAME_BH_Ocl_Originating_Source_UU = "BH_Ocl_Originating_Source_UU";
 
-	/** Set BH_Client_Concept_UU	  */
-	public void setBH_Client_Concept_UU (String BH_Client_Concept_UU);
+	/** Set BH_Ocl_Originating_Source_UU	  */
+	public void setBH_Ocl_Originating_Source_UU (String BH_Ocl_Originating_Source_UU);
 
-	/** Get BH_Client_Concept_UU	  */
-	public String getBH_Client_Concept_UU();
-
-    /** Column name BH_Concept_ID */
-    public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
-
-	/** Set Concept	  */
-	public void setBH_Concept_ID (int BH_Concept_ID);
-
-	/** Get Concept	  */
-	public int getBH_Concept_ID();
-
-	public I_BH_Concept getBH_Concept() throws RuntimeException;
-
-    /** Column name BH_Display_Name */
-    public static final String COLUMNNAME_BH_Display_Name = "BH_Display_Name";
-
-	/** Set Display Name	  */
-	public void setBH_Display_Name (String BH_Display_Name);
-
-	/** Get Display Name	  */
-	public String getBH_Display_Name();
+	/** Get BH_Ocl_Originating_Source_UU	  */
+	public String getBH_Ocl_Originating_Source_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

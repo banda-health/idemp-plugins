@@ -64,17 +64,6 @@ public interface I_BH_Concept_Mapping
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_Concept_ID */
-    public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
-
-	/** Set Concept	  */
-	public void setBH_Concept_ID (int BH_Concept_ID);
-
-	/** Get Concept	  */
-	public int getBH_Concept_ID();
-
-	public I_BH_Concept getBH_Concept() throws RuntimeException;
-
     /** Column name BH_Concept_Mapping_ID */
     public static final String COLUMNNAME_BH_Concept_Mapping_ID = "BH_Concept_Mapping_ID";
 
@@ -255,6 +244,15 @@ public interface I_BH_Concept_Mapping
 	  */
 	public int getCreatedBy();
 
+    /** Column name From_BH_Concept_ID */
+    public static final String COLUMNNAME_From_BH_Concept_ID = "From_BH_Concept_ID";
+
+	/** Set From Concept	  */
+	public void setFrom_BH_Concept_ID (int From_BH_Concept_ID);
+
+	/** Get From Concept	  */
+	public int getFrom_BH_Concept_ID();
+
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -267,6 +265,28 @@ public interface I_BH_Concept_Mapping
 	  * The record is active in the system
 	  */
 	public boolean isActive();
+
+    /** Column name Ocl_Uuid */
+    public static final String COLUMNNAME_Ocl_Uuid = "Ocl_Uuid";
+
+	/** Set Ocl Uuid.
+	  * A UUID from the OCL system
+	  */
+	public void setOcl_Uuid (String Ocl_Uuid);
+
+	/** Get Ocl Uuid.
+	  * A UUID from the OCL system
+	  */
+	public String getOcl_Uuid();
+
+    /** Column name To_BH_Concept_ID */
+    public static final String COLUMNNAME_To_BH_Concept_ID = "To_BH_Concept_ID";
+
+	/** Set To Concept	  */
+	public void setTo_BH_Concept_ID (int To_BH_Concept_ID);
+
+	/** Get To Concept	  */
+	public int getTo_BH_Concept_ID();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
