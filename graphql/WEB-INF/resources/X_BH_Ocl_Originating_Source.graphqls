@@ -1,0 +1,44 @@
+# Generated Schema for BH_Ocl_Originating_Source - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_Ocl_Originating_Source(UU: String!): BH_Ocl_Originating_Source
+	BH_Ocl_Originating_SourceGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Ocl_Originating_SourceConnection!
+}
+
+extend type Mutation {
+	BH_Ocl_Originating_SourceSave(Entity: BH_Ocl_Originating_SourceInput!): BH_Ocl_Originating_Source!
+	BH_Ocl_Originating_SourceSaveMany(Entities: [BH_Ocl_Originating_SourceInput!]!): [BH_Ocl_Originating_Source!]!
+	BH_Ocl_Originating_SourceDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Ocl_Originating_SourceConnection {
+	Results: [BH_Ocl_Originating_Source!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Ocl_Originating_Source {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Ocl_Originating_SourceInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+}

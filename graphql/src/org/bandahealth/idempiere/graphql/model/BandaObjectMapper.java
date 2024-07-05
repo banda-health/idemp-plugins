@@ -314,6 +314,7 @@ public class BandaObjectMapper {
 							addMapping(I_BH_Encounter_Type_WindowInput.class, MBHEncounterTypeWindowInput.class);
 							addMapping(I_BH_I_Product_QuantityInput.class, X_BH_I_Product_QuantityInput.class);
 							addMapping(I_BH_ObservationInput.class, MBHObservationInput.class);
+							addMapping(I_BH_Ocl_Originating_SourceInput.class, MBHOclOriginatingSourceInput.class);
 							addMapping(I_BH_Payer_Info_FldInput.class, MBHPayerInfoFldInput.class);
 							addMapping(I_BH_Payer_Info_Fld_SugInput.class, MBHPayerInfoFldSugInput.class);
 							addMapping(I_BH_Payer_Info_Fld_ValInput.class, MBHPayerInfoFldValInput.class);

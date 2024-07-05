@@ -741,6 +741,7 @@ public class BandaSchemaFileComposer {
 						"WEB-INF/resources/X_BH_Encounter_Type_Window.graphqls",
 						"WEB-INF/resources/X_BH_I_Product_Quantity.graphqls",
 						"WEB-INF/resources/X_BH_Observation.graphqls",
+						"WEB-INF/resources/X_BH_Ocl_Originating_Source.graphqls",
 						"WEB-INF/resources/X_BH_Payer_Info_Fld.graphqls",
 						"WEB-INF/resources/X_BH_Payer_Info_Fld_Sug.graphqls",
 						"WEB-INF/resources/X_BH_Payer_Info_Fld_Val.graphqls",

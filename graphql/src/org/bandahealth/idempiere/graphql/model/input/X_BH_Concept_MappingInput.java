@@ -21,7 +21,8 @@ import java.sql.ResultSet;
 public class X_BH_Concept_MappingInput extends MBHConceptMapping implements I_BH_Concept_MappingInput {
 
 	private ForeignEntityInput mAD_Org;
-	private ForeignEntityInput mBH_Concept;
+	private ForeignEntityInput mFrom_BH_Concept;
+	private ForeignEntityInput mTo_BH_Concept;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -71,43 +72,6 @@ public class X_BH_Concept_MappingInput extends MBHConceptMapping implements I_BH
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-
-	/**
-	 * Set Concept.
-	 *
-	 * @param BH_Concept Concept
-	 */
-	@JsonProperty("BH_Concept")
-	public void setBH_ConceptInput(ForeignEntityInput BH_Concept) {
-		this.mBH_Concept = BH_Concept;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (BH_Concept != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBHConcept foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "BH_Concept", "BH_Concept_UU=?", get_TrxName())
-							.setParameters(BH_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setBH_Concept_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table BH_Concept with UU " + BH_Concept.getUU());
-			}
-		} else {
-			this.setBH_Concept_ID(0);
-		}
-	}
-
-	/**
-	 * Get Concept.
-	 *
-	 * @return Concept
-	 */
-	@JsonProperty("BH_Concept")
-	public ForeignEntityInput BH_Concept() {
-		return mBH_Concept;
-	}
 	/**
 	 * Set Concept Mapping.
 	 *
@@ -136,5 +100,79 @@ public class X_BH_Concept_MappingInput extends MBHConceptMapping implements I_BH
 	 */
 	public String getUU() {
 		return getBH_Concept_Mapping_UU();
+	}
+
+	/**
+	 * Set From Concept.
+	 *
+	 * @param From_BH_Concept From Concept
+	 */
+	@JsonProperty("From_BH_Concept")
+	public void setFrom_BH_ConceptInput(ForeignEntityInput From_BH_Concept) {
+		this.mFrom_BH_Concept = From_BH_Concept;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (From_BH_Concept != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHConcept foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "BH_Concept", "BH_Concept_UU=?", get_TrxName())
+							.setParameters(From_BH_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setFrom_BH_Concept_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table BH_Concept with UU " + From_BH_Concept.getUU());
+			}
+		} else {
+			this.setFrom_BH_Concept_ID(0);
+		}
+	}
+
+	/**
+	 * Get From Concept.
+	 *
+	 * @return From Concept
+	 */
+	@JsonProperty("From_BH_Concept")
+	public ForeignEntityInput From_BH_Concept() {
+		return mFrom_BH_Concept;
+	}
+
+	/**
+	 * Set To Concept.
+	 *
+	 * @param To_BH_Concept To Concept
+	 */
+	@JsonProperty("To_BH_Concept")
+	public void setTo_BH_ConceptInput(ForeignEntityInput To_BH_Concept) {
+		this.mTo_BH_Concept = To_BH_Concept;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (To_BH_Concept != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHConcept foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "BH_Concept", "BH_Concept_UU=?", get_TrxName())
+							.setParameters(To_BH_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setTo_BH_Concept_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table BH_Concept with UU " + To_BH_Concept.getUU());
+			}
+		} else {
+			this.setTo_BH_Concept_ID(0);
+		}
+	}
+
+	/**
+	 * Get To Concept.
+	 *
+	 * @return To Concept
+	 */
+	@JsonProperty("To_BH_Concept")
+	public ForeignEntityInput To_BH_Concept() {
+		return mTo_BH_Concept;
 	}
 }
