@@ -104,6 +104,18 @@ test('cashier/registration basic role can run report', async () => {
 	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
 });
 
+test('cashier/registration basic plus role can run report', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login(RoleName.CashierRegistrationBasicPlus);
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process!.UU;
+	valueObject.processInformationParameters = [processInformationParameter!];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
 test('cashier/registration advanced role can run report', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login(RoleName.CashierRegistrationAdvanced);
