@@ -321,3 +321,116 @@ BEGIN
 	RAISE NOTICE 'New user role added to % clients', clients_updated;
 END;
 $$;
+
+
+-- Create the new role
+INSERT INTO
+	ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description,
+	         userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual, isshowacct, ispersonallock,
+	         ispersonalaccess, iscanexport, iscanreport, supervisor_id, iscanapproveowndoc, isaccessallorgs, ischangelog,
+	         preferencetype, overwritepricelimit, isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords,
+	         maxqueryrecords, connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner,
+	         allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order, allow_info_payment,
+	         allow_info_product, allow_info_resource, allow_info_schedule, userdiscount, allow_info_mrp, allow_info_crp,
+	         isdiscountuptolimitprice, isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu,
+	         ismenuautoexpand, ismasterrole, isaccessadvanced, roletype, isclientadministrator,
+	         predefinedcontextvariables)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_role_id) + 1
+		 FROM
+			 ad_role
+	 ), 0, 0, 'Y', '2024-07-04 10:01:21.750170', 0, '2024-07-04 10:01:21.750170', 'Cashier/Registration Basic+', 0,
+	 'Cashier/Registration Basic Plus Sales Price Editing on Visits', 'S  ', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y',
+	 NULL, 'N', 'N', 'N', 'O', 'N', 'N', NULL, 0, 0, NULL, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', NULL,
+	 'N', 'N', 'N', 'N', 0, 0, 'c0e72e44-9cc9-4a0a-b5cd-6cc923678c1a', 'N', 'Y', 'Y', NULL, 'N', NULL);
+INSERT INTO
+	ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name,
+	             description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing,
+	             bh_add_all)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_ref_list_id) + 1
+		 FROM
+			 ad_ref_list
+	 ), 0, 0, 'Y', '2024-07-04 10:01:21.750170', 100, '2024-07-04 10:01:21.750170', 100, 'S',
+	 'Cashier/Registration Basic+', NULL, (
+		 SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '5b41f508-5ce5-4b42-80de-713e10580d51'
+	 ), NULL, NULL, 'U', 'f7c6117b-69df-4a56-93cc-5f8ab92c74ea', 'N', 'N');
+
+-- Give it the same access as the Cashier/Registration Basic
+INSERT INTO
+	ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+	                  isreadwrite, ad_window_access_uu, bh_candeactivate)
+SELECT
+	wa.ad_window_id,
+	r_crbp.ad_role_id,
+	wa.ad_client_id,
+	wa.ad_org_id,
+	wa.isactive,
+	NOW(),
+	wa.createdby,
+	NOW(),
+	wa.updatedby,
+	wa.isreadwrite,
+	uuid_generate_v4(),
+	wa.bh_candeactivate
+FROM
+	ad_window_access wa
+		JOIN ad_role r_crb
+		ON wa.ad_role_id = r_crb.ad_role_id AND r_crb.ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+		JOIN ad_role r_crbp
+		ON r_crbp.ad_role_uu = 'c0e72e44-9cc9-4a0a-b5cd-6cc923678c1a';
+INSERT INTO
+	ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+	                   updatedby, isreadwrite, ad_process_access_uu)
+SELECT
+	pa.ad_process_id,
+	r_crbp.ad_role_id,
+	pa.ad_client_id,
+	pa.ad_org_id,
+	pa.isactive,
+	NOW(),
+	pa.createdby,
+	NOW(),
+	pa.updatedby,
+	pa.isreadwrite,
+	uuid_generate_v4()
+FROM
+	ad_process_access pa
+		JOIN ad_role r_crb
+		ON pa.ad_role_id = r_crb.ad_role_id AND r_crb.ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+		JOIN ad_role r_crbp
+		ON r_crbp.ad_role_uu = 'c0e72e44-9cc9-4a0a-b5cd-6cc923678c1a';
+
+-- Add it to existing clients
+SELECT
+	add_roles_to_clients('c0e72e44-9cc9-4a0a-b5cd-6cc923678c1a', 'S');
+
+-- Migrate Galmi's users to be the new role
+UPDATE ad_role_included
+SET
+	included_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'c0e72e44-9cc9-4a0a-b5cd-6cc923678c1a'
+	)
+WHERE
+	included_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+	)
+	AND ad_role_id IN (
+		SELECT
+			ad_role_id
+		FROM
+			ad_role
+		WHERE
+			ad_client_id IN (
+				SELECT ad_client_id FROM ad_client WHERE ad_client_uu = '8f5dd4ad-de55-4edf-86c2-1cbce4ff6512'
+			)
+	);
+
+SELECT
+	register_migration_script('202407041056_GO-3017.sql')
+FROM
+	dual;
