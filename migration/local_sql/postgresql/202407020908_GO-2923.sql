@@ -77,7 +77,7 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 
 
 /************ BH_Concept ************/
-ALTER TABLE BH_Concept ADD Ocl_Uuid VARCHAR(100) NOT NULL;
+ALTER TABLE BH_Concept ADD Ocl_Uuid VARCHAR(100);
 
 -- Add ad_element
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-07-03 12:24:35.533000', 100, '2024-07-03 12:24:35.533000', 100, 'Ocl_Uuid', 'U', 'Ocl Uuid', 'Ocl Uuid', 'A UUID from the OCL system', null, null, null, null, null, '214c9fb5-bdda-4b3c-a5cc-11b73068702e', null) ON CONFLICT DO NOTHING;
@@ -87,10 +87,13 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 
 
 /************ BH_Concept_Mapping ************/
-ALTER TABLE BH_Concept_Mapping ADD Ocl_Uuid VARCHAR(100) NOT NULL;
+ALTER TABLE BH_Concept_Mapping ADD Ocl_Uuid VARCHAR(100);
 
+-- Change the way we link between BH_Concept_Mapping and BH_Concept
 ALTER TABLE BH_Concept_Mapping
 	DROP CONSTRAINT BHConcept_BHConceptMapping;
+ALTER TABLE BH_Concept_Mapping
+	DROP CONSTRAINT bhconceptmapping_bhconcept;
 
 ALTER TABLE BH_Concept_Mapping RENAME COLUMN BH_Concept_ID TO From_BH_Concept_ID;
 
@@ -105,6 +108,12 @@ ALTER TABLE BH_Concept_Mapping
 	ADD CONSTRAINT ToBHConcept_BHConceptMapping
 		FOREIGN KEY (To_BH_Concept_ID) REFERENCES bh_concept(bh_concept_id)
 			DEFERRABLE INITIALLY DEFERRED;
+
+-- Remove requirement for OCL ID to be unique, as we've learned it ISN'T always unique
+ALTER TABLE BH_Concept
+	DROP CONSTRAINT bh_concept_bh_oclid_idx;
+ALTER TABLE BH_Concept_Mapping
+	DROP CONSTRAINT bh_concept_mapping_bh_oclid_idx;
 
 -- Add ad_elements
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-07-03 12:24:35.533000', 100, '2024-07-03 12:24:35.533000', 100, 'Ocl_Uuid', 'U', 'Ocl Uuid', 'Ocl Uuid', 'A UUID from the OCL system', null, null, null, null, null, '4296ee25-9f66-4bea-8920-63c1fbbf52fc', null) ON CONFLICT DO NOTHING;
@@ -125,6 +134,7 @@ SET name = 'From Concept',
 	ad_reference_id = 13
 WHERE ad_column_uu = '1c7d44c2-aa9d-4c50-bced-9bd40bd4d901';
 
+
 /************ BH_Coded_Diagnosis ************/
 ALTER TABLE BH_Coded_Diagnosis ADD Ocl_Uuid VARCHAR(100);
 
@@ -133,6 +143,16 @@ INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, create
 
 -- Add ad_column
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-07-03 12:25:39.857000', '2024-07-03 12:25:39.857000', 100, 100, 'Ocl Uuid', 'A UUID from the OCL System', null, 0, 'U', 'Ocl_Uuid', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='c70f99ee-42b5-4a38-af7f-9260da3bb47a'), 10, null, null, 100, null, 'N', 'N', 'N', 'Y', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', (SELECT AD_Element_ID FROM AD_Element WHERE AD_Element_UU='89e78ec7-9e2b-4b4e-a1a5-63f9d95623af'), null, 'N', 'N', null, null, null, 'N', 'Y', null, '2367d716-7f25-4a15-b5d6-ec94267fd640', 'Y', 0, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
+
+
+/************ BH_Concept_Name ************/
+ALTER TABLE BH_Concept_Name ADD Ocl_Uuid VARCHAR(100);
+
+-- Add ad_element
+INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-07-03 12:24:35.533000', 100, '2024-07-03 12:24:35.533000', 100, 'Ocl_Uuid', 'U', 'Ocl Uuid', 'Ocl Uuid', 'A UUID from the OCL system', null, null, null, null, null, '6a9c7c84-5087-4066-962e-73c673586258', null) ON CONFLICT DO NOTHING;
+
+-- Add ad_column
+INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-07-03 12:25:39.857000', '2024-07-03 12:25:39.857000', 100, 100, 'Ocl Uuid', 'A UUID from the OCL System', null, 0, 'U', 'Ocl_Uuid', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='da89d74d-1048-4ece-a893-59df4f335ff6'), 10, null, null, 100, null, 'N', 'N', 'N', 'Y', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', (SELECT AD_Element_ID FROM AD_Element WHERE AD_Element_UU='6a9c7c84-5087-4066-962e-73c673586258'), null, 'N', 'N', null, null, null, 'N', 'Y', null, '2cb57de0-84c7-422e-ba73-423e0fe87af2', 'Y', 0, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 
 
 SELECT
