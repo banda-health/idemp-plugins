@@ -17,6 +17,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -54,8 +55,10 @@ public class ConceptSyncProcess extends SvrProcess {
 	private String URI_OPTIONS = "?includeRetired=true&includeMappings=true&sortAsc=name&verbose=true";
 	private String BHGO_URI = "/orgs/bandahealth/sources/";
 	private final String CONCEPTS_URI = "/concepts/";
+	private String BH_OWNER = "bandahealth"; // constant for concepts we own
 
 	private final HttpClient client = HttpClient.newBuilder().version(Version.HTTP_2).build();
+	private final Pattern UUID_REGEX = Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
 
 	@Override
 	protected void prepare() {
@@ -101,18 +104,18 @@ public class ConceptSyncProcess extends SvrProcess {
 			// Take advantage of batching to avoid multiple db calls.
 			List<Object> parameters = new ArrayList<Object>();
 
-			Set<String> items = concepts.stream().map(OCLConcept::getExternalId).collect(Collectors.toSet());
+			Set<String> items = concepts.stream().map(OCLConcept::getUuid).collect(Collectors.toSet());
 			String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(items, parameters);
 
 			List<MBHConcept> mConcepts = new Query(getCtx(), MBHConcept.Table_Name,
-					MBHConcept.COLUMNNAME_BH_Concept_UU + " IN ( " + inClause + " )", null).setParameters(parameters)
+					MBHConcept.COLUMNNAME_Ocl_Uuid + " IN ( " + inClause + " )", null).setParameters(parameters)
 							.list();
 
 			concepts.forEach(concept -> {
 				try {
 					// search for concept in db list
 					MBHConcept foundConcept = mConcepts.stream()
-							.filter(filterConcept -> concept.getExternalId().equals(filterConcept.getBH_Concept_UU()))
+							.filter(filterConcept -> concept.getUuid().equals(filterConcept.getOcl_Uuid()))
 							.findFirst().orElse(null);
 
 					saveConcept(concept, foundConcept, newRecords, updatedRecords, new HashSet<>());
@@ -145,21 +148,14 @@ public class ConceptSyncProcess extends SvrProcess {
 			return;
 		}
 
-		// search for concept in db list
 		if (mConcept == null) {
-			mConcept = new Query(getCtx(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_OclID + " =?", null)
-					.setParameters(concept.getId()).first();
-
-			if (mConcept == null) {
-				mConcept = new MBHConcept(getCtx(), 0, null);
-				newRecords.incrementAndGet();
-			} else {
-				updatedRecords.incrementAndGet();
-			}
+			mConcept = new MBHConcept(getCtx(), 0, null);
+			newRecords.incrementAndGet();
 		} else {
 			updatedRecords.incrementAndGet();
 		}
 
+		mConcept.setOcl_Uuid(concept.getUuid());
 		mConcept.setIsActive(!concept.isRetired());
 		mConcept.setBH_Data_Type(concept.getDatatype());
 		mConcept.setbh_concept_class(concept.getConceptClass());
@@ -171,6 +167,10 @@ public class ConceptSyncProcess extends SvrProcess {
 		mConcept.setBH_Owner(concept.getOwner());
 		mConcept.setBH_Source(concept.getSource());
 		mConcept.setURL(concept.getUrl());
+		// If it is a concept we own and the external ID is a valid UUID, use that for the UU column
+		if (concept.getOwner().equals(BH_OWNER) && concept.getExternalId() != null && UUID_REGEX.matcher(concept.getExternalId()).matches()) {
+			mConcept.setBH_Concept_UU(concept.getExternalId());
+		}
 		mConcept.saveEx();
 
 		visitedConcepts.add(concept.getId());
@@ -225,7 +225,6 @@ public class ConceptSyncProcess extends SvrProcess {
 			foundConceptName.setName(name.getName());
 			foundConceptName.setBH_Concept_Type(name.getType());
 			foundConceptName.setBH_Concept_Name_Type(name.getNameType());
-			foundConceptName.setBH_Concept_Locale(name.getLocale());
 			foundConceptName.setBH_Concept_Locale_Preferred(name.isLocalePreferred());
 			foundConceptName.saveEx();
 		});
@@ -326,10 +325,10 @@ public class ConceptSyncProcess extends SvrProcess {
 		List<Object> parameters = new ArrayList<Object>();
 
 		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(
-				mappings.stream().map(OCLConceptMapping::getId).collect(Collectors.toSet()), parameters);
+				mappings.stream().map(OCLConceptMapping::getUuid).collect(Collectors.toSet()), parameters);
 
 		List<MBHConceptMapping> mConceptMappings = new Query(getCtx(), MBHConceptMapping.Table_Name,
-				MBHConceptMapping.COLUMNNAME_BH_OclID + " IN ( " + inClause + " )", null).setParameters(parameters)
+				MBHConceptMapping.COLUMNNAME_Ocl_Uuid + " IN ( " + inClause + " )", null).setParameters(parameters)
 						.list();
 
 		// save every mapping and check underlying concepts
@@ -339,7 +338,7 @@ public class ConceptSyncProcess extends SvrProcess {
 					&& !MBHConceptMapping.BROADER_THAN_MAP_TYPE.equals(mapping.getMapType())) {
 				// search mapping in db list
 				MBHConceptMapping foundConceptMapping = mConceptMappings.stream()
-						.filter(filterConceptMapping -> mapping.getId().equals(filterConceptMapping.getBH_OclID()))
+						.filter(filterConceptMapping -> mapping.getUuid().equals(filterConceptMapping.getOcl_Uuid()))
 						.findFirst().orElse(null);
 
 				if (foundConceptMapping == null) {
@@ -355,7 +354,8 @@ public class ConceptSyncProcess extends SvrProcess {
 					foundConceptMapping.setBH_ExternalID(mapping.getExternalId());
 				}
 
-				foundConceptMapping.setIsActive(mapping.isRetired());
+				foundConceptMapping.setOcl_Uuid(mapping.getUuid());
+				foundConceptMapping.setIsActive(!mapping.isRetired());
 				foundConceptMapping.setFrom_BH_Concept_ID(parentConcept.get_ID());
 				foundConceptMapping.setBH_Source(mapping.getToSourceOwner());
 				foundConceptMapping.setBH_Map_Type(mapping.getMapType());
@@ -370,6 +370,10 @@ public class ConceptSyncProcess extends SvrProcess {
 				foundConceptMapping.setBH_From_Concept_Name_Resolved(mapping.getFromConceptNameResolved());
 				foundConceptMapping.setBH_From_Concept_Name(mapping.getFromConceptName());
 				foundConceptMapping.setBH_From_Concept_Url(mapping.getFromConceptUrl());
+				// If it is a concept we own and the external ID is a valid UUID, use that for the UU column
+				if (mapping.getOwner().equals(BH_OWNER) && mapping.getExternalId() != null && UUID_REGEX.matcher(mapping.getExternalId()).matches()) {
+					foundConceptMapping.setBH_Concept_Mapping_UU(mapping.getExternalId());
+				}
 
 				foundConceptMapping.saveEx();
 
