@@ -25,6 +25,7 @@ import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.base.model.MBHConceptName;
+import org.bandahealth.idempiere.base.model.MBHOclOriginatingSource;
 import org.bandahealth.idempiere.base.model.OCLConcept;
 import org.bandahealth.idempiere.base.model.OCLConceptMapping;
 import org.bandahealth.idempiere.base.utils.JsonUtils;
@@ -52,13 +53,14 @@ public class ConceptSyncProcess extends SvrProcess {
 	private String OCL_BASE_URL = StringUtil.isNullOrEmpty(System.getenv("OCL_BASE_URL"))
 			? "https://api.openconceptlab.org"
 			: System.getenv("OCL_BASE_URL");
-	private String URI_OPTIONS = "?includeRetired=true&includeMappings=true&sortAsc=name&verbose=true";
+	private String URI_OPTIONS = "?includeRetired=true&includeMappings=true&verbose=true";
 	private String BHGO_URI = "/orgs/bandahealth/sources/";
 	private final String CONCEPTS_URI = "/concepts/";
 	private String BH_OWNER = "bandahealth"; // constant for concepts we own
 
 	private final HttpClient client = HttpClient.newBuilder().version(Version.HTTP_2).build();
 	private final Pattern UUID_REGEX = Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
+	private Set<String> visitedConcepts;
 
 	@Override
 	protected void prepare() {
@@ -87,6 +89,7 @@ public class ConceptSyncProcess extends SvrProcess {
 		long start = System.currentTimeMillis();
 		AtomicInteger newRecords = new AtomicInteger(0);
 		AtomicInteger updatedRecords = new AtomicInteger(0);
+		visitedConcepts = new HashSet<>();
 
 		int conceptCount = getConceptCount();
 		if (conceptCount == 0) {
@@ -118,7 +121,7 @@ public class ConceptSyncProcess extends SvrProcess {
 							.filter(filterConcept -> concept.getUuid().equals(filterConcept.getOcl_Uuid()))
 							.findFirst().orElse(null);
 
-					saveConcept(concept, foundConcept, newRecords, updatedRecords, new HashSet<>());
+					saveConcept(concept, foundConcept, newRecords, updatedRecords);
 
 				} catch (Exception ex) {
 					log.log(Level.SEVERE, ex.getMessage());
@@ -143,8 +146,8 @@ public class ConceptSyncProcess extends SvrProcess {
 	 * @param updatedRecords
 	 */
 	private void saveConcept(OCLConcept concept, MBHConcept mConcept, AtomicInteger newRecords,
-			AtomicInteger updatedRecords, Set<String> visitedConcepts) {
-		if (concept == null || visitedConcepts.contains(concept.getId())) {
+			AtomicInteger updatedRecords) {
+		if (concept == null || visitedConcepts.contains(concept.getUuid())) {
 			return;
 		}
 
@@ -167,13 +170,10 @@ public class ConceptSyncProcess extends SvrProcess {
 		mConcept.setBH_Owner(concept.getOwner());
 		mConcept.setBH_Source(concept.getSource());
 		mConcept.setURL(concept.getUrl());
-		// If it is a concept we own and the external ID is a valid UUID, use that for the UU column
-		if (concept.getOwner().equals(BH_OWNER) && concept.getExternalId() != null && UUID_REGEX.matcher(concept.getExternalId()).matches()) {
-			mConcept.setBH_Concept_UU(concept.getExternalId());
-		}
+
 		mConcept.saveEx();
 
-		visitedConcepts.add(concept.getId());
+		visitedConcepts.add(concept.getUuid());
 
 		final int conceptID = mConcept.getBH_Concept_ID();
 
@@ -208,13 +208,13 @@ public class ConceptSyncProcess extends SvrProcess {
 		concept.getNames().forEach((name) -> {
 			// search name in db list
 			MBHConceptName foundConceptName = mConceptNames.stream()
-					.filter(filterConceptName -> name.getUuid().equals(filterConceptName.getBH_Concept_Name_UU()))
+					.filter(filterConceptName -> name.getUuid().equals(filterConceptName.getOcl_Uuid()))
 					.findFirst().orElse(null);
 
 			if (foundConceptName == null) {
 				// new record
 				foundConceptName = new MBHConceptName(getCtx(), 0, null);
-				foundConceptName.setBH_Concept_Name_UU(name.getUuid());
+				foundConceptName.setOcl_Uuid(name.getUuid());
 				foundConceptName.setBH_Concept_ID(conceptID);
 				newRecords.incrementAndGet();
 			} else {
@@ -230,11 +230,11 @@ public class ConceptSyncProcess extends SvrProcess {
 		});
 
 		// save mappings
-		downloadChildMappings(mConcept, concept, newRecords, updatedRecords, visitedConcepts);
+		downloadChildMappings(mConcept, concept, newRecords, updatedRecords);
 	}
 
-	private CompletableFuture<HttpResponse<String>> makeRequest(String source, int page) {
-		String url = constructUrl(source, page, source == null ? LIMIT : 0);
+	private CompletableFuture<HttpResponse<String>> makeRequest(String source, int page, int limit, boolean includeSort) {
+		String url = constructUrl(source, page, limit, includeSort);
 		HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("Content-Type", "application/json")
 				.build();
 
@@ -249,7 +249,7 @@ public class ConceptSyncProcess extends SvrProcess {
 	 * @return
 	 */
 	private List<OCLConcept> getConceptsFromOCL(String source, int page) {
-		CompletableFuture<HttpResponse<String>> response = makeRequest(source, page);
+		CompletableFuture<HttpResponse<String>> response = makeRequest(source, page, source == null ? LIMIT : 0, true);
 		List<OCLConcept> oclConcepts = new ArrayList<OCLConcept>();
 		try {
 			oclConcepts = JsonUtils.convertFromJsonToList(response.get().body(), new TypeReference<List<OCLConcept>>() {
@@ -272,11 +272,13 @@ public class ConceptSyncProcess extends SvrProcess {
 	 * @return
 	 */
 	private OCLConcept getConceptFromOCL(String source) {
-		CompletableFuture<HttpResponse<String>> response = makeRequest(source, 0);
+		// To get the latest version of an individual concept, use the "Versions" URL, and limit the results to 1
+		CompletableFuture<HttpResponse<String>> response = makeRequest(source + "versions/", 0, 1, false);
 		OCLConcept oclConcept = new OCLConcept();
 		try {
-			oclConcept = JsonUtils.covertFromJsonToObject(response.get().body(), OCLConcept.class);
-		} catch (InterruptedException | ExecutionException | IOException e) {
+			oclConcept = JsonUtils.convertFromJsonToList(response.get().body(), new TypeReference<List<OCLConcept>>() {
+			}).get(0);
+		} catch (InterruptedException | ExecutionException | IOException | IndexOutOfBoundsException e) {
 			log.log(Level.SEVERE, "Error getting concept: ", e);
 			return null;
 		}
@@ -294,7 +296,7 @@ public class ConceptSyncProcess extends SvrProcess {
 	 */
 	private int getConceptCount() {
 		int count = 0;
-		CompletableFuture<HttpResponse<String>> response = makeRequest(null, 1);
+		CompletableFuture<HttpResponse<String>> response = makeRequest(null, 1, LIMIT, true);
 		try {
 			HttpHeaders headers = response.get().headers();
 			Optional<String> numFound = headers.firstValue("num_found");
@@ -315,7 +317,7 @@ public class ConceptSyncProcess extends SvrProcess {
 	 * @param ConceptMapping
 	 */
 	private void downloadChildMappings(MBHConcept parentConcept, OCLConcept oclConcept, AtomicInteger newRecords,
-			AtomicInteger updatedRecords, Set<String> visitedConcepts) {
+			AtomicInteger updatedRecords) {
 		List<OCLConceptMapping> mappings = oclConcept.getMappings();
 		if (mappings.isEmpty()) {
 			return;
@@ -370,10 +372,6 @@ public class ConceptSyncProcess extends SvrProcess {
 				foundConceptMapping.setBH_From_Concept_Name_Resolved(mapping.getFromConceptNameResolved());
 				foundConceptMapping.setBH_From_Concept_Name(mapping.getFromConceptName());
 				foundConceptMapping.setBH_From_Concept_Url(mapping.getFromConceptUrl());
-				// If it is a concept we own and the external ID is a valid UUID, use that for the UU column
-				if (mapping.getOwner().equals(BH_OWNER) && mapping.getExternalId() != null && UUID_REGEX.matcher(mapping.getExternalId()).matches()) {
-					foundConceptMapping.setBH_Concept_Mapping_UU(mapping.getExternalId());
-				}
 
 				foundConceptMapping.saveEx();
 
@@ -410,17 +408,18 @@ public class ConceptSyncProcess extends SvrProcess {
 				// some concepts are mapped to themselves leading to an infinite loop.
 				if (mappingUrl != null && !"null".equals(mappingUrl) && !oclConcept.getUrl().equals(mappingUrl)) {
 					// check mappings
-					saveConcept(getConceptFromOCL(mappingUrl), null, newRecords, updatedRecords, visitedConcepts);
+					saveConcept(getConceptFromOCL(mappingUrl), null, newRecords, updatedRecords);
 				}
 			}
 		});
 	}
 
-	private String constructUrl(String source, int page, int limit) {
+	private String constructUrl(String source, int page, int limit, boolean includeSort) {
 		StringBuilder url = new StringBuilder();
 		url.append(OCL_BASE_URL);
 		url.append(source != null ? source : BHGO_URI + this.source + CONCEPTS_URI);
 		url.append(URI_OPTIONS);
+		url.append(includeSort ? "&sortAsc=name" : "");
 		url.append(limit > 0 ? "&limit=" + limit : "");
 		url.append(page > 0 ? "&page=" + page : "");
 

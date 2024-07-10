@@ -38,6 +38,8 @@ type BH_Concept_Name {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String
+	# A UUID from the OCL system
+	Ocl_Uuid: String
 	# Date this record was updated
 	Updated: Date
 	# User who updated this records
@@ -59,4 +61,6 @@ input BH_Concept_NameInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
+	# A UUID from the OCL system
+	Ocl_Uuid: String
 }

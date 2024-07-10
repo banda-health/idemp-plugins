@@ -184,6 +184,19 @@ public interface I_BH_Concept_Name
 	  */
 	public String getName();
 
+    /** Column name Ocl_Uuid */
+    public static final String COLUMNNAME_Ocl_Uuid = "Ocl_Uuid";
+
+	/** Set Ocl Uuid.
+	  * A UUID from the OCL system
+	  */
+	public void setOcl_Uuid (String Ocl_Uuid);
+
+	/** Get Ocl Uuid.
+	  * A UUID from the OCL system
+	  */
+	public String getOcl_Uuid();
+
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
 
