@@ -64,6 +64,17 @@ public interface I_BH_Ocl_Originating_Source
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name BH_Concept_ID */
+    public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
+
+	/** Set Concept	  */
+	public void setBH_Concept_ID (int BH_Concept_ID);
+
+	/** Get Concept	  */
+	public int getBH_Concept_ID();
+
+	public I_BH_Concept getBH_Concept() throws RuntimeException;
+
     /** Column name BH_Ocl_Originating_Source_ID */
     public static final String COLUMNNAME_BH_Ocl_Originating_Source_ID = "BH_Ocl_Originating_Source_ID";
 
@@ -81,6 +92,15 @@ public interface I_BH_Ocl_Originating_Source
 
 	/** Get BH_Ocl_Originating_Source_UU	  */
 	public String getBH_Ocl_Originating_Source_UU();
+
+    /** Column name BH_Ocl_Source */
+    public static final String COLUMNNAME_BH_Ocl_Source = "BH_Ocl_Source";
+
+	/** Set BH Ocl Source	  */
+	public void setBH_Ocl_Source (String BH_Ocl_Source);
+
+	/** Get BH Ocl Source	  */
+	public String getBH_Ocl_Source();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

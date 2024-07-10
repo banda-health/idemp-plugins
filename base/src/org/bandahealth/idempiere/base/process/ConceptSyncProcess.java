@@ -177,6 +177,21 @@ public class ConceptSyncProcess extends SvrProcess {
 
 		final int conceptID = mConcept.getBH_Concept_ID();
 
+		// check ocl originating source
+		List<MBHOclOriginatingSource> mOclOriginatingSources = new Query(getCtx(), MBHOclOriginatingSource.Table_Name,
+				MBHOclOriginatingSource.COLUMNNAME_BH_Concept_ID + " =? AND " +
+				MBHOclOriginatingSource.COLUMNNAME_BH_Ocl_Source + "=?", null)
+				.setParameters(conceptID, source).list();
+		
+		// create ocl originating source if one doesn't exist
+		MBHOclOriginatingSource foundSource = mOclOriginatingSources.stream().findFirst().orElse(null);
+		if (foundSource == null) {
+			foundSource = new MBHOclOriginatingSource(getCtx(), 0, null);
+			foundSource.setBH_Concept_ID(conceptID);
+			foundSource.setBH_Ocl_Source(source);
+			foundSource.saveEx();
+		}
+		
 		// check existing extras
 		List<MBHConceptExtra> mConceptExtras = new Query(getCtx(), MBHConceptExtra.Table_Name,
 				MBHConceptExtra.COLUMNNAME_BH_Concept_ID + " =? ", null).setParameters(conceptID).list();
@@ -407,8 +422,14 @@ public class ConceptSyncProcess extends SvrProcess {
 
 				// some concepts are mapped to themselves leading to an infinite loop.
 				if (mappingUrl != null && !"null".equals(mappingUrl) && !oclConcept.getUrl().equals(mappingUrl)) {
-					// check mappings
-					saveConcept(getConceptFromOCL(mappingUrl), null, newRecords, updatedRecords);
+					// get the child concept
+					OCLConcept childConcept = getConceptFromOCL(mappingUrl);
+					List<MBHConcept> foundChildConcepts = new Query(getCtx(), MBHConcept.Table_Name,
+							MBHConcept.COLUMNNAME_Ocl_Uuid + " =?", null).setParameters(childConcept.getUuid())
+									.list();
+					MBHConcept foundChildConcept = foundChildConcepts.stream().findFirst().orElse(null);
+
+					saveConcept(childConcept, foundChildConcept, newRecords, updatedRecords);
 				}
 			}
 		});
