@@ -187,11 +187,18 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	 * @return Whether the logout was successful
 	 */
 	public Boolean Logout(DataFetchingEnvironment environment) {
-		try {
-			MSession.get(BandaGraphQLContext.getCtx(environment)).logout();
-		} catch (Exception e) {
-			log.warning("Could not log session out with ID : " +
-					MSession.get(BandaGraphQLContext.getCtx(environment)).getAD_Session_ID());
+		MSession session = new MSession(BandaGraphQLContext.getCtx(environment),
+				Env.getContextAsInt(BandaGraphQLContext.getCtx(environment), Env.AD_SESSION_ID), null);
+		if (session.getAD_Session_ID() > 0) {
+			try {
+				session.logout();
+			} catch (Exception e) {
+				log.warning("Could not log session out with ID : " +
+						MSession.get(BandaGraphQLContext.getCtx(environment)).getAD_Session_ID() + " - " + e.getMessage());
+			}
+		} else {
+			log.warning("No session found for session ID : " +
+					Env.getContextAsInt(BandaGraphQLContext.getCtx(environment), Env.AD_SESSION_ID));
 		}
 		Cookie authenticationCookieToClear = new AuthenticationCookie("");
 		authenticationCookieToClear.setMaxAge(0);
@@ -274,14 +281,14 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		Env.setContext(idempiereContext, Env.M_WAREHOUSE_ID, warehouse.get_ID());
 		builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.get_ID());
 
-		// set session last so the new values can be read from the context
+		// Lastly, take care of creating a session, if need be
 		MSession session = MSession.get(idempiereContext);
 		if (session == null) {
 			session = MSession.create(idempiereContext);
 			session.setWebSession("idempiere-graphql");
 			session.saveEx();
+			builder.withClaim(LoginClaims.AD_Session_ID.name(), session.getAD_Session_ID());
 		}
-		builder.withClaim(LoginClaims.AD_Session_ID.name(), session.getAD_Session_ID());
 	}
 
 	/**
