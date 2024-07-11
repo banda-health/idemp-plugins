@@ -287,8 +287,8 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			session = MSession.create(idempiereContext);
 			session.setWebSession("idempiere-graphql");
 			session.saveEx();
-			builder.withClaim(LoginClaims.AD_Session_ID.name(), session.getAD_Session_ID());
 		}
+		builder.withClaim(LoginClaims.AD_Session_ID.name(), session.getAD_Session_ID());
 	}
 
 	/**
