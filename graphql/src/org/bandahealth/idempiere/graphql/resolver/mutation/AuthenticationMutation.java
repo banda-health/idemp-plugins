@@ -214,16 +214,6 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		// expires after 60 minutes
 		builder.withIssuer(TokenUtils.getTokenIssuer()).withExpiresAt(expiresAt);
 
-		// set session
-		MSession session = MSession.get(idempiereContext);
-		if (session != null) {
-			session.logout();
-		}
-		session = MSession.create(idempiereContext);
-		session.setWebSession("idempiere-graphql");
-		session.saveEx();
-		builder.withClaim(LoginClaims.AD_Session_ID.name(), session.getAD_Session_ID());
-
 		// add user and language
 		builder.withClaim(LoginClaims.AD_User_ID.name(), user.getAD_User_ID());
 		builder.withClaim(LoginClaims.AD_Language.name(), Env.getAD_Language(idempiereContext));
@@ -283,6 +273,15 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		// set warehouse
 		Env.setContext(idempiereContext, Env.M_WAREHOUSE_ID, warehouse.get_ID());
 		builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.get_ID());
+
+		// set session last so the new values can be read from the context
+		MSession session = MSession.get(idempiereContext);
+		if (session == null) {
+			session = MSession.create(idempiereContext);
+			session.setWebSession("idempiere-graphql");
+			session.saveEx();
+		}
+		builder.withClaim(LoginClaims.AD_Session_ID.name(), session.getAD_Session_ID());
 	}
 
 	/**
