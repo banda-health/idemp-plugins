@@ -12,6 +12,8 @@ import java.util.Properties;
 public class MProductPriceDataLoader extends X_M_ProductPriceDataLoader {
 	public static String DATALOADER_M_ProductPrice_BY_M_PriceList_Version_ID =
 			"DATALOADER_M_ProductPrice_BY_M_PriceList_Version_ID";
+	public static String DATALOADER_M_ProductPrice_BY_M_Product_ID =
+			"DATALOADER_M_ProductPrice_BY_M_Product_ID";
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
@@ -19,11 +21,20 @@ public class MProductPriceDataLoader extends X_M_ProductPriceDataLoader {
 		registry.register(DATALOADER_M_ProductPrice_BY_M_PriceList_Version_ID,
 				DataLoader.newMappedDataLoader(getByPriceListVersionIdBatchLoader(),
 						getOptionsWithoutCache(idempiereContext)));
+		registry.register(DATALOADER_M_ProductPrice_BY_M_Product_ID,
+				DataLoader.newMappedDataLoader(getByProductIdBatchLoader(),
+						getOptionsWithoutCache(idempiereContext)));
 	}
 
 	private MappedBatchLoaderWithContext<String, List<MProductPrice_BH>> getByPriceListVersionIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getGroupsByModelKeysCompletableFuture(
 				batchLoaderEnvironment.getContext(), getTableName(), null, MProductPrice_BH::getM_PriceList_Version_ID,
 				MProductPrice_BH.COLUMNNAME_M_PriceList_Version_ID, keys);
+	}
+
+	private MappedBatchLoaderWithContext<String, List<MProductPrice_BH>> getByProductIdBatchLoader() {
+		return (keys, batchLoaderEnvironment) -> Repository.getGroupsByModelKeysCompletableFuture(
+				batchLoaderEnvironment.getContext(), getTableName(), null, MProductPrice_BH::getM_Product_ID,
+				MProductPrice_BH.COLUMNNAME_M_Product_ID, keys);
 	}
 }
