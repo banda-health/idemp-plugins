@@ -473,6 +473,7 @@ query M_AttributeSetInstanceGet($Page: Int, $Size: Int, $Sort: String, $Filter: 
 	M_AttributeSetInstanceGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			UU
+			GuaranteeDate
 		}
 	}
 }

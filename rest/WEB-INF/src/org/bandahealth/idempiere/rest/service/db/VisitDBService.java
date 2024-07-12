@@ -622,7 +622,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		String sqlWhere = MOrder_BH.COLUMNNAME_AD_Client_ID + " =?" +
 				AND_OPERATOR + MOrder_BH.COLUMNNAME_AD_Org_ID + " =?" + AND_OPERATOR +
 				MOrder_BH.COLUMNNAME_IsActive + " =?" + AND_OPERATOR +
-				MOrder_BH.COLUMNNAME_DocStatus + " =? " + AND_OPERATOR + "to_char(" +
+				MOrder_BH.COLUMNNAME_DocStatus + " IN (?,?) " + AND_OPERATOR + "to_char(" +
 				MOrder_BH.COLUMNNAME_Created + ", 'YYYY-MM-DD')" + " < ? " + AND_OPERATOR +
 				MOrder_BH.COLUMNNAME_IsSOTrx + " = ?";
 
@@ -634,6 +634,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		parameters.add(Env.getAD_Org_ID(Env.getCtx()));
 		parameters.add("Y");
 		parameters.add(MOrder_BH.DOCSTATUS_Drafted);
+		parameters.add(MOrder_BH.DOCSTATUS_InProgress);
 		parameters.add(DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())));
 		parameters.add("Y");
 

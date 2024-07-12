@@ -3,6 +3,7 @@ export enum RoleName {
 	Admin = 'Admin',
 	CashierRegistrationAdvanced = 'Cashier/Registration Advanced',
 	CashierRegistrationBasic = 'Cashier/Registration Basic',
+	CashierRegistrationBasicPlus = 'Cashier/Registration Basic+',
 	ClinicAdmin = 'Clinic Admin',
 	ClinicianNurseAdvanced = 'Clinician/Nurse Advanced',
 	ClinicianNurseBasic = 'Clinician/Nurse Basic',

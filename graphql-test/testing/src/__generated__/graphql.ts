@@ -18356,6 +18356,45 @@ export type Bh_Bp_Specific_Payer_InfoInput = {
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type Bh_Client_Concept = {
+  __typename?: 'BH_Client_Concept';
+  /** Tenant for this installation. */
+  AD_Client?: Maybe<Ad_Client>;
+  /** Organizational entity within tenant */
+  AD_Org?: Maybe<Ad_Org>;
+  BH_Concept: Bh_Concept;
+  /** Date this record was created */
+  Created?: Maybe<Scalars['Date']['output']>;
+  /** User who created this records */
+  CreatedBy?: Maybe<Ad_User>;
+  /** The record is active in the system */
+  IsActive: Scalars['Boolean']['output'];
+  /** Alphanumeric identifier of the entity */
+  Name?: Maybe<Scalars['String']['output']>;
+  UU: Scalars['ID']['output'];
+  /** Date this record was updated */
+  Updated?: Maybe<Scalars['Date']['output']>;
+  /** User who updated this records */
+  UpdatedBy?: Maybe<Ad_User>;
+};
+
+export type Bh_Client_ConceptConnection = {
+  __typename?: 'BH_Client_ConceptConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<Bh_Client_Concept>;
+};
+
+export type Bh_Client_ConceptInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
+  /** The record is active in the system */
+  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Alphanumeric identifier of the entity */
+  Name?: InputMaybe<Scalars['String']['input']>;
+  UU?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type Bh_Coded_Diagnosis = {
   __typename?: 'BH_Coded_Diagnosis';
   /** Tenant for this installation. */
@@ -18480,6 +18519,7 @@ export type Bh_Concept = {
   AD_Client: Ad_Client;
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
+  BH_Client_Concepts?: Maybe<Array<Bh_Client_Concept>>;
   BH_Concept_Extras?: Maybe<Array<Bh_Concept_Extra>>;
   BH_Concept_Names?: Maybe<Array<Bh_Concept_Name>>;
   BH_Concept_Type?: Maybe<Scalars['String']['output']>;
@@ -19136,6 +19176,7 @@ export type Bh_Payer_Info_Fld = {
   AD_Client: Ad_Client;
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
+  BH_BP_General_Payer_InfoList?: Maybe<Array<Bh_Bp_General_Payer_Info>>;
   BH_FillFromPatient: Scalars['Boolean']['output'];
   BH_Payer: C_BPartner;
   BH_PayerInfoFieldDataType: Ad_Ref_List;
@@ -22370,6 +22411,8 @@ export type C_BPartner = {
   AcqusitionCost?: Maybe<Scalars['BigDecimal']['output']>;
   /** Actual Life Time Revenue */
   ActualLifeTimeValue?: Maybe<Scalars['BigDecimal']['output']>;
+  BH_BP_Payer_Info_BPList?: Maybe<Array<Bh_Bp_Payer_Info>>;
+  BH_BP_Payer_Info_PayerList?: Maybe<Array<Bh_Bp_Payer_Info>>;
   /** Birthday or Anniversary day */
   BH_Birthday?: Maybe<Scalars['Date']['output']>;
   /** Electronic Mail Address */
@@ -51189,6 +51232,7 @@ export type Mutation = {
   AD_SearchDefinitionSave: Ad_SearchDefinition;
   AD_SearchDefinitionSaveMany: Array<Ad_SearchDefinition>;
   AD_SequenceDelete: Scalars['Boolean']['output'];
+  AD_SequenceGetDocumentNumber?: Maybe<Scalars['String']['output']>;
   AD_SequenceSave: Ad_Sequence;
   AD_SequenceSaveMany: Array<Ad_Sequence>;
   AD_Sequence_AuditDelete: Scalars['Boolean']['output'];
@@ -51581,6 +51625,9 @@ export type Mutation = {
   BH_BP_Specific_Payer_InfoDelete: Scalars['Boolean']['output'];
   BH_BP_Specific_Payer_InfoSave: Bh_Bp_Specific_Payer_Info;
   BH_BP_Specific_Payer_InfoSaveMany: Array<Bh_Bp_Specific_Payer_Info>;
+  BH_Client_ConceptDelete: Scalars['Boolean']['output'];
+  BH_Client_ConceptSave: Bh_Client_Concept;
+  BH_Client_ConceptSaveMany: Array<Bh_Client_Concept>;
   BH_Coded_DiagnosisDelete: Scalars['Boolean']['output'];
   BH_Coded_DiagnosisSave: Bh_Coded_Diagnosis;
   BH_Coded_DiagnosisSaveMany: Array<Bh_Coded_Diagnosis>;
@@ -52434,6 +52481,7 @@ export type Mutation = {
   I_ReportLineDelete: Scalars['Boolean']['output'];
   I_ReportLineSave: I_ReportLine;
   I_ReportLineSaveMany: Array<I_ReportLine>;
+  LoginCheckOtherClients: Scalars['Boolean']['output'];
   Logout: Scalars['Boolean']['output'];
   M_AttributeDelete: Scalars['Boolean']['output'];
   M_AttributeInstanceDelete: Scalars['Boolean']['output'];
@@ -55323,6 +55371,12 @@ export type MutationAd_SequenceDeleteArgs = {
 
 
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationAd_SequenceGetDocumentNumberArgs = {
+  TableName: Scalars['String']['input'];
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationAd_SequenceSaveArgs = {
   Entity: Ad_SequenceInput;
 };
@@ -57671,6 +57725,24 @@ export type MutationBh_Bp_Specific_Payer_InfoSaveArgs = {
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationBh_Bp_Specific_Payer_InfoSaveManyArgs = {
   Entities: Array<Bh_Bp_Specific_Payer_InfoInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Client_ConceptDeleteArgs = {
+  UUs: Array<Scalars['String']['input']>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Client_ConceptSaveArgs = {
+  Entity: Bh_Client_ConceptInput;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Client_ConceptSaveManyArgs = {
+  Entities: Array<Bh_Client_ConceptInput>;
 };
 
 
@@ -62809,6 +62881,12 @@ export type MutationI_ReportLineSaveArgs = {
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationI_ReportLineSaveManyArgs = {
   Entities: Array<I_ReportLineInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationLoginCheckOtherClientsArgs = {
+  Credentials: AuthenticationInput;
 };
 
 
@@ -71352,6 +71430,8 @@ export type Query = {
   BH_BP_Payer_InfoGet: Bh_Bp_Payer_InfoConnection;
   BH_BP_Specific_Payer_Info?: Maybe<Bh_Bp_Specific_Payer_Info>;
   BH_BP_Specific_Payer_InfoGet: Bh_Bp_Specific_Payer_InfoConnection;
+  BH_Client_Concept?: Maybe<Bh_Client_Concept>;
+  BH_Client_ConceptGet: Bh_Client_ConceptConnection;
   BH_Coded_Diagnosis?: Maybe<Bh_Coded_Diagnosis>;
   BH_Coded_DiagnosisGet: Bh_Coded_DiagnosisConnection;
   BH_Coded_Diagnosis_Mapping?: Maybe<Bh_Coded_Diagnosis_Mapping>;
@@ -76156,6 +76236,21 @@ export type QueryBh_Bp_Specific_Payer_InfoArgs = {
 
 /** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Bp_Specific_Payer_InfoGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Client_ConceptArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Client_ConceptGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
@@ -89427,7 +89522,7 @@ export type M_AttributeSetInstanceGetQueryVariables = Exact<{
 }>;
 
 
-export type M_AttributeSetInstanceGetQuery = { __typename?: 'Query', M_AttributeSetInstanceGet: { __typename?: 'M_AttributeSetInstanceConnection', Results: Array<{ __typename?: 'M_AttributeSetInstance', UU: string }> } };
+export type M_AttributeSetInstanceGetQuery = { __typename?: 'Query', M_AttributeSetInstanceGet: { __typename?: 'M_AttributeSetInstanceConnection', Results: Array<{ __typename?: 'M_AttributeSetInstance', UU: string, GuaranteeDate?: number | null }> } };
 
 export type M_AttributeSetGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -89626,7 +89721,7 @@ export const C_TaxCategoryGetDocument = {"kind":"Document","definitions":[{"kind
 export const C_UomGetDefaultDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_UOMGetDefault"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_UOMGetDefault"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]} as unknown as DocumentNode<C_UomGetDefaultQuery, C_UomGetDefaultQueryVariables>;
 export const DocumentStatusActionMapDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DocumentStatusActionMap"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocumentStatusActionMap"}}]}}]} as unknown as DocumentNode<DocumentStatusActionMapQuery, DocumentStatusActionMapQueryVariables>;
 export const InventoryTransactionGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InventoryTransactionGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"InventoryTransactionGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Order"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<InventoryTransactionGetQuery, InventoryTransactionGetQueryVariables>;
-export const M_AttributeSetInstanceGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_AttributeSetInstanceGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_AttributeSetInstanceGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<M_AttributeSetInstanceGetQuery, M_AttributeSetInstanceGetQueryVariables>;
+export const M_AttributeSetInstanceGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_AttributeSetInstanceGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_AttributeSetInstanceGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"GuaranteeDate"}}]}}]}}]}}]} as unknown as DocumentNode<M_AttributeSetInstanceGetQuery, M_AttributeSetInstanceGetQueryVariables>;
 export const M_AttributeSetGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_AttributeSetGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_AttributeSetGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsGuaranteeDate"}}]}}]}}]}}]} as unknown as DocumentNode<M_AttributeSetGetQuery, M_AttributeSetGetQueryVariables>;
 export const M_DiscountSchemaGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_DiscountSchemaGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_DiscountSchemaGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<M_DiscountSchemaGetQuery, M_DiscountSchemaGetQueryVariables>;
 export const M_PriceList_VersionGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_PriceList_VersionGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_PriceList_VersionGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PagingInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"TotalCount"}}]}}]}}]}}]} as unknown as DocumentNode<M_PriceList_VersionGetQuery, M_PriceList_VersionGetQueryVariables>;
