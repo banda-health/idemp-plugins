@@ -144,11 +144,14 @@ public class ConceptSyncProcess extends SvrProcess {
 	 * @param mConcept
 	 * @param newRecords
 	 * @param updatedRecords
+	 * @return The saved concept
 	 */
-	private void saveConcept(OCLConcept concept, MBHConcept mConcept, AtomicInteger newRecords,
+	private MBHConcept saveConcept(OCLConcept concept, MBHConcept mConcept, AtomicInteger newRecords,
 			AtomicInteger updatedRecords) {
 		if (concept == null || visitedConcepts.contains(concept.getUuid())) {
-			return;
+			// If there is no new concept to save or we already visited this concept, return the
+			// concept that was passed in to be updated if there was one
+			return mConcept;
 		}
 
 		if (mConcept == null) {
@@ -246,6 +249,8 @@ public class ConceptSyncProcess extends SvrProcess {
 
 		// save mappings
 		downloadChildMappings(mConcept, concept, newRecords, updatedRecords);
+		
+		return mConcept;
 	}
 
 	private CompletableFuture<HttpResponse<String>> makeRequest(String source, int page, int limit, boolean includeSort) {
@@ -429,7 +434,13 @@ public class ConceptSyncProcess extends SvrProcess {
 									.list();
 					MBHConcept foundChildConcept = foundChildConcepts.stream().findFirst().orElse(null);
 
-					saveConcept(childConcept, foundChildConcept, newRecords, updatedRecords);
+					MBHConcept savedChildConcept = saveConcept(childConcept, foundChildConcept, newRecords, updatedRecords);					
+					
+					// after populating and saving the child concept, link it to the "TO" end of this mapping
+					if (savedChildConcept != null) {
+						foundConceptMapping.setTo_BH_Concept_ID(savedChildConcept.get_ID());
+						foundConceptMapping.saveEx();
+					}
 				}
 			}
 		});

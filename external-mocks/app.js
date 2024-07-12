@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT;
 
 app.get(
-	'/ocl/orgs/:org/sources/:source/concepts/:concept?',
+	'/ocl/orgs/:org/sources/:source/concepts/:concept?(/versions)?',
 	(request, response) => {
 		const concepts = JSON.parse(
 			readFileSync(

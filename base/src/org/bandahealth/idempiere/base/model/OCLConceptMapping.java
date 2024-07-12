@@ -66,6 +66,7 @@ public class OCLConceptMapping {
 		setOwerType(JsonUtils.getValue(node.get("owner_type")));
 		setFromConceptCode(JsonUtils.getValue(node.get("from_concept_code")));
 		setFromConceptName(JsonUtils.getValue(node.get("from_concept_name")));
+		setFromConceptUrl(JsonUtils.getValue(node.get("from_concept_url")));
 		setToConceptCode(JsonUtils.getValue(node.get("to_concept_code")));
 		setToConceptName(JsonUtils.getValue(node.get("to_concept_name")));
 		setToConceptUrl(JsonUtils.getValue(node.get("to_concept_url")));

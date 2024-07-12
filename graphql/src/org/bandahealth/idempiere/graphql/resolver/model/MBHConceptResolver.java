@@ -38,23 +38,22 @@ public class MBHConceptResolver extends X_BH_ConceptResolver {
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Concept_ID()));
 	}
 
-	/* FromBH_Concept_Mappings provides the parent mappings, linked by bh_to_concept_code
-	 * to this concept's bh_oclid */
+	/* FromBH_Concept_Mappings provides the parent mappings, linked by to_bh_concept_id
+	 * to this concept's Id */
 	public CompletableFuture<List<MBHConceptMapping>> FromBH_Concept_Mappings(MBHConcept entity,
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MBHConceptMapping>> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(MBHConceptMappingDataLoader.DATALOADER_BH_Concept_Mapping_BY_BH_To_Concept_Code);
-		return dataLoader.load(entity.getBH_OclID());
+				.getDataLoader(MBHConceptMappingDataLoader.DATALOADER_BH_Concept_Mapping_BY_To_BH_Concept_ID);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Concept_ID()));
 	}
 
-	/* ToBH_Concept_Mappings provides the child mappings. They are linked by the bh_concept_id
-	 * on the mapping, but could also be linked by checking for mappings where the bh_from_concept_code
-	 * matches this concept's bh_oclid
+	/* ToBH_Concept_Mappings provides the child mappings. They are linked by the from_bh_concept_id
+	 * on the mapping
 	 */
 	public CompletableFuture<List<MBHConceptMapping>> ToBH_Concept_Mappings(MBHConcept entity,
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MBHConceptMapping>> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(MBHConceptMappingDataLoader.DATALOADER_BH_Concept_Mapping_BY_Concept_ID);
+				.getDataLoader(MBHConceptMappingDataLoader.DATALOADER_BH_Concept_Mapping_BY_From_BH_Concept_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Concept_ID()));
 	}
 }
