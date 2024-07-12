@@ -83,6 +83,10 @@ public class AuthenticationUtil {
 		if (!claim.isNull()) {
 			AD_Session_ID = claim.asInt();
 			Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, AD_Session_ID);
+			// If we see a session ID but no session exists, just clear the session from the context
+			if (AD_Session_ID > 0 && MSession.get(Env.getCtx()) == null) {
+				Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, 0);
+			}
 		}
 
 		Env.setContext(context, "#Date", new Timestamp(System.currentTimeMillis()));
