@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProductPO_BH;
+import org.bandahealth.idempiere.base.model.MProductPrice_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInOutLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MLotDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MProductDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MProductPODataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MProductPriceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MReplenishDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MStorageOnHandDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MStorageReservationDataLoader;
@@ -45,6 +47,13 @@ public class MProductResolver extends X_M_ProductResolver {
 				.getDataLoader(ProductCostCalculationDataLoader.DATALOADER_ProductCostCalculation_BY_Product_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getM_Product_ID())).thenApply(this::getMostRecentCost)
 				.thenApply(ProductCostCalculation::getPurchasePrice);
+	}
+
+	public CompletableFuture<List<MProductPrice_BH>> M_ProductPrices(MProduct_BH entity,
+			DataFetchingEnvironment environment) {
+		DataLoader<String, List<MProductPrice_BH>> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(MProductPriceDataLoader.DATALOADER_M_ProductPrice_BY_M_Product_ID);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getM_Product_ID()));
 	}
 
 	public CompletableFuture<List<MStorageOnHand>> M_StorageOnHandList(MProduct_BH entity,
