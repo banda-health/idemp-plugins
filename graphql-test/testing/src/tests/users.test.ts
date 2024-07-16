@@ -10,6 +10,8 @@ import {
 	Ad_User_RolesDeleteDocument,
 	Ad_User_RolesSaveAndDeleteManyDocument,
 	Ad_User_RolesSaveManyDocument,
+	ChangeAccessDocument,
+	ChangeAccessMutationVariables,
 	ChangePasswordDocument,
 	SignInDocument,
 } from '../__generated__/graphql';
@@ -403,17 +405,17 @@ test('user can login with created role', async () => {
 	).data.AD_UserGet.Results[0];
 
 	valueObject.stepName = 'Log out';
-	await valueObject.logout();
+	valueObject.logout();
 
 	valueObject.stepName = 'Log in as user';
 	const loginData = (
-		await query(valueObject)({
-			query: SignInDocument,
+		await mutate(valueObject)({
+			mutation: SignInDocument,
 			variables: { Credentials: { ...initialLoginData, Username: user.Name, Password: '123' } },
 		})
-	).data.SignIn;
+	).data?.SignIn;
 	expect(valueObject.sessionToken).toBeFalsy();
-	expect(loginData.AD_User?.IsExpired).toBeTruthy();
+	expect(loginData?.AD_User?.IsExpired).toBeTruthy();
 
 	await mutate(valueObject)({
 		mutation: ChangePasswordDocument,
@@ -425,4 +427,97 @@ test('user can login with created role', async () => {
 	expect(clients[0].AD_Orgs.length).toBeTruthy();
 	expect(clients[0].AD_Orgs[0].AD_Roles?.length).toBeTruthy();
 	expect(clients[0].AD_Orgs[0].M_Warehouses?.length).toBeTruthy();
+});
+
+test('non-iDempiere admins can create users', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create role';
+	const masterRoles = (
+		await query(valueObject)({
+			query: Ad_RoleGetDocument,
+			variables: { Filter: JSON.stringify({ ismasterrole: true }) },
+		})
+	).data.AD_RoleGet.Results;
+	const mustHavesRole = masterRoles.filter((role) => role.UU === roleUuid.MUST_HAVES)[0];
+	const clinicAdminRole = masterRoles.filter((role) => role.Name.toLowerCase().includes('clinical admin'))[0];
+	let roleUuidToUse = v4();
+	await mutate(valueObject)({
+		mutation: Ad_RoleWithIncludedSaveDocument,
+		variables: {
+			AD_Role: {
+				UU: roleUuidToUse,
+				IsMasterRole: false,
+				Name: valueObject.getDynamicStepMessage(),
+				Description: valueObject.getStepMessageLong(),
+				IsActive: true,
+			},
+			AD_Role_IncludedList: [
+				{
+					AD_Role: { UU: roleUuidToUse },
+					Included_Role: { UU: mustHavesRole.UU },
+					SeqNo: 10,
+				},
+				{
+					AD_Role: { UU: roleUuidToUse },
+					Included_Role: { UU: clinicAdminRole.UU },
+					SeqNo: 20,
+				},
+			],
+		},
+	});
+	const role1 = (
+		await query(valueObject)({
+			query: Ad_RoleGetDocument,
+			variables: { Filter: JSON.stringify({ ad_role_uu: roleUuidToUse }) },
+		})
+	).data.AD_RoleGet.Results[0];
+	expect(role1.UU).toBeTruthy();
+
+	valueObject.stepName = 'Create user';
+	const userUuid = v4();
+	await mutate(valueObject)({
+		mutation: Ad_UserWithRoleSaveDocument,
+		variables: {
+			AD_User: { UU: userUuid, Name: valueObject.getDynamicStepMessage(), IsActive: true, Password: '123' },
+			AD_User_Roles: [{ AD_User: { UU: userUuid }, AD_Role: { UU: role1.UU } }],
+		},
+	});
+	let user = (
+		await query(valueObject)({
+			query: Ad_UserGetDocument,
+			variables: { Filter: JSON.stringify({ ad_user_uu: userUuid }) },
+		})
+	).data.AD_UserGet.Results[0];
+	expect(user).toBeTruthy();
+	const baseLoginData: ChangeAccessMutationVariables['Access'] = {
+		AD_Client_UU: valueObject.client?.UU!,
+		AD_Org_UU: valueObject.organization?.UU!,
+		AD_Role_UU: role1.UU,
+		M_Warehouse_UU: valueObject.warehouse?.UU!,
+	};
+
+	valueObject.stepName = 'Log out';
+	valueObject.logout();
+
+	valueObject.stepName = 'Log in as user';
+	await mutate(valueObject)({
+		mutation: SignInDocument,
+		variables: { Credentials: { ...initialLoginData, Username: user.Name, Password: '123' } },
+	});
+	await mutate(valueObject)({ mutation: ChangeAccessDocument, variables: { Access: baseLoginData } });
+
+	valueObject.stepName = 'Create subsequent user';
+	const subsequentUserUuid = v4();
+	const subsequentUser = (
+		await mutate(valueObject)({
+			mutation: Ad_UserWithRoleSaveDocument,
+			variables: {
+				AD_User: { UU: subsequentUserUuid, Name: valueObject.getDynamicStepMessage(), IsActive: true, Password: '123' },
+				AD_User_Roles: [{ AD_User: { UU: subsequentUserUuid }, AD_Role: { UU: role1.UU } }],
+			},
+		})
+	).data?.AD_UserSave;
+	expect(subsequentUser?.UU).toBeTruthy();
 });

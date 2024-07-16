@@ -206,7 +206,7 @@ export default async function () {
 			AD_Role_UU: adminRole.UU,
 			M_Warehouse_UU: organization.M_Warehouses?.[0].UU!,
 		};
-		const { data } = await graphqlClient.query({
+		await graphqlClient.query({
 			query: ChangeAccessDocument,
 			variables: { Access: baseLoginData },
 			context: { valueObject },
