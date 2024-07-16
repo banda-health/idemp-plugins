@@ -12,8 +12,8 @@ test('can login', async () => {
 
 test('error returned if wrong username/password', async () => {
 	try {
-		await query(globalThis.__VALUE_OBJECT__)({
-			query: SignInDocument,
+		await mutate(globalThis.__VALUE_OBJECT__)({
+			mutation: SignInDocument,
 			variables: { Credentials: { ...initialLoginData, Username: 'bogus', Password: 'hacker' } },
 		});
 		expect(true).toBe(false);

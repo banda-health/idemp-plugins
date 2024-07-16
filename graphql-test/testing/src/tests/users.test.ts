@@ -405,17 +405,17 @@ test('user can login with created role', async () => {
 	).data.AD_UserGet.Results[0];
 
 	valueObject.stepName = 'Log out';
-	await valueObject.logout();
+	valueObject.logout();
 
 	valueObject.stepName = 'Log in as user';
 	const loginData = (
-		await query(valueObject)({
-			query: SignInDocument,
+		await mutate(valueObject)({
+			mutation: SignInDocument,
 			variables: { Credentials: { ...initialLoginData, Username: user.Name, Password: '123' } },
 		})
-	).data.SignIn;
+	).data?.SignIn;
 	expect(valueObject.sessionToken).toBeFalsy();
-	expect(loginData.AD_User?.IsExpired).toBeTruthy();
+	expect(loginData?.AD_User?.IsExpired).toBeTruthy();
 
 	await mutate(valueObject)({
 		mutation: ChangePasswordDocument,
@@ -499,11 +499,11 @@ test('non-iDempiere admins can create users', async () => {
 	};
 
 	valueObject.stepName = 'Log out';
-	await valueObject.logout();
+	valueObject.logout();
 
 	valueObject.stepName = 'Log in as user';
-	await query(valueObject)({
-		query: SignInDocument,
+	await mutate(valueObject)({
+		mutation: SignInDocument,
 		variables: { Credentials: { ...initialLoginData, Username: user.Name, Password: '123' } },
 	});
 	await mutate(valueObject)({ mutation: ChangeAccessDocument, variables: { Access: baseLoginData } });
