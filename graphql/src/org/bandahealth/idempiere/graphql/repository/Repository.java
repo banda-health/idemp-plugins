@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.bandahealth.idempiere.graphql.utils.QueryUtil;
 import org.bandahealth.idempiere.graphql.utils.SortUtil;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MRole;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -108,7 +109,7 @@ public class Repository {
 	 */
 	public static <T extends PO> Connection<T> get(String tableName, String transactionName, PagingInfo pagingInfo,
 			String sort, String filter, DataFetchingEnvironment environment) {
-		return get(tableName, transactionName, pagingInfo, sort, filter, null, null, environment);
+		return get(tableName, transactionName, pagingInfo, sort, filter, null, null, null, environment);
 	}
 
 	/**
@@ -120,13 +121,15 @@ public class Repository {
 	 * @param sort            Any sorting criteria to use in JSON-string form
 	 * @param filter          Any filter criteria to use in JSON-string form
 	 * @param whereClause     An additional where clause to add to any filter passed in from outside the API
-	 * @param whereClause     Any parameters for the additional where clause
+	 * @param parameters      Any parameters for the additional where clause
+	 * @param dynamicJoins    Any joins to be added dynamically if requested in a sort
 	 * @param environment     The data fetching environment passed in to the GraphQL endpoint
 	 * @param <T>             A type that extends iDempiere's PO type
 	 * @return A connection of data requested
 	 */
 	public static <T extends PO> Connection<T> get(String tableName, String transactionName, PagingInfo pagingInfo,
-			String sort, String filter, String whereClause, List<Object> parameters, DataFetchingEnvironment environment) {
+			String sort, String filter, String whereClause, List<Object> parameters, Map<String, String> dynamicJoins,
+			DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
 		try {
 			if (parameters == null) {
@@ -140,12 +143,42 @@ public class Repository {
 				whereClause += " AND " + filterWhereClause;
 			}
 			setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
+
+			// If we need dynamic joins (or an auto-generated join), we can't guarantee that the access SQL will work
+			// (i.e. what is set in via the fully qualified where clause in the query builder). So we'll have to generate
+			// that ourselves and add it to the WHERE clause
+			StringBuilder dynamicJoinBuilder = new StringBuilder();
+			String orderByClause = null;
+			// TODO: Remove this when we can dynamically generate sorts
+			if (!StringUtil.isNullOrEmpty(sort)) {
+				Set<String> tablesNeedingJoins = SortUtil.getTablesNeedingJoins(sort);
+				tablesNeedingJoins.forEach(tableNeedingJoin -> {
+					// If this isn't the current table, it's not empty, and it's not in the current JOIN clause (the table
+					// will need spaces around its name for SQL to differentiate, so check that)
+					if (!tableNeedingJoin.equalsIgnoreCase(tableName)) {
+						dynamicJoinBuilder.append(dynamicJoins.get(tableNeedingJoin)).append(" ");
+					}
+				});
+				orderByClause = SortUtil.getOrderByClauseFromSort(tableName, sort);
+			}
+
+			// Append our own fully-qualified where clause
+			boolean internalIsApplyAccessFilterNeeded = isApplyAccessFilterNeeded.get();
+			if (!StringUtil.isNullOrEmpty(dynamicJoinBuilder.toString())) {
+				MRole role = MRole.getDefault(idempiereContext, false);
+				String generatedSql = role.addAccessSQL("SELECT * FROM " + tableName + " WHERE " + whereClause, tableName, true, false);
+				whereClause = generatedSql.substring(generatedSql.indexOf(whereClause));
+				isApplyAccessFilterNeeded.set(Boolean.FALSE);
+			}
+
 			Query query =
 					getQuery(idempiereContext, tableName, transactionName, true, false, whereClause, parameters);
 
-			String orderBy = SortUtil.getOrderByClauseFromSort(tableName, sort);
-			if (orderBy != null) {
-				query = query.setOrderBy(orderBy);
+			if (!StringUtil.isNullOrEmpty(dynamicJoinBuilder.toString())) {
+				query.addJoinClause(dynamicJoinBuilder.toString());
+			}
+			if (!StringUtil.isNullOrEmpty(orderByClause)) {
+				query.setOrderBy(orderByClause);
 			}
 
 			// If the paging info wasn't requested in the payload, don't do an extra DB call to get it
@@ -183,6 +216,7 @@ public class Repository {
 					results = query.list();
 				}
 			}
+			isApplyAccessFilterNeeded.set(internalIsApplyAccessFilterNeeded);
 			return new Connection<>(results, pagingInfo);
 		} catch (Exception ex) {
 			throw new AdempiereException(ex);

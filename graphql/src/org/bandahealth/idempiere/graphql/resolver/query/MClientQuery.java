@@ -62,7 +62,7 @@ public class MClientQuery extends X_AD_ClientQuery {
 		}
 		Connection<MClient_BH> clients =
 				Repository.get(getTableName(), null, new PagingInfo(page, pageSize), sort, filter, clientLimitingWhereClause,
-						parameters, environment);
+						parameters, null, environment);
 		if (Env.getAD_Client_ID(iDempiereContext) == 0) {
 			Repository.clearApplyAccessFilterNotNeeded();
 		}
