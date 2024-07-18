@@ -8,7 +8,6 @@ import org.dataloader.DataLoaderRegistry;
 import org.dataloader.MappedBatchLoaderWithContext;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 
@@ -24,15 +23,16 @@ public class MOrgDataLoader extends X_AD_OrgDataLoader {
 
 	private MappedBatchLoaderWithContext<String, List<MOrg>> getByClientIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
-			// If the user is currently the system client, we can get everything
-			if (Env.getAD_Client_ID(batchLoaderEnvironment.getContext()) == 0) {
-				Repository.setApplyAccessFilterNotNeeded();
+			try {
+				// If the user is currently the system client, we can get everything
+				if (Env.getAD_Client_ID(batchLoaderEnvironment.getContext()) == 0) {
+					Repository.setApplyAccessFilterNotNeeded();
+				}
+				return Repository.getGroupsByModelKeys(batchLoaderEnvironment.getContext(), getTableName(), null,
+						MOrg::getAD_Client_ID, MOrg.COLUMNNAME_AD_Client_ID, keys);
+			} finally {
+				Repository.clearApplyAccessFilterNotNeeded();
 			}
-			Map<String, List<MOrg>> organizationsByModelKeys =
-					Repository.getGroupsByModelKeys(batchLoaderEnvironment.getContext(), getTableName(), null,
-							MOrg::getAD_Client_ID, MOrg.COLUMNNAME_AD_Client_ID, keys);
-			Repository.clearApplyAccessFilterNotNeeded();
-			return organizationsByModelKeys;
 		});
 	}
 }
