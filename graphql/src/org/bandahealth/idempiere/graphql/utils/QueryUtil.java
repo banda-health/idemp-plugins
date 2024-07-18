@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.graphql.utils;
 
 import graphql.schema.DataFetchingEnvironment;
-import graphql.schema.DataFetchingFieldSelectionSet;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,8 +10,9 @@ import java.util.Set;
  * A utility for functions associated with DB queries
  */
 public class QueryUtil {
-	private static final List<String> DISALLOWED_COLUMN_CHARACTERS = Arrays.asList("/", "\\", "-", ";", "'", "\"",
-			"?", "=", "!", "*", "(", ")", "^", "&", "$", "#", "@", "+", "`", "~");
+	private static final List<String> DISALLOWED_COLUMN_CHARACTERS =
+			Arrays.asList("\\", "--", ";", "'", "\"", "?", "=", "!", "^", "&", "$", "#", "@", "`", "~", "DROP", "DELETE",
+					"UPDATE", "SELECT", "FROM", "WHERE");
 
 	/**
 	 * This generates a parameter list based on a number of items (i.e. for items [1,2,3], this generates a where clause
