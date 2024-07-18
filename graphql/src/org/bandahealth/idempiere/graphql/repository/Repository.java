@@ -131,6 +131,7 @@ public class Repository {
 			String sort, String filter, String whereClause, List<Object> parameters, Map<String, String> dynamicJoins,
 			DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
+		boolean internalIsApplyAccessFilterNeeded = isApplyAccessFilterNeeded.get();
 		try {
 			if (parameters == null) {
 				parameters = new ArrayList<>();
@@ -163,7 +164,6 @@ public class Repository {
 			}
 
 			// Append our own fully-qualified where clause
-			boolean internalIsApplyAccessFilterNeeded = isApplyAccessFilterNeeded.get();
 			if (!StringUtil.isNullOrEmpty(dynamicJoinBuilder.toString())) {
 				MRole role = MRole.getDefault(idempiereContext, false);
 				String generatedSql = role.addAccessSQL("SELECT * FROM " + tableName + " WHERE " + whereClause, tableName, true, false);
@@ -216,10 +216,11 @@ public class Repository {
 					results = query.list();
 				}
 			}
-			isApplyAccessFilterNeeded.set(internalIsApplyAccessFilterNeeded);
 			return new Connection<>(results, pagingInfo);
 		} catch (Exception ex) {
 			throw new AdempiereException(ex);
+		} finally {
+			isApplyAccessFilterNeeded.set(internalIsApplyAccessFilterNeeded);
 		}
 	}
 

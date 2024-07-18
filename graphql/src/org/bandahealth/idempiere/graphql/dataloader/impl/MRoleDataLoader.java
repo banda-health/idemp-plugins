@@ -39,37 +39,40 @@ public class MRoleDataLoader extends X_AD_RoleDataLoader {
 
 	private MappedBatchLoaderWithContext<String, List<X_AD_Role>> getByOrganizationIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
-			Set<Integer> organizationIds = keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet());
+			try {
+				Set<Integer> organizationIds = keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet());
 
-			// If the user is currently the system client, we can get everything
-			if (Env.getAD_Client_ID(batchLoaderEnvironment.getContext()) == 0) {
-				Repository.setApplyAccessFilterNotNeeded();
-				PO.setCrossTenantSafe();
+				// If the user is currently the system client, we can get everything
+				if (Env.getAD_Client_ID(batchLoaderEnvironment.getContext()) == 0) {
+					Repository.setApplyAccessFilterNotNeeded();
+					PO.setCrossTenantSafe();
+				}
+				Map<Integer, Integer> clientIdsByOrganizationId =
+						Repository.<MOrg>getByIds(batchLoaderEnvironment.getContext(), MOrg.Table_Name, null, organizationIds)
+								.values().stream().collect(Collectors.toMap(PO::getAD_Org_ID, PO::getAD_Client_ID));
+
+				// The following methods modify the context, so make a copy and set it
+				Properties contextCopy = new Properties();
+				contextCopy.putAll(batchLoaderEnvironment.getContext());
+				ServerContext.setCurrentInstance(contextCopy);
+				Env.setCtx(contextCopy);
+				MUser_BH currentUser = new MUser_BH(contextCopy, Env.getAD_User_ID(contextCopy), null);
+
+				Map<String, List<X_AD_Role>> rolesByOrganizationModelKey = new HashMap<>();
+				for (String key : keys) {
+					int organizationId = ModelUtil.getIdFromKey(key);
+					// We need to set the client ID for following method
+					Env.setContext(contextCopy, Env.AD_CLIENT_ID, clientIdsByOrganizationId.get(organizationId));
+					rolesByOrganizationModelKey.put(key,
+							Arrays.stream(currentUser.getRoles(organizationId)).collect(Collectors.toList()));
+				}
+
+				return rolesByOrganizationModelKey;
+			} finally {
+				Repository.clearApplyAccessFilterNotNeeded();
+				ServerContext.setCurrentInstance(batchLoaderEnvironment.getContext());
+				PO.clearCrossTenantSafe();
 			}
-			Map<Integer, Integer> clientIdsByOrganizationId =
-					Repository.<MOrg>getByIds(batchLoaderEnvironment.getContext(), MOrg.Table_Name, null, organizationIds)
-							.values().stream().collect(Collectors.toMap(PO::getAD_Org_ID, PO::getAD_Client_ID));
-
-			// The following methods modify the context, so make a copy and set it
-			Properties contextCopy = new Properties();
-			contextCopy.putAll(batchLoaderEnvironment.getContext());
-			ServerContext.setCurrentInstance(contextCopy);
-			Env.setCtx(contextCopy);
-			MUser_BH currentUser = new MUser_BH(contextCopy, Env.getAD_User_ID(contextCopy), null);
-
-			Map<String, List<X_AD_Role>> rolesByOrganizationModelKey = new HashMap<>();
-			for (String key : keys) {
-				int organizationId = ModelUtil.getIdFromKey(key);
-				// We need to set the client ID for following method
-				Env.setContext(contextCopy, Env.AD_CLIENT_ID, clientIdsByOrganizationId.get(organizationId));
-				rolesByOrganizationModelKey.put(key,
-						Arrays.stream(currentUser.getRoles(organizationId)).collect(Collectors.toList()));
-			}
-
-			Repository.clearApplyAccessFilterNotNeeded();
-			ServerContext.setCurrentInstance(batchLoaderEnvironment.getContext());
-			PO.clearCrossTenantSafe();
-			return rolesByOrganizationModelKey;
 		});
 	}
 
