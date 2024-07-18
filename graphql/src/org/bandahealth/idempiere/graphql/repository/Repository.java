@@ -149,7 +149,7 @@ public class Repository {
 			// (i.e. what is set in via the fully qualified where clause in the query builder). So we'll have to generate
 			// that ourselves and add it to the WHERE clause
 			StringBuilder dynamicJoinBuilder = new StringBuilder();
-			String orderByClause = null;
+			String orderByClause = SortUtil.getOrderByClauseFromSort(tableName, sort);
 			// TODO: Remove this when we can dynamically generate sorts
 			if (!StringUtil.isNullOrEmpty(sort)) {
 				Set<String> tablesNeedingJoins = SortUtil.getTablesNeedingJoins(sort);
@@ -160,7 +160,6 @@ public class Repository {
 						dynamicJoinBuilder.append(dynamicJoins.get(tableNeedingJoin)).append(" ");
 					}
 				});
-				orderByClause = SortUtil.getOrderByClauseFromSort(tableName, sort);
 			}
 
 			// Append our own fully-qualified where clause
@@ -177,9 +176,7 @@ public class Repository {
 			if (!StringUtil.isNullOrEmpty(dynamicJoinBuilder.toString())) {
 				query.addJoinClause(dynamicJoinBuilder.toString());
 			}
-			if (!StringUtil.isNullOrEmpty(orderByClause)) {
-				query.setOrderBy(orderByClause);
-			}
+			query.setOrderBy(orderByClause);
 
 			// If the paging info wasn't requested in the payload, don't do an extra DB call to get it
 			if (QueryUtil.isTotalCountRequested(environment)) {
