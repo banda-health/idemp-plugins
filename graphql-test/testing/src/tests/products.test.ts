@@ -281,3 +281,60 @@ test('buying price can only be updated on new items or items without completed P
 	expect(valueObject.product!.HasBeenPurchased).toBeTruthy();
 	expect(valueObject.product!.LastPurchasePrice).toBe(120);
 });
+
+test('can sort by last purchase price', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create first product';
+	valueObject.setPurchasePrice(100);
+	await createProduct(valueObject);
+	const firstProduct = valueObject.product!;
+
+	valueObject.stepName = 'Create purchase order for the first product';
+	valueObject.documentAction = documentAction.Complete;
+	valueObject.setPurchasePrice(120);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create second product';
+	valueObject.product = undefined;
+	valueObject.setPurchasePrice(100);
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order for the second product';
+	valueObject.documentAction = documentAction.Complete;
+	valueObject.setPurchasePrice(140);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	const secondProduct = valueObject.product!;
+	let productSorts = (
+		await query(valueObject)({
+			query: M_ProductGetDocument,
+			variables: {
+				Sort: JSON.stringify([['product_costs.purchase_price', 'desc']]),
+				Filter: JSON.stringify({ m_product_uu: { $in: [firstProduct.UU, secondProduct.UU] } }),
+			},
+		})
+	).data.M_ProductGet.Results;
+	expect(productSorts).toHaveLength(2);
+	expect(productSorts[0].UU).toBe(secondProduct.UU);
+	expect(productSorts[1].UU).toBe(firstProduct.UU);
+
+	productSorts = (
+		await query(valueObject)({
+			query: M_ProductGetDocument,
+			variables: {
+				Sort: JSON.stringify([['product_costs.purchase_price', 'asc']]),
+				Filter: JSON.stringify({ m_product_uu: { $in: [firstProduct.UU, secondProduct.UU] } }),
+			},
+		})
+	).data.M_ProductGet.Results;
+	expect(productSorts).toHaveLength(2);
+	expect(productSorts[0].UU).toBe(firstProduct.UU);
+	expect(productSorts[1].UU).toBe(secondProduct.UU);
+});

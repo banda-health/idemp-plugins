@@ -5,8 +5,12 @@ test('save organization information', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	const organization = (await query(valueObject)({ query: Ad_OrgGetDocument, variables: { Size: 1 } })).data.AD_OrgGet
-		.Results[0]!;
+	const organization = (
+		await query(valueObject)({
+			query: Ad_OrgGetDocument,
+			variables: { Size: 1, Filter: JSON.stringify({ ad_org_uu: valueObject.organization?.UU! }) },
+		})
+	).data.AD_OrgGet.Results[0]!;
 	expect(organization).toBeTruthy();
 	expect(organization.AD_OrgInfo).toBeTruthy();
 
@@ -22,8 +26,12 @@ test('save organization information', async () => {
 		},
 	});
 
-	const savedOrganization = (await query(valueObject)({ query: Ad_OrgGetDocument, variables: { Size: 1 } })).data
-		.AD_OrgGet.Results[0]!;
+	const savedOrganization = (
+		await query(valueObject)({
+			query: Ad_OrgGetDocument,
+			variables: { Size: 1, Filter: JSON.stringify({ ad_org_uu: valueObject.organization?.UU! }) },
+		})
+	).data.AD_OrgGet.Results[0]!;
 	expect(savedOrganization).toBeTruthy();
 	expect(savedOrganization.AD_OrgInfo).toBeTruthy();
 

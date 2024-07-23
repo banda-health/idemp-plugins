@@ -539,6 +539,9 @@ query M_StorageOnHandGet($Page: Int, $Size: Int, $Sort: String, $Filter: String)
 	M_StorageOnHandGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			UU
+			M_AttributeSetInstance {
+				UU
+			}
 			QtyOnHand
 		}
 	}
