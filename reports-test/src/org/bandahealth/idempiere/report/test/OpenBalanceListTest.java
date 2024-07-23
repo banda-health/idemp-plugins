@@ -4,6 +4,8 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -11,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.hamcrest.Matchers;
@@ -19,8 +22,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -178,6 +183,109 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 											10)))
 					.findFirst();
 			assertTrue(patientRow.isPresent(), "Report contains patient");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void totalMatchesWhatPatientsOwe() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create non-patient business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner()
+				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
+		valueObject.getBusinessPartner().saveEx();
+		MBPartner_BH nonPatientBusinessPartner = valueObject.getBusinessPartner();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(200));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.clearBusinessPartner();
+		valueObject.clearProduct();
+
+		valueObject.setStepName("Create patient business partner");
+		valueObject.clearBusinessPartner();
+		ChuBoeCreateEntity.createPatient(valueObject);
+		valueObject.getBusinessPartner()
+				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(200));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("b4f11e14-b9d8-4f6c-aa46-adfd77c4f773");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		valueObject.refresh();
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Patient Name");
+			int remainingOpenBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Remaining Open Balance");
+			double runningTotal = 0;
+			int rowNumber = headerRow.getRowNum() + 1;
+			Row tableRow;
+			while (rowNumber < sheet.getLastRowNum() &&
+					(tableRow = sheet.getRow(rowNumber)).getCell(remainingOpenBalanceColumnIndex) != null &&
+					tableRow.getCell(remainingOpenBalanceColumnIndex).getCellType().equals(CellType.NUMERIC)) {
+				rowNumber++;
+				runningTotal += tableRow.getCell(remainingOpenBalanceColumnIndex).getNumericCellValue();
+			}
+			assertTrue(runningTotal > 0, "There is an open balance");
+
+			Optional<Row> totalsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+									cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+											cell.getStringCellValue().contains("Total Open Balance")))
+					.findFirst();
+			assertTrue(totalsRow.isPresent(), "Total Open Balance row exists");
+
+//			DecimalFormat decimalFormat = new DecimalFormat("#,###");
+//			String totalOpenBalanceDisplay = decimalFormat.format(runningTotal);
+			double finalRunningTotal = runningTotal;
+			assertTrue(StreamSupport.stream(totalsRow.get().spliterator(), false).anyMatch(
+					cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
+							cell.getNumericCellValue() == finalRunningTotal), "Report displays the correct open balance");
 		}
 	}
 }
