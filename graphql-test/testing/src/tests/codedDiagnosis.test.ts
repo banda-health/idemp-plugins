@@ -27,7 +27,7 @@ test('the correct diagnoses are returned', async () => {
 	const codedDiagnoses = (
 		await query(valueObject)({
 			query: Bh_Coded_DiagnosisGetDocument,
-			variables: { Filter: JSON.stringify({ name: { $text: 'anemia' } }) },
+			variables: { Filter: JSON.stringify({ bh_cielname: { $text: 'anemia' } }) },
 		})
 	).data.BH_Coded_DiagnosisGet.Results;
 
