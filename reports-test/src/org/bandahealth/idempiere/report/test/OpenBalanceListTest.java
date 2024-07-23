@@ -4,17 +4,14 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
-import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.hamcrest.Matchers;
 
@@ -22,16 +19,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
@@ -280,8 +274,6 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 					.findFirst();
 			assertTrue(totalsRow.isPresent(), "Total Open Balance row exists");
 
-//			DecimalFormat decimalFormat = new DecimalFormat("#,###");
-//			String totalOpenBalanceDisplay = decimalFormat.format(runningTotal);
 			double finalRunningTotal = runningTotal;
 			assertTrue(StreamSupport.stream(totalsRow.get().spliterator(), false).anyMatch(
 					cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
