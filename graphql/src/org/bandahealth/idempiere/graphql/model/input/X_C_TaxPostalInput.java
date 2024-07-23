@@ -113,8 +113,8 @@ public class X_C_TaxPostalInput extends MTaxPostal implements I_C_TaxPostalInput
 	 *
 	 * @param C_TaxPostal_ID Tax Postal/ZIP
 	 */
-
-	public void setC_TaxPostal_ID(int C_TaxPostal_ID) {
+	@JsonProperty("C_TaxPostal_ID")
+	public void setC_TaxPostal_IDFromJson(int C_TaxPostal_ID) {
 		if (get_ID() == 0) {
 			super.setC_TaxPostal_ID(C_TaxPostal_ID);
 		}

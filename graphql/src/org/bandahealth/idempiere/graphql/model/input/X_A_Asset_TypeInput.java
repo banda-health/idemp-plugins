@@ -42,8 +42,8 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	 *
 	 * @param A_Asset_Type_ID Asset Type
 	 */
-
-	public void setA_Asset_Type_ID(int A_Asset_Type_ID) {
+	@JsonProperty("A_Asset_Type_ID")
+	public void setA_Asset_Type_IDFromJson(int A_Asset_Type_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Type_ID(A_Asset_Type_ID);
 		}

@@ -119,8 +119,8 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	 *
 	 * @param CharacterData Long Character Field
 	 */
-
-	public void setCharacterData(String CharacterData) {
+	@JsonProperty("CharacterData")
+	public void setCharacterDataFromJson(String CharacterData) {
 		if (get_ID() == 0) {
 			super.setCharacterData(CharacterData);
 		}
@@ -206,8 +206,8 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	 *
 	 * @param CM_ChatEntry_ID Individual Chat / Discussion Entry
 	 */
-
-	public void setCM_ChatEntry_ID(int CM_ChatEntry_ID) {
+	@JsonProperty("CM_ChatEntry_ID")
+	public void setCM_ChatEntry_IDFromJson(int CM_ChatEntry_ID) {
 		if (get_ID() == 0) {
 			super.setCM_ChatEntry_ID(CM_ChatEntry_ID);
 		}

@@ -115,8 +115,8 @@ public class X_AD_StyleLineInput extends MStyleLine implements I_AD_StyleLineInp
 	 *
 	 * @param AD_StyleLine_ID CSS Style Line
 	 */
-
-	public void setAD_StyleLine_ID(int AD_StyleLine_ID) {
+	@JsonProperty("AD_StyleLine_ID")
+	public void setAD_StyleLine_IDFromJson(int AD_StyleLine_ID) {
 		if (get_ID() == 0) {
 			super.setAD_StyleLine_ID(AD_StyleLine_ID);
 		}

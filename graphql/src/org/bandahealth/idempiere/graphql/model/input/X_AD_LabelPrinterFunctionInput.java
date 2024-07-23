@@ -76,8 +76,8 @@ public class X_AD_LabelPrinterFunctionInput extends X_AD_LabelPrinterFunction im
 	 *
 	 * @param AD_LabelPrinterFunction_ID Function of Label Printer
 	 */
-
-	public void setAD_LabelPrinterFunction_ID(int AD_LabelPrinterFunction_ID) {
+	@JsonProperty("AD_LabelPrinterFunction_ID")
+	public void setAD_LabelPrinterFunction_IDFromJson(int AD_LabelPrinterFunction_ID) {
 		if (get_ID() == 0) {
 			super.setAD_LabelPrinterFunction_ID(AD_LabelPrinterFunction_ID);
 		}

@@ -157,8 +157,8 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	 *
 	 * @param AD_StatusLineUsedIn_ID AD_StatusLineUsedIn
 	 */
-
-	public void setAD_StatusLineUsedIn_ID(int AD_StatusLineUsedIn_ID) {
+	@JsonProperty("AD_StatusLineUsedIn_ID")
+	public void setAD_StatusLineUsedIn_IDFromJson(int AD_StatusLineUsedIn_ID) {
 		if (get_ID() == 0) {
 			super.setAD_StatusLineUsedIn_ID(AD_StatusLineUsedIn_ID);
 		}

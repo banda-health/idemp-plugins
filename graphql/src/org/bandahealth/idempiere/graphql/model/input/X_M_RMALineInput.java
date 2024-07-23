@@ -258,8 +258,8 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 *
 	 * @param M_RMALine_ID Return Material Authorization Line
 	 */
-
-	public void setM_RMALine_ID(int M_RMALine_ID) {
+	@JsonProperty("M_RMALine_ID")
+	public void setM_RMALine_IDFromJson(int M_RMALine_ID) {
 		if (get_ID() == 0) {
 			super.setM_RMALine_ID(M_RMALine_ID);
 		}

@@ -231,8 +231,8 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 	 *
 	 * @param QM_SpecificationLine_ID QM Specification Line
 	 */
-
-	public void setQM_SpecificationLine_ID(int QM_SpecificationLine_ID) {
+	@JsonProperty("QM_SpecificationLine_ID")
+	public void setQM_SpecificationLine_IDFromJson(int QM_SpecificationLine_ID) {
 		if (get_ID() == 0) {
 			super.setQM_SpecificationLine_ID(QM_SpecificationLine_ID);
 		}

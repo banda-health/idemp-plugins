@@ -79,8 +79,8 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	 *
 	 * @param A_Asset_Info_Tax_ID Asset Info Tax
 	 */
-
-	public void setA_Asset_Info_Tax_ID(int A_Asset_Info_Tax_ID) {
+	@JsonProperty("A_Asset_Info_Tax_ID")
+	public void setA_Asset_Info_Tax_IDFromJson(int A_Asset_Info_Tax_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Info_Tax_ID(A_Asset_Info_Tax_ID);
 		}

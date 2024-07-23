@@ -120,8 +120,8 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 *
 	 * @param AD_Rule_ID Rule
 	 */
-
-	public void setAD_Rule_ID(int AD_Rule_ID) {
+	@JsonProperty("AD_Rule_ID")
+	public void setAD_Rule_IDFromJson(int AD_Rule_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Rule_ID(AD_Rule_ID);
 		}

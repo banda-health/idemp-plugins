@@ -76,8 +76,8 @@ public class X_AD_OrgTypeInput extends X_AD_OrgType implements I_AD_OrgTypeInput
 	 *
 	 * @param AD_OrgType_ID Organization Type
 	 */
-
-	public void setAD_OrgType_ID(int AD_OrgType_ID) {
+	@JsonProperty("AD_OrgType_ID")
+	public void setAD_OrgType_IDFromJson(int AD_OrgType_ID) {
 		if (get_ID() == 0) {
 			super.setAD_OrgType_ID(AD_OrgType_ID);
 		}

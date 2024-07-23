@@ -152,8 +152,8 @@ public class X_AD_WizardProcessInput extends X_AD_WizardProcess implements I_AD_
 	 *
 	 * @param AD_WizardProcess_ID Wizard Process
 	 */
-
-	public void setAD_WizardProcess_ID(int AD_WizardProcess_ID) {
+	@JsonProperty("AD_WizardProcess_ID")
+	public void setAD_WizardProcess_IDFromJson(int AD_WizardProcess_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WizardProcess_ID(AD_WizardProcess_ID);
 		}

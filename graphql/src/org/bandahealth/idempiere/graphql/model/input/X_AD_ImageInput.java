@@ -41,8 +41,8 @@ public class X_AD_ImageInput extends MImage implements I_AD_ImageInput {
 	 *
 	 * @param AD_Image_ID Image or Icon
 	 */
-
-	public void setAD_Image_ID(int AD_Image_ID) {
+	@JsonProperty("AD_Image_ID")
+	public void setAD_Image_IDFromJson(int AD_Image_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Image_ID(AD_Image_ID);
 		}

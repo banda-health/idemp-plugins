@@ -150,8 +150,8 @@ public class X_PP_Order_Node_AssetInput extends X_PP_Order_Node_Asset implements
 	 *
 	 * @param PP_Order_Node_Asset_ID Manufacturing Order Activity Asset
 	 */
-
-	public void setPP_Order_Node_Asset_ID(int PP_Order_Node_Asset_ID) {
+	@JsonProperty("PP_Order_Node_Asset_ID")
+	public void setPP_Order_Node_Asset_IDFromJson(int PP_Order_Node_Asset_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Order_Node_Asset_ID(PP_Order_Node_Asset_ID);
 		}

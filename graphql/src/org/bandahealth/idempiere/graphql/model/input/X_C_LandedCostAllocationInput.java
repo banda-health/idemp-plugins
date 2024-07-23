@@ -121,8 +121,8 @@ public class X_C_LandedCostAllocationInput extends MLandedCostAllocation impleme
 	 *
 	 * @param C_LandedCostAllocation_ID Allocation for Land Costs
 	 */
-
-	public void setC_LandedCostAllocation_ID(int C_LandedCostAllocation_ID) {
+	@JsonProperty("C_LandedCostAllocation_ID")
+	public void setC_LandedCostAllocation_IDFromJson(int C_LandedCostAllocation_ID) {
 		if (get_ID() == 0) {
 			super.setC_LandedCostAllocation_ID(C_LandedCostAllocation_ID);
 		}

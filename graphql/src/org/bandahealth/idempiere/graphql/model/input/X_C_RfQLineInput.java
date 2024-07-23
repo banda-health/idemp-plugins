@@ -117,8 +117,8 @@ public class X_C_RfQLineInput extends MRfQLine implements I_C_RfQLineInput {
 	 *
 	 * @param C_RfQLine_ID Request for Quotation Line
 	 */
-
-	public void setC_RfQLine_ID(int C_RfQLine_ID) {
+	@JsonProperty("C_RfQLine_ID")
+	public void setC_RfQLine_IDFromJson(int C_RfQLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_RfQLine_ID(C_RfQLine_ID);
 		}

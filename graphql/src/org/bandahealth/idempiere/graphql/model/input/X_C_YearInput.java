@@ -113,8 +113,8 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 	 *
 	 * @param C_Year_ID Calendar Year
 	 */
-
-	public void setC_Year_ID(int C_Year_ID) {
+	@JsonProperty("C_Year_ID")
+	public void setC_Year_IDFromJson(int C_Year_ID) {
 		if (get_ID() == 0) {
 			super.setC_Year_ID(C_Year_ID);
 		}

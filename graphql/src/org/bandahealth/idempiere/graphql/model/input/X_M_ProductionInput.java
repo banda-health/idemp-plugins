@@ -466,8 +466,8 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -621,8 +621,8 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	 *
 	 * @param M_Production_ID Plan for producing a product
 	 */
-
-	public void setM_Production_ID(int M_Production_ID) {
+	@JsonProperty("M_Production_ID")
+	public void setM_Production_IDFromJson(int M_Production_ID) {
 		if (get_ID() == 0) {
 			super.setM_Production_ID(M_Production_ID);
 		}
@@ -650,8 +650,8 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

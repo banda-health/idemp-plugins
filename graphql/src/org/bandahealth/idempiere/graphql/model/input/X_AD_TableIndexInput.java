@@ -151,8 +151,8 @@ public class X_AD_TableIndexInput extends MTableIndex implements I_AD_TableIndex
 	 *
 	 * @param AD_TableIndex_ID Table Index
 	 */
-
-	public void setAD_TableIndex_ID(int AD_TableIndex_ID) {
+	@JsonProperty("AD_TableIndex_ID")
+	public void setAD_TableIndex_IDFromJson(int AD_TableIndex_ID) {
 		if (get_ID() == 0) {
 			super.setAD_TableIndex_ID(AD_TableIndex_ID);
 		}

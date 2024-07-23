@@ -328,8 +328,8 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	 *
 	 * @param I_BPartner_ID Import Business Partner
 	 */
-
-	public void setI_BPartner_ID(int I_BPartner_ID) {
+	@JsonProperty("I_BPartner_ID")
+	public void setI_BPartner_IDFromJson(int I_BPartner_ID) {
 		if (get_ID() == 0) {
 			super.setI_BPartner_ID(I_BPartner_ID);
 		}
@@ -357,8 +357,8 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}

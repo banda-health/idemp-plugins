@@ -179,8 +179,8 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 	 *
 	 * @param C_PaymentAllocate_ID Allocate Payment to Invoices
 	 */
-
-	public void setC_PaymentAllocate_ID(int C_PaymentAllocate_ID) {
+	@JsonProperty("C_PaymentAllocate_ID")
+	public void setC_PaymentAllocate_IDFromJson(int C_PaymentAllocate_ID) {
 		if (get_ID() == 0) {
 			super.setC_PaymentAllocate_ID(C_PaymentAllocate_ID);
 		}

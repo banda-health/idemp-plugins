@@ -151,8 +151,8 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 *
 	 * @param AD_Window_ID Data entry or display window
 	 */
-
-	public void setAD_Window_ID(int AD_Window_ID) {
+	@JsonProperty("AD_Window_ID")
+	public void setAD_Window_IDFromJson(int AD_Window_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Window_ID(AD_Window_ID);
 		}

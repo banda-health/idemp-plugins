@@ -74,8 +74,8 @@ public class X_R_IssueRecommendationInput extends X_R_IssueRecommendation implem
 	 *
 	 * @param R_IssueRecommendation_ID Recommendations how to fix an Issue
 	 */
-
-	public void setR_IssueRecommendation_ID(int R_IssueRecommendation_ID) {
+	@JsonProperty("R_IssueRecommendation_ID")
+	public void setR_IssueRecommendation_IDFromJson(int R_IssueRecommendation_ID) {
 		if (get_ID() == 0) {
 			super.setR_IssueRecommendation_ID(R_IssueRecommendation_ID);
 		}

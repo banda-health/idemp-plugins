@@ -74,8 +74,8 @@ public class X_C_TaxCategoryInput extends MTaxCategory implements I_C_TaxCategor
 	 *
 	 * @param C_TaxCategory_ID Tax Category
 	 */
-
-	public void setC_TaxCategory_ID(int C_TaxCategory_ID) {
+	@JsonProperty("C_TaxCategory_ID")
+	public void setC_TaxCategory_IDFromJson(int C_TaxCategory_ID) {
 		if (get_ID() == 0) {
 			super.setC_TaxCategory_ID(C_TaxCategory_ID);
 		}

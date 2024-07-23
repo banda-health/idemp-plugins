@@ -118,8 +118,8 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	 *
 	 * @param ASP_Form_ID ASP Form
 	 */
-
-	public void setASP_Form_ID(int ASP_Form_ID) {
+	@JsonProperty("ASP_Form_ID")
+	public void setASP_Form_IDFromJson(int ASP_Form_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Form_ID(ASP_Form_ID);
 		}

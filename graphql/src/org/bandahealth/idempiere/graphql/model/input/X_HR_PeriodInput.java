@@ -184,8 +184,8 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 	 *
 	 * @param HR_Period_ID Payroll Period
 	 */
-
-	public void setHR_Period_ID(int HR_Period_ID) {
+	@JsonProperty("HR_Period_ID")
+	public void setHR_Period_IDFromJson(int HR_Period_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Period_ID(HR_Period_ID);
 		}

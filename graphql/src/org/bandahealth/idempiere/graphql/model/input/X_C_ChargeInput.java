@@ -156,8 +156,8 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 *
 	 * @param C_Charge_ID Additional document charges
 	 */
-
-	public void setC_Charge_ID(int C_Charge_ID) {
+	@JsonProperty("C_Charge_ID")
+	public void setC_Charge_IDFromJson(int C_Charge_ID) {
 		if (get_ID() == 0) {
 			super.setC_Charge_ID(C_Charge_ID);
 		}

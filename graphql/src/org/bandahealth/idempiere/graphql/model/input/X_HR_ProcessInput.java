@@ -344,8 +344,8 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	 *
 	 * @param DateAcct Accounting Date
 	 */
-
-	public void setDateAcct(Timestamp DateAcct) {
+	@JsonProperty("DateAcct")
+	public void setDateAcctFromJson(Timestamp DateAcct) {
 		if (get_ID() == 0) {
 			super.setDateAcct(DateAcct);
 		}
@@ -433,8 +433,8 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -620,8 +620,8 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	 *
 	 * @param HR_Process_ID Payroll Process
 	 */
-
-	public void setHR_Process_ID(int HR_Process_ID) {
+	@JsonProperty("HR_Process_ID")
+	public void setHR_Process_IDFromJson(int HR_Process_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Process_ID(HR_Process_ID);
 		}
@@ -649,8 +649,8 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

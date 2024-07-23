@@ -115,8 +115,8 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	 *
 	 * @param C_DepositBatch_ID Deposit Batch
 	 */
-
-	public void setC_DepositBatch_ID(int C_DepositBatch_ID) {
+	@JsonProperty("C_DepositBatch_ID")
+	public void setC_DepositBatch_IDFromJson(int C_DepositBatch_ID) {
 		if (get_ID() == 0) {
 			super.setC_DepositBatch_ID(C_DepositBatch_ID);
 		}

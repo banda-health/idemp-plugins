@@ -154,8 +154,8 @@ public class X_AD_TaskInput extends MTask implements I_AD_TaskInput {
 	 *
 	 * @param AD_Task_ID Operation System Task
 	 */
-
-	public void setAD_Task_ID(int AD_Task_ID) {
+	@JsonProperty("AD_Task_ID")
+	public void setAD_Task_IDFromJson(int AD_Task_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Task_ID(AD_Task_ID);
 		}

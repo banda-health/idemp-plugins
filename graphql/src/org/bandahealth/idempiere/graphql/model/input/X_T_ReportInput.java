@@ -79,8 +79,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_0 Col_0
 	 */
-
-	public void setCol_0(BigDecimal Col_0) {
+	@JsonProperty("Col_0")
+	public void setCol_0FromJson(BigDecimal Col_0) {
 		if (get_ID() == 0) {
 			super.setCol_0(Col_0);
 		}
@@ -90,8 +90,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_1 Col_1
 	 */
-
-	public void setCol_1(BigDecimal Col_1) {
+	@JsonProperty("Col_1")
+	public void setCol_1FromJson(BigDecimal Col_1) {
 		if (get_ID() == 0) {
 			super.setCol_1(Col_1);
 		}
@@ -101,8 +101,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_10 Col_10
 	 */
-
-	public void setCol_10(BigDecimal Col_10) {
+	@JsonProperty("Col_10")
+	public void setCol_10FromJson(BigDecimal Col_10) {
 		if (get_ID() == 0) {
 			super.setCol_10(Col_10);
 		}
@@ -112,8 +112,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_11 Col_11
 	 */
-
-	public void setCol_11(BigDecimal Col_11) {
+	@JsonProperty("Col_11")
+	public void setCol_11FromJson(BigDecimal Col_11) {
 		if (get_ID() == 0) {
 			super.setCol_11(Col_11);
 		}
@@ -123,8 +123,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_12 Col_12
 	 */
-
-	public void setCol_12(BigDecimal Col_12) {
+	@JsonProperty("Col_12")
+	public void setCol_12FromJson(BigDecimal Col_12) {
 		if (get_ID() == 0) {
 			super.setCol_12(Col_12);
 		}
@@ -134,8 +134,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_13 Col_13
 	 */
-
-	public void setCol_13(BigDecimal Col_13) {
+	@JsonProperty("Col_13")
+	public void setCol_13FromJson(BigDecimal Col_13) {
 		if (get_ID() == 0) {
 			super.setCol_13(Col_13);
 		}
@@ -145,8 +145,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_14 Col_14
 	 */
-
-	public void setCol_14(BigDecimal Col_14) {
+	@JsonProperty("Col_14")
+	public void setCol_14FromJson(BigDecimal Col_14) {
 		if (get_ID() == 0) {
 			super.setCol_14(Col_14);
 		}
@@ -156,8 +156,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_15 Col_15
 	 */
-
-	public void setCol_15(BigDecimal Col_15) {
+	@JsonProperty("Col_15")
+	public void setCol_15FromJson(BigDecimal Col_15) {
 		if (get_ID() == 0) {
 			super.setCol_15(Col_15);
 		}
@@ -167,8 +167,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_16 Col_16
 	 */
-
-	public void setCol_16(BigDecimal Col_16) {
+	@JsonProperty("Col_16")
+	public void setCol_16FromJson(BigDecimal Col_16) {
 		if (get_ID() == 0) {
 			super.setCol_16(Col_16);
 		}
@@ -178,8 +178,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_17 Col_17
 	 */
-
-	public void setCol_17(BigDecimal Col_17) {
+	@JsonProperty("Col_17")
+	public void setCol_17FromJson(BigDecimal Col_17) {
 		if (get_ID() == 0) {
 			super.setCol_17(Col_17);
 		}
@@ -189,8 +189,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_18 Col_18
 	 */
-
-	public void setCol_18(BigDecimal Col_18) {
+	@JsonProperty("Col_18")
+	public void setCol_18FromJson(BigDecimal Col_18) {
 		if (get_ID() == 0) {
 			super.setCol_18(Col_18);
 		}
@@ -200,8 +200,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_19 Col_19
 	 */
-
-	public void setCol_19(BigDecimal Col_19) {
+	@JsonProperty("Col_19")
+	public void setCol_19FromJson(BigDecimal Col_19) {
 		if (get_ID() == 0) {
 			super.setCol_19(Col_19);
 		}
@@ -211,8 +211,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_2 Col_2
 	 */
-
-	public void setCol_2(BigDecimal Col_2) {
+	@JsonProperty("Col_2")
+	public void setCol_2FromJson(BigDecimal Col_2) {
 		if (get_ID() == 0) {
 			super.setCol_2(Col_2);
 		}
@@ -222,8 +222,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_20 Col_20
 	 */
-
-	public void setCol_20(BigDecimal Col_20) {
+	@JsonProperty("Col_20")
+	public void setCol_20FromJson(BigDecimal Col_20) {
 		if (get_ID() == 0) {
 			super.setCol_20(Col_20);
 		}
@@ -233,8 +233,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_21 Col_21
 	 */
-
-	public void setCol_21(BigDecimal Col_21) {
+	@JsonProperty("Col_21")
+	public void setCol_21FromJson(BigDecimal Col_21) {
 		if (get_ID() == 0) {
 			super.setCol_21(Col_21);
 		}
@@ -244,8 +244,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_22 Col_22
 	 */
-
-	public void setCol_22(BigDecimal Col_22) {
+	@JsonProperty("Col_22")
+	public void setCol_22FromJson(BigDecimal Col_22) {
 		if (get_ID() == 0) {
 			super.setCol_22(Col_22);
 		}
@@ -255,8 +255,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_23 Col_23
 	 */
-
-	public void setCol_23(BigDecimal Col_23) {
+	@JsonProperty("Col_23")
+	public void setCol_23FromJson(BigDecimal Col_23) {
 		if (get_ID() == 0) {
 			super.setCol_23(Col_23);
 		}
@@ -266,8 +266,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_24 Col_24
 	 */
-
-	public void setCol_24(BigDecimal Col_24) {
+	@JsonProperty("Col_24")
+	public void setCol_24FromJson(BigDecimal Col_24) {
 		if (get_ID() == 0) {
 			super.setCol_24(Col_24);
 		}
@@ -277,8 +277,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_25 Col_25
 	 */
-
-	public void setCol_25(BigDecimal Col_25) {
+	@JsonProperty("Col_25")
+	public void setCol_25FromJson(BigDecimal Col_25) {
 		if (get_ID() == 0) {
 			super.setCol_25(Col_25);
 		}
@@ -288,8 +288,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_26 Col_26
 	 */
-
-	public void setCol_26(BigDecimal Col_26) {
+	@JsonProperty("Col_26")
+	public void setCol_26FromJson(BigDecimal Col_26) {
 		if (get_ID() == 0) {
 			super.setCol_26(Col_26);
 		}
@@ -299,8 +299,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_27 Col_27
 	 */
-
-	public void setCol_27(BigDecimal Col_27) {
+	@JsonProperty("Col_27")
+	public void setCol_27FromJson(BigDecimal Col_27) {
 		if (get_ID() == 0) {
 			super.setCol_27(Col_27);
 		}
@@ -310,8 +310,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_28 Col_28
 	 */
-
-	public void setCol_28(BigDecimal Col_28) {
+	@JsonProperty("Col_28")
+	public void setCol_28FromJson(BigDecimal Col_28) {
 		if (get_ID() == 0) {
 			super.setCol_28(Col_28);
 		}
@@ -321,8 +321,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_29 Col_29
 	 */
-
-	public void setCol_29(BigDecimal Col_29) {
+	@JsonProperty("Col_29")
+	public void setCol_29FromJson(BigDecimal Col_29) {
 		if (get_ID() == 0) {
 			super.setCol_29(Col_29);
 		}
@@ -332,8 +332,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_3 Col_3
 	 */
-
-	public void setCol_3(BigDecimal Col_3) {
+	@JsonProperty("Col_3")
+	public void setCol_3FromJson(BigDecimal Col_3) {
 		if (get_ID() == 0) {
 			super.setCol_3(Col_3);
 		}
@@ -343,8 +343,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_30 Col_30
 	 */
-
-	public void setCol_30(BigDecimal Col_30) {
+	@JsonProperty("Col_30")
+	public void setCol_30FromJson(BigDecimal Col_30) {
 		if (get_ID() == 0) {
 			super.setCol_30(Col_30);
 		}
@@ -354,8 +354,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_4 Col_4
 	 */
-
-	public void setCol_4(BigDecimal Col_4) {
+	@JsonProperty("Col_4")
+	public void setCol_4FromJson(BigDecimal Col_4) {
 		if (get_ID() == 0) {
 			super.setCol_4(Col_4);
 		}
@@ -365,8 +365,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_5 Col_5
 	 */
-
-	public void setCol_5(BigDecimal Col_5) {
+	@JsonProperty("Col_5")
+	public void setCol_5FromJson(BigDecimal Col_5) {
 		if (get_ID() == 0) {
 			super.setCol_5(Col_5);
 		}
@@ -376,8 +376,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_6 Col_6
 	 */
-
-	public void setCol_6(BigDecimal Col_6) {
+	@JsonProperty("Col_6")
+	public void setCol_6FromJson(BigDecimal Col_6) {
 		if (get_ID() == 0) {
 			super.setCol_6(Col_6);
 		}
@@ -387,8 +387,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_7 Col_7
 	 */
-
-	public void setCol_7(BigDecimal Col_7) {
+	@JsonProperty("Col_7")
+	public void setCol_7FromJson(BigDecimal Col_7) {
 		if (get_ID() == 0) {
 			super.setCol_7(Col_7);
 		}
@@ -398,8 +398,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_8 Col_8
 	 */
-
-	public void setCol_8(BigDecimal Col_8) {
+	@JsonProperty("Col_8")
+	public void setCol_8FromJson(BigDecimal Col_8) {
 		if (get_ID() == 0) {
 			super.setCol_8(Col_8);
 		}
@@ -409,8 +409,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Col_9 Col_9
 	 */
-
-	public void setCol_9(BigDecimal Col_9) {
+	@JsonProperty("Col_9")
+	public void setCol_9FromJson(BigDecimal Col_9) {
 		if (get_ID() == 0) {
 			super.setCol_9(Col_9);
 		}
@@ -420,8 +420,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Description Optional short description of the record
 	 */
-
-	public void setDescription(String Description) {
+	@JsonProperty("Description")
+	public void setDescriptionFromJson(String Description) {
 		if (get_ID() == 0) {
 			super.setDescription(Description);
 		}
@@ -468,8 +468,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param LevelNo Level no
 	 */
-
-	public void setLevelNo(int LevelNo) {
+	@JsonProperty("LevelNo")
+	public void setLevelNoFromJson(int LevelNo) {
 		if (get_ID() == 0) {
 			super.setLevelNo(LevelNo);
 		}
@@ -479,8 +479,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param Name Alphanumeric identifier of the entity
 	 */
-
-	public void setName(String Name) {
+	@JsonProperty("Name")
+	public void setNameFromJson(String Name) {
 		if (get_ID() == 0) {
 			super.setName(Name);
 		}
@@ -527,8 +527,8 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 *
 	 * @param SeqNo Method of ordering records; lowest number comes first
 	 */
-
-	public void setSeqNo(int SeqNo) {
+	@JsonProperty("SeqNo")
+	public void setSeqNoFromJson(int SeqNo) {
 		if (get_ID() == 0) {
 			super.setSeqNo(SeqNo);
 		}

@@ -149,8 +149,8 @@ public class X_M_PromotionGroupLineInput extends X_M_PromotionGroupLine implemen
 	 *
 	 * @param M_PromotionGroupLine_ID Promotion Group Line
 	 */
-
-	public void setM_PromotionGroupLine_ID(int M_PromotionGroupLine_ID) {
+	@JsonProperty("M_PromotionGroupLine_ID")
+	public void setM_PromotionGroupLine_IDFromJson(int M_PromotionGroupLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_PromotionGroupLine_ID(M_PromotionGroupLine_ID);
 		}

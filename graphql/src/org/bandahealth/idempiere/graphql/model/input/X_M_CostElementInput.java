@@ -156,8 +156,8 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	 *
 	 * @param M_CostElement_ID Product Cost Element
 	 */
-
-	public void setM_CostElement_ID(int M_CostElement_ID) {
+	@JsonProperty("M_CostElement_ID")
+	public void setM_CostElement_IDFromJson(int M_CostElement_ID) {
 		if (get_ID() == 0) {
 			super.setM_CostElement_ID(M_CostElement_ID);
 		}

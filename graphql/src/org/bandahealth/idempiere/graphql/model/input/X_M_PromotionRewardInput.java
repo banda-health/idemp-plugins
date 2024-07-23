@@ -229,8 +229,8 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	 *
 	 * @param M_PromotionReward_ID Promotion Reward
 	 */
-
-	public void setM_PromotionReward_ID(int M_PromotionReward_ID) {
+	@JsonProperty("M_PromotionReward_ID")
+	public void setM_PromotionReward_IDFromJson(int M_PromotionReward_ID) {
 		if (get_ID() == 0) {
 			super.setM_PromotionReward_ID(M_PromotionReward_ID);
 		}

@@ -152,8 +152,8 @@ public class X_C_JobAssignmentInput extends X_C_JobAssignment implements I_C_Job
 	 *
 	 * @param C_JobAssignment_ID Assignment of Employee (User) to Job Position
 	 */
-
-	public void setC_JobAssignment_ID(int C_JobAssignment_ID) {
+	@JsonProperty("C_JobAssignment_ID")
+	public void setC_JobAssignment_IDFromJson(int C_JobAssignment_ID) {
 		if (get_ID() == 0) {
 			super.setC_JobAssignment_ID(C_JobAssignment_ID);
 		}

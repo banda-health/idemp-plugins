@@ -468,8 +468,8 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 *
 	 * @param IsSubcontracting Is Subcontracting
 	 */
-
-	public void setIsSubcontracting(boolean IsSubcontracting) {
+	@JsonProperty("IsSubcontracting")
+	public void setIsSubcontractingFromJson(boolean IsSubcontracting) {
 		if (get_ID() == 0) {
 			super.setIsSubcontracting(IsSubcontracting);
 		}
@@ -615,8 +615,8 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 *
 	 * @param PP_Cost_Collector_ID Manufacturing Cost Collector
 	 */
-
-	public void setPP_Cost_Collector_ID(int PP_Cost_Collector_ID) {
+	@JsonProperty("PP_Cost_Collector_ID")
+	public void setPP_Cost_Collector_IDFromJson(int PP_Cost_Collector_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Cost_Collector_ID(PP_Cost_Collector_ID);
 		}

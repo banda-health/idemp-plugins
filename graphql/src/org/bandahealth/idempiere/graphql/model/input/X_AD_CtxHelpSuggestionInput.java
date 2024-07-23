@@ -121,8 +121,8 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	 *
 	 * @param AD_CtxHelpSuggestion_ID Context Help Suggestion
 	 */
-
-	public void setAD_CtxHelpSuggestion_ID(int AD_CtxHelpSuggestion_ID) {
+	@JsonProperty("AD_CtxHelpSuggestion_ID")
+	public void setAD_CtxHelpSuggestion_IDFromJson(int AD_CtxHelpSuggestion_ID) {
 		if (get_ID() == 0) {
 			super.setAD_CtxHelpSuggestion_ID(AD_CtxHelpSuggestion_ID);
 		}

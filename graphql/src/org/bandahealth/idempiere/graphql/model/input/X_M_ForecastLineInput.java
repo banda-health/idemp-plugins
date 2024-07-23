@@ -158,8 +158,8 @@ public class X_M_ForecastLineInput extends MForecastLine implements I_M_Forecast
 	 *
 	 * @param M_ForecastLine_ID Forecast Line
 	 */
-
-	public void setM_ForecastLine_ID(int M_ForecastLine_ID) {
+	@JsonProperty("M_ForecastLine_ID")
+	public void setM_ForecastLine_IDFromJson(int M_ForecastLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_ForecastLine_ID(M_ForecastLine_ID);
 		}

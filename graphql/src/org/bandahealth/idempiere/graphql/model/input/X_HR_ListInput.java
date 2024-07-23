@@ -150,8 +150,8 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 	 *
 	 * @param HR_List_ID Payroll List
 	 */
-
-	public void setHR_List_ID(int HR_List_ID) {
+	@JsonProperty("HR_List_ID")
+	public void setHR_List_IDFromJson(int HR_List_ID) {
 		if (get_ID() == 0) {
 			super.setHR_List_ID(HR_List_ID);
 		}

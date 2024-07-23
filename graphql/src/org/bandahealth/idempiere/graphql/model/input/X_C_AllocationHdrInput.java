@@ -83,8 +83,8 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	 *
 	 * @param C_AllocationHdr_ID Payment allocation
 	 */
-
-	public void setC_AllocationHdr_ID(int C_AllocationHdr_ID) {
+	@JsonProperty("C_AllocationHdr_ID")
+	public void setC_AllocationHdr_IDFromJson(int C_AllocationHdr_ID) {
 		if (get_ID() == 0) {
 			super.setC_AllocationHdr_ID(C_AllocationHdr_ID);
 		}
@@ -261,8 +261,8 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

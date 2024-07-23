@@ -78,8 +78,8 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 	 *
 	 * @param B_Topic_ID Auction Topic
 	 */
-
-	public void setB_Topic_ID(int B_Topic_ID) {
+	@JsonProperty("B_Topic_ID")
+	public void setB_Topic_IDFromJson(int B_Topic_ID) {
 		if (get_ID() == 0) {
 			super.setB_Topic_ID(B_Topic_ID);
 		}

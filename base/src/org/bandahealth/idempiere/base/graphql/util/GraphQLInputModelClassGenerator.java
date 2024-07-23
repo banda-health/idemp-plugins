@@ -450,12 +450,13 @@ public class GraphQLInputModelClassGenerator {
 			return columnBuilder.toString();
 		}
 
-		// Since this property isn't updatable, we need to generate a method that updates the property only if the entity
-		// is new
+		// Since this property isn't updatable, we need to generate a custom method (so that we don't override anything
+		// from a parent class that updates the property only if the entity is new
 		GraphQLUtil.generateJavaSetComment(columnName, Name, Description, columnBuilder);
 		columnBuilder
-				.append("\n\tpublic void set").append(columnName).append("(").append(dataType).append(" ").append(columnName)
-				.append(") {\n\t\tif (get_ID() == 0) {\n")
+				.append("\t@JsonProperty(\"").append(columnName).append("\")\n")
+				.append("\tpublic void set").append(columnName).append("FromJson(").append(dataType).append(" ")
+				.append(columnName).append(") {\n\t\tif (get_ID() == 0) {\n")
 				.append("\t\t\tsuper.set").append(columnName).append("(").append(columnName)
 				.append(");\n")
 				.append("\t\t}\n\t}");

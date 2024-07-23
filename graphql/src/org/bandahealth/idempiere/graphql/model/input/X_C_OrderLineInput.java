@@ -363,8 +363,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param C_OrderLine_ID Sales Order Line
 	 */
-
-	public void setC_OrderLine_ID(int C_OrderLine_ID) {
+	@JsonProperty("C_OrderLine_ID")
+	public void setC_OrderLine_IDFromJson(int C_OrderLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_OrderLine_ID(C_OrderLine_ID);
 		}
@@ -571,8 +571,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param DateDelivered Date when the product was delivered
 	 */
-
-	public void setDateDelivered(Timestamp DateDelivered) {
+	@JsonProperty("DateDelivered")
+	public void setDateDeliveredFromJson(Timestamp DateDelivered) {
 		if (get_ID() == 0) {
 			super.setDateDelivered(DateDelivered);
 		}
@@ -582,8 +582,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param DateInvoiced Date printed on Invoice
 	 */
-
-	public void setDateInvoiced(Timestamp DateInvoiced) {
+	@JsonProperty("DateInvoiced")
+	public void setDateInvoicedFromJson(Timestamp DateInvoiced) {
 		if (get_ID() == 0) {
 			super.setDateInvoiced(DateInvoiced);
 		}
@@ -593,8 +593,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param LineNetAmt Line Extended Amount (Quantity * Actual Price) without Freight and Charges
 	 */
-
-	public void setLineNetAmt(BigDecimal LineNetAmt) {
+	@JsonProperty("LineNetAmt")
+	public void setLineNetAmtFromJson(BigDecimal LineNetAmt) {
 		if (get_ID() == 0) {
 			super.setLineNetAmt(LineNetAmt);
 		}
@@ -845,8 +845,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param PriceActual Actual Price 
 	 */
-
-	public void setPriceActual(BigDecimal PriceActual) {
+	@JsonProperty("PriceActual")
+	public void setPriceActualFromJson(BigDecimal PriceActual) {
 		if (get_ID() == 0) {
 			super.setPriceActual(PriceActual);
 		}
@@ -856,8 +856,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param QtyAvailable Available Quantity (On Hand - Reserved)
 	 */
-
-	public void setQtyAvailable(BigDecimal QtyAvailable) {
+	@JsonProperty("QtyAvailable")
+	public void setQtyAvailableFromJson(BigDecimal QtyAvailable) {
 		if (get_ID() == 0) {
 			super.setQtyAvailable(QtyAvailable);
 		}
@@ -867,8 +867,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param QtyDelivered Delivered Quantity
 	 */
-
-	public void setQtyDelivered(BigDecimal QtyDelivered) {
+	@JsonProperty("QtyDelivered")
+	public void setQtyDeliveredFromJson(BigDecimal QtyDelivered) {
 		if (get_ID() == 0) {
 			super.setQtyDelivered(QtyDelivered);
 		}
@@ -878,8 +878,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param QtyInvoiced Invoiced Quantity
 	 */
-
-	public void setQtyInvoiced(BigDecimal QtyInvoiced) {
+	@JsonProperty("QtyInvoiced")
+	public void setQtyInvoicedFromJson(BigDecimal QtyInvoiced) {
 		if (get_ID() == 0) {
 			super.setQtyInvoiced(QtyInvoiced);
 		}
@@ -889,8 +889,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param QtyReserved Reserved Quantity
 	 */
-
-	public void setQtyReserved(BigDecimal QtyReserved) {
+	@JsonProperty("QtyReserved")
+	public void setQtyReservedFromJson(BigDecimal QtyReserved) {
 		if (get_ID() == 0) {
 			super.setQtyReserved(QtyReserved);
 		}

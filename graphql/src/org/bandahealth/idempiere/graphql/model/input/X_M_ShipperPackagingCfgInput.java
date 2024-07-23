@@ -113,8 +113,8 @@ public class X_M_ShipperPackagingCfgInput extends X_M_ShipperPackagingCfg implem
 	 *
 	 * @param M_ShipperPackagingCfg_ID Shipper Packaging Configuration
 	 */
-
-	public void setM_ShipperPackagingCfg_ID(int M_ShipperPackagingCfg_ID) {
+	@JsonProperty("M_ShipperPackagingCfg_ID")
+	public void setM_ShipperPackagingCfg_IDFromJson(int M_ShipperPackagingCfg_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShipperPackagingCfg_ID(M_ShipperPackagingCfg_ID);
 		}

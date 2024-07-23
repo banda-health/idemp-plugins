@@ -74,8 +74,8 @@ public class X_R_MailTextInput extends MMailText implements I_R_MailTextInput {
 	 *
 	 * @param R_MailText_ID Text templates for mailings
 	 */
-
-	public void setR_MailText_ID(int R_MailText_ID) {
+	@JsonProperty("R_MailText_ID")
+	public void setR_MailText_IDFromJson(int R_MailText_ID) {
 		if (get_ID() == 0) {
 			super.setR_MailText_ID(R_MailText_ID);
 		}

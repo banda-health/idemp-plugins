@@ -76,8 +76,8 @@ public class X_AD_Password_HistoryInput extends MPasswordHistory implements I_AD
 	 *
 	 * @param AD_Password_History_ID Password History ID
 	 */
-
-	public void setAD_Password_History_ID(int AD_Password_History_ID) {
+	@JsonProperty("AD_Password_History_ID")
+	public void setAD_Password_History_IDFromJson(int AD_Password_History_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Password_History_ID(AD_Password_History_ID);
 		}
@@ -142,8 +142,8 @@ public class X_AD_Password_HistoryInput extends MPasswordHistory implements I_AD
 	 *
 	 * @param Salt Random data added to improve password hash effectiveness
 	 */
-
-	public void setSalt(String Salt) {
+	@JsonProperty("Salt")
+	public void setSaltFromJson(String Salt) {
 		if (get_ID() == 0) {
 			super.setSalt(Salt);
 		}

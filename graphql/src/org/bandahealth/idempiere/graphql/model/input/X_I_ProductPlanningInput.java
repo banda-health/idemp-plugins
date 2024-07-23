@@ -202,8 +202,8 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	 *
 	 * @param I_ProductPlanning_ID Import Product Planning
 	 */
-
-	public void setI_ProductPlanning_ID(int I_ProductPlanning_ID) {
+	@JsonProperty("I_ProductPlanning_ID")
+	public void setI_ProductPlanning_IDFromJson(int I_ProductPlanning_ID) {
 		if (get_ID() == 0) {
 			super.setI_ProductPlanning_ID(I_ProductPlanning_ID);
 		}
@@ -514,8 +514,8 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}

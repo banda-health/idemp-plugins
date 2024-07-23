@@ -74,8 +74,8 @@ public class X_C_TaxDeclarationInput extends MTaxDeclaration implements I_C_TaxD
 	 *
 	 * @param C_TaxDeclaration_ID Define the declaration to the tax authorities
 	 */
-
-	public void setC_TaxDeclaration_ID(int C_TaxDeclaration_ID) {
+	@JsonProperty("C_TaxDeclaration_ID")
+	public void setC_TaxDeclaration_IDFromJson(int C_TaxDeclaration_ID) {
 		if (get_ID() == 0) {
 			super.setC_TaxDeclaration_ID(C_TaxDeclaration_ID);
 		}

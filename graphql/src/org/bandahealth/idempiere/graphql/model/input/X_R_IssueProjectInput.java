@@ -149,8 +149,8 @@ public class X_R_IssueProjectInput extends X_R_IssueProject implements I_R_Issue
 	 *
 	 * @param R_IssueProject_ID Implementation Projects
 	 */
-
-	public void setR_IssueProject_ID(int R_IssueProject_ID) {
+	@JsonProperty("R_IssueProject_ID")
+	public void setR_IssueProject_IDFromJson(int R_IssueProject_ID) {
 		if (get_ID() == 0) {
 			super.setR_IssueProject_ID(R_IssueProject_ID);
 		}

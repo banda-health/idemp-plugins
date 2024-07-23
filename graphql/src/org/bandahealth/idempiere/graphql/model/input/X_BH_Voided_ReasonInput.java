@@ -74,8 +74,8 @@ public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voi
 	 *
 	 * @param BH_Voided_Reason_ID BH_Voided_Reason_ID
 	 */
-
-	public void setBH_Voided_Reason_ID(int BH_Voided_Reason_ID) {
+	@JsonProperty("BH_Voided_Reason_ID")
+	public void setBH_Voided_Reason_IDFromJson(int BH_Voided_Reason_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Voided_Reason_ID(BH_Voided_Reason_ID);
 		}

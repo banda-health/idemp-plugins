@@ -160,8 +160,8 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param AD_PrintFormat_ID Data Print Format
 	 */
-
-	public void setAD_PrintFormat_ID(int AD_PrintFormat_ID) {
+	@JsonProperty("AD_PrintFormat_ID")
+	public void setAD_PrintFormat_IDFromJson(int AD_PrintFormat_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PrintFormat_ID(AD_PrintFormat_ID);
 		}
@@ -396,8 +396,8 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param IsTableBased Table based List Reporting
 	 */
-
-	public void setIsTableBased(boolean IsTableBased) {
+	@JsonProperty("IsTableBased")
+	public void setIsTableBasedFromJson(boolean IsTableBased) {
 		if (get_ID() == 0) {
 			super.setIsTableBased(IsTableBased);
 		}

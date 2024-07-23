@@ -74,8 +74,8 @@ public class X_C_TaxTypeInput extends X_C_TaxType implements I_C_TaxTypeInput {
 	 *
 	 * @param C_TaxType_ID Tax Type
 	 */
-
-	public void setC_TaxType_ID(int C_TaxType_ID) {
+	@JsonProperty("C_TaxType_ID")
+	public void setC_TaxType_IDFromJson(int C_TaxType_ID) {
 		if (get_ID() == 0) {
 			super.setC_TaxType_ID(C_TaxType_ID);
 		}

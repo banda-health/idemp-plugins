@@ -449,8 +449,8 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 *
 	 * @param PP_Order_Workflow_ID Manufacturing Order Workflow
 	 */
-
-	public void setPP_Order_Workflow_ID(int PP_Order_Workflow_ID) {
+	@JsonProperty("PP_Order_Workflow_ID")
+	public void setPP_Order_Workflow_IDFromJson(int PP_Order_Workflow_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Order_Workflow_ID(PP_Order_Workflow_ID);
 		}

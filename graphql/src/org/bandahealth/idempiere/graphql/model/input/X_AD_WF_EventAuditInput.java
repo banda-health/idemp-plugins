@@ -156,8 +156,8 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	 *
 	 * @param AD_WF_EventAudit_ID Workflow Process Activity Event Audit Information
 	 */
-
-	public void setAD_WF_EventAudit_ID(int AD_WF_EventAudit_ID) {
+	@JsonProperty("AD_WF_EventAudit_ID")
+	public void setAD_WF_EventAudit_IDFromJson(int AD_WF_EventAudit_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_EventAudit_ID(AD_WF_EventAudit_ID);
 		}

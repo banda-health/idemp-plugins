@@ -39,8 +39,8 @@ public class X_AD_LdapProcessorInput extends MLdapProcessor implements I_AD_Ldap
 	 *
 	 * @param AD_LdapProcessor_ID LDAP Server to authenticate and authorize external systems based on iDempiere
 	 */
-
-	public void setAD_LdapProcessor_ID(int AD_LdapProcessor_ID) {
+	@JsonProperty("AD_LdapProcessor_ID")
+	public void setAD_LdapProcessor_IDFromJson(int AD_LdapProcessor_ID) {
 		if (get_ID() == 0) {
 			super.setAD_LdapProcessor_ID(AD_LdapProcessor_ID);
 		}

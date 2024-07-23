@@ -42,8 +42,8 @@ public class X_AD_FieldGroupInput extends MFieldGroup_BH implements I_AD_FieldGr
 	 *
 	 * @param AD_FieldGroup_ID Logical grouping of fields
 	 */
-
-	public void setAD_FieldGroup_ID(int AD_FieldGroup_ID) {
+	@JsonProperty("AD_FieldGroup_ID")
+	public void setAD_FieldGroup_IDFromJson(int AD_FieldGroup_ID) {
 		if (get_ID() == 0) {
 			super.setAD_FieldGroup_ID(AD_FieldGroup_ID);
 		}

@@ -77,8 +77,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param AD_AllUsers_V_ID User (All)
 	 */
-
-	public void setAD_AllUsers_V_ID(int AD_AllUsers_V_ID) {
+	@JsonProperty("AD_AllUsers_V_ID")
+	public void setAD_AllUsers_V_IDFromJson(int AD_AllUsers_V_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AllUsers_V_ID(AD_AllUsers_V_ID);
 		}
@@ -143,8 +143,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param DateLastLogin Date Last Login
 	 */
-
-	public void setDateLastLogin(Timestamp DateLastLogin) {
+	@JsonProperty("DateLastLogin")
+	public void setDateLastLoginFromJson(Timestamp DateLastLogin) {
 		if (get_ID() == 0) {
 			super.setDateLastLogin(DateLastLogin);
 		}
@@ -154,8 +154,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param DatePasswordChanged Date Password Changed
 	 */
-
-	public void setDatePasswordChanged(Timestamp DatePasswordChanged) {
+	@JsonProperty("DatePasswordChanged")
+	public void setDatePasswordChangedFromJson(Timestamp DatePasswordChanged) {
 		if (get_ID() == 0) {
 			super.setDatePasswordChanged(DatePasswordChanged);
 		}
@@ -165,8 +165,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param Description Optional short description of the record
 	 */
-
-	public void setDescription(String Description) {
+	@JsonProperty("Description")
+	public void setDescriptionFromJson(String Description) {
 		if (get_ID() == 0) {
 			super.setDescription(Description);
 		}
@@ -176,8 +176,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param EMail Electronic Mail Address
 	 */
-
-	public void setEMail(String EMail) {
+	@JsonProperty("EMail")
+	public void setEMailFromJson(String EMail) {
 		if (get_ID() == 0) {
 			super.setEMail(EMail);
 		}
@@ -187,8 +187,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param FailedLoginCount Failed Login Count
 	 */
-
-	public void setFailedLoginCount(int FailedLoginCount) {
+	@JsonProperty("FailedLoginCount")
+	public void setFailedLoginCountFromJson(int FailedLoginCount) {
 		if (get_ID() == 0) {
 			super.setFailedLoginCount(FailedLoginCount);
 		}
@@ -198,8 +198,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param IsExpired Expired
 	 */
-
-	public void setIsExpired(boolean IsExpired) {
+	@JsonProperty("IsExpired")
+	public void setIsExpiredFromJson(boolean IsExpired) {
 		if (get_ID() == 0) {
 			super.setIsExpired(IsExpired);
 		}
@@ -209,8 +209,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param IsLocked Locked
 	 */
-
-	public void setIsLocked(boolean IsLocked) {
+	@JsonProperty("IsLocked")
+	public void setIsLockedFromJson(boolean IsLocked) {
 		if (get_ID() == 0) {
 			super.setIsLocked(IsLocked);
 		}
@@ -220,8 +220,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param IsNoPasswordReset No Password Reset
 	 */
-
-	public void setIsNoPasswordReset(boolean IsNoPasswordReset) {
+	@JsonProperty("IsNoPasswordReset")
+	public void setIsNoPasswordResetFromJson(boolean IsNoPasswordReset) {
 		if (get_ID() == 0) {
 			super.setIsNoPasswordReset(IsNoPasswordReset);
 		}
@@ -231,8 +231,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param LDAPUser User Name used for authorization via LDAP (directory) services
 	 */
-
-	public void setLDAPUser(String LDAPUser) {
+	@JsonProperty("LDAPUser")
+	public void setLDAPUserFromJson(String LDAPUser) {
 		if (get_ID() == 0) {
 			super.setLDAPUser(LDAPUser);
 		}
@@ -242,8 +242,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param Name Alphanumeric identifier of the entity
 	 */
-
-	public void setName(String Name) {
+	@JsonProperty("Name")
+	public void setNameFromJson(String Name) {
 		if (get_ID() == 0) {
 			super.setName(Name);
 		}
@@ -253,8 +253,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param Password Password of any length (case sensitive)
 	 */
-
-	public void setPassword(String Password) {
+	@JsonProperty("Password")
+	public void setPasswordFromJson(String Password) {
 		if (get_ID() == 0) {
 			super.setPassword(Password);
 		}
@@ -264,8 +264,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param Salt Random data added to improve password hash effectiveness
 	 */
-
-	public void setSalt(String Salt) {
+	@JsonProperty("Salt")
+	public void setSaltFromJson(String Salt) {
 		if (get_ID() == 0) {
 			super.setSalt(Salt);
 		}
@@ -275,8 +275,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param UserPIN User PIN
 	 */
-
-	public void setUserPIN(String UserPIN) {
+	@JsonProperty("UserPIN")
+	public void setUserPINFromJson(String UserPIN) {
 		if (get_ID() == 0) {
 			super.setUserPIN(UserPIN);
 		}
@@ -286,8 +286,8 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	 *
 	 * @param Value Search key for the record in the format required - must be unique
 	 */
-
-	public void setValue(String Value) {
+	@JsonProperty("Value")
+	public void setValueFromJson(String Value) {
 		if (get_ID() == 0) {
 			super.setValue(Value);
 		}

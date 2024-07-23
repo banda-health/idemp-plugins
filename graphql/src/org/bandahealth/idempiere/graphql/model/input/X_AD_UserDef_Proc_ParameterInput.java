@@ -262,8 +262,8 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	 *
 	 * @param AD_UserDef_Proc_Parameter_ID Primary Key : User defined Process Parameter
 	 */
-
-	public void setAD_UserDef_Proc_Parameter_ID(int AD_UserDef_Proc_Parameter_ID) {
+	@JsonProperty("AD_UserDef_Proc_Parameter_ID")
+	public void setAD_UserDef_Proc_Parameter_IDFromJson(int AD_UserDef_Proc_Parameter_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserDef_Proc_Parameter_ID(AD_UserDef_Proc_Parameter_ID);
 		}

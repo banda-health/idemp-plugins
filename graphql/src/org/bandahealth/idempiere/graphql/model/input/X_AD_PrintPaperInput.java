@@ -77,8 +77,8 @@ public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintP
 	 *
 	 * @param AD_PrintPaper_ID Printer paper definition
 	 */
-
-	public void setAD_PrintPaper_ID(int AD_PrintPaper_ID) {
+	@JsonProperty("AD_PrintPaper_ID")
+	public void setAD_PrintPaper_IDFromJson(int AD_PrintPaper_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PrintPaper_ID(AD_PrintPaper_ID);
 		}

@@ -82,8 +82,8 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 *
 	 * @param M_AttributeSet_ID Product Attribute Set
 	 */
-
-	public void setM_AttributeSet_ID(int M_AttributeSet_ID) {
+	@JsonProperty("M_AttributeSet_ID")
+	public void setM_AttributeSet_IDFromJson(int M_AttributeSet_ID) {
 		if (get_ID() == 0) {
 			super.setM_AttributeSet_ID(M_AttributeSet_ID);
 		}

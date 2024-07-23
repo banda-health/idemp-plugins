@@ -113,8 +113,8 @@ public class X_BH_Concept_MappingInput extends MBHConceptMapping implements I_BH
 	 *
 	 * @param BH_Concept_Mapping_ID Concept Mapping
 	 */
-
-	public void setBH_Concept_Mapping_ID(int BH_Concept_Mapping_ID) {
+	@JsonProperty("BH_Concept_Mapping_ID")
+	public void setBH_Concept_Mapping_IDFromJson(int BH_Concept_Mapping_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Concept_Mapping_ID(BH_Concept_Mapping_ID);
 		}

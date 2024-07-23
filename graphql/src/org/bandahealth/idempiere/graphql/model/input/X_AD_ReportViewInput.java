@@ -78,8 +78,8 @@ public class X_AD_ReportViewInput extends MReportView implements I_AD_ReportView
 	 *
 	 * @param AD_ReportView_ID View used to generate this report
 	 */
-
-	public void setAD_ReportView_ID(int AD_ReportView_ID) {
+	@JsonProperty("AD_ReportView_ID")
+	public void setAD_ReportView_IDFromJson(int AD_ReportView_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ReportView_ID(AD_ReportView_ID);
 		}

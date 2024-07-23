@@ -137,8 +137,8 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 *
 	 * @param A_Asset_Group_Acct_ID Asset Group Accounting
 	 */
-
-	public void setA_Asset_Group_Acct_ID(int A_Asset_Group_Acct_ID) {
+	@JsonProperty("A_Asset_Group_Acct_ID")
+	public void setA_Asset_Group_Acct_IDFromJson(int A_Asset_Group_Acct_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Group_Acct_ID(A_Asset_Group_Acct_ID);
 		}

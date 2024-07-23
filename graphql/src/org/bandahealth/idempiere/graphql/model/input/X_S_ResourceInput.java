@@ -190,8 +190,8 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 *
 	 * @param S_Resource_ID Resource
 	 */
-
-	public void setS_Resource_ID(int S_Resource_ID) {
+	@JsonProperty("S_Resource_ID")
+	public void setS_Resource_IDFromJson(int S_Resource_ID) {
 		if (get_ID() == 0) {
 			super.setS_Resource_ID(S_Resource_ID);
 		}

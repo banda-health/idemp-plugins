@@ -115,8 +115,8 @@ public class X_C_TaskInput extends MProjectTypeTask implements I_C_TaskInput {
 	 *
 	 * @param C_Task_ID Standard Project Type Task
 	 */
-
-	public void setC_Task_ID(int C_Task_ID) {
+	@JsonProperty("C_Task_ID")
+	public void setC_Task_IDFromJson(int C_Task_ID) {
 		if (get_ID() == 0) {
 			super.setC_Task_ID(C_Task_ID);
 		}

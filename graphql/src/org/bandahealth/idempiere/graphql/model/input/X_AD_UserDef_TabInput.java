@@ -158,8 +158,8 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 *
 	 * @param AD_UserDef_Tab_ID User defined Tab
 	 */
-
-	public void setAD_UserDef_Tab_ID(int AD_UserDef_Tab_ID) {
+	@JsonProperty("AD_UserDef_Tab_ID")
+	public void setAD_UserDef_Tab_IDFromJson(int AD_UserDef_Tab_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserDef_Tab_ID(AD_UserDef_Tab_ID);
 		}

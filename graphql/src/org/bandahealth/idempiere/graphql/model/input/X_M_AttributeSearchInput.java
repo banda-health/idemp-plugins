@@ -74,8 +74,8 @@ public class X_M_AttributeSearchInput extends X_M_AttributeSearch implements I_M
 	 *
 	 * @param M_AttributeSearch_ID Common Search Attribute 
 	 */
-
-	public void setM_AttributeSearch_ID(int M_AttributeSearch_ID) {
+	@JsonProperty("M_AttributeSearch_ID")
+	public void setM_AttributeSearch_IDFromJson(int M_AttributeSearch_ID) {
 		if (get_ID() == 0) {
 			super.setM_AttributeSearch_ID(M_AttributeSearch_ID);
 		}

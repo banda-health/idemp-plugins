@@ -152,8 +152,8 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	 *
 	 * @param AD_UserDef_Info_Related_ID User defined Info Related
 	 */
-
-	public void setAD_UserDef_Info_Related_ID(int AD_UserDef_Info_Related_ID) {
+	@JsonProperty("AD_UserDef_Info_Related_ID")
+	public void setAD_UserDef_Info_Related_IDFromJson(int AD_UserDef_Info_Related_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserDef_Info_Related_ID(AD_UserDef_Info_Related_ID);
 		}

@@ -370,8 +370,8 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	 *
 	 * @param I_Payment_ID Import Payment
 	 */
-
-	public void setI_Payment_ID(int I_Payment_ID) {
+	@JsonProperty("I_Payment_ID")
+	public void setI_Payment_IDFromJson(int I_Payment_ID) {
 		if (get_ID() == 0) {
 			super.setI_Payment_ID(I_Payment_ID);
 		}

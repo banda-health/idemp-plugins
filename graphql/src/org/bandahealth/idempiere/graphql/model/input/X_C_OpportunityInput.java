@@ -223,8 +223,8 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 *
 	 * @param C_Opportunity_ID Sales Opportunity
 	 */
-
-	public void setC_Opportunity_ID(int C_Opportunity_ID) {
+	@JsonProperty("C_Opportunity_ID")
+	public void setC_Opportunity_IDFromJson(int C_Opportunity_ID) {
 		if (get_ID() == 0) {
 			super.setC_Opportunity_ID(C_Opportunity_ID);
 		}

@@ -82,8 +82,8 @@ public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_P
 	 *
 	 * @param A_Asset_Product_ID Asset Product
 	 */
-
-	public void setA_Asset_Product_ID(int A_Asset_Product_ID) {
+	@JsonProperty("A_Asset_Product_ID")
+	public void setA_Asset_Product_IDFromJson(int A_Asset_Product_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Product_ID(A_Asset_Product_ID);
 		}

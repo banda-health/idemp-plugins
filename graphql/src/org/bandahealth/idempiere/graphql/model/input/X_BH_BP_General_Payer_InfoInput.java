@@ -78,8 +78,8 @@ public class X_BH_BP_General_Payer_InfoInput extends MBHBPGeneralPayerInfo imple
 	 *
 	 * @param BH_BP_General_Payer_Info_ID Business Partner General Payer Info
 	 */
-
-	public void setBH_BP_General_Payer_Info_ID(int BH_BP_General_Payer_Info_ID) {
+	@JsonProperty("BH_BP_General_Payer_Info_ID")
+	public void setBH_BP_General_Payer_Info_IDFromJson(int BH_BP_General_Payer_Info_ID) {
 		if (get_ID() == 0) {
 			super.setBH_BP_General_Payer_Info_ID(BH_BP_General_Payer_Info_ID);
 		}

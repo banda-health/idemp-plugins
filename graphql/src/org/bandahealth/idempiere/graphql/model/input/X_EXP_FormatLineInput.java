@@ -187,8 +187,8 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	 *
 	 * @param EXP_FormatLine_ID Format Line
 	 */
-
-	public void setEXP_FormatLine_ID(int EXP_FormatLine_ID) {
+	@JsonProperty("EXP_FormatLine_ID")
+	public void setEXP_FormatLine_IDFromJson(int EXP_FormatLine_ID) {
 		if (get_ID() == 0) {
 			super.setEXP_FormatLine_ID(EXP_FormatLine_ID);
 		}

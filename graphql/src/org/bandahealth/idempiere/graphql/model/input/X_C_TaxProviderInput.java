@@ -76,8 +76,8 @@ public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProvide
 	 *
 	 * @param C_TaxProvider_ID Tax Provider
 	 */
-
-	public void setC_TaxProvider_ID(int C_TaxProvider_ID) {
+	@JsonProperty("C_TaxProvider_ID")
+	public void setC_TaxProvider_IDFromJson(int C_TaxProvider_ID) {
 		if (get_ID() == 0) {
 			super.setC_TaxProvider_ID(C_TaxProvider_ID);
 		}

@@ -77,8 +77,8 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 	 *
 	 * @param AD_Replication_ID Data Replication Target
 	 */
-
-	public void setAD_Replication_ID(int AD_Replication_ID) {
+	@JsonProperty("AD_Replication_ID")
+	public void setAD_Replication_IDFromJson(int AD_Replication_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Replication_ID(AD_Replication_ID);
 		}
@@ -140,8 +140,8 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 	 *
 	 * @param DateLastRun Date the process was last run.
 	 */
-
-	public void setDateLastRun(Timestamp DateLastRun) {
+	@JsonProperty("DateLastRun")
+	public void setDateLastRunFromJson(Timestamp DateLastRun) {
 		if (get_ID() == 0) {
 			super.setDateLastRun(DateLastRun);
 		}

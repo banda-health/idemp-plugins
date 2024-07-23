@@ -74,8 +74,8 @@ public class X_M_DistributionListInput extends MDistributionList implements I_M_
 	 *
 	 * @param M_DistributionList_ID Distribution Lists allow to distribute products to a selected list of partners
 	 */
-
-	public void setM_DistributionList_ID(int M_DistributionList_ID) {
+	@JsonProperty("M_DistributionList_ID")
+	public void setM_DistributionList_IDFromJson(int M_DistributionList_ID) {
 		if (get_ID() == 0) {
 			super.setM_DistributionList_ID(M_DistributionList_ID);
 		}

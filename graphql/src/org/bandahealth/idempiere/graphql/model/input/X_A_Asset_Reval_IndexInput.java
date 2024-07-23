@@ -41,8 +41,8 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	 *
 	 * @param A_Asset_Reval_Index_ID Asset Reval Index
 	 */
-
-	public void setA_Asset_Reval_Index_ID(int A_Asset_Reval_Index_ID) {
+	@JsonProperty("A_Asset_Reval_Index_ID")
+	public void setA_Asset_Reval_Index_IDFromJson(int A_Asset_Reval_Index_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Reval_Index_ID(A_Asset_Reval_Index_ID);
 		}

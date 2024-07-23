@@ -114,8 +114,8 @@ public class X_R_RequestProcessorInput extends MRequestProcessor implements I_R_
 	 *
 	 * @param R_RequestProcessor_ID Processor for Requests
 	 */
-
-	public void setR_RequestProcessor_ID(int R_RequestProcessor_ID) {
+	@JsonProperty("R_RequestProcessor_ID")
+	public void setR_RequestProcessor_IDFromJson(int R_RequestProcessor_ID) {
 		if (get_ID() == 0) {
 			super.setR_RequestProcessor_ID(R_RequestProcessor_ID);
 		}

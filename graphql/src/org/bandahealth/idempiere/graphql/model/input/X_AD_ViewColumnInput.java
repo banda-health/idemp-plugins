@@ -81,8 +81,8 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 	 *
 	 * @param AD_ViewColumn_ID Database View Column
 	 */
-
-	public void setAD_ViewColumn_ID(int AD_ViewColumn_ID) {
+	@JsonProperty("AD_ViewColumn_ID")
+	public void setAD_ViewColumn_IDFromJson(int AD_ViewColumn_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ViewColumn_ID(AD_ViewColumn_ID);
 		}

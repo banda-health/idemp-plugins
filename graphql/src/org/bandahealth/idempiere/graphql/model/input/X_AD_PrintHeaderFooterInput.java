@@ -74,8 +74,8 @@ public class X_AD_PrintHeaderFooterInput extends X_AD_PrintHeaderFooter implemen
 	 *
 	 * @param AD_PrintHeaderFooter_ID Print Header/Footer
 	 */
-
-	public void setAD_PrintHeaderFooter_ID(int AD_PrintHeaderFooter_ID) {
+	@JsonProperty("AD_PrintHeaderFooter_ID")
+	public void setAD_PrintHeaderFooter_IDFromJson(int AD_PrintHeaderFooter_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PrintHeaderFooter_ID(AD_PrintHeaderFooter_ID);
 		}

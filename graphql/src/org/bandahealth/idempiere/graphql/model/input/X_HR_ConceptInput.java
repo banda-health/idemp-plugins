@@ -235,8 +235,8 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	 *
 	 * @param HR_Concept_ID Payroll Concept
 	 */
-
-	public void setHR_Concept_ID(int HR_Concept_ID) {
+	@JsonProperty("HR_Concept_ID")
+	public void setHR_Concept_IDFromJson(int HR_Concept_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Concept_ID(HR_Concept_ID);
 		}

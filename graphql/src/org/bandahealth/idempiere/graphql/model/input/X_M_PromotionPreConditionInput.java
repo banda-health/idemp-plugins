@@ -259,8 +259,8 @@ public class X_M_PromotionPreConditionInput extends X_M_PromotionPreCondition im
 	 *
 	 * @param M_PromotionPreCondition_ID Promotion Pre Condition
 	 */
-
-	public void setM_PromotionPreCondition_ID(int M_PromotionPreCondition_ID) {
+	@JsonProperty("M_PromotionPreCondition_ID")
+	public void setM_PromotionPreCondition_IDFromJson(int M_PromotionPreCondition_ID) {
 		if (get_ID() == 0) {
 			super.setM_PromotionPreCondition_ID(M_PromotionPreCondition_ID);
 		}
@@ -322,8 +322,8 @@ public class X_M_PromotionPreConditionInput extends X_M_PromotionPreCondition im
 	 *
 	 * @param PromotionCounter Usage counter
 	 */
-
-	public void setPromotionCounter(int PromotionCounter) {
+	@JsonProperty("PromotionCounter")
+	public void setPromotionCounterFromJson(int PromotionCounter) {
 		if (get_ID() == 0) {
 			super.setPromotionCounter(PromotionCounter);
 		}

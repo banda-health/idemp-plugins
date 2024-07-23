@@ -639,8 +639,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param C_Payment_ID Payment identifier
 	 */
-
-	public void setC_Payment_ID(int C_Payment_ID) {
+	@JsonProperty("C_Payment_ID")
+	public void setC_Payment_IDFromJson(int C_Payment_ID) {
 		if (get_ID() == 0) {
 			super.setC_Payment_ID(C_Payment_ID);
 		}
@@ -921,8 +921,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param IsApproved Indicates if this document requires approval
 	 */
-
-	public void setIsApproved(boolean IsApproved) {
+	@JsonProperty("IsApproved")
+	public void setIsApprovedFromJson(boolean IsApproved) {
 		if (get_ID() == 0) {
 			super.setIsApproved(IsApproved);
 		}
@@ -932,8 +932,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}
@@ -943,8 +943,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_AuthCode Authorization Code returned
 	 */
-
-	public void setR_AuthCode(String R_AuthCode) {
+	@JsonProperty("R_AuthCode")
+	public void setR_AuthCodeFromJson(String R_AuthCode) {
 		if (get_ID() == 0) {
 			super.setR_AuthCode(R_AuthCode);
 		}
@@ -954,8 +954,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_AuthCode_DC Authorization Code Delayed Capture returned
 	 */
-
-	public void setR_AuthCode_DC(String R_AuthCode_DC) {
+	@JsonProperty("R_AuthCode_DC")
+	public void setR_AuthCode_DCFromJson(String R_AuthCode_DC) {
 		if (get_ID() == 0) {
 			super.setR_AuthCode_DC(R_AuthCode_DC);
 		}
@@ -1049,8 +1049,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_CVV2Match Credit Card Verification Code Match
 	 */
-
-	public void setR_CVV2Match(boolean R_CVV2Match) {
+	@JsonProperty("R_CVV2Match")
+	public void setR_CVV2MatchFromJson(boolean R_CVV2Match) {
 		if (get_ID() == 0) {
 			super.setR_CVV2Match(R_CVV2Match);
 		}
@@ -1060,8 +1060,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_Info Response info
 	 */
-
-	public void setR_Info(String R_Info) {
+	@JsonProperty("R_Info")
+	public void setR_InfoFromJson(String R_Info) {
 		if (get_ID() == 0) {
 			super.setR_Info(R_Info);
 		}
@@ -1071,8 +1071,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_PnRef Payment reference
 	 */
-
-	public void setR_PnRef(String R_PnRef) {
+	@JsonProperty("R_PnRef")
+	public void setR_PnRefFromJson(String R_PnRef) {
 		if (get_ID() == 0) {
 			super.setR_PnRef(R_PnRef);
 		}
@@ -1082,8 +1082,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_PnRef_DC Payment Reference Delayed Capture
 	 */
-
-	public void setR_PnRef_DC(String R_PnRef_DC) {
+	@JsonProperty("R_PnRef_DC")
+	public void setR_PnRef_DCFromJson(String R_PnRef_DC) {
 		if (get_ID() == 0) {
 			super.setR_PnRef_DC(R_PnRef_DC);
 		}
@@ -1093,8 +1093,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_RespMsg Response message
 	 */
-
-	public void setR_RespMsg(String R_RespMsg) {
+	@JsonProperty("R_RespMsg")
+	public void setR_RespMsgFromJson(String R_RespMsg) {
 		if (get_ID() == 0) {
 			super.setR_RespMsg(R_RespMsg);
 		}
@@ -1104,8 +1104,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_Result Result of transmission
 	 */
-
-	public void setR_Result(String R_Result) {
+	@JsonProperty("R_Result")
+	public void setR_ResultFromJson(String R_Result) {
 		if (get_ID() == 0) {
 			super.setR_Result(R_Result);
 		}
@@ -1186,8 +1186,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param Swipe Track 1 and 2 of the Credit Card
 	 */
-
-	public void setSwipe(String Swipe) {
+	@JsonProperty("Swipe")
+	public void setSwipeFromJson(String Swipe) {
 		if (get_ID() == 0) {
 			super.setSwipe(Swipe);
 		}

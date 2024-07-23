@@ -110,8 +110,8 @@ public class X_M_PromotionInput extends X_M_Promotion implements I_M_PromotionIn
 	 *
 	 * @param M_Promotion_ID Promotion
 	 */
-
-	public void setM_Promotion_ID(int M_Promotion_ID) {
+	@JsonProperty("M_Promotion_ID")
+	public void setM_Promotion_IDFromJson(int M_Promotion_ID) {
 		if (get_ID() == 0) {
 			super.setM_Promotion_ID(M_Promotion_ID);
 		}

@@ -184,8 +184,8 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 *
 	 * @param M_PriceList_Version_ID Identifies a unique instance of a Price List
 	 */
-
-	public void setM_PriceList_Version_ID(int M_PriceList_Version_ID) {
+	@JsonProperty("M_PriceList_Version_ID")
+	public void setM_PriceList_Version_IDFromJson(int M_PriceList_Version_ID) {
 		if (get_ID() == 0) {
 			super.setM_PriceList_Version_ID(M_PriceList_Version_ID);
 		}

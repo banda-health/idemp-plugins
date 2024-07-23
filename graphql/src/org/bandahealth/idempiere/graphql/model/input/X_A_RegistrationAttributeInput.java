@@ -40,8 +40,8 @@ public class X_A_RegistrationAttributeInput extends X_A_RegistrationAttribute im
 	 *
 	 * @param A_RegistrationAttribute_ID Asset Registration Attribute
 	 */
-
-	public void setA_RegistrationAttribute_ID(int A_RegistrationAttribute_ID) {
+	@JsonProperty("A_RegistrationAttribute_ID")
+	public void setA_RegistrationAttribute_IDFromJson(int A_RegistrationAttribute_ID) {
 		if (get_ID() == 0) {
 			super.setA_RegistrationAttribute_ID(A_RegistrationAttribute_ID);
 		}

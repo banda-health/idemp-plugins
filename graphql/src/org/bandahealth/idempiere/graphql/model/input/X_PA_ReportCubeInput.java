@@ -107,8 +107,8 @@ public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCube
 	 *
 	 * @param PA_ReportCube_ID Define reporting cube for pre-calculation of summary accounting data.
 	 */
-
-	public void setPA_ReportCube_ID(int PA_ReportCube_ID) {
+	@JsonProperty("PA_ReportCube_ID")
+	public void setPA_ReportCube_IDFromJson(int PA_ReportCube_ID) {
 		if (get_ID() == 0) {
 			super.setPA_ReportCube_ID(PA_ReportCube_ID);
 		}

@@ -77,8 +77,8 @@ public class X_AD_StorageProviderInput extends MStorageProvider implements I_AD_
 	 *
 	 * @param AD_StorageProvider_ID Storage Provider
 	 */
-
-	public void setAD_StorageProvider_ID(int AD_StorageProvider_ID) {
+	@JsonProperty("AD_StorageProvider_ID")
+	public void setAD_StorageProvider_IDFromJson(int AD_StorageProvider_ID) {
 		if (get_ID() == 0) {
 			super.setAD_StorageProvider_ID(AD_StorageProvider_ID);
 		}

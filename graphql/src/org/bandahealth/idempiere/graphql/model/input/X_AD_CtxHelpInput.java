@@ -40,8 +40,8 @@ public class X_AD_CtxHelpInput extends MCtxHelp implements I_AD_CtxHelpInput {
 	 *
 	 * @param AD_CtxHelp_ID Context Help
 	 */
-
-	public void setAD_CtxHelp_ID(int AD_CtxHelp_ID) {
+	@JsonProperty("AD_CtxHelp_ID")
+	public void setAD_CtxHelp_IDFromJson(int AD_CtxHelp_ID) {
 		if (get_ID() == 0) {
 			super.setAD_CtxHelp_ID(AD_CtxHelp_ID);
 		}

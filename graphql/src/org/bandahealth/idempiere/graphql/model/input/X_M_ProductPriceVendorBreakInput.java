@@ -81,8 +81,8 @@ public class X_M_ProductPriceVendorBreakInput extends X_M_ProductPriceVendorBrea
 	 *
 	 * @param BreakValue Low Value of trade discount break level
 	 */
-
-	public void setBreakValue(BigDecimal BreakValue) {
+	@JsonProperty("BreakValue")
+	public void setBreakValueFromJson(BigDecimal BreakValue) {
 		if (get_ID() == 0) {
 			super.setBreakValue(BreakValue);
 		}
@@ -203,8 +203,8 @@ public class X_M_ProductPriceVendorBreakInput extends X_M_ProductPriceVendorBrea
 	 *
 	 * @param M_ProductPriceVendorBreak_ID Product Price Break
 	 */
-
-	public void setM_ProductPriceVendorBreak_ID(int M_ProductPriceVendorBreak_ID) {
+	@JsonProperty("M_ProductPriceVendorBreak_ID")
+	public void setM_ProductPriceVendorBreak_IDFromJson(int M_ProductPriceVendorBreak_ID) {
 		if (get_ID() == 0) {
 			super.setM_ProductPriceVendorBreak_ID(M_ProductPriceVendorBreak_ID);
 		}

@@ -41,8 +41,8 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	 *
 	 * @param A_Depreciation_Table_Header_ID A_Depreciation_Table_Header_ID
 	 */
-
-	public void setA_Depreciation_Table_Header_ID(int A_Depreciation_Table_Header_ID) {
+	@JsonProperty("A_Depreciation_Table_Header_ID")
+	public void setA_Depreciation_Table_Header_IDFromJson(int A_Depreciation_Table_Header_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Table_Header_ID(A_Depreciation_Table_Header_ID);
 		}

@@ -144,8 +144,8 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 *
 	 * @param A_Asset_CreateDate Create Date
 	 */
-
-	public void setA_Asset_CreateDate(Timestamp A_Asset_CreateDate) {
+	@JsonProperty("A_Asset_CreateDate")
+	public void setA_Asset_CreateDateFromJson(Timestamp A_Asset_CreateDate) {
 		if (get_ID() == 0) {
 			super.setA_Asset_CreateDate(A_Asset_CreateDate);
 		}
@@ -189,8 +189,8 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 *
 	 * @param A_Asset_ID Asset used internally or by customers
 	 */
-
-	public void setA_Asset_ID(int A_Asset_ID) {
+	@JsonProperty("A_Asset_ID")
+	public void setA_Asset_IDFromJson(int A_Asset_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_ID(A_Asset_ID);
 		}
@@ -600,8 +600,8 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 *
 	 * @param IsFullyDepreciated The asset is fully depreciated
 	 */
-
-	public void setIsFullyDepreciated(boolean IsFullyDepreciated) {
+	@JsonProperty("IsFullyDepreciated")
+	public void setIsFullyDepreciatedFromJson(boolean IsFullyDepreciated) {
 		if (get_ID() == 0) {
 			super.setIsFullyDepreciated(IsFullyDepreciated);
 		}
@@ -784,8 +784,8 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 *
 	 * @param UseUnits Currently used units of the assets
 	 */
-
-	public void setUseUnits(int UseUnits) {
+	@JsonProperty("UseUnits")
+	public void setUseUnitsFromJson(int UseUnits) {
 		if (get_ID() == 0) {
 			super.setUseUnits(UseUnits);
 		}

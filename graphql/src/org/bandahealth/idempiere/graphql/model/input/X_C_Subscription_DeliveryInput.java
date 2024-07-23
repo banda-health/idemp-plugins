@@ -76,8 +76,8 @@ public class X_C_Subscription_DeliveryInput extends X_C_Subscription_Delivery im
 	 *
 	 * @param C_Subscription_Delivery_ID Optional Delivery Record for a Subscription
 	 */
-
-	public void setC_Subscription_Delivery_ID(int C_Subscription_Delivery_ID) {
+	@JsonProperty("C_Subscription_Delivery_ID")
+	public void setC_Subscription_Delivery_IDFromJson(int C_Subscription_Delivery_ID) {
 		if (get_ID() == 0) {
 			super.setC_Subscription_Delivery_ID(C_Subscription_Delivery_ID);
 		}

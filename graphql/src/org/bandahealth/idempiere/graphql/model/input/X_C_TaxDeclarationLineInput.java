@@ -349,8 +349,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	 *
 	 * @param C_TaxDeclarationLine_ID Tax Declaration Document Information
 	 */
-
-	public void setC_TaxDeclarationLine_ID(int C_TaxDeclarationLine_ID) {
+	@JsonProperty("C_TaxDeclarationLine_ID")
+	public void setC_TaxDeclarationLine_IDFromJson(int C_TaxDeclarationLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_TaxDeclarationLine_ID(C_TaxDeclarationLine_ID);
 		}
@@ -378,8 +378,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	 *
 	 * @param DateAcct Accounting Date
 	 */
-
-	public void setDateAcct(Timestamp DateAcct) {
+	@JsonProperty("DateAcct")
+	public void setDateAcctFromJson(Timestamp DateAcct) {
 		if (get_ID() == 0) {
 			super.setDateAcct(DateAcct);
 		}
@@ -389,8 +389,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	 *
 	 * @param IsManual This is a manual process
 	 */
-
-	public void setIsManual(boolean IsManual) {
+	@JsonProperty("IsManual")
+	public void setIsManualFromJson(boolean IsManual) {
 		if (get_ID() == 0) {
 			super.setIsManual(IsManual);
 		}
@@ -400,8 +400,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	 *
 	 * @param TaxAmt Tax Amount for a document
 	 */
-
-	public void setTaxAmt(BigDecimal TaxAmt) {
+	@JsonProperty("TaxAmt")
+	public void setTaxAmtFromJson(BigDecimal TaxAmt) {
 		if (get_ID() == 0) {
 			super.setTaxAmt(TaxAmt);
 		}
@@ -411,8 +411,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	 *
 	 * @param TaxBaseAmt Base for calculating the tax amount
 	 */
-
-	public void setTaxBaseAmt(BigDecimal TaxBaseAmt) {
+	@JsonProperty("TaxBaseAmt")
+	public void setTaxBaseAmtFromJson(BigDecimal TaxBaseAmt) {
 		if (get_ID() == 0) {
 			super.setTaxBaseAmt(TaxBaseAmt);
 		}

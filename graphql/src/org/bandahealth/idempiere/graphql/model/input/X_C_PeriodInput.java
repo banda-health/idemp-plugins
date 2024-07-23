@@ -79,8 +79,8 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	 *
 	 * @param C_Period_ID Period of the Calendar
 	 */
-
-	public void setC_Period_ID(int C_Period_ID) {
+	@JsonProperty("C_Period_ID")
+	public void setC_Period_IDFromJson(int C_Period_ID) {
 		if (get_ID() == 0) {
 			super.setC_Period_ID(C_Period_ID);
 		}

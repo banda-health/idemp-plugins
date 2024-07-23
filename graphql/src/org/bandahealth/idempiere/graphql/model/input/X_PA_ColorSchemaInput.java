@@ -251,8 +251,8 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 *
 	 * @param PA_ColorSchema_ID Performance Color Schema
 	 */
-
-	public void setPA_ColorSchema_ID(int PA_ColorSchema_ID) {
+	@JsonProperty("PA_ColorSchema_ID")
+	public void setPA_ColorSchema_IDFromJson(int PA_ColorSchema_ID) {
 		if (get_ID() == 0) {
 			super.setPA_ColorSchema_ID(PA_ColorSchema_ID);
 		}

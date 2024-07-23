@@ -118,8 +118,8 @@ public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_Process
 	 *
 	 * @param IMP_Processor_ID Import Processor
 	 */
-
-	public void setIMP_Processor_ID(int IMP_Processor_ID) {
+	@JsonProperty("IMP_Processor_ID")
+	public void setIMP_Processor_IDFromJson(int IMP_Processor_ID) {
 		if (get_ID() == 0) {
 			super.setIMP_Processor_ID(IMP_Processor_ID);
 		}

@@ -190,8 +190,8 @@ public class X_AD_SchedulerRecipientInput extends MSchedulerRecipient implements
 	 *
 	 * @param AD_SchedulerRecipient_ID Recipient of the Scheduler Notification
 	 */
-
-	public void setAD_SchedulerRecipient_ID(int AD_SchedulerRecipient_ID) {
+	@JsonProperty("AD_SchedulerRecipient_ID")
+	public void setAD_SchedulerRecipient_IDFromJson(int AD_SchedulerRecipient_ID) {
 		if (get_ID() == 0) {
 			super.setAD_SchedulerRecipient_ID(AD_SchedulerRecipient_ID);
 		}

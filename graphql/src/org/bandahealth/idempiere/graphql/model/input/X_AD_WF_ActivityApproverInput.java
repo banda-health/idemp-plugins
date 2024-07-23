@@ -149,8 +149,8 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	 *
 	 * @param AD_WF_ActivityApprover_ID Workflow Activity Approver
 	 */
-
-	public void setAD_WF_ActivityApprover_ID(int AD_WF_ActivityApprover_ID) {
+	@JsonProperty("AD_WF_ActivityApprover_ID")
+	public void setAD_WF_ActivityApprover_IDFromJson(int AD_WF_ActivityApprover_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_ActivityApprover_ID(AD_WF_ActivityApprover_ID);
 		}

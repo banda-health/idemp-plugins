@@ -94,8 +94,8 @@ public class X_C_BankTransferInput extends MBankTransfer implements I_C_BankTran
 	 *
 	 * @param C_BankTransfer_ID Bank Transfer
 	 */
-
-	public void setC_BankTransfer_ID(int C_BankTransfer_ID) {
+	@JsonProperty("C_BankTransfer_ID")
+	public void setC_BankTransfer_IDFromJson(int C_BankTransfer_ID) {
 		if (get_ID() == 0) {
 			super.setC_BankTransfer_ID(C_BankTransfer_ID);
 		}

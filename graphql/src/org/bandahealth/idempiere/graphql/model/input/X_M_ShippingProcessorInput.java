@@ -76,8 +76,8 @@ public class X_M_ShippingProcessorInput extends MShippingProcessor implements I_
 	 *
 	 * @param M_ShippingProcessor_ID Shipping Processor
 	 */
-
-	public void setM_ShippingProcessor_ID(int M_ShippingProcessor_ID) {
+	@JsonProperty("M_ShippingProcessor_ID")
+	public void setM_ShippingProcessor_IDFromJson(int M_ShippingProcessor_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShippingProcessor_ID(M_ShippingProcessor_ID);
 		}

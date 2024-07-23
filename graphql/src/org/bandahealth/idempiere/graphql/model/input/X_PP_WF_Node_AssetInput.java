@@ -149,8 +149,8 @@ public class X_PP_WF_Node_AssetInput extends X_PP_WF_Node_Asset implements I_PP_
 	 *
 	 * @param PP_WF_Node_Asset_ID Workflow Node Asset
 	 */
-
-	public void setPP_WF_Node_Asset_ID(int PP_WF_Node_Asset_ID) {
+	@JsonProperty("PP_WF_Node_Asset_ID")
+	public void setPP_WF_Node_Asset_IDFromJson(int PP_WF_Node_Asset_ID) {
 		if (get_ID() == 0) {
 			super.setPP_WF_Node_Asset_ID(PP_WF_Node_Asset_ID);
 		}
@@ -178,8 +178,8 @@ public class X_PP_WF_Node_AssetInput extends X_PP_WF_Node_Asset implements I_PP_
 	 *
 	 * @param SeqNo Method of ordering records; lowest number comes first
 	 */
-
-	public void setSeqNo(int SeqNo) {
+	@JsonProperty("SeqNo")
+	public void setSeqNoFromJson(int SeqNo) {
 		if (get_ID() == 0) {
 			super.setSeqNo(SeqNo);
 		}

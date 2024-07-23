@@ -197,8 +197,8 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 *
 	 * @param DateLastRun Date the process was last run.
 	 */
-
-	public void setDateLastRun(Timestamp DateLastRun) {
+	@JsonProperty("DateLastRun")
+	public void setDateLastRunFromJson(Timestamp DateLastRun) {
 		if (get_ID() == 0) {
 			super.setDateLastRun(DateLastRun);
 		}
@@ -208,8 +208,8 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 *
 	 * @param GoalPerformance Target achievement from 0..1
 	 */
-
-	public void setGoalPerformance(BigDecimal GoalPerformance) {
+	@JsonProperty("GoalPerformance")
+	public void setGoalPerformanceFromJson(BigDecimal GoalPerformance) {
 		if (get_ID() == 0) {
 			super.setGoalPerformance(GoalPerformance);
 		}
@@ -219,8 +219,8 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 *
 	 * @param MeasureActual Actual value that has been measured.
 	 */
-
-	public void setMeasureActual(BigDecimal MeasureActual) {
+	@JsonProperty("MeasureActual")
+	public void setMeasureActualFromJson(BigDecimal MeasureActual) {
 		if (get_ID() == 0) {
 			super.setMeasureActual(MeasureActual);
 		}
@@ -342,8 +342,8 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 *
 	 * @param PA_Goal_ID Performance Goal
 	 */
-
-	public void setPA_Goal_ID(int PA_Goal_ID) {
+	@JsonProperty("PA_Goal_ID")
+	public void setPA_Goal_IDFromJson(int PA_Goal_ID) {
 		if (get_ID() == 0) {
 			super.setPA_Goal_ID(PA_Goal_ID);
 		}

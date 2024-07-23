@@ -152,8 +152,8 @@ public class X_C_RfQResponseLineQtyInput extends MRfQResponseLineQty implements 
 	 *
 	 * @param C_RfQResponseLineQty_ID Request for Quotation Response Line Quantity
 	 */
-
-	public void setC_RfQResponseLineQty_ID(int C_RfQResponseLineQty_ID) {
+	@JsonProperty("C_RfQResponseLineQty_ID")
+	public void setC_RfQResponseLineQty_IDFromJson(int C_RfQResponseLineQty_ID) {
 		if (get_ID() == 0) {
 			super.setC_RfQResponseLineQty_ID(C_RfQResponseLineQty_ID);
 		}

@@ -131,8 +131,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param Assay Indicated the Quantity Assay to use into Quality Order
 	 */
-
-	public void setAssay(BigDecimal Assay) {
+	@JsonProperty("Assay")
+	public void setAssayFromJson(BigDecimal Assay) {
 		if (get_ID() == 0) {
 			super.setAssay(Assay);
 		}
@@ -142,8 +142,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param BackflushGroup The Grouping Components to the Backflush
 	 */
-
-	public void setBackflushGroup(String BackflushGroup) {
+	@JsonProperty("BackflushGroup")
+	public void setBackflushGroupFromJson(String BackflushGroup) {
 		if (get_ID() == 0) {
 			super.setBackflushGroup(BackflushGroup);
 		}
@@ -229,8 +229,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param Forecast Indicated the % of participation this component into a of the BOM Planning
 	 */
-
-	public void setForecast(BigDecimal Forecast) {
+	@JsonProperty("Forecast")
+	public void setForecastFromJson(BigDecimal Forecast) {
 		if (get_ID() == 0) {
 			super.setForecast(Forecast);
 		}
@@ -240,8 +240,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param IsQtyPercentage Indicate that this component is based in % Quantity
 	 */
-
-	public void setIsQtyPercentage(boolean IsQtyPercentage) {
+	@JsonProperty("IsQtyPercentage")
+	public void setIsQtyPercentageFromJson(boolean IsQtyPercentage) {
 		if (get_ID() == 0) {
 			super.setIsQtyPercentage(IsQtyPercentage);
 		}
@@ -503,8 +503,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param PP_Order_BOMLine_ID Manufacturing Order BOM Line
 	 */
-
-	public void setPP_Order_BOMLine_ID(int PP_Order_BOMLine_ID) {
+	@JsonProperty("PP_Order_BOMLine_ID")
+	public void setPP_Order_BOMLine_IDFromJson(int PP_Order_BOMLine_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Order_BOMLine_ID(PP_Order_BOMLine_ID);
 		}
@@ -569,8 +569,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyBatch Indicate the Quantity % use in this Formula
 	 */
-
-	public void setQtyBatch(BigDecimal QtyBatch) {
+	@JsonProperty("QtyBatch")
+	public void setQtyBatchFromJson(BigDecimal QtyBatch) {
 		if (get_ID() == 0) {
 			super.setQtyBatch(QtyBatch);
 		}
@@ -580,8 +580,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyBOM Indicate the Quantity  use in this BOM
 	 */
-
-	public void setQtyBOM(BigDecimal QtyBOM) {
+	@JsonProperty("QtyBOM")
+	public void setQtyBOMFromJson(BigDecimal QtyBOM) {
 		if (get_ID() == 0) {
 			super.setQtyBOM(QtyBOM);
 		}
@@ -591,8 +591,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyDelivered Delivered Quantity
 	 */
-
-	public void setQtyDelivered(BigDecimal QtyDelivered) {
+	@JsonProperty("QtyDelivered")
+	public void setQtyDeliveredFromJson(BigDecimal QtyDelivered) {
 		if (get_ID() == 0) {
 			super.setQtyDelivered(QtyDelivered);
 		}
@@ -602,8 +602,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyEntered The Quantity Entered is based on the selected UoM
 	 */
-
-	public void setQtyEntered(BigDecimal QtyEntered) {
+	@JsonProperty("QtyEntered")
+	public void setQtyEnteredFromJson(BigDecimal QtyEntered) {
 		if (get_ID() == 0) {
 			super.setQtyEntered(QtyEntered);
 		}
@@ -613,8 +613,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyPost Qty Post
 	 */
-
-	public void setQtyPost(BigDecimal QtyPost) {
+	@JsonProperty("QtyPost")
+	public void setQtyPostFromJson(BigDecimal QtyPost) {
 		if (get_ID() == 0) {
 			super.setQtyPost(QtyPost);
 		}
@@ -624,8 +624,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyReject Qty Reject
 	 */
-
-	public void setQtyReject(BigDecimal QtyReject) {
+	@JsonProperty("QtyReject")
+	public void setQtyRejectFromJson(BigDecimal QtyReject) {
 		if (get_ID() == 0) {
 			super.setQtyReject(QtyReject);
 		}
@@ -635,8 +635,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyReserved Reserved Quantity
 	 */
-
-	public void setQtyReserved(BigDecimal QtyReserved) {
+	@JsonProperty("QtyReserved")
+	public void setQtyReservedFromJson(BigDecimal QtyReserved) {
 		if (get_ID() == 0) {
 			super.setQtyReserved(QtyReserved);
 		}
@@ -646,8 +646,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyScrap Scrap % Quantity for this component
 	 */
-
-	public void setQtyScrap(BigDecimal QtyScrap) {
+	@JsonProperty("QtyScrap")
+	public void setQtyScrapFromJson(BigDecimal QtyScrap) {
 		if (get_ID() == 0) {
 			super.setQtyScrap(QtyScrap);
 		}
@@ -657,8 +657,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param Scrap Indicate the Scrap %  for calculate the Scrap Quantity
 	 */
-
-	public void setScrap(BigDecimal Scrap) {
+	@JsonProperty("Scrap")
+	public void setScrapFromJson(BigDecimal Scrap) {
 		if (get_ID() == 0) {
 			super.setScrap(Scrap);
 		}

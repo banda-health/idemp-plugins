@@ -110,8 +110,8 @@ public class X_EXP_FormatInput extends MEXPFormat implements I_EXP_FormatInput {
 	 *
 	 * @param EXP_Format_ID Export Format
 	 */
-
-	public void setEXP_Format_ID(int EXP_Format_ID) {
+	@JsonProperty("EXP_Format_ID")
+	public void setEXP_Format_IDFromJson(int EXP_Format_ID) {
 		if (get_ID() == 0) {
 			super.setEXP_Format_ID(EXP_Format_ID);
 		}

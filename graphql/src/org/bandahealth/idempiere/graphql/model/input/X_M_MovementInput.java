@@ -684,8 +684,8 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	 *
 	 * @param M_Movement_ID Movement of Inventory
 	 */
-
-	public void setM_Movement_ID(int M_Movement_ID) {
+	@JsonProperty("M_Movement_ID")
+	public void setM_Movement_IDFromJson(int M_Movement_ID) {
 		if (get_ID() == 0) {
 			super.setM_Movement_ID(M_Movement_ID);
 		}
@@ -815,8 +815,8 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

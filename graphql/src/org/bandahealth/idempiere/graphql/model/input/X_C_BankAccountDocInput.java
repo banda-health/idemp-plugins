@@ -118,8 +118,8 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	 *
 	 * @param C_BankAccountDoc_ID Checks, Transfers, etc.
 	 */
-
-	public void setC_BankAccountDoc_ID(int C_BankAccountDoc_ID) {
+	@JsonProperty("C_BankAccountDoc_ID")
+	public void setC_BankAccountDoc_IDFromJson(int C_BankAccountDoc_ID) {
 		if (get_ID() == 0) {
 			super.setC_BankAccountDoc_ID(C_BankAccountDoc_ID);
 		}

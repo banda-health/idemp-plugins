@@ -113,8 +113,8 @@ public class X_M_ShipperPickupTypesCfgInput extends X_M_ShipperPickupTypesCfg im
 	 *
 	 * @param M_ShipperPickupTypesCfg_ID Shipper Pickup Types Configuration
 	 */
-
-	public void setM_ShipperPickupTypesCfg_ID(int M_ShipperPickupTypesCfg_ID) {
+	@JsonProperty("M_ShipperPickupTypesCfg_ID")
+	public void setM_ShipperPickupTypesCfg_IDFromJson(int M_ShipperPickupTypesCfg_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShipperPickupTypesCfg_ID(M_ShipperPickupTypesCfg_ID);
 		}
