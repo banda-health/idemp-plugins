@@ -264,6 +264,7 @@ test(`changing a price on an old PO does not change last buying price for produc
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 	let firstPO = valueObject.order!;
+	let firstPOLine = valueObject.orderLine!;
 
 	expect(
 		(
@@ -312,7 +313,7 @@ test(`changing a price on an old PO does not change last buying price for produc
 	valueObject.stepName = 'Re-complete first PO';
 	await mutate(valueObject)({
 		mutation: C_OrderLineSaveDocument,
-		variables: { Entity: { UU: valueObject.orderLine!.UU, Price: 115 } },
+		variables: { Entity: { UU: firstPOLine.UU, Price: 115 } },
 	});
 	await mutate(valueObject)({
 		mutation: C_OrderProcessDocument,
