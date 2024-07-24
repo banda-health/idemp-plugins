@@ -452,6 +452,7 @@ public class GraphQLInputModelClassGenerator {
 
 		// Since this property isn't updatable, we need to generate a custom method (so that we don't override anything
 		// from a parent class that updates the property only if the entity is new
+		classesToImport.add("com.fasterxml.jackson.annotation.JsonProperty");
 		GraphQLUtil.generateJavaSetComment(columnName, Name, Description, columnBuilder);
 		columnBuilder
 				.append("\t@JsonProperty(\"").append(columnName).append("\")\n")
