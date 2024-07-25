@@ -13,6 +13,7 @@ CREATE TEMP TABLE tmp_c_bpartner
 	current_bh_patientid   numeric(1000)			   NOT NULL
 );
 
+-- find the entries and store in a temp table
 INSERT INTO 
 	tmp_c_bpartner(c_bpartner_id, ad_client_id, previous_c_bpartner_id, previous_bh_patientid, current_bh_patientid) 
 SELECT 
@@ -28,11 +29,10 @@ WHERE c.bh_patientid is null
 AND c.c_bpartner_id > 999999
 AND c.iscustomer = 'Y';	
 
+-- Update with the correct bh_patientId and deactivate the patient.
 UPDATE c_bpartner c
 SET bh_patientid = tmp.current_bh_patientid, isActive = 'N'
 FROM tmp_c_bpartner tmp WHERE c.c_bpartner_id = tmp.c_bpartner_id
-
-
 
 SELECT
 	register_migration_script('202407241702_GO-3038.sql')
