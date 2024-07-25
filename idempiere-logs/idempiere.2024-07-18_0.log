@@ -1,0 +1,78 @@
+*** 2024-07-18 05:35:05.183 idempiere Log (CLogFile) ***
+05:35:05.168-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 32371386 ms [241]
+05:35:05.187-----------> ClusterHeartbeatManager: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] Resetting heartbeat timestamps because of huge system clock jump! Clock-Jump: 32370408 ms, Heartbeat-Timeout: 60000 ms [3019]
+05:35:11.770-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] BroadcastOperationControlTask delayed 32366987 ms [241]
+06:09:25.952-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 12183 ms [241]
+06:09:38.953-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] BroadcastOperationControlTask delayed 12183 ms [241]
+06:35:14.105-----------> PoolBase.isConnectionDead: HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@412b0672 (This connection has been closed.). Possibly consider using a shorter maxLifetime value. [411]
+06:35:25.266-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 11301 ms [241]
+06:35:25.391===========> DB.getSQLValueTS: SELECT CURRENT_TIMESTAMP FROM DUAL [411]
+java.lang.IllegalStateException: DB.createConnection - @NoDBConnection@
+	at org.compiere.util.DB.createConnection(DB.java:453)
+	at org.compiere.util.DB.getSQLValueTSEx(DB.java:1627)
+	at org.compiere.util.DB.getSQLValueTS(DB.java:1696)
+	at org.compiere.server.AcctProcessor.postSession(AcctProcessor.java:139)
+	at org.compiere.server.AcctProcessor.doWork(AcctProcessor.java:105)
+	at org.compiere.server.AdempiereServer.doRun(AdempiereServer.java:292)
+	at org.compiere.server.AdempiereServer.run(AdempiereServer.java:271)
+	at org.compiere.server.AdempiereServerMgr$LocalServerController.run(AdempiereServerMgr.java:780)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+06:56:33.673-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 955618 ms [241]
+06:56:33.672-----------> ClusterHeartbeatManager: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] Resetting heartbeat timestamps because of huge system clock jump! Clock-Jump: 954620 ms, Heartbeat-Timeout: 60000 ms [3214]
+06:56:33.691-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] BroadcastOperationControlTask delayed 954738 ms [241]
+08:07:21.407-----------> PoolBase.isConnectionDead: HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@271149f4 (This connection has been closed.). Possibly consider using a shorter maxLifetime value. [317]
+08:07:58.666-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 10204 ms [241]
+08:08:33.741-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 15661 ms [241]
+08:09:10.446-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 36145 ms [241]
+08:09:15.726-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] BroadcastOperationControlTask delayed 43745 ms [241]
+08:09:38.927-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 13656 ms [241]
+08:09:38.927-----------> ProxyLeakTask.run: Connection leak detection triggered for org.postgresql.jdbc.PgConnection@6a413b2c on thread clientIsCreatedProperly-86946283 - Accounting Processor, stack trace follows [255]
+java.lang.Exception: Apparent connection leak detected
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:99)
+	at org.compiere.db.DB_PostgreSQL.getCachedConnection(DB_PostgreSQL.java:609)
+	at org.compiere.db.CConnection.getConnection(CConnection.java:1142)
+	at org.compiere.util.DB.createConnection(DB.java:449)
+	at org.idempiere.db.util.AutoCommitConnectionBroker.getConnection(AutoCommitConnectionBroker.java:49)
+	at org.compiere.db.PreparedStatementProxy.init(PreparedStatementProxy.java:91)
+	at org.compiere.db.PreparedStatementProxy.<init>(PreparedStatementProxy.java:52)
+	at org.compiere.db.ProxyFactory.newCPreparedStatement(ProxyFactory.java:54)
+	at org.compiere.util.DB.executeUpdate(DB.java:1034)
+	at org.compiere.util.DB.executeUpdate(DB.java:896)
+	at org.compiere.util.DB.executeUpdate(DB.java:882)
+	at org.compiere.model.MAcctProcessor.deleteLog(MAcctProcessor.java:198)
+	at org.compiere.server.AcctProcessor.doWork(AcctProcessor.java:108)
+	at org.compiere.server.AdempiereServer.doRun(AdempiereServer.java:292)
+	at org.compiere.server.AdempiereServer.run(AdempiereServer.java:271)
+	at org.compiere.server.AdempiereServerMgr$LocalServerController.run(AdempiereServerMgr.java:780)
+
+08:08:23.081===========> PreparedStatementProxy.init: SELECT * FROM R_Request WHERE AD_Client_ID=? AND SalesRep_ID=0 AND Processed='N' [317]
+java.lang.IllegalStateException: DB.createConnection - @NoDBConnection@
+	at org.compiere.util.DB.createConnection(DB.java:453)
+	at org.idempiere.db.util.AutoCommitConnectionBroker.getConnection(AutoCommitConnectionBroker.java:49)
+	at org.compiere.db.PreparedStatementProxy.init(PreparedStatementProxy.java:91)
+	at org.compiere.db.PreparedStatementProxy.<init>(PreparedStatementProxy.java:52)
+	at org.compiere.db.ProxyFactory.newCPreparedStatement(ProxyFactory.java:54)
+	at org.compiere.util.DB.prepareStatement(DB.java:750)
+	at org.compiere.util.DB.prepareStatement(DB.java:708)
+	at org.compiere.server.RequestProcessor.findSalesRep(RequestProcessor.java:574)
+	at org.compiere.server.RequestProcessor.doWork(RequestProcessor.java:74)
+	at org.compiere.server.AdempiereServer.doRun(AdempiereServer.java:292)
+	at org.compiere.server.AdempiereServer.run(AdempiereServer.java:271)
+	at org.compiere.server.AdempiereServerMgr$LocalServerController.run(AdempiereServerMgr.java:780)
+
+08:09:39.055-----------> PoolBase.isConnectionDead: HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@137a1fb7 (This connection has been closed.). Possibly consider using a shorter maxLifetime value. [315]
+08:09:39.060-----------> PoolBase.isConnectionDead: HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@aaeaec7 (This connection has been closed.). Possibly consider using a shorter maxLifetime value. [465]
+08:09:39.055-----------> PoolBase.isConnectionDead: HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@8ec8165 (This connection has been closed.). Possibly consider using a shorter maxLifetime value. [371]
+08:09:40.740-----------> HikariPool.run: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m18s242ms176µs707ns). [255]
+08:11:53.638-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 117061 ms [241]
+08:11:53.639-----------> ClusterHeartbeatManager: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] Resetting heartbeat timestamps because of huge system clock jump! Clock-Jump: 116496 ms, Heartbeat-Timeout: 60000 ms [3449]
+08:11:55.143-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] BroadcastOperationControlTask delayed 113583 ms [241]
+08:22:26.599-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 93458 ms [241]
+08:22:26.759-----------> InvocationMonitor: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] BroadcastOperationControlTask delayed 91623 ms [241]
+08:22:26.955-----------> ClusterHeartbeatManager: [172.23.0.4]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] Resetting heartbeat timestamps because of huge system clock jump! Clock-Jump: 91794 ms, Heartbeat-Timeout: 60000 ms [3497]

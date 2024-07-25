@@ -1,0 +1,176 @@
+*** 2024-07-16 11:07:15.272 idempiere Log (CLogFile) ***
+11:07:15.269 Adempiere.startup: iDempiere(r) Release 11_2023-12-24 -Smart Suite ERP, CRM and SCM- (c) 1999-2024 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community [24]
+11:07:15.275 Ini.loadProperties: /opt/idempiere/idempiere.properties #27 [24]
+11:07:15.868-----------> Activator.createHazelCastInstance: Starting hazelcast with configuration from file hazelcast.xml [24]
+11:07:16.546-----------> CPSubsystem: [172.23.0.3]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] CP Subsystem is not enabled. CP data structures will operate in UNSAFE mode! Please note that UNSAFE mode will not provide strong consistency guarantees. [24]
+11:07:21.379-----------> EMail.setFrom: you @ company.org: javax.mail.internet.AddressException: Local address contains control or whitespace in string ``you @ company.org'' [24]
+11:07:21.383-----------> EMail.addTo: you @ company.org: javax.mail.internet.AddressException: Local address contains control or whitespace in string ``you @ company.org'' [24]
+11:07:21.384-----------> EMail.isValid: From is invalid=null [24]
+11:07:21.384-----------> EMail.isValid: From is invalid=null [24]
+11:07:21.388-----------> MClient_BH.sendEMail: Could NOT Send Email: Server started: iDempiere (5edd645cfc8a:172.23.0.3) to you @ company.org: Invalid Data (System) [24]
+11:07:22.480           LoggedSessionListener.contextInitialized: context initialized for 9.6.4 [24]
+11:07:23.038-----------> DefaultAnnotationProcessor.fallbackToManualAnnotatedClasses: Unable to detect annotations. Application may fail to deploy. [24]
+11:07:40.874-----------> ModelADServiceImpl.validateParameter: Web service type RunTests_GW: constant parameter AD_Process_ID changed to 999999 [302]
+11:07:41.070-----------> DefaultProcessFactory.newProcessInstance: com.chuboe.test.process.DoChuBoePopulate [302]
+java.lang.ClassNotFoundException: com.chuboe.test.process.DoChuBoePopulate cannot be found by org.adempiere.base_11.0.0.202402092117
+	at org.eclipse.osgi.internal.loader.BundleLoader.generateException(BundleLoader.java:541)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass0(BundleLoader.java:536)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:416)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:168)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525)
+	at org.adempiere.base.DefaultProcessFactory.newProcessInstance(DefaultProcessFactory.java:65)
+	at org.adempiere.base.Core.getProcess(Core.java:190)
+	at org.adempiere.util.ProcessUtil.startJavaProcess(ProcessUtil.java:162)
+	at org.adempiere.util.ProcessUtil.startJavaProcess(ProcessUtil.java:142)
+	at org.compiere.model.MProcess.startClass(MProcess.java:480)
+	at org.compiere.model.MProcess.processIt(MProcess.java:389)
+	at org.idempiere.adinterface.Process.runProcess(Process.java:363)
+	at org.idempiere.adinterface.ModelADServiceImpl.runProcess(ModelADServiceImpl.java:442)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.cxf.service.invoker.AbstractInvoker.performInvocation(AbstractInvoker.java:179)
+	at org.apache.cxf.jaxws.JAXWSMethodInvoker.performInvocation(JAXWSMethodInvoker.java:66)
+	at org.apache.cxf.service.invoker.AbstractInvoker.invoke(AbstractInvoker.java:96)
+	at org.apache.cxf.jaxws.AbstractJAXWSMethodInvoker.invoke(AbstractJAXWSMethodInvoker.java:232)
+
+11:07:41.074-----------> ModelADServiceImpl.runProcess: Error running webservice RunTests_GW -> Failed to create new process instance for com.chuboe.test.process.DoChuBoePopulate [302]
+11:07:49.536-----------> SchemaClassScanner.handleNewType: Cannot find definition for field 'bh_window_id: BigDecimal' on input type 'BH_Voided_ReasonInput' -> org.bandahealth.idempiere.graphql.model.input.I_BH_Voided_ReasonInput. Try adding it manually to the dictionary [24]
+11:07:50.402-----------> SchemaClassScanner.handleNewType: Cannot find definition for field 'bh_nextappointmentdate: Date' on input type 'C_BPartnerInput' -> org.bandahealth.idempiere.graphql.model.input.I_C_BPartnerInput. Try adding it manually to the dictionary [24]
+11:07:57.904-----------> SchemaClassScanner.handleNewType: Cannot find definition for field 'ad_user_created: Date' on input type 'RV_BPartnerInput' -> org.bandahealth.idempiere.graphql.model.input.I_RV_BPartnerInput. Try adding it manually to the dictionary [24]
+11:07:57.905-----------> SchemaClassScanner.handleNewType: Cannot find definition for field 'ad_user_updated: Date' on input type 'RV_BPartnerInput' -> org.bandahealth.idempiere.graphql.model.input.I_RV_BPartnerInput. Try adding it manually to the dictionary [24]
+11:07:57.905-----------> SchemaClassScanner.handleNewType: Cannot find definition for field 'c_bp_dunninggrace: Date' on input type 'RV_BPartnerInput' -> org.bandahealth.idempiere.graphql.model.input.I_RV_BPartnerInput. Try adding it manually to the dictionary [24]
+11:07:57.906-----------> SchemaClassScanner.handleNewType: Cannot find definition for field 'c_bp_location_created: Date' on input type 'RV_BPartnerInput' -> org.bandahealth.idempiere.graphql.model.input.I_RV_BPartnerInput. Try adding it manually to the dictionary [24]
+11:07:57.906-----------> SchemaClassScanner.handleNewType: Cannot find definition for field 'c_bp_location_updated: Date' on input type 'RV_BPartnerInput' -> org.bandahealth.idempiere.graphql.model.input.I_RV_BPartnerInput. Try adding it manually to the dictionary [24]
+11:07:57.907-----------> SchemaClassScanner.handleNewType: Cannot find definition for field 'c_location_created: Date' on input type 'RV_BPartnerInput' -> org.bandahealth.idempiere.graphql.model.input.I_RV_BPartnerInput. Try adding it manually to the dictionary [24]
+11:07:57.907-----------> SchemaClassScanner.handleNewType: Cannot find definition for field 'c_location_updated: Date' on input type 'RV_BPartnerInput' -> org.bandahealth.idempiere.graphql.model.input.I_RV_BPartnerInput. Try adding it manually to the dictionary [24]
+11:08:02.108-----------> MClient_BH.createEMail: From EMail incomplete: MUser[10,Name=System,EMailUserID=null] (System) [329]
+11:08:02.179-----------> MClient_BH.createEMail: From EMail incomplete: MUser[10,Name=System,EMailUserID=null] (System) [329]
+11:08:20.196-----------> AdempiereActivator.installPackage: Installing com.chuboe.test.populate 11.0.0 ... [354]
+11:08:20.197-----------> AdempiereActivator.installPackage: com.chuboe.test.populate 11.0.0 installed. [354]
+11:08:20.201-----------> AdempiereActivator.installPackage: Installing org.bandahealth.idempiere.graphql.test 11.0.0 ... [367]
+11:08:20.202-----------> AdempiereActivator.installPackage: org.bandahealth.idempiere.graphql.test 11.0.0 installed. [367]
+11:08:20.203-----------> AdempiereActivator.installPackage: Installing org.bandahealth.idempiere.base.test 11.0.0 ... [271]
+11:08:20.203-----------> AdempiereActivator.installPackage: org.bandahealth.idempiere.base.test 11.0.0 installed. [271]
+11:08:20.205-----------> AdempiereActivator.installPackage: Installing org.bandahealth.idempiere.base 11.0.0 ... [340]
+11:08:20.205-----------> AdempiereActivator.installPackage: org.bandahealth.idempiere.base 11.0.0 installed. [340]
+11:08:20.207-----------> AdempiereActivator.installPackage: Installing org.bandahealth.idempiere.rest.test 11.0.0 ... [418]
+11:08:20.208-----------> AdempiereActivator.installPackage: org.bandahealth.idempiere.rest.test 11.0.0 installed. [418]
+11:08:20.209-----------> AdempiereActivator.installPackage: Installing org.bandahealth.idempiere.report.test 11.0.0 ... [369]
+11:08:20.210-----------> AdempiereActivator.installPackage: org.bandahealth.idempiere.report.test 11.0.0 installed. [369]
+11:08:45.104-----------> ModelADServiceImpl.validateParameter: Web service type RunTests_GW: constant parameter AD_Process_ID changed to 999999 [277]
+11:08:45.174-----------> MChuBoePopulateResponse.set_Value: Classname - Value too long - truncated to length=60 [277]
+11:08:45.635-----------> MChuBoePopulateResponse.set_Value: Classname - Value too long - truncated to length=60 [277]
+11:08:47.034-----------> MChuBoePopulateResponse.set_Value: Classname - Value too long - truncated to length=60 [277]
+11:08:48.349-----------> MCharge_BH.set_Value: Name - Value too long - truncated to length=60 [277]
+11:08:50.075-----------> MCharge_BH.set_Value: Name - Value too long - truncated to length=60 [277]
+11:08:51.047-----------> MChuBoePopulateResponse.set_Value: Classname - Value too long - truncated to length=60 [277]
+11:08:53.125-----------> MChuBoePopulateResponse.set_Value: Classname - Value too long - truncated to length=60 [277]
+11:08:53.216-----------> MChuBoePopulateResponse.set_Value: Classname - Value too long - truncated to length=60 [277]
+11:08:53.331-----------> MChuBoePopulateResponse.set_Value: Classname - Value too long - truncated to length=60 [277]
+11:08:53.363-----------> MImportTemplate.set_Value: Name - Value too long - truncated to length=60 [277]
+11:08:53.719===========> ImportCSVProcess.process: org.adempiere.exceptions.AdempiereException: Field bh_gender not found in tab Business Partner [277]
+org.adempiere.exceptions.AdempiereException: Field bh_gender not found in tab Business Partner
+	at org.adempiere.impexp.GridTabCSVImporter.throwAdempiereException(GridTabCSVImporter.java:791)
+	at org.adempiere.impexp.GridTabCSVImporter.mapCSVHeader(GridTabCSVImporter.java:379)
+	at org.adempiere.impexp.GridTabCSVImporter.fileImport(GridTabCSVImporter.java:153)
+	at org.idempiere.process.ImportCSVProcess.importFile(ImportCSVProcess.java:150)
+	at org.idempiere.process.ImportCSVProcess.doIt(ImportCSVProcess.java:91)
+	at org.compiere.process.SvrProcess.process(SvrProcess.java:256)
+	at org.compiere.process.SvrProcess.startProcess(SvrProcess.java:164)
+	at com.chuboe.test.populate.ChuBoeCreateEntity.runProcess(ChuBoeCreateEntity.java:1003)
+	at org.bandahealth.idempiere.base.test.process.ImportBusinessPartnersProcessTest.businessPartnerIsImportedProperly(ImportBusinessPartnersProcessTest.java:133)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at com.chuboe.test.process.DoChuBoePopulate.doIt(DoChuBoePopulate.java:245)
+	at org.compiere.process.SvrProcess.process(SvrProcess.java:256)
+	at org.compiere.process.SvrProcess.startProcess(SvrProcess.java:164)
+	at org.adempiere.util.ProcessUtil.startJavaProcess(ProcessUtil.java:175)
+	at org.adempiere.util.ProcessUtil.startJavaProcess(ProcessUtil.java:142)
+	at org.compiere.model.MProcess.startClass(MProcess.java:480)
+	at org.compiere.model.MProcess.processIt(MProcess.java:389)
+	at org.idempiere.adinterface.Process.runProcess(Process.java:363)
+
+11:08:53.772-----------> MChuBoePopulateResponse.set_Value: Classname - Value too long - truncated to length=60 [277]
+11:08:53.880-----------> ImportProductsProcess.doIt: Set Duplicate Product Names=2 [277]
+11:08:53.882-----------> ImportProductsProcess.doIt: Invalid Expiration Lot 1=1 [277]
+11:08:54.037-----------> X_BH_I_Product_Quantity.set_Value: Name - Value too long - truncated to length=60 [277]
+11:08:54.163===========> DB.executeUpdate: INSERT INTO M_Cost (AD_Client_ID,AD_Org_ID,M_Product_ID,M_CostType_ID,C_AcctSchema_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,CurrentCostPrice,FutureCostPrice,M_AttributeSetInstance_ID,CumulatedAmt,CumulatedQty,CurrentQty,M_Cost_UU) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) [SvrProcess_e3f19ff3-aa6a-4599-afbe-f6f3d376fa2c] [277]
+org.postgresql.util.PSQLException: ERROR: null value in column "m_costelement_id" of relation "m_cost" violates not-null constraint
+  Detail: Failing row contains (11, 0, 1000465, 100, 101, null, 1000045, Y, 2024-07-16 11:08:54.161, 100, 2024-07-16 11:08:54.161, 100, 2000, 9999999, 19999998000, 9999999, 0.0, null, 0, 0, null, N, 9ff5d8ac-137d-45b9-834f-15c9dbce1e04).; State=23502; ErrorCode=0
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2712)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2400)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:367)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:498)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:415)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:152)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
+	at jdk.internal.reflect.GeneratedMethodAccessor166.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.compiere.db.StatementProxy.invoke(StatementProxy.java:138)
+	at jdk.proxy2/jdk.proxy2.$Proxy17.executeUpdate(Unknown Source)
+	at org.compiere.util.DB.executeUpdate(DB.java:1045)
+	at org.compiere.util.DB.executeUpdate(DB.java:1013)
+	at org.compiere.model.PO.doInsert(PO.java:3395)
+	at org.compiere.model.PO.saveNew(PO.java:3374)
+	at org.compiere.model.PO.save(PO.java:2490)
+	at org.bandahealth.idempiere.base.process.ImportProductsProcess.createLotAndCost(ImportProductsProcess.java:596)
+	at org.bandahealth.idempiere.base.process.ImportProductsProcess.doIt(ImportProductsProcess.java:429)
+	at org.compiere.process.SvrProcess.process(SvrProcess.java:256)
+	at org.compiere.process.SvrProcess.startProcess(SvrProcess.java:164)
+
+11:08:54.165===========> DB.saveError: DBExecuteError - ERROR: null value in column "m_costelement_id" of relation "m_cost" violates not-null constraint
+  Detail: Failing row contains (11, 0, 1000465, 100, 101, null, 1000045, Y, 2024-07-16 11:08:54.161, 100, 2024-07-16 11:08:54.161, 100, 2000, 9999999, 19999998000, 9999999, 0.0, null, 0, 0, null, N, 9ff5d8ac-137d-45b9-834f-15c9dbce1e04). [277]
+11:08:54.166-----------> MCost.doInsert: [SvrProcess_e3f19ff3-aa6a-4599-afbe-f6f3d376fa2c]Not inserted - M_Cost [277]
+11:08:54.166===========> MCost.saveError: DBExecuteError - DBExecuteError:ERROR: null value in column "m_costelement_id" of relation "m_cost" violates not-null constraint
+  Detail: Failing row contains (11, 0, 1000465, 100, 101, null, 1000045, Y, 2024-07-16 11:08:54.161, 100, 2024-07-16 11:08:54.161, 100, 2000, 9999999, 19999998000, 9999999, 0.0, null, 0, 0, null, N, 9ff5d8ac-137d-45b9-834f-15c9dbce1e04). [277]
+11:08:54.305-----------> MChuBoePopulateResponse.set_Value: Classname - Value too long - truncated to length=60 [277]
+11:09:11.725===========> MProcessPara.validateUnknownParameter: Process InitialBandaClientSetup - Unknown Parameter: CoAFile= [277]
+11:09:11.729===========> MProcessPara.validateUnknownParameter: Process InitialBandaClientSetup - Unknown Parameter: UseDefaultCoA= [277]
+11:09:11.730===========> MProcessPara.validateUnknownParameter: Process InitialBandaClientSetup - Unknown Parameter: OrgName= [277]
+11:09:11.731===========> MProcessPara.validateUnknownParameter: Process InitialBandaClientSetup - Unknown Parameter: AdminUserName= [277]
+11:09:11.736===========> MProcessPara.validateUnknownParameter: Process InitialBandaClientSetup - Unknown Parameter: NormalUserName= [277]
+11:09:11.737===========> MProcessPara.validateUnknownParameter: Process InitialBandaClientSetup - Unknown Parameter: AdminUserEmail= [277]
+11:09:11.740===========> MProcessPara.validateUnknownParameter: Process InitialBandaClientSetup - Unknown Parameter: NormalUserEmail= [277]
+11:09:12.807-----------> Trx.start: Trx in progress Setup_42844633-36af-4419-bb0c-4edf524dad7b [277]
+11:09:13.208-----------> BandaGraphQLContextBuilder.<init>: Constructing GraphQL Context [280]
+11:09:13.444-----------> BandaGraphQLContextBuilder.buildDataLoaderRegistry: building data registry [280]
+11:09:14.028-----------> BandaGraphQLContextBuilder.<init>: Constructing GraphQL Context [303]
+11:09:14.032-----------> BandaGraphQLContextBuilder.buildDataLoaderRegistry: building data registry [303]
+11:09:14.260-----------> BandaGraphQLContextBuilder.<init>: Constructing GraphQL Context [304]
+11:09:14.263-----------> BandaGraphQLContextBuilder.buildDataLoaderRegistry: building data registry [304]
+11:09:14.346-----------> BandaGraphQLContextBuilder.<init>: Constructing GraphQL Context [303]
+11:09:14.365-----------> BandaGraphQLContextBuilder.buildDataLoaderRegistry: building data registry [303]
+11:09:14.785-----------> BandaGraphQLContextBuilder.<init>: Constructing GraphQL Context [304]
+11:09:14.793-----------> BandaGraphQLContextBuilder.buildDataLoaderRegistry: building data registry [304]
+11:09:15.022-----------> BandaGraphQLContextBuilder.<init>: Constructing GraphQL Context [303]
+11:09:15.035-----------> BandaGraphQLContextBuilder.buildDataLoaderRegistry: building data registry [303]
+11:10:47.873-----------> InvocationMonitor: [172.23.0.3]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 11699 ms [255]
+11:10:47.885-----------> ClusterHeartbeatManager: [172.23.0.3]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] Resetting heartbeat timestamps because of huge system clock jump! Clock-Jump: 35832 ms, Heartbeat-Timeout: 60000 ms [517]
+11:10:48.283-----------> MAttributeSet_BH.afterSave: Reset Instance Attribute [277]
+11:10:51.317-----------> MChuBoePopulateResponse.set_Value: Classname - Value too long - truncated to length=60 [277]
+11:16:10.811-----------> InvocationMonitor: [172.23.0.3]:5701 [adempiere.idempiere/postgres:5679] [5.3.1] MonitorInvocationsTask delayed 10890 ms [255]
+11:16:12.997-----------> ProxyLeakTask.run: Connection leak detection triggered for org.postgresql.jdbc.PgConnection@2deeabc4 on thread qtp1426441638-277, stack trace follows [269]
+java.lang.Exception: Apparent connection leak detected
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:99)
+	at org.compiere.db.DB_PostgreSQL.getCachedConnection(DB_PostgreSQL.java:609)
+	at org.compiere.db.CConnection.getConnection(CConnection.java:1142)
+	at org.compiere.util.DB.createConnection(DB.java:449)
+	at org.compiere.util.Trx.getConnection(Trx.java:231)
+	at org.compiere.util.Trx.getConnection(Trx.java:210)
+	at org.compiere.db.PreparedStatementProxy.init(PreparedStatementProxy.java:89)
+	at org.compiere.db.PreparedStatementProxy.<init>(PreparedStatementProxy.java:52)
+	at org.compiere.db.ProxyFactory.newCPreparedStatement(ProxyFactory.java:54)
+	at org.compiere.util.DB.prepareStatement(DB.java:750)
+	at org.compiere.util.DB.prepareStatement(DB.java:708)
+	at org.compiere.model.POInfo.loadInfo(POInfo.java:177)
+	at org.compiere.model.POInfo.<init>(POInfo.java:117)
+	at org.compiere.model.POInfo.getPOInfo(POInfo.java:81)
+
+11:16:23.025-----------> HikariPool.run: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49s143ms650µs447ns). [269]
