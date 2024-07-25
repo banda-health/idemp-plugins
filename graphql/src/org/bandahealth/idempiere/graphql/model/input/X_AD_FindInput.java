@@ -77,8 +77,8 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 	 *
 	 * @param AD_Find_ID Find
 	 */
-
-	public void setAD_Find_ID(int AD_Find_ID) {
+	@JsonProperty("AD_Find_ID")
+	public void setAD_Find_IDFromJson(int AD_Find_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Find_ID(AD_Find_ID);
 		}

@@ -332,8 +332,8 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	 *
 	 * @param M_RequisitionLine_ID Material Requisition Line
 	 */
-
-	public void setM_RequisitionLine_ID(int M_RequisitionLine_ID) {
+	@JsonProperty("M_RequisitionLine_ID")
+	public void setM_RequisitionLine_IDFromJson(int M_RequisitionLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_RequisitionLine_ID(M_RequisitionLine_ID);
 		}

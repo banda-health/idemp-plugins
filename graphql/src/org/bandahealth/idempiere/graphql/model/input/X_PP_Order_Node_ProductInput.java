@@ -187,8 +187,8 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 *
 	 * @param PP_Order_Node_Product_ID Manufacturing Order Activity Product
 	 */
-
-	public void setPP_Order_Node_Product_ID(int PP_Order_Node_Product_ID) {
+	@JsonProperty("PP_Order_Node_Product_ID")
+	public void setPP_Order_Node_Product_IDFromJson(int PP_Order_Node_Product_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Order_Node_Product_ID(PP_Order_Node_Product_ID);
 		}

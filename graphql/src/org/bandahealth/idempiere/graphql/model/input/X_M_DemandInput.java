@@ -152,8 +152,8 @@ public class X_M_DemandInput extends X_M_Demand implements I_M_DemandInput {
 	 *
 	 * @param M_Demand_ID Material Demand
 	 */
-
-	public void setM_Demand_ID(int M_Demand_ID) {
+	@JsonProperty("M_Demand_ID")
+	public void setM_Demand_IDFromJson(int M_Demand_ID) {
 		if (get_ID() == 0) {
 			super.setM_Demand_ID(M_Demand_ID);
 		}

@@ -80,8 +80,8 @@ public class X_A_RegistrationInput extends X_A_Registration implements I_A_Regis
 	 *
 	 * @param A_Registration_ID User Asset Registration
 	 */
-
-	public void setA_Registration_ID(int A_Registration_ID) {
+	@JsonProperty("A_Registration_ID")
+	public void setA_Registration_IDFromJson(int A_Registration_ID) {
 		if (get_ID() == 0) {
 			super.setA_Registration_ID(A_Registration_ID);
 		}
@@ -180,8 +180,8 @@ public class X_A_RegistrationInput extends X_A_Registration implements I_A_Regis
 	 *
 	 * @param AssetServiceDate Date when Asset was put into service
 	 */
-
-	public void setAssetServiceDate(Timestamp AssetServiceDate) {
+	@JsonProperty("AssetServiceDate")
+	public void setAssetServiceDateFromJson(Timestamp AssetServiceDate) {
 		if (get_ID() == 0) {
 			super.setAssetServiceDate(AssetServiceDate);
 		}

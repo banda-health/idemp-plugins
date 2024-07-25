@@ -113,8 +113,8 @@ public class X_IMP_ProcessorParameterInput extends X_IMP_ProcessorParameter impl
 	 *
 	 * @param IMP_ProcessorParameter_ID Import Processor Parameter
 	 */
-
-	public void setIMP_ProcessorParameter_ID(int IMP_ProcessorParameter_ID) {
+	@JsonProperty("IMP_ProcessorParameter_ID")
+	public void setIMP_ProcessorParameter_IDFromJson(int IMP_ProcessorParameter_ID) {
 		if (get_ID() == 0) {
 			super.setIMP_ProcessorParameter_ID(IMP_ProcessorParameter_ID);
 		}

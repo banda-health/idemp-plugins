@@ -378,8 +378,8 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 	 *
 	 * @param C_InvoiceBatchLine_ID Expense Invoice Batch Line
 	 */
-
-	public void setC_InvoiceBatchLine_ID(int C_InvoiceBatchLine_ID) {
+	@JsonProperty("C_InvoiceBatchLine_ID")
+	public void setC_InvoiceBatchLine_IDFromJson(int C_InvoiceBatchLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_InvoiceBatchLine_ID(C_InvoiceBatchLine_ID);
 		}
@@ -512,8 +512,8 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 	 *
 	 * @param LineNetAmt Line Extended Amount (Quantity * Actual Price) without Freight and Charges
 	 */
-
-	public void setLineNetAmt(BigDecimal LineNetAmt) {
+	@JsonProperty("LineNetAmt")
+	public void setLineNetAmtFromJson(BigDecimal LineNetAmt) {
 		if (get_ID() == 0) {
 			super.setLineNetAmt(LineNetAmt);
 		}
@@ -523,8 +523,8 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 	 *
 	 * @param LineTotalAmt Total line amount incl. Tax
 	 */
-
-	public void setLineTotalAmt(BigDecimal LineTotalAmt) {
+	@JsonProperty("LineTotalAmt")
+	public void setLineTotalAmtFromJson(BigDecimal LineTotalAmt) {
 		if (get_ID() == 0) {
 			super.setLineTotalAmt(LineTotalAmt);
 		}
@@ -534,8 +534,8 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}

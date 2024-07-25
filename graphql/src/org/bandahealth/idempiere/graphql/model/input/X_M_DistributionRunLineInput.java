@@ -151,8 +151,8 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 	 *
 	 * @param M_DistributionRunLine_ID Distribution Run Lines define Distribution List, the Product and Quantities
 	 */
-
-	public void setM_DistributionRunLine_ID(int M_DistributionRunLine_ID) {
+	@JsonProperty("M_DistributionRunLine_ID")
+	public void setM_DistributionRunLine_IDFromJson(int M_DistributionRunLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_DistributionRunLine_ID(M_DistributionRunLine_ID);
 		}

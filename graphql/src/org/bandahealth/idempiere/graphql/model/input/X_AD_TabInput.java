@@ -301,8 +301,8 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	 *
 	 * @param AD_Tab_ID Tab within a Window
 	 */
-
-	public void setAD_Tab_ID(int AD_Tab_ID) {
+	@JsonProperty("AD_Tab_ID")
+	public void setAD_Tab_IDFromJson(int AD_Tab_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Tab_ID(AD_Tab_ID);
 		}

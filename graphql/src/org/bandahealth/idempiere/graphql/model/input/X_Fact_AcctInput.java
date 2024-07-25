@@ -194,8 +194,8 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 *
 	 * @param AmtAcctCr Accounted Credit Amount
 	 */
-
-	public void setAmtAcctCr(BigDecimal AmtAcctCr) {
+	@JsonProperty("AmtAcctCr")
+	public void setAmtAcctCrFromJson(BigDecimal AmtAcctCr) {
 		if (get_ID() == 0) {
 			super.setAmtAcctCr(AmtAcctCr);
 		}
@@ -205,8 +205,8 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 *
 	 * @param AmtAcctDr Accounted Debit Amount
 	 */
-
-	public void setAmtAcctDr(BigDecimal AmtAcctDr) {
+	@JsonProperty("AmtAcctDr")
+	public void setAmtAcctDrFromJson(BigDecimal AmtAcctDr) {
 		if (get_ID() == 0) {
 			super.setAmtAcctDr(AmtAcctDr);
 		}
@@ -216,8 +216,8 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 *
 	 * @param AmtSourceCr Source Credit Amount
 	 */
-
-	public void setAmtSourceCr(BigDecimal AmtSourceCr) {
+	@JsonProperty("AmtSourceCr")
+	public void setAmtSourceCrFromJson(BigDecimal AmtSourceCr) {
 		if (get_ID() == 0) {
 			super.setAmtSourceCr(AmtSourceCr);
 		}
@@ -227,8 +227,8 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 *
 	 * @param AmtSourceDr Source Debit Amount
 	 */
-
-	public void setAmtSourceDr(BigDecimal AmtSourceDr) {
+	@JsonProperty("AmtSourceDr")
+	public void setAmtSourceDrFromJson(BigDecimal AmtSourceDr) {
 		if (get_ID() == 0) {
 			super.setAmtSourceDr(AmtSourceDr);
 		}
@@ -790,8 +790,8 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 *
 	 * @param DateAcct Accounting Date
 	 */
-
-	public void setDateAcct(Timestamp DateAcct) {
+	@JsonProperty("DateAcct")
+	public void setDateAcctFromJson(Timestamp DateAcct) {
 		if (get_ID() == 0) {
 			super.setDateAcct(DateAcct);
 		}
@@ -801,8 +801,8 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 *
 	 * @param DateTrx Transaction Date
 	 */
-
-	public void setDateTrx(Timestamp DateTrx) {
+	@JsonProperty("DateTrx")
+	public void setDateTrxFromJson(Timestamp DateTrx) {
 		if (get_ID() == 0) {
 			super.setDateTrx(DateTrx);
 		}
@@ -812,8 +812,8 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 *
 	 * @param Fact_Acct_ID Accounting Fact
 	 */
-
-	public void setFact_Acct_ID(int Fact_Acct_ID) {
+	@JsonProperty("Fact_Acct_ID")
+	public void setFact_Acct_IDFromJson(int Fact_Acct_ID) {
 		if (get_ID() == 0) {
 			super.setFact_Acct_ID(Fact_Acct_ID);
 		}
@@ -1031,8 +1031,8 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 *
 	 * @param Qty Quantity
 	 */
-
-	public void setQty(BigDecimal Qty) {
+	@JsonProperty("Qty")
+	public void setQtyFromJson(BigDecimal Qty) {
 		if (get_ID() == 0) {
 			super.setQty(Qty);
 		}

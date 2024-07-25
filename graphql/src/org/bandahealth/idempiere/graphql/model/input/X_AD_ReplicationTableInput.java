@@ -120,8 +120,8 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	 *
 	 * @param AD_ReplicationTable_ID Data Replication Strategy Table Info
 	 */
-
-	public void setAD_ReplicationTable_ID(int AD_ReplicationTable_ID) {
+	@JsonProperty("AD_ReplicationTable_ID")
+	public void setAD_ReplicationTable_IDFromJson(int AD_ReplicationTable_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ReplicationTable_ID(AD_ReplicationTable_ID);
 		}

@@ -82,8 +82,8 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	 *
 	 * @param AD_InfoProcess_ID Info Process
 	 */
-
-	public void setAD_InfoProcess_ID(int AD_InfoProcess_ID) {
+	@JsonProperty("AD_InfoProcess_ID")
+	public void setAD_InfoProcess_IDFromJson(int AD_InfoProcess_ID) {
 		if (get_ID() == 0) {
 			super.setAD_InfoProcess_ID(AD_InfoProcess_ID);
 		}

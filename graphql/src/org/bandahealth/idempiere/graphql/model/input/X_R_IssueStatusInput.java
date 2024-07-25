@@ -74,8 +74,8 @@ public class X_R_IssueStatusInput extends X_R_IssueStatus implements I_R_IssueSt
 	 *
 	 * @param R_IssueStatus_ID Status of an Issue
 	 */
-
-	public void setR_IssueStatus_ID(int R_IssueStatus_ID) {
+	@JsonProperty("R_IssueStatus_ID")
+	public void setR_IssueStatus_IDFromJson(int R_IssueStatus_ID) {
 		if (get_ID() == 0) {
 			super.setR_IssueStatus_ID(R_IssueStatus_ID);
 		}

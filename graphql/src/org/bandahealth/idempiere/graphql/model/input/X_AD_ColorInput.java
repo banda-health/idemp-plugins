@@ -43,8 +43,8 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	 *
 	 * @param AD_Color_ID Color for backgrounds or indicators
 	 */
-
-	public void setAD_Color_ID(int AD_Color_ID) {
+	@JsonProperty("AD_Color_ID")
+	public void setAD_Color_IDFromJson(int AD_Color_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Color_ID(AD_Color_ID);
 		}

@@ -460,8 +460,8 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 *
 	 * @param M_Inventory_ID Parameters for a Physical Inventory
 	 */
-
-	public void setM_Inventory_ID(int M_Inventory_ID) {
+	@JsonProperty("M_Inventory_ID")
+	public void setM_Inventory_IDFromJson(int M_Inventory_ID) {
 		if (get_ID() == 0) {
 			super.setM_Inventory_ID(M_Inventory_ID);
 		}
@@ -560,8 +560,8 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

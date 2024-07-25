@@ -114,8 +114,8 @@ public class X_B_BidInput extends X_B_Bid implements I_B_BidInput {
 	 *
 	 * @param B_Bid_ID Bid for a Topic
 	 */
-
-	public void setB_Bid_ID(int B_Bid_ID) {
+	@JsonProperty("B_Bid_ID")
+	public void setB_Bid_IDFromJson(int B_Bid_ID) {
 		if (get_ID() == 0) {
 			super.setB_Bid_ID(B_Bid_ID);
 		}

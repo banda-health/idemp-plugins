@@ -150,8 +150,8 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 	 *
 	 * @param C_AcctProcessor_ID Accounting Processor/Server Parameters
 	 */
-
-	public void setC_AcctProcessor_ID(int C_AcctProcessor_ID) {
+	@JsonProperty("C_AcctProcessor_ID")
+	public void setC_AcctProcessor_IDFromJson(int C_AcctProcessor_ID) {
 		if (get_ID() == 0) {
 			super.setC_AcctProcessor_ID(C_AcctProcessor_ID);
 		}

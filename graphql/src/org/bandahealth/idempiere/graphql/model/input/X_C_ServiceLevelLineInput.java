@@ -115,8 +115,8 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 	 *
 	 * @param C_ServiceLevelLine_ID Product Revenue Recognition Service Level Line
 	 */
-
-	public void setC_ServiceLevelLine_ID(int C_ServiceLevelLine_ID) {
+	@JsonProperty("C_ServiceLevelLine_ID")
+	public void setC_ServiceLevelLine_IDFromJson(int C_ServiceLevelLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_ServiceLevelLine_ID(C_ServiceLevelLine_ID);
 		}
@@ -144,8 +144,8 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}
@@ -155,8 +155,8 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 	 *
 	 * @param ServiceDate Date service was provided
 	 */
-
-	public void setServiceDate(Timestamp ServiceDate) {
+	@JsonProperty("ServiceDate")
+	public void setServiceDateFromJson(Timestamp ServiceDate) {
 		if (get_ID() == 0) {
 			super.setServiceDate(ServiceDate);
 		}
@@ -166,8 +166,8 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 	 *
 	 * @param ServiceLevelProvided Quantity of service or product provided
 	 */
-
-	public void setServiceLevelProvided(BigDecimal ServiceLevelProvided) {
+	@JsonProperty("ServiceLevelProvided")
+	public void setServiceLevelProvidedFromJson(BigDecimal ServiceLevelProvided) {
 		if (get_ID() == 0) {
 			super.setServiceLevelProvided(ServiceLevelProvided);
 		}

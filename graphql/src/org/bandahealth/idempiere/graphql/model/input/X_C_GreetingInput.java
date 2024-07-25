@@ -74,8 +74,8 @@ public class X_C_GreetingInput extends X_C_Greeting implements I_C_GreetingInput
 	 *
 	 * @param C_Greeting_ID Greeting to print on correspondence
 	 */
-
-	public void setC_Greeting_ID(int C_Greeting_ID) {
+	@JsonProperty("C_Greeting_ID")
+	public void setC_Greeting_IDFromJson(int C_Greeting_ID) {
 		if (get_ID() == 0) {
 			super.setC_Greeting_ID(C_Greeting_ID);
 		}

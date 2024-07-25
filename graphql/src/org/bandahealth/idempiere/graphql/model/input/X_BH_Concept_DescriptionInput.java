@@ -76,8 +76,8 @@ public class X_BH_Concept_DescriptionInput extends MBHConceptDescription impleme
 	 *
 	 * @param BH_Concept_Description_ID Concept Description
 	 */
-
-	public void setBH_Concept_Description_ID(int BH_Concept_Description_ID) {
+	@JsonProperty("BH_Concept_Description_ID")
+	public void setBH_Concept_Description_IDFromJson(int BH_Concept_Description_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Concept_Description_ID(BH_Concept_Description_ID);
 		}

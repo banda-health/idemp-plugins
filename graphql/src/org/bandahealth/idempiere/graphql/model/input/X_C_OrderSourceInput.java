@@ -74,8 +74,8 @@ public class X_C_OrderSourceInput extends X_C_OrderSource implements I_C_OrderSo
 	 *
 	 * @param C_OrderSource_ID Order Source
 	 */
-
-	public void setC_OrderSource_ID(int C_OrderSource_ID) {
+	@JsonProperty("C_OrderSource_ID")
+	public void setC_OrderSource_IDFromJson(int C_OrderSource_ID) {
 		if (get_ID() == 0) {
 			super.setC_OrderSource_ID(C_OrderSource_ID);
 		}

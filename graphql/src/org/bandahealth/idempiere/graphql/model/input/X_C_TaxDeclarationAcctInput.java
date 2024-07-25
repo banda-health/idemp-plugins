@@ -154,8 +154,8 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 	 *
 	 * @param C_TaxDeclarationAcct_ID Tax Accounting Reconciliation 
 	 */
-
-	public void setC_TaxDeclarationAcct_ID(int C_TaxDeclarationAcct_ID) {
+	@JsonProperty("C_TaxDeclarationAcct_ID")
+	public void setC_TaxDeclarationAcct_IDFromJson(int C_TaxDeclarationAcct_ID) {
 		if (get_ID() == 0) {
 			super.setC_TaxDeclarationAcct_ID(C_TaxDeclarationAcct_ID);
 		}

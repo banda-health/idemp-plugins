@@ -113,8 +113,8 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 	 *
 	 * @param AD_WorkflowProcessorLog_ID Result of the execution of the Workflow Processor
 	 */
-
-	public void setAD_WorkflowProcessorLog_ID(int AD_WorkflowProcessorLog_ID) {
+	@JsonProperty("AD_WorkflowProcessorLog_ID")
+	public void setAD_WorkflowProcessorLog_IDFromJson(int AD_WorkflowProcessorLog_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WorkflowProcessorLog_ID(AD_WorkflowProcessorLog_ID);
 		}

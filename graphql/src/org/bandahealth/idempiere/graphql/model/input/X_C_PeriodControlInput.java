@@ -118,8 +118,8 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	 *
 	 * @param C_PeriodControl_ID Period Control
 	 */
-
-	public void setC_PeriodControl_ID(int C_PeriodControl_ID) {
+	@JsonProperty("C_PeriodControl_ID")
+	public void setC_PeriodControl_IDFromJson(int C_PeriodControl_ID) {
 		if (get_ID() == 0) {
 			super.setC_PeriodControl_ID(C_PeriodControl_ID);
 		}

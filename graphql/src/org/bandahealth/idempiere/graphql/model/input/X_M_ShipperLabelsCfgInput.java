@@ -155,8 +155,8 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	 *
 	 * @param M_ShipperLabelsCfg_ID Shipper Labels Configuration
 	 */
-
-	public void setM_ShipperLabelsCfg_ID(int M_ShipperLabelsCfg_ID) {
+	@JsonProperty("M_ShipperLabelsCfg_ID")
+	public void setM_ShipperLabelsCfg_IDFromJson(int M_ShipperLabelsCfg_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShipperLabelsCfg_ID(M_ShipperLabelsCfg_ID);
 		}

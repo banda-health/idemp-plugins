@@ -77,8 +77,8 @@ public class X_AD_Package_Imp_ProcInput extends X_AD_Package_Imp_Proc implements
 	 *
 	 * @param AD_Package_Imp_Proc_ID Package Imp. Proc.
 	 */
-
-	public void setAD_Package_Imp_Proc_ID(int AD_Package_Imp_Proc_ID) {
+	@JsonProperty("AD_Package_Imp_Proc_ID")
+	public void setAD_Package_Imp_Proc_IDFromJson(int AD_Package_Imp_Proc_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Package_Imp_Proc_ID(AD_Package_Imp_Proc_ID);
 		}

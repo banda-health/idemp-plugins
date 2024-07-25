@@ -113,8 +113,8 @@ public class X_AD_Replication_RunInput extends MReplicationRun implements I_AD_R
 	 *
 	 * @param AD_Replication_Run_ID Data Replication Run
 	 */
-
-	public void setAD_Replication_Run_ID(int AD_Replication_Run_ID) {
+	@JsonProperty("AD_Replication_Run_ID")
+	public void setAD_Replication_Run_IDFromJson(int AD_Replication_Run_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Replication_Run_ID(AD_Replication_Run_ID);
 		}
@@ -142,8 +142,8 @@ public class X_AD_Replication_RunInput extends MReplicationRun implements I_AD_R
 	 *
 	 * @param IsReplicated The data is successfully replicated
 	 */
-
-	public void setIsReplicated(boolean IsReplicated) {
+	@JsonProperty("IsReplicated")
+	public void setIsReplicatedFromJson(boolean IsReplicated) {
 		if (get_ID() == 0) {
 			super.setIsReplicated(IsReplicated);
 		}

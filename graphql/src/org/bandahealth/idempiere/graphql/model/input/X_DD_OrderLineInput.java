@@ -309,8 +309,8 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	 *
 	 * @param DD_OrderLine_ID Distribution Order Line
 	 */
-
-	public void setDD_OrderLine_ID(int DD_OrderLine_ID) {
+	@JsonProperty("DD_OrderLine_ID")
+	public void setDD_OrderLine_IDFromJson(int DD_OrderLine_ID) {
 		if (get_ID() == 0) {
 			super.setDD_OrderLine_ID(DD_OrderLine_ID);
 		}

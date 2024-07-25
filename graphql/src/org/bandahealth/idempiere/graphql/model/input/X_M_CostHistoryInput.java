@@ -196,8 +196,8 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	 *
 	 * @param M_CostHistory_ID Movement history for M_Cost
 	 */
-
-	public void setM_CostHistory_ID(int M_CostHistory_ID) {
+	@JsonProperty("M_CostHistory_ID")
+	public void setM_CostHistory_IDFromJson(int M_CostHistory_ID) {
 		if (get_ID() == 0) {
 			super.setM_CostHistory_ID(M_CostHistory_ID);
 		}
@@ -296,8 +296,8 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	 *
 	 * @param NewCAmt Accumulated Amt after processing of M_CostDetail
 	 */
-
-	public void setNewCAmt(BigDecimal NewCAmt) {
+	@JsonProperty("NewCAmt")
+	public void setNewCAmtFromJson(BigDecimal NewCAmt) {
 		if (get_ID() == 0) {
 			super.setNewCAmt(NewCAmt);
 		}
@@ -307,8 +307,8 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	 *
 	 * @param NewCostPrice New current cost price after processing of M_CostDetail
 	 */
-
-	public void setNewCostPrice(BigDecimal NewCostPrice) {
+	@JsonProperty("NewCostPrice")
+	public void setNewCostPriceFromJson(BigDecimal NewCostPrice) {
 		if (get_ID() == 0) {
 			super.setNewCostPrice(NewCostPrice);
 		}
@@ -318,8 +318,8 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	 *
 	 * @param NewCQty New Accumulated Qty after processing of M_CostDetail
 	 */
-
-	public void setNewCQty(BigDecimal NewCQty) {
+	@JsonProperty("NewCQty")
+	public void setNewCQtyFromJson(BigDecimal NewCQty) {
 		if (get_ID() == 0) {
 			super.setNewCQty(NewCQty);
 		}
@@ -329,8 +329,8 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	 *
 	 * @param NewQty New current quantity after processing of M_CostDetail
 	 */
-
-	public void setNewQty(BigDecimal NewQty) {
+	@JsonProperty("NewQty")
+	public void setNewQtyFromJson(BigDecimal NewQty) {
 		if (get_ID() == 0) {
 			super.setNewQty(NewQty);
 		}
@@ -340,8 +340,8 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	 *
 	 * @param OldCAmt Old accumulated amt before the processing of M_CostDetail
 	 */
-
-	public void setOldCAmt(BigDecimal OldCAmt) {
+	@JsonProperty("OldCAmt")
+	public void setOldCAmtFromJson(BigDecimal OldCAmt) {
 		if (get_ID() == 0) {
 			super.setOldCAmt(OldCAmt);
 		}
@@ -351,8 +351,8 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	 *
 	 * @param OldCostPrice Old current cost price before the processing of M_CostDetail
 	 */
-
-	public void setOldCostPrice(BigDecimal OldCostPrice) {
+	@JsonProperty("OldCostPrice")
+	public void setOldCostPriceFromJson(BigDecimal OldCostPrice) {
 		if (get_ID() == 0) {
 			super.setOldCostPrice(OldCostPrice);
 		}
@@ -362,8 +362,8 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	 *
 	 * @param OldCQty Old accumulated qty before the processing of M_CostDetail
 	 */
-
-	public void setOldCQty(BigDecimal OldCQty) {
+	@JsonProperty("OldCQty")
+	public void setOldCQtyFromJson(BigDecimal OldCQty) {
 		if (get_ID() == 0) {
 			super.setOldCQty(OldCQty);
 		}
@@ -373,8 +373,8 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	 *
 	 * @param OldQty Old current quantity before the processing of M_CostDetail
 	 */
-
-	public void setOldQty(BigDecimal OldQty) {
+	@JsonProperty("OldQty")
+	public void setOldQtyFromJson(BigDecimal OldQty) {
 		if (get_ID() == 0) {
 			super.setOldQty(OldQty);
 		}

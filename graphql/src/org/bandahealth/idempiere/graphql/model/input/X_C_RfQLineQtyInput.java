@@ -115,8 +115,8 @@ public class X_C_RfQLineQtyInput extends MRfQLineQty implements I_C_RfQLineQtyIn
 	 *
 	 * @param C_RfQLineQty_ID Request for Quotation Line Quantity
 	 */
-
-	public void setC_RfQLineQty_ID(int C_RfQLineQty_ID) {
+	@JsonProperty("C_RfQLineQty_ID")
+	public void setC_RfQLineQty_IDFromJson(int C_RfQLineQty_ID) {
 		if (get_ID() == 0) {
 			super.setC_RfQLineQty_ID(C_RfQLineQty_ID);
 		}

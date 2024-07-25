@@ -113,8 +113,8 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	 *
 	 * @param C_SubAcct_ID Sub account for Element Value
 	 */
-
-	public void setC_SubAcct_ID(int C_SubAcct_ID) {
+	@JsonProperty("C_SubAcct_ID")
+	public void setC_SubAcct_IDFromJson(int C_SubAcct_ID) {
 		if (get_ID() == 0) {
 			super.setC_SubAcct_ID(C_SubAcct_ID);
 		}

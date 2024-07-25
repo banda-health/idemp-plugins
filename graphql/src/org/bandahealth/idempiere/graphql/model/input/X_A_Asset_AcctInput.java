@@ -138,8 +138,8 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 	 *
 	 * @param A_Asset_Acct_ID A_Asset_Acct_ID
 	 */
-
-	public void setA_Asset_Acct_ID(int A_Asset_Acct_ID) {
+	@JsonProperty("A_Asset_Acct_ID")
+	public void setA_Asset_Acct_IDFromJson(int A_Asset_Acct_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Acct_ID(A_Asset_Acct_ID);
 		}
@@ -933,8 +933,8 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 	 *
 	 * @param ValidFrom Valid from including this date (first day)
 	 */
-
-	public void setValidFrom(Timestamp ValidFrom) {
+	@JsonProperty("ValidFrom")
+	public void setValidFromFromJson(Timestamp ValidFrom) {
 		if (get_ID() == 0) {
 			super.setValidFrom(ValidFrom);
 		}

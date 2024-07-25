@@ -292,8 +292,8 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	 *
 	 * @param NewValue New field value
 	 */
-
-	public void setNewValue(String NewValue) {
+	@JsonProperty("NewValue")
+	public void setNewValueFromJson(String NewValue) {
 		if (get_ID() == 0) {
 			super.setNewValue(NewValue);
 		}
@@ -303,8 +303,8 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	 *
 	 * @param OldValue The old file data
 	 */
-
-	public void setOldValue(String OldValue) {
+	@JsonProperty("OldValue")
+	public void setOldValueFromJson(String OldValue) {
 		if (get_ID() == 0) {
 			super.setOldValue(OldValue);
 		}
@@ -314,8 +314,8 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	 *
 	 * @param TrxName Name of the transaction
 	 */
-
-	public void setTrxName(String TrxName) {
+	@JsonProperty("TrxName")
+	public void setTrxNameFromJson(String TrxName) {
 		if (get_ID() == 0) {
 			super.setTrxName(TrxName);
 		}

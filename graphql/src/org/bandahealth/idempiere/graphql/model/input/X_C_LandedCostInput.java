@@ -124,8 +124,8 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	 *
 	 * @param C_LandedCost_ID Landed cost to be allocated to material receipts
 	 */
-
-	public void setC_LandedCost_ID(int C_LandedCost_ID) {
+	@JsonProperty("C_LandedCost_ID")
+	public void setC_LandedCost_IDFromJson(int C_LandedCost_ID) {
 		if (get_ID() == 0) {
 			super.setC_LandedCost_ID(C_LandedCost_ID);
 		}

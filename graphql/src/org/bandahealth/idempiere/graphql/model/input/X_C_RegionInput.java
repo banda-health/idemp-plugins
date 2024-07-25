@@ -113,8 +113,8 @@ public class X_C_RegionInput extends MRegion implements I_C_RegionInput {
 	 *
 	 * @param C_Region_ID Identifies a geographical Region
 	 */
-
-	public void setC_Region_ID(int C_Region_ID) {
+	@JsonProperty("C_Region_ID")
+	public void setC_Region_IDFromJson(int C_Region_ID) {
 		if (get_ID() == 0) {
 			super.setC_Region_ID(C_Region_ID);
 		}

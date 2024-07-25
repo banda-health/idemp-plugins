@@ -151,8 +151,8 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 *
 	 * @param AD_WF_Responsible_ID Responsible for Workflow Execution
 	 */
-
-	public void setAD_WF_Responsible_ID(int AD_WF_Responsible_ID) {
+	@JsonProperty("AD_WF_Responsible_ID")
+	public void setAD_WF_Responsible_IDFromJson(int AD_WF_Responsible_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_Responsible_ID(AD_WF_Responsible_ID);
 		}

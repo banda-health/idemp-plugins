@@ -297,8 +297,8 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 	 *
 	 * @param M_MovementLine_ID Inventory Move document Line
 	 */
-
-	public void setM_MovementLine_ID(int M_MovementLine_ID) {
+	@JsonProperty("M_MovementLine_ID")
+	public void setM_MovementLine_IDFromJson(int M_MovementLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_MovementLine_ID(M_MovementLine_ID);
 		}

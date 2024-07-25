@@ -39,8 +39,8 @@ public class X_AD_AllClients_VInput extends X_AD_AllClients_V implements I_AD_Al
 	 *
 	 * @param AD_AllClients_V_ID Tenant (All)
 	 */
-
-	public void setAD_AllClients_V_ID(int AD_AllClients_V_ID) {
+	@JsonProperty("AD_AllClients_V_ID")
+	public void setAD_AllClients_V_IDFromJson(int AD_AllClients_V_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AllClients_V_ID(AD_AllClients_V_ID);
 		}
@@ -142,8 +142,8 @@ public class X_AD_AllClients_VInput extends X_AD_AllClients_V implements I_AD_Al
 	 *
 	 * @param Description Optional short description of the record
 	 */
-
-	public void setDescription(String Description) {
+	@JsonProperty("Description")
+	public void setDescriptionFromJson(String Description) {
 		if (get_ID() == 0) {
 			super.setDescription(Description);
 		}
@@ -153,8 +153,8 @@ public class X_AD_AllClients_VInput extends X_AD_AllClients_V implements I_AD_Al
 	 *
 	 * @param Name Alphanumeric identifier of the entity
 	 */
-
-	public void setName(String Name) {
+	@JsonProperty("Name")
+	public void setNameFromJson(String Name) {
 		if (get_ID() == 0) {
 			super.setName(Name);
 		}
@@ -164,8 +164,8 @@ public class X_AD_AllClients_VInput extends X_AD_AllClients_V implements I_AD_Al
 	 *
 	 * @param Value Search key for the record in the format required - must be unique
 	 */
-
-	public void setValue(String Value) {
+	@JsonProperty("Value")
+	public void setValueFromJson(String Value) {
 		if (get_ID() == 0) {
 			super.setValue(Value);
 		}

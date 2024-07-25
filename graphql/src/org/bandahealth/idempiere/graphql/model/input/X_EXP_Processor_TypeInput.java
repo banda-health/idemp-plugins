@@ -74,8 +74,8 @@ public class X_EXP_Processor_TypeInput extends MEXPProcessorType implements I_EX
 	 *
 	 * @param EXP_Processor_Type_ID Export Processor Type
 	 */
-
-	public void setEXP_Processor_Type_ID(int EXP_Processor_Type_ID) {
+	@JsonProperty("EXP_Processor_Type_ID")
+	public void setEXP_Processor_Type_IDFromJson(int EXP_Processor_Type_ID) {
 		if (get_ID() == 0) {
 			super.setEXP_Processor_Type_ID(EXP_Processor_Type_ID);
 		}

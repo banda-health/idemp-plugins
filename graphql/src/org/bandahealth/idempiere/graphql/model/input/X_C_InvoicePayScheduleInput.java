@@ -115,8 +115,8 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 	 *
 	 * @param C_InvoicePaySchedule_ID Invoice Payment Schedule
 	 */
-
-	public void setC_InvoicePaySchedule_ID(int C_InvoicePaySchedule_ID) {
+	@JsonProperty("C_InvoicePaySchedule_ID")
+	public void setC_InvoicePaySchedule_IDFromJson(int C_InvoicePaySchedule_ID) {
 		if (get_ID() == 0) {
 			super.setC_InvoicePaySchedule_ID(C_InvoicePaySchedule_ID);
 		}

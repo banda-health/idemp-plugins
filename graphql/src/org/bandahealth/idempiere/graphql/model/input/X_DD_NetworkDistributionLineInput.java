@@ -118,8 +118,8 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	 *
 	 * @param DD_NetworkDistributionLine_ID Network Distribution Line
 	 */
-
-	public void setDD_NetworkDistributionLine_ID(int DD_NetworkDistributionLine_ID) {
+	@JsonProperty("DD_NetworkDistributionLine_ID")
+	public void setDD_NetworkDistributionLine_IDFromJson(int DD_NetworkDistributionLine_ID) {
 		if (get_ID() == 0) {
 			super.setDD_NetworkDistributionLine_ID(DD_NetworkDistributionLine_ID);
 		}

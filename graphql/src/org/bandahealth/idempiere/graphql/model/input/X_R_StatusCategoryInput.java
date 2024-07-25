@@ -74,8 +74,8 @@ public class X_R_StatusCategoryInput extends MStatusCategory implements I_R_Stat
 	 *
 	 * @param R_StatusCategory_ID Request Status Category
 	 */
-
-	public void setR_StatusCategory_ID(int R_StatusCategory_ID) {
+	@JsonProperty("R_StatusCategory_ID")
+	public void setR_StatusCategory_IDFromJson(int R_StatusCategory_ID) {
 		if (get_ID() == 0) {
 			super.setR_StatusCategory_ID(R_StatusCategory_ID);
 		}

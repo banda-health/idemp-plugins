@@ -221,8 +221,8 @@ public class X_AD_UserDef_ProcInput extends MUserDefProc implements I_AD_UserDef
 	 *
 	 * @param AD_UserDef_Proc_ID Primary Key : User defined Process
 	 */
-
-	public void setAD_UserDef_Proc_ID(int AD_UserDef_Proc_ID) {
+	@JsonProperty("AD_UserDef_Proc_ID")
+	public void setAD_UserDef_Proc_IDFromJson(int AD_UserDef_Proc_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserDef_Proc_ID(AD_UserDef_Proc_ID);
 		}

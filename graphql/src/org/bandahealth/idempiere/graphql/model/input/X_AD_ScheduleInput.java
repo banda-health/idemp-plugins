@@ -76,8 +76,8 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	 *
 	 * @param AD_Schedule_ID Schedule
 	 */
-
-	public void setAD_Schedule_ID(int AD_Schedule_ID) {
+	@JsonProperty("AD_Schedule_ID")
+	public void setAD_Schedule_IDFromJson(int AD_Schedule_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Schedule_ID(AD_Schedule_ID);
 		}

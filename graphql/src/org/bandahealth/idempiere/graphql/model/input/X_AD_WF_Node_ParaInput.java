@@ -151,8 +151,8 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 *
 	 * @param AD_WF_Node_Para_ID Workflow Node Execution Parameter
 	 */
-
-	public void setAD_WF_Node_Para_ID(int AD_WF_Node_Para_ID) {
+	@JsonProperty("AD_WF_Node_Para_ID")
+	public void setAD_WF_Node_Para_IDFromJson(int AD_WF_Node_Para_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_Node_Para_ID(AD_WF_Node_Para_ID);
 		}

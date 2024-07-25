@@ -149,8 +149,8 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 	 *
 	 * @param HR_Year_ID Payroll Year
 	 */
-
-	public void setHR_Year_ID(int HR_Year_ID) {
+	@JsonProperty("HR_Year_ID")
+	public void setHR_Year_IDFromJson(int HR_Year_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Year_ID(HR_Year_ID);
 		}

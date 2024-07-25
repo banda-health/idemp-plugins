@@ -262,8 +262,8 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 	 *
 	 * @param GL_JournalGeneratorLine_ID Generator Line
 	 */
-
-	public void setGL_JournalGeneratorLine_ID(int GL_JournalGeneratorLine_ID) {
+	@JsonProperty("GL_JournalGeneratorLine_ID")
+	public void setGL_JournalGeneratorLine_IDFromJson(int GL_JournalGeneratorLine_ID) {
 		if (get_ID() == 0) {
 			super.setGL_JournalGeneratorLine_ID(GL_JournalGeneratorLine_ID);
 		}

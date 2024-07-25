@@ -123,8 +123,8 @@ public class X_C_BankStatementLineInput extends MBankStatementLine implements I_
 	 *
 	 * @param C_BankStatementLine_ID Line on a statement from this Bank
 	 */
-
-	public void setC_BankStatementLine_ID(int C_BankStatementLine_ID) {
+	@JsonProperty("C_BankStatementLine_ID")
+	public void setC_BankStatementLine_IDFromJson(int C_BankStatementLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_BankStatementLine_ID(C_BankStatementLine_ID);
 		}

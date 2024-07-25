@@ -300,8 +300,8 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	 *
 	 * @param PP_Product_BOM_ID BOM & Formula
 	 */
-
-	public void setPP_Product_BOM_ID(int PP_Product_BOM_ID) {
+	@JsonProperty("PP_Product_BOM_ID")
+	public void setPP_Product_BOM_IDFromJson(int PP_Product_BOM_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Product_BOM_ID(PP_Product_BOM_ID);
 		}

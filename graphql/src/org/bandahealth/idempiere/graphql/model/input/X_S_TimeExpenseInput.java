@@ -264,8 +264,8 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 	 *
 	 * @param S_TimeExpense_ID Time and Expense Report
 	 */
-
-	public void setS_TimeExpense_ID(int S_TimeExpense_ID) {
+	@JsonProperty("S_TimeExpense_ID")
+	public void setS_TimeExpense_IDFromJson(int S_TimeExpense_ID) {
 		if (get_ID() == 0) {
 			super.setS_TimeExpense_ID(S_TimeExpense_ID);
 		}

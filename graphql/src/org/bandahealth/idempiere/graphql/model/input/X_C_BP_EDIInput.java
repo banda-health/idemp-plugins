@@ -117,8 +117,8 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	 *
 	 * @param C_BP_EDI_ID Electronic Data Interchange
 	 */
-
-	public void setC_BP_EDI_ID(int C_BP_EDI_ID) {
+	@JsonProperty("C_BP_EDI_ID")
+	public void setC_BP_EDI_IDFromJson(int C_BP_EDI_ID) {
 		if (get_ID() == 0) {
 			super.setC_BP_EDI_ID(C_BP_EDI_ID);
 		}

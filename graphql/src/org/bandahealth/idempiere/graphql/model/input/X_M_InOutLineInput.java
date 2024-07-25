@@ -382,8 +382,8 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 *
 	 * @param IsAutoProduce Auto create production to fulfill shipment
 	 */
-
-	public void setIsAutoProduce(boolean IsAutoProduce) {
+	@JsonProperty("IsAutoProduce")
+	public void setIsAutoProduceFromJson(boolean IsAutoProduce) {
 		if (get_ID() == 0) {
 			super.setIsAutoProduce(IsAutoProduce);
 		}
@@ -464,8 +464,8 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 *
 	 * @param M_InOutLine_ID Line on Shipment or Receipt document
 	 */
-
-	public void setM_InOutLine_ID(int M_InOutLine_ID) {
+	@JsonProperty("M_InOutLine_ID")
+	public void setM_InOutLine_IDFromJson(int M_InOutLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_InOutLine_ID(M_InOutLine_ID);
 		}

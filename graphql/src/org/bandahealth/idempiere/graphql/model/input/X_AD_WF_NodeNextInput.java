@@ -150,8 +150,8 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 *
 	 * @param AD_WF_NodeNext_ID Workflow Node Transition
 	 */
-
-	public void setAD_WF_NodeNext_ID(int AD_WF_NodeNext_ID) {
+	@JsonProperty("AD_WF_NodeNext_ID")
+	public void setAD_WF_NodeNext_IDFromJson(int AD_WF_NodeNext_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_NodeNext_ID(AD_WF_NodeNext_ID);
 		}

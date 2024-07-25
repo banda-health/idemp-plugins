@@ -74,8 +74,8 @@ public class X_M_RMATypeInput extends X_M_RMAType implements I_M_RMATypeInput {
 	 *
 	 * @param M_RMAType_ID Return Material Authorization Type
 	 */
-
-	public void setM_RMAType_ID(int M_RMAType_ID) {
+	@JsonProperty("M_RMAType_ID")
+	public void setM_RMAType_IDFromJson(int M_RMAType_ID) {
 		if (get_ID() == 0) {
 			super.setM_RMAType_ID(M_RMAType_ID);
 		}

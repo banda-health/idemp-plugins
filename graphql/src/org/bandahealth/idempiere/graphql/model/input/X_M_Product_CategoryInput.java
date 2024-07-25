@@ -190,8 +190,8 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 *
 	 * @param M_Product_Category_ID Category of a Product
 	 */
-
-	public void setM_Product_Category_ID(int M_Product_Category_ID) {
+	@JsonProperty("M_Product_Category_ID")
+	public void setM_Product_Category_IDFromJson(int M_Product_Category_ID) {
 		if (get_ID() == 0) {
 			super.setM_Product_Category_ID(M_Product_Category_ID);
 		}

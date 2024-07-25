@@ -265,8 +265,8 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	 *
 	 * @param I_ElementValue_ID Import Account Value
 	 */
-
-	public void setI_ElementValue_ID(int I_ElementValue_ID) {
+	@JsonProperty("I_ElementValue_ID")
+	public void setI_ElementValue_IDFromJson(int I_ElementValue_ID) {
 		if (get_ID() == 0) {
 			super.setI_ElementValue_ID(I_ElementValue_ID);
 		}

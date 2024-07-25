@@ -42,8 +42,8 @@ public class X_AD_AuthorizationCredentialInput extends MAuthorizationCredential 
 	 *
 	 * @param AD_AuthorizationCredential_ID Authorization Credential
 	 */
-
-	public void setAD_AuthorizationCredential_ID(int AD_AuthorizationCredential_ID) {
+	@JsonProperty("AD_AuthorizationCredential_ID")
+	public void setAD_AuthorizationCredential_IDFromJson(int AD_AuthorizationCredential_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AuthorizationCredential_ID(AD_AuthorizationCredential_ID);
 		}

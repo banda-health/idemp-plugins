@@ -74,8 +74,8 @@ public class X_AD_SequenceInput extends MSequence_BH implements I_AD_SequenceInp
 	 *
 	 * @param AD_Sequence_ID Document Sequence
 	 */
-
-	public void setAD_Sequence_ID(int AD_Sequence_ID) {
+	@JsonProperty("AD_Sequence_ID")
+	public void setAD_Sequence_IDFromJson(int AD_Sequence_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Sequence_ID(AD_Sequence_ID);
 		}

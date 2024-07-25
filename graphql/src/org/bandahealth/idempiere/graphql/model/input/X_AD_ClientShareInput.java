@@ -42,8 +42,8 @@ public class X_AD_ClientShareInput extends MClientShare implements I_AD_ClientSh
 	 *
 	 * @param AD_ClientShare_ID Force (not) sharing of tenant/org entities
 	 */
-
-	public void setAD_ClientShare_ID(int AD_ClientShare_ID) {
+	@JsonProperty("AD_ClientShare_ID")
+	public void setAD_ClientShare_IDFromJson(int AD_ClientShare_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ClientShare_ID(AD_ClientShare_ID);
 		}

@@ -76,8 +76,8 @@ public class X_AD_StyleInput extends MStyle implements I_AD_StyleInput {
 	 *
 	 * @param AD_Style_ID CSS style for field and label
 	 */
-
-	public void setAD_Style_ID(int AD_Style_ID) {
+	@JsonProperty("AD_Style_ID")
+	public void setAD_Style_IDFromJson(int AD_Style_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Style_ID(AD_Style_ID);
 		}

@@ -135,8 +135,8 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 	 *
 	 * @param A_Asset_Cost Asset Cost
 	 */
-
-	public void setA_Asset_Cost(BigDecimal A_Asset_Cost) {
+	@JsonProperty("A_Asset_Cost")
+	public void setA_Asset_CostFromJson(BigDecimal A_Asset_Cost) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Cost(A_Asset_Cost);
 		}
@@ -533,8 +533,8 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 	 *
 	 * @param I_Asset_ID Asset
 	 */
-
-	public void setI_Asset_ID(int I_Asset_ID) {
+	@JsonProperty("I_Asset_ID")
+	public void setI_Asset_IDFromJson(int I_Asset_ID) {
 		if (get_ID() == 0) {
 			super.setI_Asset_ID(I_Asset_ID);
 		}

@@ -118,8 +118,8 @@ public class X_C_OrderLandedCostInput extends MOrderLandedCost implements I_C_Or
 	 *
 	 * @param C_OrderLandedCost_ID Estimated Landed Cost
 	 */
-
-	public void setC_OrderLandedCost_ID(int C_OrderLandedCost_ID) {
+	@JsonProperty("C_OrderLandedCost_ID")
+	public void setC_OrderLandedCost_IDFromJson(int C_OrderLandedCost_ID) {
 		if (get_ID() == 0) {
 			super.setC_OrderLandedCost_ID(C_OrderLandedCost_ID);
 		}

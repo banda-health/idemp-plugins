@@ -90,8 +90,8 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	 *
 	 * @param AD_PrintForm_ID Form
 	 */
-
-	public void setAD_PrintForm_ID(int AD_PrintForm_ID) {
+	@JsonProperty("AD_PrintForm_ID")
+	public void setAD_PrintForm_IDFromJson(int AD_PrintForm_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PrintForm_ID(AD_PrintForm_ID);
 		}

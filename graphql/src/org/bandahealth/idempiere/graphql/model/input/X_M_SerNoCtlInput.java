@@ -74,8 +74,8 @@ public class X_M_SerNoCtlInput extends MSerNoCtl_BH implements I_M_SerNoCtlInput
 	 *
 	 * @param M_SerNoCtl_ID Product Serial Number Control
 	 */
-
-	public void setM_SerNoCtl_ID(int M_SerNoCtl_ID) {
+	@JsonProperty("M_SerNoCtl_ID")
+	public void setM_SerNoCtl_IDFromJson(int M_SerNoCtl_ID) {
 		if (get_ID() == 0) {
 			super.setM_SerNoCtl_ID(M_SerNoCtl_ID);
 		}

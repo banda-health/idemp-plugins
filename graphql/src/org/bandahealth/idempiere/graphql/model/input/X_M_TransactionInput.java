@@ -393,8 +393,8 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	 *
 	 * @param M_Transaction_ID Inventory Transaction
 	 */
-
-	public void setM_Transaction_ID(int M_Transaction_ID) {
+	@JsonProperty("M_Transaction_ID")
+	public void setM_Transaction_IDFromJson(int M_Transaction_ID) {
 		if (get_ID() == 0) {
 			super.setM_Transaction_ID(M_Transaction_ID);
 		}
@@ -422,8 +422,8 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	 *
 	 * @param MovementDate Date a product was moved in or out of inventory
 	 */
-
-	public void setMovementDate(Timestamp MovementDate) {
+	@JsonProperty("MovementDate")
+	public void setMovementDateFromJson(Timestamp MovementDate) {
 		if (get_ID() == 0) {
 			super.setMovementDate(MovementDate);
 		}
@@ -433,8 +433,8 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	 *
 	 * @param MovementQty Quantity of a product moved.
 	 */
-
-	public void setMovementQty(BigDecimal MovementQty) {
+	@JsonProperty("MovementQty")
+	public void setMovementQtyFromJson(BigDecimal MovementQty) {
 		if (get_ID() == 0) {
 			super.setMovementQty(MovementQty);
 		}

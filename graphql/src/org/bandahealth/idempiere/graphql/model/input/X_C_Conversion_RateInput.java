@@ -80,8 +80,8 @@ public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Con
 	 *
 	 * @param C_Conversion_Rate_ID Rate used for converting currencies
 	 */
-
-	public void setC_Conversion_Rate_ID(int C_Conversion_Rate_ID) {
+	@JsonProperty("C_Conversion_Rate_ID")
+	public void setC_Conversion_Rate_IDFromJson(int C_Conversion_Rate_ID) {
 		if (get_ID() == 0) {
 			super.setC_Conversion_Rate_ID(C_Conversion_Rate_ID);
 		}
@@ -220,8 +220,8 @@ public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Con
 	 *
 	 * @param ValidFrom Valid from including this date (first day)
 	 */
-
-	public void setValidFrom(Timestamp ValidFrom) {
+	@JsonProperty("ValidFrom")
+	public void setValidFromFromJson(Timestamp ValidFrom) {
 		if (get_ID() == 0) {
 			super.setValidFrom(ValidFrom);
 		}
@@ -231,8 +231,8 @@ public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Con
 	 *
 	 * @param ValidTo Valid to including this date (last day)
 	 */
-
-	public void setValidTo(Timestamp ValidTo) {
+	@JsonProperty("ValidTo")
+	public void setValidToFromJson(Timestamp ValidTo) {
 		if (get_ID() == 0) {
 			super.setValidTo(ValidTo);
 		}

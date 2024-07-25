@@ -595,8 +595,8 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	 *
 	 * @param PP_MRP_ID MRP ID
 	 */
-
-	public void setPP_MRP_ID(int PP_MRP_ID) {
+	@JsonProperty("PP_MRP_ID")
+	public void setPP_MRP_IDFromJson(int PP_MRP_ID) {
 		if (get_ID() == 0) {
 			super.setPP_MRP_ID(PP_MRP_ID);
 		}

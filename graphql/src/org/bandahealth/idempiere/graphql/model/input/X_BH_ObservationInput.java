@@ -152,8 +152,8 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 	 *
 	 * @param BH_Observation_ID Observation
 	 */
-
-	public void setBH_Observation_ID(int BH_Observation_ID) {
+	@JsonProperty("BH_Observation_ID")
+	public void setBH_Observation_IDFromJson(int BH_Observation_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Observation_ID(BH_Observation_ID);
 		}

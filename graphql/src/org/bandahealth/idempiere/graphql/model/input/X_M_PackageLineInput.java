@@ -156,8 +156,8 @@ public class X_M_PackageLineInput extends MPackageLine implements I_M_PackageLin
 	 *
 	 * @param M_PackageLine_ID The detail content of the Package
 	 */
-
-	public void setM_PackageLine_ID(int M_PackageLine_ID) {
+	@JsonProperty("M_PackageLine_ID")
+	public void setM_PackageLine_IDFromJson(int M_PackageLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_PackageLine_ID(M_PackageLine_ID);
 		}

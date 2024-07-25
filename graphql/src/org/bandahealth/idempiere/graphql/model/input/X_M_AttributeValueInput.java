@@ -113,8 +113,8 @@ public class X_M_AttributeValueInput extends MAttributeValue implements I_M_Attr
 	 *
 	 * @param M_AttributeValue_ID Product Attribute Value
 	 */
-
-	public void setM_AttributeValue_ID(int M_AttributeValue_ID) {
+	@JsonProperty("M_AttributeValue_ID")
+	public void setM_AttributeValue_IDFromJson(int M_AttributeValue_ID) {
 		if (get_ID() == 0) {
 			super.setM_AttributeValue_ID(M_AttributeValue_ID);
 		}

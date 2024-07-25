@@ -256,8 +256,8 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	 *
 	 * @param GL_JournalGenerator_ID GL Journal Generator
 	 */
-
-	public void setGL_JournalGenerator_ID(int GL_JournalGenerator_ID) {
+	@JsonProperty("GL_JournalGenerator_ID")
+	public void setGL_JournalGenerator_IDFromJson(int GL_JournalGenerator_ID) {
 		if (get_ID() == 0) {
 			super.setGL_JournalGenerator_ID(GL_JournalGenerator_ID);
 		}

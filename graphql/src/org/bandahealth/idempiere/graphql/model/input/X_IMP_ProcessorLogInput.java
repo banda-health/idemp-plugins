@@ -113,8 +113,8 @@ public class X_IMP_ProcessorLogInput extends MIMPProcessorLog implements I_IMP_P
 	 *
 	 * @param IMP_ProcessorLog_ID Import Processor Log
 	 */
-
-	public void setIMP_ProcessorLog_ID(int IMP_ProcessorLog_ID) {
+	@JsonProperty("IMP_ProcessorLog_ID")
+	public void setIMP_ProcessorLog_IDFromJson(int IMP_ProcessorLog_ID) {
 		if (get_ID() == 0) {
 			super.setIMP_ProcessorLog_ID(IMP_ProcessorLog_ID);
 		}

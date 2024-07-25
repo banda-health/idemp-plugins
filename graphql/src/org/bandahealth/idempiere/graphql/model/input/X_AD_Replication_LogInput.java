@@ -78,8 +78,8 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	 *
 	 * @param AD_Replication_Log_ID Data Replication Log Details
 	 */
-
-	public void setAD_Replication_Log_ID(int AD_Replication_Log_ID) {
+	@JsonProperty("AD_Replication_Log_ID")
+	public void setAD_Replication_Log_IDFromJson(int AD_Replication_Log_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Replication_Log_ID(AD_Replication_Log_ID);
 		}

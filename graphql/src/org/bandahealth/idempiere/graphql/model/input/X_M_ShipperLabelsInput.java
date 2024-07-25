@@ -157,8 +157,8 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 	 *
 	 * @param M_ShipperLabels_ID Shipper Labels
 	 */
-
-	public void setM_ShipperLabels_ID(int M_ShipperLabels_ID) {
+	@JsonProperty("M_ShipperLabels_ID")
+	public void setM_ShipperLabels_IDFromJson(int M_ShipperLabels_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShipperLabels_ID(M_ShipperLabels_ID);
 		}

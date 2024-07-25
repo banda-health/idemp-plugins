@@ -188,8 +188,8 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	 *
 	 * @param AD_PrintLabelLine_ID Print Label Line Format
 	 */
-
-	public void setAD_PrintLabelLine_ID(int AD_PrintLabelLine_ID) {
+	@JsonProperty("AD_PrintLabelLine_ID")
+	public void setAD_PrintLabelLine_IDFromJson(int AD_PrintLabelLine_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PrintLabelLine_ID(AD_PrintLabelLine_ID);
 		}

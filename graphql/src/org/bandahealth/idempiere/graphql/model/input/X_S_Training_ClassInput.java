@@ -115,8 +115,8 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 	 *
 	 * @param S_Training_Class_ID The actual training class instance
 	 */
-
-	public void setS_Training_Class_ID(int S_Training_Class_ID) {
+	@JsonProperty("S_Training_Class_ID")
+	public void setS_Training_Class_IDFromJson(int S_Training_Class_ID) {
 		if (get_ID() == 0) {
 			super.setS_Training_Class_ID(S_Training_Class_ID);
 		}

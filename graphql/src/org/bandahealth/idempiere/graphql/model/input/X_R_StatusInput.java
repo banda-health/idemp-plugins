@@ -112,8 +112,8 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 	 *
 	 * @param R_Status_ID Request Status
 	 */
-
-	public void setR_Status_ID(int R_Status_ID) {
+	@JsonProperty("R_Status_ID")
+	public void setR_Status_IDFromJson(int R_Status_ID) {
 		if (get_ID() == 0) {
 			super.setR_Status_ID(R_Status_ID);
 		}

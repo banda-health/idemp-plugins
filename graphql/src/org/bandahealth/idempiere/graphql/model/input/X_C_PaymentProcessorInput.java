@@ -188,8 +188,8 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 *
 	 * @param C_PaymentProcessor_ID Payment processor for electronic payments
 	 */
-
-	public void setC_PaymentProcessor_ID(int C_PaymentProcessor_ID) {
+	@JsonProperty("C_PaymentProcessor_ID")
+	public void setC_PaymentProcessor_IDFromJson(int C_PaymentProcessor_ID) {
 		if (get_ID() == 0) {
 			super.setC_PaymentProcessor_ID(C_PaymentProcessor_ID);
 		}

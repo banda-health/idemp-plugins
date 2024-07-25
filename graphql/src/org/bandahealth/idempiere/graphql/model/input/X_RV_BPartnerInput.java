@@ -96,8 +96,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param AcqusitionCost The cost of gaining the prospect as a customer
 	 */
-
-	public void setAcqusitionCost(BigDecimal AcqusitionCost) {
+	@JsonProperty("AcqusitionCost")
+	public void setAcqusitionCostFromJson(BigDecimal AcqusitionCost) {
 		if (get_ID() == 0) {
 			super.setAcqusitionCost(AcqusitionCost);
 		}
@@ -107,8 +107,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param ActualLifeTimeValue Actual Life Time Revenue
 	 */
-
-	public void setActualLifeTimeValue(BigDecimal ActualLifeTimeValue) {
+	@JsonProperty("ActualLifeTimeValue")
+	public void setActualLifeTimeValueFromJson(BigDecimal ActualLifeTimeValue) {
 		if (get_ID() == 0) {
 			super.setActualLifeTimeValue(ActualLifeTimeValue);
 		}
@@ -266,8 +266,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param ad_user_created ad_user_created
 	 */
-
-	public void setad_user_created(Timestamp ad_user_created) {
+	@JsonProperty("ad_user_created")
+	public void setad_user_createdFromJson(Timestamp ad_user_created) {
 		if (get_ID() == 0) {
 			super.setad_user_created(ad_user_created);
 		}
@@ -351,8 +351,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param ad_user_isactive ad_user_isactive
 	 */
-
-	public void setad_user_isactive(boolean ad_user_isactive) {
+	@JsonProperty("ad_user_isactive")
+	public void setad_user_isactiveFromJson(boolean ad_user_isactive) {
 		if (get_ID() == 0) {
 			super.setad_user_isactive(ad_user_isactive);
 		}
@@ -362,8 +362,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param ad_user_updated ad_user_updated
 	 */
-
-	public void setad_user_updated(Timestamp ad_user_updated) {
+	@JsonProperty("ad_user_updated")
+	public void setad_user_updatedFromJson(Timestamp ad_user_updated) {
 		if (get_ID() == 0) {
 			super.setad_user_updated(ad_user_updated);
 		}
@@ -410,8 +410,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param ad_user_value ad_user_value
 	 */
-
-	public void setad_user_value(String ad_user_value) {
+	@JsonProperty("ad_user_value")
+	public void setad_user_valueFromJson(String ad_user_value) {
 		if (get_ID() == 0) {
 			super.setad_user_value(ad_user_value);
 		}
@@ -421,8 +421,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Address1 Address line 1 for this location
 	 */
-
-	public void setAddress1(String Address1) {
+	@JsonProperty("Address1")
+	public void setAddress1FromJson(String Address1) {
 		if (get_ID() == 0) {
 			super.setAddress1(Address1);
 		}
@@ -432,8 +432,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Address2 Address line 2 for this location
 	 */
-
-	public void setAddress2(String Address2) {
+	@JsonProperty("Address2")
+	public void setAddress2FromJson(String Address2) {
 		if (get_ID() == 0) {
 			super.setAddress2(Address2);
 		}
@@ -443,8 +443,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Address3 Address Line 3 for the location
 	 */
-
-	public void setAddress3(String Address3) {
+	@JsonProperty("Address3")
+	public void setAddress3FromJson(String Address3) {
 		if (get_ID() == 0) {
 			super.setAddress3(Address3);
 		}
@@ -454,8 +454,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Address4 Address Line 4 for the location
 	 */
-
-	public void setAddress4(String Address4) {
+	@JsonProperty("Address4")
+	public void setAddress4FromJson(String Address4) {
 		if (get_ID() == 0) {
 			super.setAddress4(Address4);
 		}
@@ -465,8 +465,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Birthday Birthday or Anniversary day
 	 */
-
-	public void setBirthday(Timestamp Birthday) {
+	@JsonProperty("Birthday")
+	public void setBirthdayFromJson(Timestamp Birthday) {
 		if (get_ID() == 0) {
 			super.setBirthday(Birthday);
 		}
@@ -587,8 +587,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_dunninggrace c_bp_dunninggrace
 	 */
-
-	public void setc_bp_dunninggrace(Timestamp c_bp_dunninggrace) {
+	@JsonProperty("c_bp_dunninggrace")
+	public void setc_bp_dunninggraceFromJson(Timestamp c_bp_dunninggrace) {
 		if (get_ID() == 0) {
 			super.setc_bp_dunninggrace(c_bp_dunninggrace);
 		}
@@ -635,8 +635,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_ismanufacturer c_bp_ismanufacturer
 	 */
-
-	public void setc_bp_ismanufacturer(boolean c_bp_ismanufacturer) {
+	@JsonProperty("c_bp_ismanufacturer")
+	public void setc_bp_ismanufacturerFromJson(boolean c_bp_ismanufacturer) {
 		if (get_ID() == 0) {
 			super.setc_bp_ismanufacturer(c_bp_ismanufacturer);
 		}
@@ -646,8 +646,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_ispotaxexempt c_bp_ispotaxexempt
 	 */
-
-	public void setc_bp_ispotaxexempt(boolean c_bp_ispotaxexempt) {
+	@JsonProperty("c_bp_ispotaxexempt")
+	public void setc_bp_ispotaxexemptFromJson(boolean c_bp_ispotaxexempt) {
 		if (get_ID() == 0) {
 			super.setc_bp_ispotaxexempt(c_bp_ispotaxexempt);
 		}
@@ -731,8 +731,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_created c_bp_location_created
 	 */
-
-	public void setc_bp_location_created(Timestamp c_bp_location_created) {
+	@JsonProperty("c_bp_location_created")
+	public void setc_bp_location_createdFromJson(Timestamp c_bp_location_created) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_created(c_bp_location_created);
 		}
@@ -779,8 +779,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_fax c_bp_location_fax
 	 */
-
-	public void setc_bp_location_fax(String c_bp_location_fax) {
+	@JsonProperty("c_bp_location_fax")
+	public void setc_bp_location_faxFromJson(String c_bp_location_fax) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_fax(c_bp_location_fax);
 		}
@@ -790,8 +790,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_isactive c_bp_location_isactive
 	 */
-
-	public void setc_bp_location_isactive(boolean c_bp_location_isactive) {
+	@JsonProperty("c_bp_location_isactive")
+	public void setc_bp_location_isactiveFromJson(boolean c_bp_location_isactive) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_isactive(c_bp_location_isactive);
 		}
@@ -801,8 +801,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_isbillto c_bp_location_isbillto
 	 */
-
-	public void setc_bp_location_isbillto(boolean c_bp_location_isbillto) {
+	@JsonProperty("c_bp_location_isbillto")
+	public void setc_bp_location_isbilltoFromJson(boolean c_bp_location_isbillto) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_isbillto(c_bp_location_isbillto);
 		}
@@ -812,8 +812,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_isdn c_bp_location_isdn
 	 */
-
-	public void setc_bp_location_isdn(String c_bp_location_isdn) {
+	@JsonProperty("c_bp_location_isdn")
+	public void setc_bp_location_isdnFromJson(String c_bp_location_isdn) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_isdn(c_bp_location_isdn);
 		}
@@ -823,8 +823,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_ispayfrom c_bp_location_ispayfrom
 	 */
-
-	public void setc_bp_location_ispayfrom(boolean c_bp_location_ispayfrom) {
+	@JsonProperty("c_bp_location_ispayfrom")
+	public void setc_bp_location_ispayfromFromJson(boolean c_bp_location_ispayfrom) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_ispayfrom(c_bp_location_ispayfrom);
 		}
@@ -834,8 +834,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_isremitto c_bp_location_isremitto
 	 */
-
-	public void setc_bp_location_isremitto(boolean c_bp_location_isremitto) {
+	@JsonProperty("c_bp_location_isremitto")
+	public void setc_bp_location_isremittoFromJson(boolean c_bp_location_isremitto) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_isremitto(c_bp_location_isremitto);
 		}
@@ -845,8 +845,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_isshipto c_bp_location_isshipto
 	 */
-
-	public void setc_bp_location_isshipto(boolean c_bp_location_isshipto) {
+	@JsonProperty("c_bp_location_isshipto")
+	public void setc_bp_location_isshiptoFromJson(boolean c_bp_location_isshipto) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_isshipto(c_bp_location_isshipto);
 		}
@@ -856,8 +856,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_name c_bp_location_name
 	 */
-
-	public void setc_bp_location_name(String c_bp_location_name) {
+	@JsonProperty("c_bp_location_name")
+	public void setc_bp_location_nameFromJson(String c_bp_location_name) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_name(c_bp_location_name);
 		}
@@ -867,8 +867,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_phone c_bp_location_phone
 	 */
-
-	public void setc_bp_location_phone(String c_bp_location_phone) {
+	@JsonProperty("c_bp_location_phone")
+	public void setc_bp_location_phoneFromJson(String c_bp_location_phone) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_phone(c_bp_location_phone);
 		}
@@ -878,8 +878,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_phone2 c_bp_location_phone2
 	 */
-
-	public void setc_bp_location_phone2(String c_bp_location_phone2) {
+	@JsonProperty("c_bp_location_phone2")
+	public void setc_bp_location_phone2FromJson(String c_bp_location_phone2) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_phone2(c_bp_location_phone2);
 		}
@@ -926,8 +926,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_bp_location_updated c_bp_location_updated
 	 */
-
-	public void setc_bp_location_updated(Timestamp c_bp_location_updated) {
+	@JsonProperty("c_bp_location_updated")
+	public void setc_bp_location_updatedFromJson(Timestamp c_bp_location_updated) {
 		if (get_ID() == 0) {
 			super.setc_bp_location_updated(c_bp_location_updated);
 		}
@@ -974,8 +974,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param C_BPartner_ID Identifies a Business Partner
 	 */
-
-	public void setC_BPartner_ID(int C_BPartner_ID) {
+	@JsonProperty("C_BPartner_ID")
+	public void setC_BPartner_IDFromJson(int C_BPartner_ID) {
 		if (get_ID() == 0) {
 			super.setC_BPartner_ID(C_BPartner_ID);
 		}
@@ -1059,8 +1059,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_country_ad_language c_country_ad_language
 	 */
-
-	public void setc_country_ad_language(String c_country_ad_language) {
+	@JsonProperty("c_country_ad_language")
+	public void setc_country_ad_languageFromJson(String c_country_ad_language) {
 		if (get_ID() == 0) {
 			super.setc_country_ad_language(c_country_ad_language);
 		}
@@ -1107,8 +1107,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_country_description c_country_description
 	 */
-
-	public void setc_country_description(String c_country_description) {
+	@JsonProperty("c_country_description")
+	public void setc_country_descriptionFromJson(String c_country_description) {
 		if (get_ID() == 0) {
 			super.setc_country_description(c_country_description);
 		}
@@ -1155,8 +1155,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_country_isactive c_country_isactive
 	 */
-
-	public void setc_country_isactive(boolean c_country_isactive) {
+	@JsonProperty("c_country_isactive")
+	public void setc_country_isactiveFromJson(boolean c_country_isactive) {
 		if (get_ID() == 0) {
 			super.setc_country_isactive(c_country_isactive);
 		}
@@ -1277,8 +1277,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_location_created c_location_created
 	 */
-
-	public void setc_location_created(Timestamp c_location_created) {
+	@JsonProperty("c_location_created")
+	public void setc_location_createdFromJson(Timestamp c_location_created) {
 		if (get_ID() == 0) {
 			super.setc_location_created(c_location_created);
 		}
@@ -1362,8 +1362,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_location_isactive c_location_isactive
 	 */
-
-	public void setc_location_isactive(boolean c_location_isactive) {
+	@JsonProperty("c_location_isactive")
+	public void setc_location_isactiveFromJson(boolean c_location_isactive) {
 		if (get_ID() == 0) {
 			super.setc_location_isactive(c_location_isactive);
 		}
@@ -1373,8 +1373,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_location_updated c_location_updated
 	 */
-
-	public void setc_location_updated(Timestamp c_location_updated) {
+	@JsonProperty("c_location_updated")
+	public void setc_location_updatedFromJson(Timestamp c_location_updated) {
 		if (get_ID() == 0) {
 			super.setc_location_updated(c_location_updated);
 		}
@@ -1458,8 +1458,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_region_description c_region_description
 	 */
-
-	public void setc_region_description(String c_region_description) {
+	@JsonProperty("c_region_description")
+	public void setc_region_descriptionFromJson(String c_region_description) {
 		if (get_ID() == 0) {
 			super.setc_region_description(c_region_description);
 		}
@@ -1506,8 +1506,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param c_region_isactive c_region_isactive
 	 */
-
-	public void setc_region_isactive(boolean c_region_isactive) {
+	@JsonProperty("c_region_isactive")
+	public void setc_region_isactiveFromJson(boolean c_region_isactive) {
 		if (get_ID() == 0) {
 			super.setc_region_isactive(c_region_isactive);
 		}
@@ -1517,8 +1517,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param City Identifies a City
 	 */
-
-	public void setCity(String City) {
+	@JsonProperty("City")
+	public void setCityFromJson(String City) {
 		if (get_ID() == 0) {
 			super.setCity(City);
 		}
@@ -1528,8 +1528,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Comments Comments or additional information
 	 */
-
-	public void setComments(String Comments) {
+	@JsonProperty("Comments")
+	public void setCommentsFromJson(String Comments) {
 		if (get_ID() == 0) {
 			super.setComments(Comments);
 		}
@@ -1539,8 +1539,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param ContactDescription Description of Contact
 	 */
-
-	public void setContactDescription(String ContactDescription) {
+	@JsonProperty("ContactDescription")
+	public void setContactDescriptionFromJson(String ContactDescription) {
 		if (get_ID() == 0) {
 			super.setContactDescription(ContactDescription);
 		}
@@ -1550,8 +1550,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param ContactName Business Partner Contact Name
 	 */
-
-	public void setContactName(String ContactName) {
+	@JsonProperty("ContactName")
+	public void setContactNameFromJson(String ContactName) {
 		if (get_ID() == 0) {
 			super.setContactName(ContactName);
 		}
@@ -1561,8 +1561,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param CountryCode Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
 	 */
-
-	public void setCountryCode(String CountryCode) {
+	@JsonProperty("CountryCode")
+	public void setCountryCodeFromJson(String CountryCode) {
 		if (get_ID() == 0) {
 			super.setCountryCode(CountryCode);
 		}
@@ -1572,8 +1572,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param CountryName Country Name
 	 */
-
-	public void setCountryName(String CountryName) {
+	@JsonProperty("CountryName")
+	public void setCountryNameFromJson(String CountryName) {
 		if (get_ID() == 0) {
 			super.setCountryName(CountryName);
 		}
@@ -1667,8 +1667,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Description Optional short description of the record
 	 */
-
-	public void setDescription(String Description) {
+	@JsonProperty("Description")
+	public void setDescriptionFromJson(String Description) {
 		if (get_ID() == 0) {
 			super.setDescription(Description);
 		}
@@ -1678,8 +1678,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param DocumentCopies Number of copies to be printed
 	 */
-
-	public void setDocumentCopies(int DocumentCopies) {
+	@JsonProperty("DocumentCopies")
+	public void setDocumentCopiesFromJson(int DocumentCopies) {
 		if (get_ID() == 0) {
 			super.setDocumentCopies(DocumentCopies);
 		}
@@ -1689,8 +1689,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param DUNS Dun & Bradstreet Number
 	 */
-
-	public void setDUNS(String DUNS) {
+	@JsonProperty("DUNS")
+	public void setDUNSFromJson(String DUNS) {
 		if (get_ID() == 0) {
 			super.setDUNS(DUNS);
 		}
@@ -1700,8 +1700,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param EMail Electronic Mail Address
 	 */
-
-	public void setEMail(String EMail) {
+	@JsonProperty("EMail")
+	public void setEMailFromJson(String EMail) {
 		if (get_ID() == 0) {
 			super.setEMail(EMail);
 		}
@@ -1711,8 +1711,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param EMailUser User Name (ID) in the Mail System
 	 */
-
-	public void setEMailUser(String EMailUser) {
+	@JsonProperty("EMailUser")
+	public void setEMailUserFromJson(String EMailUser) {
 		if (get_ID() == 0) {
 			super.setEMailUser(EMailUser);
 		}
@@ -1722,8 +1722,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param EMailVerify Verification information of EMail Address
 	 */
-
-	public void setEMailVerify(String EMailVerify) {
+	@JsonProperty("EMailVerify")
+	public void setEMailVerifyFromJson(String EMailVerify) {
 		if (get_ID() == 0) {
 			super.setEMailVerify(EMailVerify);
 		}
@@ -1733,8 +1733,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param EMailVerifyDate Date Email was verified
 	 */
-
-	public void setEMailVerifyDate(Timestamp EMailVerifyDate) {
+	@JsonProperty("EMailVerifyDate")
+	public void setEMailVerifyDateFromJson(Timestamp EMailVerifyDate) {
 		if (get_ID() == 0) {
 			super.setEMailVerifyDate(EMailVerifyDate);
 		}
@@ -1744,8 +1744,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Fax Facsimile number
 	 */
-
-	public void setFax(String Fax) {
+	@JsonProperty("Fax")
+	public void setFaxFromJson(String Fax) {
 		if (get_ID() == 0) {
 			super.setFax(Fax);
 		}
@@ -1755,8 +1755,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param FirstSale Date of First Sale
 	 */
-
-	public void setFirstSale(Timestamp FirstSale) {
+	@JsonProperty("FirstSale")
+	public void setFirstSaleFromJson(Timestamp FirstSale) {
 		if (get_ID() == 0) {
 			super.setFirstSale(FirstSale);
 		}
@@ -1766,8 +1766,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param FlatDiscount Flat discount percentage 
 	 */
-
-	public void setFlatDiscount(BigDecimal FlatDiscount) {
+	@JsonProperty("FlatDiscount")
+	public void setFlatDiscountFromJson(BigDecimal FlatDiscount) {
 		if (get_ID() == 0) {
 			super.setFlatDiscount(FlatDiscount);
 		}
@@ -1898,8 +1898,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param IsCustomer Indicates if this Business Partner is a Customer
 	 */
-
-	public void setIsCustomer(boolean IsCustomer) {
+	@JsonProperty("IsCustomer")
+	public void setIsCustomerFromJson(boolean IsCustomer) {
 		if (get_ID() == 0) {
 			super.setIsCustomer(IsCustomer);
 		}
@@ -1909,8 +1909,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param IsDefault Default value
 	 */
-
-	public void setIsDefault(boolean IsDefault) {
+	@JsonProperty("IsDefault")
+	public void setIsDefaultFromJson(boolean IsDefault) {
 		if (get_ID() == 0) {
 			super.setIsDefault(IsDefault);
 		}
@@ -1920,8 +1920,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param IsDiscountPrinted Print Discount on Invoice and Order
 	 */
-
-	public void setIsDiscountPrinted(boolean IsDiscountPrinted) {
+	@JsonProperty("IsDiscountPrinted")
+	public void setIsDiscountPrintedFromJson(boolean IsDiscountPrinted) {
 		if (get_ID() == 0) {
 			super.setIsDiscountPrinted(IsDiscountPrinted);
 		}
@@ -1931,8 +1931,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param IsEmployee Indicates if  this Business Partner is an employee
 	 */
-
-	public void setIsEmployee(boolean IsEmployee) {
+	@JsonProperty("IsEmployee")
+	public void setIsEmployeeFromJson(boolean IsEmployee) {
 		if (get_ID() == 0) {
 			super.setIsEmployee(IsEmployee);
 		}
@@ -1942,8 +1942,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param IsOneTime One time transaction
 	 */
-
-	public void setIsOneTime(boolean IsOneTime) {
+	@JsonProperty("IsOneTime")
+	public void setIsOneTimeFromJson(boolean IsOneTime) {
 		if (get_ID() == 0) {
 			super.setIsOneTime(IsOneTime);
 		}
@@ -1953,8 +1953,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param IsProspect Indicates this is a Prospect
 	 */
-
-	public void setIsProspect(boolean IsProspect) {
+	@JsonProperty("IsProspect")
+	public void setIsProspectFromJson(boolean IsProspect) {
 		if (get_ID() == 0) {
 			super.setIsProspect(IsProspect);
 		}
@@ -1964,8 +1964,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param IsSalesRep Indicates if  the business partner is a sales representative or company agent
 	 */
-
-	public void setIsSalesRep(boolean IsSalesRep) {
+	@JsonProperty("IsSalesRep")
+	public void setIsSalesRepFromJson(boolean IsSalesRep) {
 		if (get_ID() == 0) {
 			super.setIsSalesRep(IsSalesRep);
 		}
@@ -1975,8 +1975,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param IsSummary This is a summary entity
 	 */
-
-	public void setIsSummary(boolean IsSummary) {
+	@JsonProperty("IsSummary")
+	public void setIsSummaryFromJson(boolean IsSummary) {
 		if (get_ID() == 0) {
 			super.setIsSummary(IsSummary);
 		}
@@ -1986,8 +1986,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param IsTaxExempt Business partner is exempt from tax on sales
 	 */
-
-	public void setIsTaxExempt(boolean IsTaxExempt) {
+	@JsonProperty("IsTaxExempt")
+	public void setIsTaxExemptFromJson(boolean IsTaxExempt) {
 		if (get_ID() == 0) {
 			super.setIsTaxExempt(IsTaxExempt);
 		}
@@ -1997,8 +1997,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param IsVendor Indicates if this Business Partner is a Vendor
 	 */
-
-	public void setIsVendor(boolean IsVendor) {
+	@JsonProperty("IsVendor")
+	public void setIsVendorFromJson(boolean IsVendor) {
 		if (get_ID() == 0) {
 			super.setIsVendor(IsVendor);
 		}
@@ -2008,8 +2008,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param LastContact Date this individual was last contacted
 	 */
-
-	public void setLastContact(Timestamp LastContact) {
+	@JsonProperty("LastContact")
+	public void setLastContactFromJson(Timestamp LastContact) {
 		if (get_ID() == 0) {
 			super.setLastContact(LastContact);
 		}
@@ -2019,8 +2019,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param LastResult Result of last contact
 	 */
-
-	public void setLastResult(String LastResult) {
+	@JsonProperty("LastResult")
+	public void setLastResultFromJson(String LastResult) {
 		if (get_ID() == 0) {
 			super.setLastResult(LastResult);
 		}
@@ -2030,8 +2030,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param LDAPUser User Name used for authorization via LDAP (directory) services
 	 */
-
-	public void setLDAPUser(boolean LDAPUser) {
+	@JsonProperty("LDAPUser")
+	public void setLDAPUserFromJson(boolean LDAPUser) {
 		if (get_ID() == 0) {
 			super.setLDAPUser(LDAPUser);
 		}
@@ -2115,8 +2115,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param NAICS Standard Industry Code or its successor NAIC - http://www.osha.gov/oshstats/sicser.html
 	 */
-
-	public void setNAICS(String NAICS) {
+	@JsonProperty("NAICS")
+	public void setNAICSFromJson(String NAICS) {
 		if (get_ID() == 0) {
 			super.setNAICS(NAICS);
 		}
@@ -2126,8 +2126,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Name Alphanumeric identifier of the entity
 	 */
-
-	public void setName(String Name) {
+	@JsonProperty("Name")
+	public void setNameFromJson(String Name) {
 		if (get_ID() == 0) {
 			super.setName(Name);
 		}
@@ -2137,8 +2137,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Name2 Additional Name
 	 */
-
-	public void setName2(String Name2) {
+	@JsonProperty("Name2")
+	public void setName2FromJson(String Name2) {
 		if (get_ID() == 0) {
 			super.setName2(Name2);
 		}
@@ -2190,8 +2190,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param NumberEmployees Number of employees
 	 */
-
-	public void setNumberEmployees(int NumberEmployees) {
+	@JsonProperty("NumberEmployees")
+	public void setNumberEmployeesFromJson(int NumberEmployees) {
 		if (get_ID() == 0) {
 			super.setNumberEmployees(NumberEmployees);
 		}
@@ -2285,8 +2285,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Phone Identifies a telephone number
 	 */
-
-	public void setPhone(String Phone) {
+	@JsonProperty("Phone")
+	public void setPhoneFromJson(String Phone) {
 		if (get_ID() == 0) {
 			super.setPhone(Phone);
 		}
@@ -2296,8 +2296,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Phone2 Identifies an alternate telephone number.
 	 */
-
-	public void setPhone2(String Phone2) {
+	@JsonProperty("Phone2")
+	public void setPhone2FromJson(String Phone2) {
 		if (get_ID() == 0) {
 			super.setPhone2(Phone2);
 		}
@@ -2418,8 +2418,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param POReference Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	 */
-
-	public void setPOReference(String POReference) {
+	@JsonProperty("POReference")
+	public void setPOReferenceFromJson(String POReference) {
 		if (get_ID() == 0) {
 			super.setPOReference(POReference);
 		}
@@ -2429,8 +2429,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Postal Postal code
 	 */
-
-	public void setPostal(String Postal) {
+	@JsonProperty("Postal")
+	public void setPostalFromJson(String Postal) {
 		if (get_ID() == 0) {
 			super.setPostal(Postal);
 		}
@@ -2440,8 +2440,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Postal_Add Additional ZIP or Postal code
 	 */
-
-	public void setPostal_Add(String Postal_Add) {
+	@JsonProperty("Postal_Add")
+	public void setPostal_AddFromJson(String Postal_Add) {
 		if (get_ID() == 0) {
 			super.setPostal_Add(Postal_Add);
 		}
@@ -2451,8 +2451,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param PotentialLifeTimeValue Total Revenue expected
 	 */
-
-	public void setPotentialLifeTimeValue(BigDecimal PotentialLifeTimeValue) {
+	@JsonProperty("PotentialLifeTimeValue")
+	public void setPotentialLifeTimeValueFromJson(BigDecimal PotentialLifeTimeValue) {
 		if (get_ID() == 0) {
 			super.setPotentialLifeTimeValue(PotentialLifeTimeValue);
 		}
@@ -2462,8 +2462,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Rating Classification or Importance
 	 */
-
-	public void setRating(String Rating) {
+	@JsonProperty("Rating")
+	public void setRatingFromJson(String Rating) {
 		if (get_ID() == 0) {
 			super.setRating(Rating);
 		}
@@ -2473,8 +2473,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param ReferenceNo Your customer or vendor number at the Business Partner's site
 	 */
-
-	public void setReferenceNo(String ReferenceNo) {
+	@JsonProperty("ReferenceNo")
+	public void setReferenceNoFromJson(String ReferenceNo) {
 		if (get_ID() == 0) {
 			super.setReferenceNo(ReferenceNo);
 		}
@@ -2484,8 +2484,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param RegionName Name of the Region
 	 */
-
-	public void setRegionName(String RegionName) {
+	@JsonProperty("RegionName")
+	public void setRegionNameFromJson(String RegionName) {
 		if (get_ID() == 0) {
 			super.setRegionName(RegionName);
 		}
@@ -2532,8 +2532,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param SalesVolume Total Volume of Sales in Thousands of Currency
 	 */
-
-	public void setSalesVolume(BigDecimal SalesVolume) {
+	@JsonProperty("SalesVolume")
+	public void setSalesVolumeFromJson(BigDecimal SalesVolume) {
 		if (get_ID() == 0) {
 			super.setSalesVolume(SalesVolume);
 		}
@@ -2543,8 +2543,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param SendEMail Enable sending Document EMail
 	 */
-
-	public void setSendEMail(boolean SendEMail) {
+	@JsonProperty("SendEMail")
+	public void setSendEMailFromJson(boolean SendEMail) {
 		if (get_ID() == 0) {
 			super.setSendEMail(SendEMail);
 		}
@@ -2554,8 +2554,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param ShareOfCustomer Share of Customer's business as a percentage
 	 */
-
-	public void setShareOfCustomer(int ShareOfCustomer) {
+	@JsonProperty("ShareOfCustomer")
+	public void setShareOfCustomerFromJson(int ShareOfCustomer) {
 		if (get_ID() == 0) {
 			super.setShareOfCustomer(ShareOfCustomer);
 		}
@@ -2565,8 +2565,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param ShelfLifeMinPct Minimum Shelf Life in percent based on Product Instance Guarantee Date
 	 */
-
-	public void setShelfLifeMinPct(int ShelfLifeMinPct) {
+	@JsonProperty("ShelfLifeMinPct")
+	public void setShelfLifeMinPctFromJson(int ShelfLifeMinPct) {
 		if (get_ID() == 0) {
 			super.setShelfLifeMinPct(ShelfLifeMinPct);
 		}
@@ -2576,8 +2576,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param SO_CreditAvailable Available Credit based on Credit Limit (not Total Open Balance) and Credit Used
 	 */
-
-	public void setSO_CreditAvailable(BigDecimal SO_CreditAvailable) {
+	@JsonProperty("SO_CreditAvailable")
+	public void setSO_CreditAvailableFromJson(BigDecimal SO_CreditAvailable) {
 		if (get_ID() == 0) {
 			super.setSO_CreditAvailable(SO_CreditAvailable);
 		}
@@ -2587,8 +2587,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param SO_CreditLimit Total outstanding invoice amounts allowed
 	 */
-
-	public void setSO_CreditLimit(BigDecimal SO_CreditLimit) {
+	@JsonProperty("SO_CreditLimit")
+	public void setSO_CreditLimitFromJson(BigDecimal SO_CreditLimit) {
 		if (get_ID() == 0) {
 			super.setSO_CreditLimit(SO_CreditLimit);
 		}
@@ -2598,8 +2598,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param SO_CreditUsed Current open balance
 	 */
-
-	public void setSO_CreditUsed(BigDecimal SO_CreditUsed) {
+	@JsonProperty("SO_CreditUsed")
+	public void setSO_CreditUsedFromJson(BigDecimal SO_CreditUsed) {
 		if (get_ID() == 0) {
 			super.setSO_CreditUsed(SO_CreditUsed);
 		}
@@ -2609,8 +2609,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param SO_Description Description to be used on orders
 	 */
-
-	public void setSO_Description(String SO_Description) {
+	@JsonProperty("SO_Description")
+	public void setSO_DescriptionFromJson(String SO_Description) {
 		if (get_ID() == 0) {
 			super.setSO_Description(SO_Description);
 		}
@@ -2699,8 +2699,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param TaxID Tax Identification
 	 */
-
-	public void setTaxID(String TaxID) {
+	@JsonProperty("TaxID")
+	public void setTaxIDFromJson(String TaxID) {
 		if (get_ID() == 0) {
 			super.setTaxID(TaxID);
 		}
@@ -2710,8 +2710,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Title Name this entity is referred to as
 	 */
-
-	public void setTitle(String Title) {
+	@JsonProperty("Title")
+	public void setTitleFromJson(String Title) {
 		if (get_ID() == 0) {
 			super.setTitle(Title);
 		}
@@ -2721,8 +2721,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param TotalOpenBalance Total Open Balance Amount in primary Accounting Currency
 	 */
-
-	public void setTotalOpenBalance(BigDecimal TotalOpenBalance) {
+	@JsonProperty("TotalOpenBalance")
+	public void setTotalOpenBalanceFromJson(BigDecimal TotalOpenBalance) {
 		if (get_ID() == 0) {
 			super.setTotalOpenBalance(TotalOpenBalance);
 		}
@@ -2732,8 +2732,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param URL Full URL address - e.g. http://www.idempiere.org
 	 */
-
-	public void setURL(String URL) {
+	@JsonProperty("URL")
+	public void setURLFromJson(String URL) {
 		if (get_ID() == 0) {
 			super.setURL(URL);
 		}
@@ -2743,8 +2743,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 *
 	 * @param Value Search key for the record in the format required - must be unique
 	 */
-
-	public void setValue(String Value) {
+	@JsonProperty("Value")
+	public void setValueFromJson(String Value) {
 		if (get_ID() == 0) {
 			super.setValue(Value);
 		}

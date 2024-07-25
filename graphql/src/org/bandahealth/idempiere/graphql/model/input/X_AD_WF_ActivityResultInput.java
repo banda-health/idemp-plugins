@@ -113,8 +113,8 @@ public class X_AD_WF_ActivityResultInput extends X_AD_WF_ActivityResult implemen
 	 *
 	 * @param AD_WF_ActivityResult_ID Result of the Workflow Process Activity
 	 */
-
-	public void setAD_WF_ActivityResult_ID(int AD_WF_ActivityResult_ID) {
+	@JsonProperty("AD_WF_ActivityResult_ID")
+	public void setAD_WF_ActivityResult_IDFromJson(int AD_WF_ActivityResult_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_ActivityResult_ID(AD_WF_ActivityResult_ID);
 		}

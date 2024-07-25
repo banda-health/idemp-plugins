@@ -113,8 +113,8 @@ public class X_BH_Concept_NameInput extends MBHConceptName implements I_BH_Conce
 	 *
 	 * @param BH_Concept_Name_ID Concept Name
 	 */
-
-	public void setBH_Concept_Name_ID(int BH_Concept_Name_ID) {
+	@JsonProperty("BH_Concept_Name_ID")
+	public void setBH_Concept_Name_IDFromJson(int BH_Concept_Name_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Concept_Name_ID(BH_Concept_Name_ID);
 		}

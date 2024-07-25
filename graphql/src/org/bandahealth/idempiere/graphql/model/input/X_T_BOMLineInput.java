@@ -365,8 +365,8 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 	 *
 	 * @param T_BOMLine_ID Temporal BOM Line
 	 */
-
-	public void setT_BOMLine_ID(int T_BOMLine_ID) {
+	@JsonProperty("T_BOMLine_ID")
+	public void setT_BOMLine_IDFromJson(int T_BOMLine_ID) {
 		if (get_ID() == 0) {
 			super.setT_BOMLine_ID(T_BOMLine_ID);
 		}

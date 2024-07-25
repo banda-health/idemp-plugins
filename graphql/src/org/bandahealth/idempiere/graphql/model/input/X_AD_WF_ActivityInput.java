@@ -193,8 +193,8 @@ public class X_AD_WF_ActivityInput extends X_AD_WF_Activity implements I_AD_WF_A
 	 *
 	 * @param AD_WF_Activity_ID Workflow Activity
 	 */
-
-	public void setAD_WF_Activity_ID(int AD_WF_Activity_ID) {
+	@JsonProperty("AD_WF_Activity_ID")
+	public void setAD_WF_Activity_IDFromJson(int AD_WF_Activity_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_Activity_ID(AD_WF_Activity_ID);
 		}

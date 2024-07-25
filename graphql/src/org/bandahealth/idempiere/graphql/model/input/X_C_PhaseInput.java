@@ -78,8 +78,8 @@ public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput 
 	 *
 	 * @param C_Phase_ID Standard Phase of the Project Type
 	 */
-
-	public void setC_Phase_ID(int C_Phase_ID) {
+	@JsonProperty("C_Phase_ID")
+	public void setC_Phase_IDFromJson(int C_Phase_ID) {
 		if (get_ID() == 0) {
 			super.setC_Phase_ID(C_Phase_ID);
 		}

@@ -81,8 +81,8 @@ public class X_M_StorageReservationInput extends MStorageReservation implements 
 	 *
 	 * @param IsSOTrx This is a Sales Transaction
 	 */
-
-	public void setIsSOTrx(boolean IsSOTrx) {
+	@JsonProperty("IsSOTrx")
+	public void setIsSOTrxFromJson(boolean IsSOTrx) {
 		if (get_ID() == 0) {
 			super.setIsSOTrx(IsSOTrx);
 		}
@@ -221,8 +221,8 @@ public class X_M_StorageReservationInput extends MStorageReservation implements 
 	 *
 	 * @param Qty Quantity
 	 */
-
-	public void setQty(BigDecimal Qty) {
+	@JsonProperty("Qty")
+	public void setQtyFromJson(BigDecimal Qty) {
 		if (get_ID() == 0) {
 			super.setQty(Qty);
 		}

@@ -270,8 +270,8 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 *
 	 * @param PA_Measure_ID Concrete Performance Measurement
 	 */
-
-	public void setPA_Measure_ID(int PA_Measure_ID) {
+	@JsonProperty("PA_Measure_ID")
+	public void setPA_Measure_IDFromJson(int PA_Measure_ID) {
 		if (get_ID() == 0) {
 			super.setPA_Measure_ID(PA_Measure_ID);
 		}

@@ -85,8 +85,8 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	 *
 	 * @param AD_FieldSuggestion_ID Field Suggestions
 	 */
-
-	public void setAD_FieldSuggestion_ID(int AD_FieldSuggestion_ID) {
+	@JsonProperty("AD_FieldSuggestion_ID")
+	public void setAD_FieldSuggestion_IDFromJson(int AD_FieldSuggestion_ID) {
 		if (get_ID() == 0) {
 			super.setAD_FieldSuggestion_ID(AD_FieldSuggestion_ID);
 		}

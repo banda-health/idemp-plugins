@@ -76,8 +76,8 @@ public class X_DD_NetworkDistributionInput extends X_DD_NetworkDistribution impl
 	 *
 	 * @param DD_NetworkDistribution_ID Network Distribution
 	 */
-
-	public void setDD_NetworkDistribution_ID(int DD_NetworkDistribution_ID) {
+	@JsonProperty("DD_NetworkDistribution_ID")
+	public void setDD_NetworkDistribution_IDFromJson(int DD_NetworkDistribution_ID) {
 		if (get_ID() == 0) {
 			super.setDD_NetworkDistribution_ID(DD_NetworkDistribution_ID);
 		}

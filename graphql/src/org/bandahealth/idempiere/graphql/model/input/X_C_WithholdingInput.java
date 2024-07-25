@@ -146,8 +146,8 @@ public class X_C_WithholdingInput extends MWithholding implements I_C_Withholdin
 	 *
 	 * @param C_Withholding_ID Withholding type defined
 	 */
-
-	public void setC_Withholding_ID(int C_Withholding_ID) {
+	@JsonProperty("C_Withholding_ID")
+	public void setC_Withholding_IDFromJson(int C_Withholding_ID) {
 		if (get_ID() == 0) {
 			super.setC_Withholding_ID(C_Withholding_ID);
 		}

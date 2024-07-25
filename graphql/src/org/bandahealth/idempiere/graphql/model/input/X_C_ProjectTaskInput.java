@@ -120,8 +120,8 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	 *
 	 * @param C_ProjectTask_ID Actual Project Task in a Phase
 	 */
-
-	public void setC_ProjectTask_ID(int C_ProjectTask_ID) {
+	@JsonProperty("C_ProjectTask_ID")
+	public void setC_ProjectTask_IDFromJson(int C_ProjectTask_ID) {
 		if (get_ID() == 0) {
 			super.setC_ProjectTask_ID(C_ProjectTask_ID);
 		}

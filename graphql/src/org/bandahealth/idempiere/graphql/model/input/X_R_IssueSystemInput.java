@@ -113,8 +113,8 @@ public class X_R_IssueSystemInput extends X_R_IssueSystem implements I_R_IssueSy
 	 *
 	 * @param DBAddress JDBC URL of the database server
 	 */
-
-	public void setDBAddress(String DBAddress) {
+	@JsonProperty("DBAddress")
+	public void setDBAddressFromJson(String DBAddress) {
 		if (get_ID() == 0) {
 			super.setDBAddress(DBAddress);
 		}
@@ -124,8 +124,8 @@ public class X_R_IssueSystemInput extends X_R_IssueSystem implements I_R_IssueSy
 	 *
 	 * @param ProfileInfo Information to help profiling the system for solving support issues
 	 */
-
-	public void setProfileInfo(String ProfileInfo) {
+	@JsonProperty("ProfileInfo")
+	public void setProfileInfoFromJson(String ProfileInfo) {
 		if (get_ID() == 0) {
 			super.setProfileInfo(ProfileInfo);
 		}
@@ -135,8 +135,8 @@ public class X_R_IssueSystemInput extends X_R_IssueSystem implements I_R_IssueSy
 	 *
 	 * @param R_IssueSystem_ID System creating the issue
 	 */
-
-	public void setR_IssueSystem_ID(int R_IssueSystem_ID) {
+	@JsonProperty("R_IssueSystem_ID")
+	public void setR_IssueSystem_IDFromJson(int R_IssueSystem_ID) {
 		if (get_ID() == 0) {
 			super.setR_IssueSystem_ID(R_IssueSystem_ID);
 		}
@@ -164,8 +164,8 @@ public class X_R_IssueSystemInput extends X_R_IssueSystem implements I_R_IssueSy
 	 *
 	 * @param StatisticsInfo Information to help profiling the system for solving support issues
 	 */
-
-	public void setStatisticsInfo(String StatisticsInfo) {
+	@JsonProperty("StatisticsInfo")
+	public void setStatisticsInfoFromJson(String StatisticsInfo) {
 		if (get_ID() == 0) {
 			super.setStatisticsInfo(StatisticsInfo);
 		}

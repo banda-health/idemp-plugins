@@ -182,8 +182,8 @@ public class X_S_TrainingInput extends X_S_Training implements I_S_TrainingInput
 	 *
 	 * @param S_Training_ID Repeated Training
 	 */
-
-	public void setS_Training_ID(int S_Training_ID) {
+	@JsonProperty("S_Training_ID")
+	public void setS_Training_IDFromJson(int S_Training_ID) {
 		if (get_ID() == 0) {
 			super.setS_Training_ID(S_Training_ID);
 		}

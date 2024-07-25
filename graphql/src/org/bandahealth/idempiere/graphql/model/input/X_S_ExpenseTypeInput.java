@@ -182,8 +182,8 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 *
 	 * @param S_ExpenseType_ID Expense report type
 	 */
-
-	public void setS_ExpenseType_ID(int S_ExpenseType_ID) {
+	@JsonProperty("S_ExpenseType_ID")
+	public void setS_ExpenseType_IDFromJson(int S_ExpenseType_ID) {
 		if (get_ID() == 0) {
 			super.setS_ExpenseType_ID(S_ExpenseType_ID);
 		}

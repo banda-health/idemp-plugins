@@ -75,8 +75,8 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	 *
 	 * @param A_Asset_Group_ID Group of Assets
 	 */
-
-	public void setA_Asset_Group_ID(int A_Asset_Group_ID) {
+	@JsonProperty("A_Asset_Group_ID")
+	public void setA_Asset_Group_IDFromJson(int A_Asset_Group_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Group_ID(A_Asset_Group_ID);
 		}

@@ -156,8 +156,8 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	 *
 	 * @param C_POSPayment_ID POS Payment
 	 */
-
-	public void setC_POSPayment_ID(int C_POSPayment_ID) {
+	@JsonProperty("C_POSPayment_ID")
+	public void setC_POSPayment_IDFromJson(int C_POSPayment_ID) {
 		if (get_ID() == 0) {
 			super.setC_POSPayment_ID(C_POSPayment_ID);
 		}

@@ -113,8 +113,8 @@ public class X_AD_SchedulerLogInput extends MSchedulerLog implements I_AD_Schedu
 	 *
 	 * @param AD_SchedulerLog_ID Result of the execution of the Scheduler
 	 */
-
-	public void setAD_SchedulerLog_ID(int AD_SchedulerLog_ID) {
+	@JsonProperty("AD_SchedulerLog_ID")
+	public void setAD_SchedulerLog_IDFromJson(int AD_SchedulerLog_ID) {
 		if (get_ID() == 0) {
 			super.setAD_SchedulerLog_ID(AD_SchedulerLog_ID);
 		}

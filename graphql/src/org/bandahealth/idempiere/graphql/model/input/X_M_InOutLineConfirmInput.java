@@ -191,8 +191,8 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	 *
 	 * @param M_InOutLineConfirm_ID Material Shipment or Receipt Confirmation Line
 	 */
-
-	public void setM_InOutLineConfirm_ID(int M_InOutLineConfirm_ID) {
+	@JsonProperty("M_InOutLineConfirm_ID")
+	public void setM_InOutLineConfirm_IDFromJson(int M_InOutLineConfirm_ID) {
 		if (get_ID() == 0) {
 			super.setM_InOutLineConfirm_ID(M_InOutLineConfirm_ID);
 		}
@@ -254,8 +254,8 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	 *
 	 * @param TargetQty Target Movement Quantity
 	 */
-
-	public void setTargetQty(BigDecimal TargetQty) {
+	@JsonProperty("TargetQty")
+	public void setTargetQtyFromJson(BigDecimal TargetQty) {
 		if (get_ID() == 0) {
 			super.setTargetQty(TargetQty);
 		}

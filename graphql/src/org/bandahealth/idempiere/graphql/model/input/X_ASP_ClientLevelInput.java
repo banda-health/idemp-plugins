@@ -78,8 +78,8 @@ public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_C
 	 *
 	 * @param ASP_ClientLevel_ID Tenant Level
 	 */
-
-	public void setASP_ClientLevel_ID(int ASP_ClientLevel_ID) {
+	@JsonProperty("ASP_ClientLevel_ID")
+	public void setASP_ClientLevel_IDFromJson(int ASP_ClientLevel_ID) {
 		if (get_ID() == 0) {
 			super.setASP_ClientLevel_ID(ASP_ClientLevel_ID);
 		}

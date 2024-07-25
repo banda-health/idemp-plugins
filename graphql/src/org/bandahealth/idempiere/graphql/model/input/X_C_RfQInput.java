@@ -260,8 +260,8 @@ public class X_C_RfQInput extends MRfQ implements I_C_RfQInput {
 	 *
 	 * @param C_RfQ_ID Request for Quotation
 	 */
-
-	public void setC_RfQ_ID(int C_RfQ_ID) {
+	@JsonProperty("C_RfQ_ID")
+	public void setC_RfQ_IDFromJson(int C_RfQ_ID) {
 		if (get_ID() == 0) {
 			super.setC_RfQ_ID(C_RfQ_ID);
 		}

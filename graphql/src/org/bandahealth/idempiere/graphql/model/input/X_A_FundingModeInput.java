@@ -37,8 +37,8 @@ public class X_A_FundingModeInput extends X_A_FundingMode implements I_A_Funding
 	 *
 	 * @param A_FundingMode_ID Asset Funding Mode
 	 */
-
-	public void setA_FundingMode_ID(int A_FundingMode_ID) {
+	@JsonProperty("A_FundingMode_ID")
+	public void setA_FundingMode_IDFromJson(int A_FundingMode_ID) {
 		if (get_ID() == 0) {
 			super.setA_FundingMode_ID(A_FundingMode_ID);
 		}

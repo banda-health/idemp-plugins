@@ -74,8 +74,8 @@ public class X_C_BankStatementMatcherInput extends MBankStatementMatcher impleme
 	 *
 	 * @param C_BankStatementMatcher_ID Algorithm to match Bank Statement Info to Business Partners, Invoices and Payments
 	 */
-
-	public void setC_BankStatementMatcher_ID(int C_BankStatementMatcher_ID) {
+	@JsonProperty("C_BankStatementMatcher_ID")
+	public void setC_BankStatementMatcher_IDFromJson(int C_BankStatementMatcher_ID) {
 		if (get_ID() == 0) {
 			super.setC_BankStatementMatcher_ID(C_BankStatementMatcher_ID);
 		}

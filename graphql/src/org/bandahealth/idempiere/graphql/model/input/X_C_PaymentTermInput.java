@@ -78,8 +78,8 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	 *
 	 * @param C_PaymentTerm_ID The terms of Payment (timing, discount)
 	 */
-
-	public void setC_PaymentTerm_ID(int C_PaymentTerm_ID) {
+	@JsonProperty("C_PaymentTerm_ID")
+	public void setC_PaymentTerm_IDFromJson(int C_PaymentTerm_ID) {
 		if (get_ID() == 0) {
 			super.setC_PaymentTerm_ID(C_PaymentTerm_ID);
 		}

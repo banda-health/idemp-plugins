@@ -44,8 +44,8 @@ public class X_AD_AuthorizationAccountInput extends MAuthorizationAccount implem
 	 *
 	 * @param AD_AuthorizationAccount_ID Authorization Account
 	 */
-
-	public void setAD_AuthorizationAccount_ID(int AD_AuthorizationAccount_ID) {
+	@JsonProperty("AD_AuthorizationAccount_ID")
+	public void setAD_AuthorizationAccount_IDFromJson(int AD_AuthorizationAccount_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AuthorizationAccount_ID(AD_AuthorizationAccount_ID);
 		}

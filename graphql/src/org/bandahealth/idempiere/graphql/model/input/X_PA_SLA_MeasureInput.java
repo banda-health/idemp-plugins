@@ -149,8 +149,8 @@ public class X_PA_SLA_MeasureInput extends X_PA_SLA_Measure implements I_PA_SLA_
 	 *
 	 * @param PA_SLA_Measure_ID Service Level Agreement Measure
 	 */
-
-	public void setPA_SLA_Measure_ID(int PA_SLA_Measure_ID) {
+	@JsonProperty("PA_SLA_Measure_ID")
+	public void setPA_SLA_Measure_IDFromJson(int PA_SLA_Measure_ID) {
 		if (get_ID() == 0) {
 			super.setPA_SLA_Measure_ID(PA_SLA_Measure_ID);
 		}

@@ -135,8 +135,8 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 *
 	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
 	 */
-
-	public void setAD_User_ID(int AD_User_ID) {
+	@JsonProperty("AD_User_ID")
+	public void setAD_User_IDFromJson(int AD_User_ID) {
 		if (get_ID() == 0) {
 			super.setAD_User_ID(AD_User_ID);
 		}
@@ -441,8 +441,8 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 *
 	 * @param EMailVerify Verification information of EMail Address
 	 */
-
-	public void setEMailVerify(String EMailVerify) {
+	@JsonProperty("EMailVerify")
+	public void setEMailVerifyFromJson(String EMailVerify) {
 		if (get_ID() == 0) {
 			super.setEMailVerify(EMailVerify);
 		}
@@ -452,8 +452,8 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 *
 	 * @param EMailVerifyDate Date Email was verified
 	 */
-
-	public void setEMailVerifyDate(Timestamp EMailVerifyDate) {
+	@JsonProperty("EMailVerifyDate")
+	public void setEMailVerifyDateFromJson(Timestamp EMailVerifyDate) {
 		if (get_ID() == 0) {
 			super.setEMailVerifyDate(EMailVerifyDate);
 		}
@@ -687,8 +687,8 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 *
 	 * @param Salt Random data added to improve password hash effectiveness
 	 */
-
-	public void setSalt(String Salt) {
+	@JsonProperty("Salt")
+	public void setSaltFromJson(String Salt) {
 		if (get_ID() == 0) {
 			super.setSalt(Salt);
 		}

@@ -39,8 +39,8 @@ public class X_AD_ModificationInput extends X_AD_Modification implements I_AD_Mo
 	 *
 	 * @param AD_Modification_ID System Modification or Extension
 	 */
-
-	public void setAD_Modification_ID(int AD_Modification_ID) {
+	@JsonProperty("AD_Modification_ID")
+	public void setAD_Modification_IDFromJson(int AD_Modification_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Modification_ID(AD_Modification_ID);
 		}
