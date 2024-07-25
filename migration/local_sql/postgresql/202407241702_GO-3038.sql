@@ -32,7 +32,7 @@ AND c.iscustomer = 'Y';
 -- Update with the correct bh_patientId and deactivate the patient.
 UPDATE c_bpartner c
 SET bh_patientid = tmp.current_bh_patientid, isActive = 'N'
-FROM tmp_c_bpartner tmp WHERE c.c_bpartner_id = tmp.c_bpartner_id
+FROM tmp_c_bpartner tmp WHERE c.c_bpartner_id = tmp.c_bpartner_id;
 
 SELECT
 	register_migration_script('202407241702_GO-3038.sql')
