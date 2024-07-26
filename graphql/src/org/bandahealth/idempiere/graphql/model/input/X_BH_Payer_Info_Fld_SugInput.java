@@ -78,8 +78,8 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 	 *
 	 * @param BH_Payer_Info_Fld_Sug_ID Payer Info Field Suggestion
 	 */
-
-	public void setBH_Payer_Info_Fld_Sug_ID(int BH_Payer_Info_Fld_Sug_ID) {
+	@JsonProperty("BH_Payer_Info_Fld_Sug_ID")
+	public void setBH_Payer_Info_Fld_Sug_IDFromJson(int BH_Payer_Info_Fld_Sug_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Payer_Info_Fld_Sug_ID(BH_Payer_Info_Fld_Sug_ID);
 		}

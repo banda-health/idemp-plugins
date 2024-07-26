@@ -79,8 +79,8 @@ public class X_C_UOM_ConversionInput extends MUOMConversion implements I_C_UOM_C
 	 *
 	 * @param C_UOM_Conversion_ID Unit of Measure Conversion
 	 */
-
-	public void setC_UOM_Conversion_ID(int C_UOM_Conversion_ID) {
+	@JsonProperty("C_UOM_Conversion_ID")
+	public void setC_UOM_Conversion_IDFromJson(int C_UOM_Conversion_ID) {
 		if (get_ID() == 0) {
 			super.setC_UOM_Conversion_ID(C_UOM_Conversion_ID);
 		}

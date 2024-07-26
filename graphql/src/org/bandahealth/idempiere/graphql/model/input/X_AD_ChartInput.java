@@ -44,8 +44,8 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	 *
 	 * @param AD_Chart_ID Chart
 	 */
-
-	public void setAD_Chart_ID(int AD_Chart_ID) {
+	@JsonProperty("AD_Chart_ID")
+	public void setAD_Chart_IDFromJson(int AD_Chart_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Chart_ID(AD_Chart_ID);
 		}

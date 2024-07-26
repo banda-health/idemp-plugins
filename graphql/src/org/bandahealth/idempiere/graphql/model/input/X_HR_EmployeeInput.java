@@ -186,8 +186,8 @@ public class X_HR_EmployeeInput extends X_HR_Employee implements I_HR_EmployeeIn
 	 *
 	 * @param HR_Employee_ID Payroll Employee
 	 */
-
-	public void setHR_Employee_ID(int HR_Employee_ID) {
+	@JsonProperty("HR_Employee_ID")
+	public void setHR_Employee_IDFromJson(int HR_Employee_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Employee_ID(HR_Employee_ID);
 		}

@@ -74,8 +74,8 @@ public class X_C_DunningInput extends MDunning implements I_C_DunningInput {
 	 *
 	 * @param C_Dunning_ID Dunning Rules for overdue invoices
 	 */
-
-	public void setC_Dunning_ID(int C_Dunning_ID) {
+	@JsonProperty("C_Dunning_ID")
+	public void setC_Dunning_IDFromJson(int C_Dunning_ID) {
 		if (get_ID() == 0) {
 			super.setC_Dunning_ID(C_Dunning_ID);
 		}

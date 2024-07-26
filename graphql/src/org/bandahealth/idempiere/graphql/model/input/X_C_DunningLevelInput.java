@@ -120,8 +120,8 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 *
 	 * @param C_DunningLevel_ID Dunning Level
 	 */
-
-	public void setC_DunningLevel_ID(int C_DunningLevel_ID) {
+	@JsonProperty("C_DunningLevel_ID")
+	public void setC_DunningLevel_IDFromJson(int C_DunningLevel_ID) {
 		if (get_ID() == 0) {
 			super.setC_DunningLevel_ID(C_DunningLevel_ID);
 		}

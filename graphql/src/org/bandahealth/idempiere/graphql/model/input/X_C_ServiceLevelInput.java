@@ -116,8 +116,8 @@ public class X_C_ServiceLevelInput extends X_C_ServiceLevel implements I_C_Servi
 	 *
 	 * @param C_ServiceLevel_ID Product Revenue Recognition Service Level 
 	 */
-
-	public void setC_ServiceLevel_ID(int C_ServiceLevel_ID) {
+	@JsonProperty("C_ServiceLevel_ID")
+	public void setC_ServiceLevel_IDFromJson(int C_ServiceLevel_ID) {
 		if (get_ID() == 0) {
 			super.setC_ServiceLevel_ID(C_ServiceLevel_ID);
 		}
@@ -182,8 +182,8 @@ public class X_C_ServiceLevelInput extends X_C_ServiceLevel implements I_C_Servi
 	 *
 	 * @param ServiceLevelInvoiced Quantity of product or service invoiced
 	 */
-
-	public void setServiceLevelInvoiced(BigDecimal ServiceLevelInvoiced) {
+	@JsonProperty("ServiceLevelInvoiced")
+	public void setServiceLevelInvoicedFromJson(BigDecimal ServiceLevelInvoiced) {
 		if (get_ID() == 0) {
 			super.setServiceLevelInvoiced(ServiceLevelInvoiced);
 		}
@@ -193,8 +193,8 @@ public class X_C_ServiceLevelInput extends X_C_ServiceLevel implements I_C_Servi
 	 *
 	 * @param ServiceLevelProvided Quantity of service or product provided
 	 */
-
-	public void setServiceLevelProvided(BigDecimal ServiceLevelProvided) {
+	@JsonProperty("ServiceLevelProvided")
+	public void setServiceLevelProvidedFromJson(BigDecimal ServiceLevelProvided) {
 		if (get_ID() == 0) {
 			super.setServiceLevelProvided(ServiceLevelProvided);
 		}

@@ -74,8 +74,8 @@ public class X_S_TimeTypeInput extends X_S_TimeType implements I_S_TimeTypeInput
 	 *
 	 * @param S_TimeType_ID Type of time recorded
 	 */
-
-	public void setS_TimeType_ID(int S_TimeType_ID) {
+	@JsonProperty("S_TimeType_ID")
+	public void setS_TimeType_IDFromJson(int S_TimeType_ID) {
 		if (get_ID() == 0) {
 			super.setS_TimeType_ID(S_TimeType_ID);
 		}

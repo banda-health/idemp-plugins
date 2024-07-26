@@ -116,8 +116,8 @@ public class X_GL_CategoryInput extends MGLCategory implements I_GL_CategoryInpu
 	 *
 	 * @param GL_Category_ID General Ledger Category
 	 */
-
-	public void setGL_Category_ID(int GL_Category_ID) {
+	@JsonProperty("GL_Category_ID")
+	public void setGL_Category_IDFromJson(int GL_Category_ID) {
 		if (get_ID() == 0) {
 			super.setGL_Category_ID(GL_Category_ID);
 		}

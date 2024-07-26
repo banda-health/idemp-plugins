@@ -39,8 +39,8 @@ public class X_AD_ModelValidatorInput extends X_AD_ModelValidator implements I_A
 	 *
 	 * @param AD_ModelValidator_ID Model Validator
 	 */
-
-	public void setAD_ModelValidator_ID(int AD_ModelValidator_ID) {
+	@JsonProperty("AD_ModelValidator_ID")
+	public void setAD_ModelValidator_IDFromJson(int AD_ModelValidator_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ModelValidator_ID(AD_ModelValidator_ID);
 		}

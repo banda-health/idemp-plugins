@@ -152,8 +152,8 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 	 *
 	 * @param AD_Table_ScriptValidator_ID Table Script Validator
 	 */
-
-	public void setAD_Table_ScriptValidator_ID(int AD_Table_ScriptValidator_ID) {
+	@JsonProperty("AD_Table_ScriptValidator_ID")
+	public void setAD_Table_ScriptValidator_IDFromJson(int AD_Table_ScriptValidator_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Table_ScriptValidator_ID(AD_Table_ScriptValidator_ID);
 		}

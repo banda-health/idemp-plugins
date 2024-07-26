@@ -198,8 +198,8 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	 *
 	 * @param M_PromotionDistribution_ID Promotion Distribution
 	 */
-
-	public void setM_PromotionDistribution_ID(int M_PromotionDistribution_ID) {
+	@JsonProperty("M_PromotionDistribution_ID")
+	public void setM_PromotionDistribution_IDFromJson(int M_PromotionDistribution_ID) {
 		if (get_ID() == 0) {
 			super.setM_PromotionDistribution_ID(M_PromotionDistribution_ID);
 		}

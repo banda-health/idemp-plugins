@@ -224,8 +224,8 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	 *
 	 * @param PP_WF_Node_Product_ID Workflow Node Product
 	 */
-
-	public void setPP_WF_Node_Product_ID(int PP_WF_Node_Product_ID) {
+	@JsonProperty("PP_WF_Node_Product_ID")
+	public void setPP_WF_Node_Product_IDFromJson(int PP_WF_Node_Product_ID) {
 		if (get_ID() == 0) {
 			super.setPP_WF_Node_Product_ID(PP_WF_Node_Product_ID);
 		}

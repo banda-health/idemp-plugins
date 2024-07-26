@@ -149,8 +149,8 @@ public class X_M_SerNoCtlExcludeInput extends MSerNoCtlExclude implements I_M_Se
 	 *
 	 * @param M_SerNoCtlExclude_ID Exclude the ability to create Serial Numbers in Attribute Sets
 	 */
-
-	public void setM_SerNoCtlExclude_ID(int M_SerNoCtlExclude_ID) {
+	@JsonProperty("M_SerNoCtlExclude_ID")
+	public void setM_SerNoCtlExclude_IDFromJson(int M_SerNoCtlExclude_ID) {
 		if (get_ID() == 0) {
 			super.setM_SerNoCtlExclude_ID(M_SerNoCtlExclude_ID);
 		}

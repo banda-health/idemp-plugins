@@ -155,8 +155,8 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	 *
 	 * @param C_Commission_ID Commission
 	 */
-
-	public void setC_Commission_ID(int C_Commission_ID) {
+	@JsonProperty("C_Commission_ID")
+	public void setC_Commission_IDFromJson(int C_Commission_ID) {
 		if (get_ID() == 0) {
 			super.setC_Commission_ID(C_Commission_ID);
 		}
@@ -218,8 +218,8 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	 *
 	 * @param DateLastRun Date the process was last run.
 	 */
-
-	public void setDateLastRun(Timestamp DateLastRun) {
+	@JsonProperty("DateLastRun")
+	public void setDateLastRunFromJson(Timestamp DateLastRun) {
 		if (get_ID() == 0) {
 			super.setDateLastRun(DateLastRun);
 		}

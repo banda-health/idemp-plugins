@@ -41,8 +41,8 @@ public class X_AD_AttachmentInput extends MAttachment implements I_AD_Attachment
 	 *
 	 * @param AD_Attachment_ID Attachment for the document
 	 */
-
-	public void setAD_Attachment_ID(int AD_Attachment_ID) {
+	@JsonProperty("AD_Attachment_ID")
+	public void setAD_Attachment_IDFromJson(int AD_Attachment_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Attachment_ID(AD_Attachment_ID);
 		}
@@ -181,8 +181,8 @@ public class X_AD_AttachmentInput extends MAttachment implements I_AD_Attachment
 	 *
 	 * @param BinaryData Binary Data
 	 */
-
-	public void setBinaryData(byte[] BinaryData) {
+	@JsonProperty("BinaryData")
+	public void setBinaryDataFromJson(byte[] BinaryData) {
 		if (get_ID() == 0) {
 			super.setBinaryData(BinaryData);
 		}

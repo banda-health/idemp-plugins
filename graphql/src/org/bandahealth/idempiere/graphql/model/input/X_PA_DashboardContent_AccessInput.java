@@ -154,8 +154,8 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	 *
 	 * @param PA_DashboardContent_Access_ID PA_DashboardContent_Access_ID
 	 */
-
-	public void setPA_DashboardContent_Access_ID(int PA_DashboardContent_Access_ID) {
+	@JsonProperty("PA_DashboardContent_Access_ID")
+	public void setPA_DashboardContent_Access_IDFromJson(int PA_DashboardContent_Access_ID) {
 		if (get_ID() == 0) {
 			super.setPA_DashboardContent_Access_ID(PA_DashboardContent_Access_ID);
 		}

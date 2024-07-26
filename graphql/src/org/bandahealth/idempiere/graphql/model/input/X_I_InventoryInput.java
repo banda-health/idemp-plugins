@@ -157,8 +157,8 @@ public class X_I_InventoryInput extends X_I_Inventory implements I_I_InventoryIn
 	 *
 	 * @param I_Inventory_ID Import Inventory Transactions
 	 */
-
-	public void setI_Inventory_ID(int I_Inventory_ID) {
+	@JsonProperty("I_Inventory_ID")
+	public void setI_Inventory_IDFromJson(int I_Inventory_ID) {
 		if (get_ID() == 0) {
 			super.setI_Inventory_ID(I_Inventory_ID);
 		}

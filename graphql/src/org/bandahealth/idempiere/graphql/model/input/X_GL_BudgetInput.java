@@ -116,8 +116,8 @@ public class X_GL_BudgetInput extends X_GL_Budget implements I_GL_BudgetInput {
 	 *
 	 * @param GL_Budget_ID General Ledger Budget
 	 */
-
-	public void setGL_Budget_ID(int GL_Budget_ID) {
+	@JsonProperty("GL_Budget_ID")
+	public void setGL_Budget_IDFromJson(int GL_Budget_ID) {
 		if (get_ID() == 0) {
 			super.setGL_Budget_ID(GL_Budget_ID);
 		}

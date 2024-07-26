@@ -145,8 +145,8 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	 *
 	 * @param M_PriceList_ID Unique identifier of a Price List
 	 */
-
-	public void setM_PriceList_ID(int M_PriceList_ID) {
+	@JsonProperty("M_PriceList_ID")
+	public void setM_PriceList_IDFromJson(int M_PriceList_ID) {
 		if (get_ID() == 0) {
 			super.setM_PriceList_ID(M_PriceList_ID);
 		}

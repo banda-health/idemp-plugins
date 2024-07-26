@@ -74,8 +74,8 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 *
 	 * @param A_Asset_Addition_ID Asset Addition
 	 */
-
-	public void setA_Asset_Addition_ID(int A_Asset_Addition_ID) {
+	@JsonProperty("A_Asset_Addition_ID")
+	public void setA_Asset_Addition_IDFromJson(int A_Asset_Addition_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Addition_ID(A_Asset_Addition_ID);
 		}
@@ -565,8 +565,8 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -814,8 +814,8 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

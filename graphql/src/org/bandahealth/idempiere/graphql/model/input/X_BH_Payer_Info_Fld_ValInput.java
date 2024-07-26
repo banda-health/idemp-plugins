@@ -113,8 +113,8 @@ public class X_BH_Payer_Info_Fld_ValInput extends MBHPayerInfoFldVal implements 
 	 *
 	 * @param BH_Payer_Info_Fld_Val_ID Payer Info Values
 	 */
-
-	public void setBH_Payer_Info_Fld_Val_ID(int BH_Payer_Info_Fld_Val_ID) {
+	@JsonProperty("BH_Payer_Info_Fld_Val_ID")
+	public void setBH_Payer_Info_Fld_Val_IDFromJson(int BH_Payer_Info_Fld_Val_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Payer_Info_Fld_Val_ID(BH_Payer_Info_Fld_Val_ID);
 		}

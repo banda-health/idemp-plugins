@@ -365,8 +365,8 @@ public class X_I_BankStatementInput extends X_I_BankStatement implements I_I_Ban
 	 *
 	 * @param I_BankStatement_ID Import of the Bank Statement
 	 */
-
-	public void setI_BankStatement_ID(int I_BankStatement_ID) {
+	@JsonProperty("I_BankStatement_ID")
+	public void setI_BankStatement_IDFromJson(int I_BankStatement_ID) {
 		if (get_ID() == 0) {
 			super.setI_BankStatement_ID(I_BankStatement_ID);
 		}

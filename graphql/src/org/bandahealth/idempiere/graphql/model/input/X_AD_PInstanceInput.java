@@ -123,8 +123,8 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	 *
 	 * @param AD_PInstance_ID Instance of the process
 	 */
-
-	public void setAD_PInstance_ID(int AD_PInstance_ID) {
+	@JsonProperty("AD_PInstance_ID")
+	public void setAD_PInstance_IDFromJson(int AD_PInstance_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PInstance_ID(AD_PInstance_ID);
 		}

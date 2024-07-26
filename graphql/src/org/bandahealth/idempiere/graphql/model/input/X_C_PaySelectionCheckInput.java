@@ -224,8 +224,8 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	 *
 	 * @param C_PaySelectionCheck_ID Payment Selection Check
 	 */
-
-	public void setC_PaySelectionCheck_ID(int C_PaySelectionCheck_ID) {
+	@JsonProperty("C_PaySelectionCheck_ID")
+	public void setC_PaySelectionCheck_IDFromJson(int C_PaySelectionCheck_ID) {
 		if (get_ID() == 0) {
 			super.setC_PaySelectionCheck_ID(C_PaySelectionCheck_ID);
 		}

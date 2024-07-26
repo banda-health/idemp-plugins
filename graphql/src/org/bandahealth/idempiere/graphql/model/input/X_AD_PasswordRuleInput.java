@@ -74,8 +74,8 @@ public class X_AD_PasswordRuleInput extends MPasswordRule implements I_AD_Passwo
 	 *
 	 * @param AD_PasswordRule_ID Password Policies
 	 */
-
-	public void setAD_PasswordRule_ID(int AD_PasswordRule_ID) {
+	@JsonProperty("AD_PasswordRule_ID")
+	public void setAD_PasswordRule_IDFromJson(int AD_PasswordRule_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PasswordRule_ID(AD_PasswordRule_ID);
 		}

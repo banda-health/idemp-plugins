@@ -118,8 +118,8 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	 *
 	 * @param AD_UserMail_ID Mail sent to the user
 	 */
-
-	public void setAD_UserMail_ID(int AD_UserMail_ID) {
+	@JsonProperty("AD_UserMail_ID")
+	public void setAD_UserMail_IDFromJson(int AD_UserMail_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserMail_ID(AD_UserMail_ID);
 		}
@@ -147,8 +147,8 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	 *
 	 * @param DeliveryConfirmation EMail Delivery confirmation
 	 */
-
-	public void setDeliveryConfirmation(String DeliveryConfirmation) {
+	@JsonProperty("DeliveryConfirmation")
+	public void setDeliveryConfirmationFromJson(String DeliveryConfirmation) {
 		if (get_ID() == 0) {
 			super.setDeliveryConfirmation(DeliveryConfirmation);
 		}
@@ -200,8 +200,8 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	 *
 	 * @param MessageID EMail Message ID
 	 */
-
-	public void setMessageID(String MessageID) {
+	@JsonProperty("MessageID")
+	public void setMessageIDFromJson(String MessageID) {
 		if (get_ID() == 0) {
 			super.setMessageID(MessageID);
 		}

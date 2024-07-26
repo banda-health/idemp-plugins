@@ -76,8 +76,8 @@ public class X_C_AddressValidationInput extends MAddressValidation implements I_
 	 *
 	 * @param C_AddressValidation_ID Address Validation
 	 */
-
-	public void setC_AddressValidation_ID(int C_AddressValidation_ID) {
+	@JsonProperty("C_AddressValidation_ID")
+	public void setC_AddressValidation_IDFromJson(int C_AddressValidation_ID) {
 		if (get_ID() == 0) {
 			super.setC_AddressValidation_ID(C_AddressValidation_ID);
 		}

@@ -96,8 +96,8 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 *
 	 * @param A_Asset_Disposed_ID Asset Disposed
 	 */
-
-	public void setA_Asset_Disposed_ID(int A_Asset_Disposed_ID) {
+	@JsonProperty("A_Asset_Disposed_ID")
+	public void setA_Asset_Disposed_IDFromJson(int A_Asset_Disposed_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Disposed_ID(A_Asset_Disposed_ID);
 		}
@@ -558,8 +558,8 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -569,8 +569,8 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

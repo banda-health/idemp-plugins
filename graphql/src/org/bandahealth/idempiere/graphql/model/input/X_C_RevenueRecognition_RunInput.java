@@ -152,8 +152,8 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	 *
 	 * @param C_RevenueRecognition_Run_ID Revenue Recognition Run or Process
 	 */
-
-	public void setC_RevenueRecognition_Run_ID(int C_RevenueRecognition_Run_ID) {
+	@JsonProperty("C_RevenueRecognition_Run_ID")
+	public void setC_RevenueRecognition_Run_IDFromJson(int C_RevenueRecognition_Run_ID) {
 		if (get_ID() == 0) {
 			super.setC_RevenueRecognition_Run_ID(C_RevenueRecognition_Run_ID);
 		}
@@ -218,8 +218,8 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	 *
 	 * @param RecognizedAmt Recognized Amount
 	 */
-
-	public void setRecognizedAmt(BigDecimal RecognizedAmt) {
+	@JsonProperty("RecognizedAmt")
+	public void setRecognizedAmtFromJson(BigDecimal RecognizedAmt) {
 		if (get_ID() == 0) {
 			super.setRecognizedAmt(RecognizedAmt);
 		}

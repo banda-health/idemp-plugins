@@ -114,8 +114,8 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 	 *
 	 * @param BH_Default_DocAction_Access_ID BH_Default_DocAction_Access_ID
 	 */
-
-	public void setBH_Default_DocAction_Access_ID(int BH_Default_DocAction_Access_ID) {
+	@JsonProperty("BH_Default_DocAction_Access_ID")
+	public void setBH_Default_DocAction_Access_IDFromJson(int BH_Default_DocAction_Access_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Default_DocAction_Access_ID(BH_Default_DocAction_Access_ID);
 		}

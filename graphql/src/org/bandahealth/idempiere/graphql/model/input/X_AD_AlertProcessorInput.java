@@ -41,8 +41,8 @@ public class X_AD_AlertProcessorInput extends MAlertProcessor implements I_AD_Al
 	 *
 	 * @param AD_AlertProcessor_ID Alert Processor/Server Parameter
 	 */
-
-	public void setAD_AlertProcessor_ID(int AD_AlertProcessor_ID) {
+	@JsonProperty("AD_AlertProcessor_ID")
+	public void setAD_AlertProcessor_IDFromJson(int AD_AlertProcessor_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AlertProcessor_ID(AD_AlertProcessor_ID);
 		}

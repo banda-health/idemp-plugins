@@ -176,8 +176,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param A_Asset_Change_ID A_Asset_Change_ID
 	 */
-
-	public void setA_Asset_Change_ID(int A_Asset_Change_ID) {
+	@JsonProperty("A_Asset_Change_ID")
+	public void setA_Asset_Change_IDFromJson(int A_Asset_Change_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Change_ID(A_Asset_Change_ID);
 		}
@@ -598,8 +598,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetAccumDepreciationAmt Asset Accum Depreciation Amt
 	 */
-
-	public void setAssetAccumDepreciationAmt(BigDecimal AssetAccumDepreciationAmt) {
+	@JsonProperty("AssetAccumDepreciationAmt")
+	public void setAssetAccumDepreciationAmtFromJson(BigDecimal AssetAccumDepreciationAmt) {
 		if (get_ID() == 0) {
 			super.setAssetAccumDepreciationAmt(AssetAccumDepreciationAmt);
 		}
@@ -609,8 +609,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetBookValueAmt Asset Book Value Amt
 	 */
-
-	public void setAssetBookValueAmt(BigDecimal AssetBookValueAmt) {
+	@JsonProperty("AssetBookValueAmt")
+	public void setAssetBookValueAmtFromJson(BigDecimal AssetBookValueAmt) {
 		if (get_ID() == 0) {
 			super.setAssetBookValueAmt(AssetBookValueAmt);
 		}
@@ -620,8 +620,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetDepreciationDate Date of last depreciation
 	 */
-
-	public void setAssetDepreciationDate(Timestamp AssetDepreciationDate) {
+	@JsonProperty("AssetDepreciationDate")
+	public void setAssetDepreciationDateFromJson(Timestamp AssetDepreciationDate) {
 		if (get_ID() == 0) {
 			super.setAssetDepreciationDate(AssetDepreciationDate);
 		}
@@ -631,8 +631,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetMarketValueAmt Market value of the asset
 	 */
-
-	public void setAssetMarketValueAmt(BigDecimal AssetMarketValueAmt) {
+	@JsonProperty("AssetMarketValueAmt")
+	public void setAssetMarketValueAmtFromJson(BigDecimal AssetMarketValueAmt) {
 		if (get_ID() == 0) {
 			super.setAssetMarketValueAmt(AssetMarketValueAmt);
 		}
@@ -642,8 +642,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetServiceDate Date when Asset was put into service
 	 */
-
-	public void setAssetServiceDate(Timestamp AssetServiceDate) {
+	@JsonProperty("AssetServiceDate")
+	public void setAssetServiceDateFromJson(Timestamp AssetServiceDate) {
 		if (get_ID() == 0) {
 			super.setAssetServiceDate(AssetServiceDate);
 		}
@@ -653,8 +653,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetValueAmt Book Value of the asset
 	 */
-
-	public void setAssetValueAmt(BigDecimal AssetValueAmt) {
+	@JsonProperty("AssetValueAmt")
+	public void setAssetValueAmtFromJson(BigDecimal AssetValueAmt) {
 		if (get_ID() == 0) {
 			super.setAssetValueAmt(AssetValueAmt);
 		}
@@ -834,8 +834,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param ChangeAmt Change Amt
 	 */
-
-	public void setChangeAmt(BigDecimal ChangeAmt) {
+	@JsonProperty("ChangeAmt")
+	public void setChangeAmtFromJson(BigDecimal ChangeAmt) {
 		if (get_ID() == 0) {
 			super.setChangeAmt(ChangeAmt);
 		}
@@ -845,8 +845,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param ChangeDate Change Date
 	 */
-
-	public void setChangeDate(Timestamp ChangeDate) {
+	@JsonProperty("ChangeDate")
+	public void setChangeDateFromJson(Timestamp ChangeDate) {
 		if (get_ID() == 0) {
 			super.setChangeDate(ChangeDate);
 		}
@@ -898,8 +898,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param LifeUseUnits Units of use until the asset is not usable anymore
 	 */
-
-	public void setLifeUseUnits(int LifeUseUnits) {
+	@JsonProperty("LifeUseUnits")
+	public void setLifeUseUnitsFromJson(int LifeUseUnits) {
 		if (get_ID() == 0) {
 			super.setLifeUseUnits(LifeUseUnits);
 		}
@@ -909,8 +909,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param Lot Lot number (alphanumeric)
 	 */
-
-	public void setLot(String Lot) {
+	@JsonProperty("Lot")
+	public void setLotFromJson(String Lot) {
 		if (get_ID() == 0) {
 			super.setLot(Lot);
 		}
@@ -959,8 +959,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param SerNo Product Serial Number 
 	 */
-
-	public void setSerNo(String SerNo) {
+	@JsonProperty("SerNo")
+	public void setSerNoFromJson(String SerNo) {
 		if (get_ID() == 0) {
 			super.setSerNo(SerNo);
 		}
@@ -970,8 +970,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param TextDetails Details
 	 */
-
-	public void setTextDetails(String TextDetails) {
+	@JsonProperty("TextDetails")
+	public void setTextDetailsFromJson(String TextDetails) {
 		if (get_ID() == 0) {
 			super.setTextDetails(TextDetails);
 		}
@@ -981,8 +981,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param UseLifeMonths Months of the usable life of the asset
 	 */
-
-	public void setUseLifeMonths(int UseLifeMonths) {
+	@JsonProperty("UseLifeMonths")
+	public void setUseLifeMonthsFromJson(int UseLifeMonths) {
 		if (get_ID() == 0) {
 			super.setUseLifeMonths(UseLifeMonths);
 		}
@@ -992,8 +992,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param UseLifeYears Years of the usable life of the asset
 	 */
-
-	public void setUseLifeYears(BigDecimal UseLifeYears) {
+	@JsonProperty("UseLifeYears")
+	public void setUseLifeYearsFromJson(BigDecimal UseLifeYears) {
 		if (get_ID() == 0) {
 			super.setUseLifeYears(UseLifeYears);
 		}
@@ -1003,8 +1003,8 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param VersionNo Version Number
 	 */
-
-	public void setVersionNo(String VersionNo) {
+	@JsonProperty("VersionNo")
+	public void setVersionNoFromJson(String VersionNo) {
 		if (get_ID() == 0) {
 			super.setVersionNo(VersionNo);
 		}

@@ -76,8 +76,8 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 	 *
 	 * @param M_ShipperCfg_ID Shipper Configuration
 	 */
-
-	public void setM_ShipperCfg_ID(int M_ShipperCfg_ID) {
+	@JsonProperty("M_ShipperCfg_ID")
+	public void setM_ShipperCfg_IDFromJson(int M_ShipperCfg_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShipperCfg_ID(M_ShipperCfg_ID);
 		}

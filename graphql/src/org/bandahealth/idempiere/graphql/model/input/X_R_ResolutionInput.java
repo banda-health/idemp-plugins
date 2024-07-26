@@ -74,8 +74,8 @@ public class X_R_ResolutionInput extends MResolution implements I_R_ResolutionIn
 	 *
 	 * @param R_Resolution_ID Request Resolution
 	 */
-
-	public void setR_Resolution_ID(int R_Resolution_ID) {
+	@JsonProperty("R_Resolution_ID")
+	public void setR_Resolution_IDFromJson(int R_Resolution_ID) {
 		if (get_ID() == 0) {
 			super.setR_Resolution_ID(R_Resolution_ID);
 		}

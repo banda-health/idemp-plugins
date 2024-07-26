@@ -112,8 +112,8 @@ public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLine
 	 *
 	 * @param AD_StatusLine_ID Status Line
 	 */
-
-	public void setAD_StatusLine_ID(int AD_StatusLine_ID) {
+	@JsonProperty("AD_StatusLine_ID")
+	public void setAD_StatusLine_IDFromJson(int AD_StatusLine_ID) {
 		if (get_ID() == 0) {
 			super.setAD_StatusLine_ID(AD_StatusLine_ID);
 		}

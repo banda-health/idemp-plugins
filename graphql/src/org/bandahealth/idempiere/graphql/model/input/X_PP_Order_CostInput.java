@@ -199,8 +199,8 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CumulatedAmt Total Amount
 	 */
-
-	public void setCumulatedAmt(BigDecimal CumulatedAmt) {
+	@JsonProperty("CumulatedAmt")
+	public void setCumulatedAmtFromJson(BigDecimal CumulatedAmt) {
 		if (get_ID() == 0) {
 			super.setCumulatedAmt(CumulatedAmt);
 		}
@@ -210,8 +210,8 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CumulatedAmtPost Cumulated Amt Post
 	 */
-
-	public void setCumulatedAmtPost(BigDecimal CumulatedAmtPost) {
+	@JsonProperty("CumulatedAmtPost")
+	public void setCumulatedAmtPostFromJson(BigDecimal CumulatedAmtPost) {
 		if (get_ID() == 0) {
 			super.setCumulatedAmtPost(CumulatedAmtPost);
 		}
@@ -221,8 +221,8 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CumulatedQty Total Quantity
 	 */
-
-	public void setCumulatedQty(BigDecimal CumulatedQty) {
+	@JsonProperty("CumulatedQty")
+	public void setCumulatedQtyFromJson(BigDecimal CumulatedQty) {
 		if (get_ID() == 0) {
 			super.setCumulatedQty(CumulatedQty);
 		}
@@ -232,8 +232,8 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CumulatedQtyPost Cumulated Qty Post
 	 */
-
-	public void setCumulatedQtyPost(BigDecimal CumulatedQtyPost) {
+	@JsonProperty("CumulatedQtyPost")
+	public void setCumulatedQtyPostFromJson(BigDecimal CumulatedQtyPost) {
 		if (get_ID() == 0) {
 			super.setCumulatedQtyPost(CumulatedQtyPost);
 		}
@@ -243,8 +243,8 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CurrentCostPrice The currently used cost price
 	 */
-
-	public void setCurrentCostPrice(BigDecimal CurrentCostPrice) {
+	@JsonProperty("CurrentCostPrice")
+	public void setCurrentCostPriceFromJson(BigDecimal CurrentCostPrice) {
 		if (get_ID() == 0) {
 			super.setCurrentCostPrice(CurrentCostPrice);
 		}
@@ -254,8 +254,8 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CurrentCostPriceLL Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
 	 */
-
-	public void setCurrentCostPriceLL(BigDecimal CurrentCostPriceLL) {
+	@JsonProperty("CurrentCostPriceLL")
+	public void setCurrentCostPriceLLFromJson(BigDecimal CurrentCostPriceLL) {
 		if (get_ID() == 0) {
 			super.setCurrentCostPriceLL(CurrentCostPriceLL);
 		}
@@ -407,8 +407,8 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param PP_Order_Cost_ID Manufacturing Order Cost
 	 */
-
-	public void setPP_Order_Cost_ID(int PP_Order_Cost_ID) {
+	@JsonProperty("PP_Order_Cost_ID")
+	public void setPP_Order_Cost_IDFromJson(int PP_Order_Cost_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Order_Cost_ID(PP_Order_Cost_ID);
 		}

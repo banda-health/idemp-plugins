@@ -78,8 +78,8 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 	 *
 	 * @param A_Asset_Retirement_ID Internally used asset is not longer used.
 	 */
-
-	public void setA_Asset_Retirement_ID(int A_Asset_Retirement_ID) {
+	@JsonProperty("A_Asset_Retirement_ID")
+	public void setA_Asset_Retirement_IDFromJson(int A_Asset_Retirement_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Retirement_ID(A_Asset_Retirement_ID);
 		}

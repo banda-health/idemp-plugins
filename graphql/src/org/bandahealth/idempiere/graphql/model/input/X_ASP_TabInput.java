@@ -157,8 +157,8 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 	 *
 	 * @param ASP_Tab_ID ASP Tab
 	 */
-
-	public void setASP_Tab_ID(int ASP_Tab_ID) {
+	@JsonProperty("ASP_Tab_ID")
+	public void setASP_Tab_IDFromJson(int ASP_Tab_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Tab_ID(ASP_Tab_ID);
 		}

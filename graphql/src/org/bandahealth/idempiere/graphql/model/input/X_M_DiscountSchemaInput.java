@@ -156,8 +156,8 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	 *
 	 * @param M_DiscountSchema_ID Schema to calculate the trade discount percentage
 	 */
-
-	public void setM_DiscountSchema_ID(int M_DiscountSchema_ID) {
+	@JsonProperty("M_DiscountSchema_ID")
+	public void setM_DiscountSchema_IDFromJson(int M_DiscountSchema_ID) {
 		if (get_ID() == 0) {
 			super.setM_DiscountSchema_ID(M_DiscountSchema_ID);
 		}

@@ -74,8 +74,8 @@ public class X_R_InterestAreaInput extends MInterestArea implements I_R_Interest
 	 *
 	 * @param R_InterestArea_ID Interest Area or Topic
 	 */
-
-	public void setR_InterestArea_ID(int R_InterestArea_ID) {
+	@JsonProperty("R_InterestArea_ID")
+	public void setR_InterestArea_IDFromJson(int R_InterestArea_ID) {
 		if (get_ID() == 0) {
 			super.setR_InterestArea_ID(R_InterestArea_ID);
 		}

@@ -115,8 +115,8 @@ public class X_C_OrderPayScheduleInput extends MOrderPaySchedule implements I_C_
 	 *
 	 * @param C_OrderPaySchedule_ID Order Payment Schedule
 	 */
-
-	public void setC_OrderPaySchedule_ID(int C_OrderPaySchedule_ID) {
+	@JsonProperty("C_OrderPaySchedule_ID")
+	public void setC_OrderPaySchedule_IDFromJson(int C_OrderPaySchedule_ID) {
 		if (get_ID() == 0) {
 			super.setC_OrderPaySchedule_ID(C_OrderPaySchedule_ID);
 		}

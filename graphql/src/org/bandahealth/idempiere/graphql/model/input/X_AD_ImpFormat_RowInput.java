@@ -115,8 +115,8 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	 *
 	 * @param AD_ImpFormat_Row_ID Format Field
 	 */
-
-	public void setAD_ImpFormat_Row_ID(int AD_ImpFormat_Row_ID) {
+	@JsonProperty("AD_ImpFormat_Row_ID")
+	public void setAD_ImpFormat_Row_IDFromJson(int AD_ImpFormat_Row_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ImpFormat_Row_ID(AD_ImpFormat_Row_ID);
 		}

@@ -441,8 +441,8 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 *
 	 * @param I_FixedAsset_ID Imported Fixed Asset
 	 */
-
-	public void setI_FixedAsset_ID(int I_FixedAsset_ID) {
+	@JsonProperty("I_FixedAsset_ID")
+	public void setI_FixedAsset_IDFromJson(int I_FixedAsset_ID) {
 		if (get_ID() == 0) {
 			super.setI_FixedAsset_ID(I_FixedAsset_ID);
 		}

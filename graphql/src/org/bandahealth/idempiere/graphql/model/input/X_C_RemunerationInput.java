@@ -77,8 +77,8 @@ public class X_C_RemunerationInput extends X_C_Remuneration implements I_C_Remun
 	 *
 	 * @param C_Remuneration_ID Wage or Salary
 	 */
-
-	public void setC_Remuneration_ID(int C_Remuneration_ID) {
+	@JsonProperty("C_Remuneration_ID")
+	public void setC_Remuneration_IDFromJson(int C_Remuneration_ID) {
 		if (get_ID() == 0) {
 			super.setC_Remuneration_ID(C_Remuneration_ID);
 		}

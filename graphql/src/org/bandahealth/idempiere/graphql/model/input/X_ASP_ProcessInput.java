@@ -155,8 +155,8 @@ public class X_ASP_ProcessInput extends X_ASP_Process implements I_ASP_ProcessIn
 	 *
 	 * @param ASP_Process_ID ASP Process
 	 */
-
-	public void setASP_Process_ID(int ASP_Process_ID) {
+	@JsonProperty("ASP_Process_ID")
+	public void setASP_Process_IDFromJson(int ASP_Process_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Process_ID(ASP_Process_ID);
 		}

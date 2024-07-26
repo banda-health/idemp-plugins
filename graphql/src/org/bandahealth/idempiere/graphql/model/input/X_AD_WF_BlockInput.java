@@ -76,8 +76,8 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	 *
 	 * @param AD_WF_Block_ID Workflow Transaction Execution Block
 	 */
-
-	public void setAD_WF_Block_ID(int AD_WF_Block_ID) {
+	@JsonProperty("AD_WF_Block_ID")
+	public void setAD_WF_Block_IDFromJson(int AD_WF_Block_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_Block_ID(AD_WF_Block_ID);
 		}

@@ -116,8 +116,8 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	 *
 	 * @param AD_Reference_ID System Reference and Validation
 	 */
-
-	public void setAD_Reference_ID(int AD_Reference_ID) {
+	@JsonProperty("AD_Reference_ID")
+	public void setAD_Reference_IDFromJson(int AD_Reference_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Reference_ID(AD_Reference_ID);
 		}

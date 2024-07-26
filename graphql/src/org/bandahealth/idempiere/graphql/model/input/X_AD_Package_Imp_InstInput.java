@@ -74,8 +74,8 @@ public class X_AD_Package_Imp_InstInput extends X_AD_Package_Imp_Inst implements
 	 *
 	 * @param AD_Package_Imp_Inst_ID Package Imp. Inst.
 	 */
-
-	public void setAD_Package_Imp_Inst_ID(int AD_Package_Imp_Inst_ID) {
+	@JsonProperty("AD_Package_Imp_Inst_ID")
+	public void setAD_Package_Imp_Inst_IDFromJson(int AD_Package_Imp_Inst_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Package_Imp_Inst_ID(AD_Package_Imp_Inst_ID);
 		}
@@ -103,8 +103,8 @@ public class X_AD_Package_Imp_InstInput extends X_AD_Package_Imp_Inst implements
 	 *
 	 * @param CreatedDate Created Date
 	 */
-
-	public void setCreatedDate(String CreatedDate) {
+	@JsonProperty("CreatedDate")
+	public void setCreatedDateFromJson(String CreatedDate) {
 		if (get_ID() == 0) {
 			super.setCreatedDate(CreatedDate);
 		}

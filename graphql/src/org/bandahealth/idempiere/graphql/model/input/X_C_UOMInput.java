@@ -77,8 +77,8 @@ public class X_C_UOMInput extends MUOM implements I_C_UOMInput {
 	 *
 	 * @param C_UOM_ID Unit of Measure
 	 */
-
-	public void setC_UOM_ID(int C_UOM_ID) {
+	@JsonProperty("C_UOM_ID")
+	public void setC_UOM_IDFromJson(int C_UOM_ID) {
 		if (get_ID() == 0) {
 			super.setC_UOM_ID(C_UOM_ID);
 		}

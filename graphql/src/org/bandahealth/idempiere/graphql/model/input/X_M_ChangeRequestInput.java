@@ -116,8 +116,8 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 	 *
 	 * @param M_ChangeRequest_ID BOM (Engineering) Change Request
 	 */
-
-	public void setM_ChangeRequest_ID(int M_ChangeRequest_ID) {
+	@JsonProperty("M_ChangeRequest_ID")
+	public void setM_ChangeRequest_IDFromJson(int M_ChangeRequest_ID) {
 		if (get_ID() == 0) {
 			super.setM_ChangeRequest_ID(M_ChangeRequest_ID);
 		}

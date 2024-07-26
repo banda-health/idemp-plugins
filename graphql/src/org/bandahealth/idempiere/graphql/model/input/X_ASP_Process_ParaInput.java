@@ -155,8 +155,8 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	 *
 	 * @param ASP_Process_Para_ID ASP Process Parameter
 	 */
-
-	public void setASP_Process_Para_ID(int ASP_Process_Para_ID) {
+	@JsonProperty("ASP_Process_Para_ID")
+	public void setASP_Process_Para_IDFromJson(int ASP_Process_Para_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Process_Para_ID(ASP_Process_Para_ID);
 		}

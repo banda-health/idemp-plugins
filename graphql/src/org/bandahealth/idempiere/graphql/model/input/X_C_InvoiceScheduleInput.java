@@ -79,8 +79,8 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	 *
 	 * @param C_InvoiceSchedule_ID Schedule for generating Invoices
 	 */
-
-	public void setC_InvoiceSchedule_ID(int C_InvoiceSchedule_ID) {
+	@JsonProperty("C_InvoiceSchedule_ID")
+	public void setC_InvoiceSchedule_IDFromJson(int C_InvoiceSchedule_ID) {
 		if (get_ID() == 0) {
 			super.setC_InvoiceSchedule_ID(C_InvoiceSchedule_ID);
 		}

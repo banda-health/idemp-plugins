@@ -152,8 +152,8 @@ public class X_M_ProductPriceInput extends MProductPrice_BH implements I_M_Produ
 	 *
 	 * @param M_ProductPrice_ID Intersection between a Product and a Price List Version
 	 */
-
-	public void setM_ProductPrice_ID(int M_ProductPrice_ID) {
+	@JsonProperty("M_ProductPrice_ID")
+	public void setM_ProductPrice_IDFromJson(int M_ProductPrice_ID) {
 		if (get_ID() == 0) {
 			super.setM_ProductPrice_ID(M_ProductPrice_ID);
 		}

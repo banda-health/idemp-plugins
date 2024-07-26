@@ -235,8 +235,8 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 *
 	 * @param C_BP_BankAccount_ID Bank Account of the Business Partner
 	 */
-
-	public void setC_BP_BankAccount_ID(int C_BP_BankAccount_ID) {
+	@JsonProperty("C_BP_BankAccount_ID")
+	public void setC_BP_BankAccount_IDFromJson(int C_BP_BankAccount_ID) {
 		if (get_ID() == 0) {
 			super.setC_BP_BankAccount_ID(C_BP_BankAccount_ID);
 		}

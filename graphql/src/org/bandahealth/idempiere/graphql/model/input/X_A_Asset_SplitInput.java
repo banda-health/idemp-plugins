@@ -114,8 +114,8 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @param A_Asset_Split_ID Asset Split
 	 */
-
-	public void setA_Asset_Split_ID(int A_Asset_Split_ID) {
+	@JsonProperty("A_Asset_Split_ID")
+	public void setA_Asset_Split_IDFromJson(int A_Asset_Split_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Split_ID(A_Asset_Split_ID);
 		}
@@ -143,8 +143,8 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @param A_Depreciation_Workfile_ID A_Depreciation_Workfile_ID
 	 */
-
-	public void setA_Depreciation_Workfile_ID(int A_Depreciation_Workfile_ID) {
+	@JsonProperty("A_Depreciation_Workfile_ID")
+	public void setA_Depreciation_Workfile_IDFromJson(int A_Depreciation_Workfile_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Workfile_ID(A_Depreciation_Workfile_ID);
 		}

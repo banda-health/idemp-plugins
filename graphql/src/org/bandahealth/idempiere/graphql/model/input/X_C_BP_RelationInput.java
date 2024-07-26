@@ -80,8 +80,8 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 	 *
 	 * @param C_BP_Relation_ID Business Partner Relation
 	 */
-
-	public void setC_BP_Relation_ID(int C_BP_Relation_ID) {
+	@JsonProperty("C_BP_Relation_ID")
+	public void setC_BP_Relation_IDFromJson(int C_BP_Relation_ID) {
 		if (get_ID() == 0) {
 			super.setC_BP_Relation_ID(C_BP_Relation_ID);
 		}
@@ -245,8 +245,8 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 	 *
 	 * @param IsShipTo Business Partner Shipment Address
 	 */
-
-	public void setIsShipTo(boolean IsShipTo) {
+	@JsonProperty("IsShipTo")
+	public void setIsShipToFromJson(boolean IsShipTo) {
 		if (get_ID() == 0) {
 			super.setIsShipTo(IsShipTo);
 		}

@@ -110,8 +110,8 @@ public class X_C_RfQ_TopicInput extends MRfQTopic implements I_C_RfQ_TopicInput 
 	 *
 	 * @param C_RfQ_Topic_ID Topic for Request for Quotations
 	 */
-
-	public void setC_RfQ_Topic_ID(int C_RfQ_Topic_ID) {
+	@JsonProperty("C_RfQ_Topic_ID")
+	public void setC_RfQ_Topic_IDFromJson(int C_RfQ_Topic_ID) {
 		if (get_ID() == 0) {
 			super.setC_RfQ_Topic_ID(C_RfQ_Topic_ID);
 		}

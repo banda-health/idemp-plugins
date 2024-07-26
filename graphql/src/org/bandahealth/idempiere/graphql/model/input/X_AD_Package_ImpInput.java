@@ -76,8 +76,8 @@ public class X_AD_Package_ImpInput extends X_AD_Package_Imp implements I_AD_Pack
 	 *
 	 * @param AD_Package_Imp_ID Package Imp.
 	 */
-
-	public void setAD_Package_Imp_ID(int AD_Package_Imp_ID) {
+	@JsonProperty("AD_Package_Imp_ID")
+	public void setAD_Package_Imp_IDFromJson(int AD_Package_Imp_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Package_Imp_ID(AD_Package_Imp_ID);
 		}

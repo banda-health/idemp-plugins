@@ -752,8 +752,8 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 *
 	 * @param PP_Order_Node_ID Workflow Node (activity), step or process
 	 */
-
-	public void setPP_Order_Node_ID(int PP_Order_Node_ID) {
+	@JsonProperty("PP_Order_Node_ID")
+	public void setPP_Order_Node_IDFromJson(int PP_Order_Node_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Order_Node_ID(PP_Order_Node_ID);
 		}

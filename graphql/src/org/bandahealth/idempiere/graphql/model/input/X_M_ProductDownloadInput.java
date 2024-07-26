@@ -110,8 +110,8 @@ public class X_M_ProductDownloadInput extends MProductDownload implements I_M_Pr
 	 *
 	 * @param M_ProductDownload_ID Product downloads
 	 */
-
-	public void setM_ProductDownload_ID(int M_ProductDownload_ID) {
+	@JsonProperty("M_ProductDownload_ID")
+	public void setM_ProductDownload_IDFromJson(int M_ProductDownload_ID) {
 		if (get_ID() == 0) {
 			super.setM_ProductDownload_ID(M_ProductDownload_ID);
 		}

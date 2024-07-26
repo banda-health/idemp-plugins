@@ -110,8 +110,8 @@ public class X_R_CategoryInput extends MRequestCategory implements I_R_CategoryI
 	 *
 	 * @param R_Category_ID Request Category
 	 */
-
-	public void setR_Category_ID(int R_Category_ID) {
+	@JsonProperty("R_Category_ID")
+	public void setR_Category_IDFromJson(int R_Category_ID) {
 		if (get_ID() == 0) {
 			super.setR_Category_ID(R_Category_ID);
 		}

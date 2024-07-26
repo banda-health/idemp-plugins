@@ -116,8 +116,8 @@ public class X_C_BankStatementInput extends MBankStatement implements I_C_BankSt
 	 *
 	 * @param C_BankStatement_ID Bank Statement of account
 	 */
-
-	public void setC_BankStatement_ID(int C_BankStatement_ID) {
+	@JsonProperty("C_BankStatement_ID")
+	public void setC_BankStatement_IDFromJson(int C_BankStatement_ID) {
 		if (get_ID() == 0) {
 			super.setC_BankStatement_ID(C_BankStatement_ID);
 		}
@@ -257,8 +257,8 @@ public class X_C_BankStatementInput extends MBankStatement implements I_C_BankSt
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -268,8 +268,8 @@ public class X_C_BankStatementInput extends MBankStatement implements I_C_BankSt
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

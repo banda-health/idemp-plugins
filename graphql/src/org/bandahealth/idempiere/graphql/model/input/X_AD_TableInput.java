@@ -124,8 +124,8 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 *
 	 * @param AD_Table_ID Database Table information
 	 */
-
-	public void setAD_Table_ID(int AD_Table_ID) {
+	@JsonProperty("AD_Table_ID")
+	public void setAD_Table_IDFromJson(int AD_Table_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Table_ID(AD_Table_ID);
 		}
@@ -255,8 +255,8 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 *
 	 * @param LoadSeq Sequence
 	 */
-
-	public void setLoadSeq(int LoadSeq) {
+	@JsonProperty("LoadSeq")
+	public void setLoadSeqFromJson(int LoadSeq) {
 		if (get_ID() == 0) {
 			super.setLoadSeq(LoadSeq);
 		}

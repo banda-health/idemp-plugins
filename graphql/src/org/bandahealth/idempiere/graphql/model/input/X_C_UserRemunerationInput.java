@@ -152,8 +152,8 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 	 *
 	 * @param C_UserRemuneration_ID Employee Wage or Salary Overwrite
 	 */
-
-	public void setC_UserRemuneration_ID(int C_UserRemuneration_ID) {
+	@JsonProperty("C_UserRemuneration_ID")
+	public void setC_UserRemuneration_IDFromJson(int C_UserRemuneration_ID) {
 		if (get_ID() == 0) {
 			super.setC_UserRemuneration_ID(C_UserRemuneration_ID);
 		}

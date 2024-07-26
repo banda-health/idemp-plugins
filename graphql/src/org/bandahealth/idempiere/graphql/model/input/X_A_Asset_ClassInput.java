@@ -37,8 +37,8 @@ public class X_A_Asset_ClassInput extends MAssetClass implements I_A_Asset_Class
 	 *
 	 * @param A_Asset_Class_ID Asset class
 	 */
-
-	public void setA_Asset_Class_ID(int A_Asset_Class_ID) {
+	@JsonProperty("A_Asset_Class_ID")
+	public void setA_Asset_Class_IDFromJson(int A_Asset_Class_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Class_ID(A_Asset_Class_ID);
 		}
@@ -103,8 +103,8 @@ public class X_A_Asset_ClassInput extends MAssetClass implements I_A_Asset_Class
 	 *
 	 * @param Description Optional short description of the record
 	 */
-
-	public void setDescription(String Description) {
+	@JsonProperty("Description")
+	public void setDescriptionFromJson(String Description) {
 		if (get_ID() == 0) {
 			super.setDescription(Description);
 		}

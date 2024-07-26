@@ -115,7 +115,12 @@ public class DocumentUtil {
 			document.saveEx();
 			ProcessUtil.startWorkFlow(document.getCtx(), processInformation, documentProcess.getAD_Workflow_ID());
 			if (processInformation.isError()) {
-				throw new AdempiereException(processInformation.getSummary());
+				String errorMessage = processInformation.getSummary();
+				if (errorMessage.contains("ERROR: ")) {
+					errorMessage = errorMessage.split("ERROR: ")[1];
+				}
+				errorMessage = errorMessage.replace("<br>", "");
+				throw new AdempiereException(errorMessage.trim());
 			}
 			document.saveEx();
 		} catch (AdempiereException exception) {

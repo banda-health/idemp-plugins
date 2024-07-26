@@ -217,8 +217,8 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 	 *
 	 * @param I_Conversion_Rate_ID Import Currency Conversion Rate
 	 */
-
-	public void setI_Conversion_Rate_ID(int I_Conversion_Rate_ID) {
+	@JsonProperty("I_Conversion_Rate_ID")
+	public void setI_Conversion_Rate_IDFromJson(int I_Conversion_Rate_ID) {
 		if (get_ID() == 0) {
 			super.setI_Conversion_Rate_ID(I_Conversion_Rate_ID);
 		}

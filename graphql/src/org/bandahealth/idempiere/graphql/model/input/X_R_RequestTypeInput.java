@@ -118,8 +118,8 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 	 *
 	 * @param R_RequestType_ID Type of request (e.g. Inquiry, Complaint, ..)
 	 */
-
-	public void setR_RequestType_ID(int R_RequestType_ID) {
+	@JsonProperty("R_RequestType_ID")
+	public void setR_RequestType_IDFromJson(int R_RequestType_ID) {
 		if (get_ID() == 0) {
 			super.setR_RequestType_ID(R_RequestType_ID);
 		}

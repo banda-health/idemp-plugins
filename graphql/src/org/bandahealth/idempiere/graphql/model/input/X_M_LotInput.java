@@ -78,8 +78,8 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	 *
 	 * @param M_Lot_ID Product Lot Definition
 	 */
-
-	public void setM_Lot_ID(int M_Lot_ID) {
+	@JsonProperty("M_Lot_ID")
+	public void setM_Lot_IDFromJson(int M_Lot_ID) {
 		if (get_ID() == 0) {
 			super.setM_Lot_ID(M_Lot_ID);
 		}

@@ -152,8 +152,8 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	 *
 	 * @param M_QualityTestResult_ID Quality Test Result
 	 */
-
-	public void setM_QualityTestResult_ID(int M_QualityTestResult_ID) {
+	@JsonProperty("M_QualityTestResult_ID")
+	public void setM_QualityTestResult_IDFromJson(int M_QualityTestResult_ID) {
 		if (get_ID() == 0) {
 			super.setM_QualityTestResult_ID(M_QualityTestResult_ID);
 		}

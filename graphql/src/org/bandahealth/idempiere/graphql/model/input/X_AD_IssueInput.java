@@ -132,8 +132,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param AD_Issue_ID Automatically created or manually entered System Issue
 	 */
-
-	public void setAD_Issue_ID(int AD_Issue_ID) {
+	@JsonProperty("AD_Issue_ID")
+	public void setAD_Issue_IDFromJson(int AD_Issue_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Issue_ID(AD_Issue_ID);
 		}
@@ -266,8 +266,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param DatabaseInfo Database Information
 	 */
-
-	public void setDatabaseInfo(String DatabaseInfo) {
+	@JsonProperty("DatabaseInfo")
+	public void setDatabaseInfoFromJson(String DatabaseInfo) {
 		if (get_ID() == 0) {
 			super.setDatabaseInfo(DatabaseInfo);
 		}
@@ -277,8 +277,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param DBAddress JDBC URL of the database server
 	 */
-
-	public void setDBAddress(String DBAddress) {
+	@JsonProperty("DBAddress")
+	public void setDBAddressFromJson(String DBAddress) {
 		if (get_ID() == 0) {
 			super.setDBAddress(DBAddress);
 		}
@@ -405,8 +405,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param JavaInfo Java Version Info
 	 */
-
-	public void setJavaInfo(String JavaInfo) {
+	@JsonProperty("JavaInfo")
+	public void setJavaInfoFromJson(String JavaInfo) {
 		if (get_ID() == 0) {
 			super.setJavaInfo(JavaInfo);
 		}
@@ -416,8 +416,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param Local_Host Local Host Info
 	 */
-
-	public void setLocal_Host(String Local_Host) {
+	@JsonProperty("Local_Host")
+	public void setLocal_HostFromJson(String Local_Host) {
 		if (get_ID() == 0) {
 			super.setLocal_Host(Local_Host);
 		}
@@ -427,8 +427,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param Name Alphanumeric identifier of the entity
 	 */
-
-	public void setName(String Name) {
+	@JsonProperty("Name")
+	public void setNameFromJson(String Name) {
 		if (get_ID() == 0) {
 			super.setName(Name);
 		}
@@ -438,8 +438,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param OperatingSystemInfo Operating System Info
 	 */
-
-	public void setOperatingSystemInfo(String OperatingSystemInfo) {
+	@JsonProperty("OperatingSystemInfo")
+	public void setOperatingSystemInfoFromJson(String OperatingSystemInfo) {
 		if (get_ID() == 0) {
 			super.setOperatingSystemInfo(OperatingSystemInfo);
 		}
@@ -449,8 +449,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}
@@ -460,8 +460,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param ProfileInfo Information to help profiling the system for solving support issues
 	 */
-
-	public void setProfileInfo(String ProfileInfo) {
+	@JsonProperty("ProfileInfo")
+	public void setProfileInfoFromJson(String ProfileInfo) {
 		if (get_ID() == 0) {
 			super.setProfileInfo(ProfileInfo);
 		}
@@ -644,8 +644,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param Record_ID Direct internal record ID
 	 */
-
-	public void setRecord_ID(int Record_ID) {
+	@JsonProperty("Record_ID")
+	public void setRecord_IDFromJson(int Record_ID) {
 		if (get_ID() == 0) {
 			super.setRecord_ID(Record_ID);
 		}
@@ -655,8 +655,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param ReleaseNo Internal Release Number
 	 */
-
-	public void setReleaseNo(String ReleaseNo) {
+	@JsonProperty("ReleaseNo")
+	public void setReleaseNoFromJson(String ReleaseNo) {
 		if (get_ID() == 0) {
 			super.setReleaseNo(ReleaseNo);
 		}
@@ -666,8 +666,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param Remote_Addr Remote Address
 	 */
-
-	public void setRemote_Addr(String Remote_Addr) {
+	@JsonProperty("Remote_Addr")
+	public void setRemote_AddrFromJson(String Remote_Addr) {
 		if (get_ID() == 0) {
 			super.setRemote_Addr(Remote_Addr);
 		}
@@ -677,8 +677,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param Remote_Host Remote host Info
 	 */
-
-	public void setRemote_Host(String Remote_Host) {
+	@JsonProperty("Remote_Host")
+	public void setRemote_HostFromJson(String Remote_Host) {
 		if (get_ID() == 0) {
 			super.setRemote_Host(Remote_Host);
 		}
@@ -688,8 +688,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param RequestDocumentNo iDempiere Request Document No
 	 */
-
-	public void setRequestDocumentNo(String RequestDocumentNo) {
+	@JsonProperty("RequestDocumentNo")
+	public void setRequestDocumentNoFromJson(String RequestDocumentNo) {
 		if (get_ID() == 0) {
 			super.setRequestDocumentNo(RequestDocumentNo);
 		}
@@ -699,8 +699,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param ResponseText Request Response Text
 	 */
-
-	public void setResponseText(String ResponseText) {
+	@JsonProperty("ResponseText")
+	public void setResponseTextFromJson(String ResponseText) {
 		if (get_ID() == 0) {
 			super.setResponseText(ResponseText);
 		}
@@ -710,8 +710,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param StatisticsInfo Information to help profiling the system for solving support issues
 	 */
-
-	public void setStatisticsInfo(String StatisticsInfo) {
+	@JsonProperty("StatisticsInfo")
+	public void setStatisticsInfoFromJson(String StatisticsInfo) {
 		if (get_ID() == 0) {
 			super.setStatisticsInfo(StatisticsInfo);
 		}
@@ -760,8 +760,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param UserName User Name
 	 */
-
-	public void setUserName(String UserName) {
+	@JsonProperty("UserName")
+	public void setUserNameFromJson(String UserName) {
 		if (get_ID() == 0) {
 			super.setUserName(UserName);
 		}
@@ -771,8 +771,8 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 *
 	 * @param Version Version of the table definition
 	 */
-
-	public void setVersion(String Version) {
+	@JsonProperty("Version")
+	public void setVersionFromJson(String Version) {
 		if (get_ID() == 0) {
 			super.setVersion(Version);
 		}

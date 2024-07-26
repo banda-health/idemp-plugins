@@ -37,8 +37,8 @@ public class X_AD_LabelPrinterInput extends X_AD_LabelPrinter implements I_AD_La
 	 *
 	 * @param AD_LabelPrinter_ID Label Printer Definition
 	 */
-
-	public void setAD_LabelPrinter_ID(int AD_LabelPrinter_ID) {
+	@JsonProperty("AD_LabelPrinter_ID")
+	public void setAD_LabelPrinter_IDFromJson(int AD_LabelPrinter_ID) {
 		if (get_ID() == 0) {
 			super.setAD_LabelPrinter_ID(AD_LabelPrinter_ID);
 		}

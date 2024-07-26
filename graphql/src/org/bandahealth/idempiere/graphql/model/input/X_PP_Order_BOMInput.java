@@ -299,8 +299,8 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	 *
 	 * @param PP_Order_BOM_ID Manufacturing Order BOM
 	 */
-
-	public void setPP_Order_BOM_ID(int PP_Order_BOM_ID) {
+	@JsonProperty("PP_Order_BOM_ID")
+	public void setPP_Order_BOM_IDFromJson(int PP_Order_BOM_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Order_BOM_ID(PP_Order_BOM_ID);
 		}

@@ -76,8 +76,8 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 	 *
 	 * @param C_Campaign_ID Marketing Campaign
 	 */
-
-	public void setC_Campaign_ID(int C_Campaign_ID) {
+	@JsonProperty("C_Campaign_ID")
+	public void setC_Campaign_IDFromJson(int C_Campaign_ID) {
 		if (get_ID() == 0) {
 			super.setC_Campaign_ID(C_Campaign_ID);
 		}

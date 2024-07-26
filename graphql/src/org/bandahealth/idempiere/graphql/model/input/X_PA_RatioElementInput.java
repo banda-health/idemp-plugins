@@ -191,8 +191,8 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @param PA_RatioElement_ID Performance Ratio Element
 	 */
-
-	public void setPA_RatioElement_ID(int PA_RatioElement_ID) {
+	@JsonProperty("PA_RatioElement_ID")
+	public void setPA_RatioElement_IDFromJson(int PA_RatioElement_ID) {
 		if (get_ID() == 0) {
 			super.setPA_RatioElement_ID(PA_RatioElement_ID);
 		}

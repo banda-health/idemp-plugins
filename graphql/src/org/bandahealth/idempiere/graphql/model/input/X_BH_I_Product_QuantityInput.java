@@ -76,8 +76,8 @@ public class X_BH_I_Product_QuantityInput extends X_BH_I_Product_Quantity implem
 	 *
 	 * @param BH_I_Product_Quantity_ID Import Products with Quantities
 	 */
-
-	public void setBH_I_Product_Quantity_ID(int BH_I_Product_Quantity_ID) {
+	@JsonProperty("BH_I_Product_Quantity_ID")
+	public void setBH_I_Product_Quantity_IDFromJson(int BH_I_Product_Quantity_ID) {
 		if (get_ID() == 0) {
 			super.setBH_I_Product_Quantity_ID(BH_I_Product_Quantity_ID);
 		}

@@ -270,8 +270,8 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @param AD_Workflow_ID Workflow or combination of tasks
 	 */
-
-	public void setAD_Workflow_ID(int AD_Workflow_ID) {
+	@JsonProperty("AD_Workflow_ID")
+	public void setAD_Workflow_IDFromJson(int AD_Workflow_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Workflow_ID(AD_Workflow_ID);
 		}

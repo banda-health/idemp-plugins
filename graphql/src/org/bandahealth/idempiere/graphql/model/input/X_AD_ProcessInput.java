@@ -233,8 +233,8 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 *
 	 * @param AD_Process_ID Process or Report
 	 */
-
-	public void setAD_Process_ID(int AD_Process_ID) {
+	@JsonProperty("AD_Process_ID")
+	public void setAD_Process_IDFromJson(int AD_Process_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Process_ID(AD_Process_ID);
 		}

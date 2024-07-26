@@ -74,8 +74,8 @@ public class X_M_ShippingProcessorCfgInput extends X_M_ShippingProcessorCfg impl
 	 *
 	 * @param M_ShippingProcessorCfg_ID Shipping Processor Configuration
 	 */
-
-	public void setM_ShippingProcessorCfg_ID(int M_ShippingProcessorCfg_ID) {
+	@JsonProperty("M_ShippingProcessorCfg_ID")
+	public void setM_ShippingProcessorCfg_IDFromJson(int M_ShippingProcessorCfg_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShippingProcessorCfg_ID(M_ShippingProcessorCfg_ID);
 		}

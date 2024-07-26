@@ -184,8 +184,8 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	 *
 	 * @param ASP_Ref_List_ID ASP_Ref_List
 	 */
-
-	public void setASP_Ref_List_ID(int ASP_Ref_List_ID) {
+	@JsonProperty("ASP_Ref_List_ID")
+	public void setASP_Ref_List_IDFromJson(int ASP_Ref_List_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Ref_List_ID(ASP_Ref_List_ID);
 		}

@@ -148,8 +148,8 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	 *
 	 * @param HR_ListVersion_ID Payroll List Version
 	 */
-
-	public void setHR_ListVersion_ID(int HR_ListVersion_ID) {
+	@JsonProperty("HR_ListVersion_ID")
+	public void setHR_ListVersion_IDFromJson(int HR_ListVersion_ID) {
 		if (get_ID() == 0) {
 			super.setHR_ListVersion_ID(HR_ListVersion_ID);
 		}

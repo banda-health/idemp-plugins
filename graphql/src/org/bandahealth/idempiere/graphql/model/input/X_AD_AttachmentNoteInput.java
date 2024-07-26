@@ -78,8 +78,8 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 	 *
 	 * @param AD_AttachmentNote_ID Personal Attachment Note
 	 */
-
-	public void setAD_AttachmentNote_ID(int AD_AttachmentNote_ID) {
+	@JsonProperty("AD_AttachmentNote_ID")
+	public void setAD_AttachmentNote_IDFromJson(int AD_AttachmentNote_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AttachmentNote_ID(AD_AttachmentNote_ID);
 		}

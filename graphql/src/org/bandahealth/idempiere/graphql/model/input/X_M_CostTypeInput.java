@@ -74,8 +74,8 @@ public class X_M_CostTypeInput extends MCostType implements I_M_CostTypeInput {
 	 *
 	 * @param M_CostType_ID Type of Cost (e.g. Current, Plan, Future)
 	 */
-
-	public void setM_CostType_ID(int M_CostType_ID) {
+	@JsonProperty("M_CostType_ID")
+	public void setM_CostType_IDFromJson(int M_CostType_ID) {
 		if (get_ID() == 0) {
 			super.setM_CostType_ID(M_CostType_ID);
 		}

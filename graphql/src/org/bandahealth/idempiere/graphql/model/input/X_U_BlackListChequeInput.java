@@ -74,8 +74,8 @@ public class X_U_BlackListChequeInput extends MBlackListCheque implements I_U_Bl
 	 *
 	 * @param U_BlackListCheque_ID Black List Cheque
 	 */
-
-	public void setU_BlackListCheque_ID(int U_BlackListCheque_ID) {
+	@JsonProperty("U_BlackListCheque_ID")
+	public void setU_BlackListCheque_IDFromJson(int U_BlackListCheque_ID) {
 		if (get_ID() == 0) {
 			super.setU_BlackListCheque_ID(U_BlackListCheque_ID);
 		}

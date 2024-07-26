@@ -39,8 +39,8 @@ public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput 
 	 *
 	 * @param AD_Language Language for this entity
 	 */
-
-	public void setAD_Language(String AD_Language) {
+	@JsonProperty("AD_Language")
+	public void setAD_LanguageFromJson(String AD_Language) {
 		if (get_ID() == 0) {
 			super.setAD_Language(AD_Language);
 		}
@@ -50,8 +50,8 @@ public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput 
 	 *
 	 * @param AD_Language_ID Language ID
 	 */
-
-	public void setAD_Language_ID(int AD_Language_ID) {
+	@JsonProperty("AD_Language_ID")
+	public void setAD_Language_IDFromJson(int AD_Language_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Language_ID(AD_Language_ID);
 		}
@@ -150,8 +150,8 @@ public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput 
 	 *
 	 * @param IsBaseLanguage The system information is maintained in this language
 	 */
-
-	public void setIsBaseLanguage(boolean IsBaseLanguage) {
+	@JsonProperty("IsBaseLanguage")
+	public void setIsBaseLanguageFromJson(boolean IsBaseLanguage) {
 		if (get_ID() == 0) {
 			super.setIsBaseLanguage(IsBaseLanguage);
 		}

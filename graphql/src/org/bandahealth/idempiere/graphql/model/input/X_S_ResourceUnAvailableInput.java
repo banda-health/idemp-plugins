@@ -113,8 +113,8 @@ public class X_S_ResourceUnAvailableInput extends MResourceUnAvailable implement
 	 *
 	 * @param S_ResourceUnAvailable_ID Resource Unavailability
 	 */
-
-	public void setS_ResourceUnAvailable_ID(int S_ResourceUnAvailable_ID) {
+	@JsonProperty("S_ResourceUnAvailable_ID")
+	public void setS_ResourceUnAvailable_IDFromJson(int S_ResourceUnAvailable_ID) {
 		if (get_ID() == 0) {
 			super.setS_ResourceUnAvailable_ID(S_ResourceUnAvailable_ID);
 		}

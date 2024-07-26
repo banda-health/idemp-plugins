@@ -77,8 +77,8 @@ public class X_AD_IndexColumnInput extends MIndexColumn implements I_AD_IndexCol
 	 *
 	 * @param AD_IndexColumn_ID Table Index Column
 	 */
-
-	public void setAD_IndexColumn_ID(int AD_IndexColumn_ID) {
+	@JsonProperty("AD_IndexColumn_ID")
+	public void setAD_IndexColumn_IDFromJson(int AD_IndexColumn_ID) {
 		if (get_ID() == 0) {
 			super.setAD_IndexColumn_ID(AD_IndexColumn_ID);
 		}

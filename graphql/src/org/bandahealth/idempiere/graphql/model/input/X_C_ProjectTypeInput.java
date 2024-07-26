@@ -77,8 +77,8 @@ public class X_C_ProjectTypeInput extends MProjectType implements I_C_ProjectTyp
 	 *
 	 * @param C_ProjectType_ID Type of the project
 	 */
-
-	public void setC_ProjectType_ID(int C_ProjectType_ID) {
+	@JsonProperty("C_ProjectType_ID")
+	public void setC_ProjectType_IDFromJson(int C_ProjectType_ID) {
 		if (get_ID() == 0) {
 			super.setC_ProjectType_ID(C_ProjectType_ID);
 		}

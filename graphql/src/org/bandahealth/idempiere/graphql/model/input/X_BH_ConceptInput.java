@@ -74,8 +74,8 @@ public class X_BH_ConceptInput extends MBHConcept implements I_BH_ConceptInput {
 	 *
 	 * @param BH_Concept_ID Concept
 	 */
-
-	public void setBH_Concept_ID(int BH_Concept_ID) {
+	@JsonProperty("BH_Concept_ID")
+	public void setBH_Concept_IDFromJson(int BH_Concept_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Concept_ID(BH_Concept_ID);
 		}
@@ -103,8 +103,8 @@ public class X_BH_ConceptInput extends MBHConcept implements I_BH_ConceptInput {
 	 *
 	 * @param URL Full URL address - e.g. http://www.idempiere.org
 	 */
-
-	public void setURL(String URL) {
+	@JsonProperty("URL")
+	public void setURLFromJson(String URL) {
 		if (get_ID() == 0) {
 			super.setURL(URL);
 		}

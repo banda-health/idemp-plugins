@@ -80,8 +80,8 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 *
 	 * @param AD_InfoWindow_ID Info and search/select Window
 	 */
-
-	public void setAD_InfoWindow_ID(int AD_InfoWindow_ID) {
+	@JsonProperty("AD_InfoWindow_ID")
+	public void setAD_InfoWindow_IDFromJson(int AD_InfoWindow_ID) {
 		if (get_ID() == 0) {
 			super.setAD_InfoWindow_ID(AD_InfoWindow_ID);
 		}

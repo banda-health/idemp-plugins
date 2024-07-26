@@ -113,8 +113,8 @@ public class X_M_ProductOperationInput extends X_M_ProductOperation implements I
 	 *
 	 * @param M_ProductOperation_ID Product Manufacturing Operation
 	 */
-
-	public void setM_ProductOperation_ID(int M_ProductOperation_ID) {
+	@JsonProperty("M_ProductOperation_ID")
+	public void setM_ProductOperation_IDFromJson(int M_ProductOperation_ID) {
 		if (get_ID() == 0) {
 			super.setM_ProductOperation_ID(M_ProductOperation_ID);
 		}

@@ -339,8 +339,8 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	 *
 	 * @param PP_Product_BOMLine_ID BOM Line
 	 */
-
-	public void setPP_Product_BOMLine_ID(int PP_Product_BOMLine_ID) {
+	@JsonProperty("PP_Product_BOMLine_ID")
+	public void setPP_Product_BOMLine_IDFromJson(int PP_Product_BOMLine_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Product_BOMLine_ID(PP_Product_BOMLine_ID);
 		}

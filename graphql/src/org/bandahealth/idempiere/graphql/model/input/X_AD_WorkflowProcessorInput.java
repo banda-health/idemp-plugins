@@ -112,8 +112,8 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	 *
 	 * @param AD_WorkflowProcessor_ID Workflow Processor Server
 	 */
-
-	public void setAD_WorkflowProcessor_ID(int AD_WorkflowProcessor_ID) {
+	@JsonProperty("AD_WorkflowProcessor_ID")
+	public void setAD_WorkflowProcessor_IDFromJson(int AD_WorkflowProcessor_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WorkflowProcessor_ID(AD_WorkflowProcessor_ID);
 		}

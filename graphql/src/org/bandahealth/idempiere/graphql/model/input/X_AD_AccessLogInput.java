@@ -41,8 +41,8 @@ public class X_AD_AccessLogInput extends MAccessLog implements I_AD_AccessLogInp
 	 *
 	 * @param AD_AccessLog_ID Log of Access to the System
 	 */
-
-	public void setAD_AccessLog_ID(int AD_AccessLog_ID) {
+	@JsonProperty("AD_AccessLog_ID")
+	public void setAD_AccessLog_IDFromJson(int AD_AccessLog_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AccessLog_ID(AD_AccessLog_ID);
 		}

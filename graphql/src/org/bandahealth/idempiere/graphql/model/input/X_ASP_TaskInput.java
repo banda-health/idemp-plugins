@@ -194,8 +194,8 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 	 *
 	 * @param ASP_Task_ID ASP Task
 	 */
-
-	public void setASP_Task_ID(int ASP_Task_ID) {
+	@JsonProperty("ASP_Task_ID")
+	public void setASP_Task_IDFromJson(int ASP_Task_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Task_ID(ASP_Task_ID);
 		}

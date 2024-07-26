@@ -291,8 +291,8 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @param PP_Order_NodeNext_ID Manufacturing Order Activity Next
 	 */
-
-	public void setPP_Order_NodeNext_ID(int PP_Order_NodeNext_ID) {
+	@JsonProperty("PP_Order_NodeNext_ID")
+	public void setPP_Order_NodeNext_IDFromJson(int PP_Order_NodeNext_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Order_NodeNext_ID(PP_Order_NodeNext_ID);
 		}
@@ -320,8 +320,8 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @param SeqNo Method of ordering records; lowest number comes first
 	 */
-
-	public void setSeqNo(int SeqNo) {
+	@JsonProperty("SeqNo")
+	public void setSeqNoFromJson(int SeqNo) {
 		if (get_ID() == 0) {
 			super.setSeqNo(SeqNo);
 		}

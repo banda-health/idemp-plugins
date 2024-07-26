@@ -78,8 +78,8 @@ public class X_C_CityInput extends MCity implements I_C_CityInput {
 	 *
 	 * @param C_City_ID City
 	 */
-
-	public void setC_City_ID(int C_City_ID) {
+	@JsonProperty("C_City_ID")
+	public void setC_City_IDFromJson(int C_City_ID) {
 		if (get_ID() == 0) {
 			super.setC_City_ID(C_City_ID);
 		}

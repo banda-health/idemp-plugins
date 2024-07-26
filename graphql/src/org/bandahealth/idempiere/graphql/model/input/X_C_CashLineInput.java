@@ -160,8 +160,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 *
 	 * @param C_CashLine_ID Cash Journal Line
 	 */
-
-	public void setC_CashLine_ID(int C_CashLine_ID) {
+	@JsonProperty("C_CashLine_ID")
+	public void setC_CashLine_IDFromJson(int C_CashLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_CashLine_ID(C_CashLine_ID);
 		}
@@ -373,8 +373,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 *
 	 * @param IsGenerated This Line is generated
 	 */
-
-	public void setIsGenerated(boolean IsGenerated) {
+	@JsonProperty("IsGenerated")
+	public void setIsGeneratedFromJson(boolean IsGenerated) {
 		if (get_ID() == 0) {
 			super.setIsGenerated(IsGenerated);
 		}

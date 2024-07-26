@@ -182,8 +182,8 @@ public class X_S_ResourceTypeInput extends MResourceType implements I_S_Resource
 	 *
 	 * @param S_ResourceType_ID Resource Type
 	 */
-
-	public void setS_ResourceType_ID(int S_ResourceType_ID) {
+	@JsonProperty("S_ResourceType_ID")
+	public void setS_ResourceType_IDFromJson(int S_ResourceType_ID) {
 		if (get_ID() == 0) {
 			super.setS_ResourceType_ID(S_ResourceType_ID);
 		}

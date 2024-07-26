@@ -184,8 +184,8 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 *
 	 * @param M_PackageMPS_ID Package MPS
 	 */
-
-	public void setM_PackageMPS_ID(int M_PackageMPS_ID) {
+	@JsonProperty("M_PackageMPS_ID")
+	public void setM_PackageMPS_IDFromJson(int M_PackageMPS_ID) {
 		if (get_ID() == 0) {
 			super.setM_PackageMPS_ID(M_PackageMPS_ID);
 		}

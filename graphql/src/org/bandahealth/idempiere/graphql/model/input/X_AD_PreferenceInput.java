@@ -155,8 +155,8 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 	 *
 	 * @param AD_Preference_ID Personal Value Preference
 	 */
-
-	public void setAD_Preference_ID(int AD_Preference_ID) {
+	@JsonProperty("AD_Preference_ID")
+	public void setAD_Preference_IDFromJson(int AD_Preference_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Preference_ID(AD_Preference_ID);
 		}

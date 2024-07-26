@@ -116,8 +116,8 @@ public class X_AD_UserPreferenceInput extends MUserPreference implements I_AD_Us
 	 *
 	 * @param AD_UserPreference_ID AD_UserPreference_ID
 	 */
-
-	public void setAD_UserPreference_ID(int AD_UserPreference_ID) {
+	@JsonProperty("AD_UserPreference_ID")
+	public void setAD_UserPreference_IDFromJson(int AD_UserPreference_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserPreference_ID(AD_UserPreference_ID);
 		}

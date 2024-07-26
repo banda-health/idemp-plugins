@@ -82,8 +82,8 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	 *
 	 * @param AD_Tab_Customization_ID Tab Customization
 	 */
-
-	public void setAD_Tab_Customization_ID(int AD_Tab_Customization_ID) {
+	@JsonProperty("AD_Tab_Customization_ID")
+	public void setAD_Tab_Customization_IDFromJson(int AD_Tab_Customization_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Tab_Customization_ID(AD_Tab_Customization_ID);
 		}

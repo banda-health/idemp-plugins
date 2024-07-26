@@ -113,8 +113,8 @@ public class X_R_RequestProcessorLogInput extends MRequestProcessorLog implement
 	 *
 	 * @param R_RequestProcessorLog_ID Result of the execution of the Request Processor
 	 */
-
-	public void setR_RequestProcessorLog_ID(int R_RequestProcessorLog_ID) {
+	@JsonProperty("R_RequestProcessorLog_ID")
+	public void setR_RequestProcessorLog_IDFromJson(int R_RequestProcessorLog_ID) {
 		if (get_ID() == 0) {
 			super.setR_RequestProcessorLog_ID(R_RequestProcessorLog_ID);
 		}

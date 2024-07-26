@@ -74,8 +74,8 @@ public class X_M_PromotionGroupInput extends X_M_PromotionGroup implements I_M_P
 	 *
 	 * @param M_PromotionGroup_ID Promotion Group
 	 */
-
-	public void setM_PromotionGroup_ID(int M_PromotionGroup_ID) {
+	@JsonProperty("M_PromotionGroup_ID")
+	public void setM_PromotionGroup_IDFromJson(int M_PromotionGroup_ID) {
 		if (get_ID() == 0) {
 			super.setM_PromotionGroup_ID(M_PromotionGroup_ID);
 		}

@@ -110,8 +110,8 @@ public class X_GL_FundInput extends X_GL_Fund implements I_GL_FundInput {
 	 *
 	 * @param GL_Fund_ID General Ledger Funds Control
 	 */
-
-	public void setGL_Fund_ID(int GL_Fund_ID) {
+	@JsonProperty("GL_Fund_ID")
+	public void setGL_Fund_IDFromJson(int GL_Fund_ID) {
 		if (get_ID() == 0) {
 			super.setGL_Fund_ID(GL_Fund_ID);
 		}

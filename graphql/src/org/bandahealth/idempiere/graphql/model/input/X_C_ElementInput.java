@@ -116,8 +116,8 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 	 *
 	 * @param C_Element_ID Accounting Element
 	 */
-
-	public void setC_Element_ID(int C_Element_ID) {
+	@JsonProperty("C_Element_ID")
+	public void setC_Element_IDFromJson(int C_Element_ID) {
 		if (get_ID() == 0) {
 			super.setC_Element_ID(C_Element_ID);
 		}

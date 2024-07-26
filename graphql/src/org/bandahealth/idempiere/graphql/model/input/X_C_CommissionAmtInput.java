@@ -78,8 +78,8 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 	 *
 	 * @param C_CommissionAmt_ID Generated Commission Amount 
 	 */
-
-	public void setC_CommissionAmt_ID(int C_CommissionAmt_ID) {
+	@JsonProperty("C_CommissionAmt_ID")
+	public void setC_CommissionAmt_IDFromJson(int C_CommissionAmt_ID) {
 		if (get_ID() == 0) {
 			super.setC_CommissionAmt_ID(C_CommissionAmt_ID);
 		}

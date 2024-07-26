@@ -76,8 +76,8 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	 *
 	 * @param C_Job_ID Job Position
 	 */
-
-	public void setC_Job_ID(int C_Job_ID) {
+	@JsonProperty("C_Job_ID")
+	public void setC_Job_IDFromJson(int C_Job_ID) {
 		if (get_ID() == 0) {
 			super.setC_Job_ID(C_Job_ID);
 		}

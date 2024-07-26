@@ -77,8 +77,8 @@ public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I
 	 *
 	 * @param C_SubscriptionType_ID Type of subscription
 	 */
-
-	public void setC_SubscriptionType_ID(int C_SubscriptionType_ID) {
+	@JsonProperty("C_SubscriptionType_ID")
+	public void setC_SubscriptionType_IDFromJson(int C_SubscriptionType_ID) {
 		if (get_ID() == 0) {
 			super.setC_SubscriptionType_ID(C_SubscriptionType_ID);
 		}

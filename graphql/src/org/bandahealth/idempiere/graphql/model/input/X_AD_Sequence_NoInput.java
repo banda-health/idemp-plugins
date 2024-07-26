@@ -131,8 +131,8 @@ public class X_AD_Sequence_NoInput extends X_AD_Sequence_No implements I_AD_Sequ
 	 *
 	 * @param CalendarYearMonth YYYYMM
 	 */
-
-	public void setCalendarYearMonth(String CalendarYearMonth) {
+	@JsonProperty("CalendarYearMonth")
+	public void setCalendarYearMonthFromJson(String CalendarYearMonth) {
 		if (get_ID() == 0) {
 			super.setCalendarYearMonth(CalendarYearMonth);
 		}

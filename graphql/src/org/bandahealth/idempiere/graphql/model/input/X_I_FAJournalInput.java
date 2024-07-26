@@ -873,8 +873,8 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	 *
 	 * @param I_FAJournal_ID FA Journal
 	 */
-
-	public void setI_FAJournal_ID(int I_FAJournal_ID) {
+	@JsonProperty("I_FAJournal_ID")
+	public void setI_FAJournal_IDFromJson(int I_FAJournal_ID) {
 		if (get_ID() == 0) {
 			super.setI_FAJournal_ID(I_FAJournal_ID);
 		}

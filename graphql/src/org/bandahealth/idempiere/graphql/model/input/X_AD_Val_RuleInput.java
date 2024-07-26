@@ -79,8 +79,8 @@ public class X_AD_Val_RuleInput extends MValRule implements I_AD_Val_RuleInput {
 	 *
 	 * @param AD_Val_Rule_ID Dynamic Validation Rule
 	 */
-
-	public void setAD_Val_Rule_ID(int AD_Val_Rule_ID) {
+	@JsonProperty("AD_Val_Rule_ID")
+	public void setAD_Val_Rule_IDFromJson(int AD_Val_Rule_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Val_Rule_ID(AD_Val_Rule_ID);
 		}

@@ -116,8 +116,8 @@ public class X_AD_ViewComponentInput extends MViewComponent implements I_AD_View
 	 *
 	 * @param AD_ViewComponent_ID Database View Component
 	 */
-
-	public void setAD_ViewComponent_ID(int AD_ViewComponent_ID) {
+	@JsonProperty("AD_ViewComponent_ID")
+	public void setAD_ViewComponent_IDFromJson(int AD_ViewComponent_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ViewComponent_ID(AD_ViewComponent_ID);
 		}

@@ -221,8 +221,8 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 	 *
 	 * @param C_RfQ_TopicSubscriber_ID Request for Quotation Topic Subscriber
 	 */
-
-	public void setC_RfQ_TopicSubscriber_ID(int C_RfQ_TopicSubscriber_ID) {
+	@JsonProperty("C_RfQ_TopicSubscriber_ID")
+	public void setC_RfQ_TopicSubscriber_IDFromJson(int C_RfQ_TopicSubscriber_ID) {
 		if (get_ID() == 0) {
 			super.setC_RfQ_TopicSubscriber_ID(C_RfQ_TopicSubscriber_ID);
 		}

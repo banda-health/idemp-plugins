@@ -45,8 +45,8 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	 *
 	 * @param AD_InfoRelated_ID Info Related
 	 */
-
-	public void setAD_InfoRelated_ID(int AD_InfoRelated_ID) {
+	@JsonProperty("AD_InfoRelated_ID")
+	public void setAD_InfoRelated_IDFromJson(int AD_InfoRelated_ID) {
 		if (get_ID() == 0) {
 			super.setAD_InfoRelated_ID(AD_InfoRelated_ID);
 		}

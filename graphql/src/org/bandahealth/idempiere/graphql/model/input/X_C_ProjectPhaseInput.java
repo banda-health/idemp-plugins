@@ -196,8 +196,8 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	 *
 	 * @param C_ProjectPhase_ID Phase of a Project
 	 */
-
-	public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
+	@JsonProperty("C_ProjectPhase_ID")
+	public void setC_ProjectPhase_IDFromJson(int C_ProjectPhase_ID) {
 		if (get_ID() == 0) {
 			super.setC_ProjectPhase_ID(C_ProjectPhase_ID);
 		}

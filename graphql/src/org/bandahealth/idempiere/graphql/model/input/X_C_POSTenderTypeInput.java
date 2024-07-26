@@ -77,8 +77,8 @@ public class X_C_POSTenderTypeInput extends X_C_POSTenderType implements I_C_POS
 	 *
 	 * @param C_POSTenderType_ID POS Tender Type
 	 */
-
-	public void setC_POSTenderType_ID(int C_POSTenderType_ID) {
+	@JsonProperty("C_POSTenderType_ID")
+	public void setC_POSTenderType_IDFromJson(int C_POSTenderType_ID) {
 		if (get_ID() == 0) {
 			super.setC_POSTenderType_ID(C_POSTenderType_ID);
 		}

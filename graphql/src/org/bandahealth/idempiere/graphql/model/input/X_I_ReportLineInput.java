@@ -162,8 +162,8 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 *
 	 * @param I_ReportLine_ID Import Report Line Set values
 	 */
-
-	public void setI_ReportLine_ID(int I_ReportLine_ID) {
+	@JsonProperty("I_ReportLine_ID")
+	public void setI_ReportLine_IDFromJson(int I_ReportLine_ID) {
 		if (get_ID() == 0) {
 			super.setI_ReportLine_ID(I_ReportLine_ID);
 		}

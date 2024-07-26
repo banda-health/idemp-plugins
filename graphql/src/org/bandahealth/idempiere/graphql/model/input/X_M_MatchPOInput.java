@@ -162,8 +162,8 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	 *
 	 * @param DateTrx Transaction Date
 	 */
-
-	public void setDateTrx(Timestamp DateTrx) {
+	@JsonProperty("DateTrx")
+	public void setDateTrxFromJson(Timestamp DateTrx) {
 		if (get_ID() == 0) {
 			super.setDateTrx(DateTrx);
 		}
@@ -247,8 +247,8 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	 *
 	 * @param M_MatchPO_ID Match Purchase Order to Shipment/Receipt and Invoice
 	 */
-
-	public void setM_MatchPO_ID(int M_MatchPO_ID) {
+	@JsonProperty("M_MatchPO_ID")
+	public void setM_MatchPO_IDFromJson(int M_MatchPO_ID) {
 		if (get_ID() == 0) {
 			super.setM_MatchPO_ID(M_MatchPO_ID);
 		}
@@ -313,8 +313,8 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}
@@ -324,8 +324,8 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}
@@ -335,8 +335,8 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	 *
 	 * @param Qty Quantity
 	 */
-
-	public void setQty(BigDecimal Qty) {
+	@JsonProperty("Qty")
+	public void setQtyFromJson(BigDecimal Qty) {
 		if (get_ID() == 0) {
 			super.setQty(Qty);
 		}

@@ -74,8 +74,8 @@ public class X_PA_ReportColumnSetInput extends MReportColumnSet implements I_PA_
 	 *
 	 * @param PA_ReportColumnSet_ID Collection of Columns for Report
 	 */
-
-	public void setPA_ReportColumnSet_ID(int PA_ReportColumnSet_ID) {
+	@JsonProperty("PA_ReportColumnSet_ID")
+	public void setPA_ReportColumnSet_IDFromJson(int PA_ReportColumnSet_ID) {
 		if (get_ID() == 0) {
 			super.setPA_ReportColumnSet_ID(PA_ReportColumnSet_ID);
 		}

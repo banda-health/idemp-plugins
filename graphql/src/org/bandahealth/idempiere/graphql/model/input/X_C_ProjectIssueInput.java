@@ -128,8 +128,8 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 	 *
 	 * @param C_ProjectIssue_ID Project Issues (Material, Labor)
 	 */
-
-	public void setC_ProjectIssue_ID(int C_ProjectIssue_ID) {
+	@JsonProperty("C_ProjectIssue_ID")
+	public void setC_ProjectIssue_IDFromJson(int C_ProjectIssue_ID) {
 		if (get_ID() == 0) {
 			super.setC_ProjectIssue_ID(C_ProjectIssue_ID);
 		}
@@ -371,8 +371,8 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}
