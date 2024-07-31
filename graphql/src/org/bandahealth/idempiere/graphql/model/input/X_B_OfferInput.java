@@ -114,8 +114,8 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 	 *
 	 * @param B_Offer_ID Offer for a Topic
 	 */
-
-	public void setB_Offer_ID(int B_Offer_ID) {
+	@JsonProperty("B_Offer_ID")
+	public void setB_Offer_IDFromJson(int B_Offer_ID) {
 		if (get_ID() == 0) {
 			super.setB_Offer_ID(B_Offer_ID);
 		}

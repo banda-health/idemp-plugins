@@ -273,8 +273,8 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 	 *
 	 * @param M_InOutConfirm_ID Material Shipment or Receipt Confirmation
 	 */
-
-	public void setM_InOutConfirm_ID(int M_InOutConfirm_ID) {
+	@JsonProperty("M_InOutConfirm_ID")
+	public void setM_InOutConfirm_IDFromJson(int M_InOutConfirm_ID) {
 		if (get_ID() == 0) {
 			super.setM_InOutConfirm_ID(M_InOutConfirm_ID);
 		}

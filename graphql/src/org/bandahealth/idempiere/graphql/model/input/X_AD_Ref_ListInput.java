@@ -78,8 +78,8 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	 *
 	 * @param AD_Ref_List_ID Reference List based on Table
 	 */
-
-	public void setAD_Ref_List_ID(int AD_Ref_List_ID) {
+	@JsonProperty("AD_Ref_List_ID")
+	public void setAD_Ref_List_IDFromJson(int AD_Ref_List_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Ref_List_ID(AD_Ref_List_ID);
 		}

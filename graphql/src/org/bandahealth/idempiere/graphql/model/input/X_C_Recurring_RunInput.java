@@ -271,8 +271,8 @@ public class X_C_Recurring_RunInput extends MRecurringRun implements I_C_Recurri
 	 *
 	 * @param C_Recurring_Run_ID Recurring Document Run
 	 */
-
-	public void setC_Recurring_Run_ID(int C_Recurring_Run_ID) {
+	@JsonProperty("C_Recurring_Run_ID")
+	public void setC_Recurring_Run_IDFromJson(int C_Recurring_Run_ID) {
 		if (get_ID() == 0) {
 			super.setC_Recurring_Run_ID(C_Recurring_Run_ID);
 		}

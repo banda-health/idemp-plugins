@@ -110,8 +110,8 @@ public class X_HR_Concept_CategoryInput extends X_HR_Concept_Category implements
 	 *
 	 * @param HR_Concept_Category_ID Payroll Concept Category
 	 */
-
-	public void setHR_Concept_Category_ID(int HR_Concept_Category_ID) {
+	@JsonProperty("HR_Concept_Category_ID")
+	public void setHR_Concept_Category_IDFromJson(int HR_Concept_Category_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Concept_Category_ID(HR_Concept_Category_ID);
 		}

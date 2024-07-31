@@ -153,8 +153,8 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	 *
 	 * @param AD_Tree_Favorite_Node_ID Favorite Node Tree
 	 */
-
-	public void setAD_Tree_Favorite_Node_ID(int AD_Tree_Favorite_Node_ID) {
+	@JsonProperty("AD_Tree_Favorite_Node_ID")
+	public void setAD_Tree_Favorite_Node_IDFromJson(int AD_Tree_Favorite_Node_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Tree_Favorite_Node_ID(AD_Tree_Favorite_Node_ID);
 		}

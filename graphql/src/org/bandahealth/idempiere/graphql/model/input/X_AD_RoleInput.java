@@ -86,8 +86,8 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 *
 	 * @param AD_Role_ID Responsibility Role
 	 */
-
-	public void setAD_Role_ID(int AD_Role_ID) {
+	@JsonProperty("AD_Role_ID")
+	public void setAD_Role_IDFromJson(int AD_Role_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Role_ID(AD_Role_ID);
 		}

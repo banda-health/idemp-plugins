@@ -110,8 +110,8 @@ public class X_R_IssueUserInput extends X_R_IssueUser implements I_R_IssueUserIn
 	 *
 	 * @param R_IssueUser_ID User who reported issues
 	 */
-
-	public void setR_IssueUser_ID(int R_IssueUser_ID) {
+	@JsonProperty("R_IssueUser_ID")
+	public void setR_IssueUser_IDFromJson(int R_IssueUser_ID) {
 		if (get_ID() == 0) {
 			super.setR_IssueUser_ID(R_IssueUser_ID);
 		}
@@ -139,8 +139,8 @@ public class X_R_IssueUserInput extends X_R_IssueUser implements I_R_IssueUserIn
 	 *
 	 * @param UserName User Name
 	 */
-
-	public void setUserName(String UserName) {
+	@JsonProperty("UserName")
+	public void setUserNameFromJson(String UserName) {
 		if (get_ID() == 0) {
 			super.setUserName(UserName);
 		}

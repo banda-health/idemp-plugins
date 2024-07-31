@@ -110,8 +110,8 @@ public class X_C_OnlineTrxHistoryInput extends MOnlineTrxHistory implements I_C_
 	 *
 	 * @param C_OnlineTrxHistory_ID Online Transaction History
 	 */
-
-	public void setC_OnlineTrxHistory_ID(int C_OnlineTrxHistory_ID) {
+	@JsonProperty("C_OnlineTrxHistory_ID")
+	public void setC_OnlineTrxHistory_IDFromJson(int C_OnlineTrxHistory_ID) {
 		if (get_ID() == 0) {
 			super.setC_OnlineTrxHistory_ID(C_OnlineTrxHistory_ID);
 		}

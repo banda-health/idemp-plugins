@@ -76,8 +76,8 @@ public class X_AD_PostItInput extends MPostIt implements I_AD_PostItInput {
 	 *
 	 * @param AD_PostIt_ID Post-it
 	 */
-
-	public void setAD_PostIt_ID(int AD_PostIt_ID) {
+	@JsonProperty("AD_PostIt_ID")
+	public void setAD_PostIt_IDFromJson(int AD_PostIt_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PostIt_ID(AD_PostIt_ID);
 		}

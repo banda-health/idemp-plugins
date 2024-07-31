@@ -113,8 +113,8 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	 *
 	 * @param PA_BenchmarkData_ID Performance Benchmark Data Point
 	 */
-
-	public void setPA_BenchmarkData_ID(int PA_BenchmarkData_ID) {
+	@JsonProperty("PA_BenchmarkData_ID")
+	public void setPA_BenchmarkData_IDFromJson(int PA_BenchmarkData_ID) {
 		if (get_ID() == 0) {
 			super.setPA_BenchmarkData_ID(PA_BenchmarkData_ID);
 		}

@@ -112,8 +112,8 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 	 *
 	 * @param U_RoleMenu_ID Role Menu
 	 */
-
-	public void setU_RoleMenu_ID(int U_RoleMenu_ID) {
+	@JsonProperty("U_RoleMenu_ID")
+	public void setU_RoleMenu_IDFromJson(int U_RoleMenu_ID) {
 		if (get_ID() == 0) {
 			super.setU_RoleMenu_ID(U_RoleMenu_ID);
 		}

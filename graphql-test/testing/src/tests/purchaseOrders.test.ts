@@ -1,8 +1,10 @@
+import { isApolloError } from '@apollo/client/core';
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType, documentStatus, documentSubTypeSalesOrder } from '../models';
 import { RoleName } from '../types/roleName';
-import { createBusinessPartner, createOrder, createProduct, getDateOffset } from '../utils';
+import { createBusinessPartner, createOrder, createProduct, createVisit, getDateOffset } from '../utils';
 import {
+	Bh_VisitProcessDocument,
 	C_BPartnerGetDocument,
 	C_OrderGetDocument,
 	C_OrderLineSaveDocument,
@@ -264,6 +266,7 @@ test(`changing a price on an old PO does not change last buying price for produc
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 	let firstPO = valueObject.order!;
+	let firstPOLine = valueObject.orderLine!;
 
 	expect(
 		(
@@ -312,7 +315,7 @@ test(`changing a price on an old PO does not change last buying price for produc
 	valueObject.stepName = 'Re-complete first PO';
 	await mutate(valueObject)({
 		mutation: C_OrderLineSaveDocument,
-		variables: { Entity: { UU: valueObject.orderLine!.UU, Price: 115 } },
+		variables: { Entity: { UU: firstPOLine.UU, Price: 115 } },
 	});
 	await mutate(valueObject)({
 		mutation: C_OrderProcessDocument,
@@ -431,4 +434,64 @@ test(`POs can be saved multiple times`, async () => {
 	).data?.C_OrderSave.UU;
 
 	expect(savedUU).toBeTruthy();
+});
+
+test('reactivating an order that would case inventory to go negative message correct', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	valueObject.quantity = 1;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+	let purchaseOrderUU = valueObject.order!.UU;
+
+	valueObject.stepName = 'Create visit';
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	valueObject.quantity = 1;
+	await createOrder(valueObject);
+
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+	});
+
+	valueObject.stepName = 'Re-activate PO';
+	let errorMessage = '';
+	try {
+		await mutate(valueObject)({
+			mutation: C_OrderProcessDocument,
+			variables: { UU: purchaseOrderUU, DocumentAction: documentAction.ReActivate },
+		});
+		expect(false).toBe(true);
+	} catch (error) {
+		if (error instanceof Error && isApolloError(error)) {
+			errorMessage = error.graphQLErrors
+				.map((graphqlError) => graphqlError.message.split(' : ')[1] || graphqlError.message)
+				.join(', ');
+		}
+	}
+	
+	// Since we'll be using this message in the front-end, it needs to be this exact value
+	const disallowNegativeInventoryMessage =
+		/The .+ warehouse does not allow negative inventory for Product = (.+), ASI = .+, Locator = .+ \(Shortage of (\d+)\)/;
+	expect(errorMessage).toMatch(disallowNegativeInventoryMessage);
 });

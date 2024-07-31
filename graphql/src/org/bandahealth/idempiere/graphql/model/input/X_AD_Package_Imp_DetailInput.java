@@ -78,8 +78,8 @@ public class X_AD_Package_Imp_DetailInput extends X_AD_Package_Imp_Detail implem
 	 *
 	 * @param AD_Package_Imp_Detail_ID Imp. Package Detail
 	 */
-
-	public void setAD_Package_Imp_Detail_ID(int AD_Package_Imp_Detail_ID) {
+	@JsonProperty("AD_Package_Imp_Detail_ID")
+	public void setAD_Package_Imp_Detail_IDFromJson(int AD_Package_Imp_Detail_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Package_Imp_Detail_ID(AD_Package_Imp_Detail_ID);
 		}
@@ -178,8 +178,8 @@ public class X_AD_Package_Imp_DetailInput extends X_AD_Package_Imp_Detail implem
 	 *
 	 * @param Result Result of the action taken
 	 */
-
-	public void setResult(String Result) {
+	@JsonProperty("Result")
+	public void setResultFromJson(String Result) {
 		if (get_ID() == 0) {
 			super.setResult(Result);
 		}
@@ -189,8 +189,8 @@ public class X_AD_Package_Imp_DetailInput extends X_AD_Package_Imp_Detail implem
 	 *
 	 * @param Uninstall Uninstall
 	 */
-
-	public void setUninstall(boolean Uninstall) {
+	@JsonProperty("Uninstall")
+	public void setUninstallFromJson(boolean Uninstall) {
 		if (get_ID() == 0) {
 			super.setUninstall(Uninstall);
 		}

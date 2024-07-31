@@ -711,8 +711,8 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 *
 	 * @param PA_ReportColumn_ID Column in Report
 	 */
-
-	public void setPA_ReportColumn_ID(int PA_ReportColumn_ID) {
+	@JsonProperty("PA_ReportColumn_ID")
+	public void setPA_ReportColumn_IDFromJson(int PA_ReportColumn_ID) {
 		if (get_ID() == 0) {
 			super.setPA_ReportColumn_ID(PA_ReportColumn_ID);
 		}

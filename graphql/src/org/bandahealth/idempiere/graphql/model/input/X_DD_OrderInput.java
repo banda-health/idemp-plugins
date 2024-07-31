@@ -461,8 +461,8 @@ public class X_DD_OrderInput extends MDDOrder implements I_DD_OrderInput {
 	 *
 	 * @param DateOrdered Date of Order
 	 */
-
-	public void setDateOrdered(Timestamp DateOrdered) {
+	@JsonProperty("DateOrdered")
+	public void setDateOrderedFromJson(Timestamp DateOrdered) {
 		if (get_ID() == 0) {
 			super.setDateOrdered(DateOrdered);
 		}
@@ -472,8 +472,8 @@ public class X_DD_OrderInput extends MDDOrder implements I_DD_OrderInput {
 	 *
 	 * @param DD_Order_ID Distribution Order
 	 */
-
-	public void setDD_Order_ID(int DD_Order_ID) {
+	@JsonProperty("DD_Order_ID")
+	public void setDD_Order_IDFromJson(int DD_Order_ID) {
 		if (get_ID() == 0) {
 			super.setDD_Order_ID(DD_Order_ID);
 		}
@@ -657,8 +657,8 @@ public class X_DD_OrderInput extends MDDOrder implements I_DD_OrderInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -778,8 +778,8 @@ public class X_DD_OrderInput extends MDDOrder implements I_DD_OrderInput {
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

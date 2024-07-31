@@ -112,8 +112,8 @@ public class X_AD_PrintLabelInput extends X_AD_PrintLabel implements I_AD_PrintL
 	 *
 	 * @param AD_PrintLabel_ID Label Format to print
 	 */
-
-	public void setAD_PrintLabel_ID(int AD_PrintLabel_ID) {
+	@JsonProperty("AD_PrintLabel_ID")
+	public void setAD_PrintLabel_IDFromJson(int AD_PrintLabel_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PrintLabel_ID(AD_PrintLabel_ID);
 		}

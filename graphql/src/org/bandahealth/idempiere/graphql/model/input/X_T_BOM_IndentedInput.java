@@ -250,8 +250,8 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 	 *
 	 * @param T_BOM_Indented_ID Indented BOM Report
 	 */
-
-	public void setT_BOM_Indented_ID(int T_BOM_Indented_ID) {
+	@JsonProperty("T_BOM_Indented_ID")
+	public void setT_BOM_Indented_IDFromJson(int T_BOM_Indented_ID) {
 		if (get_ID() == 0) {
 			super.setT_BOM_Indented_ID(T_BOM_Indented_ID);
 		}

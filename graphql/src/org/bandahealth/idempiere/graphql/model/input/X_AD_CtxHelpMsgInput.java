@@ -76,8 +76,8 @@ public class X_AD_CtxHelpMsgInput extends MCtxHelpMsg implements I_AD_CtxHelpMsg
 	 *
 	 * @param AD_CtxHelpMsg_ID Context Help Message
 	 */
-
-	public void setAD_CtxHelpMsg_ID(int AD_CtxHelpMsg_ID) {
+	@JsonProperty("AD_CtxHelpMsg_ID")
+	public void setAD_CtxHelpMsg_IDFromJson(int AD_CtxHelpMsg_ID) {
 		if (get_ID() == 0) {
 			super.setAD_CtxHelpMsg_ID(AD_CtxHelpMsg_ID);
 		}

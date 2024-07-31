@@ -797,8 +797,8 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	 *
 	 * @param I_GLJournal_ID Import General Ledger Journal
 	 */
-
-	public void setI_GLJournal_ID(int I_GLJournal_ID) {
+	@JsonProperty("I_GLJournal_ID")
+	public void setI_GLJournal_IDFromJson(int I_GLJournal_ID) {
 		if (get_ID() == 0) {
 			super.setI_GLJournal_ID(I_GLJournal_ID);
 		}

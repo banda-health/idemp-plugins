@@ -3,16 +3,13 @@
 ALTER TABLE BH_Client_Concept RENAME COLUMN Name TO BH_Display_Name;
 ALTER TABLE BH_Client_Concept DROP COLUMN BH_Client_Mapping_ID;
 
--- Create ad_element for BH_Display_Name
-INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-07-02 11:05:29.614000', 100, '2024-07-02 11:05:29.614000', 100, 'BH_Display_Name', 'U', 'Display Name', 'Display Name', null, null, null, null, null, null, 'ec4c1ae1-fe60-4509-b062-b987380f4051', null) ON CONFLICT DO NOTHING;
-
 -- Update ad_column for BH_Display_Name
 UPDATE ad_column
 SET name = 'Display Name',
 	columnname = 'BH_Display_Name',
 	description = 'Display Name',
 	help = null,
-	ad_element_id = (SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'ec4c1ae1-fe60-4509-b062-b987380f4051')
+	ad_element_id = (SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '574f1779-d3ef-47b7-b463-2e288cf723e8')
 WHERE ad_column_uu = '8e203126-3e28-4513-9247-be3b17385dec';
 
 -- Remove ad_column for BH_Client_Mapping_ID

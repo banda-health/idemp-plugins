@@ -146,7 +146,7 @@ public class OrderModelEvent extends AbstractEventHandler {
 				ship.setDocStatus(MInOut.DOCSTATUS_Reversed);
 				info.append(" ").append(ship.getDocumentNo());
 			} else {
-				throw new AdempiereException("Could not reverse Shipment " + ship);
+				throw new AdempiereException(ship.getProcessMsg());
 			}
 			ship.setDocAction(MInOut.DOCACTION_None);
 			ship.saveEx(order.get_TrxName());

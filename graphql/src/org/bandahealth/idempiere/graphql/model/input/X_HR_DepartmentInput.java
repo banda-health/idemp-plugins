@@ -110,8 +110,8 @@ public class X_HR_DepartmentInput extends X_HR_Department implements I_HR_Depart
 	 *
 	 * @param HR_Department_ID Payroll Department
 	 */
-
-	public void setHR_Department_ID(int HR_Department_ID) {
+	@JsonProperty("HR_Department_ID")
+	public void setHR_Department_IDFromJson(int HR_Department_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Department_ID(HR_Department_ID);
 		}

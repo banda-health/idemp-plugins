@@ -133,8 +133,8 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	 *
 	 * @param Log_ID Log
 	 */
-
-	public void setLog_ID(int Log_ID) {
+	@JsonProperty("Log_ID")
+	public void setLog_IDFromJson(int Log_ID) {
 		if (get_ID() == 0) {
 			super.setLog_ID(Log_ID);
 		}
@@ -144,8 +144,8 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	 *
 	 * @param P_Date Process Parameter
 	 */
-
-	public void setP_Date(Timestamp P_Date) {
+	@JsonProperty("P_Date")
+	public void setP_DateFromJson(Timestamp P_Date) {
 		if (get_ID() == 0) {
 			super.setP_Date(P_Date);
 		}
@@ -155,8 +155,8 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	 *
 	 * @param P_Msg Process Message
 	 */
-
-	public void setP_Msg(String P_Msg) {
+	@JsonProperty("P_Msg")
+	public void setP_MsgFromJson(String P_Msg) {
 		if (get_ID() == 0) {
 			super.setP_Msg(P_Msg);
 		}
@@ -166,8 +166,8 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	 *
 	 * @param P_Number Process Parameter
 	 */
-
-	public void setP_Number(BigDecimal P_Number) {
+	@JsonProperty("P_Number")
+	public void setP_NumberFromJson(BigDecimal P_Number) {
 		if (get_ID() == 0) {
 			super.setP_Number(P_Number);
 		}

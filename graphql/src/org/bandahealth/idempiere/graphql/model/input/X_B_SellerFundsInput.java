@@ -114,8 +114,8 @@ public class X_B_SellerFundsInput extends X_B_SellerFunds implements I_B_SellerF
 	 *
 	 * @param B_SellerFunds_ID Seller Funds from Offers on Topics
 	 */
-
-	public void setB_SellerFunds_ID(int B_SellerFunds_ID) {
+	@JsonProperty("B_SellerFunds_ID")
+	public void setB_SellerFunds_IDFromJson(int B_SellerFunds_ID) {
 		if (get_ID() == 0) {
 			super.setB_SellerFunds_ID(B_SellerFunds_ID);
 		}

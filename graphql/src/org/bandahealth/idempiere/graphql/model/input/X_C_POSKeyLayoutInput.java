@@ -149,8 +149,8 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 *
 	 * @param C_POSKeyLayout_ID POS Function Key Layout
 	 */
-
-	public void setC_POSKeyLayout_ID(int C_POSKeyLayout_ID) {
+	@JsonProperty("C_POSKeyLayout_ID")
+	public void setC_POSKeyLayout_IDFromJson(int C_POSKeyLayout_ID) {
 		if (get_ID() == 0) {
 			super.setC_POSKeyLayout_ID(C_POSKeyLayout_ID);
 		}

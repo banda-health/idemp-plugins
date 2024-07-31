@@ -99,8 +99,8 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 *
 	 * @param AD_Column_ID Column in the table
 	 */
-
-	public void setAD_Column_ID(int AD_Column_ID) {
+	@JsonProperty("AD_Column_ID")
+	public void setAD_Column_IDFromJson(int AD_Column_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Column_ID(AD_Column_ID);
 		}

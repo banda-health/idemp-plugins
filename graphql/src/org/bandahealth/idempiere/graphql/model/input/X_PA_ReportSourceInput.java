@@ -443,8 +443,8 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	 *
 	 * @param PA_ReportSource_ID Restriction of what will be shown in Report Line
 	 */
-
-	public void setPA_ReportSource_ID(int PA_ReportSource_ID) {
+	@JsonProperty("PA_ReportSource_ID")
+	public void setPA_ReportSource_IDFromJson(int PA_ReportSource_ID) {
 		if (get_ID() == 0) {
 			super.setPA_ReportSource_ID(PA_ReportSource_ID);
 		}

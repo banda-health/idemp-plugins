@@ -468,8 +468,8 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 *
 	 * @param PA_DocumentStatus_ID Document Status
 	 */
-
-	public void setPA_DocumentStatus_ID(int PA_DocumentStatus_ID) {
+	@JsonProperty("PA_DocumentStatus_ID")
+	public void setPA_DocumentStatus_IDFromJson(int PA_DocumentStatus_ID) {
 		if (get_ID() == 0) {
 			super.setPA_DocumentStatus_ID(PA_DocumentStatus_ID);
 		}

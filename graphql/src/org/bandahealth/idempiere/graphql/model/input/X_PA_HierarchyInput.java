@@ -355,8 +355,8 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 *
 	 * @param PA_Hierarchy_ID Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	 */
-
-	public void setPA_Hierarchy_ID(int PA_Hierarchy_ID) {
+	@JsonProperty("PA_Hierarchy_ID")
+	public void setPA_Hierarchy_IDFromJson(int PA_Hierarchy_ID) {
 		if (get_ID() == 0) {
 			super.setPA_Hierarchy_ID(PA_Hierarchy_ID);
 		}

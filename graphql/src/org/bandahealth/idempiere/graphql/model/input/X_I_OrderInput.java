@@ -808,8 +808,8 @@ public class X_I_OrderInput extends X_I_Order implements I_I_OrderInput {
 	 *
 	 * @param I_Order_ID Import Orders
 	 */
-
-	public void setI_Order_ID(int I_Order_ID) {
+	@JsonProperty("I_Order_ID")
+	public void setI_Order_IDFromJson(int I_Order_ID) {
 		if (get_ID() == 0) {
 			super.setI_Order_ID(I_Order_ID);
 		}

@@ -80,8 +80,8 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 	 *
 	 * @param AD_AlertRecipient_ID Recipient of the Alert Notification
 	 */
-
-	public void setAD_AlertRecipient_ID(int AD_AlertRecipient_ID) {
+	@JsonProperty("AD_AlertRecipient_ID")
+	public void setAD_AlertRecipient_IDFromJson(int AD_AlertRecipient_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AlertRecipient_ID(AD_AlertRecipient_ID);
 		}

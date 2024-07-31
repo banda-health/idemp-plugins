@@ -113,8 +113,8 @@ public class X_CM_ChatTypeInput extends MChatType implements I_CM_ChatTypeInput 
 	 *
 	 * @param CM_ChatType_ID Type of discussion / chat
 	 */
-
-	public void setCM_ChatType_ID(int CM_ChatType_ID) {
+	@JsonProperty("CM_ChatType_ID")
+	public void setCM_ChatType_IDFromJson(int CM_ChatType_ID) {
 		if (get_ID() == 0) {
 			super.setCM_ChatType_ID(CM_ChatType_ID);
 		}

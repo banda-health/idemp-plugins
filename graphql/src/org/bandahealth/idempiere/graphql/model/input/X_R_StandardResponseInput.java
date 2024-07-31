@@ -74,8 +74,8 @@ public class X_R_StandardResponseInput extends X_R_StandardResponse implements I
 	 *
 	 * @param R_StandardResponse_ID Request Standard Response 
 	 */
-
-	public void setR_StandardResponse_ID(int R_StandardResponse_ID) {
+	@JsonProperty("R_StandardResponse_ID")
+	public void setR_StandardResponse_IDFromJson(int R_StandardResponse_ID) {
 		if (get_ID() == 0) {
 			super.setR_StandardResponse_ID(R_StandardResponse_ID);
 		}

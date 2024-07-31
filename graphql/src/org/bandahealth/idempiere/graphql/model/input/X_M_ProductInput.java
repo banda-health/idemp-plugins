@@ -241,8 +241,8 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 *
 	 * @param IsVerified The BOM configuration has been verified
 	 */
-
-	public void setIsVerified(boolean IsVerified) {
+	@JsonProperty("IsVerified")
+	public void setIsVerifiedFromJson(boolean IsVerified) {
 		if (get_ID() == 0) {
 			super.setIsVerified(IsVerified);
 		}
@@ -456,8 +456,8 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 *
 	 * @param M_Product_ID Product, Service, Item
 	 */
-
-	public void setM_Product_ID(int M_Product_ID) {
+	@JsonProperty("M_Product_ID")
+	public void setM_Product_IDFromJson(int M_Product_ID) {
 		if (get_ID() == 0) {
 			super.setM_Product_ID(M_Product_ID);
 		}

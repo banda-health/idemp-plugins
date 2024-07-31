@@ -78,8 +78,8 @@ public class X_T_ReportStatementInput extends X_T_ReportStatement implements I_T
 	 *
 	 * @param AmtAcctCr Accounted Credit Amount
 	 */
-
-	public void setAmtAcctCr(BigDecimal AmtAcctCr) {
+	@JsonProperty("AmtAcctCr")
+	public void setAmtAcctCrFromJson(BigDecimal AmtAcctCr) {
 		if (get_ID() == 0) {
 			super.setAmtAcctCr(AmtAcctCr);
 		}
@@ -89,8 +89,8 @@ public class X_T_ReportStatementInput extends X_T_ReportStatement implements I_T
 	 *
 	 * @param AmtAcctDr Accounted Debit Amount
 	 */
-
-	public void setAmtAcctDr(BigDecimal AmtAcctDr) {
+	@JsonProperty("AmtAcctDr")
+	public void setAmtAcctDrFromJson(BigDecimal AmtAcctDr) {
 		if (get_ID() == 0) {
 			super.setAmtAcctDr(AmtAcctDr);
 		}
@@ -100,8 +100,8 @@ public class X_T_ReportStatementInput extends X_T_ReportStatement implements I_T
 	 *
 	 * @param Balance Balance
 	 */
-
-	public void setBalance(BigDecimal Balance) {
+	@JsonProperty("Balance")
+	public void setBalanceFromJson(BigDecimal Balance) {
 		if (get_ID() == 0) {
 			super.setBalance(Balance);
 		}
@@ -111,8 +111,8 @@ public class X_T_ReportStatementInput extends X_T_ReportStatement implements I_T
 	 *
 	 * @param DateAcct Accounting Date
 	 */
-
-	public void setDateAcct(Timestamp DateAcct) {
+	@JsonProperty("DateAcct")
+	public void setDateAcctFromJson(Timestamp DateAcct) {
 		if (get_ID() == 0) {
 			super.setDateAcct(DateAcct);
 		}
@@ -122,8 +122,8 @@ public class X_T_ReportStatementInput extends X_T_ReportStatement implements I_T
 	 *
 	 * @param Description Optional short description of the record
 	 */
-
-	public void setDescription(String Description) {
+	@JsonProperty("Description")
+	public void setDescriptionFromJson(String Description) {
 		if (get_ID() == 0) {
 			super.setDescription(Description);
 		}
@@ -170,8 +170,8 @@ public class X_T_ReportStatementInput extends X_T_ReportStatement implements I_T
 	 *
 	 * @param LevelNo Level no
 	 */
-
-	public void setLevelNo(int LevelNo) {
+	@JsonProperty("LevelNo")
+	public void setLevelNoFromJson(int LevelNo) {
 		if (get_ID() == 0) {
 			super.setLevelNo(LevelNo);
 		}
@@ -181,8 +181,8 @@ public class X_T_ReportStatementInput extends X_T_ReportStatement implements I_T
 	 *
 	 * @param Name Alphanumeric identifier of the entity
 	 */
-
-	public void setName(String Name) {
+	@JsonProperty("Name")
+	public void setNameFromJson(String Name) {
 		if (get_ID() == 0) {
 			super.setName(Name);
 		}
@@ -192,8 +192,8 @@ public class X_T_ReportStatementInput extends X_T_ReportStatement implements I_T
 	 *
 	 * @param Qty Quantity
 	 */
-
-	public void setQty(BigDecimal Qty) {
+	@JsonProperty("Qty")
+	public void setQtyFromJson(BigDecimal Qty) {
 		if (get_ID() == 0) {
 			super.setQty(Qty);
 		}

@@ -262,8 +262,8 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	 *
 	 * @param AD_ToolBarButtonRestrict_ID ToolBar Button Restrict
 	 */
-
-	public void setAD_ToolBarButtonRestrict_ID(int AD_ToolBarButtonRestrict_ID) {
+	@JsonProperty("AD_ToolBarButtonRestrict_ID")
+	public void setAD_ToolBarButtonRestrict_IDFromJson(int AD_ToolBarButtonRestrict_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ToolBarButtonRestrict_ID(AD_ToolBarButtonRestrict_ID);
 		}
@@ -325,8 +325,8 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	 *
 	 * @param IsExclude Exclude access to the data - if not selected Include access to the data
 	 */
-
-	public void setIsExclude(boolean IsExclude) {
+	@JsonProperty("IsExclude")
+	public void setIsExcludeFromJson(boolean IsExclude) {
 		if (get_ID() == 0) {
 			super.setIsExclude(IsExclude);
 		}

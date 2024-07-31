@@ -234,8 +234,8 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	 *
 	 * @param C_RevenueRecognition_Plan_ID Plan for recognizing or recording revenue
 	 */
-
-	public void setC_RevenueRecognition_Plan_ID(int C_RevenueRecognition_Plan_ID) {
+	@JsonProperty("C_RevenueRecognition_Plan_ID")
+	public void setC_RevenueRecognition_Plan_IDFromJson(int C_RevenueRecognition_Plan_ID) {
 		if (get_ID() == 0) {
 			super.setC_RevenueRecognition_Plan_ID(C_RevenueRecognition_Plan_ID);
 		}
@@ -300,8 +300,8 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	 *
 	 * @param RecognizedAmt Recognized Amount
 	 */
-
-	public void setRecognizedAmt(BigDecimal RecognizedAmt) {
+	@JsonProperty("RecognizedAmt")
+	public void setRecognizedAmtFromJson(BigDecimal RecognizedAmt) {
 		if (get_ID() == 0) {
 			super.setRecognizedAmt(RecognizedAmt);
 		}
@@ -311,8 +311,8 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	 *
 	 * @param TotalAmt Total Amount
 	 */
-
-	public void setTotalAmt(BigDecimal TotalAmt) {
+	@JsonProperty("TotalAmt")
+	public void setTotalAmtFromJson(BigDecimal TotalAmt) {
 		if (get_ID() == 0) {
 			super.setTotalAmt(TotalAmt);
 		}

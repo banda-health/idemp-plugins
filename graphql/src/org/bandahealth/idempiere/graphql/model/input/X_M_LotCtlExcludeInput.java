@@ -149,8 +149,8 @@ public class X_M_LotCtlExcludeInput extends MLotCtlExclude implements I_M_LotCtl
 	 *
 	 * @param M_LotCtlExclude_ID Exclude the ability to create Lots in Attribute Sets
 	 */
-
-	public void setM_LotCtlExclude_ID(int M_LotCtlExclude_ID) {
+	@JsonProperty("M_LotCtlExclude_ID")
+	public void setM_LotCtlExclude_IDFromJson(int M_LotCtlExclude_ID) {
 		if (get_ID() == 0) {
 			super.setM_LotCtlExclude_ID(M_LotCtlExclude_ID);
 		}

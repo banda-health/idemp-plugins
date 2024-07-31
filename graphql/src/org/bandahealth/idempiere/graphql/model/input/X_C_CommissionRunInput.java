@@ -116,8 +116,8 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 	 *
 	 * @param C_CommissionRun_ID Commission Run or Process
 	 */
-
-	public void setC_CommissionRun_ID(int C_CommissionRun_ID) {
+	@JsonProperty("C_CommissionRun_ID")
+	public void setC_CommissionRun_IDFromJson(int C_CommissionRun_ID) {
 		if (get_ID() == 0) {
 			super.setC_CommissionRun_ID(C_CommissionRun_ID);
 		}
@@ -182,8 +182,8 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 	 *
 	 * @param GrandTotal Total amount of document
 	 */
-
-	public void setGrandTotal(BigDecimal GrandTotal) {
+	@JsonProperty("GrandTotal")
+	public void setGrandTotalFromJson(BigDecimal GrandTotal) {
 		if (get_ID() == 0) {
 			super.setGrandTotal(GrandTotal);
 		}

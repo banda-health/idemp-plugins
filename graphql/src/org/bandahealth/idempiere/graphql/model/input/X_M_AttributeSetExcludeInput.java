@@ -149,8 +149,8 @@ public class X_M_AttributeSetExcludeInput extends MAttributeSetExclude implement
 	 *
 	 * @param M_AttributeSetExclude_ID Exclude the ability to enter Attribute Sets
 	 */
-
-	public void setM_AttributeSetExclude_ID(int M_AttributeSetExclude_ID) {
+	@JsonProperty("M_AttributeSetExclude_ID")
+	public void setM_AttributeSetExclude_IDFromJson(int M_AttributeSetExclude_ID) {
 		if (get_ID() == 0) {
 			super.setM_AttributeSetExclude_ID(M_AttributeSetExclude_ID);
 		}

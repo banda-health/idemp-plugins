@@ -159,8 +159,8 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	 *
 	 * @param IsRequiredDRP Required Calculate DRP
 	 */
-
-	public void setIsRequiredDRP(boolean IsRequiredDRP) {
+	@JsonProperty("IsRequiredDRP")
+	public void setIsRequiredDRPFromJson(boolean IsRequiredDRP) {
 		if (get_ID() == 0) {
 			super.setIsRequiredDRP(IsRequiredDRP);
 		}
@@ -170,8 +170,8 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	 *
 	 * @param IsRequiredMRP Required Calculate MRP
 	 */
-
-	public void setIsRequiredMRP(boolean IsRequiredMRP) {
+	@JsonProperty("IsRequiredMRP")
+	public void setIsRequiredMRPFromJson(boolean IsRequiredMRP) {
 		if (get_ID() == 0) {
 			super.setIsRequiredMRP(IsRequiredMRP);
 		}
@@ -359,8 +359,8 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	 *
 	 * @param PP_Product_Planning_ID Product Planning
 	 */
-
-	public void setPP_Product_Planning_ID(int PP_Product_Planning_ID) {
+	@JsonProperty("PP_Product_Planning_ID")
+	public void setPP_Product_Planning_IDFromJson(int PP_Product_Planning_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Product_Planning_ID(PP_Product_Planning_ID);
 		}

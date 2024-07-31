@@ -394,8 +394,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 *
 	 * @param C_InvoiceLine_ID Invoice Detail Line
 	 */
-
-	public void setC_InvoiceLine_ID(int C_InvoiceLine_ID) {
+	@JsonProperty("C_InvoiceLine_ID")
+	public void setC_InvoiceLine_IDFromJson(int C_InvoiceLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_InvoiceLine_ID(C_InvoiceLine_ID);
 		}
@@ -639,8 +639,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 *
 	 * @param LineNetAmt Line Extended Amount (Quantity * Actual Price) without Freight and Charges
 	 */
-
-	public void setLineNetAmt(BigDecimal LineNetAmt) {
+	@JsonProperty("LineNetAmt")
+	public void setLineNetAmtFromJson(BigDecimal LineNetAmt) {
 		if (get_ID() == 0) {
 			super.setLineNetAmt(LineNetAmt);
 		}
@@ -789,8 +789,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 *
 	 * @param PriceActual Actual Price 
 	 */
-
-	public void setPriceActual(BigDecimal PriceActual) {
+	@JsonProperty("PriceActual")
+	public void setPriceActualFromJson(BigDecimal PriceActual) {
 		if (get_ID() == 0) {
 			super.setPriceActual(PriceActual);
 		}

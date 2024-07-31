@@ -591,8 +591,8 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	 *
 	 * @param T_CashFlow_ID T_CashFlow_ID
 	 */
-
-	public void setT_CashFlow_ID(int T_CashFlow_ID) {
+	@JsonProperty("T_CashFlow_ID")
+	public void setT_CashFlow_IDFromJson(int T_CashFlow_ID) {
 		if (get_ID() == 0) {
 			super.setT_CashFlow_ID(T_CashFlow_ID);
 		}

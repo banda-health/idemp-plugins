@@ -119,8 +119,8 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	 *
 	 * @param CM_Chat_ID Chat or discussion thread
 	 */
-
-	public void setCM_Chat_ID(int CM_Chat_ID) {
+	@JsonProperty("CM_Chat_ID")
+	public void setCM_Chat_IDFromJson(int CM_Chat_ID) {
 		if (get_ID() == 0) {
 			super.setCM_Chat_ID(CM_Chat_ID);
 		}

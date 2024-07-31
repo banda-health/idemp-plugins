@@ -298,8 +298,8 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	 *
 	 * @param C_TaxDefinition_ID Tax Definition
 	 */
-
-	public void setC_TaxDefinition_ID(int C_TaxDefinition_ID) {
+	@JsonProperty("C_TaxDefinition_ID")
+	public void setC_TaxDefinition_IDFromJson(int C_TaxDefinition_ID) {
 		if (get_ID() == 0) {
 			super.setC_TaxDefinition_ID(C_TaxDefinition_ID);
 		}

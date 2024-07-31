@@ -227,8 +227,8 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	 *
 	 * @param AD_UserDef_Info_ID User defined Info Window
 	 */
-
-	public void setAD_UserDef_Info_ID(int AD_UserDef_Info_ID) {
+	@JsonProperty("AD_UserDef_Info_ID")
+	public void setAD_UserDef_Info_IDFromJson(int AD_UserDef_Info_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserDef_Info_ID(AD_UserDef_Info_ID);
 		}

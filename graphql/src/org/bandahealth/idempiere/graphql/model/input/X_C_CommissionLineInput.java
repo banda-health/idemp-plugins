@@ -194,8 +194,8 @@ public class X_C_CommissionLineInput extends MCommissionLine implements I_C_Comm
 	 *
 	 * @param C_CommissionLine_ID Commission Line
 	 */
-
-	public void setC_CommissionLine_ID(int C_CommissionLine_ID) {
+	@JsonProperty("C_CommissionLine_ID")
+	public void setC_CommissionLine_IDFromJson(int C_CommissionLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_CommissionLine_ID(C_CommissionLine_ID);
 		}

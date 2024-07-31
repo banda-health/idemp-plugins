@@ -265,8 +265,8 @@ public class X_I_MovementInput extends X_I_Movement implements I_I_MovementInput
 	 *
 	 * @param I_Movement_ID I_Movement_ID
 	 */
-
-	public void setI_Movement_ID(int I_Movement_ID) {
+	@JsonProperty("I_Movement_ID")
+	public void setI_Movement_IDFromJson(int I_Movement_ID) {
 		if (get_ID() == 0) {
 			super.setI_Movement_ID(I_Movement_ID);
 		}

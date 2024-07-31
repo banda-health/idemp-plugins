@@ -76,8 +76,8 @@ public class X_C_SalesRegionInput extends MSalesRegion implements I_C_SalesRegio
 	 *
 	 * @param C_SalesRegion_ID Sales coverage region
 	 */
-
-	public void setC_SalesRegion_ID(int C_SalesRegion_ID) {
+	@JsonProperty("C_SalesRegion_ID")
+	public void setC_SalesRegion_IDFromJson(int C_SalesRegion_ID) {
 		if (get_ID() == 0) {
 			super.setC_SalesRegion_ID(C_SalesRegion_ID);
 		}

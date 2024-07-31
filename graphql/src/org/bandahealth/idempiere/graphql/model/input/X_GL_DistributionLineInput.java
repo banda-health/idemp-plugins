@@ -369,8 +369,8 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	 *
 	 * @param GL_DistributionLine_ID General Ledger Distribution Line
 	 */
-
-	public void setGL_DistributionLine_ID(int GL_DistributionLine_ID) {
+	@JsonProperty("GL_DistributionLine_ID")
+	public void setGL_DistributionLine_IDFromJson(int GL_DistributionLine_ID) {
 		if (get_ID() == 0) {
 			super.setGL_DistributionLine_ID(GL_DistributionLine_ID);
 		}

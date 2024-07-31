@@ -42,8 +42,8 @@ public class X_AD_ImpFormatInput extends X_AD_ImpFormat implements I_AD_ImpForma
 	 *
 	 * @param AD_ImpFormat_ID Import Format
 	 */
-
-	public void setAD_ImpFormat_ID(int AD_ImpFormat_ID) {
+	@JsonProperty("AD_ImpFormat_ID")
+	public void setAD_ImpFormat_IDFromJson(int AD_ImpFormat_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ImpFormat_ID(AD_ImpFormat_ID);
 		}

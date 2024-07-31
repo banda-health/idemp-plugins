@@ -727,8 +727,8 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	 *
 	 * @param U_POSTerminal_ID POS Terminal
 	 */
-
-	public void setU_POSTerminal_ID(int U_POSTerminal_ID) {
+	@JsonProperty("U_POSTerminal_ID")
+	public void setU_POSTerminal_IDFromJson(int U_POSTerminal_ID) {
 		if (get_ID() == 0) {
 			super.setU_POSTerminal_ID(U_POSTerminal_ID);
 		}

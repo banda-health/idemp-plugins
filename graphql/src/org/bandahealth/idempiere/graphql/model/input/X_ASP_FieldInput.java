@@ -118,8 +118,8 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 	 *
 	 * @param ASP_Field_ID ASP Field
 	 */
-
-	public void setASP_Field_ID(int ASP_Field_ID) {
+	@JsonProperty("ASP_Field_ID")
+	public void setASP_Field_IDFromJson(int ASP_Field_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Field_ID(ASP_Field_ID);
 		}

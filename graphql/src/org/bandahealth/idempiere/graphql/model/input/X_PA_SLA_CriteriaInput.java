@@ -74,8 +74,8 @@ public class X_PA_SLA_CriteriaInput extends X_PA_SLA_Criteria implements I_PA_SL
 	 *
 	 * @param PA_SLA_Criteria_ID Service Level Agreement Criteria
 	 */
-
-	public void setPA_SLA_Criteria_ID(int PA_SLA_Criteria_ID) {
+	@JsonProperty("PA_SLA_Criteria_ID")
+	public void setPA_SLA_Criteria_IDFromJson(int PA_SLA_Criteria_ID) {
 		if (get_ID() == 0) {
 			super.setPA_SLA_Criteria_ID(PA_SLA_Criteria_ID);
 		}

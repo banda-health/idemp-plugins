@@ -25,19 +25,20 @@ public class MLocatorDataLoader extends X_M_LocatorDataLoader {
 
 	private MappedBatchLoaderWithContext<String, List<MLocator>> getByWarehouseIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> {
-			// If the user is currently the system client, we can get everything
-			if (Env.getAD_Client_ID(batchLoaderEnvironment.getContext()) == 0) {
-				Repository.setApplyAccessFilterNotNeeded();
-				PO.setCrossTenantSafe();
+			try {
+				// If the user is currently the system client, we can get everything
+				if (Env.getAD_Client_ID(batchLoaderEnvironment.getContext()) == 0) {
+					Repository.setApplyAccessFilterNotNeeded();
+					PO.setCrossTenantSafe();
+				}
+				Map<String, List<MLocator>> locatorsByWarehouse =
+						Repository.getGroupsByModelKeys(batchLoaderEnvironment.getContext(), getTableName(), null,
+								MLocator::getM_Warehouse_ID, MLocator.COLUMNNAME_M_Warehouse_ID, keys);
+				return CompletableFuture.supplyAsync(() -> locatorsByWarehouse);
+			} finally {
+				Repository.clearApplyAccessFilterNotNeeded();
+				PO.clearCrossTenantSafe();
 			}
-			Map<String, List<MLocator>> locatorsByWarehouse =
-					Repository.getGroupsByModelKeys(batchLoaderEnvironment.getContext(), getTableName(), null,
-							MLocator::getM_Warehouse_ID, MLocator.COLUMNNAME_M_Warehouse_ID, keys);
-
-			Repository.clearApplyAccessFilterNotNeeded();
-			PO.clearCrossTenantSafe();
-
-			return CompletableFuture.supplyAsync(() -> locatorsByWarehouse);
 		};
 	}
 }

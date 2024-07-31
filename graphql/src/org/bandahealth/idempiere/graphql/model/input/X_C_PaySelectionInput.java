@@ -110,8 +110,8 @@ public class X_C_PaySelectionInput extends MPaySelection implements I_C_PaySelec
 	 *
 	 * @param C_PaySelection_ID Payment Selection
 	 */
-
-	public void setC_PaySelection_ID(int C_PaySelection_ID) {
+	@JsonProperty("C_PaySelection_ID")
+	public void setC_PaySelection_IDFromJson(int C_PaySelection_ID) {
 		if (get_ID() == 0) {
 			super.setC_PaySelection_ID(C_PaySelection_ID);
 		}

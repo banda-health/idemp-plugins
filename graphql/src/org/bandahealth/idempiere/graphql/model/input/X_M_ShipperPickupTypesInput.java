@@ -115,8 +115,8 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 	 *
 	 * @param M_ShipperPickupTypes_ID Shipper Pickup Types
 	 */
-
-	public void setM_ShipperPickupTypes_ID(int M_ShipperPickupTypes_ID) {
+	@JsonProperty("M_ShipperPickupTypes_ID")
+	public void setM_ShipperPickupTypes_IDFromJson(int M_ShipperPickupTypes_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShipperPickupTypes_ID(M_ShipperPickupTypes_ID);
 		}

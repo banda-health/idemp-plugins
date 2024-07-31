@@ -149,8 +149,8 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 	 *
 	 * @param GL_FundRestriction_ID Restriction of Funds
 	 */
-
-	public void setGL_FundRestriction_ID(int GL_FundRestriction_ID) {
+	@JsonProperty("GL_FundRestriction_ID")
+	public void setGL_FundRestriction_IDFromJson(int GL_FundRestriction_ID) {
 		if (get_ID() == 0) {
 			super.setGL_FundRestriction_ID(GL_FundRestriction_ID);
 		}

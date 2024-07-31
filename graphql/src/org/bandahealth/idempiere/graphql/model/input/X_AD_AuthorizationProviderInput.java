@@ -40,8 +40,8 @@ public class X_AD_AuthorizationProviderInput extends MAuthorizationProvider impl
 	 *
 	 * @param AD_AuthorizationProvider_ID Authorization Provider
 	 */
-
-	public void setAD_AuthorizationProvider_ID(int AD_AuthorizationProvider_ID) {
+	@JsonProperty("AD_AuthorizationProvider_ID")
+	public void setAD_AuthorizationProvider_IDFromJson(int AD_AuthorizationProvider_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AuthorizationProvider_ID(AD_AuthorizationProvider_ID);
 		}

@@ -146,8 +146,8 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 	 *
 	 * @param PA_MeasureCalc_ID Calculation method for measuring performance
 	 */
-
-	public void setPA_MeasureCalc_ID(int PA_MeasureCalc_ID) {
+	@JsonProperty("PA_MeasureCalc_ID")
+	public void setPA_MeasureCalc_IDFromJson(int PA_MeasureCalc_ID) {
 		if (get_ID() == 0) {
 			super.setPA_MeasureCalc_ID(PA_MeasureCalc_ID);
 		}

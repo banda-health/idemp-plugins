@@ -76,8 +76,8 @@ public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentB
 	 *
 	 * @param C_PaymentBatch_ID Payment batch for EFT
 	 */
-
-	public void setC_PaymentBatch_ID(int C_PaymentBatch_ID) {
+	@JsonProperty("C_PaymentBatch_ID")
+	public void setC_PaymentBatch_IDFromJson(int C_PaymentBatch_ID) {
 		if (get_ID() == 0) {
 			super.setC_PaymentBatch_ID(C_PaymentBatch_ID);
 		}

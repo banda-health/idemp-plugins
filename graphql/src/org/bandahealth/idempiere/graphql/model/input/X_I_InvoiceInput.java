@@ -691,8 +691,8 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	 *
 	 * @param I_Invoice_ID Import Invoice
 	 */
-
-	public void setI_Invoice_ID(int I_Invoice_ID) {
+	@JsonProperty("I_Invoice_ID")
+	public void setI_Invoice_IDFromJson(int I_Invoice_ID) {
 		if (get_ID() == 0) {
 			super.setI_Invoice_ID(I_Invoice_ID);
 		}

@@ -120,8 +120,8 @@ public class X_AD_PrintGraphInput extends X_AD_PrintGraph implements I_AD_PrintG
 	 *
 	 * @param AD_PrintGraph_ID Graph included in Reports
 	 */
-
-	public void setAD_PrintGraph_ID(int AD_PrintGraph_ID) {
+	@JsonProperty("AD_PrintGraph_ID")
+	public void setAD_PrintGraph_IDFromJson(int AD_PrintGraph_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PrintGraph_ID(AD_PrintGraph_ID);
 		}

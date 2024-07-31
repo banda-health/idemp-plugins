@@ -257,8 +257,8 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	 *
 	 * @param Fact_Acct_ID Accounting Fact
 	 */
-
-	public void setFact_Acct_ID(int Fact_Acct_ID) {
+	@JsonProperty("Fact_Acct_ID")
+	public void setFact_Acct_IDFromJson(int Fact_Acct_ID) {
 		if (get_ID() == 0) {
 			super.setFact_Acct_ID(Fact_Acct_ID);
 		}

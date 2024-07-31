@@ -76,8 +76,8 @@ public class X_M_CommodityShipmentInput extends X_M_CommodityShipment implements
 	 *
 	 * @param M_CommodityShipment_ID Commodity Shipment
 	 */
-
-	public void setM_CommodityShipment_ID(int M_CommodityShipment_ID) {
+	@JsonProperty("M_CommodityShipment_ID")
+	public void setM_CommodityShipment_IDFromJson(int M_CommodityShipment_ID) {
 		if (get_ID() == 0) {
 			super.setM_CommodityShipment_ID(M_CommodityShipment_ID);
 		}

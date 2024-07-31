@@ -46,8 +46,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param A_Asset_Delivery_ID Delivery of Asset
 	 */
-
-	public void setA_Asset_Delivery_ID(int A_Asset_Delivery_ID) {
+	@JsonProperty("A_Asset_Delivery_ID")
+	public void setA_Asset_Delivery_IDFromJson(int A_Asset_Delivery_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Delivery_ID(A_Asset_Delivery_ID);
 		}
@@ -186,8 +186,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param EMail Electronic Mail Address
 	 */
-
-	public void setEMail(String EMail) {
+	@JsonProperty("EMail")
+	public void setEMailFromJson(String EMail) {
 		if (get_ID() == 0) {
 			super.setEMail(EMail);
 		}
@@ -197,8 +197,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param Lot Lot number (alphanumeric)
 	 */
-
-	public void setLot(String Lot) {
+	@JsonProperty("Lot")
+	public void setLotFromJson(String Lot) {
 		if (get_ID() == 0) {
 			super.setLot(Lot);
 		}
@@ -279,8 +279,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param MessageID EMail Message ID
 	 */
-
-	public void setMessageID(String MessageID) {
+	@JsonProperty("MessageID")
+	public void setMessageIDFromJson(String MessageID) {
 		if (get_ID() == 0) {
 			super.setMessageID(MessageID);
 		}
@@ -290,8 +290,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param MovementDate Date a product was moved in or out of inventory
 	 */
-
-	public void setMovementDate(Timestamp MovementDate) {
+	@JsonProperty("MovementDate")
+	public void setMovementDateFromJson(Timestamp MovementDate) {
 		if (get_ID() == 0) {
 			super.setMovementDate(MovementDate);
 		}
@@ -301,8 +301,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param Referrer Referring web address
 	 */
-
-	public void setReferrer(String Referrer) {
+	@JsonProperty("Referrer")
+	public void setReferrerFromJson(String Referrer) {
 		if (get_ID() == 0) {
 			super.setReferrer(Referrer);
 		}
@@ -312,8 +312,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param Remote_Addr Remote Address
 	 */
-
-	public void setRemote_Addr(String Remote_Addr) {
+	@JsonProperty("Remote_Addr")
+	public void setRemote_AddrFromJson(String Remote_Addr) {
 		if (get_ID() == 0) {
 			super.setRemote_Addr(Remote_Addr);
 		}
@@ -323,8 +323,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param Remote_Host Remote host Info
 	 */
-
-	public void setRemote_Host(String Remote_Host) {
+	@JsonProperty("Remote_Host")
+	public void setRemote_HostFromJson(String Remote_Host) {
 		if (get_ID() == 0) {
 			super.setRemote_Host(Remote_Host);
 		}
@@ -334,8 +334,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param SerNo Product Serial Number 
 	 */
-
-	public void setSerNo(String SerNo) {
+	@JsonProperty("SerNo")
+	public void setSerNoFromJson(String SerNo) {
 		if (get_ID() == 0) {
 			super.setSerNo(SerNo);
 		}
@@ -345,8 +345,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param URL Full URL address - e.g. http://www.idempiere.org
 	 */
-
-	public void setURL(String URL) {
+	@JsonProperty("URL")
+	public void setURLFromJson(String URL) {
 		if (get_ID() == 0) {
 			super.setURL(URL);
 		}
@@ -356,8 +356,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param VersionNo Version Number
 	 */
-
-	public void setVersionNo(String VersionNo) {
+	@JsonProperty("VersionNo")
+	public void setVersionNoFromJson(String VersionNo) {
 		if (get_ID() == 0) {
 			super.setVersionNo(VersionNo);
 		}

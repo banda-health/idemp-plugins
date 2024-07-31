@@ -80,8 +80,8 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	 *
 	 * @param AD_Registration_ID System Registration
 	 */
-
-	public void setAD_Registration_ID(int AD_Registration_ID) {
+	@JsonProperty("AD_Registration_ID")
+	public void setAD_Registration_IDFromJson(int AD_Registration_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Registration_ID(AD_Registration_ID);
 		}
@@ -214,8 +214,8 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	 *
 	 * @param IsRegistered The application is registered.
 	 */
-
-	public void setIsRegistered(boolean IsRegistered) {
+	@JsonProperty("IsRegistered")
+	public void setIsRegisteredFromJson(boolean IsRegistered) {
 		if (get_ID() == 0) {
 			super.setIsRegistered(IsRegistered);
 		}
@@ -225,8 +225,8 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	 *
 	 * @param Record_ID Direct internal record ID
 	 */
-
-	public void setRecord_ID(int Record_ID) {
+	@JsonProperty("Record_ID")
+	public void setRecord_IDFromJson(int Record_ID) {
 		if (get_ID() == 0) {
 			super.setRecord_ID(Record_ID);
 		}
@@ -236,8 +236,8 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	 *
 	 * @param Remote_Addr Remote Address
 	 */
-
-	public void setRemote_Addr(String Remote_Addr) {
+	@JsonProperty("Remote_Addr")
+	public void setRemote_AddrFromJson(String Remote_Addr) {
 		if (get_ID() == 0) {
 			super.setRemote_Addr(Remote_Addr);
 		}
@@ -247,8 +247,8 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	 *
 	 * @param Remote_Host Remote host Info
 	 */
-
-	public void setRemote_Host(String Remote_Host) {
+	@JsonProperty("Remote_Host")
+	public void setRemote_HostFromJson(String Remote_Host) {
 		if (get_ID() == 0) {
 			super.setRemote_Host(Remote_Host);
 		}

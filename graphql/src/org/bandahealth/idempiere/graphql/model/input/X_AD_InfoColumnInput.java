@@ -121,8 +121,8 @@ public class X_AD_InfoColumnInput extends MInfoColumn implements I_AD_InfoColumn
 	 *
 	 * @param AD_InfoColumn_ID Info Window Column
 	 */
-
-	public void setAD_InfoColumn_ID(int AD_InfoColumn_ID) {
+	@JsonProperty("AD_InfoColumn_ID")
+	public void setAD_InfoColumn_IDFromJson(int AD_InfoColumn_ID) {
 		if (get_ID() == 0) {
 			super.setAD_InfoColumn_ID(AD_InfoColumn_ID);
 		}

@@ -310,8 +310,8 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -470,8 +470,8 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 *
 	 * @param M_Package_ID Shipment Package
 	 */
-
-	public void setM_Package_ID(int M_Package_ID) {
+	@JsonProperty("M_Package_ID")
+	public void setM_Package_IDFromJson(int M_Package_ID) {
 		if (get_ID() == 0) {
 			super.setM_Package_ID(M_Package_ID);
 		}

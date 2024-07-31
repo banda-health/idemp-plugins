@@ -39,8 +39,8 @@ public class X_AD_ElementInput extends M_Element implements I_AD_ElementInput {
 	 *
 	 * @param AD_Element_ID System Element enables the central maintenance of column description and help.
 	 */
-
-	public void setAD_Element_ID(int AD_Element_ID) {
+	@JsonProperty("AD_Element_ID")
+	public void setAD_Element_IDFromJson(int AD_Element_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Element_ID(AD_Element_ID);
 		}

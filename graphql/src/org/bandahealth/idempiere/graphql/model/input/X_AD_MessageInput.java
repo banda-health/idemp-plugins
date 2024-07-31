@@ -42,8 +42,8 @@ public class X_AD_MessageInput extends MMessage_BH implements I_AD_MessageInput 
 	 *
 	 * @param AD_Message_ID System Message
 	 */
-
-	public void setAD_Message_ID(int AD_Message_ID) {
+	@JsonProperty("AD_Message_ID")
+	public void setAD_Message_IDFromJson(int AD_Message_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Message_ID(AD_Message_ID);
 		}

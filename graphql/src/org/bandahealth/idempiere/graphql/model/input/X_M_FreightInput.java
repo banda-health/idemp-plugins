@@ -187,8 +187,8 @@ public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 	 *
 	 * @param M_Freight_ID Freight Rate
 	 */
-
-	public void setM_Freight_ID(int M_Freight_ID) {
+	@JsonProperty("M_Freight_ID")
+	public void setM_Freight_IDFromJson(int M_Freight_ID) {
 		if (get_ID() == 0) {
 			super.setM_Freight_ID(M_Freight_ID);
 		}

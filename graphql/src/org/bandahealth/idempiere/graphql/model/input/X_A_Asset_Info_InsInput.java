@@ -76,8 +76,8 @@ public class X_A_Asset_Info_InsInput extends X_A_Asset_Info_Ins implements I_A_A
 	 *
 	 * @param A_Asset_Info_Ins_ID A_Asset_Info_Ins_ID
 	 */
-
-	public void setA_Asset_Info_Ins_ID(int A_Asset_Info_Ins_ID) {
+	@JsonProperty("A_Asset_Info_Ins_ID")
+	public void setA_Asset_Info_Ins_IDFromJson(int A_Asset_Info_Ins_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Info_Ins_ID(A_Asset_Info_Ins_ID);
 		}

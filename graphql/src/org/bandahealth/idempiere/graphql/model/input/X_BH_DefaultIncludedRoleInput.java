@@ -79,8 +79,8 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 	 *
 	 * @param BH_DefaultIncludedRole_ID Default Included Roles
 	 */
-
-	public void setBH_DefaultIncludedRole_ID(int BH_DefaultIncludedRole_ID) {
+	@JsonProperty("BH_DefaultIncludedRole_ID")
+	public void setBH_DefaultIncludedRole_IDFromJson(int BH_DefaultIncludedRole_ID) {
 		if (get_ID() == 0) {
 			super.setBH_DefaultIncludedRole_ID(BH_DefaultIncludedRole_ID);
 		}

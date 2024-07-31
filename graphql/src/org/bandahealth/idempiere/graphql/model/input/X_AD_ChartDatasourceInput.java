@@ -80,8 +80,8 @@ public class X_AD_ChartDatasourceInput extends MChartDatasource implements I_AD_
 	 *
 	 * @param AD_ChartDatasource_ID Chart Datasource
 	 */
-
-	public void setAD_ChartDatasource_ID(int AD_ChartDatasource_ID) {
+	@JsonProperty("AD_ChartDatasource_ID")
+	public void setAD_ChartDatasource_IDFromJson(int AD_ChartDatasource_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ChartDatasource_ID(AD_ChartDatasource_ID);
 		}

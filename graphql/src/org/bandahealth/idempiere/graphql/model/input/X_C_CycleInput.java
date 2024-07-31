@@ -110,8 +110,8 @@ public class X_C_CycleInput extends X_C_Cycle implements I_C_CycleInput {
 	 *
 	 * @param C_Cycle_ID Identifier for this Project Reporting Cycle
 	 */
-
-	public void setC_Cycle_ID(int C_Cycle_ID) {
+	@JsonProperty("C_Cycle_ID")
+	public void setC_Cycle_IDFromJson(int C_Cycle_ID) {
 		if (get_ID() == 0) {
 			super.setC_Cycle_ID(C_Cycle_ID);
 		}

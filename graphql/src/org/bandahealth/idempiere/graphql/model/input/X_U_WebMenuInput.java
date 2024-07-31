@@ -109,8 +109,8 @@ public class X_U_WebMenuInput extends MWebMenu implements I_U_WebMenuInput {
 	 *
 	 * @param U_WebMenu_ID Web Menu
 	 */
-
-	public void setU_WebMenu_ID(int U_WebMenu_ID) {
+	@JsonProperty("U_WebMenu_ID")
+	public void setU_WebMenu_IDFromJson(int U_WebMenu_ID) {
 		if (get_ID() == 0) {
 			super.setU_WebMenu_ID(U_WebMenu_ID);
 		}

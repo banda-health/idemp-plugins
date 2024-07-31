@@ -78,8 +78,8 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 	 *
 	 * @param AD_ReplicationStrategy_ID Data Replication Strategy
 	 */
-
-	public void setAD_ReplicationStrategy_ID(int AD_ReplicationStrategy_ID) {
+	@JsonProperty("AD_ReplicationStrategy_ID")
+	public void setAD_ReplicationStrategy_IDFromJson(int AD_ReplicationStrategy_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ReplicationStrategy_ID(AD_ReplicationStrategy_ID);
 		}

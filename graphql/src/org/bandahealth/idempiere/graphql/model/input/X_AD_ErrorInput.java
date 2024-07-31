@@ -39,8 +39,8 @@ public class X_AD_ErrorInput extends X_AD_Error implements I_AD_ErrorInput {
 	 *
 	 * @param AD_Error_ID Error
 	 */
-
-	public void setAD_Error_ID(int AD_Error_ID) {
+	@JsonProperty("AD_Error_ID")
+	public void setAD_Error_IDFromJson(int AD_Error_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Error_ID(AD_Error_ID);
 		}

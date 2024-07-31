@@ -247,8 +247,8 @@ public class X_GL_JournalLineInput extends MJournalLine implements I_GL_JournalL
 	 *
 	 * @param AmtAcctCr Accounted Credit Amount
 	 */
-
-	public void setAmtAcctCr(BigDecimal AmtAcctCr) {
+	@JsonProperty("AmtAcctCr")
+	public void setAmtAcctCrFromJson(BigDecimal AmtAcctCr) {
 		if (get_ID() == 0) {
 			super.setAmtAcctCr(AmtAcctCr);
 		}
@@ -258,8 +258,8 @@ public class X_GL_JournalLineInput extends MJournalLine implements I_GL_JournalL
 	 *
 	 * @param AmtAcctDr Accounted Debit Amount
 	 */
-
-	public void setAmtAcctDr(BigDecimal AmtAcctDr) {
+	@JsonProperty("AmtAcctDr")
+	public void setAmtAcctDrFromJson(BigDecimal AmtAcctDr) {
 		if (get_ID() == 0) {
 			super.setAmtAcctDr(AmtAcctDr);
 		}
@@ -677,8 +677,8 @@ public class X_GL_JournalLineInput extends MJournalLine implements I_GL_JournalL
 	 *
 	 * @param CurrencyRate Currency Conversion Rate
 	 */
-
-	public void setCurrencyRate(BigDecimal CurrencyRate) {
+	@JsonProperty("CurrencyRate")
+	public void setCurrencyRateFromJson(BigDecimal CurrencyRate) {
 		if (get_ID() == 0) {
 			super.setCurrencyRate(CurrencyRate);
 		}
@@ -725,8 +725,8 @@ public class X_GL_JournalLineInput extends MJournalLine implements I_GL_JournalL
 	 *
 	 * @param GL_JournalLine_ID General Ledger Journal Line
 	 */
-
-	public void setGL_JournalLine_ID(int GL_JournalLine_ID) {
+	@JsonProperty("GL_JournalLine_ID")
+	public void setGL_JournalLine_IDFromJson(int GL_JournalLine_ID) {
 		if (get_ID() == 0) {
 			super.setGL_JournalLine_ID(GL_JournalLine_ID);
 		}
@@ -754,8 +754,8 @@ public class X_GL_JournalLineInput extends MJournalLine implements I_GL_JournalL
 	 *
 	 * @param IsGenerated This Line is generated
 	 */
-
-	public void setIsGenerated(boolean IsGenerated) {
+	@JsonProperty("IsGenerated")
+	public void setIsGeneratedFromJson(boolean IsGenerated) {
 		if (get_ID() == 0) {
 			super.setIsGenerated(IsGenerated);
 		}

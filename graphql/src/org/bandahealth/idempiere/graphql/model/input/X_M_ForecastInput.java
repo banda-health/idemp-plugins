@@ -154,8 +154,8 @@ public class X_M_ForecastInput extends MForecast implements I_M_ForecastInput {
 	 *
 	 * @param M_Forecast_ID Material Forecast
 	 */
-
-	public void setM_Forecast_ID(int M_Forecast_ID) {
+	@JsonProperty("M_Forecast_ID")
+	public void setM_Forecast_IDFromJson(int M_Forecast_ID) {
 		if (get_ID() == 0) {
 			super.setM_Forecast_ID(M_Forecast_ID);
 		}

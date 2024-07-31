@@ -122,8 +122,8 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	 *
 	 * @param CumulatedAmt Total Amount
 	 */
-
-	public void setCumulatedAmt(BigDecimal CumulatedAmt) {
+	@JsonProperty("CumulatedAmt")
+	public void setCumulatedAmtFromJson(BigDecimal CumulatedAmt) {
 		if (get_ID() == 0) {
 			super.setCumulatedAmt(CumulatedAmt);
 		}
@@ -133,8 +133,8 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	 *
 	 * @param CumulatedQty Total Quantity
 	 */
-
-	public void setCumulatedQty(BigDecimal CumulatedQty) {
+	@JsonProperty("CumulatedQty")
+	public void setCumulatedQtyFromJson(BigDecimal CumulatedQty) {
 		if (get_ID() == 0) {
 			super.setCumulatedQty(CumulatedQty);
 		}

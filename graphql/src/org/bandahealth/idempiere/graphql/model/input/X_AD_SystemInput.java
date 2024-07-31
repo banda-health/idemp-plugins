@@ -79,8 +79,8 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 *
 	 * @param AD_System_ID System Definition
 	 */
-
-	public void setAD_System_ID(int AD_System_ID) {
+	@JsonProperty("AD_System_ID")
+	public void setAD_System_IDFromJson(int AD_System_ID) {
 		if (get_ID() == 0) {
 			super.setAD_System_ID(AD_System_ID);
 		}
@@ -108,8 +108,8 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 *
 	 * @param EncryptionKey Encryption Class used for securing data content
 	 */
-
-	public void setEncryptionKey(String EncryptionKey) {
+	@JsonProperty("EncryptionKey")
+	public void setEncryptionKeyFromJson(String EncryptionKey) {
 		if (get_ID() == 0) {
 			super.setEncryptionKey(EncryptionKey);
 		}
@@ -119,8 +119,8 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 *
 	 * @param Info Information
 	 */
-
-	public void setInfo(String Info) {
+	@JsonProperty("Info")
+	public void setInfoFromJson(String Info) {
 		if (get_ID() == 0) {
 			super.setInfo(Info);
 		}
@@ -130,8 +130,8 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 *
 	 * @param OldName Old Name
 	 */
-
-	public void setOldName(String OldName) {
+	@JsonProperty("OldName")
+	public void setOldNameFromJson(String OldName) {
 		if (get_ID() == 0) {
 			super.setOldName(OldName);
 		}
@@ -141,8 +141,8 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 *
 	 * @param ProfileInfo Information to help profiling the system for solving support issues
 	 */
-
-	public void setProfileInfo(String ProfileInfo) {
+	@JsonProperty("ProfileInfo")
+	public void setProfileInfoFromJson(String ProfileInfo) {
 		if (get_ID() == 0) {
 			super.setProfileInfo(ProfileInfo);
 		}
@@ -152,8 +152,8 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 *
 	 * @param ReleaseNo Internal Release Number
 	 */
-
-	public void setReleaseNo(String ReleaseNo) {
+	@JsonProperty("ReleaseNo")
+	public void setReleaseNoFromJson(String ReleaseNo) {
 		if (get_ID() == 0) {
 			super.setReleaseNo(ReleaseNo);
 		}
@@ -202,8 +202,8 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 *
 	 * @param StatisticsInfo Information to help profiling the system for solving support issues
 	 */
-
-	public void setStatisticsInfo(String StatisticsInfo) {
+	@JsonProperty("StatisticsInfo")
+	public void setStatisticsInfoFromJson(String StatisticsInfo) {
 		if (get_ID() == 0) {
 			super.setStatisticsInfo(StatisticsInfo);
 		}
@@ -213,8 +213,8 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 *
 	 * @param SupportExpDate Date when the iDempiere support expires
 	 */
-
-	public void setSupportExpDate(Timestamp SupportExpDate) {
+	@JsonProperty("SupportExpDate")
+	public void setSupportExpDateFromJson(Timestamp SupportExpDate) {
 		if (get_ID() == 0) {
 			super.setSupportExpDate(SupportExpDate);
 		}
@@ -224,8 +224,8 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 *
 	 * @param SupportUnits Number of Internal Users for iDempiere Support
 	 */
-
-	public void setSupportUnits(int SupportUnits) {
+	@JsonProperty("SupportUnits")
+	public void setSupportUnitsFromJson(int SupportUnits) {
 		if (get_ID() == 0) {
 			super.setSupportUnits(SupportUnits);
 		}
@@ -274,8 +274,8 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 *
 	 * @param Version Version of the table definition
 	 */
-
-	public void setVersion(String Version) {
+	@JsonProperty("Version")
+	public void setVersionFromJson(String Version) {
 		if (get_ID() == 0) {
 			super.setVersion(Version);
 		}

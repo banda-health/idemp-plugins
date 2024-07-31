@@ -509,8 +509,8 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 *
 	 * @param DateOrdered Date of Order
 	 */
-
-	public void setDateOrdered(Timestamp DateOrdered) {
+	@JsonProperty("DateOrdered")
+	public void setDateOrderedFromJson(Timestamp DateOrdered) {
 		if (get_ID() == 0) {
 			super.setDateOrdered(DateOrdered);
 		}
@@ -676,8 +676,8 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -945,8 +945,8 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 *
 	 * @param M_InOut_ID Material Shipment Document
 	 */
-
-	public void setM_InOut_ID(int M_InOut_ID) {
+	@JsonProperty("M_InOut_ID")
+	public void setM_InOut_IDFromJson(int M_InOut_ID) {
 		if (get_ID() == 0) {
 			super.setM_InOut_ID(M_InOut_ID);
 		}
@@ -1121,8 +1121,8 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

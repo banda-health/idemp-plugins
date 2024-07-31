@@ -44,8 +44,8 @@ public class X_AD_AttributeInput extends X_AD_Attribute implements I_AD_Attribut
 	 *
 	 * @param AD_Attribute_ID System Attribute
 	 */
-
-	public void setAD_Attribute_ID(int AD_Attribute_ID) {
+	@JsonProperty("AD_Attribute_ID")
+	public void setAD_Attribute_IDFromJson(int AD_Attribute_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Attribute_ID(AD_Attribute_ID);
 		}

@@ -112,8 +112,8 @@ public class X_B_BidCommentInput extends X_B_BidComment implements I_B_BidCommen
 	 *
 	 * @param B_BidComment_ID Make a comment to a Bid Topic
 	 */
-
-	public void setB_BidComment_ID(int B_BidComment_ID) {
+	@JsonProperty("B_BidComment_ID")
+	public void setB_BidComment_IDFromJson(int B_BidComment_ID) {
 		if (get_ID() == 0) {
 			super.setB_BidComment_ID(B_BidComment_ID);
 		}

@@ -116,8 +116,8 @@ public class X_BH_Product_CategoryDefaultInput extends MBHProductCategoryDefault
 	 *
 	 * @param BH_Product_CategoryDefault_ID BH_Product_CategoryDefault
 	 */
-
-	public void setBH_Product_CategoryDefault_ID(int BH_Product_CategoryDefault_ID) {
+	@JsonProperty("BH_Product_CategoryDefault_ID")
+	public void setBH_Product_CategoryDefault_IDFromJson(int BH_Product_CategoryDefault_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Product_CategoryDefault_ID(BH_Product_CategoryDefault_ID);
 		}

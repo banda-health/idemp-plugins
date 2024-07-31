@@ -347,8 +347,8 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 *
 	 * @param M_RMA_ID Return Material Authorization
 	 */
-
-	public void setM_RMA_ID(int M_RMA_ID) {
+	@JsonProperty("M_RMA_ID")
+	public void setM_RMA_IDFromJson(int M_RMA_ID) {
 		if (get_ID() == 0) {
 			super.setM_RMA_ID(M_RMA_ID);
 		}

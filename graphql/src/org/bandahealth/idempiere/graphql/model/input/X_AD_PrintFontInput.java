@@ -74,8 +74,8 @@ public class X_AD_PrintFontInput extends X_AD_PrintFont implements I_AD_PrintFon
 	 *
 	 * @param AD_PrintFont_ID Maintain Print Font
 	 */
-
-	public void setAD_PrintFont_ID(int AD_PrintFont_ID) {
+	@JsonProperty("AD_PrintFont_ID")
+	public void setAD_PrintFont_IDFromJson(int AD_PrintFont_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PrintFont_ID(AD_PrintFont_ID);
 		}

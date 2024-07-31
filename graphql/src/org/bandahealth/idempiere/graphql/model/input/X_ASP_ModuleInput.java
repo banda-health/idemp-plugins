@@ -74,8 +74,8 @@ public class X_ASP_ModuleInput extends X_ASP_Module implements I_ASP_ModuleInput
 	 *
 	 * @param ASP_Module_ID ASP Module
 	 */
-
-	public void setASP_Module_ID(int ASP_Module_ID) {
+	@JsonProperty("ASP_Module_ID")
+	public void setASP_Module_IDFromJson(int ASP_Module_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Module_ID(ASP_Module_ID);
 		}

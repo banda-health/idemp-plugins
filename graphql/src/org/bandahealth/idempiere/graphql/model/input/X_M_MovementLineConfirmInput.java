@@ -185,8 +185,8 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 	 *
 	 * @param M_MovementLineConfirm_ID Inventory Move Line Confirmation
 	 */
-
-	public void setM_MovementLineConfirm_ID(int M_MovementLineConfirm_ID) {
+	@JsonProperty("M_MovementLineConfirm_ID")
+	public void setM_MovementLineConfirm_IDFromJson(int M_MovementLineConfirm_ID) {
 		if (get_ID() == 0) {
 			super.setM_MovementLineConfirm_ID(M_MovementLineConfirm_ID);
 		}

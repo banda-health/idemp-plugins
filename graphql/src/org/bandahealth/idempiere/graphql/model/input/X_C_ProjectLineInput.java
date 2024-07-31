@@ -239,8 +239,8 @@ public class X_C_ProjectLineInput extends MProjectLine implements I_C_ProjectLin
 	 *
 	 * @param C_ProjectLine_ID Task or step in a project
 	 */
-
-	public void setC_ProjectLine_ID(int C_ProjectLine_ID) {
+	@JsonProperty("C_ProjectLine_ID")
+	public void setC_ProjectLine_IDFromJson(int C_ProjectLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_ProjectLine_ID(C_ProjectLine_ID);
 		}

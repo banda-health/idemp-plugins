@@ -92,8 +92,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	 *
 	 * @param Amount Amount in a defined currency
 	 */
-
-	public void setAmount(BigDecimal Amount) {
+	@JsonProperty("Amount")
+	public void setAmountFromJson(BigDecimal Amount) {
 		if (get_ID() == 0) {
 			super.setAmount(Amount);
 		}
@@ -140,8 +140,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	 *
 	 * @param C_AllocationLine_ID Allocation Line
 	 */
-
-	public void setC_AllocationLine_ID(int C_AllocationLine_ID) {
+	@JsonProperty("C_AllocationLine_ID")
+	public void setC_AllocationLine_IDFromJson(int C_AllocationLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_AllocationLine_ID(C_AllocationLine_ID);
 		}
@@ -425,8 +425,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	 *
 	 * @param DateTrx Transaction Date
 	 */
-
-	public void setDateTrx(Timestamp DateTrx) {
+	@JsonProperty("DateTrx")
+	public void setDateTrxFromJson(Timestamp DateTrx) {
 		if (get_ID() == 0) {
 			super.setDateTrx(DateTrx);
 		}
@@ -436,8 +436,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	 *
 	 * @param DiscountAmt Calculated amount of discount
 	 */
-
-	public void setDiscountAmt(BigDecimal DiscountAmt) {
+	@JsonProperty("DiscountAmt")
+	public void setDiscountAmtFromJson(BigDecimal DiscountAmt) {
 		if (get_ID() == 0) {
 			super.setDiscountAmt(DiscountAmt);
 		}
@@ -447,8 +447,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	 *
 	 * @param IsManual This is a manual process
 	 */
-
-	public void setIsManual(boolean IsManual) {
+	@JsonProperty("IsManual")
+	public void setIsManualFromJson(boolean IsManual) {
 		if (get_ID() == 0) {
 			super.setIsManual(IsManual);
 		}
@@ -458,8 +458,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	 *
 	 * @param WriteOffAmt Amount to write-off
 	 */
-
-	public void setWriteOffAmt(BigDecimal WriteOffAmt) {
+	@JsonProperty("WriteOffAmt")
+	public void setWriteOffAmtFromJson(BigDecimal WriteOffAmt) {
 		if (get_ID() == 0) {
 			super.setWriteOffAmt(WriteOffAmt);
 		}

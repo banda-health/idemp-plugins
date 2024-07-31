@@ -302,8 +302,8 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 *
 	 * @param AD_PrintFormatItem_ID Item/Column in the Print format
 	 */
-
-	public void setAD_PrintFormatItem_ID(int AD_PrintFormatItem_ID) {
+	@JsonProperty("AD_PrintFormatItem_ID")
+	public void setAD_PrintFormatItem_IDFromJson(int AD_PrintFormatItem_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PrintFormatItem_ID(AD_PrintFormatItem_ID);
 		}

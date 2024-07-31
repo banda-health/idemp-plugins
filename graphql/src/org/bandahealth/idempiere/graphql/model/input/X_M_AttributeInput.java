@@ -225,8 +225,8 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	 *
 	 * @param M_Attribute_ID Product Attribute
 	 */
-
-	public void setM_Attribute_ID(int M_Attribute_ID) {
+	@JsonProperty("M_Attribute_ID")
+	public void setM_Attribute_IDFromJson(int M_Attribute_ID) {
 		if (get_ID() == 0) {
 			super.setM_Attribute_ID(M_Attribute_ID);
 		}

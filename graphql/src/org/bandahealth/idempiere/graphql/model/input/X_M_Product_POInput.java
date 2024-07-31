@@ -243,8 +243,8 @@ public class X_M_Product_POInput extends MProductPO_BH implements I_M_Product_PO
 	 *
 	 * @param PriceLastInv Price of the last invoice for the product
 	 */
-
-	public void setPriceLastInv(BigDecimal PriceLastInv) {
+	@JsonProperty("PriceLastInv")
+	public void setPriceLastInvFromJson(BigDecimal PriceLastInv) {
 		if (get_ID() == 0) {
 			super.setPriceLastInv(PriceLastInv);
 		}
@@ -254,8 +254,8 @@ public class X_M_Product_POInput extends MProductPO_BH implements I_M_Product_PO
 	 *
 	 * @param PriceLastPO Price of the last purchase order for the product
 	 */
-
-	public void setPriceLastPO(BigDecimal PriceLastPO) {
+	@JsonProperty("PriceLastPO")
+	public void setPriceLastPOFromJson(BigDecimal PriceLastPO) {
 		if (get_ID() == 0) {
 			super.setPriceLastPO(PriceLastPO);
 		}

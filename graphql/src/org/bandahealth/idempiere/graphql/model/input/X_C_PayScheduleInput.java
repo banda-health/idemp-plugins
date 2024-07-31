@@ -116,8 +116,8 @@ public class X_C_PayScheduleInput extends MPaySchedule implements I_C_PaySchedul
 	 *
 	 * @param C_PaySchedule_ID Payment Schedule Template
 	 */
-
-	public void setC_PaySchedule_ID(int C_PaySchedule_ID) {
+	@JsonProperty("C_PaySchedule_ID")
+	public void setC_PaySchedule_IDFromJson(int C_PaySchedule_ID) {
 		if (get_ID() == 0) {
 			super.setC_PaySchedule_ID(C_PaySchedule_ID);
 		}

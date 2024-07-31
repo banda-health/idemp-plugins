@@ -76,8 +76,8 @@ public class X_A_Asset_Info_LicInput extends X_A_Asset_Info_Lic implements I_A_A
 	 *
 	 * @param A_Asset_Info_Lic_ID A_Asset_Info_Lic_ID
 	 */
-
-	public void setA_Asset_Info_Lic_ID(int A_Asset_Info_Lic_ID) {
+	@JsonProperty("A_Asset_Info_Lic_ID")
+	public void setA_Asset_Info_Lic_IDFromJson(int A_Asset_Info_Lic_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Info_Lic_ID(A_Asset_Info_Lic_ID);
 		}
@@ -142,8 +142,8 @@ public class X_A_Asset_Info_LicInput extends X_A_Asset_Info_Lic implements I_A_A
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}

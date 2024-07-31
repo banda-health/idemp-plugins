@@ -117,8 +117,8 @@ public class X_AD_SearchDefinitionInput extends MSearchDefinition implements I_A
 	 *
 	 * @param AD_SearchDefinition_ID Search Definition
 	 */
-
-	public void setAD_SearchDefinition_ID(int AD_SearchDefinition_ID) {
+	@JsonProperty("AD_SearchDefinition_ID")
+	public void setAD_SearchDefinition_IDFromJson(int AD_SearchDefinition_ID) {
 		if (get_ID() == 0) {
 			super.setAD_SearchDefinition_ID(AD_SearchDefinition_ID);
 		}

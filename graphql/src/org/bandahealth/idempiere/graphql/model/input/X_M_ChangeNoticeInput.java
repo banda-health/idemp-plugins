@@ -74,8 +74,8 @@ public class X_M_ChangeNoticeInput extends MChangeNotice implements I_M_ChangeNo
 	 *
 	 * @param M_ChangeNotice_ID Bill of Materials (Engineering) Change Notice (Version)
 	 */
-
-	public void setM_ChangeNotice_ID(int M_ChangeNotice_ID) {
+	@JsonProperty("M_ChangeNotice_ID")
+	public void setM_ChangeNotice_IDFromJson(int M_ChangeNotice_ID) {
 		if (get_ID() == 0) {
 			super.setM_ChangeNotice_ID(M_ChangeNotice_ID);
 		}

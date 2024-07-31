@@ -149,8 +149,8 @@ public class X_C_NonBusinessDayInput extends X_C_NonBusinessDay implements I_C_N
 	 *
 	 * @param C_NonBusinessDay_ID Day on which business is not transacted
 	 */
-
-	public void setC_NonBusinessDay_ID(int C_NonBusinessDay_ID) {
+	@JsonProperty("C_NonBusinessDay_ID")
+	public void setC_NonBusinessDay_IDFromJson(int C_NonBusinessDay_ID) {
 		if (get_ID() == 0) {
 			super.setC_NonBusinessDay_ID(C_NonBusinessDay_ID);
 		}

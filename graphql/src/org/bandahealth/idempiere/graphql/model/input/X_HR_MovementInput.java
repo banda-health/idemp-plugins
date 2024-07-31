@@ -640,8 +640,8 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	 *
 	 * @param HR_Movement_ID Payroll Movement
 	 */
-
-	public void setHR_Movement_ID(int HR_Movement_ID) {
+	@JsonProperty("HR_Movement_ID")
+	public void setHR_Movement_IDFromJson(int HR_Movement_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Movement_ID(HR_Movement_ID);
 		}

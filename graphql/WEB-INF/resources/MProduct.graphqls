@@ -4,6 +4,7 @@ extend type M_Product {
 	LastPurchasePrice: BigDecimal
 	M_InOutLines: [M_InOutLine!]
 	M_Lots: [M_Lot!]
+	M_ProductPrices: [M_ProductPrice!]
 	M_Product_POList: [M_Product_PO!]
 	M_ReplenishList: [M_Replenish!]
 	M_StorageOnHandList: [M_StorageOnHand!]
