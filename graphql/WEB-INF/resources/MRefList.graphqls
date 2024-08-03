@@ -3,5 +3,6 @@ extend type Query {
 	DocumentStatusActionMap: String!
 }
 
-#extend type AD_Ref_List {
-#}
+extend type AD_Ref_List {
+	BH_Encounter_Type_WindowList: [BH_Encounter_Type_Window!]
+}

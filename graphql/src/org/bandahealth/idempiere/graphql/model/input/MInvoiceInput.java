@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.compiere.model.MBPartner;
 import org.compiere.model.Query;
 
 public class MInvoiceInput extends X_C_InvoiceInput {
@@ -13,8 +14,20 @@ public class MInvoiceInput extends X_C_InvoiceInput {
 	 * @param UUID The C_Invoice_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInvoiceInput(@JsonProperty("UU") String UUID) {
+	public MInvoiceInput(@JsonProperty("UU") String UUID, @JsonProperty("IsSOTrx") Boolean IsSOTrx) {
 		super(UUID);
+		// The sales order transaction needs to be set before the BPartner input would be
+		if (IsSOTrx != null) {
+			setIsSOTrx(IsSOTrx);
+		}
+	}
+
+	@Override
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
+		super.setC_BPartnerInput(C_BPartner);
+		if (getC_BPartner_ID() > 0) {
+			this.setBPartner(MBPartner.get(getCtx(), getC_BPartner_ID()));
+		}
 	}
 
 	@Override
