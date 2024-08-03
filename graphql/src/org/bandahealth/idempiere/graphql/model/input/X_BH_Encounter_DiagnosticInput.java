@@ -85,9 +85,6 @@ public class X_BH_Encounter_DiagnosticInput extends MBHEncounterDiagnostic imple
 	@JsonProperty("BH_Concept")
 	public void setBH_ConceptInput(ForeignEntityInput BH_Concept) {
 		this.mBH_Concept = BH_Concept;
-		if (get_ID() != 0) {
-			return;
-		}
 		if (BH_Concept != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MBHConcept foreignEntity;
@@ -122,9 +119,6 @@ public class X_BH_Encounter_DiagnosticInput extends MBHEncounterDiagnostic imple
 	@JsonProperty("BH_Diagnostic_Status")
 	public void setBH_Diagnostic_StatusInput(ForeignEntityInput BH_Diagnostic_Status) {
 		this.mBH_Diagnostic_Status = BH_Diagnostic_Status;
-		if (get_ID() != 0) {
-			return;
-		}
 		if (BH_Diagnostic_Status != null) {
 			// Since an entity was passed, make sure it's in the list of acceptable values
 			if (!X_BH_Encounter_DiagnosticResolver.BH_DIAGNOSTIC_STATUS_UUIDS_BY_VALUE.containsValue(BH_Diagnostic_Status.getUU())) {
