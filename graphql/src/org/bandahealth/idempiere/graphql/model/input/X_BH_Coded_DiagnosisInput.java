@@ -74,8 +74,8 @@ public class X_BH_Coded_DiagnosisInput extends MBHCodedDiagnosis implements I_BH
 	 *
 	 * @param BH_Coded_Diagnosis_ID Coded Diagnosis
 	 */
-
-	public void setBH_Coded_Diagnosis_ID(int BH_Coded_Diagnosis_ID) {
+	@JsonProperty("BH_Coded_Diagnosis_ID")
+	public void setBH_Coded_Diagnosis_IDFromJson(int BH_Coded_Diagnosis_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Coded_Diagnosis_ID(BH_Coded_Diagnosis_ID);
 		}

@@ -116,8 +116,8 @@ public class X_C_TaxBaseInput extends X_C_TaxBase implements I_C_TaxBaseInput {
 	 *
 	 * @param C_TaxBase_ID Tax Base
 	 */
-
-	public void setC_TaxBase_ID(int C_TaxBase_ID) {
+	@JsonProperty("C_TaxBase_ID")
+	public void setC_TaxBase_IDFromJson(int C_TaxBase_ID) {
 		if (get_ID() == 0) {
 			super.setC_TaxBase_ID(C_TaxBase_ID);
 		}

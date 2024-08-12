@@ -76,8 +76,8 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	 *
 	 * @param PA_Achievement_ID Performance Achievement
 	 */
-
-	public void setPA_Achievement_ID(int PA_Achievement_ID) {
+	@JsonProperty("PA_Achievement_ID")
+	public void setPA_Achievement_IDFromJson(int PA_Achievement_ID) {
 		if (get_ID() == 0) {
 			super.setPA_Achievement_ID(PA_Achievement_ID);
 		}

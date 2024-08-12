@@ -82,8 +82,8 @@ public class X_M_StorageOnHandInput extends MStorageOnHand implements I_M_Storag
 	 *
 	 * @param DateMaterialPolicy Time used for LIFO and FIFO Material Policy
 	 */
-
-	public void setDateMaterialPolicy(Timestamp DateMaterialPolicy) {
+	@JsonProperty("DateMaterialPolicy")
+	public void setDateMaterialPolicyFromJson(Timestamp DateMaterialPolicy) {
 		if (get_ID() == 0) {
 			super.setDateMaterialPolicy(DateMaterialPolicy);
 		}
@@ -222,8 +222,8 @@ public class X_M_StorageOnHandInput extends MStorageOnHand implements I_M_Storag
 	 *
 	 * @param QtyOnHand On Hand Quantity
 	 */
-
-	public void setQtyOnHand(BigDecimal QtyOnHand) {
+	@JsonProperty("QtyOnHand")
+	public void setQtyOnHandFromJson(BigDecimal QtyOnHand) {
 		if (get_ID() == 0) {
 			super.setQtyOnHand(QtyOnHand);
 		}

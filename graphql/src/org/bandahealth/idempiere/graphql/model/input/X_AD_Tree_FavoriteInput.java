@@ -76,8 +76,8 @@ public class X_AD_Tree_FavoriteInput extends MTreeFavorite implements I_AD_Tree_
 	 *
 	 * @param AD_Tree_Favorite_ID Favorite Tree
 	 */
-
-	public void setAD_Tree_Favorite_ID(int AD_Tree_Favorite_ID) {
+	@JsonProperty("AD_Tree_Favorite_ID")
+	public void setAD_Tree_Favorite_IDFromJson(int AD_Tree_Favorite_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Tree_Favorite_ID(AD_Tree_Favorite_ID);
 		}

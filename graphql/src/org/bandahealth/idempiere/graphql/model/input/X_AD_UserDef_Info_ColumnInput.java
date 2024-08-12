@@ -233,8 +233,8 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 *
 	 * @param AD_UserDef_Info_Column_ID User defined Info Column
 	 */
-
-	public void setAD_UserDef_Info_Column_ID(int AD_UserDef_Info_Column_ID) {
+	@JsonProperty("AD_UserDef_Info_Column_ID")
+	public void setAD_UserDef_Info_Column_IDFromJson(int AD_UserDef_Info_Column_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserDef_Info_Column_ID(AD_UserDef_Info_Column_ID);
 		}

@@ -231,8 +231,8 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 *
 	 * @param C_CashPlanLine_ID Cash Plan Line
 	 */
-
-	public void setC_CashPlanLine_ID(int C_CashPlanLine_ID) {
+	@JsonProperty("C_CashPlanLine_ID")
+	public void setC_CashPlanLine_IDFromJson(int C_CashPlanLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_CashPlanLine_ID(C_CashPlanLine_ID);
 		}

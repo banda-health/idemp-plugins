@@ -236,8 +236,8 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	 *
 	 * @param BH_Visit_ID Visit
 	 */
-
-	public void setBH_Visit_ID(int BH_Visit_ID) {
+	@JsonProperty("BH_Visit_ID")
+	public void setBH_Visit_IDFromJson(int BH_Visit_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Visit_ID(BH_Visit_ID);
 		}
@@ -299,8 +299,8 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}

@@ -110,8 +110,8 @@ public class X_BH_PaymentRefInput extends MBHPaymentRef implements I_BH_PaymentR
 	 *
 	 * @param BH_PaymentRef_ID BH_PaymentRef
 	 */
-
-	public void setBH_PaymentRef_ID(int BH_PaymentRef_ID) {
+	@JsonProperty("BH_PaymentRef_ID")
+	public void setBH_PaymentRef_IDFromJson(int BH_PaymentRef_ID) {
 		if (get_ID() == 0) {
 			super.setBH_PaymentRef_ID(BH_PaymentRef_ID);
 		}

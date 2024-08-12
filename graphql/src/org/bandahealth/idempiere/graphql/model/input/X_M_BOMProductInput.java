@@ -233,8 +233,8 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	 *
 	 * @param M_BOMProduct_ID Bill of Material Component (Product)
 	 */
-
-	public void setM_BOMProduct_ID(int M_BOMProduct_ID) {
+	@JsonProperty("M_BOMProduct_ID")
+	public void setM_BOMProduct_IDFromJson(int M_BOMProduct_ID) {
 		if (get_ID() == 0) {
 			super.setM_BOMProduct_ID(M_BOMProduct_ID);
 		}

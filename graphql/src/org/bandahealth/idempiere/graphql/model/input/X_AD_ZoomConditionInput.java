@@ -151,8 +151,8 @@ public class X_AD_ZoomConditionInput extends MZoomCondition implements I_AD_Zoom
 	 *
 	 * @param AD_ZoomCondition_ID Zoom condition
 	 */
-
-	public void setAD_ZoomCondition_ID(int AD_ZoomCondition_ID) {
+	@JsonProperty("AD_ZoomCondition_ID")
+	public void setAD_ZoomCondition_IDFromJson(int AD_ZoomCondition_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ZoomCondition_ID(AD_ZoomCondition_ID);
 		}

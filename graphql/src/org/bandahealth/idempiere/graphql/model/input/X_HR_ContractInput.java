@@ -182,8 +182,8 @@ public class X_HR_ContractInput extends X_HR_Contract implements I_HR_ContractIn
 	 *
 	 * @param HR_Contract_ID Payroll Contract
 	 */
-
-	public void setHR_Contract_ID(int HR_Contract_ID) {
+	@JsonProperty("HR_Contract_ID")
+	public void setHR_Contract_IDFromJson(int HR_Contract_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Contract_ID(HR_Contract_ID);
 		}

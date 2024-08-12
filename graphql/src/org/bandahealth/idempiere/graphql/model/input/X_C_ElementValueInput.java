@@ -307,8 +307,8 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 *
 	 * @param C_ElementValue_ID Account Element
 	 */
-
-	public void setC_ElementValue_ID(int C_ElementValue_ID) {
+	@JsonProperty("C_ElementValue_ID")
+	public void setC_ElementValue_IDFromJson(int C_ElementValue_ID) {
 		if (get_ID() == 0) {
 			super.setC_ElementValue_ID(C_ElementValue_ID);
 		}

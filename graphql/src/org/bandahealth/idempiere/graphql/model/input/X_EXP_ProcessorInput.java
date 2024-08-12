@@ -76,8 +76,8 @@ public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_Process
 	 *
 	 * @param EXP_Processor_ID Export Processor
 	 */
-
-	public void setEXP_Processor_ID(int EXP_Processor_ID) {
+	@JsonProperty("EXP_Processor_ID")
+	public void setEXP_Processor_IDFromJson(int EXP_Processor_ID) {
 		if (get_ID() == 0) {
 			super.setEXP_Processor_ID(EXP_Processor_ID);
 		}

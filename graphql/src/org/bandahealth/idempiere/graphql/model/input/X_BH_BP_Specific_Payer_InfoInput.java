@@ -78,8 +78,8 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 	 *
 	 * @param BH_BP_Specific_Payer_Info_ID Business Partner Specific Payer Information
 	 */
-
-	public void setBH_BP_Specific_Payer_Info_ID(int BH_BP_Specific_Payer_Info_ID) {
+	@JsonProperty("BH_BP_Specific_Payer_Info_ID")
+	public void setBH_BP_Specific_Payer_Info_IDFromJson(int BH_BP_Specific_Payer_Info_ID) {
 		if (get_ID() == 0) {
 			super.setBH_BP_Specific_Payer_Info_ID(BH_BP_Specific_Payer_Info_ID);
 		}

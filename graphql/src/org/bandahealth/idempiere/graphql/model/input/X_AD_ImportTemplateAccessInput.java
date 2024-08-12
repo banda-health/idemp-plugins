@@ -78,8 +78,8 @@ public class X_AD_ImportTemplateAccessInput extends X_AD_ImportTemplateAccess im
 	 *
 	 * @param AD_ImportTemplateAccess_ID Import Template Access
 	 */
-
-	public void setAD_ImportTemplateAccess_ID(int AD_ImportTemplateAccess_ID) {
+	@JsonProperty("AD_ImportTemplateAccess_ID")
+	public void setAD_ImportTemplateAccess_IDFromJson(int AD_ImportTemplateAccess_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ImportTemplateAccess_ID(AD_ImportTemplateAccess_ID);
 		}

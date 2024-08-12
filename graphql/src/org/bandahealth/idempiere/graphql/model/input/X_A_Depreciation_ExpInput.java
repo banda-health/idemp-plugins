@@ -225,8 +225,8 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 *
 	 * @param A_Depreciation_Exp_ID A_Depreciation_Exp_ID
 	 */
-
-	public void setA_Depreciation_Exp_ID(int A_Depreciation_Exp_ID) {
+	@JsonProperty("A_Depreciation_Exp_ID")
+	public void setA_Depreciation_Exp_IDFromJson(int A_Depreciation_Exp_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Exp_ID(A_Depreciation_Exp_ID);
 		}
@@ -293,8 +293,8 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 *
 	 * @param A_Period Asset Period
 	 */
-
-	public void setA_Period(int A_Period) {
+	@JsonProperty("A_Period")
+	public void setA_PeriodFromJson(int A_Period) {
 		if (get_ID() == 0) {
 			super.setA_Period(A_Period);
 		}

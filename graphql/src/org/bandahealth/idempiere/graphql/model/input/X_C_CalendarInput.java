@@ -74,8 +74,8 @@ public class X_C_CalendarInput extends MCalendar implements I_C_CalendarInput {
 	 *
 	 * @param C_Calendar_ID Accounting Calendar Name
 	 */
-
-	public void setC_Calendar_ID(int C_Calendar_ID) {
+	@JsonProperty("C_Calendar_ID")
+	public void setC_Calendar_IDFromJson(int C_Calendar_ID) {
 		if (get_ID() == 0) {
 			super.setC_Calendar_ID(C_Calendar_ID);
 		}

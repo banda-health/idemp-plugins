@@ -157,8 +157,8 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 	 *
 	 * @param C_BankAccount_ID Account at the Bank
 	 */
-
-	public void setC_BankAccount_ID(int C_BankAccount_ID) {
+	@JsonProperty("C_BankAccount_ID")
+	public void setC_BankAccount_IDFromJson(int C_BankAccount_ID) {
 		if (get_ID() == 0) {
 			super.setC_BankAccount_ID(C_BankAccount_ID);
 		}

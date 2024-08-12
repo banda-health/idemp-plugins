@@ -225,8 +225,8 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	 *
 	 * @param GL_BudgetControl_ID Budget Control
 	 */
-
-	public void setGL_BudgetControl_ID(int GL_BudgetControl_ID) {
+	@JsonProperty("GL_BudgetControl_ID")
+	public void setGL_BudgetControl_IDFromJson(int GL_BudgetControl_ID) {
 		if (get_ID() == 0) {
 			super.setGL_BudgetControl_ID(GL_BudgetControl_ID);
 		}

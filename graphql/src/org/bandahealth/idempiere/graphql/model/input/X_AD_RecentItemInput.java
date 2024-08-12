@@ -84,8 +84,8 @@ public class X_AD_RecentItemInput extends MRecentItem implements I_AD_RecentItem
 	 *
 	 * @param AD_RecentItem_ID Recent Item
 	 */
-
-	public void setAD_RecentItem_ID(int AD_RecentItem_ID) {
+	@JsonProperty("AD_RecentItem_ID")
+	public void setAD_RecentItem_IDFromJson(int AD_RecentItem_ID) {
 		if (get_ID() == 0) {
 			super.setAD_RecentItem_ID(AD_RecentItem_ID);
 		}

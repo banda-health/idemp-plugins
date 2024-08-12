@@ -146,8 +146,8 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 	 *
 	 * @param PP_Cost_CollectorMA_ID Manufacturing Order MA
 	 */
-
-	public void setPP_Cost_CollectorMA_ID(int PP_Cost_CollectorMA_ID) {
+	@JsonProperty("PP_Cost_CollectorMA_ID")
+	public void setPP_Cost_CollectorMA_IDFromJson(int PP_Cost_CollectorMA_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Cost_CollectorMA_ID(PP_Cost_CollectorMA_ID);
 		}

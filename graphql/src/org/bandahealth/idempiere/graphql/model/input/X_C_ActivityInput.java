@@ -74,8 +74,8 @@ public class X_C_ActivityInput extends MActivity implements I_C_ActivityInput {
 	 *
 	 * @param C_Activity_ID Business Activity
 	 */
-
-	public void setC_Activity_ID(int C_Activity_ID) {
+	@JsonProperty("C_Activity_ID")
+	public void setC_Activity_IDFromJson(int C_Activity_ID) {
 		if (get_ID() == 0) {
 			super.setC_Activity_ID(C_Activity_ID);
 		}

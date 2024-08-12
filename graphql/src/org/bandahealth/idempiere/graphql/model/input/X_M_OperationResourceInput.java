@@ -148,8 +148,8 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	 *
 	 * @param M_OperationResource_ID Product Operation Resource
 	 */
-
-	public void setM_OperationResource_ID(int M_OperationResource_ID) {
+	@JsonProperty("M_OperationResource_ID")
+	public void setM_OperationResource_IDFromJson(int M_OperationResource_ID) {
 		if (get_ID() == 0) {
 			super.setM_OperationResource_ID(M_OperationResource_ID);
 		}

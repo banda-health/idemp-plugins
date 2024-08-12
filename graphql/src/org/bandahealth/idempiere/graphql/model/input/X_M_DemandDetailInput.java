@@ -116,8 +116,8 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 	 *
 	 * @param M_DemandDetail_ID Material Demand Line Source Detail
 	 */
-
-	public void setM_DemandDetail_ID(int M_DemandDetail_ID) {
+	@JsonProperty("M_DemandDetail_ID")
+	public void setM_DemandDetail_IDFromJson(int M_DemandDetail_ID) {
 		if (get_ID() == 0) {
 			super.setM_DemandDetail_ID(M_DemandDetail_ID);
 		}

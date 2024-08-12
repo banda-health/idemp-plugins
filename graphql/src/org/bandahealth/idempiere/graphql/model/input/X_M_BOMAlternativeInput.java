@@ -76,8 +76,8 @@ public class X_M_BOMAlternativeInput extends X_M_BOMAlternative implements I_M_B
 	 *
 	 * @param M_BOMAlternative_ID Product BOM Alternative Group
 	 */
-
-	public void setM_BOMAlternative_ID(int M_BOMAlternative_ID) {
+	@JsonProperty("M_BOMAlternative_ID")
+	public void setM_BOMAlternative_IDFromJson(int M_BOMAlternative_ID) {
 		if (get_ID() == 0) {
 			super.setM_BOMAlternative_ID(M_BOMAlternative_ID);
 		}

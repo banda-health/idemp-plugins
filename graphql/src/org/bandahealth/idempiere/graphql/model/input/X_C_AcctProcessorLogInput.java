@@ -113,8 +113,8 @@ public class X_C_AcctProcessorLogInput extends MAcctProcessorLog implements I_C_
 	 *
 	 * @param C_AcctProcessorLog_ID Result of the execution of the Accounting Processor
 	 */
-
-	public void setC_AcctProcessorLog_ID(int C_AcctProcessorLog_ID) {
+	@JsonProperty("C_AcctProcessorLog_ID")
+	public void setC_AcctProcessorLog_IDFromJson(int C_AcctProcessorLog_ID) {
 		if (get_ID() == 0) {
 			super.setC_AcctProcessorLog_ID(C_AcctProcessorLog_ID);
 		}

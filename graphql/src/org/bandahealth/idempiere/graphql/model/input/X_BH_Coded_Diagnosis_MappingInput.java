@@ -113,8 +113,8 @@ public class X_BH_Coded_Diagnosis_MappingInput extends MBHCodedDiagnosisMapping 
 	 *
 	 * @param BH_Coded_Diagnosis_Mapping_ID Coded Diagnosis Mapping ID
 	 */
-
-	public void setBH_Coded_Diagnosis_Mapping_ID(int BH_Coded_Diagnosis_Mapping_ID) {
+	@JsonProperty("BH_Coded_Diagnosis_Mapping_ID")
+	public void setBH_Coded_Diagnosis_Mapping_IDFromJson(int BH_Coded_Diagnosis_Mapping_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Coded_Diagnosis_Mapping_ID(BH_Coded_Diagnosis_Mapping_ID);
 		}

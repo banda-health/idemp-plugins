@@ -496,8 +496,8 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 *
 	 * @param DateNextAction Date that this request should be acted on
 	 */
-
-	public void setDateNextAction(Timestamp DateNextAction) {
+	@JsonProperty("DateNextAction")
+	public void setDateNextActionFromJson(Timestamp DateNextAction) {
 		if (get_ID() == 0) {
 			super.setDateNextAction(DateNextAction);
 		}
@@ -549,8 +549,8 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 *
 	 * @param IsInvoiced Is this invoiced?
 	 */
-
-	public void setIsInvoiced(boolean IsInvoiced) {
+	@JsonProperty("IsInvoiced")
+	public void setIsInvoicedFromJson(boolean IsInvoiced) {
 		if (get_ID() == 0) {
 			super.setIsInvoiced(IsInvoiced);
 		}
@@ -747,8 +747,8 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 *
 	 * @param NullColumns Columns with NULL value
 	 */
-
-	public void setNullColumns(String NullColumns) {
+	@JsonProperty("NullColumns")
+	public void setNullColumnsFromJson(String NullColumns) {
 		if (get_ID() == 0) {
 			super.setNullColumns(NullColumns);
 		}
@@ -953,8 +953,8 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 *
 	 * @param R_RequestAction_ID Request has been changed
 	 */
-
-	public void setR_RequestAction_ID(int R_RequestAction_ID) {
+	@JsonProperty("R_RequestAction_ID")
+	public void setR_RequestAction_IDFromJson(int R_RequestAction_ID) {
 		if (get_ID() == 0) {
 			super.setR_RequestAction_ID(R_RequestAction_ID);
 		}
@@ -1130,8 +1130,8 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 *
 	 * @param Summary Textual summary of this request
 	 */
-
-	public void setSummary(String Summary) {
+	@JsonProperty("Summary")
+	public void setSummaryFromJson(String Summary) {
 		if (get_ID() == 0) {
 			super.setSummary(Summary);
 		}

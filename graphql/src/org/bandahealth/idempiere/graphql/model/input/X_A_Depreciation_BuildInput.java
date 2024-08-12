@@ -45,8 +45,8 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 *
 	 * @param A_Depreciation_Build_ID Build Depreciation
 	 */
-
-	public void setA_Depreciation_Build_ID(int A_Depreciation_Build_ID) {
+	@JsonProperty("A_Depreciation_Build_ID")
+	public void setA_Depreciation_Build_IDFromJson(int A_Depreciation_Build_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Build_ID(A_Depreciation_Build_ID);
 		}

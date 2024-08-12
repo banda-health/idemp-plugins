@@ -117,8 +117,8 @@ public class X_AD_FormInput extends MForm implements I_AD_FormInput {
 	 *
 	 * @param AD_Form_ID Special Form
 	 */
-
-	public void setAD_Form_ID(int AD_Form_ID) {
+	@JsonProperty("AD_Form_ID")
+	public void setAD_Form_IDFromJson(int AD_Form_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Form_ID(AD_Form_ID);
 		}

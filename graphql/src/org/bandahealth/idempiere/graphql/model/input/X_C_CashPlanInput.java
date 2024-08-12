@@ -188,8 +188,8 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 *
 	 * @param C_CashPlan_ID Cash Plan
 	 */
-
-	public void setC_CashPlan_ID(int C_CashPlan_ID) {
+	@JsonProperty("C_CashPlan_ID")
+	public void setC_CashPlan_IDFromJson(int C_CashPlan_ID) {
 		if (get_ID() == 0) {
 			super.setC_CashPlan_ID(C_CashPlan_ID);
 		}
@@ -290,8 +290,8 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 *
 	 * @param GrandTotal Total amount of document
 	 */
-
-	public void setGrandTotal(BigDecimal GrandTotal) {
+	@JsonProperty("GrandTotal")
+	public void setGrandTotalFromJson(BigDecimal GrandTotal) {
 		if (get_ID() == 0) {
 			super.setGrandTotal(GrandTotal);
 		}
@@ -301,8 +301,8 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 *
 	 * @param IsApproved Indicates if this document requires approval
 	 */
-
-	public void setIsApproved(boolean IsApproved) {
+	@JsonProperty("IsApproved")
+	public void setIsApprovedFromJson(boolean IsApproved) {
 		if (get_ID() == 0) {
 			super.setIsApproved(IsApproved);
 		}
@@ -312,8 +312,8 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}

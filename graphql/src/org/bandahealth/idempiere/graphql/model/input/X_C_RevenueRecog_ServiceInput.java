@@ -76,8 +76,8 @@ public class X_C_RevenueRecog_ServiceInput extends MRevenueRecogService implemen
 	 *
 	 * @param C_RevenueRecog_Service_ID Revenue Recognition Service
 	 */
-
-	public void setC_RevenueRecog_Service_ID(int C_RevenueRecog_Service_ID) {
+	@JsonProperty("C_RevenueRecog_Service_ID")
+	public void setC_RevenueRecog_Service_IDFromJson(int C_RevenueRecog_Service_ID) {
 		if (get_ID() == 0) {
 			super.setC_RevenueRecog_Service_ID(C_RevenueRecog_Service_ID);
 		}

@@ -220,8 +220,8 @@ public class X_AD_UserQueryInput extends MUserQuery implements I_AD_UserQueryInp
 	 *
 	 * @param AD_UserQuery_ID Saved User Query
 	 */
-
-	public void setAD_UserQuery_ID(int AD_UserQuery_ID) {
+	@JsonProperty("AD_UserQuery_ID")
+	public void setAD_UserQuery_IDFromJson(int AD_UserQuery_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserQuery_ID(AD_UserQuery_ID);
 		}

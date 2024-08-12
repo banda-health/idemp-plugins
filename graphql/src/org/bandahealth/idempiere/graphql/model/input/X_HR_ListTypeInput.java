@@ -74,8 +74,8 @@ public class X_HR_ListTypeInput extends X_HR_ListType implements I_HR_ListTypeIn
 	 *
 	 * @param HR_ListType_ID Payroll List Type
 	 */
-
-	public void setHR_ListType_ID(int HR_ListType_ID) {
+	@JsonProperty("HR_ListType_ID")
+	public void setHR_ListType_IDFromJson(int HR_ListType_ID) {
 		if (get_ID() == 0) {
 			super.setHR_ListType_ID(HR_ListType_ID);
 		}

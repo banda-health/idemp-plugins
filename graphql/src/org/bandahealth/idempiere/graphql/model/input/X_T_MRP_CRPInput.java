@@ -110,8 +110,8 @@ public class X_T_MRP_CRPInput extends X_T_MRP_CRP implements I_T_MRP_CRPInput {
 	 *
 	 * @param T_MRP_CRP_ID Temporal MRP & CRP
 	 */
-
-	public void setT_MRP_CRP_ID(int T_MRP_CRP_ID) {
+	@JsonProperty("T_MRP_CRP_ID")
+	public void setT_MRP_CRP_IDFromJson(int T_MRP_CRP_ID) {
 		if (get_ID() == 0) {
 			super.setT_MRP_CRP_ID(T_MRP_CRP_ID);
 		}

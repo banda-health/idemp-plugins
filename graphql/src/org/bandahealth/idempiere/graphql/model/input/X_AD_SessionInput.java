@@ -110,8 +110,8 @@ public class X_AD_SessionInput extends MSession implements I_AD_SessionInput {
 	 *
 	 * @param AD_Session_ID User Session Online or Web
 	 */
-
-	public void setAD_Session_ID(int AD_Session_ID) {
+	@JsonProperty("AD_Session_ID")
+	public void setAD_Session_IDFromJson(int AD_Session_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Session_ID(AD_Session_ID);
 		}
@@ -139,8 +139,8 @@ public class X_AD_SessionInput extends MSession implements I_AD_SessionInput {
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}
@@ -150,8 +150,8 @@ public class X_AD_SessionInput extends MSession implements I_AD_SessionInput {
 	 *
 	 * @param Remote_Addr Remote Address
 	 */
-
-	public void setRemote_Addr(String Remote_Addr) {
+	@JsonProperty("Remote_Addr")
+	public void setRemote_AddrFromJson(String Remote_Addr) {
 		if (get_ID() == 0) {
 			super.setRemote_Addr(Remote_Addr);
 		}
@@ -161,8 +161,8 @@ public class X_AD_SessionInput extends MSession implements I_AD_SessionInput {
 	 *
 	 * @param Remote_Host Remote host Info
 	 */
-
-	public void setRemote_Host(String Remote_Host) {
+	@JsonProperty("Remote_Host")
+	public void setRemote_HostFromJson(String Remote_Host) {
 		if (get_ID() == 0) {
 			super.setRemote_Host(Remote_Host);
 		}
@@ -172,8 +172,8 @@ public class X_AD_SessionInput extends MSession implements I_AD_SessionInput {
 	 *
 	 * @param WebSession Web Session ID
 	 */
-
-	public void setWebSession(String WebSession) {
+	@JsonProperty("WebSession")
+	public void setWebSessionFromJson(String WebSession) {
 		if (get_ID() == 0) {
 			super.setWebSession(WebSession);
 		}

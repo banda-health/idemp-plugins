@@ -113,8 +113,8 @@ public class X_EXP_ProcessorParameterInput extends MEXPProcessorParameter implem
 	 *
 	 * @param EXP_ProcessorParameter_ID Processor Parameter
 	 */
-
-	public void setEXP_ProcessorParameter_ID(int EXP_ProcessorParameter_ID) {
+	@JsonProperty("EXP_ProcessorParameter_ID")
+	public void setEXP_ProcessorParameter_IDFromJson(int EXP_ProcessorParameter_ID) {
 		if (get_ID() == 0) {
 			super.setEXP_ProcessorParameter_ID(EXP_ProcessorParameter_ID);
 		}

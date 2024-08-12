@@ -195,8 +195,8 @@ public class X_M_CostQueueInput extends MCostQueue implements I_M_CostQueueInput
 	 *
 	 * @param M_CostQueue_ID FiFo/LiFo Cost Queue
 	 */
-
-	public void setM_CostQueue_ID(int M_CostQueue_ID) {
+	@JsonProperty("M_CostQueue_ID")
+	public void setM_CostQueue_IDFromJson(int M_CostQueue_ID) {
 		if (get_ID() == 0) {
 			super.setM_CostQueue_ID(M_CostQueue_ID);
 		}

@@ -370,8 +370,8 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 *
 	 * @param PA_DashboardContent_ID Dashboard Content
 	 */
-
-	public void setPA_DashboardContent_ID(int PA_DashboardContent_ID) {
+	@JsonProperty("PA_DashboardContent_ID")
+	public void setPA_DashboardContent_IDFromJson(int PA_DashboardContent_ID) {
 		if (get_ID() == 0) {
 			super.setPA_DashboardContent_ID(PA_DashboardContent_ID);
 		}

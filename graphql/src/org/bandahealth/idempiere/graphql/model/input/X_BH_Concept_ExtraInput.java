@@ -78,8 +78,8 @@ public class X_BH_Concept_ExtraInput extends MBHConceptExtra implements I_BH_Con
 	 *
 	 * @param BH_Concept_Extra_ID Concept Extra
 	 */
-
-	public void setBH_Concept_Extra_ID(int BH_Concept_Extra_ID) {
+	@JsonProperty("BH_Concept_Extra_ID")
+	public void setBH_Concept_Extra_IDFromJson(int BH_Concept_Extra_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Concept_Extra_ID(BH_Concept_Extra_ID);
 		}

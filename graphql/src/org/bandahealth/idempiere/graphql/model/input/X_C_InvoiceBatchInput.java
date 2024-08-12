@@ -149,8 +149,8 @@ public class X_C_InvoiceBatchInput extends MInvoiceBatch implements I_C_InvoiceB
 	 *
 	 * @param C_InvoiceBatch_ID Expense Invoice Batch Header
 	 */
-
-	public void setC_InvoiceBatch_ID(int C_InvoiceBatch_ID) {
+	@JsonProperty("C_InvoiceBatch_ID")
+	public void setC_InvoiceBatch_IDFromJson(int C_InvoiceBatch_ID) {
 		if (get_ID() == 0) {
 			super.setC_InvoiceBatch_ID(C_InvoiceBatch_ID);
 		}
@@ -178,8 +178,8 @@ public class X_C_InvoiceBatchInput extends MInvoiceBatch implements I_C_InvoiceB
 	 *
 	 * @param DocumentAmt Document Amount
 	 */
-
-	public void setDocumentAmt(BigDecimal DocumentAmt) {
+	@JsonProperty("DocumentAmt")
+	public void setDocumentAmtFromJson(BigDecimal DocumentAmt) {
 		if (get_ID() == 0) {
 			super.setDocumentAmt(DocumentAmt);
 		}

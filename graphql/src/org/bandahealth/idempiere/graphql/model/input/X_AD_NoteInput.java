@@ -118,8 +118,8 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 	 *
 	 * @param AD_Note_ID System Notice
 	 */
-
-	public void setAD_Note_ID(int AD_Note_ID) {
+	@JsonProperty("AD_Note_ID")
+	public void setAD_Note_IDFromJson(int AD_Note_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Note_ID(AD_Note_ID);
 		}

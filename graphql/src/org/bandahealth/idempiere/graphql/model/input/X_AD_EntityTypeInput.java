@@ -37,8 +37,8 @@ public class X_AD_EntityTypeInput extends MEntityType implements I_AD_EntityType
 	 *
 	 * @param AD_EntityType_ID System Entity Type
 	 */
-
-	public void setAD_EntityType_ID(int AD_EntityType_ID) {
+	@JsonProperty("AD_EntityType_ID")
+	public void setAD_EntityType_IDFromJson(int AD_EntityType_ID) {
 		if (get_ID() == 0) {
 			super.setAD_EntityType_ID(AD_EntityType_ID);
 		}
@@ -103,8 +103,8 @@ public class X_AD_EntityTypeInput extends MEntityType implements I_AD_EntityType
 	 *
 	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-
-	public void setEntityType(String EntityType) {
+	@JsonProperty("EntityType")
+	public void setEntityTypeFromJson(String EntityType) {
 		if (get_ID() == 0) {
 			super.setEntityType(EntityType);
 		}

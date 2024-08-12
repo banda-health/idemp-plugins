@@ -43,8 +43,8 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 	 *
 	 * @param AD_LdapAccess_ID Ldap Access Log
 	 */
-
-	public void setAD_LdapAccess_ID(int AD_LdapAccess_ID) {
+	@JsonProperty("AD_LdapAccess_ID")
+	public void setAD_LdapAccess_IDFromJson(int AD_LdapAccess_ID) {
 		if (get_ID() == 0) {
 			super.setAD_LdapAccess_ID(AD_LdapAccess_ID);
 		}
@@ -183,8 +183,8 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 	 *
 	 * @param IsError An Error occurred in the execution
 	 */
-
-	public void setIsError(boolean IsError) {
+	@JsonProperty("IsError")
+	public void setIsErrorFromJson(boolean IsError) {
 		if (get_ID() == 0) {
 			super.setIsError(IsError);
 		}
@@ -231,8 +231,8 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 	 *
 	 * @param Summary Textual summary of this request
 	 */
-
-	public void setSummary(String Summary) {
+	@JsonProperty("Summary")
+	public void setSummaryFromJson(String Summary) {
 		if (get_ID() == 0) {
 			super.setSummary(Summary);
 		}

@@ -392,8 +392,8 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param DateConfirm Date Confirm of this Order
 	 */
-
-	public void setDateConfirm(Timestamp DateConfirm) {
+	@JsonProperty("DateConfirm")
+	public void setDateConfirmFromJson(Timestamp DateConfirm) {
 		if (get_ID() == 0) {
 			super.setDateConfirm(DateConfirm);
 		}
@@ -403,8 +403,8 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param DateDelivered Date when the product was delivered
 	 */
-
-	public void setDateDelivered(Timestamp DateDelivered) {
+	@JsonProperty("DateDelivered")
+	public void setDateDeliveredFromJson(Timestamp DateDelivered) {
 		if (get_ID() == 0) {
 			super.setDateDelivered(DateDelivered);
 		}
@@ -414,8 +414,8 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param DateFinish Finish or (planned) completion date
 	 */
-
-	public void setDateFinish(Timestamp DateFinish) {
+	@JsonProperty("DateFinish")
+	public void setDateFinishFromJson(Timestamp DateFinish) {
 		if (get_ID() == 0) {
 			super.setDateFinish(DateFinish);
 		}
@@ -425,8 +425,8 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param DateStart Date Start for this Order
 	 */
-
-	public void setDateStart(Timestamp DateStart) {
+	@JsonProperty("DateStart")
+	public void setDateStartFromJson(Timestamp DateStart) {
 		if (get_ID() == 0) {
 			super.setDateStart(DateStart);
 		}
@@ -656,8 +656,8 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param PP_Order_ID Manufacturing Order
 	 */
-
-	public void setPP_Order_ID(int PP_Order_ID) {
+	@JsonProperty("PP_Order_ID")
+	public void setPP_Order_IDFromJson(int PP_Order_ID) {
 		if (get_ID() == 0) {
 			super.setPP_Order_ID(PP_Order_ID);
 		}
@@ -761,8 +761,8 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param QtyBatchs Qty Batch
 	 */
-
-	public void setQtyBatchs(BigDecimal QtyBatchs) {
+	@JsonProperty("QtyBatchs")
+	public void setQtyBatchsFromJson(BigDecimal QtyBatchs) {
 		if (get_ID() == 0) {
 			super.setQtyBatchs(QtyBatchs);
 		}
@@ -772,8 +772,8 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param QtyBatchSize Qty Batch Size
 	 */
-
-	public void setQtyBatchSize(BigDecimal QtyBatchSize) {
+	@JsonProperty("QtyBatchSize")
+	public void setQtyBatchSizeFromJson(BigDecimal QtyBatchSize) {
 		if (get_ID() == 0) {
 			super.setQtyBatchSize(QtyBatchSize);
 		}
@@ -783,8 +783,8 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param QtyOrdered Ordered Quantity
 	 */
-
-	public void setQtyOrdered(BigDecimal QtyOrdered) {
+	@JsonProperty("QtyOrdered")
+	public void setQtyOrderedFromJson(BigDecimal QtyOrdered) {
 		if (get_ID() == 0) {
 			super.setQtyOrdered(QtyOrdered);
 		}

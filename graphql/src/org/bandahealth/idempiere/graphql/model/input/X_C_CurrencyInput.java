@@ -74,8 +74,8 @@ public class X_C_CurrencyInput extends MCurrency_BH implements I_C_CurrencyInput
 	 *
 	 * @param C_Currency_ID The Currency for this record
 	 */
-
-	public void setC_Currency_ID(int C_Currency_ID) {
+	@JsonProperty("C_Currency_ID")
+	public void setC_Currency_IDFromJson(int C_Currency_ID) {
 		if (get_ID() == 0) {
 			super.setC_Currency_ID(C_Currency_ID);
 		}

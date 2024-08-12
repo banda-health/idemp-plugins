@@ -119,8 +119,8 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	 *
 	 * @param C_CommissionDetail_ID Supporting information for Commission Amounts
 	 */
-
-	public void setC_CommissionDetail_ID(int C_CommissionDetail_ID) {
+	@JsonProperty("C_CommissionDetail_ID")
+	public void setC_CommissionDetail_IDFromJson(int C_CommissionDetail_ID) {
 		if (get_ID() == 0) {
 			super.setC_CommissionDetail_ID(C_CommissionDetail_ID);
 		}

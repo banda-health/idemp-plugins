@@ -117,8 +117,8 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 	 *
 	 * @param M_DiscountSchemaBreak_ID Trade Discount Break
 	 */
-
-	public void setM_DiscountSchemaBreak_ID(int M_DiscountSchemaBreak_ID) {
+	@JsonProperty("M_DiscountSchemaBreak_ID")
+	public void setM_DiscountSchemaBreak_IDFromJson(int M_DiscountSchemaBreak_ID) {
 		if (get_ID() == 0) {
 			super.setM_DiscountSchemaBreak_ID(M_DiscountSchemaBreak_ID);
 		}

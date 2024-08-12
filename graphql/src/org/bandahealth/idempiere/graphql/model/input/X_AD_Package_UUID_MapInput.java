@@ -73,8 +73,8 @@ public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements
 	 *
 	 * @param AD_Package_UUID_Map_ID UUID Mapping between tenant
 	 */
-
-	public void setAD_Package_UUID_Map_ID(int AD_Package_UUID_Map_ID) {
+	@JsonProperty("AD_Package_UUID_Map_ID")
+	public void setAD_Package_UUID_Map_IDFromJson(int AD_Package_UUID_Map_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Package_UUID_Map_ID(AD_Package_UUID_Map_ID);
 		}
@@ -139,8 +139,8 @@ public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements
 	 *
 	 * @param Source_UUID UUID from the source tenant
 	 */
-
-	public void setSource_UUID(String Source_UUID) {
+	@JsonProperty("Source_UUID")
+	public void setSource_UUIDFromJson(String Source_UUID) {
 		if (get_ID() == 0) {
 			super.setSource_UUID(Source_UUID);
 		}
@@ -150,8 +150,8 @@ public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements
 	 *
 	 * @param Target_UUID New UUID created by the pack in tenant
 	 */
-
-	public void setTarget_UUID(String Target_UUID) {
+	@JsonProperty("Target_UUID")
+	public void setTarget_UUIDFromJson(String Target_UUID) {
 		if (get_ID() == 0) {
 			super.setTarget_UUID(Target_UUID);
 		}

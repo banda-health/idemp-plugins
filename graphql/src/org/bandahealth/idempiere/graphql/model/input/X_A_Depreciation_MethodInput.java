@@ -37,8 +37,8 @@ public class X_A_Depreciation_MethodInput extends MDepreciationMethod implements
 	 *
 	 * @param A_Depreciation_Method_ID Depreciation Method
 	 */
-
-	public void setA_Depreciation_Method_ID(int A_Depreciation_Method_ID) {
+	@JsonProperty("A_Depreciation_Method_ID")
+	public void setA_Depreciation_Method_IDFromJson(int A_Depreciation_Method_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Method_ID(A_Depreciation_Method_ID);
 		}

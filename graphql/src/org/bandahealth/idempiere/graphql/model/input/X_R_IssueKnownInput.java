@@ -80,8 +80,8 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 	 *
 	 * @param R_IssueKnown_ID Known Issue
 	 */
-
-	public void setR_IssueKnown_ID(int R_IssueKnown_ID) {
+	@JsonProperty("R_IssueKnown_ID")
+	public void setR_IssueKnown_IDFromJson(int R_IssueKnown_ID) {
 		if (get_ID() == 0) {
 			super.setR_IssueKnown_ID(R_IssueKnown_ID);
 		}

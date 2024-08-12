@@ -157,8 +157,8 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	 *
 	 * @param C_Cash_ID Cash Journal
 	 */
-
-	public void setC_Cash_ID(int C_Cash_ID) {
+	@JsonProperty("C_Cash_ID")
+	public void setC_Cash_IDFromJson(int C_Cash_ID) {
 		if (get_ID() == 0) {
 			super.setC_Cash_ID(C_Cash_ID);
 		}
@@ -335,8 +335,8 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

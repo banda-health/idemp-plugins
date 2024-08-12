@@ -185,8 +185,8 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 	 *
 	 * @param GL_JournalGeneratorSource_ID Generator Source
 	 */
-
-	public void setGL_JournalGeneratorSource_ID(int GL_JournalGeneratorSource_ID) {
+	@JsonProperty("GL_JournalGeneratorSource_ID")
+	public void setGL_JournalGeneratorSource_IDFromJson(int GL_JournalGeneratorSource_ID) {
 		if (get_ID() == 0) {
 			super.setGL_JournalGeneratorSource_ID(GL_JournalGeneratorSource_ID);
 		}

@@ -78,8 +78,8 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	 *
 	 * @param M_Locator_ID Warehouse Locator
 	 */
-
-	public void setM_Locator_ID(int M_Locator_ID) {
+	@JsonProperty("M_Locator_ID")
+	public void setM_Locator_IDFromJson(int M_Locator_ID) {
 		if (get_ID() == 0) {
 			super.setM_Locator_ID(M_Locator_ID);
 		}

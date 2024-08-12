@@ -467,8 +467,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 *
 	 * @param C_ValidCombination_ID Valid Account Combination
 	 */
-
-	public void setC_ValidCombination_ID(int C_ValidCombination_ID) {
+	@JsonProperty("C_ValidCombination_ID")
+	public void setC_ValidCombination_IDFromJson(int C_ValidCombination_ID) {
 		if (get_ID() == 0) {
 			super.setC_ValidCombination_ID(C_ValidCombination_ID);
 		}
@@ -496,8 +496,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 *
 	 * @param Combination Unique combination of account elements
 	 */
-
-	public void setCombination(String Combination) {
+	@JsonProperty("Combination")
+	public void setCombinationFromJson(String Combination) {
 		if (get_ID() == 0) {
 			super.setCombination(Combination);
 		}
@@ -507,8 +507,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 *
 	 * @param Description Optional short description of the record
 	 */
-
-	public void setDescription(String Description) {
+	@JsonProperty("Description")
+	public void setDescriptionFromJson(String Description) {
 		if (get_ID() == 0) {
 			super.setDescription(Description);
 		}
@@ -518,8 +518,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 *
 	 * @param IsFullyQualified This account is fully qualified
 	 */
-
-	public void setIsFullyQualified(boolean IsFullyQualified) {
+	@JsonProperty("IsFullyQualified")
+	public void setIsFullyQualifiedFromJson(boolean IsFullyQualified) {
 		if (get_ID() == 0) {
 			super.setIsFullyQualified(IsFullyQualified);
 		}

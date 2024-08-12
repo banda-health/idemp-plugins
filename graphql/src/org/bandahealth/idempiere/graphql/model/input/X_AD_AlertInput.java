@@ -39,8 +39,8 @@ public class X_AD_AlertInput extends MAlert implements I_AD_AlertInput {
 	 *
 	 * @param AD_Alert_ID iDempiere Alert
 	 */
-
-	public void setAD_Alert_ID(int AD_Alert_ID) {
+	@JsonProperty("AD_Alert_ID")
+	public void setAD_Alert_IDFromJson(int AD_Alert_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Alert_ID(AD_Alert_ID);
 		}

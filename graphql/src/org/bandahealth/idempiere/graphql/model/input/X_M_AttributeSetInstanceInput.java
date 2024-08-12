@@ -154,8 +154,8 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 *
 	 * @param M_AttributeSetInstance_ID Product Attribute Set Instance
 	 */
-
-	public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
+	@JsonProperty("M_AttributeSetInstance_ID")
+	public void setM_AttributeSetInstance_IDFromJson(int M_AttributeSetInstance_ID) {
 		if (get_ID() == 0) {
 			super.setM_AttributeSetInstance_ID(M_AttributeSetInstance_ID);
 		}

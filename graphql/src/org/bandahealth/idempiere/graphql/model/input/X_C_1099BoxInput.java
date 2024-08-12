@@ -74,8 +74,8 @@ public class X_C_1099BoxInput extends X_C_1099Box implements I_C_1099BoxInput {
 	 *
 	 * @param C_1099Box_ID 1099 Box
 	 */
-
-	public void setC_1099Box_ID(int C_1099Box_ID) {
+	@JsonProperty("C_1099Box_ID")
+	public void setC_1099Box_IDFromJson(int C_1099Box_ID) {
 		if (get_ID() == 0) {
 			super.setC_1099Box_ID(C_1099Box_ID);
 		}

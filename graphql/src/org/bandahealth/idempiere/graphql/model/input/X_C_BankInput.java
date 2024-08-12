@@ -76,8 +76,8 @@ public class X_C_BankInput extends MBank implements I_C_BankInput {
 	 *
 	 * @param C_Bank_ID Bank
 	 */
-
-	public void setC_Bank_ID(int C_Bank_ID) {
+	@JsonProperty("C_Bank_ID")
+	public void setC_Bank_IDFromJson(int C_Bank_ID) {
 		if (get_ID() == 0) {
 			super.setC_Bank_ID(C_Bank_ID);
 		}

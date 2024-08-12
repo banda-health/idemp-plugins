@@ -74,8 +74,8 @@ public class X_M_PartTypeInput extends X_M_PartType implements I_M_PartTypeInput
 	 *
 	 * @param M_PartType_ID Part Type
 	 */
-
-	public void setM_PartType_ID(int M_PartType_ID) {
+	@JsonProperty("M_PartType_ID")
+	public void setM_PartType_IDFromJson(int M_PartType_ID) {
 		if (get_ID() == 0) {
 			super.setM_PartType_ID(M_PartType_ID);
 		}

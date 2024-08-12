@@ -79,8 +79,8 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 	 *
 	 * @param DateLastRun Date the process was last run.
 	 */
-
-	public void setDateLastRun(Timestamp DateLastRun) {
+	@JsonProperty("DateLastRun")
+	public void setDateLastRunFromJson(Timestamp DateLastRun) {
 		if (get_ID() == 0) {
 			super.setDateLastRun(DateLastRun);
 		}
@@ -90,8 +90,8 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 	 *
 	 * @param DateNextRun Date the process will run next
 	 */
-
-	public void setDateNextRun(Timestamp DateNextRun) {
+	@JsonProperty("DateNextRun")
+	public void setDateNextRunFromJson(Timestamp DateNextRun) {
 		if (get_ID() == 0) {
 			super.setDateNextRun(DateNextRun);
 		}
@@ -101,8 +101,8 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 	 *
 	 * @param M_PerpetualInv_ID Rules for generating physical inventory
 	 */
-
-	public void setM_PerpetualInv_ID(int M_PerpetualInv_ID) {
+	@JsonProperty("M_PerpetualInv_ID")
+	public void setM_PerpetualInv_IDFromJson(int M_PerpetualInv_ID) {
 		if (get_ID() == 0) {
 			super.setM_PerpetualInv_ID(M_PerpetualInv_ID);
 		}

@@ -74,8 +74,8 @@ public class X_C_SalesStageInput extends X_C_SalesStage implements I_C_SalesStag
 	 *
 	 * @param C_SalesStage_ID Stages of the sales process
 	 */
-
-	public void setC_SalesStage_ID(int C_SalesStage_ID) {
+	@JsonProperty("C_SalesStage_ID")
+	public void setC_SalesStage_IDFromJson(int C_SalesStage_ID) {
 		if (get_ID() == 0) {
 			super.setC_SalesStage_ID(C_SalesStage_ID);
 		}

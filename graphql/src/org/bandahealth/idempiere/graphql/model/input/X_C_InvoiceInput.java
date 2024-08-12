@@ -639,8 +639,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param C_Invoice_ID Invoice Identifier
 	 */
-
-	public void setC_Invoice_ID(int C_Invoice_ID) {
+	@JsonProperty("C_Invoice_ID")
+	public void setC_Invoice_IDFromJson(int C_Invoice_ID) {
 		if (get_ID() == 0) {
 			super.setC_Invoice_ID(C_Invoice_ID);
 		}
@@ -807,8 +807,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param DateOrdered Date of Order
 	 */
-
-	public void setDateOrdered(Timestamp DateOrdered) {
+	@JsonProperty("DateOrdered")
+	public void setDateOrderedFromJson(Timestamp DateOrdered) {
 		if (get_ID() == 0) {
 			super.setDateOrdered(DateOrdered);
 		}
@@ -896,8 +896,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -907,8 +907,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param GrandTotal Total amount of document
 	 */
-
-	public void setGrandTotal(BigDecimal GrandTotal) {
+	@JsonProperty("GrandTotal")
+	public void setGrandTotalFromJson(BigDecimal GrandTotal) {
 		if (get_ID() == 0) {
 			super.setGrandTotal(GrandTotal);
 		}
@@ -957,8 +957,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param IsApproved Indicates if this document requires approval
 	 */
-
-	public void setIsApproved(boolean IsApproved) {
+	@JsonProperty("IsApproved")
+	public void setIsApprovedFromJson(boolean IsApproved) {
 		if (get_ID() == 0) {
 			super.setIsApproved(IsApproved);
 		}
@@ -968,8 +968,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param IsPayScheduleValid Is the Payment Schedule is valid
 	 */
-
-	public void setIsPayScheduleValid(boolean IsPayScheduleValid) {
+	@JsonProperty("IsPayScheduleValid")
+	public void setIsPayScheduleValidFromJson(boolean IsPayScheduleValid) {
 		if (get_ID() == 0) {
 			super.setIsPayScheduleValid(IsPayScheduleValid);
 		}
@@ -979,8 +979,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param IsPrinted Indicates if this document / line is printed
 	 */
-
-	public void setIsPrinted(boolean IsPrinted) {
+	@JsonProperty("IsPrinted")
+	public void setIsPrintedFromJson(boolean IsPrinted) {
 		if (get_ID() == 0) {
 			super.setIsPrinted(IsPrinted);
 		}
@@ -990,8 +990,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param IsSOTrx This is a Sales Transaction
 	 */
-
-	public void setIsSOTrx(boolean IsSOTrx) {
+	@JsonProperty("IsSOTrx")
+	public void setIsSOTrxFromJson(boolean IsSOTrx) {
 		if (get_ID() == 0) {
 			super.setIsSOTrx(IsSOTrx);
 		}
@@ -1001,8 +1001,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param IsTransferred Transferred to General Ledger (i.e. accounted)
 	 */
-
-	public void setIsTransferred(boolean IsTransferred) {
+	@JsonProperty("IsTransferred")
+	public void setIsTransferredFromJson(boolean IsTransferred) {
 		if (get_ID() == 0) {
 			super.setIsTransferred(IsTransferred);
 		}
@@ -1119,8 +1119,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}
@@ -1130,8 +1130,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}
@@ -1243,8 +1243,8 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param TotalLines Total of all document lines
 	 */
-
-	public void setTotalLines(BigDecimal TotalLines) {
+	@JsonProperty("TotalLines")
+	public void setTotalLinesFromJson(BigDecimal TotalLines) {
 		if (get_ID() == 0) {
 			super.setTotalLines(TotalLines);
 		}

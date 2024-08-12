@@ -308,8 +308,8 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 *
 	 * @param PA_ReportLine_ID Report Line
 	 */
-
-	public void setPA_ReportLine_ID(int PA_ReportLine_ID) {
+	@JsonProperty("PA_ReportLine_ID")
+	public void setPA_ReportLine_IDFromJson(int PA_ReportLine_ID) {
 		if (get_ID() == 0) {
 			super.setPA_ReportLine_ID(PA_ReportLine_ID);
 		}

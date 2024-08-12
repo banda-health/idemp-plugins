@@ -113,8 +113,8 @@ public class X_C_BankStatementLoaderInput extends MBankStatementLoader implement
 	 *
 	 * @param C_BankStatementLoader_ID Definition of Bank Statement Loader (SWIFT, OFX)
 	 */
-
-	public void setC_BankStatementLoader_ID(int C_BankStatementLoader_ID) {
+	@JsonProperty("C_BankStatementLoader_ID")
+	public void setC_BankStatementLoader_IDFromJson(int C_BankStatementLoader_ID) {
 		if (get_ID() == 0) {
 			super.setC_BankStatementLoader_ID(C_BankStatementLoader_ID);
 		}

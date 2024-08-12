@@ -78,8 +78,8 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 *
 	 * @param AssignDateFrom Assign resource from
 	 */
-
-	public void setAssignDateFrom(Timestamp AssignDateFrom) {
+	@JsonProperty("AssignDateFrom")
+	public void setAssignDateFromFromJson(Timestamp AssignDateFrom) {
 		if (get_ID() == 0) {
 			super.setAssignDateFrom(AssignDateFrom);
 		}
@@ -89,8 +89,8 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 *
 	 * @param AssignDateTo Assign resource until
 	 */
-
-	public void setAssignDateTo(Timestamp AssignDateTo) {
+	@JsonProperty("AssignDateTo")
+	public void setAssignDateToFromJson(Timestamp AssignDateTo) {
 		if (get_ID() == 0) {
 			super.setAssignDateTo(AssignDateTo);
 		}
@@ -100,8 +100,8 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 *
 	 * @param IsConfirmed Assignment is confirmed
 	 */
-
-	public void setIsConfirmed(boolean IsConfirmed) {
+	@JsonProperty("IsConfirmed")
+	public void setIsConfirmedFromJson(boolean IsConfirmed) {
 		if (get_ID() == 0) {
 			super.setIsConfirmed(IsConfirmed);
 		}
@@ -111,8 +111,8 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 *
 	 * @param Qty Quantity
 	 */
-
-	public void setQty(BigDecimal Qty) {
+	@JsonProperty("Qty")
+	public void setQtyFromJson(BigDecimal Qty) {
 		if (get_ID() == 0) {
 			super.setQty(Qty);
 		}
@@ -159,8 +159,8 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 *
 	 * @param S_ResourceAssignment_ID Resource Assignment
 	 */
-
-	public void setS_ResourceAssignment_ID(int S_ResourceAssignment_ID) {
+	@JsonProperty("S_ResourceAssignment_ID")
+	public void setS_ResourceAssignment_IDFromJson(int S_ResourceAssignment_ID) {
 		if (get_ID() == 0) {
 			super.setS_ResourceAssignment_ID(S_ResourceAssignment_ID);
 		}

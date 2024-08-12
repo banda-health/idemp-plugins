@@ -116,8 +116,8 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	 *
 	 * @param AD_UserBPAccess_ID User/contact access to Business Partner information and resources
 	 */
-
-	public void setAD_UserBPAccess_ID(int AD_UserBPAccess_ID) {
+	@JsonProperty("AD_UserBPAccess_ID")
+	public void setAD_UserBPAccess_IDFromJson(int AD_UserBPAccess_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserBPAccess_ID(AD_UserBPAccess_ID);
 		}

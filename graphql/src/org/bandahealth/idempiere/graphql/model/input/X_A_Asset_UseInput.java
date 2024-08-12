@@ -76,8 +76,8 @@ public class X_A_Asset_UseInput extends MAssetUse implements I_A_Asset_UseInput 
 	 *
 	 * @param A_Asset_Use_ID A_Asset_Use_ID
 	 */
-
-	public void setA_Asset_Use_ID(int A_Asset_Use_ID) {
+	@JsonProperty("A_Asset_Use_ID")
+	public void setA_Asset_Use_IDFromJson(int A_Asset_Use_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Use_ID(A_Asset_Use_ID);
 		}

@@ -218,8 +218,8 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 	 *
 	 * @param QM_Specification_ID Quality Specification
 	 */
-
-	public void setQM_Specification_ID(int QM_Specification_ID) {
+	@JsonProperty("QM_Specification_ID")
+	public void setQM_Specification_IDFromJson(int QM_Specification_ID) {
 		if (get_ID() == 0) {
 			super.setQM_Specification_ID(QM_Specification_ID);
 		}

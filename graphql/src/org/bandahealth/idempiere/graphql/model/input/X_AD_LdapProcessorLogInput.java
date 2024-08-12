@@ -76,8 +76,8 @@ public class X_AD_LdapProcessorLogInput extends MLdapProcessorLog implements I_A
 	 *
 	 * @param AD_LdapProcessorLog_ID LDAP Server Log
 	 */
-
-	public void setAD_LdapProcessorLog_ID(int AD_LdapProcessorLog_ID) {
+	@JsonProperty("AD_LdapProcessorLog_ID")
+	public void setAD_LdapProcessorLog_IDFromJson(int AD_LdapProcessorLog_ID) {
 		if (get_ID() == 0) {
 			super.setAD_LdapProcessorLog_ID(AD_LdapProcessorLog_ID);
 		}

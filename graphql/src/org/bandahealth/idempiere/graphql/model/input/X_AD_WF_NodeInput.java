@@ -427,8 +427,8 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 *
 	 * @param AD_WF_Node_ID Workflow Node (activity), step or process
 	 */
-
-	public void setAD_WF_Node_ID(int AD_WF_Node_ID) {
+	@JsonProperty("AD_WF_Node_ID")
+	public void setAD_WF_Node_IDFromJson(int AD_WF_Node_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_Node_ID(AD_WF_Node_ID);
 		}

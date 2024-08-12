@@ -84,8 +84,8 @@ public class X_M_BP_PriceInput extends X_M_BP_Price implements I_M_BP_PriceInput
 	 *
 	 * @param BreakValue Low Value of trade discount break level
 	 */
-
-	public void setBreakValue(BigDecimal BreakValue) {
+	@JsonProperty("BreakValue")
+	public void setBreakValueFromJson(BigDecimal BreakValue) {
 		if (get_ID() == 0) {
 			super.setBreakValue(BreakValue);
 		}
@@ -166,8 +166,8 @@ public class X_M_BP_PriceInput extends X_M_BP_Price implements I_M_BP_PriceInput
 	 *
 	 * @param M_BP_Price_ID Business Partner Price
 	 */
-
-	public void setM_BP_Price_ID(int M_BP_Price_ID) {
+	@JsonProperty("M_BP_Price_ID")
+	public void setM_BP_Price_IDFromJson(int M_BP_Price_ID) {
 		if (get_ID() == 0) {
 			super.setM_BP_Price_ID(M_BP_Price_ID);
 		}

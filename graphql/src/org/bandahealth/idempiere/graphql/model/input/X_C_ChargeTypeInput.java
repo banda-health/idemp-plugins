@@ -74,8 +74,8 @@ public class X_C_ChargeTypeInput extends MChargeType_BH implements I_C_ChargeTyp
 	 *
 	 * @param C_ChargeType_ID Charge Type
 	 */
-
-	public void setC_ChargeType_ID(int C_ChargeType_ID) {
+	@JsonProperty("C_ChargeType_ID")
+	public void setC_ChargeType_IDFromJson(int C_ChargeType_ID) {
 		if (get_ID() == 0) {
 			super.setC_ChargeType_ID(C_ChargeType_ID);
 		}

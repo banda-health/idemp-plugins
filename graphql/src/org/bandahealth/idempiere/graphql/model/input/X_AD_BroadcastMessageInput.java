@@ -46,8 +46,8 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	 *
 	 * @param AD_BroadcastMessage_ID Broadcast Message
 	 */
-
-	public void setAD_BroadcastMessage_ID(int AD_BroadcastMessage_ID) {
+	@JsonProperty("AD_BroadcastMessage_ID")
+	public void setAD_BroadcastMessage_IDFromJson(int AD_BroadcastMessage_ID) {
 		if (get_ID() == 0) {
 			super.setAD_BroadcastMessage_ID(AD_BroadcastMessage_ID);
 		}

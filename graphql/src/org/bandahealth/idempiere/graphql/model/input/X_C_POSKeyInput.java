@@ -187,8 +187,8 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	 *
 	 * @param C_POSKey_ID POS Function Key
 	 */
-
-	public void setC_POSKey_ID(int C_POSKey_ID) {
+	@JsonProperty("C_POSKey_ID")
+	public void setC_POSKey_IDFromJson(int C_POSKey_ID) {
 		if (get_ID() == 0) {
 			super.setC_POSKey_ID(C_POSKey_ID);
 		}

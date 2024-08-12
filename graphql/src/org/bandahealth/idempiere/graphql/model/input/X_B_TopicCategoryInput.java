@@ -76,8 +76,8 @@ public class X_B_TopicCategoryInput extends X_B_TopicCategory implements I_B_Top
 	 *
 	 * @param B_TopicCategory_ID Auction Topic Category
 	 */
-
-	public void setB_TopicCategory_ID(int B_TopicCategory_ID) {
+	@JsonProperty("B_TopicCategory_ID")
+	public void setB_TopicCategory_IDFromJson(int B_TopicCategory_ID) {
 		if (get_ID() == 0) {
 			super.setB_TopicCategory_ID(B_TopicCategory_ID);
 		}

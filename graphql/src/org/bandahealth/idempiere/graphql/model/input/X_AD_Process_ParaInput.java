@@ -195,8 +195,8 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 *
 	 * @param AD_Process_Para_ID Process Parameter
 	 */
-
-	public void setAD_Process_Para_ID(int AD_Process_Para_ID) {
+	@JsonProperty("AD_Process_Para_ID")
+	public void setAD_Process_Para_IDFromJson(int AD_Process_Para_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Process_Para_ID(AD_Process_Para_ID);
 		}

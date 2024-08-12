@@ -51,8 +51,8 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 *
 	 * @param A_Depreciation_Entry_ID Depreciation Entry
 	 */
-
-	public void setA_Depreciation_Entry_ID(int A_Depreciation_Entry_ID) {
+	@JsonProperty("A_Depreciation_Entry_ID")
+	public void setA_Depreciation_Entry_IDFromJson(int A_Depreciation_Entry_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Entry_ID(A_Depreciation_Entry_ID);
 		}
@@ -367,8 +367,8 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

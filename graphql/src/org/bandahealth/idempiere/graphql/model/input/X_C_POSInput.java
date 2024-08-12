@@ -228,8 +228,8 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 *
 	 * @param C_POS_ID Point of Sales Terminal
 	 */
-
-	public void setC_POS_ID(int C_POS_ID) {
+	@JsonProperty("C_POS_ID")
+	public void setC_POS_IDFromJson(int C_POS_ID) {
 		if (get_ID() == 0) {
 			super.setC_POS_ID(C_POS_ID);
 		}

@@ -227,8 +227,8 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	 *
 	 * @param C_Recurring_ID Recurring Document
 	 */
-
-	public void setC_Recurring_ID(int C_Recurring_ID) {
+	@JsonProperty("C_Recurring_ID")
+	public void setC_Recurring_IDFromJson(int C_Recurring_ID) {
 		if (get_ID() == 0) {
 			super.setC_Recurring_ID(C_Recurring_ID);
 		}
@@ -290,8 +290,8 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	 *
 	 * @param DateLastRun Date the process was last run.
 	 */
-
-	public void setDateLastRun(Timestamp DateLastRun) {
+	@JsonProperty("DateLastRun")
+	public void setDateLastRunFromJson(Timestamp DateLastRun) {
 		if (get_ID() == 0) {
 			super.setDateLastRun(DateLastRun);
 		}
@@ -413,8 +413,8 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	 *
 	 * @param RunsRemaining Number of recurring runs remaining
 	 */
-
-	public void setRunsRemaining(int RunsRemaining) {
+	@JsonProperty("RunsRemaining")
+	public void setRunsRemainingFromJson(int RunsRemaining) {
 		if (get_ID() == 0) {
 			super.setRunsRemaining(RunsRemaining);
 		}

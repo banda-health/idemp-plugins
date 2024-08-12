@@ -234,8 +234,8 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	 *
 	 * @param HR_Attribute_ID Payroll Employee Attribute
 	 */
-
-	public void setHR_Attribute_ID(int HR_Attribute_ID) {
+	@JsonProperty("HR_Attribute_ID")
+	public void setHR_Attribute_IDFromJson(int HR_Attribute_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Attribute_ID(HR_Attribute_ID);
 		}

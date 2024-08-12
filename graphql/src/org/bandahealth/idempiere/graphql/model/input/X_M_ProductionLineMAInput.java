@@ -79,8 +79,8 @@ public class X_M_ProductionLineMAInput extends MProductionLineMA implements I_M_
 	 *
 	 * @param DateMaterialPolicy Time used for LIFO and FIFO Material Policy
 	 */
-
-	public void setDateMaterialPolicy(Timestamp DateMaterialPolicy) {
+	@JsonProperty("DateMaterialPolicy")
+	public void setDateMaterialPolicyFromJson(Timestamp DateMaterialPolicy) {
 		if (get_ID() == 0) {
 			super.setDateMaterialPolicy(DateMaterialPolicy);
 		}

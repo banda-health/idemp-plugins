@@ -113,8 +113,8 @@ public class X_C_CycleStepInput extends X_C_CycleStep implements I_C_CycleStepIn
 	 *
 	 * @param C_CycleStep_ID The step for this Cycle
 	 */
-
-	public void setC_CycleStep_ID(int C_CycleStep_ID) {
+	@JsonProperty("C_CycleStep_ID")
+	public void setC_CycleStep_IDFromJson(int C_CycleStep_ID) {
 		if (get_ID() == 0) {
 			super.setC_CycleStep_ID(C_CycleStep_ID);
 		}

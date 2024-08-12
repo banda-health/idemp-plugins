@@ -114,8 +114,8 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 *
 	 * @param M_Shipper_ID Method or manner of product delivery
 	 */
-
-	public void setM_Shipper_ID(int M_Shipper_ID) {
+	@JsonProperty("M_Shipper_ID")
+	public void setM_Shipper_IDFromJson(int M_Shipper_ID) {
 		if (get_ID() == 0) {
 			super.setM_Shipper_ID(M_Shipper_ID);
 		}

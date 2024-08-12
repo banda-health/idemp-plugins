@@ -187,8 +187,8 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 *
 	 * @param C_Location_ID Location or Address
 	 */
-
-	public void setC_Location_ID(int C_Location_ID) {
+	@JsonProperty("C_Location_ID")
+	public void setC_Location_IDFromJson(int C_Location_ID) {
 		if (get_ID() == 0) {
 			super.setC_Location_ID(C_Location_ID);
 		}
@@ -250,8 +250,8 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 *
 	 * @param IsValid Element is valid
 	 */
-
-	public void setIsValid(boolean IsValid) {
+	@JsonProperty("IsValid")
+	public void setIsValidFromJson(boolean IsValid) {
 		if (get_ID() == 0) {
 			super.setIsValid(IsValid);
 		}
@@ -261,8 +261,8 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 *
 	 * @param Result Result of the action taken
 	 */
-
-	public void setResult(String Result) {
+	@JsonProperty("Result")
+	public void setResultFromJson(String Result) {
 		if (get_ID() == 0) {
 			super.setResult(Result);
 		}

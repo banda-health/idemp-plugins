@@ -124,8 +124,8 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 *
 	 * @param C_DocType_ID Document type or rules
 	 */
-
-	public void setC_DocType_ID(int C_DocType_ID) {
+	@JsonProperty("C_DocType_ID")
+	public void setC_DocType_IDFromJson(int C_DocType_ID) {
 		if (get_ID() == 0) {
 			super.setC_DocType_ID(C_DocType_ID);
 		}

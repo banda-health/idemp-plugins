@@ -112,8 +112,8 @@ public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 	 *
 	 * @param C_Country_ID Country 
 	 */
-
-	public void setC_Country_ID(int C_Country_ID) {
+	@JsonProperty("C_Country_ID")
+	public void setC_Country_IDFromJson(int C_Country_ID) {
 		if (get_ID() == 0) {
 			super.setC_Country_ID(C_Country_ID);
 		}

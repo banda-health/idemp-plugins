@@ -118,8 +118,8 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @param AD_WF_NextCondition_ID Workflow Node Transition Condition
 	 */
-
-	public void setAD_WF_NextCondition_ID(int AD_WF_NextCondition_ID) {
+	@JsonProperty("AD_WF_NextCondition_ID")
+	public void setAD_WF_NextCondition_IDFromJson(int AD_WF_NextCondition_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_NextCondition_ID(AD_WF_NextCondition_ID);
 		}

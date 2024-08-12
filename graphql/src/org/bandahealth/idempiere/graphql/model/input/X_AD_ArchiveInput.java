@@ -45,8 +45,8 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	 *
 	 * @param AD_Archive_ID Document and Report Archive
 	 */
-
-	public void setAD_Archive_ID(int AD_Archive_ID) {
+	@JsonProperty("AD_Archive_ID")
+	public void setAD_Archive_IDFromJson(int AD_Archive_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Archive_ID(AD_Archive_ID);
 		}

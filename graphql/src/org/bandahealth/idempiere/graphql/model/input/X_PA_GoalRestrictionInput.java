@@ -296,8 +296,8 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 *
 	 * @param PA_GoalRestriction_ID Performance Goal Restriction
 	 */
-
-	public void setPA_GoalRestriction_ID(int PA_GoalRestriction_ID) {
+	@JsonProperty("PA_GoalRestriction_ID")
+	public void setPA_GoalRestriction_IDFromJson(int PA_GoalRestriction_ID) {
 		if (get_ID() == 0) {
 			super.setPA_GoalRestriction_ID(PA_GoalRestriction_ID);
 		}

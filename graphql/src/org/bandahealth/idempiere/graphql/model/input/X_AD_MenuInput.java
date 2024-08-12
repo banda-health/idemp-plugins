@@ -161,8 +161,8 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 	 *
 	 * @param AD_Menu_ID Identifies a Menu
 	 */
-
-	public void setAD_Menu_ID(int AD_Menu_ID) {
+	@JsonProperty("AD_Menu_ID")
+	public void setAD_Menu_IDFromJson(int AD_Menu_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Menu_ID(AD_Menu_ID);
 		}

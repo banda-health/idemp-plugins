@@ -191,8 +191,8 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	 *
 	 * @param R_RequestUpdate_ID Request Updates
 	 */
-
-	public void setR_RequestUpdate_ID(int R_RequestUpdate_ID) {
+	@JsonProperty("R_RequestUpdate_ID")
+	public void setR_RequestUpdate_IDFromJson(int R_RequestUpdate_ID) {
 		if (get_ID() == 0) {
 			super.setR_RequestUpdate_ID(R_RequestUpdate_ID);
 		}
@@ -220,8 +220,8 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	 *
 	 * @param Result Result of the action taken
 	 */
-
-	public void setResult(String Result) {
+	@JsonProperty("Result")
+	public void setResultFromJson(String Result) {
 		if (get_ID() == 0) {
 			super.setResult(Result);
 		}

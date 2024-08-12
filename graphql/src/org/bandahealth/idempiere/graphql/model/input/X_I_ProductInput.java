@@ -191,8 +191,8 @@ public class X_I_ProductInput extends X_I_Product implements I_I_ProductInput {
 	 *
 	 * @param I_Product_ID Import Item or Service
 	 */
-
-	public void setI_Product_ID(int I_Product_ID) {
+	@JsonProperty("I_Product_ID")
+	public void setI_Product_IDFromJson(int I_Product_ID) {
 		if (get_ID() == 0) {
 			super.setI_Product_ID(I_Product_ID);
 		}

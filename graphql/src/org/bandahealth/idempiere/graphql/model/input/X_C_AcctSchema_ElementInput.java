@@ -133,8 +133,8 @@ public class X_C_AcctSchema_ElementInput extends MAcctSchemaElement implements I
 	 *
 	 * @param C_AcctSchema_Element_ID Acct.Schema Element
 	 */
-
-	public void setC_AcctSchema_Element_ID(int C_AcctSchema_Element_ID) {
+	@JsonProperty("C_AcctSchema_Element_ID")
+	public void setC_AcctSchema_Element_IDFromJson(int C_AcctSchema_Element_ID) {
 		if (get_ID() == 0) {
 			super.setC_AcctSchema_Element_ID(C_AcctSchema_Element_ID);
 		}

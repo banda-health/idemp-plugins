@@ -76,8 +76,8 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 	 *
 	 * @param ASP_Level_ID ASP Level
 	 */
-
-	public void setASP_Level_ID(int ASP_Level_ID) {
+	@JsonProperty("ASP_Level_ID")
+	public void setASP_Level_IDFromJson(int ASP_Level_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Level_ID(ASP_Level_ID);
 		}

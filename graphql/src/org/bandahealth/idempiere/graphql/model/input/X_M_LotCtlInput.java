@@ -74,8 +74,8 @@ public class X_M_LotCtlInput extends MLotCtl implements I_M_LotCtlInput {
 	 *
 	 * @param M_LotCtl_ID Product Lot Control
 	 */
-
-	public void setM_LotCtl_ID(int M_LotCtl_ID) {
+	@JsonProperty("M_LotCtl_ID")
+	public void setM_LotCtl_IDFromJson(int M_LotCtl_ID) {
 		if (get_ID() == 0) {
 			super.setM_LotCtl_ID(M_LotCtl_ID);
 		}

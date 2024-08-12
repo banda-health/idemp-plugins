@@ -353,8 +353,8 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 *
 	 * @param M_DiscountSchemaLine_ID Line of the price list trade discount schema
 	 */
-
-	public void setM_DiscountSchemaLine_ID(int M_DiscountSchemaLine_ID) {
+	@JsonProperty("M_DiscountSchemaLine_ID")
+	public void setM_DiscountSchemaLine_IDFromJson(int M_DiscountSchemaLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_DiscountSchemaLine_ID(M_DiscountSchemaLine_ID);
 		}

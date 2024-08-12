@@ -116,8 +116,8 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	 *
 	 * @param C_ContactActivity_ID Events, tasks, communications related to a contact
 	 */
-
-	public void setC_ContactActivity_ID(int C_ContactActivity_ID) {
+	@JsonProperty("C_ContactActivity_ID")
+	public void setC_ContactActivity_IDFromJson(int C_ContactActivity_ID) {
 		if (get_ID() == 0) {
 			super.setC_ContactActivity_ID(C_ContactActivity_ID);
 		}

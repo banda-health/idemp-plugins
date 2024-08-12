@@ -76,8 +76,8 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 	 *
 	 * @param HR_ListLine_ID Payroll List Line
 	 */
-
-	public void setHR_ListLine_ID(int HR_ListLine_ID) {
+	@JsonProperty("HR_ListLine_ID")
+	public void setHR_ListLine_IDFromJson(int HR_ListLine_ID) {
 		if (get_ID() == 0) {
 			super.setHR_ListLine_ID(HR_ListLine_ID);
 		}

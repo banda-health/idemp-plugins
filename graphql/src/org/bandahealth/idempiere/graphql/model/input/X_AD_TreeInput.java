@@ -118,8 +118,8 @@ public class X_AD_TreeInput extends MTree_BH implements I_AD_TreeInput {
 	 *
 	 * @param AD_Tree_ID Identifies a Tree
 	 */
-
-	public void setAD_Tree_ID(int AD_Tree_ID) {
+	@JsonProperty("AD_Tree_ID")
+	public void setAD_Tree_IDFromJson(int AD_Tree_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Tree_ID(AD_Tree_ID);
 		}
