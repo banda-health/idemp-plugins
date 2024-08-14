@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.bandahealth.idempiere.base.model.X_BH_Ocl_Originating_Source;
+import org.bandahealth.idempiere.base.model.MBHOclOriginatingSource;
 
 /**
  * Data Loader for BH_Ocl_Originating_Source - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.bandahealth.idempiere.base.model.X_BH_Ocl_Originating_Source;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_BH_Ocl_Originating_SourceDataLoader extends PODataLoader<X_BH_Ocl_Originating_Source> {
+public class X_BH_Ocl_Originating_SourceDataLoader extends PODataLoader<MBHOclOriginatingSource> {
 	public static String DATALOADER_BH_Ocl_Originating_Source_BY_ID = "BH_Ocl_Originating_SourceByIdDataLoader";
 	public static String DATALOADER_BH_Ocl_Originating_Source_BY_UUID = "BH_Ocl_Originating_SourceByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_BH_Ocl_Originating_Source.Table_Name;
+		return MBHOclOriginatingSource.Table_Name;
 	}
 
 	@Override

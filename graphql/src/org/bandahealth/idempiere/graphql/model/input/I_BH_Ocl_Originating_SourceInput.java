@@ -25,6 +25,20 @@ public interface I_BH_Ocl_Originating_SourceInput extends I_BH_Ocl_Originating_S
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Set BH_Concept.
+	 *
+	 * @param BH_Concept BH_Concept
+	 */
+	void setBH_ConceptInput(ForeignEntityInput BH_Concept);
+
+	/**
+	 * Get BH_Concept.
+	 *
+	 * @return BH_Concept
+	 */
+	ForeignEntityInput BH_Concept();
+
+	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -37,4 +51,18 @@ public interface I_BH_Ocl_Originating_SourceInput extends I_BH_Ocl_Originating_S
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set BH_Ocl_Source.
+	 *
+	 * @param BH_Ocl_Source BH_Ocl_Source
+	 */
+	void setBH_Ocl_SourceInput(ForeignEntityInput BH_Ocl_Source);
+
+	/**
+	 * Get BH_Ocl_Source.
+	 *
+	 * @return BH_Ocl_Source
+	 */
+	ForeignEntityInput BH_Ocl_Source();
 }

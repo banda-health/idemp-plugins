@@ -22,7 +22,9 @@ type BH_Ocl_Originating_Source {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	BH_Concept: BH_Concept!
 	UU: ID!
+	BH_Ocl_Source: AD_Ref_List
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -38,7 +40,9 @@ type BH_Ocl_Originating_Source {
 input BH_Ocl_Originating_SourceInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	BH_Concept: ForeignEntityInput
 	UU: ID
+	BH_Ocl_Source: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 }
