@@ -164,12 +164,11 @@ export class ValueObject {
 		return this.validate();
 	}
 
-	async logout() {
+	logout() {
 		this.client = undefined;
 		this.organization = undefined;
 		this.role = undefined;
 		this.warehouse = undefined;
-		await mutate(this)({ mutation: LogoutDocument });
 		this.sessionToken = undefined;
 	}
 

@@ -41,8 +41,8 @@ public class X_AD_ImportTemplateInput extends MImportTemplate implements I_AD_Im
 	 *
 	 * @param AD_ImportTemplate_ID Import Template
 	 */
-
-	public void setAD_ImportTemplate_ID(int AD_ImportTemplate_ID) {
+	@JsonProperty("AD_ImportTemplate_ID")
+	public void setAD_ImportTemplate_IDFromJson(int AD_ImportTemplate_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ImportTemplate_ID(AD_ImportTemplate_ID);
 		}

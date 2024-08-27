@@ -117,8 +117,8 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	 *
 	 * @param BH_PaymentRef_BankAcct_ID BH_PaymentRef_BankAcct
 	 */
-
-	public void setBH_PaymentRef_BankAcct_ID(int BH_PaymentRef_BankAcct_ID) {
+	@JsonProperty("BH_PaymentRef_BankAcct_ID")
+	public void setBH_PaymentRef_BankAcct_IDFromJson(int BH_PaymentRef_BankAcct_ID) {
 		if (get_ID() == 0) {
 			super.setBH_PaymentRef_BankAcct_ID(BH_PaymentRef_BankAcct_ID);
 		}

@@ -83,8 +83,8 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 	 *
 	 * @param AD_ReplicationDocument_ID Replication Document
 	 */
-
-	public void setAD_ReplicationDocument_ID(int AD_ReplicationDocument_ID) {
+	@JsonProperty("AD_ReplicationDocument_ID")
+	public void setAD_ReplicationDocument_IDFromJson(int AD_ReplicationDocument_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ReplicationDocument_ID(AD_ReplicationDocument_ID);
 		}

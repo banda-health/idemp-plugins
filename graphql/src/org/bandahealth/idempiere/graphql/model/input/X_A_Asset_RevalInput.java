@@ -81,8 +81,8 @@ public class X_A_Asset_RevalInput extends MAssetReval implements I_A_Asset_Reval
 	 *
 	 * @param A_Asset_Reval_ID Asset Revaluation
 	 */
-
-	public void setA_Asset_Reval_ID(int A_Asset_Reval_ID) {
+	@JsonProperty("A_Asset_Reval_ID")
+	public void setA_Asset_Reval_IDFromJson(int A_Asset_Reval_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Reval_ID(A_Asset_Reval_ID);
 		}
@@ -225,8 +225,8 @@ public class X_A_Asset_RevalInput extends MAssetReval implements I_A_Asset_Reval
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

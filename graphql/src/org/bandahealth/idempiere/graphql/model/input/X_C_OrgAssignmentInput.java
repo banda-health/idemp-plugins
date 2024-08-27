@@ -110,8 +110,8 @@ public class X_C_OrgAssignmentInput extends X_C_OrgAssignment implements I_C_Org
 	 *
 	 * @param C_OrgAssignment_ID Assignment to (transaction) Organization
 	 */
-
-	public void setC_OrgAssignment_ID(int C_OrgAssignment_ID) {
+	@JsonProperty("C_OrgAssignment_ID")
+	public void setC_OrgAssignment_IDFromJson(int C_OrgAssignment_ID) {
 		if (get_ID() == 0) {
 			super.setC_OrgAssignment_ID(C_OrgAssignment_ID);
 		}

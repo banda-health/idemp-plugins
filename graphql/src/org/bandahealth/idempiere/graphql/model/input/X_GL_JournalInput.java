@@ -348,8 +348,8 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -427,8 +427,8 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 	 *
 	 * @param GL_Journal_ID General Ledger Journal
 	 */
-
-	public void setGL_Journal_ID(int GL_Journal_ID) {
+	@JsonProperty("GL_Journal_ID")
+	public void setGL_Journal_IDFromJson(int GL_Journal_ID) {
 		if (get_ID() == 0) {
 			super.setGL_Journal_ID(GL_Journal_ID);
 		}
@@ -493,8 +493,8 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 	 *
 	 * @param IsApproved Indicates if this document requires approval
 	 */
-
-	public void setIsApproved(boolean IsApproved) {
+	@JsonProperty("IsApproved")
+	public void setIsApprovedFromJson(boolean IsApproved) {
 		if (get_ID() == 0) {
 			super.setIsApproved(IsApproved);
 		}
@@ -504,8 +504,8 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 	 *
 	 * @param IsPrinted Indicates if this document / line is printed
 	 */
-
-	public void setIsPrinted(boolean IsPrinted) {
+	@JsonProperty("IsPrinted")
+	public void setIsPrintedFromJson(boolean IsPrinted) {
 		if (get_ID() == 0) {
 			super.setIsPrinted(IsPrinted);
 		}
@@ -515,8 +515,8 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}
@@ -599,8 +599,8 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 	 *
 	 * @param TotalCr Total Credit in document currency
 	 */
-
-	public void setTotalCr(BigDecimal TotalCr) {
+	@JsonProperty("TotalCr")
+	public void setTotalCrFromJson(BigDecimal TotalCr) {
 		if (get_ID() == 0) {
 			super.setTotalCr(TotalCr);
 		}
@@ -610,8 +610,8 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 	 *
 	 * @param TotalDr Total debit in document currency
 	 */
-
-	public void setTotalDr(BigDecimal TotalDr) {
+	@JsonProperty("TotalDr")
+	public void setTotalDrFromJson(BigDecimal TotalDr) {
 		if (get_ID() == 0) {
 			super.setTotalDr(TotalDr);
 		}

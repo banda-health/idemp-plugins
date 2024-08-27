@@ -221,8 +221,8 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 *
 	 * @param C_BPartner_ID Identifies a Business Partner
 	 */
-
-	public void setC_BPartner_ID(int C_BPartner_ID) {
+	@JsonProperty("C_BPartner_ID")
+	public void setC_BPartner_IDFromJson(int C_BPartner_ID) {
 		if (get_ID() == 0) {
 			super.setC_BPartner_ID(C_BPartner_ID);
 		}
@@ -960,8 +960,8 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 *
 	 * @param SO_CreditUsed Current open balance
 	 */
-
-	public void setSO_CreditUsed(BigDecimal SO_CreditUsed) {
+	@JsonProperty("SO_CreditUsed")
+	public void setSO_CreditUsedFromJson(BigDecimal SO_CreditUsed) {
 		if (get_ID() == 0) {
 			super.setSO_CreditUsed(SO_CreditUsed);
 		}

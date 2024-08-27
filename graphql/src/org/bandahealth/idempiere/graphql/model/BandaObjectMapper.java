@@ -311,6 +311,7 @@ public class BandaObjectMapper {
 							addMapping(I_BH_Default_DocAction_AccessInput.class, MBHDefaultDocActionAccessInput.class);
 							addMapping(I_BH_EncounterInput.class, MBHEncounterInput.class);
 							addMapping(I_BH_Encounter_DiagnosisInput.class, MBHEncounterDiagnosisInput.class);
+							addMapping(I_BH_Encounter_DiagnosticInput.class, MBHEncounterDiagnosticInput.class);
 							addMapping(I_BH_Encounter_Type_WindowInput.class, MBHEncounterTypeWindowInput.class);
 							addMapping(I_BH_I_Product_QuantityInput.class, X_BH_I_Product_QuantityInput.class);
 							addMapping(I_BH_ObservationInput.class, MBHObservationInput.class);

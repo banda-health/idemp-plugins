@@ -76,8 +76,8 @@ public class X_C_CashBookInput extends MCashBook implements I_C_CashBookInput {
 	 *
 	 * @param C_CashBook_ID Cash Book for recording petty cash transactions
 	 */
-
-	public void setC_CashBook_ID(int C_CashBook_ID) {
+	@JsonProperty("C_CashBook_ID")
+	public void setC_CashBook_IDFromJson(int C_CashBook_ID) {
 		if (get_ID() == 0) {
 			super.setC_CashBook_ID(C_CashBook_ID);
 		}

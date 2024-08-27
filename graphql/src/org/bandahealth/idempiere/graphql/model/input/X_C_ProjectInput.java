@@ -408,8 +408,8 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 *
 	 * @param C_Project_ID Financial Project
 	 */
-
-	public void setC_Project_ID(int C_Project_ID) {
+	@JsonProperty("C_Project_ID")
+	public void setC_Project_IDFromJson(int C_Project_ID) {
 		if (get_ID() == 0) {
 			super.setC_Project_ID(C_Project_ID);
 		}
@@ -437,8 +437,8 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 *
 	 * @param InvoicedAmt The amount invoiced
 	 */
-
-	public void setInvoicedAmt(BigDecimal InvoicedAmt) {
+	@JsonProperty("InvoicedAmt")
+	public void setInvoicedAmtFromJson(BigDecimal InvoicedAmt) {
 		if (get_ID() == 0) {
 			super.setInvoicedAmt(InvoicedAmt);
 		}
@@ -448,8 +448,8 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 *
 	 * @param InvoicedQty The quantity invoiced
 	 */
-
-	public void setInvoicedQty(BigDecimal InvoicedQty) {
+	@JsonProperty("InvoicedQty")
+	public void setInvoicedQtyFromJson(BigDecimal InvoicedQty) {
 		if (get_ID() == 0) {
 			super.setInvoicedQty(InvoicedQty);
 		}

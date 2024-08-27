@@ -220,8 +220,8 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 *
 	 * @param M_ShippingTransactionLine_ID Shipping Transaction Line
 	 */
-
-	public void setM_ShippingTransactionLine_ID(int M_ShippingTransactionLine_ID) {
+	@JsonProperty("M_ShippingTransactionLine_ID")
+	public void setM_ShippingTransactionLine_IDFromJson(int M_ShippingTransactionLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShippingTransactionLine_ID(M_ShippingTransactionLine_ID);
 		}

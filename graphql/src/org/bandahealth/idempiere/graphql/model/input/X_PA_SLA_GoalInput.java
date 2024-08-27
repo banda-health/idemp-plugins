@@ -149,8 +149,8 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 	 *
 	 * @param PA_SLA_Goal_ID Service Level Agreement Goal
 	 */
-
-	public void setPA_SLA_Goal_ID(int PA_SLA_Goal_ID) {
+	@JsonProperty("PA_SLA_Goal_ID")
+	public void setPA_SLA_Goal_IDFromJson(int PA_SLA_Goal_ID) {
 		if (get_ID() == 0) {
 			super.setPA_SLA_Goal_ID(PA_SLA_Goal_ID);
 		}

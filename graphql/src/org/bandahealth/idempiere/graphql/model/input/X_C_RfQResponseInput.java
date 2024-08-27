@@ -293,8 +293,8 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	 *
 	 * @param C_RfQResponse_ID Request for Quotation Response from a potential Vendor
 	 */
-
-	public void setC_RfQResponse_ID(int C_RfQResponse_ID) {
+	@JsonProperty("C_RfQResponse_ID")
+	public void setC_RfQResponse_IDFromJson(int C_RfQResponse_ID) {
 		if (get_ID() == 0) {
 			super.setC_RfQResponse_ID(C_RfQResponse_ID);
 		}

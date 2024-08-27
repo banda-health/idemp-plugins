@@ -22,7 +22,7 @@ type BH_Encounter {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	BH_Encounter_Date: Date
+	BH_Encounter_Date: Date!
 	BH_Encounter_Type: AD_Ref_List!
 	UU: ID!
 	BH_Visit: BH_Visit!

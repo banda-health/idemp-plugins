@@ -223,8 +223,8 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 	 *
 	 * @param M_ProductionLine_ID Document Line representing a production
 	 */
-
-	public void setM_ProductionLine_ID(int M_ProductionLine_ID) {
+	@JsonProperty("M_ProductionLine_ID")
+	public void setM_ProductionLine_IDFromJson(int M_ProductionLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_ProductionLine_ID(M_ProductionLine_ID);
 		}

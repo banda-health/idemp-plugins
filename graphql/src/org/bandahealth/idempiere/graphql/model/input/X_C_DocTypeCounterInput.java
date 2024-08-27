@@ -114,8 +114,8 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	 *
 	 * @param C_DocTypeCounter_ID Counter Document Relationship
 	 */
-
-	public void setC_DocTypeCounter_ID(int C_DocTypeCounter_ID) {
+	@JsonProperty("C_DocTypeCounter_ID")
+	public void setC_DocTypeCounter_IDFromJson(int C_DocTypeCounter_ID) {
 		if (get_ID() == 0) {
 			super.setC_DocTypeCounter_ID(C_DocTypeCounter_ID);
 		}

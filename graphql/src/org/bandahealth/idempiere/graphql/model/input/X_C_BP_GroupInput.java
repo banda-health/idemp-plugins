@@ -161,8 +161,8 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 *
 	 * @param C_BP_Group_ID Business Partner Group
 	 */
-
-	public void setC_BP_Group_ID(int C_BP_Group_ID) {
+	@JsonProperty("C_BP_Group_ID")
+	public void setC_BP_Group_IDFromJson(int C_BP_Group_ID) {
 		if (get_ID() == 0) {
 			super.setC_BP_Group_ID(C_BP_Group_ID);
 		}

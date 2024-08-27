@@ -74,8 +74,8 @@ public class X_C_AddressValidationCfgInput extends X_C_AddressValidationCfg impl
 	 *
 	 * @param C_AddressValidationCfg_ID Address Validation Configuration
 	 */
-
-	public void setC_AddressValidationCfg_ID(int C_AddressValidationCfg_ID) {
+	@JsonProperty("C_AddressValidationCfg_ID")
+	public void setC_AddressValidationCfg_IDFromJson(int C_AddressValidationCfg_ID) {
 		if (get_ID() == 0) {
 			super.setC_AddressValidationCfg_ID(C_AddressValidationCfg_ID);
 		}

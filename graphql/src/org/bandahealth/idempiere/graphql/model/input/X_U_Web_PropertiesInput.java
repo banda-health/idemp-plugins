@@ -74,8 +74,8 @@ public class X_U_Web_PropertiesInput extends MWebProperties implements I_U_Web_P
 	 *
 	 * @param U_Web_Properties_ID Web Properties
 	 */
-
-	public void setU_Web_Properties_ID(int U_Web_Properties_ID) {
+	@JsonProperty("U_Web_Properties_ID")
+	public void setU_Web_Properties_IDFromJson(int U_Web_Properties_ID) {
 		if (get_ID() == 0) {
 			super.setU_Web_Properties_ID(U_Web_Properties_ID);
 		}

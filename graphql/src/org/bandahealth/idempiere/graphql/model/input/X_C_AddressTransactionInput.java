@@ -78,8 +78,8 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 	 *
 	 * @param C_AddressTransaction_ID Address Transaction
 	 */
-
-	public void setC_AddressTransaction_ID(int C_AddressTransaction_ID) {
+	@JsonProperty("C_AddressTransaction_ID")
+	public void setC_AddressTransaction_IDFromJson(int C_AddressTransaction_ID) {
 		if (get_ID() == 0) {
 			super.setC_AddressTransaction_ID(C_AddressTransaction_ID);
 		}
@@ -178,8 +178,8 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 	 *
 	 * @param Country Country
 	 */
-
-	public void setCountry(String Country) {
+	@JsonProperty("Country")
+	public void setCountryFromJson(String Country) {
 		if (get_ID() == 0) {
 			super.setCountry(Country);
 		}
@@ -189,8 +189,8 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 	 *
 	 * @param Region Region
 	 */
-
-	public void setRegion(String Region) {
+	@JsonProperty("Region")
+	public void setRegionFromJson(String Region) {
 		if (get_ID() == 0) {
 			super.setRegion(Region);
 		}
@@ -200,8 +200,8 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 	 *
 	 * @param Result Result of the action taken
 	 */
-
-	public void setResult(String Result) {
+	@JsonProperty("Result")
+	public void setResultFromJson(String Result) {
 		if (get_ID() == 0) {
 			super.setResult(Result);
 		}

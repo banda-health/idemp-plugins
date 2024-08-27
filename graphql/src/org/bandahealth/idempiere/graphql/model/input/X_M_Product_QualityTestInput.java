@@ -115,8 +115,8 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 	 *
 	 * @param M_Product_QualityTest_ID Product Quality Test
 	 */
-
-	public void setM_Product_QualityTest_ID(int M_Product_QualityTest_ID) {
+	@JsonProperty("M_Product_QualityTest_ID")
+	public void setM_Product_QualityTest_IDFromJson(int M_Product_QualityTest_ID) {
 		if (get_ID() == 0) {
 			super.setM_Product_QualityTest_ID(M_Product_QualityTest_ID);
 		}

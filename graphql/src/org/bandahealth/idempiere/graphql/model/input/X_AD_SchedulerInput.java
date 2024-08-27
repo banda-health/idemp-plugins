@@ -194,8 +194,8 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	 *
 	 * @param AD_Scheduler_ID Schedule Processes
 	 */
-
-	public void setAD_Scheduler_ID(int AD_Scheduler_ID) {
+	@JsonProperty("AD_Scheduler_ID")
+	public void setAD_Scheduler_IDFromJson(int AD_Scheduler_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Scheduler_ID(AD_Scheduler_ID);
 		}

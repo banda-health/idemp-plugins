@@ -401,8 +401,8 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 	 *
 	 * @param ASP_ClientException_ID Tenant Exception
 	 */
-
-	public void setASP_ClientException_ID(int ASP_ClientException_ID) {
+	@JsonProperty("ASP_ClientException_ID")
+	public void setASP_ClientException_IDFromJson(int ASP_ClientException_ID) {
 		if (get_ID() == 0) {
 			super.setASP_ClientException_ID(ASP_ClientException_ID);
 		}

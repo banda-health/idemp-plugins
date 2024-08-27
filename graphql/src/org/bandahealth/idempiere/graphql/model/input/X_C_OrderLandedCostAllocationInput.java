@@ -115,8 +115,8 @@ public class X_C_OrderLandedCostAllocationInput extends MOrderLandedCostAllocati
 	 *
 	 * @param C_OrderLandedCostAllocation_ID Estimated Landed Cost Allocation
 	 */
-
-	public void setC_OrderLandedCostAllocation_ID(int C_OrderLandedCostAllocation_ID) {
+	@JsonProperty("C_OrderLandedCostAllocation_ID")
+	public void setC_OrderLandedCostAllocation_IDFromJson(int C_OrderLandedCostAllocation_ID) {
 		if (get_ID() == 0) {
 			super.setC_OrderLandedCostAllocation_ID(C_OrderLandedCostAllocation_ID);
 		}

@@ -115,8 +115,8 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 	 *
 	 * @param BH_Encounter_Diagnosis_ID Encounter Diagnosis
 	 */
-
-	public void setBH_Encounter_Diagnosis_ID(int BH_Encounter_Diagnosis_ID) {
+	@JsonProperty("BH_Encounter_Diagnosis_ID")
+	public void setBH_Encounter_Diagnosis_IDFromJson(int BH_Encounter_Diagnosis_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Encounter_Diagnosis_ID(BH_Encounter_Diagnosis_ID);
 		}

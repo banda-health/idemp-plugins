@@ -80,8 +80,8 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 *
 	 * @param C_BP_ShippingAcct_ID Business Partner Shipping Account
 	 */
-
-	public void setC_BP_ShippingAcct_ID(int C_BP_ShippingAcct_ID) {
+	@JsonProperty("C_BP_ShippingAcct_ID")
+	public void setC_BP_ShippingAcct_IDFromJson(int C_BP_ShippingAcct_ID) {
 		if (get_ID() == 0) {
 			super.setC_BP_ShippingAcct_ID(C_BP_ShippingAcct_ID);
 		}

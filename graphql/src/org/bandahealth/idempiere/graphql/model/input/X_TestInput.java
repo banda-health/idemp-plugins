@@ -398,8 +398,8 @@ public class X_TestInput extends MTest implements I_TestInput {
 	 *
 	 * @param Test_ID Test ID
 	 */
-
-	public void setTest_ID(int Test_ID) {
+	@JsonProperty("Test_ID")
+	public void setTest_IDFromJson(int Test_ID) {
 		if (get_ID() == 0) {
 			super.setTest_ID(Test_ID);
 		}

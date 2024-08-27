@@ -76,8 +76,8 @@ public class X_AD_AlertProcessorLogInput extends MAlertProcessorLog implements I
 	 *
 	 * @param AD_AlertProcessorLog_ID Result of the execution of the Alert Processor
 	 */
-
-	public void setAD_AlertProcessorLog_ID(int AD_AlertProcessorLog_ID) {
+	@JsonProperty("AD_AlertProcessorLog_ID")
+	public void setAD_AlertProcessorLog_IDFromJson(int AD_AlertProcessorLog_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AlertProcessorLog_ID(AD_AlertProcessorLog_ID);
 		}

@@ -189,8 +189,8 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	 *
 	 * @param C_PaySelectionLine_ID Payment Selection Line
 	 */
-
-	public void setC_PaySelectionLine_ID(int C_PaySelectionLine_ID) {
+	@JsonProperty("C_PaySelectionLine_ID")
+	public void setC_PaySelectionLine_IDFromJson(int C_PaySelectionLine_ID) {
 		if (get_ID() == 0) {
 			super.setC_PaySelectionLine_ID(C_PaySelectionLine_ID);
 		}
@@ -218,8 +218,8 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	 *
 	 * @param DifferenceAmt Difference Amount
 	 */
-
-	public void setDifferenceAmt(BigDecimal DifferenceAmt) {
+	@JsonProperty("DifferenceAmt")
+	public void setDifferenceAmtFromJson(BigDecimal DifferenceAmt) {
 		if (get_ID() == 0) {
 			super.setDifferenceAmt(DifferenceAmt);
 		}
@@ -229,8 +229,8 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	 *
 	 * @param DiscountAmt Calculated amount of discount
 	 */
-
-	public void setDiscountAmt(BigDecimal DiscountAmt) {
+	@JsonProperty("DiscountAmt")
+	public void setDiscountAmtFromJson(BigDecimal DiscountAmt) {
 		if (get_ID() == 0) {
 			super.setDiscountAmt(DiscountAmt);
 		}
@@ -240,8 +240,8 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	 *
 	 * @param OpenAmt Open item amount
 	 */
-
-	public void setOpenAmt(BigDecimal OpenAmt) {
+	@JsonProperty("OpenAmt")
+	public void setOpenAmtFromJson(BigDecimal OpenAmt) {
 		if (get_ID() == 0) {
 			super.setOpenAmt(OpenAmt);
 		}
@@ -290,8 +290,8 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	 *
 	 * @param WriteOffAmt Amount to write-off
 	 */
-
-	public void setWriteOffAmt(BigDecimal WriteOffAmt) {
+	@JsonProperty("WriteOffAmt")
+	public void setWriteOffAmtFromJson(BigDecimal WriteOffAmt) {
 		if (get_ID() == 0) {
 			super.setWriteOffAmt(WriteOffAmt);
 		}

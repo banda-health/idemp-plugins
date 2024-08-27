@@ -152,8 +152,8 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	 *
 	 * @param AD_RelationType_ID Relation Type
 	 */
-
-	public void setAD_RelationType_ID(int AD_RelationType_ID) {
+	@JsonProperty("AD_RelationType_ID")
+	public void setAD_RelationType_IDFromJson(int AD_RelationType_ID) {
 		if (get_ID() == 0) {
 			super.setAD_RelationType_ID(AD_RelationType_ID);
 		}

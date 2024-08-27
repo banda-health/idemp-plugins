@@ -147,8 +147,8 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	 *
 	 * @param M_Warehouse_ID Storage Warehouse and Service Point
 	 */
-
-	public void setM_Warehouse_ID(int M_Warehouse_ID) {
+	@JsonProperty("M_Warehouse_ID")
+	public void setM_Warehouse_IDFromJson(int M_Warehouse_ID) {
 		if (get_ID() == 0) {
 			super.setM_Warehouse_ID(M_Warehouse_ID);
 		}

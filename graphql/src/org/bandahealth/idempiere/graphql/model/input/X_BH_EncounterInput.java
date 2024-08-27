@@ -79,8 +79,8 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	 *
 	 * @param BH_Encounter_ID Encounter
 	 */
-
-	public void setBH_Encounter_ID(int BH_Encounter_ID) {
+	@JsonProperty("BH_Encounter_ID")
+	public void setBH_Encounter_IDFromJson(int BH_Encounter_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Encounter_ID(BH_Encounter_ID);
 		}

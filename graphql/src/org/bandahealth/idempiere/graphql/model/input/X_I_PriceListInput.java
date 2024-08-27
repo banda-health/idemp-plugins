@@ -188,8 +188,8 @@ public class X_I_PriceListInput extends X_I_PriceList implements I_I_PriceListIn
 	 *
 	 * @param I_PriceList_ID Import Price List
 	 */
-
-	public void setI_PriceList_ID(int I_PriceList_ID) {
+	@JsonProperty("I_PriceList_ID")
+	public void setI_PriceList_IDFromJson(int I_PriceList_ID) {
 		if (get_ID() == 0) {
 			super.setI_PriceList_ID(I_PriceList_ID);
 		}

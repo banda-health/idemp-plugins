@@ -86,6 +86,7 @@ public class BandaResolverComposer {
 				new MBHDefaultIncludedRoleResolver(),
 				new MBHEncounterResolver(),
 				new MBHEncounterDiagnosisResolver(),
+				new MBHEncounterDiagnosticResolver(),
 				new MBHEncounterTypeWindowResolver(),
 				new MBHObservationResolver(),
 				new MBHOclOriginatingSourceResolver(),

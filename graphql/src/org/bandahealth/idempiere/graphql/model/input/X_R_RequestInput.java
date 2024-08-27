@@ -626,8 +626,8 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 *
 	 * @param DateLastAction Date this request was last acted on
 	 */
-
-	public void setDateLastAction(Timestamp DateLastAction) {
+	@JsonProperty("DateLastAction")
+	public void setDateLastActionFromJson(Timestamp DateLastAction) {
 		if (get_ID() == 0) {
 			super.setDateLastAction(DateLastAction);
 		}
@@ -676,8 +676,8 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 *
 	 * @param IsSelfService This is a Self-Service entry or this entry can be changed via Self-Service
 	 */
-
-	public void setIsSelfService(boolean IsSelfService) {
+	@JsonProperty("IsSelfService")
+	public void setIsSelfServiceFromJson(boolean IsSelfService) {
 		if (get_ID() == 0) {
 			super.setIsSelfService(IsSelfService);
 		}
@@ -1110,8 +1110,8 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 *
 	 * @param R_Request_ID Request from a Business Partner or Prospect
 	 */
-
-	public void setR_Request_ID(int R_Request_ID) {
+	@JsonProperty("R_Request_ID")
+	public void setR_Request_IDFromJson(int R_Request_ID) {
 		if (get_ID() == 0) {
 			super.setR_Request_ID(R_Request_ID);
 		}

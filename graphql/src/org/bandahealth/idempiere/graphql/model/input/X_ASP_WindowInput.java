@@ -194,8 +194,8 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 	 *
 	 * @param ASP_Window_ID ASP Window
 	 */
-
-	public void setASP_Window_ID(int ASP_Window_ID) {
+	@JsonProperty("ASP_Window_ID")
+	public void setASP_Window_IDFromJson(int ASP_Window_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Window_ID(ASP_Window_ID);
 		}

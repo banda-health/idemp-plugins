@@ -113,8 +113,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param IsInstanceAttribute The product attribute is specific to the instance (like Serial No, Lot or Guarantee Date)
 	 */
-
-	public void setIsInstanceAttribute(boolean IsInstanceAttribute) {
+	@JsonProperty("IsInstanceAttribute")
+	public void setIsInstanceAttributeFromJson(boolean IsInstanceAttribute) {
 		if (get_ID() == 0) {
 			super.setIsInstanceAttribute(IsInstanceAttribute);
 		}
@@ -235,8 +235,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param Margin Margin for a product as a percentage
 	 */
-
-	public void setMargin(BigDecimal Margin) {
+	@JsonProperty("Margin")
+	public void setMarginFromJson(BigDecimal Margin) {
 		if (get_ID() == 0) {
 			super.setMargin(Margin);
 		}
@@ -246,8 +246,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param Name Alphanumeric identifier of the entity
 	 */
-
-	public void setName(String Name) {
+	@JsonProperty("Name")
+	public void setNameFromJson(String Name) {
 		if (get_ID() == 0) {
 			super.setName(Name);
 		}
@@ -257,8 +257,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param PriceLimit Lowest price for a product
 	 */
-
-	public void setPriceLimit(BigDecimal PriceLimit) {
+	@JsonProperty("PriceLimit")
+	public void setPriceLimitFromJson(BigDecimal PriceLimit) {
 		if (get_ID() == 0) {
 			super.setPriceLimit(PriceLimit);
 		}
@@ -268,8 +268,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param PriceList List Price
 	 */
-
-	public void setPriceList(BigDecimal PriceList) {
+	@JsonProperty("PriceList")
+	public void setPriceListFromJson(BigDecimal PriceList) {
 		if (get_ID() == 0) {
 			super.setPriceList(PriceList);
 		}
@@ -279,8 +279,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param PriceStd Standard Price
 	 */
-
-	public void setPriceStd(BigDecimal PriceStd) {
+	@JsonProperty("PriceStd")
+	public void setPriceStdFromJson(BigDecimal PriceStd) {
 		if (get_ID() == 0) {
 			super.setPriceStd(PriceStd);
 		}
@@ -290,8 +290,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param QtyAvailable Available Quantity (On Hand - Reserved)
 	 */
-
-	public void setQtyAvailable(BigDecimal QtyAvailable) {
+	@JsonProperty("QtyAvailable")
+	public void setQtyAvailableFromJson(BigDecimal QtyAvailable) {
 		if (get_ID() == 0) {
 			super.setQtyAvailable(QtyAvailable);
 		}
@@ -301,8 +301,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param QtyOnHand On Hand Quantity
 	 */
-
-	public void setQtyOnHand(BigDecimal QtyOnHand) {
+	@JsonProperty("QtyOnHand")
+	public void setQtyOnHandFromJson(BigDecimal QtyOnHand) {
 		if (get_ID() == 0) {
 			super.setQtyOnHand(QtyOnHand);
 		}
@@ -312,8 +312,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param QtyOrdered Ordered Quantity
 	 */
-
-	public void setQtyOrdered(BigDecimal QtyOrdered) {
+	@JsonProperty("QtyOrdered")
+	public void setQtyOrderedFromJson(BigDecimal QtyOrdered) {
 		if (get_ID() == 0) {
 			super.setQtyOrdered(QtyOrdered);
 		}
@@ -323,8 +323,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param QtyReserved Reserved Quantity
 	 */
-
-	public void setQtyReserved(BigDecimal QtyReserved) {
+	@JsonProperty("QtyReserved")
+	public void setQtyReservedFromJson(BigDecimal QtyReserved) {
 		if (get_ID() == 0) {
 			super.setQtyReserved(QtyReserved);
 		}
@@ -334,8 +334,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param SKU Stock Keeping Unit
 	 */
-
-	public void setSKU(String SKU) {
+	@JsonProperty("SKU")
+	public void setSKUFromJson(String SKU) {
 		if (get_ID() == 0) {
 			super.setSKU(SKU);
 		}
@@ -345,8 +345,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param UOMSymbol Symbol for a Unit of Measure
 	 */
-
-	public void setUOMSymbol(String UOMSymbol) {
+	@JsonProperty("UOMSymbol")
+	public void setUOMSymbolFromJson(String UOMSymbol) {
 		if (get_ID() == 0) {
 			super.setUOMSymbol(UOMSymbol);
 		}
@@ -356,8 +356,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param UPC Bar Code (Universal Product Code or its superset European Article Number)
 	 */
-
-	public void setUPC(String UPC) {
+	@JsonProperty("UPC")
+	public void setUPCFromJson(String UPC) {
 		if (get_ID() == 0) {
 			super.setUPC(UPC);
 		}
@@ -367,8 +367,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param Value Search key for the record in the format required - must be unique
 	 */
-
-	public void setValue(String Value) {
+	@JsonProperty("Value")
+	public void setValueFromJson(String Value) {
 		if (get_ID() == 0) {
 			super.setValue(Value);
 		}
@@ -378,8 +378,8 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	 *
 	 * @param WarehouseName Warehouse Name
 	 */
-
-	public void setWarehouseName(String WarehouseName) {
+	@JsonProperty("WarehouseName")
+	public void setWarehouseNameFromJson(String WarehouseName) {
 		if (get_ID() == 0) {
 			super.setWarehouseName(WarehouseName);
 		}

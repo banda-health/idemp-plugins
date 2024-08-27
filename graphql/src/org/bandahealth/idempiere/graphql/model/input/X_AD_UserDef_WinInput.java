@@ -184,8 +184,8 @@ public class X_AD_UserDef_WinInput extends MUserDefWin implements I_AD_UserDef_W
 	 *
 	 * @param AD_UserDef_Win_ID User defined Window
 	 */
-
-	public void setAD_UserDef_Win_ID(int AD_UserDef_Win_ID) {
+	@JsonProperty("AD_UserDef_Win_ID")
+	public void setAD_UserDef_Win_IDFromJson(int AD_UserDef_Win_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserDef_Win_ID(AD_UserDef_Win_ID);
 		}

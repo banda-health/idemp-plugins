@@ -54,8 +54,8 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 *
 	 * @param A_Asset_Reval_Entry_ID Asset Reval. Entry
 	 */
-
-	public void setA_Asset_Reval_Entry_ID(int A_Asset_Reval_Entry_ID) {
+	@JsonProperty("A_Asset_Reval_Entry_ID")
+	public void setA_Asset_Reval_Entry_IDFromJson(int A_Asset_Reval_Entry_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Reval_Entry_ID(A_Asset_Reval_Entry_ID);
 		}

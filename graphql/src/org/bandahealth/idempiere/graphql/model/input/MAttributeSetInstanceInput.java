@@ -14,8 +14,9 @@ public class MAttributeSetInstanceInput extends X_M_AttributeSetInstanceInput {
 	 */
 	@JsonCreator
 	public MAttributeSetInstanceInput(@JsonProperty("UU") String UUID,
-			@JsonProperty("GuaranteeDate") Timestamp guaranteeDate) {
+			@JsonProperty("GuaranteeDate") Timestamp guaranteeDate, @JsonProperty("SerNo") String serialNumber) {
 		super(UUID);
 		setGuaranteeDate(guaranteeDate);
+		setSerNo(serialNumber);
 	}
 }

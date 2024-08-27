@@ -74,8 +74,8 @@ public class X_IMP_Processor_TypeInput extends X_IMP_Processor_Type implements I
 	 *
 	 * @param IMP_Processor_Type_ID Import Processor Type
 	 */
-
-	public void setIMP_Processor_Type_ID(int IMP_Processor_Type_ID) {
+	@JsonProperty("IMP_Processor_Type_ID")
+	public void setIMP_Processor_Type_IDFromJson(int IMP_Processor_Type_ID) {
 		if (get_ID() == 0) {
 			super.setIMP_Processor_Type_ID(IMP_Processor_Type_ID);
 		}

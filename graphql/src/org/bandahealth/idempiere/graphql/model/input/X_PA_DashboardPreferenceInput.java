@@ -182,8 +182,8 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	 *
 	 * @param PA_DashboardPreference_ID Dashboard Preference
 	 */
-
-	public void setPA_DashboardPreference_ID(int PA_DashboardPreference_ID) {
+	@JsonProperty("PA_DashboardPreference_ID")
+	public void setPA_DashboardPreference_IDFromJson(int PA_DashboardPreference_ID) {
 		if (get_ID() == 0) {
 			super.setPA_DashboardPreference_ID(PA_DashboardPreference_ID);
 		}

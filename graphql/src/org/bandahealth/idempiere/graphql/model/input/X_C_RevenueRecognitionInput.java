@@ -77,8 +77,8 @@ public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements 
 	 *
 	 * @param C_RevenueRecognition_ID Method for recording revenue
 	 */
-
-	public void setC_RevenueRecognition_ID(int C_RevenueRecognition_ID) {
+	@JsonProperty("C_RevenueRecognition_ID")
+	public void setC_RevenueRecognition_IDFromJson(int C_RevenueRecognition_ID) {
 		if (get_ID() == 0) {
 			super.setC_RevenueRecognition_ID(C_RevenueRecognition_ID);
 		}

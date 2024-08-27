@@ -79,8 +79,8 @@ public class X_AD_SysConfigInput extends MSysConfig_BH implements I_AD_SysConfig
 	 *
 	 * @param AD_SysConfig_ID System Configurator
 	 */
-
-	public void setAD_SysConfig_ID(int AD_SysConfig_ID) {
+	@JsonProperty("AD_SysConfig_ID")
+	public void setAD_SysConfig_IDFromJson(int AD_SysConfig_ID) {
 		if (get_ID() == 0) {
 			super.setAD_SysConfig_ID(AD_SysConfig_ID);
 		}

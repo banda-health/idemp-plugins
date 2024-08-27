@@ -113,8 +113,8 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	 *
 	 * @param Fact_Reconciliation_ID Accounting Fact Reconciliation
 	 */
-
-	public void setFact_Reconciliation_ID(int Fact_Reconciliation_ID) {
+	@JsonProperty("Fact_Reconciliation_ID")
+	public void setFact_Reconciliation_IDFromJson(int Fact_Reconciliation_ID) {
 		if (get_ID() == 0) {
 			super.setFact_Reconciliation_ID(Fact_Reconciliation_ID);
 		}

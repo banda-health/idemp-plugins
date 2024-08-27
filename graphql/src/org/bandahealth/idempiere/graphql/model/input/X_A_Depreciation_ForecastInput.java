@@ -43,8 +43,8 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 	 *
 	 * @param A_Depreciation_Forecast_ID Depreciation Forecast
 	 */
-
-	public void setA_Depreciation_Forecast_ID(int A_Depreciation_Forecast_ID) {
+	@JsonProperty("A_Depreciation_Forecast_ID")
+	public void setA_Depreciation_Forecast_IDFromJson(int A_Depreciation_Forecast_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Forecast_ID(A_Depreciation_Forecast_ID);
 		}

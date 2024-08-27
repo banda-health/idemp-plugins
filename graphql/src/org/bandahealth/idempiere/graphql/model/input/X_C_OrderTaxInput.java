@@ -210,8 +210,8 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 	 *
 	 * @param TaxAmt Tax Amount for a document
 	 */
-
-	public void setTaxAmt(BigDecimal TaxAmt) {
+	@JsonProperty("TaxAmt")
+	public void setTaxAmtFromJson(BigDecimal TaxAmt) {
 		if (get_ID() == 0) {
 			super.setTaxAmt(TaxAmt);
 		}
@@ -221,8 +221,8 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 	 *
 	 * @param TaxBaseAmt Base for calculating the tax amount
 	 */
-
-	public void setTaxBaseAmt(BigDecimal TaxBaseAmt) {
+	@JsonProperty("TaxBaseAmt")
+	public void setTaxBaseAmtFromJson(BigDecimal TaxBaseAmt) {
 		if (get_ID() == 0) {
 			super.setTaxBaseAmt(TaxBaseAmt);
 		}

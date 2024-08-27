@@ -74,8 +74,8 @@ public class X_M_LocatorTypeInput extends MLocatorType implements I_M_LocatorTyp
 	 *
 	 * @param M_LocatorType_ID Locator Type
 	 */
-
-	public void setM_LocatorType_ID(int M_LocatorType_ID) {
+	@JsonProperty("M_LocatorType_ID")
+	public void setM_LocatorType_IDFromJson(int M_LocatorType_ID) {
 		if (get_ID() == 0) {
 			super.setM_LocatorType_ID(M_LocatorType_ID);
 		}

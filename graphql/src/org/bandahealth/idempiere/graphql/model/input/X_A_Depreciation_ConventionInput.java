@@ -37,8 +37,8 @@ public class X_A_Depreciation_ConventionInput extends MDepreciationConvention im
 	 *
 	 * @param A_Depreciation_Convention_ID Depreciation Convention
 	 */
-
-	public void setA_Depreciation_Convention_ID(int A_Depreciation_Convention_ID) {
+	@JsonProperty("A_Depreciation_Convention_ID")
+	public void setA_Depreciation_Convention_IDFromJson(int A_Depreciation_Convention_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Convention_ID(A_Depreciation_Convention_ID);
 		}

@@ -39,8 +39,8 @@ public class X_AD_HouseKeepingInput extends MHouseKeeping implements I_AD_HouseK
 	 *
 	 * @param AD_HouseKeeping_ID House Keeping Configuration
 	 */
-
-	public void setAD_HouseKeeping_ID(int AD_HouseKeeping_ID) {
+	@JsonProperty("AD_HouseKeeping_ID")
+	public void setAD_HouseKeeping_IDFromJson(int AD_HouseKeeping_ID) {
 		if (get_ID() == 0) {
 			super.setAD_HouseKeeping_ID(AD_HouseKeeping_ID);
 		}

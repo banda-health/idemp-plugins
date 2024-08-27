@@ -40,8 +40,8 @@ public class X_AD_MigrationScriptInput extends X_AD_MigrationScript implements I
 	 *
 	 * @param AD_MigrationScript_ID Table to check whether the migration script has been applied
 	 */
-
-	public void setAD_MigrationScript_ID(int AD_MigrationScript_ID) {
+	@JsonProperty("AD_MigrationScript_ID")
+	public void setAD_MigrationScript_IDFromJson(int AD_MigrationScript_ID) {
 		if (get_ID() == 0) {
 			super.setAD_MigrationScript_ID(AD_MigrationScript_ID);
 		}
@@ -106,8 +106,8 @@ public class X_AD_MigrationScriptInput extends X_AD_MigrationScript implements I
 	 *
 	 * @param Script Dynamic Java Language Script to calculate result
 	 */
-
-	public void setScript(byte[] Script) {
+	@JsonProperty("Script")
+	public void setScriptFromJson(byte[] Script) {
 		if (get_ID() == 0) {
 			super.setScript(Script);
 		}

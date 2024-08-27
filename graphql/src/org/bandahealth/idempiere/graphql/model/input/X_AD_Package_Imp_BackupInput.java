@@ -118,8 +118,8 @@ public class X_AD_Package_Imp_BackupInput extends X_AD_Package_Imp_Backup implem
 	 *
 	 * @param AD_Package_Imp_Backup_ID Imp. Package Backup
 	 */
-
-	public void setAD_Package_Imp_Backup_ID(int AD_Package_Imp_Backup_ID) {
+	@JsonProperty("AD_Package_Imp_Backup_ID")
+	public void setAD_Package_Imp_Backup_IDFromJson(int AD_Package_Imp_Backup_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Package_Imp_Backup_ID(AD_Package_Imp_Backup_ID);
 		}

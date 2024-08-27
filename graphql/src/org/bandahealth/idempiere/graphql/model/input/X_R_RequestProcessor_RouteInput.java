@@ -151,8 +151,8 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 	 *
 	 * @param R_RequestProcessor_Route_ID Automatic routing of requests
 	 */
-
-	public void setR_RequestProcessor_Route_ID(int R_RequestProcessor_Route_ID) {
+	@JsonProperty("R_RequestProcessor_Route_ID")
+	public void setR_RequestProcessor_Route_IDFromJson(int R_RequestProcessor_Route_ID) {
 		if (get_ID() == 0) {
 			super.setR_RequestProcessor_Route_ID(R_RequestProcessor_Route_ID);
 		}

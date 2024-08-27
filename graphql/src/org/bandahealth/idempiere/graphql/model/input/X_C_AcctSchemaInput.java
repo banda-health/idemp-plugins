@@ -87,8 +87,8 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 *
 	 * @param C_AcctSchema_ID Rules for accounting
 	 */
-
-	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
+	@JsonProperty("C_AcctSchema_ID")
+	public void setC_AcctSchema_IDFromJson(int C_AcctSchema_ID) {
 		if (get_ID() == 0) {
 			super.setC_AcctSchema_ID(C_AcctSchema_ID);
 		}

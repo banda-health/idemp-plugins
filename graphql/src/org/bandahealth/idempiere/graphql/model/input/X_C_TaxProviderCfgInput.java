@@ -74,8 +74,8 @@ public class X_C_TaxProviderCfgInput extends X_C_TaxProviderCfg implements I_C_T
 	 *
 	 * @param C_TaxProviderCfg_ID Tax Provider Configuration
 	 */
-
-	public void setC_TaxProviderCfg_ID(int C_TaxProviderCfg_ID) {
+	@JsonProperty("C_TaxProviderCfg_ID")
+	public void setC_TaxProviderCfg_IDFromJson(int C_TaxProviderCfg_ID) {
 		if (get_ID() == 0) {
 			super.setC_TaxProviderCfg_ID(C_TaxProviderCfg_ID);
 		}

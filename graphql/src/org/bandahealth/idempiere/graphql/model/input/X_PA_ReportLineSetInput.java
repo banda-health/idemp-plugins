@@ -74,8 +74,8 @@ public class X_PA_ReportLineSetInput extends MReportLineSet implements I_PA_Repo
 	 *
 	 * @param PA_ReportLineSet_ID Report Line Set
 	 */
-
-	public void setPA_ReportLineSet_ID(int PA_ReportLineSet_ID) {
+	@JsonProperty("PA_ReportLineSet_ID")
+	public void setPA_ReportLineSet_IDFromJson(int PA_ReportLineSet_ID) {
 		if (get_ID() == 0) {
 			super.setPA_ReportLineSet_ID(PA_ReportLineSet_ID);
 		}

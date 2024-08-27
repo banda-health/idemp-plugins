@@ -74,8 +74,8 @@ public class X_C_ConversionTypeInput extends MConversionType implements I_C_Conv
 	 *
 	 * @param C_ConversionType_ID Currency Conversion Rate Type
 	 */
-
-	public void setC_ConversionType_ID(int C_ConversionType_ID) {
+	@JsonProperty("C_ConversionType_ID")
+	public void setC_ConversionType_IDFromJson(int C_ConversionType_ID) {
 		if (get_ID() == 0) {
 			super.setC_ConversionType_ID(C_ConversionType_ID);
 		}

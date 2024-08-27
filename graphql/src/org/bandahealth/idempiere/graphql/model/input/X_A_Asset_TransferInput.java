@@ -98,8 +98,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Accumdepreciation_Acct_Str Old Asset Cost Acct
 	 */
-
-	public void setA_Accumdepreciation_Acct_Str(String A_Accumdepreciation_Acct_Str) {
+	@JsonProperty("A_Accumdepreciation_Acct_Str")
+	public void setA_Accumdepreciation_Acct_StrFromJson(String A_Accumdepreciation_Acct_Str) {
 		if (get_ID() == 0) {
 			super.setA_Accumdepreciation_Acct_Str(A_Accumdepreciation_Acct_Str);
 		}
@@ -180,8 +180,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Asset_Acct_Str A_Asset_Acct_Str
 	 */
-
-	public void setA_Asset_Acct_Str(String A_Asset_Acct_Str) {
+	@JsonProperty("A_Asset_Acct_Str")
+	public void setA_Asset_Acct_StrFromJson(String A_Asset_Acct_Str) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Acct_Str(A_Asset_Acct_Str);
 		}
@@ -262,8 +262,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Asset_Transfer_ID A_Asset_Transfer_ID
 	 */
-
-	public void setA_Asset_Transfer_ID(int A_Asset_Transfer_ID) {
+	@JsonProperty("A_Asset_Transfer_ID")
+	public void setA_Asset_Transfer_IDFromJson(int A_Asset_Transfer_ID) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Transfer_ID(A_Asset_Transfer_ID);
 		}
@@ -367,8 +367,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Depreciation_Acct_Str A_Depreciation_Acct_Str
 	 */
-
-	public void setA_Depreciation_Acct_Str(String A_Depreciation_Acct_Str) {
+	@JsonProperty("A_Depreciation_Acct_Str")
+	public void setA_Depreciation_Acct_StrFromJson(String A_Depreciation_Acct_Str) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Acct_Str(A_Depreciation_Acct_Str);
 		}
@@ -483,8 +483,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Disposal_Loss_Str Disposal Loss Str
 	 */
-
-	public void setA_Disposal_Loss_Str(String A_Disposal_Loss_Str) {
+	@JsonProperty("A_Disposal_Loss_Str")
+	public void setA_Disposal_Loss_StrFromJson(String A_Disposal_Loss_Str) {
 		if (get_ID() == 0) {
 			super.setA_Disposal_Loss_Str(A_Disposal_Loss_Str);
 		}
@@ -565,8 +565,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Disposal_Revenue_Str Disposal Revenue Str
 	 */
-
-	public void setA_Disposal_Revenue_Str(String A_Disposal_Revenue_Str) {
+	@JsonProperty("A_Disposal_Revenue_Str")
+	public void setA_Disposal_Revenue_StrFromJson(String A_Disposal_Revenue_Str) {
 		if (get_ID() == 0) {
 			super.setA_Disposal_Revenue_Str(A_Disposal_Revenue_Str);
 		}
@@ -576,8 +576,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Period_End A_Period_End
 	 */
-
-	public void setA_Period_End(int A_Period_End) {
+	@JsonProperty("A_Period_End")
+	public void setA_Period_EndFromJson(int A_Period_End) {
 		if (get_ID() == 0) {
 			super.setA_Period_End(A_Period_End);
 		}
@@ -587,8 +587,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Period_Start A_Period_Start
 	 */
-
-	public void setA_Period_Start(int A_Period_Start) {
+	@JsonProperty("A_Period_Start")
+	public void setA_Period_StartFromJson(int A_Period_Start) {
 		if (get_ID() == 0) {
 			super.setA_Period_Start(A_Period_Start);
 		}
@@ -598,8 +598,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Split_Percent Split Percent
 	 */
-
-	public void setA_Split_Percent(BigDecimal A_Split_Percent) {
+	@JsonProperty("A_Split_Percent")
+	public void setA_Split_PercentFromJson(BigDecimal A_Split_Percent) {
 		if (get_ID() == 0) {
 			super.setA_Split_Percent(A_Split_Percent);
 		}
@@ -795,8 +795,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}

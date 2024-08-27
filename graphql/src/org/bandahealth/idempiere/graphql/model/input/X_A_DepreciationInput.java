@@ -37,8 +37,8 @@ public class X_A_DepreciationInput extends MDepreciation implements I_A_Deprecia
 	 *
 	 * @param A_Depreciation_ID Depreciation
 	 */
-
-	public void setA_Depreciation_ID(int A_Depreciation_ID) {
+	@JsonProperty("A_Depreciation_ID")
+	public void setA_Depreciation_IDFromJson(int A_Depreciation_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_ID(A_Depreciation_ID);
 		}

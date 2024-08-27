@@ -194,8 +194,8 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 	 *
 	 * @param ASP_Workflow_ID ASP Workflow
 	 */
-
-	public void setASP_Workflow_ID(int ASP_Workflow_ID) {
+	@JsonProperty("ASP_Workflow_ID")
+	public void setASP_Workflow_IDFromJson(int ASP_Workflow_ID) {
 		if (get_ID() == 0) {
 			super.setASP_Workflow_ID(ASP_Workflow_ID);
 		}

@@ -117,8 +117,8 @@ public class X_C_RfQ_TopicSubscriberOnlyInput extends MRfQTopicSubscriberOnly im
 	 *
 	 * @param C_RfQ_TopicSubscriberOnly_ID Include Subscriber only for certain products or product categories
 	 */
-
-	public void setC_RfQ_TopicSubscriberOnly_ID(int C_RfQ_TopicSubscriberOnly_ID) {
+	@JsonProperty("C_RfQ_TopicSubscriberOnly_ID")
+	public void setC_RfQ_TopicSubscriberOnly_IDFromJson(int C_RfQ_TopicSubscriberOnly_ID) {
 		if (get_ID() == 0) {
 			super.setC_RfQ_TopicSubscriberOnly_ID(C_RfQ_TopicSubscriberOnly_ID);
 		}

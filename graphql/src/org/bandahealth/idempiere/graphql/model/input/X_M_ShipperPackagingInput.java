@@ -115,8 +115,8 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	 *
 	 * @param M_ShipperPackaging_ID Shipper Packaging
 	 */
-
-	public void setM_ShipperPackaging_ID(int M_ShipperPackaging_ID) {
+	@JsonProperty("M_ShipperPackaging_ID")
+	public void setM_ShipperPackaging_IDFromJson(int M_ShipperPackaging_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShipperPackaging_ID(M_ShipperPackaging_ID);
 		}

@@ -85,8 +85,8 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 *
 	 * @param A_Asset_Remaining Remaining Amt
 	 */
-
-	public void setA_Asset_Remaining(BigDecimal A_Asset_Remaining) {
+	@JsonProperty("A_Asset_Remaining")
+	public void setA_Asset_RemainingFromJson(BigDecimal A_Asset_Remaining) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Remaining(A_Asset_Remaining);
 		}
@@ -96,8 +96,8 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 *
 	 * @param A_Asset_Remaining_F Remaining Amt (fiscal)
 	 */
-
-	public void setA_Asset_Remaining_F(BigDecimal A_Asset_Remaining_F) {
+	@JsonProperty("A_Asset_Remaining_F")
+	public void setA_Asset_Remaining_FFromJson(BigDecimal A_Asset_Remaining_F) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Remaining_F(A_Asset_Remaining_F);
 		}
@@ -107,8 +107,8 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 *
 	 * @param A_Depreciation_Workfile_ID A_Depreciation_Workfile_ID
 	 */
-
-	public void setA_Depreciation_Workfile_ID(int A_Depreciation_Workfile_ID) {
+	@JsonProperty("A_Depreciation_Workfile_ID")
+	public void setA_Depreciation_Workfile_IDFromJson(int A_Depreciation_Workfile_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Workfile_ID(A_Depreciation_Workfile_ID);
 		}

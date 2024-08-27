@@ -282,8 +282,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	 *
 	 * @param M_CostDetail_ID Cost Detail Information
 	 */
-
-	public void setM_CostDetail_ID(int M_CostDetail_ID) {
+	@JsonProperty("M_CostDetail_ID")
+	public void setM_CostDetail_IDFromJson(int M_CostDetail_ID) {
 		if (get_ID() == 0) {
 			super.setM_CostDetail_ID(M_CostDetail_ID);
 		}

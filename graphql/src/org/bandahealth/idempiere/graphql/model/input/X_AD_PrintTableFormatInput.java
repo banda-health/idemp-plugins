@@ -124,8 +124,8 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param AD_PrintTableFormat_ID Table Format in Reports
 	 */
-
-	public void setAD_PrintTableFormat_ID(int AD_PrintTableFormat_ID) {
+	@JsonProperty("AD_PrintTableFormat_ID")
+	public void setAD_PrintTableFormat_IDFromJson(int AD_PrintTableFormat_ID) {
 		if (get_ID() == 0) {
 			super.setAD_PrintTableFormat_ID(AD_PrintTableFormat_ID);
 		}

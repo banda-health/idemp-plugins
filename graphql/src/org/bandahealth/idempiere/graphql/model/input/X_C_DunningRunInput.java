@@ -152,8 +152,8 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 	 *
 	 * @param C_DunningRun_ID Dunning Run
 	 */
-
-	public void setC_DunningRun_ID(int C_DunningRun_ID) {
+	@JsonProperty("C_DunningRun_ID")
+	public void setC_DunningRun_IDFromJson(int C_DunningRun_ID) {
 		if (get_ID() == 0) {
 			super.setC_DunningRun_ID(C_DunningRun_ID);
 		}

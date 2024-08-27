@@ -760,8 +760,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param C_Order_ID Order
 	 */
-
-	public void setC_Order_ID(int C_Order_ID) {
+	@JsonProperty("C_Order_ID")
+	public void setC_Order_IDFromJson(int C_Order_ID) {
 		if (get_ID() == 0) {
 			super.setC_Order_ID(C_Order_ID);
 		}
@@ -1115,8 +1115,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -1267,8 +1267,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param GrandTotal Total amount of document
 	 */
-
-	public void setGrandTotal(BigDecimal GrandTotal) {
+	@JsonProperty("GrandTotal")
+	public void setGrandTotalFromJson(BigDecimal GrandTotal) {
 		if (get_ID() == 0) {
 			super.setGrandTotal(GrandTotal);
 		}
@@ -1317,8 +1317,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param IsApproved Indicates if this document requires approval
 	 */
-
-	public void setIsApproved(boolean IsApproved) {
+	@JsonProperty("IsApproved")
+	public void setIsApprovedFromJson(boolean IsApproved) {
 		if (get_ID() == 0) {
 			super.setIsApproved(IsApproved);
 		}
@@ -1328,8 +1328,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param IsCreditApproved Credit  has been approved
 	 */
-
-	public void setIsCreditApproved(boolean IsCreditApproved) {
+	@JsonProperty("IsCreditApproved")
+	public void setIsCreditApprovedFromJson(boolean IsCreditApproved) {
 		if (get_ID() == 0) {
 			super.setIsCreditApproved(IsCreditApproved);
 		}
@@ -1339,8 +1339,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param IsDelivered Delivered
 	 */
-
-	public void setIsDelivered(boolean IsDelivered) {
+	@JsonProperty("IsDelivered")
+	public void setIsDeliveredFromJson(boolean IsDelivered) {
 		if (get_ID() == 0) {
 			super.setIsDelivered(IsDelivered);
 		}
@@ -1350,8 +1350,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param IsInvoiced Is this invoiced?
 	 */
-
-	public void setIsInvoiced(boolean IsInvoiced) {
+	@JsonProperty("IsInvoiced")
+	public void setIsInvoicedFromJson(boolean IsInvoiced) {
 		if (get_ID() == 0) {
 			super.setIsInvoiced(IsInvoiced);
 		}
@@ -1361,8 +1361,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param IsPrinted Indicates if this document / line is printed
 	 */
-
-	public void setIsPrinted(boolean IsPrinted) {
+	@JsonProperty("IsPrinted")
+	public void setIsPrintedFromJson(boolean IsPrinted) {
 		if (get_ID() == 0) {
 			super.setIsPrinted(IsPrinted);
 		}
@@ -1372,8 +1372,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param IsTransferred Transferred to General Ledger (i.e. accounted)
 	 */
-
-	public void setIsTransferred(boolean IsTransferred) {
+	@JsonProperty("IsTransferred")
+	public void setIsTransferredFromJson(boolean IsTransferred) {
 		if (get_ID() == 0) {
 			super.setIsTransferred(IsTransferred);
 		}
@@ -1595,8 +1595,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param Posted Posting status
 	 */
-
-	public void setPosted(boolean Posted) {
+	@JsonProperty("Posted")
+	public void setPostedFromJson(boolean Posted) {
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}
@@ -1645,8 +1645,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param Processed The document has been processed
 	 */
-
-	public void setProcessed(boolean Processed) {
+	@JsonProperty("Processed")
+	public void setProcessedFromJson(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
 		}
@@ -1758,8 +1758,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 *
 	 * @param TotalLines Total of all document lines
 	 */
-
-	public void setTotalLines(BigDecimal TotalLines) {
+	@JsonProperty("TotalLines")
+	public void setTotalLinesFromJson(BigDecimal TotalLines) {
 		if (get_ID() == 0) {
 			super.setTotalLines(TotalLines);
 		}

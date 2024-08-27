@@ -4,6 +4,7 @@ import { documentAction, documentBaseType, documentStatus } from '../models';
 import { createBusinessPartner, createOrder, createPayment, createProduct, createVisit } from '../utils';
 import {
 	Bh_VisitSaveWithPaymentsDocument,
+	C_BPartnerGetDocument,
 	C_PaymentGetDocument,
 	C_PaymentSaveDocument,
 } from '../__generated__/graphql';
@@ -145,4 +146,73 @@ test('filtering by payments not on a visit works', async () => {
 			})
 		).data.C_PaymentGet.Results[0],
 	).toBeTruthy();
+});
+
+test('can sort by business partner', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create first business partner';
+	await createBusinessPartner(valueObject);
+	const firstBusinessPartner = valueObject.businessPartner!;
+
+	valueObject.stepName = 'Create payment for the first business partner';
+	valueObject.paymentAmount = 100;
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	await createPayment(valueObject);
+	const firstPayment = valueObject.payment!;
+
+	valueObject.stepName = 'Create second business partner';
+	valueObject.businessPartner = undefined;
+	await createBusinessPartner(valueObject);
+	const secondBusinessPartner = valueObject.businessPartner!;
+
+	valueObject.stepName = 'Create payment for the second business partner';
+	valueObject.paymentAmount = 100;
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	await createPayment(valueObject);
+	const secondPayment = valueObject.payment!;
+
+	let sortedBusinessPartnerList = (
+		await query(valueObject)({
+			query: C_BPartnerGetDocument,
+			variables: {
+				Sort: JSON.stringify([['created', 'asc']]),
+				Filter: JSON.stringify({ c_bpartner_uu: { $in: [firstBusinessPartner.UU, secondBusinessPartner.UU] } }),
+			},
+		})
+	).data.C_BPartnerGet.Results;
+	expect(sortedBusinessPartnerList).toHaveLength(2);
+
+	let sortedPayments = (
+		await query(valueObject)({
+			query: C_PaymentGetDocument,
+			variables: {
+				Sort: JSON.stringify([['c_bpartner.created', 'asc']]),
+				Filter: JSON.stringify({
+					c_bpartner: { c_bpartner_uu: { $in: [firstBusinessPartner.UU, secondBusinessPartner.UU] } },
+				}),
+			},
+		})
+	).data.C_PaymentGet.Results;
+	expect(sortedPayments).toHaveLength(2);
+	expect(sortedPayments[0].UU).toBe(firstPayment.UU);
+	expect(sortedPayments[1].UU).toBe(secondPayment.UU);
+	
+	sortedPayments = (
+		await query(valueObject)({
+			query: C_PaymentGetDocument,
+			variables: {
+				Sort: JSON.stringify([['c_bpartner.created', 'desc']]),
+				Filter: JSON.stringify({
+					c_bpartner: { c_bpartner_uu: { $in: [firstBusinessPartner.UU, secondBusinessPartner.UU] } },
+				}),
+			},
+		})
+	).data.C_PaymentGet.Results;
+	expect(sortedPayments).toHaveLength(2);
+	expect(sortedPayments[0].UU).toBe(secondPayment.UU);
+	expect(sortedPayments[1].UU).toBe(firstPayment.UU);
 });

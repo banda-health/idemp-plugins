@@ -62,6 +62,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MBHDefaultDocActionAcce
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHDefaultIncludedRoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHEncounterDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHEncounterDiagnosisDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHEncounterDiagnosticDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHEncounterTypeWindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHObservationDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHOclOriginatingSourceDataLoader;
@@ -913,6 +914,7 @@ public class BandaDataLoaderComposer {
 				new MBHDefaultIncludedRoleDataLoader(),
 				new MBHEncounterDataLoader(),
 				new MBHEncounterDiagnosisDataLoader(),
+				new MBHEncounterDiagnosticDataLoader(),
 				new MBHEncounterTypeWindowDataLoader(),
 				new MBHObservationDataLoader(),
 				new MBHOclOriginatingSourceDataLoader(),

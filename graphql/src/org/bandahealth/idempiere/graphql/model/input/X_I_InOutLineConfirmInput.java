@@ -76,8 +76,8 @@ public class X_I_InOutLineConfirmInput extends X_I_InOutLineConfirm implements I
 	 *
 	 * @param I_InOutLineConfirm_ID Material Shipment or Receipt Confirmation Import Line
 	 */
-
-	public void setI_InOutLineConfirm_ID(int I_InOutLineConfirm_ID) {
+	@JsonProperty("I_InOutLineConfirm_ID")
+	public void setI_InOutLineConfirm_IDFromJson(int I_InOutLineConfirm_ID) {
 		if (get_ID() == 0) {
 			super.setI_InOutLineConfirm_ID(I_InOutLineConfirm_ID);
 		}

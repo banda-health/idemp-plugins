@@ -112,8 +112,8 @@ public class X_AD_ReportView_ColInput extends X_AD_ReportView_Col implements I_A
 	 *
 	 * @param AD_ReportView_Col_ID Report view Column
 	 */
-
-	public void setAD_ReportView_Col_ID(int AD_ReportView_Col_ID) {
+	@JsonProperty("AD_ReportView_Col_ID")
+	public void setAD_ReportView_Col_IDFromJson(int AD_ReportView_Col_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ReportView_Col_ID(AD_ReportView_Col_ID);
 		}

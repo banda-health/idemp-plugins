@@ -110,8 +110,8 @@ public class X_C_ChannelInput extends X_C_Channel implements I_C_ChannelInput {
 	 *
 	 * @param C_Channel_ID Sales Channel
 	 */
-
-	public void setC_Channel_ID(int C_Channel_ID) {
+	@JsonProperty("C_Channel_ID")
+	public void setC_Channel_IDFromJson(int C_Channel_ID) {
 		if (get_ID() == 0) {
 			super.setC_Channel_ID(C_Channel_ID);
 		}

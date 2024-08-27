@@ -78,8 +78,8 @@ public class X_AD_AlertRuleInput extends MAlertRule implements I_AD_AlertRuleInp
 	 *
 	 * @param AD_AlertRule_ID Definition of the alert element
 	 */
-
-	public void setAD_AlertRule_ID(int AD_AlertRule_ID) {
+	@JsonProperty("AD_AlertRule_ID")
+	public void setAD_AlertRule_IDFromJson(int AD_AlertRule_ID) {
 		if (get_ID() == 0) {
 			super.setAD_AlertRule_ID(AD_AlertRule_ID);
 		}

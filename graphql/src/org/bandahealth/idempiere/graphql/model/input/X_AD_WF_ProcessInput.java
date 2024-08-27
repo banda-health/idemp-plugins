@@ -189,8 +189,8 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 *
 	 * @param AD_WF_Process_ID Actual Workflow Process Instance
 	 */
-
-	public void setAD_WF_Process_ID(int AD_WF_Process_ID) {
+	@JsonProperty("AD_WF_Process_ID")
+	public void setAD_WF_Process_IDFromJson(int AD_WF_Process_ID) {
 		if (get_ID() == 0) {
 			super.setAD_WF_Process_ID(AD_WF_Process_ID);
 		}

@@ -269,8 +269,8 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
-
-	public void setDocumentNo(String DocumentNo) {
+	@JsonProperty("DocumentNo")
+	public void setDocumentNoFromJson(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
@@ -314,8 +314,8 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 *
 	 * @param GL_JournalBatch_ID General Ledger Journal Batch
 	 */
-
-	public void setGL_JournalBatch_ID(int GL_JournalBatch_ID) {
+	@JsonProperty("GL_JournalBatch_ID")
+	public void setGL_JournalBatch_IDFromJson(int GL_JournalBatch_ID) {
 		if (get_ID() == 0) {
 			super.setGL_JournalBatch_ID(GL_JournalBatch_ID);
 		}
@@ -416,8 +416,8 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 *
 	 * @param TotalCr Total Credit in document currency
 	 */
-
-	public void setTotalCr(BigDecimal TotalCr) {
+	@JsonProperty("TotalCr")
+	public void setTotalCrFromJson(BigDecimal TotalCr) {
 		if (get_ID() == 0) {
 			super.setTotalCr(TotalCr);
 		}
@@ -427,8 +427,8 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 *
 	 * @param TotalDr Total debit in document currency
 	 */
-
-	public void setTotalDr(BigDecimal TotalDr) {
+	@JsonProperty("TotalDr")
+	public void setTotalDrFromJson(BigDecimal TotalDr) {
 		if (get_ID() == 0) {
 			super.setTotalDr(TotalDr);
 		}

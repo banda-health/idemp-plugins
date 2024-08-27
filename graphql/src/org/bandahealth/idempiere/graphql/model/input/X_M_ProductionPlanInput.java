@@ -185,8 +185,8 @@ public class X_M_ProductionPlanInput extends MProductionPlan implements I_M_Prod
 	 *
 	 * @param M_ProductionPlan_ID Plan for how a product is produced
 	 */
-
-	public void setM_ProductionPlan_ID(int M_ProductionPlan_ID) {
+	@JsonProperty("M_ProductionPlan_ID")
+	public void setM_ProductionPlan_IDFromJson(int M_ProductionPlan_ID) {
 		if (get_ID() == 0) {
 			super.setM_ProductionPlan_ID(M_ProductionPlan_ID);
 		}

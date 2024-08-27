@@ -114,8 +114,8 @@ public class X_AD_User_SubstituteInput extends X_AD_User_Substitute implements I
 	 *
 	 * @param AD_User_Substitute_ID Substitute of the user
 	 */
-
-	public void setAD_User_Substitute_ID(int AD_User_Substitute_ID) {
+	@JsonProperty("AD_User_Substitute_ID")
+	public void setAD_User_Substitute_IDFromJson(int AD_User_Substitute_ID) {
 		if (get_ID() == 0) {
 			super.setAD_User_Substitute_ID(AD_User_Substitute_ID);
 		}

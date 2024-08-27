@@ -117,8 +117,8 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 *
 	 * @param C_BPartner_Location_ID Identifies the (ship to) address for this Business Partner
 	 */
-
-	public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
+	@JsonProperty("C_BPartner_Location_ID")
+	public void setC_BPartner_Location_IDFromJson(int C_BPartner_Location_ID) {
 		if (get_ID() == 0) {
 			super.setC_BPartner_Location_ID(C_BPartner_Location_ID);
 		}

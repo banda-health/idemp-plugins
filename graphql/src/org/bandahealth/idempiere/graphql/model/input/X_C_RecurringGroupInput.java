@@ -74,8 +74,8 @@ public class X_C_RecurringGroupInput extends X_C_RecurringGroup implements I_C_R
 	 *
 	 * @param C_RecurringGroup_ID Recurring Group
 	 */
-
-	public void setC_RecurringGroup_ID(int C_RecurringGroup_ID) {
+	@JsonProperty("C_RecurringGroup_ID")
+	public void setC_RecurringGroup_IDFromJson(int C_RecurringGroup_ID) {
 		if (get_ID() == 0) {
 			super.setC_RecurringGroup_ID(C_RecurringGroup_ID);
 		}

@@ -185,8 +185,8 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 	 *
 	 * @param M_DistributionListLine_ID Distribution List Line with Business Partner and Quantity/Percentage
 	 */
-
-	public void setM_DistributionListLine_ID(int M_DistributionListLine_ID) {
+	@JsonProperty("M_DistributionListLine_ID")
+	public void setM_DistributionListLine_IDFromJson(int M_DistributionListLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_DistributionListLine_ID(M_DistributionListLine_ID);
 		}

@@ -114,8 +114,8 @@ public class X_C_SubscriptionInput extends X_C_Subscription implements I_C_Subsc
 	 *
 	 * @param C_Subscription_ID Subscription of a Business Partner of a Product to renew
 	 */
-
-	public void setC_Subscription_ID(int C_Subscription_ID) {
+	@JsonProperty("C_Subscription_ID")
+	public void setC_Subscription_IDFromJson(int C_Subscription_ID) {
 		if (get_ID() == 0) {
 			super.setC_Subscription_ID(C_Subscription_ID);
 		}

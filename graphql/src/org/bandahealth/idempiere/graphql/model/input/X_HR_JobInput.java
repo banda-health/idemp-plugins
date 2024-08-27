@@ -113,8 +113,8 @@ public class X_HR_JobInput extends X_HR_Job implements I_HR_JobInput {
 	 *
 	 * @param HR_Job_ID Payroll Job
 	 */
-
-	public void setHR_Job_ID(int HR_Job_ID) {
+	@JsonProperty("HR_Job_ID")
+	public void setHR_Job_IDFromJson(int HR_Job_ID) {
 		if (get_ID() == 0) {
 			super.setHR_Job_ID(HR_Job_ID);
 		}

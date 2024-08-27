@@ -146,8 +146,8 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 	 *
 	 * @param R_Group_ID Request Group
 	 */
-
-	public void setR_Group_ID(int R_Group_ID) {
+	@JsonProperty("R_Group_ID")
+	public void setR_Group_IDFromJson(int R_Group_ID) {
 		if (get_ID() == 0) {
 			super.setR_Group_ID(R_Group_ID);
 		}

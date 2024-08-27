@@ -74,8 +74,8 @@ public class X_M_FreightCategoryInput extends MFreightCategory implements I_M_Fr
 	 *
 	 * @param M_FreightCategory_ID Category of the Freight
 	 */
-
-	public void setM_FreightCategory_ID(int M_FreightCategory_ID) {
+	@JsonProperty("M_FreightCategory_ID")
+	public void setM_FreightCategory_IDFromJson(int M_FreightCategory_ID) {
 		if (get_ID() == 0) {
 			super.setM_FreightCategory_ID(M_FreightCategory_ID);
 		}

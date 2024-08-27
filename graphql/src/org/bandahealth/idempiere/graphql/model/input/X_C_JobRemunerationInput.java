@@ -115,8 +115,8 @@ public class X_C_JobRemunerationInput extends X_C_JobRemuneration implements I_C
 	 *
 	 * @param C_JobRemuneration_ID Remuneration for the Position
 	 */
-
-	public void setC_JobRemuneration_ID(int C_JobRemuneration_ID) {
+	@JsonProperty("C_JobRemuneration_ID")
+	public void setC_JobRemuneration_IDFromJson(int C_JobRemuneration_ID) {
 		if (get_ID() == 0) {
 			super.setC_JobRemuneration_ID(C_JobRemuneration_ID);
 		}

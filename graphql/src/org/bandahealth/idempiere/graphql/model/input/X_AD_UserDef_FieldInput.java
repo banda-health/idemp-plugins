@@ -342,8 +342,8 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 *
 	 * @param AD_UserDef_Field_ID User defined Field
 	 */
-
-	public void setAD_UserDef_Field_ID(int AD_UserDef_Field_ID) {
+	@JsonProperty("AD_UserDef_Field_ID")
+	public void setAD_UserDef_Field_IDFromJson(int AD_UserDef_Field_ID) {
 		if (get_ID() == 0) {
 			super.setAD_UserDef_Field_ID(AD_UserDef_Field_ID);
 		}

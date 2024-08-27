@@ -1024,8 +1024,8 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 *
 	 * @param M_ShippingTransaction_ID Shipping Transaction
 	 */
-
-	public void setM_ShippingTransaction_ID(int M_ShippingTransaction_ID) {
+	@JsonProperty("M_ShippingTransaction_ID")
+	public void setM_ShippingTransaction_IDFromJson(int M_ShippingTransaction_ID) {
 		if (get_ID() == 0) {
 			super.setM_ShippingTransaction_ID(M_ShippingTransaction_ID);
 		}

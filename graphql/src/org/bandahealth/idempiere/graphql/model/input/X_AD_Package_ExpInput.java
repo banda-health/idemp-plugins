@@ -75,8 +75,8 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	 *
 	 * @param AD_Package_Exp_ID Package Exp.
 	 */
-
-	public void setAD_Package_Exp_ID(int AD_Package_Exp_ID) {
+	@JsonProperty("AD_Package_Exp_ID")
+	public void setAD_Package_Exp_IDFromJson(int AD_Package_Exp_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Package_Exp_ID(AD_Package_Exp_ID);
 		}

@@ -266,8 +266,8 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	 *
 	 * @param PA_Report_ID Financial Report
 	 */
-
-	public void setPA_Report_ID(int PA_Report_ID) {
+	@JsonProperty("PA_Report_ID")
+	public void setPA_Report_IDFromJson(int PA_Report_ID) {
 		if (get_ID() == 0) {
 			super.setPA_Report_ID(PA_Report_ID);
 		}

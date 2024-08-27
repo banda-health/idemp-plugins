@@ -123,8 +123,8 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 	 *
 	 * @param CurrentCostPrice The currently used cost price
 	 */
-
-	public void setCurrentCostPrice(BigDecimal CurrentCostPrice) {
+	@JsonProperty("CurrentCostPrice")
+	public void setCurrentCostPriceFromJson(BigDecimal CurrentCostPrice) {
 		if (get_ID() == 0) {
 			super.setCurrentCostPrice(CurrentCostPrice);
 		}
@@ -244,8 +244,8 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 	 *
 	 * @param M_InventoryLine_ID Unique line in an Inventory document
 	 */
-
-	public void setM_InventoryLine_ID(int M_InventoryLine_ID) {
+	@JsonProperty("M_InventoryLine_ID")
+	public void setM_InventoryLine_IDFromJson(int M_InventoryLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_InventoryLine_ID(M_InventoryLine_ID);
 		}
@@ -341,8 +341,8 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 	 *
 	 * @param QtyBook Book Quantity
 	 */
-
-	public void setQtyBook(BigDecimal QtyBook) {
+	@JsonProperty("QtyBook")
+	public void setQtyBookFromJson(BigDecimal QtyBook) {
 		if (get_ID() == 0) {
 			super.setQtyBook(QtyBook);
 		}

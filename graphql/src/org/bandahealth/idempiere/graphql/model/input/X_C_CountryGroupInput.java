@@ -74,8 +74,8 @@ public class X_C_CountryGroupInput extends MCountryGroup implements I_C_CountryG
 	 *
 	 * @param C_CountryGroup_ID Country Group
 	 */
-
-	public void setC_CountryGroup_ID(int C_CountryGroup_ID) {
+	@JsonProperty("C_CountryGroup_ID")
+	public void setC_CountryGroup_IDFromJson(int C_CountryGroup_ID) {
 		if (get_ID() == 0) {
 			super.setC_CountryGroup_ID(C_CountryGroup_ID);
 		}

@@ -110,8 +110,8 @@ public class X_AD_TaskInstanceInput extends X_AD_TaskInstance implements I_AD_Ta
 	 *
 	 * @param AD_TaskInstance_ID Task Instance
 	 */
-
-	public void setAD_TaskInstance_ID(int AD_TaskInstance_ID) {
+	@JsonProperty("AD_TaskInstance_ID")
+	public void setAD_TaskInstance_IDFromJson(int AD_TaskInstance_ID) {
 		if (get_ID() == 0) {
 			super.setAD_TaskInstance_ID(AD_TaskInstance_ID);
 		}

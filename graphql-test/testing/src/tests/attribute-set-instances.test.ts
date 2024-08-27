@@ -41,7 +41,7 @@ test('guarantee dates can be updated', async () => {
 	await mutate(valueObject)({
 		mutation: M_AttributeSetInstanceSaveDocument,
 		variables: {
-			Entity: { UU: expiringAttributeSetInstance.UU, GuaranteeDate: newDate },
+			Entity: { UU: expiringAttributeSetInstance.UU, GuaranteeDate: newDate, SerNo: '150' },
 		},
 	});
 	expect(

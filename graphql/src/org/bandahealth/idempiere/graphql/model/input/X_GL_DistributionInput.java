@@ -443,8 +443,8 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 	 *
 	 * @param GL_Distribution_ID General Ledger Distribution
 	 */
-
-	public void setGL_Distribution_ID(int GL_Distribution_ID) {
+	@JsonProperty("GL_Distribution_ID")
+	public void setGL_Distribution_IDFromJson(int GL_Distribution_ID) {
 		if (get_ID() == 0) {
 			super.setGL_Distribution_ID(GL_Distribution_ID);
 		}

@@ -160,8 +160,8 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 	 *
 	 * @param M_BOM_ID Bill of Material
 	 */
-
-	public void setM_BOM_ID(int M_BOM_ID) {
+	@JsonProperty("M_BOM_ID")
+	public void setM_BOM_IDFromJson(int M_BOM_ID) {
 		if (get_ID() == 0) {
 			super.setM_BOM_ID(M_BOM_ID);
 		}

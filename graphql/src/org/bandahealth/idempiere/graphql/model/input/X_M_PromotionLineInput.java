@@ -149,8 +149,8 @@ public class X_M_PromotionLineInput extends X_M_PromotionLine implements I_M_Pro
 	 *
 	 * @param M_PromotionLine_ID Promotion Line
 	 */
-
-	public void setM_PromotionLine_ID(int M_PromotionLine_ID) {
+	@JsonProperty("M_PromotionLine_ID")
+	public void setM_PromotionLine_IDFromJson(int M_PromotionLine_ID) {
 		if (get_ID() == 0) {
 			super.setM_PromotionLine_ID(M_PromotionLine_ID);
 		}

@@ -190,8 +190,8 @@ public class X_AD_ToolBarButtonInput extends MToolBarButton implements I_AD_Tool
 	 *
 	 * @param AD_ToolBarButton_ID ToolBar Button
 	 */
-
-	public void setAD_ToolBarButton_ID(int AD_ToolBarButton_ID) {
+	@JsonProperty("AD_ToolBarButton_ID")
+	public void setAD_ToolBarButton_IDFromJson(int AD_ToolBarButton_ID) {
 		if (get_ID() == 0) {
 			super.setAD_ToolBarButton_ID(AD_ToolBarButton_ID);
 		}

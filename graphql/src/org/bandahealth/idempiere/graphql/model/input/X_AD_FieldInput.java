@@ -134,8 +134,8 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 *
 	 * @param AD_Field_ID Field on a database table
 	 */
-
-	public void setAD_Field_ID(int AD_Field_ID) {
+	@JsonProperty("AD_Field_ID")
+	public void setAD_Field_IDFromJson(int AD_Field_ID) {
 		if (get_ID() == 0) {
 			super.setAD_Field_ID(AD_Field_ID);
 		}

@@ -146,8 +146,8 @@ public class X_M_DistributionRunInput extends MDistributionRun implements I_M_Di
 	 *
 	 * @param M_DistributionRun_ID Distribution Run create Orders to distribute products to a selected list of partners
 	 */
-
-	public void setM_DistributionRun_ID(int M_DistributionRun_ID) {
+	@JsonProperty("M_DistributionRun_ID")
+	public void setM_DistributionRun_IDFromJson(int M_DistributionRun_ID) {
 		if (get_ID() == 0) {
 			super.setM_DistributionRun_ID(M_DistributionRun_ID);
 		}

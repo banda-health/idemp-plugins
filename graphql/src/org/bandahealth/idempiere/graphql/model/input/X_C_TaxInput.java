@@ -263,8 +263,8 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 *
 	 * @param C_Tax_ID Tax identifier
 	 */
-
-	public void setC_Tax_ID(int C_Tax_ID) {
+	@JsonProperty("C_Tax_ID")
+	public void setC_Tax_IDFromJson(int C_Tax_ID) {
 		if (get_ID() == 0) {
 			super.setC_Tax_ID(C_Tax_ID);
 		}

@@ -22,9 +22,9 @@ public class MUserMutation extends X_AD_UserMutation {
 		MUser_BH loggedInUser = new MUser_BH(idempiereProperties, Env.getAD_User_ID(idempiereProperties), null);
 		MRole loggedInUserRole = MRole.get(idempiereProperties, Env.getAD_Role_ID(idempiereProperties));
 		// If they're not a system admin, the user must be themselves
-		if (input.getAD_User_ID() != loggedInUser.getAD_User_ID() && (!loggedInUser.isAdministrator() ||
+		if (input.getAD_User_ID() != loggedInUser.getAD_User_ID() && !loggedInUser.isAdministrator() &&
 				!loggedInUserRole.getWindowAccess(((MWindow) Repository.getByUuid(idempiereProperties, MWindow.Table_Name,
-						null, WINDOWUUID_Manage_Users)).getAD_Window_ID()))) {
+						null, WINDOWUUID_Manage_Users)).getAD_Window_ID())) {
 			return (MUser_BH) input;
 		}
 		return super.AD_UserSave(input, environment);
@@ -36,9 +36,9 @@ public class MUserMutation extends X_AD_UserMutation {
 		MUser_BH loggedInUser = new MUser_BH(idempiereProperties, Env.getAD_User_ID(idempiereProperties), null);
 		MRole loggedInUserRole = MRole.get(idempiereProperties, Env.getAD_Role_ID(idempiereProperties));
 		// This is only available to admins
-		if ((!loggedInUser.isAdministrator() || !loggedInUserRole.getWindowAccess(
+		if (!loggedInUser.isAdministrator() && !loggedInUserRole.getWindowAccess(
 				((MWindow) Repository.getByUuid(idempiereProperties, MWindow.Table_Name, null,
-						WINDOWUUID_Manage_Users)).getAD_Window_ID()))) {
+						WINDOWUUID_Manage_Users)).getAD_Window_ID())) {
 			return true;
 		}
 		return super.AD_UserDelete(uuids, environment);
