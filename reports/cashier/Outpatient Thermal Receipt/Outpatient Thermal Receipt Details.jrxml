@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt Details" pageWidth="162" pageHeight="134" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="865ee1bb-bd7d-4d8a-b0a0-732f57770a27">
 	<property name="ireport.zoom" value="3.305785123966944"/>
 	<property name="ireport.x" value="0"/>
@@ -179,7 +179,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[Total Charge:]]></text>
 			</staticText>
-			<textField pattern="#,##0.###;(#,##0.###-)">
+			<textField textAdjust="ScaleFont" pattern="#,##0.###;(#,##0.###-)">
 				<reportElement x="124" y="4" width="38" height="18" uuid="27efa240-c43c-486b-8ef1-66c11a2f054d"/>
 				<box rightPadding="2">
 					<pen lineWidth="0.5"/>
