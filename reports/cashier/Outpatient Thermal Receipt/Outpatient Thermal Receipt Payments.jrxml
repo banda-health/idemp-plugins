@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt Payments" pageWidth="162" pageHeight="134" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="40dbf2df-a037-42cd-9808-b1285b682703">
 	<property name="ireport.zoom" value="3.305785123966942"/>
 	<property name="ireport.x" value="29"/>
@@ -68,7 +68,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}.toUpperCase()]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.###;(#,##0.###-)">
+			<textField textAdjust="ScaleFont" pattern="#,##0.###;(#,##0.###-)">
 				<reportElement x="124" y="2" width="38" height="14" uuid="053ef0e2-306c-41a5-8636-f7e49ba02d23"/>
 				<box rightPadding="2"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -80,7 +80,7 @@ GROUP BY
 	</detail>
 	<summary>
 		<band height="42" splitType="Stretch">
-			<textField pattern="#,##0" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="99" y="8" width="63" height="14" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
 				<box rightPadding="2"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -89,7 +89,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalPayments}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="99" y="30" width="63" height="12" uuid="5f290662-d3d5-4249-9627-8a69a89724d9"/>
 				<box rightPadding="2"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
