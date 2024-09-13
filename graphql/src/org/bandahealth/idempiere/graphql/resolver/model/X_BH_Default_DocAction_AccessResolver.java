@@ -68,7 +68,7 @@ public class X_BH_Default_DocAction_AccessResolver extends POResolver<MBHDefault
 			put("T", "c12fae5c-0307-41ae-9555-8d283333a11d"); // Triage
 			put("D", "c2003ff1-682d-42a5-beda-d04fbf1a62a0"); // Cashier/Registration Advanced
 			put("E", "34c6accb-c624-4936-95a6-3a2ef648e360"); // Clinician/Nurse Advanced
-			put("J", "2f53d003-2c9b-40c9-8bb2-bec3a7a32067"); // Inventory/Pharmacy Basic
+			put("J", "11673e50-c7c9-420f-9b87-a092db56af8c"); // Inventory/Pharmacy Basic
 		}
 	};
 	public CompletableFuture<MRefList_BH> DB_UserType(MBHDefaultDocActionAccess entity, DataFetchingEnvironment environment) {
