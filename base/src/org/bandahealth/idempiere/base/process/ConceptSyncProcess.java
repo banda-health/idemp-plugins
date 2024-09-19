@@ -34,7 +34,6 @@ import org.bandahealth.idempiere.base.utils.StringUtil;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
-import org.compiere.util.DB;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -195,13 +194,12 @@ public class ConceptSyncProcess extends SvrProcess {
 		final int conceptID = mConcept.getBH_Concept_ID();
 
 		// check ocl originating source
-		List<MBHOclOriginatingSource> mOclOriginatingSources = new Query(getCtx(), MBHOclOriginatingSource.Table_Name,
+		MBHOclOriginatingSource foundSource = new Query(getCtx(), MBHOclOriginatingSource.Table_Name,
 				MBHOclOriginatingSource.COLUMNNAME_BH_Concept_ID + " =? AND "
 						+ MBHOclOriginatingSource.COLUMNNAME_BH_Ocl_Source + "=?",
-				null).setParameters(conceptID, source).list();
+				null).setParameters(conceptID, source).first();
 
 		// create ocl originating source if one doesn't exist
-		MBHOclOriginatingSource foundSource = mOclOriginatingSources.stream().findFirst().orElse(null);
 		if (foundSource == null) {
 			foundSource = new MBHOclOriginatingSource(getCtx(), 0, null);
 			foundSource.setBH_Concept_ID(conceptID);
@@ -378,9 +376,8 @@ public class ConceptSyncProcess extends SvrProcess {
 
 		// save every mapping and check underlying concepts
 		mappings.forEach((mapping) -> {
-			// we don't need to save SAME-AS, BROADER-THAN concepts
-			if (!MBHConceptMapping.SAME_AS_MAP_TYPE.equals(mapping.getMapType())
-					&& !MBHConceptMapping.BROADER_THAN_MAP_TYPE.equals(mapping.getMapType())) {
+			// we don't need to save BROADER-THAN concepts
+			if (!MBHConceptMapping.BROADER_THAN_MAP_TYPE.equalsIgnoreCase(mapping.getMapType())) {
 				// search mapping in db list
 //				To be re-enabled
 //				MBHConceptMapping foundConceptMapping = mConceptMappings.stream()

@@ -13,14 +13,14 @@ public interface I_BH_Client_ConceptInput extends I_BH_Client_Concept {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within tenant
+	 * @param AD_Org Organizational entity within client
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within tenant
+	 * @return Organizational entity within client
 	 */
 	ForeignEntityInput AD_Org();
 

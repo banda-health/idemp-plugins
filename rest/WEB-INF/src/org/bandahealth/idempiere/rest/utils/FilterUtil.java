@@ -41,6 +41,8 @@ public class FilterUtil {
 		put("updatedby", "ad_user");
 		put("bh_from_warehouse", "m_warehouse");
 		put("bh_to_warehouse", "m_warehouse");
+		put("from_bh_concept", "bh_concept");
+		put("to_bh_concept", "bh_concept");
 	}};
 	private static final String SPECIFIC_COLUMN_MAPPING_SPECIFIER = "::";
 	private static final String SOURCE_TO_DESTINATION_COLUMN_MAPPING_SPECIFIER = "->";
