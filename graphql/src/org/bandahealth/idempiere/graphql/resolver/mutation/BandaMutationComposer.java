@@ -89,6 +89,7 @@ public class BandaMutationComposer {
 				new MBHEncounterDiagnosticMutation(),
 				new MBHEncounterTypeWindowMutation(),
 				new MBHObservationMutation(),
+				new MBHOclOriginatingSourceMutation(),
 				new MBHPayerInfoFldMutation(),
 				new MBHPayerInfoFldSugMutation(),
 				new MBHPayerInfoFldValMutation(),

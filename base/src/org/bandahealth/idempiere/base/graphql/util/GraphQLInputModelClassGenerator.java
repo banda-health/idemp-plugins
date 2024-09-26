@@ -291,6 +291,9 @@ public class GraphQLInputModelClassGenerator {
 				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "M_Warehouse";
+				} else if (columnName.equals("From_BH_Concept_ID") || columnName.equals("To_BH_Concept_ID")) {
+					entityName = columnNameWithSuffixedIdRemoved;
+					foreignEntityTable = "BH_Concept";
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";

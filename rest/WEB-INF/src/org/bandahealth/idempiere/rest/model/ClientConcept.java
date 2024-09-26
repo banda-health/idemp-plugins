@@ -11,12 +11,10 @@ public class ClientConcept extends BaseMetadata {
 
 	private static final long serialVersionUID = -2371895569523894294L;
 	private Client mappingClient;
-	@JsonIgnore
-	private int clientMappingId;
 	private Concept concept;
 	@JsonIgnore
 	private int conceptId;
-	private String name;
+	private String displayName;
 
 	public ClientConcept() {
 	}
@@ -24,9 +22,8 @@ public class ClientConcept extends BaseMetadata {
 	public ClientConcept(MBHClientConcept entity) {
 		super(entity);
 
-		setClientMappingId(entity.getBH_Client_Mapping_ID());
 		setConceptId(entity.getBH_Concept_ID());
-		setName(entity.getName());
+		setDisplayName(entity.getBH_Display_Name());
 	}
 
 	public Client getMappingClient() {
@@ -45,14 +42,6 @@ public class ClientConcept extends BaseMetadata {
 		this.concept = concept;
 	}
 
-	public int getClientMappingId() {
-		return clientMappingId;
-	}
-
-	public void setClientMappingId(int clientMappingId) {
-		this.clientMappingId = clientMappingId;
-	}
-
 	public int getConceptId() {
 		return conceptId;
 	}
@@ -61,11 +50,11 @@ public class ClientConcept extends BaseMetadata {
 		this.conceptId = conceptId;
 	}
 	
-	public String getName() {
-		return name;
+	public String getDisplayName() {
+		return displayName;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 }

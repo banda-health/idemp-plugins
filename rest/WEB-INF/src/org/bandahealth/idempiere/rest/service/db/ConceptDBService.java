@@ -87,10 +87,10 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 		// get child concept mappings
 		Map<Integer, List<ConceptMapping>> conceptMappingByConceptId = conceptMappingDBService
 				.transformData(conceptMappingDBService
-						.getGroupsByIds(MBHConceptMapping::getBH_Concept_ID, MBHConceptMapping.COLUMNNAME_BH_Concept_ID,
+						.getGroupsByIds(MBHConceptMapping::getFrom_BH_Concept_ID, MBHConceptMapping.COLUMNNAME_From_BH_Concept_ID,
 								dbModels.stream().map(MBHConcept::get_ID).collect(Collectors.toSet()))
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
-				.stream().collect(Collectors.groupingBy(ConceptMapping::getConceptId));
+				.stream().collect(Collectors.groupingBy(ConceptMapping::getFromConceptId));
 
 		// get concept extras
 		Map<Integer, List<ConceptExtra>> conceptExtraByConceptId = conceptExtraDBService

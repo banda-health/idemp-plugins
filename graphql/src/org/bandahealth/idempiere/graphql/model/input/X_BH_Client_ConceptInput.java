@@ -38,7 +38,7 @@ public class X_BH_Client_ConceptInput extends MBHClientConcept implements I_BH_C
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within tenant
+	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -65,7 +65,7 @@ public class X_BH_Client_ConceptInput extends MBHClientConcept implements I_BH_C
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within tenant
+	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -76,8 +76,8 @@ public class X_BH_Client_ConceptInput extends MBHClientConcept implements I_BH_C
 	 *
 	 * @param BH_Client_Concept_ID Client Concept
 	 */
-
-	public void setBH_Client_Concept_ID(int BH_Client_Concept_ID) {
+	@JsonProperty("BH_Client_Concept_ID")
+	public void setBH_Client_Concept_IDFromJson(int BH_Client_Concept_ID) {
 		if (get_ID() == 0) {
 			super.setBH_Client_Concept_ID(BH_Client_Concept_ID);
 		}

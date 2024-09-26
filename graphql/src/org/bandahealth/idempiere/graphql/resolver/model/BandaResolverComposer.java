@@ -89,6 +89,7 @@ public class BandaResolverComposer {
 				new MBHEncounterDiagnosticResolver(),
 				new MBHEncounterTypeWindowResolver(),
 				new MBHObservationResolver(),
+				new MBHOclOriginatingSourceResolver(),
 				new MBHPayerInfoFldResolver(),
 				new MBHPayerInfoFldSugResolver(),
 				new MBHPayerInfoFldValResolver(),

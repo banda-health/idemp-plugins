@@ -22,7 +22,6 @@ type BH_Concept_Mapping {
 	AD_Client: AD_Client
 	# Organizational entity within tenant
 	AD_Org: AD_Org
-	BH_Concept: BH_Concept!
 	UU: ID!
 	# BH_External_ID
 	BH_ExternalID: String
@@ -47,8 +46,12 @@ type BH_Concept_Mapping {
 	Created: Date
 	# User who created this records
 	CreatedBy: AD_User
+	From_BH_Concept: BH_Concept!
 	# The record is active in the system
 	IsActive: Boolean!
+	# A UUID from the OCL system
+	Ocl_Uuid: String
+	To_BH_Concept: BH_Concept
 	# Date this record was updated
 	Updated: Date
 	# User who updated this records
@@ -58,7 +61,6 @@ type BH_Concept_Mapping {
 input BH_Concept_MappingInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	BH_Concept: ForeignEntityInput
 	UU: ID
 	# BH_External_ID
 	BH_ExternalID: String
@@ -79,6 +81,10 @@ input BH_Concept_MappingInput {
 	BH_To_Concept_Name_Resolved: String
 	BH_To_Concept_Url: String
 	BH_To_Source_Name: String
+	From_BH_Concept: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
+	# A UUID from the OCL system
+	Ocl_Uuid: String
+	To_BH_Concept: ForeignEntityInput
 }
