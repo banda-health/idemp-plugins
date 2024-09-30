@@ -31,7 +31,7 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240418L;
+	private static final long serialVersionUID = 20240930L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Diagnostic (Properties ctx, int BH_Encounter_Diagnostic_ID, String trxName)
@@ -117,9 +117,9 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 	public void setBH_Concept_ID (int BH_Concept_ID)
 	{
 		if (BH_Concept_ID < 1)
-			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, null);
+			set_Value (COLUMNNAME_BH_Concept_ID, null);
 		else
-			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
+			set_Value (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
 	}
 
 	/** Get Concept.
@@ -132,17 +132,33 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 		return ii.intValue();
 	}
 
-	/** Complete = c */
-	public static final String BH_DIAGNOSTIC_STATUS_Complete = "c";
-	/** Pending = p */
-	public static final String BH_DIAGNOSTIC_STATUS_Pending = "p";
+	/** Set Notes.
+		@param BH_Diagnostics_Notes Notes about the results
+	*/
+	public void setBH_Diagnostics_Notes (String BH_Diagnostics_Notes)
+	{
+		set_Value (COLUMNNAME_BH_Diagnostics_Notes, BH_Diagnostics_Notes);
+	}
+
+	/** Get Notes.
+		@return Notes about the results
+	  */
+	public String getBH_Diagnostics_Notes()
+	{
+		return (String)get_Value(COLUMNNAME_BH_Diagnostics_Notes);
+	}
+
+	/** Complete = C */
+	public static final String BH_DIAGNOSTIC_STATUS_Complete = "C";
+	/** Pending = P */
+	public static final String BH_DIAGNOSTIC_STATUS_Pending = "P";
 	/** Set Diagnostic Status.
 		@param BH_Diagnostic_Status Diagnostic Status
 	*/
 	public void setBH_Diagnostic_Status (String BH_Diagnostic_Status)
 	{
 
-		set_ValueNoCheck (COLUMNNAME_BH_Diagnostic_Status, BH_Diagnostic_Status);
+		set_Value (COLUMNNAME_BH_Diagnostic_Status, BH_Diagnostic_Status);
 	}
 
 	/** Get Diagnostic Status.

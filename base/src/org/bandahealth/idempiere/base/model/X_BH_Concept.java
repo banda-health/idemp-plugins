@@ -31,7 +31,7 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240704L;
+	private static final long serialVersionUID = 20240929L;
 
     /** Standard Constructor */
     public X_BH_Concept (Properties ctx, int BH_Concept_ID, String trxName)
