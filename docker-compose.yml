@@ -6,7 +6,6 @@ services:
     volumes:
       - ./testing:${INSTALLATION_HOME}
       - ./idempiere-logs:/opt/idempiere/log
-      - ./base/src:/opt/base
     environment:
       - DB_ADMIN_PASS=${POSTGRES_PASSWORD}
       - DB_HOST=${POSTGRES_HOST}
