@@ -2,7 +2,7 @@
 ALTER TABLE
     bh_encounter_diagnostic
 ADD
-    COLUMN bh_diagnostics_notes TEXT DEFAULT NULL;
+    COLUMN bh_diagnostic_note TEXT DEFAULT NULL;
 
 INSERT INTO
     ad_element (
@@ -42,7 +42,7 @@ VALUES
         100,
         '2024-09-30 12:25:37.915',
         100,
-        'BH_Diagnostics_Notes',
+        'BH_Diagnostic_Note',
         'U',
         'Notes',
         'Notes',
@@ -141,7 +141,7 @@ VALUES
         null,
         0,
         'U',
-        'BH_Diagnostics_Notes',
+        'BH_Diagnostic_Note',
         (
             SELECT
                 AD_Table_ID
@@ -207,6 +207,6 @@ VALUES
     ) ON CONFLICT DO NOTHING;
 
 SELECT
-    register_migration_script('202409301607_GO-29968.sql')
+    register_migration_script('202409301607_GO-2976.sql')
 FROM
     dual;
