@@ -31,7 +31,7 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240930L;
+	private static final long serialVersionUID = 20241001L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Diagnostic (Properties ctx, int BH_Encounter_Diagnostic_ID, String trxName)
@@ -132,20 +132,20 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 		return ii.intValue();
 	}
 
-	/** Set Notes.
-		@param BH_Diagnostics_Notes Notes about the results
+	/** Set Note.
+		@param BH_Diagnostic_Note Note about the results
 	*/
-	public void setBH_Diagnostics_Notes (String BH_Diagnostics_Notes)
+	public void setBH_Diagnostic_Note (String BH_Diagnostic_Note)
 	{
-		set_Value (COLUMNNAME_BH_Diagnostics_Notes, BH_Diagnostics_Notes);
+		set_Value (COLUMNNAME_BH_Diagnostic_Note, BH_Diagnostic_Note);
 	}
 
-	/** Get Notes.
-		@return Notes about the results
+	/** Get Note.
+		@return Note about the results
 	  */
-	public String getBH_Diagnostics_Notes()
+	public String getBH_Diagnostic_Note()
 	{
-		return (String)get_Value(COLUMNNAME_BH_Diagnostics_Notes);
+		return (String)get_Value(COLUMNNAME_BH_Diagnostic_Note);
 	}
 
 	/** Complete = C */

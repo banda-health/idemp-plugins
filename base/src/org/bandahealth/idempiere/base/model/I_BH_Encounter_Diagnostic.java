@@ -75,18 +75,18 @@ public interface I_BH_Encounter_Diagnostic
 
 	public I_BH_Concept getBH_Concept() throws RuntimeException;
 
-    /** Column name BH_Diagnostics_Notes */
-    public static final String COLUMNNAME_BH_Diagnostics_Notes = "BH_Diagnostics_Notes";
+    /** Column name BH_Diagnostic_Note */
+    public static final String COLUMNNAME_BH_Diagnostic_Note = "BH_Diagnostic_Note";
 
-	/** Set Notes.
-	  * Notes about the results
+	/** Set Note.
+	  * Note about the results
 	  */
-	public void setBH_Diagnostics_Notes (String BH_Diagnostics_Notes);
+	public void setBH_Diagnostic_Note (String BH_Diagnostic_Note);
 
-	/** Get Notes.
-	  * Notes about the results
+	/** Get Note.
+	  * Note about the results
 	  */
-	public String getBH_Diagnostics_Notes();
+	public String getBH_Diagnostic_Note();
 
     /** Column name BH_Diagnostic_Status */
     public static final String COLUMNNAME_BH_Diagnostic_Status = "BH_Diagnostic_Status";

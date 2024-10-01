@@ -23,6 +23,8 @@ type BH_Encounter_Diagnostic {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	BH_Concept: BH_Concept
+	# Note about the results
+	BH_Diagnostic_Note: String
 	BH_Diagnostic_Status: AD_Ref_List
 	UU: ID!
 	BH_Encounter: BH_Encounter!
@@ -46,6 +48,8 @@ input BH_Encounter_DiagnosticInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BH_Concept: ForeignEntityInput
+	# Note about the results
+	BH_Diagnostic_Note: String
 	BH_Diagnostic_Status: ForeignEntityInput
 	UU: ID
 	BH_Encounter: ForeignEntityInput
