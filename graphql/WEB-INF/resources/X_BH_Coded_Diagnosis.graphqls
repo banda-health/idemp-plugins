@@ -42,7 +42,7 @@ type BH_Coded_Diagnosis {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	# A UUID from the OCL system
+	# A UUID from the OCL System
 	Ocl_Uuid: String
 	# Date this record was updated
 	Updated: Date
@@ -69,6 +69,6 @@ input BH_Coded_DiagnosisInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	# A UUID from the OCL system
+	# A UUID from the OCL System
 	Ocl_Uuid: String
 }

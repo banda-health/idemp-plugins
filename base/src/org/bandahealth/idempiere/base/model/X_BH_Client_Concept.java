@@ -173,7 +173,8 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 	}
 
 	/** Get Display Name.
-		@return Display Name	  */
+		@return Display Name
+	  */
 	public String getBH_Display_Name()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Display_Name);
