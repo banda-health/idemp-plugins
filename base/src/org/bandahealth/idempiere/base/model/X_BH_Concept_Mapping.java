@@ -31,7 +31,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240704L;
+	private static final long serialVersionUID = 20241003L;
 
     /** Standard Constructor */
     public X_BH_Concept_Mapping (Properties ctx, int BH_Concept_Mapping_ID, String trxName)

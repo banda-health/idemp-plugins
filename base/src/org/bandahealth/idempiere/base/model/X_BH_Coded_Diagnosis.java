@@ -31,7 +31,7 @@ public class X_BH_Coded_Diagnosis extends PO implements I_BH_Coded_Diagnosis, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240704L;
+	private static final long serialVersionUID = 20241003L;
 
     /** Standard Constructor */
     public X_BH_Coded_Diagnosis (Properties ctx, int BH_Coded_Diagnosis_ID, String trxName)
