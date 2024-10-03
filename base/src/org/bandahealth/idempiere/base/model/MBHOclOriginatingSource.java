@@ -8,7 +8,8 @@ public class MBHOclOriginatingSource extends X_BH_Ocl_Originating_Source {
 		super(ctx, BH_Ocl_Originating_Source_ID, trxName);
 	}
 
-	public MBHOclOriginatingSource(Properties ctx, int BH_Ocl_Originating_Source_ID, String trxName, String... virtualColumns) {
+	public MBHOclOriginatingSource(Properties ctx, int BH_Ocl_Originating_Source_ID, String trxName,
+			String... virtualColumns) {
 		super(ctx, BH_Ocl_Originating_Source_ID, trxName, virtualColumns);
 	}
 
@@ -16,7 +17,8 @@ public class MBHOclOriginatingSource extends X_BH_Ocl_Originating_Source {
 		super(ctx, BH_Ocl_Originating_Source_UU, trxName);
 	}
 
-	public MBHOclOriginatingSource(Properties ctx, String BH_Ocl_Originating_Source_UU, String trxName, String... virtualColumns) {
+	public MBHOclOriginatingSource(Properties ctx, String BH_Ocl_Originating_Source_UU, String trxName,
+			String... virtualColumns) {
 		super(ctx, BH_Ocl_Originating_Source_UU, trxName, virtualColumns);
 	}
 

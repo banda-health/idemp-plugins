@@ -272,7 +272,7 @@ public class X_BH_Concept_Name extends PO implements I_BH_Concept_Name, I_Persis
 	}
 
 	/** Set Ocl Uuid.
-		@param Ocl_Uuid A UUID from the OCL system
+		@param Ocl_Uuid A UUID from the OCL System
 	*/
 	public void setOcl_Uuid (String Ocl_Uuid)
 	{
@@ -280,7 +280,7 @@ public class X_BH_Concept_Name extends PO implements I_BH_Concept_Name, I_Persis
 	}
 
 	/** Get Ocl Uuid.
-		@return A UUID from the OCL system
+		@return A UUID from the OCL System
 	  */
 	public String getOcl_Uuid()
 	{

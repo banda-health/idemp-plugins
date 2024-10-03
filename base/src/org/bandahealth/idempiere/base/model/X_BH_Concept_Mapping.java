@@ -39,7 +39,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
       super (ctx, BH_Concept_Mapping_ID, trxName);
       /** if (BH_Concept_Mapping_ID == 0)
         {
-			setFrom_BH_Concept_ID (0);
+			setBH_Concept_ID (0);
         } */
     }
 
@@ -49,7 +49,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
       super (ctx, BH_Concept_Mapping_ID, trxName, virtualColumns);
       /** if (BH_Concept_Mapping_ID == 0)
         {
-			setFrom_BH_Concept_ID (0);
+			setBH_Concept_ID (0);
         } */
     }
 
@@ -59,7 +59,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
       super (ctx, BH_Concept_Mapping_UU, trxName);
       /** if (BH_Concept_Mapping_UU == null)
         {
-			setFrom_BH_Concept_ID (0);
+			setBH_Concept_ID (0);
         } */
     }
 
@@ -69,7 +69,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
       super (ctx, BH_Concept_Mapping_UU, trxName, virtualColumns);
       /** if (BH_Concept_Mapping_UU == null)
         {
-			setFrom_BH_Concept_ID (0);
+			setBH_Concept_ID (0);
         } */
     }
 
@@ -100,6 +100,33 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	public I_BH_Concept getBH_Concept() throws RuntimeException
+	{
+		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_ID)
+			.getPO(getBH_Concept_ID(), get_TrxName());
+	}
+
+	/** Set Concept.
+		@param BH_Concept_ID Concept
+	*/
+	public void setBH_Concept_ID (int BH_Concept_ID)
+	{
+		if (BH_Concept_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, null);
+		else
+			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
+	}
+
+	/** Get Concept.
+		@return Concept	  */
+	public int getBH_Concept_ID()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
 
 	/** Set Concept Mapping.
 		@param BH_Concept_Mapping_ID Concept Mapping
@@ -352,29 +379,8 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 		return (String)get_Value(COLUMNNAME_BH_To_Source_Name);
 	}
 
-	/** Set From Concept.
-		@param From_BH_Concept_ID From Concept
-	*/
-	public void setFrom_BH_Concept_ID (int From_BH_Concept_ID)
-	{
-		if (From_BH_Concept_ID < 1)
-			set_ValueNoCheck (COLUMNNAME_From_BH_Concept_ID, null);
-		else
-			set_ValueNoCheck (COLUMNNAME_From_BH_Concept_ID, Integer.valueOf(From_BH_Concept_ID));
-	}
-
-	/** Get From Concept.
-		@return From Concept	  */
-	public int getFrom_BH_Concept_ID()
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_From_BH_Concept_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
 	/** Set Ocl Uuid.
-		@param Ocl_Uuid A UUID from the OCL system
+		@param Ocl_Uuid A UUID from the OCL System
 	*/
 	public void setOcl_Uuid (String Ocl_Uuid)
 	{
@@ -382,7 +388,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	}
 
 	/** Get Ocl Uuid.
-		@return A UUID from the OCL system
+		@return A UUID from the OCL System
 	  */
 	public String getOcl_Uuid()
 	{
@@ -401,7 +407,8 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	}
 
 	/** Get To Concept.
-		@return To Concept	  */
+		@return To Concept
+	  */
 	public int getTo_BH_Concept_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_To_BH_Concept_ID);

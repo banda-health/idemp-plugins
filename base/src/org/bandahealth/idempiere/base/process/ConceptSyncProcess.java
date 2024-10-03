@@ -1,5 +1,20 @@
 package org.bandahealth.idempiere.base.process;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHConceptExtra;
+import org.bandahealth.idempiere.base.model.MBHConceptMapping;
+import org.bandahealth.idempiere.base.model.MBHConceptName;
+import org.bandahealth.idempiere.base.model.MBHOclOriginatingSource;
+import org.bandahealth.idempiere.base.model.OCLConcept;
+import org.bandahealth.idempiere.base.model.OCLConceptMapping;
+import org.bandahealth.idempiere.base.utils.JsonUtils;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.bandahealth.idempiere.base.utils.StringUtil;
+import org.compiere.model.Query;
+import org.compiere.process.ProcessInfoParameter;
+import org.compiere.process.SvrProcess;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -21,25 +36,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.bandahealth.idempiere.base.model.MBHConcept;
-import org.bandahealth.idempiere.base.model.MBHConceptExtra;
-import org.bandahealth.idempiere.base.model.MBHConceptMapping;
-import org.bandahealth.idempiere.base.model.MBHConceptName;
-import org.bandahealth.idempiere.base.model.MBHOclOriginatingSource;
-import org.bandahealth.idempiere.base.model.OCLConcept;
-import org.bandahealth.idempiere.base.model.OCLConceptMapping;
-import org.bandahealth.idempiere.base.utils.JsonUtils;
-import org.bandahealth.idempiere.base.utils.QueryUtil;
-import org.bandahealth.idempiere.base.utils.StringUtil;
-import org.compiere.model.Query;
-import org.compiere.process.ProcessInfoParameter;
-import org.compiere.process.SvrProcess;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-
 /**
  * Process that syncs Concepts with OCL
- * 
+ * <p>
  * TODO: ConceptSyncProcess will be replaced by this class.
  *
  * @author andrew
@@ -107,10 +106,9 @@ public class ConceptSyncProcess extends SvrProcess {
 			// Take advantage of batching to avoid multiple db calls.
 			List<Object> parameters = new ArrayList<Object>();
 
-			// use OCLConcept::getUuid after syncing for the first time with existing
-			// concepts.
-			// Set<String> items =
-			// concepts.stream().map(OCLConcept::getUuid).collect(Collectors.toSet());
+			// use OCLConcept::getUuid after syncing for the first time with existing concepts.
+//			Set<String> items =
+//					concepts.stream().map(OCLConcept::getUuid).collect(Collectors.toSet());
 			Set<String> items = concepts.stream().map(OCLConcept::getExternalId).collect(Collectors.toSet());
 			String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(items, parameters);
 
@@ -151,7 +149,7 @@ public class ConceptSyncProcess extends SvrProcess {
 
 	/**
 	 * Save concepts and child entities (mappings, extras)
-	 * 
+	 *
 	 * @param concept
 	 * @param mConcept
 	 * @param newRecords
@@ -162,8 +160,7 @@ public class ConceptSyncProcess extends SvrProcess {
 			AtomicInteger updatedRecords) {
 		if (concept == null || visitedConcepts.contains(concept.getUuid())) {
 			// If there is no new concept to save or we already visited this concept, return
-			// the
-			// concept that was passed in to be updated if there was one
+			// the concept that was passed in to be updated if there was one
 			return mConcept;
 		}
 
@@ -283,7 +280,7 @@ public class ConceptSyncProcess extends SvrProcess {
 	 */
 	private List<OCLConcept> getConceptsFromOCL(String source, int page) {
 		CompletableFuture<HttpResponse<String>> response = makeRequest(source, page, source == null ? LIMIT : 0, true);
-		List<OCLConcept> oclConcepts = new ArrayList<OCLConcept>();
+		List<OCLConcept> oclConcepts;
 		try {
 			oclConcepts = JsonUtils.convertFromJsonToList(response.get().body(), new TypeReference<List<OCLConcept>>() {
 			});
@@ -295,7 +292,6 @@ public class ConceptSyncProcess extends SvrProcess {
 		response.join();
 
 		return oclConcepts;
-
 	}
 
 	/**
@@ -308,7 +304,7 @@ public class ConceptSyncProcess extends SvrProcess {
 		// To get the latest version of an individual concept, use the "Versions" URL,
 		// and limit the results to 1
 		CompletableFuture<HttpResponse<String>> response = makeRequest(source + "versions/", 0, 1, false);
-		OCLConcept oclConcept = new OCLConcept();
+		OCLConcept oclConcept;
 		try {
 			oclConcept = JsonUtils.convertFromJsonToList(response.get().body(), new TypeReference<List<OCLConcept>>() {
 			}).get(0);
@@ -360,6 +356,7 @@ public class ConceptSyncProcess extends SvrProcess {
 		// Take advantage of batching to avoid multiple db calls.
 		List<Object> parameters = new ArrayList<Object>();
 
+
 //		To be re-enabled
 //		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(
 //				mappings.stream().map(OCLConceptMapping::getUuid).collect(Collectors.toSet()), parameters);
@@ -372,7 +369,7 @@ public class ConceptSyncProcess extends SvrProcess {
 
 		List<MBHConceptMapping> mConceptMappings = new Query(getCtx(), MBHConceptMapping.Table_Name,
 				MBHConceptMapping.COLUMNNAME_BH_OclID + " IN ( " + inClause + " )", null).setParameters(parameters)
-						.list();
+				.list();
 
 		// save every mapping and check underlying concepts
 		mappings.forEach((mapping) -> {
@@ -456,11 +453,11 @@ public class ConceptSyncProcess extends SvrProcess {
 //					OCLConcept childConcept = getConceptFromOCL(mappingUrl);
 //					List<MBHConcept> foundChildConcepts = new Query(getCtx(), MBHConcept.Table_Name,
 //							MBHConcept.COLUMNNAME_Ocl_Uuid + " =?", null).setParameters(childConcept.getUuid()).list();
-					
+
 					OCLConcept childConcept = getConceptFromOCL(mappingUrl);
 					List<MBHConcept> foundChildConcepts = new Query(getCtx(), MBHConcept.Table_Name,
 							MBHConcept.COLUMNNAME_BH_ExternalID + " =?", null).setParameters(childConcept.getExternalId()).list();
-					
+
 					MBHConcept foundChildConcept = foundChildConcepts.stream().findFirst().orElse(null);
 
 					MBHConcept savedChildConcept = saveConcept(childConcept, foundChildConcept, newRecords,
