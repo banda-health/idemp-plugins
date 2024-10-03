@@ -31,7 +31,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240418L;
+	private static final long serialVersionUID = 20241003L;
 
     /** Standard Constructor */
     public X_BH_Concept_Mapping (Properties ctx, int BH_Concept_Mapping_ID, String trxName)
@@ -377,5 +377,43 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	public String getBH_To_Source_Name()
 	{
 		return (String)get_Value(COLUMNNAME_BH_To_Source_Name);
+	}
+
+	/** Set Ocl Uuid.
+		@param Ocl_Uuid A UUID from the OCL System
+	*/
+	public void setOcl_Uuid (String Ocl_Uuid)
+	{
+		set_Value (COLUMNNAME_Ocl_Uuid, Ocl_Uuid);
+	}
+
+	/** Get Ocl Uuid.
+		@return A UUID from the OCL System
+	  */
+	public String getOcl_Uuid()
+	{
+		return (String)get_Value(COLUMNNAME_Ocl_Uuid);
+	}
+
+	/** Set To Concept.
+		@param To_BH_Concept_ID To Concept
+	*/
+	public void setTo_BH_Concept_ID (int To_BH_Concept_ID)
+	{
+		if (To_BH_Concept_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_To_BH_Concept_ID, null);
+		else
+			set_ValueNoCheck (COLUMNNAME_To_BH_Concept_ID, Integer.valueOf(To_BH_Concept_ID));
+	}
+
+	/** Get To Concept.
+		@return To Concept
+	  */
+	public int getTo_BH_Concept_ID()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_To_BH_Concept_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 }

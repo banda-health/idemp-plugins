@@ -31,7 +31,7 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240515L;
+	private static final long serialVersionUID = 20241003L;
 
     /** Standard Constructor */
     public X_BH_Concept (Properties ctx, int BH_Concept_ID, String trxName)
@@ -290,6 +290,22 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	public String getDescription()
 	{
 		return (String)get_Value(COLUMNNAME_Description);
+	}
+
+	/** Set Ocl Uuid.
+		@param Ocl_Uuid A UUID from the OCL System
+	*/
+	public void setOcl_Uuid (String Ocl_Uuid)
+	{
+		set_Value (COLUMNNAME_Ocl_Uuid, Ocl_Uuid);
+	}
+
+	/** Get Ocl Uuid.
+		@return A UUID from the OCL System
+	  */
+	public String getOcl_Uuid()
+	{
+		return (String)get_Value(COLUMNNAME_Ocl_Uuid);
 	}
 
 	/** Set URL.
