@@ -7546,6 +7546,7 @@ export type Ad_Ref_List = {
   /** System Reference and Validation */
   AD_Reference: Ad_Reference;
   BH_Add_All?: Maybe<Scalars['String']['output']>;
+  BH_Encounter_Type_WindowList?: Maybe<Array<Bh_Encounter_Type_Window>>;
   BH_Update_Existing?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
   Created: Scalars['Date']['output'];
@@ -18358,19 +18359,19 @@ export type Bh_Bp_Specific_Payer_InfoInput = {
 
 export type Bh_Client_Concept = {
   __typename?: 'BH_Client_Concept';
-  /** Tenant for this installation. */
+  /** Client/Tenant for this installation. */
   AD_Client?: Maybe<Ad_Client>;
-  /** Organizational entity within tenant */
+  /** Organizational entity within client */
   AD_Org?: Maybe<Ad_Org>;
   BH_Concept: Bh_Concept;
+  /** Display Name */
+  BH_Display_Name?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
   Created?: Maybe<Scalars['Date']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
-  /** Alphanumeric identifier of the entity */
-  Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18385,13 +18386,13 @@ export type Bh_Client_ConceptConnection = {
 };
 
 export type Bh_Client_ConceptInput = {
-  /** Organizational entity within tenant */
+  /** Organizational entity within client */
   AD_Org?: InputMaybe<ForeignEntityInput>;
   BH_Concept?: InputMaybe<ForeignEntityInput>;
+  /** Display Name */
+  BH_Display_Name?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Alphanumeric identifier of the entity */
-  Name?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -18410,6 +18411,8 @@ export type Bh_Coded_Diagnosis = {
   Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18441,6 +18444,8 @@ export type Bh_Coded_DiagnosisInput = {
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   bh_cielname?: InputMaybe<Scalars['String']['input']>;
   bh_concept_class?: InputMaybe<Scalars['String']['input']>;
@@ -18543,6 +18548,8 @@ export type Bh_Concept = {
   FromBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   /** Parent mappings (usually 1) */
   ToBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
   /** Full URL address - e.g. http://www.idempiere.org */
@@ -18580,6 +18587,8 @@ export type Bh_ConceptInput = {
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
   /** Full URL address - e.g. http://www.idempiere.org */
   URL?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
@@ -18684,7 +18693,6 @@ export type Bh_Concept_Mapping = {
   AD_Client?: Maybe<Ad_Client>;
   /** Organizational entity within tenant */
   AD_Org?: Maybe<Ad_Org>;
-  BH_Concept: Bh_Concept;
   BH_Concept_Extras?: Maybe<Array<Bh_Concept_Extra>>;
   /** BH_External_ID */
   BH_ExternalID?: Maybe<Scalars['String']['output']>;
@@ -18709,13 +18717,15 @@ export type Bh_Concept_Mapping = {
   Created?: Maybe<Scalars['Date']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
-  FromBH_Concept: Bh_Concept;
   FromBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
+  From_BH_Concept: Bh_Concept;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   /** Provides a way to skip over From concept to it's From mappings */
-  ToBH_Concept?: Maybe<Bh_Concept>;
   ToBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
+  To_BH_Concept?: Maybe<Bh_Concept>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18732,7 +18742,6 @@ export type Bh_Concept_MappingConnection = {
 export type Bh_Concept_MappingInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
-  BH_Concept?: InputMaybe<ForeignEntityInput>;
   /** BH_External_ID */
   BH_ExternalID?: InputMaybe<Scalars['String']['input']>;
   BH_From_Concept_Code?: InputMaybe<Scalars['String']['input']>;
@@ -18752,8 +18761,12 @@ export type Bh_Concept_MappingInput = {
   BH_To_Concept_Name_Resolved?: InputMaybe<Scalars['String']['input']>;
   BH_To_Concept_Url?: InputMaybe<Scalars['String']['input']>;
   BH_To_Source_Name?: InputMaybe<Scalars['String']['input']>;
+  From_BH_Concept?: InputMaybe<ForeignEntityInput>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
+  To_BH_Concept?: InputMaybe<ForeignEntityInput>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -18778,6 +18791,8 @@ export type Bh_Concept_Name = {
   IsActive: Scalars['Boolean']['output'];
   /** Alphanumeric identifier of the entity */
   Name?: Maybe<Scalars['String']['output']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18805,6 +18820,8 @@ export type Bh_Concept_NameInput = {
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Alphanumeric identifier of the entity */
   Name?: InputMaybe<Scalars['String']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -18906,8 +18923,9 @@ export type Bh_Encounter = {
   AD_Client: Ad_Client;
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
-  BH_Encounter_Date?: Maybe<Scalars['Date']['output']>;
+  BH_Encounter_Date: Scalars['Date']['output'];
   BH_Encounter_DiagnosisList?: Maybe<Array<Bh_Encounter_Diagnosis>>;
+  BH_Encounter_DiagnosticList?: Maybe<Array<Bh_Encounter_Diagnostic>>;
   BH_Encounter_Type: Ad_Ref_List;
   BH_Encounter_Type_Windows?: Maybe<Array<Bh_Encounter_Type_Window>>;
   BH_Observations?: Maybe<Array<Bh_Observation>>;
@@ -18980,6 +18998,57 @@ export type Bh_Encounter_DiagnosisInput = {
   BH_Encounter?: InputMaybe<ForeignEntityInput>;
   /** uncoded diagnosis */
   BH_Uncoded_Diagnosis?: InputMaybe<Scalars['String']['input']>;
+  /** The record is active in the system */
+  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Line No */
+  LineNo?: InputMaybe<Scalars['Int']['input']>;
+  UU?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type Bh_Encounter_Diagnostic = {
+  __typename?: 'BH_Encounter_Diagnostic';
+  /** Tenant for this installation. */
+  AD_Client: Ad_Client;
+  /** Organizational entity within tenant */
+  AD_Org: Ad_Org;
+  BH_Concept?: Maybe<Bh_Concept>;
+  /** Note about the results */
+  BH_Diagnostic_Note?: Maybe<Scalars['String']['output']>;
+  BH_Diagnostic_Status?: Maybe<Ad_Ref_List>;
+  BH_Encounter: Bh_Encounter;
+  /** BH_Value */
+  BH_Value?: Maybe<Scalars['String']['output']>;
+  /** Date this record was created */
+  Created: Scalars['Date']['output'];
+  /** User who created this records */
+  CreatedBy: Ad_User;
+  /** The record is active in the system */
+  IsActive: Scalars['Boolean']['output'];
+  /** Line No */
+  LineNo?: Maybe<Scalars['Int']['output']>;
+  UU: Scalars['ID']['output'];
+  /** Date this record was updated */
+  Updated: Scalars['Date']['output'];
+  /** User who updated this records */
+  UpdatedBy: Ad_User;
+};
+
+export type Bh_Encounter_DiagnosticConnection = {
+  __typename?: 'BH_Encounter_DiagnosticConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<Bh_Encounter_Diagnostic>;
+};
+
+export type Bh_Encounter_DiagnosticInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
+  /** Note about the results */
+  BH_Diagnostic_Note?: InputMaybe<Scalars['String']['input']>;
+  BH_Diagnostic_Status?: InputMaybe<ForeignEntityInput>;
+  BH_Encounter?: InputMaybe<ForeignEntityInput>;
+  /** BH_Value */
+  BH_Value?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Line No */
@@ -19165,6 +19234,43 @@ export type Bh_ObservationInput = {
   BH_Encounter?: InputMaybe<ForeignEntityInput>;
   /** BH_Value */
   BH_Value?: InputMaybe<Scalars['String']['input']>;
+  /** The record is active in the system */
+  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  UU?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type Bh_Ocl_Originating_Source = {
+  __typename?: 'BH_Ocl_Originating_Source';
+  /** Tenant for this installation. */
+  AD_Client: Ad_Client;
+  /** Organizational entity within tenant */
+  AD_Org: Ad_Org;
+  BH_Concept: Bh_Concept;
+  BH_Ocl_Source?: Maybe<Ad_Ref_List>;
+  /** Date this record was created */
+  Created: Scalars['Date']['output'];
+  /** User who created this records */
+  CreatedBy: Ad_User;
+  /** The record is active in the system */
+  IsActive: Scalars['Boolean']['output'];
+  UU: Scalars['ID']['output'];
+  /** Date this record was updated */
+  Updated: Scalars['Date']['output'];
+  /** User who updated this records */
+  UpdatedBy: Ad_User;
+};
+
+export type Bh_Ocl_Originating_SourceConnection = {
+  __typename?: 'BH_Ocl_Originating_SourceConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<Bh_Ocl_Originating_Source>;
+};
+
+export type Bh_Ocl_Originating_SourceInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
+  BH_Ocl_Source?: InputMaybe<ForeignEntityInput>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
@@ -51662,6 +51768,9 @@ export type Mutation = {
   BH_Encounter_DiagnosisDelete: Scalars['Boolean']['output'];
   BH_Encounter_DiagnosisSave: Bh_Encounter_Diagnosis;
   BH_Encounter_DiagnosisSaveMany: Array<Bh_Encounter_Diagnosis>;
+  BH_Encounter_DiagnosticDelete: Scalars['Boolean']['output'];
+  BH_Encounter_DiagnosticSave: Bh_Encounter_Diagnostic;
+  BH_Encounter_DiagnosticSaveMany: Array<Bh_Encounter_Diagnostic>;
   BH_Encounter_Type_WindowDelete: Scalars['Boolean']['output'];
   BH_Encounter_Type_WindowSave: Bh_Encounter_Type_Window;
   BH_Encounter_Type_WindowSaveMany: Array<Bh_Encounter_Type_Window>;
@@ -51671,6 +51780,9 @@ export type Mutation = {
   BH_ObservationDelete: Scalars['Boolean']['output'];
   BH_ObservationSave: Bh_Observation;
   BH_ObservationSaveMany: Array<Bh_Observation>;
+  BH_Ocl_Originating_SourceDelete: Scalars['Boolean']['output'];
+  BH_Ocl_Originating_SourceSave: Bh_Ocl_Originating_Source;
+  BH_Ocl_Originating_SourceSaveMany: Array<Bh_Ocl_Originating_Source>;
   BH_Payer_Info_FldDelete: Scalars['Boolean']['output'];
   BH_Payer_Info_FldSave: Bh_Payer_Info_Fld;
   BH_Payer_Info_FldSaveMany: Array<Bh_Payer_Info_Fld>;
@@ -57946,6 +58058,24 @@ export type MutationBh_Encounter_DiagnosisSaveManyArgs = {
 
 
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Encounter_DiagnosticDeleteArgs = {
+  UUs: Array<Scalars['String']['input']>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Encounter_DiagnosticSaveArgs = {
+  Entity: Bh_Encounter_DiagnosticInput;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Encounter_DiagnosticSaveManyArgs = {
+  Entities: Array<Bh_Encounter_DiagnosticInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationBh_Encounter_Type_WindowDeleteArgs = {
   UUs: Array<Scalars['String']['input']>;
 };
@@ -57996,6 +58126,24 @@ export type MutationBh_ObservationSaveArgs = {
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationBh_ObservationSaveManyArgs = {
   Entities: Array<Bh_ObservationInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Ocl_Originating_SourceDeleteArgs = {
+  UUs: Array<Scalars['String']['input']>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Ocl_Originating_SourceSaveArgs = {
+  Entity: Bh_Ocl_Originating_SourceInput;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Ocl_Originating_SourceSaveManyArgs = {
+  Entities: Array<Bh_Ocl_Originating_SourceInput>;
 };
 
 
@@ -71455,12 +71603,16 @@ export type Query = {
   BH_EncounterGet: Bh_EncounterConnection;
   BH_Encounter_Diagnosis?: Maybe<Bh_Encounter_Diagnosis>;
   BH_Encounter_DiagnosisGet: Bh_Encounter_DiagnosisConnection;
+  BH_Encounter_Diagnostic?: Maybe<Bh_Encounter_Diagnostic>;
+  BH_Encounter_DiagnosticGet: Bh_Encounter_DiagnosticConnection;
   BH_Encounter_Type_Window?: Maybe<Bh_Encounter_Type_Window>;
   BH_Encounter_Type_WindowGet: Bh_Encounter_Type_WindowConnection;
   BH_I_Product_Quantity?: Maybe<Bh_I_Product_Quantity>;
   BH_I_Product_QuantityGet: Bh_I_Product_QuantityConnection;
   BH_Observation?: Maybe<Bh_Observation>;
   BH_ObservationGet: Bh_ObservationConnection;
+  BH_Ocl_Originating_Source?: Maybe<Bh_Ocl_Originating_Source>;
+  BH_Ocl_Originating_SourceGet: Bh_Ocl_Originating_SourceConnection;
   BH_Payer_Info_Fld?: Maybe<Bh_Payer_Info_Fld>;
   BH_Payer_Info_FldGet: Bh_Payer_Info_FldConnection;
   BH_Payer_Info_Fld_Sug?: Maybe<Bh_Payer_Info_Fld_Sug>;
@@ -76425,6 +76577,21 @@ export type QueryBh_Encounter_DiagnosisGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Encounter_DiagnosticArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Encounter_DiagnosticGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_Encounter_Type_WindowArgs = {
   UU: Scalars['String']['input'];
 };
@@ -76462,6 +76629,21 @@ export type QueryBh_ObservationArgs = {
 
 /** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_ObservationGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Ocl_Originating_SourceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Ocl_Originating_SourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
@@ -88548,7 +88730,7 @@ export type U_Web_PropertiesInput = {
 
 export type Ad_RoleFieldsFragment = { __typename?: 'AD_Role', UU: string, IsMasterRole: boolean, Name: string, AD_Role_IncludedList?: Array<{ __typename?: 'AD_Role_Included', UU: string, Included_Role: { __typename?: 'AD_Role', UU: string } }> | null };
 
-export type Bh_VisitFieldsFragment = { __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date?: number | null, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Coded_Diagnosis?: { __typename?: 'BH_Coded_Diagnosis', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null };
+export type Bh_VisitFieldsFragment = { __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Coded_Diagnosis?: { __typename?: 'BH_Coded_Diagnosis', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null };
 
 export type C_BPartnerFieldsFragment = { __typename?: 'C_BPartner', BH_Birthday?: number | null, bh_occupation?: string | null, Description?: string | null, UU: string, IsCustomer: boolean, IsVendor: boolean, LastVisitDate?: number | null, Name: string, NationalID?: string | null, NextOfKin_Contact?: string | null, NextOfKin_Name?: string | null, TotalOpenBalance?: number | null, TotalVisits: number, bh_gender?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, BH_Payer_Info_FldList?: Array<{ __typename?: 'BH_Payer_Info_Fld', UU: string, BH_PayerInfoFieldDataType: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null, C_BP_Group: { __typename?: 'C_BP_Group', Name: string, UU: string, AssociatedCustomerReceivablesCharge?: { __typename?: 'C_Charge', UU: string } | null }, C_BPartner_Locations?: Array<{ __typename?: 'C_BPartner_Location', UU: string, C_Location: { __typename?: 'C_Location', Address1?: string | null } }> | null, M_PriceList?: { __typename?: 'M_PriceList', UU: string } | null, PO_PriceList?: { __typename?: 'M_PriceList', UU: string } | null };
 
@@ -89313,7 +89495,7 @@ export type Bh_EncounterGetQueryVariables = Exact<{
 }>;
 
 
-export type Bh_EncounterGetQuery = { __typename?: 'Query', BH_EncounterGet: { __typename?: 'BH_EncounterConnection', Results: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date?: number | null }> } };
+export type Bh_EncounterGetQuery = { __typename?: 'Query', BH_EncounterGet: { __typename?: 'BH_EncounterConnection', Results: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number }> } };
 
 export type Bh_Payer_Info_Fld_SugGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -89333,7 +89515,7 @@ export type Bh_VisitGetQueryVariables = Exact<{
 }>;
 
 
-export type Bh_VisitGetQuery = { __typename?: 'Query', BH_VisitGet: { __typename?: 'BH_VisitConnection', Results: Array<{ __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date?: number | null, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Coded_Diagnosis?: { __typename?: 'BH_Coded_Diagnosis', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null }> } };
+export type Bh_VisitGetQuery = { __typename?: 'Query', BH_VisitGet: { __typename?: 'BH_VisitConnection', Results: Array<{ __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Coded_Diagnosis?: { __typename?: 'BH_Coded_Diagnosis', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null }> } };
 
 export type Bh_Voided_ReasonGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
