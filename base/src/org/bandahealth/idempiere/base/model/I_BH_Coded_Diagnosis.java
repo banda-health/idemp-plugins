@@ -223,6 +223,19 @@ public interface I_BH_Coded_Diagnosis
 	  */
 	public boolean isActive();
 
+    /** Column name Ocl_Uuid */
+    public static final String COLUMNNAME_Ocl_Uuid = "Ocl_Uuid";
+
+	/** Set Ocl Uuid.
+	  * A UUID from the OCL System
+	  */
+	public void setOcl_Uuid (String Ocl_Uuid);
+
+	/** Get Ocl Uuid.
+	  * A UUID from the OCL System
+	  */
+	public String getOcl_Uuid();
+
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
 
