@@ -105,7 +105,7 @@ FROM
 					NULL,
 					o.createdby,
 					NULL,
-					ol.qtyentered,
+					ol.qtyentered * CASE WHEN o.issotrx = 'Y' THEN -1 ELSE 1 END,
 					ol.m_product_id
 				FROM
 					c_order o
