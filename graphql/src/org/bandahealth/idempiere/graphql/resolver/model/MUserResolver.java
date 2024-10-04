@@ -16,4 +16,8 @@ public class MUserResolver extends X_AD_UserResolver {
 				environment.getDataLoaderRegistry().getDataLoader(MUserRolesDataLoader.DATALOADER_AD_User_Roles_BY_AD_User_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getAD_User_ID()));
 	}
+
+	public Boolean IsAdministrator(MUser_BH entity) {
+		return entity.isAdministrator();
+	}
 }
