@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Non-Patient Payment Report" pageWidth="1130" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="1090" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="10" isIgnorePagination="true" uuid="119c2304-e36c-455c-b968-eaaad289bbac">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT DB"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Table_TH" mode="Transparent" backcolor="#BFE1FF">
 		<box>
@@ -25,11 +25,31 @@
 			<style backcolor="#FFFFFF"/>
 		</conditionalStyle>
 	</style>
+	<subDataset name="mode_fetch" uuid="f331b743-163b-4766-8fb5-24f1e31bc83d">
+		<parameter name="Mode" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[WITH params AS (
+	SELECT COALESCE($P{Mode}, '') AS payment_mode
+)
+SELECT
+	CASE WHEN p.payment_mode = '' THEN 'All' ELSE name END AS mode
+FROM
+	ad_ref_list rl
+		RIGHT JOIN params p
+		ON rl.value = p.payment_mode
+WHERE
+	rl.ad_reference_id = (
+		SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'
+	)
+	OR p.payment_mode = '';]]>
+		</queryString>
+		<field name="mode" class="java.lang.String"/>
+	</subDataset>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="Mode" class="java.lang.String"/>
 	<parameter name="Insurance Type" class="java.lang.String"/>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[WITH params AS (
 	SELECT
@@ -49,9 +69,9 @@
 		FROM
 			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) gvd
 				JOIN c_order o
-					ON gvd.bh_visit_id = o.bh_visit_id
+				ON gvd.bh_visit_id = o.bh_visit_id
 				JOIN c_orderline ol
-					ON o.c_order_id = ol.c_order_id
+				ON o.c_order_id = ol.c_order_id
 		WHERE
 			gvd.docstatus <> 'VO'
 			AND gvd.docstatus <> 'DR'
@@ -125,23 +145,25 @@ FROM
 			DirectPayments
 		GROUP BY bh_visit_id
 	) patient_payment_sums
-			ON Visit_info.bh_visit_id = patient_payment_sums.bh_visit_id
+		ON Visit_info.bh_visit_id = patient_payment_sums.bh_visit_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1                            AS insurance,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1                            AS waiver,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1                            AS donation,
-						SUM(linenetamt) FILTER (WHERE bh_subtype = $P{Mode} OR chargetype_name = $P{Insurance Type}) * -1 AS NonPaySelectedtotal,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('I', 'W', 'D') ) * -1               AS NonPaytotal
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1                                                  AS insurance,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1                                                  AS waiver,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1                                                  AS donation,
+				SUM(linenetamt) FILTER (WHERE bh_subtype = p.payment_mode OR chargetype_name = p.insurance_type) *
+				-1                                                                                                    AS NonPaySelectedtotal,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('I', 'W', 'D') ) * -1                                     AS NonPaytotal
 		FROM
-			non_patient_payments
+			non_patient_payments npp
+				CROSS JOIN params p
 		GROUP BY
 			bh_visit_id
 	) non_patient_payment_totals
-			ON Visit_info.bh_visit_id = non_patient_payment_totals.bh_visit_id
+		ON Visit_info.bh_visit_id = non_patient_payment_totals.bh_visit_id
 		LEFT JOIN BillTotal
-			ON Visit_info.bh_visit_id = BillTotal.bh_visit_id
+		ON Visit_info.bh_visit_id = BillTotal.bh_visit_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
@@ -156,10 +178,10 @@ FROM
 			bh_subtype = 'I'
 		GROUP BY bh_visit_id, chargetype_name, member_id, MemberName, ClaimNo, Relationship
 	) insurance_info
-			ON insurance_info.bh_visit_id = Visit_info.bh_visit_id
+		ON insurance_info.bh_visit_id = Visit_info.bh_visit_id
 		CROSS JOIN params p
 WHERE
-		Visit_info.bh_visit_id IN (
+	Visit_info.bh_visit_id IN (
 		SELECT
 			bh_visit_id
 		FROM
@@ -238,10 +260,12 @@ ORDER BY
 				<text><![CDATA[Date from:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="59" y="31" width="76" height="18" uuid="64ef52a0-6ea4-45e9-a65d-e0b694b21a39">
+				<reportElement x="59" y="30" width="76" height="18" uuid="64ef52a0-6ea4-45e9-a65d-e0b694b21a39">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format($P{Begin Date})]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -261,24 +285,21 @@ ORDER BY
 				<text><![CDATA[Type:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="39" y="51" width="96" height="17" uuid="b4d0dbc6-57cb-45bf-889c-80b82dad9957"/>
+				<reportElement x="170" y="50" width="340" height="18" uuid="2a34fd38-0138-4632-89cb-f0cd96eaa4cb">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{Mode}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="170" y="50" width="96" height="18" uuid="2a34fd38-0138-4632-89cb-f0cd96eaa4cb">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{Insurance Type}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[T($P{Insurance Type}).equalsIgnoreCase("") ? "All" : T($P{Insurance Type})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="179" y="31" width="111" height="18" uuid="0ade0d97-7f8a-4c64-8033-4d250b38f941">
+				<reportElement x="179" y="30" width="111" height="18" uuid="0ade0d97-7f8a-4c64-8033-4d250b38f941">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format($P{End Date})]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -305,6 +326,29 @@ ORDER BY
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Sum Non-patient Payment}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement x="40" y="50" width="96" height="18" uuid="08c04f09-261b-409f-852c-4c85117f2bb7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="mode_fetch" uuid="13a0bbec-6df2-46f4-9df2-b46b8ac38f22">
+						<datasetParameter name="Mode">
+							<datasetParameterExpression><![CDATA[$P{Mode}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="18" width="96">
+						<textField>
+							<reportElement x="0" y="0" width="96" height="18" uuid="16c14f26-ed5a-45d1-a887-f94ac2bc030c"/>
+							<textElement verticalAlignment="Middle">
+								<font size="11"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{mode}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
 		</band>
 	</title>
 	<columnHeader>
@@ -315,8 +359,9 @@ ORDER BY
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="60" height="30" backcolor="#BFE1FF" uuid="36b00ac7-a8d0-4afb-aeb5-5850f31327a3">
+					<reportElement mode="Opaque" x="0" y="0" width="65" height="30" backcolor="#BFE1FF" uuid="36b00ac7-a8d0-4afb-aeb5-5850f31327a3">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 					<box leftPadding="3">
 						<pen lineWidth="1.0"/>
@@ -327,7 +372,7 @@ ORDER BY
 					<text><![CDATA[Date]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="60" y="0" width="130" height="30" backcolor="#BFE1FF" uuid="a71d3c1a-2d13-4037-b5ea-fd832ad1ac2d">
+					<reportElement mode="Opaque" x="65" y="0" width="130" height="30" backcolor="#BFE1FF" uuid="a71d3c1a-2d13-4037-b5ea-fd832ad1ac2d">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -340,7 +385,7 @@ ORDER BY
 					<text><![CDATA[Patient Name]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="190" y="0" width="74" height="30" backcolor="#BFE1FF" uuid="e34a99f4-a561-4d54-83e7-a5f574454e2c">
+					<reportElement mode="Opaque" x="195" y="0" width="74" height="30" backcolor="#BFE1FF" uuid="e34a99f4-a561-4d54-83e7-a5f574454e2c">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -353,7 +398,7 @@ ORDER BY
 					<text><![CDATA[Patient No]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="264" y="0" width="92" height="30" backcolor="#BFE1FF" uuid="34d4ae65-9052-47b3-838e-0047e1fb8a53">
+					<reportElement mode="Opaque" x="269" y="0" width="92" height="30" backcolor="#BFE1FF" uuid="34d4ae65-9052-47b3-838e-0047e1fb8a53">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -366,7 +411,7 @@ ORDER BY
 					<text><![CDATA[Patient Type]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="356" y="0" width="71" height="30" backcolor="#BFE1FF" uuid="1a822816-fa99-4a94-92a2-a4b8433244f7">
+					<reportElement mode="Opaque" x="361" y="0" width="71" height="30" backcolor="#BFE1FF" uuid="1a822816-fa99-4a94-92a2-a4b8433244f7">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -379,7 +424,7 @@ ORDER BY
 					<text><![CDATA[Member ID]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="427" y="0" width="92" height="30" backcolor="#BFE1FF" uuid="8628a3a4-97f6-419f-8069-2db73a9bdb0e">
+					<reportElement mode="Opaque" x="432" y="0" width="92" height="30" backcolor="#BFE1FF" uuid="8628a3a4-97f6-419f-8069-2db73a9bdb0e">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -393,9 +438,10 @@ ORDER BY
 					<text><![CDATA[Member Name ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="519" y="0" width="93" height="30" backcolor="#BFE1FF" uuid="895b3a47-0a0d-4bf4-bbef-4ade1003ac04">
+					<reportElement mode="Opaque" x="524" y="0" width="88" height="30" backcolor="#BFE1FF" uuid="895b3a47-0a0d-4bf4-bbef-4ade1003ac04">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 					<box leftPadding="3">
 						<pen lineWidth="1.0"/>
@@ -462,13 +508,15 @@ ORDER BY
 			<frame>
 				<reportElement style="Table_TD" mode="Opaque" x="0" y="0" width="1090" height="15" uuid="bb547c52-2483-45db-852d-4399b8e55727"/>
 				<textField pattern="yyyy-MM-dd">
-					<reportElement style="Table_TD" mode="Opaque" x="0" y="0" width="60" height="15" backcolor="#F0F8FF" uuid="33183ddf-8351-4a18-9b63-8e49623dd5a4"/>
+					<reportElement style="Table_TD" mode="Opaque" x="0" y="0" width="65" height="15" uuid="33183ddf-8351-4a18-9b63-8e49623dd5a4">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
 					<box leftPadding="3"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{billdate}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,###.###;(#,###.###-)">
-					<reportElement style="Table_TD" mode="Opaque" x="60" y="0" width="131" height="15" uuid="545d235f-4908-47a0-8f4b-91795dcc7982">
+					<reportElement style="Table_TD" mode="Opaque" x="65" y="0" width="131" height="15" uuid="545d235f-4908-47a0-8f4b-91795dcc7982">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
@@ -477,7 +525,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{patient_name}]]></textFieldExpression>
 				</textField>
 				<textField pattern="M/d/yyyy">
-					<reportElement style="Table_TD" mode="Opaque" x="190" y="0" width="74" height="15" uuid="a53c6dc9-2707-4dff-bacd-b9e3b544f8ff">
+					<reportElement style="Table_TD" mode="Opaque" x="195" y="0" width="74" height="15" uuid="a53c6dc9-2707-4dff-bacd-b9e3b544f8ff">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
 					<box leftPadding="2" rightPadding="0"/>
@@ -485,7 +533,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{PatientNo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="Table_TD" mode="Opaque" x="264" y="0" width="92" height="15" uuid="cec266f3-d3ca-4454-b63c-f9ab666e0b2e">
+					<reportElement style="Table_TD" mode="Opaque" x="269" y="0" width="92" height="15" uuid="cec266f3-d3ca-4454-b63c-f9ab666e0b2e">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
 					<box leftPadding="2" rightPadding="0"/>
@@ -493,7 +541,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{PatientType}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
-					<reportElement style="Table_TD" mode="Opaque" x="356" y="0" width="71" height="15" uuid="0a1acbc6-6fb2-4749-b400-63a4081d0606">
+					<reportElement style="Table_TD" mode="Opaque" x="361" y="0" width="71" height="15" uuid="0a1acbc6-6fb2-4749-b400-63a4081d0606">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
@@ -502,7 +550,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{member_id}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,###.###;(#,###.###-)" isBlankWhenNull="true">
-					<reportElement style="Table_TD" mode="Opaque" x="427" y="0" width="92" height="15" uuid="8a0cb4b1-a90f-4206-962b-d0e0f064b934">
+					<reportElement style="Table_TD" mode="Opaque" x="432" y="0" width="92" height="15" uuid="8a0cb4b1-a90f-4206-962b-d0e0f064b934">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
 					<box leftPadding="2" rightPadding="0"/>
@@ -510,8 +558,9 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{MemberName}]]></textFieldExpression>
 				</textField>
 				<textField pattern="M/d/yyyy" isBlankWhenNull="true">
-					<reportElement style="Table_TD" mode="Opaque" x="519" y="0" width="93" height="15" uuid="fa1fc0ff-c693-4e88-9787-c1d5ed3f5348">
+					<reportElement style="Table_TD" mode="Opaque" x="524" y="0" width="88" height="15" uuid="fa1fc0ff-c693-4e88-9787-c1d5ed3f5348">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 					<box leftPadding="2" rightPadding="0"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle"/>
