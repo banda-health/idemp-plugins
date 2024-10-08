@@ -22,6 +22,7 @@ import org.bandahealth.idempiere.base.model.MBHEncounterDiagnostic;
 import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
 import org.bandahealth.idempiere.base.model.MBHGraphqlGeneratorTemplate;
 import org.bandahealth.idempiere.base.model.MBHObservation;
+import org.bandahealth.idempiere.base.model.MBHOclOriginatingSource;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFldSug;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFldVal;
@@ -207,6 +208,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHClientConcept.class;
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnostic.Table_Name)) {
 			return MBHEncounterDiagnostic.class;
+		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
+			return MBHOclOriginatingSource.class;
 		}
 
 		return null;
@@ -342,6 +345,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHClientConcept(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnostic.Table_Name)) {
 			return new MBHEncounterDiagnostic(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
+			return new MBHOclOriginatingSource(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -481,6 +486,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHClientConcept(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnostic.Table_Name)) {
 			return new MBHEncounterDiagnostic(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
+			return new MBHOclOriginatingSource(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
@@ -602,6 +609,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MField_BH(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MFieldGroup_BH.Table_Name)) {
 			return new MFieldGroup_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
+			return new MBHOclOriginatingSource(Env.getCtx(), Record_UU, trxName);
 		}
 
 		return null;

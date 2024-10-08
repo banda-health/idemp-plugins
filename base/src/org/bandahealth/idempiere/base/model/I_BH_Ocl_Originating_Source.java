@@ -21,18 +21,18 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Concept_Name
+/** Generated Interface for BH_Ocl_Originating_Source
  *  @author iDempiere (generated) 
  *  @version Release 11
  */
 @SuppressWarnings("all")
-public interface I_BH_Concept_Name 
+public interface I_BH_Ocl_Originating_Source 
 {
 
-    /** TableName=BH_Concept_Name */
-    public static final String Table_Name = "BH_Concept_Name";
+    /** TableName=BH_Ocl_Originating_Source */
+    public static final String Table_Name = "BH_Ocl_Originating_Source";
 
-    /** AD_Table_ID=1000056 */
+    /** AD_Table_ID=1000061 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -75,72 +75,32 @@ public interface I_BH_Concept_Name
 
 	public I_BH_Concept getBH_Concept() throws RuntimeException;
 
-    /** Column name BH_Concept_Locale */
-    public static final String COLUMNNAME_BH_Concept_Locale = "BH_Concept_Locale";
+    /** Column name BH_Ocl_Originating_Source_ID */
+    public static final String COLUMNNAME_BH_Ocl_Originating_Source_ID = "BH_Ocl_Originating_Source_ID";
 
-	/** Set Concept Locale	  */
-	public void setBH_Concept_Locale (String BH_Concept_Locale);
+	/** Set OCL Originating Source	  */
+	public void setBH_Ocl_Originating_Source_ID (int BH_Ocl_Originating_Source_ID);
 
-	/** Get Concept Locale	  */
-	public String getBH_Concept_Locale();
+	/** Get OCL Originating Source	  */
+	public int getBH_Ocl_Originating_Source_ID();
 
-    /** Column name BH_Concept_Locale_Preferred */
-    public static final String COLUMNNAME_BH_Concept_Locale_Preferred = "BH_Concept_Locale_Preferred";
+    /** Column name BH_Ocl_Originating_Source_UU */
+    public static final String COLUMNNAME_BH_Ocl_Originating_Source_UU = "BH_Ocl_Originating_Source_UU";
 
-	/** Set Locale Preferred	  */
-	public void setBH_Concept_Locale_Preferred (boolean BH_Concept_Locale_Preferred);
+	/** Set BH_Ocl_Originating_Source_UU	  */
+	public void setBH_Ocl_Originating_Source_UU (String BH_Ocl_Originating_Source_UU);
 
-	/** Get Locale Preferred	  */
-	public boolean isBH_Concept_Locale_Preferred();
+	/** Get BH_Ocl_Originating_Source_UU	  */
+	public String getBH_Ocl_Originating_Source_UU();
 
-    /** Column name BH_Concept_Name_ID */
-    public static final String COLUMNNAME_BH_Concept_Name_ID = "BH_Concept_Name_ID";
+    /** Column name BH_Ocl_Source */
+    public static final String COLUMNNAME_BH_Ocl_Source = "BH_Ocl_Source";
 
-	/** Set Concept Name	  */
-	public void setBH_Concept_Name_ID (int BH_Concept_Name_ID);
+	/** Set BH Ocl Source	  */
+	public void setBH_Ocl_Source (String BH_Ocl_Source);
 
-	/** Get Concept Name	  */
-	public int getBH_Concept_Name_ID();
-
-    /** Column name BH_Concept_Name_Type */
-    public static final String COLUMNNAME_BH_Concept_Name_Type = "BH_Concept_Name_Type";
-
-	/** Set Concept Name Type	  */
-	public void setBH_Concept_Name_Type (String BH_Concept_Name_Type);
-
-	/** Get Concept Name Type	  */
-	public String getBH_Concept_Name_Type();
-
-    /** Column name BH_Concept_Name_UU */
-    public static final String COLUMNNAME_BH_Concept_Name_UU = "BH_Concept_Name_UU";
-
-	/** Set BH_Concept_Name_UU	  */
-	public void setBH_Concept_Name_UU (String BH_Concept_Name_UU);
-
-	/** Get BH_Concept_Name_UU	  */
-	public String getBH_Concept_Name_UU();
-
-    /** Column name BH_Concept_Type */
-    public static final String COLUMNNAME_BH_Concept_Type = "BH_Concept_Type";
-
-	/** Set Concept Type	  */
-	public void setBH_Concept_Type (String BH_Concept_Type);
-
-	/** Get Concept Type	  */
-	public String getBH_Concept_Type();
-
-    /** Column name BH_ExternalID */
-    public static final String COLUMNNAME_BH_ExternalID = "BH_ExternalID";
-
-	/** Set BH_ExternalID.
-	  * BH_External_ID
-	  */
-	public void setBH_ExternalID (String BH_ExternalID);
-
-	/** Get BH_ExternalID.
-	  * BH_External_ID
-	  */
-	public String getBH_ExternalID();
+	/** Get BH Ocl Source	  */
+	public String getBH_Ocl_Source();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -170,32 +130,6 @@ public interface I_BH_Concept_Name
 	  * The record is active in the system
 	  */
 	public boolean isActive();
-
-    /** Column name Name */
-    public static final String COLUMNNAME_Name = "Name";
-
-	/** Set Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public void setName (String Name);
-
-	/** Get Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public String getName();
-
-    /** Column name Ocl_Uuid */
-    public static final String COLUMNNAME_Ocl_Uuid = "Ocl_Uuid";
-
-	/** Set Ocl Uuid.
-	  * A UUID from the OCL System
-	  */
-	public void setOcl_Uuid (String Ocl_Uuid);
-
-	/** Get Ocl Uuid.
-	  * A UUID from the OCL System
-	  */
-	public String getOcl_Uuid();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

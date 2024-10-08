@@ -183,6 +183,8 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 						foundCodedDiagnosis.setbh_searchterms(indexTerms.getValue());	
 					}
 
+					foundCodedDiagnosis.setOcl_Uuid(codedDiagnosis.getUuid());
+
 					foundCodedDiagnosis.saveEx();
 
 					downloadChildMappings(foundCodedDiagnosis, codedDiagnosis, codedDiagnosisMapping);
