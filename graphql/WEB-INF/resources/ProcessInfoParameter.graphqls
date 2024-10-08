@@ -1,7 +1,7 @@
 input ProcessInfoParameterInput {
 	AD_Process: ForeignEntityInput
 	ParameterName: String!
-	Parameter: Object!
+	Parameter: Object
 	Parameter_To: Object
 	Info: String
 	Info_To: String

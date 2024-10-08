@@ -31,7 +31,7 @@ public class X_BH_Coded_Diagnosis extends PO implements I_BH_Coded_Diagnosis, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20241003L;
 
     /** Standard Constructor */
     public X_BH_Coded_Diagnosis (Properties ctx, int BH_Coded_Diagnosis_ID, String trxName)
@@ -325,5 +325,21 @@ public class X_BH_Coded_Diagnosis extends PO implements I_BH_Coded_Diagnosis, I_
 	public String getDescription()
 	{
 		return (String)get_Value(COLUMNNAME_Description);
+	}
+
+	/** Set Ocl Uuid.
+		@param Ocl_Uuid A UUID from the OCL System
+	*/
+	public void setOcl_Uuid (String Ocl_Uuid)
+	{
+		set_Value (COLUMNNAME_Ocl_Uuid, Ocl_Uuid);
+	}
+
+	/** Get Ocl Uuid.
+		@return A UUID from the OCL System
+	  */
+	public String getOcl_Uuid()
+	{
+		return (String)get_Value(COLUMNNAME_Ocl_Uuid);
 	}
 }
