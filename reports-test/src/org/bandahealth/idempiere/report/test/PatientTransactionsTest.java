@@ -1036,4 +1036,65 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 			assertEquals(1, patientRows.size(), "Patient's payments aren't duplicated");
 		}
 	}
+
+	@IPopulateAnnotation.CanRun
+	public void visitsWithoutAPatientTypeAppear() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createPatient(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		valueObject.setSalesPrice(BigDecimal.TEN);
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create PO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(10));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.setQuantity(null);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setBH_PatientType(null);
+		valueObject.getVisit().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create SO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null && row.getCell(5).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+			assertEquals(1, patientRows.size(), "Patient only appears once");
+		}
+	}
 }
