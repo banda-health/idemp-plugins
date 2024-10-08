@@ -21,7 +21,6 @@ import org.compiere.model.Query;
 import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
-import org.compiere.util.Env;
 
 import java.io.File;
 import java.io.IOException;
@@ -160,13 +159,16 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 			// Get the reference to help determine what type of parameter this is
 			MReference referenceForParameter = referencesByIdMap.get(processParameter.getAD_Reference_ID());
 			Object parameter = processInfoParameterInput.getParameter();
-			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATE_AD_REFERENCE_ID) {
-				parameter = DateUtil.parseDate(processInfoParameterInput.getParameter().toString());
-			}
-
-			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATETIME_AD_REFERENCE_ID) {
+			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATE_AD_REFERENCE_ID ||
+					referenceForParameter.getAD_Reference_ID() == MReference_BH.DATETIME_AD_REFERENCE_ID) {
 				if (processInfoParameterInput.getParameter() instanceof Integer) {
 					parameter = new Timestamp((Integer) processInfoParameterInput.getParameter());
+				} else if (processInfoParameterInput.getParameter() instanceof Long) {
+					parameter = new Timestamp((Long) processInfoParameterInput.getParameter());
+				} else if (processInfoParameterInput.getParameter() instanceof Double) {
+					parameter = new Timestamp(((Double) processInfoParameterInput.getParameter()).longValue());
+				} else if (processInfoParameterInput.getParameter() instanceof BigDecimal) {
+					parameter = new Timestamp(((BigDecimal) processInfoParameterInput.getParameter()).longValue());
 				} else {
 					parameter = DateUtil.getTimestampReportParameter(processInfoParameterInput.getParameter().toString());
 				}
