@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Non-Patient Payment Report" pageWidth="1130" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="1090" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="10" isIgnorePagination="true" uuid="119c2304-e36c-455c-b968-eaaad289bbac">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT DB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 11"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Table_TH" mode="Transparent" backcolor="#BFE1FF">
 		<box>
@@ -185,13 +185,6 @@ WHERE
 		SELECT
 			bh_visit_id
 		FROM
-			DirectPayments
-		WHERE
-			(p.payment_mode = '' OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
-		UNION
-		SELECT
-			bh_visit_id
-		FROM
 			non_patient_payments
 		WHERE
 			(p.payment_mode = '' OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END AND
@@ -277,7 +270,7 @@ ORDER BY
 				<text><![CDATA[Mode:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="135" y="50" width="35" height="18" uuid="f947a028-c117-435a-b9d7-b25472022662"/>
+				<reportElement x="155" y="50" width="35" height="18" uuid="f947a028-c117-435a-b9d7-b25472022662"/>
 				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
@@ -285,7 +278,7 @@ ORDER BY
 				<text><![CDATA[Type:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="170" y="50" width="340" height="18" uuid="2a34fd38-0138-4632-89cb-f0cd96eaa4cb">
+				<reportElement x="199" y="50" width="340" height="18" uuid="2a34fd38-0138-4632-89cb-f0cd96eaa4cb">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -294,7 +287,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[T($P{Insurance Type}).equalsIgnoreCase("") ? "All" : T($P{Insurance Type})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="179" y="30" width="111" height="18" uuid="0ade0d97-7f8a-4c64-8033-4d250b38f941">
+				<reportElement x="199" y="30" width="111" height="18" uuid="0ade0d97-7f8a-4c64-8033-4d250b38f941">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -303,7 +296,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format($P{End Date})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="135" y="30" width="44" height="18" uuid="f33731e0-0560-4244-8b7a-11b34a1fbe93"/>
+				<reportElement x="155" y="30" width="44" height="18" uuid="f33731e0-0560-4244-8b7a-11b34a1fbe93"/>
 				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
@@ -327,7 +320,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[$V{Sum Non-patient Payment}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement x="40" y="50" width="96" height="18" uuid="08c04f09-261b-409f-852c-4c85117f2bb7">
+				<reportElement x="59" y="50" width="96" height="18" uuid="08c04f09-261b-409f-852c-4c85117f2bb7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -516,7 +509,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{billdate}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,###.###;(#,###.###-)">
-					<reportElement style="Table_TD" mode="Opaque" x="65" y="0" width="131" height="15" uuid="545d235f-4908-47a0-8f4b-91795dcc7982">
+					<reportElement style="Table_TD" mode="Opaque" x="65" y="0" width="130" height="15" uuid="545d235f-4908-47a0-8f4b-91795dcc7982">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
