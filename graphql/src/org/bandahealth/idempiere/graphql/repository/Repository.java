@@ -277,6 +277,9 @@ public class Repository {
 	public static <T extends PO> Map<Integer, List<T>> getGroupsByIds(Properties idempiereContext, String tableName,
 			String transactionName, Function<T, Integer> groupingFunction, String columnToSearch, Set<Integer> ids) {
 		List<Object> parameters = new ArrayList<>();
+		if (ids == null || ids.isEmpty()) {
+			return new HashMap<>();
+		}
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
 			columnToSearch = tableName + "." + columnToSearch;

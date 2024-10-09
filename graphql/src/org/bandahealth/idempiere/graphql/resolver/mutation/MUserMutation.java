@@ -7,7 +7,6 @@ import org.bandahealth.idempiere.graphql.model.input.I_AD_UserInput;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.compiere.model.MRole;
 import org.compiere.model.MWindow;
-import org.compiere.model.PO;
 import org.compiere.util.Env;
 
 import java.util.List;
@@ -21,10 +20,12 @@ public class MUserMutation extends X_AD_UserMutation {
 		Properties idempiereProperties = BandaGraphQLContext.getCtx(environment);
 		MUser_BH loggedInUser = new MUser_BH(idempiereProperties, Env.getAD_User_ID(idempiereProperties), null);
 		MRole loggedInUserRole = MRole.get(idempiereProperties, Env.getAD_Role_ID(idempiereProperties));
+		Boolean doesHaveManageUsersAccess = loggedInUserRole.getWindowAccess(
+				((MWindow) Repository.getByUuid(idempiereProperties, MWindow.Table_Name, null,
+						WINDOWUUID_Manage_Users)).getAD_Window_ID());
 		// If they're not a system admin, the user must be themselves
 		if (input.getAD_User_ID() != loggedInUser.getAD_User_ID() && !loggedInUser.isAdministrator() &&
-				!loggedInUserRole.getWindowAccess(((MWindow) Repository.getByUuid(idempiereProperties, MWindow.Table_Name,
-						null, WINDOWUUID_Manage_Users)).getAD_Window_ID())) {
+				doesHaveManageUsersAccess != null && !doesHaveManageUsersAccess) {
 			return (MUser_BH) input;
 		}
 		return super.AD_UserSave(input, environment);
@@ -35,10 +36,11 @@ public class MUserMutation extends X_AD_UserMutation {
 		Properties idempiereProperties = BandaGraphQLContext.getCtx(environment);
 		MUser_BH loggedInUser = new MUser_BH(idempiereProperties, Env.getAD_User_ID(idempiereProperties), null);
 		MRole loggedInUserRole = MRole.get(idempiereProperties, Env.getAD_Role_ID(idempiereProperties));
-		// This is only available to admins
-		if (!loggedInUser.isAdministrator() && !loggedInUserRole.getWindowAccess(
+		Boolean doesHaveManageUsersAccess = loggedInUserRole.getWindowAccess(
 				((MWindow) Repository.getByUuid(idempiereProperties, MWindow.Table_Name, null,
-						WINDOWUUID_Manage_Users)).getAD_Window_ID())) {
+						WINDOWUUID_Manage_Users)).getAD_Window_ID());
+		// This is only available to admins
+		if (!loggedInUser.isAdministrator() && doesHaveManageUsersAccess != null && !doesHaveManageUsersAccess) {
 			return true;
 		}
 		return super.AD_UserDelete(uuids, environment);
