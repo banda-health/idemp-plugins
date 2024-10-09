@@ -1,4 +1,3 @@
--- Ensure the clinic user role can run reports
 WITH bp_mapping AS (
 	SELECT
 		ad_user_id,
@@ -29,6 +28,13 @@ FROM
 	tmp_bp_mapping tbpm
 WHERE
 	o.ad_user_id = tbpm.from_user_id;
+UPDATE c_order o
+SET
+	bill_user_id = tbpm.to_user_id
+FROM
+	tmp_bp_mapping tbpm
+WHERE
+	o.bill_user_id = tbpm.from_user_id;
 UPDATE c_invoice i
 SET
 	ad_user_id = tbpm.to_user_id
@@ -36,6 +42,13 @@ FROM
 	tmp_bp_mapping tbpm
 WHERE
 	i.ad_user_id = tbpm.from_user_id;
+UPDATE m_inout io
+SET
+	ad_user_id = tbpm.to_user_id
+FROM
+	tmp_bp_mapping tbpm
+WHERE
+	io.ad_user_id = tbpm.from_user_id;
 
 ALTER TABLE a_asset
 	DROP CONSTRAINT aduser_aasset;
