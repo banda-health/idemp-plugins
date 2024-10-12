@@ -1,6 +1,6 @@
 UPDATE c_bpartner bp
 SET
-	bh_birthday = cl.oldvalue
+	bh_birthday = cl.oldvalue::timestamp
 FROM
 	ad_changelog cl
 		JOIN ad_column c
