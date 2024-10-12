@@ -465,6 +465,7 @@ query InventoryTransactionGet($Page: Int, $Size: Int, $Sort: String, $Filter: St
 					Value
 				}
 			}
+			MovementQty
 		}
 	}
 }
