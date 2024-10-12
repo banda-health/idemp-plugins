@@ -54,7 +54,7 @@ public class UserModelEvent extends AbstractEventHandler {
 			businessPartner.setBH_EMail(user.getEMail());
 			businessPartner.setBH_Phone(user.getPhone());
 
-			businessPartner.save();
+//			businessPartner.save();
 		}
 	}
 

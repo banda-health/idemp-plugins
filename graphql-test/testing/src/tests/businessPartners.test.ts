@@ -1,9 +1,10 @@
 import { v4 } from 'uuid';
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
-import { createBusinessPartner, createOrder, createProduct, createVisit } from '../utils';
+import { createBusinessPartner, createOrder, createPayment, createProduct, createVisit } from '../utils';
 import {
 	Bh_VisitProcessDocument,
+	C_BPartnerDocument,
 	C_BPartnerGetDocument,
 	C_BPartnerSaveWithLocationDocument,
 	C_BPartner_LocationSaveDocument,
@@ -245,4 +246,73 @@ test(`get method returns the correct data`, async () => {
 			})
 		).data.C_BPartnerGet.Results[0].C_BPartner_Locations?.[0].C_Location.Address1,
 	).toBe(address1);
+});
+
+test(`age not cleared after orders processed`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	const birthday = new Date();
+	birthday.setFullYear(birthday.getFullYear() - 12);
+	valueObject.date = birthday;
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+	let savedBusinessPartner = (
+		await query(valueObject)({
+			query: C_BPartnerDocument,
+			variables: {
+				UU: valueObject.businessPartner!.UU,
+			},
+		})
+	).data.C_BPartner!;
+	expect(savedBusinessPartner).toBeTruthy();
+	expect(savedBusinessPartner.BH_Birthday).toBeTruthy();
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.date = new Date();
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+	savedBusinessPartner = (
+		await query(valueObject)({
+			query: C_BPartnerDocument,
+			variables: {
+				UU: valueObject.businessPartner!.UU,
+			},
+		})
+	).data.C_BPartner!;
+	expect(savedBusinessPartner).toBeTruthy();
+	expect(savedBusinessPartner.BH_Birthday).toBeTruthy();
+
+	valueObject.stepName = 'Create sales order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.OnCreditOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create partial payment';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.APPayment, null, true, false, false);
+	valueObject.paymentAmount = 50;
+	await createPayment(valueObject);
+
+	savedBusinessPartner = (
+		await query(valueObject)({
+			query: C_BPartnerDocument,
+			variables: {
+				UU: valueObject.businessPartner!.UU,
+			},
+		})
+	).data.C_BPartner!;
+	expect(savedBusinessPartner).toBeTruthy();
+	expect(savedBusinessPartner.BH_Birthday).toBeTruthy();
 });

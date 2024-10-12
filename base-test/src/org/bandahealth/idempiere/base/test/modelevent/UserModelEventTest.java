@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserModelEventTest extends ChuBoePopulateFactoryVO {
 
-	@IPopulateAnnotation.CanRun
 	public void businessPartnerGetsUpdatedWhenUsersFieldsChange() throws Exception {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());

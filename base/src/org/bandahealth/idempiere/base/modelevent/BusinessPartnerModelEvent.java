@@ -48,16 +48,16 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 			return;
 		}
 
-		businessPartnerUuidsWeAreUpdating.add(businessPartner.getC_BPartner_UU());
-		try {
-			switch (event.getTopic()) {
-				case IEventTopics.PO_BEFORE_NEW -> beforeSaveRequest(businessPartner);
-				case IEventTopics.PO_AFTER_NEW -> afterSaveRequest(businessPartner);
-				case IEventTopics.PO_AFTER_CHANGE -> afterChangeRequest(businessPartner);
-			}
-		} finally {
-			businessPartnerUuidsWeAreUpdating.remove(businessPartner.getC_BPartner_UU());
-		}
+//		businessPartnerUuidsWeAreUpdating.add(businessPartner.getC_BPartner_UU());
+//		try {
+//			switch (event.getTopic()) {
+//				case IEventTopics.PO_BEFORE_NEW -> beforeSaveRequest(businessPartner);
+//				case IEventTopics.PO_AFTER_NEW -> afterSaveRequest(businessPartner);
+//				case IEventTopics.PO_AFTER_CHANGE -> afterChangeRequest(businessPartner);
+//			}
+//		} finally {
+//			businessPartnerUuidsWeAreUpdating.remove(businessPartner.getC_BPartner_UU());
+//		}
 	}
 
 	private void afterChangeRequest(MBPartner_BH businessPartner) {
