@@ -47,12 +47,12 @@ public class UserModelEvent extends AbstractEventHandler {
 	private void updateBusinessPartner(MUser user) {
 		if (user.getC_BPartner_ID() != 0) {
 			// Get the business partner this user is assigned to
-			MBPartner_BH businessPartner = (MBPartner_BH) MTable.get(Env.getCtx(), MBPartner_BH.Table_Name)
-					.getPO(user.getC_BPartner_ID(), user.get_TrxName());
-
-			businessPartner.setBH_Birthday(user.getBirthday());
-			businessPartner.setBH_EMail(user.getEMail());
-			businessPartner.setBH_Phone(user.getPhone());
+//			MBPartner_BH businessPartner = (MBPartner_BH) MTable.get(Env.getCtx(), MBPartner_BH.Table_Name)
+//					.getPO(user.getC_BPartner_ID(), user.get_TrxName());
+//
+//			businessPartner.setBH_Birthday(user.getBirthday());
+//			businessPartner.setBH_EMail(user.getEMail());
+//			businessPartner.setBH_Phone(user.getPhone());
 
 //			businessPartner.save();
 		}
