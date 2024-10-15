@@ -384,3 +384,23 @@ test('clinic user role has correct access', async () => {
 		),
 	).toBeFalsy();
 });
+
+test('process stage list is correct', async () => {
+	globalThis.__VALUE_OBJECT__.login();
+
+	const processStageList = (
+		await query(globalThis.__VALUE_OBJECT__)({
+			query: Ad_Ref_ListGetDocument,
+			variables: {
+				Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.PROCESS_STAGE }, isactive: true }),
+			},
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	// Ensure these exist
+	expect(processStageList.find((processStage) => processStage.Name === 'Cashier / Registration')).not.toBeUndefined();
+	expect(processStageList.find((processStage) => processStage.Name === 'Clinician / Dentist')).not.toBeUndefined();
+	expect(processStageList.find((processStage) => processStage.Name === 'Lab')).not.toBeUndefined();
+	expect(processStageList.find((processStage) => processStage.Name === 'Pharmacy')).not.toBeUndefined();
+	expect(processStageList.find((processStage) => processStage.Name === 'Triage / Vitals')).not.toBeUndefined();
+});
