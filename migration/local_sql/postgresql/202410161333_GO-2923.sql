@@ -1,3 +1,7 @@
+-- Add a foreign key from the concept extra to the concept mapping table
+ALTER TABLE bh_concept_extra
+	ADD CONSTRAINT bhconceptmapping_bhconceptmapp FOREIGN KEY (bh_concept_mapping_id) REFERENCES bh_concept_mapping (bh_concept_mapping_id);
+
 -- We have a duplicate diagnosis, so remove it and make sure the other one gets updated (the external IDs, which
 -- we had set to the UU field, was updated)
 DELETE
@@ -63,6 +67,26 @@ WHERE
 		WHERE
 			bh_source = 'BHGO'
 			OR (bh_concept_class = 'Diagnosis' AND bh_source = 'CIEL')
+	);
+DELETE
+FROM
+	bh_concept_extra
+WHERE
+	bh_concept_mapping_id IN (
+		SELECT
+			bh_concept_mapping.bh_concept_mapping_id
+		FROM
+			bh_concept_mapping
+		WHERE
+			bh_concept_id IN (
+				SELECT
+					bh_concept_id
+				FROM
+					bh_concept
+				WHERE
+					bh_source = 'BHGO'
+					OR (bh_concept_class = 'Diagnosis' AND bh_source = 'CIEL')
+			)
 	);
 DELETE
 FROM
@@ -301,7 +325,7 @@ WHERE
 	        '/orgs/WHO/sources/ICD-10-WHO/concepts/K13.7/', '/orgs/WHO/sources/ICD-10-WHO/concepts/K30/',
 	        '/orgs/WHO/sources/ICD-10-WHO/concepts/R10.4/', '/orgs/WHO/sources/ICD-10-WHO/concepts/L60.9/',
 	        '/orgs/WHO/sources/ICD-10-WHO/concepts/N30.9/', '/orgs/WHO/sources/ICD-10-WHO/concepts/A15.0/',
-	        '/orgs/CIEL/sources/CIEL/concepts/164413/',
+	        '/orgs/CIEL/sources/CIEL/concepts/164413/', '/orgs/Regenstrief/sources/LOINC/concepts/10701-1/',
 	        '/orgs/WHO/sources/ICD-10-WHO/concepts/T30.0/', '/orgs/WHO/sources/ICD-10-WHO/concepts/L30.9/',
 	        '/orgs/WHO/sources/ICD-10-WHO/concepts/Z34.9/', '/orgs/WHO/sources/ICD-10-WHO/concepts/B50.8/',
 	        '/orgs/WHO/sources/ICD-10-WHO/concepts/I83.9/', '/orgs/WHO/sources/ICD-10-WHO/concepts/S52.5/',
@@ -418,8 +442,238 @@ WHERE
 			tmp_bh_concept_to_remove
 	);
 
--- Delete some concept mappings that don't come over
+-- Delete concept mappings that will never have their UUIDs updated
+SELECT
+	bh_concept_mapping_id
+INTO TEMP TABLE
+	tmp_bh_concept_mapping
+FROM
+	bh_concept_mapping
+WHERE
+	(bh_oclid = '106' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '107' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '108' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '109' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '111' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2955877' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '98' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '99' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '97' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '101' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '103' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '80' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '82' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '288905' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '74' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '75' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '76' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '77' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '78' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '104' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '105' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '79' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '84' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '85' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '1694535' AND bh_owner = 'Regenstrief')
+	OR (bh_oclid = '86' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '1694034' AND bh_owner = 'Regenstrief')
+	OR (bh_oclid = '87' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '1694726' AND bh_owner = 'Regenstrief')
+	OR (bh_oclid = '90' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '92' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '93' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '94' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '332721' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '6722' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '96' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '73' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '67' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '69' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '70' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '72' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '47' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '51' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '52' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '53' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '54' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '55' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '326355' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '295780' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '57' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '58' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '59' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '60' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '61' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '62' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '63' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '64' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '41' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '42' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '43' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '44' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '45' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '31' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '32' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '28' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '29' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '30' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '33' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '34' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '36' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '37' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '38' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '12' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7510344' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7510346' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7510348' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7510336' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7510326' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2956343' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2956346' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '8' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '20' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7510337' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '9' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '11' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '10' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '6' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '322740' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2956340' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '1922592' AND bh_owner = 'Regenstrief')
+	OR (bh_oclid = '1923027' AND bh_owner = 'Regenstrief')
+	OR (bh_oclid = '1923021' AND bh_owner = 'Regenstrief')
+	OR (bh_oclid = '1922947' AND bh_owner = 'Regenstrief')
+	OR (bh_oclid = '13' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '14' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7510327' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7510340' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7428998' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '318074' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7429004' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7428742' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '315383' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7428982' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '15' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '21' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '24' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '25' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '110' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '26' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '16' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '17' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '18' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2956107' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '3' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '19' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2956051' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2956054' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2956060' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '91' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2956014' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2956005' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '1294' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2956008' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2955990' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2956317' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '4' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '334969' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2652' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '304380' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2117' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '8873' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '8576' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2722205' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7379' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2722211' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '8286' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '6783' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '321128' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '6774' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '6274' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7510334' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2956029' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '4912458' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7510330' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2023' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '6777' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '280335' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '107318' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2955984' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7750076' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '3699' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7750078' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2955982' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '320242' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '315151' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '307209' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7750070' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '4428904' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '310407' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '328095' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '290654' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '310351' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7510332' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7510342' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2956323' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7510363' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7510365' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '100' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2722225' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7749452' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2956098' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2956032' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2722218' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2722232' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '294899' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7750080' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '289193' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2956101' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '323044' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7750084' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2956037' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7750092' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '286419' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7750089' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7750074' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7750085' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7750082' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7986133' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '7986132' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '318075' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '325820' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2328993' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7750071' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '2136' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '2956320' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '7750088' AND bh_owner = 'bandahealth')
+	OR (bh_oclid = '314923' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '299412' AND bh_owner = 'CIEL')
+	OR (bh_oclid = '318497' AND bh_owner = 'CIEL');
 DELETE
+FROM
+	bh_concept_extra
+WHERE
+	bh_concept_mapping_id IN (
+		SELECT bh_concept_mapping_id
+		FROM tmp_bh_concept_mapping
+	);
+DELETE
+FROM
+	bh_concept_mapping
+WHERE
+	bh_concept_mapping_id IN (
+		SELECT bh_concept_mapping_id
+		FROM tmp_bh_concept_mapping
+	);
+
+-- Delete some concept mappings that don't come over
+DROP TABLE tmp_bh_concept_mapping;
+SELECT
+	bh_concept_mapping_id
+INTO TEMP TABLE
+	tmp_bh_concept_mapping
 FROM
 	bh_concept_mapping
 WHERE
@@ -469,6 +723,22 @@ WHERE
 	OR (bh_externalid = '0a1e3867-4b63-4353-b51f-9ae88c16db98' AND bh_from_concept_code = '32')
 	OR (bh_externalid = '137766ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB' AND bh_from_concept_code = '5622')
 	OR (bh_externalid = '515751ae-ae0f-4378-8174-49bdb0d992b3' AND bh_from_concept_code = '11');
+DELETE
+FROM
+	bh_concept_extra
+WHERE
+	bh_concept_mapping_id IN (
+		SELECT bh_concept_mapping_id
+		FROM tmp_bh_concept_mapping
+	);
+DELETE
+FROM
+	bh_concept_mapping
+WHERE
+	bh_concept_mapping_id IN (
+		SELECT bh_concept_mapping_id
+		FROM tmp_bh_concept_mapping
+	);
 
 -- Delete all the concept names because we're going to re-fetch them
 DELETE

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.base.model.MBHConceptName;
 import org.bandahealth.idempiere.base.model.MBHOclOriginatingSource;
 import org.bandahealth.idempiere.base.model.OCLConcept;
+import org.bandahealth.idempiere.base.model.OCLConceptExtra;
 import org.bandahealth.idempiere.base.model.OCLConceptMapping;
 import org.bandahealth.idempiere.base.utils.JsonUtils;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -24,6 +25,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +34,10 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Process that syncs Concepts with OCL
@@ -95,8 +99,8 @@ public class ConceptSyncProcess extends SvrProcess {
 		int numberOfPages = conceptCount / LIMIT;
 		numberOfPages = conceptCount % LIMIT > 0 ? numberOfPages + 1 : numberOfPages;
 		for (int page = 1; page <= numberOfPages; page++) {
-			List<OCLConcept> concepts = getConceptsFromOCL(page);
-			if (concepts == null) {
+			List<OCLConcept> conceptsFromOcl = getConceptsFromOCL(page);
+			if (conceptsFromOcl == null) {
 				continue;
 			}
 
@@ -106,7 +110,7 @@ public class ConceptSyncProcess extends SvrProcess {
 			// use OCLConcept::getUuid after syncing for the first time with existing concepts.
 //			Set<String> items =
 //					concepts.stream().map(OCLConcept::getUuid).collect(Collectors.toSet());
-			Set<String> items = concepts.stream().map(OCLConcept::getUrl).collect(Collectors.toSet());
+			Set<String> items = conceptsFromOcl.stream().map(OCLConcept::getUrl).collect(Collectors.toSet());
 			String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(items, parameters);
 
 			// use ocl_uuid after syncing the database with existing concepts
@@ -119,17 +123,15 @@ public class ConceptSyncProcess extends SvrProcess {
 			Map<String, MBHConcept> conceptByOclIdAndSource = mConcepts.stream()
 					.collect(Collectors.toMap(concept -> concept.getBH_OclID() + concept.getBH_Source(), concept -> concept));
 
-			concepts.forEach(concept -> {
+			conceptsFromOcl.forEach(conceptFromOcl -> {
 				try {
 					// search for concept in db list
 					// enable after sync
 					// MBHConcept foundConcept = mConcepts.stream()
 					//		.filter(filterConcept -> concept.getUuid().equals(filterConcept.getOcl_Uuid())).findFirst()
 					//		.orElse(null);
-					MBHConcept foundConcept = conceptByOclIdAndSource.get(concept.getId() + concept.getSource());
-
-					saveConcept(concept, foundConcept, newRecords, updatedRecords);
-
+					MBHConcept concept = conceptByOclIdAndSource.get(conceptFromOcl.getId() + conceptFromOcl.getSource());
+					saveConcept(conceptFromOcl, concept, newRecords, updatedRecords);
 				} catch (Exception ex) {
 					log.log(Level.SEVERE, ex.getMessage());
 				}
@@ -147,45 +149,41 @@ public class ConceptSyncProcess extends SvrProcess {
 	/**
 	 * Save concepts and child entities (mappings, extras)
 	 *
-	 * @param concept
-	 * @param mConcept
-	 * @param newRecords
-	 * @param updatedRecords
 	 * @return The saved concept
 	 */
-	private MBHConcept saveConcept(OCLConcept concept, MBHConcept mConcept, AtomicInteger newRecords,
+	private MBHConcept saveConcept(OCLConcept conceptFromOcl, MBHConcept concept, AtomicInteger newRecords,
 			AtomicInteger updatedRecords) {
-		if (concept == null || visitedConcepts.contains(concept.getUuid())) {
+		if (conceptFromOcl == null || visitedConcepts.contains(conceptFromOcl.getUuid())) {
 			// If there is no new concept to save or we already visited this concept, return
 			// the concept that was passed in to be updated if there was one
-			return mConcept;
+			return concept;
 		}
 
-		if (mConcept == null) {
-			mConcept = new MBHConcept(getCtx(), 0, null);
+		if (concept == null) {
+			concept = new MBHConcept(getCtx(), 0, null);
 			newRecords.incrementAndGet();
 		} else {
 			updatedRecords.incrementAndGet();
 		}
 
-		mConcept.setOcl_Uuid(concept.getUuid());
-		mConcept.setIsActive(!concept.isRetired());
-		mConcept.setBH_Data_Type(concept.getDatatype());
-		mConcept.setbh_concept_class(concept.getConceptClass());
-		mConcept.setBH_Concept_Type(concept.getType());
-		mConcept.setBH_Display_Locale(concept.getDisplayLocale());
-		mConcept.setBH_Display_Name(concept.getDisplayName());
-		mConcept.setBH_ExternalID(concept.getExternalId());
-		mConcept.setBH_OclID(concept.getId());
-		mConcept.setBH_Owner(concept.getOwner());
-		mConcept.setBH_Source(concept.getSource());
-		mConcept.setURL(concept.getUrl());
+		concept.setOcl_Uuid(conceptFromOcl.getUuid());
+		concept.setIsActive(!conceptFromOcl.isRetired());
+		concept.setBH_Data_Type(conceptFromOcl.getDatatype());
+		concept.setbh_concept_class(conceptFromOcl.getConceptClass());
+		concept.setBH_Concept_Type(conceptFromOcl.getType());
+		concept.setBH_Display_Locale(conceptFromOcl.getDisplayLocale());
+		concept.setBH_Display_Name(conceptFromOcl.getDisplayName());
+		concept.setBH_ExternalID(conceptFromOcl.getExternalId());
+		concept.setBH_OclID(conceptFromOcl.getId());
+		concept.setBH_Owner(conceptFromOcl.getOwner());
+		concept.setBH_Source(conceptFromOcl.getSource());
+		concept.setURL(conceptFromOcl.getUrl());
 
-		mConcept.saveEx();
+		concept.saveEx();
 
-		visitedConcepts.add(concept.getUuid());
+		visitedConcepts.add(conceptFromOcl.getUuid());
 
-		final int conceptID = mConcept.getBH_Concept_ID();
+		final int conceptID = concept.getBH_Concept_ID();
 
 		// check ocl originating source
 		MBHOclOriginatingSource foundSource = new Query(getCtx(), MBHOclOriginatingSource.Table_Name,
@@ -206,7 +204,7 @@ public class ConceptSyncProcess extends SvrProcess {
 				MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? ", null).setParameters(conceptID).list();
 
 		// save extras
-		concept.getExtras().forEach((extra) -> {
+		conceptFromOcl.getExtras().forEach((extra) -> {
 			// search extra in db list
 			MBHConceptExtra foundConceptExtra = mConceptExtras.stream()
 					.filter(filterConceptExtra -> extra.getKey().equals(filterConceptExtra.getBH_Key())).findFirst()
@@ -223,13 +221,25 @@ public class ConceptSyncProcess extends SvrProcess {
 
 			foundConceptExtra.setBH_Key(extra.getKey());
 			foundConceptExtra.setBH_Value(extra.getValue());
+			foundConceptExtra.setIsActive(!conceptFromOcl.isRetired());
 			foundConceptExtra.saveEx();
 		});
+
+		// Deactivate extras that are no longer used
+		Set<String> currentOclConceptExtraKeys =
+				conceptFromOcl.getExtras().stream().map(OCLConceptExtra::getKey).collect(Collectors.toSet());
+		mConceptExtras.stream()
+				.filter(conceptExtra -> !currentOclConceptExtraKeys.contains(conceptExtra.getBH_Key()))
+				.forEach(conceptMappingExtra -> {
+					updatedRecords.incrementAndGet();
+					conceptMappingExtra.setIsActive(false);
+					conceptMappingExtra.saveEx();
+				});
 
 		// get concept names
 		List<MBHConceptName> mConceptNames = new Query(getCtx(), MBHConceptName.Table_Name,
 				MBHConceptName.COLUMNNAME_BH_Concept_ID + "=?", null).setParameters(conceptID).list();
-		concept.getNames().forEach((name) -> {
+		conceptFromOcl.getNames().forEach((name) -> {
 			// search name in db list
 			MBHConceptName foundConceptName = mConceptNames.stream()
 					.filter(filterConceptName -> name.getUuid().equals(filterConceptName.getOcl_Uuid())).findFirst()
@@ -254,9 +264,9 @@ public class ConceptSyncProcess extends SvrProcess {
 		});
 
 		// save mappings
-		downloadChildMappings(mConcept, concept, newRecords, updatedRecords);
+		downloadChildMappings(concept, conceptFromOcl, newRecords, updatedRecords);
 
-		return mConcept;
+		return concept;
 	}
 
 	private CompletableFuture<HttpResponse<String>> makeRequest(String source, int page, int limit,
@@ -350,12 +360,14 @@ public class ConceptSyncProcess extends SvrProcess {
 //		List<MBHConceptMapping> mConceptMappings = new Query(getCtx(), MBHConceptMapping.Table_Name,
 //				MBHConceptMapping.COLUMNNAME_Ocl_Uuid + " IN ( " + inClause + " )", null).setParameters(parameters)
 //				.list();
-		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(
-				mappings.stream().map(OCLConceptMapping::getId).collect(Collectors.toSet()), parameters);
+		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(mappings.stream().map(
+				oclConceptMapping -> oclConceptMapping.getId() +
+						(oclConceptMapping.getSource() == null || oclConceptMapping.getSource().equalsIgnoreCase("null") ? "null" :
+								oclConceptMapping.getSource())).collect(Collectors.toSet()), parameters);
 
 		List<MBHConceptMapping> mConceptMappings = new Query(getCtx(), MBHConceptMapping.Table_Name,
-				MBHConceptMapping.COLUMNNAME_BH_OclID + " IN ( " + inClause + " )", null).setParameters(parameters)
-				.list();
+				MBHConceptMapping.COLUMNNAME_BH_OclID + " || COALESCE(" + MBHConceptMapping.COLUMNNAME_BH_Source +
+						", 'null') IN ( " + inClause + " )", null).setParameters(parameters).list();
 
 		// save every mapping and check underlying concepts
 		mappings.forEach((mapping) -> {
@@ -366,9 +378,13 @@ public class ConceptSyncProcess extends SvrProcess {
 //				MBHConceptMapping foundConceptMapping = mConceptMappings.stream()
 //						.filter(filterConceptMapping -> mapping.getUuid().equals(filterConceptMapping.getOcl_Uuid()))
 //						.findFirst().orElse(null);
-				MBHConceptMapping foundConceptMapping = mConceptMappings.stream()
-						.filter(filterConceptMapping -> mapping.getId().equals(filterConceptMapping.getBH_OclID()))
-						.findFirst().orElse(null);
+				MBHConceptMapping foundConceptMapping = mConceptMappings.stream().filter(
+						filterConceptMapping -> (mapping.getId() +
+								(mapping.getSource() == null || mapping.getSource().equalsIgnoreCase("null") ? "null" :
+										mapping.getSource())).equals(filterConceptMapping.getBH_OclID() +
+								(filterConceptMapping.getBH_Source() == null ||
+										filterConceptMapping.getBH_Source().equalsIgnoreCase("null") ? "null" :
+										filterConceptMapping.getBH_Source()))).findFirst().orElse(null);
 
 				if (foundConceptMapping == null) {
 					// new record
@@ -386,7 +402,7 @@ public class ConceptSyncProcess extends SvrProcess {
 				foundConceptMapping.setOcl_Uuid(mapping.getUuid());
 				foundConceptMapping.setIsActive(!mapping.isRetired());
 				foundConceptMapping.setBH_Concept_ID(parentConcept.get_ID());
-				foundConceptMapping.setBH_Source(mapping.getToSourceOwner());
+				foundConceptMapping.setBH_Source(mapping.getSource());
 				foundConceptMapping.setBH_Map_Type(mapping.getMapType());
 				foundConceptMapping.setBH_Owner(mapping.getOwner());
 				foundConceptMapping.setBH_OclID(mapping.getId());
@@ -427,27 +443,39 @@ public class ConceptSyncProcess extends SvrProcess {
 
 					foundConceptExtra.setBH_Key(extra.getKey());
 					foundConceptExtra.setBH_Value(extra.getValue());
+					foundConceptExtra.setIsActive(true);
 					foundConceptExtra.saveEx();
 				});
+
+				// Deactivate extras that are no longer used
+				Set<String> currentOclConceptExtraKeys =
+						mapping.getExtras().stream().map(OCLConceptExtra::getKey).collect(Collectors.toSet());
+				mConceptMappingExtras.stream()
+						.filter(conceptMappingExtra -> !currentOclConceptExtraKeys.contains(conceptMappingExtra.getBH_Key()))
+						.forEach(conceptMappingExtra -> {
+							updatedRecords.incrementAndGet();
+							conceptMappingExtra.setIsActive(false);
+							conceptMappingExtra.saveEx();
+						});
 
 				String mappingUrl = mapping.getToConceptUrl();
 
 				// some concepts are mapped to themselves leading to an infinite loop.
 				if (mappingUrl != null && !"null".equals(mappingUrl) && !oclConcept.getUrl().equals(mappingUrl)) {
 					// get the child concept
-					OCLConcept childConcept = getConceptFromOCL(mappingUrl);
+					OCLConcept childOclConcept = getConceptFromOCL(mappingUrl);
 					MBHConcept foundChildConcept = null;
-					if (childConcept != null) {
+					if (childOclConcept != null) {
 //					To be re-enabled
 //						foundChildConcept =
 //								new Query(getCtx(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_Ocl_Uuid + "=?", null)
 //								.setParameters(
 //										childConcept.getUuid()).first();
-						foundChildConcept = new Query(getCtx(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_ExternalID + "=?",
-								null).setParameters(childConcept.getExternalId()).first();
+						foundChildConcept = new Query(getCtx(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_URL + "=?",
+								null).setParameters(childOclConcept.getUrl()).first();
 					}
 
-					MBHConcept savedChildConcept = saveConcept(childConcept, foundChildConcept, newRecords, updatedRecords);
+					MBHConcept savedChildConcept = saveConcept(childOclConcept, foundChildConcept, newRecords, updatedRecords);
 
 					// after populating and saving the child concept, link it to the "TO" end of
 					// this mapping
