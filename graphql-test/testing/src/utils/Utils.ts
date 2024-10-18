@@ -154,7 +154,6 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 			})
 		).data.C_BPartnerGet.Results[0];
 		valueObject.businessPartnerLocation = saveResult?.C_BPartner_LocationSave;
-		valueObject.user = saveResult?.AD_UserSave;
 		valueObject.salesPriceList = { UU: salesPriceListUuid };
 		valueObject.purchasePriceList = { UU: purchasePriceListUuid };
 
