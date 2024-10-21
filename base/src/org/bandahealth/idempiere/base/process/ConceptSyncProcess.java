@@ -343,8 +343,6 @@ public class ConceptSyncProcess extends SvrProcess {
 	/**
 	 * Fetch any child mapped concepts
 	 *
-	 * @param parentConcept
-	 * @param ConceptMapping
 	 */
 	private void downloadChildMappings(MBHConcept parentConcept, OCLConcept oclConcept, AtomicInteger newRecords,
 			AtomicInteger updatedRecords) {

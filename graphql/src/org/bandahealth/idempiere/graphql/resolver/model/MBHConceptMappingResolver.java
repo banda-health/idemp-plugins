@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.graphql.resolver.model;
 
+import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptExtraDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptMappingDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_ConceptDataLoader;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.dataloader.DataLoader;
 
@@ -17,7 +19,7 @@ public class MBHConceptMappingResolver extends X_BH_Concept_MappingResolver {
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MBHConceptMapping>> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MBHConceptMappingDataLoader.DATALOADER_BH_Concept_Mapping_BY_To_BH_Concept_ID);
-		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getFrom_BH_Concept_ID()));
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Concept_ID()));
 	}
 
 	public CompletableFuture<List<MBHConceptMapping>> ToBH_Concept_Mappings(MBHConceptMapping entity,

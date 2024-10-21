@@ -334,6 +334,12 @@ query C_BP_GroupGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	}
 }
 
+query C_BPartner($UU: String!) {
+	C_BPartner(UU: $UU) {
+		...C_BPartnerFields
+	}
+}
+
 query C_BPartnerGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	C_BPartnerGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
@@ -465,6 +471,7 @@ query InventoryTransactionGet($Page: Int, $Size: Int, $Sort: String, $Filter: St
 					Value
 				}
 			}
+			MovementQty
 		}
 	}
 }

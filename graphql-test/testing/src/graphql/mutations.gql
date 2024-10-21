@@ -61,6 +61,13 @@ mutation AD_User_RolesSaveMany($AD_User_Roles: [AD_User_RolesInput!]!) {
 	}
 }
 
+mutation AD_UserSave($AD_User: AD_UserInput!) {
+	AD_UserSave(Entity: $AD_User) {
+		UU
+		BH_TOS_DATE_ACCEPTED
+	}
+}
+
 mutation AD_UserWithRoleSave($AD_User: AD_UserInput!, $AD_User_Roles: [AD_User_RolesInput!]!) {
 	AD_UserSave(Entity: $AD_User) {
 		UU
@@ -769,6 +776,7 @@ mutation M_ProductSaveMany($Entities: [M_ProductInput!]!) {
 mutation SignIn($Credentials: AuthenticationInput!) {
 	SignIn(Credentials: $Credentials) {
 		AD_User {
+			UU
 			IsExpired
 		}
 	}

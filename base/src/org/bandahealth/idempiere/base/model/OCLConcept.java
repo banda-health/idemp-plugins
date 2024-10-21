@@ -1,15 +1,14 @@
 package org.bandahealth.idempiere.base.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.bandahealth.idempiere.base.utils.JsonUtils;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.stream.StreamSupport;
-
-import org.bandahealth.idempiere.base.utils.JsonUtils;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(using = OCLConceptDeserializer.class)
 public class OCLConcept {
@@ -41,25 +40,40 @@ public class OCLConcept {
 	}
 
 	public OCLConcept(JsonNode node) {
-		setUuid(JsonUtils.getValue(node.get("uuid")));
-		setId(JsonUtils.getValue(node.get("id")));
-		setExternalId(JsonUtils.getValue(node.get("external_id")));
-		setConceptClass(JsonUtils.getValue(node.get("concept_class")));
-		setDatatype(JsonUtils.getValue(node.get("datatype")));
-		setUrl(JsonUtils.getValue(node.get("url")));
+		setUuid(
+				JsonUtils.getValue(node.get("uuid")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("uuid")));
+		setId(JsonUtils.getValue(node.get("id")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("id")));
+		setExternalId(JsonUtils.getValue(node.get("external_id")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("external_id")));
+		setConceptClass(JsonUtils.getValue(node.get("concept_class")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("concept_class")));
+		setDatatype(JsonUtils.getValue(node.get("datatype")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("datatype")));
+		setUrl(JsonUtils.getValue(node.get("url")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("url")));
 		setRetired(JsonUtils.getBoolValue(node.get("retired")));
-		setSource(JsonUtils.getValue(node.get("source")));
-		setOwner(JsonUtils.getValue(node.get("owner")));
-		setOwnerType(JsonUtils.getValue(node.get("owner_type")));
-		setDisplayName(JsonUtils.getValue(node.get("display_name")));
-		setDisplayLocale(JsonUtils.getValue(node.get("display_locale")));
-		setVersion(JsonUtils.getValue(node.get("version")));
-		setUpdateComment(JsonUtils.getValue(node.get("update_comment")));
-		setLocale(JsonUtils.getValue(node.get("locale")));
-		setVersionCreatedBy(JsonUtils.getValue(node.get("version_created_by")));
-		setVersionCreatedOn(JsonUtils.getValue(node.get("version_created_on")));
+		setSource(JsonUtils.getValue(node.get("source")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("source")));
+		setOwner(
+				JsonUtils.getValue(node.get("owner")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("owner")));
+		setOwnerType(JsonUtils.getValue(node.get("owner_type")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("owner_type")));
+		setDisplayName(JsonUtils.getValue(node.get("display_name")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("display_name")));
+		setDisplayLocale(JsonUtils.getValue(node.get("display_locale")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("display_locale")));
+		setVersion(JsonUtils.getValue(node.get("version")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("version")));
+		setUpdateComment(JsonUtils.getValue(node.get("update_comment")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("update_comment")));
+		setLocale(JsonUtils.getValue(node.get("locale")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("locale")));
+		setVersionCreatedBy(JsonUtils.getValue(node.get("version_created_by")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("version_created_by")));
+		setVersionCreatedOn(JsonUtils.getValue(node.get("version_created_on")).equalsIgnoreCase("null") ? null :
+				JsonUtils.getValue(node.get("version_created_on")));
 		setLatestVersion(JsonUtils.getBoolValue(node.get("is_latest_version")));
-		setType(JsonUtils.getValue(node.get("type")));
+		setType(
+				JsonUtils.getValue(node.get("type")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("type")));
 
 		if (node.get("mappings") != null) {
 			StreamSupport.stream(node.get("mappings").spliterator(), false).forEach(mapping -> {

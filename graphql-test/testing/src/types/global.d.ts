@@ -4,6 +4,7 @@ import {
 	Ad_RoleGetWindowAccessQuery,
 	C_AcctSchemaGetQuery,
 	M_PriceListSaveMutation,
+	SignInMutation,
 } from '../__generated__/graphql';
 
 declare global {
@@ -18,6 +19,7 @@ export type LoginInfo = {
 	AD_Client_UU: string;
 	AD_Org_UU: string;
 	AD_Role_UU?: string;
+	AD_User: SignInMutation['SignIn']['AD_User'];
 	M_Warehouse_UU: string;
 	C_Country?: C_LocationGetQuery['C_LocationGet']['Results'][0]['C_Country'];
 	C_Region?: C_LocationGetQuery['C_LocationGet']['Results'][0]['C_Region'];
