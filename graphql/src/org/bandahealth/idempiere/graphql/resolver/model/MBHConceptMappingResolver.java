@@ -19,7 +19,7 @@ public class MBHConceptMappingResolver extends X_BH_Concept_MappingResolver {
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MBHConceptMapping>> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MBHConceptMappingDataLoader.DATALOADER_BH_Concept_Mapping_BY_To_BH_Concept_ID);
-		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Concept_ID()));
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getFrom_BH_Concept_ID()));
 	}
 
 	public CompletableFuture<List<MBHConceptMapping>> ToBH_Concept_Mappings(MBHConceptMapping entity,
