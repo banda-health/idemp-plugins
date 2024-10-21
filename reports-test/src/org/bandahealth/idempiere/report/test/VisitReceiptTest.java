@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
@@ -25,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -57,6 +59,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		// Set the BP's name to be short so the visit receipt can show it properly in an Excel export
 		valueObject.getBusinessPartner().setName(valueObject.getBusinessPartner().getName().substring(0, 19));
+		valueObject.getBusinessPartner().setBH_Birthday(TimestampUtils.addToNow(Calendar.YEAR, -5));
 		valueObject.getBusinessPartner().saveEx();
 		valueObject.setRandom();
 		commitEx();
@@ -105,6 +108,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 
+			// Patient name
 			Optional<Row> patientNameRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
@@ -114,6 +118,16 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
 									cell.getStringCellValue().contains(valueObject.getBusinessPartner().getName())),
 					"Patient's name is on the receipt");
+
+			// Patient age
+			Optional<Row> patientAgeRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().contains("Age:"))).findFirst();
+			assertTrue(patientAgeRow.isPresent(), "Patient age label is on the receipt");
+			assertTrue(StreamSupport.stream(patientAgeRow.get().spliterator(), false).anyMatch(
+					cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
+							cell.getNumericCellValue() == 5), "Patient's age is on the receipt");
 
 			String casedProductName = valueObject.getOrderLine().getName().substring(0, 1).toUpperCase() +
 					valueObject.getOrderLine().getName().substring(1).toLowerCase();

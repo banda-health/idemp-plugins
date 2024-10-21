@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.base.test.modelevent;
 import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
-import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MOrder;
@@ -14,12 +13,11 @@ import java.sql.Timestamp;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BusinessPartnerModelEventTest extends ChuBoePopulateFactoryVO {
 
-	@IPopulateAnnotation.CanRun
 	public void newPatientHasCorrectInvoiceAndPaymentRules() {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());

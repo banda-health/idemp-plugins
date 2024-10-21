@@ -166,9 +166,9 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		user.setIsFullBPAccess(false);
 		user.setIsActive(true);
 		user.setNotificationType(MUser.NOTIFICATIONTYPE_None);
-		user.setBirthday(businessPartner.getBH_Birthday());
-		user.setEMail(businessPartner.getBH_EMail());
-		user.setPhone(businessPartner.getBH_Phone());
+//		user.setBirthday(businessPartner.getBH_Birthday());
+//		user.setEMail(businessPartner.getBH_EMail());
+//		user.setPhone(businessPartner.getBH_Phone());
 	}
 
 	/**
