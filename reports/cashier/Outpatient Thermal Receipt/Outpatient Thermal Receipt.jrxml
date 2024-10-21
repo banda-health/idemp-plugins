@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outpatient Thermal Receipt" pageWidth="162" pageHeight="250" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="b0650e21-f6cf-4aad-acec-9e81aea4c41f">
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
@@ -64,47 +64,47 @@ FROM
 		FROM
 			ad_org o
 				INNER JOIN ad_orginfo oi
-					ON o.ad_org_id = oi.ad_org_id
+				ON o.ad_org_id = oi.ad_org_id
 				INNER JOIN ad_client c
-					ON o.ad_client_id = c.ad_client_id
+				ON o.ad_client_id = c.ad_client_id
 				INNER JOIN ad_clientinfo ci
-					ON c.ad_client_id = ci.ad_client_id
+				ON c.ad_client_id = ci.ad_client_id
 				LEFT JOIN c_location l
-					ON oi.c_location_id = l.c_location_id
+				ON oi.c_location_id = l.c_location_id
 				LEFT JOIN ad_image i
-					ON oi.logo_id = i.ad_image_id
+				ON oi.logo_id = i.ad_image_id
 		WHERE
 			o.ad_client_id = $P{AD_CLIENT_ID}
 	) AS billHeader
 		JOIN
 		(
 			SELECT
-				o.c_order_id       AS bill_id,
-				o.ad_org_id        AS orgID,
-				v.bh_visitdate     AS bill_date,
-				o.c_order_id       AS receipt_number,
-				u_cashier.name     AS cashierName,
-				u_patient.name     AS patientName,
-				u_patient.birthday AS age,
-				bp.bh_patientid    AS fileNumber,
-				u_clinician.name   AS clinicianname,
-				totalopenbalance   AS totalopenbalance
+				o.c_order_id     AS bill_id,
+				o.ad_org_id      AS orgID,
+				v.bh_visitdate   AS bill_date,
+				o.c_order_id     AS receipt_number,
+				u_cashier.name   AS cashierName,
+				u_patient.name   AS patientName,
+				bp.bh_birthday   AS age,
+				bp.bh_patientid  AS fileNumber,
+				u_clinician.name AS clinicianname,
+				totalopenbalance AS totalopenbalance
 			FROM
 				bh_visit v
 					JOIN c_order o
-						ON v.bh_visit_id = o.bh_visit_id
+					ON v.bh_visit_id = o.bh_visit_id
 					JOIN c_bpartner bp
-						ON v.patient_id = bp.c_bpartner_id
+					ON v.patient_id = bp.c_bpartner_id
 					JOIN ad_user u_patient
-						ON bp.c_bpartner_id = u_patient.c_bpartner_id
+					ON bp.c_bpartner_id = u_patient.c_bpartner_id
 					JOIN ad_user u_cashier
-						ON v.createdby = u_cashier.ad_user_id
+					ON v.createdby = u_cashier.ad_user_id
 					LEFT JOIN ad_user u_clinician
-						ON v.bh_clinician_user_id = u_clinician.ad_user_id
+					ON v.bh_clinician_user_id = u_clinician.ad_user_id
 			WHERE
 				v.bh_visit_id = $P{billId}
 		) AS billDetails
-				ON billheader.orgID = billDetails.orgID]]>
+			ON billheader.orgID = billDetails.orgID]]>
 	</queryString>
 	<field name="orgid" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="orgid"/>
