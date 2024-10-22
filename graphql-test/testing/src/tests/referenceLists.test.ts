@@ -398,9 +398,9 @@ test('process stage list is correct', async () => {
 	).data.AD_Ref_ListGet.Results;
 
 	// Ensure these exist
-	expect(processStageList.find((processStage) => processStage.Name === 'Cashier / Registration')).not.toBeUndefined();
-	expect(processStageList.find((processStage) => processStage.Name === 'Clinician / Dentist')).not.toBeUndefined();
-	expect(processStageList.find((processStage) => processStage.Name === 'Lab')).not.toBeUndefined();
-	expect(processStageList.find((processStage) => processStage.Name === 'Pharmacy')).not.toBeUndefined();
-	expect(processStageList.find((processStage) => processStage.Name === 'Triage / Vitals')).not.toBeUndefined();
+	expect(processStageList.find((processStage) => processStage.Name === 'Cashier / Registration')).toBeTruthy();
+	expect(processStageList.find((processStage) => processStage.Name === 'Clinician / Dentist')).toBeTruthy();
+	expect(processStageList.find((processStage) => processStage.Name === 'Lab')).toBeTruthy();
+	expect(processStageList.find((processStage) => processStage.Name === 'Pharmacy')).toBeTruthy();
+	expect(processStageList.find((processStage) => processStage.Name === 'Triage / Vitals')).toBeTruthy();
 });
