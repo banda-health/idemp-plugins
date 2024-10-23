@@ -530,7 +530,7 @@ FROM
 				<text><![CDATA[Insurer:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="60" width="106" height="16" uuid="024e5e5a-a8e5-4fed-b319-af92ea4cfcf6">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="60" width="116" height="16" uuid="024e5e5a-a8e5-4fed-b319-af92ea4cfcf6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -624,7 +624,7 @@ FROM
 				<text><![CDATA[BILL TO]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="106" y="60" width="121" height="16" uuid="666fd3bd-05ad-4cbc-ab27-105ed63c8800">
+				<reportElement positionType="FixRelativeToBottom" x="116" y="60" width="121" height="16" uuid="666fd3bd-05ad-4cbc-ab27-105ed63c8800">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
