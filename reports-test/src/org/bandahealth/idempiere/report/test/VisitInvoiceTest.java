@@ -9,6 +9,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.report.test.utils.EntityUtils;
@@ -21,7 +23,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -338,7 +339,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		valueObject.getBusinessPartner()
 				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
 		valueObject.getBusinessPartner().saveEx();
-		commitEx();		
+		commitEx();
 
 		valueObject.setStepName("Create insurer invoice");
 		valueObject.setOrder(null);
@@ -347,6 +348,25 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
 		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create claim number field");
+		MBHPayerInfoFld claimFieldForInsurer =
+				new MBHPayerInfoFld(valueObject.getContext(), 0, valueObject.getTransactionName());
+		claimFieldForInsurer.setName("Claim Number");
+		claimFieldForInsurer.setDescription(valueObject.getStepMessageLong());
+		claimFieldForInsurer.setBH_Payer_ID(valueObject.getBusinessPartner().get_ID());
+		claimFieldForInsurer.setLine(10);
+		claimFieldForInsurer.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Set claim number");
+		MBHBPSpecificPayerInfo specificPayerInfo =
+				new MBHBPSpecificPayerInfo(valueObject.getContext(), 0, valueObject.getTransactionName());
+		specificPayerInfo.setName(String.valueOf(valueObject.getRandomNumber()));
+		specificPayerInfo.setBH_Payer_Info_Fld_ID(claimFieldForInsurer.get_ID());
+		specificPayerInfo.setC_InvoiceLine_ID(valueObject.getInvoiceLine().getC_InvoiceLine_ID());
+		specificPayerInfo.saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the invoice report");
@@ -378,13 +398,19 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 									cell.getStringCellValue().contains("PLEASE PAY"))).findFirst();
 			assertTrue(insurerPayRow.isPresent(), "PLEASE PAY is on the invoice");
 			assertTrue(StreamSupport.stream(insurerPayRow.get().spliterator(), false).anyMatch(
-					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-							cell.getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(0, 15))),
-								"Insurer name is next to the PLEASE PAY line");
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(0, 15))),
+					"Insurer name is next to the PLEASE PAY line");
 			assertTrue(StreamSupport.stream(insurerPayRow.get().spliterator(), false).anyMatch(
-					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-							cell.getStringCellValue().contains("30")),
-								"Insurer amount to pay is correct");
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().contains("30")),
+					"Insurer amount to pay is correct");
+
+			Optional<Row> claimNumberRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().contains(specificPayerInfo.getName()))).findFirst();
+			assertTrue(claimNumberRow.isPresent(), "Claim number is on the invoice");
 		}
 	}
 }
