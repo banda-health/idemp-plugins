@@ -807,13 +807,13 @@ FROM
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="178" uuid="12c1984e-fcd4-4dc1-b557-47b4d537182f">
+					<jr:column width="173" uuid="12c1984e-fcd4-4dc1-b557-47b4d537182f">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="178" height="15" uuid="9986b691-2847-415d-8822-066b21d8d5ed"/>
+								<reportElement x="0" y="0" width="173" height="15" uuid="9986b691-2847-415d-8822-066b21d8d5ed"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3"/>
@@ -825,7 +825,7 @@ FROM
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="178" height="15" uuid="138a0fd1-3d00-491c-b7a8-30c2685dd428"/>
+								<reportElement x="0" y="0" width="173" height="15" uuid="138a0fd1-3d00-491c-b7a8-30c2685dd428"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<paragraph leftIndent="3"/>
 								</textElement>
@@ -833,12 +833,12 @@ FROM
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="110" uuid="529396c4-8825-4b4c-b9e8-095418b53d1c">
+					<jr:column width="120" uuid="529396c4-8825-4b4c-b9e8-095418b53d1c">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="110" height="15" uuid="69dabfb9-3d9e-4453-97e8-476aaaaafd55"/>
+								<reportElement x="0" y="0" width="120" height="15" uuid="69dabfb9-3d9e-4453-97e8-476aaaaafd55"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3" rightIndent="3"/>
@@ -847,8 +847,9 @@ FROM
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="110" height="15" uuid="afa3c71c-2700-4e12-a506-5c0095669331"/>
+								<reportElement x="0" y="0" width="120" height="15" uuid="afa3c71c-2700-4e12-a506-5c0095669331"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<paragraph leftIndent="3"/>
 								</textElement>
@@ -919,11 +920,12 @@ FROM
 							</jr:detailCell>
 						</jr:column>
 					</jr:columnGroup>
-					<jr:column width="80" uuid="f8fe607e-ee2b-4d58-a7b7-4006bf725c69">
+					<jr:column width="75" uuid="f8fe607e-ee2b-4d58-a7b7-4006bf725c69">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="80" height="15" uuid="1660fb8e-34f5-4aa4-89a1-7163e7a59c23"/>
+								<reportElement x="0" y="0" width="75" height="15" uuid="1660fb8e-34f5-4aa4-89a1-7163e7a59c23"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3" rightIndent="3"/>
@@ -939,7 +941,7 @@ FROM
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textField>
-								<reportElement style="Table_TF" x="0" y="0" width="80" height="20" uuid="665e383c-2430-4d82-a8ec-c1fa4b8adabe"/>
+								<reportElement style="Table_TF" x="0" y="0" width="75" height="20" uuid="665e383c-2430-4d82-a8ec-c1fa4b8adabe"/>
 								<box topPadding="4"/>
 								<textElement textAlignment="Right">
 									<font isBold="true"/>
@@ -950,7 +952,7 @@ FROM
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<textField pattern="#,##0" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="80" height="15" uuid="afa3425e-0418-4a7e-90cd-eb27491a256b"/>
+								<reportElement x="0" y="0" width="75" height="15" uuid="afa3425e-0418-4a7e-90cd-eb27491a256b"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
 								</textElement>
@@ -1023,7 +1025,7 @@ FROM
 								<reportElement x="0" y="0" width="199" height="15" uuid="95ce2fad-5f3c-4617-859b-b374687379bb">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3"/>
 								</textElement>
@@ -1052,7 +1054,7 @@ FROM
 								<reportElement x="0" y="0" width="74" height="15" uuid="dbb7978b-48e4-4031-97f2-f190613a7994">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph rightIndent="3"/>
 								</textElement>
@@ -1081,7 +1083,7 @@ FROM
 								<reportElement x="0" y="0" width="80" height="15" uuid="36f90237-be24-4ef1-97c4-c90b919b9170">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph rightIndent="3"/>
 								</textElement>
@@ -1144,7 +1146,7 @@ FROM
 								<reportElement x="0" y="0" width="110" height="15" uuid="4c4cd0d9-455c-4b09-ab2f-a13ead35caee">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3"/>
 								</textElement>
@@ -1172,7 +1174,7 @@ FROM
 								<reportElement x="0" y="0" width="73" height="15" uuid="6d124628-bf19-480d-9753-602c66cfa812">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3"/>
 								</textElement>
@@ -1201,7 +1203,7 @@ FROM
 								<reportElement x="0" y="0" width="90" height="15" uuid="c7624659-429f-4505-afd2-4b611ecc34d7">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
-								<textElement>
+								<textElement verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3"/>
 								</textElement>
@@ -1237,7 +1239,7 @@ FROM
 								<reportElement x="0" y="0" width="80" height="15" uuid="dba3bd01-5898-471b-84f4-34134401bc2f">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph rightIndent="3"/>
 								</textElement>
