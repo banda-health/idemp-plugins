@@ -121,7 +121,7 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MSystem foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_System", "AD_System_UU=?", get_TrxName())
-							.setParameters(AD_System.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_System.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_System_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

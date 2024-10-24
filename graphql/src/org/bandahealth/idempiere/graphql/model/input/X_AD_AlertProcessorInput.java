@@ -116,7 +116,7 @@ public class X_AD_AlertProcessorInput extends MAlertProcessor implements I_AD_Al
 			MSchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Schedule", "AD_Schedule_UU=?", get_TrxName())
-							.setParameters(AD_Schedule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Schedule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Schedule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_AD_AlertProcessorInput extends MAlertProcessor implements I_AD_Al
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

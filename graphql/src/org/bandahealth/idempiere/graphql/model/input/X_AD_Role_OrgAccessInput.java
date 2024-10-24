@@ -95,7 +95,7 @@ public class X_AD_Role_OrgAccessInput extends MRoleOrgAccess implements I_AD_Rol
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 

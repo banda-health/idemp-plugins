@@ -90,7 +90,7 @@ public class X_C_RfQResponseLineInput extends MRfQResponseLine implements I_C_Rf
 			MRfQLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQLine", "C_RfQLine_UU=?", get_TrxName())
-							.setParameters(C_RfQLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RfQLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_RfQLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_C_RfQResponseLineInput extends MRfQResponseLine implements I_C_Rf
 			MRfQResponse foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQResponse", "C_RfQResponse_UU=?", get_TrxName())
-							.setParameters(C_RfQResponse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RfQResponse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_RfQResponse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

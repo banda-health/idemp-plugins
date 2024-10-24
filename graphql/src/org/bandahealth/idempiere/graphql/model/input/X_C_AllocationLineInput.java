@@ -115,7 +115,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MAllocationHdr foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AllocationHdr", "C_AllocationHdr_UU=?", get_TrxName())
-							.setParameters(C_AllocationHdr.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AllocationHdr.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AllocationHdr_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -178,7 +178,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MBankTransfer foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankTransfer", "C_BankTransfer_UU=?", get_TrxName())
-							.setParameters(C_BankTransfer.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BankTransfer.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BankTransfer_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -215,7 +215,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -252,7 +252,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MCashLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashLine", "C_CashLine_UU=?", get_TrxName())
-							.setParameters(C_CashLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CashLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_CashLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -289,7 +289,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -326,7 +326,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -363,7 +363,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -400,7 +400,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

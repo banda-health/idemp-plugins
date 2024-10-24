@@ -162,7 +162,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -233,7 +233,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MBPBankAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_BankAccount", "C_BP_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BP_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -270,7 +270,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -304,7 +304,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -338,7 +338,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -372,7 +372,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -406,7 +406,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MProjectPhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
-							.setParameters(C_ProjectPhase.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ProjectPhase.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ProjectPhase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -440,7 +440,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MProjectTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectTask", "C_ProjectTask_UU=?", get_TrxName())
-							.setParameters(C_ProjectTask.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ProjectTask.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ProjectTask_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -513,7 +513,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			X_HR_Concept_Category foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Concept_Category", "HR_Concept_Category_UU=?", get_TrxName())
-							.setParameters(HR_Concept_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Concept_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Concept_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -547,7 +547,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			X_HR_Concept foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Concept", "HR_Concept_UU=?", get_TrxName())
-							.setParameters(HR_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Concept_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -581,7 +581,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			X_HR_Department foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
-							.setParameters(HR_Department.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Department.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Department_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -615,7 +615,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			X_HR_Job foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Job", "HR_Job_UU=?", get_TrxName())
-							.setParameters(HR_Job.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Job.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Job_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -678,7 +678,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			X_HR_Process foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Process", "HR_Process_UU=?", get_TrxName())
-							.setParameters(HR_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -712,7 +712,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			X_PP_Cost_Collector foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Cost_Collector", "PP_Cost_Collector_UU=?", get_TrxName())
-							.setParameters(PP_Cost_Collector.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Cost_Collector.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPP_Cost_Collector_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -746,7 +746,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUser1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -780,7 +780,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUser2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

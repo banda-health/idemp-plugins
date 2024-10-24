@@ -29,7 +29,7 @@ public class X_C_InvoiceTaxResolver extends POResolver<MInvoiceTax> implements G
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MInvoiceTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_InvoiceTaxResolver extends POResolver<MInvoiceTax> implements G
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MInvoiceTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() < 0) {
+		if (entity.getC_Tax_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_InvoiceTaxResolver extends POResolver<MInvoiceTax> implements G
 	 * @return Tax Provider
 	 */
 	public CompletableFuture<MTaxProvider> C_TaxProvider(MInvoiceTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxProvider_ID() < 0) {
+		if (entity.getC_TaxProvider_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTaxProvider> dataLoader =

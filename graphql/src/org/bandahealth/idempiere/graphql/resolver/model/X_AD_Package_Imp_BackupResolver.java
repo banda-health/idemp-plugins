@@ -33,7 +33,7 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(X_AD_Package_Imp_Backup entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() < 0) {
+		if (entity.getAD_Column_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -48,7 +48,7 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 	 * @return Imp. Package Detail
 	 */
 	public CompletableFuture<X_AD_Package_Imp_Detail> AD_Package_Imp_Detail(X_AD_Package_Imp_Backup entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Package_Imp_Detail_ID() < 0) {
+		if (entity.getAD_Package_Imp_Detail_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Package_Imp_Detail> dataLoader =
@@ -63,7 +63,7 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 	 * @return Package Imp.
 	 */
 	public CompletableFuture<X_AD_Package_Imp> AD_Package_Imp(X_AD_Package_Imp_Backup entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Package_Imp_ID() < 0) {
+		if (entity.getAD_Package_Imp_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Package_Imp> dataLoader =
@@ -78,7 +78,7 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(X_AD_Package_Imp_Backup entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() < 0) {
+		if (entity.getAD_Reference_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -93,7 +93,7 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_Package_Imp_Backup entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

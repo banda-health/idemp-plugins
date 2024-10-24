@@ -53,7 +53,7 @@ public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements
 			X_A_Registration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Registration", "A_Registration_UU=?", get_TrxName())
-							.setParameters(A_Registration.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Registration.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Registration_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements
 			X_A_RegistrationAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_RegistrationAttribute", "A_RegistrationAttribute_UU=?", get_TrxName())
-							.setParameters(A_RegistrationAttribute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_RegistrationAttribute.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_RegistrationAttribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -51,7 +51,7 @@ public class X_AD_LabelPrinterFunctionInput extends X_AD_LabelPrinterFunction im
 			X_AD_LabelPrinter foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_LabelPrinter", "AD_LabelPrinter_UU=?", get_TrxName())
-							.setParameters(AD_LabelPrinter.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_LabelPrinter.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_LabelPrinter_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -90,7 +90,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(AD_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(AD_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

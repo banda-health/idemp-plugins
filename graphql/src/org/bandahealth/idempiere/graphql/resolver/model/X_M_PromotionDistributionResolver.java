@@ -63,7 +63,7 @@ public class X_M_PromotionDistributionResolver extends POResolver<X_M_PromotionD
 	 * @return Promotion
 	 */
 	public CompletableFuture<X_M_Promotion> M_Promotion(X_M_PromotionDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Promotion_ID() < 0) {
+		if (entity.getM_Promotion_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_M_Promotion> dataLoader =
@@ -78,7 +78,7 @@ public class X_M_PromotionDistributionResolver extends POResolver<X_M_PromotionD
 	 * @return Promotion Line
 	 */
 	public CompletableFuture<X_M_PromotionLine> M_PromotionLine(X_M_PromotionDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PromotionLine_ID() < 0) {
+		if (entity.getM_PromotionLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_M_PromotionLine> dataLoader =

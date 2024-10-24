@@ -87,7 +87,7 @@ public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voi
 	 * @param UU UU
 	 */
 	public void setUU(String UU) {
-		setBH_Voided_Reason_UU(UU);
+		setbh_voided_reason_uu(UU);
 	}
 
 	/**
@@ -96,6 +96,6 @@ public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voi
 	 * @return UU
 	 */
 	public String getUU() {
-		return getBH_Voided_Reason_UU();
+		return getbh_voided_reason_uu();
 	}
 }

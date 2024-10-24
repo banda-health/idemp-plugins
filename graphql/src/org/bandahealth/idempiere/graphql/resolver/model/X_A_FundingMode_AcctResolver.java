@@ -29,7 +29,7 @@ public class X_A_FundingMode_AcctResolver extends POResolver<X_A_FundingMode_Acc
 	 * @return Funding Mode Account
 	 */
 	public CompletableFuture<MAccount> A_FundingMode_A(X_A_FundingMode_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_FundingMode_Acct() < 0) {
+		if (entity.getA_FundingMode_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -44,7 +44,7 @@ public class X_A_FundingMode_AcctResolver extends POResolver<X_A_FundingMode_Acc
 	 * @return Asset Funding Mode
 	 */
 	public CompletableFuture<X_A_FundingMode> A_FundingMode(X_A_FundingMode_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_FundingMode_ID() < 0) {
+		if (entity.getA_FundingMode_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_A_FundingMode> dataLoader =
@@ -59,7 +59,7 @@ public class X_A_FundingMode_AcctResolver extends POResolver<X_A_FundingMode_Acc
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_A_FundingMode_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =

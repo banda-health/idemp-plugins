@@ -36,7 +36,7 @@ public class X_T_InvoiceGLResolver extends POResolver<X_T_InvoiceGL> implements 
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_InvoiceGL entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() < 0) {
+		if (entity.getAD_PInstance_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -67,7 +67,7 @@ public class X_T_InvoiceGLResolver extends POResolver<X_T_InvoiceGL> implements 
 	 * @return Revaluation Currency Conversion Type
 	 */
 	public CompletableFuture<MConversionType> C_ConversionTypeReval(X_T_InvoiceGL entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ConversionTypeReval_ID() < 0) {
+		if (entity.getC_ConversionTypeReval_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
@@ -82,7 +82,7 @@ public class X_T_InvoiceGLResolver extends POResolver<X_T_InvoiceGL> implements 
 	 * @return Document Type for Revaluation Journal
 	 */
 	public CompletableFuture<MDocType_BH> C_DocTypeReval(X_T_InvoiceGL entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocTypeReval_ID() < 0) {
+		if (entity.getC_DocTypeReval_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -97,7 +97,7 @@ public class X_T_InvoiceGLResolver extends POResolver<X_T_InvoiceGL> implements 
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(X_T_InvoiceGL entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =

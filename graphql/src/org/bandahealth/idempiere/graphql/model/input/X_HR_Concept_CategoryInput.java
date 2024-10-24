@@ -85,7 +85,7 @@ public class X_HR_Concept_CategoryInput extends X_HR_Concept_Category implements
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(HR_Concept_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Concept_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Concept_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

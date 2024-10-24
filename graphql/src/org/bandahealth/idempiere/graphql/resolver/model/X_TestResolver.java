@@ -41,7 +41,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 	 * @return Account_Acct
 	 */
 	public CompletableFuture<MAccount> Account_A(MTest entity, DataFetchingEnvironment environment) {
-		if (entity.getAccount_Acct() < 0) {
+		if (entity.getAccount_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -56,7 +56,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MTest entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -71,7 +71,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MTest entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -86,7 +86,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MTest entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -101,7 +101,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MTest entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -116,7 +116,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MTest entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() < 0) {
+		if (entity.getC_Payment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -131,7 +131,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MTest entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 0) {
+		if (entity.getC_UOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -146,7 +146,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MTest entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() < 0) {
+		if (entity.getM_Locator_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -161,7 +161,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MTest entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

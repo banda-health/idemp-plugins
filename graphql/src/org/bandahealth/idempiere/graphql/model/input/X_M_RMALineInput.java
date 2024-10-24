@@ -94,7 +94,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -128,7 +128,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -233,7 +233,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 			MRMA foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RMA", "M_RMA_UU=?", get_TrxName())
-							.setParameters(M_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_RMA_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -296,7 +296,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 			MRMALine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RMALine", "M_RMALine_UU=?", get_TrxName())
-							.setParameters(Ref_RMALine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Ref_RMALine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setRef_RMALine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

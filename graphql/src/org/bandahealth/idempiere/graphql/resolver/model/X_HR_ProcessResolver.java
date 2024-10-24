@@ -51,7 +51,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Data Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormat_ID() < 0) {
+		if (entity.getAD_PrintFormat_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -66,7 +66,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() < 0) {
+		if (entity.getAD_Workflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
@@ -81,7 +81,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -96,7 +96,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() < 0) {
+		if (entity.getC_Charge_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -126,7 +126,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Target document type for conversing documents
 	 */
 	public CompletableFuture<MDocType_BH> C_DocTypeTarget(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocTypeTarget_ID() < 0) {
+		if (entity.getC_DocTypeTarget_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -141,7 +141,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Payment Selection
 	 */
 	public CompletableFuture<MPaySelection> C_PaySelection(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaySelection_ID() < 0) {
+		if (entity.getC_PaySelection_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPaySelection> dataLoader =
@@ -208,7 +208,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Payroll Department
 	 */
 	public CompletableFuture<X_HR_Department> HR_Department(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Department_ID() < 0) {
+		if (entity.getHR_Department_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
@@ -223,7 +223,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Payroll Employee
 	 */
 	public CompletableFuture<X_HR_Employee> HR_Employee(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Employee_ID() < 0) {
+		if (entity.getHR_Employee_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Employee> dataLoader =
@@ -238,7 +238,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Payroll Job
 	 */
 	public CompletableFuture<X_HR_Job> HR_Job(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Job_ID() < 0) {
+		if (entity.getHR_Job_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Job> dataLoader =
@@ -253,7 +253,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Payroll
 	 */
 	public CompletableFuture<X_HR_Payroll> HR_Payroll(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Payroll_ID() < 0) {
+		if (entity.getHR_Payroll_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =
@@ -268,7 +268,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return Payroll Period
 	 */
 	public CompletableFuture<X_HR_Period> HR_Period(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Period_ID() < 0) {
+		if (entity.getHR_Period_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Period> dataLoader =
@@ -295,7 +295,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<X_HR_Process> Reversal(X_HR_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() < 0) {
+		if (entity.getReversal_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Process> dataLoader =

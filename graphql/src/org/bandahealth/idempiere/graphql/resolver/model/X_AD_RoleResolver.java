@@ -34,7 +34,7 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 	 * @return Tree of the menu
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Menu(X_AD_Role entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Menu_ID() < 0) {
+		if (entity.getAD_Tree_Menu_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 	 * @return Trees are used for (financial) reporting and security access (via role)
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Org(X_AD_Role entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Org_ID() < 0) {
+		if (entity.getAD_Tree_Org_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -104,7 +104,7 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(X_AD_Role entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -227,7 +227,7 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	public CompletableFuture<MUser_BH> Supervisor(X_AD_Role entity, DataFetchingEnvironment environment) {
-		if (entity.getSupervisor_ID() < 0) {
+		if (entity.getSupervisor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

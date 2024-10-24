@@ -71,7 +71,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MAssetClass foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Class", "A_Asset_Class_UU=?", get_TrxName())
-							.setParameters(A_Asset_Class.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset_Class.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_Class_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -105,7 +105,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MAssetGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Group", "A_Asset_Group_UU=?", get_TrxName())
-							.setParameters(A_Asset_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -139,7 +139,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -173,7 +173,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MAssetType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Type", "A_Asset_Type_UU=?", get_TrxName())
-							.setParameters(A_Asset_Type.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset_Type.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_Type_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -241,7 +241,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -275,7 +275,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartnerSR.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartnerSR.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartnerSR_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -309,7 +309,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MCity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_City", "C_City_UU=?", get_TrxName())
-							.setParameters(C_City.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_City.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_City_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -343,7 +343,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -377,7 +377,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -479,7 +479,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Locator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -513,7 +513,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

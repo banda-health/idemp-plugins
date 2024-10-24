@@ -33,7 +33,7 @@ public class X_HR_Concept_AcctResolver extends POResolver<X_HR_Concept_Acct> imp
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_HR_Concept_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -48,7 +48,7 @@ public class X_HR_Concept_AcctResolver extends POResolver<X_HR_Concept_Acct> imp
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(X_HR_Concept_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() < 0) {
+		if (entity.getC_BP_Group_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -63,7 +63,7 @@ public class X_HR_Concept_AcctResolver extends POResolver<X_HR_Concept_Acct> imp
 	 * @return Payroll Concept
 	 */
 	public CompletableFuture<X_HR_Concept> HR_Concept(X_HR_Concept_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Concept_ID() < 0) {
+		if (entity.getHR_Concept_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Concept> dataLoader =
@@ -78,7 +78,7 @@ public class X_HR_Concept_AcctResolver extends POResolver<X_HR_Concept_Acct> imp
 	 * @return Payroll Expense Account
 	 */
 	public CompletableFuture<MAccount> HR_Expense_A(X_HR_Concept_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Expense_Acct() < 0) {
+		if (entity.getHR_Expense_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -93,7 +93,7 @@ public class X_HR_Concept_AcctResolver extends POResolver<X_HR_Concept_Acct> imp
 	 * @return Payroll Revenue Account
 	 */
 	public CompletableFuture<MAccount> HR_Revenue_A(X_HR_Concept_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Revenue_Acct() < 0) {
+		if (entity.getHR_Revenue_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -112,7 +112,7 @@ public class X_HR_Concept_AcctResolver extends POResolver<X_HR_Concept_Acct> imp
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(X_HR_Concept_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() < 0) {
+		if (entity.getUser1_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -127,7 +127,7 @@ public class X_HR_Concept_AcctResolver extends POResolver<X_HR_Concept_Acct> imp
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MAccount> User2(X_HR_Concept_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() < 0) {
+		if (entity.getUser2_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

@@ -88,7 +88,7 @@ public class X_R_RequestProcessorLogInput extends MRequestProcessorLog implement
 			MRequestProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestProcessor", "R_RequestProcessor_UU=?", get_TrxName())
-							.setParameters(R_RequestProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_RequestProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_RequestProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

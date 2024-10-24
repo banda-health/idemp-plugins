@@ -34,7 +34,7 @@ public class X_M_InOutConfirmResolver extends POResolver<MInOutConfirm> implemen
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MInOutConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -131,7 +131,7 @@ public class X_M_InOutConfirmResolver extends POResolver<MInOutConfirm> implemen
 	 * @return Material Shipment Document
 	 */
 	public CompletableFuture<MInOut_BH> M_InOut(MInOutConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOut_ID() < 0) {
+		if (entity.getM_InOut_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInOut_BH> dataLoader =
@@ -146,7 +146,7 @@ public class X_M_InOutConfirmResolver extends POResolver<MInOutConfirm> implemen
 	 * @return Parameters for a Physical Inventory
 	 */
 	public CompletableFuture<MInventory_BH> M_Inventory(MInOutConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Inventory_ID() < 0) {
+		if (entity.getM_Inventory_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInventory_BH> dataLoader =

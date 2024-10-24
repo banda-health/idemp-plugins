@@ -96,7 +96,7 @@ public class X_M_ForecastLineInput extends MForecastLine implements I_M_Forecast
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -133,7 +133,7 @@ public class X_M_ForecastLineInput extends MForecastLine implements I_M_Forecast
 			MForecast foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Forecast", "M_Forecast_UU=?", get_TrxName())
-							.setParameters(M_Forecast.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Forecast.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Forecast_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -199,7 +199,7 @@ public class X_M_ForecastLineInput extends MForecastLine implements I_M_Forecast
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -233,7 +233,7 @@ public class X_M_ForecastLineInput extends MForecastLine implements I_M_Forecast
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -267,7 +267,7 @@ public class X_M_ForecastLineInput extends MForecastLine implements I_M_Forecast
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

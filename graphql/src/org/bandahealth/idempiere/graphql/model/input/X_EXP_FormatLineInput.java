@@ -54,7 +54,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MEXPFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Format", "EXP_Format_UU=?", get_TrxName())
-							.setParameters(EXP_EmbeddedFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(EXP_EmbeddedFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEXP_EmbeddedFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MEXPFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Format", "EXP_Format_UU=?", get_TrxName())
-							.setParameters(EXP_Format.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(EXP_Format.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEXP_Format_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

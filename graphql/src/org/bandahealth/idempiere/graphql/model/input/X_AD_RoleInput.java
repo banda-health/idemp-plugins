@@ -124,7 +124,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Menu.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Menu.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Menu_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -158,7 +158,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -192,7 +192,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -304,7 +304,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

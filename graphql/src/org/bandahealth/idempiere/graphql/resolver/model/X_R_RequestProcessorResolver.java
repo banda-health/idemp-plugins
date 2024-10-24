@@ -29,7 +29,7 @@ public class X_R_RequestProcessorResolver extends POResolver<MRequestProcessor> 
 	 * @return Schedule
 	 */
 	public CompletableFuture<MSchedule> AD_Schedule(MRequestProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Schedule_ID() < 0) {
+		if (entity.getAD_Schedule_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSchedule> dataLoader =
@@ -48,7 +48,7 @@ public class X_R_RequestProcessorResolver extends POResolver<MRequestProcessor> 
 	 * @return Type of request (e.g. Inquiry, Complaint, ..)
 	 */
 	public CompletableFuture<MRequestType> R_RequestType(MRequestProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getR_RequestType_ID() < 0) {
+		if (entity.getR_RequestType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRequestType> dataLoader =
@@ -63,7 +63,7 @@ public class X_R_RequestProcessorResolver extends POResolver<MRequestProcessor> 
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	public CompletableFuture<MUser_BH> Supervisor(MRequestProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getSupervisor_ID() < 0) {
+		if (entity.getSupervisor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

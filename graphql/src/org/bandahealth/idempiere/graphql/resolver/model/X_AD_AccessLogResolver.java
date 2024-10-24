@@ -27,7 +27,7 @@ public class X_AD_AccessLogResolver extends POResolver<MAccessLog> implements Gr
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MAccessLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() < 0) {
+		if (entity.getAD_Column_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_AccessLogResolver extends POResolver<MAccessLog> implements Gr
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MAccessLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

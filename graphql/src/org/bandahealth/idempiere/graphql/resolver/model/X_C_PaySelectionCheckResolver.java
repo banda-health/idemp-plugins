@@ -36,7 +36,7 @@ public class X_C_PaySelectionCheckResolver extends POResolver<MPaySelectionCheck
 	 * @return Bank Account of the Business Partner
 	 */
 	public CompletableFuture<MBPBankAccount> C_BP_BankAccount(MPaySelectionCheck entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_BankAccount_ID() < 0) {
+		if (entity.getC_BP_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPBankAccount> dataLoader =
@@ -51,7 +51,7 @@ public class X_C_PaySelectionCheckResolver extends POResolver<MPaySelectionCheck
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MPaySelectionCheck entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -66,7 +66,7 @@ public class X_C_PaySelectionCheckResolver extends POResolver<MPaySelectionCheck
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MPaySelectionCheck entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() < 0) {
+		if (entity.getC_Payment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -81,7 +81,7 @@ public class X_C_PaySelectionCheckResolver extends POResolver<MPaySelectionCheck
 	 * @return Payment Selection
 	 */
 	public CompletableFuture<MPaySelection> C_PaySelection(MPaySelectionCheck entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaySelection_ID() < 0) {
+		if (entity.getC_PaySelection_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPaySelection> dataLoader =

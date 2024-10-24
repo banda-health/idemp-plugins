@@ -90,7 +90,7 @@ public class X_AD_Scheduler_ParaInput extends MSchedulerPara implements I_AD_Sch
 			MProcessPara foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process_Para", "AD_Process_Para_UU=?", get_TrxName())
-							.setParameters(AD_Process_Para.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process_Para.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_Para_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_AD_Scheduler_ParaInput extends MSchedulerPara implements I_AD_Sch
 			MScheduler foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Scheduler", "AD_Scheduler_UU=?", get_TrxName())
-							.setParameters(AD_Scheduler.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Scheduler.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Scheduler_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

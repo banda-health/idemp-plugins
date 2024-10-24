@@ -172,7 +172,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -206,7 +206,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(Bill_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Bill_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBill_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -240,7 +240,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			X_C_BP_ShippingAcct foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_ShippingAcct", "C_BP_ShippingAcct_UU=?", get_TrxName())
-							.setParameters(C_BP_ShippingAcct.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_ShippingAcct.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_ShippingAcct_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -274,7 +274,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -308,7 +308,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -342,7 +342,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -376,7 +376,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -410,7 +410,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -444,7 +444,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Length.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM_Length.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_Length_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -478,7 +478,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Weight.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM_Weight.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_Weight_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -674,7 +674,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(HoldAddress.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HoldAddress.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHoldAddress_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -792,7 +792,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MInOut_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
-							.setParameters(M_InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOut_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -826,7 +826,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MPackage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Package", "M_Package_UU=?", get_TrxName())
-							.setParameters(M_Package.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Package.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Package_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -860,7 +860,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Shipper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -894,7 +894,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MShipperLabels foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperLabels", "M_ShipperLabels_UU=?", get_TrxName())
-							.setParameters(M_ShipperLabels.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ShipperLabels.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ShipperLabels_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -928,7 +928,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MShipperPackaging foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperPackaging", "M_ShipperPackaging_UU=?", get_TrxName())
-							.setParameters(M_ShipperPackaging.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ShipperPackaging.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ShipperPackaging_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -962,7 +962,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MShipperPickupTypes foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperPickupTypes", "M_ShipperPickupTypes_UU=?", get_TrxName())
-							.setParameters(M_ShipperPickupTypes.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ShipperPickupTypes.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ShipperPickupTypes_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -999,7 +999,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MShippingProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShippingProcessor", "M_ShippingProcessor_UU=?", get_TrxName())
-							.setParameters(M_ShippingProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ShippingProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ShippingProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1062,7 +1062,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1174,7 +1174,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(ReturnBPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ReturnBPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setReturnBPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1208,7 +1208,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(ReturnLocation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ReturnLocation.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setReturnLocation_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1242,7 +1242,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(ReturnUser.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ReturnUser.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setReturnUser_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1276,7 +1276,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

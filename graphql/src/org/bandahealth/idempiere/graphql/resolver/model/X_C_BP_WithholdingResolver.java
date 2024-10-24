@@ -27,7 +27,7 @@ public class X_C_BP_WithholdingResolver extends POResolver<X_C_BP_Withholding> i
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_C_BP_Withholding entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_BP_WithholdingResolver extends POResolver<X_C_BP_Withholding> i
 	 * @return Withholding type defined
 	 */
 	public CompletableFuture<MWithholding> C_Withholding(X_C_BP_Withholding entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Withholding_ID() < 0) {
+		if (entity.getC_Withholding_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWithholding> dataLoader =

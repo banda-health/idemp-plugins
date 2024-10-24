@@ -97,7 +97,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(AD_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -199,7 +199,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 			MDunning foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
-							.setParameters(C_Dunning.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Dunning.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Dunning_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -233,7 +233,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-							.setParameters(M_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_DiscountSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -267,7 +267,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -301,7 +301,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-							.setParameters(PO_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPO_DiscountSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -335,7 +335,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(PO_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPO_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

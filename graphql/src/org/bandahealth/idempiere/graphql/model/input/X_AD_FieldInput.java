@@ -75,7 +75,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MChart foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Chart", "AD_Chart_UU=?", get_TrxName())
-							.setParameters(AD_Chart.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Chart.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Chart_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -109,7 +109,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -172,7 +172,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MFieldGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_FieldGroup", "AD_FieldGroup_UU=?", get_TrxName())
-							.setParameters(AD_FieldGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_FieldGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_FieldGroup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -206,7 +206,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MStyle foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
-							.setParameters(AD_FieldStyle.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_FieldStyle.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_FieldStyle_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -240,7 +240,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MStyle foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
-							.setParameters(AD_LabelStyle.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_LabelStyle.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_LabelStyle_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -311,7 +311,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -345,7 +345,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -382,7 +382,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -416,7 +416,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -450,7 +450,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule_Lookup.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule_Lookup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_Lookup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -484,7 +484,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -518,7 +518,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(Included_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Included_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setIncluded_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

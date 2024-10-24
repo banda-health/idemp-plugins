@@ -25,7 +25,7 @@ public class X_C_RfQ_TopicResolver extends POResolver<MRfQTopic> implements Grap
 	 * @return Data Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(MRfQTopic entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormat_ID() < 0) {
+		if (entity.getAD_PrintFormat_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =

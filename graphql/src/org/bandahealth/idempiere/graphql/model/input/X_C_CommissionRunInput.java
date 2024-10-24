@@ -91,7 +91,7 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 			MCommission foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Commission", "C_Commission_UU=?", get_TrxName())
-							.setParameters(C_Commission.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Commission.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Commission_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -157,7 +157,7 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

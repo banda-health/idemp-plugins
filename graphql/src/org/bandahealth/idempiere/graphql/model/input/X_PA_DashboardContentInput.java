@@ -65,7 +65,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MChart foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Chart", "AD_Chart_UU=?", get_TrxName())
-							.setParameters(AD_Chart.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Chart.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Chart_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -136,7 +136,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -170,7 +170,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -211,7 +211,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -238,7 +238,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MStatusLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_StatusLine", "AD_StatusLine_UU=?", get_TrxName())
-							.setParameters(AD_StatusLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_StatusLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_StatusLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -272,7 +272,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -306,7 +306,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -408,7 +408,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MGoal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Goal", "PA_Goal_UU=?", get_TrxName())
-							.setParameters(PA_Goal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_Goal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_Goal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

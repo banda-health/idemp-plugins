@@ -30,7 +30,7 @@ public class X_A_Depreciation_ForecastResolver extends POResolver<X_A_Depreciati
 	 * @return To Asset
 	 */
 	public CompletableFuture<MAsset> A_End_Asset(X_A_Depreciation_Forecast entity, DataFetchingEnvironment environment) {
-		if (entity.getA_End_Asset_ID() < 0) {
+		if (entity.getA_End_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -45,7 +45,7 @@ public class X_A_Depreciation_ForecastResolver extends POResolver<X_A_Depreciati
 	 * @return From Asset
 	 */
 	public CompletableFuture<MAsset> A_Start_Asset(X_A_Depreciation_Forecast entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Start_Asset_ID() < 0) {
+		if (entity.getA_Start_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =

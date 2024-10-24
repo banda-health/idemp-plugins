@@ -110,7 +110,7 @@ public class X_AD_Document_Action_AccessInput extends MDocumentActionAccess impl
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Ref_List", "AD_Ref_List_UU=?", get_TrxName())
-							.setParameters(AD_Ref_List.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Ref_List.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Ref_List_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -154,7 +154,7 @@ public class X_AD_Document_Action_AccessInput extends MDocumentActionAccess impl
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -191,7 +191,7 @@ public class X_AD_Document_Action_AccessInput extends MDocumentActionAccess impl
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 

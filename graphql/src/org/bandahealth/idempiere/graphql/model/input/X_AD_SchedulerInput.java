@@ -98,7 +98,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -135,7 +135,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -169,7 +169,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MSchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Schedule", "AD_Schedule_UU=?", get_TrxName())
-							.setParameters(AD_Schedule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Schedule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Schedule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -232,7 +232,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -269,7 +269,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -342,7 +342,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

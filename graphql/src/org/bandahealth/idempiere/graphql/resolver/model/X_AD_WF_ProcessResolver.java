@@ -38,7 +38,7 @@ public class X_AD_WF_ProcessResolver extends POResolver<X_AD_WF_Process> impleme
 	 * @return System Message
 	 */
 	public CompletableFuture<MMessage_BH> AD_Message(X_AD_WF_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Message_ID() < 0) {
+		if (entity.getAD_Message_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MMessage_BH> dataLoader =
@@ -53,7 +53,7 @@ public class X_AD_WF_ProcessResolver extends POResolver<X_AD_WF_Process> impleme
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_WF_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -68,7 +68,7 @@ public class X_AD_WF_ProcessResolver extends POResolver<X_AD_WF_Process> impleme
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_AD_WF_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -83,7 +83,7 @@ public class X_AD_WF_ProcessResolver extends POResolver<X_AD_WF_Process> impleme
 	 * @return Responsible for Workflow Execution
 	 */
 	public CompletableFuture<X_AD_WF_Responsible> AD_WF_Responsible(X_AD_WF_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Responsible_ID() < 0) {
+		if (entity.getAD_WF_Responsible_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Responsible> dataLoader =
@@ -98,7 +98,7 @@ public class X_AD_WF_ProcessResolver extends POResolver<X_AD_WF_Process> impleme
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_AD_WF_Process entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() < 0) {
+		if (entity.getAD_Workflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =

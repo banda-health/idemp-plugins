@@ -27,7 +27,7 @@ public class X_C_InvoicePayScheduleResolver extends POResolver<MInvoicePaySchedu
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MInvoicePaySchedule entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_InvoicePayScheduleResolver extends POResolver<MInvoicePaySchedu
 	 * @return Payment Schedule Template
 	 */
 	public CompletableFuture<MPaySchedule> C_PaySchedule(MInvoicePaySchedule entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaySchedule_ID() < 0) {
+		if (entity.getC_PaySchedule_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPaySchedule> dataLoader =

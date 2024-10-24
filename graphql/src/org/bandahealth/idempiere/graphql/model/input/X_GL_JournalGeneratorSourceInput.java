@@ -89,7 +89,7 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ElementValue_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -123,7 +123,7 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
-							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -160,7 +160,7 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 			MJournalGeneratorLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_JournalGeneratorLine", "GL_JournalGeneratorLine_UU=?", get_TrxName())
-							.setParameters(GL_JournalGeneratorLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_JournalGeneratorLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_JournalGeneratorLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

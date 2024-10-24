@@ -137,7 +137,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			X_GL_Budget foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
-							.setParameters(GL_Budget.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Budget.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_Budget_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -210,7 +210,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MReportLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
-							.setParameters(Oper_1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Oper_1.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setOper_1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -244,7 +244,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MReportLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
-							.setParameters(Oper_2.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Oper_2.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setOper_2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -349,7 +349,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MReportLineSet foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
-							.setParameters(PA_ReportLineSet.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_ReportLineSet.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_ReportLineSet_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -48,7 +48,7 @@ public class X_AD_RecentItemResolver extends POResolver<MRecentItem> implements 
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MRecentItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() < 0) {
+		if (entity.getAD_Tab_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -63,7 +63,7 @@ public class X_AD_RecentItemResolver extends POResolver<MRecentItem> implements 
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MRecentItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -78,7 +78,7 @@ public class X_AD_RecentItemResolver extends POResolver<MRecentItem> implements 
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MRecentItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -93,7 +93,7 @@ public class X_AD_RecentItemResolver extends POResolver<MRecentItem> implements 
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MRecentItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

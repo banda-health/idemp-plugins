@@ -62,7 +62,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return System Entity Type
 	 */
 	public CompletableFuture<MEntityType> AD_EntityType(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_EntityType_ID() < 0) {
+		if (entity.getAD_EntityType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
@@ -77,7 +77,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() < 0) {
+		if (entity.getAD_Form_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -92,7 +92,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Import Format
 	 */
 	public CompletableFuture<X_AD_ImpFormat> AD_ImpFormat(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ImpFormat_ID() < 0) {
+		if (entity.getAD_ImpFormat_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_ImpFormat> dataLoader =
@@ -107,7 +107,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() < 0) {
+		if (entity.getAD_InfoWindow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -122,7 +122,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Identifies a Menu
 	 */
 	public CompletableFuture<MMenu_BH> AD_Menu(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Menu_ID() < 0) {
+		if (entity.getAD_Menu_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MMenu_BH> dataLoader =
@@ -137,7 +137,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return System Message
 	 */
 	public CompletableFuture<MMessage_BH> AD_Message(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Message_ID() < 0) {
+		if (entity.getAD_Message_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MMessage_BH> dataLoader =
@@ -152,7 +152,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Model Validator
 	 */
 	public CompletableFuture<X_AD_ModelValidator> AD_ModelValidator(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ModelValidator_ID() < 0) {
+		if (entity.getAD_ModelValidator_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_ModelValidator> dataLoader =
@@ -167,7 +167,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Package Exp.
 	 */
 	public CompletableFuture<MPackageExp> AD_Package_Exp(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Package_Exp_ID() < 0) {
+		if (entity.getAD_Package_Exp_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPackageExp> dataLoader =
@@ -182,7 +182,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Data Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormat_ID() < 0) {
+		if (entity.getAD_PrintFormat_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -197,7 +197,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() < 0) {
+		if (entity.getAD_Process_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -212,7 +212,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() < 0) {
+		if (entity.getAD_Reference_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -227,7 +227,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return View used to generate this report
 	 */
 	public CompletableFuture<MReportView> AD_ReportView(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReportView_ID() < 0) {
+		if (entity.getAD_ReportView_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReportView> dataLoader =
@@ -257,7 +257,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -272,7 +272,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() < 0) {
+		if (entity.getAD_Val_Rule_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -287,7 +287,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -302,7 +302,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() < 0) {
+		if (entity.getAD_Workflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =

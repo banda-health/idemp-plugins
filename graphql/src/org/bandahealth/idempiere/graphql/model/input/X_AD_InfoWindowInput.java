@@ -55,7 +55,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 			MCtxHelp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
-							.setParameters(AD_CtxHelp.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_CtxHelp.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_CtxHelp_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -223,7 +223,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -257,7 +257,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(PO_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPO_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

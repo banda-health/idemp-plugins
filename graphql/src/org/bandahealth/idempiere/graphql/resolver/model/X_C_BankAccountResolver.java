@@ -50,7 +50,7 @@ public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> impleme
 	 * @return Bank
 	 */
 	public CompletableFuture<MBank> C_Bank(MBankAccount_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Bank_ID() < 0) {
+		if (entity.getC_Bank_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBank> dataLoader =
@@ -65,7 +65,7 @@ public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> impleme
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MBankAccount_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =

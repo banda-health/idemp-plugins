@@ -90,7 +90,7 @@ public class X_M_AttributeUseInput extends MAttributeUse implements I_M_Attribut
 			MAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
-							.setParameters(M_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Attribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -134,7 +134,7 @@ public class X_M_AttributeUseInput extends MAttributeUse implements I_M_Attribut
 						"Could not find entity in table M_AttributeSet with UU " + M_AttributeSet.getUU());
 			}
 		} else {
-			this.setM_AttributeSet_ID(0);
+			this.setM_AttributeSet_ID(-1);
 		}
 	}
 

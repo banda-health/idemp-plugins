@@ -88,7 +88,7 @@ public class X_M_AttributeValueInput extends MAttributeValue implements I_M_Attr
 			MAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
-							.setParameters(M_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Attribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -116,7 +116,7 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 			MCommissionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CommissionLine", "C_CommissionLine_UU=?", get_TrxName())
-							.setParameters(C_CommissionLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CommissionLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_CommissionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 			MCommissionRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CommissionRun", "C_CommissionRun_UU=?", get_TrxName())
-							.setParameters(C_CommissionRun.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CommissionRun.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_CommissionRun_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
