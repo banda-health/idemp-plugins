@@ -125,7 +125,7 @@ public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput 
 			X_AD_PrintPaper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintPaper", "AD_PrintPaper_UU=?", get_TrxName())
-							.setParameters(AD_PrintPaper.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintPaper.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintPaper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

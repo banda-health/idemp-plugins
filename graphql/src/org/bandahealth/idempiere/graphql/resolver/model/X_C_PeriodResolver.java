@@ -30,7 +30,7 @@ public class X_C_PeriodResolver extends POResolver<MPeriod> implements GraphQLRe
 	 * @return Calendar Year
 	 */
 	public CompletableFuture<MYear> C_Year(MPeriod entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Year_ID() < 0) {
+		if (entity.getC_Year_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MYear> dataLoader =

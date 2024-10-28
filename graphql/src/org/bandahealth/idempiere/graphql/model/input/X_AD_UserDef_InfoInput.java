@@ -63,7 +63,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -97,7 +97,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(
@@ -175,7 +175,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -202,7 +202,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -265,7 +265,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -338,7 +338,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(PO_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPO_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

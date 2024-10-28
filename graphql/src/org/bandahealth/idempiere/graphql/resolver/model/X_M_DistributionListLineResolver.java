@@ -29,7 +29,7 @@ public class X_M_DistributionListLineResolver extends POResolver<MDistributionLi
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MDistributionListLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_M_DistributionListLineResolver extends POResolver<MDistributionLi
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MDistributionListLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -59,7 +59,7 @@ public class X_M_DistributionListLineResolver extends POResolver<MDistributionLi
 	 * @return Distribution Lists allow to distribute products to a selected list of partners
 	 */
 	public CompletableFuture<MDistributionList> M_DistributionList(MDistributionListLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DistributionList_ID() < 0) {
+		if (entity.getM_DistributionList_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDistributionList> dataLoader =

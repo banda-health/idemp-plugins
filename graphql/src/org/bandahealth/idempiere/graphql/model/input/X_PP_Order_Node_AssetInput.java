@@ -54,7 +54,7 @@ public class X_PP_Order_Node_AssetInput extends X_PP_Order_Node_Asset implements
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_PP_Order_Node_AssetInput extends X_PP_Order_Node_Asset implements
 			X_PP_Order foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
-							.setParameters(PP_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPP_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -191,7 +191,7 @@ public class X_PP_Order_Node_AssetInput extends X_PP_Order_Node_Asset implements
 			X_PP_Order_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order_Node", "PP_Order_Node_UU=?", get_TrxName())
-							.setParameters(PP_Order_Node.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Order_Node.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPP_Order_Node_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -228,7 +228,7 @@ public class X_PP_Order_Node_AssetInput extends X_PP_Order_Node_Asset implements
 			X_PP_Order_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order_Workflow", "PP_Order_Workflow_UU=?", get_TrxName())
-							.setParameters(PP_Order_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Order_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPP_Order_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -119,7 +119,7 @@ public class X_C_CityInput extends MCity implements I_C_CityInput {
 			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Country_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_C_CityInput extends MCity implements I_C_CityInput {
 			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-							.setParameters(C_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Region_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

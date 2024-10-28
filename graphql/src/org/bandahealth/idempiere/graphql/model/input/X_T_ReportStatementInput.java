@@ -53,7 +53,7 @@ public class X_T_ReportStatementInput extends X_T_ReportStatement implements I_T
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -145,7 +145,7 @@ public class X_T_ReportStatementInput extends X_T_ReportStatement implements I_T
 			MFactAcct foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "Fact_Acct", "Fact_Acct_UU=?", get_TrxName())
-							.setParameters(Fact_Acct.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Fact_Acct.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setFact_Acct_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

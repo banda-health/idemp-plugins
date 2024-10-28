@@ -88,7 +88,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Length.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM_Length.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_Length_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -122,7 +122,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Weight.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM_Weight.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_Weight_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 			MPackage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Package", "M_Package_UU=?", get_TrxName())
-							.setParameters(M_Package.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Package.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Package_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

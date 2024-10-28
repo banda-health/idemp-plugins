@@ -27,7 +27,7 @@ public class X_M_PromotionGroupLineResolver extends POResolver<X_M_PromotionGrou
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_M_PromotionGroupLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_M_PromotionGroupLineResolver extends POResolver<X_M_PromotionGrou
 	 * @return Promotion Group
 	 */
 	public CompletableFuture<X_M_PromotionGroup> M_PromotionGroup(X_M_PromotionGroupLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PromotionGroup_ID() < 0) {
+		if (entity.getM_PromotionGroup_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_M_PromotionGroup> dataLoader =

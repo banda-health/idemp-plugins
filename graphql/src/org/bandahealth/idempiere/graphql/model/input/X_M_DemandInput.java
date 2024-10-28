@@ -90,7 +90,7 @@ public class X_M_DemandInput extends X_M_Demand implements I_M_DemandInput {
 			MCalendar foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
-							.setParameters(C_Calendar.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Calendar.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Calendar_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_M_DemandInput extends X_M_Demand implements I_M_DemandInput {
 			MYear foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
-							.setParameters(C_Year.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Year.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Year_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

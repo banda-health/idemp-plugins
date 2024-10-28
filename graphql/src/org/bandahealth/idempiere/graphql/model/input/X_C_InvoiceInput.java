@@ -135,7 +135,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -169,7 +169,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MBHVisit foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
-							.setParameters(BH_Visit.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Visit.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Visit_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -203,7 +203,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MBHVoidedReason foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Voided_Reason", "BH_Voided_Reason_UU=?", get_TrxName())
-							.setParameters(BH_Voided_Reason.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Voided_Reason.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Voided_Reason_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -237,7 +237,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -271,7 +271,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -305,7 +305,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -339,7 +339,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -373,7 +373,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MCashLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashLine", "C_CashLine_UU=?", get_TrxName())
-							.setParameters(C_CashLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CashLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_CashLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -407,7 +407,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MCashPlanLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashPlanLine", "C_CashPlanLine_UU=?", get_TrxName())
-							.setParameters(C_CashPlanLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CashPlanLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_CashPlanLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -441,7 +441,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -475,7 +475,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-							.setParameters(C_ConversionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ConversionType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ConversionType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -509,7 +509,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -553,7 +553,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -580,7 +580,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocTypeTarget.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocTypeTarget.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_DocTypeTarget_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -614,7 +614,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MDunningLevel foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DunningLevel", "C_DunningLevel_UU=?", get_TrxName())
-							.setParameters(C_DunningLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DunningLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_DunningLevel_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -680,7 +680,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -714,7 +714,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -748,7 +748,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
-							.setParameters(C_PaymentTerm.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_PaymentTerm.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_PaymentTerm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -782,7 +782,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1021,7 +1021,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1055,7 +1055,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MRMA foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RMA", "M_RMA_UU=?", get_TrxName())
-							.setParameters(M_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_RMA_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1150,7 +1150,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(RelatedInvoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RelatedInvoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setRelatedInvoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1184,7 +1184,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(Reversal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Reversal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setReversal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1218,7 +1218,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1263,7 +1263,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUser1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1297,7 +1297,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUser2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

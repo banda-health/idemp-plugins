@@ -18,6 +18,10 @@ type BH_Role_WarehouseAccessConnection {
 }
 
 type BH_Role_WarehouseAccess {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role
 	BH_Role_WarehouseAccess: BH_Role_WarehouseAccess!
@@ -39,6 +43,8 @@ type BH_Role_WarehouseAccess {
 }
 
 input BH_Role_WarehouseAccessInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
 	BH_Role_WarehouseAccess: ForeignEntityInput

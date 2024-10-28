@@ -85,7 +85,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_EntityType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -119,7 +119,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			X_AD_ImpFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ImpFormat", "AD_ImpFormat_UU=?", get_TrxName())
-							.setParameters(AD_ImpFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ImpFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ImpFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -187,7 +187,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -221,7 +221,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MMenu_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Menu", "AD_Menu_UU=?", get_TrxName())
-							.setParameters(AD_Menu.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Menu.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Menu_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -255,7 +255,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MMessage_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
-							.setParameters(AD_Message.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Message.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Message_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -289,7 +289,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			X_AD_ModelValidator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ModelValidator", "AD_ModelValidator_UU=?", get_TrxName())
-							.setParameters(AD_ModelValidator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ModelValidator.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ModelValidator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -381,7 +381,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MPackageExp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Package_Exp", "AD_Package_Exp_UU=?", get_TrxName())
-							.setParameters(AD_Package_Exp.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Package_Exp.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Package_Exp_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -415,7 +415,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -449,7 +449,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -483,7 +483,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -517,7 +517,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MReportView foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
-							.setParameters(AD_ReportView.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ReportView.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ReportView_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -558,7 +558,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -585,7 +585,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -619,7 +619,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -653,7 +653,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -687,7 +687,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

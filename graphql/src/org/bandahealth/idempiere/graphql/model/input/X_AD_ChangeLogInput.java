@@ -59,7 +59,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 			MChangeLog foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ChangeLog", "AD_ChangeLog_UU=?", get_TrxName())
-							.setParameters(AD_ChangeLog.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ChangeLog.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ChangeLog_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -114,7 +114,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -188,7 +188,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 			MSession foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Session", "AD_Session_UU=?", get_TrxName())
-							.setParameters(AD_Session.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Session.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Session_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -225,7 +225,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

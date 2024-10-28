@@ -96,7 +96,7 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -152,7 +152,7 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(Counter_C_DocType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Counter_C_DocType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCounter_C_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

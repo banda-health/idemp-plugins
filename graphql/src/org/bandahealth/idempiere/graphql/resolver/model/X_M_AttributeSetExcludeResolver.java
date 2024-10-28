@@ -27,7 +27,7 @@ public class X_M_AttributeSetExcludeResolver extends POResolver<MAttributeSetExc
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MAttributeSetExclude entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

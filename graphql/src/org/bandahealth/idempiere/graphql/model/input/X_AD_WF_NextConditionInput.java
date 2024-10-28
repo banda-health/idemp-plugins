@@ -56,7 +56,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 			X_AD_WF_NodeNext foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_NodeNext", "AD_WF_NodeNext_UU=?", get_TrxName())
-							.setParameters(AD_WF_NodeNext.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_NodeNext.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_WF_NodeNext_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -232,7 +232,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

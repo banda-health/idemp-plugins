@@ -49,7 +49,7 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(MDocumentStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() < 0) {
+		if (entity.getAD_Form_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -79,7 +79,7 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MDocumentStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -94,7 +94,7 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MDocumentStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -109,7 +109,7 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MDocumentStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -124,7 +124,7 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MDocumentStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -202,7 +202,7 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 * @return Print Color for Name
 	 */
 	public CompletableFuture<X_AD_PrintColor> Name_PrintColor(MDocumentStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getName_PrintColor_ID() < 0) {
+		if (entity.getName_PrintColor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -217,7 +217,7 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 * @return Print Font for Name
 	 */
 	public CompletableFuture<X_AD_PrintFont> Name_PrintFont(MDocumentStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getName_PrintFont_ID() < 0) {
+		if (entity.getName_PrintFont_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
@@ -232,7 +232,7 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 * @return Print Color for Number
 	 */
 	public CompletableFuture<X_AD_PrintColor> Number_PrintColor(MDocumentStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getNumber_PrintColor_ID() < 0) {
+		if (entity.getNumber_PrintColor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -247,7 +247,7 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 * @return Print Font for Number
 	 */
 	public CompletableFuture<X_AD_PrintFont> Number_PrintFont(MDocumentStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getNumber_PrintFont_ID() < 0) {
+		if (entity.getNumber_PrintFont_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =

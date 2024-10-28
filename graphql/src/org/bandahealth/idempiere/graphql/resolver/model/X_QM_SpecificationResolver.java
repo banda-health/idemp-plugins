@@ -31,7 +31,7 @@ public class X_QM_SpecificationResolver extends POResolver<X_QM_Specification> i
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_QM_Specification entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() < 0) {
+		if (entity.getAD_Workflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
@@ -61,7 +61,7 @@ public class X_QM_SpecificationResolver extends POResolver<X_QM_Specification> i
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_QM_Specification entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -76,7 +76,7 @@ public class X_QM_SpecificationResolver extends POResolver<X_QM_Specification> i
 	 * @return BOM & Formula
 	 */
 	public CompletableFuture<MPPProductBOM> PP_Product_BOM(X_QM_Specification entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_BOM_ID() < 0) {
+		if (entity.getPP_Product_BOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =

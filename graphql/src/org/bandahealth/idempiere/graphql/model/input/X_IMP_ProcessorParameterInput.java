@@ -88,7 +88,7 @@ public class X_IMP_ProcessorParameterInput extends X_IMP_ProcessorParameter impl
 			MIMPProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "IMP_Processor", "IMP_Processor_UU=?", get_TrxName())
-							.setParameters(IMP_Processor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IMP_Processor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setIMP_Processor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -131,7 +131,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -194,7 +194,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 			MChargeType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ChargeType", "C_ChargeType_UU=?", get_TrxName())
-							.setParameters(C_ChargeType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ChargeType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ChargeType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -228,7 +228,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 			MTaxCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
-							.setParameters(C_TaxCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_TaxCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

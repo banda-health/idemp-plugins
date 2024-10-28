@@ -87,7 +87,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -161,7 +161,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -220,7 +220,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -254,7 +254,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 			MProductDownload foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductDownload", "M_ProductDownload_UU=?", get_TrxName())
-							.setParameters(M_ProductDownload.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ProductDownload.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ProductDownload_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

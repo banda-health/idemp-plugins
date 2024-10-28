@@ -66,7 +66,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 	 * @return Context Help
 	 */
 	public CompletableFuture<MCtxHelp> AD_CtxHelp(X_AD_Workflow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_CtxHelp_ID() < 0) {
+		if (entity.getAD_CtxHelp_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
@@ -81,7 +81,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_Workflow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -96,7 +96,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Node(X_AD_Workflow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Node_ID() < 0) {
+		if (entity.getAD_WF_Node_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
@@ -111,7 +111,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 	 * @return Responsible for Workflow Execution
 	 */
 	public CompletableFuture<X_AD_WF_Responsible> AD_WF_Responsible(X_AD_Workflow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Responsible_ID() < 0) {
+		if (entity.getAD_WF_Responsible_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Responsible> dataLoader =
@@ -126,7 +126,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 	 * @return Workflow Processor Server
 	 */
 	public CompletableFuture<X_AD_WorkflowProcessor> AD_WorkflowProcessor(X_AD_Workflow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WorkflowProcessor_ID() < 0) {
+		if (entity.getAD_WorkflowProcessor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WorkflowProcessor> dataLoader =
@@ -287,7 +287,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(X_AD_Workflow entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() < 0) {
+		if (entity.getS_Resource_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =

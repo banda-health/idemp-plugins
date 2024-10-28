@@ -162,7 +162,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -237,7 +237,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -264,7 +264,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -94,7 +94,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -128,7 +128,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InterestExp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InterestExp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_InterestExp_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InterestRev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InterestRev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_InterestRev_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InTransit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InTransit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_InTransit_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -230,7 +230,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_PaymentSelect_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_PaymentSelect_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_PaymentSelect_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -264,7 +264,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_UnallocatedCash_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_UnallocatedCash_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_UnallocatedCash_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -301,7 +301,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -356,7 +356,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

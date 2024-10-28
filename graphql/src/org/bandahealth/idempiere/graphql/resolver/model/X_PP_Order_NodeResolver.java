@@ -89,7 +89,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() < 0) {
+		if (entity.getAD_Column_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -104,7 +104,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() < 0) {
+		if (entity.getAD_Form_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -119,7 +119,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Image or Icon
 	 */
 	public CompletableFuture<MImage> AD_Image(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Image_ID() < 0) {
+		if (entity.getAD_Image_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -134,7 +134,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() < 0) {
+		if (entity.getAD_Process_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -149,7 +149,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Operation System Task
 	 */
 	public CompletableFuture<MTask> AD_Task(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Task_ID() < 0) {
+		if (entity.getAD_Task_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =
@@ -164,7 +164,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Workflow Transaction Execution Block
 	 */
 	public CompletableFuture<X_AD_WF_Block> AD_WF_Block(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Block_ID() < 0) {
+		if (entity.getAD_WF_Block_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Block> dataLoader =
@@ -179,7 +179,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Node(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Node_ID() < 0) {
+		if (entity.getAD_WF_Node_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
@@ -194,7 +194,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Responsible for Workflow Execution
 	 */
 	public CompletableFuture<X_AD_WF_Responsible> AD_WF_Responsible(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Responsible_ID() < 0) {
+		if (entity.getAD_WF_Responsible_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Responsible> dataLoader =
@@ -209,7 +209,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -224,7 +224,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() < 0) {
+		if (entity.getAD_Workflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
@@ -239,7 +239,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -427,7 +427,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Manufacturing Order
 	 */
 	public CompletableFuture<X_PP_Order> PP_Order(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_ID() < 0) {
+		if (entity.getPP_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
@@ -442,7 +442,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Manufacturing Order Workflow
 	 */
 	public CompletableFuture<X_PP_Order_Workflow> PP_Order_Workflow(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_Workflow_ID() < 0) {
+		if (entity.getPP_Order_Workflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Workflow> dataLoader =
@@ -457,7 +457,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() < 0) {
+		if (entity.getS_Resource_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
@@ -517,7 +517,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 	 * @return Workflow or tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> Workflow(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getWorkflow_ID() < 0) {
+		if (entity.getWorkflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =

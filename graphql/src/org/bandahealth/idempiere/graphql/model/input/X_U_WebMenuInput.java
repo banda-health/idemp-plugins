@@ -84,7 +84,7 @@ public class X_U_WebMenuInput extends MWebMenu implements I_U_WebMenuInput {
 			MWebMenu foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "U_WebMenu", "U_WebMenu_UU=?", get_TrxName())
-							.setParameters(ParentMenu.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ParentMenu.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setParentMenu_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

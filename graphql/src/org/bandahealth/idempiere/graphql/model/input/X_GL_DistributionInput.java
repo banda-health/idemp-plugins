@@ -72,7 +72,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(Account.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Account.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -146,7 +146,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -180,7 +180,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -214,7 +214,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -248,7 +248,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -289,7 +289,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -316,7 +316,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_LocFrom.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_LocFrom.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_LocFrom_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -350,7 +350,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_LocTo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_LocTo.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_LocTo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -384,7 +384,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -418,7 +418,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MSalesRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
-							.setParameters(C_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_SalesRegion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -481,7 +481,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -554,7 +554,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUser1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -588,7 +588,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUser2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

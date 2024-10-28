@@ -106,7 +106,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -133,7 +133,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -317,7 +317,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MColorSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ColorSchema", "PA_ColorSchema_UU=?", get_TrxName())
-							.setParameters(PA_ColorSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_ColorSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_ColorSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -380,7 +380,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MGoal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Goal", "PA_Goal_UU=?", get_TrxName())
-							.setParameters(PA_GoalParent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_GoalParent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_GoalParent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -414,7 +414,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MMeasure foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Measure", "PA_Measure_UU=?", get_TrxName())
-							.setParameters(PA_Measure.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_Measure.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_Measure_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

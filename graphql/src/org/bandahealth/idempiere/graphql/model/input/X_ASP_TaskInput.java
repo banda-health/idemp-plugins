@@ -93,7 +93,7 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 			MTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Task", "AD_Task_UU=?", get_TrxName())
-							.setParameters(AD_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Task_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -130,7 +130,7 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
-							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setASP_Level_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

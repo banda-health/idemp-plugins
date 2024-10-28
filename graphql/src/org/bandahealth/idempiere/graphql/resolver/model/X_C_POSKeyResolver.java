@@ -33,7 +33,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 	 * @return Image or Icon
 	 */
 	public CompletableFuture<MImage> AD_Image(MPOSKey entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Image_ID() < 0) {
+		if (entity.getAD_Image_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -48,7 +48,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 	 * @return Color used for printing and display
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor(MPOSKey entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor_ID() < 0) {
+		if (entity.getAD_PrintColor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -63,7 +63,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 	 * @return Maintain Print Font
 	 */
 	public CompletableFuture<X_AD_PrintFont> AD_PrintFont(MPOSKey entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFont_ID() < 0) {
+		if (entity.getAD_PrintFont_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
@@ -78,7 +78,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 	 * @return POS Function Key Layout
 	 */
 	public CompletableFuture<MPOSKeyLayout> C_POSKeyLayout(MPOSKey entity, DataFetchingEnvironment environment) {
-		if (entity.getC_POSKeyLayout_ID() < 0) {
+		if (entity.getC_POSKeyLayout_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPOSKeyLayout> dataLoader =
@@ -93,7 +93,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MPOSKey entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -108,7 +108,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 	 * @return Key Layout to be displayed when this key is pressed
 	 */
 	public CompletableFuture<MPOSKeyLayout> SubKeyLayout(MPOSKey entity, DataFetchingEnvironment environment) {
-		if (entity.getSubKeyLayout_ID() < 0) {
+		if (entity.getSubKeyLayout_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPOSKeyLayout> dataLoader =

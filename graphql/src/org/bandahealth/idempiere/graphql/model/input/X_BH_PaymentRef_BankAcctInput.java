@@ -92,7 +92,7 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Ref_List", "AD_Ref_List_UU=?", get_TrxName())
-							.setParameters(AD_Ref_List.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Ref_List.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Ref_List_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -158,7 +158,7 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 			MBHPaymentRef foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_PaymentRef", "BH_PaymentRef_UU=?", get_TrxName())
-							.setParameters(BH_PaymentRef.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_PaymentRef.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_PaymentRef_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -192,7 +192,7 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

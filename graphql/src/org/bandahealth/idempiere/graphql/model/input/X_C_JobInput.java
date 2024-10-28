@@ -114,7 +114,7 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 			X_C_JobCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_JobCategory", "C_JobCategory_UU=?", get_TrxName())
-							.setParameters(C_JobCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_JobCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_JobCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

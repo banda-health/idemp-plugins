@@ -136,7 +136,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 						"Could not find entity in table M_AttributeSet with UU " + M_AttributeSet.getUU());
 			}
 		} else {
-			this.setM_AttributeSet_ID(0);
+			this.setM_AttributeSet_ID(-1);
 		}
 	}
 
@@ -192,7 +192,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 			MLot foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Lot", "M_Lot_UU=?", get_TrxName())
-							.setParameters(M_Lot.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Lot.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Lot_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

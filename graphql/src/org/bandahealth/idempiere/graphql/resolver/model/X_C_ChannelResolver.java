@@ -25,7 +25,7 @@ public class X_C_ChannelResolver extends POResolver<X_C_Channel> implements Grap
 	 * @return Color used for printing and display
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor(X_C_Channel entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor_ID() < 0) {
+		if (entity.getAD_PrintColor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =

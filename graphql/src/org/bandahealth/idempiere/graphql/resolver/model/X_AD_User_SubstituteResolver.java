@@ -25,7 +25,7 @@ public class X_AD_User_SubstituteResolver extends POResolver<X_AD_User_Substitut
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_AD_User_Substitute entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -40,7 +40,7 @@ public class X_AD_User_SubstituteResolver extends POResolver<X_AD_User_Substitut
 	 * @return Entity which can be used in place of this entity
 	 */
 	public CompletableFuture<MUser_BH> Substitute(X_AD_User_Substitute entity, DataFetchingEnvironment environment) {
-		if (entity.getSubstitute_ID() < 0) {
+		if (entity.getSubstitute_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

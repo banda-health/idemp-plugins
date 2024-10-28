@@ -89,7 +89,7 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
-							.setParameters(M_InventoryLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InventoryLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InventoryLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -126,7 +126,7 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 			MMovementConfirm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementConfirm", "M_MovementConfirm_UU=?", get_TrxName())
-							.setParameters(M_MovementConfirm.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_MovementConfirm.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_MovementConfirm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -160,7 +160,7 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 			MMovementLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
-							.setParameters(M_MovementLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_MovementLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_MovementLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

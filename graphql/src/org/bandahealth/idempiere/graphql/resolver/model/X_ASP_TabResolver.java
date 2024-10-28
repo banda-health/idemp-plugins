@@ -32,7 +32,7 @@ public class X_ASP_TabResolver extends POResolver<X_ASP_Tab> implements GraphQLR
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(X_ASP_Tab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() < 0) {
+		if (entity.getAD_Tab_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -67,7 +67,7 @@ public class X_ASP_TabResolver extends POResolver<X_ASP_Tab> implements GraphQLR
 	 * @return ASP Window
 	 */
 	public CompletableFuture<X_ASP_Window> ASP_Window(X_ASP_Tab entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Window_ID() < 0) {
+		if (entity.getASP_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Window> dataLoader =

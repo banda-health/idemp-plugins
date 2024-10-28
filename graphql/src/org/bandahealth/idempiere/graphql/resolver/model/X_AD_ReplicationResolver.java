@@ -25,7 +25,7 @@ public class X_AD_ReplicationResolver extends POResolver<MReplication> implement
 	 * @return Data Replication Strategy
 	 */
 	public CompletableFuture<MReplicationStrategy> AD_ReplicationStrategy(MReplication entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReplicationStrategy_ID() < 0) {
+		if (entity.getAD_ReplicationStrategy_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReplicationStrategy> dataLoader =

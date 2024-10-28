@@ -94,7 +94,7 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -157,7 +157,7 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 			MChatType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_ChatType", "CM_ChatType_UU=?", get_TrxName())
-							.setParameters(CM_ChatType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CM_ChatType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCM_ChatType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

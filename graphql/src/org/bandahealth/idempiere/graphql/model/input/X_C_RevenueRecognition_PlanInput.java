@@ -98,7 +98,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -135,7 +135,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -172,7 +172,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -209,7 +209,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MRevenueRecognition foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecognition", "C_RevenueRecognition_UU=?", get_TrxName())
-							.setParameters(C_RevenueRecognition.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RevenueRecognition.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_RevenueRecognition_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -275,7 +275,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Revenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Revenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_Revenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -334,7 +334,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(UnEarnedRevenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UnEarnedRevenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUnEarnedRevenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

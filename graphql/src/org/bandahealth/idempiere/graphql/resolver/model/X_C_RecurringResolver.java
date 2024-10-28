@@ -40,7 +40,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -55,7 +55,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -70,7 +70,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() < 0) {
+		if (entity.getC_Payment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -85,7 +85,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -100,7 +100,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return Recurring Group
 	 */
 	public CompletableFuture<X_C_RecurringGroup> C_RecurringGroup(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RecurringGroup_ID() < 0) {
+		if (entity.getC_RecurringGroup_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_RecurringGroup> dataLoader =
@@ -132,7 +132,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 	 * @return General Ledger Journal Batch
 	 */
 	public CompletableFuture<MJournalBatch> GL_JournalBatch(MRecurring entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalBatch_ID() < 0) {
+		if (entity.getGL_JournalBatch_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MJournalBatch> dataLoader =

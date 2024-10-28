@@ -32,7 +32,7 @@ public class X_AD_UserMailResolver extends POResolver<MUserMail> implements Grap
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MUserMail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -62,7 +62,7 @@ public class X_AD_UserMailResolver extends POResolver<MUserMail> implements Grap
 	 * @return Text templates for mailings
 	 */
 	public CompletableFuture<MMailText> R_MailText(MUserMail entity, DataFetchingEnvironment environment) {
-		if (entity.getR_MailText_ID() < 0) {
+		if (entity.getR_MailText_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =

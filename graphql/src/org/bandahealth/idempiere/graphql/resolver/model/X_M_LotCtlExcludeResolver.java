@@ -27,7 +27,7 @@ public class X_M_LotCtlExcludeResolver extends POResolver<MLotCtlExclude> implem
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MLotCtlExclude entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_LotCtlExcludeResolver extends POResolver<MLotCtlExclude> implem
 	 * @return Product Lot Control
 	 */
 	public CompletableFuture<MLotCtl> M_LotCtl(MLotCtlExclude entity, DataFetchingEnvironment environment) {
-		if (entity.getM_LotCtl_ID() < 0) {
+		if (entity.getM_LotCtl_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLotCtl> dataLoader =

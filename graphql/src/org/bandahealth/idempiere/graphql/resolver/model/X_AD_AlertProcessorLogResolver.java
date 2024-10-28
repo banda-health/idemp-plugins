@@ -25,7 +25,7 @@ public class X_AD_AlertProcessorLogResolver extends POResolver<MAlertProcessorLo
 	 * @return Alert Processor/Server Parameter
 	 */
 	public CompletableFuture<MAlertProcessor> AD_AlertProcessor(MAlertProcessorLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_AlertProcessor_ID() < 0) {
+		if (entity.getAD_AlertProcessor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAlertProcessor> dataLoader =

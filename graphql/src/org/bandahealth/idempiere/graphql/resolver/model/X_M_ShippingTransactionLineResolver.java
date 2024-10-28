@@ -29,7 +29,7 @@ public class X_M_ShippingTransactionLineResolver extends POResolver<MShippingTra
 	 * @return Standard Unit of Measure for Length
 	 */
 	public CompletableFuture<MUOM> C_UOM_Length(MShippingTransactionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Length_ID() < 0) {
+		if (entity.getC_UOM_Length_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -44,7 +44,7 @@ public class X_M_ShippingTransactionLineResolver extends POResolver<MShippingTra
 	 * @return Standard Unit of Measure for Weight
 	 */
 	public CompletableFuture<MUOM> C_UOM_Weight(MShippingTransactionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Weight_ID() < 0) {
+		if (entity.getC_UOM_Weight_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -59,7 +59,7 @@ public class X_M_ShippingTransactionLineResolver extends POResolver<MShippingTra
 	 * @return Package MPS
 	 */
 	public CompletableFuture<MPackageMPS> M_PackageMPS(MShippingTransactionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PackageMPS_ID() < 0) {
+		if (entity.getM_PackageMPS_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPackageMPS> dataLoader =
@@ -74,7 +74,7 @@ public class X_M_ShippingTransactionLineResolver extends POResolver<MShippingTra
 	 * @return Shipping Transaction
 	 */
 	public CompletableFuture<MShippingTransaction> M_ShippingTransaction(MShippingTransactionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShippingTransaction_ID() < 0) {
+		if (entity.getM_ShippingTransaction_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MShippingTransaction> dataLoader =

@@ -27,7 +27,7 @@ public class X_AD_AttachmentResolver extends POResolver<MAttachment> implements 
 	 * @return Storage Provider
 	 */
 	public CompletableFuture<MStorageProvider> AD_StorageProvider(MAttachment entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_StorageProvider_ID() < 0) {
+		if (entity.getAD_StorageProvider_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MStorageProvider> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_AttachmentResolver extends POResolver<MAttachment> implements 
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MAttachment entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

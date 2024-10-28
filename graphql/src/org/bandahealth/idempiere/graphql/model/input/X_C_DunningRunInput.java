@@ -90,7 +90,7 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 			MDunning foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
-							.setParameters(C_Dunning.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Dunning.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Dunning_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 			MDunningLevel foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DunningLevel", "C_DunningLevel_UU=?", get_TrxName())
-							.setParameters(C_DunningLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DunningLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_DunningLevel_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -29,7 +29,7 @@ public class X_M_ShipperResolver extends POResolver<MShipper> implements GraphQL
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MShipper entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_M_ShipperResolver extends POResolver<MShipper> implements GraphQL
 	 * @return Shipper Configuration
 	 */
 	public CompletableFuture<X_M_ShipperCfg> M_ShipperCfg(MShipper entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperCfg_ID() < 0) {
+		if (entity.getM_ShipperCfg_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_M_ShipperCfg> dataLoader =
@@ -59,7 +59,7 @@ public class X_M_ShipperResolver extends POResolver<MShipper> implements GraphQL
 	 * @return Shipping Processor
 	 */
 	public CompletableFuture<MShippingProcessor> M_ShippingProcessor(MShipper entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShippingProcessor_ID() < 0) {
+		if (entity.getM_ShippingProcessor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MShippingProcessor> dataLoader =

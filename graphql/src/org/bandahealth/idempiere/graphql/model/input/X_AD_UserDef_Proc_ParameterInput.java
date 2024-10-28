@@ -61,7 +61,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 			MFieldGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_FieldGroup", "AD_FieldGroup_UU=?", get_TrxName())
-							.setParameters(AD_FieldGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_FieldGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_FieldGroup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -132,7 +132,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 			MProcessPara foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process_Para", "AD_Process_Para_UU=?", get_TrxName())
-							.setParameters(AD_Process_Para.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process_Para.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_Para_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -166,7 +166,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -200,7 +200,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -237,7 +237,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 			MUserDefProc foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_UserDef_Proc", "AD_UserDef_Proc_UU=?", get_TrxName())
-							.setParameters(AD_UserDef_Proc.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_UserDef_Proc.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_UserDef_Proc_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -300,7 +300,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

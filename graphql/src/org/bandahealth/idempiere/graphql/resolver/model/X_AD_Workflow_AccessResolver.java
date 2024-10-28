@@ -42,7 +42,7 @@ public class X_AD_Workflow_AccessResolver extends POResolver<X_AD_Workflow_Acces
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_AD_Workflow_Access entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() < 0) {
+		if (entity.getAD_Workflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =

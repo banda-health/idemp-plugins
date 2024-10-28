@@ -91,7 +91,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -164,7 +164,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-							.setParameters(C_ConversionTypeReval.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ConversionTypeReval.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ConversionTypeReval_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -198,7 +198,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocTypeReval.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocTypeReval.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_DocTypeReval_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -232,7 +232,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

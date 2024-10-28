@@ -25,7 +25,7 @@ public class X_A_RegistrationAttributeResolver extends POResolver<X_A_Registrati
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(X_A_RegistrationAttribute entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() < 0) {
+		if (entity.getAD_Reference_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -40,7 +40,7 @@ public class X_A_RegistrationAttributeResolver extends POResolver<X_A_Registrati
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(X_A_RegistrationAttribute entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() < 0) {
+		if (entity.getAD_Reference_Value_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =

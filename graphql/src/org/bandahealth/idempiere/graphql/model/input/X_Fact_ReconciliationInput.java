@@ -88,7 +88,7 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 			MFactAcct foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "Fact_Acct", "Fact_Acct_UU=?", get_TrxName())
-							.setParameters(Fact_Acct.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Fact_Acct.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setFact_Acct_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

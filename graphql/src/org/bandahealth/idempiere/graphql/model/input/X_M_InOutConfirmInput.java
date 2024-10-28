@@ -94,7 +94,7 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -248,7 +248,7 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 			MInOut_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
-							.setParameters(M_InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOut_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -311,7 +311,7 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 			MInventory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Inventory", "M_Inventory_UU=?", get_TrxName())
-							.setParameters(M_Inventory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Inventory.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Inventory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

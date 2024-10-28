@@ -55,7 +55,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset_To.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset_To.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID_To(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -239,7 +239,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

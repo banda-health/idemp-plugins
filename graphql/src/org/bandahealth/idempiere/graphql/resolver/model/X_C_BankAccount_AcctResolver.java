@@ -29,7 +29,7 @@ public class X_C_BankAccount_AcctResolver extends POResolver<X_C_BankAccount_Acc
 	 * @return Bank Asset Account
 	 */
 	public CompletableFuture<MAccount> B_Asset_A(X_C_BankAccount_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getB_Asset_Acct() < 0) {
+		if (entity.getB_Asset_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_BankAccount_AcctResolver extends POResolver<X_C_BankAccount_Acc
 	 * @return Bank Interest Expense Account
 	 */
 	public CompletableFuture<MAccount> B_InterestExp_A(X_C_BankAccount_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getB_InterestExp_Acct() < 0) {
+		if (entity.getB_InterestExp_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_BankAccount_AcctResolver extends POResolver<X_C_BankAccount_Acc
 	 * @return Bank Interest Revenue Account
 	 */
 	public CompletableFuture<MAccount> B_InterestRev_A(X_C_BankAccount_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getB_InterestRev_Acct() < 0) {
+		if (entity.getB_InterestRev_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -74,7 +74,7 @@ public class X_C_BankAccount_AcctResolver extends POResolver<X_C_BankAccount_Acc
 	 * @return Bank In Transit Account
 	 */
 	public CompletableFuture<MAccount> B_InTransit_A(X_C_BankAccount_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getB_InTransit_Acct() < 0) {
+		if (entity.getB_InTransit_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_BankAccount_AcctResolver extends POResolver<X_C_BankAccount_Acc
 	 * @return AP Payment Selection Clearing Account
 	 */
 	public CompletableFuture<MAccount> B_PaymentSelect_A(X_C_BankAccount_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getB_PaymentSelect_Acct() < 0) {
+		if (entity.getB_PaymentSelect_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -104,7 +104,7 @@ public class X_C_BankAccount_AcctResolver extends POResolver<X_C_BankAccount_Acc
 	 * @return Unallocated Cash Clearing Account
 	 */
 	public CompletableFuture<MAccount> B_UnallocatedCash_A(X_C_BankAccount_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getB_UnallocatedCash_Acct() < 0) {
+		if (entity.getB_UnallocatedCash_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -119,7 +119,7 @@ public class X_C_BankAccount_AcctResolver extends POResolver<X_C_BankAccount_Acc
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_C_BankAccount_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -134,7 +134,7 @@ public class X_C_BankAccount_AcctResolver extends POResolver<X_C_BankAccount_Acc
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(X_C_BankAccount_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =

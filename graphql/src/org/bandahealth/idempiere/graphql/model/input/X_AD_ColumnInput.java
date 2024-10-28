@@ -74,7 +74,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MChart foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Chart", "AD_Chart_UU=?", get_TrxName())
-							.setParameters(AD_Chart.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Chart.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Chart_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -137,7 +137,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			M_Element foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Element", "AD_Element_UU=?", get_TrxName())
-							.setParameters(AD_Element.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Element.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Element_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -171,7 +171,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -242,7 +242,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -276,7 +276,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -310,7 +310,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -347,7 +347,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -381,7 +381,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -415,7 +415,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule_Lookup.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule_Lookup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_Lookup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -449,7 +449,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -483,7 +483,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MMessage_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
-							.setParameters(FKConstraintMsg.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(FKConstraintMsg.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setFKConstraintMsg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -634,7 +634,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 			MDashboardContent foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_DashboardContent", "PA_DashboardContent_UU=?", get_TrxName())
-							.setParameters(PA_DashboardContent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_DashboardContent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_DashboardContent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

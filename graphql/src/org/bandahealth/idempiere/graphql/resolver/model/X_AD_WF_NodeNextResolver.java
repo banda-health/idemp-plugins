@@ -30,7 +30,7 @@ public class X_AD_WF_NodeNextResolver extends POResolver<X_AD_WF_NodeNext> imple
 	 * @return Next Node in workflow
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Next(X_AD_WF_NodeNext entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Next_ID() < 0) {
+		if (entity.getAD_WF_Next_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
@@ -45,7 +45,7 @@ public class X_AD_WF_NodeNextResolver extends POResolver<X_AD_WF_NodeNext> imple
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Node(X_AD_WF_NodeNext entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Node_ID() < 0) {
+		if (entity.getAD_WF_Node_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =

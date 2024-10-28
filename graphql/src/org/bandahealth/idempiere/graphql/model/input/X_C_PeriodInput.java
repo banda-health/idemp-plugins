@@ -120,7 +120,7 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 			MYear foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
-							.setParameters(C_Year.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Year.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Year_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

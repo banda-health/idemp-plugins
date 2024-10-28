@@ -40,7 +40,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -55,7 +55,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return Cash Journal
 	 */
 	public CompletableFuture<MCash> C_Cash(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Cash_ID() < 0) {
+		if (entity.getC_Cash_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCash> dataLoader =
@@ -70,7 +70,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() < 0) {
+		if (entity.getC_Charge_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -85,7 +85,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -100,7 +100,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -115,7 +115,7 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MCashLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() < 0) {
+		if (entity.getC_Payment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =

@@ -27,7 +27,7 @@ public class X_BH_BP_General_Payer_InfoResolver extends POResolver<MBHBPGeneralP
 	 * @return Business Partner Payer Information
 	 */
 	public CompletableFuture<MBHBPPayerInfo> BH_BP_Payer_Info(MBHBPGeneralPayerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_BP_Payer_Info_ID() < 0) {
+		if (entity.getBH_BP_Payer_Info_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHBPPayerInfo> dataLoader =
@@ -42,7 +42,7 @@ public class X_BH_BP_General_Payer_InfoResolver extends POResolver<MBHBPGeneralP
 	 * @return Payer Info Field
 	 */
 	public CompletableFuture<MBHPayerInfoFld> BH_Payer_Info_Fld(MBHBPGeneralPayerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Payer_Info_Fld_ID() < 0) {
+		if (entity.getBH_Payer_Info_Fld_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHPayerInfoFld> dataLoader =

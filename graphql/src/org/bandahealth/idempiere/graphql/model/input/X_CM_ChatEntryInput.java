@@ -94,7 +94,7 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -181,7 +181,7 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 			MChat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_Chat", "CM_Chat_UU=?", get_TrxName())
-							.setParameters(CM_Chat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CM_Chat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCM_Chat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -244,7 +244,7 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 			MChatEntry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
-							.setParameters(CM_ChatEntryGrandParent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CM_ChatEntryGrandParent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCM_ChatEntryGrandParent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -278,7 +278,7 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 			MChatEntry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
-							.setParameters(CM_ChatEntryParent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CM_ChatEntryParent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCM_ChatEntryParent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

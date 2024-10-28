@@ -119,7 +119,7 @@ public class X_AD_ImageInput extends MImage implements I_AD_ImageInput {
 			MStorageProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
-							.setParameters(AD_StorageProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_StorageProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_StorageProvider_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_AD_ImageInput extends MImage implements I_AD_ImageInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

@@ -31,7 +31,7 @@ public class X_C_CommissionDetailResolver extends POResolver<MCommissionDetail> 
 	 * @return Generated Commission Amount 
 	 */
 	public CompletableFuture<MCommissionAmt> C_CommissionAmt(MCommissionDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CommissionAmt_ID() < 0) {
+		if (entity.getC_CommissionAmt_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCommissionAmt> dataLoader =
@@ -46,7 +46,7 @@ public class X_C_CommissionDetailResolver extends POResolver<MCommissionDetail> 
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MCommissionDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -61,7 +61,7 @@ public class X_C_CommissionDetailResolver extends POResolver<MCommissionDetail> 
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MCommissionDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() < 0) {
+		if (entity.getC_InvoiceLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -76,7 +76,7 @@ public class X_C_CommissionDetailResolver extends POResolver<MCommissionDetail> 
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(MCommissionDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() < 0) {
+		if (entity.getC_OrderLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =

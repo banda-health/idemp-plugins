@@ -67,7 +67,7 @@ public class X_M_AttributeSetInstanceResolver extends POResolver<MAttributeSetIn
 	 * @return Product Lot Definition
 	 */
 	public CompletableFuture<MLot> M_Lot(MAttributeSetInstance_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Lot_ID() < 0) {
+		if (entity.getM_Lot_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLot> dataLoader =

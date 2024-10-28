@@ -88,7 +88,7 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 			X_PA_Benchmark foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Benchmark", "PA_Benchmark_UU=?", get_TrxName())
-							.setParameters(PA_Benchmark.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_Benchmark.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_Benchmark_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -32,7 +32,7 @@ public class X_AD_ImpFormat_RowResolver extends POResolver<X_AD_ImpFormat_Row> i
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(X_AD_ImpFormat_Row entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() < 0) {
+		if (entity.getAD_Column_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_ImpFormat_RowResolver extends POResolver<X_AD_ImpFormat_Row> i
 	 * @return Import Format
 	 */
 	public CompletableFuture<X_AD_ImpFormat> AD_ImpFormat(X_AD_ImpFormat_Row entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ImpFormat_ID() < 0) {
+		if (entity.getAD_ImpFormat_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_ImpFormat> dataLoader =

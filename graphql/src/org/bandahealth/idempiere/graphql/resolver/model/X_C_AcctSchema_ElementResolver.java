@@ -50,7 +50,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() < 0) {
+		if (entity.getAD_Column_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -65,7 +65,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -80,7 +80,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -95,7 +95,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -110,7 +110,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -125,7 +125,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Accounting Element
 	 */
 	public CompletableFuture<MElement> C_Element(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Element_ID() < 0) {
+		if (entity.getC_Element_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElement> dataLoader =
@@ -140,7 +140,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Account Element
 	 */
 	public CompletableFuture<MElementValue> C_ElementValue(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValue_ID() < 0) {
+		if (entity.getC_ElementValue_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -155,7 +155,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -170,7 +170,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -185,7 +185,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() < 0) {
+		if (entity.getC_SalesRegion_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -237,7 +237,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MAcctSchemaElement entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
