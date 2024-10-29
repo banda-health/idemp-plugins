@@ -1,14 +1,14 @@
 package org.bandahealth.idempiere.base.utils;
 
-import java.io.IOException;
-import java.util.List;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.util.List;
 
 public class JsonUtils {
 
@@ -35,10 +35,11 @@ public class JsonUtils {
 	}
 
 	public static String getValue(JsonNode node) {
-		if (node == null) {
-			return "";
+		if (node == null || node.isMissingNode() || node.isNull() || node.asText().isEmpty() ||
+				node.asText().equals("null")) {
+			return null;
 		}
-		
+
 		return node.asText();
 	}
 
@@ -46,7 +47,7 @@ public class JsonUtils {
 		if (node == null) {
 			return 0;
 		}
-		
+
 		return node.asInt();
 	}
 
@@ -54,7 +55,7 @@ public class JsonUtils {
 		if (node == null) {
 			return false;
 		}
-		
+
 		return node.asBoolean();
 	}
 }
