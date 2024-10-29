@@ -687,8 +687,7 @@ public class ConceptSyncProcess extends SvrProcess {
 	}
 
 	private String constructUrl(String source, int page, int limit, boolean includeSort) {
-//		return OCL_BASE_URL +
-		return "https://api.openconceptlab.org" +
+		return OCL_BASE_URL +
 				(source != null ? source : BHGO_URI + this.source + CONCEPTS_URI) +
 				URI_OPTIONS +
 				(includeSort ? "&sortAsc=name" : "") +
