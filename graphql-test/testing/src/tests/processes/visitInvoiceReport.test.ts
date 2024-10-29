@@ -116,7 +116,7 @@ test('visit invoice report is runnable', async () => {
 	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
 });
 
-test(`uploaded PDFs dont's stop the report from running`, async () => {
+test(`uploaded PDFs don't stop the report from running`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
