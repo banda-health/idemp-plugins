@@ -33,4 +33,8 @@ public class X_BH_Concept_DescriptionResolver extends POResolver<MBHConceptDescr
 		return dataLoader.load(entity.getBH_Concept_ID());
 	}
 
+	public Boolean BH_Concept_Locale_Preferred(MBHConceptDescription entity, DataFetchingEnvironment environment) {
+		return entity.isBH_Concept_Locale_Preferred();
+	}
+
 }
