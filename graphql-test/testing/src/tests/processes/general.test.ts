@@ -660,7 +660,7 @@ test(`cashier/registration advanced role has correct access`, async () => {
 	expect(processes.find((process) => process.UU === processUuid.nonPatientPayments)).toBeUndefined();
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
-	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
 });
 
 test(`inventory/pharmacy basic role has correct access`, async () => {
@@ -1124,7 +1124,7 @@ test(`clinician/nurse advanced role has correct access`, async () => {
 	expect(processes.find((process) => process.UU === processUuid.nonPatientPayments)).toBeUndefined();
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
-	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
 });
 
 test(`triage role has correct access`, async () => {
