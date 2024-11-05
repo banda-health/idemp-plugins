@@ -493,7 +493,7 @@ FROM
 					<printWhenExpression><![CDATA[$P{ShowInsuranceInfo}]]></printWhenExpression>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{insurer_name}]]></textFieldExpression>
 			</textField>
@@ -503,7 +503,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{visit_number}]]></textFieldExpression>
 			</textField>
@@ -514,7 +514,7 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Patient:]]></text>
 			</staticText>
@@ -525,7 +525,7 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Insurer:]]></text>
 			</staticText>
@@ -536,7 +536,7 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Beginning of Visit:]]></text>
 			</staticText>
@@ -546,7 +546,7 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Visit #:]]></text>
 			</staticText>
@@ -554,7 +554,7 @@ FROM
 				<reportElement positionType="FixRelativeToBottom" x="0" y="90" width="216" height="17" uuid="3816e330-fc01-496f-a78f-6ae6f2299f90"/>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
+					<font fontName="Arial" size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[PATIENT VISIT]]></text>
 			</staticText>
@@ -565,7 +565,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
 			</textField>
@@ -576,7 +576,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{served_by}]]></textFieldExpression>
 			</textField>
@@ -587,7 +587,7 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Gender:]]></text>
 			</staticText>
@@ -598,7 +598,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{patient}]]></textFieldExpression>
 			</textField>
@@ -609,7 +609,7 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Served by:]]></text>
 			</staticText>
@@ -619,7 +619,7 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
+					<font fontName="Arial" size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[BILL TO]]></text>
 			</staticText>
@@ -628,7 +628,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm").format($F{date})]]></textFieldExpression>
 			</textField>
@@ -657,14 +657,14 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement textAlignment="Right">
-					<font fontName="SansSerif" size="28" isBold="true"/>
+					<font fontName="Arial" size="28" isBold="true"/>
 				</textElement>
 				<text><![CDATA[INVOICE]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="370" y="34" width="110" height="17" uuid="09168294-6d60-41c6-b2f4-f3e4b8d25382"/>
 				<textElement textAlignment="Right">
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["NO: " +$F{invoice_id}]]></textFieldExpression>
 			</textField>
@@ -734,7 +734,7 @@ FROM
 					<printWhenExpression><![CDATA[!$P{ShowInsuranceInfo}]]></printWhenExpression>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{payment_type}]]></textFieldExpression>
 			</textField>
@@ -746,7 +746,7 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Payment:]]></text>
 			</staticText>
@@ -757,7 +757,7 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[End of Visit:]]></text>
 			</staticText>
@@ -766,7 +766,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm").format($F{end_date})]]></textFieldExpression>
 			</textField>
@@ -776,7 +776,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{patient_id}]]></textFieldExpression>
 			</textField>
@@ -786,7 +786,7 @@ FROM
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Patient #:]]></text>
 			</staticText>
@@ -1114,7 +1114,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
+					<font fontName="Arial" size="12" isBold="true" isUnderline="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[PAYMENT DETAILS]]></text>
@@ -1305,7 +1305,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
+					<font fontName="Arial" size="12" isBold="true" isUnderline="true"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[PAYMENT INFORMATION]]></text>
