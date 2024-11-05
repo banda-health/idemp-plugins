@@ -53,7 +53,7 @@ public class X_AD_ImportTemplateAccessInput extends X_AD_ImportTemplateAccess im
 			MImportTemplate foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ImportTemplate", "AD_ImportTemplate_UU=?", get_TrxName())
-							.setParameters(AD_ImportTemplate.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ImportTemplate.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ImportTemplate_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -163,7 +163,7 @@ public class X_AD_ImportTemplateAccessInput extends X_AD_ImportTemplateAccess im
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 

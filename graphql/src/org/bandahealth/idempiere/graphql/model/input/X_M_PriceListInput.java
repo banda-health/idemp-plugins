@@ -86,7 +86,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(BasePriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BasePriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBasePriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -120,7 +120,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

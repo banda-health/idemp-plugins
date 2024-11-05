@@ -162,7 +162,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -230,7 +230,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -275,7 +275,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(PO_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPO_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

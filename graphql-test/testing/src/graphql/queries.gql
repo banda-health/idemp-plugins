@@ -436,6 +436,15 @@ query C_OrderGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	}
 }
 
+query C_OrderForSalesRep($UU: String!) {
+	C_Order(UU: $UU) {
+		UU
+		SalesRep {
+			UU
+		}
+	}
+}
+
 query C_PaymentGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	C_PaymentGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {

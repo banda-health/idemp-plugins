@@ -29,7 +29,7 @@ public class X_AD_Document_Action_AccessResolver extends POResolver<MDocumentAct
 	 * @return Reference List based on Table
 	 */
 	public CompletableFuture<MRefList_BH> AD_Ref_List(MDocumentActionAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Ref_List_ID() < 0) {
+		if (entity.getAD_Ref_List_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRefList_BH> dataLoader =

@@ -117,7 +117,7 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 			X_ASP_Module foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Module", "ASP_Module_UU=?", get_TrxName())
-							.setParameters(ASP_Module.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Module.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setASP_Module_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

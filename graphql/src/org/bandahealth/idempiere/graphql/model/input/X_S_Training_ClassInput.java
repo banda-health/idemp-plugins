@@ -90,7 +90,7 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 			X_S_Training foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_Training", "S_Training_UU=?", get_TrxName())
-							.setParameters(S_Training.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_Training.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setS_Training_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

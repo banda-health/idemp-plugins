@@ -106,7 +106,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -184,7 +184,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -214,7 +214,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -248,7 +248,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -282,7 +282,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -316,7 +316,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -350,7 +350,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -384,7 +384,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -421,7 +421,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_InvoiceRequest.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceRequest.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_InvoiceRequest_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -455,7 +455,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -489,7 +489,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -523,7 +523,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -696,7 +696,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MChangeRequest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeRequest", "M_ChangeRequest_UU=?", get_TrxName())
-							.setParameters(M_ChangeRequest.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ChangeRequest.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ChangeRequest_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -730,7 +730,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
-							.setParameters(M_FixChangeNotice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_FixChangeNotice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_FixChangeNotice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -764,7 +764,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MInOut_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
-							.setParameters(M_InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOut_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -798,7 +798,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -832,7 +832,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_ProductSpent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ProductSpent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ProductSpent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -866,7 +866,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MRMA foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RMA", "M_RMA_UU=?", get_TrxName())
-							.setParameters(M_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_RMA_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1017,7 +1017,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MRequestCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Category", "R_Category_UU=?", get_TrxName())
-							.setParameters(R_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1051,7 +1051,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Group", "R_Group_UU=?", get_TrxName())
-							.setParameters(R_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1085,7 +1085,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1148,7 +1148,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MRequest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
-							.setParameters(R_RequestRelated.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_RequestRelated.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_RequestRelated_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1182,7 +1182,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MRequestType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestType", "R_RequestType_UU=?", get_TrxName())
-							.setParameters(R_RequestType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_RequestType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_RequestType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1216,7 +1216,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MResolution foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Resolution", "R_Resolution_UU=?", get_TrxName())
-							.setParameters(R_Resolution.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_Resolution.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_Resolution_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1250,7 +1250,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			X_R_StandardResponse foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_StandardResponse", "R_StandardResponse_UU=?", get_TrxName())
-							.setParameters(R_StandardResponse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_StandardResponse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_StandardResponse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1284,7 +1284,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MStatus foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Status", "R_Status_UU=?", get_TrxName())
-							.setParameters(R_Status.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_Status.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_Status_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1318,7 +1318,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

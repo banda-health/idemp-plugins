@@ -68,7 +68,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Account used
 	 */
 	public CompletableFuture<MElementValue> Account(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getAccount_ID() < 0) {
+		if (entity.getAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -83,7 +83,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -98,7 +98,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -113,7 +113,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -128,7 +128,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -143,7 +143,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Currency Conversion Rate Type
 	 */
 	public CompletableFuture<MConversionType> C_ConversionType(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ConversionType_ID() < 0) {
+		if (entity.getC_ConversionType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
@@ -158,7 +158,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -188,7 +188,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Location that inventory was moved from
 	 */
 	public CompletableFuture<MLocation> C_LocFrom(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocFrom_ID() < 0) {
+		if (entity.getC_LocFrom_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -203,7 +203,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Location that inventory was moved to
 	 */
 	public CompletableFuture<MLocation> C_LocTo(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocTo_ID() < 0) {
+		if (entity.getC_LocTo_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -218,7 +218,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() < 0) {
+		if (entity.getC_Period_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
@@ -233,7 +233,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -248,7 +248,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() < 0) {
+		if (entity.getC_SalesRegion_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -263,7 +263,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 0) {
+		if (entity.getC_UOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -278,7 +278,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Valid Account Combination
 	 */
 	public CompletableFuture<MAccount> C_ValidCombination(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ValidCombination_ID() < 0) {
+		if (entity.getC_ValidCombination_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -293,7 +293,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return General Ledger Budget
 	 */
 	public CompletableFuture<X_GL_Budget> GL_Budget(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Budget_ID() < 0) {
+		if (entity.getGL_Budget_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
@@ -308,7 +308,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return General Ledger Category
 	 */
 	public CompletableFuture<MGLCategory> GL_Category(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Category_ID() < 0) {
+		if (entity.getGL_Category_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
@@ -323,7 +323,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return General Ledger Journal
 	 */
 	public CompletableFuture<MJournal> GL_Journal(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Journal_ID() < 0) {
+		if (entity.getGL_Journal_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MJournal> dataLoader =
@@ -338,7 +338,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return General Ledger Journal Batch
 	 */
 	public CompletableFuture<MJournalBatch> GL_JournalBatch(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalBatch_ID() < 0) {
+		if (entity.getGL_JournalBatch_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MJournalBatch> dataLoader =
@@ -353,7 +353,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return General Ledger Journal Line
 	 */
 	public CompletableFuture<MJournalLine> GL_JournalLine(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalLine_ID() < 0) {
+		if (entity.getGL_JournalLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MJournalLine> dataLoader =
@@ -380,7 +380,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -421,7 +421,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() < 0) {
+		if (entity.getUser1_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -436,7 +436,7 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() < 0) {
+		if (entity.getUser2_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

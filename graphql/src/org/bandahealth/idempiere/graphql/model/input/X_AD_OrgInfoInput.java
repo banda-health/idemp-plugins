@@ -118,7 +118,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			X_AD_OrgType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_OrgType", "AD_OrgType_UU=?", get_TrxName())
-							.setParameters(AD_OrgType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_OrgType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_OrgType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -152,7 +152,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MCalendar foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
-							.setParameters(C_Calendar.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Calendar.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Calendar_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -186,7 +186,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -220,7 +220,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(DropShip_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DropShip_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setDropShip_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -254,7 +254,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(Logo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Logo.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setLogo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -288,7 +288,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -322,7 +322,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -356,7 +356,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MBank foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
-							.setParameters(TransferBank.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(TransferBank.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setTransferBank_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -390,7 +390,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(TransferCashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(TransferCashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setTransferCashBook_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

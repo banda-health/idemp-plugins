@@ -72,7 +72,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -87,7 +87,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Bill to Address
 	 */
 	public CompletableFuture<MBPartnerLocation> BillTo(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getBillTo_ID() < 0) {
+		if (entity.getBillTo_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -102,7 +102,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -117,7 +117,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -132,7 +132,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -147,7 +147,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -162,7 +162,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() < 0) {
+		if (entity.getC_Charge_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -177,7 +177,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() < 0) {
+		if (entity.getC_Country_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
@@ -192,7 +192,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -222,7 +222,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -237,7 +237,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -252,7 +252,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() < 0) {
+		if (entity.getC_OrderLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -267,7 +267,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Order Source
 	 */
 	public CompletableFuture<X_C_OrderSource> C_OrderSource(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderSource_ID() < 0) {
+		if (entity.getC_OrderSource_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_OrderSource> dataLoader =
@@ -282,7 +282,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return The terms of Payment (timing, discount)
 	 */
 	public CompletableFuture<MPaymentTerm> C_PaymentTerm(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentTerm_ID() < 0) {
+		if (entity.getC_PaymentTerm_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
@@ -297,7 +297,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -312,7 +312,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Identifies a geographical Region
 	 */
 	public CompletableFuture<MRegion> C_Region(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Region_ID() < 0) {
+		if (entity.getC_Region_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
@@ -327,7 +327,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() < 0) {
+		if (entity.getC_Tax_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -342,7 +342,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 0) {
+		if (entity.getC_UOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -384,7 +384,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() < 0) {
+		if (entity.getM_PriceList_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -399,7 +399,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -414,7 +414,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() < 0) {
+		if (entity.getM_Shipper_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -429,7 +429,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() < 0) {
+		if (entity.getM_Warehouse_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -452,7 +452,7 @@ public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLR
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(X_I_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() < 0) {
+		if (entity.getSalesRep_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

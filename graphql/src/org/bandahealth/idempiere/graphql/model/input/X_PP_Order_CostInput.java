@@ -98,7 +98,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -132,7 +132,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -281,7 +281,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(-1);
 		}
 	}
 
@@ -311,7 +311,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
-							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_CostElement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -345,7 +345,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 			MCostType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostType", "M_CostType_UU=?", get_TrxName())
-							.setParameters(M_CostType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_CostType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -382,7 +382,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -448,7 +448,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 			X_PP_Order foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
-							.setParameters(PP_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPP_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -93,7 +93,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -148,7 +148,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -182,7 +182,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PJ_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPJ_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -216,7 +216,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_WIP_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PJ_WIP_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPJ_WIP_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

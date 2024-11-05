@@ -90,7 +90,7 @@ public class X_C_CountryGroupCountryInput extends MCountryGroupCountry implement
 			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Country_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_C_CountryGroupCountryInput extends MCountryGroupCountry implement
 			MCountryGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CountryGroup", "C_CountryGroup_UU=?", get_TrxName())
-							.setParameters(C_CountryGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CountryGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_CountryGroup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

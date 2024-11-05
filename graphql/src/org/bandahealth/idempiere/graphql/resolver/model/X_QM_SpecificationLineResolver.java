@@ -47,7 +47,7 @@ public class X_QM_SpecificationLineResolver extends POResolver<X_QM_Specificatio
 	 * @return Product Attribute
 	 */
 	public CompletableFuture<MAttribute> M_Attribute(X_QM_SpecificationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Attribute_ID() < 0) {
+		if (entity.getM_Attribute_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAttribute> dataLoader =
@@ -84,7 +84,7 @@ public class X_QM_SpecificationLineResolver extends POResolver<X_QM_Specificatio
 	 * @return Quality Specification
 	 */
 	public CompletableFuture<X_QM_Specification> QM_Specification(X_QM_SpecificationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getQM_Specification_ID() < 0) {
+		if (entity.getQM_Specification_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_QM_Specification> dataLoader =

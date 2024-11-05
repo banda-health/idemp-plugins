@@ -48,7 +48,7 @@ public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> i
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_GL_BudgetControl entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -82,7 +82,7 @@ public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> i
 	 * @return General Ledger Budget
 	 */
 	public CompletableFuture<X_GL_Budget> GL_Budget(X_GL_BudgetControl entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Budget_ID() < 0) {
+		if (entity.getGL_Budget_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =

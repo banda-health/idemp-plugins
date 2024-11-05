@@ -32,7 +32,7 @@ public class X_C_DepositBatchResolver extends POResolver<MDepositBatch> implemen
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MDepositBatch entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =

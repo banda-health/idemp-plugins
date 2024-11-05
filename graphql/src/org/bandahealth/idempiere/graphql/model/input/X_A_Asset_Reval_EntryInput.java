@@ -282,7 +282,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -316,7 +316,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -357,7 +357,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -384,7 +384,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -418,7 +418,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
-							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

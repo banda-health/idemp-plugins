@@ -40,7 +40,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 	 * @return Field on a database table
 	 */
 	public CompletableFuture<MField_BH> AD_Field(MFieldSuggestion entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Field_ID() < 0) {
+		if (entity.getAD_Field_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MField_BH> dataLoader =
@@ -184,7 +184,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MFieldSuggestion entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() < 0) {
+		if (entity.getAD_Tab_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -199,7 +199,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<X_AD_AllUsers_V> AD_User(MFieldSuggestion entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllUsers_V> dataLoader =
@@ -214,7 +214,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 	 * @return Tenant of User
 	 */
 	public CompletableFuture<X_AD_AllClients_V> AD_UserClient(MFieldSuggestion entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_UserClient_ID() < 0) {
+		if (entity.getAD_UserClient_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllClients_V> dataLoader =
@@ -229,7 +229,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MFieldSuggestion entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

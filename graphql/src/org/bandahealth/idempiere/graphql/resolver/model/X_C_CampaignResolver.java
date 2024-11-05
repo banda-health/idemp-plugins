@@ -30,7 +30,7 @@ public class X_C_CampaignResolver extends POResolver<MCampaign> implements Graph
 	 * @return Sales Channel
 	 */
 	public CompletableFuture<X_C_Channel> C_Channel(MCampaign entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Channel_ID() < 0) {
+		if (entity.getC_Channel_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Channel> dataLoader =

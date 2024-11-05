@@ -109,7 +109,7 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -143,7 +143,7 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-							.setParameters(C_ConversionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ConversionType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ConversionType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -177,7 +177,7 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -218,7 +218,7 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -245,7 +245,7 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -368,7 +368,7 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 			X_GL_Budget foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
-							.setParameters(GL_Budget.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Budget.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_Budget_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -402,7 +402,7 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
-							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -468,7 +468,7 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 			MJournalBatch foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_JournalBatch", "GL_JournalBatch_UU=?", get_TrxName())
-							.setParameters(GL_JournalBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_JournalBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_JournalBatch_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -574,7 +574,7 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 			MJournal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Journal", "GL_Journal_UU=?", get_TrxName())
-							.setParameters(Reversal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Reversal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setReversal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -52,7 +52,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() < 0) {
+		if (entity.getAD_PInstance_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -67,7 +67,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -82,7 +82,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -97,7 +97,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -112,7 +112,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -127,7 +127,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Cash Plan Line
 	 */
 	public CompletableFuture<MCashPlanLine> C_CashPlanLine(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashPlanLine_ID() < 0) {
+		if (entity.getC_CashPlanLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCashPlanLine> dataLoader =
@@ -142,7 +142,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() < 0) {
+		if (entity.getC_Charge_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -157,7 +157,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Account Element
 	 */
 	public CompletableFuture<MElementValue> C_ElementValue(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValue_ID() < 0) {
+		if (entity.getC_ElementValue_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -172,7 +172,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -187,7 +187,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -202,7 +202,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -254,7 +254,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

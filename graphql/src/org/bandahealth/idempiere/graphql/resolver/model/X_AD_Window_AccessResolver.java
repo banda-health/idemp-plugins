@@ -42,7 +42,7 @@ public class X_AD_Window_AccessResolver extends POResolver<MWindowAccess_BH> imp
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MWindowAccess_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

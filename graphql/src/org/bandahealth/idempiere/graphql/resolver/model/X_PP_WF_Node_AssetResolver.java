@@ -27,7 +27,7 @@ public class X_PP_WF_Node_AssetResolver extends POResolver<X_PP_WF_Node_Asset> i
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_PP_WF_Node_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() < 0) {
+		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -42,7 +42,7 @@ public class X_PP_WF_Node_AssetResolver extends POResolver<X_PP_WF_Node_Asset> i
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Node(X_PP_WF_Node_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Node_ID() < 0) {
+		if (entity.getAD_WF_Node_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =

@@ -90,7 +90,7 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 			X_C_Remuneration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Remuneration", "C_Remuneration_UU=?", get_TrxName())
-							.setParameters(C_Remuneration.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Remuneration.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Remuneration_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

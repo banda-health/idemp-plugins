@@ -98,7 +98,7 @@ public class X_C_BankStatementLineInput extends MBankStatementLine implements I_
 			MBankStatement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankStatement", "C_BankStatement_UU=?", get_TrxName())
-							.setParameters(C_BankStatement.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BankStatement.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BankStatement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -161,7 +161,7 @@ public class X_C_BankStatementLineInput extends MBankStatementLine implements I_
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_C_BankStatementLineInput extends MBankStatementLine implements I_
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -229,7 +229,7 @@ public class X_C_BankStatementLineInput extends MBankStatementLine implements I_
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -263,7 +263,7 @@ public class X_C_BankStatementLineInput extends MBankStatementLine implements I_
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -297,7 +297,7 @@ public class X_C_BankStatementLineInput extends MBankStatementLine implements I_
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

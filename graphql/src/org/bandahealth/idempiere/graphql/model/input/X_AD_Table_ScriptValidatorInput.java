@@ -90,7 +90,7 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 			MRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

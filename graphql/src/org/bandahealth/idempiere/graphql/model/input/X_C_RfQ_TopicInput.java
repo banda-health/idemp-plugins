@@ -85,7 +85,7 @@ public class X_C_RfQ_TopicInput extends MRfQTopic implements I_C_RfQ_TopicInput 
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

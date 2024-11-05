@@ -117,7 +117,7 @@ public class X_B_TopicCategoryInput extends X_B_TopicCategory implements I_B_Top
 			X_B_TopicType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_TopicType", "B_TopicType_UU=?", get_TrxName())
-							.setParameters(B_TopicType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_TopicType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_TopicType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

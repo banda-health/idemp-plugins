@@ -27,7 +27,7 @@ public class X_R_ContactInterestResolver extends POResolver<MContactInterest> im
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MContactInterest entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_R_ContactInterestResolver extends POResolver<MContactInterest> im
 	 * @return Interest Area or Topic
 	 */
 	public CompletableFuture<MInterestArea> R_InterestArea(MContactInterest entity, DataFetchingEnvironment environment) {
-		if (entity.getR_InterestArea_ID() < 0) {
+		if (entity.getR_InterestArea_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInterestArea> dataLoader =

@@ -128,7 +128,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(Distrib_Order_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Distrib_Order_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setDistrib_Order_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(Distrib_Order_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Distrib_Order_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setDistrib_Order_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(Invoice_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Invoice_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setInvoice_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -230,7 +230,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(Invoice_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Invoice_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setInvoice_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -264,7 +264,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(Manuf_Order_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Manuf_Order_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setManuf_Order_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -298,7 +298,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(Manuf_Order_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Manuf_Order_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setManuf_Order_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -332,7 +332,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(Order_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Order_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setOrder_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -366,7 +366,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(Order_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Order_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setOrder_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -400,7 +400,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(Project_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Project_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setProject_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -434,7 +434,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(Project_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Project_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setProject_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -468,7 +468,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(Remittance_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Remittance_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setRemittance_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -502,7 +502,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(Remittance_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Remittance_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setRemittance_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -536,7 +536,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(Shipment_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Shipment_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setShipment_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -570,7 +570,7 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(Shipment_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Shipment_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setShipment_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

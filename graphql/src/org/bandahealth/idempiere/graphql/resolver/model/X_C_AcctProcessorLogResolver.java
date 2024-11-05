@@ -25,7 +25,7 @@ public class X_C_AcctProcessorLogResolver extends POResolver<MAcctProcessorLog> 
 	 * @return Accounting Processor/Server Parameters
 	 */
 	public CompletableFuture<MAcctProcessor> C_AcctProcessor(MAcctProcessorLog entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctProcessor_ID() < 0) {
+		if (entity.getC_AcctProcessor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctProcessor> dataLoader =

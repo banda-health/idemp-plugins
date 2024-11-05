@@ -57,7 +57,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -235,7 +235,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

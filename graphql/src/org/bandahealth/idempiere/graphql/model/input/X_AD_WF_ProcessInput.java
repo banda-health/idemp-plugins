@@ -59,7 +59,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 			MMessage_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
-							.setParameters(AD_Message.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Message.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Message_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -130,7 +130,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -164,7 +164,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -227,7 +227,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 			X_AD_WF_Responsible foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Responsible", "AD_WF_Responsible_UU=?", get_TrxName())
-							.setParameters(AD_WF_Responsible.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_Responsible.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_WF_Responsible_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -261,7 +261,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

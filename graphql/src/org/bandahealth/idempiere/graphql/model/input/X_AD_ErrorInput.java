@@ -77,7 +77,7 @@ public class X_AD_ErrorInput extends X_AD_Error implements I_AD_ErrorInput {
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(

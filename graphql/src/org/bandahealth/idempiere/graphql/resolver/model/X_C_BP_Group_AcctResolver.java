@@ -29,7 +29,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() < 0) {
+		if (entity.getC_BP_Group_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Account for customer prepayments
 	 */
 	public CompletableFuture<MAccount> C_Prepayment_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Prepayment_Acct() < 0) {
+		if (entity.getC_Prepayment_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -74,7 +74,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Account for Customer Receivables
 	 */
 	public CompletableFuture<MAccount> C_Receivable_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Receivable_Acct() < 0) {
+		if (entity.getC_Receivable_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Customer Accounts Receivables Services Account
 	 */
 	public CompletableFuture<MAccount> C_Receivable_Services_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Receivable_Services_Acct() < 0) {
+		if (entity.getC_Receivable_Services_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -104,7 +104,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Account for not-invoiced Material Receipts
 	 */
 	public CompletableFuture<MAccount> NotInvoicedReceipts_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getNotInvoicedReceipts_Acct() < 0) {
+		if (entity.getNotInvoicedReceipts_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -119,7 +119,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Payment Discount Expense Account
 	 */
 	public CompletableFuture<MAccount> PayDiscount_Exp_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getPayDiscount_Exp_Acct() < 0) {
+		if (entity.getPayDiscount_Exp_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -134,7 +134,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Payment Discount Revenue Account
 	 */
 	public CompletableFuture<MAccount> PayDiscount_Rev_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getPayDiscount_Rev_Acct() < 0) {
+		if (entity.getPayDiscount_Rev_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -153,7 +153,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Account for unearned revenue
 	 */
 	public CompletableFuture<MAccount> UnEarnedRevenue_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getUnEarnedRevenue_Acct() < 0) {
+		if (entity.getUnEarnedRevenue_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -168,7 +168,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Account for Vendor Liability
 	 */
 	public CompletableFuture<MAccount> V_Liability_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getV_Liability_Acct() < 0) {
+		if (entity.getV_Liability_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -183,7 +183,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Account for Vendor Service Liability
 	 */
 	public CompletableFuture<MAccount> V_Liability_Services_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getV_Liability_Services_Acct() < 0) {
+		if (entity.getV_Liability_Services_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -198,7 +198,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Account for Vendor Prepayments
 	 */
 	public CompletableFuture<MAccount> V_Prepayment_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getV_Prepayment_Acct() < 0) {
+		if (entity.getV_Prepayment_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -213,7 +213,7 @@ public class X_C_BP_Group_AcctResolver extends POResolver<X_C_BP_Group_Acct> imp
 	 * @return Account for Receivables write-off
 	 */
 	public CompletableFuture<MAccount> WriteOff_A(X_C_BP_Group_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getWriteOff_Acct() < 0) {
+		if (entity.getWriteOff_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

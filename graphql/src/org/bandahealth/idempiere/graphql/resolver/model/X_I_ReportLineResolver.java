@@ -36,7 +36,7 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 	 * @return Account Element
 	 */
 	public CompletableFuture<MElementValue> C_ElementValue(X_I_ReportLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValue_ID() < 0) {
+		if (entity.getC_ElementValue_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -96,7 +96,7 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 	 * @return Report Line
 	 */
 	public CompletableFuture<MReportLine> PA_ReportLine(X_I_ReportLine entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ReportLine_ID() < 0) {
+		if (entity.getPA_ReportLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReportLine> dataLoader =
@@ -111,7 +111,7 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 	 * @return Report Line Set
 	 */
 	public CompletableFuture<MReportLineSet> PA_ReportLineSet(X_I_ReportLine entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ReportLineSet_ID() < 0) {
+		if (entity.getPA_ReportLineSet_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReportLineSet> dataLoader =
@@ -126,7 +126,7 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 	 * @return Restriction of what will be shown in Report Line
 	 */
 	public CompletableFuture<MReportSource> PA_ReportSource(X_I_ReportLine entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ReportSource_ID() < 0) {
+		if (entity.getPA_ReportSource_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReportSource> dataLoader =

@@ -29,7 +29,7 @@ public class X_AD_LdapAccessResolver extends POResolver<MLdapAccess> implements 
 	 * @return LDAP Server to authenticate and authorize external systems based on iDempiere
 	 */
 	public CompletableFuture<MLdapProcessor> AD_LdapProcessor(MLdapAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_LdapProcessor_ID() < 0) {
+		if (entity.getAD_LdapProcessor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLdapProcessor> dataLoader =
@@ -44,7 +44,7 @@ public class X_AD_LdapAccessResolver extends POResolver<MLdapAccess> implements 
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MLdapAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -63,7 +63,7 @@ public class X_AD_LdapAccessResolver extends POResolver<MLdapAccess> implements 
 	 * @return Interest Area or Topic
 	 */
 	public CompletableFuture<MInterestArea> R_InterestArea(MLdapAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getR_InterestArea_ID() < 0) {
+		if (entity.getR_InterestArea_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInterestArea> dataLoader =

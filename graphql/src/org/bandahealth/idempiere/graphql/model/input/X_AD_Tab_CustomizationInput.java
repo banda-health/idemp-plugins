@@ -120,7 +120,7 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -154,7 +154,7 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

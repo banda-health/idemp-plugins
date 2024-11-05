@@ -27,7 +27,7 @@ public class X_C_RfQResponseLineResolver extends POResolver<MRfQResponseLine> im
 	 * @return Request for Quotation Line
 	 */
 	public CompletableFuture<MRfQLine> C_RfQLine(MRfQResponseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RfQLine_ID() < 0) {
+		if (entity.getC_RfQLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRfQLine> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_RfQResponseLineResolver extends POResolver<MRfQResponseLine> im
 	 * @return Request for Quotation Response from a potential Vendor
 	 */
 	public CompletableFuture<MRfQResponse> C_RfQResponse(MRfQResponseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RfQResponse_ID() < 0) {
+		if (entity.getC_RfQResponse_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRfQResponse> dataLoader =

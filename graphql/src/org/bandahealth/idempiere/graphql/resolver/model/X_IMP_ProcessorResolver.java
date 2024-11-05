@@ -46,7 +46,7 @@ public class X_IMP_ProcessorResolver extends POResolver<MIMPProcessor> implement
 	 * @return Import Processor Type
 	 */
 	public CompletableFuture<X_IMP_Processor_Type> IMP_Processor_Type(MIMPProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getIMP_Processor_Type_ID() < 0) {
+		if (entity.getIMP_Processor_Type_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_IMP_Processor_Type> dataLoader =

@@ -93,7 +93,7 @@ public class X_ASP_ProcessInput extends X_ASP_Process implements I_ASP_ProcessIn
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -130,7 +130,7 @@ public class X_ASP_ProcessInput extends X_ASP_Process implements I_ASP_ProcessIn
 			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
-							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setASP_Level_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

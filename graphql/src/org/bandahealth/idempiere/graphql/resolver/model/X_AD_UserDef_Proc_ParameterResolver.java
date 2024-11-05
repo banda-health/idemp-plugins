@@ -38,7 +38,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 	 * @return Logical grouping of fields
 	 */
 	public CompletableFuture<MFieldGroup_BH> AD_FieldGroup(MUserDefProcParameter entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldGroup_ID() < 0) {
+		if (entity.getAD_FieldGroup_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MFieldGroup_BH> dataLoader =
@@ -53,7 +53,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 	 * @return Process Parameter
 	 */
 	public CompletableFuture<MProcessPara> AD_Process_Para(MUserDefProcParameter entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_Para_ID() < 0) {
+		if (entity.getAD_Process_Para_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProcessPara> dataLoader =
@@ -68,7 +68,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MUserDefProcParameter entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() < 0) {
+		if (entity.getAD_Reference_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -83,7 +83,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(MUserDefProcParameter entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() < 0) {
+		if (entity.getAD_Reference_Value_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -98,7 +98,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 	 * @return Primary Key : User defined Process
 	 */
 	public CompletableFuture<MUserDefProc> AD_UserDef_Proc(MUserDefProcParameter entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_UserDef_Proc_ID() < 0) {
+		if (entity.getAD_UserDef_Proc_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUserDefProc> dataLoader =
@@ -113,7 +113,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MUserDefProcParameter entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() < 0) {
+		if (entity.getAD_Val_Rule_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =

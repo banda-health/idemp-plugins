@@ -49,7 +49,7 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 			X_AD_Attribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Attribute", "AD_Attribute_UU=?", get_TrxName())
-							.setParameters(AD_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Attribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

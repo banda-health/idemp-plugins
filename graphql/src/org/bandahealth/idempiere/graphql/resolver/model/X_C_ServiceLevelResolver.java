@@ -27,7 +27,7 @@ public class X_C_ServiceLevelResolver extends POResolver<X_C_ServiceLevel> imple
 	 * @return Plan for recognizing or recording revenue
 	 */
 	public CompletableFuture<MRevenueRecognitionPlan> C_RevenueRecognition_Plan(X_C_ServiceLevel entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RevenueRecognition_Plan_ID() < 0) {
+		if (entity.getC_RevenueRecognition_Plan_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecognitionPlan> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_ServiceLevelResolver extends POResolver<X_C_ServiceLevel> imple
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_C_ServiceLevel entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

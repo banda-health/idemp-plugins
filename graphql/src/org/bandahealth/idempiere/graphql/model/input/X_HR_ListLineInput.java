@@ -117,7 +117,7 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 			X_HR_ListVersion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_ListVersion", "HR_ListVersion_UU=?", get_TrxName())
-							.setParameters(HR_ListVersion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_ListVersion.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_ListVersion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

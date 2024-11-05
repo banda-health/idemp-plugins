@@ -31,7 +31,7 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240418L;
+	private static final long serialVersionUID = 20241028L;
 
     /** Standard Constructor */
     public X_BH_Concept_Description (Properties ctx, int BH_Concept_Description_ID, String trxName)
@@ -40,6 +40,8 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
       /** if (BH_Concept_Description_ID == 0)
         {
 			setBH_Concept_ID (0);
+			setBH_Concept_Locale_Preferred (false);
+// N
         } */
     }
 
@@ -50,6 +52,8 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
       /** if (BH_Concept_Description_ID == 0)
         {
 			setBH_Concept_ID (0);
+			setBH_Concept_Locale_Preferred (false);
+// N
         } */
     }
 
@@ -60,6 +64,8 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
       /** if (BH_Concept_Description_UU == null)
         {
 			setBH_Concept_ID (0);
+			setBH_Concept_Locale_Preferred (false);
+// N
         } */
     }
 
@@ -70,6 +76,8 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
       /** if (BH_Concept_Description_UU == null)
         {
 			setBH_Concept_ID (0);
+			setBH_Concept_Locale_Preferred (false);
+// N
         } */
     }
 
@@ -194,6 +202,28 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 		return (String)get_Value(COLUMNNAME_BH_Concept_Locale);
 	}
 
+	/** Set Locale Preferred.
+		@param BH_Concept_Locale_Preferred Locale Preferred
+	*/
+	public void setBH_Concept_Locale_Preferred (boolean BH_Concept_Locale_Preferred)
+	{
+		set_Value (COLUMNNAME_BH_Concept_Locale_Preferred, Boolean.valueOf(BH_Concept_Locale_Preferred));
+	}
+
+	/** Get Locale Preferred.
+		@return Locale Preferred	  */
+	public boolean isBH_Concept_Locale_Preferred()
+	{
+		Object oo = get_Value(COLUMNNAME_BH_Concept_Locale_Preferred);
+		if (oo != null)
+		{
+			 if (oo instanceof Boolean)
+				 return ((Boolean)oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	/** Set Concept Type.
 		@param BH_Concept_Type Concept Type
 	*/
@@ -225,6 +255,22 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 		return (String)get_Value(COLUMNNAME_BH_ExternalID);
 	}
 
+	/** Set Description.
+		@param Description Description of the record
+	*/
+	public void setDescription (String Description)
+	{
+		set_Value (COLUMNNAME_Description, Description);
+	}
+
+	/** Get Description.
+		@return Description of the record
+	  */
+	public String getDescription()
+	{
+		return (String)get_Value(COLUMNNAME_Description);
+	}
+
 	/** Set Name.
 		@param Name Alphanumeric identifier of the entity
 	*/
@@ -239,5 +285,21 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 	public String getName()
 	{
 		return (String)get_Value(COLUMNNAME_Name);
+	}
+
+	/** Set Ocl Uuid.
+		@param Ocl_Uuid A UUID from the OCL system
+	*/
+	public void setOcl_Uuid (String Ocl_Uuid)
+	{
+		set_Value (COLUMNNAME_Ocl_Uuid, Ocl_Uuid);
+	}
+
+	/** Get Ocl Uuid.
+		@return A UUID from the OCL system
+	  */
+	public String getOcl_Uuid()
+	{
+		return (String)get_Value(COLUMNNAME_Ocl_Uuid);
 	}
 }

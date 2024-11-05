@@ -46,7 +46,7 @@ public class X_R_StatusResolver extends POResolver<MStatus> implements GraphQLRe
 	 * @return Move to next status automatically after timeout
 	 */
 	public CompletableFuture<MStatus> Next_Status(MStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getNext_Status_ID() < 0) {
+		if (entity.getNext_Status_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MStatus> dataLoader =
@@ -61,7 +61,7 @@ public class X_R_StatusResolver extends POResolver<MStatus> implements GraphQLRe
 	 * @return Request Status Category
 	 */
 	public CompletableFuture<MStatusCategory> R_StatusCategory(MStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getR_StatusCategory_ID() < 0) {
+		if (entity.getR_StatusCategory_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MStatusCategory> dataLoader =
@@ -76,7 +76,7 @@ public class X_R_StatusResolver extends POResolver<MStatus> implements GraphQLRe
 	 * @return Automatically change the status after entry from web
 	 */
 	public CompletableFuture<MStatus> Update_Status(MStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getUpdate_Status_ID() < 0) {
+		if (entity.getUpdate_Status_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MStatus> dataLoader =

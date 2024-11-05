@@ -25,7 +25,7 @@ public class X_C_BankResolver extends POResolver<MBank> implements GraphQLResolv
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MBank entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =

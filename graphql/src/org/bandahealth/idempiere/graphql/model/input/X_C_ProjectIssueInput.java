@@ -103,7 +103,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -251,7 +251,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(-1);
 		}
 	}
 
@@ -278,7 +278,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -312,7 +312,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Locator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -346,7 +346,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -394,7 +394,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 			MProjectIssue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectIssue", "C_ProjectIssue_UU=?", get_TrxName())
-							.setParameters(Reversal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Reversal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setReversal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -428,7 +428,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 			MTimeExpenseLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_TimeExpenseLine", "S_TimeExpenseLine_UU=?", get_TrxName())
-							.setParameters(S_TimeExpenseLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_TimeExpenseLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setS_TimeExpenseLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

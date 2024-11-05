@@ -46,7 +46,7 @@ public class X_M_InventoryLineMAResolver extends POResolver<MInventoryLineMA> im
 	 * @return Unique line in an Inventory document
 	 */
 	public CompletableFuture<MInventoryLine> M_InventoryLine(MInventoryLineMA entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InventoryLine_ID() < 0) {
+		if (entity.getM_InventoryLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine> dataLoader =

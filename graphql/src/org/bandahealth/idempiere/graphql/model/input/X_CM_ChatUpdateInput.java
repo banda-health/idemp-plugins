@@ -90,7 +90,7 @@ public class X_CM_ChatUpdateInput extends X_CM_ChatUpdate implements I_CM_ChatUp
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_CM_ChatUpdateInput extends X_CM_ChatUpdate implements I_CM_ChatUp
 			MChat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_Chat", "CM_Chat_UU=?", get_TrxName())
-							.setParameters(CM_Chat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CM_Chat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCM_Chat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

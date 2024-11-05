@@ -69,7 +69,7 @@ public class X_C_BankAccount_ProcessorResolver extends POResolver<MBankAccountPr
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MBankAccountProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -84,7 +84,7 @@ public class X_C_BankAccount_ProcessorResolver extends POResolver<MBankAccountPr
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MBankAccountProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -99,7 +99,7 @@ public class X_C_BankAccount_ProcessorResolver extends POResolver<MBankAccountPr
 	 * @return Payment processor for electronic payments
 	 */
 	public CompletableFuture<MPaymentProcessor> C_PaymentProcessor(MBankAccountProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentProcessor_ID() < 0) {
+		if (entity.getC_PaymentProcessor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentProcessor> dataLoader =

@@ -50,7 +50,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Asset class
 	 */
 	public CompletableFuture<MAssetClass> A_Asset_Class(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Class_ID() < 0) {
+		if (entity.getA_Asset_Class_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAssetClass> dataLoader =
@@ -65,7 +65,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Group of Assets
 	 */
 	public CompletableFuture<MAssetGroup> A_Asset_Group(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Group_ID() < 0) {
+		if (entity.getA_Asset_Group_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
@@ -80,7 +80,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() < 0) {
+		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -95,7 +95,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Asset Type
 	 */
 	public CompletableFuture<MAssetType> A_Asset_Type(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Type_ID() < 0) {
+		if (entity.getA_Asset_Type_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAssetType> dataLoader =
@@ -110,7 +110,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -125,7 +125,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Business Partner (Agent or Sales Rep)
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartnerSR(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartnerSR_ID() < 0) {
+		if (entity.getC_BPartnerSR_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -140,7 +140,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return City
 	 */
 	public CompletableFuture<MCity> C_City(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_City_ID() < 0) {
+		if (entity.getC_City_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCity> dataLoader =
@@ -155,7 +155,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -170,7 +170,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 0) {
+		if (entity.getC_UOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -216,7 +216,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() < 0) {
+		if (entity.getM_Locator_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -231,7 +231,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MIFixedAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

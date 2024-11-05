@@ -29,7 +29,7 @@ public class X_AD_Column_AccessResolver extends POResolver<MColumnAccess> implem
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MColumnAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() < 0) {
+		if (entity.getAD_Column_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -59,7 +59,7 @@ public class X_AD_Column_AccessResolver extends POResolver<MColumnAccess> implem
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MColumnAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

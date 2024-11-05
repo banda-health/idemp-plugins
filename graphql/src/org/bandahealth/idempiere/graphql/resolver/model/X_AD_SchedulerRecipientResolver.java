@@ -31,7 +31,7 @@ public class X_AD_SchedulerRecipientResolver extends POResolver<MSchedulerRecipi
 	 * @return Authorization Account
 	 */
 	public CompletableFuture<MAuthorizationAccount> AD_AuthorizationAccount(MSchedulerRecipient entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_AuthorizationAccount_ID() < 0) {
+		if (entity.getAD_AuthorizationAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAuthorizationAccount> dataLoader =
@@ -61,7 +61,7 @@ public class X_AD_SchedulerRecipientResolver extends POResolver<MSchedulerRecipi
 	 * @return Schedule Processes
 	 */
 	public CompletableFuture<MScheduler> AD_Scheduler(MSchedulerRecipient entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Scheduler_ID() < 0) {
+		if (entity.getAD_Scheduler_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MScheduler> dataLoader =
@@ -76,7 +76,7 @@ public class X_AD_SchedulerRecipientResolver extends POResolver<MSchedulerRecipi
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MSchedulerRecipient entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

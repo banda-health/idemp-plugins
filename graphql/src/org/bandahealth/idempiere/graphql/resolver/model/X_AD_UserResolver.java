@@ -45,7 +45,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Image or Icon
 	 */
 	public CompletableFuture<MImage> AD_Image(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Image_ID() < 0) {
+		if (entity.getAD_Image_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -80,7 +80,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Address of the Business Partner
 	 */
 	public CompletableFuture<MLocation> BP_Location(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getBP_Location_ID() < 0) {
+		if (entity.getBP_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -95,7 +95,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -110,7 +110,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -125,7 +125,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -140,7 +140,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Greeting to print on correspondence
 	 */
 	public CompletableFuture<X_C_Greeting> C_Greeting(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Greeting_ID() < 0) {
+		if (entity.getC_Greeting_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Greeting> dataLoader =
@@ -155,7 +155,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Job Position
 	 */
 	public CompletableFuture<X_C_Job> C_Job(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Job_ID() < 0) {
+		if (entity.getC_Job_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Job> dataLoader =
@@ -170,7 +170,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -309,7 +309,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Default mail template
 	 */
 	public CompletableFuture<MMailText> R_DefaultMailText(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getR_DefaultMailText_ID() < 0) {
+		if (entity.getR_DefaultMailText_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -324,7 +324,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() < 0) {
+		if (entity.getSalesRep_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -339,7 +339,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	public CompletableFuture<MUser_BH> Supervisor(MUser_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getSupervisor_ID() < 0) {
+		if (entity.getSupervisor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

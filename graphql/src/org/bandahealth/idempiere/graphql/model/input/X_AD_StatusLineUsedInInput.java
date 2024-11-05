@@ -58,7 +58,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -132,7 +132,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 			MStatusLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_StatusLine", "AD_StatusLine_UU=?", get_TrxName())
-							.setParameters(AD_StatusLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_StatusLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_StatusLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -229,7 +229,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -263,7 +263,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -297,7 +297,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

@@ -109,7 +109,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -143,7 +143,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -177,7 +177,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -211,7 +211,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -245,7 +245,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -286,7 +286,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -316,7 +316,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -353,7 +353,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MInvoiceBatch foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceBatch", "C_InvoiceBatch_UU=?", get_TrxName())
-							.setParameters(C_InvoiceBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_InvoiceBatch_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -419,7 +419,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -453,7 +453,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -487,7 +487,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -554,7 +554,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUser1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -588,7 +588,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUser2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

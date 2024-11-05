@@ -79,7 +79,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(Account.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Account.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -184,7 +184,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -218,7 +218,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -252,7 +252,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -286,7 +286,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_LocFrom.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_LocFrom.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_LocFrom_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -320,7 +320,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_LocTo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_LocTo.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_LocTo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -354,7 +354,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -388,7 +388,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -422,7 +422,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MProjectPhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
-							.setParameters(C_ProjectPhase.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ProjectPhase.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ProjectPhase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -456,7 +456,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MProjectTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectTask", "C_ProjectTask_UU=?", get_TrxName())
-							.setParameters(C_ProjectTask.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ProjectTask.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ProjectTask_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -490,7 +490,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MSalesRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
-							.setParameters(C_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_SalesRegion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -524,7 +524,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			X_C_SubAcct foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SubAcct", "C_SubAcct_UU=?", get_TrxName())
-							.setParameters(C_SubAcct.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_SubAcct.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_SubAcct_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -576,7 +576,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			X_GL_Budget foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
-							.setParameters(GL_Budget.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Budget.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_Budget_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -610,7 +610,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -644,7 +644,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MReportCube foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportCube", "PA_ReportCube_UU=?", get_TrxName())
-							.setParameters(PA_ReportCube.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_ReportCube.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_ReportCube_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -678,7 +678,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUser1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -712,7 +712,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUser2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
