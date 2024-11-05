@@ -29,7 +29,7 @@ public class X_M_AttributeInstanceResolver extends POResolver<MAttributeInstance
 	 * @return Product Attribute
 	 */
 	public CompletableFuture<MAttribute> M_Attribute(MAttributeInstance entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Attribute_ID() < 0) {
+		if (entity.getM_Attribute_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAttribute> dataLoader =
@@ -59,7 +59,7 @@ public class X_M_AttributeInstanceResolver extends POResolver<MAttributeInstance
 	 * @return Product Attribute Value
 	 */
 	public CompletableFuture<MAttributeValue> M_AttributeValue(MAttributeInstance entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeValue_ID() < 0) {
+		if (entity.getM_AttributeValue_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeValue> dataLoader =

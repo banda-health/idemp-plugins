@@ -36,7 +36,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 	 * @return Color used for printing and display
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor(MBPGroup_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor_ID() < 0) {
+		if (entity.getAD_PrintColor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -71,7 +71,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 	 * @return Dunning Rules for overdue invoices
 	 */
 	public CompletableFuture<MDunning> C_Dunning(MBPGroup_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Dunning_ID() < 0) {
+		if (entity.getC_Dunning_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDunning> dataLoader =
@@ -94,7 +94,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 	 * @return Schema to calculate the trade discount percentage
 	 */
 	public CompletableFuture<MDiscountSchema> M_DiscountSchema(MBPGroup_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DiscountSchema_ID() < 0) {
+		if (entity.getM_DiscountSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
@@ -109,7 +109,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(MBPGroup_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() < 0) {
+		if (entity.getM_PriceList_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -124,7 +124,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 	 * @return Schema to calculate the purchase trade discount percentage
 	 */
 	public CompletableFuture<MDiscountSchema> PO_DiscountSchema(MBPGroup_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_DiscountSchema_ID() < 0) {
+		if (entity.getPO_DiscountSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
@@ -139,7 +139,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 	 * @return Price List used by this Business Partner
 	 */
 	public CompletableFuture<MPriceList> PO_PriceList(MBPGroup_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_PriceList_ID() < 0) {
+		if (entity.getPO_PriceList_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =

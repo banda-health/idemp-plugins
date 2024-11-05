@@ -93,7 +93,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -161,7 +161,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -263,7 +263,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 			X_M_AttributeSearch foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSearch", "M_AttributeSearch_UU=?", get_TrxName())
-							.setParameters(M_AttributeSearch.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSearch.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_AttributeSearch_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

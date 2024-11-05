@@ -116,7 +116,7 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 			MLocatorType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_LocatorType", "M_LocatorType_UU=?", get_TrxName())
-							.setParameters(M_LocatorType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_LocatorType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_LocatorType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

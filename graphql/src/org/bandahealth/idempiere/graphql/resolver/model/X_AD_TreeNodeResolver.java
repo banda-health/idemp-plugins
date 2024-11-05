@@ -25,7 +25,7 @@ public class X_AD_TreeNodeResolver extends POResolver<MTree_Node> implements Gra
 	 * @return Identifies a Tree
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree(MTree_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_ID() < 0) {
+		if (entity.getAD_Tree_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =

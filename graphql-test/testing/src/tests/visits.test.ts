@@ -50,6 +50,8 @@ import {
 	C_BPartnerSaveDocument,
 	C_Bp_GroupGetDocument,
 	C_InvoiceAndOrderLineDeleteDocument,
+	C_OrderForSalesRepDocument,
+	C_OrderSaveDocument,
 	C_PaymentDeleteDocument,
 	C_PaymentSaveDocument,
 	C_PaymentSaveManyDocument,
@@ -1727,7 +1729,7 @@ test('clinical vitals fields', async () => {
 			],
 			BH_Observations: [
 				{
-					BH_Encounter: { UU: encounterUuid, },
+					BH_Encounter: { UU: encounterUuid },
 					AD_Field: { UU: fields.find((field) => field.UU === HEIGHT_FIELD_UUID)!.UU },
 					BH_Value: heightValue,
 				},
@@ -2094,7 +2096,7 @@ test(`visit invoice updates work`, async () => {
 			],
 			BH_EncounterDiagnoses: [
 				{
-					BH_Encounter: { UU: encounterUuid, },
+					BH_Encounter: { UU: encounterUuid },
 					LineNo: 1,
 					BH_Uncoded_Diagnosis: 'In some pain...',
 				},
@@ -3010,4 +3012,50 @@ test('expression functions work in sorting', async () => {
 	expect(sortedVisits[0].UU).toBe(visit3.UU);
 	expect(sortedVisits[1].UU).toBe(visit2.UU);
 	expect(sortedVisits[2].UU).toBe(visit1.UU);
+});
+
+test('sales reps set correctly for orders', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	const order = (
+		await query(valueObject)({ query: C_OrderForSalesRepDocument, variables: { UU: valueObject.order?.UU! } })
+	).data.C_Order!;
+	expect(order).toBeTruthy();
+	expect(order.SalesRep?.UU).toBeUndefined();
+	await expect(
+		mutate(valueObject)({
+			mutation: C_OrderSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.order?.UU!,
+					SalesRep: {
+						UU: 'd3e73885-37d5-45df-abe5-aecaf540af33', // Deprecated system user that used to be returned
+					},
+				},
+			},
+		}),
+	).rejects.toBeTruthy();
 });

@@ -27,7 +27,7 @@ public class X_AD_AttachmentNoteResolver extends POResolver<MAttachmentNote> imp
 	 * @return Attachment for the document
 	 */
 	public CompletableFuture<MAttachment> AD_Attachment(MAttachmentNote entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Attachment_ID() < 0) {
+		if (entity.getAD_Attachment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAttachment> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_AttachmentNoteResolver extends POResolver<MAttachmentNote> imp
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MAttachmentNote entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

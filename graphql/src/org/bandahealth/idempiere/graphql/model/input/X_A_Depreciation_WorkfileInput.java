@@ -60,7 +60,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -145,7 +145,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 			X_A_FundingMode foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_FundingMode", "A_FundingMode_UU=?", get_TrxName())
-							.setParameters(A_FundingMode.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_FundingMode.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_FundingMode_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -255,7 +255,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

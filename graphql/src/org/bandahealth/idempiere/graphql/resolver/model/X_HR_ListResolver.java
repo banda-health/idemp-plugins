@@ -31,7 +31,7 @@ public class X_HR_ListResolver extends POResolver<X_HR_List> implements GraphQLR
 	 * @return Payroll Department
 	 */
 	public CompletableFuture<X_HR_Department> HR_Department(X_HR_List entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Department_ID() < 0) {
+		if (entity.getHR_Department_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
@@ -46,7 +46,7 @@ public class X_HR_ListResolver extends POResolver<X_HR_List> implements GraphQLR
 	 * @return Payroll Employee
 	 */
 	public CompletableFuture<X_HR_Employee> HR_Employee(X_HR_List entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Employee_ID() < 0) {
+		if (entity.getHR_Employee_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Employee> dataLoader =
@@ -61,7 +61,7 @@ public class X_HR_ListResolver extends POResolver<X_HR_List> implements GraphQLR
 	 * @return Payroll List Type
 	 */
 	public CompletableFuture<X_HR_ListType> HR_ListType(X_HR_List entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_ListType_ID() < 0) {
+		if (entity.getHR_ListType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_ListType> dataLoader =
@@ -76,7 +76,7 @@ public class X_HR_ListResolver extends POResolver<X_HR_List> implements GraphQLR
 	 * @return Payroll
 	 */
 	public CompletableFuture<X_HR_Payroll> HR_Payroll(X_HR_List entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Payroll_ID() < 0) {
+		if (entity.getHR_Payroll_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =

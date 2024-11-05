@@ -88,7 +88,7 @@ public class X_EXP_ProcessorParameterInput extends MEXPProcessorParameter implem
 			MEXPProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Processor", "EXP_Processor_UU=?", get_TrxName())
-							.setParameters(EXP_Processor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(EXP_Processor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEXP_Processor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

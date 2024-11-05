@@ -132,7 +132,7 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -166,7 +166,7 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValueCR.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValueCR.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ElementValueCR_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -200,7 +200,7 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValueDR.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValueDR.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ElementValueDR_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -237,7 +237,7 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 			MJournalGenerator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_JournalGenerator", "GL_JournalGenerator_UU=?", get_TrxName())
-							.setParameters(GL_JournalGenerator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_JournalGenerator.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_JournalGenerator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

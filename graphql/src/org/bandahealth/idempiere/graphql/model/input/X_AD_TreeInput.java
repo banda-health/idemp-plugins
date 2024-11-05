@@ -93,7 +93,7 @@ public class X_AD_TreeInput extends MTree_BH implements I_AD_TreeInput {
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_AD_TreeInput extends MTree_BH implements I_AD_TreeInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(Parent_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Parent_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setParent_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -69,7 +69,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Visit
 	 */
 	public CompletableFuture<MBHVisit> BH_Visit(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Visit_ID() < 0) {
+		if (entity.getBH_Visit_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHVisit> dataLoader =
@@ -84,7 +84,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -99,7 +99,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -114,7 +114,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Bank Transfer
 	 */
 	public CompletableFuture<MBankTransfer> C_BankTransfer(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankTransfer_ID() < 0) {
+		if (entity.getC_BankTransfer_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankTransfer> dataLoader =
@@ -129,7 +129,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Bank Account of the Business Partner
 	 */
 	public CompletableFuture<MBPBankAccount> C_BP_BankAccount(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_BankAccount_ID() < 0) {
+		if (entity.getC_BP_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPBankAccount> dataLoader =
@@ -144,7 +144,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -159,7 +159,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -174,7 +174,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Cash Book for recording petty cash transactions
 	 */
 	public CompletableFuture<MCashBook> C_CashBook(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashBook_ID() < 0) {
+		if (entity.getC_CashBook_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
@@ -189,7 +189,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() < 0) {
+		if (entity.getC_Charge_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -204,7 +204,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Currency Conversion Rate Type
 	 */
 	public CompletableFuture<MConversionType> C_ConversionType(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ConversionType_ID() < 0) {
+		if (entity.getC_ConversionType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
@@ -219,7 +219,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -234,7 +234,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Deposit Batch
 	 */
 	public CompletableFuture<MDepositBatch> C_DepositBatch(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DepositBatch_ID() < 0) {
+		if (entity.getC_DepositBatch_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDepositBatch> dataLoader =
@@ -264,7 +264,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -279,7 +279,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -294,7 +294,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Payment batch for EFT
 	 */
 	public CompletableFuture<MPaymentBatch> C_PaymentBatch(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentBatch_ID() < 0) {
+		if (entity.getC_PaymentBatch_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentBatch> dataLoader =
@@ -309,7 +309,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Payment processor for electronic payments
 	 */
 	public CompletableFuture<MPaymentProcessor> C_PaymentProcessor(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentProcessor_ID() < 0) {
+		if (entity.getC_PaymentProcessor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentProcessor> dataLoader =
@@ -324,7 +324,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return POS Tender Type
 	 */
 	public CompletableFuture<X_C_POSTenderType> C_POSTenderType(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_POSTenderType_ID() < 0) {
+		if (entity.getC_POSTenderType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_POSTenderType> dataLoader =
@@ -339,7 +339,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -518,7 +518,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return Referenced Payment
 	 */
 	public CompletableFuture<MPayment_BH> Ref_Payment(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getRef_Payment_ID() < 0) {
+		if (entity.getRef_Payment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -533,7 +533,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MPayment_BH> Reversal(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() < 0) {
+		if (entity.getReversal_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -546,7 +546,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 			put("C", "d3874573-b7bf-4556-9b9c-3644698c959e"); // Credit or Debit Card
 			put("K", "900adbf9-5069-4f56-9d97-0313c6372af3"); // Cheque
 			put("A", "220f3864-24b8-42ba-9a91-a247f4697530"); // Direct Deposit
-			put("D", "487227e8-c88e-45ef-8e6d-c0a480fdd0de"); // Bank Transfer
+			put("D", "487227e8-c88e-45ef-8e6d-c0a480fdd0de"); // Debit Card
 			put("T", "bd6f5227-483d-4bcf-b1fe-a840a3142327"); // Account
 			put("X", "52c6c5a6-83ce-48c4-b874-721f8cd4e66b"); // Cash
 			put("M", "7a78334e-3494-4d40-a718-c42cb053eea6"); // Mobile Money
@@ -558,9 +558,9 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 			put("G", "bb077404-71a4-4348-9afa-2b99ae9e1381"); // CCC
 			put("H", "55df64a7-1c7f-43f2-846b-f542c9cafa45"); // MCH
 			put("O", "4caa3109-804f-4773-8115-9bdb116f329b"); // Outreach
-			put("V", "52fc8585-3c61-45b8-a0dd-db10c1e7d79c"); // Liason insurance
 			put("P", "64e8ad21-7c9d-442b-9655-f5223d76140c"); // PesaPal
 			put("U", "97e54f17-fbae-40de-8dbd-e8ad7f884732"); // Jubilee insurance
+			put("V", "52fc8585-3c61-45b8-a0dd-db10c1e7d79c"); // Liason insurance
 		}
 	};
 	public CompletableFuture<MRefList_BH> TenderType(MPayment_BH entity, DataFetchingEnvironment environment) {
@@ -598,7 +598,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() < 0) {
+		if (entity.getUser1_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -613,7 +613,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() < 0) {
+		if (entity.getUser2_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

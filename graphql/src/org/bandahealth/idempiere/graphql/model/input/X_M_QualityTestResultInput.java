@@ -97,7 +97,7 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(-1);
 		}
 	}
 
@@ -127,7 +127,7 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 			MQualityTest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_QualityTest", "M_QualityTest_UU=?", get_TrxName())
-							.setParameters(M_QualityTest.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_QualityTest.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_QualityTest_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

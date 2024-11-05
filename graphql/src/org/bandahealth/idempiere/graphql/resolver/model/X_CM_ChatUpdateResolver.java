@@ -27,7 +27,7 @@ public class X_CM_ChatUpdateResolver extends POResolver<X_CM_ChatUpdate> impleme
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_CM_ChatUpdate entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_CM_ChatUpdateResolver extends POResolver<X_CM_ChatUpdate> impleme
 	 * @return Chat or discussion thread
 	 */
 	public CompletableFuture<MChat> CM_Chat(X_CM_ChatUpdate entity, DataFetchingEnvironment environment) {
-		if (entity.getCM_Chat_ID() < 0) {
+		if (entity.getCM_Chat_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MChat> dataLoader =

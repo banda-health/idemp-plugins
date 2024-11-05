@@ -27,7 +27,7 @@ public class X_C_JobRemunerationResolver extends POResolver<X_C_JobRemuneration>
 	 * @return Job Position
 	 */
 	public CompletableFuture<X_C_Job> C_Job(X_C_JobRemuneration entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Job_ID() < 0) {
+		if (entity.getC_Job_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Job> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_JobRemunerationResolver extends POResolver<X_C_JobRemuneration>
 	 * @return Wage or Salary
 	 */
 	public CompletableFuture<X_C_Remuneration> C_Remuneration(X_C_JobRemuneration entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Remuneration_ID() < 0) {
+		if (entity.getC_Remuneration_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Remuneration> dataLoader =

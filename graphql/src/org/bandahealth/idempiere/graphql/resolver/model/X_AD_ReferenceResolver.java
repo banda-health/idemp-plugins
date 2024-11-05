@@ -37,7 +37,7 @@ public class X_AD_ReferenceResolver extends POResolver<MReference_BH> implements
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
 	public CompletableFuture<M_Element> AD_Element(MReference_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Element_ID() < 0) {
+		if (entity.getAD_Element_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, M_Element> dataLoader =

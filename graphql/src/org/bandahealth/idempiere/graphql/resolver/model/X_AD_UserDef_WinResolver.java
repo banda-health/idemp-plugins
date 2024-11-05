@@ -178,7 +178,7 @@ public class X_AD_UserDef_WinResolver extends POResolver<MUserDefWin> implements
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MUserDefWin entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -193,7 +193,7 @@ public class X_AD_UserDef_WinResolver extends POResolver<MUserDefWin> implements
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MUserDefWin entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

@@ -119,7 +119,7 @@ public class X_BH_Concept_ExtraInput extends MBHConceptExtra implements I_BH_Con
 			MBHConcept foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Concept", "BH_Concept_UU=?", get_TrxName())
-							.setParameters(BH_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Concept_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_BH_Concept_ExtraInput extends MBHConceptExtra implements I_BH_Con
 			MBHConceptMapping foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Concept_Mapping", "BH_Concept_Mapping_UU=?", get_TrxName())
-							.setParameters(BH_Concept_Mapping.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Concept_Mapping.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Concept_Mapping_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

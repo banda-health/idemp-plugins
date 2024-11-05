@@ -34,7 +34,7 @@ public class X_EXP_FormatLineResolver extends POResolver<MEXPFormatLine> impleme
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MEXPFormatLine entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() < 0) {
+		if (entity.getAD_Column_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -49,7 +49,7 @@ public class X_EXP_FormatLineResolver extends POResolver<MEXPFormatLine> impleme
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MEXPFormatLine entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() < 0) {
+		if (entity.getAD_Reference_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -64,7 +64,7 @@ public class X_EXP_FormatLineResolver extends POResolver<MEXPFormatLine> impleme
 	 * @return Embedded Format
 	 */
 	public CompletableFuture<MEXPFormat> EXP_EmbeddedFormat(MEXPFormatLine entity, DataFetchingEnvironment environment) {
-		if (entity.getEXP_EmbeddedFormat_ID() < 0) {
+		if (entity.getEXP_EmbeddedFormat_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MEXPFormat> dataLoader =
@@ -79,7 +79,7 @@ public class X_EXP_FormatLineResolver extends POResolver<MEXPFormatLine> impleme
 	 * @return Export Format
 	 */
 	public CompletableFuture<MEXPFormat> EXP_Format(MEXPFormatLine entity, DataFetchingEnvironment environment) {
-		if (entity.getEXP_Format_ID() < 0) {
+		if (entity.getEXP_Format_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MEXPFormat> dataLoader =

@@ -17,19 +17,13 @@ public class OCLConceptName {
 	}
 
 	public OCLConceptName(JsonNode node) {
-		setName(
-				JsonUtils.getValue(node.get("name")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("name")));
-		setType(
-				JsonUtils.getValue(node.get("type")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("type")));
-		setLocale(JsonUtils.getValue(node.get("locale")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("locale")));
+		setName(JsonUtils.getValue(node.get("name")));
+		setType(JsonUtils.getValue(node.get("type")));
+		setLocale(JsonUtils.getValue(node.get("locale")));
 		setLocalePreferred(JsonUtils.getBoolValue(node.get("locale_preferred")));
-		setNameType(JsonUtils.getValue(node.get("name_type")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("name_type")));
-		setUuid(
-				JsonUtils.getValue(node.get("uuid")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("uuid")));
-		setExternalId(JsonUtils.getValue(node.get("external_id")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("external_id")));
+		setNameType(JsonUtils.getValue(node.get("name_type")));
+		setUuid(JsonUtils.getValue(node.get("uuid")));
+		setExternalId(JsonUtils.getValue(node.get("external_id")));
 	}
 
 	public String getName() {

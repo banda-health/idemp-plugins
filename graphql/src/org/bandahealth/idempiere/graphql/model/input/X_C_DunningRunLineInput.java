@@ -94,7 +94,7 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 			MDunningRunEntry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DunningRunEntry", "C_DunningRunEntry_UU=?", get_TrxName())
-							.setParameters(C_DunningRunEntry.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DunningRunEntry.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_DunningRunEntry_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -157,7 +157,7 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -191,7 +191,7 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 			MInvoicePaySchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoicePaySchedule", "C_InvoicePaySchedule_UU=?", get_TrxName())
-							.setParameters(C_InvoicePaySchedule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoicePaySchedule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_InvoicePaySchedule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -225,7 +225,7 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

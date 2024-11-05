@@ -119,7 +119,7 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 			MReplicationRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Replication_Run", "AD_Replication_Run_UU=?", get_TrxName())
-							.setParameters(AD_Replication_Run.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Replication_Run.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Replication_Run_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 			X_AD_ReplicationTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationTable", "AD_ReplicationTable_UU=?", get_TrxName())
-							.setParameters(AD_ReplicationTable.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ReplicationTable.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ReplicationTable_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

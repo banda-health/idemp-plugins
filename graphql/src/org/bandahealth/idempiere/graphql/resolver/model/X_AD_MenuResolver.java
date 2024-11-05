@@ -69,7 +69,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(MMenu_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() < 0) {
+		if (entity.getAD_Form_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -84,7 +84,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(MMenu_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() < 0) {
+		if (entity.getAD_InfoWindow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -99,7 +99,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MMenu_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() < 0) {
+		if (entity.getAD_Process_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -114,7 +114,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 	 * @return Operation System Task
 	 */
 	public CompletableFuture<MTask> AD_Task(MMenu_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Task_ID() < 0) {
+		if (entity.getAD_Task_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =
@@ -129,7 +129,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MMenu_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -144,7 +144,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(MMenu_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() < 0) {
+		if (entity.getAD_Workflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =

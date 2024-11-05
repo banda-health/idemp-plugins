@@ -42,7 +42,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Accumulated Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Accumdepreciation_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Accumdepreciation_Acct() < 0) {
+		if (entity.getA_Accumdepreciation_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -57,7 +57,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Asset Acct
 	 */
 	public CompletableFuture<MAccount> A_Asset_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Acct() < 0) {
+		if (entity.getA_Asset_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -72,7 +72,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Group of Assets
 	 */
 	public CompletableFuture<MAssetGroup> A_Asset_Group(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Group_ID() < 0) {
+		if (entity.getA_Asset_Group_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
@@ -87,7 +87,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Depreciation_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Acct() < 0) {
+		if (entity.getA_Depreciation_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -102,7 +102,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation Convention (fiscal)
 	 */
 	public CompletableFuture<MDepreciationConvention> A_Depreciation_Conv_F(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Conv_F_ID() < 0) {
+		if (entity.getA_Depreciation_Conv_F_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciationConvention> dataLoader =
@@ -117,7 +117,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Convention Type
 	 */
 	public CompletableFuture<MDepreciationConvention> A_Depreciation_Conv(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Conv_ID() < 0) {
+		if (entity.getA_Depreciation_Conv_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciationConvention> dataLoader =
@@ -132,7 +132,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation (fiscal)
 	 */
 	public CompletableFuture<MDepreciation> A_Depreciation_F(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_F_ID() < 0) {
+		if (entity.getA_Depreciation_F_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciation> dataLoader =
@@ -147,7 +147,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation
 	 */
 	public CompletableFuture<MDepreciation> A_Depreciation(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_ID() < 0) {
+		if (entity.getA_Depreciation_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciation> dataLoader =
@@ -177,7 +177,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation Method (fiscal)
 	 */
 	public CompletableFuture<MDepreciationMethod> A_Depreciation_Method_F(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Method_F_ID() < 0) {
+		if (entity.getA_Depreciation_Method_F_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciationMethod> dataLoader =
@@ -192,7 +192,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Depreciation Method
 	 */
 	public CompletableFuture<MDepreciationMethod> A_Depreciation_Method(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Method_ID() < 0) {
+		if (entity.getA_Depreciation_Method_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciationMethod> dataLoader =
@@ -207,7 +207,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return A_Depreciation_Table_Header_ID
 	 */
 	public CompletableFuture<X_A_Depreciation_Table_Header> A_Depreciation_Table_Header(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Table_Header_ID() < 0) {
+		if (entity.getA_Depreciation_Table_Header_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_A_Depreciation_Table_Header> dataLoader =
@@ -222,7 +222,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Disposal Gain Acct
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Gain_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Gain_Acct() < 0) {
+		if (entity.getA_Disposal_Gain_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -237,7 +237,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Disposal Loss Acct
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Loss_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Loss_Acct() < 0) {
+		if (entity.getA_Disposal_Loss_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -252,7 +252,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Disposal Revenue Acct
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Revenue_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Revenue_Acct() < 0) {
+		if (entity.getA_Disposal_Revenue_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -267,7 +267,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return A_Reval_Accumdep_Offset_Cur
 	 */
 	public CompletableFuture<MAccount> A_Reval_Adep_Offset_Cur_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Reval_Adep_Offset_Cur_Acct() < 0) {
+		if (entity.getA_Reval_Adep_Offset_Cur_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -282,7 +282,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return A_Reval_Accumdep_Offset_Prior
 	 */
 	public CompletableFuture<MAccount> A_Reval_Adep_Offset_Prior_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Reval_Adep_Offset_Prior_Acct() < 0) {
+		if (entity.getA_Reval_Adep_Offset_Prior_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -313,7 +313,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Reval Cost Offset Acct
 	 */
 	public CompletableFuture<MAccount> A_Reval_Cost_Offset_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Reval_Cost_Offset_Acct() < 0) {
+		if (entity.getA_Reval_Cost_Offset_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -328,7 +328,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Reval Cost Offset Prior Acct
 	 */
 	public CompletableFuture<MAccount> A_Reval_Cost_Offset_Prior_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Reval_Cost_Offset_Prior_Acct() < 0) {
+		if (entity.getA_Reval_Cost_Offset_Prior_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -343,7 +343,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Reval Depexp Offset Acct
 	 */
 	public CompletableFuture<MAccount> A_Reval_Depexp_Offset_A(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Reval_Depexp_Offset_Acct() < 0) {
+		if (entity.getA_Reval_Depexp_Offset_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -358,7 +358,7 @@ public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> im
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MAssetGroupAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =

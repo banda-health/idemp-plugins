@@ -64,7 +64,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Account_Number_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Account_Number_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Account_Number_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -98,7 +98,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 			MAssetAddition foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Addition", "A_Asset_Addition_UU=?", get_TrxName())
-							.setParameters(A_Asset_Addition.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset_Addition.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_Addition_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -132,7 +132,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 			MAssetDisposed foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Disposed", "A_Asset_Disposed_UU=?", get_TrxName())
-							.setParameters(A_Asset_Disposed.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset_Disposed.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_Disposed_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -166,7 +166,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -200,7 +200,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 			MDepreciationEntry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Depreciation_Entry", "A_Depreciation_Entry_UU=?", get_TrxName())
-							.setParameters(A_Depreciation_Entry.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Depreciation_Entry.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Depreciation_Entry_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -350,7 +350,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -384,7 +384,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CR_Account.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CR_Account.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCR_Account_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -418,7 +418,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(DR_Account.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DR_Account.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setDR_Account_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -25,7 +25,7 @@ public class X_B_TopicCategoryResolver extends POResolver<X_B_TopicCategory> imp
 	 * @return Auction Topic Type
 	 */
 	public CompletableFuture<X_B_TopicType> B_TopicType(X_B_TopicCategory entity, DataFetchingEnvironment environment) {
-		if (entity.getB_TopicType_ID() < 0) {
+		if (entity.getB_TopicType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_B_TopicType> dataLoader =

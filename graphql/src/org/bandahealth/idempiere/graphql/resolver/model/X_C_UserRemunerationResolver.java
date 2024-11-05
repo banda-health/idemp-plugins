@@ -27,7 +27,7 @@ public class X_C_UserRemunerationResolver extends POResolver<X_C_UserRemuneratio
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_C_UserRemuneration entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_UserRemunerationResolver extends POResolver<X_C_UserRemuneratio
 	 * @return Wage or Salary
 	 */
 	public CompletableFuture<X_C_Remuneration> C_Remuneration(X_C_UserRemuneration entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Remuneration_ID() < 0) {
+		if (entity.getC_Remuneration_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Remuneration> dataLoader =

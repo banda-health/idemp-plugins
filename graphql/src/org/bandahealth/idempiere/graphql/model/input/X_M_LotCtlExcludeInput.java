@@ -87,7 +87,7 @@ public class X_M_LotCtlExcludeInput extends MLotCtlExclude implements I_M_LotCtl
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_M_LotCtlExcludeInput extends MLotCtlExclude implements I_M_LotCtl
 			MLotCtl foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_LotCtl", "M_LotCtl_UU=?", get_TrxName())
-							.setParameters(M_LotCtl.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_LotCtl.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_LotCtl_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

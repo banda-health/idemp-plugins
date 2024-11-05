@@ -88,7 +88,7 @@ public class X_AD_WF_ProcessDataInput extends X_AD_WF_ProcessData implements I_A
 			X_AD_WF_Process foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Process", "AD_WF_Process_UU=?", get_TrxName())
-							.setParameters(AD_WF_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_WF_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

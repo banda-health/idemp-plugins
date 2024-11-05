@@ -25,7 +25,7 @@ public class X_C_CycleStepResolver extends POResolver<X_C_CycleStep> implements 
 	 * @return Identifier for this Project Reporting Cycle
 	 */
 	public CompletableFuture<X_C_Cycle> C_Cycle(X_C_CycleStep entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Cycle_ID() < 0) {
+		if (entity.getC_Cycle_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Cycle> dataLoader =

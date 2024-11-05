@@ -34,7 +34,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() < 0) {
+		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -49,7 +49,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 	 * @return Asset Funding Mode
 	 */
 	public CompletableFuture<X_A_FundingMode> A_FundingMode(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
-		if (entity.getA_FundingMode_ID() < 0) {
+		if (entity.getA_FundingMode_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_A_FundingMode> dataLoader =
@@ -80,7 +80,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =

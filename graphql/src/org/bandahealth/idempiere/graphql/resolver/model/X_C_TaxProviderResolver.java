@@ -25,7 +25,7 @@ public class X_C_TaxProviderResolver extends POResolver<MTaxProvider> implements
 	 * @return Tax Provider Configuration
 	 */
 	public CompletableFuture<X_C_TaxProviderCfg> C_TaxProviderCfg(MTaxProvider entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxProviderCfg_ID() < 0) {
+		if (entity.getC_TaxProviderCfg_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxProviderCfg> dataLoader =

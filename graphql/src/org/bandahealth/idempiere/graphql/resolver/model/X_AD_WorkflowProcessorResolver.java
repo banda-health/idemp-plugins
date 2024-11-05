@@ -27,7 +27,7 @@ public class X_AD_WorkflowProcessorResolver extends POResolver<X_AD_WorkflowProc
 	 * @return Schedule
 	 */
 	public CompletableFuture<MSchedule> AD_Schedule(X_AD_WorkflowProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Schedule_ID() < 0) {
+		if (entity.getAD_Schedule_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSchedule> dataLoader =
@@ -46,7 +46,7 @@ public class X_AD_WorkflowProcessorResolver extends POResolver<X_AD_WorkflowProc
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	public CompletableFuture<MUser_BH> Supervisor(X_AD_WorkflowProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getSupervisor_ID() < 0) {
+		if (entity.getSupervisor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

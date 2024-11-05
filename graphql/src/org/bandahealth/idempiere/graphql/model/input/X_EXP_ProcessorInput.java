@@ -96,7 +96,7 @@ public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_Process
 			MEXPProcessorType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Processor_Type", "EXP_Processor_Type_UU=?", get_TrxName())
-							.setParameters(EXP_Processor_Type.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(EXP_Processor_Type.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEXP_Processor_Type_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

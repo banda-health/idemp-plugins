@@ -88,7 +88,7 @@ public class X_BH_Payer_Info_Fld_ValInput extends MBHPayerInfoFldVal implements 
 			MBHPayerInfoFld foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Payer_Info_Fld", "BH_Payer_Info_Fld_UU=?", get_TrxName())
-							.setParameters(BH_Payer_Info_Fld.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Payer_Info_Fld.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Payer_Info_Fld_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

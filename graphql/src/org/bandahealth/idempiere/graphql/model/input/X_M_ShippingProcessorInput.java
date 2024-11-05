@@ -114,7 +114,7 @@ public class X_M_ShippingProcessorInput extends MShippingProcessor implements I_
 			X_M_ShippingProcessorCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShippingProcessorCfg", "M_ShippingProcessorCfg_UU=?", get_TrxName())
-							.setParameters(M_ShippingProcessorCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ShippingProcessorCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ShippingProcessorCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

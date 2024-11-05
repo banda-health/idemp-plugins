@@ -25,7 +25,7 @@ public class X_HR_ListVersionResolver extends POResolver<X_HR_ListVersion> imple
 	 * @return Payroll List
 	 */
 	public CompletableFuture<X_HR_List> HR_List(X_HR_ListVersion entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_List_ID() < 0) {
+		if (entity.getHR_List_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_List> dataLoader =
@@ -40,7 +40,7 @@ public class X_HR_ListVersionResolver extends POResolver<X_HR_ListVersion> imple
 	 * @return Payroll List Base
 	 */
 	public CompletableFuture<X_HR_List> HR_ListBase(X_HR_ListVersion entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_ListBase_ID() < 0) {
+		if (entity.getHR_ListBase_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_List> dataLoader =

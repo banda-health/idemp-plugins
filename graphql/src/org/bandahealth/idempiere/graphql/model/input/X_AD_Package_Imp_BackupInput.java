@@ -56,7 +56,7 @@ public class X_AD_Package_Imp_BackupInput extends X_AD_Package_Imp_Backup implem
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_AD_Package_Imp_BackupInput extends X_AD_Package_Imp_Backup implem
 			X_AD_Package_Imp_Detail foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Package_Imp_Detail", "AD_Package_Imp_Detail_UU=?", get_TrxName())
-							.setParameters(AD_Package_Imp_Detail.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Package_Imp_Detail.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Package_Imp_Detail_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_AD_Package_Imp_BackupInput extends X_AD_Package_Imp_Backup implem
 			X_AD_Package_Imp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Package_Imp", "AD_Package_Imp_UU=?", get_TrxName())
-							.setParameters(AD_Package_Imp.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Package_Imp.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Package_Imp_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -230,7 +230,7 @@ public class X_AD_Package_Imp_BackupInput extends X_AD_Package_Imp_Backup implem
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -264,7 +264,7 @@ public class X_AD_Package_Imp_BackupInput extends X_AD_Package_Imp_Backup implem
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

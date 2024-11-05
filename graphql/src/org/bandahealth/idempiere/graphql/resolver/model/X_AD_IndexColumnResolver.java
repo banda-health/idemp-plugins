@@ -32,7 +32,7 @@ public class X_AD_IndexColumnResolver extends POResolver<MIndexColumn> implement
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MIndexColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() < 0) {
+		if (entity.getAD_Column_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_IndexColumnResolver extends POResolver<MIndexColumn> implement
 	 * @return Table Index
 	 */
 	public CompletableFuture<MTableIndex> AD_TableIndex(MIndexColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_TableIndex_ID() < 0) {
+		if (entity.getAD_TableIndex_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTableIndex> dataLoader =

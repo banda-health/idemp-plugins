@@ -144,7 +144,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(-1);
 		}
 	}
 
@@ -174,7 +174,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 			MBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_BOM", "M_BOM_UU=?", get_TrxName())
-							.setParameters(M_BOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_BOM.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_BOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -208,7 +208,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 			X_M_BOMAlternative foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_BOMAlternative", "M_BOMAlternative_UU=?", get_TrxName())
-							.setParameters(M_BOMAlternative.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_BOMAlternative.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_BOMAlternative_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -271,7 +271,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
-							.setParameters(M_ChangeNotice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ChangeNotice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ChangeNotice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -305,7 +305,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_ProductBOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ProductBOM.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ProductBOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -339,7 +339,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 			X_M_ProductOperation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductOperation", "M_ProductOperation_UU=?", get_TrxName())
-							.setParameters(M_ProductOperation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ProductOperation.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ProductOperation_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
