@@ -92,7 +92,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Account.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Account.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Account_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -126,7 +126,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -160,7 +160,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -194,7 +194,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -228,7 +228,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -262,7 +262,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -296,7 +296,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -330,7 +330,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_SalesRegion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -25,7 +25,7 @@ public class X_AD_TaskInstanceResolver extends POResolver<X_AD_TaskInstance> imp
 	 * @return Operation System Task
 	 */
 	public CompletableFuture<MTask> AD_Task(X_AD_TaskInstance entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Task_ID() < 0) {
+		if (entity.getAD_Task_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =

@@ -32,7 +32,7 @@ public interface I_BH_Concept_Description
     /** TableName=BH_Concept_Description */
     public static final String Table_Name = "BH_Concept_Description";
 
-    /** AD_Table_ID=1000057 */
+    /** AD_Table_ID=1000056 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -111,6 +111,15 @@ public interface I_BH_Concept_Description
 	/** Get Concept Locale	  */
 	public String getBH_Concept_Locale();
 
+    /** Column name BH_Concept_Locale_Preferred */
+    public static final String COLUMNNAME_BH_Concept_Locale_Preferred = "BH_Concept_Locale_Preferred";
+
+	/** Set Locale Preferred	  */
+	public void setBH_Concept_Locale_Preferred (boolean BH_Concept_Locale_Preferred);
+
+	/** Get Locale Preferred	  */
+	public boolean isBH_Concept_Locale_Preferred();
+
     /** Column name BH_Concept_Type */
     public static final String COLUMNNAME_BH_Concept_Type = "BH_Concept_Type";
 
@@ -149,6 +158,19 @@ public interface I_BH_Concept_Description
 	  */
 	public int getCreatedBy();
 
+    /** Column name Description */
+    public static final String COLUMNNAME_Description = "Description";
+
+	/** Set Description.
+	  * Description of the record
+	  */
+	public void setDescription (String Description);
+
+	/** Get Description.
+	  * Description of the record
+	  */
+	public String getDescription();
+
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -174,6 +196,19 @@ public interface I_BH_Concept_Description
 	  * Alphanumeric identifier of the entity
 	  */
 	public String getName();
+
+    /** Column name Ocl_Uuid */
+    public static final String COLUMNNAME_Ocl_Uuid = "Ocl_Uuid";
+
+	/** Set Ocl Uuid.
+	  * A UUID from the OCL system
+	  */
+	public void setOcl_Uuid (String Ocl_Uuid);
+
+	/** Get Ocl Uuid.
+	  * A UUID from the OCL system
+	  */
+	public String getOcl_Uuid();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

@@ -35,7 +35,7 @@ public class X_AD_ColorResolver extends POResolver<MColor> implements GraphQLRes
 	 * @return Image or Icon
 	 */
 	public CompletableFuture<MImage> AD_Image(MColor entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Image_ID() < 0) {
+		if (entity.getAD_Image_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =

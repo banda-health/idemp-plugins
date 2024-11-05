@@ -135,7 +135,7 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -176,7 +176,7 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -203,7 +203,7 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -237,7 +237,7 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			MToolBarButton foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ToolBarButton", "AD_ToolBarButton_UU=?", get_TrxName())
-							.setParameters(AD_ToolBarButton.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ToolBarButton.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ToolBarButton_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -300,7 +300,7 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

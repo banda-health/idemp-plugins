@@ -83,7 +83,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_End_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_End_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_End_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Start_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Start_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Start_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -185,7 +185,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -94,7 +94,7 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -150,7 +150,7 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 			MWebMenu foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "U_WebMenu", "U_WebMenu_UU=?", get_TrxName())
-							.setParameters(U_WebMenu.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(U_WebMenu.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setU_WebMenu_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

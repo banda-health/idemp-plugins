@@ -55,7 +55,7 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 			MAlert foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Alert", "AD_Alert_UU=?", get_TrxName())
-							.setParameters(AD_Alert.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Alert.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Alert_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -189,7 +189,7 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

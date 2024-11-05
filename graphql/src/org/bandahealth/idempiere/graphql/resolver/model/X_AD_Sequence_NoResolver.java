@@ -25,7 +25,7 @@ public class X_AD_Sequence_NoResolver extends POResolver<X_AD_Sequence_No> imple
 	 * @return Document Sequence
 	 */
 	public CompletableFuture<MSequence_BH> AD_Sequence(X_AD_Sequence_No entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Sequence_ID() < 0) {
+		if (entity.getAD_Sequence_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =

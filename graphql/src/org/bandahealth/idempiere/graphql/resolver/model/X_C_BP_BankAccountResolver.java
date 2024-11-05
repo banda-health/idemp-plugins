@@ -36,7 +36,7 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MBPBankAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -86,7 +86,7 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 	 * @return Bank
 	 */
 	public CompletableFuture<MBank> C_Bank(MBPBankAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Bank_ID() < 0) {
+		if (entity.getC_Bank_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBank> dataLoader =
@@ -101,7 +101,7 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MBPBankAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -116,7 +116,7 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 	 * @return Payment processor for electronic payments
 	 */
 	public CompletableFuture<MPaymentProcessor> C_PaymentProcessor(MBPBankAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentProcessor_ID() < 0) {
+		if (entity.getC_PaymentProcessor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentProcessor> dataLoader =

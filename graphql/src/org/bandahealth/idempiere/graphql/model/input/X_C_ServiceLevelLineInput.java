@@ -90,7 +90,7 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 			X_C_ServiceLevel foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ServiceLevel", "C_ServiceLevel_UU=?", get_TrxName())
-							.setParameters(C_ServiceLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ServiceLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ServiceLevel_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

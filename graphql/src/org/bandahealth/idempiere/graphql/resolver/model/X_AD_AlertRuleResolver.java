@@ -27,7 +27,7 @@ public class X_AD_AlertRuleResolver extends POResolver<MAlertRule> implements Gr
 	 * @return iDempiere Alert
 	 */
 	public CompletableFuture<MAlert> AD_Alert(MAlertRule entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Alert_ID() < 0) {
+		if (entity.getAD_Alert_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAlert> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_AlertRuleResolver extends POResolver<MAlertRule> implements Gr
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MAlertRule entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

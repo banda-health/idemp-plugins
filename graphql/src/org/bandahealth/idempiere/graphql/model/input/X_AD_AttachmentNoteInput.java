@@ -53,7 +53,7 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 			MAttachment foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Attachment", "AD_Attachment_UU=?", get_TrxName())
-							.setParameters(AD_Attachment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Attachment.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Attachment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -25,7 +25,7 @@ public class X_ASP_LevelResolver extends POResolver<X_ASP_Level> implements Grap
 	 * @return ASP Module
 	 */
 	public CompletableFuture<X_ASP_Module> ASP_Module(X_ASP_Level entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Module_ID() < 0) {
+		if (entity.getASP_Module_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Module> dataLoader =

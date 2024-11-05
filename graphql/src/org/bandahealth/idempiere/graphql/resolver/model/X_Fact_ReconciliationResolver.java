@@ -29,7 +29,7 @@ public class X_Fact_ReconciliationResolver extends POResolver<MFactReconciliatio
 	 * @return Account used
 	 */
 	public CompletableFuture<MElementValue> Account(MFactReconciliation entity, DataFetchingEnvironment environment) {
-		if (entity.getAccount_ID() < 0) {
+		if (entity.getAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -44,7 +44,7 @@ public class X_Fact_ReconciliationResolver extends POResolver<MFactReconciliatio
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MFactReconciliation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_Fact_ReconciliationResolver extends POResolver<MFactReconciliatio
 	 * @return Accounting Fact
 	 */
 	public CompletableFuture<MFactAcct> Fact_Acct(MFactReconciliation entity, DataFetchingEnvironment environment) {
-		if (entity.getFact_Acct_ID() < 0) {
+		if (entity.getFact_Acct_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MFactAcct> dataLoader =

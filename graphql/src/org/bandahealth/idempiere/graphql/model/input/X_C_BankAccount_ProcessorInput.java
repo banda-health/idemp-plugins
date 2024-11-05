@@ -92,7 +92,7 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -144,7 +144,7 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -181,7 +181,7 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 			MPaymentProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentProcessor", "C_PaymentProcessor_UU=?", get_TrxName())
-							.setParameters(C_PaymentProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_PaymentProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_PaymentProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

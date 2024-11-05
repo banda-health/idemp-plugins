@@ -29,7 +29,7 @@ public class X_M_OperationResourceResolver extends POResolver<X_M_OperationResou
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_M_OperationResource entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() < 0) {
+		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -44,7 +44,7 @@ public class X_M_OperationResourceResolver extends POResolver<X_M_OperationResou
 	 * @return Job Position
 	 */
 	public CompletableFuture<X_C_Job> C_Job(X_M_OperationResource entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Job_ID() < 0) {
+		if (entity.getC_Job_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Job> dataLoader =
@@ -59,7 +59,7 @@ public class X_M_OperationResourceResolver extends POResolver<X_M_OperationResou
 	 * @return Product Manufacturing Operation
 	 */
 	public CompletableFuture<X_M_ProductOperation> M_ProductOperation(X_M_OperationResource entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductOperation_ID() < 0) {
+		if (entity.getM_ProductOperation_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_M_ProductOperation> dataLoader =

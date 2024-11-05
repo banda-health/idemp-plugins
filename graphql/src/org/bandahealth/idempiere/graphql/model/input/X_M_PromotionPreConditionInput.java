@@ -95,7 +95,7 @@ public class X_M_PromotionPreConditionInput extends X_M_PromotionPreCondition im
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -129,7 +129,7 @@ public class X_M_PromotionPreConditionInput extends X_M_PromotionPreCondition im
 			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -163,7 +163,7 @@ public class X_M_PromotionPreConditionInput extends X_M_PromotionPreCondition im
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -197,7 +197,7 @@ public class X_M_PromotionPreConditionInput extends X_M_PromotionPreCondition im
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -234,7 +234,7 @@ public class X_M_PromotionPreConditionInput extends X_M_PromotionPreCondition im
 			X_M_Promotion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
-							.setParameters(M_Promotion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Promotion.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Promotion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -297,7 +297,7 @@ public class X_M_PromotionPreConditionInput extends X_M_PromotionPreCondition im
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

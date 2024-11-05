@@ -61,7 +61,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Language_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -161,7 +161,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -232,7 +232,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 			MSession foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Session", "AD_Session_UU=?", get_TrxName())
-							.setParameters(AD_Session.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Session.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Session_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -269,7 +269,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -303,7 +303,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

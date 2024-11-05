@@ -92,7 +92,7 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -147,7 +147,7 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 			MWithholding foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Withholding", "C_Withholding_UU=?", get_TrxName())
-							.setParameters(C_Withholding.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Withholding.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Withholding_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -181,7 +181,7 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(Withholding_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Withholding_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setWithholding_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

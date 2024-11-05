@@ -80,7 +80,7 @@ public class X_AD_AuthorizationCredentialInput extends MAuthorizationCredential 
 			MAuthorizationProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AuthorizationProvider", "AD_AuthorizationProvider_UU=?", get_TrxName())
-							.setParameters(AD_AuthorizationProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_AuthorizationProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_AuthorizationProvider_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -159,7 +159,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 			MBHVisit foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
-							.setParameters(BH_Visit.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Visit.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Visit_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

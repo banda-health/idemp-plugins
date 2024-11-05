@@ -93,7 +93,7 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -223,7 +223,7 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

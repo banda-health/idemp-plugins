@@ -5,14 +5,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.bandahealth.idempiere.base.utils.JsonUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @JsonDeserialize(using = OCLConceptDeserializer.class)
 public class OCLConcept {
 
+	private JsonNode originalJsonNode;
 	private String uuid;
 	private String id;
 	private String externalId;
@@ -32,68 +37,126 @@ public class OCLConcept {
 	private String versionCreatedOn;
 	private boolean isLatestVersion;
 	private String type;
-	private List<OCLConceptMapping> mappings = new ArrayList<OCLConceptMapping>();
+	private List<OCLConceptMapping> mappings = new ArrayList<>();
 	private List<OCLConceptExtra> extras = new ArrayList<>();
 	private List<OCLConceptName> names = new ArrayList<>();
+	private List<OCLConceptDescription> descriptions = new ArrayList<>();
+	private Map<String, List<OCLConceptMapping>> activeMappingsByMapType = new HashMap<>();
+	private Map<String, String> extrasByKey = new HashMap<>();
+	private Map<String, List<OCLConceptName>> namesByLanguageAndType = new HashMap<>();
+	private Map<String, List<OCLConceptDescription>> descriptionsByLanguageAndType = new HashMap<>();
 
 	public OCLConcept() {
 	}
 
 	public OCLConcept(JsonNode node) {
-		setUuid(
-				JsonUtils.getValue(node.get("uuid")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("uuid")));
-		setId(JsonUtils.getValue(node.get("id")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("id")));
-		setExternalId(JsonUtils.getValue(node.get("external_id")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("external_id")));
-		setConceptClass(JsonUtils.getValue(node.get("concept_class")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("concept_class")));
-		setDatatype(JsonUtils.getValue(node.get("datatype")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("datatype")));
-		setUrl(JsonUtils.getValue(node.get("url")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("url")));
+		originalJsonNode = node;
+		setUuid(JsonUtils.getValue(node.get("uuid")));
+		setId(JsonUtils.getValue(node.get("id")));
+		setExternalId(JsonUtils.getValue(node.get("external_id")));
+		setConceptClass(JsonUtils.getValue(node.get("concept_class")));
+		setDatatype(JsonUtils.getValue(node.get("datatype")));
+		setUrl(JsonUtils.getValue(node.get("url")));
 		setRetired(JsonUtils.getBoolValue(node.get("retired")));
-		setSource(JsonUtils.getValue(node.get("source")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("source")));
-		setOwner(
-				JsonUtils.getValue(node.get("owner")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("owner")));
-		setOwnerType(JsonUtils.getValue(node.get("owner_type")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("owner_type")));
-		setDisplayName(JsonUtils.getValue(node.get("display_name")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("display_name")));
-		setDisplayLocale(JsonUtils.getValue(node.get("display_locale")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("display_locale")));
-		setVersion(JsonUtils.getValue(node.get("version")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("version")));
-		setUpdateComment(JsonUtils.getValue(node.get("update_comment")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("update_comment")));
-		setLocale(JsonUtils.getValue(node.get("locale")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("locale")));
-		setVersionCreatedBy(JsonUtils.getValue(node.get("version_created_by")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("version_created_by")));
-		setVersionCreatedOn(JsonUtils.getValue(node.get("version_created_on")).equalsIgnoreCase("null") ? null :
-				JsonUtils.getValue(node.get("version_created_on")));
+		setSource(JsonUtils.getValue(node.get("source")));
+		setOwner(JsonUtils.getValue(node.get("owner")));
+		setOwnerType(JsonUtils.getValue(node.get("owner_type")));
+		setDisplayName(JsonUtils.getValue(node.get("display_name")));
+		setDisplayLocale(JsonUtils.getValue(node.get("display_locale")));
+		setVersion(JsonUtils.getValue(node.get("version")));
+		setUpdateComment(JsonUtils.getValue(node.get("update_comment")));
+		setLocale(JsonUtils.getValue(node.get("locale")));
+		setVersionCreatedBy(JsonUtils.getValue(node.get("version_created_by")));
+		setVersionCreatedOn(JsonUtils.getValue(node.get("version_created_on")));
 		setLatestVersion(JsonUtils.getBoolValue(node.get("is_latest_version")));
-		setType(
-				JsonUtils.getValue(node.get("type")).equalsIgnoreCase("null") ? null : JsonUtils.getValue(node.get("type")));
+		setType(JsonUtils.getValue(node.get("type")));
 
 		if (node.get("mappings") != null) {
-			StreamSupport.stream(node.get("mappings").spliterator(), false).forEach(mapping -> {
-				addMapping(new OCLConceptMapping(mapping));
-			});
+			setMappings(StreamSupport.stream(node.get("mappings").spliterator(), false).map(OCLConceptMapping::new).toList());
 		}
 
 		if (node.get("extras") != null) {
 			Iterator<Entry<String, JsonNode>> iterator = node.get("extras").fields();
-			while (iterator.hasNext()) {
-				Entry<String, JsonNode> entry = iterator.next();
-				extras.add(new OCLConceptExtra(entry.getKey(), entry.getValue().asText()));
-			}
+			setExtras(StreamSupport.stream(((Iterable<Entry<String, JsonNode>>) () -> iterator).spliterator(), false)
+					.map(extra -> new OCLConceptExtra(extra.getKey(), extra.getValue().asText())).toList());
 		}
 
 		if (node.get("names") != null) {
-			StreamSupport.stream(node.get("names").spliterator(), false).forEach(name -> {
-				addName(new OCLConceptName(name));
-			});
+			setNames(StreamSupport.stream(node.get("names").spliterator(), false).map(OCLConceptName::new).toList());
 		}
+
+		if (node.get("descriptions") != null) {
+			setDescriptions(
+					StreamSupport.stream(node.get("descriptions").spliterator(), false).map(OCLConceptDescription::new).toList());
+		}
+	}
+
+	public void setPropertiesFromSameAsChild(OCLConcept sameAsChildConcept) {
+		sameAsChildConcept.getExtras().forEach(sameAsChildExtra -> {
+			if (!extrasByKey.containsKey(sameAsChildExtra.getKey().toLowerCase())) {
+				extrasByKey.put(sameAsChildExtra.getKey().toLowerCase(), sameAsChildExtra.getValue());
+			}
+		});
+		sameAsChildConcept.getActiveMappingsByMapType().forEach((sameAsChildMappingMapType, sameAsChildMappingList) -> {
+			// For the SAME-AS Mapping, put its extras on the parent. Also add the mapping to the parent in case we need
+			// the mapping (like ICD 10 for diagnoses)
+			if (sameAsChildMappingMapType.equals(MBHConceptMapping.SAME_AS_MAP_TYPE)) {
+				if (!activeMappingsByMapType.containsKey(sameAsChildMappingMapType)) {
+					activeMappingsByMapType.put(sameAsChildMappingMapType, new ArrayList<>());
+				}
+				activeMappingsByMapType.get(sameAsChildMappingMapType).addAll(sameAsChildMappingList);
+				sameAsChildMappingList.forEach(
+						sameAsChildMapping -> {
+							sameAsChildMapping.getExtras().forEach(sameAsChildMappingExtra -> {
+								if (!extrasByKey.containsKey(sameAsChildMappingExtra.getKey().toLowerCase())) {
+									extrasByKey.put(sameAsChildMappingExtra.getKey().toLowerCase(), sameAsChildMappingExtra.getValue());
+								}
+							});
+							// Clear the extras since they're on the parent
+							sameAsChildMapping.setExtras(new ArrayList<>());
+						});
+			} else {
+				if (!activeMappingsByMapType.containsKey(sameAsChildMappingMapType)) {
+					activeMappingsByMapType.put(sameAsChildMappingMapType, sameAsChildMappingList);
+				}
+			}
+		});
+		sameAsChildConcept.getNamesByLanguageAndType().forEach((languageAndType, childOclConceptNameList) -> {
+			if (!this.namesByLanguageAndType.containsKey(languageAndType)) {
+				this.namesByLanguageAndType.put(languageAndType, childOclConceptNameList);
+			} else {
+				// If it's not locale preferred, we'll add it; otherwise we'll only add it if it doesn't already have a
+				// locale-preferred one
+				boolean nameListAlreadyHasPreferredLocale =
+						this.namesByLanguageAndType.get(languageAndType).stream().anyMatch(OCLConceptName::isLocalePreferred);
+				for (OCLConceptName childConceptName : childOclConceptNameList) {
+					if (childConceptName.isLocalePreferred() && nameListAlreadyHasPreferredLocale) {
+						continue;
+					} else if (childConceptName.isLocalePreferred()) {
+						nameListAlreadyHasPreferredLocale = true;
+					}
+					this.namesByLanguageAndType.get(languageAndType).add(childConceptName);
+				}
+			}
+		});
+		sameAsChildConcept.getDescriptionsByLanguageAndType().forEach((languageAndType, childOclConceptNameList) -> {
+			if (!this.descriptionsByLanguageAndType.containsKey(languageAndType)) {
+				this.descriptionsByLanguageAndType.put(languageAndType, childOclConceptNameList);
+			} else {
+				// If it's not locale preferred, we'll add it; otherwise we'll only add it if it doesn't already have a
+				// locale-preferred one
+				boolean nameListAlreadyHasPreferredLocale = this.descriptionsByLanguageAndType.get(languageAndType).stream()
+						.anyMatch(OCLConceptDescription::isLocalePreferred);
+				for (OCLConceptDescription childConceptDescription : childOclConceptNameList) {
+					if (childConceptDescription.isLocalePreferred() && nameListAlreadyHasPreferredLocale) {
+						continue;
+					} else if (childConceptDescription.isLocalePreferred()) {
+						nameListAlreadyHasPreferredLocale = true;
+					}
+					this.descriptionsByLanguageAndType.get(languageAndType).add(childConceptDescription);
+				}
+			}
+		});
 	}
 
 	public String getUuid() {
@@ -246,14 +309,20 @@ public class OCLConcept {
 
 	public void setMappings(List<OCLConceptMapping> mappings) {
 		this.mappings = mappings;
-	}
-
-	private void addMapping(OCLConceptMapping mapping) {
-		if (this.mappings == null) {
-			this.mappings = new ArrayList<OCLConceptMapping>();
+		this.activeMappingsByMapType = mappings.stream().filter(Predicate.not(OCLConceptMapping::isRetired))
+				.collect(Collectors.groupingBy(OCLConceptMapping::getMapType));
+		// Merge the different SAME-AS types
+		if (this.activeMappingsByMapType.containsKey(MBHConceptMapping.SAME_AS2_MAP_TYPE)) {
+			this.activeMappingsByMapType.compute(MBHConceptMapping.SAME_AS_MAP_TYPE,
+					(key, value) -> {
+						if (value == null) {
+							return this.activeMappingsByMapType.get(MBHConceptMapping.SAME_AS2_MAP_TYPE);
+						}
+						value.addAll(this.activeMappingsByMapType.get(MBHConceptMapping.SAME_AS2_MAP_TYPE));
+						return value;
+					});
+			this.activeMappingsByMapType.remove(MBHConceptMapping.SAME_AS2_MAP_TYPE);
 		}
-
-		this.mappings.add(mapping);
 	}
 
 	public List<OCLConceptExtra> getExtras() {
@@ -262,6 +331,9 @@ public class OCLConcept {
 
 	public void setExtras(List<OCLConceptExtra> extras) {
 		this.extras = extras;
+		this.extrasByKey = extras.stream().collect(
+				Collectors.toMap(oclConceptExtra -> oclConceptExtra.getKey().toLowerCase(), OCLConceptExtra::getValue,
+						(key1, key2) -> key1));
 	}
 
 	public String getType() {
@@ -278,13 +350,53 @@ public class OCLConcept {
 
 	public void setNames(List<OCLConceptName> names) {
 		this.names = names;
+		this.namesByLanguageAndType = names.stream().collect(Collectors.groupingBy(
+				oclConceptName -> oclConceptName.getLocale().toLowerCase() +
+						(oclConceptName.getType() == null ? "" : oclConceptName.getType().toLowerCase())));
 	}
 
-	private void addName(OCLConceptName name) {
-		if (this.names == null) {
-			this.names = new ArrayList<OCLConceptName>();
-		}
+	public List<OCLConceptDescription> getDescriptions() {
+		return descriptions;
+	}
 
-		this.names.add(name);
+	public void setDescriptions(List<OCLConceptDescription> descriptions) {
+		this.descriptions = descriptions;
+		this.descriptionsByLanguageAndType = descriptions.stream().collect(Collectors.groupingBy(
+				oclConceptDescription -> oclConceptDescription.getLocale().toLowerCase() +
+						(oclConceptDescription.getType() == null ? "" : oclConceptDescription.getType().toLowerCase())));
+	}
+
+	public Map<String, List<OCLConceptMapping>> getActiveMappingsByMapType() {
+		return activeMappingsByMapType;
+	}
+
+	public Map<String, String> getExtrasByKey() {
+		return extrasByKey;
+	}
+
+	public Map<String, List<OCLConceptName>> getNamesByLanguageAndType() {
+		return namesByLanguageAndType;
+	}
+
+	public Map<String, List<OCLConceptDescription>> getDescriptionsByLanguageAndType() {
+		return descriptionsByLanguageAndType;
+	}
+
+	public JsonNode getOriginalJsonNode() {
+		return originalJsonNode;
+	}
+
+	public OCLConcept cloneOriginal() {
+		return new OCLConcept(getOriginalJsonNode());
+	}
+
+	/**
+	 * This method clears the dependent entities out so that it can be the end of an override tree
+	 */
+	public void truncate() {
+		setNames(new ArrayList<>());
+		setDescriptions(new ArrayList<>());
+		setExtras(new ArrayList<>());
+		setMappings(new ArrayList<>());
 	}
 }

@@ -94,7 +94,7 @@ public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Country_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -128,7 +128,7 @@ public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-							.setParameters(C_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Region_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -225,7 +225,7 @@ public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 			MFreightCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_FreightCategory", "M_FreightCategory_UU=?", get_TrxName())
-							.setParameters(M_FreightCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_FreightCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_FreightCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -262,7 +262,7 @@ public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Shipper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -296,7 +296,7 @@ public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-							.setParameters(To_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(To_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setTo_Region_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

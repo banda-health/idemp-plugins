@@ -50,7 +50,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() < 0) {
+		if (entity.getAD_Workflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
@@ -65,7 +65,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -80,7 +80,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Network Distribution
 	 */
 	public CompletableFuture<X_DD_NetworkDistribution> DD_NetworkDistribution(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getDD_NetworkDistribution_ID() < 0) {
+		if (entity.getDD_NetworkDistribution_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_DD_NetworkDistribution> dataLoader =
@@ -111,7 +111,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Material Forecast
 	 */
 	public CompletableFuture<MForecast> M_Forecast(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Forecast_ID() < 0) {
+		if (entity.getM_Forecast_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MForecast> dataLoader =
@@ -126,7 +126,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Forecast Line
 	 */
 	public CompletableFuture<MForecastLine> M_ForecastLine(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ForecastLine_ID() < 0) {
+		if (entity.getM_ForecastLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MForecastLine> dataLoader =
@@ -141,7 +141,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -156,7 +156,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() < 0) {
+		if (entity.getM_Warehouse_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -187,7 +187,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Planner
 	 */
 	public CompletableFuture<MUser_BH> Planner(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getPlanner_ID() < 0) {
+		if (entity.getPlanner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -202,7 +202,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return BOM & Formula
 	 */
 	public CompletableFuture<MPPProductBOM> PP_Product_BOM(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_BOM_ID() < 0) {
+		if (entity.getPP_Product_BOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =
@@ -217,7 +217,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Product Planning
 	 */
 	public CompletableFuture<MPPProductPlanning> PP_Product_Planning(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_Planning_ID() < 0) {
+		if (entity.getPP_Product_Planning_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductPlanning> dataLoader =
@@ -240,7 +240,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() < 0) {
+		if (entity.getS_Resource_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
@@ -255,7 +255,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() < 0) {
+		if (entity.getSalesRep_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

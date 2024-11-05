@@ -55,7 +55,7 @@ public class X_A_Depreciation_EntryResolver extends POResolver<MDepreciationEntr
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MDepreciationEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -70,7 +70,7 @@ public class X_A_Depreciation_EntryResolver extends POResolver<MDepreciationEntr
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MDepreciationEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -100,7 +100,7 @@ public class X_A_Depreciation_EntryResolver extends POResolver<MDepreciationEntr
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(MDepreciationEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() < 0) {
+		if (entity.getC_Period_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =

@@ -98,7 +98,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ElementValue_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -239,7 +239,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 			MReportLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
-							.setParameters(PA_ReportLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_ReportLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_ReportLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -273,7 +273,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 			MReportLineSet foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
-							.setParameters(PA_ReportLineSet.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_ReportLineSet.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_ReportLineSet_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -307,7 +307,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 			MReportSource foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportSource", "PA_ReportSource_UU=?", get_TrxName())
-							.setParameters(PA_ReportSource.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_ReportSource.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_ReportSource_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

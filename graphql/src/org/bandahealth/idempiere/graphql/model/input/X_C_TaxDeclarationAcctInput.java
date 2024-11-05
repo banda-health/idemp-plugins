@@ -92,7 +92,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -129,7 +129,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MTaxDeclaration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxDeclaration", "C_TaxDeclaration_UU=?", get_TrxName())
-							.setParameters(C_TaxDeclaration.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxDeclaration.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_TaxDeclaration_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MFactAcct foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "Fact_Acct", "Fact_Acct_UU=?", get_TrxName())
-							.setParameters(Fact_Acct.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Fact_Acct.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setFact_Acct_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

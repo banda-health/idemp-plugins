@@ -72,7 +72,7 @@ public class X_M_BOMResolver extends POResolver<MBOM> implements GraphQLResolver
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	public CompletableFuture<MChangeNotice> M_ChangeNotice(MBOM entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ChangeNotice_ID() < 0) {
+		if (entity.getM_ChangeNotice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
@@ -87,7 +87,7 @@ public class X_M_BOMResolver extends POResolver<MBOM> implements GraphQLResolver
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MBOM entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

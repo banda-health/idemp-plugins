@@ -119,7 +119,7 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 			MAddressValidation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AddressValidation", "C_AddressValidation_UU=?", get_TrxName())
-							.setParameters(C_AddressValidation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AddressValidation.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AddressValidation_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

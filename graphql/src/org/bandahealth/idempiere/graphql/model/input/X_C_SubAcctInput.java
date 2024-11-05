@@ -88,7 +88,7 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ElementValue_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

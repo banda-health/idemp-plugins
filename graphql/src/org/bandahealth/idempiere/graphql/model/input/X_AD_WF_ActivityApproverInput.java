@@ -87,7 +87,7 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 			X_AD_WF_Activity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Activity", "AD_WF_Activity_UU=?", get_TrxName())
-							.setParameters(AD_WF_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_WF_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

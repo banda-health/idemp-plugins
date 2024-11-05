@@ -93,7 +93,7 @@ public class X_M_RMATaxInput extends MRMATax implements I_M_RMATaxInput {
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -130,7 +130,7 @@ public class X_M_RMATaxInput extends MRMATax implements I_M_RMATaxInput {
 			MTaxProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxProvider", "C_TaxProvider_UU=?", get_TrxName())
-							.setParameters(C_TaxProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_TaxProvider_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -167,7 +167,7 @@ public class X_M_RMATaxInput extends MRMATax implements I_M_RMATaxInput {
 			MRMA foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RMA", "M_RMA_UU=?", get_TrxName())
-							.setParameters(M_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_RMA_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

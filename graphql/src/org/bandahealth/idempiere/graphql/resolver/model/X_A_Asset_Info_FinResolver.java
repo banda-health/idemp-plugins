@@ -32,7 +32,7 @@ public class X_A_Asset_Info_FinResolver extends POResolver<X_A_Asset_Info_Fin> i
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_A_Asset_Info_Fin entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() < 0) {
+		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -85,7 +85,7 @@ public class X_A_Asset_Info_FinResolver extends POResolver<X_A_Asset_Info_Fin> i
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_A_Asset_Info_Fin entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =

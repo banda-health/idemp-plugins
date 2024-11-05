@@ -56,7 +56,7 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
-							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setASP_Level_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

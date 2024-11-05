@@ -132,7 +132,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 			MBank foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
-							.setParameters(C_Bank.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Bank.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Bank_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

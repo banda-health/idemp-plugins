@@ -37,7 +37,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MDistributionRunDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -52,7 +52,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MDistributionRunDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -67,7 +67,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 	 * @return Distribution Lists allow to distribute products to a selected list of partners
 	 */
 	public CompletableFuture<MDistributionList> M_DistributionList(MDistributionRunDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DistributionList_ID() < 0) {
+		if (entity.getM_DistributionList_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDistributionList> dataLoader =
@@ -82,7 +82,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 	 * @return Distribution List Line with Business Partner and Quantity/Percentage
 	 */
 	public CompletableFuture<MDistributionListLine> M_DistributionListLine(MDistributionRunDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DistributionListLine_ID() < 0) {
+		if (entity.getM_DistributionListLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDistributionListLine> dataLoader =
@@ -97,7 +97,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 	 * @return Distribution Run create Orders to distribute products to a selected list of partners
 	 */
 	public CompletableFuture<MDistributionRun> M_DistributionRun(MDistributionRunDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DistributionRun_ID() < 0) {
+		if (entity.getM_DistributionRun_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDistributionRun> dataLoader =
@@ -112,7 +112,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 	 * @return Distribution Run Lines define Distribution List, the Product and Quantities
 	 */
 	public CompletableFuture<MDistributionRunLine> M_DistributionRunLine(MDistributionRunDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DistributionRunLine_ID() < 0) {
+		if (entity.getM_DistributionRunLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDistributionRunLine> dataLoader =
@@ -127,7 +127,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MDistributionRunDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

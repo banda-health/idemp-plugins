@@ -92,7 +92,7 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -147,7 +147,7 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -181,7 +181,7 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(W_Differences_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(W_Differences_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setW_Differences_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -90,7 +90,7 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 			MBHCodedDiagnosis foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Coded_Diagnosis", "BH_Coded_Diagnosis_UU=?", get_TrxName())
-							.setParameters(BH_Coded_Diagnosis.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Coded_Diagnosis.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Coded_Diagnosis_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 			MBHEncounter foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Encounter", "BH_Encounter_UU=?", get_TrxName())
-							.setParameters(BH_Encounter.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Encounter.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Encounter_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

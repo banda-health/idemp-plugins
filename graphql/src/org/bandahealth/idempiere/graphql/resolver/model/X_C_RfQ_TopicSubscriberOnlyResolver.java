@@ -29,7 +29,7 @@ public class X_C_RfQ_TopicSubscriberOnlyResolver extends POResolver<MRfQTopicSub
 	 * @return Request for Quotation Topic Subscriber
 	 */
 	public CompletableFuture<MRfQTopicSubscriber> C_RfQ_TopicSubscriber(MRfQTopicSubscriberOnly entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RfQ_TopicSubscriber_ID() < 0) {
+		if (entity.getC_RfQ_TopicSubscriber_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRfQTopicSubscriber> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_RfQ_TopicSubscriberOnlyResolver extends POResolver<MRfQTopicSub
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(MRfQTopicSubscriberOnly entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() < 0) {
+		if (entity.getM_Product_Category_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_RfQ_TopicSubscriberOnlyResolver extends POResolver<MRfQTopicSub
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MRfQTopicSubscriberOnly entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

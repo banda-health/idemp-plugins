@@ -29,7 +29,7 @@ public class X_T_BankRegisterResolver extends POResolver<X_T_BankRegister> imple
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_BankRegister entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() < 0) {
+		if (entity.getAD_PInstance_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -44,7 +44,7 @@ public class X_T_BankRegisterResolver extends POResolver<X_T_BankRegister> imple
 	 * @return Bank
 	 */
 	public CompletableFuture<MBank> C_Bank(X_T_BankRegister entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Bank_ID() < 0) {
+		if (entity.getC_Bank_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBank> dataLoader =
@@ -59,7 +59,7 @@ public class X_T_BankRegisterResolver extends POResolver<X_T_BankRegister> imple
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_T_BankRegister entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =

@@ -25,7 +25,7 @@ public class X_C_AddressValidationResolver extends POResolver<MAddressValidation
 	 * @return Address Validation Configuration
 	 */
 	public CompletableFuture<X_C_AddressValidationCfg> C_AddressValidationCfg(MAddressValidation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AddressValidationCfg_ID() < 0) {
+		if (entity.getC_AddressValidationCfg_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_AddressValidationCfg> dataLoader =

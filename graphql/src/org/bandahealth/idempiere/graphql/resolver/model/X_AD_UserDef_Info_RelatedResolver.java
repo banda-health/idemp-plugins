@@ -27,7 +27,7 @@ public class X_AD_UserDef_Info_RelatedResolver extends POResolver<MUserDefInfoRe
 	 * @return Info Related
 	 */
 	public CompletableFuture<X_AD_InfoRelated> AD_InfoRelated(MUserDefInfoRelated entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoRelated_ID() < 0) {
+		if (entity.getAD_InfoRelated_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_InfoRelated> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_UserDef_Info_RelatedResolver extends POResolver<MUserDefInfoRe
 	 * @return User defined Info Window
 	 */
 	public CompletableFuture<MUserDefInfo> AD_UserDef_Info(MUserDefInfoRelated entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_UserDef_Info_ID() < 0) {
+		if (entity.getAD_UserDef_Info_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUserDefInfo> dataLoader =

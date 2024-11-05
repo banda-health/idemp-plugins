@@ -87,7 +87,7 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 			MYear foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
-							.setParameters(C_Year.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Year.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Year_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
-							.setParameters(HR_Payroll.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Payroll.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Payroll_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

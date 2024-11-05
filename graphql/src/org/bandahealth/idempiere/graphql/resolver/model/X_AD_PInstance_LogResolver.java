@@ -32,7 +32,7 @@ public class X_AD_PInstance_LogResolver extends POResolver<X_AD_PInstance_Log> i
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_AD_PInstance_Log entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() < 0) {
+		if (entity.getAD_PInstance_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_PInstance_LogResolver extends POResolver<X_AD_PInstance_Log> i
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_PInstance_Log entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

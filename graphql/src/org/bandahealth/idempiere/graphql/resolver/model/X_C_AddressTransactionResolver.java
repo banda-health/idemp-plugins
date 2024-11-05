@@ -27,7 +27,7 @@ public class X_C_AddressTransactionResolver extends POResolver<MAddressTransacti
 	 * @return Address Validation
 	 */
 	public CompletableFuture<MAddressValidation> C_AddressValidation(MAddressTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AddressValidation_ID() < 0) {
+		if (entity.getC_AddressValidation_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAddressValidation> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_AddressTransactionResolver extends POResolver<MAddressTransacti
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MAddressTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =

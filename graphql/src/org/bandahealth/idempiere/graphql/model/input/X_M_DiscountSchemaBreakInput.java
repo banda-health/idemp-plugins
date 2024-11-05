@@ -92,7 +92,7 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-							.setParameters(M_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_DiscountSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-							.setParameters(M_Product_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

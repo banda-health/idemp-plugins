@@ -114,7 +114,7 @@ public class X_I_InOutLineConfirmInput extends X_I_InOutLineConfirm implements I
 			MInOutLineConfirm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLineConfirm", "M_InOutLineConfirm_UU=?", get_TrxName())
-							.setParameters(M_InOutLineConfirm.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLineConfirm.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOutLineConfirm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

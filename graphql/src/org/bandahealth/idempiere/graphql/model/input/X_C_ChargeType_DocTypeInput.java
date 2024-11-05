@@ -108,7 +108,7 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 			MChargeType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ChargeType", "C_ChargeType_UU=?", get_TrxName())
-							.setParameters(C_ChargeType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ChargeType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ChargeType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -152,7 +152,7 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 

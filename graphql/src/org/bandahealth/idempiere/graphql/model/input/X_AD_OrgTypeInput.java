@@ -114,7 +114,7 @@ public class X_AD_OrgTypeInput extends X_AD_OrgType implements I_AD_OrgTypeInput
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(AD_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

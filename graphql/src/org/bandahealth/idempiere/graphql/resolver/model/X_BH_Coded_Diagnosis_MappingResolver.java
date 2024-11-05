@@ -25,7 +25,7 @@ public class X_BH_Coded_Diagnosis_MappingResolver extends POResolver<MBHCodedDia
 	 * @return Coded Diagnosis
 	 */
 	public CompletableFuture<MBHCodedDiagnosis> BH_Coded_Diagnosis(MBHCodedDiagnosisMapping entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Coded_Diagnosis_ID() < 0) {
+		if (entity.getBH_Coded_Diagnosis_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHCodedDiagnosis> dataLoader =

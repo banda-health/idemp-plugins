@@ -112,7 +112,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -149,7 +149,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -186,7 +186,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
-							.setParameters(C_OrderLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_OrderLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_OrderLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -220,7 +220,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MProjectIssue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectIssue", "C_ProjectIssue_UU=?", get_TrxName())
-							.setParameters(C_ProjectIssue.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ProjectIssue.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ProjectIssue_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -264,7 +264,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(-1);
 		}
 	}
 
@@ -323,7 +323,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
-							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_CostElement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -360,7 +360,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -394,7 +394,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
-							.setParameters(M_InventoryLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InventoryLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InventoryLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -431,7 +431,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MMatchInv foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MatchInv", "M_MatchInv_UU=?", get_TrxName())
-							.setParameters(M_MatchInv.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_MatchInv.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_MatchInv_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -465,7 +465,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MMovementLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
-							.setParameters(M_MovementLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_MovementLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_MovementLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -502,7 +502,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -536,7 +536,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			MProductionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductionLine", "M_ProductionLine_UU=?", get_TrxName())
-							.setParameters(M_ProductionLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ProductionLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ProductionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -573,7 +573,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 			X_PP_Cost_Collector foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Cost_Collector", "PP_Cost_Collector_UU=?", get_TrxName())
-							.setParameters(PP_Cost_Collector.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Cost_Collector.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPP_Cost_Collector_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -27,7 +27,7 @@ public class X_C_BP_RelationResolver extends POResolver<X_C_BP_Relation> impleme
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_C_BP_Relation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_BP_RelationResolver extends POResolver<X_C_BP_Relation> impleme
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(X_C_BP_Relation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -57,7 +57,7 @@ public class X_C_BP_RelationResolver extends POResolver<X_C_BP_Relation> impleme
 	 * @return Related Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartnerRelation(X_C_BP_Relation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartnerRelation_ID() < 0) {
+		if (entity.getC_BPartnerRelation_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -72,7 +72,7 @@ public class X_C_BP_RelationResolver extends POResolver<X_C_BP_Relation> impleme
 	 * @return Location of the related Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartnerRelation_Location(X_C_BP_Relation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartnerRelation_Location_ID() < 0) {
+		if (entity.getC_BPartnerRelation_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =

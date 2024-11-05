@@ -94,7 +94,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 			MAddressValidation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AddressValidation", "C_AddressValidation_UU=?", get_TrxName())
-							.setParameters(C_AddressValidation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AddressValidation.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AddressValidation_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -128,7 +128,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 			MCity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_City", "C_City_UU=?", get_TrxName())
-							.setParameters(C_City.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_City.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_City_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Country_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -225,7 +225,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-							.setParameters(C_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Region_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
