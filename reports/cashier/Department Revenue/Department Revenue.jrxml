@@ -84,21 +84,21 @@ GROUP BY ad_client_id, ad_org_id, client_name]]>
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="15" uuid="78d77030-7e29-4209-a810-b6ce966e5bd6"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Department]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="299" y="0" width="100" height="15" uuid="bd3d5fd9-5732-4aa2-9707-fac17ad62126"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="223" y="0" width="76" height="15" uuid="8b9e25e6-ec66-48be-b6d3-2bf1e8e1fca3"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cases]]></text>
 			</staticText>
@@ -108,7 +108,7 @@ GROUP BY ad_client_id, ad_org_id, client_name]]>
 			<staticText>
 				<reportElement x="399" y="0" width="100" height="16" uuid="bd3d5fd9-5732-4aa2-9707-fac17ad62126"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Running Amt]]></text>
 			</staticText>
@@ -164,14 +164,14 @@ GROUP BY ad_client_id, ad_org_id, client_name]]>
 			<textField pattern="#,##0">
 				<reportElement x="399" y="2" width="100" height="16" uuid="7ef25002-51ee-477c-a7b2-2f89f8dd467b"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalAmount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="223" y="2" width="76" height="16" uuid="63ccd8c1-598b-4795-8d1c-f5169ae2d684"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalCases}]]></textFieldExpression>
 			</textField>
@@ -181,7 +181,7 @@ GROUP BY ad_client_id, ad_org_id, client_name]]>
 			<staticText>
 				<reportElement x="123" y="2" width="100" height="16" uuid="fe6de53d-9e11-4aff-a737-d02963808568"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Gross Total]]></text>
 			</staticText>

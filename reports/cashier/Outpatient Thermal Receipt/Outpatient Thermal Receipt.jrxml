@@ -205,7 +205,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[UPPER($F{org_name})]]></textFieldExpression>
 			</textField>

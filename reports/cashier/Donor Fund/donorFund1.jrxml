@@ -227,7 +227,7 @@ WHERE
 								<reportElement x="0" y="0" width="80" height="17" uuid="aaa1b9e9-0f6d-448e-a6be-eb96b5581819"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
 								<text><![CDATA[Visit Date]]></text>
@@ -238,6 +238,7 @@ WHERE
 								<reportElement x="0" y="0" width="80" height="15" uuid="5787820a-0aaf-40bf-bd59-0afac03294e6"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
@@ -255,7 +256,7 @@ WHERE
 								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="0"/>
 								</textElement>
 								<text><![CDATA[Patient Name]]></text>
@@ -269,6 +270,7 @@ WHERE
 								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph leftIndent="2" rightIndent="0"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
@@ -283,7 +285,7 @@ WHERE
 								<reportElement x="0" y="0" width="100" height="17" uuid="67c3e41b-636f-4eb9-b6e1-2651780fd96d"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Date of Birth]]></text>
 							</staticText>
@@ -304,7 +306,7 @@ WHERE
 								<reportElement x="0" y="0" width="100" height="17" uuid="77fe4e92-43ee-46e6-b94d-a7116428bddb"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Patient Donor ID#]]></text>
@@ -318,6 +320,7 @@ WHERE
 								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph leftIndent="5" rightIndent="0"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{ke_no}]]></textFieldExpression>
@@ -332,7 +335,7 @@ WHERE
 								<reportElement x="0" y="0" width="100" height="17" uuid="396fe9b6-1373-49a1-98a0-ba5915f46bd1"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Patient Clinic ID#]]></text>
 							</staticText>
@@ -353,7 +356,7 @@ WHERE
 								<reportElement x="0" y="0" width="120" height="17" uuid="84d10f30-1f2b-423b-a549-df604d15f378"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Diagnosis]]></text>
@@ -375,7 +378,7 @@ WHERE
 								<reportElement x="0" y="0" width="100" height="17" uuid="8daa702b-70e5-4c08-9d0f-379798559ff6"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Total billed to Donor]]></text>
 							</staticText>
@@ -385,6 +388,7 @@ WHERE
 								<reportElement x="0" y="0" width="100" height="15" uuid="fa427411-179b-49d4-9ceb-da42ba1d2c45"/>
 								<box rightPadding="0"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{amount_tendered}]]></textFieldExpression>

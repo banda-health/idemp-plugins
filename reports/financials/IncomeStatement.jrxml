@@ -207,7 +207,7 @@ FROM
 			<textField>
 				<reportElement positionType="FixRelativeToBottom" x="97" y="46" width="400" height="20" isPrintWhenDetailOverflows="true" uuid="7aa49a94-4080-48ab-9718-664b2231c32c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["For period: " + DATEFORMAT($P{Begin Date}, "dd MMMM YYYY") + " to " + DATEFORMAT($P{End Date}, "dd MMMM YYYY")]]></textFieldExpression>
 			</textField>

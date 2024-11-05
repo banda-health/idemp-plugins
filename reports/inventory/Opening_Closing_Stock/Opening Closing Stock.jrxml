@@ -205,7 +205,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="280" height="17" uuid="aaa1b9e9-0f6d-448e-a6be-eb96b5581819"/>
 								<textElement verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
 								<text><![CDATA[Name]]></text>
@@ -218,6 +218,7 @@ ORDER BY
 							<textField textAdjust="StretchHeight">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="280" height="15" uuid="5787820a-0aaf-40bf-bd59-0afac03294e6"/>
 								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{item_name}]]></textFieldExpression>
@@ -230,7 +231,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="80" height="17" uuid="c3199e2a-044a-4370-9b7a-f18aa0274ce2"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Opening]]></text>
@@ -241,6 +242,7 @@ ORDER BY
 							<textField pattern="#,##0" isBlankWhenNull="false">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="80" height="15" uuid="3dc6affc-89e0-41e4-979d-3b53a941835f"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{opening_stock}]]></textFieldExpression>
@@ -254,7 +256,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="80" height="17" uuid="1b3aec8c-6e17-4bd2-8385-67dabd0d8cbe"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Received]]></text>
@@ -265,6 +267,7 @@ ORDER BY
 							<textField pattern="#,##0" isBlankWhenNull="false">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="80" height="15" uuid="21425c3c-7256-4496-b9fb-28f70b9a583c"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{receivedstock}]]></textFieldExpression>
@@ -278,7 +281,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="80" height="17" uuid="d91f3df3-4e75-4814-b2dd-4b7de467ff07"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Sold]]></text>
@@ -289,6 +292,7 @@ ORDER BY
 							<textField pattern="#,##0" isBlankWhenNull="false">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="80" height="15" uuid="ac53ae70-2504-4761-9fb4-1083896c717b"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{soldstock}]]></textFieldExpression>
@@ -302,7 +306,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="80" height="17" uuid="6779be22-1846-4d30-9f1a-66d17ffb1b3e"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Balanced]]></text>
@@ -313,6 +317,7 @@ ORDER BY
 							<textField pattern="#,##0" isBlankWhenNull="false">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="80" height="15" uuid="71a24340-6079-4e26-ae29-206a927d2b71"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{balancestock}]]></textFieldExpression>
@@ -326,7 +331,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="80" height="17" uuid="77fe4e92-43ee-46e6-b94d-a7116428bddb"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Closing]]></text>
@@ -337,6 +342,7 @@ ORDER BY
 							<textField pattern="#,##0">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="80" height="15" uuid="ec7637f5-a2d6-4f94-97df-af4057997140"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{endingstock}]]></textFieldExpression>
@@ -350,7 +356,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="100" height="17" uuid="30f70f95-8b08-45ee-a14a-d54c7f662553"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Purchase Price]]></text>
@@ -366,7 +372,7 @@ ORDER BY
 									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Total]]></text>
@@ -376,6 +382,7 @@ ORDER BY
 							<textField pattern="#,##0.00">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="fe786cd8-fdb8-4aff-9f6e-fb5b8dac86be"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{purchaseprice} != null ? $F{purchaseprice} : "-"]]></textFieldExpression>
@@ -388,7 +395,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="150" height="17" uuid="85a37c72-a2f3-44c0-8a84-689a07b4ace8"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Closing Stock Value ]]></text>
@@ -404,7 +411,7 @@ ORDER BY
 									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								</box>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{closingStockValue}]]></textFieldExpression>
@@ -414,6 +421,7 @@ ORDER BY
 							<textField pattern="#,##0.00">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="150" height="15" uuid="22c01cdc-e8b9-499c-b3d2-09ce4a510b7f"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{purchaseprice} != null && $F{endingstock} != null ? $F{endingstock}.multiply($F{purchaseprice}) : "-"]]></textFieldExpression>

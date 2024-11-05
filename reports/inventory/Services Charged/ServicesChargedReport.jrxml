@@ -192,7 +192,7 @@ ORDER BY
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="0"/>
 								</textElement>
 								<text><![CDATA[Service Name]]></text>
@@ -206,7 +206,7 @@ ORDER BY
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="0"/>
 								</textElement>
 								<text><![CDATA[Total]]></text>
@@ -219,6 +219,7 @@ ORDER BY
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph leftIndent="2" rightIndent="0"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{item_name}]]></textFieldExpression>
@@ -231,7 +232,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="100" height="17" uuid="77fe4e92-43ee-46e6-b94d-a7116428bddb"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Quantity Charged]]></text>
@@ -242,6 +243,7 @@ ORDER BY
 							<textField textAdjust="StretchHeight" pattern="#,##0">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="ec7637f5-a2d6-4f94-97df-af4057997140"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
@@ -255,7 +257,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="110" height="17" uuid="15a6105b-1dc4-47cd-a137-156a8dbef630"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Unit Charge Price]]></text>
@@ -266,6 +268,7 @@ ORDER BY
 							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="110" height="15" uuid="f1b0d060-e369-43af-8dfe-625372a76c23"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{sellingprice}]]></textFieldExpression>
@@ -279,7 +282,7 @@ ORDER BY
 							<staticText>
 								<reportElement x="0" y="0" width="100" height="17" uuid="84d10f30-1f2b-423b-a549-df604d15f378"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<text><![CDATA[Amount]]></text>
@@ -289,7 +292,7 @@ ORDER BY
 							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="7505296e-1d0a-48f7-8fd5-9530c3f1e233"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{sumAmount}]]></textFieldExpression>
@@ -299,6 +302,7 @@ ORDER BY
 							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="95e77387-072b-4a75-ad8e-7dde3e55c4e1"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
 									<paragraph rightIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>

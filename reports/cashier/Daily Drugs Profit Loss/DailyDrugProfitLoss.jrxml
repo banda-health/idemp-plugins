@@ -173,14 +173,14 @@ AND bh_visitdate BETWEEN $P{beginDate} AND  $P{endDate}]]>
 			<textField pattern="#,##0">
 				<reportElement x="352" y="3" width="75" height="16" uuid="a2509bd4-a44c-413d-94ea-4b5738900864"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalSales}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="352" y="22" width="75" height="16" uuid="c24bf36f-9a0a-4d2a-a13c-051656a198ac"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalPurchases}]]></textFieldExpression>
 			</textField>
@@ -211,7 +211,7 @@ AND bh_visitdate BETWEEN $P{beginDate} AND  $P{endDate}]]>
 			<textField pattern="#,##0">
 				<reportElement x="352" y="42" width="75" height="16" uuid="bc4be155-6f2a-4e97-ade4-ac0c9fa47d27"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Profit_Loss}]]></textFieldExpression>
 			</textField>

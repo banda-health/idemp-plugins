@@ -233,7 +233,7 @@ GROUP BY
 								<reportElement mode="Transparent" x="21" y="1" width="159" height="19" backcolor="#FFFFFF" uuid="0d697416-3fc9-483a-b4e5-da23262c4349"/>
 								<box leftPadding="4"/>
 								<textElement verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font fontName="Arial" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{name}]]></textFieldExpression>
 							</textField>
