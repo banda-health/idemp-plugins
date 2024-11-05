@@ -25,12 +25,16 @@ public class X_BH_Concept_DescriptionResolver extends POResolver<MBHConceptDescr
 	 * @return Concept
 	 */
 	public CompletableFuture<MBHConcept> BH_Concept(MBHConceptDescription entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Concept_ID() < 0) {
+		if (entity.getBH_Concept_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHConcept> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_BH_ConceptDataLoader.DATALOADER_BH_Concept_BY_ID);
 		return dataLoader.load(entity.getBH_Concept_ID());
+	}
+
+	public Boolean BH_Concept_Locale_Preferred(MBHConceptDescription entity, DataFetchingEnvironment environment) {
+		return entity.isBH_Concept_Locale_Preferred();
 	}
 
 }

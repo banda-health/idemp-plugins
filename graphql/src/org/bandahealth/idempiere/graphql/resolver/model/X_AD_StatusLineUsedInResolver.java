@@ -38,7 +38,7 @@ public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn>
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(MStatusLineUsedIn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() < 0) {
+		if (entity.getAD_InfoWindow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -53,7 +53,7 @@ public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn>
 	 * @return Status Line
 	 */
 	public CompletableFuture<MStatusLine> AD_StatusLine(MStatusLineUsedIn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_StatusLine_ID() < 0) {
+		if (entity.getAD_StatusLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MStatusLine> dataLoader =
@@ -68,7 +68,7 @@ public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn>
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MStatusLineUsedIn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() < 0) {
+		if (entity.getAD_Tab_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -83,7 +83,7 @@ public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn>
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MStatusLineUsedIn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -98,7 +98,7 @@ public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn>
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MStatusLineUsedIn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

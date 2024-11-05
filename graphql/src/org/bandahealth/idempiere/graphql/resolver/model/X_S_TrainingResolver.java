@@ -29,7 +29,7 @@ public class X_S_TrainingResolver extends POResolver<X_S_Training> implements Gr
 	 * @return Tax Category
 	 */
 	public CompletableFuture<MTaxCategory> C_TaxCategory(X_S_Training entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxCategory_ID() < 0) {
+		if (entity.getC_TaxCategory_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
@@ -44,7 +44,7 @@ public class X_S_TrainingResolver extends POResolver<X_S_Training> implements Gr
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(X_S_Training entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 0) {
+		if (entity.getC_UOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -59,7 +59,7 @@ public class X_S_TrainingResolver extends POResolver<X_S_Training> implements Gr
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(X_S_Training entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() < 0) {
+		if (entity.getM_Product_Category_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =

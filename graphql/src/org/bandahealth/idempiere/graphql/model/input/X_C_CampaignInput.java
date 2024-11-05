@@ -114,7 +114,7 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 			X_C_Channel foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Channel", "C_Channel_UU=?", get_TrxName())
-							.setParameters(C_Channel.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Channel.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Channel_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

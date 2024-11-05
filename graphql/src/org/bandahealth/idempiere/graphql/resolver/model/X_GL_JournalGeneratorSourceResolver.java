@@ -29,7 +29,7 @@ public class X_GL_JournalGeneratorSourceResolver extends POResolver<MJournalGene
 	 * @return Account Element
 	 */
 	public CompletableFuture<MElementValue> C_ElementValue(MJournalGeneratorSource entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValue_ID() < 0) {
+		if (entity.getC_ElementValue_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -44,7 +44,7 @@ public class X_GL_JournalGeneratorSourceResolver extends POResolver<MJournalGene
 	 * @return General Ledger Category
 	 */
 	public CompletableFuture<MGLCategory> GL_Category(MJournalGeneratorSource entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Category_ID() < 0) {
+		if (entity.getGL_Category_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
@@ -59,7 +59,7 @@ public class X_GL_JournalGeneratorSourceResolver extends POResolver<MJournalGene
 	 * @return Generator Line
 	 */
 	public CompletableFuture<MJournalGeneratorLine> GL_JournalGeneratorLine(MJournalGeneratorSource entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalGeneratorLine_ID() < 0) {
+		if (entity.getGL_JournalGeneratorLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MJournalGeneratorLine> dataLoader =

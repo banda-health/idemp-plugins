@@ -48,7 +48,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 	 * @return Cost Detail Information
 	 */
 	public CompletableFuture<MCostDetail> M_CostDetail(X_M_CostHistory entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostDetail_ID() < 0) {
+		if (entity.getM_CostDetail_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCostDetail> dataLoader =
@@ -63,7 +63,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 	 * @return Product Cost Element
 	 */
 	public CompletableFuture<MCostElement> M_CostElement(X_M_CostHistory entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostElement_ID() < 0) {
+		if (entity.getM_CostElement_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
@@ -78,7 +78,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
 	public CompletableFuture<MCostType> M_CostType(X_M_CostHistory entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostType_ID() < 0) {
+		if (entity.getM_CostType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCostType> dataLoader =
@@ -93,7 +93,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_M_CostHistory entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

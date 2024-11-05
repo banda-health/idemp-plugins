@@ -88,7 +88,7 @@ public class X_C_AcctProcessorLogInput extends MAcctProcessorLog implements I_C_
 			MAcctProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctProcessor", "C_AcctProcessor_UU=?", get_TrxName())
-							.setParameters(C_AcctProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -33,7 +33,7 @@ public class X_M_DiscountSchemaBreakResolver extends POResolver<MDiscountSchemaB
 	 * @return Schema to calculate the trade discount percentage
 	 */
 	public CompletableFuture<MDiscountSchema> M_DiscountSchema(MDiscountSchemaBreak entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DiscountSchema_ID() < 0) {
+		if (entity.getM_DiscountSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
@@ -48,7 +48,7 @@ public class X_M_DiscountSchemaBreakResolver extends POResolver<MDiscountSchemaB
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(MDiscountSchemaBreak entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() < 0) {
+		if (entity.getM_Product_Category_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
@@ -63,7 +63,7 @@ public class X_M_DiscountSchemaBreakResolver extends POResolver<MDiscountSchemaB
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MDiscountSchemaBreak entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

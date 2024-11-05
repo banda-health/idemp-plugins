@@ -49,7 +49,7 @@ public class X_BH_EncounterResolver extends POResolver<MBHEncounter> implements 
 	 * @return Visit
 	 */
 	public CompletableFuture<MBHVisit> BH_Visit(MBHEncounter entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Visit_ID() < 0) {
+		if (entity.getBH_Visit_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHVisit> dataLoader =

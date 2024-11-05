@@ -46,7 +46,7 @@ public class X_M_QualityTestResultResolver extends POResolver<MQualityTestResult
 	 * @return Quality Test
 	 */
 	public CompletableFuture<MQualityTest> M_QualityTest(MQualityTestResult entity, DataFetchingEnvironment environment) {
-		if (entity.getM_QualityTest_ID() < 0) {
+		if (entity.getM_QualityTest_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MQualityTest> dataLoader =

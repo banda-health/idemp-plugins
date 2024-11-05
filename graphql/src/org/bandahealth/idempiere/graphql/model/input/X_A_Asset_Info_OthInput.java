@@ -52,7 +52,7 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -86,7 +86,7 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 			X_A_Asset_Info_Oth foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Info_Oth", "A_Asset_Info_Oth_UU=?", get_TrxName())
-							.setParameters(A_Asset_Info_Oth.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset_Info_Oth.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_Info_Oth_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

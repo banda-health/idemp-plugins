@@ -25,7 +25,7 @@ public class X_AD_Package_ImpResolver extends POResolver<X_AD_Package_Imp> imple
 	 * @return Package Imp. Proc.
 	 */
 	public CompletableFuture<X_AD_Package_Imp_Proc> AD_Package_Imp_Proc(X_AD_Package_Imp entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Package_Imp_Proc_ID() < 0) {
+		if (entity.getAD_Package_Imp_Proc_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Package_Imp_Proc> dataLoader =

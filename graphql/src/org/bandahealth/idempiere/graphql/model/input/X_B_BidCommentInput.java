@@ -87,7 +87,7 @@ public class X_B_BidCommentInput extends X_B_BidComment implements I_B_BidCommen
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_B_BidCommentInput extends X_B_BidComment implements I_B_BidCommen
 			X_B_Topic foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_Topic", "B_Topic_UU=?", get_TrxName())
-							.setParameters(B_Topic.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_Topic.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_Topic_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -27,7 +27,7 @@ public class X_AD_Process_AccessResolver extends POResolver<MProcessAccess> impl
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MProcessAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() < 0) {
+		if (entity.getAD_Process_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =

@@ -90,7 +90,7 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 			MQualityTest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_QualityTest", "M_QualityTest_UU=?", get_TrxName())
-							.setParameters(M_QualityTest.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_QualityTest.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_QualityTest_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

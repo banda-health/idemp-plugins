@@ -69,7 +69,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -103,7 +103,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_ColumnSortOrder.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ColumnSortOrder.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ColumnSortOrder_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -137,7 +137,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_ColumnSortYesNo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ColumnSortYesNo.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ColumnSortYesNo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -171,7 +171,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MCtxHelp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
-							.setParameters(AD_CtxHelp.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_CtxHelp.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_CtxHelp_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -205,7 +205,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -276,7 +276,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -339,7 +339,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -415,7 +415,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -449,7 +449,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -483,7 +483,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(Included_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Included_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setIncluded_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -556,7 +556,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(Parent_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Parent_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setParent_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

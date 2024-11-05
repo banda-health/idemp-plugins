@@ -48,7 +48,7 @@ public class X_AD_UserQueryResolver extends POResolver<MUserQuery> implements Gr
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MUserQuery entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() < 0) {
+		if (entity.getAD_Tab_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -63,7 +63,7 @@ public class X_AD_UserQueryResolver extends POResolver<MUserQuery> implements Gr
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MUserQuery entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -78,7 +78,7 @@ public class X_AD_UserQueryResolver extends POResolver<MUserQuery> implements Gr
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MUserQuery entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -93,7 +93,7 @@ public class X_AD_UserQueryResolver extends POResolver<MUserQuery> implements Gr
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MUserQuery entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

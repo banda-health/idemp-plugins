@@ -25,7 +25,7 @@ public class X_PA_ReportCubeResolver extends POResolver<MReportCube> implements 
 	 * @return Accounting Calendar Name
 	 */
 	public CompletableFuture<MCalendar> C_Calendar(MReportCube entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Calendar_ID() < 0) {
+		if (entity.getC_Calendar_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =

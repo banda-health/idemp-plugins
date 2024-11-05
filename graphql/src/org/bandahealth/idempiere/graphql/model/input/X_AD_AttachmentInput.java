@@ -119,7 +119,7 @@ public class X_AD_AttachmentInput extends MAttachment implements I_AD_Attachment
 			MStorageProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
-							.setParameters(AD_StorageProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_StorageProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_StorageProvider_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_AD_AttachmentInput extends MAttachment implements I_AD_Attachment
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

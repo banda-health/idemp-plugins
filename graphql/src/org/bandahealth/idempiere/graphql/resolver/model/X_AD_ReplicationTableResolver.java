@@ -34,7 +34,7 @@ public class X_AD_ReplicationTableResolver extends POResolver<X_AD_ReplicationTa
 	 * @return Data Replication Strategy
 	 */
 	public CompletableFuture<MReplicationStrategy> AD_ReplicationStrategy(X_AD_ReplicationTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReplicationStrategy_ID() < 0) {
+		if (entity.getAD_ReplicationStrategy_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReplicationStrategy> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_ReplicationTableResolver extends POResolver<X_AD_ReplicationTa
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_ReplicationTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

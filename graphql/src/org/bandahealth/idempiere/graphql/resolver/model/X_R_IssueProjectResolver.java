@@ -32,7 +32,7 @@ public class X_R_IssueProjectResolver extends POResolver<X_R_IssueProject> imple
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_R_IssueProject entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() < 0) {
+		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -47,7 +47,7 @@ public class X_R_IssueProjectResolver extends POResolver<X_R_IssueProject> imple
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_R_IssueProject entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =

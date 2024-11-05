@@ -56,7 +56,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -71,7 +71,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -86,7 +86,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -101,7 +101,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -116,7 +116,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return Account Element
 	 */
 	public CompletableFuture<MElementValue> C_ElementValue(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValue_ID() < 0) {
+		if (entity.getC_ElementValue_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -131,7 +131,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -146,7 +146,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -161,7 +161,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() < 0) {
+		if (entity.getC_SalesRegion_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -285,7 +285,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return General Ledger Budget
 	 */
 	public CompletableFuture<X_GL_Budget> GL_Budget(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Budget_ID() < 0) {
+		if (entity.getGL_Budget_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
@@ -360,7 +360,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -391,7 +391,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return First operand for calculation
 	 */
 	public CompletableFuture<MReportColumn> Oper_1(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getOper_1_ID() < 0) {
+		if (entity.getOper_1_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReportColumn> dataLoader =
@@ -406,7 +406,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return Second operand for calculation
 	 */
 	public CompletableFuture<MReportColumn> Oper_2(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getOper_2_ID() < 0) {
+		if (entity.getOper_2_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReportColumn> dataLoader =
@@ -421,7 +421,7 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 	 * @return Collection of Columns for Report
 	 */
 	public CompletableFuture<MReportColumnSet> PA_ReportColumnSet(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ReportColumnSet_ID() < 0) {
+		if (entity.getPA_ReportColumnSet_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReportColumnSet> dataLoader =

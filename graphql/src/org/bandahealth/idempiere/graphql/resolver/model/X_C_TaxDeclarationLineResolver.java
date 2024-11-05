@@ -37,7 +37,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 	 * @return Allocation Line
 	 */
 	public CompletableFuture<MAllocationLine> C_AllocationLine(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AllocationLine_ID() < 0) {
+		if (entity.getC_AllocationLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAllocationLine> dataLoader =
@@ -52,7 +52,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -67,7 +67,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -82,7 +82,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -97,7 +97,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() < 0) {
+		if (entity.getC_InvoiceLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -112,7 +112,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() < 0) {
+		if (entity.getC_Tax_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -127,7 +127,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 	 * @return Define the declaration to the tax authorities
 	 */
 	public CompletableFuture<MTaxDeclaration> C_TaxDeclaration(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxDeclaration_ID() < 0) {
+		if (entity.getC_TaxDeclaration_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTaxDeclaration> dataLoader =

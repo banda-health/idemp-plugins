@@ -62,7 +62,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(Funct_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Funct_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setFunct_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(FunctBG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(FunctBG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setFunctBG_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -230,7 +230,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(FunctFG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(FunctFG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setFunctFG_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -264,7 +264,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(Hdr_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Hdr_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHdr_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -298,7 +298,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(HdrLine_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HdrLine_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHdrLine_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -371,7 +371,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(HdrTextBG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HdrTextBG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHdrTextBG_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -405,7 +405,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(HdrTextFG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HdrTextFG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHdrTextFG_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -439,7 +439,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(Line_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Line_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setLine_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

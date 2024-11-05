@@ -31,7 +31,7 @@ public class X_HR_PeriodResolver extends POResolver<X_HR_Period> implements Grap
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(X_HR_Period entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() < 0) {
+		if (entity.getC_Period_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
@@ -46,7 +46,7 @@ public class X_HR_PeriodResolver extends POResolver<X_HR_Period> implements Grap
 	 * @return Calendar Year
 	 */
 	public CompletableFuture<MYear> C_Year(X_HR_Period entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Year_ID() < 0) {
+		if (entity.getC_Year_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MYear> dataLoader =
@@ -61,7 +61,7 @@ public class X_HR_PeriodResolver extends POResolver<X_HR_Period> implements Grap
 	 * @return Payroll
 	 */
 	public CompletableFuture<X_HR_Payroll> HR_Payroll(X_HR_Period entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Payroll_ID() < 0) {
+		if (entity.getHR_Payroll_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =
@@ -76,7 +76,7 @@ public class X_HR_PeriodResolver extends POResolver<X_HR_Period> implements Grap
 	 * @return Payroll Year
 	 */
 	public CompletableFuture<X_HR_Year> HR_Year(X_HR_Period entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Year_ID() < 0) {
+		if (entity.getHR_Year_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Year> dataLoader =

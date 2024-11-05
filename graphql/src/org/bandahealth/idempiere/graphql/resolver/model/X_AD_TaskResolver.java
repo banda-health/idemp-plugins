@@ -56,7 +56,7 @@ public class X_AD_TaskResolver extends POResolver<MTask> implements GraphQLResol
 	 * @return Context Help
 	 */
 	public CompletableFuture<MCtxHelp> AD_CtxHelp(MTask entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_CtxHelp_ID() < 0) {
+		if (entity.getAD_CtxHelp_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =

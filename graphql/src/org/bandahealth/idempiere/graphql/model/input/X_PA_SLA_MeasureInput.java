@@ -87,7 +87,7 @@ public class X_PA_SLA_MeasureInput extends X_PA_SLA_Measure implements I_PA_SLA_
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_PA_SLA_MeasureInput extends X_PA_SLA_Measure implements I_PA_SLA_
 			X_PA_SLA_Goal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_SLA_Goal", "PA_SLA_Goal_UU=?", get_TrxName())
-							.setParameters(PA_SLA_Goal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_SLA_Goal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_SLA_Goal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

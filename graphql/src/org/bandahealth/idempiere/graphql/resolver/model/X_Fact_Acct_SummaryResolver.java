@@ -53,7 +53,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Account used
 	 */
 	public CompletableFuture<MElementValue> Account(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getAccount_ID() < 0) {
+		if (entity.getAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -68,7 +68,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -83,7 +83,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -98,7 +98,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -113,7 +113,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -128,7 +128,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Location that inventory was moved from
 	 */
 	public CompletableFuture<MLocation> C_LocFrom(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocFrom_ID() < 0) {
+		if (entity.getC_LocFrom_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -143,7 +143,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Location that inventory was moved to
 	 */
 	public CompletableFuture<MLocation> C_LocTo(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocTo_ID() < 0) {
+		if (entity.getC_LocTo_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -158,7 +158,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() < 0) {
+		if (entity.getC_Period_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
@@ -173,7 +173,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -188,7 +188,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Phase of a Project
 	 */
 	public CompletableFuture<MProjectPhase> C_ProjectPhase(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectPhase_ID() < 0) {
+		if (entity.getC_ProjectPhase_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
@@ -203,7 +203,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Actual Project Task in a Phase
 	 */
 	public CompletableFuture<MProjectTask> C_ProjectTask(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectTask_ID() < 0) {
+		if (entity.getC_ProjectTask_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
@@ -218,7 +218,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() < 0) {
+		if (entity.getC_SalesRegion_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -233,7 +233,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Sub account for Element Value
 	 */
 	public CompletableFuture<X_C_SubAcct> C_SubAcct(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SubAcct_ID() < 0) {
+		if (entity.getC_SubAcct_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_SubAcct> dataLoader =
@@ -248,7 +248,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return General Ledger Budget
 	 */
 	public CompletableFuture<X_GL_Budget> GL_Budget(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Budget_ID() < 0) {
+		if (entity.getGL_Budget_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
@@ -263,7 +263,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -278,7 +278,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return Define reporting cube for pre-calculation of summary accounting data.
 	 */
 	public CompletableFuture<MReportCube> PA_ReportCube(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ReportCube_ID() < 0) {
+		if (entity.getPA_ReportCube_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReportCube> dataLoader =
@@ -297,7 +297,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() < 0) {
+		if (entity.getUser1_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -312,7 +312,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(X_Fact_Acct_Summary entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() < 0) {
+		if (entity.getUser2_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

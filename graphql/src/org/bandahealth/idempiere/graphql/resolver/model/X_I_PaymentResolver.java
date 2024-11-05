@@ -42,7 +42,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -57,7 +57,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -72,7 +72,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() < 0) {
+		if (entity.getC_Charge_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -87,7 +87,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -117,7 +117,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -132,7 +132,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() < 0) {
+		if (entity.getC_Payment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -197,7 +197,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 			put("C", "d3874573-b7bf-4556-9b9c-3644698c959e"); // Credit or Debit Card
 			put("K", "900adbf9-5069-4f56-9d97-0313c6372af3"); // Cheque
 			put("A", "220f3864-24b8-42ba-9a91-a247f4697530"); // Direct Deposit
-			put("D", "487227e8-c88e-45ef-8e6d-c0a480fdd0de"); // Bank Transfer
+			put("D", "487227e8-c88e-45ef-8e6d-c0a480fdd0de"); // Debit Card
 			put("T", "bd6f5227-483d-4bcf-b1fe-a840a3142327"); // Account
 			put("X", "52c6c5a6-83ce-48c4-b874-721f8cd4e66b"); // Cash
 			put("M", "7a78334e-3494-4d40-a718-c42cb053eea6"); // Mobile Money
@@ -209,9 +209,9 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 			put("G", "bb077404-71a4-4348-9afa-2b99ae9e1381"); // CCC
 			put("H", "55df64a7-1c7f-43f2-846b-f542c9cafa45"); // MCH
 			put("O", "4caa3109-804f-4773-8115-9bdb116f329b"); // Outreach
-			put("V", "52fc8585-3c61-45b8-a0dd-db10c1e7d79c"); // Liason insurance
 			put("P", "64e8ad21-7c9d-442b-9655-f5223d76140c"); // PesaPal
 			put("U", "97e54f17-fbae-40de-8dbd-e8ad7f884732"); // Jubilee insurance
+			put("V", "52fc8585-3c61-45b8-a0dd-db10c1e7d79c"); // Liason insurance
 		}
 	};
 	public CompletableFuture<MRefList_BH> TenderType(X_I_Payment entity, DataFetchingEnvironment environment) {

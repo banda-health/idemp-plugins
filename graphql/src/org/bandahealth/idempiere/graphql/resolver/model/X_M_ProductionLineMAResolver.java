@@ -42,7 +42,7 @@ public class X_M_ProductionLineMAResolver extends POResolver<MProductionLineMA> 
 	 * @return Document Line representing a production
 	 */
 	public CompletableFuture<MProductionLine> M_ProductionLine(MProductionLineMA entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductionLine_ID() < 0) {
+		if (entity.getM_ProductionLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProductionLine> dataLoader =

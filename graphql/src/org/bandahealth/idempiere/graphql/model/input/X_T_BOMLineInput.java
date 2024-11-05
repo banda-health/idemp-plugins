@@ -97,7 +97,7 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -131,7 +131,7 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -204,7 +204,7 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
-							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_CostElement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -238,7 +238,7 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MCostType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostType", "M_CostType_UU=?", get_TrxName())
-							.setParameters(M_CostType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_CostType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -272,7 +272,7 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -306,7 +306,7 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MPPProductBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
-							.setParameters(PP_Product_BOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Product_BOM.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPP_Product_BOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -340,7 +340,7 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MPPProductBOMLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOMLine", "PP_Product_BOMLine_UU=?", get_TrxName())
-							.setParameters(PP_Product_BOMLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Product_BOMLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPP_Product_BOMLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

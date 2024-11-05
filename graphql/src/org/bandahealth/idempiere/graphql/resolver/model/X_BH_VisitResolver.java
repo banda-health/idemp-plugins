@@ -34,7 +34,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 	 * @return BH_Clinician_User_ID
 	 */
 	public CompletableFuture<MUser_BH> BH_Clinician_User(MBHVisit entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Clinician_User_ID() < 0) {
+		if (entity.getBH_Clinician_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -113,7 +113,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 	 * @return BH_Voided_Reason_ID
 	 */
 	public CompletableFuture<MBHVoidedReason> BH_Voided_Reason(MBHVisit entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Voided_Reason_ID() < 0) {
+		if (entity.getBH_Voided_Reason_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHVoidedReason> dataLoader =
@@ -128,7 +128,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 	 * @return The Patient must be a valid business partner.
 	 */
 	public CompletableFuture<MBPartner_BH> Patient(MBHVisit entity, DataFetchingEnvironment environment) {
-		if (entity.getPatient_ID() < 0) {
+		if (entity.getPatient_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =

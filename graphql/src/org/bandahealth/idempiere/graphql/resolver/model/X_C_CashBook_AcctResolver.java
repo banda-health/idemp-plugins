@@ -29,7 +29,7 @@ public class X_C_CashBook_AcctResolver extends POResolver<X_C_CashBook_Acct> imp
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_C_CashBook_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_CashBook_AcctResolver extends POResolver<X_C_CashBook_Acct> imp
 	 * @return Cash Book for recording petty cash transactions
 	 */
 	public CompletableFuture<MCashBook> C_CashBook(X_C_CashBook_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashBook_ID() < 0) {
+		if (entity.getC_CashBook_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_CashBook_AcctResolver extends POResolver<X_C_CashBook_Acct> imp
 	 * @return Cash Book Asset Account
 	 */
 	public CompletableFuture<MAccount> CB_Asset_A(X_C_CashBook_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getCB_Asset_Acct() < 0) {
+		if (entity.getCB_Asset_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -74,7 +74,7 @@ public class X_C_CashBook_AcctResolver extends POResolver<X_C_CashBook_Acct> imp
 	 * @return Cash Transfer Clearing Account
 	 */
 	public CompletableFuture<MAccount> CB_CashTransfer_A(X_C_CashBook_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getCB_CashTransfer_Acct() < 0) {
+		if (entity.getCB_CashTransfer_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_CashBook_AcctResolver extends POResolver<X_C_CashBook_Acct> imp
 	 * @return Cash Book Differences Account
 	 */
 	public CompletableFuture<MAccount> CB_Differences_A(X_C_CashBook_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getCB_Differences_Acct() < 0) {
+		if (entity.getCB_Differences_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -104,7 +104,7 @@ public class X_C_CashBook_AcctResolver extends POResolver<X_C_CashBook_Acct> imp
 	 * @return Cash Book Expense Account
 	 */
 	public CompletableFuture<MAccount> CB_Expense_A(X_C_CashBook_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getCB_Expense_Acct() < 0) {
+		if (entity.getCB_Expense_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -119,7 +119,7 @@ public class X_C_CashBook_AcctResolver extends POResolver<X_C_CashBook_Acct> imp
 	 * @return Cash Book Receipts Account
 	 */
 	public CompletableFuture<MAccount> CB_Receipt_A(X_C_CashBook_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getCB_Receipt_Acct() < 0) {
+		if (entity.getCB_Receipt_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

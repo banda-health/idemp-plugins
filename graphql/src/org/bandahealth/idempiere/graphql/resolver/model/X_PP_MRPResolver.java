@@ -58,7 +58,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -73,7 +73,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -88,7 +88,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() < 0) {
+		if (entity.getC_OrderLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -103,7 +103,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Distribution Order
 	 */
 	public CompletableFuture<MDDOrder> DD_Order(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getDD_Order_ID() < 0) {
+		if (entity.getDD_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDDOrder> dataLoader =
@@ -118,7 +118,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Distribution Order Line
 	 */
 	public CompletableFuture<MDDOrderLine> DD_OrderLine(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getDD_OrderLine_ID() < 0) {
+		if (entity.getDD_OrderLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDDOrderLine> dataLoader =
@@ -162,7 +162,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Material Forecast
 	 */
 	public CompletableFuture<MForecast> M_Forecast(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Forecast_ID() < 0) {
+		if (entity.getM_Forecast_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MForecast> dataLoader =
@@ -177,7 +177,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Forecast Line
 	 */
 	public CompletableFuture<MForecastLine> M_ForecastLine(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ForecastLine_ID() < 0) {
+		if (entity.getM_ForecastLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MForecastLine> dataLoader =
@@ -192,7 +192,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -207,7 +207,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Material Requisition
 	 */
 	public CompletableFuture<MRequisition> M_Requisition(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Requisition_ID() < 0) {
+		if (entity.getM_Requisition_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRequisition> dataLoader =
@@ -222,7 +222,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Material Requisition Line
 	 */
 	public CompletableFuture<MRequisitionLine> M_RequisitionLine(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getM_RequisitionLine_ID() < 0) {
+		if (entity.getM_RequisitionLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRequisitionLine> dataLoader =
@@ -237,7 +237,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() < 0) {
+		if (entity.getM_Warehouse_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -272,7 +272,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Planner
 	 */
 	public CompletableFuture<MUser_BH> Planner(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getPlanner_ID() < 0) {
+		if (entity.getPlanner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -287,7 +287,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Manufacturing Order BOM Line
 	 */
 	public CompletableFuture<X_PP_Order_BOMLine> PP_Order_BOMLine(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_BOMLine_ID() < 0) {
+		if (entity.getPP_Order_BOMLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_BOMLine> dataLoader =
@@ -302,7 +302,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Manufacturing Order
 	 */
 	public CompletableFuture<X_PP_Order> PP_Order(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_ID() < 0) {
+		if (entity.getPP_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
@@ -317,7 +317,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(X_PP_MRP entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() < 0) {
+		if (entity.getS_Resource_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =

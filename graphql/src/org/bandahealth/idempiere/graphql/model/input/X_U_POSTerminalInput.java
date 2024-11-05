@@ -109,7 +109,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(C_CashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_CashBook_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -143,7 +143,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_CashBPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CashBPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_CashBPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -177,7 +177,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_TemplateBPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TemplateBPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_TemplateBPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -211,7 +211,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(Card_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Card_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCard_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -245,7 +245,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(CardTransferBankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CardTransferBankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCardTransferBankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -279,7 +279,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(CardTransferCashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CardTransferCashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCardTransferCashBook_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -391,7 +391,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(CashTransferBankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CashTransferBankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCashTransferBankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -425,7 +425,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(CashTransferCashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CashTransferCashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCashTransferCashBook_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -459,7 +459,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(Check_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Check_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCheck_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -493,7 +493,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(CheckTransferBankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CheckTransferBankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCheckTransferBankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -527,7 +527,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(CheckTransferCashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CheckTransferCashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCheckTransferCashBook_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -600,7 +600,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -634,7 +634,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(PO_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPO_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -668,7 +668,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -702,7 +702,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(SO_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SO_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSO_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

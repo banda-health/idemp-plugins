@@ -48,7 +48,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Accumulated Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Accumdepreciation_A(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Accumdepreciation_Acct() < 0) {
+		if (entity.getA_Accumdepreciation_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -63,7 +63,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Asset Acct
 	 */
 	public CompletableFuture<MAccount> A_Asset_A(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Acct() < 0) {
+		if (entity.getA_Asset_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -78,7 +78,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Asset Addition
 	 */
 	public CompletableFuture<MAssetAddition> A_Asset_Addition(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Addition_ID() < 0) {
+		if (entity.getA_Asset_Addition_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAssetAddition> dataLoader =
@@ -93,7 +93,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() < 0) {
+		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -108,7 +108,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Internally used asset is not longer used.
 	 */
 	public CompletableFuture<X_A_Asset_Retirement> A_Asset_Retirement(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Retirement_ID() < 0) {
+		if (entity.getA_Asset_Retirement_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_A_Asset_Retirement> dataLoader =
@@ -123,7 +123,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Depreciation_A(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Acct() < 0) {
+		if (entity.getA_Depreciation_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -153,7 +153,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return A_Depreciation_Table_Header_ID
 	 */
 	public CompletableFuture<X_A_Depreciation_Table_Header> A_Depreciation_Table_Header(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Table_Header_ID() < 0) {
+		if (entity.getA_Depreciation_Table_Header_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_A_Depreciation_Table_Header> dataLoader =
@@ -168,7 +168,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Disposal Loss Acct
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Loss_A(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Loss_Acct() < 0) {
+		if (entity.getA_Disposal_Loss_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -183,7 +183,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Disposal Revenue Acct
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Revenue_A(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Revenue_Acct() < 0) {
+		if (entity.getA_Disposal_Revenue_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -198,7 +198,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Parent Asset
 	 */
 	public CompletableFuture<MAsset> A_Parent_Asset(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Parent_Asset_ID() < 0) {
+		if (entity.getA_Parent_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -229,7 +229,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -244,7 +244,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -259,7 +259,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -274,7 +274,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -289,7 +289,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -304,7 +304,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 	 * @return Valid Account Combination
 	 */
 	public CompletableFuture<MAccount> C_ValidCombination(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ValidCombination_ID() < 0) {
+		if (entity.getC_ValidCombination_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

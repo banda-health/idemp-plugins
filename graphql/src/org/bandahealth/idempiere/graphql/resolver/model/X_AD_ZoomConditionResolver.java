@@ -32,7 +32,7 @@ public class X_AD_ZoomConditionResolver extends POResolver<MZoomCondition> imple
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MZoomCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_ZoomConditionResolver extends POResolver<MZoomCondition> imple
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MZoomCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

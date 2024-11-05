@@ -76,7 +76,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MChart foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Chart", "AD_Chart_UU=?", get_TrxName())
-							.setParameters(AD_Chart.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Chart.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Chart_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -110,7 +110,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
-							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Field_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -144,7 +144,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MFieldGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_FieldGroup", "AD_FieldGroup_UU=?", get_TrxName())
-							.setParameters(AD_FieldGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_FieldGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_FieldGroup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -178,7 +178,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MStyle foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
-							.setParameters(AD_FieldStyle.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_FieldStyle.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_FieldStyle_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -212,7 +212,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MStyle foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
-							.setParameters(AD_LabelStyle.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_LabelStyle.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_LabelStyle_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -283,7 +283,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -317,7 +317,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -383,7 +383,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MUserDefTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_UserDef_Tab", "AD_UserDef_Tab_UU=?", get_TrxName())
-							.setParameters(AD_UserDef_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_UserDef_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_UserDef_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -417,7 +417,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -451,7 +451,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule_Lookup.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule_Lookup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_Lookup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -836,7 +836,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 			MDashboardContent foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_DashboardContent", "PA_DashboardContent_UU=?", get_TrxName())
-							.setParameters(PA_DashboardContent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_DashboardContent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_DashboardContent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

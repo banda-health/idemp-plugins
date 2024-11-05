@@ -27,7 +27,7 @@ public class X_M_Product_QualityTestResolver extends POResolver<X_M_Product_Qual
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_M_Product_QualityTest entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_M_Product_QualityTestResolver extends POResolver<X_M_Product_Qual
 	 * @return Quality Test
 	 */
 	public CompletableFuture<MQualityTest> M_QualityTest(X_M_Product_QualityTest entity, DataFetchingEnvironment environment) {
-		if (entity.getM_QualityTest_ID() < 0) {
+		if (entity.getM_QualityTest_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MQualityTest> dataLoader =

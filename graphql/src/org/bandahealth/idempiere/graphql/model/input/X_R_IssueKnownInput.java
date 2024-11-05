@@ -118,7 +118,7 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 			X_R_IssueRecommendation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueRecommendation", "R_IssueRecommendation_UU=?", get_TrxName())
-							.setParameters(R_IssueRecommendation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_IssueRecommendation.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_IssueRecommendation_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -152,7 +152,7 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 			X_R_IssueStatus foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueStatus", "R_IssueStatus_UU=?", get_TrxName())
-							.setParameters(R_IssueStatus.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_IssueStatus.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_IssueStatus_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -186,7 +186,7 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 			MRequest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
-							.setParameters(R_Request.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_Request.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_Request_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

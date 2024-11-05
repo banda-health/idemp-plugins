@@ -60,7 +60,7 @@ public class X_AD_ToolBarButtonRestrictResolver extends POResolver<MToolBarButto
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MToolBarButtonRestrict entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() < 0) {
+		if (entity.getAD_Process_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -90,7 +90,7 @@ public class X_AD_ToolBarButtonRestrictResolver extends POResolver<MToolBarButto
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MToolBarButtonRestrict entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() < 0) {
+		if (entity.getAD_Tab_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -105,7 +105,7 @@ public class X_AD_ToolBarButtonRestrictResolver extends POResolver<MToolBarButto
 	 * @return ToolBar Button
 	 */
 	public CompletableFuture<MToolBarButton> AD_ToolBarButton(MToolBarButtonRestrict entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ToolBarButton_ID() < 0) {
+		if (entity.getAD_ToolBarButton_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MToolBarButton> dataLoader =
@@ -120,7 +120,7 @@ public class X_AD_ToolBarButtonRestrictResolver extends POResolver<MToolBarButto
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MToolBarButtonRestrict entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

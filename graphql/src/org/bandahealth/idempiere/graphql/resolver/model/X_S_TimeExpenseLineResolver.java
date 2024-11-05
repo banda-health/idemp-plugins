@@ -51,7 +51,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -66,7 +66,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -81,7 +81,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -96,7 +96,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -111,7 +111,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() < 0) {
+		if (entity.getC_InvoiceLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -126,7 +126,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() < 0) {
+		if (entity.getC_OrderLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -141,7 +141,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -156,7 +156,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Phase of a Project
 	 */
 	public CompletableFuture<MProjectPhase> C_ProjectPhase(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectPhase_ID() < 0) {
+		if (entity.getC_ProjectPhase_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
@@ -171,7 +171,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Actual Project Task in a Phase
 	 */
 	public CompletableFuture<MProjectTask> C_ProjectTask(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectTask_ID() < 0) {
+		if (entity.getC_ProjectTask_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
@@ -186,7 +186,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 0) {
+		if (entity.getC_UOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -209,7 +209,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -228,7 +228,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Resource Assignment
 	 */
 	public CompletableFuture<MResourceAssignment> S_ResourceAssignment(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getS_ResourceAssignment_ID() < 0) {
+		if (entity.getS_ResourceAssignment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MResourceAssignment> dataLoader =
@@ -243,7 +243,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Time and Expense Report
 	 */
 	public CompletableFuture<MTimeExpense> S_TimeExpense(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getS_TimeExpense_ID() < 0) {
+		if (entity.getS_TimeExpense_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTimeExpense> dataLoader =
@@ -258,7 +258,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 * @return Type of time recorded
 	 */
 	public CompletableFuture<X_S_TimeType> S_TimeType(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
-		if (entity.getS_TimeType_ID() < 0) {
+		if (entity.getS_TimeType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_S_TimeType> dataLoader =

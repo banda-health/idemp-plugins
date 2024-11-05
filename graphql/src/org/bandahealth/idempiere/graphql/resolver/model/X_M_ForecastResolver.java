@@ -29,7 +29,7 @@ public class X_M_ForecastResolver extends POResolver<MForecast> implements Graph
 	 * @return Accounting Calendar Name
 	 */
 	public CompletableFuture<MCalendar> C_Calendar(MForecast entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Calendar_ID() < 0) {
+		if (entity.getC_Calendar_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =
@@ -44,7 +44,7 @@ public class X_M_ForecastResolver extends POResolver<MForecast> implements Graph
 	 * @return Calendar Year
 	 */
 	public CompletableFuture<MYear> C_Year(MForecast entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Year_ID() < 0) {
+		if (entity.getC_Year_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MYear> dataLoader =
@@ -63,7 +63,7 @@ public class X_M_ForecastResolver extends POResolver<MForecast> implements Graph
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(MForecast entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() < 0) {
+		if (entity.getM_PriceList_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =

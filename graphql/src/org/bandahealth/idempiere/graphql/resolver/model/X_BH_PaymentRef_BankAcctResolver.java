@@ -29,7 +29,7 @@ public class X_BH_PaymentRef_BankAcctResolver extends POResolver<MBHPaymentRefBa
 	 * @return Reference List based on Table
 	 */
 	public CompletableFuture<MRefList_BH> AD_Ref_List(MBHPaymentRefBankAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Ref_List_ID() < 0) {
+		if (entity.getAD_Ref_List_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRefList_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_BH_PaymentRef_BankAcctResolver extends POResolver<MBHPaymentRefBa
 	 * @return BH_PaymentRef
 	 */
 	public CompletableFuture<MBHPaymentRef> BH_PaymentRef(MBHPaymentRefBankAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_PaymentRef_ID() < 0) {
+		if (entity.getBH_PaymentRef_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHPaymentRef> dataLoader =
@@ -63,7 +63,7 @@ public class X_BH_PaymentRef_BankAcctResolver extends POResolver<MBHPaymentRefBa
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MBHPaymentRefBankAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =

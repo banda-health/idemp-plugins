@@ -34,7 +34,7 @@ public class X_C_PaySelectionLineResolver extends POResolver<MPaySelectionLine> 
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MPaySelectionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -49,7 +49,7 @@ public class X_C_PaySelectionLineResolver extends POResolver<MPaySelectionLine> 
 	 * @return Payment Selection
 	 */
 	public CompletableFuture<MPaySelection> C_PaySelection(MPaySelectionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaySelection_ID() < 0) {
+		if (entity.getC_PaySelection_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPaySelection> dataLoader =
@@ -64,7 +64,7 @@ public class X_C_PaySelectionLineResolver extends POResolver<MPaySelectionLine> 
 	 * @return Payment Selection Check
 	 */
 	public CompletableFuture<MPaySelectionCheck> C_PaySelectionCheck(MPaySelectionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaySelectionCheck_ID() < 0) {
+		if (entity.getC_PaySelectionCheck_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPaySelectionCheck> dataLoader =

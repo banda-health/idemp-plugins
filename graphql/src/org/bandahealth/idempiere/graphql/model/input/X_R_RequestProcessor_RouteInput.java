@@ -89,7 +89,7 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -126,7 +126,7 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 			MRequestProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestProcessor", "R_RequestProcessor_UU=?", get_TrxName())
-							.setParameters(R_RequestProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_RequestProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_RequestProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 			MRequestType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestType", "R_RequestType_UU=?", get_TrxName())
-							.setParameters(R_RequestType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_RequestType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_RequestType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

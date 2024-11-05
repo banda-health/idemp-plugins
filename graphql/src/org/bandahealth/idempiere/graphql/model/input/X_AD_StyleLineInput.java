@@ -90,7 +90,7 @@ public class X_AD_StyleLineInput extends MStyleLine implements I_AD_StyleLineInp
 			MStyle foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
-							.setParameters(AD_Style.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Style.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Style_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_AD_StyleLineInput extends MStyleLine implements I_AD_StyleLineInp
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

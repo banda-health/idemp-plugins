@@ -85,7 +85,7 @@ public class X_AD_AuthorizationAccountInput extends MAuthorizationAccount implem
 			MAuthorizationCredential foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AuthorizationCredential", "AD_AuthorizationCredential_UU=?", get_TrxName())
-							.setParameters(AD_AuthorizationCredential.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_AuthorizationCredential.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_AuthorizationCredential_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -198,7 +198,7 @@ public class X_AD_AuthorizationAccountInput extends MAuthorizationAccount implem
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -90,7 +90,7 @@ public class X_C_RfQLineQtyInput extends MRfQLineQty implements I_C_RfQLineQtyIn
 			MRfQLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQLine", "C_RfQLine_UU=?", get_TrxName())
-							.setParameters(C_RfQLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RfQLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_RfQLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_C_RfQLineQtyInput extends MRfQLineQty implements I_C_RfQLineQtyIn
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

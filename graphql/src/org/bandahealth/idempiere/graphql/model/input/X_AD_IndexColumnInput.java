@@ -52,7 +52,7 @@ public class X_AD_IndexColumnInput extends MIndexColumn implements I_AD_IndexCol
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_AD_IndexColumnInput extends MIndexColumn implements I_AD_IndexCol
 			MTableIndex foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_TableIndex", "AD_TableIndex_UU=?", get_TrxName())
-							.setParameters(AD_TableIndex.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_TableIndex.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_TableIndex_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_AD_IndexColumnInput extends MIndexColumn implements I_AD_IndexCol
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

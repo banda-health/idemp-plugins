@@ -25,7 +25,7 @@ public class X_DD_NetworkDistributionResolver extends POResolver<X_DD_NetworkDis
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	public CompletableFuture<MChangeNotice> M_ChangeNotice(X_DD_NetworkDistribution entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ChangeNotice_ID() < 0) {
+		if (entity.getM_ChangeNotice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =

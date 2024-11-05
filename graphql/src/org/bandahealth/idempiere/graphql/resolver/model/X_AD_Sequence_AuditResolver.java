@@ -27,7 +27,7 @@ public class X_AD_Sequence_AuditResolver extends POResolver<X_AD_Sequence_Audit>
 	 * @return Document Sequence
 	 */
 	public CompletableFuture<MSequence_BH> AD_Sequence(X_AD_Sequence_Audit entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Sequence_ID() < 0) {
+		if (entity.getAD_Sequence_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_Sequence_AuditResolver extends POResolver<X_AD_Sequence_Audit>
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_Sequence_Audit entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

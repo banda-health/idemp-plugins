@@ -25,7 +25,7 @@ public class X_M_ShippingProcessorResolver extends POResolver<MShippingProcessor
 	 * @return Shipping Processor Configuration
 	 */
 	public CompletableFuture<X_M_ShippingProcessorCfg> M_ShippingProcessorCfg(MShippingProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShippingProcessorCfg_ID() < 0) {
+		if (entity.getM_ShippingProcessorCfg_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_M_ShippingProcessorCfg> dataLoader =

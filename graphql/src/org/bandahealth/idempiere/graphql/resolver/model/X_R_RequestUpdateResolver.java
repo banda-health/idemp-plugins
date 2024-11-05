@@ -49,7 +49,7 @@ public class X_R_RequestUpdateResolver extends POResolver<MRequestUpdate> implem
 	 * @return Product/Resource/Service used in Request
 	 */
 	public CompletableFuture<MProduct_BH> M_ProductSpent(MRequestUpdate entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductSpent_ID() < 0) {
+		if (entity.getM_ProductSpent_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -64,7 +64,7 @@ public class X_R_RequestUpdateResolver extends POResolver<MRequestUpdate> implem
 	 * @return Request from a Business Partner or Prospect
 	 */
 	public CompletableFuture<MRequest> R_Request(MRequestUpdate entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Request_ID() < 0) {
+		if (entity.getR_Request_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRequest> dataLoader =

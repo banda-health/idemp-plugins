@@ -88,7 +88,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -122,7 +122,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_ReserveLocator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ReserveLocator.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ReserveLocator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -185,7 +185,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_WarehouseSource.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_WarehouseSource.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_WarehouseSource_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

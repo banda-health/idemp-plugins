@@ -90,7 +90,7 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Shipper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 			X_M_ShipperPackagingCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperPackagingCfg", "M_ShipperPackagingCfg_UU=?", get_TrxName())
-							.setParameters(M_ShipperPackagingCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ShipperPackagingCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ShipperPackagingCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

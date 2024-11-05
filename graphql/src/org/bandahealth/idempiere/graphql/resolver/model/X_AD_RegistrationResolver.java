@@ -29,7 +29,7 @@ public class X_AD_RegistrationResolver extends POResolver<M_Registration> implem
 	 * @return System Definition
 	 */
 	public CompletableFuture<MSystem> AD_System(M_Registration entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_System_ID() < 0) {
+		if (entity.getAD_System_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSystem> dataLoader =
@@ -44,7 +44,7 @@ public class X_AD_RegistrationResolver extends POResolver<M_Registration> implem
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(M_Registration entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_AD_RegistrationResolver extends POResolver<M_Registration> implem
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(M_Registration entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =

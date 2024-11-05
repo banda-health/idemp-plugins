@@ -88,7 +88,7 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 			X_AD_WorkflowProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WorkflowProcessor", "AD_WorkflowProcessor_UU=?", get_TrxName())
-							.setParameters(AD_WorkflowProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WorkflowProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_WorkflowProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
