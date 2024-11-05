@@ -6,6 +6,7 @@ import {
 	Ad_RoleGetDocument,
 	Ad_RoleWithIncludedSaveDocument,
 	Ad_UserGetDocument,
+	Ad_UserSaveDocument,
 	Ad_UserWithRoleSaveDocument,
 	Ad_User_RolesDeleteDocument,
 	Ad_User_RolesSaveAndDeleteManyDocument,
@@ -520,4 +521,17 @@ test('non-iDempiere admins can create users', async () => {
 		})
 	).data?.AD_UserSave;
 	expect(subsequentUser?.UU).toBeTruthy();
+});
+
+test('can change current system user after being signed in to a specific client', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	expect(valueObject.user?.UU).toBeTruthy();
+	await mutate(valueObject)({
+		mutation: Ad_UserSaveDocument,
+		variables: { AD_User: { UU: valueObject.user?.UU, BH_TOS_DATE_ACCEPTED: new Date().getTime() } },
+	})
+		.then((response) => expect(response.data?.AD_UserSave.UU).toBeTruthy())
+		.catch((error) => expect(error).toBeFalsy());
 });

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_AD_UserInput;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.compiere.model.MRole;
 import org.compiere.model.MWindow;
+import org.compiere.model.PO;
 import org.compiere.util.Env;
 
 import java.util.List;
@@ -28,7 +29,12 @@ public class MUserMutation extends X_AD_UserMutation {
 				doesHaveManageUsersAccess != null && !doesHaveManageUsersAccess) {
 			return (MUser_BH) input;
 		}
-		return super.AD_UserSave(input, environment);
+		if (loggedInUser.isAdministrator()) {
+			PO.setCrossTenantSafe();
+		}
+		MUser_BH savedUser = super.AD_UserSave(input, environment);
+		PO.clearCrossTenantSafe();
+		return savedUser;
 	}
 
 	@Override
