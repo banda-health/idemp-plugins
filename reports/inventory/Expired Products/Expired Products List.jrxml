@@ -132,7 +132,7 @@ ORDER BY
 					<reportElement style="Table_TH" mode="Transparent" x="0" y="0" width="153" height="20" uuid="3f6c283d-23f0-4ee8-bec1-5f2935a91c84"/>
 					<box leftPadding="3"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Product Name]]></text>
 				</staticText>
@@ -140,7 +140,7 @@ ORDER BY
 					<reportElement style="Table_TH" mode="Transparent" x="153" y="0" width="92" height="20" uuid="813980b8-a474-43b3-ad41-af38713389ad"/>
 					<box leftPadding="3"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Batch Quantity]]></text>
 				</staticText>
@@ -148,7 +148,7 @@ ORDER BY
 					<reportElement style="Table_TH" mode="Transparent" x="245" y="0" width="92" height="20" uuid="d28eeb01-769a-4919-baf3-09303388e539"/>
 					<box leftPadding="3"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Expiration Date]]></text>
 				</staticText>
@@ -156,7 +156,7 @@ ORDER BY
 					<reportElement style="Table_TH" mode="Transparent" x="337" y="0" width="92" height="20" uuid="0c4fb8d8-0e1e-42db-9e3f-713fc565edcd"/>
 					<box leftPadding="3"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Days Since Expiry]]></text>
 				</staticText>
@@ -164,7 +164,7 @@ ORDER BY
 					<reportElement style="Table_TH" mode="Transparent" x="429" y="0" width="126" height="20" uuid="2b05729a-2f39-4bdd-9131-5a05009ff34b"/>
 					<box leftPadding="3"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Value of Expired Product]]></text>
 				</staticText>

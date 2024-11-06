@@ -429,7 +429,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Signature of Authorized Person]]></text>
 			</staticText>
@@ -443,7 +443,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date]]></text>
 			</staticText>

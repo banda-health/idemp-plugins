@@ -129,21 +129,21 @@ FROM
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[MOH 717]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="140" y="0" width="290" height="20" uuid="2a786ebf-b1de-4cfa-8ece-f14050847bee"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[REPUBLIC OF KENYA - MINISTRY OF HEALTH]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="50" y="20" width="460" height="20" uuid="9bd44398-c25c-4c44-a45a-cc20c42f87ed"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[MONTHLY SERVICE WORKLOAD REPORT FOR HEALTH FACILITIES]]></text>
 			</staticText>
@@ -171,7 +171,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font fontName="Arial"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Over 5 years - Male]]></text>
@@ -188,7 +187,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font fontName="Arial"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Over 5 years - Female]]></text>
@@ -205,7 +203,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font fontName="Arial"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Children Under 5 years - Male]]></text>
@@ -222,7 +219,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font fontName="Arial"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Children Under 5 years - Female]]></text>
@@ -237,7 +233,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{maleover5newvisit}]]></textFieldExpression>
@@ -251,7 +246,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{femaleover5newvisit}]]></textFieldExpression>
@@ -265,7 +259,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{maleunder5newvisit}]]></textFieldExpression>
@@ -279,7 +272,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{femaleunder5newvisit}]]></textFieldExpression>
@@ -295,7 +287,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{maleover5revisit}]]></textFieldExpression>
@@ -310,7 +301,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{femaleover5revisit}]]></textFieldExpression>
@@ -325,7 +315,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{maleunder5revisit}]]></textFieldExpression>
@@ -340,7 +329,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{femaleunder5revisit}]]></textFieldExpression>
@@ -355,7 +343,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{over5fNVPlusRV}]]></textFieldExpression>
@@ -370,7 +357,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{under5fNVPlusRV}]]></textFieldExpression>
@@ -385,7 +371,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{over5mNVPlusRV}]]></textFieldExpression>
@@ -400,7 +385,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{under5mNVPlusRV}]]></textFieldExpression>
@@ -416,7 +400,7 @@ FROM
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[A. OUTPATIENT SERVICES]]></text>
 			</staticText>
@@ -429,7 +413,7 @@ FROM
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[A.1 GENERAL OUTPATIENTS(FILTER CLINICS)]]></text>
 			</staticText>
@@ -442,7 +426,7 @@ FROM
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[NEW]]></text>
 			</staticText>
@@ -455,7 +439,7 @@ FROM
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[RE-ATT]]></text>
 			</staticText>
@@ -468,7 +452,7 @@ FROM
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
@@ -544,7 +528,6 @@ FROM
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[SUM($F{maleover5newvisit},$F{maleunder5newvisit},$F{femaleover5newvisit},$F{femaleunder5newvisit},$F{OverSixtynewvisit})]]></textFieldExpression>
@@ -561,7 +544,6 @@ FROM
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[SUM($F{maleover5revisit},$F{maleunder5revisit},$F{femaleover5revisit},$F{femaleunder5revisit},$F{OverSixtyrevisit})]]></textFieldExpression>
@@ -579,7 +561,6 @@ FROM
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[SUM($F{maleover5newvisit},$F{maleunder5newvisit},$F{femaleover5newvisit},$F{femaleunder5newvisit},$F{maleover5revisit},$F{maleunder5revisit},$F{femaleover5revisit},$F{femaleunder5revisit},$F{OverSixtynewvisit},$F{OverSixtyrevisit})]]></textFieldExpression>
@@ -596,7 +577,7 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[TOTAL GENERAL OUTPATIENTS]]></text>
@@ -626,7 +607,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{OverSixtyrevisit}]]></textFieldExpression>
@@ -643,7 +623,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font fontName="Arial"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Over 60 years]]></text>
@@ -672,7 +651,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{OverSixtynewvisit}]]></textFieldExpression>
@@ -687,7 +665,6 @@ FROM
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{over60}]]></textFieldExpression>
@@ -699,14 +676,14 @@ FROM
 			<textField>
 				<reportElement x="0" y="0" width="379" height="16" uuid="cab4917d-8ce5-4697-8813-fcd306774b13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="457" y="0" width="90" height="16" uuid="36edd13b-8209-4907-b4c4-6f45fafda4d0"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
 			</textField>
@@ -714,7 +691,7 @@ FROM
 				<reportElement x="547" y="0" width="33" height="16" uuid="c4a860c3-1538-40e8-ae37-41c8d63babac"/>
 				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="0"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

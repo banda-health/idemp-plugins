@@ -73,7 +73,7 @@ AND c.isactive = 'Y']]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f5acd802-2a8c-4936-80d0-b1b58df93ff5"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Receipt No]]></text>
 			</staticText>
@@ -82,7 +82,7 @@ AND c.isactive = 'Y']]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a47ac963-3159-4770-b86b-017b133e2e51"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Created On]]></text>
 			</staticText>
@@ -91,7 +91,7 @@ AND c.isactive = 'Y']]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2aaf76dc-8c9e-423a-9c5c-98b7b1e70111"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Billed By]]></text>
 			</staticText>
@@ -100,7 +100,7 @@ AND c.isactive = 'Y']]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d8aec0b3-5a03-4007-8719-54d91cab9594"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Billed To]]></text>
 			</staticText>
@@ -109,7 +109,7 @@ AND c.isactive = 'Y']]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e1bb87f-9ee1-451d-be18-747808d4bd7e"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Amount (KSHs)]]></text>
 			</staticText>

@@ -233,7 +233,7 @@ GROUP BY
 									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								</box>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
+									<font isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{attendance}]]></textFieldExpression>
 							</textField>

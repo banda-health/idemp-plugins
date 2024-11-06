@@ -62,7 +62,7 @@ FROM
 			<textField>
 				<reportElement x="0" y="0" width="555" height="17" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf"/>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Department Collections for " + new SimpleDateFormat("yyyy-MMM-dd").format($P{beginDate}) + " to " + new SimpleDateFormat("yyyy-MMM-dd").format($P{endDate})]]></textFieldExpression>
 			</textField>
@@ -73,21 +73,21 @@ FROM
 			<staticText>
 				<reportElement x="320" y="0" width="34" height="15" uuid="001cbdf6-872c-46d8-bd91-406545f98077"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Count]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="366" y="0" width="90" height="15" uuid="001cbdf6-872c-46d8-bd91-406545f98077"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Amount]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="469" y="0" width="84" height="15" uuid="001cbdf6-872c-46d8-bd91-406545f98077"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Running Total]]></text>
 			</staticText>
@@ -101,7 +101,7 @@ FROM
 			<textField>
 				<reportElement mode="Transparent" x="0" y="2" width="171" height="16" uuid="d73f0de7-8f12-449d-aa05-1055460e3844"/>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Department}]]></textFieldExpression>
 			</textField>

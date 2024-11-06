@@ -176,7 +176,7 @@ where cp.c_payment_id = $P{debtPaymentID}
 					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[UPPER($F{org_name})]]></textFieldExpression>
 			</textField>

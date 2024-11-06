@@ -99,7 +99,7 @@ ORDER BY
 			<textField>
 				<reportElement x="50" y="40" width="50" height="20" uuid="7b6f8df9-fd42-4693-ab04-c22086818705"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Date:"]]></textFieldExpression>
 			</textField>
@@ -108,14 +108,14 @@ ORDER BY
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="340" y="40" width="130" height="20" uuid="08c976fa-deb9-4178-8d12-6ebb9f758ddd"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Total Open Balance:"]]></textFieldExpression>
 			</textField>
@@ -124,7 +124,7 @@ ORDER BY
 					<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalOpenBalance}]]></textFieldExpression>
 			</textField>

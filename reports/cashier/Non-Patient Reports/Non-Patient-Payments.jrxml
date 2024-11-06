@@ -360,7 +360,7 @@ ORDER BY
 						<pen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Date]]></text>
 				</staticText>
@@ -373,7 +373,7 @@ ORDER BY
 						<pen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Patient Name]]></text>
 				</staticText>
@@ -386,7 +386,7 @@ ORDER BY
 						<pen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Patient No]]></text>
 				</staticText>
@@ -399,7 +399,7 @@ ORDER BY
 						<pen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Patient Type]]></text>
 				</staticText>
@@ -412,7 +412,7 @@ ORDER BY
 						<pen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Member ID]]></text>
 				</staticText>
@@ -426,7 +426,7 @@ ORDER BY
 						<pen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Member Name ]]></text>
 				</staticText>
@@ -440,7 +440,7 @@ ORDER BY
 						<pen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Relationship]]></text>
 				</staticText>
@@ -452,7 +452,7 @@ ORDER BY
 						<pen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Claims Number]]></text>
 				</staticText>
@@ -466,7 +466,7 @@ ORDER BY
 						<pen lineWidth="1.0"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Arial" isBold="true"/>
+						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total Charge from Visit]]></text>
 				</staticText>

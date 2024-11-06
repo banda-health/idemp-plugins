@@ -439,7 +439,7 @@ GROUP BY
 							<textField>
 								<reportElement x="0" y="0" width="20" height="20" uuid="aaccfa5c-9eea-4bd8-9823-9cf2ab9653b1"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
+									<font isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[DAY($V{calendar})]]></textFieldExpression>
 							</textField>
@@ -451,7 +451,7 @@ GROUP BY
 							<staticText>
 								<reportElement x="0" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="697bb758-3b67-4025-a0e1-109f2c32d4c4"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
+									<font isBold="true"/>
 								</textElement>
 								<text><![CDATA[Totals ]]></text>
 							</staticText>
@@ -610,7 +610,7 @@ GROUP BY
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Diseases (New Cases Only)"]]></textFieldExpression>
 			</textField>
