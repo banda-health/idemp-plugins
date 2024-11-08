@@ -30,7 +30,7 @@ public class X_BH_Ocl_Originating_SourceResolver extends POResolver<MBHOclOrigin
 	 * @return Concept
 	 */
 	public CompletableFuture<MBHConcept> BH_Concept(MBHOclOriginatingSource entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Concept_ID() < 0) {
+		if (entity.getBH_Concept_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHConcept> dataLoader =

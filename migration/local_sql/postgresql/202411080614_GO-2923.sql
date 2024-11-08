@@ -66,6 +66,6 @@ WHERE
 
 
 SELECT
-	register_migration_script('202410031314_GO-2923.sql')
+	register_migration_script('202411080614_GO-2923.sql')
 FROM
 	dual;

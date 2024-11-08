@@ -52,7 +52,6 @@ type BH_Concept_Mapping {
 	IsActive: Boolean!
 	# A UUID from the OCL system
 	Ocl_Uuid: String
-	# To Concept
 	To_BH_Concept: BH_Concept
 	# Date this record was updated
 	Updated: Date
@@ -89,6 +88,5 @@ input BH_Concept_MappingInput {
 	IsActive: Boolean
 	# A UUID from the OCL system
 	Ocl_Uuid: String
-	# To Concept
 	To_BH_Concept: ForeignEntityInput
 }
