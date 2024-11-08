@@ -93,7 +93,7 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 			MProcessPara foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process_Para", "AD_Process_Para_UU=?", get_TrxName())
-							.setParameters(AD_Process_Para.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process_Para.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_Para_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -130,7 +130,7 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 			X_ASP_Process foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Process", "ASP_Process_UU=?", get_TrxName())
-							.setParameters(ASP_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setASP_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

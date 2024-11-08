@@ -45,7 +45,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
 	public CompletableFuture<M_Element> AD_Element(MProcessPara entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Element_ID() < 0) {
+		if (entity.getAD_Element_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, M_Element> dataLoader =
@@ -60,7 +60,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 	 * @return Logical grouping of fields
 	 */
 	public CompletableFuture<MFieldGroup_BH> AD_FieldGroup(MProcessPara entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldGroup_ID() < 0) {
+		if (entity.getAD_FieldGroup_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MFieldGroup_BH> dataLoader =
@@ -75,7 +75,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MProcessPara entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() < 0) {
+		if (entity.getAD_Process_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -90,7 +90,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MProcessPara entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() < 0) {
+		if (entity.getAD_Reference_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -105,7 +105,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(MProcessPara entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() < 0) {
+		if (entity.getAD_Reference_Value_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -120,7 +120,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MProcessPara entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() < 0) {
+		if (entity.getAD_Val_Rule_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =

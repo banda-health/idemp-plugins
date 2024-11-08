@@ -85,7 +85,7 @@ public class X_C_OrgAssignmentInput extends X_C_OrgAssignment implements I_C_Org
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

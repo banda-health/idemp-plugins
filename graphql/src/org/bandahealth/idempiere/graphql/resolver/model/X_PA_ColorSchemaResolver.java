@@ -30,7 +30,7 @@ public class X_PA_ColorSchemaResolver extends POResolver<MColorSchema> implement
 	 * @return First color used
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor1(MColorSchema entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor1_ID() < 0) {
+		if (entity.getAD_PrintColor1_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -45,7 +45,7 @@ public class X_PA_ColorSchemaResolver extends POResolver<MColorSchema> implement
 	 * @return Second color used
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor2(MColorSchema entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor2_ID() < 0) {
+		if (entity.getAD_PrintColor2_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -60,7 +60,7 @@ public class X_PA_ColorSchemaResolver extends POResolver<MColorSchema> implement
 	 * @return Third color used
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor3(MColorSchema entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor3_ID() < 0) {
+		if (entity.getAD_PrintColor3_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -75,7 +75,7 @@ public class X_PA_ColorSchemaResolver extends POResolver<MColorSchema> implement
 	 * @return Forth color used
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor4(MColorSchema entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor4_ID() < 0) {
+		if (entity.getAD_PrintColor4_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =

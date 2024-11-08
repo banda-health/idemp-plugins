@@ -31,7 +31,7 @@ public class X_A_Asset_ProductResolver extends POResolver<MAssetProduct> impleme
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MAssetProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() < 0) {
+		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -61,7 +61,7 @@ public class X_A_Asset_ProductResolver extends POResolver<MAssetProduct> impleme
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MAssetProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() < 0) {
+		if (entity.getM_Locator_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -76,7 +76,7 @@ public class X_A_Asset_ProductResolver extends POResolver<MAssetProduct> impleme
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MAssetProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

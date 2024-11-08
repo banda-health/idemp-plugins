@@ -112,7 +112,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -258,7 +258,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -292,7 +292,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-							.setParameters(C_ConversionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ConversionType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ConversionType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -326,7 +326,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -367,7 +367,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -394,7 +394,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -428,7 +428,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -462,7 +462,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -585,7 +585,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MJournalBatch foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_JournalBatch", "GL_JournalBatch_UU=?", get_TrxName())
-							.setParameters(GL_JournalBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_JournalBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_JournalBatch_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -619,7 +619,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MIFixedAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "I_FixedAsset", "I_FixedAsset_UU=?", get_TrxName())
-							.setParameters(I_FixedAsset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(I_FixedAsset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setI_FixedAsset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -660,7 +660,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(-1);
 		}
 	}
 
@@ -687,7 +687,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -721,7 +721,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Locator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -755,7 +755,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MMatchInv foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MatchInv", "M_MatchInv_UU=?", get_TrxName())
-							.setParameters(M_MatchInv.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_MatchInv.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_MatchInv_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -789,7 +789,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

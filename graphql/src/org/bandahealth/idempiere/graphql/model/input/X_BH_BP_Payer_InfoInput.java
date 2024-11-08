@@ -118,7 +118,7 @@ public class X_BH_BP_Payer_InfoInput extends MBHBPPayerInfo implements I_BH_BP_P
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(BH_Payer.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Payer.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Payer_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_BH_BP_Payer_InfoInput extends MBHBPPayerInfo implements I_BH_BP_P
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -102,7 +102,7 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -136,7 +136,7 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -236,7 +236,7 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -270,7 +270,7 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 			MTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Task", "AD_Task_UU=?", get_TrxName())
-							.setParameters(AD_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Task_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -304,7 +304,7 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -338,7 +338,7 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -372,7 +372,7 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

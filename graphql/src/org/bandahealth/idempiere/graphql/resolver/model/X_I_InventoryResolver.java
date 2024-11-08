@@ -37,7 +37,7 @@ public class X_I_InventoryResolver extends POResolver<X_I_Inventory> implements 
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(X_I_Inventory entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() < 0) {
+		if (entity.getC_Charge_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -71,7 +71,7 @@ public class X_I_InventoryResolver extends POResolver<X_I_Inventory> implements 
 	 * @return Unique line in an Inventory cost adjustment document
 	 */
 	public CompletableFuture<MInventoryLine> M_CostingLine(X_I_Inventory entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostingLine_ID() < 0) {
+		if (entity.getM_CostingLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine> dataLoader =
@@ -86,7 +86,7 @@ public class X_I_InventoryResolver extends POResolver<X_I_Inventory> implements 
 	 * @return Parameters for a Physical Inventory
 	 */
 	public CompletableFuture<MInventory_BH> M_Inventory(X_I_Inventory entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Inventory_ID() < 0) {
+		if (entity.getM_Inventory_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInventory_BH> dataLoader =
@@ -101,7 +101,7 @@ public class X_I_InventoryResolver extends POResolver<X_I_Inventory> implements 
 	 * @return Unique line in an Inventory document
 	 */
 	public CompletableFuture<MInventoryLine> M_InventoryLine(X_I_Inventory entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InventoryLine_ID() < 0) {
+		if (entity.getM_InventoryLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine> dataLoader =
@@ -116,7 +116,7 @@ public class X_I_InventoryResolver extends POResolver<X_I_Inventory> implements 
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(X_I_Inventory entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() < 0) {
+		if (entity.getM_Locator_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -131,7 +131,7 @@ public class X_I_InventoryResolver extends POResolver<X_I_Inventory> implements 
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_I_Inventory entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -146,7 +146,7 @@ public class X_I_InventoryResolver extends POResolver<X_I_Inventory> implements 
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_I_Inventory entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() < 0) {
+		if (entity.getM_Warehouse_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

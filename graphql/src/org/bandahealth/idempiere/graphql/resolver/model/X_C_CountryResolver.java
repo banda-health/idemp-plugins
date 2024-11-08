@@ -168,7 +168,7 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MCountry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =

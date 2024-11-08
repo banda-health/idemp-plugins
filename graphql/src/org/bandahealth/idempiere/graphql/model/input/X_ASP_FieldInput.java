@@ -56,7 +56,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
-							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Field_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -198,7 +198,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 			X_ASP_Tab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Tab", "ASP_Tab_UU=?", get_TrxName())
-							.setParameters(ASP_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setASP_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

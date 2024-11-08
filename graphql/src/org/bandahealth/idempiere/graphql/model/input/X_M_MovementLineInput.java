@@ -96,7 +96,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 			MDDOrderLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "DD_OrderLine", "DD_OrderLine_UU=?", get_TrxName())
-							.setParameters(DD_OrderLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DD_OrderLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setDD_OrderLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -137,7 +137,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(-1);
 		}
 	}
 
@@ -167,7 +167,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-							.setParameters(M_AttributeSetInstanceTo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSetInstanceTo.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_AttributeSetInstanceTo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -201,7 +201,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Locator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -235,7 +235,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_LocatorTo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_LocatorTo.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_LocatorTo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -272,7 +272,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 			MMovement_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Movement", "M_Movement_UU=?", get_TrxName())
-							.setParameters(M_Movement.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Movement.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Movement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -335,7 +335,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -369,7 +369,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 			MMovementLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
-							.setParameters(ReversalLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ReversalLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setReversalLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

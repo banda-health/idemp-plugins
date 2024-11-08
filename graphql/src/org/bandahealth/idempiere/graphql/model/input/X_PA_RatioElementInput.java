@@ -58,7 +58,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(Account.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Account.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -129,7 +129,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MMeasureCalc foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_MeasureCalc", "PA_MeasureCalc_UU=?", get_TrxName())
-							.setParameters(PA_MeasureCalc.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_MeasureCalc.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_MeasureCalc_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -166,7 +166,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			X_PA_Ratio foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
-							.setParameters(PA_Ratio.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_Ratio.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_Ratio_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -229,7 +229,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			X_PA_Ratio foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
-							.setParameters(PA_RatioUsed.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_RatioUsed.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_RatioUsed_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

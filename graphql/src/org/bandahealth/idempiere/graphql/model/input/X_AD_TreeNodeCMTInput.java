@@ -88,7 +88,7 @@ public class X_AD_TreeNodeCMTInput extends X_AD_TreeNodeCMT implements I_AD_Tree
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

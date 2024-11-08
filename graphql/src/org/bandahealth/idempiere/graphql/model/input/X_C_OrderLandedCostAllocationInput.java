@@ -90,7 +90,7 @@ public class X_C_OrderLandedCostAllocationInput extends MOrderLandedCostAllocati
 			MOrderLandedCost foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLandedCost", "C_OrderLandedCost_UU=?", get_TrxName())
-							.setParameters(C_OrderLandedCost.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_OrderLandedCost.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_OrderLandedCost_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_C_OrderLandedCostAllocationInput extends MOrderLandedCostAllocati
 			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
-							.setParameters(C_OrderLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_OrderLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_OrderLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

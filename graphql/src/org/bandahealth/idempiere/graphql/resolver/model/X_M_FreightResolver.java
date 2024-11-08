@@ -33,7 +33,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(MFreight entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() < 0) {
+		if (entity.getC_Country_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
@@ -48,7 +48,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MFreight entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -63,7 +63,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 	 * @return Identifies a geographical Region
 	 */
 	public CompletableFuture<MRegion> C_Region(MFreight entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Region_ID() < 0) {
+		if (entity.getC_Region_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
@@ -78,7 +78,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 	 * @return Category of the Freight
 	 */
 	public CompletableFuture<MFreightCategory> M_FreightCategory(MFreight entity, DataFetchingEnvironment environment) {
-		if (entity.getM_FreightCategory_ID() < 0) {
+		if (entity.getM_FreightCategory_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MFreightCategory> dataLoader =
@@ -93,7 +93,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(MFreight entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() < 0) {
+		if (entity.getM_Shipper_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -108,7 +108,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 	 * @return Receiving Region
 	 */
 	public CompletableFuture<MRegion> To_Region(MFreight entity, DataFetchingEnvironment environment) {
-		if (entity.getTo_Region_ID() < 0) {
+		if (entity.getTo_Region_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =

@@ -25,7 +25,7 @@ public class X_C_BankStatementLoaderResolver extends POResolver<MBankStatementLo
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MBankStatementLoader entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =

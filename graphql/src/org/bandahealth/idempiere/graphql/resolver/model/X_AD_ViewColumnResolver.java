@@ -32,7 +32,7 @@ public class X_AD_ViewColumnResolver extends POResolver<MViewColumn> implements 
 	 * @return Database View Component
 	 */
 	public CompletableFuture<MViewComponent> AD_ViewComponent(MViewColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ViewComponent_ID() < 0) {
+		if (entity.getAD_ViewComponent_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MViewComponent> dataLoader =

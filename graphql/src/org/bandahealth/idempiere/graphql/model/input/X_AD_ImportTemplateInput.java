@@ -116,7 +116,7 @@ public class X_AD_ImportTemplateInput extends MImportTemplate implements I_AD_Im
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_AD_ImportTemplateInput extends MImportTemplate implements I_AD_Im
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

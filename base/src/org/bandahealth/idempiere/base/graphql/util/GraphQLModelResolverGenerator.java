@@ -220,13 +220,20 @@ public class GraphQLModelResolverGenerator {
 			String valueMapPrefix = "";
 			String valueMapSuffix = "";
 			columnBuilder.append("\n");
+			String firstOK = "1";
+			//	check special column
+			if (columnName.equals("Record_ID") || columnName.equals("C_DocType_ID") || columnName.equals("Node_ID") ||
+					columnName.equals("AD_Role_ID") || columnName.equals("M_AttributeSet_ID") ||
+					columnName.equals("M_AttributeSetInstance_ID")) {
+				firstOK = "0";
+			}
 			if (fieldName != null && referenceClassName != null) {
 				// This entity is a foreign key, so let's work with it
 				String[] packagePath = referenceClassName.split("\\.");
 				referenceClassName = packagePath[packagePath.length - 1].substring(2);
 				entityName = fieldName;
 				foreignEntityTable = referenceClassName;
-				defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
+				defaultCheckToReturnNull = "entity.get" + columnName + "() < " + firstOK;
 			} else if (columnName.equals("AD_Language")) {
 				entityName = columnName;
 				foreignEntityTable = columnName;
@@ -249,19 +256,19 @@ public class GraphQLModelResolverGenerator {
 						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = entityName;
-					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < " + firstOK;
 				} else if (columnName.equals("Logo_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "AD_Image";
-					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < " + firstOK;
 				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "M_Warehouse";
-					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < " + firstOK;
 				} else if (columnName.equals("From_BH_Concept_ID") || columnName.equals("To_BH_Concept_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "BH_Concept";
-					defaultCheckToReturnNull = "entity.get" + columnName + "() < 0";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < " + firstOK;
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";

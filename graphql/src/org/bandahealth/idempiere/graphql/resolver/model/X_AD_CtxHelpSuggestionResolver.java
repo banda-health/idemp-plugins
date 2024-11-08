@@ -36,7 +36,7 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 	 * @return Context Help
 	 */
 	public CompletableFuture<MCtxHelp> AD_CtxHelp(MCtxHelpSuggestion entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_CtxHelp_ID() < 0) {
+		if (entity.getAD_CtxHelp_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
@@ -51,7 +51,7 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 	 * @return Context Help Message
 	 */
 	public CompletableFuture<MCtxHelpMsg> AD_CtxHelpMsg(MCtxHelpSuggestion entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_CtxHelpMsg_ID() < 0) {
+		if (entity.getAD_CtxHelpMsg_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCtxHelpMsg> dataLoader =
@@ -195,7 +195,7 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<X_AD_AllUsers_V> AD_User(MCtxHelpSuggestion entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllUsers_V> dataLoader =
@@ -210,7 +210,7 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 	 * @return Tenant of User
 	 */
 	public CompletableFuture<X_AD_AllClients_V> AD_UserClient(MCtxHelpSuggestion entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_UserClient_ID() < 0) {
+		if (entity.getAD_UserClient_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllClients_V> dataLoader =

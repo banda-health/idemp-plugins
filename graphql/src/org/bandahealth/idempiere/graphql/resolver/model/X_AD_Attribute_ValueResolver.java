@@ -25,7 +25,7 @@ public class X_AD_Attribute_ValueResolver extends POResolver<X_AD_Attribute_Valu
 	 * @return System Attribute
 	 */
 	public CompletableFuture<X_AD_Attribute> AD_Attribute(X_AD_Attribute_Value entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Attribute_ID() < 0) {
+		if (entity.getAD_Attribute_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Attribute> dataLoader =

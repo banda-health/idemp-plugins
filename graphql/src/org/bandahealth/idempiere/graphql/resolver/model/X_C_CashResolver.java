@@ -38,7 +38,7 @@ public class X_C_CashResolver extends POResolver<MCash> implements GraphQLResolv
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MCash entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -53,7 +53,7 @@ public class X_C_CashResolver extends POResolver<MCash> implements GraphQLResolv
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MCash entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -68,7 +68,7 @@ public class X_C_CashResolver extends POResolver<MCash> implements GraphQLResolv
 	 * @return Cash Book for recording petty cash transactions
 	 */
 	public CompletableFuture<MCashBook> C_CashBook(MCash entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashBook_ID() < 0) {
+		if (entity.getC_CashBook_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
@@ -83,7 +83,7 @@ public class X_C_CashResolver extends POResolver<MCash> implements GraphQLResolv
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MCash entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -166,7 +166,7 @@ public class X_C_CashResolver extends POResolver<MCash> implements GraphQLResolv
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MCash entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() < 0) {
+		if (entity.getUser1_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -181,7 +181,7 @@ public class X_C_CashResolver extends POResolver<MCash> implements GraphQLResolv
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MCash entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() < 0) {
+		if (entity.getUser2_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

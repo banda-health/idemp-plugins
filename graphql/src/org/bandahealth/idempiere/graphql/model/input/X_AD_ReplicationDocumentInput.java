@@ -124,7 +124,7 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
-							.setParameters(AD_ReplicationStrategy.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ReplicationStrategy.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -158,7 +158,7 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -199,7 +199,7 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 

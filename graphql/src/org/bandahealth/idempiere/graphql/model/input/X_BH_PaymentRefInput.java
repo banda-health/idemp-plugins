@@ -85,7 +85,7 @@ public class X_BH_PaymentRefInput extends MBHPaymentRef implements I_BH_PaymentR
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

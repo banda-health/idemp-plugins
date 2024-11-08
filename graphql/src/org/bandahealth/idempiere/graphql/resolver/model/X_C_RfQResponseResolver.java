@@ -35,7 +35,7 @@ public class X_C_RfQResponseResolver extends POResolver<MRfQResponse> implements
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MRfQResponse entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -50,7 +50,7 @@ public class X_C_RfQResponseResolver extends POResolver<MRfQResponse> implements
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MRfQResponse entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -65,7 +65,7 @@ public class X_C_RfQResponseResolver extends POResolver<MRfQResponse> implements
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MRfQResponse entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -80,7 +80,7 @@ public class X_C_RfQResponseResolver extends POResolver<MRfQResponse> implements
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MRfQResponse entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -95,7 +95,7 @@ public class X_C_RfQResponseResolver extends POResolver<MRfQResponse> implements
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MRfQResponse entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -110,7 +110,7 @@ public class X_C_RfQResponseResolver extends POResolver<MRfQResponse> implements
 	 * @return Request for Quotation
 	 */
 	public CompletableFuture<MRfQ> C_RfQ(MRfQResponse entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RfQ_ID() < 0) {
+		if (entity.getC_RfQ_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRfQ> dataLoader =

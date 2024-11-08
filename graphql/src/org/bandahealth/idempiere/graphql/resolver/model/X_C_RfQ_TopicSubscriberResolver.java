@@ -31,7 +31,7 @@ public class X_C_RfQ_TopicSubscriberResolver extends POResolver<MRfQTopicSubscri
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MRfQTopicSubscriber entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -46,7 +46,7 @@ public class X_C_RfQ_TopicSubscriberResolver extends POResolver<MRfQTopicSubscri
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MRfQTopicSubscriber entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -61,7 +61,7 @@ public class X_C_RfQ_TopicSubscriberResolver extends POResolver<MRfQTopicSubscri
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MRfQTopicSubscriber entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -76,7 +76,7 @@ public class X_C_RfQ_TopicSubscriberResolver extends POResolver<MRfQTopicSubscri
 	 * @return Topic for Request for Quotations
 	 */
 	public CompletableFuture<MRfQTopic> C_RfQ_Topic(MRfQTopicSubscriber entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RfQ_Topic_ID() < 0) {
+		if (entity.getC_RfQ_Topic_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRfQTopic> dataLoader =

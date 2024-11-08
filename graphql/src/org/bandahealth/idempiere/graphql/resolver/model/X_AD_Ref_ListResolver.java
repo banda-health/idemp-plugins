@@ -35,7 +35,7 @@ public class X_AD_Ref_ListResolver extends POResolver<MRefList_BH> implements Gr
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MRefList_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() < 0) {
+		if (entity.getAD_Reference_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =

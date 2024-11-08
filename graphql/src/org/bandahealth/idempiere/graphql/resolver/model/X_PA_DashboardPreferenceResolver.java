@@ -44,7 +44,7 @@ public class X_PA_DashboardPreferenceResolver extends POResolver<MDashboardPrefe
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MDashboardPreference entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -67,7 +67,7 @@ public class X_PA_DashboardPreferenceResolver extends POResolver<MDashboardPrefe
 	 * @return Dashboard Content
 	 */
 	public CompletableFuture<MDashboardContent> PA_DashboardContent(MDashboardPreference entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_DashboardContent_ID() < 0) {
+		if (entity.getPA_DashboardContent_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDashboardContent> dataLoader =

@@ -121,7 +121,7 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -165,7 +165,7 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -281,7 +281,7 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 			MAllocationHdr foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AllocationHdr", "C_AllocationHdr_UU=?", get_TrxName())
-							.setParameters(Reversal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Reversal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setReversal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

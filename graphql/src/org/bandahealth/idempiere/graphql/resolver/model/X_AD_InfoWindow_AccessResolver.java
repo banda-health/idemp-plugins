@@ -27,7 +27,7 @@ public class X_AD_InfoWindow_AccessResolver extends POResolver<MInfoWindowAccess
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(MInfoWindowAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() < 0) {
+		if (entity.getAD_InfoWindow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =

@@ -43,7 +43,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 	 * @return Organization Type
 	 */
 	public CompletableFuture<X_AD_OrgType> AD_OrgType(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_OrgType_ID() < 0) {
+		if (entity.getAD_OrgType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_OrgType> dataLoader =
@@ -58,7 +58,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() < 0) {
+		if (entity.getC_BP_Group_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -73,7 +73,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -88,7 +88,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() < 0) {
+		if (entity.getC_Tax_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -103,7 +103,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 	 * @return Tax Base
 	 */
 	public CompletableFuture<X_C_TaxBase> C_TaxBase(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxBase_ID() < 0) {
+		if (entity.getC_TaxBase_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxBase> dataLoader =
@@ -118,7 +118,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 	 * @return Tax Category
 	 */
 	public CompletableFuture<MTaxCategory> C_TaxCategory(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxCategory_ID() < 0) {
+		if (entity.getC_TaxCategory_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
@@ -133,7 +133,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 	 * @return Tax Group
 	 */
 	public CompletableFuture<X_C_TaxGroup> C_TaxGroup(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxGroup_ID() < 0) {
+		if (entity.getC_TaxGroup_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxGroup> dataLoader =
@@ -148,7 +148,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 	 * @return Tax Type
 	 */
 	public CompletableFuture<X_C_TaxType> C_TaxType(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxType_ID() < 0) {
+		if (entity.getC_TaxType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxType> dataLoader =
@@ -167,7 +167,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() < 0) {
+		if (entity.getM_Product_Category_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
@@ -182,7 +182,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

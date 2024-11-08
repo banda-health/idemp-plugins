@@ -25,7 +25,7 @@ public class X_M_SubstituteResolver extends POResolver<X_M_Substitute> implement
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_M_Substitute entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -40,7 +40,7 @@ public class X_M_SubstituteResolver extends POResolver<X_M_Substitute> implement
 	 * @return Entity which can be used in place of this entity
 	 */
 	public CompletableFuture<MProduct_BH> Substitute(X_M_Substitute entity, DataFetchingEnvironment environment) {
-		if (entity.getSubstitute_ID() < 0) {
+		if (entity.getSubstitute_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

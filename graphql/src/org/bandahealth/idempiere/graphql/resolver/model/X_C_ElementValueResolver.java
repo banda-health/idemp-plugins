@@ -90,7 +90,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MElementValue entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -105,7 +105,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MElementValue entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -120,7 +120,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 	 * @return Accounting Element
 	 */
 	public CompletableFuture<MElement> C_Element(MElementValue entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Element_ID() < 0) {
+		if (entity.getC_Element_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElement> dataLoader =

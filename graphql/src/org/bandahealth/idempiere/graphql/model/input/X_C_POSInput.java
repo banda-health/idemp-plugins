@@ -101,7 +101,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -135,7 +135,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartnerCashTrx.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartnerCashTrx.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartnerCashTrx_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -169,7 +169,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(C_CashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_CashBook_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -210,7 +210,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -266,7 +266,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MPOSKeyLayout foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-							.setParameters(C_POSKeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_POSKeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_POSKeyLayout_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -300,7 +300,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -334,7 +334,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -368,7 +368,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MPOSKeyLayout foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-							.setParameters(OSK_KeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(OSK_KeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setOSK_KeyLayout_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -402,7 +402,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MPOSKeyLayout foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-							.setParameters(OSNP_KeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(OSNP_KeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setOSNP_KeyLayout_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -436,7 +436,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

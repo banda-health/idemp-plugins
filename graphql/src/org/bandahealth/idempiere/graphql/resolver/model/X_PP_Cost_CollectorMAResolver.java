@@ -42,7 +42,7 @@ public class X_PP_Cost_CollectorMAResolver extends POResolver<X_PP_Cost_Collecto
 	 * @return Manufacturing Cost Collector
 	 */
 	public CompletableFuture<X_PP_Cost_Collector> PP_Cost_Collector(X_PP_Cost_CollectorMA entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Cost_Collector_ID() < 0) {
+		if (entity.getPP_Cost_Collector_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Cost_Collector> dataLoader =

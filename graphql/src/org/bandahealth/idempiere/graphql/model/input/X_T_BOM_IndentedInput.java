@@ -89,7 +89,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -123,7 +123,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -157,7 +157,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
-							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_CostElement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -191,7 +191,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -225,7 +225,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(Sel_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Sel_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSel_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -71,7 +71,7 @@ public class X_AD_InfoWindow_AccessInput extends MInfoWindowAccess implements I_
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -152,7 +152,7 @@ public class X_AD_InfoWindow_AccessInput extends MInfoWindowAccess implements I_
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 

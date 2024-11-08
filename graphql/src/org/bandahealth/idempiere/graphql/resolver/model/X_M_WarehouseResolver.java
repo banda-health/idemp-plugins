@@ -32,7 +32,7 @@ public class X_M_WarehouseResolver extends POResolver<MWarehouse_BH> implements 
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MWarehouse_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -55,7 +55,7 @@ public class X_M_WarehouseResolver extends POResolver<MWarehouse_BH> implements 
 	 * @return Reservation Locator (just for reporting purposes)
 	 */
 	public CompletableFuture<MLocator> M_ReserveLocator(MWarehouse_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ReserveLocator_ID() < 0) {
+		if (entity.getM_ReserveLocator_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -70,7 +70,7 @@ public class X_M_WarehouseResolver extends POResolver<MWarehouse_BH> implements 
 	 * @return Optional Warehouse to replenish from
 	 */
 	public CompletableFuture<MWarehouse_BH> M_WarehouseSource(MWarehouse_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_WarehouseSource_ID() < 0) {
+		if (entity.getM_WarehouseSource_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

@@ -27,7 +27,7 @@ public class X_M_ProductPriceResolver extends POResolver<MProductPrice_BH> imple
 	 * @return Identifies a unique instance of a Price List
 	 */
 	public CompletableFuture<MPriceListVersion> M_PriceList_Version(MProductPrice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_Version_ID() < 0) {
+		if (entity.getM_PriceList_Version_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPriceListVersion> dataLoader =
@@ -42,7 +42,7 @@ public class X_M_ProductPriceResolver extends POResolver<MProductPrice_BH> imple
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MProductPrice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

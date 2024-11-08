@@ -55,7 +55,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Color", "AD_Color_UU=?", get_TrxName())
-							.setParameters(AD_Color.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Color.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Color_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

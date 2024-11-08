@@ -25,7 +25,7 @@ public class X_C_Subscription_DeliveryResolver extends POResolver<X_C_Subscripti
 	 * @return Subscription of a Business Partner of a Product to renew
 	 */
 	public CompletableFuture<X_C_Subscription> C_Subscription(X_C_Subscription_Delivery entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Subscription_ID() < 0) {
+		if (entity.getC_Subscription_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Subscription> dataLoader =

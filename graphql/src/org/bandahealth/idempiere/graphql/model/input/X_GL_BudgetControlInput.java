@@ -127,7 +127,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -200,7 +200,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 			X_GL_Budget foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
-							.setParameters(GL_Budget.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Budget.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_Budget_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

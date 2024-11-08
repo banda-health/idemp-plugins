@@ -25,7 +25,7 @@ public class X_AD_LanguageResolver extends POResolver<MLanguage> implements Grap
 	 * @return Printer paper definition
 	 */
 	public CompletableFuture<X_AD_PrintPaper> AD_PrintPaper(MLanguage entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintPaper_ID() < 0) {
+		if (entity.getAD_PrintPaper_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintPaper> dataLoader =

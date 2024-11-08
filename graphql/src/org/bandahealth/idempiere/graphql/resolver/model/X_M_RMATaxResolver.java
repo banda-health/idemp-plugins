@@ -29,7 +29,7 @@ public class X_M_RMATaxResolver extends POResolver<MRMATax> implements GraphQLRe
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MRMATax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() < 0) {
+		if (entity.getC_Tax_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -44,7 +44,7 @@ public class X_M_RMATaxResolver extends POResolver<MRMATax> implements GraphQLRe
 	 * @return Tax Provider
 	 */
 	public CompletableFuture<MTaxProvider> C_TaxProvider(MRMATax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxProvider_ID() < 0) {
+		if (entity.getC_TaxProvider_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTaxProvider> dataLoader =
@@ -63,7 +63,7 @@ public class X_M_RMATaxResolver extends POResolver<MRMATax> implements GraphQLRe
 	 * @return Return Material Authorization
 	 */
 	public CompletableFuture<MRMA> M_RMA(MRMATax entity, DataFetchingEnvironment environment) {
-		if (entity.getM_RMA_ID() < 0) {
+		if (entity.getM_RMA_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRMA> dataLoader =

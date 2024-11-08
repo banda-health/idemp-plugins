@@ -94,7 +94,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -149,7 +149,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -183,7 +183,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(T_Credit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(T_Credit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setT_Credit_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -217,7 +217,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(T_Due_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(T_Due_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setT_Due_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -251,7 +251,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(T_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(T_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setT_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

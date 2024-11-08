@@ -47,7 +47,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -62,7 +62,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -77,7 +77,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -92,7 +92,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -107,7 +107,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() < 0) {
+		if (entity.getC_Charge_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -137,7 +137,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -152,7 +152,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return Expense Invoice Batch Header
 	 */
 	public CompletableFuture<MInvoiceBatch> C_InvoiceBatch(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceBatch_ID() < 0) {
+		if (entity.getC_InvoiceBatch_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceBatch> dataLoader =
@@ -167,7 +167,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() < 0) {
+		if (entity.getC_InvoiceLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -182,7 +182,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -197,7 +197,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() < 0) {
+		if (entity.getC_Tax_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -220,7 +220,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() < 0) {
+		if (entity.getUser1_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -235,7 +235,7 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() < 0) {
+		if (entity.getUser2_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

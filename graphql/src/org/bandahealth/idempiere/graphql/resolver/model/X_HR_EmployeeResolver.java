@@ -33,7 +33,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(X_HR_Employee entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -48,7 +48,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_HR_Employee entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -63,7 +63,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 	 * @return Payroll Department
 	 */
 	public CompletableFuture<X_HR_Department> HR_Department(X_HR_Employee entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Department_ID() < 0) {
+		if (entity.getHR_Department_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
@@ -78,7 +78,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 	 * @return Payroll Job
 	 */
 	public CompletableFuture<X_HR_Job> HR_Job(X_HR_Employee entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Job_ID() < 0) {
+		if (entity.getHR_Job_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Job> dataLoader =
@@ -93,7 +93,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 	 * @return Payroll
 	 */
 	public CompletableFuture<X_HR_Payroll> HR_Payroll(X_HR_Employee entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Payroll_ID() < 0) {
+		if (entity.getHR_Payroll_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =

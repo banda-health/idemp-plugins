@@ -81,7 +81,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MPPProductBOM entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 0) {
+		if (entity.getC_UOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -143,7 +143,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	public CompletableFuture<MChangeNotice> M_ChangeNotice(MPPProductBOM entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ChangeNotice_ID() < 0) {
+		if (entity.getM_ChangeNotice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
@@ -158,7 +158,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MPPProductBOM entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

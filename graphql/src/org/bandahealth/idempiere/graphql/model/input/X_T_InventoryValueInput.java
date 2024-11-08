@@ -100,7 +100,7 @@ public class X_T_InventoryValueInput extends X_T_InventoryValue implements I_T_I
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -134,7 +134,7 @@ public class X_T_InventoryValueInput extends X_T_InventoryValue implements I_T_I
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -175,7 +175,7 @@ public class X_T_InventoryValueInput extends X_T_InventoryValue implements I_T_I
 						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(-1);
 		}
 	}
 
@@ -202,7 +202,7 @@ public class X_T_InventoryValueInput extends X_T_InventoryValue implements I_T_I
 			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
-							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_CostElement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -236,7 +236,7 @@ public class X_T_InventoryValueInput extends X_T_InventoryValue implements I_T_I
 			MPriceListVersion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList_Version", "M_PriceList_Version_UU=?", get_TrxName())
-							.setParameters(M_PriceList_Version.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList_Version.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PriceList_Version_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -270,7 +270,7 @@ public class X_T_InventoryValueInput extends X_T_InventoryValue implements I_T_I
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -304,7 +304,7 @@ public class X_T_InventoryValueInput extends X_T_InventoryValue implements I_T_I
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

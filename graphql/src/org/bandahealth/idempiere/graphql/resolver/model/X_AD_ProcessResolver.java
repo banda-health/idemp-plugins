@@ -64,7 +64,7 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 	 * @return Context Help
 	 */
 	public CompletableFuture<MCtxHelp> AD_CtxHelp(MProcess_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_CtxHelp_ID() < 0) {
+		if (entity.getAD_CtxHelp_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
@@ -79,7 +79,7 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(MProcess_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() < 0) {
+		if (entity.getAD_Form_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -94,7 +94,7 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 	 * @return Data Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(MProcess_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormat_ID() < 0) {
+		if (entity.getAD_PrintFormat_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -109,7 +109,7 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 	 * @return View used to generate this report
 	 */
 	public CompletableFuture<MReportView> AD_ReportView(MProcess_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReportView_ID() < 0) {
+		if (entity.getAD_ReportView_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReportView> dataLoader =
@@ -124,7 +124,7 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(MProcess_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() < 0) {
+		if (entity.getAD_Workflow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =

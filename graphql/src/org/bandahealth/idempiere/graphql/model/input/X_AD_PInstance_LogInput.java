@@ -56,7 +56,7 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -108,7 +108,7 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

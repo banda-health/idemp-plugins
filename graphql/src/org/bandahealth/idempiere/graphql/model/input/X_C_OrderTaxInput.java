@@ -93,7 +93,7 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -148,7 +148,7 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -185,7 +185,7 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 			MTaxProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxProvider", "C_TaxProvider_UU=?", get_TrxName())
-							.setParameters(C_TaxProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_TaxProvider_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

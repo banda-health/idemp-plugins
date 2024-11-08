@@ -95,7 +95,7 @@ public class X_I_PriceListInput extends X_I_PriceList implements I_I_PriceListIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -129,7 +129,7 @@ public class X_I_PriceListInput extends X_I_PriceList implements I_I_PriceListIn
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -163,7 +163,7 @@ public class X_I_PriceListInput extends X_I_PriceList implements I_I_PriceListIn
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -226,7 +226,7 @@ public class X_I_PriceListInput extends X_I_PriceList implements I_I_PriceListIn
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -260,7 +260,7 @@ public class X_I_PriceListInput extends X_I_PriceList implements I_I_PriceListIn
 			MPriceListVersion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList_Version", "M_PriceList_Version_UU=?", get_TrxName())
-							.setParameters(M_PriceList_Version.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList_Version.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PriceList_Version_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -294,7 +294,7 @@ public class X_I_PriceListInput extends X_I_PriceList implements I_I_PriceListIn
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -99,7 +99,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -201,7 +201,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
-							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_CostElement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -235,7 +235,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 			MInOut_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
-							.setParameters(M_InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOut_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -269,7 +269,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -303,7 +303,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

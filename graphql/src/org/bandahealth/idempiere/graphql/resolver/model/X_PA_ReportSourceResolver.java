@@ -46,7 +46,7 @@ public class X_PA_ReportSourceResolver extends POResolver<MReportSource> impleme
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MReportSource entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -61,7 +61,7 @@ public class X_PA_ReportSourceResolver extends POResolver<MReportSource> impleme
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MReportSource entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -76,7 +76,7 @@ public class X_PA_ReportSourceResolver extends POResolver<MReportSource> impleme
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MReportSource entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -91,7 +91,7 @@ public class X_PA_ReportSourceResolver extends POResolver<MReportSource> impleme
 	 * @return Account Element
 	 */
 	public CompletableFuture<MElementValue> C_ElementValue(MReportSource entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValue_ID() < 0) {
+		if (entity.getC_ElementValue_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -106,7 +106,7 @@ public class X_PA_ReportSourceResolver extends POResolver<MReportSource> impleme
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MReportSource entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -121,7 +121,7 @@ public class X_PA_ReportSourceResolver extends POResolver<MReportSource> impleme
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MReportSource entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -136,7 +136,7 @@ public class X_PA_ReportSourceResolver extends POResolver<MReportSource> impleme
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(MReportSource entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() < 0) {
+		if (entity.getC_SalesRegion_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -229,7 +229,7 @@ public class X_PA_ReportSourceResolver extends POResolver<MReportSource> impleme
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MReportSource entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -244,7 +244,7 @@ public class X_PA_ReportSourceResolver extends POResolver<MReportSource> impleme
 	 * @return Report Line
 	 */
 	public CompletableFuture<MReportLine> PA_ReportLine(MReportSource entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ReportLine_ID() < 0) {
+		if (entity.getPA_ReportLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReportLine> dataLoader =

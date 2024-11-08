@@ -132,7 +132,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -166,7 +166,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InterestExp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InterestExp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_InterestExp_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -200,7 +200,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InterestRev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InterestRev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_InterestRev_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -234,7 +234,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InTransit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InTransit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_InTransit_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -268,7 +268,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_PaymentSelect_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_PaymentSelect_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_PaymentSelect_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -302,7 +302,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_UnallocatedCash_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_UnallocatedCash_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_UnallocatedCash_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -357,7 +357,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -391,7 +391,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Prepayment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Prepayment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Prepayment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -425,7 +425,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Receivable_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Receivable_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Receivable_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -459,7 +459,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Receivable_Services_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Receivable_Services_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Receivable_Services_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -493,7 +493,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCB_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -527,7 +527,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_CashTransfer_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_CashTransfer_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCB_CashTransfer_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -561,7 +561,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Differences_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Differences_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCB_Differences_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -595,7 +595,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCB_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -629,7 +629,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Receipt_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Receipt_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCB_Receipt_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -663,7 +663,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(Ch_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Ch_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCh_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -697,7 +697,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(NotInvoicedReceipts_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(NotInvoicedReceipts_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setNotInvoicedReceipts_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -731,7 +731,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -765,7 +765,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_AverageCostVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_AverageCostVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_AverageCostVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -799,7 +799,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_COGS_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_COGS_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_COGS_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -833,7 +833,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_CostAdjustment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_CostAdjustment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_CostAdjustment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -867,7 +867,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -901,7 +901,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_InventoryClearing_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_InventoryClearing_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_InventoryClearing_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -935,7 +935,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_InvoicePriceVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_InvoicePriceVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_InvoicePriceVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -969,7 +969,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_LandedCostClearing_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_LandedCostClearing_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_LandedCostClearing_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1003,7 +1003,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_PurchasePriceVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_PurchasePriceVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_PurchasePriceVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1037,7 +1037,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_RateVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_RateVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_RateVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1071,7 +1071,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Revenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Revenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_Revenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1105,7 +1105,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_TradeDiscountGrant_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_TradeDiscountGrant_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_TradeDiscountGrant_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1139,7 +1139,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_TradeDiscountRec_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_TradeDiscountRec_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setP_TradeDiscountRec_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1173,7 +1173,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PayDiscount_Exp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PayDiscount_Exp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPayDiscount_Exp_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1207,7 +1207,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PayDiscount_Rev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PayDiscount_Rev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPayDiscount_Rev_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1241,7 +1241,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PJ_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPJ_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1275,7 +1275,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_WIP_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PJ_WIP_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPJ_WIP_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1309,7 +1309,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(RealizedGain_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RealizedGain_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setRealizedGain_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1343,7 +1343,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(RealizedLoss_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RealizedLoss_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setRealizedLoss_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1377,7 +1377,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(T_Credit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(T_Credit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setT_Credit_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1411,7 +1411,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(T_Due_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(T_Due_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setT_Due_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1445,7 +1445,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(T_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(T_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setT_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1479,7 +1479,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(UnEarnedRevenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UnEarnedRevenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUnEarnedRevenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1513,7 +1513,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(UnrealizedGain_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UnrealizedGain_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUnrealizedGain_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1547,7 +1547,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(UnrealizedLoss_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UnrealizedLoss_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setUnrealizedLoss_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1581,7 +1581,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Liability_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(V_Liability_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setV_Liability_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1615,7 +1615,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Liability_Services_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(V_Liability_Services_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setV_Liability_Services_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1649,7 +1649,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Prepayment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(V_Prepayment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setV_Prepayment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1683,7 +1683,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(W_Differences_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(W_Differences_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setW_Differences_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1717,7 +1717,7 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(WriteOff_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(WriteOff_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setWriteOff_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -99,7 +99,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocTypeDifference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocTypeDifference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_DocTypeDifference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocTypeInvoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocTypeInvoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_DocTypeInvoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -230,7 +230,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocTypeProforma.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocTypeProforma.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_DocTypeProforma_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -264,7 +264,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocTypeShipment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocTypeShipment.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_DocTypeShipment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -298,7 +298,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 			MSequence_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
-							.setParameters(DefiniteSequence.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DefiniteSequence.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setDefiniteSequence_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -371,7 +371,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 			MSequence_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
-							.setParameters(DocNoSequence.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DocNoSequence.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setDocNoSequence_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -483,7 +483,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
-							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

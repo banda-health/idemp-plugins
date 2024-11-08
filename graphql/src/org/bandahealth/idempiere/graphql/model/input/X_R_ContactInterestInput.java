@@ -90,7 +90,7 @@ public class X_R_ContactInterestInput extends MContactInterest implements I_R_Co
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -145,7 +145,7 @@ public class X_R_ContactInterestInput extends MContactInterest implements I_R_Co
 			MInterestArea foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_InterestArea", "R_InterestArea_UU=?", get_TrxName())
-							.setParameters(R_InterestArea.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_InterestArea.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_InterestArea_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

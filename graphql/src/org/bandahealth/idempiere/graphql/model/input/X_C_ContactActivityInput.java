@@ -91,7 +91,7 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -154,7 +154,7 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 			MOpportunity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Opportunity", "C_Opportunity_UU=?", get_TrxName())
-							.setParameters(C_Opportunity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Opportunity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Opportunity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -230,7 +230,7 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

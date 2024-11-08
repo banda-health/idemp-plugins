@@ -64,7 +64,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -79,7 +79,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -94,7 +94,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -109,7 +109,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -124,7 +124,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() < 0) {
+		if (entity.getC_Charge_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -139,7 +139,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -154,7 +154,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -169,7 +169,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -184,7 +184,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Phase of a Project
 	 */
 	public CompletableFuture<MProjectPhase> C_ProjectPhase(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectPhase_ID() < 0) {
+		if (entity.getC_ProjectPhase_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
@@ -199,7 +199,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Actual Project Task in a Phase
 	 */
 	public CompletableFuture<MProjectTask> C_ProjectTask(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectTask_ID() < 0) {
+		if (entity.getC_ProjectTask_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
@@ -214,7 +214,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() < 0) {
+		if (entity.getC_Tax_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -229,7 +229,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 0) {
+		if (entity.getC_UOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -248,7 +248,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return This field links a sales order line to the purchase order line that is generated from it.
 	 */
 	public CompletableFuture<MOrderLine_BH> Link_OrderLine(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getLink_OrderLine_ID() < 0) {
+		if (entity.getLink_OrderLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -278,7 +278,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -293,7 +293,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Promotion
 	 */
 	public CompletableFuture<X_M_Promotion> M_Promotion(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Promotion_ID() < 0) {
+		if (entity.getM_Promotion_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_M_Promotion> dataLoader =
@@ -308,7 +308,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() < 0) {
+		if (entity.getM_Shipper_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -323,7 +323,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() < 0) {
+		if (entity.getM_Warehouse_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -338,7 +338,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Manufacturing Cost Collector
 	 */
 	public CompletableFuture<X_PP_Cost_Collector> PP_Cost_Collector(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Cost_Collector_ID() < 0) {
+		if (entity.getPP_Cost_Collector_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Cost_Collector> dataLoader =
@@ -357,7 +357,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Reference to corresponding Sales/Purchase Order
 	 */
 	public CompletableFuture<MOrderLine_BH> Ref_OrderLine(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getRef_OrderLine_ID() < 0) {
+		if (entity.getRef_OrderLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -372,7 +372,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return Resource Assignment
 	 */
 	public CompletableFuture<MResourceAssignment> S_ResourceAssignment(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getS_ResourceAssignment_ID() < 0) {
+		if (entity.getS_ResourceAssignment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MResourceAssignment> dataLoader =
@@ -387,7 +387,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() < 0) {
+		if (entity.getUser1_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -402,7 +402,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() < 0) {
+		if (entity.getUser2_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

@@ -50,7 +50,7 @@ type BH_Concept_Mapping {
 	From_BH_Concept: BH_Concept!
 	# The record is active in the system
 	IsActive: Boolean!
-	# A UUID from the OCL System
+	# A UUID from the OCL system
 	Ocl_Uuid: String
 	# To Concept
 	To_BH_Concept: BH_Concept
@@ -87,7 +87,7 @@ input BH_Concept_MappingInput {
 	From_BH_Concept: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	# A UUID from the OCL System
+	# A UUID from the OCL system
 	Ocl_Uuid: String
 	# To Concept
 	To_BH_Concept: ForeignEntityInput

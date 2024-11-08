@@ -27,7 +27,7 @@ public class X_C_ChargeType_DocTypeResolver extends POResolver<X_C_ChargeType_Do
 	 * @return Charge Type
 	 */
 	public CompletableFuture<MChargeType_BH> C_ChargeType(X_C_ChargeType_DocType entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ChargeType_ID() < 0) {
+		if (entity.getC_ChargeType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MChargeType_BH> dataLoader =

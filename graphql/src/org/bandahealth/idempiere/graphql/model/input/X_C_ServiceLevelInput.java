@@ -91,7 +91,7 @@ public class X_C_ServiceLevelInput extends X_C_ServiceLevel implements I_C_Servi
 			MRevenueRecognitionPlan foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecognition_Plan", "C_RevenueRecognition_Plan_UU=?", get_TrxName())
-							.setParameters(C_RevenueRecognition_Plan.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RevenueRecognition_Plan.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_RevenueRecognition_Plan_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -157,7 +157,7 @@ public class X_C_ServiceLevelInput extends X_C_ServiceLevel implements I_C_Servi
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

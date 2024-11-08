@@ -92,7 +92,7 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 			MAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
-							.setParameters(M_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Attribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -154,7 +154,7 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(-1);
 		}
 	}
 
@@ -181,7 +181,7 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 			MAttributeValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeValue", "M_AttributeValue_UU=?", get_TrxName())
-							.setParameters(M_AttributeValue.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeValue.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_AttributeValue_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

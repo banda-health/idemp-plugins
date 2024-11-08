@@ -31,7 +31,7 @@ public class X_M_PriceListResolver extends POResolver<MPriceList> implements Gra
 	 * @return Pricelist to be used, if product not found on this pricelist
 	 */
 	public CompletableFuture<MPriceList> BasePriceList(MPriceList entity, DataFetchingEnvironment environment) {
-		if (entity.getBasePriceList_ID() < 0) {
+		if (entity.getBasePriceList_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_PriceListResolver extends POResolver<MPriceList> implements Gra
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MPriceList entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =

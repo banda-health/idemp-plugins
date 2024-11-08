@@ -89,7 +89,7 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -123,7 +123,7 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 			MBank foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
-							.setParameters(C_Bank.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Bank.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Bank_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -157,7 +157,7 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

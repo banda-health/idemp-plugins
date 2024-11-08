@@ -128,7 +128,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -155,7 +155,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
