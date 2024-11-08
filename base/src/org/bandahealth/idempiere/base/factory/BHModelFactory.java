@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBHBPGeneralPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHBPPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
-import org.bandahealth.idempiere.base.model.MBHClientConceptExtra;
+import org.bandahealth.idempiere.base.model.MBHClientConcept;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptDescription;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
@@ -198,8 +198,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHConceptDescription.class;
 		} else if (tableName.equalsIgnoreCase(MBHConceptExtra.Table_Name)) {
 			return MBHConceptExtra.class;
-		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
-			return MBHClientConceptExtra.class;
+		} else if (tableName.equalsIgnoreCase(MBHClientConcept.Table_Name)) {
+			return MBHClientConcept.class;
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnostic.Table_Name)) {
 			return MBHEncounterDiagnostic.class;
 		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
@@ -331,8 +331,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHConceptDescription(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHConceptExtra.Table_Name)) {
 			return new MBHConceptExtra(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
-			return new MBHClientConceptExtra(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHClientConcept.Table_Name)) {
+			return new MBHClientConcept(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnostic.Table_Name)) {
 			return new MBHEncounterDiagnostic(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
@@ -468,8 +468,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHConceptDescription(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHConceptExtra.Table_Name)) {
 			return new MBHConceptExtra(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
-			return new MBHClientConceptExtra(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHClientConcept.Table_Name)) {
+			return new MBHClientConcept(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnostic.Table_Name)) {
 			return new MBHEncounterDiagnostic(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {

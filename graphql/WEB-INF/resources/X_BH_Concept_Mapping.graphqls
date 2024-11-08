@@ -46,7 +46,6 @@ type BH_Concept_Mapping {
 	Created: Date
 	# User who created this records
 	CreatedBy: AD_User
-	# From Concept
 	From_BH_Concept: BH_Concept!
 	# The record is active in the system
 	IsActive: Boolean!
@@ -82,7 +81,6 @@ input BH_Concept_MappingInput {
 	BH_To_Concept_Name_Resolved: String
 	BH_To_Concept_Url: String
 	BH_To_Source_Name: String
-	# From Concept
 	From_BH_Concept: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

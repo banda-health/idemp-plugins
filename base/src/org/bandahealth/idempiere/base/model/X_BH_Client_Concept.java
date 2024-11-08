@@ -31,7 +31,7 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20241003L;
+	private static final long serialVersionUID = 20241108L;
 
     /** Standard Constructor */
     public X_BH_Client_Concept (Properties ctx, int BH_Client_Concept_ID, String trxName)
@@ -173,8 +173,7 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 	}
 
 	/** Get Display Name.
-		@return Display Name
-	  */
+		@return Display Name	  */
 	public String getBH_Display_Name()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Display_Name);

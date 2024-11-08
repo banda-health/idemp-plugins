@@ -41,14 +41,14 @@ public interface I_BH_Concept_MappingInput extends I_BH_Concept_Mapping {
 	/**
 	 * Set From_BH_Concept.
 	 *
-	 * @param From_BH_Concept From Concept
+	 * @param From_BH_Concept From_BH_Concept
 	 */
 	void setFrom_BH_ConceptInput(ForeignEntityInput From_BH_Concept);
 
 	/**
 	 * Get From_BH_Concept.
 	 *
-	 * @return From Concept
+	 * @return From_BH_Concept
 	 */
 	ForeignEntityInput From_BH_Concept();
 

@@ -9,7 +9,7 @@ export * from './businessPartnerGroups';
 export * from './businessPartners';
 export * from './chargeTypes';
 export * from './charges';
-export * from './clientConceptExtra';
+export * from './clientConcept';
 export * from './concept';
 export * from './documentTypes';
 export * from './documents';
