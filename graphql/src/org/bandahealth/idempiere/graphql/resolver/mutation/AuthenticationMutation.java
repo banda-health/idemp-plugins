@@ -230,6 +230,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		if (changeAccessInput == null || StringUtil.isNullOrEmpty(changeAccessInput.getAD_Org_UU())) {
 			return;
 		}
+		PO.setCrossTenantSafe();
 		MOrg organization = new MOrg(idempiereContext, changeAccessInput.getAD_Org_UU(), null);
 		if (organization.get_ID() == 0) {
 			throw new AdempiereException("Unauthorized");
