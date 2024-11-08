@@ -41,6 +41,7 @@ import {
 	Bh_VisitRemoveInsurancePayerDocument,
 	Bh_VisitSaveAndProcessWithOrdersDocument,
 	Bh_VisitSaveAndProcessWithOrdersInvoicesAndPaymentsDocument,
+	Bh_VisitSaveDocument,
 	Bh_VisitSaveWithEncountersObservationsOrdersInvoicesInsuranceAndPaymentsDocument,
 	Bh_VisitSaveWithEncountersOrdersAndInvoicesDocument,
 	Bh_VisitSaveWithOrdersAndInvoicesDocument,
@@ -3058,4 +3059,34 @@ test('sales reps set correctly for orders', async () => {
 			},
 		}),
 	).rejects.toBeTruthy();
+});
+
+test(`can save triage as a process stage`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	const processStages = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.PROCESS_STAGE } }) },
+		})
+	).data.AD_Ref_ListGet.Results;
+	const triageVitals = processStages.find((processStage) => processStage.Name === 'Triage / Vitals')!;
+	expect(triageVitals).toBeTruthy();
+
+	valueObject.stepName = 'Create visit';
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				BH_Process_Stage: { UU: triageVitals.UU },
+				BH_VisitDate: valueObject.date?.getTime(),
+				Description: valueObject.getStepMessageLong(),
+				Patient: { UU: valueObject.businessPartner!.UU },
+			},
+		},
+	});
 });
