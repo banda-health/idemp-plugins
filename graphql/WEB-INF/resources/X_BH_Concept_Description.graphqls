@@ -34,7 +34,7 @@ type BH_Concept_Description {
 	Created: Date
 	# User who created this records
 	CreatedBy: AD_User
-	# Description of the record
+	# Optional short description of the record
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
@@ -59,7 +59,7 @@ input BH_Concept_DescriptionInput {
 	BH_Concept_Type: String
 	# BH_External_ID
 	BH_ExternalID: String
-	# Description of the record
+	# Optional short description of the record
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean

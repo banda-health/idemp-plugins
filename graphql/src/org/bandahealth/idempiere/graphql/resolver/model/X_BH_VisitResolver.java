@@ -74,10 +74,11 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 
 	public static Map<String, String> BH_PROCESS_STAGE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("toclinician", "e74d5f99-fd01-4d54-ab35-7a630c43f064"); // Clinician
-			put("tocashier", "fed0d4f4-4eb2-478c-beb4-9570a8da06bf"); // Cashier
-			put("tolab", "e3eace1e-ee22-409b-a7ae-09cee5350b91"); // Lab
+			put("toclinician", "e74d5f99-fd01-4d54-ab35-7a630c43f064"); // Clinician / Dentist
+			put("tocashier", "fed0d4f4-4eb2-478c-beb4-9570a8da06bf"); // Cashier / Registration
+			put("tolab", "e3eace1e-ee22-409b-a7ae-09cee5350b91"); // Lab / Imaging
 			put("topharmacy", "24c32cc4-3fdb-4448-85a5-879eea7866ea"); // Pharmacy
+			put("totriage", "200a2704-2496-49ee-bc15-421cc25abbfd"); // Triage / Vitals
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_Process_Stage(MBHVisit entity, DataFetchingEnvironment environment) {
