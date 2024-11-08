@@ -64,6 +64,15 @@ SET
 WHERE
 	bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03';
 
+-- Set unique & non-null constraints on OCL UUs
+ALTER TABLE bh_concept
+	ALTER COLUMN ocl_uuid SET NOT NULL;
+ALTER TABLE bh_concept
+	ADD CONSTRAINT bhconcept_ocluuid UNIQUE (ocl_uuid);
+ALTER TABLE bh_concept_mapping
+	ALTER COLUMN ocl_uuid SET NOT NULL;
+ALTER TABLE bh_concept_name
+	ALTER COLUMN ocl_uuid SET NOT NULL;
 
 SELECT
 	register_migration_script('202411080614_GO-2923.sql')
