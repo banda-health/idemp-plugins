@@ -65,22 +65,23 @@
 ),
 	diagnosis_list AS (
 		SELECT DISTINCT
-			bh_moh705b_greaterthan5 AS diagnosis
+			bh_value AS diagnosis
 		FROM
-			bh_coded_diagnosis
+			bh_concept_extra
 		WHERE
-				bh_moh705b_greaterthan5 NOT IN
+				bh_value NOT IN
 				('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Tonsillitis', 'Diarrhea with some dehydration',
 				 'Diarrhea with severe dehydration', 'Other Diseases Of Respiratory System', 'Sexual Assault', 'Kalaazar',
 				 'Fevers', 'Eye Infections', 'Dracunculiasis (Guinea Worm)', 'Neoplasms', 'Newly Diagnosed HIV',
 				 'Other Central Nervous System Conditions', 'Other Convulsive Disorders', 'Other Eye Conditions', 'Plague',
 				 'Diarrhea', 'Congenital Anomalies', 'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
 				 'Cerebral Palsy', 'Autism')
+				 AND bh_key = 'MOH-705B-GREATERTHAN5'
 	),
 	visit_diagnoses AS (
 		SELECT
 			v.bh_visit_id,
-			ev.bh_coded_diagnosis_id,
+			ev.bh_concept_id,
 			ev.bh_uncoded_diagnosis,
 			ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
 		FROM
@@ -96,33 +97,26 @@
 	),
 	diagnosis_count AS (
 		SELECT DISTINCT
-			b.bh_moh705b_greaterthan5    AS diagnosis,
-			c.calendar,
-			COALESCE(c.noofdiagnosis, 0) AS noofdiagnosis
+			ce.bh_value 				    AS diagnosis,
+			CAST(bh_visitdate AS date)      AS calendar,
+			COUNT(pd.bh_concept_id) 		AS noofdiagnosis
 		FROM
-			bh_coded_diagnosis b
-				LEFT JOIN (
-				SELECT
-					bh_moh705b_greaterthan5,
-					CAST(bh_visitdate AS date)      AS calendar,
-					COUNT(pd.bh_coded_diagnosis_id) AS noofdiagnosis
-				FROM
-					bh_visit v
-						JOIN visit_diagnoses pd
-						ON pd.bh_visit_id = v.bh_visit_id AND pd.diagnosis_rank = 1
-						JOIN bh_coded_diagnosis cd
-						ON pd.bh_coded_diagnosis_id = cd.bh_coded_diagnosis_id
-						JOIN date_limitter dl
-						ON dl.calendar = CAST(bh_visitdate AS date)
-						JOIN c_bpartner bp
-						ON v.patient_id = bp.c_bpartner_id
-				WHERE
-					bp.bh_birthday IS NOT NULL
-					AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
-				GROUP BY bh_moh705b_greaterthan5, CAST (bh_visitdate AS DATE)
-			) c
-				ON b.bh_moh705b_greaterthan5 = c.bh_moh705b_greaterthan5
-		ORDER BY calendar
+			bh_visit v
+				JOIN visit_diagnoses pd
+				ON pd.bh_visit_id = v.bh_visit_id AND pd.diagnosis_rank = 1
+				JOIN bh_concept c
+				ON pd.bh_concept_id = c.bh_concept_id
+				JOIN bh_concept_extra ce
+				ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
+				JOIN date_limitter dl
+				ON dl.calendar = CAST(bh_visitdate AS date)
+				JOIN c_bpartner bp
+				ON v.patient_id = bp.c_bpartner_id
+		WHERE
+			bp.bh_birthday IS NOT NULL
+			AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
+		GROUP BY ce.bh_value, CAST (bh_visitdate AS DATE)
+		ORDER BY CAST(bh_visitdate AS date)
 	)
 SELECT
 	dl.diagnosis,
@@ -212,7 +206,7 @@ ORDER BY
 		</queryString>
 		<field name="diagnosis" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="diagnosis"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="bh_coded_diagnosis"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_concept"/>
 		</field>
 		<field name="calendar" class="java.sql.Date">
 			<property name="com.jaspersoft.studio.field.label" value="calendar"/>
@@ -231,7 +225,7 @@ ORDER BY
 		<![CDATA[WITH visit_diagnoses AS (
 	SELECT
 		v.bh_visit_id,
-		ev.bh_coded_diagnosis_id,
+		ev.bh_concept_id,
 		ev.bh_uncoded_diagnosis,
 		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
 	FROM
@@ -248,15 +242,17 @@ FROM
 	bh_visit v
 		LEFT JOIN visit_diagnoses pd
 		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
-		LEFT JOIN bh_coded_diagnosis cd
-		ON cd.bh_coded_diagnosis_id = pd.bh_coded_diagnosis_id
+		LEFT JOIN bh_concept c
+		ON c.bh_concept_id = pd.bh_concept_id
+		LEFT JOIN bh_concept_extra ce
+		ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
 		RIGHT JOIN ad_org o
 			ON v.ad_client_id = o.ad_client_id
 		AND o.isactive = 'Y'
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY
-	v.bh_visitdate, o.name, cd.bh_moh705b_greaterthan5]]>
+	v.bh_visitdate, o.name, ce.bh_value]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="calendar"/>
