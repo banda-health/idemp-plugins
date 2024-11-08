@@ -400,7 +400,7 @@ test('process stage list is correct', async () => {
 	// Ensure these exist
 	expect(processStageList.find((processStage) => processStage.Name === 'Cashier / Registration')).toBeTruthy();
 	expect(processStageList.find((processStage) => processStage.Name === 'Clinician / Dentist')).toBeTruthy();
-	expect(processStageList.find((processStage) => processStage.Name === 'Lab')).toBeTruthy();
+	expect(processStageList.find((processStage) => processStage.Name === 'Lab / Imaging')).toBeTruthy();
 	expect(processStageList.find((processStage) => processStage.Name === 'Pharmacy')).toBeTruthy();
 	expect(processStageList.find((processStage) => processStage.Name === 'Triage / Vitals')).toBeTruthy();
 });
