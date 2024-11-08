@@ -451,6 +451,11 @@ public class MBandaSetup {
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		PO.clearCrossTenantSafe();
 
+		// Filter out payer information for BPs we didn't save
+		defaultPayerInfoFieldList = defaultPayerInfoFieldList.stream().filter(
+				defaultPayerInformationField -> clientPayerIdsByDefaultPayerId
+						.containsKey(defaultPayerInformationField.getBH_Payer_ID())).collect(Collectors.toList());
+
 		for (MBHPayerInfoFld defaultPayerInfoField : defaultPayerInfoFieldList) {
 			MBHPayerInfoFld payerInfoField = new MBHPayerInfoFld(context, 0, getTransactionName());
 			payerInfoField.setBH_PayerInfoFieldDataType(defaultPayerInfoField.getBH_PayerInfoFieldDataType());
@@ -1395,7 +1400,7 @@ public class MBandaSetup {
 		List<MBPartner_BH> defaultBusinessPartners = new Query(this.context, MBPartner_BH.Table_Name,
 				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartner_BH.COLUMNNAME_Name + " NOT LIKE ? || ' %' AND " +
 						MBPartner_BH.COLUMNNAME_Name + "!=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG,
-				configurationClient.getName(), DEFAULT_IDEMPIERE_ENTITY_NAME).list();
+				configurationClient.getName(), DEFAULT_IDEMPIERE_ENTITY_NAME).setOnlyActiveRecords(true).list();
 		PO.clearCrossTenantSafe();
 
 		I_C_Location clientLocation = MOrgInfo_BH.get(Env.getCtx(), getAD_Org_ID()).getC_Location();

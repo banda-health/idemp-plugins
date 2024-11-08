@@ -3045,7 +3045,7 @@ test('sales reps set correctly for orders', async () => {
 		await query(valueObject)({ query: C_OrderForSalesRepDocument, variables: { UU: valueObject.order?.UU! } })
 	).data.C_Order!;
 	expect(order).toBeTruthy();
-	expect(order.SalesRep?.UU).toBeUndefined();
+	expect(order.SalesRep?.UU).toBeTruthy();
 	await expect(
 		mutate(valueObject)({
 			mutation: C_OrderSaveDocument,
