@@ -227,6 +227,16 @@ SET
 WHERE
 	ad_element_uu = '17226899-35c3-41d9-8b3a-79a78f3c4dbb';
 
+-- Update coded diagnosis search parameter to be concepts
+UPDATE ad_process_para
+SET
+	columnname    = 'BH_Concept_UU',
+	ad_element_id = (
+		SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'a787b96a-36f6-4840-99ca-c4b4197fd958'
+	)
+WHERE
+	ad_process_para_uu = '250d4efb-e958-4ef6-95cf-4d23b10f0972';
+
 SELECT
 	update_sequences();
 
