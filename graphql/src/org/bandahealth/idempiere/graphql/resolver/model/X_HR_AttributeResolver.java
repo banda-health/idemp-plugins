@@ -44,7 +44,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 	 * @return Rule
 	 */
 	public CompletableFuture<MRule> AD_Rule(X_HR_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Rule_ID() < 0) {
+		if (entity.getAD_Rule_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRule> dataLoader =
@@ -59,7 +59,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_HR_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -91,7 +91,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 	 * @return Payroll Attribute Account
 	 */
 	public CompletableFuture<MAccount> HR_Attribute_A(X_HR_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Attribute_Acct() < 0) {
+		if (entity.getHR_Attribute_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -106,7 +106,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 	 * @return Payroll Concept
 	 */
 	public CompletableFuture<X_HR_Concept> HR_Concept(X_HR_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Concept_ID() < 0) {
+		if (entity.getHR_Concept_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Concept> dataLoader =
@@ -121,7 +121,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 	 * @return Payroll Department
 	 */
 	public CompletableFuture<X_HR_Department> HR_Department(X_HR_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Department_ID() < 0) {
+		if (entity.getHR_Department_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
@@ -136,7 +136,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 	 * @return Payroll Employee
 	 */
 	public CompletableFuture<X_HR_Employee> HR_Employee(X_HR_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Employee_ID() < 0) {
+		if (entity.getHR_Employee_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Employee> dataLoader =
@@ -151,7 +151,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 	 * @return Payroll Job
 	 */
 	public CompletableFuture<X_HR_Job> HR_Job(X_HR_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Job_ID() < 0) {
+		if (entity.getHR_Job_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Job> dataLoader =
@@ -166,7 +166,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 	 * @return Payroll
 	 */
 	public CompletableFuture<X_HR_Payroll> HR_Payroll(X_HR_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Payroll_ID() < 0) {
+		if (entity.getHR_Payroll_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =

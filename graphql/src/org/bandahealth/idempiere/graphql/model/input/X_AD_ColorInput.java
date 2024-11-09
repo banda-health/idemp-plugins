@@ -81,7 +81,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

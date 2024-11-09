@@ -27,7 +27,7 @@ public class X_AD_Scheduler_ParaResolver extends POResolver<MSchedulerPara> impl
 	 * @return Process Parameter
 	 */
 	public CompletableFuture<MProcessPara> AD_Process_Para(MSchedulerPara entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_Para_ID() < 0) {
+		if (entity.getAD_Process_Para_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProcessPara> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_Scheduler_ParaResolver extends POResolver<MSchedulerPara> impl
 	 * @return Schedule Processes
 	 */
 	public CompletableFuture<MScheduler> AD_Scheduler(MSchedulerPara entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Scheduler_ID() < 0) {
+		if (entity.getAD_Scheduler_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MScheduler> dataLoader =

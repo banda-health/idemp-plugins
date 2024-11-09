@@ -59,7 +59,7 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -93,7 +93,7 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -193,7 +193,7 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -227,7 +227,7 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 			X_AD_AllUsers_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllUsers_V", "AD_AllUsers_V_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -261,7 +261,7 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

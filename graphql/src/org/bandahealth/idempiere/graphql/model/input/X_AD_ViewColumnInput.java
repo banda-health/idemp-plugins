@@ -122,7 +122,7 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 			MViewComponent foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ViewComponent", "AD_ViewComponent_UU=?", get_TrxName())
-							.setParameters(AD_ViewComponent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ViewComponent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ViewComponent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

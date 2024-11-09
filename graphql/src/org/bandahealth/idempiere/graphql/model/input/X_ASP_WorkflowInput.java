@@ -93,7 +93,7 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -130,7 +130,7 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
-							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setASP_Level_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

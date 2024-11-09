@@ -89,7 +89,7 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -152,7 +152,7 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 			X_B_SellerFunds foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_SellerFunds", "B_SellerFunds_UU=?", get_TrxName())
-							.setParameters(B_SellerFunds.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_SellerFunds.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_SellerFunds_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -186,7 +186,7 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 			X_B_Topic foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_Topic", "B_Topic_UU=?", get_TrxName())
-							.setParameters(B_Topic.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_Topic.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setB_Topic_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

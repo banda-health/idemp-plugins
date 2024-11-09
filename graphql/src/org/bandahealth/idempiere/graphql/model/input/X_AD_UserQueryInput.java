@@ -100,7 +100,7 @@ public class X_AD_UserQueryInput extends MUserQuery implements I_AD_UserQueryInp
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -127,7 +127,7 @@ public class X_AD_UserQueryInput extends MUserQuery implements I_AD_UserQueryInp
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -161,7 +161,7 @@ public class X_AD_UserQueryInput extends MUserQuery implements I_AD_UserQueryInp
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_AD_UserQueryInput extends MUserQuery implements I_AD_UserQueryInp
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -258,7 +258,7 @@ public class X_AD_UserQueryInput extends MUserQuery implements I_AD_UserQueryInp
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

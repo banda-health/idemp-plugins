@@ -90,7 +90,7 @@ public class X_C_DepositBatchLineInput extends MDepositBatchLine implements I_C_
 			MDepositBatch foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DepositBatch", "C_DepositBatch_UU=?", get_TrxName())
-							.setParameters(C_DepositBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DepositBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_DepositBatch_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_C_DepositBatchLineInput extends MDepositBatchLine implements I_C_
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -29,7 +29,7 @@ public class X_C_Withholding_AcctResolver extends POResolver<X_C_Withholding_Acc
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_C_Withholding_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_Withholding_AcctResolver extends POResolver<X_C_Withholding_Acc
 	 * @return Withholding type defined
 	 */
 	public CompletableFuture<MWithholding> C_Withholding(X_C_Withholding_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Withholding_ID() < 0) {
+		if (entity.getC_Withholding_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWithholding> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_Withholding_AcctResolver extends POResolver<X_C_Withholding_Acc
 	 * @return Account for Withholdings
 	 */
 	public CompletableFuture<MAccount> Withholding_A(X_C_Withholding_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getWithholding_Acct() < 0) {
+		if (entity.getWithholding_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

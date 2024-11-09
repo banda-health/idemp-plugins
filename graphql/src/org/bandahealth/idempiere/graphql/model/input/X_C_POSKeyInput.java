@@ -57,7 +57,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -128,7 +128,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(AD_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(AD_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -228,7 +228,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 			MPOSKeyLayout foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-							.setParameters(C_POSKeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_POSKeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_POSKeyLayout_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -262,7 +262,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -296,7 +296,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 			MPOSKeyLayout foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-							.setParameters(SubKeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SubKeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSubKeyLayout_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

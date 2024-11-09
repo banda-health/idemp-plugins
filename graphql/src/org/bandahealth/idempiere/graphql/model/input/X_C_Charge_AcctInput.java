@@ -92,7 +92,7 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -147,7 +147,7 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -181,7 +181,7 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(Ch_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Ch_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setCh_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

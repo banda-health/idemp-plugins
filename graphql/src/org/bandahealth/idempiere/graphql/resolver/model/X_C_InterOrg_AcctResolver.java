@@ -27,7 +27,7 @@ public class X_C_InterOrg_AcctResolver extends POResolver<X_C_InterOrg_Acct> imp
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_C_InterOrg_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_InterOrg_AcctResolver extends POResolver<X_C_InterOrg_Acct> imp
 	 * @return Intercompany Due From / Receivables Account
 	 */
 	public CompletableFuture<MAccount> IntercompanyDueFrom_A(X_C_InterOrg_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getIntercompanyDueFrom_Acct() < 0) {
+		if (entity.getIntercompanyDueFrom_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -57,7 +57,7 @@ public class X_C_InterOrg_AcctResolver extends POResolver<X_C_InterOrg_Acct> imp
 	 * @return Intercompany Due To / Payable Account
 	 */
 	public CompletableFuture<MAccount> IntercompanyDueTo_A(X_C_InterOrg_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getIntercompanyDueTo_Acct() < 0) {
+		if (entity.getIntercompanyDueTo_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

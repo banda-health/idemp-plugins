@@ -159,7 +159,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MLotCtl foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_LotCtl", "M_LotCtl_UU=?", get_TrxName())
-							.setParameters(M_LotCtl.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_LotCtl.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_LotCtl_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -193,7 +193,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MSerNoCtl_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_SerNoCtl", "M_SerNoCtl_UU=?", get_TrxName())
-							.setParameters(M_SerNoCtl.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_SerNoCtl.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_SerNoCtl_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

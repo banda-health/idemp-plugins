@@ -27,7 +27,7 @@ public class X_M_SerNoCtlExcludeResolver extends POResolver<MSerNoCtlExclude> im
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MSerNoCtlExclude entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_SerNoCtlExcludeResolver extends POResolver<MSerNoCtlExclude> im
 	 * @return Product Serial Number Control
 	 */
 	public CompletableFuture<MSerNoCtl_BH> M_SerNoCtl(MSerNoCtlExclude entity, DataFetchingEnvironment environment) {
-		if (entity.getM_SerNoCtl_ID() < 0) {
+		if (entity.getM_SerNoCtl_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSerNoCtl_BH> dataLoader =

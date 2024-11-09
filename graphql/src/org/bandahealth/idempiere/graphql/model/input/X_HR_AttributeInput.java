@@ -102,7 +102,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 			MRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -136,7 +136,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -209,7 +209,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(HR_Attribute_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Attribute_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Attribute_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -275,7 +275,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 			X_HR_Concept foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Concept", "HR_Concept_UU=?", get_TrxName())
-							.setParameters(HR_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Concept_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -309,7 +309,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 			X_HR_Department foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
-							.setParameters(HR_Department.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Department.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Department_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -343,7 +343,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 			X_HR_Employee foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Employee", "HR_Employee_UU=?", get_TrxName())
-							.setParameters(HR_Employee.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Employee.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Employee_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -377,7 +377,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 			X_HR_Job foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Job", "HR_Job_UU=?", get_TrxName())
-							.setParameters(HR_Job.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Job.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Job_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -411,7 +411,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
-							.setParameters(HR_Payroll.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Payroll.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setHR_Payroll_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

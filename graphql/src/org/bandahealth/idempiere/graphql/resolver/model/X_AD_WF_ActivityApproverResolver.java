@@ -27,7 +27,7 @@ public class X_AD_WF_ActivityApproverResolver extends POResolver<MWFActivityAppr
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MWFActivityApprover entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_WF_ActivityApproverResolver extends POResolver<MWFActivityAppr
 	 * @return Workflow Activity
 	 */
 	public CompletableFuture<X_AD_WF_Activity> AD_WF_Activity(MWFActivityApprover entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Activity_ID() < 0) {
+		if (entity.getAD_WF_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Activity> dataLoader =

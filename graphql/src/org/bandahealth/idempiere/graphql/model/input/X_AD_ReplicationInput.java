@@ -115,7 +115,7 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
-							.setParameters(AD_ReplicationStrategy.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ReplicationStrategy.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

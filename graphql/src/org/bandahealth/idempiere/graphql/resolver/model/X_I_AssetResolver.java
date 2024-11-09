@@ -50,7 +50,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Accumulated Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Accumdepreciation_A(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Accumdepreciation_Acct() < 0) {
+		if (entity.getA_Accumdepreciation_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -65,7 +65,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Asset Acct
 	 */
 	public CompletableFuture<MAccount> A_Asset_A(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Acct() < 0) {
+		if (entity.getA_Asset_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -80,7 +80,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Group of Assets
 	 */
 	public CompletableFuture<MAssetGroup> A_Asset_Group(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Group_ID() < 0) {
+		if (entity.getA_Asset_Group_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
@@ -95,7 +95,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() < 0) {
+		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -110,7 +110,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Depreciation_A(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Acct() < 0) {
+		if (entity.getA_Depreciation_Acct() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -140,7 +140,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return A_Depreciation_Table_Header_ID
 	 */
 	public CompletableFuture<X_A_Depreciation_Table_Header> A_Depreciation_Table_Header(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Table_Header_ID() < 0) {
+		if (entity.getA_Depreciation_Table_Header_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_A_Depreciation_Table_Header> dataLoader =
@@ -171,7 +171,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -186,7 +186,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -201,7 +201,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 0) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -216,7 +216,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() < 0) {
+		if (entity.getC_Location_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -270,7 +270,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() < 0) {
+		if (entity.getM_Locator_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -285,7 +285,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_I_Asset entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

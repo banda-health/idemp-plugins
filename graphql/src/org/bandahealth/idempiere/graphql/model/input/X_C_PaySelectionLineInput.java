@@ -93,7 +93,7 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -130,7 +130,7 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 			MPaySelection foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaySelection", "C_PaySelection_UU=?", get_TrxName())
-							.setParameters(C_PaySelection.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_PaySelection.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_PaySelection_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -164,7 +164,7 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 			MPaySelectionCheck foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaySelectionCheck", "C_PaySelectionCheck_UU=?", get_TrxName())
-							.setParameters(C_PaySelectionCheck.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_PaySelectionCheck.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_PaySelectionCheck_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

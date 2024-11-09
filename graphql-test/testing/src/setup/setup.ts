@@ -160,11 +160,11 @@ async function createDefaultPriceLists(
 export default async function () {
 	let loginInfo: LoginInfo = {} as LoginInfo;
 	const valueObject: { sessionToken?: string } = { sessionToken: undefined };
-	await graphqlClient.mutate({
+	loginInfo.AD_User = (await graphqlClient.mutate({
 		mutation: SignInDocument,
 		variables: { Credentials: initialLoginData },
 		context: { valueObject },
-	});
+	})).data?.SignIn.AD_User;
 	if (!valueObject.sessionToken) {
 		throw new Error('no token generated');
 	}

@@ -33,7 +33,7 @@ public class X_M_CostQueueResolver extends POResolver<MCostQueue> implements Gra
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MCostQueue entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -63,7 +63,7 @@ public class X_M_CostQueueResolver extends POResolver<MCostQueue> implements Gra
 	 * @return Product Cost Element
 	 */
 	public CompletableFuture<MCostElement> M_CostElement(MCostQueue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostElement_ID() < 0) {
+		if (entity.getM_CostElement_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
@@ -78,7 +78,7 @@ public class X_M_CostQueueResolver extends POResolver<MCostQueue> implements Gra
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
 	public CompletableFuture<MCostType> M_CostType(MCostQueue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostType_ID() < 0) {
+		if (entity.getM_CostType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCostType> dataLoader =
@@ -93,7 +93,7 @@ public class X_M_CostQueueResolver extends POResolver<MCostQueue> implements Gra
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MCostQueue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

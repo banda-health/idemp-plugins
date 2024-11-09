@@ -36,7 +36,7 @@ public class X_AD_InfoProcessResolver extends POResolver<X_AD_InfoProcess> imple
 	 * @return Info Window Column
 	 */
 	public CompletableFuture<MInfoColumn> AD_InfoColumn(X_AD_InfoProcess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoColumn_ID() < 0) {
+		if (entity.getAD_InfoColumn_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInfoColumn> dataLoader =
@@ -51,7 +51,7 @@ public class X_AD_InfoProcessResolver extends POResolver<X_AD_InfoProcess> imple
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(X_AD_InfoProcess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() < 0) {
+		if (entity.getAD_InfoWindow_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -66,7 +66,7 @@ public class X_AD_InfoProcessResolver extends POResolver<X_AD_InfoProcess> imple
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(X_AD_InfoProcess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() < 0) {
+		if (entity.getAD_Process_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =

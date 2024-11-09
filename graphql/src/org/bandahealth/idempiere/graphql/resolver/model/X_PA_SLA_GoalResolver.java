@@ -27,7 +27,7 @@ public class X_PA_SLA_GoalResolver extends POResolver<X_PA_SLA_Goal> implements 
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_PA_SLA_Goal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -42,7 +42,7 @@ public class X_PA_SLA_GoalResolver extends POResolver<X_PA_SLA_Goal> implements 
 	 * @return Service Level Agreement Criteria
 	 */
 	public CompletableFuture<X_PA_SLA_Criteria> PA_SLA_Criteria(X_PA_SLA_Goal entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_SLA_Criteria_ID() < 0) {
+		if (entity.getPA_SLA_Criteria_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PA_SLA_Criteria> dataLoader =

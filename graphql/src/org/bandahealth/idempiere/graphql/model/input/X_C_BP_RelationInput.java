@@ -118,7 +118,7 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -152,7 +152,7 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -186,7 +186,7 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartnerRelation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartnerRelation.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartnerRelation_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -220,7 +220,7 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartnerRelation_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartnerRelation_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartnerRelation_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

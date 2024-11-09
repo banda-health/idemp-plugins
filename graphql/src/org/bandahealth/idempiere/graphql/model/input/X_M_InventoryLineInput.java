@@ -98,7 +98,7 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(-1);
 		}
 	}
 
@@ -219,7 +219,7 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 			MInventory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Inventory", "M_Inventory_UU=?", get_TrxName())
-							.setParameters(M_Inventory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Inventory.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Inventory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -282,7 +282,7 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Locator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -316,7 +316,7 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -361,7 +361,7 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
-							.setParameters(ReversalLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ReversalLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setReversalLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

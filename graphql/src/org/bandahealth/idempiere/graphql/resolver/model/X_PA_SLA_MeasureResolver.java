@@ -27,7 +27,7 @@ public class X_PA_SLA_MeasureResolver extends POResolver<X_PA_SLA_Measure> imple
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_PA_SLA_Measure entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -42,7 +42,7 @@ public class X_PA_SLA_MeasureResolver extends POResolver<X_PA_SLA_Measure> imple
 	 * @return Service Level Agreement Goal
 	 */
 	public CompletableFuture<X_PA_SLA_Goal> PA_SLA_Goal(X_PA_SLA_Measure entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_SLA_Goal_ID() < 0) {
+		if (entity.getPA_SLA_Goal_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PA_SLA_Goal> dataLoader =

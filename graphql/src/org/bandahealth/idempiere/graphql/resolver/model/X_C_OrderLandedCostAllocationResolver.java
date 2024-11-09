@@ -27,7 +27,7 @@ public class X_C_OrderLandedCostAllocationResolver extends POResolver<MOrderLand
 	 * @return Estimated Landed Cost
 	 */
 	public CompletableFuture<MOrderLandedCost> C_OrderLandedCost(MOrderLandedCostAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLandedCost_ID() < 0) {
+		if (entity.getC_OrderLandedCost_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLandedCost> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_OrderLandedCostAllocationResolver extends POResolver<MOrderLand
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(MOrderLandedCostAllocation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() < 0) {
+		if (entity.getC_OrderLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =

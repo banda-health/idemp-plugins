@@ -57,7 +57,7 @@ public class X_AD_SchedulerRecipientInput extends MSchedulerRecipient implements
 			MAuthorizationAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AuthorizationAccount", "AD_AuthorizationAccount_UU=?", get_TrxName())
-							.setParameters(AD_AuthorizationAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_AuthorizationAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_AuthorizationAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -135,7 +135,7 @@ public class X_AD_SchedulerRecipientInput extends MSchedulerRecipient implements
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -165,7 +165,7 @@ public class X_AD_SchedulerRecipientInput extends MSchedulerRecipient implements
 			MScheduler foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Scheduler", "AD_Scheduler_UU=?", get_TrxName())
-							.setParameters(AD_Scheduler.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Scheduler.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Scheduler_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -228,7 +228,7 @@ public class X_AD_SchedulerRecipientInput extends MSchedulerRecipient implements
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

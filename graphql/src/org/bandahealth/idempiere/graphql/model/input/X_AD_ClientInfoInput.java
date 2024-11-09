@@ -131,7 +131,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MStorageProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
-							.setParameters(AD_StorageProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_StorageProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_StorageProvider_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -168,7 +168,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -205,7 +205,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -242,7 +242,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -279,7 +279,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Menu.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Menu.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Menu_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -316,7 +316,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -353,7 +353,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -390,7 +390,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -427,7 +427,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tree_SalesRegion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -464,7 +464,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema1.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -498,7 +498,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartnerCashTrx.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartnerCashTrx.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartnerCashTrx_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -532,7 +532,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MCalendar foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
-							.setParameters(C_Calendar.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Calendar.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Calendar_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -566,7 +566,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_ChargeFreight.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ChargeFreight.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ChargeFreight_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -600,7 +600,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Length.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM_Length.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_Length_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -634,7 +634,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Time.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM_Time.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_Time_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -668,7 +668,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Volume.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM_Volume.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_Volume_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -702,7 +702,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Weight.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM_Weight.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_UOM_Weight_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -736,7 +736,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(Logo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Logo.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setLogo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -770,7 +770,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_ProductFreight.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ProductFreight.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ProductFreight_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -804,7 +804,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MStorageProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
-							.setParameters(StorageArchive.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(StorageArchive.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setStorageArchive_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -838,7 +838,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 			MStorageProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
-							.setParameters(StorageImage.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(StorageImage.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setStorageImage_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

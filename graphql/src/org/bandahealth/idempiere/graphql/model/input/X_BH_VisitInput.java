@@ -94,7 +94,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(BH_Clinician_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Clinician_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Clinician_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -274,7 +274,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			MBHVoidedReason foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Voided_Reason", "BH_Voided_Reason_UU=?", get_TrxName())
-							.setParameters(BH_Voided_Reason.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Voided_Reason.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Voided_Reason_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -319,7 +319,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(Patient.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Patient.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPatient_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

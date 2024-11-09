@@ -73,3 +73,49 @@ test('re-opened visits appear in the list', async () => {
 		).data.InventoryTransactionGet.Results,
 	).toHaveLength(4);
 });
+
+test('drafted sales orders come back as negative quantities', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	const inventoryTransactions = (
+		await query(valueObject)({
+			query: InventoryTransactionGetDocument,
+			variables: {
+				Filter: JSON.stringify({ m_product: { m_product_uu: valueObject.product?.UU } }),
+				Sort: JSON.stringify([['created', 'desc']]),
+			},
+		})
+	).data.InventoryTransactionGet.Results;
+	expect(inventoryTransactions).toHaveLength(2);
+	// These should already be sorted with the drafted visit should be first
+	expect(inventoryTransactions[0].MovementQty).toBe(-1);
+	expect(inventoryTransactions[1].MovementQty).toBe(1);
+});

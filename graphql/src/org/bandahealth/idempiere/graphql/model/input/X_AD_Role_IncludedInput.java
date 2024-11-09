@@ -96,7 +96,7 @@ public class X_AD_Role_IncludedInput extends MRoleIncluded implements I_AD_Role_
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -144,7 +144,7 @@ public class X_AD_Role_IncludedInput extends MRoleIncluded implements I_AD_Role_
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(Included_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Included_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setIncluded_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

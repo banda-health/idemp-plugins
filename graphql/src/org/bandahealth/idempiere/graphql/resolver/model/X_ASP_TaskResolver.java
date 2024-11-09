@@ -32,7 +32,7 @@ public class X_ASP_TaskResolver extends POResolver<X_ASP_Task> implements GraphQ
 	 * @return Operation System Task
 	 */
 	public CompletableFuture<MTask> AD_Task(X_ASP_Task entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Task_ID() < 0) {
+		if (entity.getAD_Task_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =
@@ -47,7 +47,7 @@ public class X_ASP_TaskResolver extends POResolver<X_ASP_Task> implements GraphQ
 	 * @return ASP Level
 	 */
 	public CompletableFuture<X_ASP_Level> ASP_Level(X_ASP_Task entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Level_ID() < 0) {
+		if (entity.getASP_Level_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Level> dataLoader =

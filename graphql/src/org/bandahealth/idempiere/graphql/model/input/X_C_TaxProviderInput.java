@@ -114,7 +114,7 @@ public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProvide
 			X_C_TaxProviderCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxProviderCfg", "C_TaxProviderCfg_UU=?", get_TrxName())
-							.setParameters(C_TaxProviderCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxProviderCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_TaxProviderCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

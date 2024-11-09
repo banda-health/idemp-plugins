@@ -25,7 +25,7 @@ public class X_AD_SchedulerLogResolver extends POResolver<MSchedulerLog> impleme
 	 * @return Schedule Processes
 	 */
 	public CompletableFuture<MScheduler> AD_Scheduler(MSchedulerLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Scheduler_ID() < 0) {
+		if (entity.getAD_Scheduler_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MScheduler> dataLoader =

@@ -34,7 +34,7 @@ public class X_C_BP_EDIResolver extends POResolver<X_C_BP_EDI> implements GraphQ
 	 * @return Document Sequence
 	 */
 	public CompletableFuture<MSequence_BH> AD_Sequence(X_C_BP_EDI entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Sequence_ID() < 0) {
+		if (entity.getAD_Sequence_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =
@@ -49,7 +49,7 @@ public class X_C_BP_EDIResolver extends POResolver<X_C_BP_EDI> implements GraphQ
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_C_BP_EDI entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -88,7 +88,7 @@ public class X_C_BP_EDIResolver extends POResolver<X_C_BP_EDI> implements GraphQ
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_C_BP_EDI entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() < 0) {
+		if (entity.getM_Warehouse_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

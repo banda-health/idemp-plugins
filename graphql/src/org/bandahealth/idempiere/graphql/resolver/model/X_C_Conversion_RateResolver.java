@@ -27,7 +27,7 @@ public class X_C_Conversion_RateResolver extends POResolver<MConversionRate> imp
 	 * @return Currency Conversion Rate Type
 	 */
 	public CompletableFuture<MConversionType> C_ConversionType(MConversionRate entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ConversionType_ID() < 0) {
+		if (entity.getC_ConversionType_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_Conversion_RateResolver extends POResolver<MConversionRate> imp
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MConversionRate entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -57,7 +57,7 @@ public class X_C_Conversion_RateResolver extends POResolver<MConversionRate> imp
 	 * @return Target currency
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency_To(MConversionRate entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID_To() < 0) {
+		if (entity.getC_Currency_ID_To() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =

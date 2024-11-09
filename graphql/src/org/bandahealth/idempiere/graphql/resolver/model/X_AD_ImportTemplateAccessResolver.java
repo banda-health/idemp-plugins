@@ -27,7 +27,7 @@ public class X_AD_ImportTemplateAccessResolver extends POResolver<X_AD_ImportTem
 	 * @return Import Template
 	 */
 	public CompletableFuture<MImportTemplate> AD_ImportTemplate(X_AD_ImportTemplateAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ImportTemplate_ID() < 0) {
+		if (entity.getAD_ImportTemplate_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MImportTemplate> dataLoader =

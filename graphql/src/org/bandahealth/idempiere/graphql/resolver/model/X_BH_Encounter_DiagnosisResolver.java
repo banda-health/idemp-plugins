@@ -27,7 +27,7 @@ public class X_BH_Encounter_DiagnosisResolver extends POResolver<MBHEncounterDia
 	 * @return Coded Diagnosis
 	 */
 	public CompletableFuture<MBHCodedDiagnosis> BH_Coded_Diagnosis(MBHEncounterDiagnosis entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Coded_Diagnosis_ID() < 0) {
+		if (entity.getBH_Coded_Diagnosis_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHCodedDiagnosis> dataLoader =
@@ -42,7 +42,7 @@ public class X_BH_Encounter_DiagnosisResolver extends POResolver<MBHEncounterDia
 	 * @return Encounter
 	 */
 	public CompletableFuture<MBHEncounter> BH_Encounter(MBHEncounterDiagnosis entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Encounter_ID() < 0) {
+		if (entity.getBH_Encounter_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHEncounter> dataLoader =

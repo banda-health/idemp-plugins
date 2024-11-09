@@ -32,7 +32,7 @@ public class X_ASP_Ref_ListResolver extends POResolver<X_ASP_Ref_List> implement
 	 * @return Reference List based on Table
 	 */
 	public CompletableFuture<MRefList_BH> AD_Ref_List(X_ASP_Ref_List entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Ref_List_ID() < 0) {
+		if (entity.getAD_Ref_List_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRefList_BH> dataLoader =
@@ -47,7 +47,7 @@ public class X_ASP_Ref_ListResolver extends POResolver<X_ASP_Ref_List> implement
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(X_ASP_Ref_List entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() < 0) {
+		if (entity.getAD_Reference_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -62,7 +62,7 @@ public class X_ASP_Ref_ListResolver extends POResolver<X_ASP_Ref_List> implement
 	 * @return ASP Level
 	 */
 	public CompletableFuture<X_ASP_Level> ASP_Level(X_ASP_Ref_List entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Level_ID() < 0) {
+		if (entity.getASP_Level_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Level> dataLoader =

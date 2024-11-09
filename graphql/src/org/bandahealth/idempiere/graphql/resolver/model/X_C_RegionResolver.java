@@ -30,7 +30,7 @@ public class X_C_RegionResolver extends POResolver<MRegion> implements GraphQLRe
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(MRegion entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() < 0) {
+		if (entity.getC_Country_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =

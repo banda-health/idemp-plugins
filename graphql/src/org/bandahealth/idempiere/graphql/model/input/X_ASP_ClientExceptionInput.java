@@ -67,7 +67,7 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
-							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Field_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -101,7 +101,7 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -172,7 +172,7 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -206,7 +206,7 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MProcessPara foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process_Para", "AD_Process_Para_UU=?", get_TrxName())
-							.setParameters(AD_Process_Para.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process_Para.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_Para_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -240,7 +240,7 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -274,7 +274,7 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Task", "AD_Task_UU=?", get_TrxName())
-							.setParameters(AD_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Task_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -308,7 +308,7 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			X_AD_WF_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
-							.setParameters(AD_WF_Node.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_Node.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_WF_Node_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -342,7 +342,7 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -376,7 +376,7 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

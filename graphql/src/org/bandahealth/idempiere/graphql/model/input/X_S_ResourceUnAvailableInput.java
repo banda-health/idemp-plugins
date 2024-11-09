@@ -88,7 +88,7 @@ public class X_S_ResourceUnAvailableInput extends MResourceUnAvailable implement
 			MResource foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
-							.setParameters(S_Resource.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_Resource.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setS_Resource_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

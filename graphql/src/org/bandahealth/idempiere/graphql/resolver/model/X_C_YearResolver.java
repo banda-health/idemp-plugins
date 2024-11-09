@@ -25,7 +25,7 @@ public class X_C_YearResolver extends POResolver<MYear> implements GraphQLResolv
 	 * @return Accounting Calendar Name
 	 */
 	public CompletableFuture<MCalendar> C_Calendar(MYear entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Calendar_ID() < 0) {
+		if (entity.getC_Calendar_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =

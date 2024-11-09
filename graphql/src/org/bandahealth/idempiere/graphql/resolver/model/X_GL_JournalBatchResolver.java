@@ -37,7 +37,7 @@ public class X_GL_JournalBatchResolver extends POResolver<MJournalBatch> impleme
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MJournalBatch entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -67,7 +67,7 @@ public class X_GL_JournalBatchResolver extends POResolver<MJournalBatch> impleme
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(MJournalBatch entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() < 0) {
+		if (entity.getC_Period_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
@@ -134,7 +134,7 @@ public class X_GL_JournalBatchResolver extends POResolver<MJournalBatch> impleme
 	 * @return General Ledger Category
 	 */
 	public CompletableFuture<MGLCategory> GL_Category(MJournalBatch entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Category_ID() < 0) {
+		if (entity.getGL_Category_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
@@ -179,7 +179,7 @@ public class X_GL_JournalBatchResolver extends POResolver<MJournalBatch> impleme
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MJournalBatch> Reversal(MJournalBatch entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() < 0) {
+		if (entity.getReversal_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MJournalBatch> dataLoader =

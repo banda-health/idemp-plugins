@@ -77,7 +77,7 @@ public class X_AD_AlertInput extends MAlert implements I_AD_AlertInput {
 			MAlertProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AlertProcessor", "AD_AlertProcessor_UU=?", get_TrxName())
-							.setParameters(AD_AlertProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_AlertProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_AlertProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -58,7 +58,7 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() < 0) {
+		if (entity.getAD_Val_Rule_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -73,7 +73,7 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MTable entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() < 0) {
+		if (entity.getAD_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -167,7 +167,7 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 	 * @return Purchase Order Window
 	 */
 	public CompletableFuture<MWindow> PO_Window(MTable entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_Window_ID() < 0) {
+		if (entity.getPO_Window_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

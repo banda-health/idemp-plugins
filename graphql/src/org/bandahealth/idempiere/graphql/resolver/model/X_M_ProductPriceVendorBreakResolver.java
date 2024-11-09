@@ -29,7 +29,7 @@ public class X_M_ProductPriceVendorBreakResolver extends POResolver<X_M_ProductP
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_M_ProductPriceVendorBreak entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_M_ProductPriceVendorBreakResolver extends POResolver<X_M_ProductP
 	 * @return Identifies a unique instance of a Price List
 	 */
 	public CompletableFuture<MPriceListVersion> M_PriceList_Version(X_M_ProductPriceVendorBreak entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_Version_ID() < 0) {
+		if (entity.getM_PriceList_Version_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPriceListVersion> dataLoader =
@@ -59,7 +59,7 @@ public class X_M_ProductPriceVendorBreakResolver extends POResolver<X_M_ProductP
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_M_ProductPriceVendorBreak entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

@@ -262,6 +262,17 @@ public class GraphQLInputModelClassGenerator {
 			String entityName = "";
 			String defaultValueMethod = "get_ID()";
 			String defaultEmptyValue = "0";
+			int firstOK = 1;
+			//	check special column
+			if (columnName.equals("AD_Org_ID") || columnName.equals("Record_ID") || columnName.equals("C_DocType_ID") ||
+					columnName.equals("Node_ID") || columnName.equals("AD_Role_ID") || columnName.equals("M_AttributeSet_ID") ||
+					columnName.equals("M_AttributeSetInstance_ID")) {
+				firstOK = 0;
+				// The org is the only setter without logic, so we want to keep the default value at 0
+				if (!columnName.equals("AD_Org_ID")) {
+					defaultEmptyValue = "-1";
+				}
+			}
 			if (fieldName != null && referenceClassName != null) {
 				// This entity is a foreign key, so let's work with it
 				String[] packagePath = referenceClassName.split("\\.");
@@ -334,7 +345,7 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t\t\t\t\tnew Query(getCtx(), \"").append(foreignEntityTable).append("\", \"")
 					.append(foreignEntityTable).append("_UU=?\", get_TrxName())\n")
 					.append("\t\t\t\t\t\t\t.setParameters(").append(entityName).append(".getUU())")
-					.append(".first()) != null && foreignEntity.get_ID() >= 0) {\n")
+					.append(".first()) != null && foreignEntity.get_ID() >= ").append(firstOK).append(") {\n")
 					.append("\t\t\t\tthis.set").append(columnName).append("(foreignEntity.").append(defaultValueMethod)
 					.append(");\n")
 					.append("\t\t\t} else {\n")

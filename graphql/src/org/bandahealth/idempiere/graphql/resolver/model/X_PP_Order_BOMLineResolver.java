@@ -51,7 +51,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -66,7 +66,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 0) {
+		if (entity.getC_UOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -174,7 +174,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	public CompletableFuture<MChangeNotice> M_ChangeNotice(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ChangeNotice_ID() < 0) {
+		if (entity.getM_ChangeNotice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
@@ -189,7 +189,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() < 0) {
+		if (entity.getM_Locator_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -204,7 +204,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -219,7 +219,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() < 0) {
+		if (entity.getM_Warehouse_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -234,7 +234,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 	 * @return Manufacturing Order BOM
 	 */
 	public CompletableFuture<X_PP_Order_BOM> PP_Order_BOM(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_BOM_ID() < 0) {
+		if (entity.getPP_Order_BOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_BOM> dataLoader =
@@ -249,7 +249,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 	 * @return Manufacturing Order
 	 */
 	public CompletableFuture<X_PP_Order> PP_Order(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_ID() < 0) {
+		if (entity.getPP_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =

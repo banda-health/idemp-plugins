@@ -62,7 +62,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 			M_Element foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Element", "AD_Element_UU=?", get_TrxName())
-							.setParameters(AD_Element.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Element.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Element_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -96,7 +96,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 			MFieldGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_FieldGroup", "AD_FieldGroup_UU=?", get_TrxName())
-							.setParameters(AD_FieldGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_FieldGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_FieldGroup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -170,7 +170,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -233,7 +233,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -267,7 +267,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -301,7 +301,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -374,7 +374,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

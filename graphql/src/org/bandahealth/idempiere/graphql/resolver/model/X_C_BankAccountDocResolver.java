@@ -32,7 +32,7 @@ public class X_C_BankAccountDocResolver extends POResolver<X_C_BankAccountDoc> i
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(X_C_BankAccountDoc entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -47,7 +47,7 @@ public class X_C_BankAccountDocResolver extends POResolver<X_C_BankAccountDoc> i
 	 * @return Print Format for printing Checks
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Check_PrintFormat(X_C_BankAccountDoc entity, DataFetchingEnvironment environment) {
-		if (entity.getCheck_PrintFormat_ID() < 0) {
+		if (entity.getCheck_PrintFormat_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =

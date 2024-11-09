@@ -117,7 +117,7 @@ public class X_C_RevenueRecog_ServiceInput extends MRevenueRecogService implemen
 			MRevenueRecognition foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecognition", "C_RevenueRecognition_UU=?", get_TrxName())
-							.setParameters(C_RevenueRecognition.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RevenueRecognition.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_RevenueRecognition_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

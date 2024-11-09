@@ -1,20 +1,26 @@
 package org.bandahealth.idempiere.base.process;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.adempiere.util.IProcessUI;
+import org.bandahealth.idempiere.base.function.Recursive;
 import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHConceptDescription;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.base.model.MBHConceptName;
 import org.bandahealth.idempiere.base.model.MBHOclOriginatingSource;
 import org.bandahealth.idempiere.base.model.OCLConcept;
+import org.bandahealth.idempiere.base.model.OCLConceptDescription;
 import org.bandahealth.idempiere.base.model.OCLConceptExtra;
 import org.bandahealth.idempiere.base.model.OCLConceptMapping;
+import org.bandahealth.idempiere.base.model.OCLConceptName;
 import org.bandahealth.idempiere.base.utils.JsonUtils;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.bandahealth.idempiere.base.utils.StringUtil;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.Env;
 
 import java.io.IOException;
 import java.net.URI;
@@ -25,6 +31,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +43,10 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Process that syncs Concepts with OCL
@@ -57,6 +69,12 @@ public class ConceptSyncProcess extends SvrProcess {
 
 	private final HttpClient client = HttpClient.newBuilder().version(Version.HTTP_2).build();
 	private Set<String> visitedConcepts;
+	private Map<String, OCLConcept> conceptsByUrl;
+	private Map<String, Set<String>> overrides;
+	private AtomicInteger newRecords;
+	private AtomicInteger updatedRecords;
+	private Set<String> compressedConcepts;
+	private Set<Integer> savedSourceConcepts;
 
 	@Override
 	protected void prepare() {
@@ -83,9 +101,13 @@ public class ConceptSyncProcess extends SvrProcess {
 	protected String doIt() throws Exception {
 		log.log(Level.INFO, "ConceptSyncProcess OCL sync");
 		long start = System.currentTimeMillis();
-		AtomicInteger newRecords = new AtomicInteger(0);
-		AtomicInteger updatedRecords = new AtomicInteger(0);
+		newRecords = new AtomicInteger(0);
+		updatedRecords = new AtomicInteger(0);
 		visitedConcepts = new HashSet<>();
+		conceptsByUrl = new HashMap<>();
+		overrides = new HashMap<>();
+		compressedConcepts = new HashSet<>();
+		savedSourceConcepts = new HashSet<>();
 
 		int conceptCount = getConceptCount();
 		if (conceptCount == 0) {
@@ -95,30 +117,69 @@ public class ConceptSyncProcess extends SvrProcess {
 
 		int numberOfPages = conceptCount / LIMIT;
 		numberOfPages = conceptCount % LIMIT > 0 ? numberOfPages + 1 : numberOfPages;
+		List<OCLConcept> allOclConceptsFromSource = new ArrayList<>();
+		IProcessUI processMonitor = Env.getProcessUI(getCtx());
+		processMonitor.statusUpdate("Fetching data from OCL...");
 		for (int page = 1; page <= numberOfPages; page++) {
 			List<OCLConcept> conceptsFromOcl = getConceptsFromOCL(page);
 			if (conceptsFromOcl == null) {
 				continue;
 			}
-
-			// Take advantage of batching to avoid multiple db calls.
-			List<Object> parameters = new ArrayList<>();
-			Set<String> items = conceptsFromOcl.stream().map(OCLConcept::getUuid).collect(Collectors.toSet());
-			String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(items, parameters);
-			List<MBHConcept> concepts =
-					new Query(getCtx(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_Ocl_Uuid + " IN ( " + inClause + " )",
-							null).setParameters(parameters).list();
-			Map<String, MBHConcept> conceptByOclUU =
-					concepts.stream().collect(Collectors.toMap(MBHConcept::getOcl_Uuid, concept -> concept));
-
-			conceptsFromOcl.forEach(conceptFromOcl -> {
-				try {
-					saveConcept(conceptFromOcl, conceptByOclUU.get(conceptFromOcl.getUuid()), newRecords, updatedRecords);
-				} catch (Exception ex) {
-					log.log(Level.SEVERE, ex.getMessage());
-				}
-			});
+			for (OCLConcept conceptFromOcl : conceptsFromOcl) {
+				conceptsByUrl.put(conceptFromOcl.getUrl(), conceptFromOcl);
+				fetchChildConcepts(conceptFromOcl);
+			}
+			allOclConceptsFromSource.addAll(conceptsFromOcl);
 		}
+		//
+		// Compress the concepts we fetched
+		processMonitor.statusUpdate("Compressing concepts...");
+		for (OCLConcept conceptFromOcl : allOclConceptsFromSource) {
+			try {
+				compressConceptSameAsTree(conceptFromOcl);
+			} catch (Exception ex) {
+				log.log(Level.SEVERE, ex.getMessage());
+			}
+		}
+
+		// Now that everything is compressed appropriately, we can save to the DB and skip the SAME-AS mappings
+		// Take advantage of batching to avoid multiple db calls.
+		List<Object> parameters = new ArrayList<>();
+		Set<String> items = allOclConceptsFromSource.stream().map(OCLConcept::getUuid).collect(Collectors.toSet());
+		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(items, parameters);
+		List<MBHConcept> concepts =
+				new Query(getCtx(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_Ocl_Uuid + " IN ( " + inClause + " )",
+						null).setParameters(parameters).list();
+		Map<String, MBHConcept> conceptsByOclUU =
+				concepts.stream().collect(Collectors.toMap(MBHConcept::getOcl_Uuid, concept -> concept));
+
+		int i = 0;
+		for (OCLConcept conceptFromOcl : allOclConceptsFromSource) {
+			i++;
+			if (!conceptsByUrl.containsKey(conceptFromOcl.getUrl())) {
+				continue;
+			}
+			try {
+				processMonitor.statusUpdate(
+						"Saving concept " + i + " of " + allOclConceptsFromSource.size() + ": " + conceptFromOcl.getDisplayName());
+				saveConcept(conceptsByUrl.get(conceptFromOcl.getUrl()), conceptsByOclUU.get(conceptFromOcl.getUuid()), false);
+			} catch (Exception ex) {
+				log.log(Level.SEVERE, ex.getMessage());
+			}
+		}
+
+		// Delete all OCL originating source records for concepts that weren't saved
+		processMonitor.statusUpdate("Cleaning up...");
+		parameters = new ArrayList<>();
+		parameters.add(source);
+		String whereClause = MBHOclOriginatingSource.COLUMNNAME_BH_Ocl_Source + "=?";
+		if (!savedSourceConcepts.isEmpty()) {
+			inClause = QueryUtil.getWhereClauseAndSetParametersForSet(savedSourceConcepts, parameters);
+			whereClause += " AND " + MBHOclOriginatingSource.COLUMNNAME_BH_Concept_ID + " NOT IN (" + inClause + ")";
+		}
+		List<MBHOclOriginatingSource> oclOriginatingSourceList = new Query(getCtx(), MBHOclOriginatingSource.Table_Name,
+				whereClause, get_TrxName()).setParameters(parameters).list();
+		oclOriginatingSourceList.forEach(oclOriginatingSource -> oclOriginatingSource.deleteEx(false));
 
 		String successMessage = "SUCCESSFULLY created " + newRecords.get() + ", updated " + updatedRecords.get()
 				+ " records in " + (System.currentTimeMillis() - start) / 1000 + " secs";
@@ -129,15 +190,130 @@ public class ConceptSyncProcess extends SvrProcess {
 	}
 
 	/**
+	 * Load any child concepts from OCL via the mappings and construct the SAME-AS mapping tree
+	 *
+	 * @param conceptFromOcl The concept to look through mappings for
+	 */
+	private void fetchChildConcepts(OCLConcept conceptFromOcl) {
+		conceptFromOcl.getMappings().stream()
+				// We'll skip the broader-than map types, retired mappings, and times where the mapping is to the own concept
+				.filter(conceptMappingFromOcl ->
+						!MBHConceptMapping.BROADER_THAN1_MAP_TYPE.equalsIgnoreCase(conceptMappingFromOcl.getMapType()) &&
+								!MBHConceptMapping.BROADER_THAN2_MAP_TYPE.equalsIgnoreCase(conceptMappingFromOcl.getMapType()) &&
+								!StringUtil.isNullOrEmpty(conceptMappingFromOcl.getToConceptUrl()) &&
+								!conceptMappingFromOcl.getToConceptUrl().equalsIgnoreCase(conceptFromOcl.getUrl()) &&
+								!conceptMappingFromOcl.isRetired())
+				.forEach(conceptMappingFromOcl -> {
+					// We're not going to exit out if we've already seen the child because we may need to handle SAME-AS mappings
+					OCLConcept childConceptFromOcl = conceptsByUrl.getOrDefault(conceptMappingFromOcl.getToConceptUrl(), null);
+					if (childConceptFromOcl == null) {
+						childConceptFromOcl = getConceptFromOCL(conceptMappingFromOcl.getToConceptUrl());
+						if (childConceptFromOcl == null) {
+							return;
+						}
+						conceptsByUrl.put(childConceptFromOcl.getUrl(), childConceptFromOcl);
+					} else {
+						// We've already fetched it, so no need to get it again
+						return;
+					}
+					// If this child concept is active and has a same-as mapping that's not mapped to itself, add it
+					if (!childConceptFromOcl.isRetired() &&
+							!conceptFromOcl.getUrl().equalsIgnoreCase(childConceptFromOcl.getUrl()) &&
+							(conceptMappingFromOcl.getMapType().equalsIgnoreCase(MBHConceptMapping.SAME_AS2_MAP_TYPE) ||
+									conceptMappingFromOcl.getMapType().equalsIgnoreCase(MBHConceptMapping.SAME_AS_MAP_TYPE))) {
+						if (!overrides.containsKey(conceptFromOcl.getUrl())) {
+							overrides.put(conceptFromOcl.getUrl(), new HashSet<>());
+						}
+						overrides.get(conceptFromOcl.getUrl()).add(childConceptFromOcl.getUrl());
+					}
+					fetchChildConcepts(childConceptFromOcl);
+				});
+	}
+
+	/**
+	 * Get the concepts that have SAME-AS mappings to others and bubble up the properties, exposing only the ones that
+	 * a parent doesn't override. For infinite loops (i.e. concept A = B = C = A), cycle through and compress each,
+	 * individually, then remove the looping.
+	 *
+	 * @param conceptFromOcl The concept we're starting with to compress
+	 */
+	private OCLConcept compressConceptSameAsTree(OCLConcept conceptFromOcl) {
+		// If we've already compressed this concept, be done
+		if (compressedConcepts.contains(conceptFromOcl.getUrl())) {
+			return conceptFromOcl;
+		}
+		compressedConcepts.add(conceptFromOcl.getUrl());
+		List<String> terminatingConceptUrls = new ArrayList<>();
+		// Define our recursive function that will go and go all the way through the tree
+		Recursive<Function<List<String>, List<String>>> getConceptChains = new Recursive<>();
+		// This function will produce a list of distinct A > B > C URLs to show which concepts map where that we can
+		// collapse
+		getConceptChains.func = (parentConceptUrls) -> {
+			OCLConcept startingConcept = conceptsByUrl.get(parentConceptUrls.get(parentConceptUrls.size() - 1));
+			// If there are no overrides or every child is in the chain or terminating nodes, we've got a terminating node!
+			if (!overrides.containsKey(startingConcept.getUrl()) ||
+					new HashSet<>(parentConceptUrls).containsAll(overrides.get(startingConcept.getUrl())) ||
+					new HashSet<>(terminatingConceptUrls).containsAll(overrides.get(startingConcept.getUrl()))) {
+				terminatingConceptUrls.addAll(parentConceptUrls);
+				return Collections.singletonList(String.join(" ", parentConceptUrls));
+			}
+			// Now look at the child concepts and see how we can construct the chain
+			return overrides.get(startingConcept.getUrl()).stream()
+					// Don't go back up the way we came and don't look at retired children
+					.filter(childConceptUrl -> parentConceptUrls.size() < 2 ||
+							!childConceptUrl.equalsIgnoreCase(parentConceptUrls.get(parentConceptUrls.size() - 2)) ||
+							!conceptsByUrl.get(childConceptUrl).isRetired())
+					// These concepts are okay, so investigate
+					.flatMap(childConceptUrl -> {
+						// If we've reached a terminating node or are back in the current chain via the parents, skip this (since
+						// both of those cases will already be handled above)
+						if (terminatingConceptUrls.contains(childConceptUrl) || parentConceptUrls.contains(childConceptUrl)) {
+							return Stream.empty();
+						}
+						List<String> newParentConceptsUrls = new ArrayList<>(parentConceptUrls);
+						newParentConceptsUrls.add(childConceptUrl);
+						return getConceptChains.func.apply(newParentConceptsUrls).stream();
+					}).collect(Collectors.toList());
+		};
+		Map<String, List<String>> temporaryOverrides = new HashMap<>();
+		getConceptChains.func.apply(Collections.singletonList(conceptFromOcl.getUrl())).forEach(chain -> {
+			List<String> chainOfConceptUrls = Arrays.asList(chain.split(" "));
+			for (int i = 0; i < chainOfConceptUrls.size() - 1; i++) {
+				if (!temporaryOverrides.containsKey(chainOfConceptUrls.get(i))) {
+					temporaryOverrides.put(chainOfConceptUrls.get(i), new ArrayList<>());
+				}
+				if (!temporaryOverrides.get(chainOfConceptUrls.get(i)).contains(chainOfConceptUrls.get(i + 1))) {
+					temporaryOverrides.get(chainOfConceptUrls.get(i)).add(chainOfConceptUrls.get(i + 1));
+				}
+			}
+		});
+		if (!temporaryOverrides.containsKey(conceptFromOcl.getUrl())) {
+			return conceptFromOcl;
+		}
+		for (String oclConceptThatIsOverridden : temporaryOverrides.get(conceptFromOcl.getUrl())) {
+			OCLConcept conceptToOverride = conceptsByUrl.get(oclConceptThatIsOverridden).cloneOriginal();
+			// Compress this one first
+			compressConceptSameAsTree(conceptToOverride);
+			// Now update the current concept
+			conceptFromOcl.setPropertiesFromSameAsChild(conceptToOverride);
+			// Clear every dependent thing from the child (since it will be saved)
+			conceptToOverride.truncate();
+			conceptsByUrl.put(conceptToOverride.getUrl(), conceptToOverride);
+		}
+		// Now update the concept in our mapping tree
+		conceptsByUrl.put(conceptFromOcl.getUrl(), conceptFromOcl);
+		return conceptFromOcl;
+	}
+
+	/**
 	 * Save concepts and child entities (mappings, extras)
 	 *
 	 * @return The saved concept
 	 */
-	private MBHConcept saveConcept(OCLConcept conceptFromOcl, MBHConcept concept, AtomicInteger newRecords,
-			AtomicInteger updatedRecords) {
+	private MBHConcept saveConcept(OCLConcept conceptFromOcl, MBHConcept concept, boolean skipSourceSave) {
+		// If there is no new concept to save or we already visited this concept, return
+		// the concept that was passed in to be updated if there was one
 		if (conceptFromOcl == null || visitedConcepts.contains(conceptFromOcl.getUuid())) {
-			// If there is no new concept to save or we already visited this concept, return
-			// the concept that was passed in to be updated if there was one
 			return concept;
 		}
 
@@ -167,18 +343,21 @@ public class ConceptSyncProcess extends SvrProcess {
 
 		final int conceptID = concept.getBH_Concept_ID();
 
-		// check ocl originating source
-		MBHOclOriginatingSource foundSource = new Query(getCtx(), MBHOclOriginatingSource.Table_Name,
-				MBHOclOriginatingSource.COLUMNNAME_BH_Concept_ID + "=? AND "
-						+ MBHOclOriginatingSource.COLUMNNAME_BH_Ocl_Source + "=?",
-				null).setParameters(conceptID, source).first();
+		if (!skipSourceSave) {
+			savedSourceConcepts.add(concept.get_ID());
+			// check ocl originating source
+			MBHOclOriginatingSource foundSource = new Query(getCtx(), MBHOclOriginatingSource.Table_Name,
+					MBHOclOriginatingSource.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHOclOriginatingSource.COLUMNNAME_BH_Ocl_Source + "=?",
+					null).setParameters(conceptID, source).first();
 
-		// create ocl originating source if one doesn't exist
-		if (foundSource == null) {
-			foundSource = new MBHOclOriginatingSource(getCtx(), 0, null);
-			foundSource.setBH_Concept_ID(conceptID);
-			foundSource.setBH_Ocl_Source(source);
-			foundSource.saveEx();
+			// create ocl originating source if one doesn't exist
+			if (foundSource == null) {
+				foundSource = new MBHOclOriginatingSource(getCtx(), 0, null);
+				foundSource.setBH_Concept_ID(conceptID);
+				foundSource.setBH_Ocl_Source(source);
+				foundSource.saveEx();
+			}
 		}
 
 		// check existing extras
@@ -186,10 +365,10 @@ public class ConceptSyncProcess extends SvrProcess {
 				MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? ", null).setParameters(conceptID).list();
 
 		// save extras
-		conceptFromOcl.getExtras().forEach((conceptExtraFromOcl) -> {
+		conceptFromOcl.getExtrasByKey().forEach((conceptExtraKeyFromOcl, conceptExtraValueFromOcl) -> {
 			// search extra in db list
 			MBHConceptExtra foundConceptExtra = conceptExtras.stream()
-					.filter(filterConceptExtra -> conceptExtraFromOcl.getKey().equalsIgnoreCase(filterConceptExtra.getBH_Key()))
+					.filter(filterConceptExtra -> conceptExtraKeyFromOcl.equalsIgnoreCase(filterConceptExtra.getBH_Key()))
 					.findFirst().orElse(null);
 
 			if (foundConceptExtra == null) {
@@ -201,15 +380,14 @@ public class ConceptSyncProcess extends SvrProcess {
 				updatedRecords.incrementAndGet();
 			}
 
-			foundConceptExtra.setBH_Key(conceptExtraFromOcl.getKey());
-			foundConceptExtra.setBH_Value(conceptExtraFromOcl.getValue());
+			foundConceptExtra.setBH_Key(conceptExtraKeyFromOcl);
+			foundConceptExtra.setBH_Value(conceptExtraValueFromOcl);
 			foundConceptExtra.setIsActive(!conceptFromOcl.isRetired());
 			foundConceptExtra.saveEx();
 		});
 
 		// Deactivate extras that are no longer used
-		Set<String> currentOclConceptExtraKeys =
-				conceptFromOcl.getExtras().stream().map(OCLConceptExtra::getKey).collect(Collectors.toSet());
+		Set<String> currentOclConceptExtraKeys = conceptFromOcl.getExtrasByKey().keySet();
 		conceptExtras.stream()
 				.filter(conceptExtra -> !currentOclConceptExtraKeys.contains(conceptExtra.getBH_Key()))
 				.forEach(conceptMappingExtra -> {
@@ -223,7 +401,7 @@ public class ConceptSyncProcess extends SvrProcess {
 				MBHConceptName.COLUMNNAME_BH_Concept_ID + "=?", null).setParameters(conceptID).list();
 		Map<String, MBHConceptName> conceptNamesByOclUU =
 				conceptNames.stream().collect(Collectors.toMap(MBHConceptName::getOcl_Uuid, conceptName -> conceptName));
-		conceptFromOcl.getNames().forEach((oclConceptName) -> {
+		conceptFromOcl.getNamesByLanguageAndType().values().stream().flatMap(Collection::stream).forEach(oclConceptName -> {
 			// search name in db list
 			MBHConceptName foundConceptName = conceptNamesByOclUU.get(oclConceptName.getUuid());
 
@@ -237,6 +415,7 @@ public class ConceptSyncProcess extends SvrProcess {
 				updatedRecords.incrementAndGet();
 			}
 
+			foundConceptName.setIsActive(true);
 			foundConceptName.setBH_Concept_Locale(oclConceptName.getLocale());
 			foundConceptName.setName(oclConceptName.getName());
 			foundConceptName.setBH_Concept_Type(oclConceptName.getType());
@@ -245,8 +424,62 @@ public class ConceptSyncProcess extends SvrProcess {
 			foundConceptName.saveEx();
 		});
 
+		// Deactivate names that are no longer used
+		Set<String> currentOclConceptNameUUs =
+				conceptFromOcl.getNamesByLanguageAndType().values().stream().flatMap(Collection::stream)
+						.map(OCLConceptName::getUuid).collect(Collectors.toSet());
+		conceptNames.stream()
+				.filter(conceptName -> !currentOclConceptNameUUs.contains(conceptName.getOcl_Uuid()))
+				.forEach(conceptName -> {
+					updatedRecords.incrementAndGet();
+					conceptName.setIsActive(false);
+					conceptName.saveEx();
+				});
+
+		// get concept descriptions
+		List<MBHConceptDescription> conceptDescriptions = new Query(getCtx(), MBHConceptDescription.Table_Name,
+				MBHConceptDescription.COLUMNNAME_BH_Concept_ID + "=?", null).setParameters(conceptID).list();
+		Map<String, MBHConceptDescription> conceptDescriptionsByOclUU =
+				conceptDescriptions.stream()
+						.collect(Collectors.toMap(MBHConceptDescription::getOcl_Uuid, conceptName -> conceptName));
+		conceptFromOcl.getDescriptionsByLanguageAndType().values().stream().flatMap(Collection::stream)
+				.forEach(oclConceptDescription -> {
+					// search name in db list
+					MBHConceptDescription conceptDescription = conceptDescriptionsByOclUU.get(oclConceptDescription.getUuid());
+
+					if (conceptDescription == null) {
+						// new record
+						conceptDescription = new MBHConceptDescription(getCtx(), 0, null);
+						conceptDescription.setOcl_Uuid(oclConceptDescription.getUuid());
+						conceptDescription.setBH_Concept_ID(conceptID);
+						newRecords.incrementAndGet();
+					} else {
+						updatedRecords.incrementAndGet();
+					}
+
+					conceptDescription.setIsActive(true);
+					conceptDescription.setBH_Concept_Locale(oclConceptDescription.getLocale());
+					conceptDescription.setName(oclConceptDescription.getDescription());
+					conceptDescription.setBH_Concept_Type(oclConceptDescription.getType());
+					conceptDescription.setBH_Concept_Description_Type(oclConceptDescription.getDescriptionType());
+					conceptDescription.setBH_Concept_Locale_Preferred(oclConceptDescription.isLocalePreferred());
+					conceptDescription.saveEx();
+				});
+
+		// Deactivate descriptions that are no longer used
+		Set<String> currentOclConceptDescriptionUUs =
+				conceptFromOcl.getDescriptionsByLanguageAndType().values().stream().flatMap(Collection::stream)
+						.map(OCLConceptDescription::getUuid).collect(Collectors.toSet());
+		conceptDescriptions.stream()
+				.filter(conceptDescription -> !currentOclConceptDescriptionUUs.contains(conceptDescription.getOcl_Uuid()))
+				.forEach(conceptDescription -> {
+					updatedRecords.incrementAndGet();
+					conceptDescription.setIsActive(false);
+					conceptDescription.saveEx();
+				});
+
 		// save mappings
-		downloadChildMappings(concept, conceptFromOcl, newRecords, updatedRecords);
+		saveChildMappings(concept, conceptFromOcl);
 
 		return concept;
 	}
@@ -325,39 +558,50 @@ public class ConceptSyncProcess extends SvrProcess {
 	/**
 	 * Fetch any child mapped concepts
 	 */
-	private void downloadChildMappings(MBHConcept parentConcept, OCLConcept oclConcept, AtomicInteger newRecords,
-			AtomicInteger updatedRecords) {
-		List<OCLConceptMapping> mappings = oclConcept.getMappings();
-		if (mappings.isEmpty()) {
+	private void saveChildMappings(MBHConcept parentConcept, OCLConcept oclConcept) {
+		if (oclConcept.getMappings() == null || oclConcept.getMappings().isEmpty()) {
+			return;
+		}
+		// Get mappings for this concept
+		List<MBHConceptMapping> conceptMappings = new Query(getCtx(), MBHConceptMapping.Table_Name,
+				MBHConceptMapping.COLUMNNAME_BH_Concept_ID + "=?", null).setParameters(parentConcept.getBH_Concept_ID()).list();
+		Map<String, MBHConceptMapping> conceptMappingsByOclUU = conceptMappings.stream()
+				.collect(Collectors.toMap(MBHConceptMapping::getOcl_Uuid, conceptMapping -> conceptMapping));
+
+		List<OCLConceptMapping> oclConceptMappingsToWorkWith = oclConcept.getActiveMappingsByMapType().keySet().stream()
+				.filter(
+						conceptMappingMapType ->
+								!MBHConceptMapping.BROADER_THAN1_MAP_TYPE.equalsIgnoreCase(conceptMappingMapType) &&
+										!MBHConceptMapping.BROADER_THAN2_MAP_TYPE.equalsIgnoreCase(conceptMappingMapType))
+				.flatMap(conceptMappingMapType -> oclConcept.getActiveMappingsByMapType().get(conceptMappingMapType).stream())
+				.toList();
+
+		// Deactivate the mappings that we're not working with
+		conceptMappingsByOclUU.keySet().stream().filter(oclUU -> oclConceptMappingsToWorkWith.stream()
+						.noneMatch(oclConceptMappingToWorkWith -> oclConceptMappingToWorkWith.getUuid().equals(oclUU)))
+				.forEach(oclConceptMappingUUToDeactivate -> {
+					conceptMappingsByOclUU.get(oclConceptMappingUUToDeactivate).setIsActive(false);
+					conceptMappingsByOclUU.get(oclConceptMappingUUToDeactivate).saveEx();
+				});
+
+		if (oclConceptMappingsToWorkWith.isEmpty()) {
 			return;
 		}
 
-		// Take advantage of batching to avoid multiple db calls.
-		List<Object> parameters = new ArrayList<>();
-		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(
-				mappings.stream().map(OCLConceptMapping::getUuid).collect(Collectors.toSet()), parameters);
-		//
-		List<MBHConceptMapping> conceptMappings = new Query(getCtx(), MBHConceptMapping.Table_Name,
-				MBHConceptMapping.COLUMNNAME_Ocl_Uuid + " IN ( " + inClause + " )", null).setParameters(parameters).list();
-		Map<String, MBHConceptMapping> conceptMappingByOclUU = conceptMappings.stream()
-				.collect(Collectors.toMap(MBHConceptMapping::getOcl_Uuid, conceptMapping -> conceptMapping));
-
-		// save every mapping and check underlying concepts (filtering out BROADER-THAN mappings)
-		mappings.stream().filter(conceptMappingFromOcl -> !MBHConceptMapping.BROADER_THAN_MAP_TYPE.equalsIgnoreCase(
-				conceptMappingFromOcl.getMapType())).forEach((conceptMappingFromOcl) -> {
-			//
-			MBHConceptMapping foundConceptMapping = conceptMappingByOclUU.get(conceptMappingFromOcl.getUuid());
+		// save every mapping and check underlying concepts
+		oclConceptMappingsToWorkWith.forEach((conceptMappingFromOcl) -> {
+			MBHConceptMapping foundConceptMapping = conceptMappingsByOclUU.get(conceptMappingFromOcl.getUuid());
 
 			if (foundConceptMapping == null) {
 				// new record
 				foundConceptMapping = new MBHConceptMapping(getCtx(), 0, null);
 				foundConceptMapping.setOcl_Uuid(conceptMappingFromOcl.getUuid());
-				foundConceptMapping.setBH_Concept_ID(parentConcept.get_ID());
 				newRecords.incrementAndGet();
 			} else {
 				updatedRecords.incrementAndGet();
 			}
 
+			foundConceptMapping.setBH_Concept_ID(parentConcept.get_ID());
 			foundConceptMapping.setBH_ExternalID(conceptMappingFromOcl.getExternalId());
 			foundConceptMapping.setIsActive(!conceptMappingFromOcl.isRetired());
 			foundConceptMapping.setBH_Source(conceptMappingFromOcl.getSource());
@@ -419,17 +663,17 @@ public class ConceptSyncProcess extends SvrProcess {
 			String mappingUrl = conceptMappingFromOcl.getToConceptUrl();
 
 			// some concepts are mapped to themselves leading to an infinite loop.
-			if (mappingUrl != null && !"null".equals(mappingUrl)) {
+			if (!StringUtil.isNullOrEmpty(mappingUrl)) {
 				if (!oclConcept.getUrl().equals(mappingUrl)) {
 					// get the child concept
-					OCLConcept childOclConcept = getConceptFromOCL(mappingUrl);
-					MBHConcept foundChildConcept = null;
-					if (childOclConcept != null) {
-						foundChildConcept = new Query(getCtx(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_Ocl_Uuid + "=?",
-								null).setParameters(childOclConcept.getUuid()).first();
-					}
+					OCLConcept childOclConcept = conceptsByUrl.get(mappingUrl);
+					MBHConcept foundChildConcept =
+							new Query(getCtx(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_Ocl_Uuid + "=?", null).setParameters(
+									childOclConcept.getUuid()).first();
 
-					MBHConcept savedChildConcept = saveConcept(childOclConcept, foundChildConcept, newRecords, updatedRecords);
+					MBHConcept savedChildConcept = saveConcept(childOclConcept, foundChildConcept,
+							conceptMappingFromOcl.getMapType().equalsIgnoreCase(MBHConceptMapping.SAME_AS_MAP_TYPE) ||
+									conceptMappingFromOcl.getMapType().equalsIgnoreCase(MBHConceptMapping.SAME_AS2_MAP_TYPE));
 
 					// after populating and saving the child concept, link it to the "TO" end of this mapping
 					foundConceptMapping.setTo_BH_Concept_ID(savedChildConcept == null ? 0 : savedChildConcept.get_ID());

@@ -25,7 +25,7 @@ public class X_C_RevenueRecog_ServiceResolver extends POResolver<MRevenueRecogSe
 	 * @return Method for recording revenue
 	 */
 	public CompletableFuture<MRevenueRecognition> C_RevenueRecognition(MRevenueRecogService entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RevenueRecognition_ID() < 0) {
+		if (entity.getC_RevenueRecognition_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecognition> dataLoader =

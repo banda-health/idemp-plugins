@@ -95,7 +95,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 			MProjectPhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
-							.setParameters(C_ProjectPhase.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ProjectPhase.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ProjectPhase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -161,7 +161,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 			MProjectTypeTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Task", "C_Task_UU=?", get_TrxName())
-							.setParameters(C_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Task_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -43,7 +43,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Account used
 	 */
 	public CompletableFuture<MElementValue> Account(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getAccount_ID() < 0) {
+		if (entity.getAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -58,7 +58,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -73,7 +73,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() < 0) {
+		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -88,7 +88,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -103,7 +103,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -118,7 +118,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Location that inventory was moved from
 	 */
 	public CompletableFuture<MLocation> C_LocFrom(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocFrom_ID() < 0) {
+		if (entity.getC_LocFrom_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -133,7 +133,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Location that inventory was moved to
 	 */
 	public CompletableFuture<MLocation> C_LocTo(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocTo_ID() < 0) {
+		if (entity.getC_LocTo_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -148,7 +148,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -163,7 +163,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() < 0) {
+		if (entity.getC_SalesRegion_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -178,7 +178,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Sub account for Element Value
 	 */
 	public CompletableFuture<X_C_SubAcct> C_SubAcct(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SubAcct_ID() < 0) {
+		if (entity.getC_SubAcct_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_SubAcct> dataLoader =
@@ -197,7 +197,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -212,7 +212,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() < 0) {
+		if (entity.getUser1_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -227,7 +227,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() < 0) {
+		if (entity.getUser2_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

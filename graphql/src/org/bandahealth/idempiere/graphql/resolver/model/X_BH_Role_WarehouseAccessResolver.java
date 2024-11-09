@@ -43,7 +43,7 @@ public class X_BH_Role_WarehouseAccessResolver extends POResolver<MBHRoleWarehou
 	 * @return BH_Role_WarehouseAccess_ID
 	 */
 	public CompletableFuture<MBHRoleWarehouseAccess> BH_Role_WarehouseAccess(MBHRoleWarehouseAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Role_WarehouseAccess_ID() < 0) {
+		if (entity.getBH_Role_WarehouseAccess_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHRoleWarehouseAccess> dataLoader =
@@ -62,7 +62,7 @@ public class X_BH_Role_WarehouseAccessResolver extends POResolver<MBHRoleWarehou
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MBHRoleWarehouseAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() < 0) {
+		if (entity.getM_Warehouse_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

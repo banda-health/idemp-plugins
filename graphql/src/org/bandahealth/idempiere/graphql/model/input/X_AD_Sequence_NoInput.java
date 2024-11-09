@@ -88,7 +88,7 @@ public class X_AD_Sequence_NoInput extends X_AD_Sequence_No implements I_AD_Sequ
 			MSequence_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
-							.setParameters(AD_Sequence.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Sequence.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Sequence_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

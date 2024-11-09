@@ -32,7 +32,7 @@ public class X_AD_WF_Node_ParaResolver extends POResolver<X_AD_WF_Node_Para> imp
 	 * @return Process Parameter
 	 */
 	public CompletableFuture<MProcessPara> AD_Process_Para(X_AD_WF_Node_Para entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_Para_ID() < 0) {
+		if (entity.getAD_Process_Para_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProcessPara> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_WF_Node_ParaResolver extends POResolver<X_AD_WF_Node_Para> imp
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Node(X_AD_WF_Node_Para entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Node_ID() < 0) {
+		if (entity.getAD_WF_Node_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =

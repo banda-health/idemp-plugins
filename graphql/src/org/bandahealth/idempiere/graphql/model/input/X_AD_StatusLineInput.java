@@ -50,7 +50,7 @@ public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLine
 			MMessage_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
-							.setParameters(AD_Message.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Message.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Message_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLine
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

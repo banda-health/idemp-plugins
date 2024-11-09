@@ -295,17 +295,25 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			assertEquals(configurationBusinessPartners.size(), clientBusinessPartners.size(),
 					"Business Partners were created");
 
-			// Assert default business partner locations are created.
+			// Assert default business partner locations are created
+			parameters = new ArrayList<>();
+			parameters.add(MClient_BH.CLIENTID_CONFIG);
+			String defaultBPWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+					configurationBusinessPartners.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet()), parameters);
 			List<MBPartnerLocation> configurationBusinessPartnerLocations =
 					new Query(valueObject.getContext(), MBPartnerLocation.Table_Name,
-							MBPartnerLocation.COLUMNNAME_AD_Client_ID + "=?", valueObject.getTransactionName()).setParameters(
-									MClient_BH.CLIENTID_CONFIG)
-							.list();
+							MBPartnerLocation.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartnerLocation.COLUMNNAME_C_BPartner_ID +
+									" IN (" + defaultBPWhereClause + ")", valueObject.getTransactionName()).setParameters(parameters)
+							.setOnlyActiveRecords(true).list();
+			parameters = new ArrayList<>();
+			parameters.add(client.get_ID());
+			String clientBPWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+					clientBusinessPartners.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet()), parameters);
 			List<MBPartnerLocation> clientBusinessPartnerLocations =
 					new Query(valueObject.getContext(), MBPartnerLocation.Table_Name,
-							MBPartnerLocation.COLUMNNAME_AD_Client_ID + "=?",
-							valueObject.getTransactionName()).setParameters(client.get_ID())
-							.list();
+							MBPartnerLocation.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartnerLocation.COLUMNNAME_C_BPartner_ID +
+									" IN (" + clientBPWhereClause + ")", valueObject.getTransactionName()).setParameters(parameters)
+							.setOnlyActiveRecords(true).list();
 			assertEquals(configurationBusinessPartnerLocations.size(), clientBusinessPartnerLocations.size(),
 					"Business Partners locations were created");
 
@@ -319,13 +327,15 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(configurationBusinessPartnerGroups.size(), clientBusinessPartnerGroups.size(),
 					"Business Partner Groups were created");
-			
+
 			// Assert patient number sequence is created
-			MSequence_BH clientPatientNumberSequence = new Query(valueObject.getContext(), 
-					MSequence_BH.Table_Name, 
-					MSequence_BH.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence_BH.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
-				.setParameters(client.get_ID(), MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
-			assertEquals(MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX, clientPatientNumberSequence.getName(), "Patient Sequence was created");
+			MSequence_BH clientPatientNumberSequence = new Query(valueObject.getContext(),
+					MSequence_BH.Table_Name,
+					MSequence_BH.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence_BH.COLUMNNAME_Name + "=?",
+					valueObject.getTransactionName())
+					.setParameters(client.get_ID(), MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
+			assertEquals(MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX,
+					clientPatientNumberSequence.getName(), "Patient Sequence was created");
 
 			// Confirm log levels correct
 			assertEquals(originalLogLevel, CLogMgt.getLevel(), "Log levels match after creating new client");

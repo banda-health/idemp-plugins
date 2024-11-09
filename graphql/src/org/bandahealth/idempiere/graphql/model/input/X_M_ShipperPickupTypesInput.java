@@ -90,7 +90,7 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Shipper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 			X_M_ShipperPickupTypesCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperPickupTypesCfg", "M_ShipperPickupTypesCfg_UU=?", get_TrxName())
-							.setParameters(M_ShipperPickupTypesCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ShipperPickupTypesCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ShipperPickupTypesCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -119,7 +119,7 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 			MBHPayerInfoFld foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Payer_Info_Fld", "BH_Payer_Info_Fld_UU=?", get_TrxName())
-							.setParameters(BH_Payer_Info_Fld.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Payer_Info_Fld.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBH_Payer_Info_Fld_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -61,7 +61,7 @@ public class X_AD_ReplicationStrategyResolver extends POResolver<MReplicationStr
 	 * @return Export Processor
 	 */
 	public CompletableFuture<MEXPProcessor> EXP_Processor(MReplicationStrategy entity, DataFetchingEnvironment environment) {
-		if (entity.getEXP_Processor_ID() < 0) {
+		if (entity.getEXP_Processor_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MEXPProcessor> dataLoader =
