@@ -187,3 +187,7 @@ modules.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,eclipse
 /package-lock.json
+
+#Remove logs and db output
+idempiere-logs/**
+db-output/**

@@ -564,7 +564,8 @@ public class ConceptSyncProcess extends SvrProcess {
 		}
 		// Get mappings for this concept
 		List<MBHConceptMapping> conceptMappings = new Query(getCtx(), MBHConceptMapping.Table_Name,
-				MBHConceptMapping.COLUMNNAME_BH_Concept_ID + "=?", null).setParameters(parentConcept.getBH_Concept_ID()).list();
+				MBHConceptMapping.COLUMNNAME_From_BH_Concept_ID + "=?", null).setParameters(parentConcept.getBH_Concept_ID())
+				.list();
 		Map<String, MBHConceptMapping> conceptMappingsByOclUU = conceptMappings.stream()
 				.collect(Collectors.toMap(MBHConceptMapping::getOcl_Uuid, conceptMapping -> conceptMapping));
 
@@ -601,7 +602,7 @@ public class ConceptSyncProcess extends SvrProcess {
 				updatedRecords.incrementAndGet();
 			}
 
-			foundConceptMapping.setBH_Concept_ID(parentConcept.get_ID());
+			foundConceptMapping.setFrom_BH_Concept_ID(parentConcept.get_ID());
 			foundConceptMapping.setBH_ExternalID(conceptMappingFromOcl.getExternalId());
 			foundConceptMapping.setIsActive(!conceptMappingFromOcl.isRetired());
 			foundConceptMapping.setBH_Source(conceptMappingFromOcl.getSource());
