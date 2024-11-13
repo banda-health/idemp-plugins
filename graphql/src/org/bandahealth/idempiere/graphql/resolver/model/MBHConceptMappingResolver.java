@@ -15,31 +15,11 @@ import java.util.concurrent.CompletableFuture;
 import graphql.schema.DataFetchingEnvironment;
 
 public class MBHConceptMappingResolver extends X_BH_Concept_MappingResolver {
-	public CompletableFuture<MBHConcept> FromBH_Concept(MBHConceptMapping entity,
-			DataFetchingEnvironment environment) {
-		if (entity.getBH_Concept_ID() < 0) {
-			return null;
-		}
-		DataLoader<Integer, MBHConcept> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_ConceptDataLoader.DATALOADER_BH_Concept_BY_ID);
-		return dataLoader.load(entity.getBH_Concept_ID());
-	}
-
-	public CompletableFuture<MBHConcept> ToBH_Concept(MBHConceptMapping entity,
-			DataFetchingEnvironment environment) {
-		if (entity.getBH_Concept_ID() < 0) {
-			return null;
-		}
-		DataLoader<Integer, MBHConcept> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_ConceptDataLoader.DATALOADER_BH_Concept_BY_ID);
-		return dataLoader.load(entity.getTo_BH_Concept_ID());
-	}
-	
 	public CompletableFuture<List<MBHConceptMapping>> FromBH_Concept_Mappings(MBHConceptMapping entity,
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MBHConceptMapping>> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MBHConceptMappingDataLoader.DATALOADER_BH_Concept_Mapping_BY_To_BH_Concept_ID);
-		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Concept_ID()));
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getFrom_BH_Concept_ID()));
 	}
 
 	public CompletableFuture<List<MBHConceptMapping>> ToBH_Concept_Mappings(MBHConceptMapping entity,

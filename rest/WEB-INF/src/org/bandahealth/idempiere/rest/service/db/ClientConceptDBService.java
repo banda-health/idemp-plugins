@@ -54,7 +54,7 @@ public class ClientConceptDBService extends BaseDBService<ClientConcept, MBHClie
 		} else {
 			throw new AdempiereException("Concept missing!");
 		}
-		clientConcept.setName(entity.getName());
+		clientConcept.setBH_Display_Name(entity.getDisplayName());
 		clientConcept.setIsActive(entity.getIsActive());
 		
 		clientConcept.saveEx();

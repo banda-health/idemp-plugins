@@ -20,17 +20,32 @@ public class X_BH_Concept_MappingResolver extends POResolver<MBHConceptMapping> 
 
 
 	/**
-	 * Get Concept.
+	 * Get From Concept.
 	 *
-	 * @return Concept
+	 * @return From Concept
 	 */
-	public CompletableFuture<MBHConcept> BH_Concept(MBHConceptMapping entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Concept_ID() < 1) {
+	public CompletableFuture<MBHConcept> From_BH_Concept(MBHConceptMapping entity, DataFetchingEnvironment environment) {
+		if (entity.getFrom_BH_Concept_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHConcept> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_BH_ConceptDataLoader.DATALOADER_BH_Concept_BY_ID);
-		return dataLoader.load(entity.getBH_Concept_ID());
+		return dataLoader.load(entity.getFrom_BH_Concept_ID());
+	}
+
+
+	/**
+	 * Get To Concept.
+	 *
+	 * @return To Concept
+	 */
+	public CompletableFuture<MBHConcept> To_BH_Concept(MBHConceptMapping entity, DataFetchingEnvironment environment) {
+		if (entity.getTo_BH_Concept_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBHConcept> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_ConceptDataLoader.DATALOADER_BH_Concept_BY_ID);
+		return dataLoader.load(entity.getTo_BH_Concept_ID());
 	}
 
 }

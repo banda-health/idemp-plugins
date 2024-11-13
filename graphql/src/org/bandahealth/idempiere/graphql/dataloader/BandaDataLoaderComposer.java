@@ -65,6 +65,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MBHEncounterDiagnosisDa
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHEncounterDiagnosticDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHEncounterTypeWindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHObservationDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHOclOriginatingSourceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHPayerInfoFldDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHPayerInfoFldSugDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHPayerInfoFldValDataLoader;
@@ -916,6 +917,7 @@ public class BandaDataLoaderComposer {
 				new MBHEncounterDiagnosticDataLoader(),
 				new MBHEncounterTypeWindowDataLoader(),
 				new MBHObservationDataLoader(),
+				new MBHOclOriginatingSourceDataLoader(),
 				new MBHPayerInfoFldDataLoader(),
 				new MBHPayerInfoFldSugDataLoader(),
 				new MBHPayerInfoFldValDataLoader(),

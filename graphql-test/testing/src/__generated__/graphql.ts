@@ -18365,14 +18365,14 @@ export type Bh_Client_Concept = {
   /** Organizational entity within tenant */
   AD_Org?: Maybe<Ad_Org>;
   BH_Concept: Bh_Concept;
+  /** Display Name */
+  BH_Display_Name?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
   Created?: Maybe<Scalars['Date']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
-  /** Alphanumeric identifier of the entity */
-  Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18390,10 +18390,10 @@ export type Bh_Client_ConceptInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
   BH_Concept?: InputMaybe<ForeignEntityInput>;
+  /** Display Name */
+  BH_Display_Name?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Alphanumeric identifier of the entity */
-  Name?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -18412,6 +18412,8 @@ export type Bh_Coded_Diagnosis = {
   Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18443,6 +18445,8 @@ export type Bh_Coded_DiagnosisInput = {
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   bh_cielname?: InputMaybe<Scalars['String']['input']>;
   bh_concept_class?: InputMaybe<Scalars['String']['input']>;
@@ -18522,6 +18526,7 @@ export type Bh_Concept = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   BH_Client_Concepts?: Maybe<Array<Bh_Client_Concept>>;
+  BH_Concept_Descriptions?: Maybe<Array<Bh_Concept_Description>>;
   BH_Concept_Extras?: Maybe<Array<Bh_Concept_Extra>>;
   BH_Concept_Names?: Maybe<Array<Bh_Concept_Name>>;
   BH_Concept_Type?: Maybe<Scalars['String']['output']>;
@@ -18545,6 +18550,8 @@ export type Bh_Concept = {
   FromBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   /** Parent mappings (usually 1) */
   ToBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
   /** Full URL address - e.g. http://www.idempiere.org */
@@ -18582,6 +18589,8 @@ export type Bh_ConceptInput = {
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
   /** Full URL address - e.g. http://www.idempiere.org */
   URL?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
@@ -18597,6 +18606,7 @@ export type Bh_Concept_Description = {
   BH_Concept: Bh_Concept;
   BH_Concept_Description_Type?: Maybe<Scalars['String']['output']>;
   BH_Concept_Locale?: Maybe<Scalars['String']['output']>;
+  BH_Concept_Locale_Preferred: Scalars['Boolean']['output'];
   BH_Concept_Type?: Maybe<Scalars['String']['output']>;
   /** BH_External_ID */
   BH_ExternalID?: Maybe<Scalars['String']['output']>;
@@ -18604,10 +18614,14 @@ export type Bh_Concept_Description = {
   Created?: Maybe<Scalars['Date']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
+  /** Optional short description of the record */
+  Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Alphanumeric identifier of the entity */
   Name?: Maybe<Scalars['String']['output']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18627,13 +18641,18 @@ export type Bh_Concept_DescriptionInput = {
   BH_Concept?: InputMaybe<ForeignEntityInput>;
   BH_Concept_Description_Type?: InputMaybe<Scalars['String']['input']>;
   BH_Concept_Locale?: InputMaybe<Scalars['String']['input']>;
+  BH_Concept_Locale_Preferred?: InputMaybe<Scalars['Boolean']['input']>;
   BH_Concept_Type?: InputMaybe<Scalars['String']['input']>;
   /** BH_External_ID */
   BH_ExternalID?: InputMaybe<Scalars['String']['input']>;
+  /** Optional short description of the record */
+  Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Alphanumeric identifier of the entity */
   Name?: InputMaybe<Scalars['String']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -18686,7 +18705,6 @@ export type Bh_Concept_Mapping = {
   AD_Client?: Maybe<Ad_Client>;
   /** Organizational entity within tenant */
   AD_Org?: Maybe<Ad_Org>;
-  BH_Concept: Bh_Concept;
   BH_Concept_Extras?: Maybe<Array<Bh_Concept_Extra>>;
   /** BH_External_ID */
   BH_ExternalID?: Maybe<Scalars['String']['output']>;
@@ -18711,13 +18729,16 @@ export type Bh_Concept_Mapping = {
   Created?: Maybe<Scalars['Date']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
-  FromBH_Concept: Bh_Concept;
   FromBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
+  /** From Concept */
+  From_BH_Concept: Bh_Concept;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   /** Provides a way to skip over From concept to it's From mappings */
-  ToBH_Concept?: Maybe<Bh_Concept>;
   ToBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
+  To_BH_Concept?: Maybe<Bh_Concept>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18734,7 +18755,6 @@ export type Bh_Concept_MappingConnection = {
 export type Bh_Concept_MappingInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
-  BH_Concept?: InputMaybe<ForeignEntityInput>;
   /** BH_External_ID */
   BH_ExternalID?: InputMaybe<Scalars['String']['input']>;
   BH_From_Concept_Code?: InputMaybe<Scalars['String']['input']>;
@@ -18754,8 +18774,13 @@ export type Bh_Concept_MappingInput = {
   BH_To_Concept_Name_Resolved?: InputMaybe<Scalars['String']['input']>;
   BH_To_Concept_Url?: InputMaybe<Scalars['String']['input']>;
   BH_To_Source_Name?: InputMaybe<Scalars['String']['input']>;
+  /** From Concept */
+  From_BH_Concept?: InputMaybe<ForeignEntityInput>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
+  To_BH_Concept?: InputMaybe<ForeignEntityInput>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -18780,6 +18805,8 @@ export type Bh_Concept_Name = {
   IsActive: Scalars['Boolean']['output'];
   /** Alphanumeric identifier of the entity */
   Name?: Maybe<Scalars['String']['output']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18807,6 +18834,8 @@ export type Bh_Concept_NameInput = {
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Alphanumeric identifier of the entity */
   Name?: InputMaybe<Scalars['String']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -19220,6 +19249,43 @@ export type Bh_ObservationInput = {
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type Bh_Ocl_Originating_Source = {
+  __typename?: 'BH_Ocl_Originating_Source';
+  /** Tenant for this installation. */
+  AD_Client: Ad_Client;
+  /** Organizational entity within tenant */
+  AD_Org: Ad_Org;
+  BH_Concept: Bh_Concept;
+  BH_Ocl_Source?: Maybe<Ad_Ref_List>;
+  /** Date this record was created */
+  Created: Scalars['Date']['output'];
+  /** User who created this records */
+  CreatedBy: Ad_User;
+  /** The record is active in the system */
+  IsActive: Scalars['Boolean']['output'];
+  UU: Scalars['ID']['output'];
+  /** Date this record was updated */
+  Updated: Scalars['Date']['output'];
+  /** User who updated this records */
+  UpdatedBy: Ad_User;
+};
+
+export type Bh_Ocl_Originating_SourceConnection = {
+  __typename?: 'BH_Ocl_Originating_SourceConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<Bh_Ocl_Originating_Source>;
+};
+
+export type Bh_Ocl_Originating_SourceInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
+  BH_Ocl_Source?: InputMaybe<ForeignEntityInput>;
+  /** The record is active in the system */
+  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  UU?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type Bh_Payer_Info_Fld = {
   __typename?: 'BH_Payer_Info_Fld';
   /** Tenant for this installation. */
@@ -19577,6 +19643,10 @@ export type Bh_Product_CategoryDefaultInput = {
 
 export type Bh_Role_WarehouseAccess = {
   __typename?: 'BH_Role_WarehouseAccess';
+  /** Tenant for this installation. */
+  AD_Client: Ad_Client;
+  /** Organizational entity within tenant */
+  AD_Org: Ad_Org;
   /** Responsibility Role */
   AD_Role?: Maybe<Ad_Role>;
   BH_Role_WarehouseAccess: Bh_Role_WarehouseAccess;
@@ -19604,6 +19674,8 @@ export type Bh_Role_WarehouseAccessConnection = {
 };
 
 export type Bh_Role_WarehouseAccessInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
   /** Responsibility Role */
   AD_Role?: InputMaybe<ForeignEntityInput>;
   BH_Role_WarehouseAccess?: InputMaybe<ForeignEntityInput>;
@@ -51724,6 +51796,9 @@ export type Mutation = {
   BH_ObservationDelete: Scalars['Boolean']['output'];
   BH_ObservationSave: Bh_Observation;
   BH_ObservationSaveMany: Array<Bh_Observation>;
+  BH_Ocl_Originating_SourceDelete: Scalars['Boolean']['output'];
+  BH_Ocl_Originating_SourceSave: Bh_Ocl_Originating_Source;
+  BH_Ocl_Originating_SourceSaveMany: Array<Bh_Ocl_Originating_Source>;
   BH_Payer_Info_FldDelete: Scalars['Boolean']['output'];
   BH_Payer_Info_FldSave: Bh_Payer_Info_Fld;
   BH_Payer_Info_FldSaveMany: Array<Bh_Payer_Info_Fld>;
@@ -58067,6 +58142,24 @@ export type MutationBh_ObservationSaveArgs = {
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationBh_ObservationSaveManyArgs = {
   Entities: Array<Bh_ObservationInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Ocl_Originating_SourceDeleteArgs = {
+  UUs: Array<Scalars['String']['input']>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Ocl_Originating_SourceSaveArgs = {
+  Entity: Bh_Ocl_Originating_SourceInput;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Ocl_Originating_SourceSaveManyArgs = {
+  Entities: Array<Bh_Ocl_Originating_SourceInput>;
 };
 
 
@@ -71534,6 +71627,8 @@ export type Query = {
   BH_I_Product_QuantityGet: Bh_I_Product_QuantityConnection;
   BH_Observation?: Maybe<Bh_Observation>;
   BH_ObservationGet: Bh_ObservationConnection;
+  BH_Ocl_Originating_Source?: Maybe<Bh_Ocl_Originating_Source>;
+  BH_Ocl_Originating_SourceGet: Bh_Ocl_Originating_SourceConnection;
   BH_Payer_Info_Fld?: Maybe<Bh_Payer_Info_Fld>;
   BH_Payer_Info_FldGet: Bh_Payer_Info_FldConnection;
   BH_Payer_Info_Fld_Sug?: Maybe<Bh_Payer_Info_Fld_Sug>;
@@ -76550,6 +76645,21 @@ export type QueryBh_ObservationArgs = {
 
 /** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_ObservationGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Ocl_Originating_SourceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Ocl_Originating_SourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;

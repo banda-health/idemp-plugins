@@ -82,15 +82,6 @@ public interface I_BH_Client_Concept
 	/** Get BH_Client_Concept_UU	  */
 	public String getBH_Client_Concept_UU();
 
-    /** Column name BH_Client_Mapping_ID */
-    public static final String COLUMNNAME_BH_Client_Mapping_ID = "BH_Client_Mapping_ID";
-
-	/** Set Client Mapping ID	  */
-	public void setBH_Client_Mapping_ID (int BH_Client_Mapping_ID);
-
-	/** Get Client Mapping ID	  */
-	public int getBH_Client_Mapping_ID();
-
     /** Column name BH_Concept_ID */
     public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
 
@@ -101,6 +92,19 @@ public interface I_BH_Client_Concept
 	public int getBH_Concept_ID();
 
 	public I_BH_Concept getBH_Concept() throws RuntimeException;
+
+    /** Column name BH_Display_Name */
+    public static final String COLUMNNAME_BH_Display_Name = "BH_Display_Name";
+
+	/** Set Display Name.
+	  * Display Name
+	  */
+	public void setBH_Display_Name (String BH_Display_Name);
+
+	/** Get Display Name.
+	  * Display Name
+	  */
+	public String getBH_Display_Name();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -130,19 +134,6 @@ public interface I_BH_Client_Concept
 	  * The record is active in the system
 	  */
 	public boolean isActive();
-
-    /** Column name Name */
-    public static final String COLUMNNAME_Name = "Name";
-
-	/** Set Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public void setName (String Name);
-
-	/** Get Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public String getName();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
