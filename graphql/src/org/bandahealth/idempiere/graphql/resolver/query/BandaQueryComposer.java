@@ -76,8 +76,6 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 				new MBHBPPayerInfoQuery(),
 				new MBHBPSpecificPayerInfoQuery(),
 				new MBHClientConceptQuery(),
-				new MBHCodedDiagnosisQuery(),
-				new MBHCodedDiagnosisMappingQuery(),
 				new MBHConceptDescriptionQuery(),
 				new MBHConceptExtraQuery(),
 				new MBHConceptMappingQuery(),

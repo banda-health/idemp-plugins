@@ -33,7 +33,7 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 	@Override
 	public Concept saveEntity(Concept entity) {
 		MBHConcept concept = getEntityByUuidFromDB(entity.getUuid());
-		
+
 		// save client concepts
 		int conceptId = concept.get_ID();
 		if (entity.getClientConcepts() != null && !entity.getClientConcepts().isEmpty()) {
@@ -42,10 +42,10 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 				clientConceptDBService.saveEntity(clientConcept);
 			}
 		}
-		
+
 		// delete old client concepts
 		clientConceptDBService.deleteClientConceptsNotInList(conceptId, entity.getClientConcepts());
-		
+
 		return transformData(Collections.singletonList(getEntityByUuidFromDB(entity.getUuid()))).get(0);
 	}
 
@@ -144,7 +144,7 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 			List<MBHConcept> parentConcepts = new Query(Env.getCtx(), MBHConcept.Table_Name,
 					MBHConcept.COLUMNNAME_BH_OclID + " IN (" + whereClause + ")", null).setParameters(parameters)
-							.list();
+					.list();
 
 			parentConceptsByConceptId.putAll(
 					parentConcepts.stream().collect(Collectors.toMap(MBHConcept::getBH_OclID, concept -> concept)));
@@ -164,11 +164,11 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 			if (conceptExtraByConceptId.containsKey(result.getId())) {
 				result.setConceptExtras(conceptExtraByConceptId.get(result.getId()));
 			}
-			
+
 			if (conceptNameByConceptId.containsKey(result.getId())) {
 				result.setConceptNames(conceptNameByConceptId.get(result.getId()));
 			}
-			
+
 			if (clientConceptByConceptId.containsKey(result.getId())) {
 				result.setClientConcepts(clientConceptByConceptId.get(result.getId()));
 			}

@@ -96,14 +96,10 @@ public interface I_BH_Client_Concept
     /** Column name BH_Display_Name */
     public static final String COLUMNNAME_BH_Display_Name = "BH_Display_Name";
 
-	/** Set Display Name.
-	  * Display Name
-	  */
+	/** Set Display Name	  */
 	public void setBH_Display_Name (String BH_Display_Name);
 
-	/** Get Display Name.
-	  * Display Name
-	  */
+	/** Get Display Name	  */
 	public String getBH_Display_Name();
 
     /** Column name Created */
