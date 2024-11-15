@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PrescriptionForm" pageWidth="595" pageHeight="842" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 11"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="515"/>
@@ -173,19 +173,16 @@ LIMIT 5]]>
 		<parameter name="BH_Visit_UU" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
-	COALESCE(cd.bh_cielname, ed.bh_uncoded_diagnosis) AS diagnosis,
-	ed.created,
-	clinician.name                                    AS clinician
+	COALESCE(cd.bh_display_name, ed.bh_uncoded_diagnosis) AS diagnosis,
+	ed.created
 FROM
 	bh_visit v
 		JOIN bh_encounter e
 		ON e.bh_visit_id = v.bh_visit_id
 		JOIN bh_encounter_diagnosis ed
 		ON e.bh_encounter_id = ed.bh_encounter_id
-		LEFT JOIN bh_coded_diagnosis cd
-		ON ed.bh_coded_diagnosis_id = cd.bh_coded_diagnosis_id
-		JOIN ad_user clinician
-		ON v.bh_clinician_user_id = clinician.ad_user_id
+		LEFT JOIN bh_concept cd
+		ON ed.bh_concept_id = cd.bh_concept_id
 WHERE
 	v.bh_visit_uu = $P{BH_Visit_UU}
 ORDER BY
@@ -193,7 +190,6 @@ ORDER BY
 		</queryString>
 		<field name="diagnosis" class="java.lang.String"/>
 		<field name="created" class="java.sql.Timestamp"/>
-		<field name="clinician" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
@@ -210,7 +206,8 @@ ORDER BY
 		v.patient_id,
 		v.documentno,
 		v.ad_org_id,
-		o.updated AS end_date
+		o.updated AS end_date,
+		v.bh_clinician_user_id
 	FROM
 		bh_visit v
 			JOIN c_order o
@@ -291,7 +288,8 @@ SELECT
 	oi.bh_paymentinformation,
 	p.insurer_id,
 	p.insurer_uu,
-	p.insurer_name
+	p.insurer_name,
+	clinician.name 						AS clinician
 FROM
 	visit v
 		JOIN c_order o
@@ -305,7 +303,9 @@ FROM
 		LEFT JOIN ad_orginfo oi
 		ON v.ad_org_id = oi.ad_org_id
 		LEFT JOIN payer p
-		ON p.bh_visit_id = v.bh_visit_id]]>
+		ON p.bh_visit_id = v.bh_visit_id
+		JOIN ad_user clinician
+		ON v.bh_clinician_user_id = clinician.ad_user_id]]>
 	</queryString>
 	<field name="date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="date"/>
@@ -363,6 +363,10 @@ FROM
 	</field>
 	<field name="visit_number" class="java.lang.String"/>
 	<field name="end_date" class="java.sql.Timestamp"/>
+	<field name="clinician" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="clinician"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
 	<variable name="Total" class="java.math.BigDecimal" calculation="Sum"/>
 	<variable name="OpenBalance" class="java.math.BigDecimal">
 		<variableExpression><![CDATA[$P{ShowInsuranceInfo} ? new BigDecimal(0) : ($F{invoice_amount} == null) ? new BigDecimal(0) : $F{invoice_amount}.subtract($F{payment_amount} != null ? $F{payment_amount} : new BigDecimal(0))]]></variableExpression>
@@ -555,6 +559,28 @@ FROM
 					<font fontName="SansSerif" size="17" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRESCRIPTION FORM]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="82" y="205" width="141" height="16" uuid="1b76b728-50be-4187-8517-c01e41500a4d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clinician}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="2" y="205" width="80" height="16" uuid="fe1c4b55-1ff8-455d-8d6c-224c57b7fd07">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clinician:]]></text>
 			</staticText>
 		</band>
 		<band height="30" splitType="Stretch">
