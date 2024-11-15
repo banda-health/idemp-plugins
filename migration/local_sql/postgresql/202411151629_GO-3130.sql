@@ -1,0 +1,10 @@
+-- 1. Create prescription report process
+-- 2. Create visit uuid parameter
+INSERT INTO ad_process (ad_process_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, help, accesslevel, entitytype, procedurename, isreport, isdirectprint, ad_reportview_id, classname, statistic_count, statistic_seconds, ad_printformat_id, workflowvalue, ad_workflow_id, isbetafunctionality, isserverprocess, showhelp, jasperreport, ad_form_id, copyfromprocess, ad_process_uu, ad_ctxhelp_id, executiontype, allowmultipleexecution, filenamepattern) VALUES ((SELECT MAX(ad_process_id) + 1 FROM ad_process), 0, 0, 'Y', '2024-11-15 18:02:07.587000', 100, '2024-11-15 18:02:07.587000', 100, 'BH Prescription Form', 'Prescription Form', null, null, '3', 'U', null, 'Y', 'N', null, null, 0, 0, null, null, null, 'N', null, 'Y', 'PrescriptionForm/PrescriptionForm.jasper', null, 'N', '9fdbe1af-a79c-49ca-8081-0d32de89e053', null, null, 'P', null) ON CONFLICT DO NOTHING;
+
+INSERT INTO ad_process_para (ad_process_para_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, ad_process_id, seqno, ad_reference_id, ad_reference_value_id, ad_val_rule_id, columnname, iscentrallymaintained, fieldlength, ismandatory, isrange, defaultvalue, defaultvalue2, vformat, valuemin, valuemax, ad_element_id, entitytype, readonlylogic, displaylogic, ad_process_para_uu, isencrypted, mandatorylogic, placeholder, placeholder2, isautocomplete, ad_fieldgroup_id, query, daterangeoption, isshownegatebutton) VALUES ((SELECT MAX(ad_process_para_id) + 1 FROM ad_process_para), 0, 0, 'Y', '2024-11-15 18:07:14.071000', 100, '2024-11-15 18:07:56.412000', 100, 'Visit', null, null, (SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '9fdbe1af-a79c-49ca-8081-0d32de89e053'), 10, 10, null, null, 'BH_Visit_UU', 'N', 36, 'Y', 'N', null, null, null, null, null, null, 'U', null, null, '953a59d5-f83c-4602-ab66-32694d8b1c2b', 'N', null, null, null, 'N', null, null, 'D', 'N') ON CONFLICT DO NOTHING;
+
+SELECT
+	register_migration_script('202411151629_GO-3130.sql')
+FROM
+	dual;
