@@ -254,6 +254,9 @@ public class GraphQLSchemaGenerator {
 				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
 					addGraphQLFields(generatedColumns, columnNameWithSuffixedIdRemoved, Description, "M_Warehouse", isMandatory,
 							shouldSkipInputField);
+				} else if (columnName.equals("From_BH_Concept_ID") || columnName.equals("To_BH_Concept_ID")) {
+					addGraphQLFields(generatedColumns, columnNameWithSuffixedIdRemoved, Description, "BH_Concept", isMandatory,
+							shouldSkipInputField);
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 				}

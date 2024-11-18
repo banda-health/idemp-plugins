@@ -19,15 +19,15 @@ public class MBHConceptMappingDataLoader extends X_BH_Concept_MappingDataLoader 
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
 		registry.register(DATALOADER_BH_Concept_Mapping_BY_From_BH_Concept_ID,
-				DataLoader.newMappedDataLoader(getByConceptIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
+				DataLoader.newMappedDataLoader(getByFromConceptIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 		registry.register(DATALOADER_BH_Concept_Mapping_BY_To_BH_Concept_ID,
 				DataLoader.newMappedDataLoader(getByToConceptIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
-	private MappedBatchLoaderWithContext<String, List<MBHConceptMapping>> getByConceptIdBatchLoader() {
+	private MappedBatchLoaderWithContext<String, List<MBHConceptMapping>> getByFromConceptIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getGroupsByModelKeysCompletableFuture(
-				batchLoaderEnvironment.getContext(), getTableName(), null, MBHConceptMapping::getBH_Concept_ID,
-				MBHConceptMapping.COLUMNNAME_BH_Concept_ID, keys);
+				batchLoaderEnvironment.getContext(), getTableName(), null, MBHConceptMapping::getFrom_BH_Concept_ID,
+				MBHConceptMapping.COLUMNNAME_From_BH_Concept_ID, keys);
 	}
 
 	private MappedBatchLoaderWithContext<String, List<MBHConceptMapping>> getByToConceptIdBatchLoader() {

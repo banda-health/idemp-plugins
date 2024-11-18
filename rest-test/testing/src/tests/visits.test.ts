@@ -7,7 +7,6 @@ import { v4 } from 'uuid';
 import {
 	businessPartnerApi,
 	businessPartnerGroupApi,
-	codedDiagnosisApi,
 	conceptApi,
 	encounterApi,
 	encounterTypeWindowApi,
@@ -1450,7 +1449,15 @@ test('clinical vitals fields', async () => {
 	const heightValue = '200';
 	const weightValue = '100';
 
-	const codedDiagnosis = (await codedDiagnosisApi.get(valueObject)).results[0];
+	const codedDiagnosis = (
+			await conceptApi.get(
+					valueObject,
+					undefined,
+					undefined,
+					undefined,
+					JSON.stringify({ bh_display_name: { $text: 'urine' } }),
+			)
+	).results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter: Partial<Encounter> = {
 		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
@@ -1468,7 +1475,7 @@ test('clinical vitals fields', async () => {
 			} as EncounterDiagnosis,
 			{
 				lineNo: 2,
-				codedDiagnosis: { uuid: codedDiagnosis.uuid },
+				concept: { uuid: codedDiagnosis.uuid },
 			} as EncounterDiagnosis,
 		],
 	};
@@ -1481,8 +1488,8 @@ test('clinical vitals fields', async () => {
 	expect(valueObject.visit.encounters[0].observations[0].value).toBe(heightValue);
 	expect(valueObject.visit.encounters[0].encounterDiagnoses).toHaveLength(2);
 	expect(valueObject.visit.encounters[0].encounterDiagnoses[0].uncodedDiagnosis).toBe(uncodedDiagnosisValue);
-	expect(valueObject.visit.encounters[0].encounterDiagnoses[1].codedDiagnosis.uuid).toBeTruthy();
-	expect(valueObject.visit.encounters[0].encounterDiagnoses[1].codedDiagnosis.uuid).toBe(codedDiagnosis.uuid);
+	expect(valueObject.visit.encounters[0].encounterDiagnoses[1].concept.uuid).toBeTruthy();
+	expect(valueObject.visit.encounters[0].encounterDiagnoses[1].concept.uuid).toBe(codedDiagnosis.uuid);
 
 	valueObject.stepName = 'Change observations and remove diagnosis';
 	valueObject.visit!.encounters[0].observations = [
@@ -2548,7 +2555,15 @@ test('can delete encounters', async () => {
 	).results.find((result) => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID);
 	const fields = clinicalVitalsEncounterTypeWindow?.window.tabs[0].fields;
 
-	const codedDiagnosis = (await codedDiagnosisApi.get(valueObject)).results[0];
+	const codedDiagnosis = (
+			await conceptApi.get(
+					valueObject,
+					undefined,
+					undefined,
+					undefined,
+					JSON.stringify({ bh_display_name: { $text: 'urine' } }),
+			)
+	).results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter: Partial<Encounter> = {
 		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
@@ -2566,7 +2581,7 @@ test('can delete encounters', async () => {
 			} as EncounterDiagnosis,
 			{
 				lineNo: 2,
-				codedDiagnosis: { uuid: codedDiagnosis.uuid },
+				concept: { uuid: codedDiagnosis.uuid },
 			} as EncounterDiagnosis,
 		],
 	};

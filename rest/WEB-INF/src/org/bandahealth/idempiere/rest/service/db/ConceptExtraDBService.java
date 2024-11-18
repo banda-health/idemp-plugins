@@ -1,5 +1,8 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.rest.model.ConceptExtra;
 import org.compiere.util.Env;
@@ -39,6 +42,16 @@ public class ConceptExtraDBService extends BaseDBService<ConceptExtra, MBHConcep
 				setShouldFetchFromSystemClient(true);
 			}
 		};
+	}
+
+	@Override
+	public List<ConceptExtra> transformData(List<MBHConceptExtra> dbModels) {
+		return dbModels.stream().map(entity -> {
+			ConceptExtra result = new ConceptExtra(entity);
+			result.setConceptId(entity.getBH_Concept_ID());
+
+			return result;
+		}).collect(Collectors.toList());
 	}
 
 }

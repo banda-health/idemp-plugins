@@ -11,7 +11,9 @@ public class EncounterDiagnosis extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
 
-	private CodedDiagnosis codedDiagnosis;
+	@JsonIgnore
+	private int conceptId;
+	private Concept concept;
 	private String uncodedDiagnosis;
 	private int lineNo;
 	@JsonIgnore
@@ -26,14 +28,23 @@ public class EncounterDiagnosis extends BaseMetadata {
 		this.uncodedDiagnosis = entity.getBH_Uncoded_Diagnosis();
 		this.lineNo = entity.getLineNo();
 		this.encounterId = entity.getBH_Encounter_ID();
+		setConceptId(entity.getBH_Concept_ID());
 	}
 
-	public CodedDiagnosis getCodedDiagnosis() {
-		return codedDiagnosis;
+	public Concept getConcept() {
+		return concept;
 	}
 
-	public void setCodedDiagnosis(CodedDiagnosis codedDiagnosis) {
-		this.codedDiagnosis = codedDiagnosis;
+	public void setConcept(Concept concept) {
+		this.concept = concept;
+	}
+
+	public int getConceptId() {
+		return conceptId;
+	}
+
+	public void setConceptId(int conceptId) {
+		this.conceptId = conceptId;
 	}
 
 	public String getUncodedDiagnosis() {
