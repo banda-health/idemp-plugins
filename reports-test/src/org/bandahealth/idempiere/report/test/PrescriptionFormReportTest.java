@@ -1,21 +1,20 @@
 package org.bandahealth.idempiere.report.test;
 
-import com.chuboe.test.populate.ChuBoeCreateEntity;
-import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
-import com.chuboe.test.populate.ChuBoePopulateVO;
-import com.chuboe.test.populate.IPopulateAnnotation;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
-import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.Query;
@@ -23,23 +22,10 @@ import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.hamcrest.Matchers;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.chuboe.test.populate.ChuBoeCreateEntity;
+import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
+import com.chuboe.test.populate.IPopulateAnnotation;
 
 public class PrescriptionFormReportTest extends ChuBoePopulateFactoryVO {
 
@@ -130,6 +116,5 @@ public class PrescriptionFormReportTest extends ChuBoePopulateFactoryVO {
 		assertThat("The non-coded diagnosis is on the report", reportContent, containsString(nonCodedDiagnosis));
 		assertThat("Served By is on the report", reportContent, containsString(valueObject.getUser().getName()));
 		assertThat("Product is on the report", reportContent, containsString(valueObject.getProduct().getName()));
-		
 	}
 }
