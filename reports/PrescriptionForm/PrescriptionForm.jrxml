@@ -304,7 +304,7 @@ FROM
 		ON v.ad_org_id = oi.ad_org_id
 		LEFT JOIN payer p
 		ON p.bh_visit_id = v.bh_visit_id
-		JOIN ad_user clinician
+		LEFT JOIN ad_user clinician
 		ON v.bh_clinician_user_id = clinician.ad_user_id]]>
 	</queryString>
 	<field name="date" class="java.sql.Timestamp">
