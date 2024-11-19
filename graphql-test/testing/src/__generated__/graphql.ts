@@ -18365,14 +18365,13 @@ export type Bh_Client_Concept = {
   /** Organizational entity within tenant */
   AD_Org?: Maybe<Ad_Org>;
   BH_Concept: Bh_Concept;
+  BH_Display_Name?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
   Created?: Maybe<Scalars['Date']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
-  /** Alphanumeric identifier of the entity */
-  Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18390,126 +18389,7 @@ export type Bh_Client_ConceptInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
   BH_Concept?: InputMaybe<ForeignEntityInput>;
-  /** The record is active in the system */
-  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Alphanumeric identifier of the entity */
-  Name?: InputMaybe<Scalars['String']['input']>;
-  UU?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type Bh_Coded_Diagnosis = {
-  __typename?: 'BH_Coded_Diagnosis';
-  /** Tenant for this installation. */
-  AD_Client: Ad_Client;
-  /** Organizational entity within tenant */
-  AD_Org: Ad_Org;
-  BH_CielID?: Maybe<Scalars['Int']['output']>;
-  /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
-  /** User who created this records */
-  CreatedBy?: Maybe<Ad_User>;
-  /** Optional short description of the record */
-  Description?: Maybe<Scalars['String']['output']>;
-  /** The record is active in the system */
-  IsActive: Scalars['Boolean']['output'];
-  UU: Scalars['ID']['output'];
-  /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
-  /** User who updated this records */
-  UpdatedBy?: Maybe<Ad_User>;
-  bh_cielname?: Maybe<Scalars['String']['output']>;
-  bh_concept_class?: Maybe<Scalars['String']['output']>;
-  bh_icd10who?: Maybe<Scalars['String']['output']>;
-  bh_moh705a_lessthan5?: Maybe<Scalars['String']['output']>;
-  bh_moh705b_greaterthan5?: Maybe<Scalars['String']['output']>;
-  bh_searchterms?: Maybe<Scalars['String']['output']>;
-  bh_shortnames?: Maybe<Scalars['String']['output']>;
-  bh_synomed_ct?: Maybe<Scalars['Int']['output']>;
-  bh_synomed_np?: Maybe<Scalars['Int']['output']>;
-  bh_synonyms?: Maybe<Scalars['String']['output']>;
-};
-
-export type Bh_Coded_DiagnosisConnection = {
-  __typename?: 'BH_Coded_DiagnosisConnection';
-  PagingInfo: PagingInfo;
-  Results: Array<Bh_Coded_Diagnosis>;
-};
-
-export type Bh_Coded_DiagnosisInput = {
-  /** Organizational entity within tenant */
-  AD_Org?: InputMaybe<ForeignEntityInput>;
-  BH_CielID?: InputMaybe<Scalars['Int']['input']>;
-  /** Optional short description of the record */
-  Description?: InputMaybe<Scalars['String']['input']>;
-  /** The record is active in the system */
-  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  UU?: InputMaybe<Scalars['ID']['input']>;
-  bh_cielname?: InputMaybe<Scalars['String']['input']>;
-  bh_concept_class?: InputMaybe<Scalars['String']['input']>;
-  bh_icd10who?: InputMaybe<Scalars['String']['input']>;
-  bh_moh705a_lessthan5?: InputMaybe<Scalars['String']['input']>;
-  bh_moh705b_greaterthan5?: InputMaybe<Scalars['String']['input']>;
-  bh_searchterms?: InputMaybe<Scalars['String']['input']>;
-  bh_shortnames?: InputMaybe<Scalars['String']['input']>;
-  bh_synomed_ct?: InputMaybe<Scalars['Int']['input']>;
-  bh_synomed_np?: InputMaybe<Scalars['Int']['input']>;
-  bh_synonyms?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type Bh_Coded_Diagnosis_Mapping = {
-  __typename?: 'BH_Coded_Diagnosis_Mapping';
-  /** Tenant for this installation. */
-  AD_Client?: Maybe<Ad_Client>;
-  /** Organizational entity within tenant */
-  AD_Org?: Maybe<Ad_Org>;
-  BH_Coded_Diagnosis: Bh_Coded_Diagnosis;
-  /** BH_Concept_Code */
-  BH_Concept_Code?: Maybe<Scalars['String']['output']>;
-  /** BH_Concept_Name_Resolved */
-  BH_Concept_Name_Resolved?: Maybe<Scalars['String']['output']>;
-  /** BH_External_ID */
-  BH_ExternalID?: Maybe<Scalars['String']['output']>;
-  /** BH_Map_Type */
-  BH_Map_Type?: Maybe<Scalars['String']['output']>;
-  /** BH_Owner */
-  BH_Owner?: Maybe<Scalars['String']['output']>;
-  /** Source */
-  BH_Source?: Maybe<Scalars['String']['output']>;
-  /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
-  /** User who created this records */
-  CreatedBy?: Maybe<Ad_User>;
-  /** The record is active in the system */
-  IsActive: Scalars['Boolean']['output'];
-  UU: Scalars['ID']['output'];
-  /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
-  /** User who updated this records */
-  UpdatedBy?: Maybe<Ad_User>;
-};
-
-export type Bh_Coded_Diagnosis_MappingConnection = {
-  __typename?: 'BH_Coded_Diagnosis_MappingConnection';
-  PagingInfo: PagingInfo;
-  Results: Array<Bh_Coded_Diagnosis_Mapping>;
-};
-
-export type Bh_Coded_Diagnosis_MappingInput = {
-  /** Organizational entity within tenant */
-  AD_Org?: InputMaybe<ForeignEntityInput>;
-  BH_Coded_Diagnosis?: InputMaybe<ForeignEntityInput>;
-  /** BH_Concept_Code */
-  BH_Concept_Code?: InputMaybe<Scalars['String']['input']>;
-  /** BH_Concept_Name_Resolved */
-  BH_Concept_Name_Resolved?: InputMaybe<Scalars['String']['input']>;
-  /** BH_External_ID */
-  BH_ExternalID?: InputMaybe<Scalars['String']['input']>;
-  /** BH_Map_Type */
-  BH_Map_Type?: InputMaybe<Scalars['String']['input']>;
-  /** BH_Owner */
-  BH_Owner?: InputMaybe<Scalars['String']['input']>;
-  /** Source */
-  BH_Source?: InputMaybe<Scalars['String']['input']>;
+  BH_Display_Name?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
@@ -18522,6 +18402,7 @@ export type Bh_Concept = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   BH_Client_Concepts?: Maybe<Array<Bh_Client_Concept>>;
+  BH_Concept_Descriptions?: Maybe<Array<Bh_Concept_Description>>;
   BH_Concept_Extras?: Maybe<Array<Bh_Concept_Extra>>;
   BH_Concept_Names?: Maybe<Array<Bh_Concept_Name>>;
   BH_Concept_Type?: Maybe<Scalars['String']['output']>;
@@ -18545,6 +18426,8 @@ export type Bh_Concept = {
   FromBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   /** Parent mappings (usually 1) */
   ToBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
   /** Full URL address - e.g. http://www.idempiere.org */
@@ -18582,6 +18465,8 @@ export type Bh_ConceptInput = {
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
   /** Full URL address - e.g. http://www.idempiere.org */
   URL?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
@@ -18597,6 +18482,7 @@ export type Bh_Concept_Description = {
   BH_Concept: Bh_Concept;
   BH_Concept_Description_Type?: Maybe<Scalars['String']['output']>;
   BH_Concept_Locale?: Maybe<Scalars['String']['output']>;
+  BH_Concept_Locale_Preferred: Scalars['Boolean']['output'];
   BH_Concept_Type?: Maybe<Scalars['String']['output']>;
   /** BH_External_ID */
   BH_ExternalID?: Maybe<Scalars['String']['output']>;
@@ -18604,10 +18490,14 @@ export type Bh_Concept_Description = {
   Created?: Maybe<Scalars['Date']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
+  /** Optional short description of the record */
+  Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Alphanumeric identifier of the entity */
   Name?: Maybe<Scalars['String']['output']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18627,13 +18517,18 @@ export type Bh_Concept_DescriptionInput = {
   BH_Concept?: InputMaybe<ForeignEntityInput>;
   BH_Concept_Description_Type?: InputMaybe<Scalars['String']['input']>;
   BH_Concept_Locale?: InputMaybe<Scalars['String']['input']>;
+  BH_Concept_Locale_Preferred?: InputMaybe<Scalars['Boolean']['input']>;
   BH_Concept_Type?: InputMaybe<Scalars['String']['input']>;
   /** BH_External_ID */
   BH_ExternalID?: InputMaybe<Scalars['String']['input']>;
+  /** Optional short description of the record */
+  Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Alphanumeric identifier of the entity */
   Name?: InputMaybe<Scalars['String']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -18686,7 +18581,6 @@ export type Bh_Concept_Mapping = {
   AD_Client?: Maybe<Ad_Client>;
   /** Organizational entity within tenant */
   AD_Org?: Maybe<Ad_Org>;
-  BH_Concept: Bh_Concept;
   BH_Concept_Extras?: Maybe<Array<Bh_Concept_Extra>>;
   /** BH_External_ID */
   BH_ExternalID?: Maybe<Scalars['String']['output']>;
@@ -18711,13 +18605,15 @@ export type Bh_Concept_Mapping = {
   Created?: Maybe<Scalars['Date']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
-  FromBH_Concept: Bh_Concept;
   FromBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
+  From_BH_Concept: Bh_Concept;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   /** Provides a way to skip over From concept to it's From mappings */
-  ToBH_Concept?: Maybe<Bh_Concept>;
   ToBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
+  To_BH_Concept?: Maybe<Bh_Concept>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18734,7 +18630,6 @@ export type Bh_Concept_MappingConnection = {
 export type Bh_Concept_MappingInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
-  BH_Concept?: InputMaybe<ForeignEntityInput>;
   /** BH_External_ID */
   BH_ExternalID?: InputMaybe<Scalars['String']['input']>;
   BH_From_Concept_Code?: InputMaybe<Scalars['String']['input']>;
@@ -18754,8 +18649,12 @@ export type Bh_Concept_MappingInput = {
   BH_To_Concept_Name_Resolved?: InputMaybe<Scalars['String']['input']>;
   BH_To_Concept_Url?: InputMaybe<Scalars['String']['input']>;
   BH_To_Source_Name?: InputMaybe<Scalars['String']['input']>;
+  From_BH_Concept?: InputMaybe<ForeignEntityInput>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
+  To_BH_Concept?: InputMaybe<ForeignEntityInput>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -18780,6 +18679,8 @@ export type Bh_Concept_Name = {
   IsActive: Scalars['Boolean']['output'];
   /** Alphanumeric identifier of the entity */
   Name?: Maybe<Scalars['String']['output']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated?: Maybe<Scalars['Date']['output']>;
@@ -18807,6 +18708,8 @@ export type Bh_Concept_NameInput = {
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Alphanumeric identifier of the entity */
   Name?: InputMaybe<Scalars['String']['input']>;
+  /** A UUID from the OCL system */
+  Ocl_Uuid?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -18951,7 +18854,7 @@ export type Bh_Encounter_Diagnosis = {
   AD_Client: Ad_Client;
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
-  BH_Coded_Diagnosis?: Maybe<Bh_Coded_Diagnosis>;
+  BH_Concept?: Maybe<Bh_Concept>;
   BH_Encounter: Bh_Encounter;
   /** uncoded diagnosis */
   BH_Uncoded_Diagnosis?: Maybe<Scalars['String']['output']>;
@@ -18979,7 +18882,7 @@ export type Bh_Encounter_DiagnosisConnection = {
 export type Bh_Encounter_DiagnosisInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
-  BH_Coded_Diagnosis?: InputMaybe<ForeignEntityInput>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
   BH_Encounter?: InputMaybe<ForeignEntityInput>;
   /** uncoded diagnosis */
   BH_Uncoded_Diagnosis?: InputMaybe<Scalars['String']['input']>;
@@ -19215,6 +19118,43 @@ export type Bh_ObservationInput = {
   BH_Encounter?: InputMaybe<ForeignEntityInput>;
   /** BH_Value */
   BH_Value?: InputMaybe<Scalars['String']['input']>;
+  /** The record is active in the system */
+  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  UU?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type Bh_Ocl_Originating_Source = {
+  __typename?: 'BH_Ocl_Originating_Source';
+  /** Tenant for this installation. */
+  AD_Client: Ad_Client;
+  /** Organizational entity within tenant */
+  AD_Org: Ad_Org;
+  BH_Concept: Bh_Concept;
+  BH_Ocl_Source?: Maybe<Ad_Ref_List>;
+  /** Date this record was created */
+  Created: Scalars['Date']['output'];
+  /** User who created this records */
+  CreatedBy: Ad_User;
+  /** The record is active in the system */
+  IsActive: Scalars['Boolean']['output'];
+  UU: Scalars['ID']['output'];
+  /** Date this record was updated */
+  Updated: Scalars['Date']['output'];
+  /** User who updated this records */
+  UpdatedBy: Ad_User;
+};
+
+export type Bh_Ocl_Originating_SourceConnection = {
+  __typename?: 'BH_Ocl_Originating_SourceConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<Bh_Ocl_Originating_Source>;
+};
+
+export type Bh_Ocl_Originating_SourceInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
+  BH_Ocl_Source?: InputMaybe<ForeignEntityInput>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
@@ -19577,6 +19517,10 @@ export type Bh_Product_CategoryDefaultInput = {
 
 export type Bh_Role_WarehouseAccess = {
   __typename?: 'BH_Role_WarehouseAccess';
+  /** Tenant for this installation. */
+  AD_Client: Ad_Client;
+  /** Organizational entity within tenant */
+  AD_Org: Ad_Org;
   /** Responsibility Role */
   AD_Role?: Maybe<Ad_Role>;
   BH_Role_WarehouseAccess: Bh_Role_WarehouseAccess;
@@ -19604,6 +19548,8 @@ export type Bh_Role_WarehouseAccessConnection = {
 };
 
 export type Bh_Role_WarehouseAccessInput = {
+  /** Organizational entity within tenant */
+  AD_Org?: InputMaybe<ForeignEntityInput>;
   /** Responsibility Role */
   AD_Role?: InputMaybe<ForeignEntityInput>;
   BH_Role_WarehouseAccess?: InputMaybe<ForeignEntityInput>;
@@ -51679,12 +51625,6 @@ export type Mutation = {
   BH_Client_ConceptDelete: Scalars['Boolean']['output'];
   BH_Client_ConceptSave: Bh_Client_Concept;
   BH_Client_ConceptSaveMany: Array<Bh_Client_Concept>;
-  BH_Coded_DiagnosisDelete: Scalars['Boolean']['output'];
-  BH_Coded_DiagnosisSave: Bh_Coded_Diagnosis;
-  BH_Coded_DiagnosisSaveMany: Array<Bh_Coded_Diagnosis>;
-  BH_Coded_Diagnosis_MappingDelete: Scalars['Boolean']['output'];
-  BH_Coded_Diagnosis_MappingSave: Bh_Coded_Diagnosis_Mapping;
-  BH_Coded_Diagnosis_MappingSaveMany: Array<Bh_Coded_Diagnosis_Mapping>;
   BH_ConceptDelete: Scalars['Boolean']['output'];
   BH_ConceptSave: Bh_Concept;
   BH_ConceptSaveMany: Array<Bh_Concept>;
@@ -51724,6 +51664,9 @@ export type Mutation = {
   BH_ObservationDelete: Scalars['Boolean']['output'];
   BH_ObservationSave: Bh_Observation;
   BH_ObservationSaveMany: Array<Bh_Observation>;
+  BH_Ocl_Originating_SourceDelete: Scalars['Boolean']['output'];
+  BH_Ocl_Originating_SourceSave: Bh_Ocl_Originating_Source;
+  BH_Ocl_Originating_SourceSaveMany: Array<Bh_Ocl_Originating_Source>;
   BH_Payer_Info_FldDelete: Scalars['Boolean']['output'];
   BH_Payer_Info_FldSave: Bh_Payer_Info_Fld;
   BH_Payer_Info_FldSaveMany: Array<Bh_Payer_Info_Fld>;
@@ -57801,42 +57744,6 @@ export type MutationBh_Client_ConceptSaveManyArgs = {
 
 
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationBh_Coded_DiagnosisDeleteArgs = {
-  UUs: Array<Scalars['String']['input']>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationBh_Coded_DiagnosisSaveArgs = {
-  Entity: Bh_Coded_DiagnosisInput;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationBh_Coded_DiagnosisSaveManyArgs = {
-  Entities: Array<Bh_Coded_DiagnosisInput>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationBh_Coded_Diagnosis_MappingDeleteArgs = {
-  UUs: Array<Scalars['String']['input']>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationBh_Coded_Diagnosis_MappingSaveArgs = {
-  Entity: Bh_Coded_Diagnosis_MappingInput;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationBh_Coded_Diagnosis_MappingSaveManyArgs = {
-  Entities: Array<Bh_Coded_Diagnosis_MappingInput>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationBh_ConceptDeleteArgs = {
   UUs: Array<Scalars['String']['input']>;
 };
@@ -58067,6 +57974,24 @@ export type MutationBh_ObservationSaveArgs = {
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationBh_ObservationSaveManyArgs = {
   Entities: Array<Bh_ObservationInput>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Ocl_Originating_SourceDeleteArgs = {
+  UUs: Array<Scalars['String']['input']>;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Ocl_Originating_SourceSaveArgs = {
+  Entity: Bh_Ocl_Originating_SourceInput;
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationBh_Ocl_Originating_SourceSaveManyArgs = {
+  Entities: Array<Bh_Ocl_Originating_SourceInput>;
 };
 
 
@@ -71504,10 +71429,6 @@ export type Query = {
   BH_BP_Specific_Payer_InfoGet: Bh_Bp_Specific_Payer_InfoConnection;
   BH_Client_Concept?: Maybe<Bh_Client_Concept>;
   BH_Client_ConceptGet: Bh_Client_ConceptConnection;
-  BH_Coded_Diagnosis?: Maybe<Bh_Coded_Diagnosis>;
-  BH_Coded_DiagnosisGet: Bh_Coded_DiagnosisConnection;
-  BH_Coded_Diagnosis_Mapping?: Maybe<Bh_Coded_Diagnosis_Mapping>;
-  BH_Coded_Diagnosis_MappingGet: Bh_Coded_Diagnosis_MappingConnection;
   BH_Concept?: Maybe<Bh_Concept>;
   BH_ConceptGet: Bh_ConceptConnection;
   BH_Concept_Description?: Maybe<Bh_Concept_Description>;
@@ -71534,6 +71455,8 @@ export type Query = {
   BH_I_Product_QuantityGet: Bh_I_Product_QuantityConnection;
   BH_Observation?: Maybe<Bh_Observation>;
   BH_ObservationGet: Bh_ObservationConnection;
+  BH_Ocl_Originating_Source?: Maybe<Bh_Ocl_Originating_Source>;
+  BH_Ocl_Originating_SourceGet: Bh_Ocl_Originating_SourceConnection;
   BH_Payer_Info_Fld?: Maybe<Bh_Payer_Info_Fld>;
   BH_Payer_Info_FldGet: Bh_Payer_Info_FldConnection;
   BH_Payer_Info_Fld_Sug?: Maybe<Bh_Payer_Info_Fld_Sug>;
@@ -76333,36 +76256,6 @@ export type QueryBh_Client_ConceptGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
-export type QueryBh_Coded_DiagnosisArgs = {
-  UU: Scalars['String']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryBh_Coded_DiagnosisGetArgs = {
-  Filter?: InputMaybe<Scalars['String']['input']>;
-  Page?: InputMaybe<Scalars['Int']['input']>;
-  Size?: InputMaybe<Scalars['Int']['input']>;
-  Sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryBh_Coded_Diagnosis_MappingArgs = {
-  UU: Scalars['String']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryBh_Coded_Diagnosis_MappingGetArgs = {
-  Filter?: InputMaybe<Scalars['String']['input']>;
-  Page?: InputMaybe<Scalars['Int']['input']>;
-  Size?: InputMaybe<Scalars['Int']['input']>;
-  Sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_ConceptArgs = {
   UU: Scalars['String']['input'];
 };
@@ -76550,6 +76443,21 @@ export type QueryBh_ObservationArgs = {
 
 /** Define the root query type that can be extended in any files that want to add a query */
 export type QueryBh_ObservationGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Ocl_Originating_SourceArgs = {
+  UU: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryBh_Ocl_Originating_SourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
@@ -88636,7 +88544,7 @@ export type U_Web_PropertiesInput = {
 
 export type Ad_RoleFieldsFragment = { __typename?: 'AD_Role', UU: string, IsMasterRole: boolean, Name: string, AD_Role_IncludedList?: Array<{ __typename?: 'AD_Role_Included', UU: string, Included_Role: { __typename?: 'AD_Role', UU: string } }> | null };
 
-export type Bh_VisitFieldsFragment = { __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Coded_Diagnosis?: { __typename?: 'BH_Coded_Diagnosis', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null };
+export type Bh_VisitFieldsFragment = { __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null };
 
 export type C_BPartnerFieldsFragment = { __typename?: 'C_BPartner', BH_Birthday?: number | null, bh_occupation?: string | null, Description?: string | null, UU: string, IsCustomer: boolean, IsVendor: boolean, LastVisitDate?: number | null, Name: string, NationalID?: string | null, NextOfKin_Contact?: string | null, NextOfKin_Name?: string | null, TotalOpenBalance?: number | null, TotalVisits: number, bh_gender?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, BH_Payer_Info_FldList?: Array<{ __typename?: 'BH_Payer_Info_Fld', UU: string, BH_PayerInfoFieldDataType: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null, C_BP_Group: { __typename?: 'C_BP_Group', Name: string, UU: string, AssociatedCustomerReceivablesCharge?: { __typename?: 'C_Charge', UU: string } | null }, C_BPartner_Locations?: Array<{ __typename?: 'C_BPartner_Location', UU: string, C_Location: { __typename?: 'C_Location', Address1?: string | null } }> | null, M_PriceList?: { __typename?: 'M_PriceList', UU: string } | null, PO_PriceList?: { __typename?: 'M_PriceList', UU: string } | null };
 
@@ -89370,16 +89278,6 @@ export type Ad_UserGetQueryVariables = Exact<{
 
 export type Ad_UserGetQuery = { __typename?: 'Query', AD_UserGet: { __typename?: 'AD_UserConnection', Results: Array<{ __typename?: 'AD_User', UU: string, Name: string, IsActive: boolean, AD_User_Roles?: Array<{ __typename?: 'AD_User_Roles', UU: string, AD_Role: { __typename?: 'AD_Role', UU: string, AD_Role_IncludedList?: Array<{ __typename?: 'AD_Role_Included', UU: string, Included_Role: { __typename?: 'AD_Role', UU: string } }> | null } }> | null }> } };
 
-export type Bh_Coded_DiagnosisGetQueryVariables = Exact<{
-  Page?: InputMaybe<Scalars['Int']['input']>;
-  Size?: InputMaybe<Scalars['Int']['input']>;
-  Sort?: InputMaybe<Scalars['String']['input']>;
-  Filter?: InputMaybe<Scalars['String']['input']>;
-}>;
-
-
-export type Bh_Coded_DiagnosisGetQuery = { __typename?: 'Query', BH_Coded_DiagnosisGet: { __typename?: 'BH_Coded_DiagnosisConnection', Results: Array<{ __typename?: 'BH_Coded_Diagnosis', UU: string, bh_cielname?: string | null, bh_icd10who?: string | null, bh_searchterms?: string | null }> } };
-
 export type Bh_ConceptGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
@@ -89388,7 +89286,7 @@ export type Bh_ConceptGetQueryVariables = Exact<{
 }>;
 
 
-export type Bh_ConceptGetQuery = { __typename?: 'Query', BH_ConceptGet: { __typename?: 'BH_ConceptConnection', Results: Array<{ __typename?: 'BH_Concept', UU: string, bh_concept_class?: string | null, BH_Display_Name?: string | null, BH_Concept_Type?: string | null }> } };
+export type Bh_ConceptGetQuery = { __typename?: 'Query', BH_ConceptGet: { __typename?: 'BH_ConceptConnection', Results: Array<{ __typename?: 'BH_Concept', UU: string, bh_concept_class?: string | null, BH_Display_Name?: string | null, BH_Concept_Type?: string | null, BH_Concept_Extras?: Array<{ __typename?: 'BH_Concept_Extra', UU: string, BH_Key?: string | null }> | null }> } };
 
 export type Bh_Encounter_Type_WindowGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -89428,7 +89326,7 @@ export type Bh_VisitGetQueryVariables = Exact<{
 }>;
 
 
-export type Bh_VisitGetQuery = { __typename?: 'Query', BH_VisitGet: { __typename?: 'BH_VisitConnection', Results: Array<{ __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Coded_Diagnosis?: { __typename?: 'BH_Coded_Diagnosis', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null }> } };
+export type Bh_VisitGetQuery = { __typename?: 'Query', BH_VisitGet: { __typename?: 'BH_VisitConnection', Results: Array<{ __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null }> } };
 
 export type Bh_Voided_ReasonGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -89715,7 +89613,7 @@ export type M_WarehouseGetQueryVariables = Exact<{
 export type M_WarehouseGetQuery = { __typename?: 'Query', M_WarehouseGet: { __typename?: 'M_WarehouseConnection', Results: Array<{ __typename?: 'M_Warehouse', UU: string, Name: string, BH_DefaultWarehouse: boolean, IsActive: boolean, M_Locators?: Array<{ __typename?: 'M_Locator', UU: string }> | null }> } };
 
 export const Ad_RoleFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AD_RoleFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AD_Role"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsMasterRole"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Role_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Included_Role"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]} as unknown as DocumentNode<Ad_RoleFieldsFragment, unknown>;
-export const Bh_VisitFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Coded_Diagnosis"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}}]}}]} as unknown as DocumentNode<Bh_VisitFieldsFragment, unknown>;
+export const Bh_VisitFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}}]}}]} as unknown as DocumentNode<Bh_VisitFieldsFragment, unknown>;
 export const C_BPartnerFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_BPartnerFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_BPartner"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Birthday"}},{"kind":"Field","name":{"kind":"Name","value":"bh_gender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bh_occupation"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Payer_Info_FldList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_PayerInfoFieldDataType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BP_Group"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AssociatedCustomerReceivablesCharge"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner_Locations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"C_Location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Address1"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsCustomer"}},{"kind":"Field","name":{"kind":"Name","value":"IsVendor"}},{"kind":"Field","name":{"kind":"Name","value":"LastVisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"M_PriceList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"NationalID"}},{"kind":"Field","name":{"kind":"Name","value":"NextOfKin_Contact"}},{"kind":"Field","name":{"kind":"Name","value":"NextOfKin_Name"}},{"kind":"Field","name":{"kind":"Name","value":"PO_PriceList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"TotalOpenBalance"}},{"kind":"Field","name":{"kind":"Name","value":"TotalVisits"}}]}}]} as unknown as DocumentNode<C_BPartnerFieldsFragment, unknown>;
 export const C_LocationFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_LocationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Location"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Region"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_LocationFieldsFragment, unknown>;
 export const C_InvoiceFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_InvoiceFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Invoice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Currency"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"GrandTotal"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_InvoiceFieldsFragment, unknown>;
@@ -89807,12 +89705,11 @@ export const Ad_RoleGetDocument = {"kind":"Document","definitions":[{"kind":"Ope
 export const Ad_RoleGetWindowAccessDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_RoleGetWindowAccess"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_RoleGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AD_RoleFields"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Window_AccessList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_Window"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_CanDeactivate"}},{"kind":"Field","name":{"kind":"Name","value":"IsReadWrite"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AD_RoleFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AD_Role"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsMasterRole"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Role_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Included_Role"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]} as unknown as DocumentNode<Ad_RoleGetWindowAccessQuery, Ad_RoleGetWindowAccessQueryVariables>;
 export const Ad_RoleLocationPriceListsCurrencyGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_RoleLocationPriceListsCurrencyGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"AD_RoleFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"C_LocationFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"M_PriceListFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_RoleGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"AD_RoleFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AD_RoleFields"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Window_AccessList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_Window"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_CanDeactivate"}},{"kind":"Field","name":{"kind":"Name","value":"IsReadWrite"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_LocationGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"C_LocationFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_LocationFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"M_PriceListGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"M_PriceListFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Created"}},{"kind":"Field","name":{"kind":"Name","value":"IsSOPriceList"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_AcctSchemaGet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"C_Currency"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AD_RoleFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AD_Role"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsMasterRole"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Role_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Included_Role"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_LocationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Location"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Region"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<Ad_RoleLocationPriceListsCurrencyGetQuery, Ad_RoleLocationPriceListsCurrencyGetQueryVariables>;
 export const Ad_UserGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_UserGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_UserGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_User_Roles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Role"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Role_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Included_Role"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"IsActive"}}]}}]}}]}}]} as unknown as DocumentNode<Ad_UserGetQuery, Ad_UserGetQueryVariables>;
-export const Bh_Coded_DiagnosisGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Coded_DiagnosisGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Coded_DiagnosisGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"bh_cielname"}},{"kind":"Field","name":{"kind":"Name","value":"bh_icd10who"}},{"kind":"Field","name":{"kind":"Name","value":"bh_searchterms"}}]}}]}}]}}]} as unknown as DocumentNode<Bh_Coded_DiagnosisGetQuery, Bh_Coded_DiagnosisGetQueryVariables>;
-export const Bh_ConceptGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_ConceptGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_ConceptGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"bh_concept_class"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Display_Name"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept_Type"}}]}}]}}]}}]} as unknown as DocumentNode<Bh_ConceptGetQuery, Bh_ConceptGetQueryVariables>;
+export const Bh_ConceptGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_ConceptGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_ConceptGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"bh_concept_class"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Display_Name"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept_Type"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept_Extras"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Key"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Bh_ConceptGetQuery, Bh_ConceptGetQueryVariables>;
 export const Bh_Encounter_Type_WindowGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Encounter_Type_WindowGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Type_WindowGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Window"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Tabs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_Fields"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Bh_Encounter_Type_WindowGetQuery, Bh_Encounter_Type_WindowGetQueryVariables>;
 export const Bh_EncounterGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_EncounterGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_EncounterGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}}]}}]}}]}}]} as unknown as DocumentNode<Bh_EncounterGetQuery, Bh_EncounterGetQueryVariables>;
 export const Bh_Payer_Info_Fld_SugGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Payer_Info_Fld_SugGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Payer_Info_Fld_SugGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_SubType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_PayerInfoFieldDataType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Bh_Payer_Info_Fld_SugGetQuery, Bh_Payer_Info_Fld_SugGetQueryVariables>;
-export const Bh_VisitGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_VisitGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BH_VisitFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Coded_Diagnosis"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}}]}}]} as unknown as DocumentNode<Bh_VisitGetQuery, Bh_VisitGetQueryVariables>;
+export const Bh_VisitGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_VisitGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BH_VisitFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}}]}}]} as unknown as DocumentNode<Bh_VisitGetQuery, Bh_VisitGetQueryVariables>;
 export const Bh_Voided_ReasonGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Voided_ReasonGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Voided_ReasonGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]}}]}}]} as unknown as DocumentNode<Bh_Voided_ReasonGetQuery, Bh_Voided_ReasonGetQueryVariables>;
 export const C_AcctSchemaGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_AcctSchemaGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_AcctSchemaGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"C_Currency"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}}]} as unknown as DocumentNode<C_AcctSchemaGetQuery, C_AcctSchemaGetQueryVariables>;
 export const C_BankAccountGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_BankAccountGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_BankAccountGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]}}]}}]} as unknown as DocumentNode<C_BankAccountGetQuery, C_BankAccountGetQueryVariables>;

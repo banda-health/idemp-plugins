@@ -265,6 +265,10 @@ public class GraphQLModelResolverGenerator {
 					entityName = columnNameWithSuffixedIdRemoved;
 					foreignEntityTable = "M_Warehouse";
 					defaultCheckToReturnNull = "entity.get" + columnName + "() < " + firstOK;
+				} else if (columnName.equals("From_BH_Concept_ID") || columnName.equals("To_BH_Concept_ID")) {
+					entityName = columnNameWithSuffixedIdRemoved;
+					foreignEntityTable = "BH_Concept";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() < " + firstOK;
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";

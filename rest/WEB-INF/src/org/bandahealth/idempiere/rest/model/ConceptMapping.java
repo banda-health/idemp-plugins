@@ -14,7 +14,7 @@ public class ConceptMapping extends BaseMetadata {
 
 	private static final long serialVersionUID = -2371873579523894294L;
 	@JsonIgnore
-	private int conceptId;
+	private int fromConceptId;
 	private String externalId;
 	private String fromConceptCode;
 	private String fromConceptName;
@@ -35,7 +35,7 @@ public class ConceptMapping extends BaseMetadata {
 
 	public ConceptMapping(MBHConceptMapping entity) {
 		super(entity);
-		setConceptId(entity.getBH_Concept_ID());
+		setFromConceptId(entity.getFrom_BH_Concept_ID());
 		setExternalId(entity.getBH_ExternalID());
 		setFromConceptCode(entity.getBH_From_Concept_Code());
 		setFromConceptName(entity.getBH_From_Concept_Name());
@@ -51,12 +51,12 @@ public class ConceptMapping extends BaseMetadata {
 		setToConceptUrl(entity.getBH_To_Concept_Url());
 	}
 
-	public int getConceptId() {
-		return conceptId;
+	public int getFromConceptId() {
+		return fromConceptId;
 	}
 
-	public void setConceptId(int conceptId) {
-		this.conceptId = conceptId;
+	public void setFromConceptId(int fromConceptId) {
+		this.fromConceptId = fromConceptId;
 	}
 
 	public String getExternalId() {
