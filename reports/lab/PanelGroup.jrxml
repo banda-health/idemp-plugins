@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="500" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
-	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="515"/>
-	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="471"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
@@ -42,23 +40,11 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table 3_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="Table 3_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="Table 3_TD" mode="Opaque" backcolor="#FFFFFF" isBlankWhenNull="true">
-		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
+	<style name="StatusWarning" mode="Opaque" backcolor="#FFFFFF">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{status}.equals("Low") || $F{status}.equals("High")]]></conditionExpression>
+			<style forecolor="#FF0000"/>
+		</conditionalStyle>
 	</style>
 	<subDataset name="LabDataSet" uuid="c3eec118-51b1-4edd-9dee-c29770378c9d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -71,10 +57,8 @@
     coalesce(test_name.name, test.bh_display_name) as name,
     bed.bh_value as result,
     test_ref_range.reference_range as range,
-    CASE
-        WHEN bed.bh_diagnostic_status = 'C' THEN 'Complete'
-    END as status,
-    coalesce(panel.name, 'Test') as panel_name
+    test_ref_range.status,
+    coalesce(panel.name, '') as panel_name
 from bh_encounter_diagnostic bed
 join bh_encounter be on bed.bh_encounter_id = be.bh_encounter_id
 join bh_visit bv on be.bh_visit_id = bv.bh_visit_id
@@ -105,9 +89,23 @@ left join (
                     WHEN bce.bh_key = 'units' THEN 3
                 END
                 ) AS reference_range,
+        string_agg(
+        		CASE
+		            WHEN bce.bh_key = 'low_normal' AND EXISTS (
+		                SELECT 1
+		                FROM bh_concept_extra bce_sub
+		                WHERE bce_sub.bh_concept_id = bce.bh_concept_id
+		                AND bce_sub.bh_key = 'hi_normal'
+		                AND CAST(bed.bh_value AS FLOAT) BETWEEN CAST(bce.bh_value AS FLOAT) AND CAST(bce_sub.bh_value AS FLOAT)
+		            ) THEN 'Normal'
+		            WHEN bce.bh_key = 'hi_normal' AND CAST(bed.bh_value AS FLOAT) > CAST(bce.bh_value AS FLOAT) THEN 'High'
+		            WHEN bce.bh_key = 'low_normal' AND CAST(bed.bh_value AS FLOAT) < CAST(bce.bh_value AS FLOAT) THEN 'Low'
+		        END, ''
+	    ) AS status,        
         c.bh_concept_id
     from bh_concept c
     join bh_concept_extra bce on c.bh_concept_id = bce.bh_concept_id and bce.bh_key != 'local_name'
+    join bh_encounter_diagnostic bed on c.bh_concept_id = bed.bh_concept_id
     group by c.bh_concept_id
 ) as test_ref_range on test_ref_range.bh_concept_id = test.bh_concept_id
 left join (
@@ -120,7 +118,7 @@ left join (
     left join bh_concept_extra bce on c.bh_concept_id = bce.bh_concept_id and bce.bh_key = 'local_name'
     group by c.bh_concept_id, coalesce(bce.bh_value, bmce.bh_value, c.bh_display_name)
 ) as test_name on test_name.bh_concept_id = test.bh_concept_id
-where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THEN panel.name ELSE 'Test' END) = $P{PanelName}]]>
+where bed.bh_value is not null and bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THEN panel.name ELSE 'Test' END) = $P{PanelName}]]>
 		</queryString>
 		<field name="name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="name"/>
@@ -190,10 +188,10 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 				<textFieldExpression><![CDATA[$F{panel_name}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="30" splitType="Stretch">
+		<band height="5" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<componentElement>
-				<reportElement x="0" y="0" width="500" height="30" uuid="aece4c0b-0d19-4e41-b2dc-ad855614b09f">
+				<reportElement x="0" y="0" width="500" height="5" uuid="aece4c0b-0d19-4e41-b2dc-ad855614b09f">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -221,7 +219,7 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 									<font isBold="true"/>
 									<paragraph leftIndent="3"/>
 								</textElement>
-								<text><![CDATA[TEST]]></text>
+								<text><![CDATA[NAME]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
@@ -242,7 +240,7 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
 								<reportElement x="0" y="0" width="130" height="15" uuid="f02ea4ec-4f1c-4a89-b21e-ff61242b0d91"/>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3" rightIndent="3"/>
 								</textElement>
@@ -251,9 +249,9 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField pattern="#,##0" isBlankWhenNull="true">
+							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="130" height="15" uuid="1b080468-3c74-4a87-ba7d-7742b28ff72e"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
@@ -268,7 +266,7 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 								<reportElement x="0" y="0" width="100" height="15" uuid="6df5ed7f-39a6-4654-a4f2-7283daa9f046">
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3" rightIndent="3"/>
 								</textElement>
@@ -276,7 +274,7 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField pattern="#,##0" isBlankWhenNull="true">
+							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="100" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
@@ -293,7 +291,7 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 								<reportElement x="0" y="0" width="100" height="15" uuid="6df5ed7f-39a6-4654-a4f2-7283daa9f046">
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3" rightIndent="3"/>
 								</textElement>
@@ -301,9 +299,9 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField pattern="#,##0" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="100" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+							<textField isBlankWhenNull="true">
+								<reportElement style="StatusWarning" x="0" y="0" width="100" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
@@ -312,9 +310,6 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 					</jr:column>
 				</jr:table>
 			</componentElement>
-		</band>
-		<band height="30">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</band>
 	</detail>
 	<noData>

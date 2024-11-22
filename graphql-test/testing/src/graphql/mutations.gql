@@ -112,6 +112,12 @@ mutation BH_EncounterAndObservationsSaveMany(
 	}
 }
 
+mutation BH_EncounterSaveManyForVisits($BH_Encounters: [BH_EncounterInput!]!) {
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
+	}
+}
+
 mutation BH_EncounterObservationsAndEncounterDiagnosesSaveMany(
 	$BH_Encounters: [BH_EncounterInput!]!
 	$BH_Observations: [BH_ObservationInput!]!
