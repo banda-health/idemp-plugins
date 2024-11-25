@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="500" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<style name="Table_TF">
+		<paragraph rightIndent="3"/>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#E0E0E0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF" isBlankWhenNull="true">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="StatusWarning" mode="Opaque" backcolor="#FFFFFF">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{status}.equals("Low") || $F{status}.equals("High")]]></conditionExpression>
+			<style forecolor="#FF0000"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="LabDataSet" uuid="c3eec118-51b1-4edd-9dee-c29770378c9d">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+		<parameter name="BH_Visit_UU" class="java.lang.String"/>
+		<parameter name="PanelName" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[select
+    bed.created as date,
+    coalesce(test_name.name, test.bh_display_name) as name,
+    bed.bh_value as result,
+    test_ref_range.reference_range as range,
+    test_ref_range.status,
+    coalesce(panel.name, '') as panel_name
+from bh_encounter_diagnostic bed
+join bh_encounter be on bed.bh_encounter_id = be.bh_encounter_id
+join bh_visit bv on be.bh_visit_id = bv.bh_visit_id
+join bh_concept test on bed.bh_concept_id = test.bh_concept_id
+left join bh_concept_extra tbce on test.bh_concept_id = tbce.bh_concept_id and tbce.bh_key = 'local_name'
+left join (
+    select
+        coalesce(pbce.bh_value, p.bh_display_name) as name,
+        c.bh_concept_id
+    from bh_concept c
+    join bh_concept_mapping bcm on bcm.to_bh_concept_id = c.bh_concept_id
+    join bh_concept p on bcm.from_bh_concept_id = p.bh_concept_id and p.bh_concept_class = 'LabSet'
+    join bh_concept_extra pbce on p.bh_concept_id = pbce.bh_concept_id and pbce.bh_key = 'local_name'
+    group by c.bh_concept_id, coalesce(pbce.bh_value, p.bh_display_name)
+) as panel on panel.bh_concept_id = test.bh_concept_id
+left join (
+    select
+        string_agg(
+                CASE
+                   WHEN bce.bh_key = 'low_normal' THEN concat(bce.bh_value, ' - ')
+                   WHEN bce.bh_key = 'hi_normal' THEN bce.bh_value
+                   WHEN bce.bh_key = 'units' THEN bce.bh_value
+                END, ' '
+                ORDER BY
+                CASE
+                    WHEN bce.bh_key = 'low_normal' THEN 1
+                    WHEN bce.bh_key = 'hi_normal' THEN 2
+                    WHEN bce.bh_key = 'units' THEN 3
+                END
+                ) AS reference_range,
+        string_agg(
+        		CASE
+		            WHEN bce.bh_key = 'low_normal' AND EXISTS (
+		                SELECT 1
+		                FROM bh_concept_extra bce_sub
+		                WHERE bce_sub.bh_concept_id = bce.bh_concept_id
+		                AND bce_sub.bh_key = 'hi_normal'
+		                AND CAST(bed.bh_value AS FLOAT) BETWEEN CAST(bce.bh_value AS FLOAT) AND CAST(bce_sub.bh_value AS FLOAT)
+		            ) THEN 'Normal'
+		            WHEN bce.bh_key = 'hi_normal' AND CAST(bed.bh_value AS FLOAT) > CAST(bce.bh_value AS FLOAT) THEN 'High'
+		            WHEN bce.bh_key = 'low_normal' AND CAST(bed.bh_value AS FLOAT) < CAST(bce.bh_value AS FLOAT) THEN 'Low'
+		        END, ''
+	    ) AS status,        
+        c.bh_concept_id,
+        bv.bh_visit_uu
+    from bh_concept c
+    join bh_concept_extra bce on c.bh_concept_id = bce.bh_concept_id and bce.bh_key != 'local_name'
+    join bh_encounter_diagnostic bed on c.bh_concept_id = bed.bh_concept_id
+    join bh_encounter be on bed.bh_encounter_id = be.bh_encounter_id
+    join bh_visit bv on be.bh_visit_id = bv.bh_visit_id
+    group by c.bh_concept_id, bv.bh_visit_uu
+) as test_ref_range on test_ref_range.bh_concept_id = test.bh_concept_id
+left join (
+    select
+        coalesce(bce.bh_value, bmce.bh_value, c.bh_display_name) as name,
+        c.bh_concept_id
+    from bh_concept c
+    join bh_concept_mapping bcm on c.bh_concept_id = bcm.to_bh_concept_id
+    join bh_concept_extra bmce on bcm.bh_concept_mapping_id = bmce.bh_concept_mapping_id and bmce.bh_key = 'local_name'
+    left join bh_concept_extra bce on c.bh_concept_id = bce.bh_concept_id and bce.bh_key = 'local_name'
+    group by c.bh_concept_id, coalesce(bce.bh_value, bmce.bh_value, c.bh_display_name)
+) as test_name on test_name.bh_concept_id = test.bh_concept_id
+where bed.bh_value is not null and bv.bh_visit_uu = $P{BH_Visit_UU}
+and (CASE WHEN test_ref_range.bh_visit_uu IS NOT NULL THEN test_ref_range.bh_visit_uu = $P{BH_Visit_UU} ELSE true END) 
+and (CASE WHEN panel.name IS NOT NULL THEN panel.name ELSE 'Test' END) = $P{PanelName}]]>
+		</queryString>
+		<field name="name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="test_name"/>
+		</field>
+		<field name="result" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="result"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_encounter_diagnostic"/>
+		</field>
+		<field name="status" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="status"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_encounter_diagnostic"/>
+		</field>
+		<field name="range" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="range"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="test_ref_range"/>
+		</field>
+		<field name="date" class="java.sql.Timestamp"/>
+		<field name="panel_name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="panel_name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="panel"/>
+		</field>
+		<group name="panel_name" isStartNewPage="true" isResetPageNumber="true">
+			<groupExpression><![CDATA[$F{panel_name}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="BH_Visit_UU" class="java.lang.String"/>
+	<parameter name="PanelName" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+    DISTINCT 
+    CASE
+        WHEN panel.name IS NOT NULL THEN panel.name
+        ELSE 'Test'
+    END AS panel_name
+from bh_encounter_diagnostic bed
+join bh_encounter be on bed.bh_encounter_id = be.bh_encounter_id
+join bh_visit bv on be.bh_visit_id = bv.bh_visit_id
+join bh_concept test on bed.bh_concept_id = test.bh_concept_id
+left join bh_concept_extra tbce on test.bh_concept_id = tbce.bh_concept_id and tbce.bh_key = 'local_name'
+left join (
+    select
+        coalesce(pbce.bh_value, p.bh_display_name) as name,
+        c.bh_concept_id
+    from bh_concept c
+    join bh_concept_mapping bcm on bcm.to_bh_concept_id = c.bh_concept_id
+    join bh_concept p on bcm.from_bh_concept_id = p.bh_concept_id and p.bh_concept_class = 'LabSet'
+    join bh_concept_extra pbce on p.bh_concept_id = pbce.bh_concept_id and pbce.bh_key = 'local_name'
+    group by c.bh_concept_id, coalesce(pbce.bh_value, p.bh_display_name)
+) as panel on panel.bh_concept_id = test.bh_concept_id
+where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THEN panel.name ELSE 'Test' END) = $P{PanelName}]]>
+	</queryString>
+	<field name="panel_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="panel_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="panel"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="200" height="20" uuid="0059f3e0-b016-4066-b646-ad76d7e9d9b3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{panel_name}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="5" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<componentElement>
+				<reportElement x="0" y="0" width="500" height="5" uuid="aece4c0b-0d19-4e41-b2dc-ad855614b09f">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="LabDataSet" uuid="77f05f28-fa97-43f1-88b9-ebd17b6e4fdd">
+						<datasetParameter name="BH_Visit_UU">
+							<datasetParameterExpression><![CDATA[$P{BH_Visit_UU}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="PanelName">
+							<datasetParameterExpression><![CDATA[$P{PanelName}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="150" uuid="12c1984e-fcd4-4dc1-b557-47b4d537182f">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="150" height="15" uuid="9986b691-2847-415d-8822-066b21d8d5ed"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="3"/>
+								</textElement>
+								<text><![CDATA[NAME]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="150" height="15" uuid="138a0fd1-3d00-491c-b7a8-30c2685dd428"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<paragraph leftIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="130" uuid="f6ac971d-6ade-4fef-8fa1-5ee2b17a142e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="130" height="15" uuid="f02ea4ec-4f1c-4a89-b21e-ff61242b0d91"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[RESULT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="130" height="15" uuid="1b080468-3c74-4a87-ba7d-7742b28ff72e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="c3d0d070-e0bd-4c54-a6a6-1915ff69bdfd">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="150" height="15" uuid="6df5ed7f-39a6-4654-a4f2-7283daa9f046">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[REFERENCE RANGE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="150" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{range}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="c3d0d070-e0bd-4c54-a6a6-1915ff69bdfd">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="15" uuid="6df5ed7f-39a6-4654-a4f2-7283daa9f046">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[STATUS]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<textField isBlankWhenNull="true">
+								<reportElement style="StatusWarning" x="0" y="0" width="100" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<noData>
+		<band height="18">
+			<staticText>
+				<reportElement x="0" y="0" width="380" height="16" uuid="7227fd38-a730-477d-a761-4778225a2517">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No lab results]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>
