@@ -102,11 +102,14 @@ left join (
 		            WHEN bce.bh_key = 'low_normal' AND CAST(bed.bh_value AS FLOAT) < CAST(bce.bh_value AS FLOAT) THEN 'Low'
 		        END, ''
 	    ) AS status,        
-        c.bh_concept_id
+        c.bh_concept_id,
+        bv.bh_visit_uu
     from bh_concept c
     join bh_concept_extra bce on c.bh_concept_id = bce.bh_concept_id and bce.bh_key != 'local_name'
     join bh_encounter_diagnostic bed on c.bh_concept_id = bed.bh_concept_id
-    group by c.bh_concept_id
+    join bh_encounter be on bed.bh_encounter_id = be.bh_encounter_id
+    join bh_visit bv on be.bh_visit_id = bv.bh_visit_id
+    group by c.bh_concept_id, bv.bh_visit_uu
 ) as test_ref_range on test_ref_range.bh_concept_id = test.bh_concept_id
 left join (
     select
@@ -118,7 +121,9 @@ left join (
     left join bh_concept_extra bce on c.bh_concept_id = bce.bh_concept_id and bce.bh_key = 'local_name'
     group by c.bh_concept_id, coalesce(bce.bh_value, bmce.bh_value, c.bh_display_name)
 ) as test_name on test_name.bh_concept_id = test.bh_concept_id
-where bed.bh_value is not null and bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THEN panel.name ELSE 'Test' END) = $P{PanelName}]]>
+where bed.bh_value is not null and bv.bh_visit_uu = $P{BH_Visit_UU}
+and (CASE WHEN test_ref_range.bh_visit_uu IS NOT NULL THEN test_ref_range.bh_visit_uu = $P{BH_Visit_UU} ELSE true END) 
+and (CASE WHEN panel.name IS NOT NULL THEN panel.name ELSE 'Test' END) = $P{PanelName}]]>
 		</queryString>
 		<field name="name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="name"/>
@@ -258,12 +263,12 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="100" uuid="c3d0d070-e0bd-4c54-a6a6-1915ff69bdfd">
+					<jr:column width="150" uuid="c3d0d070-e0bd-4c54-a6a6-1915ff69bdfd">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="100" height="15" uuid="6df5ed7f-39a6-4654-a4f2-7283daa9f046">
+								<reportElement x="0" y="0" width="150" height="15" uuid="6df5ed7f-39a6-4654-a4f2-7283daa9f046">
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -275,7 +280,7 @@ where bv.bh_visit_uu = $P{BH_Visit_UU} and (CASE WHEN panel.name IS NOT NULL THE
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="100" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
+								<reportElement x="0" y="0" width="150" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
 								</textElement>
