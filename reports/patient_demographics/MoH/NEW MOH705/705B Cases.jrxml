@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705B Cases" pageWidth="900" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="127d6963-4716-4961-8a68-bd6399ac1903">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -76,7 +76,7 @@
 				 'Other Central Nervous System Conditions', 'Other Convulsive Disorders', 'Other Eye Conditions', 'Plague',
 				 'Diarrhea', 'Congenital Anomalies', 'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
 				 'Cerebral Palsy', 'Autism')
-				 AND bh_key = 'MOH-705B-GREATERTHAN5'
+				 AND lower(bh_key) = 'moh-705b-greaterthan5'
 	),
 	visit_diagnoses AS (
 		SELECT
@@ -107,7 +107,7 @@
 				JOIN bh_concept c
 				ON pd.bh_concept_id = c.bh_concept_id
 				JOIN bh_concept_extra ce
-				ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
+				ON c.bh_concept_id = ce.bh_concept_id AND lower(ce.bh_key) = 'moh-705b-greaterthan5'
 				JOIN date_limitter dl
 				ON dl.calendar = CAST(bh_visitdate AS date)
 				JOIN c_bpartner bp
@@ -245,7 +245,7 @@ FROM
 		LEFT JOIN bh_concept c
 		ON c.bh_concept_id = pd.bh_concept_id
 		LEFT JOIN bh_concept_extra ce
-		ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
+		ON c.bh_concept_id = ce.bh_concept_id AND lower(ce.bh_key) = 'moh-705b-greaterthan5'
 		RIGHT JOIN ad_org o
 			ON v.ad_client_id = o.ad_client_id
 		AND o.isactive = 'Y'
