@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Referrals" pageWidth="900" pageHeight="595" orientation="Landscape" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="fbf82885-3c3c-421b-983c-d6bc70465fda">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -104,7 +104,7 @@
 						JOIN bh_concept c
 						ON pd.bh_concept_id = c.bh_concept_id
 						JOIN bh_concept_extra ce
-						ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705A-LESSTHAN5'
+						ON c.bh_concept_id = ce.bh_concept_id AND lower(ce.bh_key) = 'moh-705a-lessthan5'
 						JOIN date_limitter dl
 						ON dl.calendar = CAST(bh_visitdate AS date)
 						JOIN c_bpartner bp
@@ -182,7 +182,7 @@ FROM
 		LEFT JOIN bh_concept b
 		ON b.bh_concept_id = pd.bh_concept_id
 		LEFT JOIN bh_concept_extra ce
-		ON b.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705A-LESSTHAN5'
+		ON b.bh_concept_id = ce.bh_concept_id AND lower(ce.bh_key) = 'moh-705a-lessthan5'
 		RIGHT JOIN ad_org client
 		ON v.ad_client_id = client.ad_client_id
 		AND client.isactive = 'Y'
