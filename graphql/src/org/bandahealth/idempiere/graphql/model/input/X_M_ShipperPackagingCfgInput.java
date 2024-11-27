@@ -88,7 +88,7 @@ public class X_M_ShipperPackagingCfgInput extends X_M_ShipperPackagingCfg implem
 			X_M_ShipperCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperCfg", "M_ShipperCfg_UU=?", get_TrxName())
-							.setParameters(M_ShipperCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ShipperCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ShipperCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

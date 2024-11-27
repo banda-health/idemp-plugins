@@ -90,7 +90,7 @@ public class X_R_GroupUpdatesInput extends X_R_GroupUpdates implements I_R_Group
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_R_GroupUpdatesInput extends X_R_GroupUpdates implements I_R_Group
 			MGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Group", "R_Group_UU=?", get_TrxName())
-							.setParameters(R_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

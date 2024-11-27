@@ -90,7 +90,7 @@ public class X_C_Currency_AcctInput extends MCurrencyAcct implements I_C_Currenc
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -145,7 +145,7 @@ public class X_C_Currency_AcctInput extends MCurrencyAcct implements I_C_Currenc
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

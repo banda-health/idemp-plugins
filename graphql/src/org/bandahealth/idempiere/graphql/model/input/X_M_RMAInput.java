@@ -102,7 +102,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -136,7 +136,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -177,7 +177,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -207,7 +207,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -322,7 +322,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 			MInOut_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
-							.setParameters(InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setInOut_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -385,7 +385,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 			X_M_RMAType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RMAType", "M_RMAType_UU=?", get_TrxName())
-							.setParameters(M_RMAType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_RMAType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_RMAType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -419,7 +419,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 			MRMA foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RMA", "M_RMA_UU=?", get_TrxName())
-							.setParameters(Ref_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Ref_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setRef_RMA_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -453,7 +453,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

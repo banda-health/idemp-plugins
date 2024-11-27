@@ -94,7 +94,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -170,7 +170,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 			X_M_Promotion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
-							.setParameters(M_Promotion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Promotion.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Promotion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -204,7 +204,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 			X_M_PromotionDistribution foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PromotionDistribution", "M_PromotionDistribution_UU=?", get_TrxName())
-							.setParameters(M_PromotionDistribution.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PromotionDistribution.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PromotionDistribution_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -267,7 +267,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 			X_M_PromotionDistribution foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PromotionDistribution", "M_PromotionDistribution_UU=?", get_TrxName())
-							.setParameters(M_TargetDistribution.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_TargetDistribution.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_TargetDistribution_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

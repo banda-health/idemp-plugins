@@ -27,7 +27,7 @@ public class X_AD_Form_AccessResolver extends POResolver<MFormAccess> implements
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(MFormAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() < 0) {
+		if (entity.getAD_Form_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =

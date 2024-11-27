@@ -88,7 +88,7 @@ public class X_AD_Replication_RunInput extends MReplicationRun implements I_AD_R
 			MReplication foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Replication", "AD_Replication_UU=?", get_TrxName())
-							.setParameters(AD_Replication.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Replication.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Replication_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -11,7 +11,6 @@ import {
 	C_AcctSchemaGetQuery,
 	C_BankAccountGetQuery,
 	C_BPartnerGetQuery,
-	C_BPartnerSaveWithLocationAndContactMutation,
 	C_BPartnerSaveWithLocationMutation,
 	C_ChargeSaveMutation,
 	C_DocTypeGetDocument,
@@ -22,7 +21,6 @@ import {
 	C_OrderGetQuery,
 	C_OrderSaveWithOrderLinesMutation,
 	C_PaymentSaveMutation,
-	LogoutDocument,
 	M_AttributeSetInstanceSaveMutation,
 	M_InventorySaveWithInventoryLinesMutation,
 	M_PriceListSaveMutation,
@@ -35,7 +33,7 @@ import { documentAction } from './documentEngine';
 export class ValueObject {
 	client?: LoginInfo['AD_Clients'][0];
 	organization?: LoginInfo['AD_Clients'][0]['AD_Orgs'][0];
-	user?: C_BPartnerSaveWithLocationAndContactMutation['AD_UserSave'];
+	user: LoginInfo['AD_User'];
 	warehouse?: NonNullable<LoginInfo['AD_Clients'][0]['AD_Orgs'][0]['M_Warehouses']>[0];
 	role?: NonNullable<LoginInfo['AD_Clients'][0]['AD_Orgs'][0]['AD_Roles']>[0];
 	language?: string;
@@ -112,6 +110,7 @@ export class ValueObject {
 		this.role = loginInfo.AD_Role || this.organization?.AD_Roles?.find((role) => role.UU === loginInfo.AD_Role_UU);
 		this.warehouse = this.organization?.M_Warehouses?.find((warehouse) => warehouse.UU === loginInfo.M_Warehouse_UU);
 		this.sessionToken = loginInfo.token || undefined;
+		this.user = loginInfo.AD_User;
 
 		this.date = new Date();
 		this.dateInitial = new Date();
@@ -226,9 +225,9 @@ export class ValueObject {
 		if (!this.organization) {
 			this.appendErrorMsg('No Org');
 		}
-		// if (m_user == null) {
-		// 	this.appendErrorMsg('NO User');
-		// }
+		if (!this.user) {
+			this.appendErrorMsg('No User');
+		}
 		if (!this.role) {
 			this.appendErrorMsg('No Role');
 		}

@@ -32,7 +32,7 @@ public class X_C_OrderLandedCostResolver extends POResolver<MOrderLandedCost> im
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MOrderLandedCost entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -65,7 +65,7 @@ public class X_C_OrderLandedCostResolver extends POResolver<MOrderLandedCost> im
 	 * @return Product Cost Element
 	 */
 	public CompletableFuture<MCostElement> M_CostElement(MOrderLandedCost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostElement_ID() < 0) {
+		if (entity.getM_CostElement_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =

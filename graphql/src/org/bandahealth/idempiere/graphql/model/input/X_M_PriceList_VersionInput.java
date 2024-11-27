@@ -88,7 +88,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-							.setParameters(M_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_DiscountSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 			MPriceListVersion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList_Version", "M_PriceList_Version_UU=?", get_TrxName())
-							.setParameters(M_Pricelist_Version_Base.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Pricelist_Version_Base.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Pricelist_Version_Base_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

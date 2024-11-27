@@ -27,7 +27,7 @@ public class X_C_DepositBatchLineResolver extends POResolver<MDepositBatchLine> 
 	 * @return Deposit Batch
 	 */
 	public CompletableFuture<MDepositBatch> C_DepositBatch(MDepositBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DepositBatch_ID() < 0) {
+		if (entity.getC_DepositBatch_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MDepositBatch> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_DepositBatchLineResolver extends POResolver<MDepositBatchLine> 
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MDepositBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() < 0) {
+		if (entity.getC_Payment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =

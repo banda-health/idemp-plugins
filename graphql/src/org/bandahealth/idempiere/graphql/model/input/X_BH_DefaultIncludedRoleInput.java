@@ -156,7 +156,7 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(Included_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Included_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setIncluded_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

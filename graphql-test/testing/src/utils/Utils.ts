@@ -154,7 +154,6 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 			})
 		).data.C_BPartnerGet.Results[0];
 		valueObject.businessPartnerLocation = saveResult?.C_BPartner_LocationSave;
-		valueObject.user = saveResult?.AD_UserSave;
 		valueObject.salesPriceList = { UU: salesPriceListUuid };
 		valueObject.purchasePriceList = { UU: purchasePriceListUuid };
 
@@ -384,13 +383,14 @@ export async function createOrder(valueObject: ValueObject) {
 			variables: {
 				C_Order: {
 					UU: orderUuid,
-					Description: valueObject.getStepMessageLong(),
-					DateOrdered: valueObject.date?.getTime(),
-					C_BPartner: { UU: valueObject.businessPartner.UU },
-					M_Warehouse: { UU: valueObject.warehouse.UU },
-					IsSOTrx: valueObject.documentType.IsSOTrx,
-					C_DocTypeTarget: { UU: valueObject.documentType.UU },
 					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
+					C_BPartner: { UU: valueObject.businessPartner.UU },
+					C_DocTypeTarget: { UU: valueObject.documentType.UU },
+					DateOrdered: valueObject.date?.getTime(),
+					Description: valueObject.getStepMessageLong(),
+					IsSOTrx: valueObject.documentType.IsSOTrx,
+					M_Warehouse: { UU: valueObject.warehouse.UU },
+					SalesRep: { UU: valueObject.user?.UU! },
 				},
 				C_OrderLine: {
 					C_Order: { UU: orderUuid },

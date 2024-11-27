@@ -39,7 +39,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine> implem
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MInventoryLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() < 0) {
+		if (entity.getC_Charge_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -84,7 +84,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine> implem
 	 * @return Parameters for a Physical Inventory
 	 */
 	public CompletableFuture<MInventory_BH> M_Inventory(MInventoryLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Inventory_ID() < 0) {
+		if (entity.getM_Inventory_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInventory_BH> dataLoader =
@@ -99,7 +99,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine> implem
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MInventoryLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() < 0) {
+		if (entity.getM_Locator_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -114,7 +114,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine> implem
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MInventoryLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -133,7 +133,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine> implem
 	 * @return Use to keep the reversal line ID for reversing costing purpose
 	 */
 	public CompletableFuture<MInventoryLine> ReversalLine(MInventoryLine entity, DataFetchingEnvironment environment) {
-		if (entity.getReversalLine_ID() < 0) {
+		if (entity.getReversalLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine> dataLoader =

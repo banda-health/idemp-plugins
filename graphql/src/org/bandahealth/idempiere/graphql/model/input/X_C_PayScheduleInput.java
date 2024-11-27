@@ -91,7 +91,7 @@ public class X_C_PayScheduleInput extends MPaySchedule implements I_C_PaySchedul
 			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
-							.setParameters(C_PaymentTerm.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_PaymentTerm.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_PaymentTerm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

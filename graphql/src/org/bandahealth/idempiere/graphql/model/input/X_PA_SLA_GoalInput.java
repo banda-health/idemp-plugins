@@ -90,7 +90,7 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 			X_PA_SLA_Criteria foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_SLA_Criteria", "PA_SLA_Criteria_UU=?", get_TrxName())
-							.setParameters(PA_SLA_Criteria.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_SLA_Criteria.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPA_SLA_Criteria_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

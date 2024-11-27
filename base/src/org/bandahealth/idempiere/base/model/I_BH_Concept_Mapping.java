@@ -247,10 +247,14 @@ public interface I_BH_Concept_Mapping
     /** Column name From_BH_Concept_ID */
     public static final String COLUMNNAME_From_BH_Concept_ID = "From_BH_Concept_ID";
 
-	/** Set From Concept	  */
+	/** Set From Concept.
+	  * From Concept
+	  */
 	public void setFrom_BH_Concept_ID (int From_BH_Concept_ID);
 
-	/** Get From Concept	  */
+	/** Get From Concept.
+	  * From Concept
+	  */
 	public int getFrom_BH_Concept_ID();
 
     /** Column name IsActive */
@@ -270,22 +274,26 @@ public interface I_BH_Concept_Mapping
     public static final String COLUMNNAME_Ocl_Uuid = "Ocl_Uuid";
 
 	/** Set Ocl Uuid.
-	  * A UUID from the OCL system
+	  * A UUID from the OCL System
 	  */
 	public void setOcl_Uuid (String Ocl_Uuid);
 
 	/** Get Ocl Uuid.
-	  * A UUID from the OCL system
+	  * A UUID from the OCL System
 	  */
 	public String getOcl_Uuid();
 
     /** Column name To_BH_Concept_ID */
     public static final String COLUMNNAME_To_BH_Concept_ID = "To_BH_Concept_ID";
 
-	/** Set To Concept	  */
+	/** Set To Concept.
+	  * To Concept
+	  */
 	public void setTo_BH_Concept_ID (int To_BH_Concept_ID);
 
-	/** Get To Concept	  */
+	/** Get To Concept.
+	  * To Concept
+	  */
 	public int getTo_BH_Concept_ID();
 
     /** Column name Updated */

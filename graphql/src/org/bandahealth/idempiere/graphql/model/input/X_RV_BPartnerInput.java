@@ -130,7 +130,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(
@@ -204,7 +204,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(AD_User_C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User_C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_C_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -241,7 +241,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(AD_User_C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User_C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_C_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -289,7 +289,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User_Create.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User_Create.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_CreatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -326,7 +326,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -385,7 +385,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User_Update.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User_Update.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_UpdatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -488,7 +488,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(BPartner_Parent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BPartner_Parent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBPartner_Parent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -525,7 +525,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			X_C_Greeting foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
-							.setParameters(BPContactGreet.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BPContactGreet.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setBPContactGreeting(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -562,7 +562,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			X_C_TaxGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxGroup", "C_TaxGroup_UU=?", get_TrxName())
-							.setParameters(C_BP_C_TaxGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_C_TaxGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_C_TaxGroup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -610,7 +610,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -669,7 +669,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BP_Location_C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Location_C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_Location_C_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -706,7 +706,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_BP_Location_C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Location_C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_Location_C_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -754,7 +754,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(C_BP_Location_Create.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Location_Create.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_Location_CreatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -901,7 +901,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MSalesRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
-							.setParameters(C_BP_Location_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Location_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_Location_SalesRegion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -949,7 +949,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(C_BP_Location_Update.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Location_Update.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BP_Location_UpdatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -997,7 +997,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1034,7 +1034,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MCity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_City", "C_City_UU=?", get_TrxName())
-							.setParameters(C_City.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_City.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_City_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1082,7 +1082,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Country_C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Country_C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Country_C_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1130,7 +1130,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Country_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1178,7 +1178,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MDunning foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
-							.setParameters(C_Dunning.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Dunning.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Dunning_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1215,7 +1215,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			X_C_Greeting foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
-							.setParameters(C_Greeting.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Greeting.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Greeting_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1252,7 +1252,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MInvoiceSchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceSchedule", "C_InvoiceSchedule_UU=?", get_TrxName())
-							.setParameters(C_InvoiceSchedule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceSchedule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_InvoiceSchedule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1300,7 +1300,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(C_Location_Create.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location_Create.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Location_CreatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1337,7 +1337,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1396,7 +1396,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(C_Location_Update.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location_Update.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Location_UpdatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1433,7 +1433,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
-							.setParameters(C_PaymentTerm.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_PaymentTerm.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_PaymentTerm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1481,7 +1481,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-							.setParameters(C_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Region_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -1831,7 +1831,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(Invoice_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Invoice_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setInvoice_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -2053,7 +2053,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-							.setParameters(M_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_DiscountSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -2090,7 +2090,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -2319,7 +2319,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-							.setParameters(PO_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPO_DiscountSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -2356,7 +2356,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
-							.setParameters(PO_PaymentTerm.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_PaymentTerm.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPO_PaymentTerm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -2393,7 +2393,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(PO_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPO_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -2507,7 +2507,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -2674,7 +2674,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

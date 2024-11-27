@@ -27,7 +27,7 @@ public class X_C_CountryGroupCountryResolver extends POResolver<MCountryGroupCou
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(MCountryGroupCountry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() < 0) {
+		if (entity.getC_Country_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_CountryGroupCountryResolver extends POResolver<MCountryGroupCou
 	 * @return Country Group
 	 */
 	public CompletableFuture<MCountryGroup> C_CountryGroup(MCountryGroupCountry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CountryGroup_ID() < 0) {
+		if (entity.getC_CountryGroup_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCountryGroup> dataLoader =

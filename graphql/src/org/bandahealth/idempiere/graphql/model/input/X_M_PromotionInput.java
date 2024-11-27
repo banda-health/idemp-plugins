@@ -85,7 +85,7 @@ public class X_M_PromotionInput extends X_M_Promotion implements I_M_PromotionIn
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -34,7 +34,7 @@ public class X_PA_RatioElementResolver extends POResolver<X_PA_RatioElement> imp
 	 * @return Account used
 	 */
 	public CompletableFuture<MElementValue> Account(X_PA_RatioElement entity, DataFetchingEnvironment environment) {
-		if (entity.getAccount_ID() < 0) {
+		if (entity.getAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -49,7 +49,7 @@ public class X_PA_RatioElementResolver extends POResolver<X_PA_RatioElement> imp
 	 * @return Calculation method for measuring performance
 	 */
 	public CompletableFuture<MMeasureCalc> PA_MeasureCalc(X_PA_RatioElement entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_MeasureCalc_ID() < 0) {
+		if (entity.getPA_MeasureCalc_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MMeasureCalc> dataLoader =
@@ -64,7 +64,7 @@ public class X_PA_RatioElementResolver extends POResolver<X_PA_RatioElement> imp
 	 * @return Performance Ratio
 	 */
 	public CompletableFuture<X_PA_Ratio> PA_Ratio(X_PA_RatioElement entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Ratio_ID() < 0) {
+		if (entity.getPA_Ratio_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PA_Ratio> dataLoader =
@@ -79,7 +79,7 @@ public class X_PA_RatioElementResolver extends POResolver<X_PA_RatioElement> imp
 	 * @return Performance Ratio Used
 	 */
 	public CompletableFuture<X_PA_Ratio> PA_RatioUsed(X_PA_RatioElement entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_RatioUsed_ID() < 0) {
+		if (entity.getPA_RatioUsed_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_PA_Ratio> dataLoader =

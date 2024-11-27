@@ -93,7 +93,7 @@ public class X_C_InvoiceTaxInput extends MInvoiceTax implements I_C_InvoiceTaxIn
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -148,7 +148,7 @@ public class X_C_InvoiceTaxInput extends MInvoiceTax implements I_C_InvoiceTaxIn
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -185,7 +185,7 @@ public class X_C_InvoiceTaxInput extends MInvoiceTax implements I_C_InvoiceTaxIn
 			MTaxProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxProvider", "C_TaxProvider_UU=?", get_TrxName())
-							.setParameters(C_TaxProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_TaxProvider_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

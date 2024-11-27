@@ -90,7 +90,7 @@ public class X_R_RequestUpdatesInput extends X_R_RequestUpdates implements I_R_R
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_R_RequestUpdatesInput extends X_R_RequestUpdates implements I_R_R
 			MRequest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
-							.setParameters(R_Request.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_Request.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_Request_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -30,7 +30,7 @@ public class X_AD_ReportViewResolver extends POResolver<MReportView> implements 
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MReportView entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() < 0) {
+		if (entity.getAD_Table_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

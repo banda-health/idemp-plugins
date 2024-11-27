@@ -25,7 +25,7 @@ public class X_C_PaySelectionResolver extends POResolver<MPaySelection> implemen
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MPaySelection entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() < 0) {
+		if (entity.getC_BankAccount_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =

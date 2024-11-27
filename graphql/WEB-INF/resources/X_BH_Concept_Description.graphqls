@@ -26,6 +26,7 @@ type BH_Concept_Description {
 	UU: ID!
 	BH_Concept: BH_Concept!
 	BH_Concept_Locale: String
+	BH_Concept_Locale_Preferred: Boolean!
 	BH_Concept_Type: String
 	# BH_External_ID
 	BH_ExternalID: String
@@ -33,10 +34,14 @@ type BH_Concept_Description {
 	Created: Date
 	# User who created this records
 	CreatedBy: AD_User
+	# Optional short description of the record
+	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String
+	# A UUID from the OCL system
+	Ocl_Uuid: String
 	# Date this record was updated
 	Updated: Date
 	# User who updated this records
@@ -50,11 +55,16 @@ input BH_Concept_DescriptionInput {
 	UU: ID
 	BH_Concept: ForeignEntityInput
 	BH_Concept_Locale: String
+	BH_Concept_Locale_Preferred: Boolean
 	BH_Concept_Type: String
 	# BH_External_ID
 	BH_ExternalID: String
+	# Optional short description of the record
+	Description: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
+	# A UUID from the OCL system
+	Ocl_Uuid: String
 }

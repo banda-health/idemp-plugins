@@ -31,7 +31,7 @@ public class X_BH_Ocl_Originating_Source extends PO implements I_BH_Ocl_Originat
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240710L;
+	private static final long serialVersionUID = 20241003L;
 
     /** Standard Constructor */
     public X_BH_Ocl_Originating_Source (Properties ctx, int BH_Ocl_Originating_Source_ID, String trxName)

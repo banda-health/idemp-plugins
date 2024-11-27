@@ -88,7 +88,7 @@ public class X_C_TaxPostalInput extends MTaxPostal implements I_C_TaxPostalInput
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

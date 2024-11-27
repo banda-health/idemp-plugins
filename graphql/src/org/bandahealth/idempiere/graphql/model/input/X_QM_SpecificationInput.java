@@ -91,7 +91,7 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -132,7 +132,7 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 						"Could not find entity in table M_AttributeSet with UU " + M_AttributeSet.getUU());
 			}
 		} else {
-			this.setM_AttributeSet_ID(0);
+			this.setM_AttributeSet_ID(-1);
 		}
 	}
 
@@ -159,7 +159,7 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -193,7 +193,7 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 			MPPProductBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
-							.setParameters(PP_Product_BOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Product_BOM.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setPP_Product_BOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

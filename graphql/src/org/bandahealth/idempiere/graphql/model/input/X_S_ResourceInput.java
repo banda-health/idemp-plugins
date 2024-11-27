@@ -92,7 +92,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -126,7 +126,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -228,7 +228,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 			MResourceType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_ResourceType", "S_ResourceType_UU=?", get_TrxName())
-							.setParameters(S_ResourceType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_ResourceType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setS_ResourceType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

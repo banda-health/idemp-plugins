@@ -18,13 +18,12 @@ type BH_Client_ConceptConnection {
 }
 
 type BH_Client_Concept {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org
 	UU: ID!
 	BH_Concept: BH_Concept!
-	# Display Name
 	BH_Display_Name: String
 	# Date this record was created
 	Created: Date
@@ -39,11 +38,10 @@ type BH_Client_Concept {
 }
 
 input BH_Client_ConceptInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UU: ID
 	BH_Concept: ForeignEntityInput
-	# Display Name
 	BH_Display_Name: String
 	# The record is active in the system
 	IsActive: Boolean

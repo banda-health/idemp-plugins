@@ -53,7 +53,7 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 			X_A_RegistrationAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_RegistrationAttribute", "A_RegistrationAttribute_UU=?", get_TrxName())
-							.setParameters(A_RegistrationAttribute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_RegistrationAttribute.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setA_RegistrationAttribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -145,7 +145,7 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

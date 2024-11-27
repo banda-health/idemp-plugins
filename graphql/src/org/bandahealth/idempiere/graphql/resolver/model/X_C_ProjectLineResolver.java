@@ -39,7 +39,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MProjectLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -54,7 +54,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 	 * @return Purchase Order
 	 */
 	public CompletableFuture<MOrder_BH> C_OrderPO(MProjectLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderPO_ID() < 0) {
+		if (entity.getC_OrderPO_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -69,7 +69,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MProjectLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -84,7 +84,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 	 * @return Project Issues (Material, Labor)
 	 */
 	public CompletableFuture<MProjectIssue> C_ProjectIssue(MProjectLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectIssue_ID() < 0) {
+		if (entity.getC_ProjectIssue_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProjectIssue> dataLoader =
@@ -99,7 +99,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 	 * @return Phase of a Project
 	 */
 	public CompletableFuture<MProjectPhase> C_ProjectPhase(MProjectLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectPhase_ID() < 0) {
+		if (entity.getC_ProjectPhase_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
@@ -114,7 +114,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 	 * @return Actual Project Task in a Phase
 	 */
 	public CompletableFuture<MProjectTask> C_ProjectTask(MProjectLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectTask_ID() < 0) {
+		if (entity.getC_ProjectTask_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
@@ -133,7 +133,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(MProjectLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() < 0) {
+		if (entity.getM_Product_Category_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
@@ -148,7 +148,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MProjectLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -163,7 +163,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 	 * @return Plan for producing a product
 	 */
 	public CompletableFuture<MProduction> M_Production(MProjectLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Production_ID() < 0) {
+		if (entity.getM_Production_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduction> dataLoader =

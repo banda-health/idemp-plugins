@@ -27,7 +27,7 @@ public class X_T_ReconciliationResolver extends POResolver<X_T_Reconciliation> i
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_Reconciliation entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() < 0) {
+		if (entity.getAD_PInstance_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -42,7 +42,7 @@ public class X_T_ReconciliationResolver extends POResolver<X_T_Reconciliation> i
 	 * @return Accounting Fact
 	 */
 	public CompletableFuture<MFactAcct> Fact_Acct(X_T_Reconciliation entity, DataFetchingEnvironment environment) {
-		if (entity.getFact_Acct_ID() < 0) {
+		if (entity.getFact_Acct_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MFactAcct> dataLoader =

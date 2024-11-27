@@ -26,7 +26,7 @@ import {
 import {
 	Ad_LanguageGetDocument,
 	Ad_Ref_ListGetDocument,
-	Bh_Coded_DiagnosisGetDocument,
+	Bh_ConceptGetDocument,
 	Bh_EncounterAndObservationsSaveManyDocument,
 	Bh_EncounterDeleteDocument,
 	Bh_EncounterGetDocument,
@@ -41,6 +41,7 @@ import {
 	Bh_VisitRemoveInsurancePayerDocument,
 	Bh_VisitSaveAndProcessWithOrdersDocument,
 	Bh_VisitSaveAndProcessWithOrdersInvoicesAndPaymentsDocument,
+	Bh_VisitSaveDocument,
 	Bh_VisitSaveWithEncountersObservationsOrdersInvoicesInsuranceAndPaymentsDocument,
 	Bh_VisitSaveWithEncountersOrdersAndInvoicesDocument,
 	Bh_VisitSaveWithOrdersAndInvoicesDocument,
@@ -50,6 +51,8 @@ import {
 	C_BPartnerSaveDocument,
 	C_Bp_GroupGetDocument,
 	C_InvoiceAndOrderLineDeleteDocument,
+	C_OrderForSalesRepDocument,
+	C_OrderSaveDocument,
 	C_PaymentDeleteDocument,
 	C_PaymentSaveDocument,
 	C_PaymentSaveManyDocument,
@@ -1709,8 +1712,13 @@ test('clinical vitals fields', async () => {
 	const heightValue = '200';
 	const weightValue = '100';
 
-	const codedDiagnosis = (await query(valueObject)({ query: Bh_Coded_DiagnosisGetDocument, variables: { Size: 1 } }))
-		.data.BH_Coded_DiagnosisGet.Results[0];
+	const codedDiagnosis = (await query(valueObject)({
+		query: Bh_ConceptGetDocument, variables: {
+			Size: 1,
+			Filter: JSON.stringify({ BH_Source: { $text: 'BHGO' } })
+		}
+	}))
+		.data.BH_ConceptGet.Results[0];
 	expect(codedDiagnosis).toBeTruthy();
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounterUuid = v4();
@@ -1727,7 +1735,7 @@ test('clinical vitals fields', async () => {
 			],
 			BH_Observations: [
 				{
-					BH_Encounter: { UU: encounterUuid, },
+					BH_Encounter: { UU: encounterUuid },
 					AD_Field: { UU: fields.find((field) => field.UU === HEIGHT_FIELD_UUID)!.UU },
 					BH_Value: heightValue,
 				},
@@ -1741,7 +1749,7 @@ test('clinical vitals fields', async () => {
 				{
 					BH_Encounter: { UU: encounterUuid },
 					LineNo: 2,
-					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
+					BH_Concept: { UU: codedDiagnosis.UU },
 				},
 			],
 		},
@@ -1761,8 +1769,8 @@ test('clinical vitals fields', async () => {
 	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![0].BH_Uncoded_Diagnosis).toBe(
 		uncodedDiagnosisValue,
 	);
-	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Coded_Diagnosis!.UU).toBeTruthy();
-	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Coded_Diagnosis!.UU).toBe(
+	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Concept!.UU).toBeTruthy();
+	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Concept!.UU).toBe(
 		codedDiagnosis.UU,
 	);
 
@@ -2094,7 +2102,7 @@ test(`visit invoice updates work`, async () => {
 			],
 			BH_EncounterDiagnoses: [
 				{
-					BH_Encounter: { UU: encounterUuid, },
+					BH_Encounter: { UU: encounterUuid },
 					LineNo: 1,
 					BH_Uncoded_Diagnosis: 'In some pain...',
 				},
@@ -2885,8 +2893,13 @@ test('can delete encounters', async () => {
 	const fields = clinicalVitalsEncounterTypeWindow.AD_Window.AD_Tabs?.[0].AD_Fields!;
 	expect(fields).toBeTruthy();
 
-	const codedDiagnosis = (await query(valueObject)({ query: Bh_Coded_DiagnosisGetDocument, variables: { Size: 1 } }))
-		.data.BH_Coded_DiagnosisGet.Results[0];
+	const codedDiagnosis = (await query(valueObject)({
+		query: Bh_ConceptGetDocument, variables: {
+			Size: 1,
+			Filter: JSON.stringify({ BH_Source: { $text: 'BHGO' } })
+		}
+	}))
+		.data.BH_ConceptGet.Results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter1Uuid = v4();
 	const encounter2Uuid = v4();
@@ -2928,7 +2941,7 @@ test('can delete encounters', async () => {
 				{
 					BH_Encounter: { UU: encounter1Uuid },
 					LineNo: 2,
-					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
+					BH_Concept: { UU: codedDiagnosis.UU },
 				},
 				{
 					BH_Encounter: { UU: encounter2Uuid },
@@ -2938,7 +2951,7 @@ test('can delete encounters', async () => {
 				{
 					BH_Encounter: { UU: encounter2Uuid },
 					LineNo: 2,
-					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
+					BH_Concept: { UU: codedDiagnosis.UU },
 				},
 			],
 		},
@@ -3010,4 +3023,80 @@ test('expression functions work in sorting', async () => {
 	expect(sortedVisits[0].UU).toBe(visit3.UU);
 	expect(sortedVisits[1].UU).toBe(visit2.UU);
 	expect(sortedVisits[2].UU).toBe(visit1.UU);
+});
+
+test('sales reps set correctly for orders', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	const order = (
+		await query(valueObject)({ query: C_OrderForSalesRepDocument, variables: { UU: valueObject.order?.UU! } })
+	).data.C_Order!;
+	expect(order).toBeTruthy();
+	expect(order.SalesRep?.UU).toBeTruthy();
+	await expect(
+		mutate(valueObject)({
+			mutation: C_OrderSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.order?.UU!,
+					SalesRep: {
+						UU: 'd3e73885-37d5-45df-abe5-aecaf540af33', // Deprecated system user that used to be returned
+					},
+				},
+			},
+		}),
+	).rejects.toBeTruthy();
+});
+
+test(`can save triage as a process stage`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	const processStages = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.PROCESS_STAGE } }) },
+		})
+	).data.AD_Ref_ListGet.Results;
+	const triageVitals = processStages.find((processStage) => processStage.Name === 'Triage / Vitals')!;
+	expect(triageVitals).toBeTruthy();
+
+	valueObject.stepName = 'Create visit';
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				BH_Process_Stage: { UU: triageVitals.UU },
+				BH_VisitDate: valueObject.date?.getTime(),
+				Description: valueObject.getStepMessageLong(),
+				Patient: { UU: valueObject.businessPartner!.UU },
+			},
+		},
+	});
 });

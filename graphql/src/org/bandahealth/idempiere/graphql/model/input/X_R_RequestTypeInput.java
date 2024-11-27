@@ -156,7 +156,7 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 			MStatusCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_StatusCategory", "R_StatusCategory_UU=?", get_TrxName())
-							.setParameters(R_StatusCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_StatusCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_StatusCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

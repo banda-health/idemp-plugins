@@ -125,7 +125,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -352,7 +352,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MCostType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostType", "M_CostType_UU=?", get_TrxName())
-							.setParameters(M_CostType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_CostType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

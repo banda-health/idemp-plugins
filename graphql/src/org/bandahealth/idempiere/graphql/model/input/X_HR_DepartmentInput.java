@@ -85,7 +85,7 @@ public class X_HR_DepartmentInput extends X_HR_Department implements I_HR_Depart
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

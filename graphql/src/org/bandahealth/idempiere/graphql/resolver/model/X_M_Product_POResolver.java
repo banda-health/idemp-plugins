@@ -31,7 +31,7 @@ public class X_M_Product_POResolver extends POResolver<MProductPO_BH> implements
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MProductPO_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_Product_POResolver extends POResolver<MProductPO_BH> implements
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MProductPO_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -61,7 +61,7 @@ public class X_M_Product_POResolver extends POResolver<MProductPO_BH> implements
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MProductPO_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 0) {
+		if (entity.getC_UOM_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -84,7 +84,7 @@ public class X_M_Product_POResolver extends POResolver<MProductPO_BH> implements
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MProductPO_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() < 0) {
+		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

@@ -25,7 +25,7 @@ public class X_HR_ListLineResolver extends POResolver<X_HR_ListLine> implements 
 	 * @return Payroll List Version
 	 */
 	public CompletableFuture<X_HR_ListVersion> HR_ListVersion(X_HR_ListLine entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_ListVersion_ID() < 0) {
+		if (entity.getHR_ListVersion_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_ListVersion> dataLoader =

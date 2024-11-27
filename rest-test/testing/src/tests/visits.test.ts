@@ -7,7 +7,6 @@ import { v4 } from 'uuid';
 import {
 	businessPartnerApi,
 	businessPartnerGroupApi,
-	codedDiagnosisApi,
 	conceptApi,
 	encounterApi,
 	encounterTypeWindowApi,
@@ -1450,7 +1449,15 @@ test('clinical vitals fields', async () => {
 	const heightValue = '200';
 	const weightValue = '100';
 
-	const codedDiagnosis = (await codedDiagnosisApi.get(valueObject)).results[0];
+	const codedDiagnosis = (
+			await conceptApi.get(
+					valueObject,
+					undefined,
+					undefined,
+					undefined,
+					JSON.stringify({ bh_display_name: { $text: 'urine' } }),
+			)
+	).results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter: Partial<Encounter> = {
 		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
@@ -1468,7 +1475,7 @@ test('clinical vitals fields', async () => {
 			} as EncounterDiagnosis,
 			{
 				lineNo: 2,
-				codedDiagnosis: { uuid: codedDiagnosis.uuid },
+				concept: { uuid: codedDiagnosis.uuid },
 			} as EncounterDiagnosis,
 		],
 	};
@@ -1481,8 +1488,8 @@ test('clinical vitals fields', async () => {
 	expect(valueObject.visit.encounters[0].observations[0].value).toBe(heightValue);
 	expect(valueObject.visit.encounters[0].encounterDiagnoses).toHaveLength(2);
 	expect(valueObject.visit.encounters[0].encounterDiagnoses[0].uncodedDiagnosis).toBe(uncodedDiagnosisValue);
-	expect(valueObject.visit.encounters[0].encounterDiagnoses[1].codedDiagnosis.uuid).toBeTruthy();
-	expect(valueObject.visit.encounters[0].encounterDiagnoses[1].codedDiagnosis.uuid).toBe(codedDiagnosis.uuid);
+	expect(valueObject.visit.encounters[0].encounterDiagnoses[1].concept.uuid).toBeTruthy();
+	expect(valueObject.visit.encounters[0].encounterDiagnoses[1].concept.uuid).toBe(codedDiagnosis.uuid);
 
 	valueObject.stepName = 'Change observations and remove diagnosis';
 	valueObject.visit!.encounters[0].observations = [
@@ -2322,7 +2329,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	const visit: Partial<Visit> = {
 		uuid: randomUUID(),
 		patient: valueObject.businessPartner!,
-		visitDate: new Date(1698751197099),
+		visitDate: new Date(),
 		encounters: [
 			{
 				clientId: 1000000,
@@ -2330,28 +2337,28 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				uuid: v4(),
 				created: '2023-10-31 02:20:22',
 				isActive: true,
-				createdTimestamp: new Date(1698751222099),
+				createdTimestamp: new Date(),
 				encounterType: {
 					clientId: 0,
 					orgId: 0,
 					uuid: '6b25aa54-bbae-4432-a4e9-7a9a3116fc95',
 					created: '2023-07-06 12:37:28',
 					isActive: true,
-					createdTimestamp: new Date(1688636248131),
+					createdTimestamp: new Date(),
 					name: 'Capture Vitals',
 					value: 'V',
 					description: '',
 					createdBy: createdUser,
 					updatedBy: createdUser,
-					updated: new Date(1688636248131),
+					updated: new Date(),
 				},
 				observations: [],
 				encounterDiagnoses: [],
 				encounterDiagnostics: [],
 				createdBy: createdUser,
 				updatedBy: createdUser,
-				updated: new Date(1688636248131),
-				encounterDate: new Date(1688636248131)
+				updated: new Date(),
+				encounterDate: new Date(),
 			},
 			{
 				clientId: 1000000,
@@ -2359,28 +2366,28 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				uuid: v4(),
 				created: '2023-10-31 02:20:22',
 				isActive: true,
-				createdTimestamp: new Date(1698751222393),
+				createdTimestamp: new Date(),
 				encounterType: {
 					clientId: 0,
 					orgId: 0,
 					uuid: '9bd78d1a-3ec7-46eb-a7b9-58c183b823ae',
 					created: '2023-07-21 11:30:16',
 					isActive: true,
-					createdTimestamp: new Date(1689928216746),
+					createdTimestamp: new Date(),
 					name: 'Clinical Details',
 					description: 'clinical details',
 					value: 'D',
 					createdBy: createdUser,
 					updatedBy: createdUser,
-					updated: new Date(1688636248131),
+					updated: new Date(),
 				},
 				observations: [],
 				encounterDiagnoses: [],
 				encounterDiagnostics: [],
 				createdBy: createdUser,
 				updatedBy: createdUser,
-				updated: new Date(1688636248131),
-				encounterDate: new Date(1688636248131)
+				updated: new Date(),
+				encounterDate: new Date(),
 			},
 		],
 		orders: [
@@ -2390,16 +2397,16 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				uuid: orderUuid,
 				created: '2023-10-31 02:20:22',
 				isActive: true,
-				createdTimestamp: new Date(1698751222709),
-				dateAccount: new Date(1698751222709),
+				createdTimestamp: new Date(),
+				dateAccount: new Date(),
 				businessPartner: valueObject.businessPartner!,
 				description: '',
-				dateOrdered: new Date(1698699600000),
+				dateOrdered: new Date(),
 				grandTotal: 30200,
 				docStatus: 'DR',
 				createdBy: createdUser,
 				updatedBy: createdUser,
-				updated: new Date(1688636248131),
+				updated: new Date(),
 				orderLines: [
 					{
 						clientId: 1000000,
@@ -2407,7 +2414,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						uuid: orderLine1Uuid,
 						created: '2023-11-01 11:56:45',
 						isActive: true,
-						createdTimestamp: new Date(1698829005247),
+						createdTimestamp: new Date(),
 						price: 200,
 						quantity: 1,
 						product: product1,
@@ -2418,7 +2425,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						instructions: '',
 						createdBy: createdUser,
 						updatedBy: createdUser,
-						updated: new Date(1688636248131),
+						updated: new Date(),
 					},
 					{
 						clientId: 1000000,
@@ -2426,7 +2433,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						uuid: orderLine2Uuid,
 						created: '2023-10-31 02:20:22',
 						isActive: true,
-						createdTimestamp: new Date(1698751222793),
+						createdTimestamp: new Date(),
 						price: 30000,
 						quantity: 1,
 						product: product2,
@@ -2437,7 +2444,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						instructions: '',
 						createdBy: createdUser,
 						updatedBy: createdUser,
-						updated: new Date(1688636248131),
+						updated: new Date(),
 					},
 				],
 				warehouse: valueObject.warehouse!,
@@ -2453,13 +2460,13 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				uuid: randomUUID(),
 				created: '2023-10-31 02:20:23',
 				isActive: true,
-				dateInvoicedCreated: new Date(1698751223299),
+				dateInvoicedCreated: new Date(),
 				description: '',
-				createdTimestamp: new Date(1698751223299),
+				createdTimestamp: new Date(),
 				businessPartner: valueObject.businessPartner!,
 				createdBy: createdUser,
 				updatedBy: createdUser,
-				updated: new Date(1688636248131),
+				updated: new Date(),
 				invoiceLines: [
 					{
 						clientId: 1000000,
@@ -2467,7 +2474,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						uuid: randomUUID(),
 						created: '2023-10-31 02:20:23',
 						isActive: true,
-						createdTimestamp: new Date(1698751223383),
+						createdTimestamp: new Date(),
 						invoiceId: 1838261,
 						price: 30000,
 						quantity: 1,
@@ -2480,7 +2487,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						description: '',
 						createdBy: createdUser,
 						updatedBy: createdUser,
-						updated: new Date(1688636248131),
+						updated: new Date(),
 					},
 					{
 						clientId: 1000000,
@@ -2488,7 +2495,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						uuid: '49cd1fa7-33db-4043-9ede-93f3296b80dd',
 						created: '2023-11-01 11:56:45',
 						isActive: true,
-						createdTimestamp: new Date(1698829005952),
+						createdTimestamp: new Date(),
 						invoiceId: 1838261,
 						price: 200,
 						quantity: 1,
@@ -2501,7 +2508,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						description: '',
 						createdBy: createdUser,
 						updatedBy: createdUser,
-						updated: new Date(1688636248131),
+						updated: new Date(),
 					},
 				],
 				docStatus: 'DR',
@@ -2548,7 +2555,15 @@ test('can delete encounters', async () => {
 	).results.find((result) => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID);
 	const fields = clinicalVitalsEncounterTypeWindow?.window.tabs[0].fields;
 
-	const codedDiagnosis = (await codedDiagnosisApi.get(valueObject)).results[0];
+	const codedDiagnosis = (
+			await conceptApi.get(
+					valueObject,
+					undefined,
+					undefined,
+					undefined,
+					JSON.stringify({ bh_display_name: { $text: 'urine' } }),
+			)
+	).results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter: Partial<Encounter> = {
 		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
@@ -2566,7 +2581,7 @@ test('can delete encounters', async () => {
 			} as EncounterDiagnosis,
 			{
 				lineNo: 2,
-				codedDiagnosis: { uuid: codedDiagnosis.uuid },
+				concept: { uuid: codedDiagnosis.uuid },
 			} as EncounterDiagnosis,
 		],
 	};

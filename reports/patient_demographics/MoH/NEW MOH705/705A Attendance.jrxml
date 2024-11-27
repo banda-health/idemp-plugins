@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Attendance" pageWidth="900" pageHeight="595" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6326f7bc-1e52-4fdf-b435-ec88b34b814e">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
@@ -60,7 +60,7 @@
 	visit_diagnoses AS (
 		SELECT
 			v.bh_visit_id,
-			ev.bh_coded_diagnosis_id,
+			ev.bh_concept_id,
 			ev.bh_uncoded_diagnosis,
 			ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
 		FROM
@@ -82,7 +82,7 @@
 	),
 	attendance_count AS (
 		SELECT DISTINCT
-			bh_moh705a_lessthan5,
+			c.bh_moh705a_lessthan5,
 			b.value                       AS attendance,
 			c.calendar,
 			COALESCE(c.noofattendance, 0) AS noofattendance
@@ -90,16 +90,18 @@
 			ad_ref_list b
 				LEFT JOIN (
 				SELECT
-					cd.bh_moh705a_lessthan5,
+					ce.bh_value                     AS bh_moh705a_lessthan5,
 					v.bh_newvisit,
 					CAST(bh_visitdate AS date)      AS calendar,
-					COUNT(cd.bh_coded_diagnosis_id) AS noofattendance
+					COUNT(c.bh_concept_id) AS noofattendance
 				FROM
 					bh_visit v
 						JOIN visit_diagnoses pd
 						ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
-						JOIN bh_coded_diagnosis cd
-						ON pd.bh_coded_diagnosis_id = cd.bh_coded_diagnosis_id
+						JOIN bh_concept c
+						ON pd.bh_concept_id = c.bh_concept_id
+						JOIN bh_concept_extra ce
+						ON c.bh_concept_id = ce.bh_concept_id AND lower(ce.bh_key) = 'moh-705a-lessthan5'
 						JOIN date_limitter dl
 						ON dl.calendar = CAST(bh_visitdate AS date)
 						JOIN c_bpartner bp
@@ -108,14 +110,14 @@
 					bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) < 5
 					AND v.bh_patienttype != 'Im'
-				GROUP BY v.bh_newvisit, cd.bh_moh705a_lessthan5, CAST(bh_visitdate AS date)
+				GROUP BY v.bh_newvisit, ce.bh_value, CAST(bh_visitdate AS date)
 			) c
 				ON b.value = bh_newvisit
 		ORDER BY b.value
 	)
 SELECT
 	dali.calendar,
-	bh_moh705a_lessthan5,
+	dc.bh_moh705a_lessthan5,
 	CASE
 		WHEN dl.Attendance = 'Y' THEN 'NO. OF FIRST ATTENDANCES'
 		ELSE 'RE-ATTENDANCES'
@@ -151,7 +153,7 @@ ORDER BY
 		<![CDATA[WITH visit_diagnoses AS (
 	SELECT
 		v.bh_visit_id,
-		ev.bh_coded_diagnosis_id,
+		ev.bh_concept_id,
 		ev.bh_uncoded_diagnosis,
 		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
 	FROM
@@ -168,16 +170,18 @@ FROM
 	bh_visit v
 		LEFT JOIN visit_diagnoses pd
 		ON pd.bh_visit_id = v.bh_visit_id AND pd.diagnosis_rank = 1
-		LEFT JOIN bh_coded_diagnosis cd
-		ON cd.bh_coded_diagnosis_id = pd.bh_coded_diagnosis_id
+		LEFT JOIN bh_concept c
+		ON c.bh_concept_id = pd.bh_concept_id
+		LEFT JOIN bh_concept_extra ce
+		ON c.bh_concept_id = ce.bh_concept_id AND lower(ce.bh_key) = 'moh-705a-lessthan5'
 		RIGHT JOIN ad_org o
 		ON v.ad_client_id = o.ad_client_id
 		AND o.isactive = 'Y'
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
-	AND cd.bh_moh705a_lessthan5 IS NOT NULL
+	AND ce.bh_value IS NOT NULL
 GROUP BY
-	v.bh_visitdate, o.name, cd.bh_moh705a_lessthan5]]>
+	v.bh_visitdate, o.name, ce.bh_value]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date"/>
 	<field name="name" class="java.lang.String"/>

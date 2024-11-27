@@ -130,7 +130,7 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 			MAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
-							.setParameters(M_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Attribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -206,7 +206,7 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 			X_QM_Specification foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "QM_Specification", "QM_Specification_UU=?", get_TrxName())
-							.setParameters(QM_Specification.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(QM_Specification.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setQM_Specification_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

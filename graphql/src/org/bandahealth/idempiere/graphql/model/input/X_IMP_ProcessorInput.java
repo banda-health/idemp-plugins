@@ -138,7 +138,7 @@ public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_Process
 			X_IMP_Processor_Type foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "IMP_Processor_Type", "IMP_Processor_Type_UU=?", get_TrxName())
-							.setParameters(IMP_Processor_Type.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IMP_Processor_Type.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setIMP_Processor_Type_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

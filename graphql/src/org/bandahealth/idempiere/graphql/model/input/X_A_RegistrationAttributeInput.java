@@ -115,7 +115,7 @@ public class X_A_RegistrationAttributeInput extends X_A_RegistrationAttribute im
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -149,7 +149,7 @@ public class X_A_RegistrationAttributeInput extends X_A_RegistrationAttribute im
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

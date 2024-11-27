@@ -25,7 +25,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 	 * @return Tree for Natural Account Tree
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Account(MHierarchy entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Account_ID() < 0) {
+		if (entity.getAD_Tree_Account_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -40,7 +40,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Activity(MHierarchy entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Activity_ID() < 0) {
+		if (entity.getAD_Tree_Activity_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -55,7 +55,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_BPartner(MHierarchy entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_BPartner_ID() < 0) {
+		if (entity.getAD_Tree_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -70,7 +70,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Campaign(MHierarchy entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Campaign_ID() < 0) {
+		if (entity.getAD_Tree_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -85,7 +85,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 	 * @return Trees are used for (financial) reporting and security access (via role)
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Org(MHierarchy entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Org_ID() < 0) {
+		if (entity.getAD_Tree_Org_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -100,7 +100,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Product(MHierarchy entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Product_ID() < 0) {
+		if (entity.getAD_Tree_Product_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -115,7 +115,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_Project(MHierarchy entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_Project_ID() < 0) {
+		if (entity.getAD_Tree_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
@@ -130,7 +130,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 	 * @return Trees are used for (financial) reporting
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree_SalesRegion(MHierarchy entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_SalesRegion_ID() < 0) {
+		if (entity.getAD_Tree_SalesRegion_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =

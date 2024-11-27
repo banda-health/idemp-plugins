@@ -89,7 +89,7 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -123,7 +123,7 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -160,7 +160,7 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 			MDistributionList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionList", "M_DistributionList_UU=?", get_TrxName())
-							.setParameters(M_DistributionList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_DistributionList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_DistributionList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

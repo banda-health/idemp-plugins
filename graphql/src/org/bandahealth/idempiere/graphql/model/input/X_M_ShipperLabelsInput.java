@@ -132,7 +132,7 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Shipper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 			X_M_ShipperLabelsCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperLabelsCfg", "M_ShipperLabelsCfg_UU=?", get_TrxName())
-							.setParameters(M_ShipperLabelsCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ShipperLabelsCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_ShipperLabelsCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -29,7 +29,7 @@ public class X_HR_ContractResolver extends POResolver<X_HR_Contract> implements 
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_HR_Contract entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_HR_ContractResolver extends POResolver<X_HR_Contract> implements 
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(X_HR_Contract entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -59,7 +59,7 @@ public class X_HR_ContractResolver extends POResolver<X_HR_Contract> implements 
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_HR_Contract entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 0) {
+		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =

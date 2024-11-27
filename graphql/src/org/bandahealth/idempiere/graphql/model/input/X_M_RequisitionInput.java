@@ -96,7 +96,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -137,7 +137,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -253,7 +253,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -316,7 +316,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

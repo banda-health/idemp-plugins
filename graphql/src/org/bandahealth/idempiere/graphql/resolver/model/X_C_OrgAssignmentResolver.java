@@ -25,7 +25,7 @@ public class X_C_OrgAssignmentResolver extends POResolver<X_C_OrgAssignment> imp
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_C_OrgAssignment entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

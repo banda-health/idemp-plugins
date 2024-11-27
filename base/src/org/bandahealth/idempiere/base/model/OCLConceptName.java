@@ -1,8 +1,7 @@
 package org.bandahealth.idempiere.base.model;
 
-import org.bandahealth.idempiere.base.utils.JsonUtils;
-
 import com.fasterxml.jackson.databind.JsonNode;
+import org.bandahealth.idempiere.base.utils.JsonUtils;
 
 public class OCLConceptName {
 

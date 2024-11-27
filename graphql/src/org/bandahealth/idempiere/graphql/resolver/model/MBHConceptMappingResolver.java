@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.graphql.resolver.model;
 
+import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptExtraDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptMappingDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_ConceptDataLoader;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.dataloader.DataLoader;
 

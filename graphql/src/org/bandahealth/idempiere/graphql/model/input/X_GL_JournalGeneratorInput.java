@@ -95,7 +95,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -136,7 +136,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
-			this.setC_DocType_ID(0);
+			this.setC_DocType_ID(-1);
 		}
 	}
 
@@ -163,7 +163,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValueAdjustCR.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValueAdjustCR.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ElementValueAdjustCR_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -197,7 +197,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValueAdjustDR.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValueAdjustDR.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_ElementValueAdjustDR_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -231,7 +231,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
-							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setGL_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

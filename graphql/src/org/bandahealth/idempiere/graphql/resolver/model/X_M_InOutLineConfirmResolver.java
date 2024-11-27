@@ -31,7 +31,7 @@ public class X_M_InOutLineConfirmResolver extends POResolver<MInOutLineConfirm> 
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MInOutLineConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() < 0) {
+		if (entity.getC_InvoiceLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_InOutLineConfirmResolver extends POResolver<MInOutLineConfirm> 
 	 * @return Material Shipment or Receipt Confirmation
 	 */
 	public CompletableFuture<MInOutConfirm> M_InOutConfirm(MInOutLineConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutConfirm_ID() < 0) {
+		if (entity.getM_InOutConfirm_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInOutConfirm> dataLoader =
@@ -61,7 +61,7 @@ public class X_M_InOutLineConfirmResolver extends POResolver<MInOutLineConfirm> 
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MInOutLineConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() < 0) {
+		if (entity.getM_InOutLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -76,7 +76,7 @@ public class X_M_InOutLineConfirmResolver extends POResolver<MInOutLineConfirm> 
 	 * @return Unique line in an Inventory document
 	 */
 	public CompletableFuture<MInventoryLine> M_InventoryLine(MInOutLineConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InventoryLine_ID() < 0) {
+		if (entity.getM_InventoryLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine> dataLoader =

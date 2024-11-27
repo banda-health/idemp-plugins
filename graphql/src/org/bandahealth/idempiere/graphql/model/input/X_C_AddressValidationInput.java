@@ -114,7 +114,7 @@ public class X_C_AddressValidationInput extends MAddressValidation implements I_
 			X_C_AddressValidationCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AddressValidationCfg", "C_AddressValidationCfg_UU=?", get_TrxName())
-							.setParameters(C_AddressValidationCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AddressValidationCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AddressValidationCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

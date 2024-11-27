@@ -97,7 +97,7 @@ public class X_AD_Task_AccessInput extends MTaskAccess implements I_AD_Task_Acce
 						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
-			this.setAD_Role_ID(0);
+			this.setAD_Role_ID(-1);
 		}
 	}
 
@@ -145,7 +145,7 @@ public class X_AD_Task_AccessInput extends MTaskAccess implements I_AD_Task_Acce
 			MTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Task", "AD_Task_UU=?", get_TrxName())
-							.setParameters(AD_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Task_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

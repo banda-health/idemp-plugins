@@ -35,7 +35,7 @@ public class X_C_OpportunityResolver extends POResolver<MOpportunity> implements
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MOpportunity entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -50,7 +50,7 @@ public class X_C_OpportunityResolver extends POResolver<MOpportunity> implements
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MOpportunity entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 0) {
+		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -65,7 +65,7 @@ public class X_C_OpportunityResolver extends POResolver<MOpportunity> implements
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MOpportunity entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() < 0) {
+		if (entity.getC_Campaign_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -80,7 +80,7 @@ public class X_C_OpportunityResolver extends POResolver<MOpportunity> implements
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MOpportunity entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() < 0) {
+		if (entity.getC_Currency_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -95,7 +95,7 @@ public class X_C_OpportunityResolver extends POResolver<MOpportunity> implements
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MOpportunity entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -110,7 +110,7 @@ public class X_C_OpportunityResolver extends POResolver<MOpportunity> implements
 	 * @return Stages of the sales process
 	 */
 	public CompletableFuture<X_C_SalesStage> C_SalesStage(MOpportunity entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesStage_ID() < 0) {
+		if (entity.getC_SalesStage_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_C_SalesStage> dataLoader =
@@ -125,7 +125,7 @@ public class X_C_OpportunityResolver extends POResolver<MOpportunity> implements
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MOpportunity entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() < 0) {
+		if (entity.getSalesRep_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

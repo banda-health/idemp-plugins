@@ -86,7 +86,7 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 			MAllocationLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AllocationLine", "C_AllocationLine_UU=?", get_TrxName())
-							.setParameters(C_AllocationLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AllocationLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_AllocationLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -120,7 +120,7 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -154,7 +154,7 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

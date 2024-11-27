@@ -52,7 +52,7 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MAssetDisposed entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() < 0) {
+		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -87,7 +87,7 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 	 * @return Asset Trade
 	 */
 	public CompletableFuture<MAsset> A_Asset_Trade(MAssetDisposed entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Trade_ID() < 0) {
+		if (entity.getA_Asset_Trade_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -157,7 +157,7 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MAssetDisposed entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 0) {
+		if (entity.getC_Invoice_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -172,7 +172,7 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MAssetDisposed entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() < 0) {
+		if (entity.getC_InvoiceLine_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -187,7 +187,7 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(MAssetDisposed entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() < 0) {
+		if (entity.getC_Period_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =

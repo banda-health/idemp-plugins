@@ -86,12 +86,15 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
+		if (get_ID() != 0) {
+			return;
+		}
 		if (AD_User != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -232,7 +235,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 			MRequestType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestType", "R_RequestType_UU=?", get_TrxName())
-							.setParameters(R_RequestType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_RequestType.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setR_RequestType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -29,7 +29,7 @@ public class X_B_BuyerFundsResolver extends POResolver<X_B_BuyerFunds> implement
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_B_BuyerFunds entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 0) {
+		if (entity.getAD_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_B_BuyerFundsResolver extends POResolver<X_B_BuyerFunds> implement
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(X_B_BuyerFunds entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() < 0) {
+		if (entity.getC_Order_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_B_BuyerFundsResolver extends POResolver<X_B_BuyerFunds> implement
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(X_B_BuyerFunds entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() < 0) {
+		if (entity.getC_Payment_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =

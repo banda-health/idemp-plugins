@@ -36,7 +36,7 @@ public class X_GL_JournalGeneratorResolver extends POResolver<MJournalGenerator>
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MJournalGenerator entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() < 0) {
+		if (entity.getC_AcctSchema_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -66,7 +66,7 @@ public class X_GL_JournalGeneratorResolver extends POResolver<MJournalGenerator>
 	 * @return Account Adjust CR
 	 */
 	public CompletableFuture<MElementValue> C_ElementValueAdjustCR(MJournalGenerator entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValueAdjustCR_ID() < 0) {
+		if (entity.getC_ElementValueAdjustCR_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -81,7 +81,7 @@ public class X_GL_JournalGeneratorResolver extends POResolver<MJournalGenerator>
 	 * @return Account Adjust DR
 	 */
 	public CompletableFuture<MElementValue> C_ElementValueAdjustDR(MJournalGenerator entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValueAdjustDR_ID() < 0) {
+		if (entity.getC_ElementValueAdjustDR_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -96,7 +96,7 @@ public class X_GL_JournalGeneratorResolver extends POResolver<MJournalGenerator>
 	 * @return General Ledger Category
 	 */
 	public CompletableFuture<MGLCategory> GL_Category(MJournalGenerator entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Category_ID() < 0) {
+		if (entity.getGL_Category_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =

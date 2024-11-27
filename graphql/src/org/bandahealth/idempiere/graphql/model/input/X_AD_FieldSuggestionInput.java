@@ -60,7 +60,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
-							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Field_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -126,7 +126,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(
@@ -200,7 +200,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			X_AD_AllUsers_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllUsers_V", "AD_AllUsers_V_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -237,7 +237,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			X_AD_AllClients_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllClients_V", "AD_AllClients_V_UU=?", get_TrxName())
-							.setParameters(AD_UserClient.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_UserClient.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_UserClient_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

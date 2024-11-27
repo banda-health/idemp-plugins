@@ -34,7 +34,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 	 * @return BH_Clinician_User_ID
 	 */
 	public CompletableFuture<MUser_BH> BH_Clinician_User(MBHVisit entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Clinician_User_ID() < 0) {
+		if (entity.getBH_Clinician_User_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -74,10 +74,11 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 
 	public static Map<String, String> BH_PROCESS_STAGE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("toclinician", "e74d5f99-fd01-4d54-ab35-7a630c43f064"); // Clinician
-			put("tocashier", "fed0d4f4-4eb2-478c-beb4-9570a8da06bf"); // Cashier
-			put("tolab", "e3eace1e-ee22-409b-a7ae-09cee5350b91"); // Lab
+			put("toclinician", "e74d5f99-fd01-4d54-ab35-7a630c43f064"); // Clinician / Dentist
+			put("tocashier", "fed0d4f4-4eb2-478c-beb4-9570a8da06bf"); // Cashier / Registration
+			put("tolab", "e3eace1e-ee22-409b-a7ae-09cee5350b91"); // Lab / Imaging
 			put("topharmacy", "24c32cc4-3fdb-4448-85a5-879eea7866ea"); // Pharmacy
+			put("totriage", "200a2704-2496-49ee-bc15-421cc25abbfd"); // Triage / Vitals
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_Process_Stage(MBHVisit entity, DataFetchingEnvironment environment) {
@@ -113,7 +114,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 	 * @return BH_Voided_Reason_ID
 	 */
 	public CompletableFuture<MBHVoidedReason> BH_Voided_Reason(MBHVisit entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Voided_Reason_ID() < 0) {
+		if (entity.getBH_Voided_Reason_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBHVoidedReason> dataLoader =
@@ -128,7 +129,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 	 * @return The Patient must be a valid business partner.
 	 */
 	public CompletableFuture<MBPartner_BH> Patient(MBHVisit entity, DataFetchingEnvironment environment) {
-		if (entity.getPatient_ID() < 0) {
+		if (entity.getPatient_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =

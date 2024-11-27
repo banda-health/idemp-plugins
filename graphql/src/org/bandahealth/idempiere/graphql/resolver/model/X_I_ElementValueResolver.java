@@ -69,7 +69,7 @@ public class X_I_ElementValueResolver extends POResolver<X_I_ElementValue> imple
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(X_I_ElementValue entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() < 0) {
+		if (entity.getAD_Column_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -84,7 +84,7 @@ public class X_I_ElementValueResolver extends POResolver<X_I_ElementValue> imple
 	 * @return Accounting Element
 	 */
 	public CompletableFuture<MElement> C_Element(X_I_ElementValue entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Element_ID() < 0) {
+		if (entity.getC_Element_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElement> dataLoader =
@@ -99,7 +99,7 @@ public class X_I_ElementValueResolver extends POResolver<X_I_ElementValue> imple
 	 * @return Account Element
 	 */
 	public CompletableFuture<MElementValue> C_ElementValue(X_I_ElementValue entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValue_ID() < 0) {
+		if (entity.getC_ElementValue_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -126,7 +126,7 @@ public class X_I_ElementValueResolver extends POResolver<X_I_ElementValue> imple
 	 * @return The parent (summary) account
 	 */
 	public CompletableFuture<MElementValue> ParentElementValue(X_I_ElementValue entity, DataFetchingEnvironment environment) {
-		if (entity.getParentElementValue_ID() < 0) {
+		if (entity.getParentElementValue_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

@@ -56,7 +56,7 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 			X_AD_BroadcastMessage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_BroadcastMessage", "AD_BroadcastMessage_UU=?", get_TrxName())
-							.setParameters(AD_BroadcastMessage.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_BroadcastMessage.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_BroadcastMessage_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -93,7 +93,7 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 			MMessage_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
-							.setParameters(AD_Message.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Message.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Message_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -230,7 +230,7 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -264,7 +264,7 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 			X_AD_WF_Activity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Activity", "AD_WF_Activity_UU=?", get_TrxName())
-							.setParameters(AD_WF_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_WF_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

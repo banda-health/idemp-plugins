@@ -38,7 +38,7 @@ $$
 WITH visit_diagnoses AS (
 	SELECT
 		v.bh_visit_id,
-		ev.bh_coded_diagnosis_id,
+		ev.bh_concept_id,
 		ev.bh_uncoded_diagnosis,
 		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
 	FROM
@@ -69,8 +69,8 @@ SELECT
 	bp.bh_birthday                                   AS patient_birthday,
 	bp.bh_gender                                     AS patient_gender,
 	bp.bh_phone                                      AS patient_phoneNumber,
-	pd.bh_coded_diagnosis_id                         AS primary_coded,
-	sd.bh_coded_diagnosis_id                         AS secondary_coded,
+	pd.bh_concept_id				   AS primary_coded,
+	sd.bh_concept_id                         	   AS secondary_coded,
 	pd.bh_uncoded_diagnosis                          AS primary_uncoded,
 	sd.bh_uncoded_diagnosis                          AS secondary_uncoded,
 	o.docstatus                                      AS docstatus,
@@ -86,9 +86,9 @@ FROM
 		ON v.patient_id = bp.c_bpartner_id
 		JOIN ad_user createdby_user
 		ON v.createdby = createdby_user.ad_user_id
-		JOIN ad_ref_list rl
+		LEFT JOIN ad_ref_list rl
 		ON rl.value = v.bh_patienttype
-		JOIN ad_reference r
+		LEFT JOIN ad_reference r
 		ON rl.ad_reference_id = r.ad_reference_id
 		LEFT JOIN visit_diagnoses pd
 		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
@@ -114,7 +114,7 @@ FROM
 WHERE
 	v.bh_visitdate BETWEEN _begin_date AND _end_date
 	AND v.ad_client_id = _ad_client_id
-	AND ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7';
+	AND (r.ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7' OR r.ad_reference_uu IS NULL);
 $$;
 
 -- Commented Code below might be needed in the future

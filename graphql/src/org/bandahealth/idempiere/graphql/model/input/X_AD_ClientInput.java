@@ -75,7 +75,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(
@@ -146,7 +146,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 			MPasswordRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PasswordRule", "AD_PasswordRule_UU=?", get_TrxName())
-							.setParameters(AD_PasswordRule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PasswordRule.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_PasswordRule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -180,7 +180,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
-							.setParameters(AD_ReplicationStrategy.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ReplicationStrategy.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
 				this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
