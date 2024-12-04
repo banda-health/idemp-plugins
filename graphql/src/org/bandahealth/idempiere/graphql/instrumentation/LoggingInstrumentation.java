@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.instrumentation;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.ExecutionResult;
 import graphql.execution.instrumentation.InstrumentationContext;
 import graphql.execution.instrumentation.SimpleInstrumentation;
@@ -26,8 +28,15 @@ public class LoggingInstrumentation extends SimpleInstrumentation {
 			public void onCompleted(ExecutionResult result, Throwable t) {
 				String logMessage = StringUtil.stripNewLines(parameters.getQuery());
 				if (!parameters.getVariables().isEmpty() && !parameters.getQuery().contains("AuthenticationInput")) {
-					logMessage += ", variables: " + parameters.getVariables().entrySet().stream()
-							.map((entry) -> entry.getKey() + ": " + entry.getValue().toString()).collect(Collectors.joining(", "));
+					String variablesString;
+					try {
+						ObjectMapper mapper = new ObjectMapper();
+						variablesString = mapper.writeValueAsString(parameters.getVariables());
+					} catch (JsonProcessingException e) {
+						variablesString = parameters.getVariables().entrySet().stream()
+								.map((entry) -> entry.getKey() + ": " + entry.getValue().toString()).collect(Collectors.joining(", "));
+					}
+					logMessage += ", variables: " + variablesString;
 				}
 				logger.info(logMessage + ", execution time (ms): " + (System.currentTimeMillis() - startMillis));
 			}
