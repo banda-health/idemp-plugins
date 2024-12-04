@@ -23,7 +23,7 @@ type BH_Encounter_Diagnostic {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	BH_Concept: BH_Concept
-	# Note about the results
+	# Notes about the results
 	BH_Diagnostic_Note: String
 	BH_Diagnostic_Status: AD_Ref_List
 	UU: ID!
@@ -34,10 +34,12 @@ type BH_Encounter_Diagnostic {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
+	Group1: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Line No
 	LineNo: Int
+	Selected_Panel: BH_Concept
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -48,15 +50,17 @@ input BH_Encounter_DiagnosticInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BH_Concept: ForeignEntityInput
-	# Note about the results
+	# Notes about the results
 	BH_Diagnostic_Note: String
 	BH_Diagnostic_Status: ForeignEntityInput
 	UU: ID
 	BH_Encounter: ForeignEntityInput
 	# BH_Value
 	BH_Value: String
+	Group1: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Line No
 	LineNo: Int
+	Selected_Panel: ForeignEntityInput
 }

@@ -31,7 +31,7 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20241001L;
+	private static final long serialVersionUID = 20241203L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Diagnostic (Properties ctx, int BH_Encounter_Diagnostic_ID, String trxName)
@@ -132,16 +132,16 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 		return ii.intValue();
 	}
 
-	/** Set Note.
-		@param BH_Diagnostic_Note Note about the results
+	/** Set Notes.
+		@param BH_Diagnostic_Note Notes about the results
 	*/
 	public void setBH_Diagnostic_Note (String BH_Diagnostic_Note)
 	{
 		set_Value (COLUMNNAME_BH_Diagnostic_Note, BH_Diagnostic_Note);
 	}
 
-	/** Get Note.
-		@return Note about the results
+	/** Get Notes.
+		@return Notes about the results
 	  */
 	public String getBH_Diagnostic_Note()
 	{
@@ -247,6 +247,21 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 		return (String)get_Value(COLUMNNAME_BH_Value);
 	}
 
+	/** Set Group1.
+		@param Group1 Group1
+	*/
+	public void setGroup1 (String Group1)
+	{
+		set_ValueNoCheck (COLUMNNAME_Group1, Group1);
+	}
+
+	/** Get Group1.
+		@return Group1	  */
+	public String getGroup1()
+	{
+		return (String)get_Value(COLUMNNAME_Group1);
+	}
+
 	/** Set Line.
 		@param LineNo Line No
 	*/
@@ -261,6 +276,33 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 	public int getLineNo()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LineNo);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_BH_Concept getSelected_Panel() throws RuntimeException
+	{
+		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_ID)
+			.getPO(getSelected_Panel_ID(), get_TrxName());
+	}
+
+	/** Set Selected Panel.
+		@param Selected_Panel_ID Selected Panel
+	*/
+	public void setSelected_Panel_ID (int Selected_Panel_ID)
+	{
+		if (Selected_Panel_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_Selected_Panel_ID, null);
+		else
+			set_ValueNoCheck (COLUMNNAME_Selected_Panel_ID, Integer.valueOf(Selected_Panel_ID));
+	}
+
+	/** Get Selected Panel.
+		@return Selected Panel	  */
+	public int getSelected_Panel_ID()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Selected_Panel_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
