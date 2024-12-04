@@ -165,9 +165,9 @@ $$
 			                              bh_encounter_diagnostic
 		                              ORDER BY
 			                              bh_encounter_id, lineno;
-		_diagnostic_row      record;
-		_previous_row        record;
-		_group1              uuid;
+		_diagnostic_row record;
+		_previous_row   record;
+		_group1         uuid;
 	BEGIN
 		CREATE TEMP TABLE _current_panel_tests
 		(
@@ -195,10 +195,12 @@ $$
 			FETCH NEXT FROM _diagnostic_cursor INTO _diagnostic_row;
 			EXIT WHEN NOT FOUND;
 
-			-- If there is no previous row or the encounter/panel are different, or the test already exists in the
+			-- If the encounter/panel are different, or the test already exists in the
 			-- current test list, get a new group
+			-- Exception: if this and the previous panel ID are null, use the same group
 			IF _previous_row.bh_encounter_id != _diagnostic_row.bh_encounter_id OR
-			   _previous_row.selected_panel_id != _diagnostic_row.selected_panel_id OR EXISTS(
+			   (_previous_row.selected_panel_id != _diagnostic_row.selected_panel_id AND
+			    _previous_row.selected_panel_id IS NOT NULL AND _diagnostic_row.selected_panel_id IS NOT NULL) OR EXISTS(
 					SELECT 1 FROM _current_panel_tests WHERE bh_concept_id = _diagnostic_row.bh_concept_id
 				) THEN
 				-- Remove the current tests
@@ -213,8 +215,10 @@ $$
 				group1 = _group1
 			WHERE
 				bh_encounter_diagnostic_id = _diagnostic_row.bh_encounter_diagnostic_id;
-			-- Add the current test to the list
-			INSERT INTO _current_panel_tests (bh_concept_id) VALUES (_diagnostic_row.bh_concept_id);
+			-- Add the current test to the list if it's part of a panel
+			IF _diagnostic_row.selected_panel_id IS NOT NULL THEN
+				INSERT INTO _current_panel_tests (bh_concept_id) VALUES (_diagnostic_row.bh_concept_id);
+			END IF;
 
 			_previous_row = _diagnostic_row;
 
