@@ -163,24 +163,29 @@ ORDER BY
 		<band height="15">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField isBlankWhenNull="true">
-				<reportElement style="Table_TD" x="315" y="0" width="150" height="15" uuid="a96b9592-f86d-4d98-93fa-4515615a2a30">
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="315" y="0" width="150" height="15" uuid="a96b9592-f86d-4d98-93fa-4515615a2a30">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<paragraph leftIndent="0" rightIndent="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{range}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="Table_TD" x="185" y="0" width="130" height="15" uuid="232e9950-4e78-41fb-81ea-851a743e607e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<paragraph leftIndent="0" rightIndent="3"/>
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="185" y="0" width="130" height="15" uuid="232e9950-4e78-41fb-81ea-851a743e607e">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement style="Table_TD" x="-5" y="0" width="190" height="15" uuid="bbfd7a35-ec14-4140-bb31-f145626e6df0"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="-5" y="0" width="190" height="15" uuid="bbfd7a35-ec14-4140-bb31-f145626e6df0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
