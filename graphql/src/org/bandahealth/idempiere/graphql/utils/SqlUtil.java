@@ -256,7 +256,6 @@ public class SqlUtil {
 			return null;
 		}
 		ObjectMapper mapper = new ObjectMapper();
-		sql = mapper.readValue(sql, String.class);
 		// Replace the client ID
 		sql = sql.replaceAll("\\$P\\{AD_CLIENT_ID\\}", String.valueOf(clientToGetDataFor.get_ID()))
 				.replaceAll("\\R", " ").trim();
