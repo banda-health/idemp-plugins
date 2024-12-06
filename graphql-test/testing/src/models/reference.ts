@@ -3,4 +3,5 @@ export const referenceUuid = {
 	PAYMENT_TYPES: 'af0136e2-1ec4-4b60-a8a1-dc6c252e4878',
 	PROCESS_STAGE: 'b24e7939-f43e-4add-9fe9-a03b0d862675',
 	TENDER_TYPES: '9d124599-d720-436b-a609-011bcf2eff8e',
+	VISIT_TYPE: '47d32afd-3b94-4caa-8490-f0f1a97494f7',
 } as const;

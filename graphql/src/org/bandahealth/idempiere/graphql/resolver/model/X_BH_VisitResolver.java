@@ -61,7 +61,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			put("y", "1cbfa54e-47ba-4d7b-ada0-119ac3404767"); // PT/OT
 			put("x", "65ef5222-ed10-4764-b516-a9874ef56519"); // Follow-up
 			put("u", "fd6db151-fb69-40ed-a784-5d8b99b92004"); // Family Planning
-			put("Mh", "b3bd568f-e623-41ba-8d52-c1886a0a3d05"); // Mental Health
+			put("Z", "b3bd568f-e623-41ba-8d52-c1886a0a3d05"); // Mental Health
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_PatientType(MBHVisit entity, DataFetchingEnvironment environment) {
