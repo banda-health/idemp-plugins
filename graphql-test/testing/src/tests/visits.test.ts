@@ -3100,3 +3100,33 @@ test(`can save triage as a process stage`, async () => {
 		},
 	});
 });
+
+test(`can save mental health as a visit type`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	const visitTypes = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.VISIT_TYPE } }) },
+		})
+	).data.AD_Ref_ListGet.Results;
+	const mentalHealth = visitTypes.find((processStage) => processStage.Name === 'Mental Health')!;
+	expect(mentalHealth).toBeTruthy();
+
+	valueObject.stepName = 'Create visit';
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				BH_PatientType: { UU: mentalHealth.UU },
+				BH_VisitDate: valueObject.date?.getTime(),
+				Description: valueObject.getStepMessageLong(),
+				Patient: { UU: valueObject.businessPartner!.UU },
+			},
+		},
+	});
+});
