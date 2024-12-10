@@ -1,5 +1,8 @@
 extend type AD_Role {
 	AD_Role_IncludedList: [AD_Role_Included!]
 	AD_User_Roles: [AD_User_Roles!]
+	# The window access list directly assigned to this role
 	AD_Window_AccessList: [AD_Window_Access!]
+	# Actual access to windows thanks to included role consideration
+	IncludedRoleWindowAccessList: [IncludedRoleWindowAccess!]
 }
