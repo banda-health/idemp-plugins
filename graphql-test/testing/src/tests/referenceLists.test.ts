@@ -404,3 +404,32 @@ test('process stage list is correct', async () => {
 	expect(processStageList.find((processStage) => processStage.Name === 'Pharmacy')).toBeTruthy();
 	expect(processStageList.find((processStage) => processStage.Name === 'Triage / Vitals')).toBeTruthy();
 });
+
+test('visit type list is correct', async () => {
+	globalThis.__VALUE_OBJECT__.login();
+
+	const visitTypes = (
+		await query(globalThis.__VALUE_OBJECT__)({
+			query: Ad_Ref_ListGetDocument,
+			variables: {
+				Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.VISIT_TYPE }, isactive: true }),
+			},
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	// Ensure these exist
+	expect(visitTypes.find((processStage) => processStage.Name === 'Outpatient (OPD)')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Inpatient (IPD)')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Antenatal (ANC)')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Immunizations & Well Child')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Maternity')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Dental')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Eye Clinic')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Surgery')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Over The Counter (OTC)')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Home Visit')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'PT/OT')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Follow-up')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Family Planning')).toBeTruthy();
+	expect(visitTypes.find((processStage) => processStage.Name === 'Mental Health')).toBeTruthy();
+});
