@@ -150,7 +150,7 @@ query AD_RoleGetWindowAccess($Page: Int, $Size: Int, $Sort: String, $Filter: Str
 	AD_RoleGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			...AD_RoleFields
-			AD_Window_AccessList {
+			IncludedRoleWindowAccessList {
 				AD_Window {
 					UU
 				}
@@ -169,7 +169,7 @@ query AD_RoleLocationPriceListsCurrencyGet(
 	AD_RoleGet(Filter: $AD_RoleFilter) {
 		Results {
 			...AD_RoleFields
-			AD_Window_AccessList {
+			IncludedRoleWindowAccessList {
 				AD_Window {
 					UU
 				}

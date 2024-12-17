@@ -13,6 +13,7 @@ public class BandaResolverComposer {
 	 */
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.resolvers(
+				new IncludedRoleWindowAccessResolver(),
 				new InventoryTransactionResolver(),
 				new M_ElementResolver(),
 				new M_RegistrationResolver(),
