@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.graphql.cache;
 
-import org.compiere.model.MRefList;
 import org.compiere.util.CCache;
 
 import java.util.HashMap;
