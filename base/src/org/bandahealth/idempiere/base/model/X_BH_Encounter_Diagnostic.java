@@ -31,7 +31,7 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240418L;
+	private static final long serialVersionUID = 20241203L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Diagnostic (Properties ctx, int BH_Encounter_Diagnostic_ID, String trxName)
@@ -117,9 +117,9 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 	public void setBH_Concept_ID (int BH_Concept_ID)
 	{
 		if (BH_Concept_ID < 1)
-			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, null);
+			set_Value (COLUMNNAME_BH_Concept_ID, null);
 		else
-			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
+			set_Value (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
 	}
 
 	/** Get Concept.
@@ -132,17 +132,33 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 		return ii.intValue();
 	}
 
-	/** Complete = c */
-	public static final String BH_DIAGNOSTIC_STATUS_Complete = "c";
-	/** Pending = p */
-	public static final String BH_DIAGNOSTIC_STATUS_Pending = "p";
+	/** Set Notes.
+		@param BH_Diagnostic_Note Notes about the results
+	*/
+	public void setBH_Diagnostic_Note (String BH_Diagnostic_Note)
+	{
+		set_Value (COLUMNNAME_BH_Diagnostic_Note, BH_Diagnostic_Note);
+	}
+
+	/** Get Notes.
+		@return Notes about the results
+	  */
+	public String getBH_Diagnostic_Note()
+	{
+		return (String)get_Value(COLUMNNAME_BH_Diagnostic_Note);
+	}
+
+	/** Complete = C */
+	public static final String BH_DIAGNOSTIC_STATUS_Complete = "C";
+	/** Pending = P */
+	public static final String BH_DIAGNOSTIC_STATUS_Pending = "P";
 	/** Set Diagnostic Status.
 		@param BH_Diagnostic_Status Diagnostic Status
 	*/
 	public void setBH_Diagnostic_Status (String BH_Diagnostic_Status)
 	{
 
-		set_ValueNoCheck (COLUMNNAME_BH_Diagnostic_Status, BH_Diagnostic_Status);
+		set_Value (COLUMNNAME_BH_Diagnostic_Status, BH_Diagnostic_Status);
 	}
 
 	/** Get Diagnostic Status.
@@ -231,6 +247,21 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 		return (String)get_Value(COLUMNNAME_BH_Value);
 	}
 
+	/** Set Group1.
+		@param Group1 Group1
+	*/
+	public void setGroup1 (String Group1)
+	{
+		set_ValueNoCheck (COLUMNNAME_Group1, Group1);
+	}
+
+	/** Get Group1.
+		@return Group1	  */
+	public String getGroup1()
+	{
+		return (String)get_Value(COLUMNNAME_Group1);
+	}
+
 	/** Set Line.
 		@param LineNo Line No
 	*/
@@ -245,6 +276,33 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 	public int getLineNo()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LineNo);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_BH_Concept getSelected_Panel() throws RuntimeException
+	{
+		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_ID)
+			.getPO(getSelected_Panel_ID(), get_TrxName());
+	}
+
+	/** Set Selected Panel.
+		@param Selected_Panel_ID Selected Panel
+	*/
+	public void setSelected_Panel_ID (int Selected_Panel_ID)
+	{
+		if (Selected_Panel_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_Selected_Panel_ID, null);
+		else
+			set_ValueNoCheck (COLUMNNAME_Selected_Panel_ID, Integer.valueOf(Selected_Panel_ID));
+	}
+
+	/** Get Selected Panel.
+		@return Selected Panel	  */
+	public int getSelected_Panel_ID()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Selected_Panel_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

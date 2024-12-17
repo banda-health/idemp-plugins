@@ -75,6 +75,19 @@ public interface I_BH_Encounter_Diagnostic
 
 	public I_BH_Concept getBH_Concept() throws RuntimeException;
 
+    /** Column name BH_Diagnostic_Note */
+    public static final String COLUMNNAME_BH_Diagnostic_Note = "BH_Diagnostic_Note";
+
+	/** Set Notes.
+	  * Notes about the results
+	  */
+	public void setBH_Diagnostic_Note (String BH_Diagnostic_Note);
+
+	/** Get Notes.
+	  * Notes about the results
+	  */
+	public String getBH_Diagnostic_Note();
+
     /** Column name BH_Diagnostic_Status */
     public static final String COLUMNNAME_BH_Diagnostic_Status = "BH_Diagnostic_Status";
 
@@ -142,6 +155,15 @@ public interface I_BH_Encounter_Diagnostic
 	  */
 	public int getCreatedBy();
 
+    /** Column name Group1 */
+    public static final String COLUMNNAME_Group1 = "Group1";
+
+	/** Set Group1	  */
+	public void setGroup1 (String Group1);
+
+	/** Get Group1	  */
+	public String getGroup1();
+
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -167,6 +189,17 @@ public interface I_BH_Encounter_Diagnostic
 	  * Line No
 	  */
 	public int getLineNo();
+
+    /** Column name Selected_Panel_ID */
+    public static final String COLUMNNAME_Selected_Panel_ID = "Selected_Panel_ID";
+
+	/** Set Selected Panel	  */
+	public void setSelected_Panel_ID (int Selected_Panel_ID);
+
+	/** Get Selected Panel	  */
+	public int getSelected_Panel_ID();
+
+	public I_BH_Concept getSelected_Panel() throws RuntimeException;
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

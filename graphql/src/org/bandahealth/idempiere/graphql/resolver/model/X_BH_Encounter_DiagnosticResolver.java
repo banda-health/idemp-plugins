@@ -70,4 +70,19 @@ public class X_BH_Encounter_DiagnosticResolver extends POResolver<MBHEncounterDi
 		return dataLoader.load(entity.getBH_Encounter_ID());
 	}
 
+
+	/**
+	 * Get Selected Panel.
+	 *
+	 * @return Selected Panel
+	 */
+	public CompletableFuture<MBHConcept> Selected_Panel(MBHEncounterDiagnostic entity, DataFetchingEnvironment environment) {
+		if (entity.getSelected_Panel_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBHConcept> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_ConceptDataLoader.DATALOADER_BH_Concept_BY_ID);
+		return dataLoader.load(entity.getSelected_Panel_ID());
+	}
+
 }

@@ -36,6 +36,7 @@ import {
 	Bh_ObservationsDeleteAndSaveManyAndEncounterDiagnosesSaveManyDocument,
 	Bh_VisitDeleteAllDocument,
 	Bh_VisitDeleteDocument,
+	Bh_VisitDocument,
 	Bh_VisitGetDocument,
 	Bh_VisitProcessDocument,
 	Bh_VisitRemoveInsurancePayerDocument,
@@ -1712,13 +1713,15 @@ test('clinical vitals fields', async () => {
 	const heightValue = '200';
 	const weightValue = '100';
 
-	const codedDiagnosis = (await query(valueObject)({
-		query: Bh_ConceptGetDocument, variables: {
-			Size: 1,
-			Filter: JSON.stringify({ BH_Source: { $text: 'BHGO' } })
-		}
-	}))
-		.data.BH_ConceptGet.Results[0];
+	const codedDiagnosis = (
+		await query(valueObject)({
+			query: Bh_ConceptGetDocument,
+			variables: {
+				Size: 1,
+				Filter: JSON.stringify({ BH_Source: { $text: 'BHGO' } }),
+			},
+		})
+	).data.BH_ConceptGet.Results[0];
 	expect(codedDiagnosis).toBeTruthy();
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounterUuid = v4();
@@ -1770,9 +1773,7 @@ test('clinical vitals fields', async () => {
 		uncodedDiagnosisValue,
 	);
 	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Concept!.UU).toBeTruthy();
-	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Concept!.UU).toBe(
-		codedDiagnosis.UU,
-	);
+	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Concept!.UU).toBe(codedDiagnosis.UU);
 
 	valueObject.stepName = 'Change observations and remove diagnosis';
 	await mutate(valueObject)({
@@ -2893,13 +2894,15 @@ test('can delete encounters', async () => {
 	const fields = clinicalVitalsEncounterTypeWindow.AD_Window.AD_Tabs?.[0].AD_Fields!;
 	expect(fields).toBeTruthy();
 
-	const codedDiagnosis = (await query(valueObject)({
-		query: Bh_ConceptGetDocument, variables: {
-			Size: 1,
-			Filter: JSON.stringify({ BH_Source: { $text: 'BHGO' } })
-		}
-	}))
-		.data.BH_ConceptGet.Results[0];
+	const codedDiagnosis = (
+		await query(valueObject)({
+			query: Bh_ConceptGetDocument,
+			variables: {
+				Size: 1,
+				Filter: JSON.stringify({ BH_Source: { $text: 'BHGO' } }),
+			},
+		})
+	).data.BH_ConceptGet.Results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter1Uuid = v4();
 	const encounter2Uuid = v4();
@@ -3129,4 +3132,86 @@ test(`can save mental health as a visit type`, async () => {
 			},
 		},
 	});
+});
+
+test(`'coming from' shows the correct data`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	const visitTypes = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.VISIT_TYPE } }) },
+		})
+	).data.AD_Ref_ListGet.Results;
+	const mentalHealth = visitTypes.find((processStage) => processStage.Name === 'Mental Health')!;
+	expect(mentalHealth).toBeTruthy();
+
+	valueObject.stepName = 'Create visit';
+	const visitUU = v4();
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				UU: visitUU,
+				BH_VisitDate: valueObject.date?.getTime(),
+				Description: valueObject.getStepMessageLong(),
+				Patient: { UU: valueObject.businessPartner!.UU },
+			},
+		},
+	});
+
+	let visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
+	expect(visit).toBeTruthy();
+	expect(visit.BH_Coming_From).toBeFalsy();
+
+	const processStages = (
+		await query(globalThis.__VALUE_OBJECT__)({
+			query: Ad_Ref_ListGetDocument,
+			variables: {
+				Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.PROCESS_STAGE }, isactive: true }),
+			},
+		})
+	).data.AD_Ref_ListGet.Results;
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				UU: visitUU,
+				BH_Process_Stage: { UU: processStages[0].UU },
+			},
+		},
+	});
+	visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
+	expect(visit).toBeTruthy();
+	expect(visit.BH_Coming_From).toBeFalsy();
+
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				UU: visitUU,
+				BH_Process_Stage: { UU: processStages[1].UU },
+			},
+		},
+	});
+	visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
+	expect(visit).toBeTruthy();
+	expect(visit.BH_Coming_From?.Name).toBe(processStages[0].Name);
+
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				UU: visitUU,
+				BH_Process_Stage: null,
+			},
+		},
+	});
+	visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
+	expect(visit).toBeTruthy();
+	expect(visit.BH_Coming_From?.Name).toBe(processStages[1].Name);
 });

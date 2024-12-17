@@ -3,6 +3,8 @@ extend type Mutation {
 }
 
 extend type BH_Visit {
+	# The audited field for the previous process stage
+	BH_Coming_From: AD_Ref_List
 	BH_Encounters: [BH_Encounter!]
 	C_Invoices: [C_Invoice!]
 	C_Orders: [C_Order!]
