@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705B Attendance" pageWidth="900" pageHeight="595" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="067eb101-e143-46d7-ab02-d6ce3d9d6796">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -50,13 +50,6 @@
 	SELECT
 		GENERATE_SERIES(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 ),
-	new_list AS (
-		SELECT
-			'Y' AS Attendance
-		UNION ALL
-		SELECT
-			'N'
-	),
 	visit_diagnoses AS (
 		SELECT
 			v.bh_visit_id,
@@ -70,30 +63,24 @@
 				LEFT JOIN bh_encounter_diagnosis ev
 				ON e.bh_encounter_id = ev.bh_encounter_id
 		WHERE
-				v.bh_visit_id IN (
-				SELECT
-					bh_visit_id
-				FROM
-					c_order
-				WHERE
-					docstatus IN ('CO', 'CL')
-					AND ad_client_id = $P{AD_CLIENT_ID}
+			v.bh_visit_id IN (
+				SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
 			)
+			AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 	),
 	attendance_count AS (
 		SELECT DISTINCT
 			c.bh_moh705b_greaterthan5,
-			rl.value                      AS attendance,
+			c.bh_newvisit                 AS attendance,
 			c.calendar,
 			COALESCE(c.noofattendance, 0) AS noofattendance
 		FROM
-			ad_ref_list rl
-				LEFT JOIN (
+			(
 				SELECT
-					ce.bh_value 					AS bh_moh705b_greaterthan5,
+					ce.bh_value                AS bh_moh705b_greaterthan5,
 					v.bh_newvisit,
-					CAST(bh_visitdate AS date)      AS calendar,
-					COUNT(c.bh_concept_id) 			AS noofattendance
+					CAST(bh_visitdate AS date) AS calendar,
+					COUNT(c.bh_concept_id)     AS noofattendance
 				FROM
 					bh_visit v
 						JOIN visit_diagnoses pd
@@ -101,18 +88,16 @@
 						JOIN bh_concept c
 						ON pd.bh_concept_id = c.bh_concept_id
 						JOIN bh_concept_extra ce
-						ON c.bh_concept_id = ce.bh_concept_id AND lower(ce.bh_key) = 'moh-705b-greaterthan5'
-						JOIN date_limitter dl
-						ON dl.calendar = CAST(bh_visitdate AS date)
+						ON c.bh_concept_id = ce.bh_concept_id AND LOWER(ce.bh_key) = 'moh-705b-greaterthan5'
 						JOIN c_bpartner bp
 						ON v.patient_id = bp.c_bpartner_id
 				WHERE
 					bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
+					AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 				GROUP BY bh_newvisit, ce.bh_value, CAST(bh_visitdate AS date)
 			) c
-					ON rl.value = bh_newvisit
-		ORDER BY rl.value
+		ORDER BY c.bh_newvisit
 	)
 SELECT
 	dali.calendar,
@@ -123,13 +108,15 @@ SELECT
 		END                          AS Attendance,
 	COALESCE(dc.noofattendance, 0) AS noofreferral
 FROM
-	new_list dl
+	(
+		VALUES ('Y'), ('N')
+	) dl (Attendance)
 		CROSS JOIN date_limitter dali
 		LEFT JOIN attendance_count dc
 		ON dc.calendar = dali.calendar
 		AND dl.Attendance = dc.attendance
 ORDER BY
-	dl.Attendance;]]>
+	dali.calendar, dl.Attendance, dc.bh_moh705b_greaterthan5;]]>
 		</queryString>
 		<field name="calendar" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="calendar"/>
@@ -145,45 +132,12 @@ ORDER BY
 			<groupExpression><![CDATA[$F{attendance}]]></groupExpression>
 		</group>
 	</subDataset>
-	<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<queryString>
-		<![CDATA[WITH visit_diagnoses AS (
-	SELECT
-		v.bh_visit_id,
-		ev.bh_concept_id,
-		ev.bh_uncoded_diagnosis,
-		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
-	FROM
-		bh_visit v
-			JOIN bh_encounter e
-			ON v.bh_visit_id = e.bh_visit_id
-			LEFT JOIN bh_encounter_diagnosis ev
-			ON e.bh_encounter_id = ev.bh_encounter_id
-)
-SELECT
-	date(v.bh_visitdate) AS calendar,
-	client.name          AS name
-FROM
-	bh_visit v
-		LEFT JOIN visit_diagnoses pd
-		ON pd.bh_visit_id = v.bh_visit_id AND pd.diagnosis_rank = 1
-		LEFT JOIN bh_concept c
-		ON c.bh_concept_id = pd.bh_concept_id
-		LEFT JOIN bh_concept_extra ce
-		ON c.bh_concept_id = ce.bh_concept_id AND lower(ce.bh_key) = 'moh-705b-greaterthan5'
-		RIGHT JOIN ad_org client
-			ON v.ad_client_id = client.ad_client_id
-		AND client.isactive = 'Y'
-WHERE
-	v.ad_client_id = $P{AD_CLIENT_ID}
-	AND ce.bh_value IS NOT NULL
-GROUP BY
-	v.bh_visitdate, client.name, ce.bh_value]]>
+		<![CDATA[select 1;]]>
 	</queryString>
-	<field name="calendar" class="java.util.Date"/>
-	<field name="name" class="java.lang.String"/>
 	<summary>
 		<band height="20" splitType="Stretch">
 			<crosstab>
@@ -203,7 +157,7 @@ GROUP BY
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<crosstabDataset>
-					<dataset>
+					<dataset resetType="Report">
 						<datasetRun subDataset="Attendance" uuid="dd1bea00-c304-4ba6-8169-5eef1f918ff6">
 							<datasetParameter name="Begin Date">
 								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>

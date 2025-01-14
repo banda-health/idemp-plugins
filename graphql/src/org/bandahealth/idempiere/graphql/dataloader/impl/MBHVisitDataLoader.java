@@ -5,6 +5,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.bandahealth.idempiere.graphql.utils.QueryUtil;
 import org.bandahealth.idempiere.graphql.utils.SqlUtil;
+import org.compiere.process.DocumentEngine;
 import org.compiere.util.Env;
 import org.dataloader.DataLoader;
 import org.dataloader.DataLoaderRegistry;
@@ -41,13 +42,16 @@ public class MBHVisitDataLoader extends X_BH_VisitDataLoader {
 			String modelName = ModelUtil.getModelFromKey(keys.iterator().next());
 			Set<Integer> patientIds = keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet());
 			List<Object> parameters = new ArrayList<>();
-			String sqlWhere = "WHERE " + MBHVisit.COLUMNNAME_BH_Visit_ID + " IN (SELECT " + MOrder_BH.COLUMNNAME_BH_Visit_ID
-					+ " FROM " + MOrder_BH.Table_Name + " WHERE " + MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND "
-					+ MOrder_BH.COLUMNNAME_DocStatus + "!=? AND " + MOrder_BH.COLUMNNAME_AD_Client_ID + "=?) AND "
-					+ MBHVisit.COLUMNNAME_Patient_ID + " IN (";
+			String sqlWhere = """
+					WHERE bh_visit_id IN (
+						SELECT bh_visit_id FROM c_order WHERE issotrx = ? AND docstatus NOT IN (?, ?, ?) AND ad_client_id = ?
+					)
+						AND patient_id IN (""";
 
 			parameters.add("Y");
-			parameters.add("VO");
+			parameters.add(DocumentEngine.STATUS_Voided);
+			parameters.add(DocumentEngine.STATUS_Drafted);
+			parameters.add(DocumentEngine.STATUS_InProgress);
 			parameters.add(Env.getAD_Client_ID(batchLoaderEnvironment.getContext()));
 			String patientIdInWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters);
 
@@ -73,13 +77,20 @@ public class MBHVisitDataLoader extends X_BH_VisitDataLoader {
 				return new HashMap<>();
 			}
 			List<Object> parameters = new ArrayList<>();
-			String whereClause = "WHERE " + MBHVisit.COLUMNNAME_Patient_ID + " IN ("
-					+ QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters) + ") AND "
-					+ MBHVisit.COLUMNNAME_AD_Client_ID + "=?";
-			parameters.add(Env.getAD_Client_ID(batchLoaderEnvironment.getContext()));
+			String whereClause = """
+					WHERE bh_visit_id IN (
+						SELECT bh_visit_id FROM c_order WHERE issotrx = ? AND docstatus NOT IN (?, ?, ?) AND ad_client_id = ?
+					)
+						AND patient_id IN (""";
 
-			String sql = "SELECT " + MBHVisit.COLUMNNAME_Patient_ID + ", MAX(" + MBHVisit.COLUMNNAME_BH_VisitDate
-					+ ") FROM " + MBHVisit.Table_Name + " " + whereClause + " GROUP BY " + MBHVisit.COLUMNNAME_Patient_ID;
+			parameters.add("Y");
+			parameters.add(DocumentEngine.STATUS_Voided);
+			parameters.add(DocumentEngine.STATUS_Drafted);
+			parameters.add(DocumentEngine.STATUS_InProgress);
+			parameters.add(Env.getAD_Client_ID(batchLoaderEnvironment.getContext()));
+			String patientIdInWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters);
+
+			String sql = "SELECT patient_id, MAX(bh_visitdate) FROM bh_visit " + whereClause  + patientIdInWhereClause + ") GROUP BY patient_id";
 
 			Map<Integer, Timestamp> lastVisitDatesByPatientId = new HashMap<>();
 			patientIds.forEach(patientId -> {

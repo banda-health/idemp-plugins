@@ -51,7 +51,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		String patientNameSuffix = String.valueOf(valueObject.getRandomNumber());
 		commitEx();
-		
+
 		valueObject.setStepName("Create attribute set to track expirations");
 		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0,
 				valueObject.getTransactionName());
@@ -67,7 +67,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.getProduct().setM_AttributeSet_ID(attributeSet.get_ID());
 		valueObject.getProduct().saveEx();
 		commitEx();
-		
+
 		valueObject.setStepName("Create valid attribute set instance");
 		MAttributeSetInstance_BH
 				validAttributeSetInstance =
@@ -77,9 +77,9 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		validAttributeSetInstance.setDescription(valueObject.getScenarioName());
 		validAttributeSetInstance.saveEx();
 		commitEx();
-		
+
 		valueObject.setStepName("Create order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setAttributeSetInstance(validAttributeSetInstance);
 		ChuBoeCreateEntity.createOrder(valueObject);
@@ -106,7 +106,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
-		
+
 		String diagnosticValue = "positive";
 		MBHEncounterDiagnostic encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
 				valueObject.getTransactionName());
@@ -114,6 +114,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		encounterDiagnostic.setBH_Concept_ID(diagnostic.get_ID());
 		encounterDiagnostic.setBH_Value(diagnosticValue);
 		encounterDiagnostic.setLineNo(10);
+		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
 		encounterDiagnostic.saveEx();
 
 		valueObject.setStepName("Create sales order");
@@ -132,7 +133,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
-				List.of(new ProcessInfoParameter("Visit", valueObject.getVisit().get_UUID(), null, null, null)));
+				List.of(new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().get_UUID(), null, null, null)));
 		ChuBoeCreateEntity.runReport(valueObject);
 		commitEx();
 
@@ -140,6 +141,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		assertThat("The patient's name is on the report", reportContent, containsString(patientNameSuffix));
 		assertThat("The diagnostic is on the report", reportContent, containsString(diagnosticName));
 		assertThat("The diagnostic value is on the report", reportContent, containsString(diagnosticValue));
-		assertThat("Served By is on the report", reportContent, containsString(valueObject.getUser().getName()));
+		assertThat("Served By is on the report", reportContent,
+				containsString(valueObject.getUser().getName().substring(0, 20)));
 	}
 }

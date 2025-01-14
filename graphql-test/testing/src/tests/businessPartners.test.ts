@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
-import { createBusinessPartner, createOrder, createPayment, createProduct, createVisit } from '../utils';
+import { createBusinessPartner, createInvoice, createOrder, createPayment, createProduct, createVisit } from '../utils';
 import {
 	Bh_VisitProcessDocument,
 	C_BPartnerDocument,
@@ -315,4 +315,76 @@ test(`age not cleared after orders processed`, async () => {
 	).data.C_BPartner!;
 	expect(savedBusinessPartner).toBeTruthy();
 	expect(savedBusinessPartner.BH_Birthday).toBeTruthy();
+});
+
+test(`drafted and re-opened visits don't count in the total visits or affect last visit date`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	await createPayment(valueObject);
+
+	let businessPartner = (
+		await query(valueObject)({ query: C_BPartnerDocument, variables: { UU: valueObject.businessPartner!.UU } })
+	).data.C_BPartner!;
+	expect(businessPartner.TotalVisits).toBe(0);
+	expect(businessPartner.LastVisitDate).toBe(null);
+
+	valueObject.stepName = 'Complete visit';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+	});
+
+	businessPartner = (
+		await query(valueObject)({ query: C_BPartnerDocument, variables: { UU: valueObject.businessPartner!.UU } })
+	).data.C_BPartner!;
+	expect(businessPartner.TotalVisits).toBe(1);
+	expect(businessPartner.LastVisitDate).not.toBe(null);
+
+	valueObject.stepName = 'Re-activate visit';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.ReActivate },
+	});
+
+	businessPartner = (
+		await query(valueObject)({ query: C_BPartnerDocument, variables: { UU: valueObject.businessPartner!.UU } })
+	).data.C_BPartner!;
+	expect(businessPartner.TotalVisits).toBe(0);
+	expect(businessPartner.LastVisitDate).toBe(null);
 });
