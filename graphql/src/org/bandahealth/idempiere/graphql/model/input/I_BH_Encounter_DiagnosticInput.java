@@ -79,4 +79,18 @@ public interface I_BH_Encounter_DiagnosticInput extends I_BH_Encounter_Diagnosti
 	 * @return BH_Encounter
 	 */
 	ForeignEntityInput BH_Encounter();
+
+	/**
+	 * Set Selected_Panel.
+	 *
+	 * @param Selected_Panel Selected_Panel
+	 */
+	void setSelected_PanelInput(ForeignEntityInput Selected_Panel);
+
+	/**
+	 * Get Selected_Panel.
+	 *
+	 * @return Selected_Panel
+	 */
+	ForeignEntityInput Selected_Panel();
 }

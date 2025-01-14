@@ -27,6 +27,7 @@ public class X_BH_Encounter_DiagnosticInput extends MBHEncounterDiagnostic imple
 	private ForeignEntityInput mBH_Concept;
 	private ForeignEntityInput mBH_Diagnostic_Status;
 	private ForeignEntityInput mBH_Encounter;
+	private ForeignEntityInput mSelected_Panel;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -211,5 +212,53 @@ public class X_BH_Encounter_DiagnosticInput extends MBHEncounterDiagnostic imple
 	@JsonProperty("BH_Encounter")
 	public ForeignEntityInput BH_Encounter() {
 		return mBH_Encounter;
+	}
+	/**
+	 * Set Group1.
+	 *
+	 * @param Group1 Group1
+	 */
+	@JsonProperty("Group1")
+	public void setGroup1FromJson(String Group1) {
+		if (get_ID() == 0) {
+			super.setGroup1(Group1);
+		}
+	}
+
+	/**
+	 * Set Selected Panel.
+	 *
+	 * @param Selected_Panel Selected Panel
+	 */
+	@JsonProperty("Selected_Panel")
+	public void setSelected_PanelInput(ForeignEntityInput Selected_Panel) {
+		this.mSelected_Panel = Selected_Panel;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (Selected_Panel != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHConcept foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "BH_Concept", "BH_Concept_UU=?", get_TrxName())
+							.setParameters(Selected_Panel.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setSelected_Panel_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table BH_Concept with UU " + Selected_Panel.getUU());
+			}
+		} else {
+			this.setSelected_Panel_ID(0);
+		}
+	}
+
+	/**
+	 * Get Selected Panel.
+	 *
+	 * @return Selected Panel
+	 */
+	@JsonProperty("Selected_Panel")
+	public ForeignEntityInput Selected_Panel() {
+		return mSelected_Panel;
 	}
 }

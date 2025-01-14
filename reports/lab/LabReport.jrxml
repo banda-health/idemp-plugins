@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabReport" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 11"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -16,34 +16,32 @@
 	<parameter name="BH_Visit_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-	DISTINCT 
-		case when panel.name is not null then panel.name 
-     	else 'Test' end				  AS panel_name,
-	v.bh_visitdate                    AS date,
-	v.documentno                      AS visit_number,
-	bp.name                           AS patient,
-	bp.bh_gender                      AS gender,
-	bp.bh_patientid                   AS patient_id,
-	u.name                            AS served_by,
-	clinician.name 					  AS clinician
+	v.bh_visitdate  AS date,
+	v.documentno    AS visit_number,
+	bp.name         AS patient,
+	bp.bh_gender    AS gender,
+	bp.bh_patientid AS patient_id,
+	u.name          AS served_by,
+	clinician.name  AS clinician,
+	distinct_group.group1
 FROM
 	bh_visit v
-		JOIN bh_encounter be 
+		JOIN bh_encounter be
 		ON v.bh_visit_id = be.bh_visit_id
 		JOIN bh_encounter_diagnostic bed
-		ON be.bh_encounter_id = bed.bh_encounter_id AND bed.bh_value IS NOT NULL
-		JOIN bh_concept test 
-		on bed.bh_concept_id = test.bh_concept_id
-		LEFT JOIN  (
-		    select
-		        coalesce(pbce.bh_value, p.bh_display_name) as name,
-		        c.bh_concept_id
-		    from bh_concept c
-		    join bh_concept_mapping bcm on bcm.to_bh_concept_id = c.bh_concept_id
-		    join bh_concept p on bcm.from_bh_concept_id = p.bh_concept_id and p.bh_concept_class = 'LabSet'
-		    join bh_concept_extra pbce on p.bh_concept_id = pbce.bh_concept_id and pbce.bh_key = 'local_name'
-		    group by c.bh_concept_id, coalesce(pbce.bh_value, p.bh_display_name)
-		) as panel on panel.bh_concept_id = test.bh_concept_id
+		ON be.bh_encounter_id = bed.bh_encounter_id
+		JOIN (
+		SELECT
+			bh_encounter_id,
+			group1,
+			MIN(lineno) AS lineno
+		FROM
+			bh_encounter_diagnostic
+		WHERE
+			bh_value IS NOT NULL
+		GROUP BY bh_encounter_id, group1
+	) distinct_group
+		ON bed.bh_encounter_id = distinct_group.bh_encounter_id AND bed.lineno = distinct_group.lineno
 		JOIN c_order o
 		ON v.bh_visit_id = o.bh_visit_id
 		JOIN c_bpartner bp
@@ -54,33 +52,50 @@ FROM
 		ON v.ad_org_id = oi.ad_org_id
 		LEFT JOIN ad_user clinician
 		ON v.bh_clinician_user_id = clinician.ad_user_id
-		where v.bh_visit_uu = $P{BH_Visit_UU}]]>
+WHERE
+	v.bh_visit_uu = $P{BH_Visit_UU}
+ORDER BY
+	bed.lineno]]>
 	</queryString>
-	<field name="panel_name" class="java.lang.String"/>
 	<field name="date" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
 		<property name="com.jaspersoft.studio.field.label" value="date"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="bh_visit"/>
 	</field>
+	<field name="visit_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="visit_number"/>
+		<property name="com.jaspersoft.studio.field.label" value="visit_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bh_visit"/>
+	</field>
 	<field name="patient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patient"/>
 		<property name="com.jaspersoft.studio.field.label" value="patient"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="gender"/>
 		<property name="com.jaspersoft.studio.field.label" value="gender"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<field name="patient_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patient_id"/>
 		<property name="com.jaspersoft.studio.field.label" value="patient_id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<field name="served_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="served_by"/>
 		<property name="com.jaspersoft.studio.field.label" value="served_by"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
 	</field>
-	<field name="visit_number" class="java.lang.String"/>
 	<field name="clinician" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="clinician"/>
 		<property name="com.jaspersoft.studio.field.label" value="clinician"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
+	<field name="group1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="group1"/>
+		<property name="com.jaspersoft.studio.field.label" value="group1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bh_encounter_diagnostic"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -280,14 +295,11 @@ FROM
 				<reportElement x="0" y="0" width="480" height="20" uuid="20c3a5d2-1f26-4f14-895c-12ef96a7ebd3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<subreportParameter name="PanelName">
-					<subreportParameterExpression><![CDATA[$F{panel_name}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="BH_Visit_UU">
-					<subreportParameterExpression><![CDATA[$P{BH_Visit_UU}]]></subreportParameterExpression>
+				<subreportParameter name="Group1">
+					<subreportParameterExpression><![CDATA[$F{group1}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PanelGroup.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DiagnosticGroup.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

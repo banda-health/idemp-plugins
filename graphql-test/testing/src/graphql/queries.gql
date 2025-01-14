@@ -281,6 +281,15 @@ query BH_Payer_Info_Fld_SugGet($Page: Int, $Size: Int, $Sort: String, $Filter: S
 	}
 }
 
+query BH_Visit($UU: String!) {
+	BH_Visit(UU: $UU) {
+		BH_Coming_From {
+			Name
+		}
+		...BH_VisitFields
+	}
+}
+
 query BH_VisitGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_VisitGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
