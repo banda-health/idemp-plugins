@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705B Cases" pageWidth="900" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="127d6963-4716-4961-8a68-bd6399ac1903">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT DB"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -69,14 +69,14 @@
 		FROM
 			bh_concept_extra
 		WHERE
-				bh_value NOT IN
-				('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Tonsillitis', 'Diarrhea with some dehydration',
-				 'Diarrhea with severe dehydration', 'Other Diseases Of Respiratory System', 'Sexual Assault', 'Kalaazar',
-				 'Fevers', 'Eye Infections', 'Dracunculiasis (Guinea Worm)', 'Neoplasms', 'Newly Diagnosed HIV',
-				 'Other Central Nervous System Conditions', 'Other Convulsive Disorders', 'Other Eye Conditions', 'Plague',
-				 'Diarrhea', 'Congenital Anomalies', 'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
-				 'Cerebral Palsy', 'Autism')
-				 AND lower(bh_key) = 'moh-705b-greaterthan5'
+			bh_value NOT IN
+			('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Tonsillitis', 'Diarrhea with some dehydration',
+			 'Diarrhea with severe dehydration', 'Other Diseases Of Respiratory System', 'Sexual Assault', 'Kalaazar',
+			 'Fevers', 'Eye Infections', 'Dracunculiasis (Guinea Worm)', 'Neoplasms', 'Newly Diagnosed HIV',
+			 'Other Central Nervous System Conditions', 'Other Convulsive Disorders', 'Other Eye Conditions', 'Plague',
+			 'Diarrhea', 'Congenital Anomalies', 'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
+			 'Cerebral Palsy', 'Autism')
+			AND LOWER(bh_key) = 'moh-705b-greaterthan5'
 	),
 	visit_diagnoses AS (
 		SELECT
@@ -91,15 +91,16 @@
 				LEFT JOIN bh_encounter_diagnosis ev
 				ON e.bh_encounter_id = ev.bh_encounter_id
 		WHERE
-				v.bh_visit_id IN (
+			v.bh_visit_id IN (
 				SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
 			)
+			AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 	),
 	diagnosis_count AS (
 		SELECT DISTINCT
-			ce.bh_value 				    AS diagnosis,
-			CAST(bh_visitdate AS date)      AS calendar,
-			COUNT(pd.bh_concept_id) 		AS noofdiagnosis
+			ce.bh_value                AS diagnosis,
+			CAST(bh_visitdate AS date) AS calendar,
+			COUNT(pd.bh_concept_id)    AS noofdiagnosis
 		FROM
 			bh_visit v
 				JOIN visit_diagnoses pd
@@ -107,15 +108,14 @@
 				JOIN bh_concept c
 				ON pd.bh_concept_id = c.bh_concept_id
 				JOIN bh_concept_extra ce
-				ON c.bh_concept_id = ce.bh_concept_id AND lower(ce.bh_key) = 'moh-705b-greaterthan5'
-				JOIN date_limitter dl
-				ON dl.calendar = CAST(bh_visitdate AS date)
+				ON c.bh_concept_id = ce.bh_concept_id AND LOWER(ce.bh_key) = 'moh-705b-greaterthan5'
 				JOIN c_bpartner bp
 				ON v.patient_id = bp.c_bpartner_id
 		WHERE
 			bp.bh_birthday IS NOT NULL
 			AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
-		GROUP BY ce.bh_value, CAST (bh_visitdate AS DATE)
+			AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+		GROUP BY ce.bh_value, CAST(bh_visitdate AS DATE)
 		ORDER BY CAST(bh_visitdate AS date)
 	)
 SELECT
@@ -222,42 +222,16 @@ ORDER BY
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[WITH visit_diagnoses AS (
-	SELECT
-		v.bh_visit_id,
-		ev.bh_concept_id,
-		ev.bh_uncoded_diagnosis,
-		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
-	FROM
-		bh_visit v
-			JOIN bh_encounter e
-			ON v.bh_visit_id = e.bh_visit_id
-			LEFT JOIN bh_encounter_diagnosis ev
-			ON e.bh_encounter_id = ev.bh_encounter_id
-)
-SELECT
-	date(v.bh_visitdate) AS calendar,
-	o.name               AS name
+		<![CDATA[SELECT
+	o.name AS name
 FROM
-	bh_visit v
-		LEFT JOIN visit_diagnoses pd
-		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
-		LEFT JOIN bh_concept c
-		ON c.bh_concept_id = pd.bh_concept_id
-		LEFT JOIN bh_concept_extra ce
-		ON c.bh_concept_id = ce.bh_concept_id AND lower(ce.bh_key) = 'moh-705b-greaterthan5'
-		RIGHT JOIN ad_org o
-			ON v.ad_client_id = o.ad_client_id
-		AND o.isactive = 'Y'
+	ad_org o
 WHERE
-	v.ad_client_id = $P{AD_CLIENT_ID}
-GROUP BY
-	v.bh_visitdate, o.name, ce.bh_value]]>
+	o.ad_client_id = $P{AD_CLIENT_ID}
+]]>
 	</queryString>
-	<field name="calendar" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="calendar"/>
-	</field>
 	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="ad_org"/>
 	</field>
@@ -335,7 +309,7 @@ GROUP BY
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<crosstabDataset isDataPreSorted="true">
-					<dataset>
+					<dataset resetType="Report">
 						<datasetRun subDataset="Cases" uuid="8207855b-065f-4354-a126-af12bd76ebc7">
 							<datasetParameter name="Begin Date">
 								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
