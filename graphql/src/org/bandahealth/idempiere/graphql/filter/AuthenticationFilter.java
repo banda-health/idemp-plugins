@@ -92,7 +92,8 @@ public class AuthenticationFilter implements Filter {
 			boolean requestCanProceedWithoutAuthentication = false;
 			if (!MSystem.get(Env.getCtx()).getSystemStatus().equals(MSystem.SYSTEMSTATUS_Production)) {
 				for (String allowableUnauthenticatedQuery : ALLOWABLE_UNAUTHENTICATED_NON_PROD_QUERIES) {
-					if (requestQuery.contains("query " + allowableUnauthenticatedQuery + " {")) {
+					if (requestQuery.contains("query " + allowableUnauthenticatedQuery + " {") ||
+							requestQuery.contains("query " + allowableUnauthenticatedQuery + "{")) {
 						requestCanProceedWithoutAuthentication = true;
 						break;
 					}
