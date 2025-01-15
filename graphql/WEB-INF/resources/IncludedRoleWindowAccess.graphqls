@@ -1,0 +1,7 @@
+type IncludedRoleWindowAccess {
+	# Data entry or display window
+	AD_Window: AD_Window!
+	BH_CanDeactivate: Boolean!
+	# Field is read / write
+	IsReadWrite: Boolean!
+}

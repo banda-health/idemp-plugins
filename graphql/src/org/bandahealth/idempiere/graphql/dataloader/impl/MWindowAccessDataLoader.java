@@ -12,12 +12,12 @@ import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 
 public class MWindowAccessDataLoader extends X_AD_Window_AccessDataLoader {
-	public static String AD_Window_access_BY_ROLE_ID_DATA_LOADER = "AD_Window_AccessByRoleIdDataLoader";
+	public static String DATALOADER_AD_Window_Access_BY_AD_Role_ID = "DATALOADER_AD_Window_Access_BY_AD_Role_ID";
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(AD_Window_access_BY_ROLE_ID_DATA_LOADER,
+		registry.register(DATALOADER_AD_Window_Access_BY_AD_Role_ID,
 				DataLoader.newMappedDataLoader(getByRoleIdBatchLoader(), getOptionsWithCache(idempiereContext)));
 	}
 

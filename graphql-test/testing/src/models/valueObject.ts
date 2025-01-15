@@ -85,12 +85,12 @@ export class ValueObject {
 	separator = ' - ';
 	prompt = ': ';
 	get AD_Window_AccessMap():
-		| { [windowUuid: string]: NonNullable<NonNullable<LoginInfo['AD_Role']>['AD_Window_AccessList']>[0] }
+		| { [windowUuid: string]: NonNullable<NonNullable<LoginInfo['AD_Role']>['IncludedRoleWindowAccessList']>[0] }
 		| undefined {
-		return this.loginInfo?.AD_Role?.AD_Window_AccessList?.reduce((map, windowAccess) => {
+		return this.loginInfo?.AD_Role?.IncludedRoleWindowAccessList?.reduce((map, windowAccess) => {
 			map[windowAccess.AD_Window.UU] = windowAccess;
 			return map;
-		}, {} as { [windowUuid: string]: NonNullable<NonNullable<LoginInfo['AD_Role']>['AD_Window_AccessList']>[0] });
+		}, {} as { [windowUuid: string]: NonNullable<NonNullable<LoginInfo['AD_Role']>['IncludedRoleWindowAccessList']>[0] });
 	}
 
 	processUuid?: string;
