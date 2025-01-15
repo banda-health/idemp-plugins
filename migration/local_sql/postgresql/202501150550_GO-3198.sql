@@ -1,8 +1,9 @@
 -- Get the triage roles that don't have triage master role
+DROP TABLE IF EXISTS tmp_roles_to_update;
 SELECT
 	r.ad_role_id,
 	ar.seqno + 10 AS seqno
-INTO
+INTO TEMP TABLE
 	tmp_roles_to_update
 FROM
 	ad_role r
