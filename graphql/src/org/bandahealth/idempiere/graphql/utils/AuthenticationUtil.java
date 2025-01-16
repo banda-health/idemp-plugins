@@ -3,9 +3,12 @@ package org.bandahealth.idempiere.graphql.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.adempiere.util.ServerContext;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MClientInfo;
 import org.compiere.model.MRole;
@@ -36,7 +39,22 @@ public class AuthenticationUtil {
 		JWTVerifier verifier = JWT.require(algorithm).withIssuer(TokenUtils.getTokenIssuer()).build(); // Reusable
 		// verifier
 		// instance
-		DecodedJWT jwt = verifier.verify(token);
+		DecodedJWT jwt;
+		try {
+			jwt = verifier.verify(token);
+		} catch (JWTVerificationException e) {
+			// Try to get the session so we can close it
+			jwt = JWT.decode(token);
+			Claim claim = jwt.getClaim(LoginClaims.AD_Session_ID.name());
+			if (!claim.isNull()) {
+				int AD_Session_ID = claim.asInt();
+				Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, AD_Session_ID);
+				if (AD_Session_ID > 0 && MSession.get(Env.getCtx()) != null) {
+					MSession.get(Env.getCtx()).logout();
+				}
+			}
+			throw e;
+		}
 		String userName = jwt.getSubject();
 		Env.setContext(context, LOGIN_NAME, userName);
 		Claim claim = jwt.getClaim(LoginClaims.AD_Client_ID.name());
