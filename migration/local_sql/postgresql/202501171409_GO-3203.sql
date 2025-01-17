@@ -1,0 +1,80 @@
+-- Menu
+INSERT INTO
+	ad_menu (ad_menu_id,
+	         ad_client_id,
+	         ad_org_id,
+	         isactive,
+	         created,
+	         createdby,
+	         updated,
+	         name,
+	         updatedby,
+	         description,
+	         issummary,
+	         issotrx,
+	         isreadonly,
+	         action,
+	         ad_window_id,
+	         ad_workflow_id,
+	         ad_task_id,
+	         ad_process_id,
+	         ad_form_id,
+	         ad_workbench_id,
+	         entitytype,
+	         iscentrallymaintained,
+	         ad_menu_uu,
+	         ad_infowindow_id,
+	         iconclassname,
+	         predefinedcontextvariables)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_menu_id) + 1
+		 FROM
+			 ad_menu
+	 ),
+	 0,
+	 0,
+	 'Y',
+	 '2025-01-17 12:19:26.686000',
+	 100,
+	 '2025-01-17 12:21:59.095000',
+	 'Price Lists',
+	 100,
+	 'Price Lists for sales',
+	 'N',
+	 'Y',
+	 'N',
+	 'W',
+	 146,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 'U',
+	 'Y',
+	 '8da6c2ab-7020-4cac-8f81-5e4aac53e457',
+	 NULL,
+	 'fa-solid fa-list-check',
+	 NULL);
+
+-- Add tree node
+INSERT INTO
+	ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+	               updatedby, parent_id, seqno, ad_treenodemm_uu)
+VALUES
+	(10, (
+		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '8da6c2ab-7020-4cac-8f81-5e4aac53e457'
+	), 0, 0, 'Y',
+	 '2025-01-17 12:19:26.746382', 100, '2025-01-17 12:19:26.746382', 100,
+	 (
+		 SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = 'eba1cdd4-5475-4529-beed-0e63d9a88357'
+	 ), 999,
+	 '2c8670c8-e2e4-49f5-9f12-cd62ef58fc69')
+ON CONFLICT DO NOTHING;
+
+SELECT
+	register_migration_script('202501171409_GO-3203.sql')
+FROM
+	dual;
