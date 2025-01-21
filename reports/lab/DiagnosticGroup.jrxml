@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="500" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabReport" pageWidth="480" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="470" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 11"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<style name="Table_TF">
 		<paragraph rightIndent="3"/>
 	</style>
@@ -52,7 +51,8 @@
 	COALESCE(pce.bh_value, panel.bh_display_name) AS panel,
 	COALESCE(tce.bh_value, test.bh_display_name)      AS name,
 	ed.bh_value                                   AS result,
-	test_ref_range.reference_range                AS range
+	test_ref_range.reference_range                AS range,
+	test_ref_range.status
 FROM
 	bh_encounter_diagnostic ed
 		LEFT JOIN bh_concept panel
@@ -78,11 +78,29 @@ FROM
 						WHEN bce.bh_key = 'units' THEN 3
 						END
 			) AS reference_range,
+			STRING_AGG(
+				CASE
+					WHEN bce.bh_key = 'low_normal' AND EXISTS (
+						SELECT
+							1
+						FROM
+							bh_concept_extra bce_sub
+						WHERE
+							bce_sub.bh_concept_id = bce.bh_concept_id
+							AND bce_sub.bh_key = 'hi_normal'
+							AND CAST(bed.bh_value AS FLOAT) BETWEEN CAST(bce.bh_value AS FLOAT) AND CAST(bce_sub.bh_value AS FLOAT)
+					) THEN 'Normal'
+					WHEN bce.bh_key = 'hi_normal' AND CAST(bed.bh_value AS FLOAT) > CAST(bce.bh_value AS FLOAT) THEN 'High'
+					WHEN bce.bh_key = 'low_normal' AND CAST(bed.bh_value AS FLOAT) < CAST(bce.bh_value AS FLOAT) THEN 'Low'
+					END, ''
+			) AS status,
 			c.bh_concept_id
 		FROM
 			bh_concept c
 				JOIN bh_concept_extra bce
 				ON c.bh_concept_id = bce.bh_concept_id AND bce.bh_key != 'local_name'
+				JOIN bh_encounter_diagnostic bed
+				ON c.bh_concept_id = bed.bh_concept_id
 		GROUP BY c.bh_concept_id
 	) AS test_ref_range
 		ON test_ref_range.bh_concept_id = test.bh_concept_id
@@ -109,6 +127,7 @@ ORDER BY
 		<property name="com.jaspersoft.studio.field.name" value="range"/>
 		<property name="com.jaspersoft.studio.field.label" value="range"/>
 	</field>
+	<field name="status" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -132,7 +151,7 @@ ORDER BY
 		<band height="23">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement style="Table_CH" x="-5" y="8" width="190" height="15" uuid="87c505c9-4d07-4316-b8db-f16da836d44b"/>
+				<reportElement style="Table_CH" x="-5" y="8" width="154" height="15" uuid="87c505c9-4d07-4316-b8db-f16da836d44b"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 					<paragraph leftIndent="3"/>
@@ -140,7 +159,7 @@ ORDER BY
 				<text><![CDATA[NAME]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Table_CH" x="315" y="8" width="150" height="15" uuid="120839c8-6015-4272-937b-42ed9393e610">
+				<reportElement style="Table_CH" x="243" y="8" width="130" height="15" uuid="120839c8-6015-4272-937b-42ed9393e610">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -150,12 +169,22 @@ ORDER BY
 				<text><![CDATA[REFERENCE RANGE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Table_CH" x="185" y="8" width="130" height="15" uuid="f17e6c43-3b0c-44de-9b60-f937dbb4ce06"/>
+				<reportElement style="Table_CH" x="149" y="8" width="94" height="15" uuid="f17e6c43-3b0c-44de-9b60-f937dbb4ce06"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 					<paragraph leftIndent="3" rightIndent="3"/>
 				</textElement>
 				<text><![CDATA[RESULT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Table_CH" x="373" y="8" width="92" height="15" uuid="f1f442b5-2ec7-44ab-9b46-99c8d33a7a6e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[STATUS]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -163,18 +192,24 @@ ORDER BY
 		<band height="15">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField isBlankWhenNull="true">
-				<reportElement style="Table_TD" stretchType="ContainerHeight" x="315" y="0" width="150" height="15" uuid="a96b9592-f86d-4d98-93fa-4515615a2a30">
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="243" y="0" width="130" height="15" uuid="a96b9592-f86d-4d98-93fa-4515615a2a30">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
+				<box>
+					<topPen lineStyle="Solid"/>
+					<leftPen lineStyle="Solid"/>
+					<bottomPen lineStyle="Solid"/>
+					<rightPen lineStyle="Solid"/>
+				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{range}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="Table_TD" stretchType="ContainerHeight" x="185" y="0" width="130" height="15" uuid="232e9950-4e78-41fb-81ea-851a743e607e">
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="149" y="0" width="94" height="15" uuid="232e9950-4e78-41fb-81ea-851a743e607e">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
@@ -184,11 +219,29 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement style="Table_TD" stretchType="ContainerHeight" x="-5" y="0" width="190" height="15" uuid="bbfd7a35-ec14-4140-bb31-f145626e6df0"/>
+				<reportElement style="Table_TD" stretchType="ContainerHeight" x="-5" y="0" width="154" height="15" uuid="bbfd7a35-ec14-4140-bb31-f145626e6df0"/>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="StatusWarning" stretchType="ContainerHeight" x="373" y="0" width="92" height="15" uuid="45ae46eb-9389-46e3-89c7-ebaf194595de">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
