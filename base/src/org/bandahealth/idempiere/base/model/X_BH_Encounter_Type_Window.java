@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Encounter_Type_Window
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Encounter_Type_Window")
 public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Type_Window, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Type_Window (Properties ctx, int BH_Encounter_Type_Window_ID, String trxName)
@@ -139,10 +139,12 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
 	public static final String BH_ENCOUNTER_TYPE_ClinicalDetails = "D";
 	/** Immunizations = I */
 	public static final String BH_ENCOUNTER_TYPE_Immunizations = "I";
-	/** Diagnosis = m */
-	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
 	/** Capture Vitals = V */
 	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "V";
+	/** Lab Diagnostics = l */
+	public static final String BH_ENCOUNTER_TYPE_LabDiagnostics = "l";
+	/** Diagnosis = m */
+	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
 	/** Set Encounter Type.
 		@param BH_Encounter_Type Encounter Type
 	*/

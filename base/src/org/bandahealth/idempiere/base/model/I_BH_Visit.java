@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Visit
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_Visit 
@@ -77,6 +77,8 @@ public interface I_BH_Visit
 	  */
 	public int getBH_Clinician_User_ID();
 
+	public org.compiere.model.I_AD_User getBH_Clinician_User() throws RuntimeException;
+
     /** Column name BH_NewVisit */
     public static final String COLUMNNAME_BH_NewVisit = "BH_NewVisit";
 
@@ -108,15 +110,6 @@ public interface I_BH_Visit
 	  */
 	public String getBH_Process_Stage();
 
-    /** Column name bh_referral */
-    public static final String COLUMNNAME_bh_referral = "bh_referral";
-
-	/** Set Referral	  */
-	public void setbh_referral (String bh_referral);
-
-	/** Get Referral	  */
-	public String getbh_referral();
-
     /** Column name BH_ReferredFromTo */
     public static final String COLUMNNAME_BH_ReferredFromTo = "BH_ReferredFromTo";
 
@@ -125,6 +118,15 @@ public interface I_BH_Visit
 
 	/** Get Referred From/To	  */
 	public String getBH_ReferredFromTo();
+
+    /** Column name BH_VisitDate */
+    public static final String COLUMNNAME_BH_VisitDate = "BH_VisitDate";
+
+	/** Set Visit Date	  */
+	public void setBH_VisitDate (Timestamp BH_VisitDate);
+
+	/** Get Visit Date	  */
+	public Timestamp getBH_VisitDate();
 
     /** Column name BH_Visit_ID */
     public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
@@ -143,15 +145,6 @@ public interface I_BH_Visit
 
 	/** Get BH_Visit_UU	  */
 	public String getBH_Visit_UU();
-
-    /** Column name BH_VisitDate */
-    public static final String COLUMNNAME_BH_VisitDate = "BH_VisitDate";
-
-	/** Set Visit Date	  */
-	public void setBH_VisitDate (Timestamp BH_VisitDate);
-
-	/** Get Visit Date	  */
-	public Timestamp getBH_VisitDate();
 
     /** Column name BH_Voided_Reason_ID */
     public static final String COLUMNNAME_BH_Voided_Reason_ID = "BH_Voided_Reason_ID";
@@ -249,4 +242,13 @@ public interface I_BH_Visit
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name bh_referral */
+    public static final String COLUMNNAME_bh_referral = "bh_referral";
+
+	/** Set Referral	  */
+	public void setbh_referral (String bh_referral);
+
+	/** Get Referral	  */
+	public String getbh_referral();
 }

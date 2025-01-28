@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Concept_Mapping
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Concept_Mapping")
 public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20241003L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Concept_Mapping (Properties ctx, int BH_Concept_Mapping_ID, String trxName)
@@ -364,8 +364,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	}
 
 	/** Get From Concept.
-		@return From Concept
-	  */
+		@return From Concept	  */
 	public int getFrom_BH_Concept_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_From_BH_Concept_ID);
@@ -375,7 +374,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	}
 
 	/** Set Ocl Uuid.
-		@param Ocl_Uuid A UUID from the OCL System
+		@param Ocl_Uuid A UUID from the OCL system
 	*/
 	public void setOcl_Uuid (String Ocl_Uuid)
 	{
@@ -383,7 +382,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	}
 
 	/** Get Ocl Uuid.
-		@return A UUID from the OCL System
+		@return A UUID from the OCL system
 	  */
 	public String getOcl_Uuid()
 	{
@@ -402,8 +401,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	}
 
 	/** Get To Concept.
-		@return To Concept
-	  */
+		@return To Concept	  */
 	public int getTo_BH_Concept_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_To_BH_Concept_ID);

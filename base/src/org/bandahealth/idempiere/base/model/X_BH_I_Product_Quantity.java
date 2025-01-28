@@ -27,7 +27,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_I_Product_Quantity
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_I_Product_Quantity")
 public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quantity, I_Persistent
 {
@@ -35,7 +35,7 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_I_Product_Quantity (Properties ctx, int BH_I_Product_Quantity_ID, String trxName)
@@ -417,24 +417,6 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 		return bd;
 	}
 
-	/** Set Re-order Level.
-		@param bh_reorder_level Re-order Level
-	*/
-	public void setbh_reorder_level (int bh_reorder_level)
-	{
-		set_Value (COLUMNNAME_bh_reorder_level, Integer.valueOf(bh_reorder_level));
-	}
-
-	/** Get Re-order Level.
-		@return Re-order Level	  */
-	public int getbh_reorder_level()
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_bh_reorder_level);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
 	/** Set BH_SellPrice.
 		@param BH_SellPrice Selling price of BandaGo product
 	*/
@@ -636,5 +618,23 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	/** Set Re-order Level.
+		@param bh_reorder_level Re-order Level
+	*/
+	public void setbh_reorder_level (int bh_reorder_level)
+	{
+		set_Value (COLUMNNAME_bh_reorder_level, Integer.valueOf(bh_reorder_level));
+	}
+
+	/** Get Re-order Level.
+		@return Re-order Level	  */
+	public int getbh_reorder_level()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_bh_reorder_level);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 }

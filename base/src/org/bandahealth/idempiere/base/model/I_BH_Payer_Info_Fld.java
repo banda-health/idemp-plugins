@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Payer_Info_Fld
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_Payer_Info_Fld 
@@ -73,6 +73,15 @@ public interface I_BH_Payer_Info_Fld
 	/** Get Fill From Patient	  */
 	public boolean isBH_FillFromPatient();
 
+    /** Column name BH_PayerInfoFieldDataType */
+    public static final String COLUMNNAME_BH_PayerInfoFieldDataType = "BH_PayerInfoFieldDataType";
+
+	/** Set Payer Info Field Data Type	  */
+	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType);
+
+	/** Get Payer Info Field Data Type	  */
+	public String getBH_PayerInfoFieldDataType();
+
     /** Column name BH_Payer_ID */
     public static final String COLUMNNAME_BH_Payer_ID = "BH_Payer_ID";
 
@@ -101,15 +110,6 @@ public interface I_BH_Payer_Info_Fld
 
 	/** Get BH_Payer_Info_Fld_UU	  */
 	public String getBH_Payer_Info_Fld_UU();
-
-    /** Column name BH_PayerInfoFieldDataType */
-    public static final String COLUMNNAME_BH_PayerInfoFieldDataType = "BH_PayerInfoFieldDataType";
-
-	/** Set Payer Info Field Data Type	  */
-	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType);
-
-	/** Get Payer Info Field Data Type	  */
-	public String getBH_PayerInfoFieldDataType();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

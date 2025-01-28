@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Product_CategoryDefault
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_Product_CategoryDefault 
@@ -64,19 +64,6 @@ public interface I_BH_Product_CategoryDefault
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_Product_Category_Type */
-    public static final String COLUMNNAME_BH_Product_Category_Type = "BH_Product_Category_Type";
-
-	/** Set BH Product Category Type.
-	  * Contains a character the is linked to a ref list to determine types of product categories
-	  */
-	public void setBH_Product_Category_Type (String BH_Product_Category_Type);
-
-	/** Get BH Product Category Type.
-	  * Contains a character the is linked to a ref list to determine types of product categories
-	  */
-	public String getBH_Product_Category_Type();
-
     /** Column name BH_Product_CategoryDefault_ID */
     public static final String COLUMNNAME_BH_Product_CategoryDefault_ID = "BH_Product_CategoryDefault_ID";
 
@@ -94,6 +81,19 @@ public interface I_BH_Product_CategoryDefault
 
 	/** Get BH_Product_CategoryDefault_UU	  */
 	public String getBH_Product_CategoryDefault_UU();
+
+    /** Column name BH_Product_Category_Type */
+    public static final String COLUMNNAME_BH_Product_Category_Type = "BH_Product_Category_Type";
+
+	/** Set BH Product Category Type.
+	  * Contains a character the is linked to a ref list to determine types of product categories
+	  */
+	public void setBH_Product_Category_Type (String BH_Product_Category_Type);
+
+	/** Get BH Product Category Type.
+	  * Contains a character the is linked to a ref list to determine types of product categories
+	  */
+	public String getBH_Product_Category_Type();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

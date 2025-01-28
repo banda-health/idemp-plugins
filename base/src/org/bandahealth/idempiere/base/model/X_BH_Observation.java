@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Observation
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Observation")
 public class X_BH_Observation extends PO implements I_BH_Observation, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Observation extends PO implements I_BH_Observation, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Observation (Properties ctx, int BH_Observation_ID, String trxName)

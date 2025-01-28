@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Concept
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_Concept 
@@ -63,15 +63,6 @@ public interface I_BH_Concept
 	  * Organizational entity within tenant
 	  */
 	public int getAD_Org_ID();
-
-    /** Column name bh_concept_class */
-    public static final String COLUMNNAME_bh_concept_class = "bh_concept_class";
-
-	/** Set bh_concept_class	  */
-	public void setbh_concept_class (String bh_concept_class);
-
-	/** Get bh_concept_class	  */
-	public String getbh_concept_class();
 
     /** Column name BH_Concept_ID */
     public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
@@ -225,14 +216,27 @@ public interface I_BH_Concept
     public static final String COLUMNNAME_Ocl_Uuid = "Ocl_Uuid";
 
 	/** Set Ocl Uuid.
-	  * A UUID from the OCL System
+	  * A UUID from the OCL system
 	  */
 	public void setOcl_Uuid (String Ocl_Uuid);
 
 	/** Get Ocl Uuid.
-	  * A UUID from the OCL System
+	  * A UUID from the OCL system
 	  */
 	public String getOcl_Uuid();
+
+    /** Column name URL */
+    public static final String COLUMNNAME_URL = "URL";
+
+	/** Set URL.
+	  * Full URL address - e.g. http://www.idempiere.org
+	  */
+	public void setURL (String URL);
+
+	/** Get URL.
+	  * Full URL address - e.g. http://www.idempiere.org
+	  */
+	public String getURL();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
@@ -250,16 +254,12 @@ public interface I_BH_Concept
 	  */
 	public int getUpdatedBy();
 
-    /** Column name URL */
-    public static final String COLUMNNAME_URL = "URL";
+    /** Column name bh_concept_class */
+    public static final String COLUMNNAME_bh_concept_class = "bh_concept_class";
 
-	/** Set URL.
-	  * Full URL address - e.g. http://www.idempiere.org
-	  */
-	public void setURL (String URL);
+	/** Set bh_concept_class	  */
+	public void setbh_concept_class (String bh_concept_class);
 
-	/** Get URL.
-	  * Full URL address - e.g. http://www.idempiere.org
-	  */
-	public String getURL();
+	/** Get bh_concept_class	  */
+	public String getbh_concept_class();
 }

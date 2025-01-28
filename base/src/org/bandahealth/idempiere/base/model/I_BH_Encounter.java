@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Encounter
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_Encounter 
@@ -67,14 +67,10 @@ public interface I_BH_Encounter
     /** Column name BH_Encounter_Date */
     public static final String COLUMNNAME_BH_Encounter_Date = "BH_Encounter_Date";
 
-	/** Set Encounter Date.
-	  * the time a vital was taken
-	  */
+	/** Set Encounter Date	  */
 	public void setBH_Encounter_Date (Timestamp BH_Encounter_Date);
 
-	/** Get Encounter Date.
-	  * the time a vital was taken
-	  */
+	/** Get Encounter Date	  */
 	public Timestamp getBH_Encounter_Date();
 
     /** Column name BH_Encounter_ID */

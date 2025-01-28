@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_I_Product_Quantity
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_I_Product_Quantity 
@@ -198,15 +198,6 @@ public interface I_BH_I_Product_Quantity
 	/** Get Lot 3 Initial Quantity	  */
 	public BigDecimal getBH_InitialQuantity_Lot3();
 
-    /** Column name bh_reorder_level */
-    public static final String COLUMNNAME_bh_reorder_level = "bh_reorder_level";
-
-	/** Set Re-order Level	  */
-	public void setbh_reorder_level (int bh_reorder_level);
-
-	/** Get Re-order Level	  */
-	public int getbh_reorder_level();
-
     /** Column name BH_SellPrice */
     public static final String COLUMNNAME_BH_SellPrice = "BH_SellPrice";
 
@@ -379,4 +370,13 @@ public interface I_BH_I_Product_Quantity
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name bh_reorder_level */
+    public static final String COLUMNNAME_bh_reorder_level = "bh_reorder_level";
+
+	/** Set Re-order Level	  */
+	public void setbh_reorder_level (int bh_reorder_level);
+
+	/** Get Re-order Level	  */
+	public int getbh_reorder_level();
 }

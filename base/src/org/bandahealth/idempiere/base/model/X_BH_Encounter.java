@@ -24,7 +24,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Encounter
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Encounter")
 public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 {
@@ -32,8 +32,7 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240425L;
-
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Encounter (Properties ctx, int BH_Encounter_ID, String trxName)
@@ -41,6 +40,7 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
       super (ctx, BH_Encounter_ID, trxName);
       /** if (BH_Encounter_ID == 0)
         {
+			setBH_Encounter_Date (new Timestamp( System.currentTimeMillis() ));
 			setBH_Encounter_ID (0);
 			setBH_Encounter_Type (null);
 			setBH_Visit_ID (0);
@@ -53,6 +53,7 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
       super (ctx, BH_Encounter_ID, trxName, virtualColumns);
       /** if (BH_Encounter_ID == 0)
         {
+			setBH_Encounter_Date (new Timestamp( System.currentTimeMillis() ));
 			setBH_Encounter_ID (0);
 			setBH_Encounter_Type (null);
 			setBH_Visit_ID (0);
@@ -65,6 +66,7 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
       super (ctx, BH_Encounter_UU, trxName);
       /** if (BH_Encounter_UU == null)
         {
+			setBH_Encounter_Date (new Timestamp( System.currentTimeMillis() ));
 			setBH_Encounter_ID (0);
 			setBH_Encounter_Type (null);
 			setBH_Visit_ID (0);
@@ -77,6 +79,7 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
       super (ctx, BH_Encounter_UU, trxName, virtualColumns);
       /** if (BH_Encounter_UU == null)
         {
+			setBH_Encounter_Date (new Timestamp( System.currentTimeMillis() ));
 			setBH_Encounter_ID (0);
 			setBH_Encounter_Type (null);
 			setBH_Visit_ID (0);
@@ -112,7 +115,7 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
     }
 
 	/** Set Encounter Date.
-		@param BH_Encounter_Date the time a vital was taken
+		@param BH_Encounter_Date Encounter Date
 	*/
 	public void setBH_Encounter_Date (Timestamp BH_Encounter_Date)
 	{
@@ -120,8 +123,7 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 	}
 
 	/** Get Encounter Date.
-		@return the time a vital was taken
-	  */
+		@return Encounter Date	  */
 	public Timestamp getBH_Encounter_Date()
 	{
 		return (Timestamp)get_Value(COLUMNNAME_BH_Encounter_Date);
@@ -154,10 +156,12 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 	public static final String BH_ENCOUNTER_TYPE_ClinicalDetails = "D";
 	/** Immunizations = I */
 	public static final String BH_ENCOUNTER_TYPE_Immunizations = "I";
-	/** Diagnosis = m */
-	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
 	/** Capture Vitals = V */
 	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "V";
+	/** Lab Diagnostics = l */
+	public static final String BH_ENCOUNTER_TYPE_LabDiagnostics = "l";
+	/** Diagnosis = m */
+	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
 	/** Set Encounter Type.
 		@param BH_Encounter_Type Encounter Type
 	*/

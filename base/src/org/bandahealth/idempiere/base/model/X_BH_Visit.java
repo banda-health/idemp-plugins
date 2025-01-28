@@ -24,7 +24,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Visit
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Visit")
 public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 {
@@ -32,7 +32,7 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Visit (Properties ctx, int BH_Visit_ID, String trxName)
@@ -110,6 +110,12 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
       return sb.toString();
     }
 
+	public org.compiere.model.I_AD_User getBH_Clinician_User() throws RuntimeException
+	{
+		return (org.compiere.model.I_AD_User)MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_ID)
+			.getPO(getBH_Clinician_User_ID(), get_TrxName());
+	}
+
 	/** Set BH_Clinician_User_ID.
 		@param BH_Clinician_User_ID BH_Clinician_User_ID
 	*/
@@ -168,10 +174,12 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public static final String BH_PATIENTTYPE_Maternity = "M";
 	/** Outpatient (OPD) = O */
 	public static final String BH_PATIENTTYPE_OutpatientOPD = "O";
-	/** Over The Counter (OTC) = ot */
-	public static final String BH_PATIENTTYPE_OverTheCounterOTC = "ot";
 	/** Surgery = S */
 	public static final String BH_PATIENTTYPE_Surgery = "S";
+	/** Mental Health = Z */
+	public static final String BH_PATIENTTYPE_MentalHealth = "Z";
+	/** Over The Counter (OTC) = ot */
+	public static final String BH_PATIENTTYPE_OverTheCounterOTC = "ot";
 	/** Family Planning = u */
 	public static final String BH_PATIENTTYPE_FamilyPlanning = "u";
 	/** Follow-up = x */
@@ -196,14 +204,16 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return (String)get_Value(COLUMNNAME_BH_PatientType);
 	}
 
-	/** Cashier = tocashier */
-	public static final String BH_PROCESS_STAGE_Cashier = "tocashier";
-	/** Clinician = toclinician */
-	public static final String BH_PROCESS_STAGE_Clinician = "toclinician";
-	/** Lab = tolab */
-	public static final String BH_PROCESS_STAGE_Lab = "tolab";
+	/** Cashier / Registration = tocashier */
+	public static final String BH_PROCESS_STAGE_CashierRegistration = "tocashier";
+	/** Clinician / Dentist = toclinician */
+	public static final String BH_PROCESS_STAGE_ClinicianDentist = "toclinician";
+	/** Lab / Imaging = tolab */
+	public static final String BH_PROCESS_STAGE_LabImaging = "tolab";
 	/** Pharmacy = topharmacy */
 	public static final String BH_PROCESS_STAGE_Pharmacy = "topharmacy";
+	/** Triage / Vitals = totriage */
+	public static final String BH_PROCESS_STAGE_TriageVitals = "totriage";
 	/** Set BH_Process_Stage.
 		@param BH_Process_Stage Drop down field in visits for users to define the process stage
 	*/
@@ -221,30 +231,6 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return (String)get_Value(COLUMNNAME_BH_Process_Stage);
 	}
 
-	/** Referral from Community Unit = fcu */
-	public static final String BH_REFERRAL_ReferralFromCommunityUnit = "fcu";
-	/** Referral from health facilities = hf */
-	public static final String BH_REFERRAL_ReferralFromHealthFacilities = "hf";
-	/** Referral to other health facility = OHF */
-	public static final String BH_REFERRAL_ReferralToOtherHealthFacility = "OHF";
-	/** Referral to Community Unit = tcu */
-	public static final String BH_REFERRAL_ReferralToCommunityUnit = "tcu";
-	/** Set Referral.
-		@param bh_referral Referral
-	*/
-	public void setbh_referral (String bh_referral)
-	{
-
-		set_Value (COLUMNNAME_bh_referral, bh_referral);
-	}
-
-	/** Get Referral.
-		@return Referral	  */
-	public String getbh_referral()
-	{
-		return (String)get_Value(COLUMNNAME_bh_referral);
-	}
-
 	/** Set Referred From/To.
 		@param BH_ReferredFromTo Referred From/To
 	*/
@@ -258,6 +244,21 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public String getBH_ReferredFromTo()
 	{
 		return (String)get_Value(COLUMNNAME_BH_ReferredFromTo);
+	}
+
+	/** Set Visit Date.
+		@param BH_VisitDate Visit Date
+	*/
+	public void setBH_VisitDate (Timestamp BH_VisitDate)
+	{
+		set_Value (COLUMNNAME_BH_VisitDate, BH_VisitDate);
+	}
+
+	/** Get Visit Date.
+		@return Visit Date	  */
+	public Timestamp getBH_VisitDate()
+	{
+		return (Timestamp)get_Value(COLUMNNAME_BH_VisitDate);
 	}
 
 	/** Set Visit.
@@ -294,21 +295,6 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public String getBH_Visit_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Visit_UU);
-	}
-
-	/** Set Visit Date.
-		@param BH_VisitDate Visit Date
-	*/
-	public void setBH_VisitDate (Timestamp BH_VisitDate)
-	{
-		set_Value (COLUMNNAME_BH_VisitDate, BH_VisitDate);
-	}
-
-	/** Get Visit Date.
-		@return Visit Date	  */
-	public Timestamp getBH_VisitDate()
-	{
-		return (Timestamp)get_Value(COLUMNNAME_BH_VisitDate);
 	}
 
 	public I_BH_Voided_Reason getBH_Voided_Reason() throws RuntimeException
@@ -396,5 +382,29 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Referral to other health facility = OHF */
+	public static final String BH_REFERRAL_ReferralToOtherHealthFacility = "OHF";
+	/** Referral from Community Unit = fcu */
+	public static final String BH_REFERRAL_ReferralFromCommunityUnit = "fcu";
+	/** Referral from health facilities = hf */
+	public static final String BH_REFERRAL_ReferralFromHealthFacilities = "hf";
+	/** Referral to Community Unit = tcu */
+	public static final String BH_REFERRAL_ReferralToCommunityUnit = "tcu";
+	/** Set Referral.
+		@param bh_referral Referral
+	*/
+	public void setbh_referral (String bh_referral)
+	{
+
+		set_Value (COLUMNNAME_bh_referral, bh_referral);
+	}
+
+	/** Get Referral.
+		@return Referral	  */
+	public String getbh_referral()
+	{
+		return (String)get_Value(COLUMNNAME_bh_referral);
 	}
 }
