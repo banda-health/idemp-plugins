@@ -33,6 +33,8 @@ type BH_Visit {
 	UU: ID!
 	BH_VisitDate: Date
 	BH_Voided_Reason: BH_Voided_Reason
+	# The reason for changing this entity
+	Change_Reason: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -45,6 +47,8 @@ type BH_Visit {
 	IsActive: Boolean!
 	# The Patient must be a valid business partner.
 	Patient: C_BPartner!
+	# Whether the entity was scheduled or not
+	Scheduled: Boolean!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -65,6 +69,8 @@ input BH_VisitInput {
 	UU: ID
 	BH_VisitDate: Date
 	BH_Voided_Reason: ForeignEntityInput
+	# The reason for changing this entity
+	Change_Reason: String
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document
@@ -73,4 +79,6 @@ input BH_VisitInput {
 	IsActive: Boolean
 	# The Patient must be a valid business partner.
 	Patient: ForeignEntityInput
+	# Whether the entity was scheduled or not
+	Scheduled: Boolean
 }

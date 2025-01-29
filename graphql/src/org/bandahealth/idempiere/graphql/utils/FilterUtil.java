@@ -69,13 +69,15 @@ public class FilterUtil {
 	 *  }
 	 * }
 	 * </pre>
-	 * Additionally, tables mapped by foreign keys can also leverage aggregate expression functions:
+	 * Additionally, tables mapped by foreign keys can also leverage aggregate expression functions or not exists:
 	 * <pre>
 	 * {
 	 * 	"$sum([database column])": expression
 	 * 	"$count([database column])": expression
 	 * 	"$max([database column])": expression
 	 * 	"$min([database column])": expression
+	 * 	...or
+	 * 	"$notExists([database column]): {}"
 	 * }
 	 * </pre>
 	 * NOTE: ID columns (i.e. ones that end in _ID) are not allowed to be filtered and will be skipped
@@ -127,13 +129,15 @@ public class FilterUtil {
 	 *  }
 	 * }
 	 * </pre>
-	 * Additionally, tables mapped by foreign keys can also leverage aggregate expression functions:
+	 * Additionally, tables mapped by foreign keys can also leverage aggregate expression functions or not exists:
 	 * <pre>
 	 * {
 	 * 	"$sum([database column])": expression
 	 * 	"$count([database column])": expression
 	 * 	"$max([database column])": expression
 	 * 	"$min([database column])": expression
+	 * 	...or
+	 * 	"$notExists([database column]): {}"
 	 * }
 	 * </pre>
 	 * NOTE: ID columns (i.e. ones that end in _ID) are not allowed to be filtered and will be skipped
@@ -484,12 +488,19 @@ public class FilterUtil {
 		String remainingDBColumnName = null;
 		String specificSourceColumnToMapOn = null;
 		String specificDestinationColumnToMapOn = null;
+		boolean arePerformingNotExists = false;
 
 		// If this is an aliased value, get the alias
 		if (doesTableAliasExistOnColumn(dbColumnName)) {
 			foreignTableName = dbColumnName.split("\\.")[0];
 			// There may be subsequent aliases, so only remove the first one (i.e. c_orderline.m_product.m_storageonhand)
 			remainingDBColumnName = dbColumnName.replaceFirst(foreignTableName + "\\.", "");
+		}
+		// Also check if we're doing a not-exists check
+		else if (dbColumnName.startsWith("$notExists")) {
+			// Example: convert "$notExists(c_order)" to just "c_order"
+			foreignTableName = dbColumnName.split("\\(")[1].replace(")", "");
+			arePerformingNotExists = true;
 		}
 
 		// If a specific column was passed in, get it
@@ -535,70 +546,78 @@ public class FilterUtil {
 				String idColumn = tableMapping.sourceColumnName;
 				String foreignIdColumn = tableMapping.foreignColumnName;
 				// We have a match! Begin constructing the sub-query
-				whereClause.append(tableData.getTableOrFunctionName()).append(".").append(idColumn).append(negate ? " NOT" :
-								"").append(" IN (SELECT ").append(foreignIdColumn).append(" FROM ");
-				// Sub-clauses should never be negated (i.e. so we don't have "not in (... not in (... not in (...)))" but
-				// instead "not in (... in (... in (...))))"
-				negate = false;
-				// If we have an aggregate on the comparisons, this will need to be a sub-table with an alias
-				Map<String, Object> aggregateComparisons = comparisonQuerySelectors.entrySet().stream().filter(
-								comparisonQuerySelector -> AGGREGATE_QUERY_SELECTORS.stream().anyMatch(
-										aggregateQuerySelector -> comparisonQuerySelector.getKey().startsWith(aggregateQuerySelector)))
-						.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-				boolean doesTableNeedAggregation = !aggregateComparisons.isEmpty();
-				if (doesTableNeedAggregation) {
-					whereClause.append("(");
-					for (String aggregateFunction : aggregateComparisons.keySet()) {
-						String aggregateColumnName = aggregateFunction.split("\\(")[1].replace(")", "");
-						whereClause.append("SELECT ").append(idColumn).append(", ").append(aggregateFunction.replace("$", ""))
-								.append(" as ").append(aggregateColumnName).append(",ad_client_id");
-						whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
-						if (comparisonQuerySelectors.get(aggregateFunction) == null ||
-								((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
-							whereClause.append(DEFAULT_WHERE_CLAUSE);
-						} else {
-							String subWhereClause =
-									getWhereClauseFromExpression(new FilterTableData(tableData.getIdempiereContext(), foreignTableName),
-											(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, false);
-							if (subWhereClause.isEmpty()) {
+				// If we're working with "not exists", our sub-query is simple
+				if (arePerformingNotExists) {
+					whereClause.append(negate ? "" : " NOT").append(" EXISTS (SELECT 1 FROM ").append(foreignTableName)
+							.append(" WHERE ").append(foreignIdColumn).append(" = ").append(tableData.getTableOrFunctionName())
+							.append(".").append(idColumn).append(")");
+				} else {
+					whereClause.append(tableData.getTableOrFunctionName()).append(".").append(idColumn).append(negate ? " NOT" :
+							"").append(" IN (SELECT ").append(foreignIdColumn).append(" FROM ");
+					// Sub-clauses should never be negated (i.e. so we don't have "not in (... not in (... not in (...)))" but
+					// instead "not in (... in (... in (...))))"
+					negate = false;
+					// If we have an aggregate on the comparisons, this will need to be a sub-table with an alias
+					Map<String, Object> aggregateComparisons = comparisonQuerySelectors.entrySet().stream().filter(
+									comparisonQuerySelector -> AGGREGATE_QUERY_SELECTORS.stream().anyMatch(
+											aggregateQuerySelector -> comparisonQuerySelector.getKey().startsWith(aggregateQuerySelector)))
+							.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+					boolean doesTableNeedAggregation = !aggregateComparisons.isEmpty();
+					if (doesTableNeedAggregation) {
+						whereClause.append("(");
+						for (String aggregateFunction : aggregateComparisons.keySet()) {
+							String aggregateColumnName = aggregateFunction.split("\\(")[1].replace(")", "");
+							whereClause.append("SELECT ").append(idColumn).append(", ").append(aggregateFunction.replace("$", ""))
+									.append(" as ").append(aggregateColumnName).append(",ad_client_id");
+							whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
+							if (comparisonQuerySelectors.get(aggregateFunction) == null ||
+									((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
 								whereClause.append(DEFAULT_WHERE_CLAUSE);
 							} else {
-								whereClause.append(subWhereClause);
+								String subWhereClause =
+										getWhereClauseFromExpression(new FilterTableData(tableData.getIdempiereContext(),
+														foreignTableName),
+												(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, false);
+								if (subWhereClause.isEmpty()) {
+									whereClause.append(DEFAULT_WHERE_CLAUSE);
+								} else {
+									whereClause.append(subWhereClause);
+								}
 							}
+							// Add the client check, if it's required
+							whereClause.append(") AND (ad_client_id IN (?,?)");
+							parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
+							parameters.add(MClient_BH.CLIENTID_SYSTEM);
+							// Append the group by clause, since it's an aggregate
+							whereClause.append(") GROUP BY ").append(idColumn).append(",ad_client_id");
 						}
-						// Add the client check, if it's required
-						whereClause.append(") AND (ad_client_id IN (?,?)");
-						parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
-						parameters.add(MClient_BH.CLIENTID_SYSTEM);
-						// Append the group by clause, since it's an aggregate
-						whereClause.append(") GROUP BY ").append(idColumn).append(",ad_client_id");
+						whereClause.append(") ");
 					}
-					whereClause.append(") ");
+					whereClause.append(foreignTableName).append(" WHERE (");
+					// Adjust the comparison string, if need be
+					Map<String, Object> adjustedComparisons = comparisonQuerySelectors;
+					if (remainingDBColumnName != null) {
+						String finalRemainingDBColumnName = remainingDBColumnName;
+						adjustedComparisons = new HashMap<>() {
+							{
+								put(finalRemainingDBColumnName, comparisonQuerySelectors);
+							}
+						};
+					}
+					// Continue the operation, but use the foreign table from this point forward
+					String subWhereClause =
+							getWhereClauseFromExpression(new FilterTableData(tableData.getIdempiereContext(), foreignTableName),
+									adjustedComparisons, parameters, negate);
+					if (subWhereClause.isEmpty()) {
+						whereClause.append(DEFAULT_WHERE_CLAUSE);
+					} else {
+						whereClause.append(subWhereClause);
+					}
+					whereClause.append(") AND (ad_client_id IN (?,?)");
+					parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
+					parameters.add(MClient_BH.CLIENTID_SYSTEM);
+					whereClause.append("))");
 				}
-				whereClause.append(foreignTableName).append(" WHERE (");
-				// Adjust the comparison string, if need be
-				Map<String, Object> adjustedComparisons = comparisonQuerySelectors;
-				if (remainingDBColumnName != null) {
-					String finalRemainingDBColumnName = remainingDBColumnName;
-					adjustedComparisons = new HashMap<>() {
-						{
-							put(finalRemainingDBColumnName, comparisonQuerySelectors);
-						}
-					};
-				}
-				// Continue the operation, but use the foreign table from this point forward
-				String subWhereClause =
-						getWhereClauseFromExpression(new FilterTableData(tableData.getIdempiereContext(), foreignTableName),
-								adjustedComparisons, parameters, negate);
-				if (subWhereClause.isEmpty()) {
-					whereClause.append(DEFAULT_WHERE_CLAUSE);
-				} else {
-					whereClause.append(subWhereClause);
-				}
-				whereClause.append(") AND (ad_client_id IN (?,?)");
-				parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
-				parameters.add(MClient_BH.CLIENTID_SYSTEM);
-				whereClause.append("))");
 			}
 		}
 		return whereClause.toString();

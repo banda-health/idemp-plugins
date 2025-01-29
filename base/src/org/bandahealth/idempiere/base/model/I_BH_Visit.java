@@ -77,6 +77,8 @@ public interface I_BH_Visit
 	  */
 	public int getBH_Clinician_User_ID();
 
+	public org.compiere.model.I_AD_User getBH_Clinician_User() throws RuntimeException;
+
     /** Column name BH_NewVisit */
     public static final String COLUMNNAME_BH_NewVisit = "BH_NewVisit";
 
@@ -164,6 +166,19 @@ public interface I_BH_Visit
 
 	public I_BH_Voided_Reason getBH_Voided_Reason() throws RuntimeException;
 
+    /** Column name Change_Reason */
+    public static final String COLUMNNAME_Change_Reason = "Change_Reason";
+
+	/** Set Change Reason.
+	  * The reason for changing this entity
+	  */
+	public void setChange_Reason (String Change_Reason);
+
+	/** Get Change Reason.
+	  * The reason for changing this entity
+	  */
+	public String getChange_Reason();
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -233,6 +248,19 @@ public interface I_BH_Visit
 	public int getPatient_ID();
 
 	public org.compiere.model.I_C_BPartner getPatient() throws RuntimeException;
+
+    /** Column name Scheduled */
+    public static final String COLUMNNAME_Scheduled = "Scheduled";
+
+	/** Set Scheduled.
+	  * Whether the entity was scheduled or not
+	  */
+	public void setScheduled (boolean Scheduled);
+
+	/** Get Scheduled.
+	  * Whether the entity was scheduled or not
+	  */
+	public boolean isScheduled();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

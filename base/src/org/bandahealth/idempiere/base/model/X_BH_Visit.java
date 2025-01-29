@@ -32,7 +32,7 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250129L;
 
     /** Standard Constructor */
     public X_BH_Visit (Properties ctx, int BH_Visit_ID, String trxName)
@@ -43,6 +43,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 			setBH_Visit_ID (0);
 			setDocumentNo (null);
 			setPatient_ID (0);
+			setScheduled (false);
+// N
         } */
     }
 
@@ -55,6 +57,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 			setBH_Visit_ID (0);
 			setDocumentNo (null);
 			setPatient_ID (0);
+			setScheduled (false);
+// N
         } */
     }
 
@@ -67,6 +71,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 			setBH_Visit_ID (0);
 			setDocumentNo (null);
 			setPatient_ID (0);
+			setScheduled (false);
+// N
         } */
     }
 
@@ -79,6 +85,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 			setBH_Visit_ID (0);
 			setDocumentNo (null);
 			setPatient_ID (0);
+			setScheduled (false);
+// N
         } */
     }
 
@@ -109,6 +117,12 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	public org.compiere.model.I_AD_User getBH_Clinician_User() throws RuntimeException
+	{
+		return (org.compiere.model.I_AD_User)MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_ID)
+			.getPO(getBH_Clinician_User_ID(), get_TrxName());
+	}
 
 	/** Set BH_Clinician_User_ID.
 		@param BH_Clinician_User_ID BH_Clinician_User_ID
@@ -180,6 +194,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public static final String BH_PATIENTTYPE_PTOT = "y";
 	/** Home Visit = z */
 	public static final String BH_PATIENTTYPE_HomeVisit = "z";
+	/** Mental Health = Z */
+	public static final String BH_PATIENTTYPE_MentalHealth = "Z";
 	/** Set Patient Type.
 		@param BH_PatientType Patient Type
 	*/
@@ -196,14 +212,16 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return (String)get_Value(COLUMNNAME_BH_PatientType);
 	}
 
-	/** Cashier = tocashier */
-	public static final String BH_PROCESS_STAGE_Cashier = "tocashier";
-	/** Clinician = toclinician */
-	public static final String BH_PROCESS_STAGE_Clinician = "toclinician";
-	/** Lab = tolab */
-	public static final String BH_PROCESS_STAGE_Lab = "tolab";
+	/** Cashier / Registration = tocashier */
+	public static final String BH_PROCESS_STAGE_CashierRegistration = "tocashier";
+	/** Clinician / Dentist = toclinician */
+	public static final String BH_PROCESS_STAGE_ClinicianDentist = "toclinician";
+	/** Lab / Imaging = tolab */
+	public static final String BH_PROCESS_STAGE_LabImaging = "tolab";
 	/** Pharmacy = topharmacy */
 	public static final String BH_PROCESS_STAGE_Pharmacy = "topharmacy";
+	/** Triage / Vitals = totriage */
+	public static final String BH_PROCESS_STAGE_TriageVitals = "totriage";
 	/** Set BH_Process_Stage.
 		@param BH_Process_Stage Drop down field in visits for users to define the process stage
 	*/
@@ -338,6 +356,22 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return ii.intValue();
 	}
 
+	/** Set Change Reason.
+		@param Change_Reason The reason for changing this entity
+	*/
+	public void setChange_Reason (String Change_Reason)
+	{
+		set_Value (COLUMNNAME_Change_Reason, Change_Reason);
+	}
+
+	/** Get Change Reason.
+		@return The reason for changing this entity
+	  */
+	public String getChange_Reason()
+	{
+		return (String)get_Value(COLUMNNAME_Change_Reason);
+	}
+
 	/** Set Description.
 		@param Description Optional short description of the record
 	*/
@@ -396,5 +430,28 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set Scheduled.
+		@param Scheduled Whether the entity was scheduled or not
+	*/
+	public void setScheduled (boolean Scheduled)
+	{
+		set_Value (COLUMNNAME_Scheduled, Boolean.valueOf(Scheduled));
+	}
+
+	/** Get Scheduled.
+		@return Whether the entity was scheduled or not
+	  */
+	public boolean isScheduled()
+	{
+		Object oo = get_Value(COLUMNNAME_Scheduled);
+		if (oo != null)
+		{
+			 if (oo instanceof Boolean)
+				 return ((Boolean)oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 }
