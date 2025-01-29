@@ -1,33 +1,24 @@
-/*import { PdfData } from 'pdfdataextract';
-import {
-	Ad_ProcessGetDocument,
-	Bh_VisitProcessDocument,
-	Bh_Encounter_Type_WindowGetDocument,
-	Bh_ConceptGetDocument,
-	Bh_VisitGetDocument,
-	Bh_EncounterSaveManyForVisitsDocument,
-} from '../../__generated__/graphql';
-import { readFileSync } from 'fs';
-import path from 'path';
+import { PdfData } from 'pdfdataextract';
 import { v4 } from 'uuid';
 import { mutate, query } from '../../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../../models';
+import { createBusinessPartner, createOrder, createProduct, createVisit, runReport } from '../../utils';
 import {
-	createBusinessPartner,
-	createInvoice,
-	createOrder,
-	createPayment,
-	createProduct,
-	createVisit,
-	runReport,
-} from '../../utils';
+	Ad_ProcessGetDocument,
+	Bh_ConceptGetDocument,
+	Bh_EncounterSaveManyForVisitsDocument,
+	Bh_Encounter_DiagnosticSaveManyForVisitsDocument,
+	Bh_Encounter_Type_WindowGetDocument,
+	Bh_VisitGetDocument,
+	Bh_VisitProcessDocument,
+} from '../../__generated__/graphql';
 
 const reportUuid = '1a7175fe-2afe-4404-9c56-58d2fda9bc57';
 
-test('Lab report is runnable', async () => {
+test('lab report is runnable', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
-	
+
 	valueObject.stepName = 'Create business partner';
 	await createBusinessPartner(valueObject);
 
@@ -58,18 +49,20 @@ test('Lab report is runnable', async () => {
 	const encounterTypeWindow = (
 		await query(valueObject)({
 			query: Bh_Encounter_Type_WindowGetDocument,
-			variables: { Filter: JSON.stringify({ ad_window: { ad_window_uu: '12071666-e1ad-4a91-9fd4-ca46c8ebb622' } }) },
+			variables: { Filter: JSON.stringify({ ad_window: { ad_window_uu: '3084592a-531b-4fbd-a412-5c14c2b15288' } }) },
 		})
 	).data.BH_Encounter_Type_WindowGet.Results[0];
 	expect(encounterTypeWindow).toBeTruthy();
 
-	const diagnostic = (await query(valueObject)({
-		query: Bh_ConceptGetDocument, variables: {
-			Size: 1,
-			Filter: JSON.stringify({ BH_Source: { $text: 'BHLabs' } })
-		}
-	}))
-		.data.BH_ConceptGet.Results[0];
+	const diagnostic = (
+		await query(valueObject)({
+			query: Bh_ConceptGetDocument,
+			variables: {
+				Size: 1,
+				Filter: JSON.stringify({ BH_Source: { $text: 'BHLabs' } }),
+			},
+		})
+	).data.BH_ConceptGet.Results[0];
 	expect(diagnostic).toBeTruthy();
 	const encounterUuid = v4();
 	await mutate(valueObject)({
@@ -83,7 +76,12 @@ test('Lab report is runnable', async () => {
 					BH_Encounter_Date: valueObject.date?.getTime(),
 				},
 			],
-			BH_EncounterDiagnostics: [
+		},
+	});
+	await mutate(valueObject)({
+		mutation: Bh_Encounter_DiagnosticSaveManyForVisitsDocument,
+		variables: {
+			BH_Encounter_Diagnostics: [
 				{
 					BH_Encounter: { UU: encounterUuid },
 					LineNo: 1,
@@ -126,4 +124,3 @@ test('Lab report is runnable', async () => {
 
 	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
 });
-*/
