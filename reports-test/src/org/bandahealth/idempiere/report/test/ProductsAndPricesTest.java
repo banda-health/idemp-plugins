@@ -188,4 +188,86 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 			assertEquals(productCount, reportProductCount, "All active products returned on the report");
 		}
 	}
+	@IPopulateAnnotation.CanRun
+	public void priceListAreDisplayed() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create attribute set to track expirations");
+		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
+		attributeSet.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSet.setName(valueObject.getScenarioName());
+		attributeSet.setDescription(valueObject.getScenarioName());
+		attributeSet.saveEx();
+		commitEx();
+		
+
+		valueObject.setStepName("Create product");
+		valueObject.setSalesStandardPrice(new BigDecimal(50));
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setM_AttributeSet_ID(attributeSet.get_ID());
+		valueObject.getProduct().setName("Product with priceList");
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create valid attribute set instance");
+		MAttributeSetInstance_BH
+				validAttributeSetInstance =
+				new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		validAttributeSetInstance.setM_AttributeSet_ID(attributeSet.get_ID());
+		validAttributeSetInstance.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		validAttributeSetInstance.setDescription(valueObject.getScenarioName());
+		validAttributeSetInstance.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setAttributeSetInstance(validAttributeSetInstance);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("3edf67b9-ee3d-4b73-a02e-deb1c1811db5");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		// Get the number of products we should see on the report
+		int productCount = new Query(valueObject.getContext(), MProduct_BH.Table_Name,
+				MProduct_BH.COLUMNNAME_IsActive + "=? AND " + MProduct_BH.COLUMNNAME_ProductType + "=?",
+				valueObject.getTransactionName()).setParameters("Y", "I").setClient_ID().count();
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+
+			int reportProductCount = 0;
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Name");
+			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
+			int productNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+			int priceListColumnIndex = TableUtils.getColumnIndex(headerRow, "Price List");
+			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
+				if (sheet.getRow(i).getCell(productNameColumnIndex).getCellType().equals(CellType.STRING) &&
+						!sheet.getRow(i).getCell(productNameColumnIndex).getStringCellValue().isEmpty()) {
+					reportProductCount++;
+				}
+				if (sheet.getRow(i).getCell(priceListColumnIndex).getCellType().equals(CellType.STRING) &&
+						!sheet.getRow(i).getCell(priceListColumnIndex).getStringCellValue().isEmpty()) {
+					
+				}
+				
+				
+			}
+			assertEquals(sheet.getRow(0).getCell(priceListColumnIndex).getStringCellValue(), "Price List");
+			assertEquals(productCount, reportProductCount, "All active products returned on the report");
+		}
+	}
 }
