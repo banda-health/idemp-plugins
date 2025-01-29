@@ -257,13 +257,12 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Patient Name");
 			int remainingOpenBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Remaining Open Balance");
 			double runningTotal = 0;
-			int rowNumber = headerRow.getRowNum() + 1;
 			Row tableRow;
-			while (rowNumber < sheet.getLastRowNum() &&
-					(tableRow = sheet.getRow(rowNumber)).getCell(remainingOpenBalanceColumnIndex) != null &&
-					tableRow.getCell(remainingOpenBalanceColumnIndex).getCellType().equals(CellType.NUMERIC)) {
-				rowNumber++;
-				runningTotal += tableRow.getCell(remainingOpenBalanceColumnIndex).getNumericCellValue();
+			for (int rowNumber = headerRow.getRowNum() + 1; rowNumber < sheet.getLastRowNum(); rowNumber++) {
+				if ((tableRow = sheet.getRow(rowNumber)).getCell(remainingOpenBalanceColumnIndex) != null &&
+						tableRow.getCell(remainingOpenBalanceColumnIndex).getCellType().equals(CellType.NUMERIC)) {
+					runningTotal += tableRow.getCell(remainingOpenBalanceColumnIndex).getNumericCellValue();
+				}
 			}
 			assertTrue(runningTotal > 0, "There is an open balance");
 
