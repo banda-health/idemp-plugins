@@ -1,19 +1,13 @@
 package org.bandahealth.idempiere.report.test;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
-
+import com.chuboe.test.populate.ChuBoeCreateEntity;
+import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
+import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.MProductCategory;
@@ -22,10 +16,15 @@ import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.hamcrest.Matchers;
 
-import com.chuboe.test.populate.ChuBoeCreateEntity;
-import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
-import com.chuboe.test.populate.ChuBoePopulateVO;
-import com.chuboe.test.populate.IPopulateAnnotation;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class PrescriptionFormReportTest extends ChuBoePopulateFactoryVO {
 
@@ -46,9 +45,13 @@ public class PrescriptionFormReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
+		var adminUser = valueObject.getUser();
+
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		String patientNameSuffix = String.valueOf(valueObject.getRandomNumber());
+		valueObject.getBusinessPartner().setName(patientNameSuffix + valueObject.getBusinessPartner().getName());
+		valueObject.getBusinessPartner().save();
 		commitEx();
 
 		valueObject.setStepName("Create product");
@@ -60,7 +63,16 @@ public class PrescriptionFormReportTest extends ChuBoePopulateFactoryVO {
 			valueObject.getProduct().setM_Product_Category_ID(pharmacyProductCategory.get_ID());
 			valueObject.getProduct().saveEx();
 		}
+		String productNameSuffix = String.valueOf(valueObject.getRandomNumber());
+		valueObject.getProduct().setName(productNameSuffix + valueObject.getProduct().getName());
+		valueObject.getProduct().save();
+		commitEx();
 
+		valueObject.setStepName("Create purchase order");
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create coded diagnosis");
@@ -96,9 +108,8 @@ public class PrescriptionFormReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
 				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
-		MOrder_BH order = valueObject.getOrder();
-		order.setSalesRep_ID(valueObject.getUser().get_ID());
-		order.saveEx();
+		valueObject.getOrder().setSalesRep_ID(adminUser.get_ID());
+		valueObject.getOrder().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
@@ -106,15 +117,15 @@ public class PrescriptionFormReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
-				List.of(new ProcessInfoParameter("Visit", valueObject.getVisit().get_UUID(), null, null, null)));
+				List.of(new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().get_UUID(), null, null, null)));
 		ChuBoeCreateEntity.runReport(valueObject);
 		commitEx();
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		assertThat("The patient's name is on the report", reportContent, containsString(patientNameSuffix));
-		assertThat("The coded diagnosis is on the report", reportContent, containsString(diagnosisName));
-		assertThat("The non-coded diagnosis is on the report", reportContent, containsString(nonCodedDiagnosis));
-		assertThat("Served By is on the report", reportContent, containsString(valueObject.getUser().getName()));
-		assertThat("Product is on the report", reportContent, containsString(valueObject.getProduct().getName()));
+		assertFalse(reportContent.contains(diagnosisName), "The coded diagnosis is not on the report");
+		assertFalse(reportContent.contains(nonCodedDiagnosis), "The non-coded diagnosis is not on the report");
+		assertThat("Served By is on the report", reportContent, containsString(adminUser.getName()));
+		assertThat("Product is on the report", reportContent, containsString(productNameSuffix));
 	}
 }

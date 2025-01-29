@@ -107,10 +107,11 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 				int priceListId = businessPartner.getBPGroup().getM_PriceList_ID();
 				if (priceListId == 0) {
 					List<Object> parameters = new ArrayList<>(List.of("Y", "Y"));
-					priceListId = new Query(businessPartner.getCtx(), MPriceList.Table_Name,
+					MPriceList defaultSalesPriceList = new Query(businessPartner.getCtx(), MPriceList.Table_Name,
 							MPriceList.COLUMNNAME_IsDefault + "=? AND " + MPriceList.COLUMNNAME_IsSOPriceList + "=?",
-							businessPartner.get_TrxName()).setParameters(parameters).setOnlyActiveRecords(true).setClient_ID().first()
-							.get_ID();
+							businessPartner.get_TrxName()).setParameters(parameters).setOnlyActiveRecords(true).setClient_ID()
+							.first();
+					priceListId = defaultSalesPriceList == null ? 0 : defaultSalesPriceList.get_ID();
 				}
 				businessPartner.setM_PriceList_ID(priceListId);
 			}
@@ -145,11 +146,9 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 						MPriceList.COLUMNNAME_IsDefault + "=? AND " + MPriceList.COLUMNNAME_IsSOPriceList + "=?",
 						businessPartner.get_TrxName()).setParameters(true, false).setOnlyActiveRecords(true).setClient_ID()
 						.setOrderBy(MPriceList.COLUMNNAME_Created + " DESC").first();
-				if (purchasePriceList == null) {
-					throw new AdempiereException(
-							"Could not find a default purchase price list in table '" + MPriceList.Table_Name + "'");
+				if (purchasePriceList != null) {
+					businessPartner.setPO_PriceList_ID(purchasePriceList.getM_PriceList_ID());
 				}
-				businessPartner.setPO_PriceList_ID(purchasePriceList.getM_PriceList_ID());
 			}
 		}
 	}
