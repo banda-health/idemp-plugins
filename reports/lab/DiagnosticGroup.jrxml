@@ -101,6 +101,8 @@ FROM
 				ON c.bh_concept_id = bce.bh_concept_id AND bce.bh_key != 'local_name'
 				JOIN bh_encounter_diagnostic bed
 				ON c.bh_concept_id = bed.bh_concept_id
+		WHERE
+			bed.group1 = $P{Group1}
 		GROUP BY c.bh_concept_id
 	) AS test_ref_range
 		ON test_ref_range.bh_concept_id = test.bh_concept_id

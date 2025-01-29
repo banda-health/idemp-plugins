@@ -50,7 +50,7 @@ public class AuthenticationUtil {
 				int AD_Session_ID = claim.asInt();
 				Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, AD_Session_ID);
 				if (AD_Session_ID > 0 && MSession.get(Env.getCtx()) != null) {
-					MSession.get(Env.getCtx()).logout();
+					new MSession(Env.getCtx(), MSession.get(Env.getCtx())).logout();
 				}
 			}
 			throw e;
