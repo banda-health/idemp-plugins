@@ -527,7 +527,7 @@ public class ImportProductsProcess extends SvrProcess {
 		Trx quantityTransaction = Trx.get(Trx.createTrxName("SvrProcess"), true);
 		quantityTransaction.setDisplayName(getClass().getName() + "_startProcess");
 
-		if (inventoryByProduct.keySet().size() > 0) {
+		if (!inventoryByProduct.isEmpty()) {
 			try {
 				InitializeStock.createInitialStock(inventoryByProduct, getCtx(), quantityTransaction.getTrxName(),
 						handleExistingProducts.equalsIgnoreCase(HANDLE_EXISTING_PRODUCTS_MERGE),
