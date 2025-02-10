@@ -11,12 +11,14 @@ import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.model.X_BH_I_Product_Quantity;
 import org.bandahealth.idempiere.base.process.ImportProductsProcess;
+import org.compiere.model.MCurrency;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.MProductPrice;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Currency;
 import org.compiere.model.X_M_DiscountSchema;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.DB;
@@ -265,22 +267,22 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
+		MDiscountSchema schema = new Query(valueObject.getContext(), X_M_DiscountSchema.Table_Name,
+				"discounttype = '" + X_M_DiscountSchema.DISCOUNTTYPE_Pricelist + "'", valueObject.getTransactionName())
+				.setClient_ID().first();
+//		MCurrency currency = new Query(valueObject.getContext(), X_C_Currency.Table_Name,
+//				 + "='Y'", valueObject.getTransactionName()).setClient_ID().first();
+
 		valueObject.setStepName("Create price list 1");
 		MPriceList priceList1 = new MPriceList(valueObject.getContext(), 0, valueObject.getTransactionName());
-		priceList1.setName(valueObject.getScenarioName());
+		priceList1.setName("My sales Price List" + valueObject.getRandomNumber());
 		priceList1.setIsSOPriceList(true);
+		priceList1.setC_Currency_ID(301);
 		priceList1.saveEx();
 
-		MDiscountSchema schema = new Query(valueObject.getContext(),
-				X_M_DiscountSchema.Table_Name,
-				"discounttype = '" + X_M_DiscountSchema.DISCOUNTTYPE_Pricelist + "'",
-				valueObject.getTransactionName())
-				.setClient_ID()
-				.first();
-
 		valueObject.setStepName("Create price list version 1");
-		MPriceListVersion priceListVersion1 =
-				new MPriceListVersion(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MPriceListVersion priceListVersion1 = new MPriceListVersion(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
 		priceListVersion1.setAD_Org_ID(0);
 		priceListVersion1.setName(valueObject.getDate() + "; IsSOTrx=Y; " + valueObject.getRandomNumber());
 		priceListVersion1.setDescription(valueObject.getStepMessageLong());
@@ -291,17 +293,18 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create price list 2");
 		MPriceList priceList2 = new MPriceList(valueObject.getContext(), 0, valueObject.getTransactionName());
-		priceList2.setName(valueObject.getScenarioName());
+		priceList2.setName("My sale priceList 2	"  + valueObject.getRandomNumber());
 		priceList2.setIsSOPriceList(true);
+		priceList2.setC_Currency_ID(301);
 		priceList2.saveEx();
 
 		valueObject.setStepName("Create price list version 2");
-		MPriceListVersion priceListVersion2 =
-				new MPriceListVersion(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MPriceListVersion priceListVersion2 = new MPriceListVersion(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
 		priceListVersion2.setAD_Org_ID(0);
 		priceListVersion2.setName(valueObject.getDate() + "; IsSOTrx=Y; " + valueObject.getRandomNumber());
 		priceListVersion2.setDescription(valueObject.getStepMessageLong());
-		priceListVersion2.setM_PriceList_ID(priceListVersion2.get_ID());
+		priceListVersion2.setM_PriceList_ID(priceList2.get_ID());
 		priceListVersion2.setValidFrom(valueObject.getDate());
 		priceListVersion2.setM_DiscountSchema_ID(schema.get_ID());
 		priceListVersion2.saveEx();
@@ -353,25 +356,24 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 				valueObject.getTransactionName()).setParameters(productQuantity1.getName()).first();
 		MProduct_BH product2 = new Query(valueObject.getContext(), MProduct_BH.Table_Name, "Name=?",
 				valueObject.getTransactionName()).setParameters(productQuantity2.getName()).first();
-		List<MProductPrice> productPrices =
-				new Query(valueObject.getContext(), MProductPrice.Table_Name, "M_Product_ID IN (?,?)",
-						valueObject.getTransactionName()).setParameters(product1.get_ID(), product2.get_ID()).list();
+		List<MProductPrice> productPrices = new Query(valueObject.getContext(), MProductPrice.Table_Name,
+				"M_Product_ID IN (?,?)", valueObject.getTransactionName())
+				.setParameters(product1.get_ID(), product2.get_ID()).list();
 
-		MPriceList defaultPriceList =
-				new Query(valueObject.getContext(), MPriceList.Table_Name, "IsDefault=? AND IsSOPriceList=?",
-						valueObject.getTransactionName()).setParameters("Y", "Y").setOrderBy("Created DESC").first();
-		MPriceListVersion defaultPriceListVersion =
-				new Query(valueObject.getContext(), MPriceListVersion.Table_Name, "M_PriceList_ID=? AND TRUNC(ValidFrom)<=?",
-						valueObject.getTransactionName()).setParameters(defaultPriceList.getM_PriceList_ID(),
-								valueObject.getDate())
-						.setOrderBy("ValidFrom DESC").first();
+		MPriceList defaultPriceList = new Query(valueObject.getContext(), MPriceList.Table_Name,
+				"IsDefault=? AND IsSOPriceList=?", valueObject.getTransactionName()).setParameters("Y", "Y")
+				.setOrderBy("Created DESC").first();
+		MPriceListVersion defaultPriceListVersion = new Query(valueObject.getContext(), MPriceListVersion.Table_Name,
+				"M_PriceList_ID=? AND TRUNC(ValidFrom)<=?", valueObject.getTransactionName())
+				.setParameters(defaultPriceList.getM_PriceList_ID(), valueObject.getDate()).setOrderBy("ValidFrom DESC")
+				.first();
 
-		List<MProductPrice> product1Prices =
-				productPrices.stream().filter(productPrice -> productPrice.getM_Product_ID() == product1.get_ID())
-						.collect(Collectors.toList());
-		List<MProductPrice> product2Prices =
-				productPrices.stream().filter(productPrice -> productPrice.getM_Product_ID() == product2.get_ID())
-						.collect(Collectors.toList());
+		List<MProductPrice> product1Prices = productPrices.stream()
+				.filter(productPrice -> productPrice.getM_Product_ID() == product1.get_ID())
+				.collect(Collectors.toList());
+		List<MProductPrice> product2Prices = productPrices.stream()
+				.filter(productPrice -> productPrice.getM_Product_ID() == product2.get_ID())
+				.collect(Collectors.toList());
 		Optional<MProductPrice> productPriceToCheck = product1Prices.stream()
 				.filter(productPrice -> productPrice.getM_PriceList_Version_ID() == defaultPriceListVersion.get_ID())
 				.findFirst();
