@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
+import static org.bandahealth.idempiere.graphql.utils.SqlUtil.IDEMPIERE_POSTGRESQL_NATIVE_MARKER;
+
 enum FilterArrayJoin {
 	AND,
 	OR,
@@ -28,6 +30,7 @@ public class FilterUtil {
 
 	private static final List<String> LOGICAL_QUERY_SELECTORS = Arrays.asList("$and", "$not", "$or", "$nor");
 	private static final List<String> AGGREGATE_QUERY_SELECTORS = Arrays.asList("$sum", "$count", "$max", "$min");
+	private static final List<String> DATE_EXPRESSION_FUNCTIONS = Arrays.asList("$date", "$time");
 	private static final String MALFORMED_FILTER_STRING_ERROR = "Filter criteria doesn't meet the standard form.";
 	private static final String SPECIFIC_COLUMN_MAPPING_SPECIFIER = "::";
 	private static final String SOURCE_TO_DESTINATION_COLUMN_MAPPING_SPECIFIER = "->";
@@ -80,6 +83,12 @@ public class FilterUtil {
 	 * 	"$notExists([database column]): {}"
 	 * }
 	 * </pre>
+	 * The following expression functions can be leveraged on columns:
+	 * <pre>
+	 * {
+	 * 	$date([database column])
+	 * 	$time([database column])
+	 * }
 	 * NOTE: ID columns (i.e. ones that end in _ID) are not allowed to be filtered and will be skipped
 	 *
 	 * @param tableName        The name of the table to query
@@ -316,6 +325,16 @@ public class FilterUtil {
 			boolean isFilteringOnIdColumn = dbColumnName.toLowerCase().endsWith("_id");
 			Object comparisons = comparisonQuerySelectors.get(dbColumnName);
 
+			// See if we need to pull the expression function out
+			String dateExpressionFunction = "";
+			String finalDbColumnName = dbColumnName;
+			if (DATE_EXPRESSION_FUNCTIONS.stream()
+					.anyMatch(expressionFunction -> finalDbColumnName.toLowerCase().startsWith(expressionFunction + "("))) {
+				String[] splitColumn = dbColumnName.split("\\(");
+				dateExpressionFunction = IDEMPIERE_POSTGRESQL_NATIVE_MARKER + splitColumn[0].replaceAll("\\$", "");
+				dbColumnName = splitColumn[1].replaceAll("\\)", "");
+			}
+
 			// If the column doesn't exist on this table as specified, we need to follow a different workflow
 			if (!tableData.doesTableHaveColumn(dbColumnName)) {
 				// There could be a case where the comparisons may be final and may not be an object, so re-jigger it
@@ -346,10 +365,16 @@ public class FilterUtil {
 			// As a last precaution, check if the name has "date" in it (and it's not an ID column)
 			else if (dbColumnName.toLowerCase().contains("date") && !isFilteringOnIdColumn) {
 				dbColumnIsDateType = true;
+			} else {
+				// We only allow expression functions on dates at the moment
+				dateExpressionFunction = "";
 			}
 
 			// Alias the column name (in case there are any joins outside this clause)
 			dbColumnName = tableData.getTableOrFunctionName() + "." + dbColumnName;
+			if (!StringUtil.isNullOrEmpty(dateExpressionFunction)) {
+				dbColumnName = dateExpressionFunction + "(" + dbColumnName + ")";
+			}
 
 			// If this isn't a hashmap for this property, assume it's an $eq
 			if (!(comparisons instanceof HashMap)) {
