@@ -21,6 +21,8 @@ import org.compiere.model.MAttributeSet;
 import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MClient;
+import org.compiere.model.MDiscountSchema;
+import org.compiere.model.MDiscountSchemaLine;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
@@ -263,6 +265,16 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							"			AND validfrom <= NOW() - '1 year'::interval" +
 							"	)                                                                AS result"
 			);
+
+			// Discount schema is correct
+			MDiscountSchema bandaDiscountSchema;
+			assertNotNull((bandaDiscountSchema =
+							new Query(valueObject.getContext(), MDiscountSchema.Table_Name, "Name=? AND AD_Client_ID=?",
+									get_TrxName()).setParameters("Default Price List Schema - DO NOT CHANGE", client.get_ID()).first()),
+					"Price list schema is created");
+			assertNotNull(new Query(valueObject.getContext(), MDiscountSchemaLine.Table_Name, "M_DiscountSchema_ID=?",
+							get_TrxName()).setParameters(bandaDiscountSchema.get_ID()).first(),
+					"Price list schema line is created");
 
 			// Assert calendar year periods are opened
 			addAssertionSQL(
