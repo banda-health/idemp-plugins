@@ -35,7 +35,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class ImportProductsProcess extends SvrProcess {
@@ -115,8 +114,9 @@ public class ImportProductsProcess extends SvrProcess {
 				.append(" I_ErrorMsg = ' ',").append(" Processed = 'N', ").append(" Processing = 'Y', ")
 				.append(" I_IsImported = 'N' ").append("WHERE I_IsImported<>'Y' OR I_IsImported IS NULL");
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.FINE))
+		if (log.isLoggable(Level.FINE)) {
 			log.fine("Reset=" + no);
+		}
 
 		// **** Prepare ****
 
@@ -136,8 +136,9 @@ public class ImportProductsProcess extends SvrProcess {
 				.append(" WHERE upper(i.Name)=upper(p.Name) AND i.AD_Client_ID=p.AD_Client_ID)")
 				.append("WHERE M_Product_ID IS NULL").append(" AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.FINE))
+		if (log.isLoggable(Level.FINE)) {
 			log.fine("Set Product=" + no);
+		}
 		//
 		if (handleExistingProducts.equalsIgnoreCase(HANDLE_EXISTING_PRODUCTS_ERROR)) {
 			sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
@@ -165,8 +166,9 @@ public class ImportProductsProcess extends SvrProcess {
 				.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_HasLot1 + " IS NULL")
 				.append(" AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.FINE))
+		if (log.isLoggable(Level.FINE)) {
 			log.fine("Set Lot 1=" + no);
+		}
 		//
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
 				.append("SET " + X_BH_I_Product_Quantity.COLUMNNAME_BH_HasLot2 + " = 'Y'").append("WHERE (")
@@ -175,8 +177,9 @@ public class ImportProductsProcess extends SvrProcess {
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_BuyPrice_Lot2 + " IS NOT NULL")
 				.append(") AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.FINE))
+		if (log.isLoggable(Level.FINE)) {
 			log.fine("Set Lot 2=" + no);
+		}
 		//
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
 				.append("SET " + X_BH_I_Product_Quantity.COLUMNNAME_BH_HasLot3 + " = 'Y'").append("WHERE (")
@@ -185,8 +188,9 @@ public class ImportProductsProcess extends SvrProcess {
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_BuyPrice_Lot3 + " IS NOT NULL")
 				.append(") AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.FINE))
+		if (log.isLoggable(Level.FINE)) {
 			log.fine("Set Lot 3=" + no);
+		}
 
 		// More than one lot for a product that doesn't expire
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
@@ -221,9 +225,9 @@ public class ImportProductsProcess extends SvrProcess {
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
 				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Duplicate Product Name, ' ")
 				.append("WHERE lower(Name) IN (SELECT lower(Name) as name FROM (")
-				.append("SELECT upper(Name) as name, count(*) as product_count FROM "
-						+ X_BH_I_Product_Quantity.Table_Name)
-				.append(" WHERE I_IsImported<>'Y'" + clientCheck + " GROUP BY upper(Name)")
+				.append("SELECT upper(Name) as name, count(*) as product_count FROM ")
+				.append(X_BH_I_Product_Quantity.Table_Name).append(" WHERE I_IsImported<>'Y'").append(clientCheck)
+				.append(" GROUP BY upper(Name)")
 				.append(") p WHERE product_count > 1) AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
 		if (no != 0) {
@@ -284,38 +288,40 @@ public class ImportProductsProcess extends SvrProcess {
 			log.warning("Invalid Expiration Lot 3=" + no);
 			isError = true;
 		}
-		// check price Lists
+
+		// Ensure price list 2 or 3 exist, if any prices listed there
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ").append("SET I_IsImported='N', ")
 				.append("I_ErrorMsg=I_ErrorMsg || 'ERR=Invalid Price List' ")
 				.append("WHERE (" + X_BH_I_Product_Quantity.COLUMNNAME_BH_PriceList2_SellPrice + " IS NOT NULL ")
-				.append("AND " + X_BH_I_Product_Quantity.COLUMNNAME_BH_PriceList2_Name + " IN ")
-				.append("(SELECT name FROM " + MPriceList.Table_Name + " WHERE AD_Client_ID = ").append(clientId)
-				.append(")) ")
-				.append("OR (" + X_BH_I_Product_Quantity.COLUMNNAME_BH_PriceList3_SellPrice + " IS NOT NULL ")
-				.append("AND " + X_BH_I_Product_Quantity.COLUMNNAME_BH_PriceList3_Name + " IN ")
-				.append("(SELECT name FROM " + MPriceList.Table_Name + " WHERE AD_Client_ID = ").append(clientId)
+				.append("AND " + X_BH_I_Product_Quantity.COLUMNNAME_BH_PriceList2_Name + " IS NOT NULL ")
+				.append("AND " + X_BH_I_Product_Quantity.COLUMNNAME_BH_PriceList2_Name + " NOT IN ")
+				.append("(SELECT pl.name FROM M_PriceList pl JOIN M_PriceList_Version plv ON pl.m_pricelist_id = ")
+				.append("plv.m_pricelist_id AND plv.validfrom <= now() WHERE pl.AD_Client_ID = ").append(clientId)
+				.append("))  OR (" + X_BH_I_Product_Quantity.COLUMNNAME_BH_PriceList3_SellPrice + " IS NOT NULL ")
+				.append("AND " + X_BH_I_Product_Quantity.COLUMNNAME_BH_PriceList3_Name + " IS NOT NULL ")
+				.append("AND " + X_BH_I_Product_Quantity.COLUMNNAME_BH_PriceList3_Name + " NOT IN ")
+				.append("(SELECT pl.name FROM M_PriceList pl JOIN M_PriceList_Version plv ON pl.m_pricelist_id = ")
+				.append("plv.m_pricelist_id AND plv.validfrom <= now() WHERE pl.AD_Client_ID = ").append(clientId)
 				.append("))").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
 		if (no != 0) {
 			log.warning("Invalid PriceLists=" + no);
 			isError = true;
 		}
-		// Check default price List
 
-//		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
-//			    .append("SET I_IsImported='N', ")
-//			    .append("I_ErrorMsg=I_ErrorMsg || 'ERR=No default Price List' ")
-//			    .append("WHERE (" + X_BH_I_Product_Quantity.COLUMNNAME_BH_SellPrice + " IS NOT NULL ")
-//			    .append("AND (SELECT name FROM " + MPriceList.Table_Name + " WHERE AD_Client_ID = ")
-//			    .append(clientId)
-//			    .append(" AND " + MPriceList.COLUMNNAME_IsDefault + "='Y') IS NULL")
-//			    .append(")")
-//			    .append(clientCheck);
-//		no = DB.executeUpdate(sql.toString(), get_TrxName());
-//		if (no != 0) {
-//			log.warning("No default Price List=" + no);
-//			isError = true;
-//		}
+		// Check default price List
+		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
+				.append("SET I_IsImported='N', ")
+				.append("I_ErrorMsg=I_ErrorMsg || 'ERR=No default Price List' ")
+				.append("WHERE NOT EXISTS (SELECT pl.name FROM M_PriceList pl JOIN M_PriceList_Version plv ON ")
+				.append("pl.m_pricelist_id = plv.m_pricelist_id AND plv.validfrom <= now() WHERE pl.AD_Client_ID = ")
+				.append(clientId)
+				.append(" AND " + MPriceList.COLUMNNAME_IsDefault + "='Y')");
+		no = DB.executeUpdate(sql.toString(), get_TrxName());
+		if (no != 0) {
+			log.warning("No default Price List=" + no);
+			isError = true;
+		}
 
 		commitEx();
 
@@ -388,175 +394,186 @@ public class ImportProductsProcess extends SvrProcess {
 			serialNumberBySerialNumberControlId.put(nonExpiringAttributeSet.get_ID(),
 					((MSerNoCtl) nonExpiringAttributeSet.getM_SerNoCtl()).createSerNo());
 		}
-		// Get PriceLists
-		List<MPriceList> priceLists = new Query(getCtx(), MPriceList.Table_Name,
-				MPriceList.COLUMNNAME_IsSOPriceList + "=?", get_TrxName()).setParameters(true).setClient_ID()
-				.setOnlyActiveRecords(true).list();
+		// Get Sales PriceLists
+		List<MPriceList> salesPriceLists =
+				new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_IsSOPriceList + "=?",
+						get_TrxName()).setParameters(true).setClient_ID().setOnlyActiveRecords(true).list();
 
-		Map<String, MPriceList> priceListMap = priceLists.stream()
+		Map<String, MPriceList> salesPriceListByName = salesPriceLists.stream()
 				.collect(Collectors.toMap(MPriceList::getName, priceList -> priceList));
 
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			pstmt = DB.prepareStatement(sql.toString(), get_TrxName());
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				X_BH_I_Product_Quantity importedProductQuantity = new X_BH_I_Product_Quantity(getCtx(), rs,
-						get_TrxName());
-				int productId = importedProductQuantity.getM_Product_ID();
-				int importProductQuantityId = importedProductQuantity.getBH_I_Product_Quantity_ID();
+		try (PreparedStatement pstmt = DB.prepareStatement(sql.toString(), get_TrxName())) {
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					X_BH_I_Product_Quantity importedProductQuantity = new X_BH_I_Product_Quantity(getCtx(), rs,
+							get_TrxName());
+					int productId = importedProductQuantity.getM_Product_ID();
+					int importProductQuantityId = importedProductQuantity.getBH_I_Product_Quantity_ID();
 
-				MProduct_BH product;
-				boolean wasSaveSuccessful = true;
-				MAttributeSet_BH attributeSetToUse = importedProductQuantity.isBH_HasExpiration() ? expiringAttributeSet
-						: nonExpiringAttributeSet;
+					MProduct_BH product;
+					boolean wasSaveSuccessful = true;
+					MAttributeSet_BH attributeSetToUse = importedProductQuantity.isBH_HasExpiration() ? expiringAttributeSet
+							: nonExpiringAttributeSet;
 
-				// **** Create/Update Product
-				if (productId == 0) { // New
-					product = new MProduct_BH(importedProductQuantity);
-					product.setC_UOM_ID(uomId);
-					product.setC_TaxCategory_ID(taxCategoryId);
-					product.setM_Product_Category_ID(productCategoriesByName
-							.get(importedProductQuantity.getCategoryName()).getM_Product_Category_ID());
-					product.setM_AttributeSet_ID(attributeSetToUse.get_ID());
-					if (product.save()) {
-						noInsert++;
-						importedProductQuantity.setM_Product_ID(product.getM_Product_ID());
-						importedProductQuantity.setI_IsImported(true);
-						importedProductQuantity.saveEx();
-						inventoryByProduct.put(product, new ArrayList<>());
-					} else {
-						wasSaveSuccessful = false;
-						sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-								.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||")
-								.append(DB.TO_STRING("Insert Product "))
-								.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
-								.append(importProductQuantityId);
-						DB.executeUpdate(sql.toString(), get_TrxName());
-					}
-				} else { // Update existing
-					product = new MProduct_BH(getCtx(), productId, get_TrxName());
-					product.set(importedProductQuantity);
-					product.setM_Product_Category_ID(productCategoriesByName
-							.get(importedProductQuantity.getCategoryName()).getM_Product_Category_ID());
-					product.setM_AttributeSet_ID(attributeSetToUse.get_ID());
-					if (product.save()) {
-						noUpdate++;
-						importedProductQuantity.setI_IsImported(true);
-						importedProductQuantity.saveEx();
-						inventoryByProduct.put(product, new ArrayList<>());
-					} else {
-						wasSaveSuccessful = false;
-						sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-								.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||")
-								.append(DB.TO_STRING("Update Product "))
-								.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
-								.append(importProductQuantityId);
-						DB.executeUpdate(sql.toString(), get_TrxName());
-					}
-				}
-
-				if (wasSaveSuccessful) {
-					int costElementId = new Query(getCtx(), MCostElement.Table_Name,
-							MCostElement.COLUMNNAME_CostingMethod + "=?", get_TrxName())
-							.setParameters(MCostElement.COSTINGMETHOD_LastPOPrice).setOnlyActiveRecords(true)
-							.setClient_ID().firstId();
-					MAcctSchema accountSchema = new Query(getCtx(), MAcctSchema.Table_Name, "", get_TrxName())
-							.setClient_ID().setOnlyActiveRecords(true).first();
-					// Add attribute set instances and costs for each lot, if this product expires
-					if (importedProductQuantity.isBH_HasExpiration()) {
-						// Lot 1
-						if (importedProductQuantity.getBH_InitialQuantity().compareTo(BigDecimal.ZERO) != 0
-								&& !createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
-										serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
-										importedProductQuantity.getBH_InitialQuantity(),
-										importedProductQuantity.getGuaranteeDate(),
-										importedProductQuantity.getBH_BuyPrice(), accountSchema, costElementId)) {
+					// **** Create/Update Product
+					if (productId == 0) { // New
+						product = new MProduct_BH(importedProductQuantity);
+						product.setC_UOM_ID(uomId);
+						product.setC_TaxCategory_ID(taxCategoryId);
+						product.setM_Product_Category_ID(productCategoriesByName
+								.get(importedProductQuantity.getCategoryName()).getM_Product_Category_ID());
+						product.setM_AttributeSet_ID(attributeSetToUse.get_ID());
+						if (product.save()) {
+							noInsert++;
+							importedProductQuantity.setM_Product_ID(product.getM_Product_ID());
+							importedProductQuantity.setI_IsImported(true);
+							importedProductQuantity.saveEx();
+							inventoryByProduct.put(product, new ArrayList<>());
+						} else {
+							wasSaveSuccessful = false;
 							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
 									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||")
-									.append(DB.TO_STRING("Update Product ")).append("WHERE "
-											+ X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+									.append(DB.TO_STRING("Insert Product "))
+									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
 									.append(importProductQuantityId);
 							DB.executeUpdate(sql.toString(), get_TrxName());
 						}
-
-						// Lot 2
-						if (importedProductQuantity.isBH_HasLot2()
-								&& !createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
-										serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
-										importedProductQuantity.getBH_InitialQuantity_Lot2(),
-										importedProductQuantity.getBH_GuaranteeDate_Lot2(),
-										importedProductQuantity.getBH_BuyPrice_Lot2(), accountSchema, costElementId)) {
+					} else { // Update existing
+						product = new MProduct_BH(getCtx(), productId, get_TrxName());
+						product.set(importedProductQuantity);
+						product.setM_Product_Category_ID(productCategoriesByName
+								.get(importedProductQuantity.getCategoryName()).getM_Product_Category_ID());
+						product.setM_AttributeSet_ID(attributeSetToUse.get_ID());
+						if (product.save()) {
+							noUpdate++;
+							importedProductQuantity.setI_IsImported(true);
+							importedProductQuantity.saveEx();
+							inventoryByProduct.put(product, new ArrayList<>());
+						} else {
+							wasSaveSuccessful = false;
 							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
 									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||")
-									.append(DB.TO_STRING("Update Product ")).append("WHERE "
-											+ X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
-									.append(importProductQuantityId);
-							DB.executeUpdate(sql.toString(), get_TrxName());
-						}
-
-						// Lot 3
-						if (importedProductQuantity.isBH_HasLot3()
-								&& !createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
-										serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
-										importedProductQuantity.getBH_InitialQuantity_Lot3(),
-										importedProductQuantity.getBH_GuaranteeDate_Lot3(),
-										importedProductQuantity.getBH_BuyPrice_Lot3(), accountSchema, costElementId)) {
-							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||")
-									.append(DB.TO_STRING("Update Product ")).append("WHERE "
-											+ X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
-									.append(importProductQuantityId);
-							DB.executeUpdate(sql.toString(), get_TrxName());
-						}
-					} else if (importedProductQuantity.getBH_InitialQuantity().compareTo(BigDecimal.ZERO) != 0) {
-						if (!createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
-								serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
-								importedProductQuantity.getBH_InitialQuantity(), null,
-								importedProductQuantity.getBH_BuyPrice_Lot3(), accountSchema, costElementId)) {
-							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||")
-									.append(DB.TO_STRING("Update Product ")).append("WHERE "
-											+ X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+									.append(DB.TO_STRING("Update Product "))
+									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
 									.append(importProductQuantityId);
 							DB.executeUpdate(sql.toString(), get_TrxName());
 						}
 					}
-					String priceList2Name = importedProductQuantity.getBH_PriceList2_Name();
-					BigDecimal priceList2SellPrice = importedProductQuantity.getBH_PriceList2_SellPrice();
-					String priceList3Name = importedProductQuantity.getBH_PriceList3_Name();
-					BigDecimal priceList3SellPrice = importedProductQuantity.getBH_PriceList3_SellPrice();
-					BigDecimal defaultSellPrice = importedProductQuantity.getBH_SellPrice();
 
-					// Default price list
-					MPriceList defaultPriceList = priceLists.stream().filter(MPriceList::isDefault).findFirst().get();
+					if (wasSaveSuccessful) {
+						int costElementId = new Query(getCtx(), MCostElement.Table_Name,
+								MCostElement.COLUMNNAME_CostingMethod + "=?", get_TrxName())
+								.setParameters(MCostElement.COSTINGMETHOD_LastPOPrice).setOnlyActiveRecords(true)
+								.setClient_ID().firstId();
+						MAcctSchema accountSchema = new Query(getCtx(), MAcctSchema.Table_Name, "", get_TrxName())
+								.setClient_ID().setOnlyActiveRecords(true).first();
+						// Add attribute set instances and costs for each lot, if this product expires
+						if (importedProductQuantity.isBH_HasExpiration()) {
+							// Lot 1
+							if (importedProductQuantity.getBH_InitialQuantity().compareTo(BigDecimal.ZERO) != 0
+									&& !createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
+									serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
+									importedProductQuantity.getBH_InitialQuantity(),
+									importedProductQuantity.getGuaranteeDate(),
+									importedProductQuantity.getBH_BuyPrice(), accountSchema, costElementId)) {
+								sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+										.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||")
+										.append(DB.TO_STRING("Update Product ")).append("WHERE "
+												+ X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+										.append(importProductQuantityId);
+								DB.executeUpdate(sql.toString(), get_TrxName());
+							}
 
-					// Check if PriceList2 or PriceList3 is present
-					if (priceList2Name != null && priceList2SellPrice != null) {
-						MPriceList priceList2 = priceListMap.get(priceList2Name);
-						saveSellPrice(product, priceList2, priceList2SellPrice); // Save the price for PriceList2
-					}
-					if (priceList3Name != null && priceList3SellPrice != null) {
-						MPriceList priceList3 = priceListMap.get(priceList3Name);
-						saveSellPrice(product, priceList3, priceList3SellPrice); // Save the price for PriceList3
+							// Lot 2
+							if (importedProductQuantity.isBH_HasLot2()
+									&& !createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
+									serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
+									importedProductQuantity.getBH_InitialQuantity_Lot2(),
+									importedProductQuantity.getBH_GuaranteeDate_Lot2(),
+									importedProductQuantity.getBH_BuyPrice_Lot2(), accountSchema, costElementId)) {
+								sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+										.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||")
+										.append(DB.TO_STRING("Update Product ")).append("WHERE "
+												+ X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+										.append(importProductQuantityId);
+								DB.executeUpdate(sql.toString(), get_TrxName());
+							}
 
-					}
-					// Use the default price list if neither PriceList2 nor PriceList3 is present
-					if (defaultSellPrice != null) {
+							// Lot 3
+							if (importedProductQuantity.isBH_HasLot3()
+									&& !createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
+									serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
+									importedProductQuantity.getBH_InitialQuantity_Lot3(),
+									importedProductQuantity.getBH_GuaranteeDate_Lot3(),
+									importedProductQuantity.getBH_BuyPrice_Lot3(), accountSchema, costElementId)) {
+								sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+										.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||")
+										.append(DB.TO_STRING("Update Product ")).append("WHERE "
+												+ X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+										.append(importProductQuantityId);
+								DB.executeUpdate(sql.toString(), get_TrxName());
+							}
+						} else if (importedProductQuantity.getBH_InitialQuantity().compareTo(BigDecimal.ZERO) != 0) {
+							if (!createLotAndCost(product, attributeSetToUse, inventoryByProduct.get(product),
+									serialNumberBySerialNumberControlId.get(attributeSetToUse.get_ID()),
+									importedProductQuantity.getBH_InitialQuantity(), null,
+									importedProductQuantity.getBH_BuyPrice_Lot3(), accountSchema, costElementId)) {
+								sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+										.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||")
+										.append(DB.TO_STRING("Update Product ")).append("WHERE "
+												+ X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+										.append(importProductQuantityId);
+								DB.executeUpdate(sql.toString(), get_TrxName());
+							}
+						}
+						String priceList2Name = importedProductQuantity.getBH_PriceList2_Name();
+						BigDecimal priceList2SellPrice = importedProductQuantity.getBH_PriceList2_SellPrice();
+						String priceList3Name = importedProductQuantity.getBH_PriceList3_Name();
+						BigDecimal priceList3SellPrice = importedProductQuantity.getBH_PriceList3_SellPrice();
+						BigDecimal defaultSellPrice = importedProductQuantity.getBH_SellPrice();
+
+						// Default price list (this will be true based on the check above
+						MPriceList defaultPriceList = salesPriceLists.stream().filter(MPriceList::isDefault).findFirst().get();
+
+						// Save the default price
+						if (!saveProductPrice(product, defaultPriceList, defaultSellPrice)) {
+							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'Could not save default price'")
+									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+									.append(importProductQuantityId);
+							DB.executeUpdate(sql.toString(), get_TrxName());
+						}
 						product.setBH_SellPrice(defaultSellPrice); // Set the default sell price
-						saveSellPrice(product, defaultPriceList, defaultSellPrice);
 						product.saveEx();
-					}
 
-				}
-			} // for all I_Product
+						// Check if PriceList2 or PriceList3 is present
+						if (priceList2Name != null && priceList2SellPrice != null) {
+							MPriceList priceList2 = salesPriceListByName.get(priceList2Name);
+							// Save the price for PriceList2
+							if (!saveProductPrice(product, priceList2, priceList2SellPrice)) {
+								sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+										.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'Could not save default price'")
+										.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+										.append(importProductQuantityId);
+								DB.executeUpdate(sql.toString(), get_TrxName());
+							}
+						}
+						if (priceList3Name != null && priceList3SellPrice != null) {
+							MPriceList priceList3 = salesPriceListByName.get(priceList3Name);
+							// Save the price for PriceList3
+							if (!saveProductPrice(product, priceList3, priceList3SellPrice)) {
+								sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+										.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'Could not save default price'")
+										.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+										.append(importProductQuantityId);
+								DB.executeUpdate(sql.toString(), get_TrxName());
+							}
+						}
+					}
+				} // for all I_Product
+			}
 		} catch (SQLException e) {
 			throw new Exception("create", e);
-		} finally {
-			DB.close(rs, pstmt);
-			rs = null;
-			pstmt = null;
 		}
 
 		// We do all this and commit before setting initial quantities or else product
@@ -621,12 +638,9 @@ public class ImportProductsProcess extends SvrProcess {
 	 * and associated information
 	 *
 	 * @param product              The product to create a lot for
-	 * @param productsAttributeSet Attribute set assigned to the product (saves a DB
-	 *                             query)
-	 * @param productQuantities    The list of current storage on hand quantities,
-	 *                             if any
-	 * @param serialNumber         A serial number to give to the Attribute Set
-	 *                             Instance if it needs one
+	 * @param productsAttributeSet Attribute set assigned to the product (saves a DB query)
+	 * @param productQuantities    The list of current storage on hand quantities, if any
+	 * @param serialNumber         A serial number to give to the Attribute Set Instance if it needs one
 	 * @param initialQuantity      The initial quantity
 	 * @param expirationDate       The expiration date of the lot, if any
 	 * @param buyPrice             The buying price
@@ -672,42 +686,32 @@ public class ImportProductsProcess extends SvrProcess {
 	}
 
 	/**
-	 * 
-	 * @param product
-	 * @param priceList
-	 * @param sellPrice
-	 * @return
+	 * Save a new product price based on the given parameters
+	 *
+	 * @param product   The product to save a price for
+	 * @param priceList The price list to use for the price
+	 * @param price     The price to use
+	 * @return Whether the save was successful or not
 	 */
-	private void saveSellPrice(MProduct_BH product, MPriceList priceList, BigDecimal sellPrice) {
-		MPriceListVersion plVersion = null;
-		MProductPrice productPrice = null;
-		if (priceList != null) {
-			int mProductId = product.getM_Product_ID();
-			// get the price-list version for the price-list
-			plVersion = new Query(Env.getCtx(), MPriceListVersion.Table_Name,
-					MPriceListVersion.COLUMNNAME_M_PriceList_ID + "=?", null).setParameters(priceList.get_ID())
-					.setClient_ID().first();
-			if (plVersion == null) {
-				throw new AdempiereException("PriceList version not found. Please set in Idempiere!");
-			}
-
-			productPrice = new Query(Env.getCtx(), MProductPrice.Table_Name,
-					MProductPrice.COLUMNNAME_M_Product_ID + "=?", null).setParameters(product.get_ID()).setClient_ID()
-					.first();
-			if (productPrice == null) {
-				productPrice = new MProductPrice(product.getCtx(), plVersion.get_ID(), product.get_TrxName());
-				productPrice.setM_Product_ID(mProductId);
-			}
-
-			productPrice.setPriceStd(sellPrice);
-			productPrice.setPriceLimit(sellPrice);
-			productPrice.setPriceList(sellPrice);
-
-			productPrice.save(product.get_TrxName());
-
-		} else {
-			throw new AdempiereException("PriceList not found. Please set in Idempiere!");
+	private boolean saveProductPrice(MProduct_BH product, MPriceList priceList, BigDecimal price) {
+		// get the price-list version for the price-list
+		MPriceListVersion plVersion = new Query(Env.getCtx(), MPriceListVersion.Table_Name,
+				MPriceListVersion.COLUMNNAME_M_PriceList_ID + "=? AND validfrom <= now()", product.get_TrxName()).setParameters(
+				priceList.get_ID()).setClient_ID().setOrderBy("order by validfrom desc").first();
+		if (plVersion == null) {
+			throw new AdempiereException("PriceList version not found. Please set in Idempiere!");
 		}
-	}
 
+		MProductPrice productPrice = new Query(Env.getCtx(), MProductPrice.Table_Name,
+				MProductPrice.COLUMNNAME_M_Product_ID + "=? AND " + MProductPrice.COLUMNNAME_M_PriceList_Version_ID + "=?",
+				product.get_TrxName()).setParameters(product.get_ID(), plVersion.get_ID()).setClient_ID().first();
+		if (productPrice == null) {
+			productPrice = new MProductPrice(product.getCtx(), 0, product.get_TrxName());
+			productPrice.setM_PriceList_Version_ID(plVersion.get_ID());
+			productPrice.setM_Product_ID(product.getM_Product_ID());
+		}
+
+		productPrice.setPrices(price, price, price);
+		return productPrice.save();
+	}
 }

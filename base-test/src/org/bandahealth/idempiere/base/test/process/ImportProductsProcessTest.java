@@ -11,14 +11,12 @@ import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.model.X_BH_I_Product_Quantity;
 import org.bandahealth.idempiere.base.process.ImportProductsProcess;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.MProductPrice;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_Currency;
 import org.compiere.model.X_M_DiscountSchema;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.DB;
@@ -270,8 +268,6 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		MDiscountSchema schema = new Query(valueObject.getContext(), X_M_DiscountSchema.Table_Name,
 				"discounttype = '" + X_M_DiscountSchema.DISCOUNTTYPE_Pricelist + "'", valueObject.getTransactionName())
 				.setClient_ID().first();
-//		MCurrency currency = new Query(valueObject.getContext(), X_C_Currency.Table_Name,
-//				 + "='Y'", valueObject.getTransactionName()).setClient_ID().first();
 
 		valueObject.setStepName("Create price list 1");
 		MPriceList priceList1 = new MPriceList(valueObject.getContext(), 0, valueObject.getTransactionName());
@@ -279,6 +275,7 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		priceList1.setIsSOPriceList(true);
 		priceList1.setC_Currency_ID(301);
 		priceList1.saveEx();
+		commitEx();
 
 		valueObject.setStepName("Create price list version 1");
 		MPriceListVersion priceListVersion1 = new MPriceListVersion(valueObject.getContext(), 0,
@@ -290,13 +287,15 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		priceListVersion1.setValidFrom(valueObject.getDate());
 		priceListVersion1.setM_DiscountSchema_ID(schema.get_ID());
 		priceListVersion1.saveEx();
+		commitEx();
 
 		valueObject.setStepName("Create price list 2");
 		MPriceList priceList2 = new MPriceList(valueObject.getContext(), 0, valueObject.getTransactionName());
-		priceList2.setName("My sale priceList 2	"  + valueObject.getRandomNumber());
+		priceList2.setName("My sale priceList 2	" + valueObject.getRandomNumber());
 		priceList2.setIsSOPriceList(true);
 		priceList2.setC_Currency_ID(301);
 		priceList2.saveEx();
+		commitEx();
 
 		valueObject.setStepName("Create price list version 2");
 		MPriceListVersion priceListVersion2 = new MPriceListVersion(valueObject.getContext(), 0,
@@ -308,28 +307,32 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		priceListVersion2.setValidFrom(valueObject.getDate());
 		priceListVersion2.setM_DiscountSchema_ID(schema.get_ID());
 		priceListVersion2.saveEx();
+		commitEx();
 
 		valueObject.setStepName("Insert imported product 1");
 		X_BH_I_Product_Quantity productQuantity1 = new X_BH_I_Product_Quantity(valueObject.getContext(), 0,
 				valueObject.getTransactionName());
-		productQuantity1.setName(valueObject.getScenarioName());
+		productQuantity1.setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
 		productQuantity1.setCategoryName("Pharmacy");
 		productQuantity1.setBH_BuyPrice(new BigDecimal(5));
 		productQuantity1.setBH_SellPrice(new BigDecimal(25));
 		productQuantity1.setBH_PriceList2_Name(priceList1.getName());
 		productQuantity1.setBH_PriceList2_SellPrice(new BigDecimal(26));
 		productQuantity1.saveEx();
+		commitEx();
 
 		valueObject.setStepName("Insert imported product 2");
+		valueObject.setRandom();
 		X_BH_I_Product_Quantity productQuantity2 = new X_BH_I_Product_Quantity(valueObject.getContext(), 0,
 				valueObject.getTransactionName());
-		productQuantity2.setName(valueObject.getScenarioName());
-		productQuantity1.setCategoryName("Pharmacy");
+		productQuantity2.setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
+		productQuantity2.setCategoryName("Pharmacy");
 		productQuantity2.setBH_BuyPrice(new BigDecimal(5));
 		productQuantity2.setBH_SellPrice(new BigDecimal(30));
-		productQuantity1.setBH_PriceList2_Name(priceList2.getName());
-		productQuantity1.setBH_PriceList2_SellPrice(new BigDecimal(31));
+		productQuantity2.setBH_PriceList2_Name(priceList2.getName());
+		productQuantity2.setBH_PriceList2_SellPrice(new BigDecimal(31));
 		productQuantity2.saveEx();
+		commitEx();
 
 		int numberOfProducts = new Query(valueObject.getContext(), MProduct_BH.Table_Name, null,
 				valueObject.getTransactionName()).count();
@@ -362,11 +365,11 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 
 		MPriceList defaultPriceList = new Query(valueObject.getContext(), MPriceList.Table_Name,
 				"IsDefault=? AND IsSOPriceList=?", valueObject.getTransactionName()).setParameters("Y", "Y")
-				.setOrderBy("Created DESC").first();
+				.setOrderBy("Created DESC").setClient_ID().first();
 		MPriceListVersion defaultPriceListVersion = new Query(valueObject.getContext(), MPriceListVersion.Table_Name,
 				"M_PriceList_ID=? AND TRUNC(ValidFrom)<=?", valueObject.getTransactionName())
 				.setParameters(defaultPriceList.getM_PriceList_ID(), valueObject.getDate()).setOrderBy("ValidFrom DESC")
-				.first();
+				.setClient_ID().first();
 
 		List<MProductPrice> product1Prices = productPrices.stream()
 				.filter(productPrice -> productPrice.getM_Product_ID() == product1.get_ID())
@@ -388,24 +391,13 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		productPriceToCheck = product1Prices.stream()
 				.filter(productPrice -> productPrice.getM_PriceList_Version_ID() == priceListVersion1.get_ID())
 				.findFirst();
-		assertTrue(productPriceToCheck.isPresent(), "Product 1 price added to price list 1");
+		assertTrue(productPriceToCheck.isPresent(), "Product 1 price added to price list 2");
 		assertEquals(0, productPriceToCheck.get().getPriceStd().compareTo(new BigDecimal(26)),
 				"Product 1 standard price is correct on price list 1");
 		assertEquals(0, productPriceToCheck.get().getPriceList().compareTo(new BigDecimal(26)),
 				"Product 1 standard price is correct on price list 1");
 		assertEquals(0, productPriceToCheck.get().getPriceLimit().compareTo(new BigDecimal(26)),
 				"Product 1 standard price is correct on price list 1");
-
-		productPriceToCheck = product1Prices.stream()
-				.filter(productPrice -> productPrice.getM_PriceList_Version_ID() == priceListVersion2.get_ID())
-				.findFirst();
-		assertTrue(productPriceToCheck.isPresent(), "Product 1 price added to price list 2");
-		assertEquals(0, productPriceToCheck.get().getPriceStd().compareTo(new BigDecimal(25)),
-				"Product 1 standard price is correct on price list 2");
-		assertEquals(0, productPriceToCheck.get().getPriceList().compareTo(new BigDecimal(25)),
-				"Product 1 standard price is correct on price list 2");
-		assertEquals(0, productPriceToCheck.get().getPriceLimit().compareTo(new BigDecimal(25)),
-				"Product 1 standard price is correct on price list 2");
 
 		productPriceToCheck = product2Prices.stream()
 				.filter(productPrice -> productPrice.getM_PriceList_Version_ID() == defaultPriceListVersion.get_ID())
@@ -417,17 +409,6 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 				"Product 2 standard price is correct on default price list");
 		assertEquals(0, productPriceToCheck.get().getPriceLimit().compareTo(new BigDecimal(30)),
 				"Product 2 standard price is correct on default price list");
-
-		productPriceToCheck = product2Prices.stream()
-				.filter(productPrice -> productPrice.getM_PriceList_Version_ID() == priceListVersion1.get_ID())
-				.findFirst();
-		assertTrue(productPriceToCheck.isPresent(), "Product 2 price added to price list 1");
-		assertEquals(0, productPriceToCheck.get().getPriceStd().compareTo(new BigDecimal(30)),
-				"Product 2 standard price is correct on price list 1");
-		assertEquals(0, productPriceToCheck.get().getPriceList().compareTo(new BigDecimal(30)),
-				"Product 2 standard price is correct on price list 1");
-		assertEquals(0, productPriceToCheck.get().getPriceLimit().compareTo(new BigDecimal(30)),
-				"Product 2 standard price is correct on price list 1");
 
 		productPriceToCheck = product2Prices.stream()
 				.filter(productPrice -> productPrice.getM_PriceList_Version_ID() == priceListVersion2.get_ID())
