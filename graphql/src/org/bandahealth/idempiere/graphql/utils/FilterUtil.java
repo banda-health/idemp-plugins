@@ -467,12 +467,12 @@ public class FilterUtil {
 						parameters.addAll(listOperatorValues);
 						break;
 					case "$text":
-						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " NOT " : " ")
-								.append("LIKE '%").append(filterValue.toString().toLowerCase()).append("%'");
+						whereClause.append(dbColumnName).append(negate ? " NOT " : " ").append("ILIKE '%' || ? || '%'");
+						parameters.add(filterValue.toString());
 						break;
 					case "$ntext":
-						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " " : " NOT ")
-								.append("LIKE '%").append(filterValue.toString().toLowerCase()).append("%'");
+						whereClause.append(dbColumnName).append(negate ? " " : " NOT ").append("ILIKE '%' || ? || '%'");
+						parameters.add(filterValue.toString());
 						break;
 					case "$null":
 						whereClause.append(dbColumnName).append(" IS").append(negate ? " NOT " : " ").append("NULL");
