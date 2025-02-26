@@ -54863,6 +54863,8 @@ export type MutationAd_ProcessDeleteArgs = {
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationAd_ProcessRunArgs = {
   ProcessInfoParameterList?: InputMaybe<Array<ProcessInfoParameterInput>>;
+  RecordUU?: InputMaybe<Scalars['String']['input']>;
+  TableUU?: InputMaybe<Scalars['String']['input']>;
   UU: Scalars['ID']['input'];
 };
 
@@ -54870,7 +54872,9 @@ export type MutationAd_ProcessRunArgs = {
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationAd_ProcessRunAndExportArgs = {
   ProcessInfoParameterList?: InputMaybe<Array<ProcessInfoParameterInput>>;
+  RecordUU?: InputMaybe<Scalars['String']['input']>;
   ReportType: ReportOutput;
+  TableUU?: InputMaybe<Scalars['String']['input']>;
   UU: Scalars['ID']['input'];
 };
 
