@@ -28,7 +28,7 @@ type BH_Encounter_Diagnosis {
 	# uncoded diagnosis
 	BH_Uncoded_Diagnosis: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -36,7 +36,7 @@ type BH_Encounter_Diagnosis {
 	# Line No
 	LineNo: Int
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

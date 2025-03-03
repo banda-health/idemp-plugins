@@ -25,13 +25,13 @@ type M_PerpetualInv {
 	# Count High Movement products
 	CountHighMovement: Boolean!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Date the process will run next
-	DateNextRun: Date!
+	DateNextRun: DateTime!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -51,7 +51,7 @@ type M_PerpetualInv {
 	NumberOfRuns: Int!
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -62,9 +62,9 @@ input M_PerpetualInvInput {
 	# Count High Movement products
 	CountHighMovement: Boolean
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Date the process will run next
-	DateNextRun: Date
+	DateNextRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

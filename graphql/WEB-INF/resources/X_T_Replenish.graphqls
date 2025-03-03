@@ -55,7 +55,7 @@ type T_Replenish {
 	ReplenishType: AD_Ref_List!
 	UU: ID!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

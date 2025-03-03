@@ -45,11 +45,13 @@ test('guarantee dates can be updated', async () => {
 		},
 	});
 	expect(
-		(
-			await query(valueObject)({
-				query: M_AttributeSetInstanceGetDocument,
-				variables: { Filter: JSON.stringify({ m_attributesetinstance_uu: expiringAttributeSetInstance.UU }) },
-			})
-		).data.M_AttributeSetInstanceGet.Results[0].GuaranteeDate,
+		new Date(
+			(
+				await query(valueObject)({
+					query: M_AttributeSetInstanceGetDocument,
+					variables: { Filter: JSON.stringify({ m_attributesetinstance_uu: expiringAttributeSetInstance.UU }) },
+				})
+			).data.M_AttributeSetInstanceGet.Results[0].GuaranteeDate!,
+		).getTime(),
 	).toBe(newDate);
 });

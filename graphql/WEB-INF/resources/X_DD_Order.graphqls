@@ -46,7 +46,7 @@ type DD_Order {
 	ChargeAmt: BigDecimal
 	CreateConfirm: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
@@ -102,7 +102,7 @@ type DD_Order {
 	# Number of packages shipped
 	NoPackages: Int
 	# Date/Time when picked for Shipment
-	PickDate: Date
+	PickDate: DateTime
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status
@@ -121,11 +121,11 @@ type DD_Order {
 	# Enable sending Document EMail
 	SendEMail: Boolean!
 	# Shipment Date/Time
-	ShipDate: Date
+	ShipDate: DateTime
 	# Number to track the shipment
 	TrackingNo: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1
@@ -217,7 +217,7 @@ input DD_OrderInput {
 	# Number of packages shipped
 	NoPackages: Int
 	# Date/Time when picked for Shipment
-	PickDate: Date
+	PickDate: DateTime
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status
@@ -236,7 +236,7 @@ input DD_OrderInput {
 	# Enable sending Document EMail
 	SendEMail: Boolean
 	# Shipment Date/Time
-	ShipDate: Date
+	ShipDate: DateTime
 	# Number to track the shipment
 	TrackingNo: String
 	# User defined list element #1

@@ -33,7 +33,7 @@ type I_ElementValue {
 	# Account Element
 	C_ElementValue: C_ElementValue
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
 	# Name of the Default Account Column
@@ -71,7 +71,7 @@ type I_ElementValue {
 	Processed: Boolean!
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User
 	# Search key for the record in the format required - must be unique

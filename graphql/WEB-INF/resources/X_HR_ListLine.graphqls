@@ -31,7 +31,7 @@ type HR_ListLine {
 	Col_7: BigDecimal
 	Col_8: BigDecimal
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	UU: ID!
@@ -43,7 +43,7 @@ type HR_ListLine {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

@@ -27,7 +27,7 @@ type EXP_FormatLine {
 	# System Reference and Validation
 	AD_Reference: AD_Reference
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date format used in the input format
@@ -50,7 +50,7 @@ type EXP_FormatLine {
 	# Type of Validation (SQL, Java Script, Java Language)
 	Type: AD_Ref_List!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique

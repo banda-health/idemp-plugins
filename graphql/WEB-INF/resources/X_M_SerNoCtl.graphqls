@@ -25,7 +25,7 @@ type M_SerNoCtl {
 	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
 	BH_Locked: Boolean!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The next number to be used
@@ -46,7 +46,7 @@ type M_SerNoCtl {
 	# Suffix after the number
 	Suffix: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

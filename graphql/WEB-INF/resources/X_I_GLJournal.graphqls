@@ -81,7 +81,7 @@ type I_GLJournal {
 	# Key value for the Currency Conversion Rate Type
 	ConversionTypeValue: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
 	# Currency Conversion Rate
@@ -143,7 +143,7 @@ type I_GLJournal {
 	# Bar Code (Universal Product Code or its superset European Article Number)
 	UPC: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User
 	# User defined list element #1

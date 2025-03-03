@@ -27,7 +27,7 @@ type PP_WF_Node_Asset {
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -36,7 +36,7 @@ type PP_WF_Node_Asset {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

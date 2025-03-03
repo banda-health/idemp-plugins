@@ -29,23 +29,23 @@ type PP_MRP {
 	# Sales Order Line
 	C_OrderLine: C_OrderLine
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date Confirm of this Order
-	DateConfirm: Date
+	DateConfirm: DateTime
 	# Scheduled Finish date for this Order
-	DateFinishSchedule: Date
+	DateFinishSchedule: DateTime
 	# Date of Order
-	DateOrdered: Date!
+	DateOrdered: DateTime!
 	# Date Order was promised
-	DatePromised: Date!
+	DatePromised: DateTime!
 	# Simulation date for this Material Plan
-	DateSimulation: Date
+	DateSimulation: DateTime
 	# Date Start for this Order
-	DateStart: Date
+	DateStart: DateTime
 	# Scheduled start date for this Order
-	DateStartSchedule: Date
+	DateStartSchedule: DateTime
 	DD_Order: DD_Order
 	DD_OrderLine: DD_OrderLine
 	# Optional short description of the record
@@ -86,7 +86,7 @@ type PP_MRP {
 	# MRP Type determines whether a record is demand or supply
 	TypeMRP: AD_Ref_List
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
@@ -105,19 +105,19 @@ input PP_MRPInput {
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# Date Confirm of this Order
-	DateConfirm: Date
+	DateConfirm: DateTime
 	# Scheduled Finish date for this Order
-	DateFinishSchedule: Date
+	DateFinishSchedule: DateTime
 	# Date of Order
-	DateOrdered: Date
+	DateOrdered: DateTime
 	# Date Order was promised
-	DatePromised: Date
+	DatePromised: DateTime
 	# Simulation date for this Material Plan
-	DateSimulation: Date
+	DateSimulation: DateTime
 	# Date Start for this Order
-	DateStart: Date
+	DateStart: DateTime
 	# Scheduled start date for this Order
-	DateStartSchedule: Date
+	DateStartSchedule: DateTime
 	DD_Order: ForeignEntityInput
 	DD_OrderLine: ForeignEntityInput
 	# Optional short description of the record

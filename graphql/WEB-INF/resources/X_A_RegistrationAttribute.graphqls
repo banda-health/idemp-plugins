@@ -30,7 +30,7 @@ type A_RegistrationAttribute {
 	# Name of the column in the database
 	ColumnName: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -44,7 +44,7 @@ type A_RegistrationAttribute {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

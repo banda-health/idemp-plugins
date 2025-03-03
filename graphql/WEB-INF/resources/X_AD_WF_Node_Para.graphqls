@@ -31,7 +31,7 @@ type AD_WF_Node_Para {
 	# Value of the Attribute
 	AttributeValue: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -41,7 +41,7 @@ type AD_WF_Node_Para {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

@@ -35,7 +35,7 @@ type AD_ToolBarButtonRestrict {
 	# Data entry or display window
 	AD_Window: AD_Window
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -43,7 +43,7 @@ type AD_ToolBarButtonRestrict {
 	# Exclude access to the data - if not selected Include access to the data
 	IsExclude: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

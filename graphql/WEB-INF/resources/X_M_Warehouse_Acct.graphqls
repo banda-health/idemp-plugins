@@ -25,7 +25,7 @@ type M_Warehouse_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -34,7 +34,7 @@ type M_Warehouse_Acct {
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Warehouse Differences Account

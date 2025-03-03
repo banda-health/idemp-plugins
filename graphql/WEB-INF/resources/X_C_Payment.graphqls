@@ -86,7 +86,7 @@ type C_Payment {
 	# Converted Amount
 	ConvertedAmt: BigDecimal
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Expiry Month
@@ -188,6 +188,8 @@ type C_Payment {
 	Reversal: C_Payment
 	# Bank Routing Number
 	RoutingNo: String
+	# Whether the entity was scheduled or not
+	Scheduled: Boolean!
 	# Swift Code or BIC
 	SwiftCode: String
 	# Track 1 and 2 of the Credit Card
@@ -199,7 +201,7 @@ type C_Payment {
 	# Type of credit card transaction
 	TrxType: AD_Ref_List!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1
@@ -377,6 +379,8 @@ input C_PaymentInput {
 	Reversal: ForeignEntityInput
 	# Bank Routing Number
 	RoutingNo: String
+	# Whether the entity was scheduled or not
+	Scheduled: Boolean
 	# Swift Code or BIC
 	SwiftCode: String
 	# Track 1 and 2 of the Credit Card

@@ -35,7 +35,7 @@ type AD_PInstance {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
 	ErrorMsg: String
@@ -53,7 +53,7 @@ type AD_PInstance {
 	# Result of the action taken
 	Result: Int
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

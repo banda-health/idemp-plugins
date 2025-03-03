@@ -29,7 +29,7 @@ type R_RequestType {
 	# Content color of calendar dashlet
 	ContentColor: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -62,7 +62,7 @@ type R_RequestType {
 	# Request Status Category
 	R_StatusCategory: R_StatusCategory!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

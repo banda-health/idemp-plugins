@@ -9,6 +9,9 @@ import graphql.schema.GraphQLScalarType;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 /**
  * A custom scalar to allow passing of Date classes into the GraphQL API
@@ -22,9 +25,10 @@ public class DateScalar {
 						return null;
 					}
 					if (dataFetcherResult instanceof Date) {
-						return ((Date) dataFetcherResult).getTime();
+						// Hopefully this never gets used because it'll lead to problems
+						return new SimpleDateFormat("yyyy/MM/dd").format((Date) dataFetcherResult);
 					} else if (dataFetcherResult instanceof Timestamp) {
-						return ((Timestamp) dataFetcherResult).getTime();
+						return new SimpleDateFormat("yyyy/MM/dd").format((Timestamp) dataFetcherResult);
 					}
 					throw new CoercingSerializeException("Could not serialize to date: " + dataFetcherResult);
 				}
@@ -51,7 +55,10 @@ public class DateScalar {
 			return null;
 		}
 		if (input instanceof Integer || input instanceof Long) {
-			return new Timestamp(Long.parseLong(input.toString()));
+			// Calculate the offset because the Timestamp is actually time-zoned and not UTC
+			Instant instant = Instant.ofEpochMilli(Long.parseLong(input.toString()));
+			ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+			return new Timestamp(Long.parseLong(input.toString()) - zonedDateTime.getOffset().getTotalSeconds() * 1000L);
 		} else if (input instanceof String) {
 			try {
 				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(input.toString()).getTime());
@@ -63,6 +70,10 @@ public class DateScalar {
 			}
 			try {
 				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd").parse(input.toString()).getTime());
+			} catch (Exception ignored) {
+			}
+			try {
+				return new Timestamp(new SimpleDateFormat("yyyy/MM/dd").parse(input.toString()).getTime());
 			} catch (Exception ignored) {
 			}
 		}

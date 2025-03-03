@@ -46,7 +46,7 @@ type C_InvoiceBatchLine {
 	# Tax identifier
 	C_Tax: C_Tax!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Accounting Date
@@ -76,7 +76,7 @@ type C_InvoiceBatchLine {
 	# Tax Amount for a document
 	TaxAmt: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1

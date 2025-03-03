@@ -55,7 +55,7 @@ type I_BPartner {
 	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
 	CountryCode: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
 	# Optional short description of the record
@@ -111,7 +111,7 @@ type I_BPartner {
 	# Name this entity is referred to as
 	Title: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User
 	# Search key for the record in the format required - must be unique

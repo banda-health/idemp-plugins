@@ -28,7 +28,7 @@ type A_Asset_Delivery {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# EMail Delivery confirmation
@@ -48,7 +48,7 @@ type A_Asset_Delivery {
 	# EMail Message ID
 	MessageID: String
 	# Date a product was moved in or out of inventory
-	MovementDate: Date!
+	MovementDate: DateTime!
 	# Referring web address
 	Referrer: String
 	# Remote Address
@@ -58,7 +58,7 @@ type A_Asset_Delivery {
 	# Product Serial Number 
 	SerNo: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Full URL address - e.g. http://www.idempiere.org
@@ -92,7 +92,7 @@ input A_Asset_DeliveryInput {
 	# EMail Message ID
 	MessageID: String
 	# Date a product was moved in or out of inventory
-	MovementDate: Date
+	MovementDate: DateTime
 	# Referring web address
 	Referrer: String
 	# Remote Address
