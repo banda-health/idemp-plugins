@@ -42309,7 +42309,7 @@ export type InventoryTransaction = {
   BH_Visit?: Maybe<Bh_Visit>;
   C_Order?: Maybe<C_Order>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   M_AttributeSetInstance?: Maybe<M_AttributeSetInstance>;

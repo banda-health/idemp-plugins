@@ -55,7 +55,9 @@ public class DateScalar {
 			return null;
 		}
 		if (input instanceof Integer || input instanceof Long) {
-			// Calculate the offset because the Timestamp is actually time-zoned and not UTC
+			// The DB is going to truncate the time AND auto-adjust it to it's time zone
+			// So, subtract the offset so that the date is correct when the DB re-adds the time zone
+			// ! NB: if the DB is on a different time zone than this server, there will be issues
 			Instant instant = Instant.ofEpochMilli(Long.parseLong(input.toString()));
 			ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
 			return new Timestamp(Long.parseLong(input.toString()) - zonedDateTime.getOffset().getTotalSeconds() * 1000L);
