@@ -25,6 +25,6 @@ VALUES
 
 -- Register the script and be done
 SELECT
-	register_migration_script('202502281416_GO-3208.sql')
+	register_migration_script('202503031052_GO-2986.sql')
 FROM
 	dual;
