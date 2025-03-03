@@ -25,7 +25,7 @@ type PP_Product_Planning {
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	DD_NetworkDistribution: DD_NetworkDistribution
@@ -64,7 +64,7 @@ type PP_Product_Planning {
 	TimeFence: BigDecimal
 	TransfertTime: BigDecimal
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Workflow Simulation Execution Time

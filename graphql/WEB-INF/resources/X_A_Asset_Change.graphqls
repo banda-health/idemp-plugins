@@ -83,10 +83,10 @@ type A_Asset_Change {
 	# Valid Account Combination
 	C_ValidCombination: C_ValidCombination
 	ChangeAmt: BigDecimal
-	ChangeDate: Date
+	ChangeDate: DateTime
 	ChangeType: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Accounting Date
@@ -113,7 +113,7 @@ type A_Asset_Change {
 	SerNo: String
 	TextDetails: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Months of the usable life of the asset
@@ -190,7 +190,7 @@ input A_Asset_ChangeInput {
 	# Valid Account Combination
 	C_ValidCombination: ForeignEntityInput
 	ChangeAmt: BigDecimal
-	ChangeDate: Date
+	ChangeDate: DateTime
 	ChangeType: ForeignEntityInput
 	# Accounting Date
 	DateAcct: Date

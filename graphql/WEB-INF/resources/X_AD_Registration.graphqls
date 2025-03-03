@@ -30,7 +30,7 @@ type AD_Registration {
 	# Location or Address
 	C_Location: C_Location
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -63,7 +63,7 @@ type AD_Registration {
 	# The day you started the implementation (if implementing) - or production (went life) with iDempiere
 	StartProductionDate: Date
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

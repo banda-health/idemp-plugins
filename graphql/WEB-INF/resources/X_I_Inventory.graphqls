@@ -29,7 +29,7 @@ type I_Inventory {
 	# Name of the Charge
 	ChargeName: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
 	# The currently used cost price
@@ -77,7 +77,7 @@ type I_Inventory {
 	# Bar Code (Universal Product Code or its superset European Article Number)
 	UPC: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User
 	# Search key for the record in the format required - must be unique

@@ -29,7 +29,7 @@ type M_Freight {
 	# Identifies a geographical Region
 	C_Region: C_Region
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Freight Amount 
@@ -46,7 +46,7 @@ type M_Freight {
 	# Receiving Region
 	To_Region: C_Region
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Valid from including this date (first day)

@@ -23,7 +23,7 @@ type M_DiscountSchema {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Level for accumulative calculations
@@ -47,7 +47,7 @@ type M_DiscountSchema {
 	# Dynamic Java Language Script to calculate result
 	Script: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Valid from including this date (first day)

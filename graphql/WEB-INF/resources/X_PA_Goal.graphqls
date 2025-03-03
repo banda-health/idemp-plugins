@@ -29,15 +29,15 @@ type PA_Goal {
 	# Type of chart to render
 	ChartType: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Starting date for a range
-	DateFrom: Date
+	DateFrom: DateTime
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# End date of a date range
-	DateTo: Date
+	DateTo: DateTime
 	# Optional short description of the record
 	Description: String
 	# Target achievement from 0..1
@@ -70,7 +70,7 @@ type PA_Goal {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -85,11 +85,11 @@ input PA_GoalInput {
 	# Type of chart to render
 	ChartType: ForeignEntityInput
 	# Starting date for a range
-	DateFrom: Date
+	DateFrom: DateTime
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# End date of a date range
-	DateTo: Date
+	DateTo: DateTime
 	# Optional short description of the record
 	Description: String
 	# Target achievement from 0..1

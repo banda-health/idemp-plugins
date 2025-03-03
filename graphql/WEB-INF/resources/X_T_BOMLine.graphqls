@@ -33,7 +33,7 @@ type T_BOMLine {
 	# Standard Costs
 	CostStandard: BigDecimal
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The currently used cost price
@@ -66,7 +66,7 @@ type T_BOMLine {
 	SeqNo: Int
 	UU: ID!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

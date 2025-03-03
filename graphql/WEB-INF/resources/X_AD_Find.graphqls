@@ -28,7 +28,7 @@ type AD_Find {
 	# Logical operation: AND or OR
 	AndOr: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	Find_ID: BigDecimal!
@@ -37,7 +37,7 @@ type AD_Find {
 	# Compare Operation
 	Operation: AD_Ref_List!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique

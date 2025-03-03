@@ -26,7 +26,7 @@ type AD_ReportView {
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -40,7 +40,7 @@ type AD_ReportView {
 	# Fully qualified ORDER BY clause
 	OrderByClause: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Fully qualified SQL WHERE clause

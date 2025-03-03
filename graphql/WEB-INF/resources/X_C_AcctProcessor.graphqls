@@ -29,13 +29,13 @@ type C_AcctProcessor {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Date the process will run next
-	DateNextRun: Date
+	DateNextRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -48,7 +48,7 @@ type C_AcctProcessor {
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: AD_User!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -63,9 +63,9 @@ input C_AcctProcessorInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Date the process will run next
-	DateNextRun: Date
+	DateNextRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

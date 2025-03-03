@@ -424,6 +424,25 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	ForeignEntityInput Reversal();
 
 	/**
+	 * Column name Scheduled
+	 */
+	static final String COLUMNNAME_Scheduled = "Scheduled";
+
+	/**
+	 * Set Scheduled.
+	 *
+	 * @param Scheduled Whether the entity was scheduled or not
+	 */
+	void setScheduled(boolean Scheduled);
+
+	/**
+	 * Get Scheduled.
+	 *
+	 * @return Whether the entity was scheduled or not
+	 */
+	boolean isScheduled();
+
+	/**
 	 * Set TenderType.
 	 *
 	 * @param TenderType Method of Payment

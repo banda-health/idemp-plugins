@@ -27,13 +27,13 @@ type GL_Fund {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Starting date for a range
-	DateFrom: Date
+	DateFrom: DateTime
 	# End date of a date range
-	DateTo: Date
+	DateTo: DateTime
 	# Optional short description of the record
 	Description: String
 	UU: ID!
@@ -44,7 +44,7 @@ type GL_Fund {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -57,9 +57,9 @@ input GL_FundInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Starting date for a range
-	DateFrom: Date
+	DateFrom: DateTime
 	# End date of a date range
-	DateTo: Date
+	DateTo: DateTime
 	# Optional short description of the record
 	Description: String
 	UU: ID

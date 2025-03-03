@@ -28,7 +28,7 @@ type C_RfQResponseLine {
 	C_RfQResponse: C_RfQResponse!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date when work is (planned to be) complete
@@ -48,7 +48,7 @@ type C_RfQResponseLine {
 	# This is a Self-Service entry or this entry can be changed via Self-Service
 	IsSelfService: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

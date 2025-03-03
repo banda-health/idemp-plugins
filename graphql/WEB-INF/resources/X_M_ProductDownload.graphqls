@@ -23,7 +23,7 @@ type M_ProductDownload {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# URL of the Download files
@@ -36,7 +36,7 @@ type M_ProductDownload {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

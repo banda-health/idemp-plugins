@@ -31,7 +31,7 @@ type M_Attribute {
 	# Type of Attribute Value
 	AttributeValueType: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date format used in the input format
@@ -50,7 +50,7 @@ type M_Attribute {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

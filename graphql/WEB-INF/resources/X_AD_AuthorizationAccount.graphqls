@@ -19,7 +19,7 @@ type AD_AuthorizationAccountConnection {
 
 type AD_AuthorizationAccount {
 	AccessToken: String
-	AccessTokenTimestamp: Date
+	AccessTokenTimestamp: DateTime
 	UU: ID!
 	AD_AuthorizationCredential: AD_AuthorizationCredential
 	AD_AuthorizationScopes: AD_Ref_List
@@ -30,7 +30,7 @@ type AD_AuthorizationAccount {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Electronic Mail Address
@@ -45,14 +45,14 @@ type AD_AuthorizationAccount {
 	Preferred_UserName: String
 	RefreshToken: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
 
 input AD_AuthorizationAccountInput {
 	AccessToken: String
-	AccessTokenTimestamp: Date
+	AccessTokenTimestamp: DateTime
 	UU: ID
 	AD_AuthorizationCredential: ForeignEntityInput
 	AD_AuthorizationScopes: ForeignEntityInput

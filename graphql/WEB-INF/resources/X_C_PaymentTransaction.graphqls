@@ -77,7 +77,7 @@ type C_PaymentTransaction {
 	# Check Number
 	CheckNo: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Expiry Month
@@ -151,7 +151,7 @@ type C_PaymentTransaction {
 	# Type of credit card transaction
 	TrxType: AD_Ref_List!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1

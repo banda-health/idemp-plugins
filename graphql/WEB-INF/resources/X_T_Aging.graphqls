@@ -42,7 +42,7 @@ type T_Aging {
 	C_Project: C_Project
 	ConvertAmountsInCurrency: C_Currency
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Accounting Date
@@ -86,7 +86,7 @@ type T_Aging {
 	StatementDate: Date!
 	UU: ID!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

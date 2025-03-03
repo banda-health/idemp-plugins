@@ -51,7 +51,7 @@ type AD_Field {
 	# Virtual Column (r/o)
 	ColumnSQL: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Default value hierarchy, separated by ;
@@ -118,7 +118,7 @@ type AD_Field {
 	# Determines in what order the records are displayed
 	SortNo: BigDecimal
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"

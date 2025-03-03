@@ -47,31 +47,31 @@ type R_Request {
 	# Financial Project
 	C_Project: C_Project
 	# Close Date
-	CloseDate: Date
+	CloseDate: DateTime
 	# Type of Confidentiality
 	ConfidentialType: AD_Ref_List!
 	# Confidentiality of the individual entry
 	ConfidentialTypeEntry: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Planned Completion Date
-	DateCompletePlan: Date
+	DateCompletePlan: DateTime
 	# Date this request was last acted on
-	DateLastAction: Date
+	DateLastAction: DateTime
 	# Date when last alert were sent
-	DateLastAlert: Date
+	DateLastAlert: DateTime
 	# Date that this request should be acted on
-	DateNextAction: Date
+	DateNextAction: DateTime
 	# Planned Start Date
-	DateStartPlan: Date
+	DateStartPlan: DateTime
 	# Document sequence number of the document
 	DocumentNo: String!
 	# Status of the next action for this Request
 	DueType: AD_Ref_List!
 	# End of the time span
-	EndTime: Date
+	EndTime: DateTime
 	# The record is active in the system
 	IsActive: Boolean!
 	# This request has been escalated
@@ -132,15 +132,15 @@ type R_Request {
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
 	# First effective day (inclusive)
-	StartDate: Date
+	StartDate: DateTime
 	# Time started
-	StartTime: Date
+	StartTime: DateTime
 	# Textual summary of this request
 	Summary: String!
 	# Status of the Task
 	TaskStatus: AD_Ref_List
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -173,27 +173,27 @@ input R_RequestInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Close Date
-	CloseDate: Date
+	CloseDate: DateTime
 	# Type of Confidentiality
 	ConfidentialType: ForeignEntityInput
 	# Confidentiality of the individual entry
 	ConfidentialTypeEntry: ForeignEntityInput
 	# Planned Completion Date
-	DateCompletePlan: Date
+	DateCompletePlan: DateTime
 	# Date this request was last acted on
-	DateLastAction: Date
+	DateLastAction: DateTime
 	# Date when last alert were sent
-	DateLastAlert: Date
+	DateLastAlert: DateTime
 	# Date that this request should be acted on
-	DateNextAction: Date
+	DateNextAction: DateTime
 	# Planned Start Date
-	DateStartPlan: Date
+	DateStartPlan: DateTime
 	# Document sequence number of the document
 	DocumentNo: String
 	# Status of the next action for this Request
 	DueType: ForeignEntityInput
 	# End of the time span
-	EndTime: Date
+	EndTime: DateTime
 	# The record is active in the system
 	IsActive: Boolean
 	# This request has been escalated
@@ -254,9 +254,9 @@ input R_RequestInput {
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 	# First effective day (inclusive)
-	StartDate: Date
+	StartDate: DateTime
 	# Time started
-	StartTime: Date
+	StartTime: DateTime
 	# Textual summary of this request
 	Summary: String
 	# Status of the Task

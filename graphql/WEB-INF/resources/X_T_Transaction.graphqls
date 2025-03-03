@@ -29,7 +29,7 @@ type T_Transaction {
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: C_ProjectIssue
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -58,7 +58,7 @@ type T_Transaction {
 	M_ProductionLine: M_ProductionLine
 	M_Transaction: M_Transaction!
 	# Date a product was moved in or out of inventory
-	MovementDate: Date!
+	MovementDate: DateTime!
 	# Quantity of a product moved.
 	MovementQty: BigDecimal!
 	# Method of moving the inventory
@@ -71,7 +71,7 @@ type T_Transaction {
 	Search_Order: C_Order
 	UU: ID!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -111,7 +111,7 @@ input T_TransactionInput {
 	M_ProductionLine: ForeignEntityInput
 	M_Transaction: ForeignEntityInput
 	# Date a product was moved in or out of inventory
-	MovementDate: Date
+	MovementDate: DateTime
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 	# Method of moving the inventory

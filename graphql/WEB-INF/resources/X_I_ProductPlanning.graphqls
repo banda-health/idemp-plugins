@@ -29,7 +29,7 @@ type I_ProductPlanning {
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date Order was promised
@@ -98,7 +98,7 @@ type I_ProductPlanning {
 	TimeFence: BigDecimal
 	TransfertTime: BigDecimal
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Product Key of the Business Partner

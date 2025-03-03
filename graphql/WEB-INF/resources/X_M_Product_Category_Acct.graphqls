@@ -29,7 +29,7 @@ type M_Product_Category_Acct {
 	# Indicates how Costs will be calculated
 	CostingMethod: AD_Ref_List
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -65,7 +65,7 @@ type M_Product_Category_Acct {
 	P_TradeDiscountRec_A: C_ValidCombination!
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

@@ -25,7 +25,7 @@ type M_MovementLine {
 	# Confirmation of a received quantity
 	ConfirmedQty: BigDecimal
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	DD_OrderLine: DD_OrderLine
@@ -59,7 +59,7 @@ type M_MovementLine {
 	# Target Movement Quantity
 	TargetQty: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique

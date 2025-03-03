@@ -34,7 +34,7 @@ type M_Package {
 	C_UOM_Weight: C_UOM
 	CashOnDelivery: Boolean!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date a product was received
@@ -77,7 +77,7 @@ type M_Package {
 	IsSaturdayPickup: Boolean!
 	IsVerbalConfirmation: Boolean!
 	LabelPrint: String
-	LatestPickupTime: Date
+	LatestPickupTime: DateTime
 	Length: BigDecimal
 	# Material Shipment Document
 	M_InOut: M_InOut!
@@ -115,7 +115,7 @@ type M_Package {
 	# Number to track the shipment
 	TrackingNo: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	VoidIt: String
@@ -174,7 +174,7 @@ input M_PackageInput {
 	IsSaturdayPickup: Boolean
 	IsVerbalConfirmation: Boolean
 	LabelPrint: String
-	LatestPickupTime: Date
+	LatestPickupTime: DateTime
 	Length: BigDecimal
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
