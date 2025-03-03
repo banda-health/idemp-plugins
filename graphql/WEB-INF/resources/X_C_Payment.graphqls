@@ -188,6 +188,8 @@ type C_Payment {
 	Reversal: C_Payment
 	# Bank Routing Number
 	RoutingNo: String
+	# Whether the entity was scheduled or not
+	Scheduled: Boolean!
 	# Swift Code or BIC
 	SwiftCode: String
 	# Track 1 and 2 of the Credit Card
@@ -377,6 +379,8 @@ input C_PaymentInput {
 	Reversal: ForeignEntityInput
 	# Bank Routing Number
 	RoutingNo: String
+	# Whether the entity was scheduled or not
+	Scheduled: Boolean
 	# Swift Code or BIC
 	SwiftCode: String
 	# Track 1 and 2 of the Credit Card

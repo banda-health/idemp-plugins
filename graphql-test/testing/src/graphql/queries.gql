@@ -455,6 +455,14 @@ query C_OrderForSalesRep($UU: String!) {
 	}
 }
 
+query C_Payment($UU: String!) {
+	C_Payment(UU: $UU) {
+		...C_PaymentFields
+		DateTrx
+		Scheduled
+	}
+}
+
 query C_PaymentGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	C_PaymentGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {

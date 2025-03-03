@@ -9,16 +9,11 @@ import graphql.schema.GraphQLScalarType;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.TimeZone;
 
 /**
  * A custom scalar to allow passing of Date classes into the GraphQL API
  */
-public class DateScalar {
+public class DateTimeScalar {
 	public static final GraphQLScalarType Date = GraphQLScalarType.newScalar().name("Date")
 			.coercing(new Coercing() {
 				@Override
@@ -27,13 +22,9 @@ public class DateScalar {
 						return null;
 					}
 					if (dataFetcherResult instanceof Date) {
-						// Hopefully this never gets used because it'll lead to problems
 						return ((Date) dataFetcherResult).getTime();
 					} else if (dataFetcherResult instanceof Timestamp) {
-						// Calculate the offset because the Timestamp is actually time-zoned and not UTC
-						Instant instant = Instant.ofEpochMilli(((Timestamp) dataFetcherResult).getTime());
-						ZonedDateTime zonedDateTime = instant.atZone(TimeZone.getTimeZone("UTC").toZoneId());
-						return ((Timestamp) dataFetcherResult).getTime() + zonedDateTime.getOffset().getTotalSeconds() * 1000L;
+						return ((Timestamp) dataFetcherResult).getTime();
 					}
 					throw new CoercingSerializeException("Could not serialize to date: " + dataFetcherResult);
 				}
