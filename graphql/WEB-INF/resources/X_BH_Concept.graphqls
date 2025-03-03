@@ -37,7 +37,7 @@ type BH_Concept {
 	# Source
 	BH_Source: String
 	# Date this record was created
-	Created: Date
+	Created: DateTime
 	# User who created this records
 	CreatedBy: AD_User
 	# Optional short description of the record
@@ -47,7 +47,7 @@ type BH_Concept {
 	# A UUID from the OCL system
 	Ocl_Uuid: String
 	# Date this record was updated
-	Updated: Date
+	Updated: DateTime
 	# User who updated this records
 	UpdatedBy: AD_User
 	# Full URL address - e.g. http://www.idempiere.org

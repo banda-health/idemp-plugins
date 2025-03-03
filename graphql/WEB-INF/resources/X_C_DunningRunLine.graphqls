@@ -36,7 +36,7 @@ type C_DunningRunLine {
 	# Converted Amount
 	ConvertedAmt: BigDecimal!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Number of days due (negative: due in number of days)
@@ -58,7 +58,7 @@ type C_DunningRunLine {
 	# Total Amount
 	TotalAmt: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

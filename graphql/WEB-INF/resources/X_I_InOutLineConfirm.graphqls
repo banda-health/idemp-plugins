@@ -27,7 +27,7 @@ type I_InOutLineConfirm {
 	# Confirmation of a received quantity
 	ConfirmedQty: BigDecimal!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
 	# Optional short description of the record
@@ -49,7 +49,7 @@ type I_InOutLineConfirm {
 	# The Quantity scrapped due to QA issues
 	ScrappedQty: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User
 }

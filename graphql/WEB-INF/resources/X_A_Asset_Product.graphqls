@@ -27,7 +27,7 @@ type A_Asset_Product {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -41,7 +41,7 @@ type A_Asset_Product {
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

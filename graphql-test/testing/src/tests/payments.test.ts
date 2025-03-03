@@ -273,7 +273,7 @@ test('can schedule and change a payment', async () => {
 
 	let payment = (await query(valueObject)({ query: C_PaymentDocument, variables: { UU: paymentUU } })).data.C_Payment!;
 	expect(payment).toBeTruthy();
-	expect(payment.DateTrx).toBe(valueObject.date?.getTime());
+	expect(new Date(payment.DateTrx).getTime()).toBe(valueObject.date?.getTime());
 	expect(payment.Scheduled).toBe(true);
 
 	valueObject.setDateOffset(10);
@@ -289,5 +289,5 @@ test('can schedule and change a payment', async () => {
 	payment = (await query(valueObject)({ query: C_PaymentDocument, variables: { UU: paymentUU } })).data.C_Payment!;
 	expect(payment).toBeTruthy();
 	expect(payment.Scheduled).toBe(true);
-	expect(payment.DateTrx).toBe(valueObject.date?.getTime());
+	expect(new Date(payment.DateTrx).getTime()).toBe(valueObject.date?.getTime());
 });

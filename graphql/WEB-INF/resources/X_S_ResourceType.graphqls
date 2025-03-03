@@ -30,7 +30,7 @@ type S_ResourceType {
 	C_UOM: C_UOM!
 	ChargeableQty: Int
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -63,11 +63,11 @@ type S_ResourceType {
 	OnWednesday: Boolean!
 	UU: ID!
 	# Time when timeslot ends
-	TimeSlotEnd: Date
+	TimeSlotEnd: DateTime
 	# Time when timeslot starts
-	TimeSlotStart: Date
+	TimeSlotStart: DateTime
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
@@ -114,9 +114,9 @@ input S_ResourceTypeInput {
 	OnWednesday: Boolean
 	UU: ID
 	# Time when timeslot ends
-	TimeSlotEnd: Date
+	TimeSlotEnd: DateTime
 	# Time when timeslot starts
-	TimeSlotStart: Date
+	TimeSlotStart: DateTime
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

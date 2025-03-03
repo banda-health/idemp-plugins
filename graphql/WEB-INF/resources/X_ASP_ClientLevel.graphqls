@@ -26,7 +26,7 @@ type ASP_ClientLevel {
 	ASP_Level: ASP_Level!
 	ASP_Module: ASP_Module!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Comment or Hint
@@ -34,7 +34,7 @@ type ASP_ClientLevel {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

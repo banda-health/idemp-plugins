@@ -28,7 +28,7 @@ type HR_Concept {
 	AD_Reference: AD_Reference
 	ColumnType: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -61,13 +61,13 @@ type HR_Concept {
 	# Type of Validation (SQL, Java Script, Java Language)
 	Type: AD_Ref_List!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Valid from including this date (first day)
-	ValidFrom: Date
+	ValidFrom: DateTime
 	# Valid to including this date (last day)
-	ValidTo: Date
+	ValidTo: DateTime
 	# Search key for the record in the format required - must be unique
 	Value: String
 }
@@ -110,9 +110,9 @@ input HR_ConceptInput {
 	# Type of Validation (SQL, Java Script, Java Language)
 	Type: ForeignEntityInput
 	# Valid from including this date (first day)
-	ValidFrom: Date
+	ValidFrom: DateTime
 	# Valid to including this date (last day)
-	ValidTo: Date
+	ValidTo: DateTime
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

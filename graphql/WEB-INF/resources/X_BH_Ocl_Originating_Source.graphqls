@@ -26,13 +26,13 @@ type BH_Ocl_Originating_Source {
 	UU: ID!
 	BH_Ocl_Source: AD_Ref_List
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

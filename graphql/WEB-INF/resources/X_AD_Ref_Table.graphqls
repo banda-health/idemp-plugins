@@ -36,7 +36,7 @@ type AD_Ref_Table {
 	# Data entry or display window
 	AD_Window: AD_Window
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Dictionary Entity Type; Determines ownership and synchronization
@@ -48,7 +48,7 @@ type AD_Ref_Table {
 	# Fully qualified ORDER BY clause
 	OrderByClause: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Fully qualified SQL WHERE clause

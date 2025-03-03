@@ -31,10 +31,10 @@ type AD_Package_Imp_Proc {
 	# Type of package source - file, ftp, webservice etc
 	AD_Package_Source_Type: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	DateProcessed: Date
+	DateProcessed: DateTime
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -42,7 +42,7 @@ type AD_Package_Imp_Proc {
 	P_Msg: String
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -58,7 +58,7 @@ input AD_Package_Imp_ProcInput {
 	AD_Package_Source: String
 	# Type of package source - file, ftp, webservice etc
 	AD_Package_Source_Type: ForeignEntityInput
-	DateProcessed: Date
+	DateProcessed: DateTime
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

@@ -30,7 +30,7 @@ type AD_PrintLabelLine {
 	AD_PrintLabel: AD_PrintLabel!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -44,7 +44,7 @@ type AD_PrintLabelLine {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Absolute X (horizontal) position in 1/72 of an inch

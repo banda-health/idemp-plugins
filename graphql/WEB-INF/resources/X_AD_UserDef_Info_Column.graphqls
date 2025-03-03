@@ -35,7 +35,7 @@ type AD_UserDef_Info_Column {
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Default value hierarchy, separated by ;
@@ -74,7 +74,7 @@ type AD_UserDef_Info_Column {
 	# Selection Column Sequence
 	SeqNoSelection: Int
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

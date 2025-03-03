@@ -25,7 +25,7 @@ type PA_ReportCube {
 	# Accounting Calendar Name
 	C_Calendar: C_Calendar!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -67,13 +67,13 @@ type PA_ReportCube {
 	# Include User Element 2 as a cube dimension
 	IsUserElement2Dim: Boolean!
 	# The time last recalculated.
-	LastRecalculated: Date
+	LastRecalculated: DateTime
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UU: ID!
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -122,7 +122,7 @@ input PA_ReportCubeInput {
 	# Include User Element 2 as a cube dimension
 	IsUserElement2Dim: Boolean
 	# The time last recalculated.
-	LastRecalculated: Date
+	LastRecalculated: DateTime
 	# Alphanumeric identifier of the entity
 	Name: String
 	UU: ID

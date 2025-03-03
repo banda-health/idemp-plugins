@@ -24,7 +24,7 @@ type PA_ReportLine {
 	AD_Org: AD_Org!
 	CalculationType: AD_Ref_List
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -62,7 +62,7 @@ type PA_ReportLine {
 	SeqNo: Int!
 	UnderlineStrokeType: AD_Ref_List
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

@@ -29,11 +29,11 @@ type M_PromotionPreCondition {
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Last effective date (inclusive)
-	EndDate: Date
+	EndDate: DateTime
 	# The record is active in the system
 	IsActive: Boolean!
 	# Unique identifier of a Price List
@@ -51,9 +51,9 @@ type M_PromotionPreCondition {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# First effective day (inclusive)
-	StartDate: Date!
+	StartDate: DateTime!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -68,7 +68,7 @@ input M_PromotionPreConditionInput {
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Last effective date (inclusive)
-	EndDate: Date
+	EndDate: DateTime
 	# The record is active in the system
 	IsActive: Boolean
 	# Unique identifier of a Price List
@@ -86,5 +86,5 @@ input M_PromotionPreConditionInput {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# First effective day (inclusive)
-	StartDate: Date
+	StartDate: DateTime
 }

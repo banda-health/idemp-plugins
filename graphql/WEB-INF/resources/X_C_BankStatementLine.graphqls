@@ -38,7 +38,7 @@ type C_BankStatementLine {
 	# Charge Amount
 	ChargeAmt: BigDecimal!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	CreatePayment: String
@@ -92,7 +92,7 @@ type C_BankStatementLine {
 	# Amount of a transaction
 	TrxAmt: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Date when money is available

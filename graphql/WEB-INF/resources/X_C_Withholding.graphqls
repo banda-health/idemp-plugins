@@ -28,7 +28,7 @@ type C_Withholding {
 	C_PaymentTerm: C_PaymentTerm!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -58,7 +58,7 @@ type C_Withholding {
 	# Minimum gross amount for withholding calculation
 	Thresholdmin: BigDecimal
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

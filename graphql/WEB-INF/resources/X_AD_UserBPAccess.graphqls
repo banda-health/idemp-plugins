@@ -28,7 +28,7 @@ type AD_UserBPAccess {
 	# Type of Access of the user/contact to Business Partner information and resources
 	BPAccessType: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Logical type of document
@@ -38,7 +38,7 @@ type AD_UserBPAccess {
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

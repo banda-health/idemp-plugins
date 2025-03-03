@@ -27,7 +27,7 @@ type PP_WF_Node_Product {
 	# Configuration Level for this parameter
 	ConfigurationLevel: AD_Ref_List
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Dictionary Entity Type; Determines ownership and synchronization
@@ -43,7 +43,7 @@ type PP_WF_Node_Product {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

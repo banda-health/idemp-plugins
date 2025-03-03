@@ -37,7 +37,7 @@ type C_POS {
 	C_POSKeyLayout: C_POSKeyLayout
 	CashDrawer: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -63,7 +63,7 @@ type C_POS {
 	# Sales Representative or Company Agent
 	SalesRep: AD_User!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

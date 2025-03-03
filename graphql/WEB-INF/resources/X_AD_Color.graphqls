@@ -36,7 +36,7 @@ type AD_Color {
 	# Color presentation for this color
 	ColorType: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# RGB value 
@@ -64,7 +64,7 @@ type AD_Color {
 	# Start point of the gradient colors
 	StartPoint: AD_Ref_List
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

@@ -26,7 +26,7 @@ type AD_UserMail {
 	AD_User: AD_User!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# EMail Delivery confirmation
@@ -47,7 +47,7 @@ type AD_UserMail {
 	# Email Message Subject
 	Subject: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

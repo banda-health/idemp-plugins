@@ -30,13 +30,13 @@ type C_Commission {
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# Basis for the calculation the commission
@@ -53,7 +53,7 @@ type C_Commission {
 	Name: String!
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -71,7 +71,7 @@ input C_CommissionInput {
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# Basis for the calculation the commission

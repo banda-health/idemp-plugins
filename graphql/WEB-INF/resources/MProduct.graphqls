@@ -1,6 +1,6 @@
 extend type M_Product {
 	HasBeenPurchased: Boolean!
-	LastPurchaseDate: Date
+	LastPurchaseDate: DateTime
 	LastPurchasePrice: BigDecimal
 	M_InOutLines: [M_InOutLine!]
 	M_Lots: [M_Lot!]

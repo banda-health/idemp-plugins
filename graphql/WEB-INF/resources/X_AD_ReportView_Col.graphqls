@@ -28,7 +28,7 @@ type AD_ReportView_Col {
 	# View used to generate this report
 	AD_ReportView: AD_ReportView!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Overwrite Column with Function 
@@ -38,7 +38,7 @@ type AD_ReportView_Col {
 	# This function will generate a Group By Clause
 	IsGroupFunction: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

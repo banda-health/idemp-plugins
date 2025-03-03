@@ -30,7 +30,7 @@ type AD_InfoProcess {
 	# Process or Report
 	AD_Process: AD_Process!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# If the Field is displayed, the result determines if the field is actually displayed
@@ -46,7 +46,7 @@ type AD_InfoProcess {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

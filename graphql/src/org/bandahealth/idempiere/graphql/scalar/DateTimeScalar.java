@@ -11,10 +11,10 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 /**
- * A custom scalar to allow passing of Date classes into the GraphQL API
+ * A custom scalar to allow passing of DateTime classes into the GraphQL API
  */
 public class DateTimeScalar {
-	public static final GraphQLScalarType Date = GraphQLScalarType.newScalar().name("Date")
+	public static final GraphQLScalarType DateTime = GraphQLScalarType.newScalar().name("DateTime")
 			.coercing(new Coercing() {
 				@Override
 				public Object serialize(Object dataFetcherResult) throws CoercingSerializeException {
@@ -26,7 +26,7 @@ public class DateTimeScalar {
 					} else if (dataFetcherResult instanceof Timestamp) {
 						return ((Timestamp) dataFetcherResult).getTime();
 					}
-					throw new CoercingSerializeException("Could not serialize to date: " + dataFetcherResult);
+					throw new CoercingSerializeException("Could not serialize to datetime: " + dataFetcherResult);
 				}
 
 				@Override
@@ -38,7 +38,7 @@ public class DateTimeScalar {
 				public Object parseLiteral(Object input) throws CoercingParseLiteralException {
 					return parseInput(input);
 				}
-			}).description("a scalar to hold a Date").build();
+			}).description("a scalar to hold a DateTime").build();
 
 	/**
 	 * Parse input received from the API caller
@@ -65,7 +65,11 @@ public class DateTimeScalar {
 				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd").parse(input.toString()).getTime());
 			} catch (Exception ignored) {
 			}
+			try {
+				return new Timestamp(new SimpleDateFormat("yyyy/MM/dd").parse(input.toString()).getTime());
+			} catch (Exception ignored) {
+			}
 		}
-		throw new CoercingSerializeException("Could not parse input to date: " + input);
+		throw new CoercingSerializeException("Could not parse input to datetime: " + input);
 	}
 }
