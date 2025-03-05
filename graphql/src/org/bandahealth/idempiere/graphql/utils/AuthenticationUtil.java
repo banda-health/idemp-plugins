@@ -4,16 +4,12 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.adempiere.util.ServerContext;
-import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MClientInfo;
 import org.compiere.model.MRole;
 import org.compiere.model.MSession;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 import java.io.UnsupportedEncodingException;
@@ -52,6 +48,8 @@ public class AuthenticationUtil {
 				if (AD_Session_ID > 0 && MSession.get(Env.getCtx()) != null) {
 					new MSession(Env.getCtx(), MSession.get(Env.getCtx())).logout();
 				}
+				// Clear the session ID set above
+				Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, "");
 			}
 			throw e;
 		}

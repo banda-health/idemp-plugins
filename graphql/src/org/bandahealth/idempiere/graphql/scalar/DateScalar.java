@@ -5,6 +5,7 @@ import graphql.schema.CoercingParseLiteralException;
 import graphql.schema.CoercingParseValueException;
 import graphql.schema.CoercingSerializeException;
 import graphql.schema.GraphQLScalarType;
+import org.bandahealth.idempiere.graphql.utils.DateUtil;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -62,21 +63,9 @@ public class DateScalar {
 			ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
 			return new Timestamp(Long.parseLong(input.toString()) - zonedDateTime.getOffset().getTotalSeconds() * 1000L);
 		} else if (input instanceof String) {
-			try {
-				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(input.toString()).getTime());
-			} catch (Exception ignored) {
-			}
-			try {
-				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(input.toString()).getTime());
-			} catch (Exception ignored) {
-			}
-			try {
-				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd").parse(input.toString()).getTime());
-			} catch (Exception ignored) {
-			}
-			try {
-				return new Timestamp(new SimpleDateFormat("yyyy/MM/dd").parse(input.toString()).getTime());
-			} catch (Exception ignored) {
+			Timestamp timestamp = DateUtil.getAPITimestamp((String) input);
+			if (timestamp != null) {
+				return timestamp;
 			}
 		}
 		throw new CoercingSerializeException("Could not parse input to date: " + input);

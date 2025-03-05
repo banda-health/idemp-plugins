@@ -207,7 +207,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 				} else if (processInfoParameterInput.getParameter() instanceof BigDecimal) {
 					parameter = new Timestamp(((BigDecimal) processInfoParameterInput.getParameter()).longValue());
 				} else {
-					parameter = DateUtil.getTimestampReportParameter(processInfoParameterInput.getParameter().toString());
+					parameter = DateUtil.getAPITimestamp(processInfoParameterInput.getParameter().toString());
 				}
 			}
 

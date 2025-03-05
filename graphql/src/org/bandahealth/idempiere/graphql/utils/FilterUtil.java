@@ -384,7 +384,7 @@ public class FilterUtil {
 				}
 				// If this is a date, go ahead and convert the value to be as such
 				if (dbColumnIsDateType) {
-					comparisons = DateUtil.getTimestamp(comparisons.toString());
+					comparisons = DateUtil.getAPITimestamp(comparisons.toString());
 				}
 				handleEqualityComparison(dbColumnName, whereClause, parameters, separator, negate, canPrependSeparator,
 						comparisons, dbColumnIsDateType);
@@ -404,7 +404,7 @@ public class FilterUtil {
 					if (filterValue instanceof Long) {
 						filterValue = new Timestamp((Long) filterValue);
 					} else {
-						filterValue = DateUtil.getTimestamp(filterValue.toString());
+						filterValue = DateUtil.getAPITimestamp(filterValue.toString());
 					}
 				}
 				List<?> listOperatorValues;
