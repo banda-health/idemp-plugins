@@ -28,7 +28,7 @@ type AD_Sequence_Audit {
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Document sequence number of the document
@@ -36,7 +36,7 @@ type AD_Sequence_Audit {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

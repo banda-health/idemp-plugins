@@ -28,7 +28,7 @@ type AD_Tab_Customization {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	Custom: String!
@@ -39,7 +39,7 @@ type AD_Tab_Customization {
 	# Display in Quick Form
 	IsQuickForm: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

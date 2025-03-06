@@ -37,13 +37,17 @@ type BH_I_Product_Quantity {
 	BH_InitialQuantity: BigDecimal!
 	BH_InitialQuantity_Lot2: BigDecimal
 	BH_InitialQuantity_Lot3: BigDecimal
+	BH_PriceList2_Name: String
+	BH_PriceList2_SellPrice: BigDecimal
+	BH_PriceList3_Name: String
+	BH_PriceList3_SellPrice: BigDecimal
 	bh_reorder_level: Int
 	# Selling price of BandaGo product
 	BH_SellPrice: BigDecimal!
 	# Name of the Category
 	CategoryName: String!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -64,7 +68,7 @@ type BH_I_Product_Quantity {
 	Processed: Boolean!
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -87,6 +91,10 @@ input BH_I_Product_QuantityInput {
 	BH_InitialQuantity: BigDecimal
 	BH_InitialQuantity_Lot2: BigDecimal
 	BH_InitialQuantity_Lot3: BigDecimal
+	BH_PriceList2_Name: String
+	BH_PriceList2_SellPrice: BigDecimal
+	BH_PriceList3_Name: String
+	BH_PriceList3_SellPrice: BigDecimal
 	bh_reorder_level: Int
 	# Selling price of BandaGo product
 	BH_SellPrice: BigDecimal

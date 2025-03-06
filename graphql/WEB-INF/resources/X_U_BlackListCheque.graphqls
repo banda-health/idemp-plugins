@@ -25,14 +25,14 @@ type U_BlackListCheque {
 	BankName: String!
 	ChequeNo: String!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	UU: ID!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

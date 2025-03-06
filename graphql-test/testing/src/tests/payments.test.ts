@@ -1,13 +1,22 @@
 import { v4 } from 'uuid';
-import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentStatus } from '../models';
-import { createBusinessPartner, createOrder, createPayment, createProduct, createVisit } from '../utils';
 import {
+	Ad_Ref_ListGetDocument,
 	Bh_VisitSaveWithPaymentsDocument,
 	C_BPartnerGetDocument,
+	C_PaymentDocument,
 	C_PaymentGetDocument,
 	C_PaymentSaveDocument,
 } from '../__generated__/graphql';
+import { mutate, query } from '../api';
+import { documentAction, documentBaseType, documentStatus, referenceUuid, tenderTypeName } from '../models';
+import {
+	createBusinessPartner,
+	createOrder,
+	createPayment,
+	createProduct,
+	createVisit,
+	loadBankAccount,
+} from '../utils';
 
 test('payment values are saved correctly', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -200,7 +209,7 @@ test('can sort by business partner', async () => {
 	expect(sortedPayments).toHaveLength(2);
 	expect(sortedPayments[0].UU).toBe(firstPayment.UU);
 	expect(sortedPayments[1].UU).toBe(secondPayment.UU);
-	
+
 	sortedPayments = (
 		await query(valueObject)({
 			query: C_PaymentGetDocument,
@@ -215,4 +224,70 @@ test('can sort by business partner', async () => {
 	expect(sortedPayments).toHaveLength(2);
 	expect(sortedPayments[0].UU).toBe(secondPayment.UU);
 	expect(sortedPayments[1].UU).toBe(firstPayment.UU);
+});
+
+test('can schedule and change a payment', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create payment';
+	await loadBankAccount(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	const paymentUU = v4();
+	valueObject.date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+	valueObject.setDateOffset(10);
+	await mutate(valueObject)({
+		mutation: C_PaymentSaveDocument,
+		variables: {
+			Entity: {
+				C_BankAccount: { UU: valueObject.bankAccount!.UU },
+				C_BPartner: { UU: valueObject.businessPartner!.UU },
+				C_Currency: {
+					UU: valueObject.currency!.UU,
+				},
+				DateTrx: valueObject.date!.getTime(),
+				Description: valueObject.getStepMessageLong(),
+				PayAmt: 100,
+				Scheduled: true,
+				TenderType: {
+					UU: (
+						await query(valueObject)({
+							query: Ad_Ref_ListGetDocument,
+							variables: {
+								Size: 1,
+								Filter: JSON.stringify({
+									ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES },
+									name: tenderTypeName.CASH,
+								}),
+							},
+						})
+					).data.AD_Ref_ListGet.Results[0]?.UU,
+				},
+				UU: paymentUU,
+			},
+		},
+	});
+
+	let payment = (await query(valueObject)({ query: C_PaymentDocument, variables: { UU: paymentUU } })).data.C_Payment!;
+	expect(payment).toBeTruthy();
+	expect(new Date(payment.DateTrx).getTime()).toBe(valueObject.date?.getTime());
+	expect(payment.Scheduled).toBe(true);
+
+	valueObject.setDateOffset(10);
+	await mutate(valueObject)({
+		mutation: C_PaymentSaveDocument,
+		variables: {
+			Entity: {
+				UU: paymentUU,
+				DateTrx: valueObject.date!.getTime(),
+			},
+		},
+	});
+	payment = (await query(valueObject)({ query: C_PaymentDocument, variables: { UU: paymentUU } })).data.C_Payment!;
+	expect(payment).toBeTruthy();
+	expect(payment.Scheduled).toBe(true);
+	expect(new Date(payment.DateTrx).getTime()).toBe(valueObject.date?.getTime());
 });

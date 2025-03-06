@@ -30,7 +30,7 @@ type C_InvoiceBatch {
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date of the Document
@@ -51,7 +51,7 @@ type C_InvoiceBatch {
 	# Sales Representative or Company Agent
 	SalesRep: AD_User!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

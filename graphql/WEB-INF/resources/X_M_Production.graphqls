@@ -39,7 +39,7 @@ type M_Production {
 	# Actual Project Task in a Phase
 	C_ProjectTask: C_ProjectTask
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
@@ -85,7 +85,7 @@ type M_Production {
 	# ID of document reversal
 	Reversal: M_Production
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1

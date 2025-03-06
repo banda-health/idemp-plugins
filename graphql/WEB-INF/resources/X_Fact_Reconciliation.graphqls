@@ -29,7 +29,7 @@ type Fact_Reconciliation {
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Accounting Date
@@ -41,7 +41,7 @@ type Fact_Reconciliation {
 	# String identifying related accounting facts
 	MatchCode: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

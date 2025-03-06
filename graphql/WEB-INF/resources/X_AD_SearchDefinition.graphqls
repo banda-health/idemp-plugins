@@ -30,7 +30,7 @@ type AD_SearchDefinition {
 	# Data entry or display window
 	AD_Window: AD_Window!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
 	# Type of data
@@ -54,7 +54,7 @@ type AD_SearchDefinition {
 	# The transaction code represents the search definition
 	TransactionCode: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

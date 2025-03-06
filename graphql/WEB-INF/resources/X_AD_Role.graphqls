@@ -46,7 +46,7 @@ type AD_Role {
 	# Require Confirmation if more records will be returned by the query (If not defined 500)
 	ConfirmQueryRecords: Int!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The days approval indicates the days to take into account to verify the accumulated approval amount.
@@ -98,7 +98,7 @@ type AD_Role {
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: AD_User
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	UserDiscount: BigDecimal

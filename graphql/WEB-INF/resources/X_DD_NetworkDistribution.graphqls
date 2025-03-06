@@ -25,7 +25,7 @@ type DD_NetworkDistribution {
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	UU: ID!
@@ -44,7 +44,7 @@ type DD_NetworkDistribution {
 	Processing: Boolean!
 	Revision: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Valid from including this date (first day)

@@ -30,7 +30,7 @@ type C_Conversion_Rate {
 	# Target currency
 	C_Currency_To: C_Currency!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# To convert Source number to Target number, the Source is divided
@@ -40,7 +40,7 @@ type C_Conversion_Rate {
 	# Rate to multiple the source by to calculate the target.
 	MultiplyRate: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Valid from including this date (first day)

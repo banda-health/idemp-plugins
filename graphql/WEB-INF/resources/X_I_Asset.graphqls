@@ -71,7 +71,7 @@ type I_Asset {
 	# Location or Address
 	C_Location: C_Location
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
 	# Optional short description of the record
@@ -119,7 +119,7 @@ type I_Asset {
 	# Product Serial Number 
 	SerNo: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Months of the usable life of the asset

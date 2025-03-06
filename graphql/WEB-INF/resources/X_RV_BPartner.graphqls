@@ -30,12 +30,12 @@ type RV_BPartner {
 	AD_Org: AD_Org!
 	AD_User_C_BPartner: C_BPartner
 	AD_User_C_BPartner_Location: C_BPartner_Location
-	ad_user_created: Date
+	ad_user_created: DateTime
 	AD_User_Create: AD_User
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	ad_user_isactive: Boolean!
-	ad_user_updated: Date
+	ad_user_updated: DateTime
 	AD_User_Update: AD_User
 	ad_user_value: String
 	# Address line 1 for this location
@@ -53,14 +53,14 @@ type RV_BPartner {
 	# Greeting for Business Partner Contact
 	BPContactGreet: C_Greeting
 	C_BP_C_TaxGroup: C_TaxGroup
-	c_bp_dunninggrace: Date
+	c_bp_dunninggrace: DateTime
 	# Business Partner Group
 	C_BP_Group: C_BP_Group!
 	c_bp_ismanufacturer: Boolean!
 	c_bp_ispotaxexempt: Boolean!
 	C_BP_Location_C_BPartner: C_BPartner
 	C_BP_Location_C_Location: C_Location
-	c_bp_location_created: Date
+	c_bp_location_created: DateTime
 	C_BP_Location_Create: AD_User
 	c_bp_location_fax: String
 	c_bp_location_isactive: Boolean!
@@ -73,7 +73,7 @@ type RV_BPartner {
 	c_bp_location_phone: String
 	c_bp_location_phone2: String
 	C_BP_Location_SalesRegion: C_SalesRegion
-	c_bp_location_updated: Date
+	c_bp_location_updated: DateTime
 	C_BP_Location_Update: AD_User
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: C_BPartner_Location!
@@ -91,12 +91,12 @@ type RV_BPartner {
 	C_Greeting: C_Greeting
 	# Schedule for generating Invoices
 	C_InvoiceSchedule: C_InvoiceSchedule
-	c_location_created: Date
+	c_location_created: DateTime
 	C_Location_Create: AD_User
 	# Location or Address
 	C_Location: C_Location
 	c_location_isactive: Boolean!
-	c_location_updated: Date
+	c_location_updated: DateTime
 	C_Location_Update: AD_User
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm
@@ -117,7 +117,7 @@ type RV_BPartner {
 	# Country Name
 	CountryName: String!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Defines the timing of Delivery
@@ -137,11 +137,11 @@ type RV_BPartner {
 	# Verification information of EMail Address
 	EMailVerify: String
 	# Date Email was verified
-	EMailVerifyDate: Date
+	EMailVerifyDate: DateTime
 	# Facsimile number
 	Fax: String
 	# Date of First Sale
-	FirstSale: Date
+	FirstSale: DateTime
 	# Flat discount percentage 
 	FlatDiscount: BigDecimal
 	# Method for charging Freight
@@ -172,7 +172,7 @@ type RV_BPartner {
 	# Indicates if this Business Partner is a Vendor
 	IsVendor: Boolean!
 	# Date this individual was last contacted
-	LastContact: Date
+	LastContact: DateTime
 	# Result of last contact
 	LastResult: String
 	# User Name used for authorization via LDAP (directory) services
@@ -248,7 +248,7 @@ type RV_BPartner {
 	# Total Open Balance Amount in primary Accounting Currency
 	TotalOpenBalance: BigDecimal
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Full URL address - e.g. http://www.idempiere.org
@@ -268,12 +268,12 @@ input RV_BPartnerInput {
 	AD_Org: ForeignEntityInput
 	AD_User_C_BPartner: ForeignEntityInput
 	AD_User_C_BPartner_Location: ForeignEntityInput
-	ad_user_created: Date
+	ad_user_created: DateTime
 	AD_User_Create: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	ad_user_isactive: Boolean
-	ad_user_updated: Date
+	ad_user_updated: DateTime
 	AD_User_Update: ForeignEntityInput
 	ad_user_value: String
 	# Address line 1 for this location
@@ -291,14 +291,14 @@ input RV_BPartnerInput {
 	# Greeting for Business Partner Contact
 	BPContactGreet: ForeignEntityInput
 	C_BP_C_TaxGroup: ForeignEntityInput
-	c_bp_dunninggrace: Date
+	c_bp_dunninggrace: DateTime
 	# Business Partner Group
 	C_BP_Group: ForeignEntityInput
 	c_bp_ismanufacturer: Boolean
 	c_bp_ispotaxexempt: Boolean
 	C_BP_Location_C_BPartner: ForeignEntityInput
 	C_BP_Location_C_Location: ForeignEntityInput
-	c_bp_location_created: Date
+	c_bp_location_created: DateTime
 	C_BP_Location_Create: ForeignEntityInput
 	c_bp_location_fax: String
 	c_bp_location_isactive: Boolean
@@ -311,7 +311,7 @@ input RV_BPartnerInput {
 	c_bp_location_phone: String
 	c_bp_location_phone2: String
 	C_BP_Location_SalesRegion: ForeignEntityInput
-	c_bp_location_updated: Date
+	c_bp_location_updated: DateTime
 	C_BP_Location_Update: ForeignEntityInput
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: ForeignEntityInput
@@ -329,12 +329,12 @@ input RV_BPartnerInput {
 	C_Greeting: ForeignEntityInput
 	# Schedule for generating Invoices
 	C_InvoiceSchedule: ForeignEntityInput
-	c_location_created: Date
+	c_location_created: DateTime
 	C_Location_Create: ForeignEntityInput
 	# Location or Address
 	C_Location: ForeignEntityInput
 	c_location_isactive: Boolean
-	c_location_updated: Date
+	c_location_updated: DateTime
 	C_Location_Update: ForeignEntityInput
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: ForeignEntityInput
@@ -371,11 +371,11 @@ input RV_BPartnerInput {
 	# Verification information of EMail Address
 	EMailVerify: String
 	# Date Email was verified
-	EMailVerifyDate: Date
+	EMailVerifyDate: DateTime
 	# Facsimile number
 	Fax: String
 	# Date of First Sale
-	FirstSale: Date
+	FirstSale: DateTime
 	# Flat discount percentage 
 	FlatDiscount: BigDecimal
 	# Method for charging Freight
@@ -406,7 +406,7 @@ input RV_BPartnerInput {
 	# Indicates if this Business Partner is a Vendor
 	IsVendor: Boolean
 	# Date this individual was last contacted
-	LastContact: Date
+	LastContact: DateTime
 	# Result of last contact
 	LastResult: String
 	# User Name used for authorization via LDAP (directory) services

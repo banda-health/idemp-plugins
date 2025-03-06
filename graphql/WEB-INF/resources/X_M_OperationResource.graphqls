@@ -27,7 +27,7 @@ type M_OperationResource {
 	# Job Position
 	C_Job: C_Job
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -48,7 +48,7 @@ type M_OperationResource {
 	# Time to produce one unit
 	UnitRuntime: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

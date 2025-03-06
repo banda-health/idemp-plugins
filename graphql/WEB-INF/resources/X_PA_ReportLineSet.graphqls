@@ -23,7 +23,7 @@ type PA_ReportLineSet {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -35,7 +35,7 @@ type PA_ReportLineSet {
 	UU: ID!
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

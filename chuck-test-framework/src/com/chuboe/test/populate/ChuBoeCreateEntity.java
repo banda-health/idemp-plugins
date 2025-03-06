@@ -122,8 +122,6 @@ public class ChuBoeCreateEntity {
 			return;
 		}
 
-		createDefaultPriceLists(valueObject);
-
 		//perform further validation if needed based on business logic
 		//NONE
 

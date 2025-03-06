@@ -30,7 +30,7 @@ type AD_Alert {
 	# Subject of the Alert
 	AlertSubject: String!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -48,7 +48,7 @@ type AD_Alert {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

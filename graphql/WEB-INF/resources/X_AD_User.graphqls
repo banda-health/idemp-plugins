@@ -28,7 +28,7 @@ type AD_User {
 	Answer: String
 	AuthenticationType: AD_Ref_List
 	BH_HasAcceptedTermsOfUse: Boolean!
-	BH_TOS_DATE_ACCEPTED: Date
+	BH_TOS_DATE_ACCEPTED: DateTime
 	# Birthday or Anniversary day
 	Birthday: Date
 	# Address of the Business Partner
@@ -49,12 +49,12 @@ type AD_User {
 	# Comments or additional information
 	Comments: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	DateAccountLocked: Date
-	DateLastLogin: Date
-	DatePasswordChanged: Date
+	DateAccountLocked: DateTime
+	DateLastLogin: DateTime
+	DatePasswordChanged: DateTime
 	# Optional short description of the record
 	Description: String
 	# Electronic Mail Address
@@ -66,7 +66,7 @@ type AD_User {
 	# Verification information of EMail Address
 	EMailVerify: String
 	# Date Email was verified
-	EMailVerifyDate: Date
+	EMailVerifyDate: DateTime
 	FailedLoginCount: Int!
 	# Facsimile number
 	Fax: String
@@ -129,7 +129,7 @@ type AD_User {
 	# Name this entity is referred to as
 	Title: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	UserPIN: String
@@ -146,7 +146,7 @@ input AD_UserInput {
 	Answer: String
 	AuthenticationType: ForeignEntityInput
 	BH_HasAcceptedTermsOfUse: Boolean
-	BH_TOS_DATE_ACCEPTED: Date
+	BH_TOS_DATE_ACCEPTED: DateTime
 	# Birthday or Anniversary day
 	Birthday: Date
 	# Address of the Business Partner
@@ -166,9 +166,9 @@ input AD_UserInput {
 	C_Location: ForeignEntityInput
 	# Comments or additional information
 	Comments: String
-	DateAccountLocked: Date
-	DateLastLogin: Date
-	DatePasswordChanged: Date
+	DateAccountLocked: DateTime
+	DateLastLogin: DateTime
+	DatePasswordChanged: DateTime
 	# Optional short description of the record
 	Description: String
 	# Electronic Mail Address
@@ -180,7 +180,7 @@ input AD_UserInput {
 	# Verification information of EMail Address
 	EMailVerify: String
 	# Date Email was verified
-	EMailVerifyDate: Date
+	EMailVerifyDate: DateTime
 	FailedLoginCount: Int
 	# Facsimile number
 	Fax: String

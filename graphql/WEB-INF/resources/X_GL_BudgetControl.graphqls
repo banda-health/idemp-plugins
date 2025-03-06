@@ -29,7 +29,7 @@ type GL_BudgetControl {
 	# Create Commitment and/or Reservations for Budget Control
 	CommitmentType: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -46,7 +46,7 @@ type GL_BudgetControl {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

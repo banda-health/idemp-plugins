@@ -24,7 +24,7 @@ type AD_System {
 	AD_Org: AD_Org!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Prefix for Custom entities
@@ -87,7 +87,7 @@ type AD_System {
 	# Status of the system - Support priority depends on system status
 	SystemStatus: AD_Ref_List!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	UserName: String!

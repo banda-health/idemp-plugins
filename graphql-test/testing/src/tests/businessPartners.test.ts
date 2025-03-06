@@ -6,6 +6,7 @@ import {
 	Bh_VisitProcessDocument,
 	C_BPartnerDocument,
 	C_BPartnerGetDocument,
+	C_BPartnerSaveDocument,
 	C_BPartnerSaveWithLocationDocument,
 	C_BPartner_LocationSaveDocument,
 	C_Bp_GroupGetDocument,
@@ -387,4 +388,27 @@ test(`drafted and re-opened visits don't count in the total visits or affect las
 	).data.C_BPartner!;
 	expect(businessPartner.TotalVisits).toBe(0);
 	expect(businessPartner.LastVisitDate).toBe(null);
+});
+
+test('can search using an apostrophe', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	const newName = `a'a${valueObject.businessPartner!.Name}`;
+	await mutate(valueObject)({
+		mutation: C_BPartnerSaveDocument,
+		variables: { Entity: { UU: valueObject.businessPartner!.UU, Name: newName } },
+	});
+
+	expect(
+		(
+			await query(valueObject)({
+				query: C_BPartnerGetDocument,
+				variables: { Filter: JSON.stringify({ name: { $text: newName } }) },
+			})
+		).data.C_BPartnerGet.Results,
+	).toHaveLength(1);
 });

@@ -37,7 +37,7 @@ type GL_Journal {
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Currency Conversion Rate
@@ -83,7 +83,7 @@ type GL_Journal {
 	# Total debit in document currency
 	TotalDr: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

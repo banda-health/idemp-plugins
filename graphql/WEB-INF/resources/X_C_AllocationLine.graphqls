@@ -42,7 +42,7 @@ type C_AllocationLine {
 	# Payment identifier
 	C_Payment: C_Payment
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Transaction Date
@@ -56,7 +56,7 @@ type C_AllocationLine {
 	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
 	OverUnderAmt: BigDecimal
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Amount to write-off

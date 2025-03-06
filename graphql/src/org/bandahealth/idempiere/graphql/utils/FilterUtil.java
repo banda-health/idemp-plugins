@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
+import static org.bandahealth.idempiere.graphql.utils.SqlUtil.IDEMPIERE_POSTGRESQL_NATIVE_MARKER;
+
 enum FilterArrayJoin {
 	AND,
 	OR,
@@ -28,6 +30,7 @@ public class FilterUtil {
 
 	private static final List<String> LOGICAL_QUERY_SELECTORS = Arrays.asList("$and", "$not", "$or", "$nor");
 	private static final List<String> AGGREGATE_QUERY_SELECTORS = Arrays.asList("$sum", "$count", "$max", "$min");
+	private static final List<String> DATE_EXPRESSION_FUNCTIONS = Arrays.asList("$date", "$time");
 	private static final String MALFORMED_FILTER_STRING_ERROR = "Filter criteria doesn't meet the standard form.";
 	private static final String SPECIFIC_COLUMN_MAPPING_SPECIFIER = "::";
 	private static final String SOURCE_TO_DESTINATION_COLUMN_MAPPING_SPECIFIER = "->";
@@ -69,15 +72,23 @@ public class FilterUtil {
 	 *  }
 	 * }
 	 * </pre>
-	 * Additionally, tables mapped by foreign keys can also leverage aggregate expression functions:
+	 * Additionally, tables mapped by foreign keys can also leverage aggregate expression functions or not exists:
 	 * <pre>
 	 * {
 	 * 	"$sum([database column])": expression
 	 * 	"$count([database column])": expression
 	 * 	"$max([database column])": expression
 	 * 	"$min([database column])": expression
+	 * 	...or
+	 * 	"$notExists([database column]): {}"
 	 * }
 	 * </pre>
+	 * The following expression functions can be leveraged on columns:
+	 * <pre>
+	 * {
+	 * 	$date([database column])
+	 * 	$time([database column])
+	 * }
 	 * NOTE: ID columns (i.e. ones that end in _ID) are not allowed to be filtered and will be skipped
 	 *
 	 * @param tableName        The name of the table to query
@@ -127,13 +138,15 @@ public class FilterUtil {
 	 *  }
 	 * }
 	 * </pre>
-	 * Additionally, tables mapped by foreign keys can also leverage aggregate expression functions:
+	 * Additionally, tables mapped by foreign keys can also leverage aggregate expression functions or not exists:
 	 * <pre>
 	 * {
 	 * 	"$sum([database column])": expression
 	 * 	"$count([database column])": expression
 	 * 	"$max([database column])": expression
 	 * 	"$min([database column])": expression
+	 * 	...or
+	 * 	"$notExists([database column]): {}"
 	 * }
 	 * </pre>
 	 * NOTE: ID columns (i.e. ones that end in _ID) are not allowed to be filtered and will be skipped
@@ -312,6 +325,16 @@ public class FilterUtil {
 			boolean isFilteringOnIdColumn = dbColumnName.toLowerCase().endsWith("_id");
 			Object comparisons = comparisonQuerySelectors.get(dbColumnName);
 
+			// See if we need to pull the expression function out
+			String dateExpressionFunction = "";
+			String finalDbColumnName = dbColumnName;
+			if (DATE_EXPRESSION_FUNCTIONS.stream()
+					.anyMatch(expressionFunction -> finalDbColumnName.toLowerCase().startsWith(expressionFunction + "("))) {
+				String[] splitColumn = dbColumnName.split("\\(");
+				dateExpressionFunction = IDEMPIERE_POSTGRESQL_NATIVE_MARKER + splitColumn[0].replaceAll("\\$", "");
+				dbColumnName = splitColumn[1].replaceAll("\\)", "");
+			}
+
 			// If the column doesn't exist on this table as specified, we need to follow a different workflow
 			if (!tableData.doesTableHaveColumn(dbColumnName)) {
 				// There could be a case where the comparisons may be final and may not be an object, so re-jigger it
@@ -342,10 +365,16 @@ public class FilterUtil {
 			// As a last precaution, check if the name has "date" in it (and it's not an ID column)
 			else if (dbColumnName.toLowerCase().contains("date") && !isFilteringOnIdColumn) {
 				dbColumnIsDateType = true;
+			} else {
+				// We only allow expression functions on dates at the moment
+				dateExpressionFunction = "";
 			}
 
 			// Alias the column name (in case there are any joins outside this clause)
 			dbColumnName = tableData.getTableOrFunctionName() + "." + dbColumnName;
+			if (!StringUtil.isNullOrEmpty(dateExpressionFunction)) {
+				dbColumnName = dateExpressionFunction + "(" + dbColumnName + ")";
+			}
 
 			// If this isn't a hashmap for this property, assume it's an $eq
 			if (!(comparisons instanceof HashMap)) {
@@ -355,7 +384,7 @@ public class FilterUtil {
 				}
 				// If this is a date, go ahead and convert the value to be as such
 				if (dbColumnIsDateType) {
-					comparisons = DateUtil.getTimestamp(comparisons.toString());
+					comparisons = DateUtil.getAPITimestamp(comparisons.toString());
 				}
 				handleEqualityComparison(dbColumnName, whereClause, parameters, separator, negate, canPrependSeparator,
 						comparisons, dbColumnIsDateType);
@@ -375,7 +404,7 @@ public class FilterUtil {
 					if (filterValue instanceof Long) {
 						filterValue = new Timestamp((Long) filterValue);
 					} else {
-						filterValue = DateUtil.getTimestamp(filterValue.toString());
+						filterValue = DateUtil.getAPITimestamp(filterValue.toString());
 					}
 				}
 				List<?> listOperatorValues;
@@ -438,12 +467,12 @@ public class FilterUtil {
 						parameters.addAll(listOperatorValues);
 						break;
 					case "$text":
-						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " NOT " : " ")
-								.append("LIKE '%").append(filterValue.toString().toLowerCase()).append("%'");
+						whereClause.append(dbColumnName).append(negate ? " NOT " : " ").append("ILIKE '%' || ? || '%'");
+						parameters.add(filterValue.toString());
 						break;
 					case "$ntext":
-						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " " : " NOT ")
-								.append("LIKE '%").append(filterValue.toString().toLowerCase()).append("%'");
+						whereClause.append(dbColumnName).append(negate ? " " : " NOT ").append("ILIKE '%' || ? || '%'");
+						parameters.add(filterValue.toString());
 						break;
 					case "$null":
 						whereClause.append(dbColumnName).append(" IS").append(negate ? " NOT " : " ").append("NULL");
@@ -484,12 +513,19 @@ public class FilterUtil {
 		String remainingDBColumnName = null;
 		String specificSourceColumnToMapOn = null;
 		String specificDestinationColumnToMapOn = null;
+		boolean arePerformingNotExists = false;
 
 		// If this is an aliased value, get the alias
 		if (doesTableAliasExistOnColumn(dbColumnName)) {
 			foreignTableName = dbColumnName.split("\\.")[0];
 			// There may be subsequent aliases, so only remove the first one (i.e. c_orderline.m_product.m_storageonhand)
 			remainingDBColumnName = dbColumnName.replaceFirst(foreignTableName + "\\.", "");
+		}
+		// Also check if we're doing a not-exists check
+		else if (dbColumnName.startsWith("$notExists")) {
+			// Example: convert "$notExists(c_order)" to just "c_order"
+			foreignTableName = dbColumnName.split("\\(")[1].replace(")", "");
+			arePerformingNotExists = true;
 		}
 
 		// If a specific column was passed in, get it
@@ -535,70 +571,78 @@ public class FilterUtil {
 				String idColumn = tableMapping.sourceColumnName;
 				String foreignIdColumn = tableMapping.foreignColumnName;
 				// We have a match! Begin constructing the sub-query
-				whereClause.append(tableData.getTableOrFunctionName()).append(".").append(idColumn).append(negate ? " NOT" :
-								"").append(" IN (SELECT ").append(foreignIdColumn).append(" FROM ");
-				// Sub-clauses should never be negated (i.e. so we don't have "not in (... not in (... not in (...)))" but
-				// instead "not in (... in (... in (...))))"
-				negate = false;
-				// If we have an aggregate on the comparisons, this will need to be a sub-table with an alias
-				Map<String, Object> aggregateComparisons = comparisonQuerySelectors.entrySet().stream().filter(
-								comparisonQuerySelector -> AGGREGATE_QUERY_SELECTORS.stream().anyMatch(
-										aggregateQuerySelector -> comparisonQuerySelector.getKey().startsWith(aggregateQuerySelector)))
-						.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-				boolean doesTableNeedAggregation = !aggregateComparisons.isEmpty();
-				if (doesTableNeedAggregation) {
-					whereClause.append("(");
-					for (String aggregateFunction : aggregateComparisons.keySet()) {
-						String aggregateColumnName = aggregateFunction.split("\\(")[1].replace(")", "");
-						whereClause.append("SELECT ").append(idColumn).append(", ").append(aggregateFunction.replace("$", ""))
-								.append(" as ").append(aggregateColumnName).append(",ad_client_id");
-						whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
-						if (comparisonQuerySelectors.get(aggregateFunction) == null ||
-								((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
-							whereClause.append(DEFAULT_WHERE_CLAUSE);
-						} else {
-							String subWhereClause =
-									getWhereClauseFromExpression(new FilterTableData(tableData.getIdempiereContext(), foreignTableName),
-											(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, false);
-							if (subWhereClause.isEmpty()) {
+				// If we're working with "not exists", our sub-query is simple
+				if (arePerformingNotExists) {
+					whereClause.append(negate ? "" : " NOT").append(" EXISTS (SELECT 1 FROM ").append(foreignTableName)
+							.append(" WHERE ").append(foreignIdColumn).append(" = ").append(tableData.getTableOrFunctionName())
+							.append(".").append(idColumn).append(")");
+				} else {
+					whereClause.append(tableData.getTableOrFunctionName()).append(".").append(idColumn).append(negate ? " NOT" :
+							"").append(" IN (SELECT ").append(foreignIdColumn).append(" FROM ");
+					// Sub-clauses should never be negated (i.e. so we don't have "not in (... not in (... not in (...)))" but
+					// instead "not in (... in (... in (...))))"
+					negate = false;
+					// If we have an aggregate on the comparisons, this will need to be a sub-table with an alias
+					Map<String, Object> aggregateComparisons = comparisonQuerySelectors.entrySet().stream().filter(
+									comparisonQuerySelector -> AGGREGATE_QUERY_SELECTORS.stream().anyMatch(
+											aggregateQuerySelector -> comparisonQuerySelector.getKey().startsWith(aggregateQuerySelector)))
+							.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+					boolean doesTableNeedAggregation = !aggregateComparisons.isEmpty();
+					if (doesTableNeedAggregation) {
+						whereClause.append("(");
+						for (String aggregateFunction : aggregateComparisons.keySet()) {
+							String aggregateColumnName = aggregateFunction.split("\\(")[1].replace(")", "");
+							whereClause.append("SELECT ").append(idColumn).append(", ").append(aggregateFunction.replace("$", ""))
+									.append(" as ").append(aggregateColumnName).append(",ad_client_id");
+							whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
+							if (comparisonQuerySelectors.get(aggregateFunction) == null ||
+									((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
 								whereClause.append(DEFAULT_WHERE_CLAUSE);
 							} else {
-								whereClause.append(subWhereClause);
+								String subWhereClause =
+										getWhereClauseFromExpression(new FilterTableData(tableData.getIdempiereContext(),
+														foreignTableName),
+												(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, false);
+								if (subWhereClause.isEmpty()) {
+									whereClause.append(DEFAULT_WHERE_CLAUSE);
+								} else {
+									whereClause.append(subWhereClause);
+								}
 							}
+							// Add the client check, if it's required
+							whereClause.append(") AND (ad_client_id IN (?,?)");
+							parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
+							parameters.add(MClient_BH.CLIENTID_SYSTEM);
+							// Append the group by clause, since it's an aggregate
+							whereClause.append(") GROUP BY ").append(idColumn).append(",ad_client_id");
 						}
-						// Add the client check, if it's required
-						whereClause.append(") AND (ad_client_id IN (?,?)");
-						parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
-						parameters.add(MClient_BH.CLIENTID_SYSTEM);
-						// Append the group by clause, since it's an aggregate
-						whereClause.append(") GROUP BY ").append(idColumn).append(",ad_client_id");
+						whereClause.append(") ");
 					}
-					whereClause.append(") ");
+					whereClause.append(foreignTableName).append(" WHERE (");
+					// Adjust the comparison string, if need be
+					Map<String, Object> adjustedComparisons = comparisonQuerySelectors;
+					if (remainingDBColumnName != null) {
+						String finalRemainingDBColumnName = remainingDBColumnName;
+						adjustedComparisons = new HashMap<>() {
+							{
+								put(finalRemainingDBColumnName, comparisonQuerySelectors);
+							}
+						};
+					}
+					// Continue the operation, but use the foreign table from this point forward
+					String subWhereClause =
+							getWhereClauseFromExpression(new FilterTableData(tableData.getIdempiereContext(), foreignTableName),
+									adjustedComparisons, parameters, negate);
+					if (subWhereClause.isEmpty()) {
+						whereClause.append(DEFAULT_WHERE_CLAUSE);
+					} else {
+						whereClause.append(subWhereClause);
+					}
+					whereClause.append(") AND (ad_client_id IN (?,?)");
+					parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
+					parameters.add(MClient_BH.CLIENTID_SYSTEM);
+					whereClause.append("))");
 				}
-				whereClause.append(foreignTableName).append(" WHERE (");
-				// Adjust the comparison string, if need be
-				Map<String, Object> adjustedComparisons = comparisonQuerySelectors;
-				if (remainingDBColumnName != null) {
-					String finalRemainingDBColumnName = remainingDBColumnName;
-					adjustedComparisons = new HashMap<>() {
-						{
-							put(finalRemainingDBColumnName, comparisonQuerySelectors);
-						}
-					};
-				}
-				// Continue the operation, but use the foreign table from this point forward
-				String subWhereClause =
-						getWhereClauseFromExpression(new FilterTableData(tableData.getIdempiereContext(), foreignTableName),
-								adjustedComparisons, parameters, negate);
-				if (subWhereClause.isEmpty()) {
-					whereClause.append(DEFAULT_WHERE_CLAUSE);
-				} else {
-					whereClause.append(subWhereClause);
-				}
-				whereClause.append(") AND (ad_client_id IN (?,?)");
-				parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
-				parameters.add(MClient_BH.CLIENTID_SYSTEM);
-				whereClause.append("))");
 			}
 		}
 		return whereClause.toString();

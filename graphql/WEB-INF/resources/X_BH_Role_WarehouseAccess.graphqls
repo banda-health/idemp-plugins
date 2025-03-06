@@ -18,16 +18,12 @@ type BH_Role_WarehouseAccessConnection {
 }
 
 type BH_Role_WarehouseAccess {
-	# Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role
 	BH_Role_WarehouseAccess: BH_Role_WarehouseAccess!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -37,14 +33,12 @@ type BH_Role_WarehouseAccess {
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
 
 input BH_Role_WarehouseAccessInput {
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
 	BH_Role_WarehouseAccess: ForeignEntityInput

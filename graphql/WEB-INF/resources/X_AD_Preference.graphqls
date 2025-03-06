@@ -35,7 +35,7 @@ type AD_Preference {
 	AD_Window: AD_Window
 	Attribute: String!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -43,7 +43,7 @@ type AD_Preference {
 	# Type of preference, it can window, info window or parameter process
 	PreferenceFor: AD_Ref_List!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique

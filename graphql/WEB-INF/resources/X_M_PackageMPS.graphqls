@@ -27,7 +27,7 @@ type M_PackageMPS {
 	# Standard Unit of Measure for Weight
 	C_UOM_Weight: C_UOM
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
@@ -52,7 +52,7 @@ type M_PackageMPS {
 	# Number to track the shipment
 	TrackingNo: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Weight of a product

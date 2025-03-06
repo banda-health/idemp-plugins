@@ -3,6 +3,7 @@ directive @dateFormat on FIELD_DEFINITION
 directive @fixed on INPUT_FIELD_DEFINITION
 scalar Object
 scalar Date
+scalar DateTime
 scalar Binary
 scalar File
 scalar BigDecimal

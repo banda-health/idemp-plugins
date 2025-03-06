@@ -67,7 +67,7 @@ type I_Payment {
 	# Check Number
 	CheckNo: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
 	# Expiry Month
@@ -81,7 +81,7 @@ type I_Payment {
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	# Accounting Date
-	DateAcct: Date
+	DateAcct: DateTime
 	# Transaction Date
 	DateTrx: Date
 	# Calculated amount of discount
@@ -149,7 +149,7 @@ type I_Payment {
 	# Type of credit card transaction
 	TrxType: AD_Ref_List
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User
 	# Voice Authorization Code from credit card company
@@ -216,7 +216,7 @@ input I_PaymentInput {
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	# Accounting Date
-	DateAcct: Date
+	DateAcct: DateTime
 	# Transaction Date
 	DateTrx: Date
 	# Calculated amount of discount

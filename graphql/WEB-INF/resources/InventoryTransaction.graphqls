@@ -9,7 +9,7 @@ type InventoryTransactionConnection {
 
 type InventoryTransaction {
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	M_Transaction: M_Transaction

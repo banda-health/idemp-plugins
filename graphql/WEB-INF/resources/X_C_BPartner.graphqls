@@ -41,7 +41,7 @@ type C_BPartner {
 	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
 	BH_Locked: Boolean!
 	BH_NeedAdditionalVisitInfo: Boolean!
-	bh_nextappointmentdate: Date
+	bh_nextappointmentdate: DateTime
 	bh_occupation: String
 	# A unique identifier for users to manually enter
 	BH_PatientID: String
@@ -60,7 +60,7 @@ type C_BPartner {
 	C_PaymentTerm: C_PaymentTerm
 	C_TaxGroup: C_TaxGroup
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	CustomerProfileID: String
@@ -168,7 +168,7 @@ type C_BPartner {
 	# Total Open Balance Amount in primary Accounting Currency
 	TotalOpenBalance: BigDecimal
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Full URL address - e.g. http://www.idempiere.org
@@ -199,7 +199,7 @@ input C_BPartnerInput {
 	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
 	BH_Locked: Boolean
 	BH_NeedAdditionalVisitInfo: Boolean
-	bh_nextappointmentdate: Date
+	bh_nextappointmentdate: DateTime
 	bh_occupation: String
 	# A unique identifier for users to manually enter
 	BH_PatientID: String

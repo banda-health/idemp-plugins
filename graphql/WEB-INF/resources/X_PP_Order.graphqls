@@ -43,25 +43,25 @@ type PP_Order {
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date Confirm of this Order
-	DateConfirm: Date
+	DateConfirm: DateTime
 	# Date when the product was delivered
-	DateDelivered: Date
+	DateDelivered: DateTime
 	# Finish or (planned) completion date
-	DateFinish: Date
+	DateFinish: DateTime
 	# Scheduled Finish date for this Order
-	DateFinishSchedule: Date
+	DateFinishSchedule: DateTime
 	# Date of Order
-	DateOrdered: Date!
+	DateOrdered: DateTime!
 	# Date Order was promised
-	DatePromised: Date!
+	DatePromised: DateTime!
 	# Date Start for this Order
-	DateStart: Date
+	DateStart: DateTime
 	# Scheduled start date for this Order
-	DateStartSchedule: Date!
+	DateStartSchedule: DateTime!
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
@@ -128,7 +128,7 @@ type PP_Order {
 	# Product Serial Number 
 	SerNo: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1
@@ -163,21 +163,21 @@ input PP_OrderInput {
 	# Copy From Record
 	CopyFrom: String
 	# Date Confirm of this Order
-	DateConfirm: Date
+	DateConfirm: DateTime
 	# Date when the product was delivered
-	DateDelivered: Date
+	DateDelivered: DateTime
 	# Finish or (planned) completion date
-	DateFinish: Date
+	DateFinish: DateTime
 	# Scheduled Finish date for this Order
-	DateFinishSchedule: Date
+	DateFinishSchedule: DateTime
 	# Date of Order
-	DateOrdered: Date
+	DateOrdered: DateTime
 	# Date Order was promised
-	DatePromised: Date
+	DatePromised: DateTime
 	# Date Start for this Order
-	DateStart: Date
+	DateStart: DateTime
 	# Scheduled start date for this Order
-	DateStartSchedule: Date
+	DateStartSchedule: DateTime
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document

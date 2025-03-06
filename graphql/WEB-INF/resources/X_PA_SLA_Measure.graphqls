@@ -25,11 +25,11 @@ type PA_SLA_Measure {
 	# Database Table information
 	AD_Table: AD_Table
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Transaction Date
-	DateTrx: Date!
+	DateTrx: DateTime!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -43,7 +43,7 @@ type PA_SLA_Measure {
 	Processed: Boolean!
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -54,7 +54,7 @@ input PA_SLA_MeasureInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Transaction Date
-	DateTrx: Date
+	DateTrx: DateTime
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

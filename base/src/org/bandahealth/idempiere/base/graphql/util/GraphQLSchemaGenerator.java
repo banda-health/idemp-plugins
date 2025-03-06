@@ -299,10 +299,15 @@ public class GraphQLSchemaGenerator {
 			if (!shouldSkipInputField) {
 				generatedColumns.inputModel.append("Boolean");
 			}
-		} else if (clazz.equals(Timestamp.class)) {
+		} else if (displayType == 15) { // Date
 			generatedColumns.regularModel.append("Date");
 			if (!shouldSkipInputField) {
 				generatedColumns.inputModel.append("Date");
+			}
+		} else if (clazz.equals(Timestamp.class)) {
+			generatedColumns.regularModel.append("DateTime");
+			if (!shouldSkipInputField) {
+				generatedColumns.inputModel.append("DateTime");
 			}
 		} else if (clazz.equals(byte[].class)) {
 			generatedColumns.regularModel.append("Binary");

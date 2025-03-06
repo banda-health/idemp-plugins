@@ -24,7 +24,7 @@ type AD_Sequence {
 	AD_Org: AD_Org!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The next number to be used
@@ -63,7 +63,7 @@ type AD_Sequence {
 	# Suffix after the number
 	Suffix: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"

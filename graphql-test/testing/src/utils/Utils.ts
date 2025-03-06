@@ -1,21 +1,16 @@
 import { v4 } from 'uuid';
-import { mutate, query } from '../api';
-import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
 	Ad_ProcessRunAndExportDocument,
 	Ad_Ref_ListGetDocument,
 	Bh_VisitGetDocument,
 	Bh_VisitSaveDocument,
-	C_AcctSchemaGetDocument,
 	C_BankAccountGetDocument,
 	C_BPartnerGetDocument,
 	C_BPartnerSaveWithLocationAndContactDocument,
-	C_BPartnerSaveWithLocationDocument,
 	C_ChargeSaveDocument,
 	C_InvoiceGetDocument,
 	C_InvoiceProcessDocument,
 	C_InvoiceSaveWithInvoiceLinesDocument,
-	C_LocationGetDocument,
 	C_OrderGetDocument,
 	C_OrderProcessDocument,
 	C_OrderSaveWithOrderLinesDocument,
@@ -25,20 +20,20 @@ import {
 	C_UomGetDefaultDocument,
 	M_AttributeSetInstanceGetDocument,
 	M_DiscountSchemaGetDocument,
-	M_DiscountSchemaGetQuery,
 	M_InventoryProcessDocument,
 	M_InventorySaveWithInventoryLinesDocument,
-	M_PriceListGetDocument,
-	M_PriceListSaveDocument,
 	M_PriceList_VersionGetDocument,
 	M_PriceList_VersionSaveDocument,
+	M_PriceListSaveDocument,
+	M_Product_CategoryGetDocument,
 	M_ProductPriceSaveManyDocument,
 	M_ProductSaveDocument,
-	M_Product_CategoryGetDocument,
 	M_StorageOnHandGetDocument,
 	M_WarehouseGetDocument,
 	ReportOutput,
 } from '../__generated__/graphql';
+import { mutate, query } from '../api';
+import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 
 export async function loadBankAccount(valueObject: ValueObject) {
 	if (valueObject.bankAccount) {

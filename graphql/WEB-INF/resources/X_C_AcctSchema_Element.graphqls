@@ -44,7 +44,7 @@ type C_AcctSchema_Element {
 	# Sales coverage region
 	C_SalesRegion: C_SalesRegion
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Element Type (account or user defined)
@@ -61,7 +61,7 @@ type C_AcctSchema_Element {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

@@ -34,7 +34,7 @@ type C_Recurring_Run {
 	C_Recurring: C_Recurring!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date of the Document
@@ -44,7 +44,7 @@ type C_Recurring_Run {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

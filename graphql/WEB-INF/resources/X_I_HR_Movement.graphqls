@@ -31,7 +31,7 @@ type I_HR_Movement {
 	# Value of the Concept
 	ConceptValue: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
 	# Optional short description of the record
@@ -54,15 +54,15 @@ type I_HR_Movement {
 	# Quantity
 	Qty: BigDecimal
 	# Date service was provided
-	ServiceDate: Date
+	ServiceDate: DateTime
 	# Text Message
 	TextMsg: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User
 	# Valid from including this date (first day)
-	ValidFrom: Date
+	ValidFrom: DateTime
 }
 
 input I_HR_MovementInput {
@@ -96,9 +96,9 @@ input I_HR_MovementInput {
 	# Quantity
 	Qty: BigDecimal
 	# Date service was provided
-	ServiceDate: Date
+	ServiceDate: DateTime
 	# Text Message
 	TextMsg: String
 	# Valid from including this date (first day)
-	ValidFrom: Date
+	ValidFrom: DateTime
 }

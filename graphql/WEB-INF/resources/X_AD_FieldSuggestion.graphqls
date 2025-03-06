@@ -39,7 +39,7 @@ type AD_FieldSuggestion {
 	# Compare suggested text with original text
 	CompareSuggestion: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -59,7 +59,7 @@ type AD_FieldSuggestion {
 	# Reject suggested changes
 	RejectSuggestion: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

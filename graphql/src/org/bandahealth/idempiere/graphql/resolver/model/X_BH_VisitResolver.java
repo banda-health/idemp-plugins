@@ -138,4 +138,8 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 		return dataLoader.load(entity.getPatient_ID());
 	}
 
+	public Boolean Scheduled(MBHVisit entity, DataFetchingEnvironment environment) {
+		return entity.isScheduled();
+	}
+
 }
