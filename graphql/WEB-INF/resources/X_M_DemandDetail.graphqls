@@ -25,7 +25,7 @@ type M_DemandDetail {
 	# Sales Order Line
 	C_OrderLine: C_OrderLine
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -38,7 +38,7 @@ type M_DemandDetail {
 	# Material Requisition Line
 	M_RequisitionLine: M_RequisitionLine
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

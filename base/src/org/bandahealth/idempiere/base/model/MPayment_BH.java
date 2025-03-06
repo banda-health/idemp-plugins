@@ -57,6 +57,11 @@ public class MPayment_BH extends MPayment {
 	 */
 	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
 
+	/**
+	 * Column name Scheduled
+	 */
+	public static final String COLUMNNAME_Scheduled = "Scheduled";
+
 	private static final long serialVersionUID = 1L;
 
 	public MPayment_BH(Properties ctx, String C_Payment_UU, String trxName) {
@@ -298,5 +303,29 @@ public class MPayment_BH extends MPayment {
 	 */
 	public Object getBH_NavButtons() {
 		return get_Value(COLUMNNAME_BH_NavButtons);
+	}
+
+	/**
+	 * Set Scheduled.
+	 *
+	 * @param Scheduled Whether the entity was scheduled or not
+	 */
+	public void setScheduled(boolean Scheduled) {
+		set_Value(COLUMNNAME_Scheduled, Boolean.valueOf(Scheduled));
+	}
+
+	/**
+	 * Get Scheduled.
+	 *
+	 * @return Whether the entity was scheduled or not
+	 */
+	public boolean isScheduled() {
+		Object oo = get_Value(COLUMNNAME_Scheduled);
+		if (oo != null) {
+			if (oo instanceof Boolean)
+				return ((Boolean) oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 }

@@ -28,7 +28,7 @@ type AD_HouseKeeping {
 	# Backup Folder
 	BackupFolder: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -40,14 +40,14 @@ type AD_HouseKeeping {
 	IsExportXMLBackup: Boolean!
 	IsSaveInHistoric: Boolean!
 	LastDeleted: Int
-	LastRun: Date
+	LastRun: DateTime
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
 	# Name of the table in the database
 	TableName: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
@@ -73,7 +73,7 @@ input AD_HouseKeepingInput {
 	IsExportXMLBackup: Boolean
 	IsSaveInHistoric: Boolean
 	LastDeleted: Int
-	LastRun: Date
+	LastRun: DateTime
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

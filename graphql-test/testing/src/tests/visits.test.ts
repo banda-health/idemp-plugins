@@ -34,6 +34,7 @@ import {
 	Bh_Encounter_Type_WindowGetDocument,
 	Bh_ObservationsDeleteAndSaveManyAndEncounterDiagnosesDeleteDocument,
 	Bh_ObservationsDeleteAndSaveManyAndEncounterDiagnosesSaveManyDocument,
+	Bh_VisitCountDocument,
 	Bh_VisitDeleteAllDocument,
 	Bh_VisitDeleteDocument,
 	Bh_VisitDocument,
@@ -3214,4 +3215,112 @@ test(`'coming from' shows the correct data`, async () => {
 	visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
 	expect(visit).toBeTruthy();
 	expect(visit.BH_Coming_From?.Name).toBe(processStages[1].Name);
+});
+
+test('can schedule and change scheduled visits', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	const visitTypes = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.VISIT_TYPE } }) },
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	valueObject.stepName = 'Create visit';
+	const visitUU = v4();
+	valueObject.setDateOffset(10);
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				UU: visitUU,
+				BH_PatientType: { UU: visitTypes[0].UU },
+				BH_VisitDate: valueObject.date?.getTime(),
+				Description: valueObject.getStepMessageLong(),
+				Patient: { UU: valueObject.businessPartner!.UU },
+				Scheduled: true,
+			},
+		},
+	});
+
+	let visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
+	expect(visit).toBeTruthy();
+	expect(visit.BH_VisitDate).toBe(valueObject.date?.getTime());
+	expect(visit.Change_Reason).toBeNull();
+	expect(visit.Scheduled).toBeTruthy();
+
+	valueObject.setDateOffset(10);
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				UU: visitUU,
+				BH_PatientType: { UU: visitTypes[0].UU },
+				BH_VisitDate: valueObject.date?.getTime(),
+				Change_Reason: 'the patient needs to wait another week',
+			},
+		},
+	});
+	visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
+	expect(visit).toBeTruthy();
+	expect(visit.BH_VisitDate).toBe(valueObject.date?.getTime());
+	expect(visit.Change_Reason).toBe('the patient needs to wait another week');
+	expect(visit.Scheduled).toBeTruthy();
+});
+
+test('search by not exists works', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	const visitTypes = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.VISIT_TYPE } }) },
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	valueObject.stepName = 'Create visit';
+	const visitUU = v4();
+	valueObject.setDateOffset(10);
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				UU: visitUU,
+				BH_PatientType: { UU: visitTypes[0].UU },
+				BH_VisitDate: valueObject.date?.getTime(),
+				Description: valueObject.getStepMessageLong(),
+				Patient: { UU: valueObject.businessPartner!.UU },
+				Scheduled: true,
+			},
+		},
+	});
+
+	let visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
+	expect(visit).toBeTruthy();
+
+	visit = (
+		await query(valueObject)({
+			query: Bh_VisitGetDocument,
+			variables: { Filter: JSON.stringify({ bh_visit_uu: visitUU, ['$notExists(c_order)']: {} }) },
+		})
+	).data.BH_VisitGet.Results[0]!;
+	expect(visit).toBeTruthy();
+
+	expect(
+		(
+			await query(valueObject)({
+				query: Bh_VisitCountDocument,
+				variables: { Filter: JSON.stringify({ ['$notExists(c_order)']: {} }) },
+			})
+		).data.BH_VisitGet.PagingInfo.TotalCount,
+	).not.toBe((await query(valueObject)({ query: Bh_VisitCountDocument })).data.BH_VisitGet.PagingInfo.TotalCount);
 });

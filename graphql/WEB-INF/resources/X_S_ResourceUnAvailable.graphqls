@@ -23,7 +23,7 @@ type S_ResourceUnAvailable {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Starting date for a range
@@ -38,7 +38,7 @@ type S_ResourceUnAvailable {
 	S_Resource: S_Resource!
 	UU: ID!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

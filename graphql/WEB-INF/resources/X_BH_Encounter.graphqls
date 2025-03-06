@@ -22,18 +22,18 @@ type BH_Encounter {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	BH_Encounter_Date: Date!
+	BH_Encounter_Date: DateTime!
 	BH_Encounter_Type: AD_Ref_List!
 	UU: ID!
 	BH_Visit: BH_Visit!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -41,7 +41,7 @@ type BH_Encounter {
 input BH_EncounterInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	BH_Encounter_Date: Date
+	BH_Encounter_Date: DateTime
 	BH_Encounter_Type: ForeignEntityInput
 	UU: ID
 	BH_Visit: ForeignEntityInput

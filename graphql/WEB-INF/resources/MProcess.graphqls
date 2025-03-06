@@ -1,6 +1,6 @@
 extend type Mutation {
-	AD_ProcessRun(UU: ID!, ProcessInfoParameterList: [ProcessInfoParameterInput!]): String
-	AD_ProcessRunAndExport(UU: ID!, ProcessInfoParameterList: [ProcessInfoParameterInput!], ReportType: ReportOutput!): File!
+	AD_ProcessRun(UU: ID!, TableUU: String, RecordUU: String, ProcessInfoParameterList: [ProcessInfoParameterInput!]): String
+	AD_ProcessRunAndExport(UU: ID!, TableUU: String, RecordUU: String, ProcessInfoParameterList: [ProcessInfoParameterInput!], ReportType: ReportOutput!): File!
 }
 
 extend type AD_Process {

@@ -46,7 +46,7 @@ type AD_UserDef_Field {
 	# Number of column for a box of field
 	ColumnSpan: Int
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Default value hierarchy, separated by ;
@@ -93,7 +93,7 @@ type AD_UserDef_Field {
 	# Determines in what order the records are displayed
 	SortNo: Int
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"

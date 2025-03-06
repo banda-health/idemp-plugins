@@ -25,7 +25,7 @@ type M_AttributeSet {
 	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
 	BH_Locked: Boolean!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -68,7 +68,7 @@ type M_AttributeSet {
 	# Serial Number Start Indicator overwrite - default #
 	SerNoCharSOverwrite: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	UseGuaranteeDateForMPolicy: Boolean!

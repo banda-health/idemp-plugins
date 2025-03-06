@@ -28,7 +28,7 @@ type AD_AlertRule {
 	# Database Table information
 	AD_Table: AD_Table
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	ErrorMsg: String
@@ -49,7 +49,7 @@ type AD_AlertRule {
 	# SQL SELECT clause
 	SelectClause: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Fully qualified SQL WHERE clause

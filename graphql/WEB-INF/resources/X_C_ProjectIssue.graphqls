@@ -26,7 +26,7 @@ type C_ProjectIssue {
 	C_Project: C_Project!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -65,7 +65,7 @@ type C_ProjectIssue {
 	# Time and Expense Report Line
 	S_TimeExpenseLine: S_TimeExpenseLine
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

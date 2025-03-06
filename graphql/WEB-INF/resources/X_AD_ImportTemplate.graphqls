@@ -29,7 +29,7 @@ type AD_ImportTemplate {
 	AD_Window: AD_Window!
 	CharacterSet: String!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	CSVAliasHeader: String
@@ -41,7 +41,7 @@ type AD_ImportTemplate {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

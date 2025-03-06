@@ -28,7 +28,7 @@ type CM_ChatTypeUpdate {
 	CM_ChatType: CM_ChatType!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -36,7 +36,7 @@ type CM_ChatTypeUpdate {
 	# This is a Self-Service entry or this entry can be changed via Self-Service
 	IsSelfService: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

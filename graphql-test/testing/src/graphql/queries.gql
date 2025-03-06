@@ -290,6 +290,14 @@ query BH_Visit($UU: String!) {
 	}
 }
 
+query BH_VisitCount($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_VisitGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		PagingInfo {
+			TotalCount
+		}
+	}
+}
+
 query BH_VisitGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_VisitGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
@@ -444,6 +452,14 @@ query C_OrderForSalesRep($UU: String!) {
 		SalesRep {
 			UU
 		}
+	}
+}
+
+query C_Payment($UU: String!) {
+	C_Payment(UU: $UU) {
+		...C_PaymentFields
+		DateTrx
+		Scheduled
 	}
 }
 

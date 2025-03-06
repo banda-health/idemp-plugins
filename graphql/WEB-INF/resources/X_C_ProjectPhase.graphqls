@@ -32,7 +32,7 @@ type C_ProjectPhase {
 	# The (legal) commitment amount
 	CommittedAmt: BigDecimal!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -66,7 +66,7 @@ type C_ProjectPhase {
 	# First effective day (inclusive)
 	StartDate: Date
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

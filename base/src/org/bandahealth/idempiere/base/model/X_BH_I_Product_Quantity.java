@@ -35,7 +35,7 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250205L;
 
     /** Standard Constructor */
     public X_BH_I_Product_Quantity (Properties ctx, int BH_I_Product_Quantity_ID, String trxName)
@@ -47,9 +47,9 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 // 0
 			setBH_HasExpiration (false);
 // N
-			setBH_I_Product_Quantity_ID (0);
 			setBH_InitialQuantity (Env.ZERO);
 // 0
+			setBH_I_Product_Quantity_ID (0);
 			setBH_SellPrice (Env.ZERO);
 // 0
 			setCategoryName (null);
@@ -69,9 +69,9 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 // 0
 			setBH_HasExpiration (false);
 // N
-			setBH_I_Product_Quantity_ID (0);
 			setBH_InitialQuantity (Env.ZERO);
 // 0
+			setBH_I_Product_Quantity_ID (0);
 			setBH_SellPrice (Env.ZERO);
 // 0
 			setCategoryName (null);
@@ -91,9 +91,9 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 // 0
 			setBH_HasExpiration (false);
 // N
-			setBH_I_Product_Quantity_ID (0);
 			setBH_InitialQuantity (Env.ZERO);
 // 0
+			setBH_I_Product_Quantity_ID (0);
 			setBH_SellPrice (Env.ZERO);
 // 0
 			setCategoryName (null);
@@ -113,9 +113,9 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 // 0
 			setBH_HasExpiration (false);
 // N
-			setBH_I_Product_Quantity_ID (0);
 			setBH_InitialQuantity (Env.ZERO);
 // 0
+			setBH_I_Product_Quantity_ID (0);
 			setBH_SellPrice (Env.ZERO);
 // 0
 			setCategoryName (null);
@@ -326,42 +326,6 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 		return false;
 	}
 
-	/** Set Import Products with Quantities.
-		@param BH_I_Product_Quantity_ID Import Products with Quantities
-	*/
-	public void setBH_I_Product_Quantity_ID (int BH_I_Product_Quantity_ID)
-	{
-		if (BH_I_Product_Quantity_ID < 1)
-			set_ValueNoCheck (COLUMNNAME_BH_I_Product_Quantity_ID, null);
-		else
-			set_ValueNoCheck (COLUMNNAME_BH_I_Product_Quantity_ID, Integer.valueOf(BH_I_Product_Quantity_ID));
-	}
-
-	/** Get Import Products with Quantities.
-		@return Import Products with Quantities	  */
-	public int getBH_I_Product_Quantity_ID()
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_I_Product_Quantity_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set BH_I_Product_Quantity_UU.
-		@param BH_I_Product_Quantity_UU BH_I_Product_Quantity_UU
-	*/
-	public void setBH_I_Product_Quantity_UU (String BH_I_Product_Quantity_UU)
-	{
-		set_Value (COLUMNNAME_BH_I_Product_Quantity_UU, BH_I_Product_Quantity_UU);
-	}
-
-	/** Get BH_I_Product_Quantity_UU.
-		@return BH_I_Product_Quantity_UU	  */
-	public String getBH_I_Product_Quantity_UU()
-	{
-		return (String)get_Value(COLUMNNAME_BH_I_Product_Quantity_UU);
-	}
-
 	/** Set Initial Quantity.
 		@param BH_InitialQuantity The initial quantity of a product
 	*/
@@ -412,6 +376,108 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 	public BigDecimal getBH_InitialQuantity_Lot3()
 	{
 		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_BH_InitialQuantity_Lot3);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Import Products with Quantities.
+		@param BH_I_Product_Quantity_ID Import Products with Quantities
+	*/
+	public void setBH_I_Product_Quantity_ID (int BH_I_Product_Quantity_ID)
+	{
+		if (BH_I_Product_Quantity_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_BH_I_Product_Quantity_ID, null);
+		else
+			set_ValueNoCheck (COLUMNNAME_BH_I_Product_Quantity_ID, Integer.valueOf(BH_I_Product_Quantity_ID));
+	}
+
+	/** Get Import Products with Quantities.
+		@return Import Products with Quantities	  */
+	public int getBH_I_Product_Quantity_ID()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_I_Product_Quantity_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set BH_I_Product_Quantity_UU.
+		@param BH_I_Product_Quantity_UU BH_I_Product_Quantity_UU
+	*/
+	public void setBH_I_Product_Quantity_UU (String BH_I_Product_Quantity_UU)
+	{
+		set_Value (COLUMNNAME_BH_I_Product_Quantity_UU, BH_I_Product_Quantity_UU);
+	}
+
+	/** Get BH_I_Product_Quantity_UU.
+		@return BH_I_Product_Quantity_UU	  */
+	public String getBH_I_Product_Quantity_UU()
+	{
+		return (String)get_Value(COLUMNNAME_BH_I_Product_Quantity_UU);
+	}
+
+	/** Set BH_PriceList2_Name.
+		@param BH_PriceList2_Name BH_PriceList2_Name
+	*/
+	public void setBH_PriceList2_Name (String BH_PriceList2_Name)
+	{
+		set_Value (COLUMNNAME_BH_PriceList2_Name, BH_PriceList2_Name);
+	}
+
+	/** Get BH_PriceList2_Name.
+		@return BH_PriceList2_Name	  */
+	public String getBH_PriceList2_Name()
+	{
+		return (String)get_Value(COLUMNNAME_BH_PriceList2_Name);
+	}
+
+	/** Set BH_PriceList2_SellPrice.
+		@param BH_PriceList2_SellPrice BH_PriceList2_SellPrice
+	*/
+	public void setBH_PriceList2_SellPrice (BigDecimal BH_PriceList2_SellPrice)
+	{
+		set_Value (COLUMNNAME_BH_PriceList2_SellPrice, BH_PriceList2_SellPrice);
+	}
+
+	/** Get BH_PriceList2_SellPrice.
+		@return BH_PriceList2_SellPrice	  */
+	public BigDecimal getBH_PriceList2_SellPrice()
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_BH_PriceList2_SellPrice);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set BH_PriceList3_Name.
+		@param BH_PriceList3_Name BH_PriceList3_Name
+	*/
+	public void setBH_PriceList3_Name (String BH_PriceList3_Name)
+	{
+		set_Value (COLUMNNAME_BH_PriceList3_Name, BH_PriceList3_Name);
+	}
+
+	/** Get BH_PriceList3_Name.
+		@return BH_PriceList3_Name	  */
+	public String getBH_PriceList3_Name()
+	{
+		return (String)get_Value(COLUMNNAME_BH_PriceList3_Name);
+	}
+
+	/** Set BH_PriceList3_SellPrice.
+		@param BH_PriceList3_SellPrice BH_PriceList3_SellPrice
+	*/
+	public void setBH_PriceList3_SellPrice (BigDecimal BH_PriceList3_SellPrice)
+	{
+		set_Value (COLUMNNAME_BH_PriceList3_SellPrice, BH_PriceList3_SellPrice);
+	}
+
+	/** Get BH_PriceList3_SellPrice.
+		@return BH_PriceList3_SellPrice	  */
+	public BigDecimal getBH_PriceList3_SellPrice()
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_BH_PriceList3_SellPrice);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;

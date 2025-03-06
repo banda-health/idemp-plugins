@@ -16,7 +16,8 @@ export type Scalars = {
   Float: { input: number; output: number; }
   BigDecimal: { input: number; output: number; }
   Binary: { input: string; output: string; }
-  Date: { input: number; output: number; }
+  Date: { input: number | string; output: string; }
+  DateTime: { input: number; output: number; }
   File: { input: string; output: string; }
   Object: { input: any; output: any; }
 };
@@ -32,7 +33,7 @@ export type Ad_AccessLog = {
   /** Database Table information */
   AD_Table?: Maybe<Ad_Table>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -49,7 +50,7 @@ export type Ad_AccessLog = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -97,7 +98,7 @@ export type Ad_Alert = {
   /** Subject of the Alert */
   AlertSubject: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -116,7 +117,7 @@ export type Ad_Alert = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -162,13 +163,13 @@ export type Ad_AlertProcessor = {
   AD_Org: Ad_Org;
   AD_Schedule: Ad_Schedule;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Date the process will run next */
-  DateNextRun?: Maybe<Scalars['Date']['output']>;
+  DateNextRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
@@ -182,7 +183,7 @@ export type Ad_AlertProcessor = {
   Supervisor: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -198,9 +199,9 @@ export type Ad_AlertProcessorInput = {
   AD_Org?: InputMaybe<ForeignEntityInput>;
   AD_Schedule?: InputMaybe<ForeignEntityInput>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date the process will run next */
-  DateNextRun?: InputMaybe<Scalars['Date']['input']>;
+  DateNextRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
@@ -226,7 +227,7 @@ export type Ad_AlertProcessorLog = {
   /** Binary Data */
   BinaryData?: Maybe<Scalars['Binary']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -243,7 +244,7 @@ export type Ad_AlertProcessorLog = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -289,14 +290,14 @@ export type Ad_AlertRecipient = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -332,7 +333,7 @@ export type Ad_AlertRule = {
   /** Database Table information */
   AD_Table?: Maybe<Ad_Table>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   ErrorMsg?: Maybe<Scalars['String']['output']>;
@@ -354,7 +355,7 @@ export type Ad_AlertRule = {
   SelectClause: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified SQL WHERE clause */
@@ -405,7 +406,7 @@ export type Ad_AllClients_V = {
   /** Organizational entity within tenant */
   AD_Org?: Maybe<Ad_Org>;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Optional short description of the record */
@@ -416,7 +417,7 @@ export type Ad_AllClients_V = {
   Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
+  Updated?: Maybe<Scalars['DateTime']['output']>;
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Search key for the record in the format required - must be unique */
@@ -453,11 +454,11 @@ export type Ad_AllUsers_V = {
   /** Organizational entity within tenant */
   AD_Org?: Maybe<Ad_Org>;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
-  DateAccountLocked?: Maybe<Scalars['Date']['output']>;
-  DateLastLogin?: Maybe<Scalars['Date']['output']>;
+  DateAccountLocked?: Maybe<Scalars['DateTime']['output']>;
+  DateLastLogin?: Maybe<Scalars['DateTime']['output']>;
   DatePasswordChanged?: Maybe<Scalars['Date']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
@@ -481,7 +482,7 @@ export type Ad_AllUsers_V = {
   Salt?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
+  Updated?: Maybe<Scalars['DateTime']['output']>;
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   UserPIN?: Maybe<Scalars['String']['output']>;
@@ -499,8 +500,8 @@ export type Ad_AllUsers_VInput = {
   AD_AllClients_V?: InputMaybe<ForeignEntityInput>;
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
-  DateAccountLocked?: InputMaybe<Scalars['Date']['input']>;
-  DateLastLogin?: InputMaybe<Scalars['Date']['input']>;
+  DateAccountLocked?: InputMaybe<Scalars['DateTime']['input']>;
+  DateLastLogin?: InputMaybe<Scalars['DateTime']['input']>;
   DatePasswordChanged?: InputMaybe<Scalars['Date']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
@@ -544,7 +545,7 @@ export type Ad_Archive = {
   /** Identifies a Business Partner */
   C_BPartner?: Maybe<C_BPartner>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -559,7 +560,7 @@ export type Ad_Archive = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -607,7 +608,7 @@ export type Ad_Attachment = {
   /** Binary Data */
   BinaryData?: Maybe<Scalars['Binary']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -618,7 +619,7 @@ export type Ad_Attachment = {
   Title: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -657,7 +658,7 @@ export type Ad_AttachmentNote = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -668,7 +669,7 @@ export type Ad_AttachmentNote = {
   Title: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -712,7 +713,7 @@ export type Ad_Attribute = {
   /** Fully qualified class names and method - separated by semicolons */
   Callout?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Default value hierarchy, separated by ; */
@@ -749,7 +750,7 @@ export type Ad_Attribute = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
@@ -854,9 +855,9 @@ export type Ad_AuthorizationAccount = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
   AccessToken?: Maybe<Scalars['String']['output']>;
-  AccessTokenTimestamp?: Maybe<Scalars['Date']['output']>;
+  AccessTokenTimestamp?: Maybe<Scalars['DateTime']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Electronic Mail Address */
@@ -872,7 +873,7 @@ export type Ad_AuthorizationAccount = {
   RefreshToken?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -891,7 +892,7 @@ export type Ad_AuthorizationAccountInput = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: InputMaybe<ForeignEntityInput>;
   AccessToken?: InputMaybe<Scalars['String']['input']>;
-  AccessTokenTimestamp?: InputMaybe<Scalars['Date']['input']>;
+  AccessTokenTimestamp?: InputMaybe<Scalars['DateTime']['input']>;
   /** Electronic Mail Address */
   EMail?: InputMaybe<Scalars['String']['input']>;
   ExpireInSeconds?: InputMaybe<Scalars['BigDecimal']['input']>;
@@ -918,7 +919,7 @@ export type Ad_AuthorizationCredential = {
   AuthorizationClientSecret: Scalars['String']['output'];
   AuthorizationRedirectURL: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Comment or Hint */
@@ -929,7 +930,7 @@ export type Ad_AuthorizationCredential = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -966,7 +967,7 @@ export type Ad_AuthorizationProvider = {
   AD_Org: Ad_Org;
   AuthorizationEndpoint: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -981,7 +982,7 @@ export type Ad_AuthorizationProvider = {
   TokenEndpoint: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -1027,11 +1028,11 @@ export type Ad_BroadcastMessage = {
   /** Type of Broadcast */
   BroadcastType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Expire On */
-  Expiration?: Maybe<Scalars['Date']['output']>;
+  Expiration?: Maybe<Scalars['DateTime']['output']>;
   /** Expire the broadcast message */
   ExpireNow?: Maybe<Scalars['String']['output']>;
   Expired: Scalars['Boolean']['output'];
@@ -1053,7 +1054,7 @@ export type Ad_BroadcastMessage = {
   Title?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -1078,7 +1079,7 @@ export type Ad_BroadcastMessageInput = {
   /** Type of Broadcast */
   BroadcastType?: InputMaybe<ForeignEntityInput>;
   /** Expire On */
-  Expiration?: InputMaybe<Scalars['Date']['input']>;
+  Expiration?: InputMaybe<Scalars['DateTime']['input']>;
   /** Expire the broadcast message */
   ExpireNow?: InputMaybe<Scalars['String']['input']>;
   Expired?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1116,7 +1117,7 @@ export type Ad_ChangeLog = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -1137,7 +1138,7 @@ export type Ad_ChangeLog = {
   UU: Scalars['ID']['output'];
   Undo?: Maybe<Scalars['String']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -1192,7 +1193,7 @@ export type Ad_Chart = {
   /** Type of chart to render */
   ChartType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -1215,7 +1216,7 @@ export type Ad_Chart = {
   TimeUnit?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   WinHeight?: Maybe<Scalars['Int']['output']>;
@@ -1241,7 +1242,7 @@ export type Ad_ChartDatasource = {
   /** Fully qualified data category column */
   CategoryColumn?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Fully qualified date column */
@@ -1261,7 +1262,7 @@ export type Ad_ChartDatasource = {
   TimeOffset?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified data value column */
@@ -1353,7 +1354,7 @@ export type Ad_Client = {
   /** Enable and level of automatic Archive of documents */
   AutoArchive: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -1396,7 +1397,7 @@ export type Ad_Client = {
   SMTPPort?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -1448,7 +1449,7 @@ export type Ad_ClientInfo = {
   /** Standard Unit of Measure for Weight */
   C_UOM_Weight?: Maybe<C_Uom>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   FY_StartDate?: Maybe<Scalars['Date']['output']>;
@@ -1469,7 +1470,7 @@ export type Ad_ClientInfo = {
   TimeZone?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -1597,7 +1598,7 @@ export type Ad_ClientShare = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -1610,7 +1611,7 @@ export type Ad_ClientShare = {
   ShareType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -1656,7 +1657,7 @@ export type Ad_Color = {
   /** Color presentation for this color */
   ColorType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** RGB value */
@@ -1685,7 +1686,7 @@ export type Ad_Color = {
   StartPoint?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -1772,7 +1773,7 @@ export type Ad_Column = {
   /** Virtual Column (r/o) */
   ColumnSQL?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Default value hierarchy, separated by ; */
@@ -1843,7 +1844,7 @@ export type Ad_Column = {
   SeqNoSelection?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
@@ -1982,7 +1983,7 @@ export type Ad_Column_Access = {
   /** Database Table information */
   AD_Table?: Maybe<Ad_Table>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -1993,7 +1994,7 @@ export type Ad_Column_Access = {
   IsReadOnly: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2029,7 +2030,7 @@ export type Ad_CtxHelp = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Type of Context Help */
@@ -2042,7 +2043,7 @@ export type Ad_CtxHelp = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2075,7 +2076,7 @@ export type Ad_CtxHelpMsg = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -2084,7 +2085,7 @@ export type Ad_CtxHelpMsg = {
   MsgText: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2124,7 +2125,7 @@ export type Ad_CtxHelpSuggestion = {
   /** Compare suggested text with original text */
   CompareSuggestion?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -2141,7 +2142,7 @@ export type Ad_CtxHelpSuggestion = {
   RejectSuggestion?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2194,14 +2195,14 @@ export type Ad_Document_Action_Access = {
   /** Document type or rules */
   C_DocType: C_DocType;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2237,7 +2238,7 @@ export type Ad_Element = {
   /** Name of the column in the database */
   ColumnName: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -2261,7 +2262,7 @@ export type Ad_Element = {
   PrintName: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2310,7 +2311,7 @@ export type Ad_EntityType = {
   /** Extension Classpath */
   Classpath?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -2328,7 +2329,7 @@ export type Ad_EntityType = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Version of the table definition */
@@ -2375,7 +2376,7 @@ export type Ad_Error = {
   /** Validation Code */
   Code?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -2384,7 +2385,7 @@ export type Ad_Error = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2445,7 +2446,7 @@ export type Ad_Field = {
   /** Number of column for a box of field */
   ColumnSpan?: Maybe<Scalars['Int']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Default value hierarchy, separated by ; */
@@ -2511,7 +2512,7 @@ export type Ad_Field = {
   SortNo?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
@@ -2537,7 +2538,7 @@ export type Ad_FieldGroup = {
   /** An abbreviation for a given name */
   BH_Abbreviation?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   FieldGroupType?: Maybe<Ad_Ref_List>;
@@ -2549,7 +2550,7 @@ export type Ad_FieldGroup = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2699,7 +2700,7 @@ export type Ad_FieldSuggestion = {
   /** Compare suggested text with original text */
   CompareSuggestion?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -2720,7 +2721,7 @@ export type Ad_FieldSuggestion = {
   RejectSuggestion?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2775,7 +2776,7 @@ export type Ad_Find = {
   /** Logical operation: AND or OR */
   AndOr: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   Find_ID: Scalars['BigDecimal']['output'];
@@ -2785,7 +2786,7 @@ export type Ad_Find = {
   Operation: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -2833,7 +2834,7 @@ export type Ad_Form = {
   /** Java Classname */
   Classname?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -2852,7 +2853,7 @@ export type Ad_Form = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2901,7 +2902,7 @@ export type Ad_Form_Access = {
   /** Responsibility Role */
   AD_Role: Ad_Role;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -2910,7 +2911,7 @@ export type Ad_Form_Access = {
   IsReadWrite: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -2946,7 +2947,7 @@ export type Ad_HouseKeeping = {
   /** Backup Folder */
   BackupFolder?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -2958,7 +2959,7 @@ export type Ad_HouseKeeping = {
   IsExportXMLBackup: Scalars['Boolean']['output'];
   IsSaveInHistoric: Scalars['Boolean']['output'];
   LastDeleted?: Maybe<Scalars['Int']['output']>;
-  LastRun?: Maybe<Scalars['Date']['output']>;
+  LastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Alphanumeric identifier of the entity */
   Name: Scalars['String']['output'];
   Processing: Scalars['Boolean']['output'];
@@ -2966,7 +2967,7 @@ export type Ad_HouseKeeping = {
   TableName?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -2997,7 +2998,7 @@ export type Ad_HouseKeepingInput = {
   IsExportXMLBackup?: InputMaybe<Scalars['Boolean']['input']>;
   IsSaveInHistoric?: InputMaybe<Scalars['Boolean']['input']>;
   LastDeleted?: InputMaybe<Scalars['Int']['input']>;
-  LastRun?: InputMaybe<Scalars['Date']['input']>;
+  LastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Alphanumeric identifier of the entity */
   Name?: InputMaybe<Scalars['String']['input']>;
   Processing?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3022,7 +3023,7 @@ export type Ad_Image = {
   /** Binary Data */
   BinaryData?: Maybe<Scalars['Binary']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -3035,7 +3036,7 @@ export type Ad_Image = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -3074,7 +3075,7 @@ export type Ad_ImpFormat = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -3089,7 +3090,7 @@ export type Ad_ImpFormat = {
   SeparatorChar?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -3132,7 +3133,7 @@ export type Ad_ImpFormat_Row = {
   /** Constant value */
   ConstantValue?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Format String in Java Notation, e.g. ddMMyy */
@@ -3158,7 +3159,7 @@ export type Ad_ImpFormat_Row = {
   StartNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -3217,7 +3218,7 @@ export type Ad_ImportTemplate = {
   CSVHeader: Scalars['String']['output'];
   CharacterSet: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -3228,7 +3229,7 @@ export type Ad_ImportTemplate = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -3243,7 +3244,7 @@ export type Ad_ImportTemplateAccess = {
   /** Responsibility Role */
   AD_Role?: Maybe<Ad_Role>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
@@ -3253,7 +3254,7 @@ export type Ad_ImportTemplateAccess = {
   IsAllowUpdate: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -3317,7 +3318,7 @@ export type Ad_IndexColumn = {
   /** Virtual Column (r/o) */
   ColumnSQL?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -3326,7 +3327,7 @@ export type Ad_IndexColumn = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -3377,7 +3378,7 @@ export type Ad_InfoColumn = {
   /** Name of the column in the database */
   ColumnName: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Default value hierarchy, separated by ; */
@@ -3430,7 +3431,7 @@ export type Ad_InfoColumn = {
   SeqNoSelection?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -3526,7 +3527,7 @@ export type Ad_InfoProcess = {
   /** Process or Report */
   AD_Process: Ad_Process;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** If the Field is displayed, the result determines if the field is actually displayed */
@@ -3541,7 +3542,7 @@ export type Ad_InfoProcess = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -3587,7 +3588,7 @@ export type Ad_InfoRelated = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -3608,7 +3609,7 @@ export type Ad_InfoRelated = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -3662,7 +3663,7 @@ export type Ad_InfoWindow = {
   /** Data entry or display window */
   AD_Window?: Maybe<Ad_Window>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -3699,7 +3700,7 @@ export type Ad_InfoWindow = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified SQL WHERE clause */
@@ -3774,14 +3775,14 @@ export type Ad_InfoWindow_Access = {
   /** Responsibility Role */
   AD_Role: Ad_Role;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -3821,7 +3822,7 @@ export type Ad_Issue = {
   /** Comments or additional information */
   Comments?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** JDBC URL of the database server */
@@ -3895,7 +3896,7 @@ export type Ad_Issue = {
   SystemStatus: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UserName: Scalars['String']['output'];
@@ -4004,7 +4005,7 @@ export type Ad_LabelPrinter = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4015,7 +4016,7 @@ export type Ad_LabelPrinter = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -4035,7 +4036,7 @@ export type Ad_LabelPrinterFunction = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4052,7 +4053,7 @@ export type Ad_LabelPrinterFunction = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** The separator between the X and Y function. */
@@ -4112,7 +4113,7 @@ export type Ad_Language = {
   /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
   CountryCode?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Java Date Pattern */
@@ -4137,7 +4138,7 @@ export type Ad_Language = {
   TimePattern?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -4191,7 +4192,7 @@ export type Ad_LdapAccess = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4206,7 +4207,7 @@ export type Ad_LdapAccess = {
   Summary?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -4245,13 +4246,13 @@ export type Ad_LdapProcessor = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Date the process will run next */
-  DateNextRun?: Maybe<Scalars['Date']['output']>;
+  DateNextRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
@@ -4267,7 +4268,7 @@ export type Ad_LdapProcessor = {
   Supervisor: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -4282,9 +4283,9 @@ export type Ad_LdapProcessorInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date the process will run next */
-  DateNextRun?: InputMaybe<Scalars['Date']['input']>;
+  DateNextRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
@@ -4312,7 +4313,7 @@ export type Ad_LdapProcessorLog = {
   /** Binary Data */
   BinaryData?: Maybe<Scalars['Binary']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4329,7 +4330,7 @@ export type Ad_LdapProcessorLog = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -4386,7 +4387,7 @@ export type Ad_Menu = {
   Action?: Maybe<Ad_Ref_List>;
   ChildrenTree_NodeMMList?: Maybe<Array<Ad_TreeNodeMm>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4409,7 +4410,7 @@ export type Ad_Menu = {
   PredefinedContextVariables?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -4469,7 +4470,7 @@ export type Ad_Message = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -4482,7 +4483,7 @@ export type Ad_Message = {
   MsgType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -4520,7 +4521,7 @@ export type Ad_MigrationScript = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4547,7 +4548,7 @@ export type Ad_MigrationScript = {
   URL?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   isApply: Scalars['Boolean']['output'];
@@ -4597,7 +4598,7 @@ export type Ad_ModelValidator = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4613,7 +4614,7 @@ export type Ad_ModelValidator = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -4652,7 +4653,7 @@ export type Ad_Modification = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4667,7 +4668,7 @@ export type Ad_Modification = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Version of the table definition */
@@ -4717,7 +4718,7 @@ export type Ad_Note = {
   /** Workflow Activity */
   AD_WF_Activity?: Maybe<Ad_Wf_Activity>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4733,7 +4734,7 @@ export type Ad_Note = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -4780,7 +4781,7 @@ export type Ad_Org = {
   AD_ReplicationStrategy?: Maybe<Ad_ReplicationStrategy>;
   AD_Roles?: Maybe<Array<Ad_Role>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4794,7 +4795,7 @@ export type Ad_Org = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -4828,7 +4829,7 @@ export type Ad_OrgInfo = {
   /** Location or Address */
   C_Location?: Maybe<C_Location>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Dun & Bradstreet Number */
@@ -4861,7 +4862,7 @@ export type Ad_OrgInfo = {
   TransferCashBook?: Maybe<C_CashBook>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -4945,7 +4946,7 @@ export type Ad_OrgType = {
   /** Color used for printing and display */
   AD_PrintColor?: Maybe<Ad_PrintColor>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -4956,7 +4957,7 @@ export type Ad_OrgType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -5002,7 +5003,7 @@ export type Ad_PInstance = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   ErrorMsg?: Maybe<Scalars['String']['output']>;
@@ -5021,7 +5022,7 @@ export type Ad_PInstance = {
   Result?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -5111,7 +5112,7 @@ export type Ad_PInstance_Para = {
   /** Instance of the process */
   AD_PInstance: Ad_PInstance;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Information */
@@ -5122,9 +5123,9 @@ export type Ad_PInstance_Para = {
   /** Indicates if a chosen multiple component value must be negate */
   IsNotClause: Scalars['Boolean']['output'];
   /** Process Parameter */
-  P_Date?: Maybe<Scalars['Date']['output']>;
+  P_Date?: Maybe<Scalars['DateTime']['output']>;
   /** Process Parameter */
-  P_Date_To?: Maybe<Scalars['Date']['output']>;
+  P_Date_To?: Maybe<Scalars['DateTime']['output']>;
   /** Process Parameter */
   P_Number?: Maybe<Scalars['BigDecimal']['output']>;
   /** Process Parameter */
@@ -5136,7 +5137,7 @@ export type Ad_PInstance_Para = {
   ParameterName?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -5160,9 +5161,9 @@ export type Ad_PInstance_ParaInput = {
   /** Indicates if a chosen multiple component value must be negate */
   IsNotClause?: InputMaybe<Scalars['Boolean']['input']>;
   /** Process Parameter */
-  P_Date?: InputMaybe<Scalars['Date']['input']>;
+  P_Date?: InputMaybe<Scalars['DateTime']['input']>;
   /** Process Parameter */
-  P_Date_To?: InputMaybe<Scalars['Date']['input']>;
+  P_Date_To?: InputMaybe<Scalars['DateTime']['input']>;
   /** Process Parameter */
   P_Number?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Process Parameter */
@@ -5184,7 +5185,7 @@ export type Ad_Package_Exp = {
   AD_Package_Exp_DetailList?: Maybe<Array<Ad_Package_Exp_Detail>>;
   AD_Package_Type?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Starting date for a range */
@@ -5208,7 +5209,7 @@ export type Ad_Package_Exp = {
   ReleaseNo?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UserName?: Maybe<Scalars['String']['output']>;
@@ -5291,7 +5292,7 @@ export type Ad_Package_Exp_Detail = {
   /** Workflow or combination of tasks */
   AD_Workflow?: Maybe<Ad_Workflow>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DBType?: Maybe<Ad_Ref_List>;
@@ -5320,7 +5321,7 @@ export type Ad_Package_Exp_Detail = {
   Type: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -5402,7 +5403,7 @@ export type Ad_Package_Imp = {
   AD_Org: Ad_Org;
   AD_Package_Imp_Proc?: Maybe<Ad_Package_Imp_Proc>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   CreatedDate?: Maybe<Scalars['String']['output']>;
@@ -5426,7 +5427,7 @@ export type Ad_Package_Imp = {
   UU: Scalars['ID']['output'];
   Uninstall: Scalars['Boolean']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UpdatedDate?: Maybe<Scalars['String']['output']>;
@@ -5487,7 +5488,7 @@ export type Ad_Package_Imp_Backup = {
   AD_Table?: Maybe<Ad_Table>;
   ColValue?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -5495,7 +5496,7 @@ export type Ad_Package_Imp_Backup = {
   UU: Scalars['ID']['output'];
   Uninstall: Scalars['Boolean']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -5538,7 +5539,7 @@ export type Ad_Package_Imp_Detail = {
   /** Indicates the Action to be performed */
   Action?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   ExecCode?: Maybe<Scalars['String']['output']>;
@@ -5556,7 +5557,7 @@ export type Ad_Package_Imp_Detail = {
   UU: Scalars['ID']['output'];
   Uninstall: Scalars['Boolean']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -5598,7 +5599,7 @@ export type Ad_Package_Imp_Inst = {
   /** Organizational entity within tenant */
   AD_Org?: Maybe<Ad_Org>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   CreatedDate?: Maybe<Scalars['String']['output']>;
@@ -5622,7 +5623,7 @@ export type Ad_Package_Imp_Inst = {
   UU: Scalars['ID']['output'];
   Uninstall: Scalars['Boolean']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   UpdatedDate?: Maybe<Scalars['String']['output']>;
@@ -5678,10 +5679,10 @@ export type Ad_Package_Imp_Proc = {
   /** Type of package source - file, ftp, webservice etc */
   AD_Package_Source_Type: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
-  DateProcessed?: Maybe<Scalars['Date']['output']>;
+  DateProcessed?: Maybe<Scalars['DateTime']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Alphanumeric identifier of the entity */
@@ -5690,7 +5691,7 @@ export type Ad_Package_Imp_Proc = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -5711,7 +5712,7 @@ export type Ad_Package_Imp_ProcInput = {
   AD_Package_Source?: InputMaybe<Scalars['String']['input']>;
   /** Type of package source - file, ftp, webservice etc */
   AD_Package_Source_Type?: InputMaybe<ForeignEntityInput>;
-  DateProcessed?: InputMaybe<Scalars['Date']['input']>;
+  DateProcessed?: InputMaybe<Scalars['DateTime']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Alphanumeric identifier of the entity */
@@ -5730,7 +5731,7 @@ export type Ad_Package_Uuid_Map = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -5741,7 +5742,7 @@ export type Ad_Package_Uuid_Map = {
   Target_UUID: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -5777,7 +5778,7 @@ export type Ad_PasswordRule = {
   /** Length of alphabetical sequence to validate */
   AlphabeticalSequence?: Maybe<Scalars['Int']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Define number of day can reuse password */
@@ -5811,7 +5812,7 @@ export type Ad_PasswordRule = {
   RepeatCharacterRegex?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Require at least # upper case char */
@@ -5874,7 +5875,7 @@ export type Ad_Password_History = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DatePasswordChanged?: Maybe<Scalars['Date']['output']>;
@@ -5886,7 +5887,7 @@ export type Ad_Password_History = {
   Salt?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -5921,7 +5922,7 @@ export type Ad_PostIt = {
   /** Database Table information */
   AD_Table?: Maybe<Ad_Table>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -5929,7 +5930,7 @@ export type Ad_PostIt = {
   Text?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -5969,7 +5970,7 @@ export type Ad_Preference = {
   AD_Window?: Maybe<Ad_Window>;
   Attribute: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -5978,7 +5979,7 @@ export type Ad_Preference = {
   PreferenceFor: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -6023,7 +6024,7 @@ export type Ad_PrintColor = {
   /** Validation Code */
   Code: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -6034,7 +6035,7 @@ export type Ad_PrintColor = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -6068,7 +6069,7 @@ export type Ad_PrintFont = {
   /** Validation Code */
   Code: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -6079,7 +6080,7 @@ export type Ad_PrintFont = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -6111,7 +6112,7 @@ export type Ad_PrintForm = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -6150,7 +6151,7 @@ export type Ad_PrintForm = {
   Shipment_PrintFormat?: Maybe<Ad_PrintFormat>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -6224,7 +6225,7 @@ export type Ad_PrintFormat = {
   AD_Window?: Maybe<Ad_Window>;
   CreateCopy?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -6254,7 +6255,7 @@ export type Ad_PrintFormat = {
   PrinterName?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -6339,7 +6340,7 @@ export type Ad_PrintFormatItem = {
   /** Print this column below the column index entered */
   BelowColumn?: Maybe<Scalars['Int']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** If the Field is displayed, the result determines if the field is actually displayed */
@@ -6436,7 +6437,7 @@ export type Ad_PrintFormatItem = {
   SortNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Absolute X (horizontal) position in 1/72 of an inch */
@@ -6590,7 +6591,7 @@ export type Ad_PrintGraph = {
   /** Data Print Format */
   AD_PrintFormat: Ad_PrintFormat;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Data Column for Line Charts */
@@ -6615,7 +6616,7 @@ export type Ad_PrintGraph = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -6661,7 +6662,7 @@ export type Ad_PrintHeaderFooter = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -6672,7 +6673,7 @@ export type Ad_PrintHeaderFooter = {
   SourceClassName: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -6706,7 +6707,7 @@ export type Ad_PrintLabel = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -6725,7 +6726,7 @@ export type Ad_PrintLabel = {
   PrinterName?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -6773,7 +6774,7 @@ export type Ad_PrintLabelLine = {
   /** Label Format to print */
   AD_PrintLabel: Ad_PrintLabel;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -6788,7 +6789,7 @@ export type Ad_PrintLabelLine = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Absolute X (horizontal) position in 1/72 of an inch */
@@ -6838,7 +6839,7 @@ export type Ad_PrintPaper = {
   /** Validation Code */
   Code: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -6868,7 +6869,7 @@ export type Ad_PrintPaper = {
   SizeY?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -6921,7 +6922,7 @@ export type Ad_PrintTableFormat = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -6986,7 +6987,7 @@ export type Ad_PrintTableFormat = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -7076,14 +7077,14 @@ export type Ad_Private_Access = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -7133,7 +7134,7 @@ export type Ad_Process = {
   /** Copy settings from one report and process to another. */
   CopyFromProcess?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -7164,7 +7165,7 @@ export type Ad_Process = {
   Statistic_Seconds?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -7244,7 +7245,7 @@ export type Ad_Process_Access = {
   /** Responsibility Role */
   AD_Role: Ad_Role;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -7253,7 +7254,7 @@ export type Ad_Process_Access = {
   IsReadWrite: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -7301,7 +7302,7 @@ export type Ad_Process_Para = {
   /** Name of the column in the database */
   ColumnName: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Options, how the date editor will be displayed. */
@@ -7345,7 +7346,7 @@ export type Ad_Process_Para = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
@@ -7446,14 +7447,14 @@ export type Ad_RecentItem = {
   /** Data entry or display window */
   AD_Window?: Maybe<Ad_Window>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -7493,7 +7494,7 @@ export type Ad_Record_Access = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -7506,7 +7507,7 @@ export type Ad_Record_Access = {
   IsReadOnly: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -7549,7 +7550,7 @@ export type Ad_Ref_List = {
   BH_Encounter_Type_WindowList?: Maybe<Array<Bh_Encounter_Type_Window>>;
   BH_Update_Existing?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -7560,7 +7561,7 @@ export type Ad_Ref_List = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -7622,7 +7623,7 @@ export type Ad_Ref_Table = {
   /** Data entry or display window */
   AD_Window?: Maybe<Ad_Window>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -7633,7 +7634,7 @@ export type Ad_Ref_Table = {
   OrderByClause?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified SQL WHERE clause */
@@ -7687,7 +7688,7 @@ export type Ad_Reference = {
   AD_Ref_ListList?: Maybe<Array<Ad_Ref_List>>;
   AD_Ref_Table?: Maybe<Ad_Ref_Table>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -7704,7 +7705,7 @@ export type Ad_Reference = {
   ShowInactive: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
@@ -7758,7 +7759,7 @@ export type Ad_Registration = {
   /** Location or Address */
   C_Location?: Maybe<C_Location>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -7792,7 +7793,7 @@ export type Ad_Registration = {
   StartProductionDate?: Maybe<Scalars['Date']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -7855,7 +7856,7 @@ export type Ad_RelationType = {
   AD_Reference_Source?: Maybe<Ad_Reference>;
   AD_Reference_Target?: Maybe<Ad_Reference>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -7874,7 +7875,7 @@ export type Ad_RelationType = {
   Type: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -7918,11 +7919,11 @@ export type Ad_Replication = {
   /** Data Replication Strategy */
   AD_ReplicationStrategy: Ad_ReplicationStrategy;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Comment or Hint */
@@ -7948,7 +7949,7 @@ export type Ad_Replication = {
   Suffix?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -7972,7 +7973,7 @@ export type Ad_ReplicationDocument = {
   /** Document type or rules */
   C_DocType: C_DocType;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -7983,7 +7984,7 @@ export type Ad_ReplicationDocument = {
   ReplicationType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -8018,7 +8019,7 @@ export type Ad_ReplicationInput = {
   /** Data Replication Strategy */
   AD_ReplicationStrategy?: InputMaybe<ForeignEntityInput>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Comment or Hint */
@@ -8055,7 +8056,7 @@ export type Ad_ReplicationStrategy = {
   AD_Org: Ad_Org;
   AD_ReplicationTableList?: Maybe<Array<Ad_ReplicationTable>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -8069,7 +8070,7 @@ export type Ad_ReplicationStrategy = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -8114,7 +8115,7 @@ export type Ad_ReplicationTable = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -8125,7 +8126,7 @@ export type Ad_ReplicationTable = {
   ReplicationType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -8165,7 +8166,7 @@ export type Ad_Replication_Log = {
   /** Data Replication Run */
   AD_Replication_Run: Ad_Replication_Run;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -8175,7 +8176,7 @@ export type Ad_Replication_Log = {
   P_Msg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -8210,7 +8211,7 @@ export type Ad_Replication_Run = {
   /** Data Replication Target */
   AD_Replication: Ad_Replication;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -8223,7 +8224,7 @@ export type Ad_Replication_Run = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -8261,7 +8262,7 @@ export type Ad_ReportView = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -8274,7 +8275,7 @@ export type Ad_ReportView = {
   OrderByClause?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified SQL WHERE clause */
@@ -8318,7 +8319,7 @@ export type Ad_ReportView_Col = {
   /** View used to generate this report */
   AD_ReportView: Ad_ReportView;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Overwrite Column with Function */
@@ -8329,7 +8330,7 @@ export type Ad_ReportView_Col = {
   IsGroupFunction: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -8367,14 +8368,14 @@ export type Ad_ReportView_Column = {
   /** View used to generate this report */
   AD_ReportView: Ad_ReportView;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -8430,7 +8431,7 @@ export type Ad_Role = {
   /** Require Confirmation if more records will be returned by the query (If not defined 500) */
   ConfirmQueryRecords: Scalars['Int']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The days approval indicates the days to take into account to verify the accumulated approval amount. */
@@ -8485,7 +8486,7 @@ export type Ad_Role = {
   Supervisor?: Maybe<Ad_User>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UserDiscount?: Maybe<Scalars['BigDecimal']['output']>;
@@ -8587,7 +8588,7 @@ export type Ad_Role_Included = {
   /** Responsibility Role */
   AD_Role: Ad_Role;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   Included_Role: Ad_Role;
@@ -8597,7 +8598,7 @@ export type Ad_Role_Included = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -8630,7 +8631,7 @@ export type Ad_Role_OrgAccess = {
   /** Responsibility Role */
   AD_Role: Ad_Role;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -8639,7 +8640,7 @@ export type Ad_Role_OrgAccess = {
   IsReadOnly: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -8673,7 +8674,7 @@ export type Ad_Rule = {
   /** Access Level required */
   AccessLevel?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -8691,7 +8692,7 @@ export type Ad_Rule = {
   Script?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -8736,7 +8737,7 @@ export type Ad_Schedule = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Cron pattern to define when the process should be invoked. */
@@ -8762,7 +8763,7 @@ export type Ad_Schedule = {
   ScheduleType?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Day of the Week */
@@ -8821,13 +8822,13 @@ export type Ad_Scheduler = {
   /** Database Table information */
   AD_Table?: Maybe<Ad_Table>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Date the process will run next */
-  DateNextRun?: Maybe<Scalars['Date']['output']>;
+  DateNextRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
@@ -8846,7 +8847,7 @@ export type Ad_Scheduler = {
   Supervisor: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -8868,9 +8869,9 @@ export type Ad_SchedulerInput = {
   /** Database Table information */
   AD_Table?: InputMaybe<ForeignEntityInput>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date the process will run next */
-  DateNextRun?: InputMaybe<Scalars['Date']['input']>;
+  DateNextRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
@@ -8899,7 +8900,7 @@ export type Ad_SchedulerLog = {
   /** Binary Data */
   BinaryData?: Maybe<Scalars['Binary']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -8916,7 +8917,7 @@ export type Ad_SchedulerLog = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -8963,7 +8964,7 @@ export type Ad_SchedulerRecipient = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Name of the local file or URL */
@@ -8973,7 +8974,7 @@ export type Ad_SchedulerRecipient = {
   IsUpload: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -9012,7 +9013,7 @@ export type Ad_Scheduler_Para = {
   /** Schedule Processes */
   AD_Scheduler: Ad_Scheduler;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -9025,7 +9026,7 @@ export type Ad_Scheduler_Para = {
   ParameterToDefault?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -9068,7 +9069,7 @@ export type Ad_SearchDefinition = {
   /** Data entry or display window */
   AD_Window: Ad_Window;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Type of data */
@@ -9091,7 +9092,7 @@ export type Ad_SearchDefinition = {
   TransactionCode?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -9141,7 +9142,7 @@ export type Ad_Sequence = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The next number to be used */
@@ -9181,7 +9182,7 @@ export type Ad_Sequence = {
   Suffix?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
@@ -9248,7 +9249,7 @@ export type Ad_Sequence_Audit = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Document sequence number of the document */
@@ -9257,7 +9258,7 @@ export type Ad_Sequence_Audit = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -9293,7 +9294,7 @@ export type Ad_Sequence_No = {
   /** YYYYMM */
   CalendarYearMonth: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The next number to be used */
@@ -9302,7 +9303,7 @@ export type Ad_Sequence_No = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -9336,7 +9337,7 @@ export type Ad_Session = {
   /** Responsibility Role */
   AD_Role?: Maybe<Ad_Role>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -9353,7 +9354,7 @@ export type Ad_Session = {
   ServerName?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Web Session ID */
@@ -9399,7 +9400,7 @@ export type Ad_StatusLine = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -9409,7 +9410,7 @@ export type Ad_StatusLine = {
   SQLStatement: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -9453,7 +9454,7 @@ export type Ad_StatusLineUsedIn = {
   /** Data entry or display window */
   AD_Window?: Maybe<Ad_Window>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -9464,7 +9465,7 @@ export type Ad_StatusLineUsedIn = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -9505,7 +9506,7 @@ export type Ad_StorageProvider = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** A folder on a local or remote system to store data into */
@@ -9523,7 +9524,7 @@ export type Ad_StorageProvider = {
   URL?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UserName?: Maybe<Scalars['String']['output']>;
@@ -9564,7 +9565,7 @@ export type Ad_Style = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -9577,7 +9578,7 @@ export type Ad_Style = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -9615,7 +9616,7 @@ export type Ad_StyleLine = {
   /** CSS style for field and label */
   AD_Style: Ad_Style;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** If the Field is displayed, the result determines if the field is actually displayed */
@@ -9630,7 +9631,7 @@ export type Ad_StyleLine = {
   Theme?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -9672,7 +9673,7 @@ export type Ad_SysConfig = {
   /** Configuration Level for this parameter */
   ConfigurationLevel?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -9683,7 +9684,7 @@ export type Ad_SysConfig = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -9721,7 +9722,7 @@ export type Ad_System = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Prefix for Custom entities */
@@ -9785,7 +9786,7 @@ export type Ad_System = {
   SystemStatus: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UserName: Scalars['String']['output'];
@@ -9896,7 +9897,7 @@ export type Ad_Tab = {
   /** Warning displayed when saving */
   CommitWarning?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DeleteConfirmationLogic?: Maybe<Scalars['String']['output']>;
@@ -9952,7 +9953,7 @@ export type Ad_Tab = {
   TreeDisplayedOn: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified SQL WHERE clause */
@@ -10056,7 +10057,7 @@ export type Ad_Tab_Customization = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   Custom: Scalars['String']['output'];
@@ -10068,7 +10069,7 @@ export type Ad_Tab_Customization = {
   IsQuickForm: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10118,7 +10119,7 @@ export type Ad_Table = {
   CreatePartition?: Maybe<Scalars['String']['output']>;
   CreateWindowFromTable?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DatabaseViewDrop?: Maybe<Scalars['String']['output']>;
@@ -10158,7 +10159,7 @@ export type Ad_Table = {
   TableName: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10183,7 +10184,7 @@ export type Ad_TableIndex = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -10202,7 +10203,7 @@ export type Ad_TableIndex = {
   TableIndexDrop?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10306,7 +10307,7 @@ export type Ad_Table_Access = {
   /** The type of access for this rule */
   AccessTypeRule: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -10317,7 +10318,7 @@ export type Ad_Table_Access = {
   IsReadOnly: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10356,7 +10357,7 @@ export type Ad_Table_ScriptValidator = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   EventModelValidator: Ad_Ref_List;
@@ -10366,7 +10367,7 @@ export type Ad_Table_ScriptValidator = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10403,7 +10404,7 @@ export type Ad_Task = {
   /** Access Level required */
   AccessLevel: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -10418,7 +10419,7 @@ export type Ad_Task = {
   OS_Command: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10459,14 +10460,14 @@ export type Ad_TaskInstance = {
   /** Operation System Task */
   AD_Task: Ad_Task;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -10498,7 +10499,7 @@ export type Ad_Task_Access = {
   /** Operation System Task */
   AD_Task: Ad_Task;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -10507,7 +10508,7 @@ export type Ad_Task_Access = {
   IsReadWrite: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10552,7 +10553,7 @@ export type Ad_ToolBarButton = {
   ActionName?: Maybe<Scalars['String']['output']>;
   ComponentName: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** If the Field is displayed, the result determines if the field is actually displayed */
@@ -10578,7 +10579,7 @@ export type Ad_ToolBarButton = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10647,7 +10648,7 @@ export type Ad_ToolBarButtonRestrict = {
   /** Indicates the Action to be performed */
   Action: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -10656,7 +10657,7 @@ export type Ad_ToolBarButtonRestrict = {
   IsExclude: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10697,7 +10698,7 @@ export type Ad_Tree = {
   /** Database Table information */
   AD_Table?: Maybe<Ad_Table>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -10722,7 +10723,7 @@ export type Ad_Tree = {
   TreeType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10770,7 +10771,7 @@ export type Ad_TreeNode = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -10779,7 +10780,7 @@ export type Ad_TreeNode = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10793,7 +10794,7 @@ export type Ad_TreeNodeBp = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -10802,7 +10803,7 @@ export type Ad_TreeNodeBp = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10834,7 +10835,7 @@ export type Ad_TreeNodeCmc = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -10843,7 +10844,7 @@ export type Ad_TreeNodeCmc = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10875,7 +10876,7 @@ export type Ad_TreeNodeCmm = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -10884,7 +10885,7 @@ export type Ad_TreeNodeCmm = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10916,7 +10917,7 @@ export type Ad_TreeNodeCms = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -10925,7 +10926,7 @@ export type Ad_TreeNodeCms = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -10957,7 +10958,7 @@ export type Ad_TreeNodeCmt = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -10966,7 +10967,7 @@ export type Ad_TreeNodeCmt = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11016,7 +11017,7 @@ export type Ad_TreeNodeMm = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -11027,7 +11028,7 @@ export type Ad_TreeNodeMm = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11059,7 +11060,7 @@ export type Ad_TreeNodePr = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -11068,7 +11069,7 @@ export type Ad_TreeNodePr = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11100,7 +11101,7 @@ export type Ad_TreeNodeU1 = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -11109,7 +11110,7 @@ export type Ad_TreeNodeU1 = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11141,7 +11142,7 @@ export type Ad_TreeNodeU2 = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -11150,7 +11151,7 @@ export type Ad_TreeNodeU2 = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11182,7 +11183,7 @@ export type Ad_TreeNodeU3 = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -11191,7 +11192,7 @@ export type Ad_TreeNodeU3 = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11223,7 +11224,7 @@ export type Ad_TreeNodeU4 = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -11232,7 +11233,7 @@ export type Ad_TreeNodeU4 = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11264,14 +11265,14 @@ export type Ad_Tree_Favorite = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
+  Updated?: Maybe<Scalars['DateTime']['output']>;
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11302,7 +11303,7 @@ export type Ad_Tree_Favorite_Node = {
   AD_Org: Ad_Org;
   AD_Tree_Favorite: Ad_Tree_Favorite;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -11323,7 +11324,7 @@ export type Ad_Tree_Favorite_Node = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11371,7 +11372,7 @@ export type Ad_User = {
   Answer?: Maybe<Scalars['String']['output']>;
   AuthenticationType?: Maybe<Ad_Ref_List>;
   BH_HasAcceptedTermsOfUse: Scalars['Boolean']['output'];
-  BH_TOS_DATE_ACCEPTED?: Maybe<Scalars['Date']['output']>;
+  BH_TOS_DATE_ACCEPTED?: Maybe<Scalars['DateTime']['output']>;
   BPName?: Maybe<Scalars['String']['output']>;
   /** Address of the Business Partner */
   BP_Location?: Maybe<C_Location>;
@@ -11392,12 +11393,12 @@ export type Ad_User = {
   /** Comments or additional information */
   Comments?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
-  DateAccountLocked?: Maybe<Scalars['Date']['output']>;
-  DateLastLogin?: Maybe<Scalars['Date']['output']>;
-  DatePasswordChanged?: Maybe<Scalars['Date']['output']>;
+  DateAccountLocked?: Maybe<Scalars['DateTime']['output']>;
+  DateLastLogin?: Maybe<Scalars['DateTime']['output']>;
+  DatePasswordChanged?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Electronic Mail Address */
@@ -11409,7 +11410,7 @@ export type Ad_User = {
   /** Verification information of EMail Address */
   EMailVerify?: Maybe<Scalars['String']['output']>;
   /** Date Email was verified */
-  EMailVerifyDate?: Maybe<Scalars['Date']['output']>;
+  EMailVerifyDate?: Maybe<Scalars['DateTime']['output']>;
   FailedLoginCount: Scalars['Int']['output'];
   /** Facsimile number */
   Fax?: Maybe<Scalars['String']['output']>;
@@ -11474,7 +11475,7 @@ export type Ad_User = {
   Title?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UserPIN?: Maybe<Scalars['String']['output']>;
@@ -11493,7 +11494,7 @@ export type Ad_UserBpAccess = {
   /** Type of Access of the user/contact to Business Partner information and resources */
   BPAccessType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Logical type of document */
@@ -11504,7 +11505,7 @@ export type Ad_UserBpAccess = {
   R_RequestType?: Maybe<R_RequestType>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11566,7 +11567,7 @@ export type Ad_UserDef_Field = {
   /** Number of column for a box of field */
   ColumnSpan?: Maybe<Scalars['Int']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Default value hierarchy, separated by ; */
@@ -11614,7 +11615,7 @@ export type Ad_UserDef_Field = {
   SortNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
@@ -11721,7 +11722,7 @@ export type Ad_UserDef_Info = {
   /** Data entry or display window */
   AD_Window?: Maybe<Ad_Window>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -11742,7 +11743,7 @@ export type Ad_UserDef_Info = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11803,7 +11804,7 @@ export type Ad_UserDef_Info_Column = {
   /** Dynamic Validation Rule */
   AD_Val_Rule?: Maybe<Ad_Val_Rule>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Default value hierarchy, separated by ; */
@@ -11843,7 +11844,7 @@ export type Ad_UserDef_Info_Column = {
   SeqNoSelection?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11915,7 +11916,7 @@ export type Ad_UserDef_Info_Related = {
   AD_Org: Ad_Org;
   AD_UserDef_Info: Ad_UserDef_Info;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -11932,7 +11933,7 @@ export type Ad_UserDef_Info_Related = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -11978,7 +11979,7 @@ export type Ad_UserDef_Proc = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -11993,7 +11994,7 @@ export type Ad_UserDef_Proc = {
   Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -12046,7 +12047,7 @@ export type Ad_UserDef_Proc_Parameter = {
   /** Dynamic Validation Rule */
   AD_Val_Rule?: Maybe<Ad_Val_Rule>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Default value hierarchy, separated by ; */
@@ -12078,7 +12079,7 @@ export type Ad_UserDef_Proc_Parameter = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
@@ -12157,7 +12158,7 @@ export type Ad_UserDef_Tab = {
   AD_Tab: Ad_Tab;
   AD_UserDef_Win: Ad_UserDef_Win;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DeleteConfirmationLogic?: Maybe<Scalars['String']['output']>;
@@ -12190,7 +12191,7 @@ export type Ad_UserDef_Tab = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified SQL WHERE clause */
@@ -12259,7 +12260,7 @@ export type Ad_UserDef_Win = {
   /** Data entry or display window */
   AD_Window: Ad_Window;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -12278,7 +12279,7 @@ export type Ad_UserDef_Win = {
   Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -12325,7 +12326,7 @@ export type Ad_UserInput = {
   Answer?: InputMaybe<Scalars['String']['input']>;
   AuthenticationType?: InputMaybe<ForeignEntityInput>;
   BH_HasAcceptedTermsOfUse?: InputMaybe<Scalars['Boolean']['input']>;
-  BH_TOS_DATE_ACCEPTED?: InputMaybe<Scalars['Date']['input']>;
+  BH_TOS_DATE_ACCEPTED?: InputMaybe<Scalars['DateTime']['input']>;
   BPName?: InputMaybe<Scalars['String']['input']>;
   /** Address of the Business Partner */
   BP_Location?: InputMaybe<ForeignEntityInput>;
@@ -12345,9 +12346,9 @@ export type Ad_UserInput = {
   C_Location?: InputMaybe<ForeignEntityInput>;
   /** Comments or additional information */
   Comments?: InputMaybe<Scalars['String']['input']>;
-  DateAccountLocked?: InputMaybe<Scalars['Date']['input']>;
-  DateLastLogin?: InputMaybe<Scalars['Date']['input']>;
-  DatePasswordChanged?: InputMaybe<Scalars['Date']['input']>;
+  DateAccountLocked?: InputMaybe<Scalars['DateTime']['input']>;
+  DateLastLogin?: InputMaybe<Scalars['DateTime']['input']>;
+  DatePasswordChanged?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Electronic Mail Address */
@@ -12359,7 +12360,7 @@ export type Ad_UserInput = {
   /** Verification information of EMail Address */
   EMailVerify?: InputMaybe<Scalars['String']['input']>;
   /** Date Email was verified */
-  EMailVerifyDate?: InputMaybe<Scalars['Date']['input']>;
+  EMailVerifyDate?: InputMaybe<Scalars['DateTime']['input']>;
   FailedLoginCount?: InputMaybe<Scalars['Int']['input']>;
   /** Facsimile number */
   Fax?: InputMaybe<Scalars['String']['input']>;
@@ -12436,7 +12437,7 @@ export type Ad_UserMail = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** EMail Delivery confirmation */
@@ -12458,7 +12459,7 @@ export type Ad_UserMail = {
   Subject?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -12507,7 +12508,7 @@ export type Ad_UserPreference = {
   /** Automatically insert a decimal point */
   AutomaticDecimalPlacesForAmoun?: Maybe<Scalars['Int']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Force grid view when Find panel closes if number of records exceed threshold */
@@ -12521,7 +12522,7 @@ export type Ad_UserPreference = {
   ToggleOnDoubleClick: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Does the system must switch to grid mode after the Find panel closes */
@@ -12576,7 +12577,7 @@ export type Ad_UserQuery = {
   /** Validation Code */
   Code?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -12589,7 +12590,7 @@ export type Ad_UserQuery = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -12635,7 +12636,7 @@ export type Ad_User_OrgAccess = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -12644,7 +12645,7 @@ export type Ad_User_OrgAccess = {
   IsReadOnly: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -12678,14 +12679,14 @@ export type Ad_User_Roles = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -12717,7 +12718,7 @@ export type Ad_User_Substitute = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -12730,7 +12731,7 @@ export type Ad_User_Substitute = {
   Substitute: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -12776,7 +12777,7 @@ export type Ad_Val_Rule = {
   /** Validation Code */
   Code?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -12789,7 +12790,7 @@ export type Ad_Val_Rule = {
   Type: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -12832,7 +12833,7 @@ export type Ad_ViewColumn = {
   /** Virtual Column (r/o) */
   ColumnSQL?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DBDataType?: Maybe<Ad_Ref_List>;
@@ -12846,7 +12847,7 @@ export type Ad_ViewColumn = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -12891,7 +12892,7 @@ export type Ad_ViewComponent = {
   AD_Table: Ad_Table;
   AD_ViewColumns?: Maybe<Array<Ad_ViewColumn>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -12915,7 +12916,7 @@ export type Ad_ViewComponent = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified SQL WHERE clause */
@@ -12980,7 +12981,7 @@ export type Ad_Wf_Activity = {
   /** Workflow or combination of tasks */
   AD_Workflow: Ad_Workflow;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date when last alert were sent */
@@ -12988,7 +12989,7 @@ export type Ad_Wf_Activity = {
   /** Starting priority before changed dynamically */
   DynPriorityStart?: Maybe<Scalars['Int']['output']>;
   /** End of sleep time */
-  EndWaitTime?: Maybe<Scalars['Date']['output']>;
+  EndWaitTime?: Maybe<Scalars['DateTime']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Indicates if this request is of a high, medium or low priority. */
@@ -13000,7 +13001,7 @@ export type Ad_Wf_Activity = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** State of the execution of the workflow */
@@ -13018,14 +13019,14 @@ export type Ad_Wf_ActivityApprover = {
   /** Workflow Activity */
   AD_WF_Activity: Ad_Wf_Activity;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -13076,7 +13077,7 @@ export type Ad_Wf_ActivityInput = {
   /** Starting priority before changed dynamically */
   DynPriorityStart?: InputMaybe<Scalars['Int']['input']>;
   /** End of sleep time */
-  EndWaitTime?: InputMaybe<Scalars['Date']['input']>;
+  EndWaitTime?: InputMaybe<Scalars['DateTime']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Indicates if this request is of a high, medium or low priority. */
@@ -13104,7 +13105,7 @@ export type Ad_Wf_ActivityResult = {
   /** Value of the Attribute */
   AttributeValue?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -13115,7 +13116,7 @@ export type Ad_Wf_ActivityResult = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -13153,7 +13154,7 @@ export type Ad_Wf_Block = {
   /** Workflow or combination of tasks */
   AD_Workflow: Ad_Workflow;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -13164,7 +13165,7 @@ export type Ad_Wf_Block = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -13208,7 +13209,7 @@ export type Ad_Wf_EventAudit = {
   /** Name of the Attribute */
   AttributeName?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -13227,7 +13228,7 @@ export type Ad_Wf_EventAudit = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** State of the execution of the workflow */
@@ -13289,7 +13290,7 @@ export type Ad_Wf_NextCondition = {
   /** Logical operation: AND or OR */
   AndOr: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -13301,7 +13302,7 @@ export type Ad_Wf_NextCondition = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -13381,7 +13382,7 @@ export type Ad_Wf_Node = {
   /** Cost information */
   Cost: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -13439,13 +13440,13 @@ export type Ad_Wf_Node = {
   /** The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit. */
   UnitsCycles?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom?: Maybe<Scalars['Date']['output']>;
+  ValidFrom?: Maybe<Scalars['DateTime']['output']>;
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
   /** Search key for the record in the format required - must be unique */
   Value: Scalars['String']['output'];
   /** Time in minutes to wait (sleep) */
@@ -13561,9 +13562,9 @@ export type Ad_Wf_NodeInput = {
   /** The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit. */
   UnitsCycles?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
   /** Time in minutes to wait (sleep) */
@@ -13595,7 +13596,7 @@ export type Ad_Wf_NodeNext = {
   /** Workflow Node (activity), step or process */
   AD_WF_Node: Ad_Wf_Node;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -13610,7 +13611,7 @@ export type Ad_Wf_NodeNext = {
   TransitionCode?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -13659,7 +13660,7 @@ export type Ad_Wf_Node_Para = {
   /** Value of the Attribute */
   AttributeValue?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -13668,7 +13669,7 @@ export type Ad_Wf_Node_Para = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -13715,7 +13716,7 @@ export type Ad_Wf_Process = {
   /** Workflow or combination of tasks */
   AD_Workflow: Ad_Workflow;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -13729,7 +13730,7 @@ export type Ad_Wf_Process = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** State of the execution of the workflow */
@@ -13755,14 +13756,14 @@ export type Ad_Wf_ProcessData = {
   /** Value of the Attribute */
   AttributeValue?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -13827,7 +13828,7 @@ export type Ad_Wf_Responsible = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -13840,7 +13841,7 @@ export type Ad_Wf_Responsible = {
   ResponsibleType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -13886,7 +13887,7 @@ export type Ad_Window = {
   AD_Tabs?: Maybe<Array<Ad_Tab>>;
   BH_Encounter_Type_Windows?: Maybe<Array<Bh_Encounter_Type_Window>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -13910,7 +13911,7 @@ export type Ad_Window = {
   TitleLogic?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   WinHeight?: Maybe<Scalars['Int']['output']>;
@@ -13972,7 +13973,7 @@ export type Ad_Window_Access = {
   AD_Window: Ad_Window;
   BH_CanDeactivate: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -13981,7 +13982,7 @@ export type Ad_Window_Access = {
   IsReadWrite: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14018,7 +14019,7 @@ export type Ad_WizardProcess = {
   /** Workflow Node (activity), step or process */
   AD_WF_Node: Ad_Wf_Node;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -14027,7 +14028,7 @@ export type Ad_WizardProcess = {
   Note?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   WizardStatus?: Maybe<Ad_Ref_List>;
@@ -14078,7 +14079,7 @@ export type Ad_Workflow = {
   /** Cost information */
   Cost: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -14124,7 +14125,7 @@ export type Ad_Workflow = {
   /** The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit. */
   UnitsCycles?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -14243,13 +14244,13 @@ export type Ad_WorkflowProcessor = {
   /** Send alert email when over priority */
   AlertOverPriority?: Maybe<Scalars['Int']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Date the process will run next */
-  DateNextRun?: Maybe<Scalars['Date']['output']>;
+  DateNextRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Send Alert when there is no activity after days (0= no alert) */
@@ -14267,7 +14268,7 @@ export type Ad_WorkflowProcessor = {
   Supervisor: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14285,9 +14286,9 @@ export type Ad_WorkflowProcessorInput = {
   /** Send alert email when over priority */
   AlertOverPriority?: InputMaybe<Scalars['Int']['input']>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date the process will run next */
-  DateNextRun?: InputMaybe<Scalars['Date']['input']>;
+  DateNextRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Send Alert when there is no activity after days (0= no alert) */
@@ -14317,7 +14318,7 @@ export type Ad_WorkflowProcessorLog = {
   /** Binary Data */
   BinaryData?: Maybe<Scalars['Binary']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -14334,7 +14335,7 @@ export type Ad_WorkflowProcessorLog = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14378,7 +14379,7 @@ export type Ad_Workflow_Access = {
   /** Workflow or combination of tasks */
   AD_Workflow: Ad_Workflow;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -14387,7 +14388,7 @@ export type Ad_Workflow_Access = {
   IsReadWrite: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14425,7 +14426,7 @@ export type Ad_ZoomCondition = {
   /** Data entry or display window */
   AD_Window: Ad_Window;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -14438,7 +14439,7 @@ export type Ad_ZoomCondition = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified SQL WHERE clause */
@@ -14502,14 +14503,14 @@ export type Asp_ClientException = {
   AD_Workflow?: Maybe<Ad_Workflow>;
   ASP_Status: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14555,7 +14556,7 @@ export type Asp_ClientLevel = {
   ASP_Level: Asp_Level;
   ASP_Module: Asp_Module;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Comment or Hint */
@@ -14564,7 +14565,7 @@ export type Asp_ClientLevel = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14598,14 +14599,14 @@ export type Asp_Field = {
   ASP_Status: Ad_Ref_List;
   ASP_Tab?: Maybe<Asp_Tab>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14639,14 +14640,14 @@ export type Asp_Form = {
   ASP_Level: Asp_Level;
   ASP_Status: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14677,7 +14678,7 @@ export type Asp_Level = {
   AD_Org: Ad_Org;
   ASP_Module: Asp_Module;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -14691,7 +14692,7 @@ export type Asp_Level = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -14729,7 +14730,7 @@ export type Asp_Module = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -14742,7 +14743,7 @@ export type Asp_Module = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -14782,14 +14783,14 @@ export type Asp_Process = {
   ASP_Level: Asp_Level;
   ASP_Status: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14822,14 +14823,14 @@ export type Asp_Process_Para = {
   ASP_Process?: Maybe<Asp_Process>;
   ASP_Status: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14864,14 +14865,14 @@ export type Asp_Ref_List = {
   ASP_Level: Asp_Level;
   ASP_Status?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14908,7 +14909,7 @@ export type Asp_Tab = {
   ASP_Window?: Maybe<Asp_Window>;
   AllFields: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -14916,7 +14917,7 @@ export type Asp_Tab = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14952,14 +14953,14 @@ export type Asp_Task = {
   ASP_Level: Asp_Level;
   ASP_Status: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -14993,14 +14994,14 @@ export type Asp_Window = {
   ASP_Level: Asp_Level;
   ASP_Status: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -15034,14 +15035,14 @@ export type Asp_Workflow = {
   ASP_Level: Asp_Level;
   ASP_Status: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -15104,7 +15105,7 @@ export type A_Asset = {
   /** Financial Project */
   C_Project?: Maybe<C_Project>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -15168,7 +15169,7 @@ export type A_Asset = {
   SerNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Months of the usable life of the asset */
@@ -15335,7 +15336,7 @@ export type A_Asset_Acct = {
   /** Rules for accounting */
   C_AcctSchema: C_AcctSchema;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -15345,7 +15346,7 @@ export type A_Asset_Acct = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -15436,7 +15437,7 @@ export type A_Asset_Addition = {
   /** Financial Project */
   C_Project?: Maybe<C_Project>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Currency Conversion Rate */
@@ -15483,7 +15484,7 @@ export type A_Asset_Addition = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -15633,10 +15634,10 @@ export type A_Asset_Change = {
   /** Valid Account Combination */
   C_ValidCombination?: Maybe<C_ValidCombination>;
   ChangeAmt?: Maybe<Scalars['BigDecimal']['output']>;
-  ChangeDate?: Maybe<Scalars['Date']['output']>;
+  ChangeDate?: Maybe<Scalars['DateTime']['output']>;
   ChangeType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -15664,7 +15665,7 @@ export type A_Asset_Change = {
   TextDetails: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Months of the usable life of the asset */
@@ -15746,7 +15747,7 @@ export type A_Asset_ChangeInput = {
   /** Valid Account Combination */
   C_ValidCombination?: InputMaybe<ForeignEntityInput>;
   ChangeAmt?: InputMaybe<Scalars['BigDecimal']['input']>;
-  ChangeDate?: InputMaybe<Scalars['Date']['input']>;
+  ChangeDate?: InputMaybe<Scalars['DateTime']['input']>;
   ChangeType?: InputMaybe<ForeignEntityInput>;
   /** Accounting Date */
   DateAcct?: InputMaybe<Scalars['Date']['input']>;
@@ -15793,7 +15794,7 @@ export type A_Asset_Class = {
   A_Life_Period_Min: Scalars['Int']['output'];
   A_Value_2004?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -15808,7 +15809,7 @@ export type A_Asset_Class = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -15854,7 +15855,7 @@ export type A_Asset_Delivery = {
   /** Asset used internally or by customers */
   A_Asset: A_Asset;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** EMail Delivery confirmation */
@@ -15874,7 +15875,7 @@ export type A_Asset_Delivery = {
   /** EMail Message ID */
   MessageID?: Maybe<Scalars['String']['output']>;
   /** Date a product was moved in or out of inventory */
-  MovementDate: Scalars['Date']['output'];
+  MovementDate: Scalars['DateTime']['output'];
   /** Referring web address */
   Referrer?: Maybe<Scalars['String']['output']>;
   /** Remote Address */
@@ -15887,7 +15888,7 @@ export type A_Asset_Delivery = {
   URL?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Version Number */
@@ -15924,7 +15925,7 @@ export type A_Asset_DeliveryInput = {
   /** EMail Message ID */
   MessageID?: InputMaybe<Scalars['String']['input']>;
   /** Date a product was moved in or out of inventory */
-  MovementDate?: InputMaybe<Scalars['Date']['input']>;
+  MovementDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Referring web address */
   Referrer?: InputMaybe<Scalars['String']['input']>;
   /** Remote Address */
@@ -15968,7 +15969,7 @@ export type A_Asset_Disposed = {
   /** Period of the Calendar */
   C_Period?: Maybe<C_Period>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -16001,7 +16002,7 @@ export type A_Asset_Disposed = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16076,7 +16077,7 @@ export type A_Asset_Group = {
   A_Asset_Class?: Maybe<A_Asset_Class>;
   A_Asset_Type?: Maybe<A_Asset_Type>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -16102,7 +16103,7 @@ export type A_Asset_Group = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16177,7 +16178,7 @@ export type A_Asset_Group_Acct = {
   /** Rules for accounting */
   C_AcctSchema: C_AcctSchema;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
@@ -16187,7 +16188,7 @@ export type A_Asset_Group_Acct = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Months of the usable life of the asset */
@@ -16269,7 +16270,7 @@ export type A_Asset_Info_Fin = {
   /** Identifies a Business Partner */
   C_BPartner?: Maybe<C_BPartner>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -16280,7 +16281,7 @@ export type A_Asset_Info_Fin = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16331,7 +16332,7 @@ export type A_Asset_Info_Ins = {
   A_Renewal_Date?: Maybe<Scalars['Date']['output']>;
   A_Replace_Cost?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -16339,7 +16340,7 @@ export type A_Asset_Info_Ins = {
   Text?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16382,7 +16383,7 @@ export type A_Asset_Info_Lic = {
   /** State of the Credit Card or Account holder */
   A_State?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -16392,7 +16393,7 @@ export type A_Asset_Info_Lic = {
   Text?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16447,7 +16448,7 @@ export type A_Asset_Info_Oth = {
   A_User14?: Maybe<Scalars['String']['output']>;
   A_User15?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -16455,7 +16456,7 @@ export type A_Asset_Info_Oth = {
   Text?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16508,7 +16509,7 @@ export type A_Asset_Info_Tax = {
   A_State?: Maybe<Scalars['String']['output']>;
   A_Tax_Entity?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -16517,7 +16518,7 @@ export type A_Asset_Info_Tax = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16556,7 +16557,7 @@ export type A_Asset_Product = {
   A_Asset: A_Asset;
   A_QTY_Current: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -16571,7 +16572,7 @@ export type A_Asset_Product = {
   M_Product: M_Product;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16616,14 +16617,14 @@ export type A_Asset_Retirement = {
   /** Invoice Detail Line */
   C_InvoiceLine?: Maybe<C_InvoiceLine>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16663,7 +16664,7 @@ export type A_Asset_Reval = {
   A_Asset_Cost_Change: Scalars['BigDecimal']['output'];
   A_Change_Acumulated_Depr: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -16689,7 +16690,7 @@ export type A_Asset_Reval = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16753,7 +16754,7 @@ export type A_Asset_Reval_Entry = {
   /** Period of the Calendar */
   C_Period?: Maybe<C_Period>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -16775,7 +16776,7 @@ export type A_Asset_Reval_Entry = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16833,14 +16834,14 @@ export type A_Asset_Reval_Index = {
   A_Reval_Multiplier: Ad_Ref_List;
   A_Reval_Rate: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16885,7 +16886,7 @@ export type A_Asset_Split = {
   /** Period of the Calendar */
   C_Period: C_Period;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -16899,7 +16900,7 @@ export type A_Asset_Split = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -16977,7 +16978,7 @@ export type A_Asset_Transfer = {
   /** Period of the Calendar */
   C_Period?: Maybe<C_Period>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -17003,7 +17004,7 @@ export type A_Asset_Transfer = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -17078,7 +17079,7 @@ export type A_Asset_Type = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -17095,7 +17096,7 @@ export type A_Asset_Type = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -17137,7 +17138,7 @@ export type A_Asset_Use = {
   /** Asset used internally or by customers */
   A_Asset: A_Asset;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -17146,7 +17147,7 @@ export type A_Asset_Use = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UseDate: Scalars['Date']['output'];
@@ -17182,7 +17183,7 @@ export type A_Depreciation = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DepreciationType: Scalars['String']['output'];
@@ -17197,7 +17198,7 @@ export type A_Depreciation = {
   Text?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -17235,7 +17236,7 @@ export type A_Depreciation_Build = {
   /** Period of the Calendar */
   C_Period?: Maybe<C_Period>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Accounting Date */
@@ -17253,7 +17254,7 @@ export type A_Depreciation_Build = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -17295,7 +17296,7 @@ export type A_Depreciation_Convention = {
   AD_Org: Ad_Org;
   ConventionType?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -17311,7 +17312,7 @@ export type A_Depreciation_Convention = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -17356,7 +17357,7 @@ export type A_Depreciation_Entry = {
   /** Period of the Calendar */
   C_Period: C_Period;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -17386,7 +17387,7 @@ export type A_Depreciation_Entry = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -17464,7 +17465,7 @@ export type A_Depreciation_Exp = {
   /** Rules for accounting */
   C_AcctSchema?: Maybe<C_AcctSchema>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Account used */
@@ -17488,7 +17489,7 @@ export type A_Depreciation_Exp = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Months of the usable life of the asset */
@@ -17559,7 +17560,7 @@ export type A_Depreciation_Forecast = {
   A_End_Asset: A_Asset;
   A_Start_Asset: A_Asset;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of the Document */
@@ -17573,7 +17574,7 @@ export type A_Depreciation_Forecast = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -17608,7 +17609,7 @@ export type A_Depreciation_Method = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DepreciationType?: Maybe<Scalars['String']['output']>;
@@ -17623,7 +17624,7 @@ export type A_Depreciation_Method = {
   Text?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -17661,7 +17662,7 @@ export type A_Depreciation_Table_Detail = {
   A_Period: Scalars['Int']['output'];
   A_Table_Rate_Type?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -17670,7 +17671,7 @@ export type A_Depreciation_Table_Detail = {
   Processed: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -17705,7 +17706,7 @@ export type A_Depreciation_Table_Header = {
   A_Table_Rate_Type: Ad_Ref_List;
   A_Term: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -17716,7 +17717,7 @@ export type A_Depreciation_Table_Header = {
   Processed: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -17783,7 +17784,7 @@ export type A_Depreciation_Workfile = {
   /** Rules for accounting */
   C_AcctSchema?: Maybe<C_AcctSchema>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -17801,7 +17802,7 @@ export type A_Depreciation_Workfile = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Months of the usable life of the asset */
@@ -17880,7 +17881,7 @@ export type A_FundingMode = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -17891,7 +17892,7 @@ export type A_FundingMode = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -17929,14 +17930,14 @@ export type A_FundingMode_Acct = {
   /** Rules for accounting */
   C_AcctSchema: C_AcctSchema;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -17974,7 +17975,7 @@ export type A_Registration = {
   /** Identifies a Business Partner */
   C_BPartner?: Maybe<C_BPartner>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -18002,7 +18003,7 @@ export type A_Registration = {
   Remote_Host?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18020,7 +18021,7 @@ export type A_RegistrationAttribute = {
   /** Name of the column in the database */
   ColumnName?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -18035,7 +18036,7 @@ export type A_RegistrationAttribute = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18120,7 +18121,7 @@ export type A_RegistrationProduct = {
   /** Asset Registration Attribute */
   A_RegistrationAttribute: A_RegistrationAttribute;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -18131,7 +18132,7 @@ export type A_RegistrationProduct = {
   M_Product: M_Product;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18167,7 +18168,7 @@ export type A_RegistrationValue = {
   /** Asset Registration Attribute */
   A_RegistrationAttribute: A_RegistrationAttribute;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -18178,7 +18179,7 @@ export type A_RegistrationValue = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18230,7 +18231,7 @@ export type Bh_Bp_General_Payer_Info = {
   BH_BP_Payer_Info: Bh_Bp_Payer_Info;
   BH_Payer_Info_Fld: Bh_Payer_Info_Fld;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -18241,7 +18242,7 @@ export type Bh_Bp_General_Payer_Info = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18277,7 +18278,7 @@ export type Bh_Bp_Payer_Info = {
   /** Identifies a Business Partner */
   C_BPartner: C_BPartner;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -18288,7 +18289,7 @@ export type Bh_Bp_Payer_Info = {
   Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18324,7 +18325,7 @@ export type Bh_Bp_Specific_Payer_Info = {
   /** Invoice Detail Line */
   C_InvoiceLine: C_InvoiceLine;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -18335,7 +18336,7 @@ export type Bh_Bp_Specific_Payer_Info = {
   Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18370,14 +18371,14 @@ export type Bh_Client_Concept = {
   BH_Concept: Bh_Concept;
   BH_Display_Name?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
+  Updated?: Maybe<Scalars['DateTime']['output']>;
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -18421,7 +18422,7 @@ export type Bh_Concept = {
   /** Source */
   BH_Source?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Optional short description of the record */
@@ -18437,7 +18438,7 @@ export type Bh_Concept = {
   URL?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
+  Updated?: Maybe<Scalars['DateTime']['output']>;
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   bh_concept_class?: Maybe<Scalars['String']['output']>;
@@ -18490,7 +18491,7 @@ export type Bh_Concept_Description = {
   /** BH_External_ID */
   BH_ExternalID?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Optional short description of the record */
@@ -18503,7 +18504,7 @@ export type Bh_Concept_Description = {
   Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
+  Updated?: Maybe<Scalars['DateTime']['output']>;
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -18547,14 +18548,14 @@ export type Bh_Concept_Extra = {
   /** BH_Value */
   BH_Value?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
+  Updated?: Maybe<Scalars['DateTime']['output']>;
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -18605,7 +18606,7 @@ export type Bh_Concept_Mapping = {
   BH_To_Concept_Url?: Maybe<Scalars['String']['output']>;
   BH_To_Source_Name?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   FromBH_Concept_Mappings?: Maybe<Array<Bh_Concept_Mapping>>;
@@ -18619,7 +18620,7 @@ export type Bh_Concept_Mapping = {
   To_BH_Concept?: Maybe<Bh_Concept>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
+  Updated?: Maybe<Scalars['DateTime']['output']>;
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -18675,7 +18676,7 @@ export type Bh_Concept_Name = {
   /** BH_External_ID */
   BH_ExternalID?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
@@ -18686,7 +18687,7 @@ export type Bh_Concept_Name = {
   Ocl_Uuid?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
+  Updated?: Maybe<Scalars['DateTime']['output']>;
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -18723,7 +18724,7 @@ export type Bh_DefaultIncludedRole = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The User Type when a new client is created */
@@ -18737,7 +18738,7 @@ export type Bh_DefaultIncludedRole = {
   Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18774,7 +18775,7 @@ export type Bh_Default_DocAction_Access = {
   /** Document type or rules */
   C_DocType: C_DocType;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The User Type when a new client is created */
@@ -18783,7 +18784,7 @@ export type Bh_Default_DocAction_Access = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18814,7 +18815,7 @@ export type Bh_Encounter = {
   AD_Client: Ad_Client;
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
-  BH_Encounter_Date: Scalars['Date']['output'];
+  BH_Encounter_Date: Scalars['DateTime']['output'];
   BH_Encounter_DiagnosisList?: Maybe<Array<Bh_Encounter_Diagnosis>>;
   BH_Encounter_DiagnosticList?: Maybe<Array<Bh_Encounter_Diagnostic>>;
   BH_Encounter_Type: Ad_Ref_List;
@@ -18822,14 +18823,14 @@ export type Bh_Encounter = {
   BH_Observations?: Maybe<Array<Bh_Observation>>;
   BH_Visit: Bh_Visit;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18843,7 +18844,7 @@ export type Bh_EncounterConnection = {
 export type Bh_EncounterInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
-  BH_Encounter_Date?: InputMaybe<Scalars['Date']['input']>;
+  BH_Encounter_Date?: InputMaybe<Scalars['DateTime']['input']>;
   BH_Encounter_Type?: InputMaybe<ForeignEntityInput>;
   BH_Visit?: InputMaybe<ForeignEntityInput>;
   /** The record is active in the system */
@@ -18862,7 +18863,7 @@ export type Bh_Encounter_Diagnosis = {
   /** uncoded diagnosis */
   BH_Uncoded_Diagnosis?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -18871,7 +18872,7 @@ export type Bh_Encounter_Diagnosis = {
   LineNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18910,7 +18911,7 @@ export type Bh_Encounter_Diagnostic = {
   /** BH_Value */
   BH_Value?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   Group1?: Maybe<Scalars['String']['output']>;
@@ -18921,7 +18922,7 @@ export type Bh_Encounter_Diagnostic = {
   Selected_Panel?: Maybe<Bh_Concept>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -18961,14 +18962,14 @@ export type Bh_Encounter_Type_Window = {
   AD_Window: Ad_Window;
   BH_Encounter_Type: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19010,12 +19011,16 @@ export type Bh_I_Product_Quantity = {
   BH_InitialQuantity: Scalars['BigDecimal']['output'];
   BH_InitialQuantity_Lot2?: Maybe<Scalars['BigDecimal']['output']>;
   BH_InitialQuantity_Lot3?: Maybe<Scalars['BigDecimal']['output']>;
+  BH_PriceList2_Name?: Maybe<Scalars['String']['output']>;
+  BH_PriceList2_SellPrice?: Maybe<Scalars['BigDecimal']['output']>;
+  BH_PriceList3_Name?: Maybe<Scalars['String']['output']>;
+  BH_PriceList3_SellPrice?: Maybe<Scalars['BigDecimal']['output']>;
   /** Selling price of BandaGo product */
   BH_SellPrice: Scalars['BigDecimal']['output'];
   /** Name of the Category */
   CategoryName: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19037,7 +19042,7 @@ export type Bh_I_Product_Quantity = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   bh_reorder_level?: Maybe<Scalars['Int']['output']>;
@@ -19066,6 +19071,10 @@ export type Bh_I_Product_QuantityInput = {
   BH_InitialQuantity?: InputMaybe<Scalars['BigDecimal']['input']>;
   BH_InitialQuantity_Lot2?: InputMaybe<Scalars['BigDecimal']['input']>;
   BH_InitialQuantity_Lot3?: InputMaybe<Scalars['BigDecimal']['input']>;
+  BH_PriceList2_Name?: InputMaybe<Scalars['String']['input']>;
+  BH_PriceList2_SellPrice?: InputMaybe<Scalars['BigDecimal']['input']>;
+  BH_PriceList3_Name?: InputMaybe<Scalars['String']['input']>;
+  BH_PriceList3_SellPrice?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Selling price of BandaGo product */
   BH_SellPrice?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Name of the Category */
@@ -19103,14 +19112,14 @@ export type Bh_Observation = {
   /** BH_Value */
   BH_Value: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19143,14 +19152,14 @@ export type Bh_Ocl_Originating_Source = {
   BH_Concept: Bh_Concept;
   BH_Ocl_Source?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19183,7 +19192,7 @@ export type Bh_Payer_Info_Fld = {
   BH_PayerInfoFieldDataType: Ad_Ref_List;
   BH_Payer_Info_Fld_ValList?: Maybe<Array<Bh_Payer_Info_Fld_Val>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19196,7 +19205,7 @@ export type Bh_Payer_Info_Fld = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19236,7 +19245,7 @@ export type Bh_Payer_Info_Fld_Sug = {
   /** Meant to be a sub-type of the charge type */
   BH_SubType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19249,7 +19258,7 @@ export type Bh_Payer_Info_Fld_Sug = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19286,7 +19295,7 @@ export type Bh_Payer_Info_Fld_Val = {
   AD_Org: Ad_Org;
   BH_Payer_Info_Fld: Bh_Payer_Info_Fld;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19299,7 +19308,7 @@ export type Bh_Payer_Info_Fld_Val = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19333,7 +19342,7 @@ export type Bh_Payer_Info_Fld_Val_Sug = {
   AD_Org: Ad_Org;
   BH_Payer_Info_Fld_Sug: Bh_Payer_Info_Fld_Sug;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19346,7 +19355,7 @@ export type Bh_Payer_Info_Fld_Val_Sug = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19383,7 +19392,7 @@ export type Bh_PaymentRef = {
   /** Represents an action the can be performed for the payment reference */
   BH_PaymentRef_Action?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19394,7 +19403,7 @@ export type Bh_PaymentRef = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19436,7 +19445,7 @@ export type Bh_PaymentRef_BankAcct = {
   /** Account at the Bank */
   C_BankAccount?: Maybe<C_BankAccount>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19447,7 +19456,7 @@ export type Bh_PaymentRef_BankAcct = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19486,7 +19495,7 @@ export type Bh_Product_CategoryDefault = {
   /** Contains a character the is linked to a ref list to determine types of product categories */
   BH_Product_Category_Type: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19497,7 +19506,7 @@ export type Bh_Product_CategoryDefault = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -19528,15 +19537,11 @@ export type Bh_Product_CategoryDefaultInput = {
 
 export type Bh_Role_WarehouseAccess = {
   __typename?: 'BH_Role_WarehouseAccess';
-  /** Tenant for this installation. */
-  AD_Client: Ad_Client;
-  /** Organizational entity within tenant */
-  AD_Org: Ad_Org;
   /** Responsibility Role */
   AD_Role?: Maybe<Ad_Role>;
   BH_Role_WarehouseAccess: Bh_Role_WarehouseAccess;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -19547,7 +19552,7 @@ export type Bh_Role_WarehouseAccess = {
   M_Warehouse: M_Warehouse;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19559,8 +19564,6 @@ export type Bh_Role_WarehouseAccessConnection = {
 };
 
 export type Bh_Role_WarehouseAccessInput = {
-  /** Organizational entity within tenant */
-  AD_Org?: InputMaybe<ForeignEntityInput>;
   /** Responsibility Role */
   AD_Role?: InputMaybe<ForeignEntityInput>;
   BH_Role_WarehouseAccess?: InputMaybe<ForeignEntityInput>;
@@ -19589,13 +19592,15 @@ export type Bh_Visit = {
   /** Drop down field in visits for users to define the process stage */
   BH_Process_Stage?: Maybe<Ad_Ref_List>;
   BH_ReferredFromTo?: Maybe<Scalars['String']['output']>;
-  BH_VisitDate?: Maybe<Scalars['Date']['output']>;
+  BH_VisitDate?: Maybe<Scalars['DateTime']['output']>;
   BH_Voided_Reason?: Maybe<Bh_Voided_Reason>;
   C_Invoices?: Maybe<Array<C_Invoice>>;
   C_Orders?: Maybe<Array<C_Order>>;
   C_Payments?: Maybe<Array<C_Payment>>;
+  /** The reason for changing this entity */
+  Change_Reason?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19607,9 +19612,11 @@ export type Bh_Visit = {
   M_InOuts?: Maybe<Array<M_InOut>>;
   /** The Patient must be a valid business partner. */
   Patient: C_BPartner;
+  /** Whether the entity was scheduled or not */
+  Scheduled: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   bh_referral?: Maybe<Ad_Ref_List>;
@@ -19632,11 +19639,13 @@ export type Bh_VisitInput = {
   /** Drop down field in visits for users to define the process stage */
   BH_Process_Stage?: InputMaybe<ForeignEntityInput>;
   BH_ReferredFromTo?: InputMaybe<Scalars['String']['input']>;
-  BH_VisitDate?: InputMaybe<Scalars['Date']['input']>;
+  BH_VisitDate?: InputMaybe<Scalars['DateTime']['input']>;
   BH_Voided_Reason?: InputMaybe<ForeignEntityInput>;
   C_Invoices?: InputMaybe<Array<C_InvoiceInput>>;
   C_Orders?: InputMaybe<Array<C_OrderInput>>;
   C_Payments?: InputMaybe<Array<C_PaymentInput>>;
+  /** The reason for changing this entity */
+  Change_Reason?: InputMaybe<Scalars['String']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Document sequence number of the document */
@@ -19646,6 +19655,8 @@ export type Bh_VisitInput = {
   M_InOuts?: InputMaybe<Array<M_InOutInput>>;
   /** The Patient must be a valid business partner. */
   Patient?: InputMaybe<ForeignEntityInput>;
+  /** Whether the entity was scheduled or not */
+  Scheduled?: InputMaybe<Scalars['Boolean']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   bh_referral?: InputMaybe<ForeignEntityInput>;
 };
@@ -19657,7 +19668,7 @@ export type Bh_Voided_Reason = {
   /** Organizational entity within tenant */
   AD_Org?: Maybe<Ad_Org>;
   /** Date this record was created */
-  Created?: Maybe<Scalars['Date']['output']>;
+  Created?: Maybe<Scalars['DateTime']['output']>;
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Optional short description of the record */
@@ -19670,7 +19681,7 @@ export type Bh_Voided_Reason = {
   Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated?: Maybe<Scalars['Date']['output']>;
+  Updated?: Maybe<Scalars['DateTime']['output']>;
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   bh_window_id?: Maybe<Scalars['BigDecimal']['output']>;
@@ -19710,7 +19721,7 @@ export type B_Bid = {
   /** Auction Topic */
   B_Topic: B_Topic;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -19724,7 +19735,7 @@ export type B_Bid = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19740,7 +19751,7 @@ export type B_BidComment = {
   /** Auction Topic */
   B_Topic: B_Topic;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -19749,7 +19760,7 @@ export type B_BidComment = {
   TextMsg: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19810,7 +19821,7 @@ export type B_Buyer = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19821,7 +19832,7 @@ export type B_Buyer = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid to including this date (last day) */
@@ -19849,7 +19860,7 @@ export type B_BuyerFunds = {
   /** The (legal) commitment amount */
   CommittedAmt: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -19858,7 +19869,7 @@ export type B_BuyerFunds = {
   NonCommittedAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19916,7 +19927,7 @@ export type B_Offer = {
   /** Auction Topic */
   B_Topic: B_Topic;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -19930,7 +19941,7 @@ export type B_Offer = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -19971,7 +19982,7 @@ export type B_Seller = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -19984,7 +19995,7 @@ export type B_Seller = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid to including this date (last day) */
@@ -20012,7 +20023,7 @@ export type B_SellerFunds = {
   /** The (legal) commitment amount */
   CommittedAmt: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -20021,7 +20032,7 @@ export type B_SellerFunds = {
   NonCommittedAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20079,7 +20090,7 @@ export type B_Topic = {
   /** Auction Topic Type */
   B_TopicType: B_TopicType;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DecisionDate: Scalars['Date']['output'];
@@ -20103,7 +20114,7 @@ export type B_Topic = {
   TopicStatus: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20117,7 +20128,7 @@ export type B_TopicCategory = {
   /** Auction Topic Type */
   B_TopicType: B_TopicType;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -20128,7 +20139,7 @@ export type B_TopicCategory = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20196,7 +20207,7 @@ export type B_TopicType = {
   AD_Org: Ad_Org;
   AuctionType: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -20215,7 +20226,7 @@ export type B_TopicType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20261,7 +20272,7 @@ export type Cm_Chat = {
   /** Type of Confidentiality */
   ConfidentialType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -20272,7 +20283,7 @@ export type Cm_Chat = {
   ModerationType?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20304,7 +20315,7 @@ export type Cm_ChatEntry = {
   /** Type of Confidentiality */
   ConfidentialType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -20315,7 +20326,7 @@ export type Cm_ChatEntry = {
   Subject?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20379,7 +20390,7 @@ export type Cm_ChatType = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -20392,7 +20403,7 @@ export type Cm_ChatType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20430,7 +20441,7 @@ export type Cm_ChatTypeUpdate = {
   /** Type of discussion / chat */
   CM_ChatType: Cm_ChatType;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -20439,7 +20450,7 @@ export type Cm_ChatTypeUpdate = {
   IsSelfService: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20475,7 +20486,7 @@ export type Cm_ChatUpdate = {
   /** Chat or discussion thread */
   CM_Chat: Cm_Chat;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -20484,7 +20495,7 @@ export type Cm_ChatUpdate = {
   IsSelfService: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20517,7 +20528,7 @@ export type C_1099Box = {
   AD_Org: Ad_Org;
   Bucket: Scalars['Int']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -20530,7 +20541,7 @@ export type C_1099Box = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -20573,13 +20584,13 @@ export type C_AcctProcessor = {
   /** Rules for accounting */
   C_AcctSchema?: Maybe<C_AcctSchema>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Date the process will run next */
-  DateNextRun?: Maybe<Scalars['Date']['output']>;
+  DateNextRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
@@ -20593,7 +20604,7 @@ export type C_AcctProcessor = {
   Supervisor: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20613,9 +20624,9 @@ export type C_AcctProcessorInput = {
   /** Rules for accounting */
   C_AcctSchema?: InputMaybe<ForeignEntityInput>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date the process will run next */
-  DateNextRun?: InputMaybe<Scalars['Date']['input']>;
+  DateNextRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
@@ -20641,7 +20652,7 @@ export type C_AcctProcessorLog = {
   /** Accounting Processor/Server Parameters */
   C_AcctProcessor: C_AcctProcessor;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -20658,7 +20669,7 @@ export type C_AcctProcessorLog = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20711,7 +20722,7 @@ export type C_AcctSchema = {
   /** Indicates how Costs will be calculated */
   CostingMethod: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -20755,7 +20766,7 @@ export type C_AcctSchema = {
   TaxCorrectionType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -20862,7 +20873,7 @@ export type C_AcctSchema_Default = {
   /** Charge Account */
   Ch_Expense_A: C_ValidCombination;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -20922,7 +20933,7 @@ export type C_AcctSchema_Default = {
   /** Unrealized Loss Account for currency revaluation */
   UnrealizedLoss_A: C_ValidCombination;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Account for Vendor Liability */
@@ -21073,7 +21084,7 @@ export type C_AcctSchema_Element = {
   /** Sales coverage region */
   C_SalesRegion?: Maybe<C_SalesRegion>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Element Type (account or user defined) */
@@ -21091,7 +21102,7 @@ export type C_AcctSchema_Element = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -21154,7 +21165,7 @@ export type C_AcctSchema_Gl = {
   /** Budgetary Commitment Offset Account */
   CommitmentOffset_A: C_ValidCombination;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Account used when a currency is out of balance */
@@ -21170,7 +21181,7 @@ export type C_AcctSchema_Gl = {
   SuspenseBalancing_A?: Maybe<C_ValidCombination>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UseCurrencyBalancing: Scalars['Boolean']['output'];
@@ -21217,7 +21228,7 @@ export type C_Activity = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -21232,7 +21243,7 @@ export type C_Activity = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -21288,7 +21299,7 @@ export type C_AddressTransaction = {
   Comments?: Maybe<Scalars['String']['output']>;
   Country?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -21304,7 +21315,7 @@ export type C_AddressTransaction = {
   Result?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -21360,7 +21371,7 @@ export type C_AddressValidation = {
   ConnectionKey?: Maybe<Scalars['String']['output']>;
   ConnectionPassword: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -21373,7 +21384,7 @@ export type C_AddressValidation = {
   ShipperMeter?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User ID or account number */
@@ -21388,7 +21399,7 @@ export type C_AddressValidationCfg = {
   AD_Org: Ad_Org;
   AddressValidationClass?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -21412,7 +21423,7 @@ export type C_AddressValidationCfg = {
   ServicePath?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -21488,7 +21499,7 @@ export type C_AllocationHdr = {
   /** Document type or rules */
   C_DocType?: Maybe<C_DocType>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -21520,7 +21531,7 @@ export type C_AllocationHdr = {
   Reversal?: Maybe<C_AllocationHdr>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -21595,7 +21606,7 @@ export type C_AllocationLine = {
   /** Payment identifier */
   C_Payment?: Maybe<C_Payment>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Transaction Date */
@@ -21610,7 +21621,7 @@ export type C_AllocationLine = {
   OverUnderAmt?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Amount to write-off */
@@ -21698,7 +21709,7 @@ export type C_Bp_BankAccount = {
   /** Payment processor for electronic payments */
   C_PaymentProcessor?: Maybe<C_PaymentProcessor>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Expiry Month */
@@ -21726,7 +21737,7 @@ export type C_Bp_BankAccount = {
   RoutingNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -21815,14 +21826,14 @@ export type C_Bp_Customer_Acct = {
   /** Customer Accounts Receivables Services Account */
   C_Receivable_Services_A: C_ValidCombination;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -21862,7 +21873,7 @@ export type C_Bp_Edi = {
   /** Identifies a Business Partner */
   C_BPartner: C_BPartner;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** EDI Identification Number */
@@ -21899,7 +21910,7 @@ export type C_Bp_Edi = {
   SendOrder: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -21963,14 +21974,14 @@ export type C_Bp_Employee_Acct = {
   /** Identifies a Business Partner */
   C_BPartner: C_BPartner;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -22009,7 +22020,7 @@ export type C_Bp_Group = {
   /** Dunning Rules for overdue invoices */
   C_Dunning?: Maybe<C_Dunning>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Credit Watch - Percent of Credit Limit when OK switches to Watch */
@@ -22038,7 +22049,7 @@ export type C_Bp_Group = {
   PriorityBase?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -22108,7 +22119,7 @@ export type C_Bp_Group_Acct = {
   /** Customer Accounts Receivables Services Account */
   C_Receivable_Services_A: C_ValidCombination;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -22124,7 +22135,7 @@ export type C_Bp_Group_Acct = {
   /** Account for unearned revenue */
   UnEarnedRevenue_A?: Maybe<C_ValidCombination>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Account for Vendor Liability */
@@ -22193,7 +22204,7 @@ export type C_Bp_Relation = {
   /** Identifies the (ship to) address for this Business Partner */
   C_BPartner_Location?: Maybe<C_BPartner_Location>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -22212,7 +22223,7 @@ export type C_Bp_Relation = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -22262,7 +22273,7 @@ export type C_Bp_ShippingAcct = {
   /** Identifies the (ship to) address for this Business Partner */
   C_BPartner_Location?: Maybe<C_BPartner_Location>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DutiesShipperAccount?: Maybe<Scalars['String']['output']>;
@@ -22273,7 +22284,7 @@ export type C_Bp_ShippingAcct = {
   ShipperMeter?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -22311,14 +22322,14 @@ export type C_Bp_Vendor_Acct = {
   /** Identifies a Business Partner */
   C_BPartner: C_BPartner;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Account for Vendor Liability */
@@ -22364,7 +22375,7 @@ export type C_Bp_Withholding = {
   /** Withholding type defined */
   C_Withholding: C_Withholding;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Reason for not withholding */
@@ -22377,7 +22388,7 @@ export type C_Bp_Withholding = {
   IsTemporaryExempt: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -22452,7 +22463,7 @@ export type C_BPartner = {
   C_TaxGroup?: Maybe<C_TaxGroup>;
   Contacts?: Maybe<Array<Ad_User>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   CustomerProfileID?: Maybe<Scalars['String']['output']>;
@@ -22502,7 +22513,7 @@ export type C_BPartner = {
   IsTaxExempt: Scalars['Boolean']['output'];
   /** Indicates if this Business Partner is a Vendor */
   IsVendor: Scalars['Boolean']['output'];
-  LastVisitDate?: Maybe<Scalars['Date']['output']>;
+  LastVisitDate?: Maybe<Scalars['DateTime']['output']>;
   Logo?: Maybe<Ad_Image>;
   /** Schema to calculate the trade discount percentage */
   M_DiscountSchema?: Maybe<M_DiscountSchema>;
@@ -22565,13 +22576,13 @@ export type C_BPartner = {
   URL?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
   Value: Scalars['String']['output'];
   bh_gender?: Maybe<Ad_Ref_List>;
-  bh_nextappointmentdate?: Maybe<Scalars['Date']['output']>;
+  bh_nextappointmentdate?: Maybe<Scalars['DateTime']['output']>;
   bh_occupation?: Maybe<Scalars['String']['output']>;
 };
 
@@ -22727,7 +22738,7 @@ export type C_BPartnerInput = {
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
   bh_gender?: InputMaybe<ForeignEntityInput>;
-  bh_nextappointmentdate?: InputMaybe<Scalars['Date']['input']>;
+  bh_nextappointmentdate?: InputMaybe<Scalars['DateTime']['input']>;
   bh_occupation?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -22744,7 +22755,7 @@ export type C_BPartner_Location = {
   /** Sales coverage region */
   C_SalesRegion?: Maybe<C_SalesRegion>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   CustomerAddressID?: Maybe<Scalars['String']['output']>;
@@ -22771,7 +22782,7 @@ export type C_BPartner_Location = {
   Phone2?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -22825,7 +22836,7 @@ export type C_BPartner_Product = {
   /** Identifies a Business Partner */
   C_BPartner: C_BPartner;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -22846,7 +22857,7 @@ export type C_BPartner_Product = {
   ShelfLifeMinPct: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Product Category of the Business Partner */
@@ -22898,7 +22909,7 @@ export type C_Bank = {
   /** Location or Address */
   C_Location?: Maybe<C_Location>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -22915,7 +22926,7 @@ export type C_Bank = {
   SwiftCode?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -22937,7 +22948,7 @@ export type C_BankAccount = {
   /** The Currency for this record */
   C_Currency: C_Currency;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Amount of Credit allowed */
@@ -22957,7 +22968,7 @@ export type C_BankAccount = {
   PaymentExportClass?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -22981,7 +22992,7 @@ export type C_BankAccountDoc = {
   /** Print Format for printing Checks */
   Check_PrintFormat?: Maybe<Ad_PrintFormat>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The next number to be used */
@@ -22996,7 +23007,7 @@ export type C_BankAccountDoc = {
   PaymentRule: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -23083,14 +23094,14 @@ export type C_BankAccount_Acct = {
   /** Account at the Bank */
   C_BankAccount: C_BankAccount;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -23158,7 +23169,7 @@ export type C_BankAccount_Processor = {
   /** Payment processor for electronic payments */
   C_PaymentProcessor: C_PaymentProcessor;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -23183,7 +23194,7 @@ export type C_BankAccount_Processor = {
   RequireVV: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User ID or account number */
@@ -23289,7 +23300,7 @@ export type C_BankStatement = {
   CreateFrom?: Maybe<Scalars['String']['output']>;
   CreateFromBatch?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -23330,7 +23341,7 @@ export type C_BankStatement = {
   StatementDifference?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -23416,7 +23427,7 @@ export type C_BankStatementLine = {
   ChargeAmt: Scalars['BigDecimal']['output'];
   CreatePayment?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -23470,7 +23481,7 @@ export type C_BankStatementLine = {
   TrxAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Date when money is available */
@@ -23568,13 +23579,13 @@ export type C_BankStatementLoader = {
   /** Account at the Bank */
   C_BankAccount: C_BankAccount;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date format used in the input format */
   DateFormat?: Maybe<Scalars['String']['output']>;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Name of the local file or URL */
@@ -23605,7 +23616,7 @@ export type C_BankStatementLoader = {
   StmtLoaderClass?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User ID or account number */
@@ -23630,7 +23641,7 @@ export type C_BankStatementLoaderInput = {
   /** Date format used in the input format */
   DateFormat?: InputMaybe<Scalars['String']['input']>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Name of the local file or URL */
@@ -23673,7 +23684,7 @@ export type C_BankStatementMatcher = {
   /** Java Classname */
   Classname: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -23686,7 +23697,7 @@ export type C_BankStatementMatcher = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -23722,7 +23733,7 @@ export type C_BankTransfer = {
   /** Currency Conversion Rate Type */
   C_ConversionType?: Maybe<C_ConversionType>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -23762,7 +23773,7 @@ export type C_BankTransfer = {
   To_TenderType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -23823,7 +23834,7 @@ export type C_Calendar = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -23834,7 +23845,7 @@ export type C_Calendar = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -23868,7 +23879,7 @@ export type C_Campaign = {
   /** Costs in accounting currency */
   Costs: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -23885,7 +23896,7 @@ export type C_Campaign = {
   StartDate?: Maybe<Scalars['Date']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -23939,7 +23950,7 @@ export type C_Cash = {
   /** Financial Project */
   C_Project?: Maybe<C_Project>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -23971,7 +23982,7 @@ export type C_Cash = {
   StatementDifference?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -23989,7 +24000,7 @@ export type C_CashBook = {
   /** The Currency for this record */
   C_Currency: C_Currency;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -24002,7 +24013,7 @@ export type C_CashBook = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -24050,14 +24061,14 @@ export type C_CashBook_Acct = {
   /** Cash Book for recording petty cash transactions */
   C_CashBook: C_CashBook;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -24166,7 +24177,7 @@ export type C_CashLine = {
   /** Source of Cash */
   CashType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -24183,7 +24194,7 @@ export type C_CashLine = {
   Processed: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Amount to write-off */
@@ -24251,7 +24262,7 @@ export type C_CashPlan = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of the Document */
@@ -24273,7 +24284,7 @@ export type C_CashPlan = {
   Processed: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -24348,7 +24359,7 @@ export type C_CashPlanLine = {
   /** Actual Project Task in a Phase */
   C_ProjectTask?: Maybe<C_ProjectTask>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Transaction Date */
@@ -24372,7 +24383,7 @@ export type C_CashPlanLine = {
   QtyEntered: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -24440,7 +24451,7 @@ export type C_Channel = {
   /** Color used for printing and display */
   AD_PrintColor?: Maybe<Ad_PrintColor>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -24451,7 +24462,7 @@ export type C_Channel = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -24495,7 +24506,7 @@ export type C_Charge = {
   /** Charge Amount */
   ChargeAmt: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -24511,7 +24522,7 @@ export type C_Charge = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -24557,7 +24568,7 @@ export type C_ChargeType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -24570,7 +24581,7 @@ export type C_ChargeType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -24609,7 +24620,7 @@ export type C_ChargeType_DocType = {
   /** Document type or rules */
   C_DocType: C_DocType;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -24618,7 +24629,7 @@ export type C_ChargeType_DocType = {
   IsAllowPositive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -24655,14 +24666,14 @@ export type C_Charge_Acct = {
   /** Charge Account */
   Ch_Expense_A: C_ValidCombination;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -24702,7 +24713,7 @@ export type C_City = {
   /** Location coordinate */
   Coordinates?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -24715,7 +24726,7 @@ export type C_City = {
   Postal?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -24764,11 +24775,11 @@ export type C_Commission = {
   /** Process which will generate a new document lines based on an existing document */
   CreateFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Basis for the calculation the commission */
@@ -24786,7 +24797,7 @@ export type C_Commission = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -24809,14 +24820,14 @@ export type C_CommissionAmt = {
   /** Converted Amount */
   ConvertedAmt: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -24872,7 +24883,7 @@ export type C_CommissionDetail = {
   /** Converted Amount */
   ConvertedAmt: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Information */
@@ -24883,7 +24894,7 @@ export type C_CommissionDetail = {
   Reference?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -24932,7 +24943,7 @@ export type C_CommissionInput = {
   /** Process which will generate a new document lines based on an existing document */
   CreateFrom?: InputMaybe<Scalars['String']['input']>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Basis for the calculation the commission */
@@ -24972,7 +24983,7 @@ export type C_CommissionLine = {
   /** Commission only Orders or Invoices, where this Sales Rep is entered */
   CommissionOrders: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -24995,7 +25006,7 @@ export type C_CommissionLine = {
   QtySubtract: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25056,7 +25067,7 @@ export type C_CommissionRun = {
   /** Invoice Identifier */
   C_Invoice?: Maybe<C_Invoice>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -25074,7 +25085,7 @@ export type C_CommissionRun = {
   StartDate: Scalars['Date']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25122,13 +25133,13 @@ export type C_ContactActivity = {
   /** Type of activity, e.g. task, email, phone call */
   ContactActivityType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
   Description: Scalars['String']['output'];
   /** Last effective date (inclusive) */
-  EndDate?: Maybe<Scalars['Date']['output']>;
+  EndDate?: Maybe<Scalars['DateTime']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** It is complete */
@@ -25136,10 +25147,10 @@ export type C_ContactActivity = {
   /** Sales Representative or Company Agent */
   SalesRep?: Maybe<Ad_User>;
   /** First effective day (inclusive) */
-  StartDate: Scalars['Date']['output'];
+  StartDate: Scalars['DateTime']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25163,7 +25174,7 @@ export type C_ContactActivityInput = {
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Last effective date (inclusive) */
-  EndDate?: InputMaybe<Scalars['Date']['input']>;
+  EndDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** It is complete */
@@ -25171,7 +25182,7 @@ export type C_ContactActivityInput = {
   /** Sales Representative or Company Agent */
   SalesRep?: InputMaybe<ForeignEntityInput>;
   /** First effective day (inclusive) */
-  StartDate?: InputMaybe<Scalars['Date']['input']>;
+  StartDate?: InputMaybe<Scalars['DateTime']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -25182,7 +25193,7 @@ export type C_ConversionType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -25195,7 +25206,7 @@ export type C_ConversionType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -25237,7 +25248,7 @@ export type C_Conversion_Rate = {
   /** Target currency */
   C_Currency_To: C_Currency;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** To convert Source number to Target number, the Source is divided */
@@ -25248,7 +25259,7 @@ export type C_Conversion_Rate = {
   MultiplyRate: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -25302,7 +25313,7 @@ export type C_Country = {
   /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
   CountryCode: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -25358,7 +25369,7 @@ export type C_Country = {
   RegionName?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25376,7 +25387,7 @@ export type C_CountryGroup = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Starting date for a range */
@@ -25393,7 +25404,7 @@ export type C_CountryGroup = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -25416,7 +25427,7 @@ export type C_CountryGroupCountry = {
   C_Country?: Maybe<C_Country>;
   C_CountryGroup?: Maybe<C_CountryGroup>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Starting date for a range */
@@ -25427,7 +25438,7 @@ export type C_CountryGroupCountry = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25548,7 +25559,7 @@ export type C_Currency = {
   /** Rounding used costing calculations */
   CostingPrecision: Scalars['Int']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Symbol of the currency (opt used for printing only) */
@@ -25575,7 +25586,7 @@ export type C_Currency = {
   StdPrecision: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25627,14 +25638,14 @@ export type C_Currency_Acct = {
   /** The Currency for this record */
   C_Currency: C_Currency;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25666,7 +25677,7 @@ export type C_Cycle = {
   /** The Currency for this record */
   C_Currency: C_Currency;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -25677,7 +25688,7 @@ export type C_Cycle = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25713,14 +25724,14 @@ export type C_CyclePhase = {
   /** Standard Phase of the Project Type */
   C_Phase: C_Phase;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25752,7 +25763,7 @@ export type C_CycleStep = {
   /** Identifier for this Project Reporting Cycle */
   C_Cycle: C_Cycle;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -25765,7 +25776,7 @@ export type C_CycleStep = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25806,7 +25817,7 @@ export type C_DepositBatch = {
   /** Process which will generate a new document lines based on an existing document */
   CreateFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DateDeposit: Scalars['Date']['output'];
@@ -25826,7 +25837,7 @@ export type C_DepositBatch = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25874,7 +25885,7 @@ export type C_DepositBatchLine = {
   /** Payment identifier */
   C_Payment: C_Payment;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -25888,7 +25899,7 @@ export type C_DepositBatchLine = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -25934,7 +25945,7 @@ export type C_DocType = {
   /** Document type used for shipments generated from this sales document */
   C_DocTypeShipment?: Maybe<C_DocType>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DefiniteSequence?: Maybe<Ad_Sequence>;
@@ -25992,7 +26003,7 @@ export type C_DocType = {
   PrintName: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -26014,7 +26025,7 @@ export type C_DocTypeCounter = {
   /** Generated Counter Document Type (To) */
   Counter_C_DocType: C_DocType;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -26032,7 +26043,7 @@ export type C_DocTypeCounter = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -26144,7 +26155,7 @@ export type C_Dunning = {
   /** Create Dunning Letter by level sequentially */
   CreateLevelsSequentially: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -26159,7 +26170,7 @@ export type C_Dunning = {
   SendDunningLetter: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -26203,7 +26214,7 @@ export type C_DunningLevel = {
   /** Indicates if interest will be charged on overdue invoices */
   ChargeInterest: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Days after due date to dun (if negative days until due) */
@@ -26240,7 +26251,7 @@ export type C_DunningLevel = {
   PrintName: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -26308,7 +26319,7 @@ export type C_DunningRun = {
   C_DunningLevel?: Maybe<C_DunningLevel>;
   C_DunningRunEntries?: Maybe<Array<C_DunningRunEntry>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -26323,7 +26334,7 @@ export type C_DunningRun = {
   SendIt?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -26355,7 +26366,7 @@ export type C_DunningRunEntry = {
   C_DunningRun: C_DunningRun;
   C_DunningRunLines?: Maybe<Array<C_DunningRunLine>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -26370,7 +26381,7 @@ export type C_DunningRunEntry = {
   SalesRep: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -26448,7 +26459,7 @@ export type C_DunningRunLine = {
   /** Converted Amount */
   ConvertedAmt: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Number of days due (negative: due in number of days) */
@@ -26471,7 +26482,7 @@ export type C_DunningRunLine = {
   TotalAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -26527,7 +26538,7 @@ export type C_Element = {
   /** Identifies a Tree */
   AD_Tree: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -26544,7 +26555,7 @@ export type C_Element = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
@@ -26597,7 +26608,7 @@ export type C_ElementValue = {
   /** Accounting Element */
   C_Element: C_Element;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -26626,7 +26637,7 @@ export type C_ElementValue = {
   PostStatistical: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -26697,7 +26708,7 @@ export type C_Greeting = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** For letters, e.g. "Dear {0}" or "Dear Mr. {0}" - At runtime, "{0}" is replaced by the name */
@@ -26712,7 +26723,7 @@ export type C_Greeting = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -26748,7 +26759,7 @@ export type C_InterOrg_Acct = {
   /** Rules for accounting */
   C_AcctSchema: C_AcctSchema;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Intercompany Due From / Receivables Account */
@@ -26759,7 +26770,7 @@ export type C_InterOrg_Acct = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -26836,7 +26847,7 @@ export type C_Invoice = {
   /** Process which will generate a new document lines based on an existing document */
   CreateLinesFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Currency Conversion Rate */
@@ -26917,7 +26928,7 @@ export type C_Invoice = {
   TotalLines: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -26940,7 +26951,7 @@ export type C_InvoiceBatch = {
   /** If not zero, the Debit amount of the document must be equal this amount */
   ControlAmt: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of the Document */
@@ -26962,7 +26973,7 @@ export type C_InvoiceBatch = {
   SalesRep: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -27031,7 +27042,7 @@ export type C_InvoiceBatchLine = {
   /** Tax identifier */
   C_Tax: C_Tax;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -27062,7 +27073,7 @@ export type C_InvoiceBatchLine = {
   TaxAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -27305,7 +27316,7 @@ export type C_InvoiceLine = {
   /** Unit of Measure */
   C_UOM?: Maybe<C_Uom>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -27349,14 +27360,14 @@ export type C_InvoiceLine = {
   /** Revenue Recognition Amount */
   RRAmt?: Maybe<Scalars['BigDecimal']['output']>;
   /** Revenue Recognition Start Date */
-  RRStartDate?: Maybe<Scalars['Date']['output']>;
+  RRStartDate?: Maybe<Scalars['DateTime']['output']>;
   /** Resource Assignment */
   S_ResourceAssignment?: Maybe<S_ResourceAssignment>;
   /** Tax Amount for a document */
   TaxAmt?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -27444,7 +27455,7 @@ export type C_InvoiceLineInput = {
   /** Revenue Recognition Amount */
   RRAmt?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Revenue Recognition Start Date */
-  RRStartDate?: InputMaybe<Scalars['Date']['input']>;
+  RRStartDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Resource Assignment */
   S_ResourceAssignment?: InputMaybe<ForeignEntityInput>;
   /** Tax Amount for a document */
@@ -27467,7 +27478,7 @@ export type C_InvoicePaySchedule = {
   /** Payment Schedule Template */
   C_PaySchedule?: Maybe<C_PaySchedule>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Calculated amount of discount */
@@ -27487,7 +27498,7 @@ export type C_InvoicePaySchedule = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -27532,7 +27543,7 @@ export type C_InvoiceSchedule = {
   /** Amount */
   Amt: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -27559,7 +27570,7 @@ export type C_InvoiceSchedule = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -27612,7 +27623,7 @@ export type C_InvoiceTax = {
   C_Tax: C_Tax;
   C_TaxProvider?: Maybe<C_TaxProvider>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -27627,7 +27638,7 @@ export type C_InvoiceTax = {
   TaxBaseAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -27668,7 +27679,7 @@ export type C_Job = {
   /** Job Position Category */
   C_JobCategory: C_JobCategory;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -27683,7 +27694,7 @@ export type C_Job = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -27699,7 +27710,7 @@ export type C_JobAssignment = {
   /** Job Position */
   C_Job: C_Job;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -27708,13 +27719,13 @@ export type C_JobAssignment = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom: Scalars['Date']['output'];
+  ValidFrom: Scalars['DateTime']['output'];
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type C_JobAssignmentConnection = {
@@ -27736,9 +27747,9 @@ export type C_JobAssignmentInput = {
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type C_JobCategory = {
@@ -27748,7 +27759,7 @@ export type C_JobCategory = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -27761,7 +27772,7 @@ export type C_JobCategory = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -27821,7 +27832,7 @@ export type C_JobRemuneration = {
   /** Wage or Salary */
   C_Remuneration: C_Remuneration;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -27830,13 +27841,13 @@ export type C_JobRemuneration = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom: Scalars['Date']['output'];
+  ValidFrom: Scalars['DateTime']['output'];
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type C_JobRemunerationConnection = {
@@ -27858,9 +27869,9 @@ export type C_JobRemunerationInput = {
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type C_LandedCost = {
@@ -27872,7 +27883,7 @@ export type C_LandedCost = {
   /** Invoice Detail Line */
   C_InvoiceLine: C_InvoiceLine;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -27890,7 +27901,7 @@ export type C_LandedCost = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -27908,7 +27919,7 @@ export type C_LandedCostAllocation = {
   /** Invoice Detail Line */
   C_InvoiceLine: C_InvoiceLine;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Product Attribute Set Instance */
@@ -27923,7 +27934,7 @@ export type C_LandedCostAllocation = {
   Qty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -28011,7 +28022,7 @@ export type C_Location = {
   /** Comments or additional information */
   Comments?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -28028,7 +28039,7 @@ export type C_Location = {
   Result?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   ValidateAddress?: Maybe<Scalars['String']['output']>;
@@ -28091,7 +28102,7 @@ export type C_NonBusinessDay = {
   /** Country */
   C_Country?: Maybe<C_Country>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date when business is not conducted */
@@ -28102,7 +28113,7 @@ export type C_NonBusinessDay = {
   Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -28138,7 +28149,7 @@ export type C_OnlineTrxHistory = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -28151,7 +28162,7 @@ export type C_OnlineTrxHistory = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -28203,7 +28214,7 @@ export type C_Opportunity = {
   /** Cost information */
   Cost?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -28221,7 +28232,7 @@ export type C_Opportunity = {
   SalesRep?: Maybe<Ad_User>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** The amount adjusted by the probability. */
@@ -28329,7 +28340,7 @@ export type C_Order = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -28432,7 +28443,7 @@ export type C_Order = {
   TotalLines: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -28621,7 +28632,7 @@ export type C_OrderLandedCost = {
   C_Order: C_Order;
   C_OrderLandedCostAllocationList?: Maybe<Array<C_OrderLandedCostAllocation>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -28636,7 +28647,7 @@ export type C_OrderLandedCost = {
   Processed: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -28655,7 +28666,7 @@ export type C_OrderLandedCostAllocation = {
   /** Sales Order Line */
   C_OrderLine: C_OrderLine;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -28666,7 +28677,7 @@ export type C_OrderLandedCostAllocation = {
   Qty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -28757,7 +28768,7 @@ export type C_OrderLine = {
   CreateProduction?: Maybe<Scalars['String']['output']>;
   CreateShipment?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date when the product was delivered */
@@ -28825,14 +28836,14 @@ export type C_OrderLine = {
   /** Revenue Recognition Amount */
   RRAmt?: Maybe<Scalars['BigDecimal']['output']>;
   /** Revenue Recognition Start Date */
-  RRStartDate?: Maybe<Scalars['Date']['output']>;
+  RRStartDate?: Maybe<Scalars['DateTime']['output']>;
   /** Reference to corresponding Sales/Purchase Order */
   Ref_OrderLine?: Maybe<C_OrderLine>;
   /** Resource Assignment */
   S_ResourceAssignment?: Maybe<S_ResourceAssignment>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -28942,7 +28953,7 @@ export type C_OrderLineInput = {
   /** Revenue Recognition Amount */
   RRAmt?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Revenue Recognition Start Date */
-  RRStartDate?: InputMaybe<Scalars['Date']['input']>;
+  RRStartDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Reference to corresponding Sales/Purchase Order */
   Ref_OrderLine?: InputMaybe<ForeignEntityInput>;
   /** Resource Assignment */
@@ -28965,7 +28976,7 @@ export type C_OrderPaySchedule = {
   /** Payment Schedule Template */
   C_PaySchedule?: Maybe<C_PaySchedule>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Calculated amount of discount */
@@ -28985,7 +28996,7 @@ export type C_OrderPaySchedule = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -29028,7 +29039,7 @@ export type C_OrderSource = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -29041,7 +29052,7 @@ export type C_OrderSource = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -29082,7 +29093,7 @@ export type C_OrderTax = {
   C_Tax: C_Tax;
   C_TaxProvider?: Maybe<C_TaxProvider>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -29097,7 +29108,7 @@ export type C_OrderTax = {
   TaxBaseAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -29138,7 +29149,7 @@ export type C_OrgAssignment = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -29147,7 +29158,7 @@ export type C_OrgAssignment = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -29198,7 +29209,7 @@ export type C_Pos = {
   C_POSKeyLayout?: Maybe<C_PosKeyLayout>;
   CashDrawer?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -29225,7 +29236,7 @@ export type C_Pos = {
   SalesRep: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -29292,7 +29303,7 @@ export type C_PosKey = {
   /** POS Function Key Layout */
   C_POSKeyLayout: C_PosKeyLayout;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -29316,7 +29327,7 @@ export type C_PosKey = {
   Text?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -29374,7 +29385,7 @@ export type C_PosKeyLayout = {
   /** Number of columns */
   Columns?: Maybe<Scalars['Int']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -29389,7 +29400,7 @@ export type C_PosKeyLayout = {
   POSKeyLayoutType?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -29441,7 +29452,7 @@ export type C_PosPayment = {
   CheckNo?: Maybe<Scalars['String']['output']>;
   CheckStatus?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Credit Card Number */
@@ -29472,7 +29483,7 @@ export type C_PosPayment = {
   TenderType?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Voice Authorization Code from credit card company */
@@ -29538,7 +29549,7 @@ export type C_PosTenderType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -29556,7 +29567,7 @@ export type C_PosTenderType = {
   TenderType?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -29599,7 +29610,7 @@ export type C_PaySchedule = {
   /** The terms of Payment (timing, discount) */
   C_PaymentTerm: C_PaymentTerm;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Discount in percent */
@@ -29620,7 +29631,7 @@ export type C_PaySchedule = {
   Percentage: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -29667,7 +29678,7 @@ export type C_PaySelection = {
   /** Process which will generate a new document lines based on an existing document */
   CreateFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -29689,7 +29700,7 @@ export type C_PaySelection = {
   TotalAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -29710,7 +29721,7 @@ export type C_PaySelectionCheck = {
   /** Payment identifier */
   C_Payment?: Maybe<C_Payment>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Calculated amount of discount */
@@ -29734,7 +29745,7 @@ export type C_PaySelectionCheck = {
   Qty: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Amount to write-off */
@@ -29828,7 +29839,7 @@ export type C_PaySelectionLine = {
   /** Payment Selection Check */
   C_PaySelectionCheck?: Maybe<C_PaySelectionCheck>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -29855,7 +29866,7 @@ export type C_PaySelectionLine = {
   Processed: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Amount to write-off */
@@ -29975,7 +29986,7 @@ export type C_Payment = {
   /** Converted Amount */
   ConvertedAmt?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Expiry Month */
@@ -30077,6 +30088,8 @@ export type C_Payment = {
   Reversal?: Maybe<C_Payment>;
   /** Bank Routing Number */
   RoutingNo?: Maybe<Scalars['String']['output']>;
+  /** Whether the entity was scheduled or not */
+  Scheduled: Scalars['Boolean']['output'];
   /** Swift Code or BIC */
   SwiftCode?: Maybe<Scalars['String']['output']>;
   /** Track 1 and 2 of the Credit Card */
@@ -30089,7 +30102,7 @@ export type C_Payment = {
   TrxType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -30117,7 +30130,7 @@ export type C_PaymentAllocate = {
   /** Payment identifier */
   C_Payment: C_Payment;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Calculated amount of discount */
@@ -30131,7 +30144,7 @@ export type C_PaymentAllocate = {
   RemainingAmt?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Amount to write-off */
@@ -30176,7 +30189,7 @@ export type C_PaymentBatch = {
   /** Payment processor for electronic payments */
   C_PaymentProcessor: C_PaymentProcessor;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Document sequence number of the document */
@@ -30191,7 +30204,7 @@ export type C_PaymentBatch = {
   ProcessingDate?: Maybe<Scalars['Date']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -30390,6 +30403,8 @@ export type C_PaymentInput = {
   Reversal?: InputMaybe<ForeignEntityInput>;
   /** Bank Routing Number */
   RoutingNo?: InputMaybe<Scalars['String']['input']>;
+  /** Whether the entity was scheduled or not */
+  Scheduled?: InputMaybe<Scalars['Boolean']['input']>;
   /** Swift Code or BIC */
   SwiftCode?: InputMaybe<Scalars['String']['input']>;
   /** Track 1 and 2 of the Credit Card */
@@ -30448,7 +30463,7 @@ export type C_PaymentProcessor = {
   /** Fixed cost per transaction */
   CostPerTrx: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -30479,7 +30494,7 @@ export type C_PaymentProcessor = {
   TrxType?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -30562,7 +30577,7 @@ export type C_PaymentTerm = {
   AfterDelivery: Scalars['Boolean']['output'];
   C_PayScheduleList?: Maybe<Array<C_PaySchedule>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -30606,7 +30621,7 @@ export type C_PaymentTerm = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -30728,7 +30743,7 @@ export type C_PaymentTransaction = {
   /** Check Number */
   CheckNo?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Expiry Month */
@@ -30803,7 +30818,7 @@ export type C_PaymentTransaction = {
   TrxType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -30967,7 +30982,7 @@ export type C_Period = {
   /** Calendar Year */
   C_Year: C_Year;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Last effective date (inclusive) */
@@ -30985,7 +31000,7 @@ export type C_Period = {
   StartDate: Scalars['Date']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31005,7 +31020,7 @@ export type C_PeriodControl = {
   /** Period of the Calendar */
   C_Period: C_Period;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Logical type of document */
@@ -31019,7 +31034,7 @@ export type C_PeriodControl = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31078,7 +31093,7 @@ export type C_Phase = {
   C_ProjectType: C_ProjectType;
   C_Tasks?: Maybe<Array<C_Task>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -31097,7 +31112,7 @@ export type C_Phase = {
   StandardQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31167,7 +31182,7 @@ export type C_Project = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The (planned) effective date of this document. */
@@ -31221,7 +31236,7 @@ export type C_Project = {
   SalesRep?: Maybe<Ad_User>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -31326,7 +31341,7 @@ export type C_ProjectIssue = {
   /** Financial Project */
   C_Project: C_Project;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -31366,7 +31381,7 @@ export type C_ProjectIssue = {
   S_TimeExpenseLine?: Maybe<S_TimeExpenseLine>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31429,7 +31444,7 @@ export type C_ProjectIssueMa = {
   /** Project Issues (Material, Labor) */
   C_ProjectIssue: C_ProjectIssue;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -31440,7 +31455,7 @@ export type C_ProjectIssueMa = {
   MovementQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31488,7 +31503,7 @@ export type C_ProjectLine = {
   /** The (legal) commitment Quantity */
   CommittedQty?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -31522,7 +31537,7 @@ export type C_ProjectLine = {
   Processed: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31600,7 +31615,7 @@ export type C_ProjectPhase = {
   /** The (legal) commitment amount */
   CommittedAmt: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -31635,7 +31650,7 @@ export type C_ProjectPhase = {
   StartDate?: Maybe<Scalars['Date']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31703,7 +31718,7 @@ export type C_ProjectTask = {
   /** The (legal) commitment amount */
   CommittedAmt: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -31726,7 +31741,7 @@ export type C_ProjectTask = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31775,7 +31790,7 @@ export type C_ProjectType = {
   AD_Org: Ad_Org;
   C_Phases?: Maybe<Array<C_Phase>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -31790,7 +31805,7 @@ export type C_ProjectType = {
   ProjectCategory: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31828,7 +31843,7 @@ export type C_Project_Acct = {
   /** Financial Project */
   C_Project: C_Project;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -31839,7 +31854,7 @@ export type C_Project_Acct = {
   PJ_WIP_A: C_ValidCombination;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31882,13 +31897,13 @@ export type C_Recurring = {
   C_Project?: Maybe<C_Project>;
   C_RecurringGroup?: Maybe<C_RecurringGroup>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Date the process will run next */
-  DateNextRun: Scalars['Date']['output'];
+  DateNextRun: Scalars['DateTime']['output'];
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Frequency of events */
@@ -31912,7 +31927,7 @@ export type C_Recurring = {
   RunsRemaining: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -31930,7 +31945,7 @@ export type C_RecurringGroup = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -31943,7 +31958,7 @@ export type C_RecurringGroup = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -31985,9 +32000,9 @@ export type C_RecurringInput = {
   C_Project?: InputMaybe<ForeignEntityInput>;
   C_RecurringGroup?: InputMaybe<ForeignEntityInput>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date the process will run next */
-  DateNextRun?: InputMaybe<Scalars['Date']['input']>;
+  DateNextRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Frequency of events */
@@ -32029,7 +32044,7 @@ export type C_Recurring_Run = {
   /** Recurring Document */
   C_Recurring: C_Recurring;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of the Document */
@@ -32040,7 +32055,7 @@ export type C_Recurring_Run = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32082,7 +32097,7 @@ export type C_Region = {
   /** Country */
   C_Country: C_Country;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -32095,7 +32110,7 @@ export type C_Region = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32129,7 +32144,7 @@ export type C_Remuneration = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -32154,7 +32169,7 @@ export type C_Remuneration = {
   StandardHours: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32200,7 +32215,7 @@ export type C_RevenueRecog_Service = {
   /** Method for recording revenue */
   C_RevenueRecognition: C_RevenueRecognition;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -32213,7 +32228,7 @@ export type C_RevenueRecog_Service = {
   Percent?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32247,7 +32262,7 @@ export type C_RevenueRecognition = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -32264,7 +32279,7 @@ export type C_RevenueRecognition = {
   RecognitionFrequency: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32308,7 +32323,7 @@ export type C_RevenueRecognition_Plan = {
   /** Method for recording revenue */
   C_RevenueRecognition: C_RevenueRecognition;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -32322,7 +32337,7 @@ export type C_RevenueRecognition_Plan = {
   /** Account for unearned revenue */
   UnEarnedRevenue_A: C_ValidCombination;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32366,7 +32381,7 @@ export type C_RevenueRecognition_Run = {
   /** Plan for recognizing or recording revenue */
   C_RevenueRecognition_Plan: C_RevenueRecognition_Plan;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DateRecognized?: Maybe<Scalars['Date']['output']>;
@@ -32377,7 +32392,7 @@ export type C_RevenueRecognition_Run = {
   RecognizedAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32427,7 +32442,7 @@ export type C_RfQ = {
   CreatePO?: Maybe<Scalars['String']['output']>;
   CreateSO?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of the Response */
@@ -32471,7 +32486,7 @@ export type C_RfQ = {
   SalesRep: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32553,7 +32568,7 @@ export type C_RfQLine = {
   C_RfQ: C_RfQ;
   C_RfQLineQtyList?: Maybe<Array<C_RfQLineQty>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date when work is (planned to be) complete */
@@ -32576,7 +32591,7 @@ export type C_RfQLine = {
   M_Product?: Maybe<M_Product>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32629,7 +32644,7 @@ export type C_RfQLineQty = {
   /** Unit of Measure */
   C_UOM: C_Uom;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -32648,7 +32663,7 @@ export type C_RfQLineQty = {
   Qty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32708,7 +32723,7 @@ export type C_RfQResponse = {
   C_RfQResponseLines?: Maybe<Array<C_RfQResponseLine>>;
   CheckComplete?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date when (last) invitation was sent */
@@ -32744,7 +32759,7 @@ export type C_RfQResponse = {
   Ranking?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32817,7 +32832,7 @@ export type C_RfQResponseLine = {
   C_RfQResponse: C_RfQResponse;
   C_RfQResponseLineQtyList?: Maybe<Array<C_RfQResponseLineQty>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date when work is (planned to be) complete */
@@ -32838,7 +32853,7 @@ export type C_RfQResponseLine = {
   IsSelfService: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32886,7 +32901,7 @@ export type C_RfQResponseLineQty = {
   /** Request for Quotation Response Line */
   C_RfQResponseLine: C_RfQResponseLine;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Discount in percent */
@@ -32899,7 +32914,7 @@ export type C_RfQResponseLineQty = {
   Ranking?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32938,7 +32953,7 @@ export type C_RfQ_Topic = {
   AD_PrintFormat?: Maybe<Ad_PrintFormat>;
   C_RfQ_TopicSubscribers?: Maybe<Array<C_RfQ_TopicSubscriber>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -32951,7 +32966,7 @@ export type C_RfQ_Topic = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -32994,7 +33009,7 @@ export type C_RfQ_TopicSubscriber = {
   C_RfQ_Topic: C_RfQ_Topic;
   C_RfQ_TopicSubscriberOnlyList?: Maybe<Array<C_RfQ_TopicSubscriberOnly>>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -33005,7 +33020,7 @@ export type C_RfQ_TopicSubscriber = {
   SubscribeDate?: Maybe<Scalars['Date']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33045,7 +33060,7 @@ export type C_RfQ_TopicSubscriberOnly = {
   /** Request for Quotation Topic Subscriber */
   C_RfQ_TopicSubscriber: C_RfQ_TopicSubscriber;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33058,7 +33073,7 @@ export type C_RfQ_TopicSubscriberOnly = {
   M_Product_Category?: Maybe<M_Product_Category>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33092,7 +33107,7 @@ export type C_SalesRegion = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33109,7 +33124,7 @@ export type C_SalesRegion = {
   SalesRep?: Maybe<Ad_User>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -33149,7 +33164,7 @@ export type C_SalesStage = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33165,7 +33180,7 @@ export type C_SalesStage = {
   Probability: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -33206,7 +33221,7 @@ export type C_ServiceLevel = {
   /** Plan for recognizing or recording revenue */
   C_RevenueRecognition_Plan: C_RevenueRecognition_Plan;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33224,7 +33239,7 @@ export type C_ServiceLevel = {
   ServiceLevelProvided: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33265,7 +33280,7 @@ export type C_ServiceLevelLine = {
   /** Product Revenue Recognition Service Level */
   C_ServiceLevel: C_ServiceLevel;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33280,7 +33295,7 @@ export type C_ServiceLevelLine = {
   ServiceLevelProvided: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33318,7 +33333,7 @@ export type C_SubAcct = {
   /** Account Element */
   C_ElementValue: C_ElementValue;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33331,7 +33346,7 @@ export type C_SubAcct = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -33373,7 +33388,7 @@ export type C_Subscription = {
   /** Type of subscription */
   C_SubscriptionType: C_SubscriptionType;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -33391,7 +33406,7 @@ export type C_Subscription = {
   StartDate: Scalars['Date']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33432,7 +33447,7 @@ export type C_SubscriptionType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33447,7 +33462,7 @@ export type C_SubscriptionType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33483,14 +33498,14 @@ export type C_Subscription_Delivery = {
   /** Subscription of a Business Partner of a Product to renew */
   C_Subscription: C_Subscription;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33520,7 +33535,7 @@ export type C_Task = {
   /** Standard Phase of the Project Type */
   C_Phase: C_Phase;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33539,7 +33554,7 @@ export type C_Task = {
   StandardQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33590,7 +33605,7 @@ export type C_Tax = {
   C_TaxPostalList?: Maybe<Array<C_TaxPostal>>;
   C_TaxProvider?: Maybe<C_TaxProvider>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33625,7 +33640,7 @@ export type C_Tax = {
   To_Region?: Maybe<C_Region>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -33641,7 +33656,7 @@ export type C_TaxBase = {
   /** Calculation Base */
   Base?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33656,7 +33671,7 @@ export type C_TaxBase = {
   Percentage?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -33698,7 +33713,7 @@ export type C_TaxCategory = {
   /** Commodity code used for tax calculation */
   CommodityCode?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -33711,7 +33726,7 @@ export type C_TaxCategory = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33751,7 +33766,7 @@ export type C_TaxDeclaration = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Starting date for a range */
@@ -33771,7 +33786,7 @@ export type C_TaxDeclaration = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33803,7 +33818,7 @@ export type C_TaxDeclarationAcct = {
   /** Define the declaration to the tax authorities */
   C_TaxDeclaration: C_TaxDeclaration;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -33817,7 +33832,7 @@ export type C_TaxDeclarationAcct = {
   Line?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33893,7 +33908,7 @@ export type C_TaxDeclarationLine = {
   /** Define the declaration to the tax authorities */
   C_TaxDeclaration: C_TaxDeclaration;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -33912,7 +33927,7 @@ export type C_TaxDeclarationLine = {
   TaxBaseAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -33977,7 +33992,7 @@ export type C_TaxDefinition = {
   C_TaxGroup?: Maybe<C_TaxGroup>;
   C_TaxType?: Maybe<C_TaxType>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -34000,7 +34015,7 @@ export type C_TaxDefinition = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -34067,7 +34082,7 @@ export type C_TaxGroup = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -34080,7 +34095,7 @@ export type C_TaxGroup = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -34166,7 +34181,7 @@ export type C_TaxPostal = {
   /** Tax identifier */
   C_Tax: C_Tax;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -34177,7 +34192,7 @@ export type C_TaxPostal = {
   Postal_To?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -34212,7 +34227,7 @@ export type C_TaxProvider = {
   C_TaxProviderCfg: C_TaxProviderCfg;
   CompanyCode?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -34224,7 +34239,7 @@ export type C_TaxProvider = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   ValidateConnection?: Maybe<Scalars['String']['output']>;
@@ -34237,7 +34252,7 @@ export type C_TaxProviderCfg = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -34251,7 +34266,7 @@ export type C_TaxProviderCfg = {
   URL?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -34307,7 +34322,7 @@ export type C_TaxType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -34320,7 +34335,7 @@ export type C_TaxType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -34360,7 +34375,7 @@ export type C_Tax_Acct = {
   /** Tax identifier */
   C_Tax: C_Tax;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -34373,7 +34388,7 @@ export type C_Tax_Acct = {
   T_Expense_A: C_ValidCombination;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -34411,7 +34426,7 @@ export type C_Uom = {
   /** Rounding used costing calculations */
   CostingPrecision: Scalars['Int']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -34429,7 +34444,7 @@ export type C_Uom = {
   UOMType?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** UOM EDI X12 Code */
@@ -34476,7 +34491,7 @@ export type C_Uom_Conversion = {
   /** Target or destination Unit of Measure */
   C_UOM_To: C_Uom;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** To convert Source number to Target number, the Source is divided */
@@ -34489,7 +34504,7 @@ export type C_Uom_Conversion = {
   MultiplyRate: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -34529,7 +34544,7 @@ export type C_UserRemuneration = {
   /** Wage or Salary */
   C_Remuneration: C_Remuneration;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -34546,13 +34561,13 @@ export type C_UserRemuneration = {
   OvertimeCost: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom: Scalars['Date']['output'];
+  ValidFrom: Scalars['DateTime']['output'];
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type C_UserRemunerationConnection = {
@@ -34582,9 +34597,9 @@ export type C_UserRemunerationInput = {
   OvertimeCost?: InputMaybe<Scalars['BigDecimal']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type C_ValidCombination = {
@@ -34618,7 +34633,7 @@ export type C_ValidCombination = {
   /** Unique combination of account elements */
   Combination?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -34631,7 +34646,7 @@ export type C_ValidCombination = {
   M_Product?: Maybe<M_Product>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -34699,7 +34714,7 @@ export type C_Withholding = {
   /** The terms of Payment (timing, discount) */
   C_PaymentTerm: C_PaymentTerm;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -34730,7 +34745,7 @@ export type C_Withholding = {
   Thresholdmin?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -34788,14 +34803,14 @@ export type C_Withholding_Acct = {
   /** Withholding type defined */
   C_Withholding: C_Withholding;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Account for Withholdings */
@@ -34831,7 +34846,7 @@ export type C_Year = {
   /** Accounting Calendar Name */
   C_Calendar: C_Calendar;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -34843,7 +34858,7 @@ export type C_Year = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -34893,7 +34908,7 @@ export type Dd_NetworkDistribution = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -34912,7 +34927,7 @@ export type Dd_NetworkDistribution = {
   Revision?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -34964,7 +34979,7 @@ export type Dd_NetworkDistributionLine = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DD_NetworkDistribution: Dd_NetworkDistribution;
@@ -34983,7 +34998,7 @@ export type Dd_NetworkDistributionLine = {
   TransfertTime?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -35055,7 +35070,7 @@ export type Dd_Order = {
   CreateFrom?: Maybe<Scalars['String']['output']>;
   CreatePackage?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DD_OrderLines?: Maybe<Array<Dd_OrderLine>>;
@@ -35110,7 +35125,7 @@ export type Dd_Order = {
   /** Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner */
   POReference?: Maybe<Scalars['String']['output']>;
   /** Date/Time when picked for Shipment */
-  PickDate?: Maybe<Scalars['Date']['output']>;
+  PickDate?: Maybe<Scalars['DateTime']['output']>;
   /** Posting status */
   Posted: Scalars['Boolean']['output'];
   /** Priority of a document */
@@ -35127,12 +35142,12 @@ export type Dd_Order = {
   /** Enable sending Document EMail */
   SendEMail: Scalars['Boolean']['output'];
   /** Shipment Date/Time */
-  ShipDate?: Maybe<Scalars['Date']['output']>;
+  ShipDate?: Maybe<Scalars['DateTime']['output']>;
   /** Number to track the shipment */
   TrackingNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -35231,7 +35246,7 @@ export type Dd_OrderInput = {
   /** Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner */
   POReference?: InputMaybe<Scalars['String']['input']>;
   /** Date/Time when picked for Shipment */
-  PickDate?: InputMaybe<Scalars['Date']['input']>;
+  PickDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Posting status */
   Posted?: InputMaybe<Scalars['Boolean']['input']>;
   /** Priority of a document */
@@ -35248,7 +35263,7 @@ export type Dd_OrderInput = {
   /** Enable sending Document EMail */
   SendEMail?: InputMaybe<Scalars['Boolean']['input']>;
   /** Shipment Date/Time */
-  ShipDate?: InputMaybe<Scalars['Date']['input']>;
+  ShipDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Number to track the shipment */
   TrackingNo?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
@@ -35281,7 +35296,7 @@ export type Dd_OrderLine = {
   /** Confirmation of a received quantity */
   ConfirmedQty?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DD_Order: Dd_Order;
@@ -35335,7 +35350,7 @@ export type Dd_OrderLine = {
   TargetQty?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -35430,7 +35445,7 @@ export type Exp_Format = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -35447,7 +35462,7 @@ export type Exp_Format = {
   TestImportModel?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -35500,7 +35515,7 @@ export type Exp_FormatLine = {
   /** System Reference and Validation */
   AD_Reference?: Maybe<Ad_Reference>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date format used in the input format */
@@ -35523,7 +35538,7 @@ export type Exp_FormatLine = {
   Type: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -35572,7 +35587,7 @@ export type Exp_Processor = {
   AD_Org: Ad_Org;
   Account?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -35590,7 +35605,7 @@ export type Exp_Processor = {
   Port?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -35631,7 +35646,7 @@ export type Exp_ProcessorParameter = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -35646,7 +35661,7 @@ export type Exp_ProcessorParameter = {
   ParameterValue?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -35684,7 +35699,7 @@ export type Exp_Processor_Type = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -35698,7 +35713,7 @@ export type Exp_Processor_Type = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -35777,7 +35792,7 @@ export type Fact_Acct = {
   /** Unit of Measure */
   C_UOM?: Maybe<C_Uom>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -35802,7 +35817,7 @@ export type Fact_Acct = {
   Qty?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -35926,7 +35941,7 @@ export type Fact_Acct_Summary = {
   /** Sub account for Element Value */
   C_SubAcct?: Maybe<C_SubAcct>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -35945,7 +35960,7 @@ export type Fact_Acct_Summary = {
   Qty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -36027,7 +36042,7 @@ export type Fact_Reconciliation = {
   /** Identifies a Business Partner */
   C_BPartner?: Maybe<C_BPartner>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -36039,7 +36054,7 @@ export type Fact_Reconciliation = {
   MatchCode?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -36074,7 +36089,7 @@ export type Gl_Budget = {
   /** Indicates the current status of this budget */
   BudgetStatus?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -36087,7 +36102,7 @@ export type Gl_Budget = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -36111,7 +36126,7 @@ export type Gl_BudgetControl = {
   /** Create Commitment and/or Reservations for Budget Control */
   CommitmentType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -36128,7 +36143,7 @@ export type Gl_BudgetControl = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -36188,7 +36203,7 @@ export type Gl_Category = {
   /** Source of the Journal with this category */
   CategoryType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -36203,7 +36218,7 @@ export type Gl_Category = {
   PrintName?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -36289,7 +36304,7 @@ export type Gl_Distribution = {
   /** Sales coverage region */
   C_SalesRegion?: Maybe<C_SalesRegion>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -36316,7 +36331,7 @@ export type Gl_Distribution = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -36437,7 +36452,7 @@ export type Gl_DistributionLine = {
   /** Sales coverage region */
   C_SalesRegion?: Maybe<C_SalesRegion>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -36480,7 +36495,7 @@ export type Gl_DistributionLine = {
   Percent: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -36568,13 +36583,13 @@ export type Gl_Fund = {
   /** Rules for accounting */
   C_AcctSchema: C_AcctSchema;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Starting date for a range */
-  DateFrom?: Maybe<Scalars['Date']['output']>;
+  DateFrom?: Maybe<Scalars['DateTime']['output']>;
   /** End date of a date range */
-  DateTo?: Maybe<Scalars['Date']['output']>;
+  DateTo?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Comment or Hint */
@@ -36585,7 +36600,7 @@ export type Gl_Fund = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -36604,9 +36619,9 @@ export type Gl_FundInput = {
   /** Rules for accounting */
   C_AcctSchema?: InputMaybe<ForeignEntityInput>;
   /** Starting date for a range */
-  DateFrom?: InputMaybe<Scalars['Date']['input']>;
+  DateFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** End date of a date range */
-  DateTo?: InputMaybe<Scalars['Date']['input']>;
+  DateTo?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Comment or Hint */
@@ -36627,7 +36642,7 @@ export type Gl_FundRestriction = {
   /** Account Element */
   C_ElementValue: C_ElementValue;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -36640,7 +36655,7 @@ export type Gl_FundRestriction = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -36688,7 +36703,7 @@ export type Gl_Journal = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Currency Conversion Rate */
@@ -36735,7 +36750,7 @@ export type Gl_Journal = {
   TotalDr: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -36757,7 +36772,7 @@ export type Gl_JournalBatch = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -36792,7 +36807,7 @@ export type Gl_JournalBatch = {
   TotalDr: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -36867,7 +36882,7 @@ export type Gl_JournalGenerator = {
   C_ElementValueAdjustCR?: Maybe<C_ElementValue>;
   C_ElementValueAdjustDR?: Maybe<C_ElementValue>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -36886,7 +36901,7 @@ export type Gl_JournalGenerator = {
   PostingType?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -36937,7 +36952,7 @@ export type Gl_JournalGeneratorLine = {
   C_ElementValueCR?: Maybe<C_ElementValue>;
   C_ElementValueDR?: Maybe<C_ElementValue>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -36955,7 +36970,7 @@ export type Gl_JournalGeneratorLine = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -37003,7 +37018,7 @@ export type Gl_JournalGeneratorSource = {
   /** Account Element */
   C_ElementValue: C_ElementValue;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** General Ledger Category */
@@ -37016,7 +37031,7 @@ export type Gl_JournalGeneratorSource = {
   RoundFactor?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -37155,7 +37170,7 @@ export type Gl_JournalLine = {
   /** Valid Account Combination */
   C_ValidCombination?: Maybe<C_ValidCombination>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Currency Conversion Rate */
@@ -37180,7 +37195,7 @@ export type Gl_JournalLine = {
   Qty?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -37280,7 +37295,7 @@ export type Hr_Attribute = {
   C_BPartner?: Maybe<C_BPartner>;
   ColumnType?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -37305,7 +37320,7 @@ export type Hr_Attribute = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -37368,7 +37383,7 @@ export type Hr_Concept = {
   AccountSign?: Maybe<Ad_Ref_List>;
   ColumnType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -37401,13 +37416,13 @@ export type Hr_Concept = {
   Type: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom?: Maybe<Scalars['Date']['output']>;
+  ValidFrom?: Maybe<Scalars['DateTime']['output']>;
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
   /** Search key for the record in the format required - must be unique */
   Value?: Maybe<Scalars['String']['output']>;
 };
@@ -37456,9 +37471,9 @@ export type Hr_ConceptInput = {
   Type?: InputMaybe<ForeignEntityInput>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
 };
@@ -37474,7 +37489,7 @@ export type Hr_Concept_Acct = {
   /** Business Partner Group */
   C_BP_Group?: Maybe<C_Bp_Group>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   HR_Concept: Hr_Concept;
@@ -37486,7 +37501,7 @@ export type Hr_Concept_Acct = {
   IsBalancing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -37529,7 +37544,7 @@ export type Hr_Concept_Category = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -37543,7 +37558,7 @@ export type Hr_Concept_Category = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -37586,7 +37601,7 @@ export type Hr_Contract = {
   /** Financial Project */
   C_Project?: Maybe<C_Project>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -37599,13 +37614,13 @@ export type Hr_Contract = {
   NetDays?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom?: Maybe<Scalars['Date']['output']>;
+  ValidFrom?: Maybe<Scalars['DateTime']['output']>;
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
   /** Search key for the record in the format required - must be unique */
   Value?: Maybe<Scalars['String']['output']>;
 };
@@ -37635,9 +37650,9 @@ export type Hr_ContractInput = {
   NetDays?: InputMaybe<Scalars['Int']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
 };
@@ -37651,7 +37666,7 @@ export type Hr_Department = {
   /** Business Activity */
   C_Activity?: Maybe<C_Activity>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -37662,7 +37677,7 @@ export type Hr_Department = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -37704,7 +37719,7 @@ export type Hr_Employee = {
   /** Validation Code */
   Code?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Last effective date (inclusive) */
@@ -37726,7 +37741,7 @@ export type Hr_Employee = {
   StartDate: Scalars['Date']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -37773,7 +37788,7 @@ export type Hr_Job = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -37791,7 +37806,7 @@ export type Hr_Job = {
   Supervisor?: Maybe<Ad_User>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -37832,7 +37847,7 @@ export type Hr_List = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -37849,7 +37864,7 @@ export type Hr_List = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -37901,7 +37916,7 @@ export type Hr_ListLine = {
   Col_7?: Maybe<Scalars['BigDecimal']['output']>;
   Col_8?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   HR_ListVersion?: Maybe<Hr_ListVersion>;
@@ -37913,7 +37928,7 @@ export type Hr_ListLine = {
   Name?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -37952,7 +37967,7 @@ export type Hr_ListType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -37963,7 +37978,7 @@ export type Hr_ListType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -37997,7 +38012,7 @@ export type Hr_ListVersion = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -38010,7 +38025,7 @@ export type Hr_ListVersion = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -38072,7 +38087,7 @@ export type Hr_Movement = {
   C_ProjectTask?: Maybe<C_ProjectTask>;
   ColumnType?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -38099,7 +38114,7 @@ export type Hr_Movement = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -38187,7 +38202,7 @@ export type Hr_Payroll = {
   /** Additional document charges */
   C_Charge?: Maybe<C_Charge>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -38204,7 +38219,7 @@ export type Hr_Payroll = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -38219,7 +38234,7 @@ export type Hr_PayrollConcept = {
   AD_Org: Ad_Org;
   AD_Rule?: Maybe<Ad_Rule>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   HR_Concept: Hr_Concept;
@@ -38238,7 +38253,7 @@ export type Hr_PayrollConcept = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -38311,7 +38326,7 @@ export type Hr_Period = {
   /** Calendar Year */
   C_Year: C_Year;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -38339,7 +38354,7 @@ export type Hr_Period = {
   StartDate: Scalars['Date']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -38406,7 +38421,7 @@ export type Hr_Process = {
   /** Virtual Column (r/o) */
   ColumnSQL?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -38437,7 +38452,7 @@ export type Hr_Process = {
   Reversal?: Maybe<Hr_Process>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -38505,7 +38520,7 @@ export type Hr_Year = {
   /** Calendar Year */
   C_Year: C_Year;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   HR_Payroll: Hr_Payroll;
@@ -38522,7 +38537,7 @@ export type Hr_Year = {
   StartDate: Scalars['Date']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -38561,13 +38576,13 @@ export type Imp_Processor = {
   AD_Org: Ad_Org;
   Account?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Date the process will run next */
-  DateNextRun?: Maybe<Scalars['Date']['output']>;
+  DateNextRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Frequency of events */
@@ -38589,7 +38604,7 @@ export type Imp_Processor = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -38607,9 +38622,9 @@ export type Imp_ProcessorInput = {
   AD_Org?: InputMaybe<ForeignEntityInput>;
   Account?: InputMaybe<Scalars['String']['input']>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date the process will run next */
-  DateNextRun?: InputMaybe<Scalars['Date']['input']>;
+  DateNextRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Frequency of events */
@@ -38643,7 +38658,7 @@ export type Imp_ProcessorLog = {
   /** Binary Data */
   BinaryData?: Maybe<Scalars['Binary']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -38663,7 +38678,7 @@ export type Imp_ProcessorLog = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -38704,7 +38719,7 @@ export type Imp_ProcessorParameter = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -38719,7 +38734,7 @@ export type Imp_ProcessorParameter = {
   ParameterValue?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -38757,7 +38772,7 @@ export type Imp_Processor_Type = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -38771,7 +38786,7 @@ export type Imp_Processor_Type = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -38856,7 +38871,7 @@ export type I_Asset = {
   /** Location or Address */
   C_Location?: Maybe<C_Location>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Optional short description of the record */
@@ -38904,7 +38919,7 @@ export type I_Asset = {
   SerNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Months of the usable life of the asset */
@@ -39071,7 +39086,7 @@ export type I_BPartner = {
   /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
   CountryCode?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Dun & Bradstreet Number */
@@ -39127,7 +39142,7 @@ export type I_BPartner = {
   Title?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Search key for the record in the format required - must be unique */
@@ -39263,7 +39278,7 @@ export type I_BankStatement = {
   ChargeName?: Maybe<Scalars['String']['output']>;
   CreatePayment?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Accounting Date */
@@ -39342,7 +39357,7 @@ export type I_BankStatement = {
   TrxType?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Date when money is available */
@@ -39481,7 +39496,7 @@ export type I_Conversion_Rate = {
   /** Create Reciprocal Rate from current information */
   CreateReciprocalRate: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** To convert Source number to Target number, the Source is divided */
@@ -39503,7 +39518,7 @@ export type I_Conversion_Rate = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Valid from including this date (first day) */
@@ -39574,7 +39589,7 @@ export type I_ElementValue = {
   /** Account Element */
   C_ElementValue?: Maybe<C_ElementValue>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Name of the Default Account Column */
@@ -39612,7 +39627,7 @@ export type I_ElementValue = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Search key for the record in the format required - must be unique */
@@ -39742,7 +39757,7 @@ export type I_FaJournal = {
   /** Key value for the Currency Conversion Rate Type */
   ConversionTypeValue?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Currency Conversion Rate */
@@ -39801,7 +39816,7 @@ export type I_FaJournal = {
   UPC?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** User defined list element #1 */
@@ -39984,7 +39999,7 @@ export type I_FixedAsset = {
   /** Unit of Measure */
   C_UOM?: Maybe<C_Uom>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -40023,7 +40038,7 @@ export type I_FixedAsset = {
   UOMSymbol?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Months of the usable life of the asset */
@@ -40183,7 +40198,7 @@ export type I_GlJournal = {
   /** Key value for the Currency Conversion Rate Type */
   ConversionTypeValue?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Currency Conversion Rate */
@@ -40245,7 +40260,7 @@ export type I_GlJournal = {
   UPC?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** User defined list element #1 */
@@ -40400,7 +40415,7 @@ export type I_Hr_Movement = {
   /** Value of the Concept */
   ConceptValue?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Optional short description of the record */
@@ -40422,16 +40437,16 @@ export type I_Hr_Movement = {
   /** Quantity */
   Qty?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date service was provided */
-  ServiceDate?: Maybe<Scalars['Date']['output']>;
+  ServiceDate?: Maybe<Scalars['DateTime']['output']>;
   /** Text Message */
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Valid from including this date (first day) */
-  ValidFrom?: Maybe<Scalars['Date']['output']>;
+  ValidFrom?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type I_Hr_MovementConnection = {
@@ -40470,12 +40485,12 @@ export type I_Hr_MovementInput = {
   /** Quantity */
   Qty?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Date service was provided */
-  ServiceDate?: InputMaybe<Scalars['Date']['input']>;
+  ServiceDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Text Message */
   TextMsg?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type I_InOutLineConfirm = {
@@ -40489,7 +40504,7 @@ export type I_InOutLineConfirm = {
   /** Confirmation of a received quantity */
   ConfirmedQty: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Optional short description of the record */
@@ -40511,7 +40526,7 @@ export type I_InOutLineConfirm = {
   ScrappedQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -40562,7 +40577,7 @@ export type I_Inventory = {
   /** Name of the Charge */
   ChargeName?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The currently used cost price */
@@ -40610,7 +40625,7 @@ export type I_Inventory = {
   UPC?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Search key for the record in the format required - must be unique */
@@ -40753,7 +40768,7 @@ export type I_Invoice = {
   /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
   CountryCode: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Accounting Date */
@@ -40815,7 +40830,7 @@ export type I_Invoice = {
   UPC?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -40960,7 +40975,7 @@ export type I_Movement = {
   /** Text key of the Campaign */
   CampaignValue?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Defines the timing of Delivery */
@@ -41014,7 +41029,7 @@ export type I_Movement = {
   ShipperName?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -41161,7 +41176,7 @@ export type I_Order = {
   /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
   CountryCode?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Accounting Date */
@@ -41229,7 +41244,7 @@ export type I_Order = {
   UPC?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -41412,7 +41427,7 @@ export type I_Payment = {
   /** Check Number */
   CheckNo?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Expiry Month */
@@ -41426,7 +41441,7 @@ export type I_Payment = {
   /** Credit Card Verification code on credit card */
   CreditCardVV?: Maybe<Scalars['String']['output']>;
   /** Accounting Date */
-  DateAcct?: Maybe<Scalars['Date']['output']>;
+  DateAcct?: Maybe<Scalars['DateTime']['output']>;
   /** Transaction Date */
   DateTrx?: Maybe<Scalars['Date']['output']>;
   /** Calculated amount of discount */
@@ -41494,7 +41509,7 @@ export type I_Payment = {
   TrxType?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Voice Authorization Code from credit card company */
@@ -41567,7 +41582,7 @@ export type I_PaymentInput = {
   /** Credit Card Verification code on credit card */
   CreditCardVV?: InputMaybe<Scalars['String']['input']>;
   /** Accounting Date */
-  DateAcct?: InputMaybe<Scalars['Date']['input']>;
+  DateAcct?: InputMaybe<Scalars['DateTime']['input']>;
   /** Transaction Date */
   DateTrx?: InputMaybe<Scalars['Date']['input']>;
   /** Calculated amount of discount */
@@ -41657,7 +41672,7 @@ export type I_PriceList = {
   /** Unit of Measure */
   C_UOM?: Maybe<C_Uom>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Optional short description of the record */
@@ -41699,7 +41714,7 @@ export type I_PriceList = {
   ProductValue?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Valid from including this date (first day) */
@@ -41790,7 +41805,7 @@ export type I_Product = {
   /** Fixed Cost Per Order */
   CostPerOrder?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Customs Tariff Number, usually the HS-Code */
@@ -41867,7 +41882,7 @@ export type I_Product = {
   /** Units Per Pallet */
   UnitsPerPallet?: Maybe<Scalars['Int']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Search key for the record in the format required - must be unique */
@@ -42005,7 +42020,7 @@ export type I_ProductPlanning = {
   /** Identifies a Business Partner */
   C_BPartner?: Maybe<C_BPartner>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DD_NetworkDistribution?: Maybe<Dd_NetworkDistribution>;
@@ -42074,7 +42089,7 @@ export type I_ProductPlanning = {
   TransfertTime?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Product Key of the Business Partner */
@@ -42187,7 +42202,7 @@ export type I_ReportLine = {
   C_ElementValue?: Maybe<C_ElementValue>;
   CalculationType?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Optional short description of the record */
@@ -42226,7 +42241,7 @@ export type I_ReportLine = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -42294,7 +42309,7 @@ export type InventoryTransaction = {
   BH_Visit?: Maybe<Bh_Visit>;
   C_Order?: Maybe<C_Order>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   M_AttributeSetInstance?: Maybe<M_AttributeSetInstance>;
@@ -42329,7 +42344,7 @@ export type M_Attribute = {
   /** Type of Attribute Value */
   AttributeValueType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date format used in the input format */
@@ -42349,7 +42364,7 @@ export type M_Attribute = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -42395,7 +42410,7 @@ export type M_AttributeInstance = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -42408,7 +42423,7 @@ export type M_AttributeInstance = {
   M_AttributeValue?: Maybe<M_AttributeValue>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -42450,7 +42465,7 @@ export type M_AttributeSearch = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -42461,7 +42476,7 @@ export type M_AttributeSearch = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -42493,7 +42508,7 @@ export type M_AttributeSet = {
   /** Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field) */
   BH_Locked: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -42537,7 +42552,7 @@ export type M_AttributeSet = {
   SerNoCharSOverwrite?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UseGuaranteeDateForMPolicy: Scalars['Boolean']['output'];
@@ -42558,7 +42573,7 @@ export type M_AttributeSetExclude = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -42569,7 +42584,7 @@ export type M_AttributeSetExclude = {
   M_AttributeSet: M_AttributeSet;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -42650,7 +42665,7 @@ export type M_AttributeSetInstance = {
   /** String date when guarantee expires */
   BH_GuaranteeDateString?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -42665,13 +42680,13 @@ export type M_AttributeSetInstance = {
   M_AttributeSet: M_AttributeSet;
   /** Product Lot Definition */
   M_Lot?: Maybe<M_Lot>;
-  PurchaseDate?: Maybe<Scalars['Date']['output']>;
+  PurchaseDate?: Maybe<Scalars['DateTime']['output']>;
   PurchasePrice?: Maybe<Scalars['BigDecimal']['output']>;
   /** Product Serial Number */
   SerNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   bh_update_reason?: Maybe<Ad_Ref_List>;
@@ -42711,7 +42726,7 @@ export type M_AttributeUse = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -42724,7 +42739,7 @@ export type M_AttributeUse = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -42756,7 +42771,7 @@ export type M_AttributeValue = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -42769,7 +42784,7 @@ export type M_AttributeValue = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -42805,7 +42820,7 @@ export type M_BomAlternative = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -42818,7 +42833,7 @@ export type M_BomAlternative = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -42858,7 +42873,7 @@ export type M_Bp_Price = {
   /** Comments or additional information */
   Comments?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Discount in percent */
@@ -42879,7 +42894,7 @@ export type M_Bp_Price = {
   PriceStd: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -42935,7 +42950,7 @@ export type M_ChangeNotice = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -42955,7 +42970,7 @@ export type M_ChangeNotice = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -42994,7 +43009,7 @@ export type M_ChangeRequest = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -43021,7 +43036,7 @@ export type M_ChangeRequest = {
   Processed: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43067,7 +43082,7 @@ export type M_CommodityShipment = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -43080,7 +43095,7 @@ export type M_CommodityShipment = {
   M_Product?: Maybe<M_Product>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43116,7 +43131,7 @@ export type M_Cost = {
   /** Indicates how Costs will be calculated */
   CostingMethod?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Total Amount */
@@ -43151,7 +43166,7 @@ export type M_Cost = {
   Processed: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43179,7 +43194,7 @@ export type M_CostDetail = {
   /** Project Issues (Material, Labor) */
   C_ProjectIssue?: Maybe<C_ProjectIssue>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Total Amount */
@@ -43225,7 +43240,7 @@ export type M_CostDetail = {
   Qty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43302,7 +43317,7 @@ export type M_CostElement = {
   /** Indicates how Costs will be calculated */
   CostingMethod?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -43315,7 +43330,7 @@ export type M_CostElement = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43351,7 +43366,7 @@ export type M_CostHistory = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -43384,7 +43399,7 @@ export type M_CostHistory = {
   OldQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43474,7 +43489,7 @@ export type M_CostQueue = {
   /** Rules for accounting */
   C_AcctSchema: C_AcctSchema;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The currently used cost price */
@@ -43493,7 +43508,7 @@ export type M_CostQueue = {
   M_Product: M_Product;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43533,7 +43548,7 @@ export type M_CostType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -43546,7 +43561,7 @@ export type M_CostType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43582,7 +43597,7 @@ export type M_Demand = {
   /** Calendar Year */
   C_Year: C_Year;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -43598,7 +43613,7 @@ export type M_Demand = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43618,7 +43633,7 @@ export type M_DemandDetail = {
   /** Sales Order Line */
   C_OrderLine?: Maybe<C_OrderLine>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -43631,7 +43646,7 @@ export type M_DemandDetail = {
   M_RequisitionLine?: Maybe<M_RequisitionLine>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43688,7 +43703,7 @@ export type M_DemandLine = {
   /** Period of the Calendar */
   C_Period: C_Period;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -43703,7 +43718,7 @@ export type M_DemandLine = {
   QtyCalculated: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43739,7 +43754,7 @@ export type M_DiscountSchema = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Level for accumulative calculations */
@@ -43765,7 +43780,7 @@ export type M_DiscountSchema = {
   Script?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -43783,7 +43798,7 @@ export type M_DiscountSchemaBreak = {
   /** Low Value of trade discount break level */
   BreakValue: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Fixed Price for Product */
@@ -43802,7 +43817,7 @@ export type M_DiscountSchemaBreak = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -43885,7 +43900,7 @@ export type M_DiscountSchemaLine = {
   /** Date for selecting conversion rate */
   ConversionDate: Scalars['Date']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -43948,7 +43963,7 @@ export type M_DiscountSchemaLine = {
   Std_Rounding: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Product Category of the Business Partner */
@@ -44042,7 +44057,7 @@ export type M_DistributionList = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -44059,7 +44074,7 @@ export type M_DistributionList = {
   RatioTotal?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -44098,7 +44113,7 @@ export type M_DistributionListLine = {
   /** Identifies the (ship to) address for this Business Partner */
   C_BPartner_Location: C_BPartner_Location;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -44113,7 +44128,7 @@ export type M_DistributionListLine = {
   Ratio?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -44155,7 +44170,7 @@ export type M_DistributionRun = {
   /** Identifies the (ship to) address for this Business Partner */
   C_BPartner_Location?: Maybe<C_BPartner_Location>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -44170,7 +44185,7 @@ export type M_DistributionRun = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -44207,7 +44222,7 @@ export type M_DistributionRunLine = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -44228,7 +44243,7 @@ export type M_DistributionRunLine = {
   TotalQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -44272,7 +44287,7 @@ export type M_Forecast = {
   /** Calendar Year */
   C_Year: C_Year;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -44290,7 +44305,7 @@ export type M_Forecast = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -44333,7 +44348,7 @@ export type M_ForecastLine = {
   /** Period of the Calendar */
   C_Period: C_Period;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date Order was promised */
@@ -44354,7 +44369,7 @@ export type M_ForecastLine = {
   SalesRep?: Maybe<Ad_User>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -44402,7 +44417,7 @@ export type M_Freight = {
   /** Identifies a geographical Region */
   C_Region?: Maybe<C_Region>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Freight Amount */
@@ -44419,7 +44434,7 @@ export type M_Freight = {
   To_Region?: Maybe<C_Region>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -44433,7 +44448,7 @@ export type M_FreightCategory = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -44446,7 +44461,7 @@ export type M_FreightCategory = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -44543,7 +44558,7 @@ export type M_InOut = {
   CreateLinesFrom?: Maybe<Scalars['String']['output']>;
   CreatePackage?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -44613,7 +44628,7 @@ export type M_InOut = {
   /** Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner */
   POReference?: Maybe<Scalars['String']['output']>;
   /** Date/Time when picked for Shipment */
-  PickDate?: Maybe<Scalars['Date']['output']>;
+  PickDate?: Maybe<Scalars['DateTime']['output']>;
   /** Posting status */
   Posted: Scalars['Boolean']['output'];
   /** Priority of a document */
@@ -44633,13 +44648,13 @@ export type M_InOut = {
   /** Enable sending Document EMail */
   SendEMail: Scalars['Boolean']['output'];
   /** Shipment Date/Time */
-  ShipDate?: Maybe<Scalars['Date']['output']>;
+  ShipDate?: Maybe<Scalars['DateTime']['output']>;
   ShipperAccount?: Maybe<Scalars['String']['output']>;
   /** Number to track the shipment */
   TrackingNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -44668,7 +44683,7 @@ export type M_InOutConfirm = {
   ConfirmationNo?: Maybe<Scalars['String']['output']>;
   CreatePackage?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -44697,7 +44712,7 @@ export type M_InOutConfirm = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -44849,7 +44864,7 @@ export type M_InOutInput = {
   /** Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner */
   POReference?: InputMaybe<Scalars['String']['input']>;
   /** Date/Time when picked for Shipment */
-  PickDate?: InputMaybe<Scalars['Date']['input']>;
+  PickDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Posting status */
   Posted?: InputMaybe<Scalars['Boolean']['input']>;
   /** Priority of a document */
@@ -44869,7 +44884,7 @@ export type M_InOutInput = {
   /** Enable sending Document EMail */
   SendEMail?: InputMaybe<Scalars['Boolean']['input']>;
   /** Shipment Date/Time */
-  ShipDate?: InputMaybe<Scalars['Date']['input']>;
+  ShipDate?: InputMaybe<Scalars['DateTime']['input']>;
   ShipperAccount?: InputMaybe<Scalars['String']['input']>;
   /** Number to track the shipment */
   TrackingNo?: InputMaybe<Scalars['String']['input']>;
@@ -44909,7 +44924,7 @@ export type M_InOutLine = {
   /** Confirmation of a received quantity */
   ConfirmedQty?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -44950,7 +44965,7 @@ export type M_InOutLine = {
   TargetQty?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -44972,7 +44987,7 @@ export type M_InOutLineConfirm = {
   /** Confirmation of a received quantity */
   ConfirmedQty: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -44995,7 +45010,7 @@ export type M_InOutLineConfirm = {
   TargetQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -45112,7 +45127,7 @@ export type M_InOutLineMa = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Time used for LIFO and FIFO Material Policy */
@@ -45128,7 +45143,7 @@ export type M_InOutLineMa = {
   MovementQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -45179,7 +45194,7 @@ export type M_Inventory = {
   /** Indicates how Costs will be calculated */
   CostingMethod?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -45215,7 +45230,7 @@ export type M_Inventory = {
   UU: Scalars['ID']['output'];
   UpdateQty?: Maybe<Scalars['String']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -45297,7 +45312,7 @@ export type M_InventoryLine = {
   /** Additional document charges */
   C_Charge?: Maybe<C_Charge>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The currently used cost price */
@@ -45336,7 +45351,7 @@ export type M_InventoryLine = {
   UPC?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -45395,7 +45410,7 @@ export type M_InventoryLineMa = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Time used for LIFO and FIFO Material Policy */
@@ -45411,7 +45426,7 @@ export type M_InventoryLineMa = {
   MovementQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -45446,7 +45461,7 @@ export type M_Locator = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -45460,7 +45475,7 @@ export type M_Locator = {
   PriorityNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -45509,7 +45524,7 @@ export type M_LocatorType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -45525,7 +45540,7 @@ export type M_LocatorType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -45560,7 +45575,7 @@ export type M_Lot = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Starting date for a range */
@@ -45581,7 +45596,7 @@ export type M_Lot = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -45599,7 +45614,7 @@ export type M_LotCtl = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The next number to be used */
@@ -45620,7 +45635,7 @@ export type M_LotCtl = {
   Suffix?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -45640,7 +45655,7 @@ export type M_LotCtlExclude = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -45651,7 +45666,7 @@ export type M_LotCtlExclude = {
   M_LotCtl: M_LotCtl;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -45729,7 +45744,7 @@ export type M_MatchInv = {
   /** Invoice Detail Line */
   C_InvoiceLine: C_InvoiceLine;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -45762,7 +45777,7 @@ export type M_MatchInv = {
   Reversal?: Maybe<M_MatchInv>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -45820,7 +45835,7 @@ export type M_MatchPo = {
   /** Sales Order Line */
   C_OrderLine: C_OrderLine;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -45857,7 +45872,7 @@ export type M_MatchPo = {
   Reversal?: Maybe<M_MatchPo>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -45943,7 +45958,7 @@ export type M_Movement = {
   /** Process which will generate a new document lines based on an existing document */
   CreateFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DD_Order?: Maybe<Dd_Order>;
@@ -45998,7 +46013,7 @@ export type M_Movement = {
   SalesRep?: Maybe<Ad_User>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -46016,7 +46031,7 @@ export type M_MovementConfirm = {
   /** Document Approval Amount */
   ApprovalAmt?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -46041,7 +46056,7 @@ export type M_MovementConfirm = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -46178,7 +46193,7 @@ export type M_MovementLine = {
   /** Confirmation of a received quantity */
   ConfirmedQty?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DD_OrderLine?: Maybe<Dd_OrderLine>;
@@ -46214,7 +46229,7 @@ export type M_MovementLine = {
   TargetQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -46230,7 +46245,7 @@ export type M_MovementLineConfirm = {
   /** Confirmation of a received quantity */
   ConfirmedQty: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -46253,7 +46268,7 @@ export type M_MovementLineConfirm = {
   TargetQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -46340,7 +46355,7 @@ export type M_MovementLineMa = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Time used for LIFO and FIFO Material Policy */
@@ -46356,7 +46371,7 @@ export type M_MovementLineMa = {
   MovementQty?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -46395,7 +46410,7 @@ export type M_OperationResource = {
   /** Job Position */
   C_Job?: Maybe<C_Job>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -46416,7 +46431,7 @@ export type M_OperationResource = {
   /** Time to produce one unit */
   UnitRuntime: Scalars['BigDecimal']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -46471,7 +46486,7 @@ export type M_Package = {
   C_UOM_Weight?: Maybe<C_Uom>;
   CashOnDelivery: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date a product was received */
@@ -46514,7 +46529,7 @@ export type M_Package = {
   IsSaturdayPickup: Scalars['Boolean']['output'];
   IsVerbalConfirmation: Scalars['Boolean']['output'];
   LabelPrint?: Maybe<Scalars['String']['output']>;
-  LatestPickupTime?: Maybe<Scalars['Date']['output']>;
+  LatestPickupTime?: Maybe<Scalars['DateTime']['output']>;
   Length?: Maybe<Scalars['BigDecimal']['output']>;
   /** Material Shipment Document */
   M_InOut: M_InOut;
@@ -46552,7 +46567,7 @@ export type M_Package = {
   TrackingNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   VoidIt?: Maybe<Scalars['String']['output']>;
@@ -46617,7 +46632,7 @@ export type M_PackageInput = {
   IsSaturdayPickup?: InputMaybe<Scalars['Boolean']['input']>;
   IsVerbalConfirmation?: InputMaybe<Scalars['Boolean']['input']>;
   LabelPrint?: InputMaybe<Scalars['String']['input']>;
-  LatestPickupTime?: InputMaybe<Scalars['Date']['input']>;
+  LatestPickupTime?: InputMaybe<Scalars['DateTime']['input']>;
   Length?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Material Shipment Document */
   M_InOut?: InputMaybe<ForeignEntityInput>;
@@ -46665,7 +46680,7 @@ export type M_PackageLine = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -46683,7 +46698,7 @@ export type M_PackageLine = {
   Qty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -46726,7 +46741,7 @@ export type M_PackageMps = {
   /** Process which will generate a new document lines based on an existing document */
   CreateFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -46749,7 +46764,7 @@ export type M_PackageMps = {
   TrackingNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Weight of a product */
@@ -46802,7 +46817,7 @@ export type M_PartType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -46813,7 +46828,7 @@ export type M_PartType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -46845,13 +46860,13 @@ export type M_PerpetualInv = {
   /** Count High Movement products */
   CountHighMovement: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Date the process will run next */
-  DateNextRun: Scalars['Date']['output'];
+  DateNextRun: Scalars['DateTime']['output'];
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
@@ -46871,7 +46886,7 @@ export type M_PerpetualInv = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -46888,9 +46903,9 @@ export type M_PerpetualInvInput = {
   /** Count High Movement products */
   CountHighMovement?: InputMaybe<Scalars['Boolean']['input']>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date the process will run next */
-  DateNextRun?: InputMaybe<Scalars['Date']['input']>;
+  DateNextRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
@@ -46922,7 +46937,7 @@ export type M_PriceList = {
   /** The Currency for this record */
   C_Currency: C_Currency;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -46946,7 +46961,7 @@ export type M_PriceList = {
   PricePrecision: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   isPresentForProduct: Scalars['Boolean']['output'];
@@ -46994,7 +47009,7 @@ export type M_PriceList_Version = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -47013,7 +47028,7 @@ export type M_PriceList_Version = {
   ProcCreate?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -47071,7 +47086,7 @@ export type M_Product = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Customs Tariff Number, usually the HS-Code */
@@ -47085,7 +47100,7 @@ export type M_Product = {
   /** Discontinued At indicates Date when product was discontinued */
   DiscontinuedAt?: Maybe<Scalars['Date']['output']>;
   /** Discontinued By */
-  DiscontinuedBy?: Maybe<Scalars['Date']['output']>;
+  DiscontinuedBy?: Maybe<Scalars['DateTime']['output']>;
   /** Additional information for a Document */
   DocumentNote?: Maybe<Scalars['String']['output']>;
   /** URL of the Download files */
@@ -47136,7 +47151,7 @@ export type M_Product = {
   IsVerified: Scalars['Boolean']['output'];
   /** If selected, the product is displayed in the initial or any empty search */
   IsWebStoreFeatured: Scalars['Boolean']['output'];
-  LastPurchaseDate?: Maybe<Scalars['Date']['output']>;
+  LastPurchaseDate?: Maybe<Scalars['DateTime']['output']>;
   LastPurchasePrice?: Maybe<Scalars['BigDecimal']['output']>;
   /** The Low Level is used to calculate the material plan and determines if a net requirement should be exploited */
   LowLevel: Scalars['Int']['output'];
@@ -47190,7 +47205,7 @@ export type M_Product = {
   /** Units Per Pallet */
   UnitsPerPallet?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -47220,7 +47235,7 @@ export type M_ProductDownload = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** URL of the Download files */
@@ -47233,7 +47248,7 @@ export type M_ProductDownload = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -47289,7 +47304,7 @@ export type M_ProductInput = {
   /** Discontinued At indicates Date when product was discontinued */
   DiscontinuedAt?: InputMaybe<Scalars['Date']['input']>;
   /** Discontinued By */
-  DiscontinuedBy?: InputMaybe<Scalars['Date']['input']>;
+  DiscontinuedBy?: InputMaybe<Scalars['DateTime']['input']>;
   /** Additional information for a Document */
   DocumentNote?: InputMaybe<Scalars['String']['input']>;
   /** URL of the Download files */
@@ -47401,7 +47416,7 @@ export type M_ProductOperation = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -47422,7 +47437,7 @@ export type M_ProductOperation = {
   /** Time to produce one unit */
   UnitRuntime?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -47462,7 +47477,7 @@ export type M_ProductPrice = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -47481,7 +47496,7 @@ export type M_ProductPrice = {
   ProductName?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -47521,7 +47536,7 @@ export type M_ProductPriceVendorBreak = {
   /** Identifies a Business Partner */
   C_BPartner?: Maybe<C_BPartner>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -47538,7 +47553,7 @@ export type M_ProductPriceVendorBreak = {
   PriceStd: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -47580,7 +47595,7 @@ export type M_Product_Acct = {
   /** Rules for accounting */
   C_AcctSchema: C_AcctSchema;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -47615,7 +47630,7 @@ export type M_Product_Acct = {
   P_TradeDiscountRec_A: C_ValidCombination;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -47677,7 +47692,7 @@ export type M_Product_Category = {
   /** Contains a character the is linked to a ref list to determine types of product categories */
   BH_Product_Category_Type?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -47697,7 +47712,7 @@ export type M_Product_Category = {
   PlannedMargin: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -47752,7 +47767,7 @@ export type M_Product_Category_Acct = {
   /** Indicates how Costs will be calculated */
   CostingMethod?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -47788,7 +47803,7 @@ export type M_Product_Category_Acct = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -47857,7 +47872,7 @@ export type M_Product_Po = {
   /** Fixed Cost Per Order */
   CostPerOrder?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Actual days between order and delivery */
@@ -47869,7 +47884,7 @@ export type M_Product_Po = {
   /** Discontinued At indicates Date when product was discontinued */
   DiscontinuedAt?: Maybe<Scalars['Date']['output']>;
   /** Discontinued By */
-  DiscontinuedBy?: Maybe<Scalars['Date']['output']>;
+  DiscontinuedBy?: Maybe<Scalars['DateTime']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Use this Vendor for pricing and stock replenishment */
@@ -47900,7 +47915,7 @@ export type M_Product_Po = {
   UPC?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Product Category of the Business Partner */
@@ -47935,7 +47950,7 @@ export type M_Product_PoInput = {
   /** Discontinued At indicates Date when product was discontinued */
   DiscontinuedAt?: InputMaybe<Scalars['Date']['input']>;
   /** Discontinued By */
-  DiscontinuedBy?: InputMaybe<Scalars['Date']['input']>;
+  DiscontinuedBy?: InputMaybe<Scalars['DateTime']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Use this Vendor for pricing and stock replenishment */
@@ -47978,7 +47993,7 @@ export type M_Product_QualityTest = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   ExpectedResult: Scalars['String']['output'];
@@ -47989,7 +48004,7 @@ export type M_Product_QualityTest = {
   M_QualityTest: M_QualityTest;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48037,7 +48052,7 @@ export type M_Production = {
   /** Process which will generate a new document lines based on an existing document */
   CreateFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date Order was promised */
@@ -48082,7 +48097,7 @@ export type M_Production = {
   Reversal?: Maybe<M_Production>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -48171,7 +48186,7 @@ export type M_ProductionLine = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -48206,7 +48221,7 @@ export type M_ProductionLine = {
   QtyUsed?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48255,7 +48270,7 @@ export type M_ProductionLineMa = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Time used for LIFO and FIFO Material Policy */
@@ -48270,7 +48285,7 @@ export type M_ProductionLineMa = {
   MovementQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48304,7 +48319,7 @@ export type M_ProductionPlan = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -48326,7 +48341,7 @@ export type M_ProductionPlan = {
   ProductionQty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48368,7 +48383,7 @@ export type M_Promotion = {
   /** Marketing Campaign */
   C_Campaign?: Maybe<C_Campaign>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -48381,7 +48396,7 @@ export type M_Promotion = {
   PromotionPriority: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48399,7 +48414,7 @@ export type M_PromotionDistribution = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Quantity distribution sorting by unit price */
@@ -48418,7 +48433,7 @@ export type M_PromotionDistribution = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48456,7 +48471,7 @@ export type M_PromotionGroup = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -48467,7 +48482,7 @@ export type M_PromotionGroup = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48497,7 +48512,7 @@ export type M_PromotionGroupLine = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -48507,7 +48522,7 @@ export type M_PromotionGroupLine = {
   M_PromotionGroup: M_PromotionGroup;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48552,7 +48567,7 @@ export type M_PromotionLine = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -48565,7 +48580,7 @@ export type M_PromotionLine = {
   MinimumAmt?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48603,11 +48618,11 @@ export type M_PromotionPreCondition = {
   /** Identifies a Business Partner */
   C_BPartner?: Maybe<C_BPartner>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Last effective date (inclusive) */
-  EndDate?: Maybe<Scalars['Date']['output']>;
+  EndDate?: Maybe<Scalars['DateTime']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Unique identifier of a Price List */
@@ -48624,10 +48639,10 @@ export type M_PromotionPreCondition = {
   /** Method of ordering records; lowest number comes first */
   SeqNo: Scalars['Int']['output'];
   /** First effective day (inclusive) */
-  StartDate: Scalars['Date']['output'];
+  StartDate: Scalars['DateTime']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48648,7 +48663,7 @@ export type M_PromotionPreConditionInput = {
   /** Identifies a Business Partner */
   C_BPartner?: InputMaybe<ForeignEntityInput>;
   /** Last effective date (inclusive) */
-  EndDate?: InputMaybe<Scalars['Date']['input']>;
+  EndDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Unique identifier of a Price List */
@@ -48665,7 +48680,7 @@ export type M_PromotionPreConditionInput = {
   /** Method of ordering records; lowest number comes first */
   SeqNo?: InputMaybe<Scalars['Int']['input']>;
   /** First effective day (inclusive) */
-  StartDate?: InputMaybe<Scalars['Date']['input']>;
+  StartDate?: InputMaybe<Scalars['DateTime']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -48680,7 +48695,7 @@ export type M_PromotionReward = {
   /** Additional document charges */
   C_Charge: C_Charge;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Quantity distribution sorting by unit price */
@@ -48703,7 +48718,7 @@ export type M_PromotionReward = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48749,7 +48764,7 @@ export type M_QualityTest = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -48762,7 +48777,7 @@ export type M_QualityTest = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48794,7 +48809,7 @@ export type M_QualityTestResult = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -48812,7 +48827,7 @@ export type M_QualityTestResult = {
   Result?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48860,7 +48875,7 @@ export type M_Rma = {
   /** Process which will generate a new document lines based on an existing document */
   CreateLinesFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -48897,7 +48912,7 @@ export type M_Rma = {
   SalesRep: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -48971,7 +48986,7 @@ export type M_RmaLine = {
   /** Tax identifier */
   C_Tax: C_Tax;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -49000,7 +49015,7 @@ export type M_RmaLine = {
   Ref_RMALine?: Maybe<M_RmaLine>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49056,7 +49071,7 @@ export type M_RmaTax = {
   C_Tax: C_Tax;
   C_TaxProvider?: Maybe<C_TaxProvider>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -49073,7 +49088,7 @@ export type M_RmaTax = {
   TaxBaseAmt: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49112,7 +49127,7 @@ export type M_RmaType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -49125,7 +49140,7 @@ export type M_RmaType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49157,7 +49172,7 @@ export type M_RelatedProduct = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -49173,7 +49188,7 @@ export type M_RelatedProduct = {
   RelatedProductType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49208,7 +49223,7 @@ export type M_Replenish = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -49230,7 +49245,7 @@ export type M_Replenish = {
   ReplenishType: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49275,7 +49290,7 @@ export type M_Requisition = {
   /** Document type or rules */
   C_DocType: C_DocType;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of the Document */
@@ -49314,7 +49329,7 @@ export type M_Requisition = {
   TotalLines: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49383,7 +49398,7 @@ export type M_RequisitionLine = {
   /** Unit of Measure */
   C_UOM?: Maybe<C_Uom>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -49406,7 +49421,7 @@ export type M_RequisitionLine = {
   Qty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49458,7 +49473,7 @@ export type M_SerNoCtl = {
   /** Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field) */
   BH_Locked: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The next number to be used */
@@ -49479,7 +49494,7 @@ export type M_SerNoCtl = {
   Suffix?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49499,7 +49514,7 @@ export type M_SerNoCtlExclude = {
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -49510,7 +49525,7 @@ export type M_SerNoCtlExclude = {
   M_SerNoCtl: M_SerNoCtl;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49570,7 +49585,7 @@ export type M_Shipper = {
   /** Process which will generate a new document lines based on an existing document */
   CreateFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -49581,7 +49596,7 @@ export type M_Shipper = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49595,7 +49610,7 @@ export type M_ShipperCfg = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -49615,7 +49630,7 @@ export type M_ShipperCfg = {
   TrackingURL?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49678,7 +49693,7 @@ export type M_ShipperLabels = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -49693,7 +49708,7 @@ export type M_ShipperLabels = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49705,7 +49720,7 @@ export type M_ShipperLabelsCfg = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -49721,7 +49736,7 @@ export type M_ShipperLabelsCfg = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -49784,7 +49799,7 @@ export type M_ShipperPackaging = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -49798,7 +49813,7 @@ export type M_ShipperPackaging = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Weight of a product */
@@ -49812,7 +49827,7 @@ export type M_ShipperPackagingCfg = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -49826,7 +49841,7 @@ export type M_ShipperPackagingCfg = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -49890,7 +49905,7 @@ export type M_ShipperPickupTypes = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -49904,7 +49919,7 @@ export type M_ShipperPickupTypes = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -49916,7 +49931,7 @@ export type M_ShipperPickupTypesCfg = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -49930,7 +49945,7 @@ export type M_ShipperPickupTypesCfg = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -49990,7 +50005,7 @@ export type M_ShippingProcessor = {
   ConnectionKey?: Maybe<Scalars['String']['output']>;
   ConnectionPassword: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -50000,7 +50015,7 @@ export type M_ShippingProcessor = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User ID or account number */
@@ -50014,7 +50029,7 @@ export type M_ShippingProcessorCfg = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -50039,7 +50054,7 @@ export type M_ShippingProcessorCfg = {
   ShippingProcessorClass?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -50128,7 +50143,7 @@ export type M_ShippingTransaction = {
   C_UOM_Weight?: Maybe<C_Uom>;
   CashOnDelivery: Scalars['Boolean']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   CustomsValue?: Maybe<Scalars['BigDecimal']['output']>;
@@ -50172,7 +50187,7 @@ export type M_ShippingTransaction = {
   IsSaturdayDelivery: Scalars['Boolean']['output'];
   IsSaturdayPickup: Scalars['Boolean']['output'];
   IsVerbalConfirmation: Scalars['Boolean']['output'];
-  LatestPickupTime?: Maybe<Scalars['Date']['output']>;
+  LatestPickupTime?: Maybe<Scalars['DateTime']['output']>;
   Length?: Maybe<Scalars['BigDecimal']['output']>;
   /** Material Shipment Document */
   M_InOut?: Maybe<M_InOut>;
@@ -50217,7 +50232,7 @@ export type M_ShippingTransaction = {
   TrackingNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Weight of a product */
@@ -50299,7 +50314,7 @@ export type M_ShippingTransactionInput = {
   IsSaturdayDelivery?: InputMaybe<Scalars['Boolean']['input']>;
   IsSaturdayPickup?: InputMaybe<Scalars['Boolean']['input']>;
   IsVerbalConfirmation?: InputMaybe<Scalars['Boolean']['input']>;
-  LatestPickupTime?: InputMaybe<Scalars['Date']['input']>;
+  LatestPickupTime?: InputMaybe<Scalars['DateTime']['input']>;
   Length?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Material Shipment Document */
   M_InOut?: InputMaybe<ForeignEntityInput>;
@@ -50358,7 +50373,7 @@ export type M_ShippingTransactionLine = {
   /** Standard Unit of Measure for Weight */
   C_UOM_Weight?: Maybe<C_Uom>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -50380,7 +50395,7 @@ export type M_ShippingTransactionLine = {
   TrackingNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Weight of a product */
@@ -50431,7 +50446,7 @@ export type M_StorageOnHand = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of Last Inventory Count */
@@ -50450,7 +50465,7 @@ export type M_StorageOnHand = {
   QtyOnHand: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -50488,7 +50503,7 @@ export type M_StorageReservation = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of Last Inventory Count */
@@ -50507,7 +50522,7 @@ export type M_StorageReservation = {
   Qty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -50545,7 +50560,7 @@ export type M_Substitute = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -50560,7 +50575,7 @@ export type M_Substitute = {
   Substitute: M_Product;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -50596,7 +50611,7 @@ export type M_Transaction = {
   /** Project Issues (Material, Labor) */
   C_ProjectIssue?: Maybe<C_ProjectIssue>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -50624,7 +50639,7 @@ export type M_Transaction = {
   PP_Cost_Collector?: Maybe<Pp_Cost_Collector>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -50638,7 +50653,7 @@ export type M_TransactionAllocation = {
   /** Allocation Strategy */
   AllocationStrategyType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -50670,7 +50685,7 @@ export type M_TransactionAllocation = {
   Qty: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -50764,7 +50779,7 @@ export type M_Warehouse = {
   /** Location or Address */
   C_Location: C_Location;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -50788,7 +50803,7 @@ export type M_Warehouse = {
   Separator: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -50840,7 +50855,7 @@ export type M_Warehouse_Acct = {
   /** Rules for accounting */
   C_AcctSchema: C_AcctSchema;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -50849,7 +50864,7 @@ export type M_Warehouse_Acct = {
   M_Warehouse: M_Warehouse;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Warehouse Differences Account */
@@ -54855,6 +54870,8 @@ export type MutationAd_ProcessDeleteArgs = {
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationAd_ProcessRunArgs = {
   ProcessInfoParameterList?: InputMaybe<Array<ProcessInfoParameterInput>>;
+  RecordUU?: InputMaybe<Scalars['String']['input']>;
+  TableUU?: InputMaybe<Scalars['String']['input']>;
   UU: Scalars['ID']['input'];
 };
 
@@ -54862,7 +54879,9 @@ export type MutationAd_ProcessRunArgs = {
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationAd_ProcessRunAndExportArgs = {
   ProcessInfoParameterList?: InputMaybe<Array<ProcessInfoParameterInput>>;
+  RecordUU?: InputMaybe<Scalars['String']['input']>;
   ReportType: ReportOutput;
+  TableUU?: InputMaybe<Scalars['String']['input']>;
   UU: Scalars['ID']['input'];
 };
 
@@ -66811,7 +66830,7 @@ export type Pa_Achievement = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of the Document */
@@ -66834,7 +66853,7 @@ export type Pa_Achievement = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -66878,7 +66897,7 @@ export type Pa_Benchmark = {
   /** How to accumulate data on time axis */
   AccumulationType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -66891,7 +66910,7 @@ export type Pa_Benchmark = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -66909,11 +66928,11 @@ export type Pa_BenchmarkData = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Benchmark Date */
-  BenchmarkDate: Scalars['Date']['output'];
+  BenchmarkDate: Scalars['DateTime']['output'];
   /** Benchmark Value */
   BenchmarkValue: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -66926,7 +66945,7 @@ export type Pa_BenchmarkData = {
   PA_Benchmark: Pa_Benchmark;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -66941,7 +66960,7 @@ export type Pa_BenchmarkDataInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
   /** Benchmark Date */
-  BenchmarkDate?: InputMaybe<Scalars['Date']['input']>;
+  BenchmarkDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Benchmark Value */
   BenchmarkValue?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Optional short description of the record */
@@ -66988,7 +67007,7 @@ export type Pa_ColorSchema = {
   /** Forth color used */
   AD_PrintColor4?: Maybe<Ad_PrintColor>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -67007,7 +67026,7 @@ export type Pa_ColorSchema = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -67069,7 +67088,7 @@ export type Pa_DashboardContent = {
   /** Dashboard content column number */
   ColumnNo?: Maybe<Scalars['Int']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -67100,7 +67119,7 @@ export type Pa_DashboardContent = {
   ProcessParameters?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** URI for Dashboard Gadget */
@@ -67172,7 +67191,7 @@ export type Pa_DashboardContent_Access = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** The record is active in the system */
@@ -67180,7 +67199,7 @@ export type Pa_DashboardContent_Access = {
   PA_DashboardContent?: Maybe<Pa_DashboardContent>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
 };
@@ -67217,7 +67236,7 @@ export type Pa_DashboardPreference = {
   /** Dashboard content column number */
   ColumnNo?: Maybe<Scalars['Int']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** This defines the ability for a flex item to grow if necessary. It accepts a unitless value that serves as a proportion. It dictates what amount of the available space inside the flex container the item should take up. */
@@ -67233,7 +67252,7 @@ export type Pa_DashboardPreference = {
   PA_DashboardContent: Pa_DashboardContent;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -67288,7 +67307,7 @@ export type Pa_DocumentStatus = {
   /** Financial Project */
   C_Project?: Maybe<C_Project>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -67305,7 +67324,7 @@ export type Pa_DocumentStatus = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified SQL WHERE clause */
@@ -67365,15 +67384,15 @@ export type Pa_Goal = {
   /** Type of chart to render */
   ChartType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Starting date for a range */
-  DateFrom?: Maybe<Scalars['Date']['output']>;
+  DateFrom?: Maybe<Scalars['DateTime']['output']>;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** End date of a date range */
-  DateTo?: Maybe<Scalars['Date']['output']>;
+  DateTo?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Target achievement from 0..1 */
@@ -67407,7 +67426,7 @@ export type Pa_Goal = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -67428,11 +67447,11 @@ export type Pa_GoalInput = {
   /** Type of chart to render */
   ChartType?: InputMaybe<ForeignEntityInput>;
   /** Starting date for a range */
-  DateFrom?: InputMaybe<Scalars['Date']['input']>;
+  DateFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** End date of a date range */
-  DateTo?: InputMaybe<Scalars['Date']['input']>;
+  DateTo?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Target achievement from 0..1 */
@@ -67477,7 +67496,7 @@ export type Pa_GoalRestriction = {
   /** Identifies a Business Partner */
   C_BPartner?: Maybe<C_BPartner>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Goal Restriction Type */
@@ -67494,7 +67513,7 @@ export type Pa_GoalRestriction = {
   PA_Goal: Pa_Goal;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -67550,7 +67569,7 @@ export type Pa_Hierarchy = {
   /** Trees are used for (financial) reporting */
   AD_Tree_SalesRegion: Ad_Tree;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -67563,7 +67582,7 @@ export type Pa_Hierarchy = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -67615,7 +67634,7 @@ export type Pa_Measure = {
   /** Java Class for calculation, implementing Interface Measure */
   CalculationClass?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -67644,7 +67663,7 @@ export type Pa_Measure = {
   R_RequestType?: Maybe<R_RequestType>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -67662,7 +67681,7 @@ export type Pa_MeasureCalc = {
   /** Fully qualified Business Partner key column (C_BPartner_ID) */
   BPartnerColumn?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Fully qualified date column */
@@ -67683,7 +67702,7 @@ export type Pa_MeasureCalc = {
   SelectClause: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Fully qualified SQL WHERE clause */
@@ -67775,7 +67794,7 @@ export type Pa_Ratio = {
   /** Rules for accounting */
   C_AcctSchema: C_AcctSchema;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -67788,7 +67807,7 @@ export type Pa_Ratio = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -67810,7 +67829,7 @@ export type Pa_RatioElement = {
   /** Constant value */
   ConstantValue?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -67835,7 +67854,7 @@ export type Pa_RatioElement = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -67905,7 +67924,7 @@ export type Pa_Report = {
   /** Accounting Calendar Name */
   C_Calendar: C_Calendar;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -67932,7 +67951,7 @@ export type Pa_Report = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -67962,7 +67981,7 @@ export type Pa_ReportColumn = {
   CalculationType?: Maybe<Ad_Ref_List>;
   ColumnType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   CurrencyType?: Maybe<Ad_Ref_List>;
@@ -68037,7 +68056,7 @@ export type Pa_ReportColumn = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -68149,7 +68168,7 @@ export type Pa_ReportColumnSet = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -68161,7 +68180,7 @@ export type Pa_ReportColumnSet = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -68200,7 +68219,7 @@ export type Pa_ReportCube = {
   /** Accounting Calendar Name */
   C_Calendar: C_Calendar;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -68242,13 +68261,13 @@ export type Pa_ReportCube = {
   /** Include User Element 2 as a cube dimension */
   IsUserElement2Dim: Scalars['Boolean']['output'];
   /** The time last recalculated. */
-  LastRecalculated?: Maybe<Scalars['Date']['output']>;
+  LastRecalculated?: Maybe<Scalars['DateTime']['output']>;
   /** Alphanumeric identifier of the entity */
   Name: Scalars['String']['output'];
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -68303,7 +68322,7 @@ export type Pa_ReportCubeInput = {
   /** Include User Element 2 as a cube dimension */
   IsUserElement2Dim?: InputMaybe<Scalars['Boolean']['input']>;
   /** The time last recalculated. */
-  LastRecalculated?: InputMaybe<Scalars['Date']['input']>;
+  LastRecalculated?: InputMaybe<Scalars['DateTime']['input']>;
   /** Alphanumeric identifier of the entity */
   Name?: InputMaybe<Scalars['String']['input']>;
   Processing?: InputMaybe<Scalars['Boolean']['input']>;
@@ -68352,7 +68371,7 @@ export type Pa_ReportLine = {
   AD_Org: Ad_Org;
   CalculationType?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -68390,7 +68409,7 @@ export type Pa_ReportLine = {
   UU: Scalars['ID']['output'];
   UnderlineStrokeType?: Maybe<Ad_Ref_List>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -68448,7 +68467,7 @@ export type Pa_ReportLineSet = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -68460,7 +68479,7 @@ export type Pa_ReportLineSet = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -68505,7 +68524,7 @@ export type Pa_ReportSource = {
   /** Sales coverage region */
   C_SalesRegion?: Maybe<C_SalesRegion>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -68543,7 +68562,7 @@ export type Pa_ReportSource = {
   PA_ReportLine: Pa_ReportLine;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -68616,7 +68635,7 @@ export type Pa_Sla_Criteria = {
   /** Java Classname */
   Classname?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -68631,7 +68650,7 @@ export type Pa_Sla_Criteria = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -68669,11 +68688,11 @@ export type Pa_Sla_Goal = {
   /** Identifies a Business Partner */
   C_BPartner: C_BPartner;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Comment or Hint */
@@ -68693,7 +68712,7 @@ export type Pa_Sla_Goal = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -68714,7 +68733,7 @@ export type Pa_Sla_GoalInput = {
   /** Identifies a Business Partner */
   C_BPartner?: InputMaybe<ForeignEntityInput>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Comment or Hint */
@@ -68748,11 +68767,11 @@ export type Pa_Sla_Measure = {
   /** Database Table information */
   AD_Table?: Maybe<Ad_Table>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Transaction Date */
-  DateTrx: Scalars['Date']['output'];
+  DateTrx: Scalars['DateTime']['output'];
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
@@ -68766,7 +68785,7 @@ export type Pa_Sla_Measure = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -68783,7 +68802,7 @@ export type Pa_Sla_MeasureInput = {
   /** Database Table information */
   AD_Table?: InputMaybe<ForeignEntityInput>;
   /** Transaction Date */
-  DateTrx?: InputMaybe<Scalars['Date']['input']>;
+  DateTrx?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
@@ -68821,7 +68840,7 @@ export type Pp_Cost_Collector = {
   /** Transaction Type for Manufacturing Management */
   CostCollectorType: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -68848,7 +68867,7 @@ export type Pp_Cost_Collector = {
   /** Storage Warehouse and Service Point */
   M_Warehouse: M_Warehouse;
   /** Date a product was moved in or out of inventory */
-  MovementDate: Scalars['Date']['output'];
+  MovementDate: Scalars['DateTime']['output'];
   /** Quantity of a product moved. */
   MovementQty: Scalars['BigDecimal']['output'];
   /** Manufacturing Order */
@@ -68874,7 +68893,7 @@ export type Pp_Cost_Collector = {
   SetupTimeReal?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -68932,7 +68951,7 @@ export type Pp_Cost_CollectorInput = {
   /** Storage Warehouse and Service Point */
   M_Warehouse?: InputMaybe<ForeignEntityInput>;
   /** Date a product was moved in or out of inventory */
-  MovementDate?: InputMaybe<Scalars['Date']['input']>;
+  MovementDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Quantity of a product moved. */
   MovementQty?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Manufacturing Order */
@@ -68970,7 +68989,7 @@ export type Pp_Cost_CollectorMa = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -68982,7 +69001,7 @@ export type Pp_Cost_CollectorMa = {
   PP_Cost_Collector: Pp_Cost_Collector;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -69019,25 +69038,25 @@ export type Pp_Mrp = {
   /** Sales Order Line */
   C_OrderLine?: Maybe<C_OrderLine>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DD_Order?: Maybe<Dd_Order>;
   DD_OrderLine?: Maybe<Dd_OrderLine>;
   /** Date Confirm of this Order */
-  DateConfirm?: Maybe<Scalars['Date']['output']>;
+  DateConfirm?: Maybe<Scalars['DateTime']['output']>;
   /** Scheduled Finish date for this Order */
-  DateFinishSchedule?: Maybe<Scalars['Date']['output']>;
+  DateFinishSchedule?: Maybe<Scalars['DateTime']['output']>;
   /** Date of Order */
-  DateOrdered: Scalars['Date']['output'];
+  DateOrdered: Scalars['DateTime']['output'];
   /** Date Order was promised */
-  DatePromised: Scalars['Date']['output'];
+  DatePromised: Scalars['DateTime']['output'];
   /** Simulation date for this Material Plan */
-  DateSimulation?: Maybe<Scalars['Date']['output']>;
+  DateSimulation?: Maybe<Scalars['DateTime']['output']>;
   /** Date Start for this Order */
-  DateStart?: Maybe<Scalars['Date']['output']>;
+  DateStart?: Maybe<Scalars['DateTime']['output']>;
   /** Scheduled start date for this Order */
-  DateStartSchedule?: Maybe<Scalars['Date']['output']>;
+  DateStartSchedule?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** The current status of the document */
@@ -69076,7 +69095,7 @@ export type Pp_Mrp = {
   TypeMRP?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -69103,19 +69122,19 @@ export type Pp_MrpInput = {
   DD_Order?: InputMaybe<ForeignEntityInput>;
   DD_OrderLine?: InputMaybe<ForeignEntityInput>;
   /** Date Confirm of this Order */
-  DateConfirm?: InputMaybe<Scalars['Date']['input']>;
+  DateConfirm?: InputMaybe<Scalars['DateTime']['input']>;
   /** Scheduled Finish date for this Order */
-  DateFinishSchedule?: InputMaybe<Scalars['Date']['input']>;
+  DateFinishSchedule?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date of Order */
-  DateOrdered?: InputMaybe<Scalars['Date']['input']>;
+  DateOrdered?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date Order was promised */
-  DatePromised?: InputMaybe<Scalars['Date']['input']>;
+  DatePromised?: InputMaybe<Scalars['DateTime']['input']>;
   /** Simulation date for this Material Plan */
-  DateSimulation?: InputMaybe<Scalars['Date']['input']>;
+  DateSimulation?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date Start for this Order */
-  DateStart?: InputMaybe<Scalars['Date']['input']>;
+  DateStart?: InputMaybe<Scalars['DateTime']['input']>;
   /** Scheduled start date for this Order */
-  DateStartSchedule?: InputMaybe<Scalars['Date']['input']>;
+  DateStartSchedule?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The current status of the document */
@@ -69186,25 +69205,25 @@ export type Pp_Order = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date Confirm of this Order */
-  DateConfirm?: Maybe<Scalars['Date']['output']>;
+  DateConfirm?: Maybe<Scalars['DateTime']['output']>;
   /** Date when the product was delivered */
-  DateDelivered?: Maybe<Scalars['Date']['output']>;
+  DateDelivered?: Maybe<Scalars['DateTime']['output']>;
   /** Finish or (planned) completion date */
-  DateFinish?: Maybe<Scalars['Date']['output']>;
+  DateFinish?: Maybe<Scalars['DateTime']['output']>;
   /** Scheduled Finish date for this Order */
-  DateFinishSchedule?: Maybe<Scalars['Date']['output']>;
+  DateFinishSchedule?: Maybe<Scalars['DateTime']['output']>;
   /** Date of Order */
-  DateOrdered: Scalars['Date']['output'];
+  DateOrdered: Scalars['DateTime']['output'];
   /** Date Order was promised */
-  DatePromised: Scalars['Date']['output'];
+  DatePromised: Scalars['DateTime']['output'];
   /** Date Start for this Order */
-  DateStart?: Maybe<Scalars['Date']['output']>;
+  DateStart?: Maybe<Scalars['DateTime']['output']>;
   /** Scheduled start date for this Order */
-  DateStartSchedule: Scalars['Date']['output'];
+  DateStartSchedule: Scalars['DateTime']['output'];
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** The targeted status of the document */
@@ -69271,7 +69290,7 @@ export type Pp_Order = {
   SerNo?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** User defined list element #1 */
@@ -69312,21 +69331,21 @@ export type Pp_OrderInput = {
   /** Copy From Record */
   CopyFrom?: InputMaybe<Scalars['String']['input']>;
   /** Date Confirm of this Order */
-  DateConfirm?: InputMaybe<Scalars['Date']['input']>;
+  DateConfirm?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date when the product was delivered */
-  DateDelivered?: InputMaybe<Scalars['Date']['input']>;
+  DateDelivered?: InputMaybe<Scalars['DateTime']['input']>;
   /** Finish or (planned) completion date */
-  DateFinish?: InputMaybe<Scalars['Date']['input']>;
+  DateFinish?: InputMaybe<Scalars['DateTime']['input']>;
   /** Scheduled Finish date for this Order */
-  DateFinishSchedule?: InputMaybe<Scalars['Date']['input']>;
+  DateFinishSchedule?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date of Order */
-  DateOrdered?: InputMaybe<Scalars['Date']['input']>;
+  DateOrdered?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date Order was promised */
-  DatePromised?: InputMaybe<Scalars['Date']['input']>;
+  DatePromised?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date Start for this Order */
-  DateStart?: InputMaybe<Scalars['Date']['input']>;
+  DateStart?: InputMaybe<Scalars['DateTime']['input']>;
   /** Scheduled start date for this Order */
-  DateStartSchedule?: InputMaybe<Scalars['Date']['input']>;
+  DateStartSchedule?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The targeted status of the document */
@@ -69415,7 +69434,7 @@ export type Pp_Order_Bom = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -69440,13 +69459,13 @@ export type Pp_Order_Bom = {
   Revision?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom: Scalars['Date']['output'];
+  ValidFrom: Scalars['DateTime']['output'];
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
   /** Search key for the record in the format required - must be unique */
   Value: Scalars['String']['output'];
 };
@@ -69490,9 +69509,9 @@ export type Pp_Order_BomInput = {
   Revision?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
 };
@@ -69516,11 +69535,11 @@ export type Pp_Order_BomLine = {
   /** Cost allocation percent in case of a co-product. */
   CostAllocationPerc?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date when the product was delivered */
-  DateDelivered?: Maybe<Scalars['Date']['output']>;
+  DateDelivered?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Indicated the Feature for Product Configure */
@@ -69573,13 +69592,13 @@ export type Pp_Order_BomLine = {
   Scrap?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom: Scalars['Date']['output'];
+  ValidFrom: Scalars['DateTime']['output'];
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type Pp_Order_BomLineConnection = {
@@ -69604,7 +69623,7 @@ export type Pp_Order_BomLineInput = {
   /** Cost allocation percent in case of a co-product. */
   CostAllocationPerc?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Date when the product was delivered */
-  DateDelivered?: InputMaybe<Scalars['Date']['input']>;
+  DateDelivered?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Indicated the Feature for Product Configure */
@@ -69657,9 +69676,9 @@ export type Pp_Order_BomLineInput = {
   Scrap?: InputMaybe<Scalars['BigDecimal']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type Pp_Order_Cost = {
@@ -69675,7 +69694,7 @@ export type Pp_Order_Cost = {
   /** Indicates how Costs will be calculated */
   CostingMethod?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Total Amount */
@@ -69704,7 +69723,7 @@ export type Pp_Order_Cost = {
   PP_Order: Pp_Order;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -69790,17 +69809,17 @@ export type Pp_Order_Node = {
   /** Cost information */
   Cost: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Finish or (planned) completion date */
-  DateFinish?: Maybe<Scalars['Date']['output']>;
+  DateFinish?: Maybe<Scalars['DateTime']['output']>;
   /** Scheduled Finish date for this Order */
-  DateFinishSchedule?: Maybe<Scalars['Date']['output']>;
+  DateFinishSchedule?: Maybe<Scalars['DateTime']['output']>;
   /** Date Start for this Order */
-  DateStart?: Maybe<Scalars['Date']['output']>;
+  DateStart?: Maybe<Scalars['DateTime']['output']>;
   /** Scheduled start date for this Order */
-  DateStartSchedule?: Maybe<Scalars['Date']['output']>;
+  DateStartSchedule?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** The targeted status of the document */
@@ -69859,13 +69878,13 @@ export type Pp_Order_Node = {
   /** The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit. */
   UnitsCycles?: Maybe<Scalars['Int']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom?: Maybe<Scalars['Date']['output']>;
+  ValidFrom?: Maybe<Scalars['DateTime']['output']>;
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
   /** Search key for the record in the format required - must be unique */
   Value: Scalars['String']['output'];
   /** Workflow Simulation Waiting time */
@@ -69924,13 +69943,13 @@ export type Pp_Order_NodeInput = {
   /** Cost information */
   Cost?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Finish or (planned) completion date */
-  DateFinish?: InputMaybe<Scalars['Date']['input']>;
+  DateFinish?: InputMaybe<Scalars['DateTime']['input']>;
   /** Scheduled Finish date for this Order */
-  DateFinishSchedule?: InputMaybe<Scalars['Date']['input']>;
+  DateFinishSchedule?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date Start for this Order */
-  DateStart?: InputMaybe<Scalars['Date']['input']>;
+  DateStart?: InputMaybe<Scalars['DateTime']['input']>;
   /** Scheduled start date for this Order */
-  DateStartSchedule?: InputMaybe<Scalars['Date']['input']>;
+  DateStartSchedule?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The targeted status of the document */
@@ -69989,9 +70008,9 @@ export type Pp_Order_NodeInput = {
   /** The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit. */
   UnitsCycles?: InputMaybe<Scalars['Int']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
   /** Workflow Simulation Waiting time */
@@ -70021,7 +70040,7 @@ export type Pp_Order_NodeNext = {
   /** Workflow Node (activity), step or process */
   AD_WF_Node: Ad_Wf_Node;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy?: Maybe<Ad_User>;
   /** Optional short description of the record */
@@ -70041,7 +70060,7 @@ export type Pp_Order_NodeNext = {
   TransitionCode?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -70088,7 +70107,7 @@ export type Pp_Order_Node_Asset = {
   /** Asset used internally or by customers */
   A_Asset: A_Asset;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -70100,7 +70119,7 @@ export type Pp_Order_Node_Asset = {
   PP_Order_Workflow: Pp_Order_Workflow;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -70133,7 +70152,7 @@ export type Pp_Order_Node_Product = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -70152,7 +70171,7 @@ export type Pp_Order_Node_Product = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -70208,7 +70227,7 @@ export type Pp_Order_Workflow = {
   /** Cost information */
   Cost: Scalars['BigDecimal']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -70252,13 +70271,13 @@ export type Pp_Order_Workflow = {
   /** The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit. */
   UnitsCycles?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom?: Maybe<Scalars['Date']['output']>;
+  ValidFrom?: Maybe<Scalars['DateTime']['output']>;
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
   ValidateWorkflow?: Maybe<Scalars['String']['output']>;
   /** Search key for the record in the format required - must be unique */
   Value?: Maybe<Scalars['String']['output']>;
@@ -70342,9 +70361,9 @@ export type Pp_Order_WorkflowInput = {
   /** The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit. */
   UnitsCycles?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
   ValidateWorkflow?: InputMaybe<Scalars['String']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
@@ -70375,7 +70394,7 @@ export type Pp_Product_Bom = {
   /** Copy From Record */
   CopyFrom?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -70397,7 +70416,7 @@ export type Pp_Product_Bom = {
   Revision?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -70467,7 +70486,7 @@ export type Pp_Product_BomLine = {
   /** Cost allocation percent in case of a co-product. */
   CostAllocationPerc?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -70506,7 +70525,7 @@ export type Pp_Product_BomLine = {
   Scrap?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
@@ -70584,7 +70603,7 @@ export type Pp_Product_Planning = {
   /** Workflow or combination of tasks */
   AD_Workflow?: Maybe<Ad_Workflow>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DD_NetworkDistribution?: Maybe<Dd_NetworkDistribution>;
@@ -70623,7 +70642,7 @@ export type Pp_Product_Planning = {
   TransfertTime?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Workflow Simulation Execution Time */
@@ -70695,7 +70714,7 @@ export type Pp_Wf_Node_Asset = {
   /** Asset used internally or by customers */
   A_Asset: A_Asset;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -70704,7 +70723,7 @@ export type Pp_Wf_Node_Asset = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -70742,7 +70761,7 @@ export type Pp_Wf_Node_Product = {
   /** Configuration Level for this parameter */
   ConfigurationLevel?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -70756,7 +70775,7 @@ export type Pp_Wf_Node_Product = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -70815,7 +70834,7 @@ export type Qm_Specification = {
   /** Workflow or combination of tasks */
   AD_Workflow?: Maybe<Ad_Workflow>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -70832,13 +70851,13 @@ export type Qm_Specification = {
   PP_Product_BOM?: Maybe<Pp_Product_Bom>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
-  ValidFrom?: Maybe<Scalars['Date']['output']>;
+  ValidFrom?: Maybe<Scalars['DateTime']['output']>;
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
   /** Search key for the record in the format required - must be unique */
   Value?: Maybe<Scalars['String']['output']>;
 };
@@ -70868,9 +70887,9 @@ export type Qm_SpecificationInput = {
   PP_Product_BOM?: InputMaybe<ForeignEntityInput>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Valid from including this date (first day) */
-  ValidFrom?: InputMaybe<Scalars['Date']['input']>;
+  ValidFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
 };
@@ -70884,7 +70903,7 @@ export type Qm_SpecificationLine = {
   /** Logical operation: AND or OR */
   AndOr: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -70898,13 +70917,13 @@ export type Qm_SpecificationLine = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Valid from including this date (first day) */
   ValidFrom?: Maybe<Scalars['String']['output']>;
   /** Valid to including this date (last day) */
-  ValidTo?: Maybe<Scalars['Date']['output']>;
+  ValidTo?: Maybe<Scalars['DateTime']['output']>;
   /** Search key for the record in the format required - must be unique */
   Value?: Maybe<Scalars['String']['output']>;
 };
@@ -70933,7 +70952,7 @@ export type Qm_SpecificationLineInput = {
   /** Valid from including this date (first day) */
   ValidFrom?: InputMaybe<Scalars['String']['input']>;
   /** Valid to including this date (last day) */
-  ValidTo?: InputMaybe<Scalars['Date']['input']>;
+  ValidTo?: InputMaybe<Scalars['DateTime']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
 };
@@ -83822,7 +83841,7 @@ export type Rv_BPartner = {
   /** Country Name */
   CountryName: Scalars['String']['output'];
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Dun & Bradstreet Number */
@@ -83842,11 +83861,11 @@ export type Rv_BPartner = {
   /** Verification information of EMail Address */
   EMailVerify?: Maybe<Scalars['String']['output']>;
   /** Date Email was verified */
-  EMailVerifyDate?: Maybe<Scalars['Date']['output']>;
+  EMailVerifyDate?: Maybe<Scalars['DateTime']['output']>;
   /** Facsimile number */
   Fax?: Maybe<Scalars['String']['output']>;
   /** Date of First Sale */
-  FirstSale?: Maybe<Scalars['Date']['output']>;
+  FirstSale?: Maybe<Scalars['DateTime']['output']>;
   /** Flat discount percentage */
   FlatDiscount?: Maybe<Scalars['BigDecimal']['output']>;
   /** Method for charging Freight */
@@ -83879,7 +83898,7 @@ export type Rv_BPartner = {
   /** User Name used for authorization via LDAP (directory) services */
   LDAPUser: Scalars['Boolean']['output'];
   /** Date this individual was last contacted */
-  LastContact?: Maybe<Scalars['Date']['output']>;
+  LastContact?: Maybe<Scalars['DateTime']['output']>;
   /** Result of last contact */
   LastResult?: Maybe<Scalars['String']['output']>;
   /** Schema to calculate the trade discount percentage */
@@ -83955,19 +83974,19 @@ export type Rv_BPartner = {
   /** Full URL address - e.g. http://www.idempiere.org */
   URL?: Maybe<Scalars['String']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
   Value: Scalars['String']['output'];
-  ad_user_created?: Maybe<Scalars['Date']['output']>;
+  ad_user_created?: Maybe<Scalars['DateTime']['output']>;
   ad_user_isactive: Scalars['Boolean']['output'];
-  ad_user_updated?: Maybe<Scalars['Date']['output']>;
+  ad_user_updated?: Maybe<Scalars['DateTime']['output']>;
   ad_user_value?: Maybe<Scalars['String']['output']>;
-  c_bp_dunninggrace?: Maybe<Scalars['Date']['output']>;
+  c_bp_dunninggrace?: Maybe<Scalars['DateTime']['output']>;
   c_bp_ismanufacturer: Scalars['Boolean']['output'];
   c_bp_ispotaxexempt: Scalars['Boolean']['output'];
-  c_bp_location_created?: Maybe<Scalars['Date']['output']>;
+  c_bp_location_created?: Maybe<Scalars['DateTime']['output']>;
   c_bp_location_fax?: Maybe<Scalars['String']['output']>;
   c_bp_location_isactive: Scalars['Boolean']['output'];
   c_bp_location_isbillto: Scalars['Boolean']['output'];
@@ -83978,13 +83997,13 @@ export type Rv_BPartner = {
   c_bp_location_name?: Maybe<Scalars['String']['output']>;
   c_bp_location_phone?: Maybe<Scalars['String']['output']>;
   c_bp_location_phone2?: Maybe<Scalars['String']['output']>;
-  c_bp_location_updated?: Maybe<Scalars['Date']['output']>;
+  c_bp_location_updated?: Maybe<Scalars['DateTime']['output']>;
   c_country_ad_language?: Maybe<Scalars['String']['output']>;
   c_country_description?: Maybe<Scalars['String']['output']>;
   c_country_isactive: Scalars['Boolean']['output'];
-  c_location_created?: Maybe<Scalars['Date']['output']>;
+  c_location_created?: Maybe<Scalars['DateTime']['output']>;
   c_location_isactive: Scalars['Boolean']['output'];
-  c_location_updated?: Maybe<Scalars['Date']['output']>;
+  c_location_updated?: Maybe<Scalars['DateTime']['output']>;
   c_region_description?: Maybe<Scalars['String']['output']>;
   c_region_isactive: Scalars['Boolean']['output'];
 };
@@ -84082,11 +84101,11 @@ export type Rv_BPartnerInput = {
   /** Verification information of EMail Address */
   EMailVerify?: InputMaybe<Scalars['String']['input']>;
   /** Date Email was verified */
-  EMailVerifyDate?: InputMaybe<Scalars['Date']['input']>;
+  EMailVerifyDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Facsimile number */
   Fax?: InputMaybe<Scalars['String']['input']>;
   /** Date of First Sale */
-  FirstSale?: InputMaybe<Scalars['Date']['input']>;
+  FirstSale?: InputMaybe<Scalars['DateTime']['input']>;
   /** Flat discount percentage */
   FlatDiscount?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Method for charging Freight */
@@ -84119,7 +84138,7 @@ export type Rv_BPartnerInput = {
   /** User Name used for authorization via LDAP (directory) services */
   LDAPUser?: InputMaybe<Scalars['Boolean']['input']>;
   /** Date this individual was last contacted */
-  LastContact?: InputMaybe<Scalars['Date']['input']>;
+  LastContact?: InputMaybe<Scalars['DateTime']['input']>;
   /** Result of last contact */
   LastResult?: InputMaybe<Scalars['String']['input']>;
   /** Schema to calculate the trade discount percentage */
@@ -84196,14 +84215,14 @@ export type Rv_BPartnerInput = {
   URL?: InputMaybe<Scalars['String']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
-  ad_user_created?: InputMaybe<Scalars['Date']['input']>;
+  ad_user_created?: InputMaybe<Scalars['DateTime']['input']>;
   ad_user_isactive?: InputMaybe<Scalars['Boolean']['input']>;
-  ad_user_updated?: InputMaybe<Scalars['Date']['input']>;
+  ad_user_updated?: InputMaybe<Scalars['DateTime']['input']>;
   ad_user_value?: InputMaybe<Scalars['String']['input']>;
-  c_bp_dunninggrace?: InputMaybe<Scalars['Date']['input']>;
+  c_bp_dunninggrace?: InputMaybe<Scalars['DateTime']['input']>;
   c_bp_ismanufacturer?: InputMaybe<Scalars['Boolean']['input']>;
   c_bp_ispotaxexempt?: InputMaybe<Scalars['Boolean']['input']>;
-  c_bp_location_created?: InputMaybe<Scalars['Date']['input']>;
+  c_bp_location_created?: InputMaybe<Scalars['DateTime']['input']>;
   c_bp_location_fax?: InputMaybe<Scalars['String']['input']>;
   c_bp_location_isactive?: InputMaybe<Scalars['Boolean']['input']>;
   c_bp_location_isbillto?: InputMaybe<Scalars['Boolean']['input']>;
@@ -84214,13 +84233,13 @@ export type Rv_BPartnerInput = {
   c_bp_location_name?: InputMaybe<Scalars['String']['input']>;
   c_bp_location_phone?: InputMaybe<Scalars['String']['input']>;
   c_bp_location_phone2?: InputMaybe<Scalars['String']['input']>;
-  c_bp_location_updated?: InputMaybe<Scalars['Date']['input']>;
+  c_bp_location_updated?: InputMaybe<Scalars['DateTime']['input']>;
   c_country_ad_language?: InputMaybe<Scalars['String']['input']>;
   c_country_description?: InputMaybe<Scalars['String']['input']>;
   c_country_isactive?: InputMaybe<Scalars['Boolean']['input']>;
-  c_location_created?: InputMaybe<Scalars['Date']['input']>;
+  c_location_created?: InputMaybe<Scalars['DateTime']['input']>;
   c_location_isactive?: InputMaybe<Scalars['Boolean']['input']>;
-  c_location_updated?: InputMaybe<Scalars['Date']['input']>;
+  c_location_updated?: InputMaybe<Scalars['DateTime']['input']>;
   c_region_description?: InputMaybe<Scalars['String']['input']>;
   c_region_isactive?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -84234,7 +84253,7 @@ export type Rv_WarehousePrice = {
   /** Unit of Measure */
   C_UOM: C_Uom;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -84272,7 +84291,7 @@ export type Rv_WarehousePrice = {
   /** Bar Code (Universal Product Code or its superset European Article Number) */
   UPC?: Maybe<Scalars['String']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -84339,7 +84358,7 @@ export type R_Category = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -84354,7 +84373,7 @@ export type R_Category = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -84390,7 +84409,7 @@ export type R_CategoryUpdates = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -84401,7 +84420,7 @@ export type R_CategoryUpdates = {
   R_Category: R_Category;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -84435,7 +84454,7 @@ export type R_ContactInterest = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -84448,7 +84467,7 @@ export type R_ContactInterest = {
   SubscribeDate?: Maybe<Scalars['Date']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -84482,7 +84501,7 @@ export type R_Group = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -84499,7 +84518,7 @@ export type R_Group = {
   PP_Product_BOM?: Maybe<Pp_Product_Bom>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -84537,7 +84556,7 @@ export type R_GroupUpdates = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -84548,7 +84567,7 @@ export type R_GroupUpdates = {
   R_Group: R_Group;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -84580,7 +84599,7 @@ export type R_InterestArea = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -84593,7 +84612,7 @@ export type R_InterestArea = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -84629,7 +84648,7 @@ export type R_IssueKnown = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -84659,7 +84678,7 @@ export type R_IssueKnown = {
   SourceMethodName?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -84712,7 +84731,7 @@ export type R_IssueProject = {
   /** Financial Project */
   C_Project?: Maybe<C_Project>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -84729,7 +84748,7 @@ export type R_IssueProject = {
   SystemStatus: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -84769,7 +84788,7 @@ export type R_IssueRecommendation = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -84782,7 +84801,7 @@ export type R_IssueRecommendation = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -84814,7 +84833,7 @@ export type R_IssueStatus = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -84825,7 +84844,7 @@ export type R_IssueStatus = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -84857,7 +84876,7 @@ export type R_IssueSystem = {
   /** Asset used internally or by customers */
   A_Asset?: Maybe<A_Asset>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** JDBC URL of the database server */
@@ -84872,7 +84891,7 @@ export type R_IssueSystem = {
   SystemStatus: Ad_Ref_List;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -84910,7 +84929,7 @@ export type R_IssueUser = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -84919,7 +84938,7 @@ export type R_IssueUser = {
   IsActive: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   UserName: Scalars['String']['output'];
@@ -84951,7 +84970,7 @@ export type R_MailText = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -84970,7 +84989,7 @@ export type R_MailText = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85032,31 +85051,31 @@ export type R_Request = {
   /** Financial Project */
   C_Project?: Maybe<C_Project>;
   /** Close Date */
-  CloseDate?: Maybe<Scalars['Date']['output']>;
+  CloseDate?: Maybe<Scalars['DateTime']['output']>;
   /** Type of Confidentiality */
   ConfidentialType: Ad_Ref_List;
   /** Confidentiality of the individual entry */
   ConfidentialTypeEntry: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Planned Completion Date */
-  DateCompletePlan?: Maybe<Scalars['Date']['output']>;
+  DateCompletePlan?: Maybe<Scalars['DateTime']['output']>;
   /** Date this request was last acted on */
-  DateLastAction?: Maybe<Scalars['Date']['output']>;
+  DateLastAction?: Maybe<Scalars['DateTime']['output']>;
   /** Date when last alert were sent */
-  DateLastAlert?: Maybe<Scalars['Date']['output']>;
+  DateLastAlert?: Maybe<Scalars['DateTime']['output']>;
   /** Date that this request should be acted on */
-  DateNextAction?: Maybe<Scalars['Date']['output']>;
+  DateNextAction?: Maybe<Scalars['DateTime']['output']>;
   /** Planned Start Date */
-  DateStartPlan?: Maybe<Scalars['Date']['output']>;
+  DateStartPlan?: Maybe<Scalars['DateTime']['output']>;
   /** Document sequence number of the document */
   DocumentNo: Scalars['String']['output'];
   /** Status of the next action for this Request */
   DueType: Ad_Ref_List;
   /** End of the time span */
-  EndTime?: Maybe<Scalars['Date']['output']>;
+  EndTime?: Maybe<Scalars['DateTime']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** This request has been escalated */
@@ -85116,16 +85135,16 @@ export type R_Request = {
   /** Sales Representative or Company Agent */
   SalesRep?: Maybe<Ad_User>;
   /** First effective day (inclusive) */
-  StartDate?: Maybe<Scalars['Date']['output']>;
+  StartDate?: Maybe<Scalars['DateTime']['output']>;
   /** Time started */
-  StartTime?: Maybe<Scalars['Date']['output']>;
+  StartTime?: Maybe<Scalars['DateTime']['output']>;
   /** Textual summary of this request */
   Summary: Scalars['String']['output'];
   /** Status of the Task */
   TaskStatus?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85157,17 +85176,17 @@ export type R_RequestAction = {
   /** Type of Confidentiality */
   ConfidentialType?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Planned Completion Date */
   DateCompletePlan?: Maybe<Scalars['Date']['output']>;
   /** Date that this request should be acted on */
-  DateNextAction?: Maybe<Scalars['Date']['output']>;
+  DateNextAction?: Maybe<Scalars['DateTime']['output']>;
   /** Planned Start Date */
   DateStartPlan?: Maybe<Scalars['Date']['output']>;
   /** Last effective date (inclusive) */
-  EndDate?: Maybe<Scalars['Date']['output']>;
+  EndDate?: Maybe<Scalars['DateTime']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** This request has been escalated */
@@ -85211,14 +85230,14 @@ export type R_RequestAction = {
   /** Sales Representative or Company Agent */
   SalesRep?: Maybe<Ad_User>;
   /** First effective day (inclusive) */
-  StartDate?: Maybe<Scalars['Date']['output']>;
+  StartDate?: Maybe<Scalars['DateTime']['output']>;
   /** Textual summary of this request */
   Summary?: Maybe<Scalars['String']['output']>;
   /** Status of the Task */
   TaskStatus?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85255,11 +85274,11 @@ export type R_RequestActionInput = {
   /** Planned Completion Date */
   DateCompletePlan?: InputMaybe<Scalars['Date']['input']>;
   /** Date that this request should be acted on */
-  DateNextAction?: InputMaybe<Scalars['Date']['input']>;
+  DateNextAction?: InputMaybe<Scalars['DateTime']['input']>;
   /** Planned Start Date */
   DateStartPlan?: InputMaybe<Scalars['Date']['input']>;
   /** Last effective date (inclusive) */
-  EndDate?: InputMaybe<Scalars['Date']['input']>;
+  EndDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** This request has been escalated */
@@ -85303,7 +85322,7 @@ export type R_RequestActionInput = {
   /** Sales Representative or Company Agent */
   SalesRep?: InputMaybe<ForeignEntityInput>;
   /** First effective day (inclusive) */
-  StartDate?: InputMaybe<Scalars['Date']['input']>;
+  StartDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Textual summary of this request */
   Summary?: InputMaybe<Scalars['String']['input']>;
   /** Status of the Task */
@@ -85345,27 +85364,27 @@ export type R_RequestInput = {
   /** Financial Project */
   C_Project?: InputMaybe<ForeignEntityInput>;
   /** Close Date */
-  CloseDate?: InputMaybe<Scalars['Date']['input']>;
+  CloseDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Type of Confidentiality */
   ConfidentialType?: InputMaybe<ForeignEntityInput>;
   /** Confidentiality of the individual entry */
   ConfidentialTypeEntry?: InputMaybe<ForeignEntityInput>;
   /** Planned Completion Date */
-  DateCompletePlan?: InputMaybe<Scalars['Date']['input']>;
+  DateCompletePlan?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date this request was last acted on */
-  DateLastAction?: InputMaybe<Scalars['Date']['input']>;
+  DateLastAction?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date when last alert were sent */
-  DateLastAlert?: InputMaybe<Scalars['Date']['input']>;
+  DateLastAlert?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date that this request should be acted on */
-  DateNextAction?: InputMaybe<Scalars['Date']['input']>;
+  DateNextAction?: InputMaybe<Scalars['DateTime']['input']>;
   /** Planned Start Date */
-  DateStartPlan?: InputMaybe<Scalars['Date']['input']>;
+  DateStartPlan?: InputMaybe<Scalars['DateTime']['input']>;
   /** Document sequence number of the document */
   DocumentNo?: InputMaybe<Scalars['String']['input']>;
   /** Status of the next action for this Request */
   DueType?: InputMaybe<ForeignEntityInput>;
   /** End of the time span */
-  EndTime?: InputMaybe<Scalars['Date']['input']>;
+  EndTime?: InputMaybe<Scalars['DateTime']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** This request has been escalated */
@@ -85425,9 +85444,9 @@ export type R_RequestInput = {
   /** Sales Representative or Company Agent */
   SalesRep?: InputMaybe<ForeignEntityInput>;
   /** First effective day (inclusive) */
-  StartDate?: InputMaybe<Scalars['Date']['input']>;
+  StartDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Time started */
-  StartTime?: InputMaybe<Scalars['Date']['input']>;
+  StartTime?: InputMaybe<Scalars['DateTime']['input']>;
   /** Textual summary of this request */
   Summary?: InputMaybe<Scalars['String']['input']>;
   /** Status of the Task */
@@ -85443,13 +85462,13 @@ export type R_RequestProcessor = {
   AD_Org: Ad_Org;
   AD_Schedule: Ad_Schedule;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date the process was last run. */
-  DateLastRun?: Maybe<Scalars['Date']['output']>;
+  DateLastRun?: Maybe<Scalars['DateTime']['output']>;
   /** Date the process will run next */
-  DateNextRun?: Maybe<Scalars['Date']['output']>;
+  DateNextRun?: Maybe<Scalars['DateTime']['output']>;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
   /** Send Alert when there is no activity after days (0= no alert) */
@@ -85475,7 +85494,7 @@ export type R_RequestProcessor = {
   Supervisor: Ad_User;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85491,9 +85510,9 @@ export type R_RequestProcessorInput = {
   AD_Org?: InputMaybe<ForeignEntityInput>;
   AD_Schedule?: InputMaybe<ForeignEntityInput>;
   /** Date the process was last run. */
-  DateLastRun?: InputMaybe<Scalars['Date']['input']>;
+  DateLastRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Date the process will run next */
-  DateNextRun?: InputMaybe<Scalars['Date']['input']>;
+  DateNextRun?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** Send Alert when there is no activity after days (0= no alert) */
@@ -85527,7 +85546,7 @@ export type R_RequestProcessorLog = {
   /** Binary Data */
   BinaryData?: Maybe<Scalars['Binary']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -85546,7 +85565,7 @@ export type R_RequestProcessorLog = {
   TextMsg?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85588,7 +85607,7 @@ export type R_RequestProcessor_Route = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -85603,7 +85622,7 @@ export type R_RequestProcessor_Route = {
   SeqNo: Scalars['Int']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85645,7 +85664,7 @@ export type R_RequestType = {
   /** Content color of calendar dashlet */
   ContentColor?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -85678,7 +85697,7 @@ export type R_RequestType = {
   R_StatusCategory: R_StatusCategory;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85738,7 +85757,7 @@ export type R_RequestTypeUpdates = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -85749,7 +85768,7 @@ export type R_RequestTypeUpdates = {
   R_RequestType: R_RequestType;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85783,11 +85802,11 @@ export type R_RequestUpdate = {
   /** Confidentiality of the individual entry */
   ConfidentialTypeEntry: Ad_Ref_List;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** End of the time span */
-  EndTime?: Maybe<Scalars['Date']['output']>;
+  EndTime?: Maybe<Scalars['DateTime']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Product/Resource/Service used in Request */
@@ -85801,10 +85820,10 @@ export type R_RequestUpdate = {
   /** Result of the action taken */
   Result?: Maybe<Scalars['String']['output']>;
   /** Time started */
-  StartTime?: Maybe<Scalars['Date']['output']>;
+  StartTime?: Maybe<Scalars['DateTime']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85821,7 +85840,7 @@ export type R_RequestUpdateInput = {
   /** Confidentiality of the individual entry */
   ConfidentialTypeEntry?: InputMaybe<ForeignEntityInput>;
   /** End of the time span */
-  EndTime?: InputMaybe<Scalars['Date']['input']>;
+  EndTime?: InputMaybe<Scalars['DateTime']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Product/Resource/Service used in Request */
@@ -85835,7 +85854,7 @@ export type R_RequestUpdateInput = {
   /** Result of the action taken */
   Result?: InputMaybe<Scalars['String']['input']>;
   /** Time started */
-  StartTime?: InputMaybe<Scalars['Date']['input']>;
+  StartTime?: InputMaybe<Scalars['DateTime']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -85848,7 +85867,7 @@ export type R_RequestUpdates = {
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -85859,7 +85878,7 @@ export type R_RequestUpdates = {
   R_Request: R_Request;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85891,7 +85910,7 @@ export type R_Resolution = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -85904,7 +85923,7 @@ export type R_Resolution = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85936,7 +85955,7 @@ export type R_StandardResponse = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -85947,7 +85966,7 @@ export type R_StandardResponse = {
   ResponseText: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -85977,7 +85996,7 @@ export type R_Status = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -86010,7 +86029,7 @@ export type R_Status = {
   /** Automatically change the status after entry from web */
   Update_Status?: Maybe<R_Status>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -86024,7 +86043,7 @@ export type R_StatusCategory = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -86040,7 +86059,7 @@ export type R_StatusCategory = {
   R_StatusList?: Maybe<Array<R_Status>>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -86128,7 +86147,7 @@ export type S_ExpenseType = {
   /** Unit of Measure */
   C_UOM: C_Uom;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -86143,7 +86162,7 @@ export type S_ExpenseType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -86188,7 +86207,7 @@ export type S_Resource = {
   AD_User?: Maybe<Ad_User>;
   ChargeableQty?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   DailyCapacity?: Maybe<Scalars['BigDecimal']['output']>;
@@ -86212,7 +86231,7 @@ export type S_Resource = {
   S_ResourceType: S_ResourceType;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -86228,11 +86247,11 @@ export type S_ResourceAssignment = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Assign resource from */
-  AssignDateFrom: Scalars['Date']['output'];
+  AssignDateFrom: Scalars['DateTime']['output'];
   /** Assign resource until */
-  AssignDateTo?: Maybe<Scalars['Date']['output']>;
+  AssignDateTo?: Maybe<Scalars['DateTime']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -86249,7 +86268,7 @@ export type S_ResourceAssignment = {
   S_Resource: S_Resource;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -86264,9 +86283,9 @@ export type S_ResourceAssignmentInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
   /** Assign resource from */
-  AssignDateFrom?: InputMaybe<Scalars['Date']['input']>;
+  AssignDateFrom?: InputMaybe<Scalars['DateTime']['input']>;
   /** Assign resource until */
-  AssignDateTo?: InputMaybe<Scalars['Date']['input']>;
+  AssignDateTo?: InputMaybe<Scalars['DateTime']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
@@ -86334,7 +86353,7 @@ export type S_ResourceType = {
   C_UOM: C_Uom;
   ChargeableQty?: Maybe<Scalars['Int']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -86366,12 +86385,12 @@ export type S_ResourceType = {
   /** Available on Wednesdays */
   OnWednesday: Scalars['Boolean']['output'];
   /** Time when timeslot ends */
-  TimeSlotEnd?: Maybe<Scalars['Date']['output']>;
+  TimeSlotEnd?: Maybe<Scalars['DateTime']['output']>;
   /** Time when timeslot starts */
-  TimeSlotStart?: Maybe<Scalars['Date']['output']>;
+  TimeSlotStart?: Maybe<Scalars['DateTime']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -86423,9 +86442,9 @@ export type S_ResourceTypeInput = {
   /** Available on Wednesdays */
   OnWednesday?: InputMaybe<Scalars['Boolean']['input']>;
   /** Time when timeslot ends */
-  TimeSlotEnd?: InputMaybe<Scalars['Date']['input']>;
+  TimeSlotEnd?: InputMaybe<Scalars['DateTime']['input']>;
   /** Time when timeslot starts */
-  TimeSlotStart?: InputMaybe<Scalars['Date']['input']>;
+  TimeSlotStart?: InputMaybe<Scalars['DateTime']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
@@ -86438,7 +86457,7 @@ export type S_ResourceUnAvailable = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Starting date for a range */
@@ -86453,7 +86472,7 @@ export type S_ResourceUnAvailable = {
   S_Resource: S_Resource;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -86491,7 +86510,7 @@ export type S_TimeExpense = {
   /** Identifies a Business Partner */
   C_BPartner: C_BPartner;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Expense/Time Report Date */
@@ -86518,7 +86537,7 @@ export type S_TimeExpense = {
   S_TimeExpenseLines?: Maybe<Array<S_TimeExpenseLine>>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -86589,7 +86608,7 @@ export type S_TimeExpenseLine = {
   /** Converted Amount */
   ConvertedAmt?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of expense */
@@ -86634,7 +86653,7 @@ export type S_TimeExpenseLine = {
   S_TimeType?: Maybe<S_TimeType>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -86720,7 +86739,7 @@ export type S_TimeType = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -86733,7 +86752,7 @@ export type S_TimeType = {
   Name: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -86769,7 +86788,7 @@ export type S_Training = {
   /** Unit of Measure */
   C_UOM: C_Uom;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -86791,7 +86810,7 @@ export type S_Training = {
   Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -86836,7 +86855,7 @@ export type S_Training_Class = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Last effective date (inclusive) */
@@ -86851,7 +86870,7 @@ export type S_Training_Class = {
   StartDate: Scalars['Date']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -86907,7 +86926,7 @@ export type T_1099Extract = {
   /** Location or Address */
   C_Location?: Maybe<C_Location>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   Cut_Date?: Maybe<Scalars['Date']['output']>;
@@ -86920,7 +86939,7 @@ export type T_1099Extract = {
   TaxID?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
   /** Search key for the record in the format required - must be unique */
@@ -86997,7 +87016,7 @@ export type T_Aging = {
   C_Project?: Maybe<C_Project>;
   ConvertAmountsInCurrency?: Maybe<C_Currency>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Accounting Date */
@@ -87041,7 +87060,7 @@ export type T_Aging = {
   StatementDate: Scalars['Date']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -87133,7 +87152,7 @@ export type T_BomLine = {
   /** Indicates how Costs will be calculated */
   CostingMethod?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The currently used cost price */
@@ -87166,7 +87185,7 @@ export type T_BomLine = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -87236,7 +87255,7 @@ export type T_Bom_Indented = {
   /** Cost information */
   CostFuture?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The currently used cost price */
@@ -87262,7 +87281,7 @@ export type T_Bom_Indented = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -87395,7 +87414,7 @@ export type T_CashFlow = {
   CashFlowSource?: Maybe<Ad_Ref_List>;
   CashFlowType?: Maybe<Ad_Ref_List>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** End date of a date range */
@@ -87417,7 +87436,7 @@ export type T_CashFlow = {
   Probability?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -87485,7 +87504,7 @@ export type T_DistributionRunDetail = {
   /** Identifies the (ship to) address for this Business Partner */
   C_BPartner_Location: C_BPartner_Location;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -87508,7 +87527,7 @@ export type T_DistributionRunDetail = {
   Ratio: Scalars['BigDecimal']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -87681,7 +87700,7 @@ export type T_InvoiceGl = {
   /** Invoice Identifier */
   C_Invoice: C_Invoice;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date of Revaluation */
@@ -87698,7 +87717,7 @@ export type T_InvoiceGl = {
   Percent?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -87758,7 +87777,7 @@ export type T_Mrp_Crp = {
   /** Instance of the process */
   AD_PInstance?: Maybe<Ad_PInstance>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -87769,7 +87788,7 @@ export type T_Mrp_Crp = {
   SeqNo?: Maybe<Scalars['Int']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -87803,7 +87822,7 @@ export type T_Reconciliation = {
   /** Instance of the process */
   AD_PInstance: Ad_PInstance;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   Fact_Acct: Fact_Acct;
@@ -87813,7 +87832,7 @@ export type T_Reconciliation = {
   MatchCode?: Maybe<Scalars['String']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -87876,7 +87895,7 @@ export type T_Replenish = {
   ReplenishmentCreate?: Maybe<Ad_Ref_List>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -88085,7 +88104,7 @@ export type T_Transaction = {
   /** Project Issues (Material, Labor) */
   C_ProjectIssue?: Maybe<C_ProjectIssue>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -88114,7 +88133,7 @@ export type T_Transaction = {
   M_ProductionLine?: Maybe<M_ProductionLine>;
   M_Transaction: M_Transaction;
   /** Date a product was moved in or out of inventory */
-  MovementDate: Scalars['Date']['output'];
+  MovementDate: Scalars['DateTime']['output'];
   /** Quantity of a product moved. */
   MovementQty: Scalars['BigDecimal']['output'];
   /** Method of moving the inventory */
@@ -88127,7 +88146,7 @@ export type T_Transaction = {
   Search_Order?: Maybe<C_Order>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -88173,7 +88192,7 @@ export type T_TransactionInput = {
   M_ProductionLine?: InputMaybe<ForeignEntityInput>;
   M_Transaction?: InputMaybe<ForeignEntityInput>;
   /** Date a product was moved in or out of inventory */
-  MovementDate?: InputMaybe<Scalars['Date']['input']>;
+  MovementDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** Quantity of a product moved. */
   MovementQty?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Method of moving the inventory */
@@ -88210,7 +88229,7 @@ export type Test = {
   CharacterData?: Maybe<Scalars['String']['output']>;
   Color?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -88230,17 +88249,17 @@ export type Test = {
   Processing: Scalars['Boolean']['output'];
   T_Amount?: Maybe<Scalars['BigDecimal']['output']>;
   T_Date?: Maybe<Scalars['Date']['output']>;
-  T_DateTime?: Maybe<Scalars['Date']['output']>;
+  T_DateTime?: Maybe<Scalars['DateTime']['output']>;
   T_Integer?: Maybe<Scalars['Int']['output']>;
   T_Number?: Maybe<Scalars['BigDecimal']['output']>;
   T_Qty?: Maybe<Scalars['BigDecimal']['output']>;
   /** Timestamp with time zone */
-  T_Timestamp?: Maybe<Scalars['Date']['output']>;
+  T_Timestamp?: Maybe<Scalars['DateTime']['output']>;
   /** Used only for testing purposes */
   TestVirtualQty?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -88287,12 +88306,12 @@ export type TestInput = {
   Processing?: InputMaybe<Scalars['Boolean']['input']>;
   T_Amount?: InputMaybe<Scalars['BigDecimal']['input']>;
   T_Date?: InputMaybe<Scalars['Date']['input']>;
-  T_DateTime?: InputMaybe<Scalars['Date']['input']>;
+  T_DateTime?: InputMaybe<Scalars['DateTime']['input']>;
   T_Integer?: InputMaybe<Scalars['Int']['input']>;
   T_Number?: InputMaybe<Scalars['BigDecimal']['input']>;
   T_Qty?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Timestamp with time zone */
-  T_Timestamp?: InputMaybe<Scalars['Date']['input']>;
+  T_Timestamp?: InputMaybe<Scalars['DateTime']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -88331,7 +88350,7 @@ export type U_PosTerminal = {
   /** Bank Account to be used for processing Check transactions */
   Check_BankAccount?: Maybe<C_BankAccount>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -88341,7 +88360,7 @@ export type U_PosTerminal = {
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Last time at which the terminal was locked */
-  LastLockTime?: Maybe<Scalars['Date']['output']>;
+  LastLockTime?: Maybe<Scalars['DateTime']['output']>;
   /** Time in minutes the terminal should be kept in a locked state. */
   LockTime?: Maybe<Scalars['Int']['output']>;
   /** Whether the terminal is locked */
@@ -88359,9 +88378,9 @@ export type U_PosTerminal = {
   SalesRep?: Maybe<Ad_User>;
   UU: Scalars['ID']['output'];
   /** Time at which the terminal should be unlocked */
-  UnlockingTime?: Maybe<Scalars['Date']['output']>;
+  UnlockingTime?: Maybe<Scalars['DateTime']['output']>;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy?: Maybe<Ad_User>;
   /** Search key for the record in the format required - must be unique */
@@ -88412,7 +88431,7 @@ export type U_PosTerminalInput = {
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Last time at which the terminal was locked */
-  LastLockTime?: InputMaybe<Scalars['Date']['input']>;
+  LastLockTime?: InputMaybe<Scalars['DateTime']['input']>;
   /** Time in minutes the terminal should be kept in a locked state. */
   LockTime?: InputMaybe<Scalars['Int']['input']>;
   /** Whether the terminal is locked */
@@ -88430,7 +88449,7 @@ export type U_PosTerminalInput = {
   SalesRep?: InputMaybe<ForeignEntityInput>;
   UU?: InputMaybe<Scalars['ID']['input']>;
   /** Time at which the terminal should be unlocked */
-  UnlockingTime?: InputMaybe<Scalars['Date']['input']>;
+  UnlockingTime?: InputMaybe<Scalars['DateTime']['input']>;
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
 };
@@ -88444,7 +88463,7 @@ export type U_RoleMenu = {
   /** Responsibility Role */
   AD_Role: Ad_Role;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -88452,7 +88471,7 @@ export type U_RoleMenu = {
   UU: Scalars['ID']['output'];
   U_WebMenu: U_WebMenu;
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -88482,7 +88501,7 @@ export type U_WebMenu = {
   AD_Org: Ad_Org;
   Category?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Optional short description of the record */
@@ -88502,7 +88521,7 @@ export type U_WebMenu = {
   Sequence?: Maybe<Scalars['BigDecimal']['output']>;
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -88542,7 +88561,7 @@ export type U_Web_Properties = {
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
   /** Date this record was created */
-  Created: Scalars['Date']['output'];
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** The record is active in the system */
@@ -88551,7 +88570,7 @@ export type U_Web_Properties = {
   U_Key: Scalars['String']['output'];
   U_Value: Scalars['String']['output'];
   /** Date this record was updated */
-  Updated: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
 };
@@ -88574,9 +88593,9 @@ export type U_Web_PropertiesInput = {
 
 export type Ad_RoleFieldsFragment = { __typename?: 'AD_Role', UU: string, IsMasterRole: boolean, Name: string, AD_Role_IncludedList?: Array<{ __typename?: 'AD_Role_Included', UU: string, Included_Role: { __typename?: 'AD_Role', UU: string } }> | null };
 
-export type Bh_VisitFieldsFragment = { __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null };
+export type Bh_VisitFieldsFragment = { __typename?: 'BH_Visit', BH_VisitDate?: number | null, Change_Reason?: string | null, Description?: string | null, DocumentNo: string, UU: string, Scheduled: boolean, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null };
 
-export type C_BPartnerFieldsFragment = { __typename?: 'C_BPartner', BH_Birthday?: number | null, bh_occupation?: string | null, Description?: string | null, UU: string, IsCustomer: boolean, IsVendor: boolean, LastVisitDate?: number | null, Name: string, NationalID?: string | null, NextOfKin_Contact?: string | null, NextOfKin_Name?: string | null, TotalOpenBalance?: number | null, TotalVisits: number, bh_gender?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, BH_Payer_Info_FldList?: Array<{ __typename?: 'BH_Payer_Info_Fld', UU: string, BH_PayerInfoFieldDataType: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null, C_BP_Group: { __typename?: 'C_BP_Group', Name: string, UU: string, AssociatedCustomerReceivablesCharge?: { __typename?: 'C_Charge', UU: string } | null }, C_BPartner_Locations?: Array<{ __typename?: 'C_BPartner_Location', UU: string, C_Location: { __typename?: 'C_Location', Address1?: string | null } }> | null, M_PriceList?: { __typename?: 'M_PriceList', UU: string } | null, PO_PriceList?: { __typename?: 'M_PriceList', UU: string } | null };
+export type C_BPartnerFieldsFragment = { __typename?: 'C_BPartner', BH_Birthday?: string | null, bh_occupation?: string | null, Description?: string | null, UU: string, IsCustomer: boolean, IsVendor: boolean, LastVisitDate?: number | null, Name: string, NationalID?: string | null, NextOfKin_Contact?: string | null, NextOfKin_Name?: string | null, TotalOpenBalance?: number | null, TotalVisits: number, bh_gender?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, BH_Payer_Info_FldList?: Array<{ __typename?: 'BH_Payer_Info_Fld', UU: string, BH_PayerInfoFieldDataType: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null, C_BP_Group: { __typename?: 'C_BP_Group', Name: string, UU: string, AssociatedCustomerReceivablesCharge?: { __typename?: 'C_Charge', UU: string } | null }, C_BPartner_Locations?: Array<{ __typename?: 'C_BPartner_Location', UU: string, C_Location: { __typename?: 'C_Location', Address1?: string | null } }> | null, M_PriceList?: { __typename?: 'M_PriceList', UU: string } | null, PO_PriceList?: { __typename?: 'M_PriceList', UU: string } | null };
 
 export type C_LocationFieldsFragment = { __typename?: 'C_Location', UU: string, C_Country: { __typename?: 'C_Country', UU: string }, C_Region?: { __typename?: 'C_Region', UU: string, Name: string } | null };
 
@@ -89367,7 +89386,17 @@ export type Bh_VisitQueryVariables = Exact<{
 }>;
 
 
-export type Bh_VisitQuery = { __typename?: 'Query', BH_Visit?: { __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, BH_Coming_From?: { __typename?: 'AD_Ref_List', Name: string } | null, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null } | null };
+export type Bh_VisitQuery = { __typename?: 'Query', BH_Visit?: { __typename?: 'BH_Visit', BH_VisitDate?: number | null, Change_Reason?: string | null, Description?: string | null, DocumentNo: string, UU: string, Scheduled: boolean, BH_Coming_From?: { __typename?: 'AD_Ref_List', Name: string } | null, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null } | null };
+
+export type Bh_VisitCountQueryVariables = Exact<{
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+  Filter?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type Bh_VisitCountQuery = { __typename?: 'Query', BH_VisitGet: { __typename?: 'BH_VisitConnection', PagingInfo: { __typename?: 'PagingInfo', TotalCount: number } } };
 
 export type Bh_VisitGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -89377,7 +89406,7 @@ export type Bh_VisitGetQueryVariables = Exact<{
 }>;
 
 
-export type Bh_VisitGetQuery = { __typename?: 'Query', BH_VisitGet: { __typename?: 'BH_VisitConnection', Results: Array<{ __typename?: 'BH_Visit', BH_VisitDate?: number | null, Description?: string | null, DocumentNo: string, UU: string, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null }> } };
+export type Bh_VisitGetQuery = { __typename?: 'Query', BH_VisitGet: { __typename?: 'BH_VisitConnection', Results: Array<{ __typename?: 'BH_Visit', BH_VisitDate?: number | null, Change_Reason?: string | null, Description?: string | null, DocumentNo: string, UU: string, Scheduled: boolean, Patient: { __typename?: 'C_BPartner', UU: string, Name: string }, BH_Encounters?: Array<{ __typename?: 'BH_Encounter', UU: string, BH_Encounter_Date: number, BH_Encounter_DiagnosisList?: Array<{ __typename?: 'BH_Encounter_Diagnosis', UU: string, BH_Uncoded_Diagnosis?: string | null, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null }> | null, BH_Observations?: Array<{ __typename?: 'BH_Observation', UU: string, BH_Value: string }> | null }> | null, C_Orders?: Array<{ __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_OrderLines?: Array<{ __typename?: 'C_OrderLine', UU: string }> | null }> | null, C_Invoices?: Array<{ __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string }, C_BPartner: { __typename?: 'C_BPartner', UU: string }, C_InvoiceLines?: Array<{ __typename?: 'C_InvoiceLine', UU: string, PriceActual: number, C_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> | null }> | null, C_Payments?: Array<{ __typename?: 'C_Payment', UU: string, BH_tender_amount?: number | null, PayAmt: number, DocStatus: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null }> } };
 
 export type Bh_Voided_ReasonGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -89424,7 +89453,7 @@ export type C_BPartnerQueryVariables = Exact<{
 }>;
 
 
-export type C_BPartnerQuery = { __typename?: 'Query', C_BPartner?: { __typename?: 'C_BPartner', BH_Birthday?: number | null, bh_occupation?: string | null, Description?: string | null, UU: string, IsCustomer: boolean, IsVendor: boolean, LastVisitDate?: number | null, Name: string, NationalID?: string | null, NextOfKin_Contact?: string | null, NextOfKin_Name?: string | null, TotalOpenBalance?: number | null, TotalVisits: number, bh_gender?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, BH_Payer_Info_FldList?: Array<{ __typename?: 'BH_Payer_Info_Fld', UU: string, BH_PayerInfoFieldDataType: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null, C_BP_Group: { __typename?: 'C_BP_Group', Name: string, UU: string, AssociatedCustomerReceivablesCharge?: { __typename?: 'C_Charge', UU: string } | null }, C_BPartner_Locations?: Array<{ __typename?: 'C_BPartner_Location', UU: string, C_Location: { __typename?: 'C_Location', Address1?: string | null } }> | null, M_PriceList?: { __typename?: 'M_PriceList', UU: string } | null, PO_PriceList?: { __typename?: 'M_PriceList', UU: string } | null } | null };
+export type C_BPartnerQuery = { __typename?: 'Query', C_BPartner?: { __typename?: 'C_BPartner', BH_Birthday?: string | null, bh_occupation?: string | null, Description?: string | null, UU: string, IsCustomer: boolean, IsVendor: boolean, LastVisitDate?: number | null, Name: string, NationalID?: string | null, NextOfKin_Contact?: string | null, NextOfKin_Name?: string | null, TotalOpenBalance?: number | null, TotalVisits: number, bh_gender?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, BH_Payer_Info_FldList?: Array<{ __typename?: 'BH_Payer_Info_Fld', UU: string, BH_PayerInfoFieldDataType: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null, C_BP_Group: { __typename?: 'C_BP_Group', Name: string, UU: string, AssociatedCustomerReceivablesCharge?: { __typename?: 'C_Charge', UU: string } | null }, C_BPartner_Locations?: Array<{ __typename?: 'C_BPartner_Location', UU: string, C_Location: { __typename?: 'C_Location', Address1?: string | null } }> | null, M_PriceList?: { __typename?: 'M_PriceList', UU: string } | null, PO_PriceList?: { __typename?: 'M_PriceList', UU: string } | null } | null };
 
 export type C_BPartnerGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -89434,7 +89463,7 @@ export type C_BPartnerGetQueryVariables = Exact<{
 }>;
 
 
-export type C_BPartnerGetQuery = { __typename?: 'Query', C_BPartnerGet: { __typename?: 'C_BPartnerConnection', Results: Array<{ __typename?: 'C_BPartner', BH_Birthday?: number | null, bh_occupation?: string | null, Description?: string | null, UU: string, IsCustomer: boolean, IsVendor: boolean, LastVisitDate?: number | null, Name: string, NationalID?: string | null, NextOfKin_Contact?: string | null, NextOfKin_Name?: string | null, TotalOpenBalance?: number | null, TotalVisits: number, bh_gender?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, BH_Payer_Info_FldList?: Array<{ __typename?: 'BH_Payer_Info_Fld', UU: string, BH_PayerInfoFieldDataType: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null, C_BP_Group: { __typename?: 'C_BP_Group', Name: string, UU: string, AssociatedCustomerReceivablesCharge?: { __typename?: 'C_Charge', UU: string } | null }, C_BPartner_Locations?: Array<{ __typename?: 'C_BPartner_Location', UU: string, C_Location: { __typename?: 'C_Location', Address1?: string | null } }> | null, M_PriceList?: { __typename?: 'M_PriceList', UU: string } | null, PO_PriceList?: { __typename?: 'M_PriceList', UU: string } | null }> } };
+export type C_BPartnerGetQuery = { __typename?: 'Query', C_BPartnerGet: { __typename?: 'C_BPartnerConnection', Results: Array<{ __typename?: 'C_BPartner', BH_Birthday?: string | null, bh_occupation?: string | null, Description?: string | null, UU: string, IsCustomer: boolean, IsVendor: boolean, LastVisitDate?: number | null, Name: string, NationalID?: string | null, NextOfKin_Contact?: string | null, NextOfKin_Name?: string | null, TotalOpenBalance?: number | null, TotalVisits: number, bh_gender?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, BH_Payer_Info_FldList?: Array<{ __typename?: 'BH_Payer_Info_Fld', UU: string, BH_PayerInfoFieldDataType: { __typename?: 'AD_Ref_List', UU: string, Value: string } }> | null, C_BP_Group: { __typename?: 'C_BP_Group', Name: string, UU: string, AssociatedCustomerReceivablesCharge?: { __typename?: 'C_Charge', UU: string } | null }, C_BPartner_Locations?: Array<{ __typename?: 'C_BPartner_Location', UU: string, C_Location: { __typename?: 'C_Location', Address1?: string | null } }> | null, M_PriceList?: { __typename?: 'M_PriceList', UU: string } | null, PO_PriceList?: { __typename?: 'M_PriceList', UU: string } | null }> } };
 
 export type C_Charge_AcctGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -89533,6 +89562,13 @@ export type C_OrderForSalesRepQueryVariables = Exact<{
 
 export type C_OrderForSalesRepQuery = { __typename?: 'Query', C_Order?: { __typename?: 'C_Order', UU: string, SalesRep: { __typename?: 'AD_User', UU: string } } | null };
 
+export type C_PaymentQueryVariables = Exact<{
+  UU: Scalars['String']['input'];
+}>;
+
+
+export type C_PaymentQuery = { __typename?: 'Query', C_Payment?: { __typename?: 'C_Payment', DateTrx: string, Scheduled: boolean, BH_tender_amount?: number | null, PayAmt: number, UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string }, TenderType: { __typename?: 'AD_Ref_List', UU: string, Name: string, Value: string } } | null };
+
 export type C_PaymentGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
@@ -89581,7 +89617,7 @@ export type M_AttributeSetInstanceGetQueryVariables = Exact<{
 }>;
 
 
-export type M_AttributeSetInstanceGetQuery = { __typename?: 'Query', M_AttributeSetInstanceGet: { __typename?: 'M_AttributeSetInstanceConnection', Results: Array<{ __typename?: 'M_AttributeSetInstance', UU: string, GuaranteeDate?: number | null }> } };
+export type M_AttributeSetInstanceGetQuery = { __typename?: 'Query', M_AttributeSetInstanceGet: { __typename?: 'M_AttributeSetInstanceConnection', Results: Array<{ __typename?: 'M_AttributeSetInstance', UU: string, GuaranteeDate?: string | null }> } };
 
 export type M_AttributeSetGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -89664,7 +89700,7 @@ export type M_WarehouseGetQueryVariables = Exact<{
 export type M_WarehouseGetQuery = { __typename?: 'Query', M_WarehouseGet: { __typename?: 'M_WarehouseConnection', Results: Array<{ __typename?: 'M_Warehouse', UU: string, Name: string, BH_DefaultWarehouse: boolean, IsActive: boolean, M_Locators?: Array<{ __typename?: 'M_Locator', UU: string }> | null }> } };
 
 export const Ad_RoleFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AD_RoleFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AD_Role"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsMasterRole"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Role_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Included_Role"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]} as unknown as DocumentNode<Ad_RoleFieldsFragment, unknown>;
-export const Bh_VisitFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}}]}}]} as unknown as DocumentNode<Bh_VisitFieldsFragment, unknown>;
+export const Bh_VisitFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Change_Reason"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Scheduled"}}]}}]} as unknown as DocumentNode<Bh_VisitFieldsFragment, unknown>;
 export const C_BPartnerFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_BPartnerFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_BPartner"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Birthday"}},{"kind":"Field","name":{"kind":"Name","value":"bh_gender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bh_occupation"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Payer_Info_FldList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_PayerInfoFieldDataType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BP_Group"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AssociatedCustomerReceivablesCharge"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner_Locations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"C_Location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Address1"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsCustomer"}},{"kind":"Field","name":{"kind":"Name","value":"IsVendor"}},{"kind":"Field","name":{"kind":"Name","value":"LastVisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"M_PriceList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"NationalID"}},{"kind":"Field","name":{"kind":"Name","value":"NextOfKin_Contact"}},{"kind":"Field","name":{"kind":"Name","value":"NextOfKin_Name"}},{"kind":"Field","name":{"kind":"Name","value":"PO_PriceList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"TotalOpenBalance"}},{"kind":"Field","name":{"kind":"Name","value":"TotalVisits"}}]}}]} as unknown as DocumentNode<C_BPartnerFieldsFragment, unknown>;
 export const C_LocationFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_LocationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Location"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Region"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_LocationFieldsFragment, unknown>;
 export const C_InvoiceFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_InvoiceFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Invoice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Currency"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"GrandTotal"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_InvoiceFieldsFragment, unknown>;
@@ -89762,8 +89798,9 @@ export const Bh_ConceptGetDocument = {"kind":"Document","definitions":[{"kind":"
 export const Bh_Encounter_Type_WindowGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Encounter_Type_WindowGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Type_WindowGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Window"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Tabs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_Fields"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Bh_Encounter_Type_WindowGetQuery, Bh_Encounter_Type_WindowGetQueryVariables>;
 export const Bh_EncounterGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_EncounterGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_EncounterGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}}]}}]}}]}}]} as unknown as DocumentNode<Bh_EncounterGetQuery, Bh_EncounterGetQueryVariables>;
 export const Bh_Payer_Info_Fld_SugGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Payer_Info_Fld_SugGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Payer_Info_Fld_SugGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_SubType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_PayerInfoFieldDataType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Bh_Payer_Info_Fld_SugGetQuery, Bh_Payer_Info_Fld_SugGetQueryVariables>;
-export const Bh_VisitDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Visit"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Visit"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Coming_From"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"BH_VisitFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}}]}}]} as unknown as DocumentNode<Bh_VisitQuery, Bh_VisitQueryVariables>;
-export const Bh_VisitGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_VisitGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BH_VisitFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}}]}}]} as unknown as DocumentNode<Bh_VisitGetQuery, Bh_VisitGetQueryVariables>;
+export const Bh_VisitDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Visit"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Visit"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Coming_From"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"BH_VisitFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Change_Reason"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Scheduled"}}]}}]} as unknown as DocumentNode<Bh_VisitQuery, Bh_VisitQueryVariables>;
+export const Bh_VisitCountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_VisitCount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"PagingInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"TotalCount"}}]}}]}}]}}]} as unknown as DocumentNode<Bh_VisitCountQuery, Bh_VisitCountQueryVariables>;
+export const Bh_VisitGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_VisitGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BH_VisitFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Change_Reason"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Scheduled"}}]}}]} as unknown as DocumentNode<Bh_VisitGetQuery, Bh_VisitGetQueryVariables>;
 export const Bh_Voided_ReasonGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BH_Voided_ReasonGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Voided_ReasonGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]}}]}}]} as unknown as DocumentNode<Bh_Voided_ReasonGetQuery, Bh_Voided_ReasonGetQueryVariables>;
 export const C_AcctSchemaGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_AcctSchemaGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_AcctSchemaGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"C_Currency"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}}]} as unknown as DocumentNode<C_AcctSchemaGetQuery, C_AcctSchemaGetQueryVariables>;
 export const C_BankAccountGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_BankAccountGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_BankAccountGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]}}]}}]} as unknown as DocumentNode<C_BankAccountGetQuery, C_BankAccountGetQueryVariables>;
@@ -89780,6 +89817,7 @@ export const C_InvoiceGetDocument = {"kind":"Document","definitions":[{"kind":"O
 export const C_LocationGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_LocationGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_LocationGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_LocationFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_LocationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Location"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Region"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_LocationGetQuery, C_LocationGetQueryVariables>;
 export const C_OrderGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_OrderGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_OrderGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_OrderFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_OrderFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Order"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Currency"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"GrandTotal"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_OrderGetQuery, C_OrderGetQueryVariables>;
 export const C_OrderForSalesRepDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_OrderForSalesRep"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Order"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"SalesRep"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<C_OrderForSalesRepQuery, C_OrderForSalesRepQueryVariables>;
+export const C_PaymentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_Payment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Payment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_PaymentFields"}},{"kind":"Field","name":{"kind":"Name","value":"DateTrx"}},{"kind":"Field","name":{"kind":"Name","value":"Scheduled"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_PaymentFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Payment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}},{"kind":"Field","name":{"kind":"Name","value":"TenderType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_PaymentQuery, C_PaymentQueryVariables>;
 export const C_PaymentGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_PaymentGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_PaymentGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_PaymentFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_PaymentFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Payment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}},{"kind":"Field","name":{"kind":"Name","value":"TenderType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_PaymentGetQuery, C_PaymentGetQueryVariables>;
 export const C_TaxCategoryGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_TaxCategoryGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_TaxCategoryGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<C_TaxCategoryGetQuery, C_TaxCategoryGetQueryVariables>;
 export const C_UomGetDefaultDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_UOMGetDefault"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_UOMGetDefault"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]} as unknown as DocumentNode<C_UomGetDefaultQuery, C_UomGetDefaultQueryVariables>;

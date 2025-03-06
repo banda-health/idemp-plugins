@@ -34,7 +34,7 @@ type C_BP_Group_Acct {
 	# Customer Accounts Receivables Services Account
 	C_Receivable_Services_A: C_ValidCombination!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -49,7 +49,7 @@ type C_BP_Group_Acct {
 	# Account for unearned revenue
 	UnEarnedRevenue_A: C_ValidCombination
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Account for Vendor Liability

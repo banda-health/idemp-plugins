@@ -26,7 +26,7 @@ type C_InterOrg_Acct {
 	C_AcctSchema: C_AcctSchema!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Intercompany Due From / Receivables Account
@@ -36,7 +36,7 @@ type C_InterOrg_Acct {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

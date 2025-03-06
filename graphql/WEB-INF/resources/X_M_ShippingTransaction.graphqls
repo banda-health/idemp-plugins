@@ -47,7 +47,7 @@ type M_ShippingTransaction {
 	CashOnDelivery: Boolean!
 	CODAmount: BigDecimal
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	CustomsValue: BigDecimal
@@ -91,7 +91,7 @@ type M_ShippingTransaction {
 	IsSaturdayDelivery: Boolean!
 	IsSaturdayPickup: Boolean!
 	IsVerbalConfirmation: Boolean!
-	LatestPickupTime: Date
+	LatestPickupTime: DateTime
 	Length: BigDecimal
 	# Material Shipment Document
 	M_InOut: M_InOut
@@ -135,7 +135,7 @@ type M_ShippingTransaction {
 	# Number to track the shipment
 	TrackingNo: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Weight of a product
@@ -211,7 +211,7 @@ input M_ShippingTransactionInput {
 	IsSaturdayDelivery: Boolean
 	IsSaturdayPickup: Boolean
 	IsVerbalConfirmation: Boolean
-	LatestPickupTime: Date
+	LatestPickupTime: DateTime
 	Length: BigDecimal
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput

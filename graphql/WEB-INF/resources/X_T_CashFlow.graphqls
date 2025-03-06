@@ -46,7 +46,7 @@ type T_CashFlow {
 	CashFlowSource: AD_Ref_List
 	CashFlowType: AD_Ref_List
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# End date of a date range
@@ -68,7 +68,7 @@ type T_CashFlow {
 	Probability: BigDecimal
 	UU: ID!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

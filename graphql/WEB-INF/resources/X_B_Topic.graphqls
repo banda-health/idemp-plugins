@@ -28,7 +28,7 @@ type B_Topic {
 	# Auction Topic Type
 	B_TopicType: B_TopicType!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	DecisionDate: Date!
@@ -51,7 +51,7 @@ type B_Topic {
 	TopicAction: String!
 	TopicStatus: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

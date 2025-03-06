@@ -24,13 +24,13 @@ type R_RequestProcessor {
 	AD_Org: AD_Org!
 	AD_Schedule: AD_Schedule!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Date the process will run next
-	DateNextRun: Date
+	DateNextRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# Send Alert when there is no activity after days (0= no alert)
@@ -54,7 +54,7 @@ type R_RequestProcessor {
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: AD_User!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -64,9 +64,9 @@ input R_RequestProcessorInput {
 	AD_Org: ForeignEntityInput
 	AD_Schedule: ForeignEntityInput
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Date the process will run next
-	DateNextRun: Date
+	DateNextRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# Send Alert when there is no activity after days (0= no alert)

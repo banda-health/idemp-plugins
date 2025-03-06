@@ -28,7 +28,7 @@ type C_RfQResponseLineQty {
 	C_RfQResponseLine: C_RfQResponseLine!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Discount in percent
@@ -40,7 +40,7 @@ type C_RfQResponseLineQty {
 	# Relative Rank Number
 	Ranking: Int
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

@@ -27,7 +27,7 @@ type M_DiscountSchemaBreak {
 	# Low Value of trade discount break level
 	BreakValue: BigDecimal!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Fixed Price for Product
@@ -46,7 +46,7 @@ type M_DiscountSchemaBreak {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

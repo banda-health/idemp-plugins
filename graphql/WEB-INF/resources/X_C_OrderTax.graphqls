@@ -29,7 +29,7 @@ type C_OrderTax {
 	C_Tax: C_Tax!
 	C_TaxProvider: C_TaxProvider
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -43,7 +43,7 @@ type C_OrderTax {
 	# Base for calculating the tax amount
 	TaxBaseAmt: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

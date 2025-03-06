@@ -31,13 +31,13 @@ type C_ContactActivity {
 	# Type of activity, e.g. task, email, phone call
 	ContactActivityType: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String!
 	# Last effective date (inclusive)
-	EndDate: Date
+	EndDate: DateTime
 	# The record is active in the system
 	IsActive: Boolean!
 	# It is complete
@@ -45,9 +45,9 @@ type C_ContactActivity {
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
 	# First effective day (inclusive)
-	StartDate: Date!
+	StartDate: DateTime!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -66,7 +66,7 @@ input C_ContactActivityInput {
 	# Optional short description of the record
 	Description: String
 	# Last effective date (inclusive)
-	EndDate: Date
+	EndDate: DateTime
 	# The record is active in the system
 	IsActive: Boolean
 	# It is complete
@@ -74,5 +74,5 @@ input C_ContactActivityInput {
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 	# First effective day (inclusive)
-	StartDate: Date
+	StartDate: DateTime
 }

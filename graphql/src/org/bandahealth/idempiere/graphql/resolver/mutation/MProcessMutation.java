@@ -17,6 +17,8 @@ import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
 import org.compiere.model.MProcessPara;
 import org.compiere.model.MReference;
+import org.compiere.model.MTable;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
@@ -34,9 +36,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MProcessMutation extends X_AD_ProcessMutation {
-	public String AD_ProcessRun(String UUID, List<ProcessInfoParameterInput> ProcessInfoParameterList,
-			DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(UUID)) {
+	public String AD_ProcessRun(String UU, String TableUU, String RecordUU,
+			List<ProcessInfoParameterInput> ProcessInfoParameterList, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(UU)) {
 			log.severe("Process not specified");
 			return null;
 		}
@@ -44,12 +46,27 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 			ProcessInfoParameterList = new ArrayList<>();
 		}
 		MProcess process =
-				Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MProcess_BH.Table_Name, null, UUID);
-		return run(process, ProcessInfoParameterList);
+				Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MProcess_BH.Table_Name, null, UU);
+		int tableID = -1;
+		int recordID = 0;
+		if (!StringUtil.isNullOrEmpty(TableUU) && !StringUtil.isNullOrEmpty(RecordUU)) {
+			MTable table =
+					Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MTable.Table_Name, null, TableUU);
+			if (table != null) {
+				tableID = table.get_ID();
+				PO record =
+						Repository.getByUuid(BandaGraphQLContext.getCtx(environment), table.getTableName(), null, RecordUU);
+				recordID = record.get_ID();
+			}
+		} else {
+			RecordUU = null;
+		}
+		return run(process, tableID, recordID, RecordUU, ProcessInfoParameterList);
 	}
 
-	public File AD_ProcessRunAndExport(String UUID, List<ProcessInfoParameterInput> ProcessInfoParameterList,
-			ReportOutput reportType, DataFetchingEnvironment environment) throws IOException {
+	public File AD_ProcessRunAndExport(String UUID, String TableUU, String RecordUU,
+			List<ProcessInfoParameterInput> ProcessInfoParameterList, ReportOutput reportType,
+			DataFetchingEnvironment environment) throws IOException {
 		if (StringUtil.isNullOrEmpty(UUID)) {
 			throw new AdempiereException("Could not find report");
 		}
@@ -66,9 +83,26 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 			reportType = ReportOutput.PDF;
 		}
 
+		int tableID = -1;
+		int recordID = 0;
+		if (!StringUtil.isNullOrEmpty(TableUU) && !StringUtil.isNullOrEmpty(RecordUU)) {
+			MTable table =
+					Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MTable.Table_Name, null, TableUU);
+			if (table != null) {
+				tableID = table.get_ID();
+				PO record =
+						Repository.getByUuid(BandaGraphQLContext.getCtx(environment), table.getTableName(), null, RecordUU);
+				recordID = record.get_ID();
+			}
+		} else {
+			RecordUU = null;
+		}
+
 		// Initialize report info
-		MPInstance mpInstance = new MPInstance(process, -1, 0, null);
-		ProcessInfo processInfo = new ProcessInfo(process.getName(), process.getAD_Process_ID());
+		MPInstance mpInstance = new MPInstance(process, tableID, recordID, RecordUU);
+		ProcessInfo processInfo =
+				new ProcessInfo(process.getName(), process.getAD_Process_ID(), mpInstance.getAD_Table_ID(),
+						mpInstance.getRecord_ID(), mpInstance.getRecord_UU());
 		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
 		processInfo.setAD_Process_UU(process.getAD_Process_UU());
 		processInfo.setIsBatch(true);
@@ -99,10 +133,13 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 	 * @param processInformationParameterInputList The parameters to pass to the process
 	 * @return A string with a response or null if an error occurred
 	 */
-	private String run(MProcess process, List<ProcessInfoParameterInput> processInformationParameterInputList) {
+	private String run(MProcess process, int TableID, int RecordID, String RecordUU,
+			List<ProcessInfoParameterInput> processInformationParameterInputList) {
 		// Initialize process info
-		MPInstance mpInstance = new MPInstance(process, -1, 0, null);
-		ProcessInfo processInfo = new ProcessInfo(process.getName(), process.getAD_Process_ID());
+		MPInstance mpInstance = new MPInstance(process, TableID, RecordID, RecordUU);
+		ProcessInfo processInfo =
+				new ProcessInfo(process.getName(), process.getAD_Process_ID(), mpInstance.getAD_Table_ID(),
+						mpInstance.getRecord_ID(), mpInstance.getRecord_UU());
 		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
 		processInfo.setAD_Process_UU(process.getAD_Process_UU());
 		processInfo.setIsBatch(true);
@@ -170,7 +207,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 				} else if (processInfoParameterInput.getParameter() instanceof BigDecimal) {
 					parameter = new Timestamp(((BigDecimal) processInfoParameterInput.getParameter()).longValue());
 				} else {
-					parameter = DateUtil.getTimestampReportParameter(processInfoParameterInput.getParameter().toString());
+					parameter = DateUtil.getAPITimestamp(processInfoParameterInput.getParameter().toString());
 				}
 			}
 

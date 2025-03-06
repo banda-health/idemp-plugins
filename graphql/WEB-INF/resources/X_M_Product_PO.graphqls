@@ -31,7 +31,7 @@ type M_Product_PO {
 	# Fixed Cost Per Order
 	CostPerOrder: BigDecimal
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Actual days between order and delivery
@@ -43,7 +43,7 @@ type M_Product_PO {
 	# Discontinued At indicates Date when product was discontinued
 	DiscontinuedAt: Date
 	# Discontinued By
-	DiscontinuedBy: Date
+	DiscontinuedBy: DateTime
 	# The record is active in the system
 	IsActive: Boolean!
 	# Use this Vendor for pricing and stock replenishment
@@ -74,7 +74,7 @@ type M_Product_PO {
 	# Bar Code (Universal Product Code or its superset European Article Number)
 	UPC: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Product Category of the Business Partner
@@ -103,7 +103,7 @@ input M_Product_POInput {
 	# Discontinued At indicates Date when product was discontinued
 	DiscontinuedAt: Date
 	# Discontinued By
-	DiscontinuedBy: Date
+	DiscontinuedBy: DateTime
 	# The record is active in the system
 	IsActive: Boolean
 	# Use this Vendor for pricing and stock replenishment

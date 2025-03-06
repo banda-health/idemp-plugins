@@ -33,13 +33,13 @@ type C_Recurring {
 	UU: ID!
 	C_RecurringGroup: C_RecurringGroup
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Date the process will run next
-	DateNextRun: Date!
+	DateNextRun: DateTime!
 	# Optional short description of the record
 	Description: String
 	# Frequency of events
@@ -62,7 +62,7 @@ type C_Recurring {
 	# Number of recurring runs remaining
 	RunsRemaining: Int!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -81,9 +81,9 @@ input C_RecurringInput {
 	UU: ID
 	C_RecurringGroup: ForeignEntityInput
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Date the process will run next
-	DateNextRun: Date
+	DateNextRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# Frequency of events

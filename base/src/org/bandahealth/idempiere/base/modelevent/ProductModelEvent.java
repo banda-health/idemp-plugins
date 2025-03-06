@@ -29,14 +29,6 @@ public class ProductModelEvent extends AbstractEventHandler {
 		} else {
 			return;
 		}
-		if (product.getClass().toString().contains("graphql.model")) {
-			return;
-		}
-
-		if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)
-				|| event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
-			afterSaveRequest(product);
-		}
 	}
 
 	@Override

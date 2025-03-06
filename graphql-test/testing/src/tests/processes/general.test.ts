@@ -1,12 +1,13 @@
+import { Ad_MenuGetDocument, Ad_ProcessGetDocument } from '../../__generated__/graphql';
 import { query } from '../../api';
 import { RoleName } from '../../types/roleName';
-import { Ad_MenuGetDocument, Ad_ProcessGetDocument } from '../../__generated__/graphql';
 
 const reportsMenuRootUuid = '35ce7d6a-cf7d-4962-a748-75e27d0121bf';
 
 const processUuid = {
 	cashierPatientTransactions: 'b09d9a23-ad0f-4eff-a7c6-4c1e2309c3d1',
 	cashierTransactionDifferences: '226cdf47-9cde-43e8-b7ef-87b28d7ef2e2',
+	createPriceList: '6008a4c3-6329-4aeb-bfbb-3316a42690c9',
 	diagnosisReport: '7c29028a-8dd3-4025-a5af-87701748d81f',
 	donorFundReport: '3478d341-c6d9-4f52-a865-5bf0ba8a7607',
 	incomeAndExpense: 'f777f042-3907-4293-94c4-49fe6eb58780',
@@ -85,89 +86,89 @@ test('certain reports are not returned as part of the menus', async () => {
 
 test(`admin role has correct access`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
-	const reportMenuLists = (
+	const reportMenuList = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_MenuGetDocument,
 			variables: { Size: 1, Filter: JSON.stringify({ ad_menu_uu: reportsMenuRootUuid }) },
 		})
 	).data.AD_MenuGet.Results[0].ChildrenTree_NodeMMList!.map((mainMenuTreeNode) => mainMenuTreeNode.Node!);
-	expect(reportMenuLists).toBeTruthy();
+	expect(reportMenuList).toBeTruthy();
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.patientTransactions),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.patientTransactions),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.patientTransactions)).not.toBeUndefined();
 
 	expect(processes.find((process) => process.UU === processUuid.visitReceipt)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.inventorySoldReport),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.inventorySoldReport),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.inventorySoldReport)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.servicesChargedReport),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.servicesChargedReport),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.servicesChargedReport)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.productsAndPrices),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.productsAndPrices),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.productsAndPrices)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.incomeAndExpense),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.incomeAndExpense),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.incomeAndExpense)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.moh705AOutpatientUnder5YearsSummary),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.moh705AOutpatientUnder5YearsSummary),
 	).not.toBeUndefined();
 	expect(
 		processes.find((process) => process.UU === processUuid.moh705AOutpatientUnder5YearsSummary),
 	).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.moh705BOutpatientOver5YearsSummary),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.moh705BOutpatientOver5YearsSummary),
 	).not.toBeUndefined();
 	expect(
 		processes.find((process) => process.UU === processUuid.moh705BOutpatientOver5YearsSummary),
 	).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.moh717NewAndRevisitPatientCount),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.moh717NewAndRevisitPatientCount),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.moh717NewAndRevisitPatientCount)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.valueOfOpeningAndClosingStock),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.valueOfOpeningAndClosingStock),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.valueOfOpeningAndClosingStock)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.stockToBeOrdered),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.stockToBeOrdered),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.stockToBeOrdered)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.stockDiscrepancyReport),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.stockDiscrepancyReport),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.stockDiscrepancyReport)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.donorFundReport),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.donorFundReport),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.donorFundReport)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.diagnosisReport),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.diagnosisReport),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.diagnosisReport)).not.toBeUndefined();
 
@@ -178,29 +179,32 @@ test(`admin role has correct access`, async () => {
 	expect(processes.find((process) => process.UU === processUuid.openBalanceInvoice)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.openBalanceList),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.openBalanceList),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.openBalanceList)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.cashierTransactionDifferences),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.cashierTransactionDifferences),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.cashierTransactionDifferences)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.cashierPatientTransactions),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.cashierPatientTransactions),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.cashierPatientTransactions)).not.toBeUndefined();
 
 	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.nonPatientPayments),
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.nonPatientPayments),
 	).not.toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.nonPatientPayments)).not.toBeUndefined();
 
-	expect(
-		reportMenuLists.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice),
-	).toBeUndefined();
+	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeDefined();
 });
 
 test(`clinic admin role has correct access`, async () => {
@@ -215,7 +219,7 @@ test(`clinic admin role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -319,6 +323,11 @@ test(`clinic admin role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeDefined();
 });
 
 test(`cashier/registration basic role has correct access`, async () => {
@@ -333,7 +342,7 @@ test(`cashier/registration basic role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -433,6 +442,11 @@ test(`cashier/registration basic role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeUndefined();
 });
 
 test(`cashier/registration basic plus role has correct access`, async () => {
@@ -447,7 +461,7 @@ test(`cashier/registration basic plus role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -547,6 +561,11 @@ test(`cashier/registration basic plus role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeUndefined();
 });
 
 test(`cashier/registration advanced role has correct access`, async () => {
@@ -561,7 +580,7 @@ test(`cashier/registration advanced role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -661,6 +680,11 @@ test(`cashier/registration advanced role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeUndefined();
 });
 
 test(`inventory/pharmacy basic role has correct access`, async () => {
@@ -675,7 +699,7 @@ test(`inventory/pharmacy basic role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -775,6 +799,11 @@ test(`inventory/pharmacy basic role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeUndefined();
 });
 
 test(`inventory/pharmacy advanced role has correct access`, async () => {
@@ -789,7 +818,7 @@ test(`inventory/pharmacy advanced role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -889,6 +918,11 @@ test(`inventory/pharmacy advanced role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeUndefined();
 });
 
 test(`clinician/nurse basic role has correct access`, async () => {
@@ -903,7 +937,7 @@ test(`clinician/nurse basic role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -1007,6 +1041,11 @@ test(`clinician/nurse basic role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeUndefined();
 });
 
 test(`clinician/nurse advanced role has correct access`, async () => {
@@ -1021,7 +1060,7 @@ test(`clinician/nurse advanced role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -1125,6 +1164,11 @@ test(`clinician/nurse advanced role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeUndefined();
 });
 
 test(`triage role has correct access`, async () => {
@@ -1139,7 +1183,7 @@ test(`triage role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -1239,6 +1283,11 @@ test(`triage role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeUndefined();
 });
 
 test(`lab/radiology role has correct access`, async () => {
@@ -1253,7 +1302,7 @@ test(`lab/radiology role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -1353,6 +1402,11 @@ test(`lab/radiology role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeUndefined();
 });
 
 test(`accounting role has correct access`, async () => {
@@ -1367,7 +1421,7 @@ test(`accounting role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -1467,6 +1521,11 @@ test(`accounting role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeDefined();
 });
 
 test(`clinic user role has correct access`, async () => {
@@ -1481,7 +1540,7 @@ test(`clinic user role has correct access`, async () => {
 	const processes = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_ProcessGetDocument,
-			variables: { Filter: isActiveFilter },
+			variables: { Filter: isActiveFilter, Size: 1000 },
 		})
 	).data.AD_ProcessGet.Results;
 	expect(processes).toBeTruthy();
@@ -1585,4 +1644,9 @@ test(`clinic user role has correct access`, async () => {
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.visitInvoice)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.visitInvoice)).toBeTruthy();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.createPriceList),
+	).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.createPriceList)).toBeUndefined();
 });

@@ -27,7 +27,7 @@ type M_PriceList {
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -51,7 +51,7 @@ type M_PriceList {
 	# Precision (number of decimals) for the Price
 	PricePrecision: Int!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

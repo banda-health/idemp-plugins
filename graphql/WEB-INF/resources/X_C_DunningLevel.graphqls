@@ -32,7 +32,7 @@ type C_DunningLevel {
 	# Indicates if interest will be charged on overdue invoices
 	ChargeInterest: Boolean!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Days after due date to dun (if negative days until due)
@@ -68,7 +68,7 @@ type C_DunningLevel {
 	# The label text to be printed on a document or correspondence.
 	PrintName: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

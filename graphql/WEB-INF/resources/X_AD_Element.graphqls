@@ -26,7 +26,7 @@ type AD_Element {
 	# Name of the column in the database
 	ColumnName: String!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -51,7 +51,7 @@ type AD_Element {
 	# The label text to be printed on a document or correspondence.
 	PrintName: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

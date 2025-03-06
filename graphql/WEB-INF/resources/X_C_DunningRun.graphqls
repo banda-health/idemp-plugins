@@ -27,7 +27,7 @@ type C_DunningRun {
 	C_DunningLevel: C_DunningLevel
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -41,7 +41,7 @@ type C_DunningRun {
 	Processing: Boolean!
 	SendIt: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
