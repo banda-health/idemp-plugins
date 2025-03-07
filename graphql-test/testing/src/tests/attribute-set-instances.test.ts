@@ -1,5 +1,5 @@
 import { mutate, query } from '../api';
-import { getDateOffset } from '../utils';
+import { formatApiDate, getDateOffset } from '../utils';
 import {
 	M_AttributeSetGetDocument,
 	M_AttributeSetInstanceGetDocument,
@@ -22,7 +22,7 @@ test('guarantee dates can be updated', async () => {
 		await mutate(valueObject)({
 			mutation: M_AttributeSetInstanceSaveDocument,
 			variables: {
-				Entity: { GuaranteeDate: new Date().getTime(), M_AttributeSet: { UU: expiringAttributeSet.UU } },
+				Entity: { GuaranteeDate: formatApiDate(new Date()), M_AttributeSet: { UU: expiringAttributeSet.UU } },
 			},
 		})
 	).data!.M_AttributeSetInstanceSave!;
@@ -37,7 +37,7 @@ test('guarantee dates can be updated', async () => {
 			})
 		).data.M_AttributeSetInstanceGet.Results[0].GuaranteeDate!,
 	);
-	const newDate = getDateOffset(valueObject.date, 30).getTime();
+	const newDate = formatApiDate(getDateOffset(valueObject.date, 30));
 	await mutate(valueObject)({
 		mutation: M_AttributeSetInstanceSaveDocument,
 		variables: {
@@ -45,13 +45,11 @@ test('guarantee dates can be updated', async () => {
 		},
 	});
 	expect(
-		new Date(
-			(
-				await query(valueObject)({
-					query: M_AttributeSetInstanceGetDocument,
-					variables: { Filter: JSON.stringify({ m_attributesetinstance_uu: expiringAttributeSetInstance.UU }) },
-				})
-			).data.M_AttributeSetInstanceGet.Results[0].GuaranteeDate!,
-		).getTime(),
+		(
+			await query(valueObject)({
+				query: M_AttributeSetInstanceGetDocument,
+				variables: { Filter: JSON.stringify({ m_attributesetinstance_uu: expiringAttributeSetInstance.UU }) },
+			})
+		).data.M_AttributeSetInstanceGet.Results[0].GuaranteeDate!,
 	).toBe(newDate);
 });

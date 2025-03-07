@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.graphql.model.FilterTableData;
+import org.compiere.model.SystemIDs;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
@@ -358,17 +359,19 @@ public class FilterUtil {
 			}
 
 			// Try to see if this property should be a date
-			boolean dbColumnIsDateType = false;
+			int dbColumnReferenceID = -1;
 			if (tableData.doesTableHaveColumn(dbColumnName)) {
-				dbColumnIsDateType = tableData.getColumnClass(dbColumnName) == Timestamp.class;
+				dbColumnReferenceID = tableData.getColumnReferenceID(dbColumnName);
 			}
 			// As a last precaution, check if the name has "date" in it (and it's not an ID column)
 			else if (dbColumnName.toLowerCase().contains("date") && !isFilteringOnIdColumn) {
-				dbColumnIsDateType = true;
+				dbColumnReferenceID = SystemIDs.REFERENCE_DATATYPE_DATE;
 			} else {
 				// We only allow expression functions on dates at the moment
 				dateExpressionFunction = "";
 			}
+			boolean isDBColumnDateOrDateTime = dbColumnReferenceID == SystemIDs.REFERENCE_DATATYPE_DATE ||
+					dbColumnReferenceID == SystemIDs.REFERENCE_DATATYPE_DATETIME;
 
 			// Alias the column name (in case there are any joins outside this clause)
 			dbColumnName = tableData.getTableOrFunctionName() + "." + dbColumnName;
@@ -383,11 +386,12 @@ public class FilterUtil {
 					continue;
 				}
 				// If this is a date, go ahead and convert the value to be as such
-				if (dbColumnIsDateType) {
-					comparisons = DateUtil.getAPITimestamp(comparisons.toString());
+				if (isDBColumnDateOrDateTime) {
+					comparisons = DateUtil.getAPITimestamp(comparisons,
+							dbColumnReferenceID == SystemIDs.REFERENCE_DATATYPE_DATE);
 				}
 				handleEqualityComparison(dbColumnName, whereClause, parameters, separator, negate, canPrependSeparator,
-						comparisons, dbColumnIsDateType);
+						comparisons, dbColumnReferenceID);
 				canPrependSeparator = true;
 				continue;
 			}
@@ -400,12 +404,9 @@ public class FilterUtil {
 				whereClause.append(canPrependSeparator ? separator : "");
 				Object filterValue = comparisonMap.get(comparison);
 				// If this is a date, go ahead and convert the value to be as such
-				if (dbColumnIsDateType) {
-					if (filterValue instanceof Long) {
-						filterValue = new Timestamp((Long) filterValue);
-					} else {
-						filterValue = DateUtil.getAPITimestamp(filterValue.toString());
-					}
+				if (isDBColumnDateOrDateTime) {
+					filterValue = DateUtil.getAPITimestamp(filterValue,
+							dbColumnReferenceID == SystemIDs.REFERENCE_DATATYPE_DATE);
 				}
 				List<?> listOperatorValues;
 				String parameterClause;
@@ -413,23 +414,15 @@ public class FilterUtil {
 					case "$eq":
 						// We don't want to prepend a separator because that logic is already handled above
 						handleEqualityComparison(dbColumnName, whereClause, parameters, separator, negate,
-								false, filterValue, dbColumnIsDateType);
+								false, filterValue, dbColumnReferenceID);
 						break;
 					case "$neq":
 						// We don't want to prepend a separator because that logic is already handled above
 						handleEqualityComparison(dbColumnName, whereClause, parameters, separator, !negate,
-								false, filterValue, dbColumnIsDateType);
+								false, filterValue, dbColumnReferenceID);
 						break;
 					case "$gt":
-						whereClause.append(dbColumnName);
-						// For dates, we have to be careful of time zones, so adjust the logic
-						if (dbColumnIsDateType) {
-							// Increase the day value so all times for the date are excluded
-							filterValue = DateUtil.getTheNextDay((Timestamp) filterValue);
-							whereClause.append(negate ? "<" : ">=").append("?");
-						} else {
-							whereClause.append(negate ? "<=" : ">").append("?");
-						}
+						whereClause.append(dbColumnName).append(negate ? "<=" : ">").append("?");
 						parameters.add(filterValue);
 						break;
 					case "$gte":
@@ -441,15 +434,7 @@ public class FilterUtil {
 						parameters.add(filterValue);
 						break;
 					case "$lte":
-						whereClause.append(dbColumnName);
-						// For dates, we have to be careful of time zones, so adjust the logic
-						if (dbColumnIsDateType) {
-							// Increase the day value so all times for the date are included
-							filterValue = DateUtil.getTheNextDay((Timestamp) filterValue);
-							whereClause.append(negate ? ">=" : "<").append("?");
-						} else {
-							whereClause.append(negate ? ">" : "<=").append("?");
-						}
+						whereClause.append(dbColumnName).append(negate ? ">" : "<=").append("?");
 						parameters.add(filterValue);
 						break;
 					case "$in":
@@ -659,12 +644,13 @@ public class FilterUtil {
 	 * @param negate              Whether the operation should be negated
 	 * @param canPrependSeparator Whether the subclause is preceded by a subclause and the separator should be prepended
 	 * @param filterValue         The value to filter by
-	 * @param dbColumnIsDateType  Whether the model property is a date (used to write the subclause appropriately)
+	 * @param columnReferenceId   The column type in the DB, mainly used to handle dates & datetimes appropriately
 	 */
 	private static void handleEqualityComparison(
 			String property, StringBuilder whereClause, List<Object> parameters, String separator, boolean negate,
-			boolean canPrependSeparator, Object filterValue, boolean dbColumnIsDateType) {
-		if (dbColumnIsDateType) {
+			boolean canPrependSeparator, Object filterValue, int columnReferenceId) {
+		if (columnReferenceId == SystemIDs.REFERENCE_DATATYPE_DATETIME ||
+				columnReferenceId == SystemIDs.REFERENCE_DATATYPE_DATE) {
 			Timestamp startDate = (Timestamp) filterValue;
 			Timestamp endDate = DateUtil.getTheNextDay(startDate);
 			whereClause.append(canPrependSeparator ? separator : "").append("(").append(property)
