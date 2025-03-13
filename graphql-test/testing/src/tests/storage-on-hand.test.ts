@@ -1,6 +1,6 @@
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType } from '../models';
-import { createBusinessPartner, createOrder, createProduct, getDateOffset } from '../utils';
+import { createBusinessPartner, createOrder, createProduct, formatApiDate, getDateOffset } from '../utils';
 import {
 	C_OrderLineSaveDocument,
 	C_OrderProcessDocument,
@@ -39,7 +39,7 @@ test('can sort by ASI guarantee date', async () => {
 			mutation: M_AttributeSetInstanceSaveDocument,
 			variables: {
 				Entity: {
-					GuaranteeDate: getDateOffset(new Date(), 730).getTime(),
+					GuaranteeDate: formatApiDate(getDateOffset(new Date(), 730)),
 					M_AttributeSet: { UU: expiringAttributeSet.UU },
 				},
 			},
@@ -74,7 +74,7 @@ test('can sort by ASI guarantee date', async () => {
 			mutation: M_AttributeSetInstanceSaveDocument,
 			variables: {
 				Entity: {
-					GuaranteeDate: getDateOffset(new Date(), 365).getTime(),
+					GuaranteeDate: formatApiDate(getDateOffset(new Date(), 365)),
 					M_AttributeSet: { UU: expiringAttributeSet.UU },
 				},
 			},

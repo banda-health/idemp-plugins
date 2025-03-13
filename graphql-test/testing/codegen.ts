@@ -13,7 +13,7 @@ const config: CodegenConfig = {
 				scalars: {
 					BigDecimal: { input: 'number', output: 'number' },
 					Binary: { input: 'string', output: 'string' },
-					Date: { input: 'number | string', output: 'string' },
+					Date: { input: 'string', output: 'string' },
 					DateTime: { input: 'number', output: 'number' },
 					File: { input: 'string', output: 'string' },
 					Object: { input: 'any', output: 'any' },

@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
  */
 public class FilterTableData {
 	private final String tableOrFunctionName;
-	private Map<String, Class<?>> columnsAndClasses;
+	private Map<String, Integer> columnsAndReferences;
 	private POInfo poInfo;
-	private Properties idempiereContext;
+	private final Properties idempiereContext;
 
 	/**
 	 * Build the object and expect it to get POInfo from iDempiere
@@ -31,14 +31,14 @@ public class FilterTableData {
 	/**
 	 * Build the object and pass in custom columns and associated classes to use instead of anything inside iDempiere
 	 *
-	 * @param tableOrFunctionName The table or function name we'll be using
-	 * @param columnsAndClasses   The column and associated class map
+	 * @param tableOrFunctionName  The table or function name we'll be using
+	 * @param columnsAndReferences The column and associated class map
 	 */
 	public FilterTableData(Properties idempiereContext, String tableOrFunctionName,
-			Map<String, Class<?>> columnsAndClasses) {
+			Map<String, Integer> columnsAndReferences) {
 		this.idempiereContext = idempiereContext;
 		this.tableOrFunctionName = tableOrFunctionName;
-		this.columnsAndClasses = columnsAndClasses.entrySet().stream()
+		this.columnsAndReferences = columnsAndReferences.entrySet().stream()
 				.collect(Collectors.toMap(entry -> entry.getKey().toLowerCase(), Map.Entry::getValue));
 	}
 
@@ -59,25 +59,25 @@ public class FilterTableData {
 	 */
 	public boolean doesTableHaveColumn(String columnName) {
 		// If no columns have been defined, get the column information from the POInfo
-		if (columnsAndClasses == null) {
+		if (columnsAndReferences == null) {
 			tryToSetTableInfo();
 			return poInfo != null && poInfo.getColumnIndex(columnName) > -1;
 		}
-		return columnsAndClasses.containsKey(columnName.toLowerCase());
+		return columnsAndReferences.containsKey(columnName.toLowerCase());
 	}
 
 	/**
-	 * Get the class associated with this column name, if any
+	 * Get the reference ID associated with this column name, if any
 	 *
 	 * @param columnName The column name to get a class for
-	 * @return An associated class or null if the column isn't found
+	 * @return An associated reference ID or null if the column isn't found
 	 */
-	public Class<?> getColumnClass(String columnName) {
-		if (columnsAndClasses == null) {
+	public Integer getColumnReferenceID(String columnName) {
+		if (columnsAndReferences == null) {
 			tryToSetTableInfo();
-			return poInfo == null ? null : poInfo.getColumnClass(poInfo.getColumnIndex(columnName));
+			return poInfo == null ? null : poInfo.getColumnDisplayType(poInfo.getColumnIndex(columnName));
 		}
-		return columnsAndClasses.get(columnName.toLowerCase());
+		return columnsAndReferences.get(columnName.toLowerCase());
 	}
 
 	/**

@@ -204,6 +204,7 @@ public class ConceptSyncProcess extends SvrProcess {
 					// We're not going to exit out if we've already seen the child because we may need to handle SAME-AS mappings
 					OCLConcept childConceptFromOcl =
 							conceptsFromOclByUrl.getOrDefault(conceptMappingFromOcl.getToConceptUrl(), null);
+					boolean haveAlreadyFetchedChildConcepts = false;
 					if (childConceptFromOcl == null) {
 						childConceptFromOcl = getConceptFromOCL(conceptMappingFromOcl.getToConceptUrl());
 						if (childConceptFromOcl == null) {
@@ -211,8 +212,7 @@ public class ConceptSyncProcess extends SvrProcess {
 						}
 						conceptsFromOclByUrl.put(childConceptFromOcl.getUrl(), childConceptFromOcl);
 					} else {
-						// We've already fetched it, so no need to get it again
-						return;
+						haveAlreadyFetchedChildConcepts = true;
 					}
 					// If this child concept is active and has a same-as mapping that's not mapped to itself, add it
 					if (!childConceptFromOcl.isRetired() &&
@@ -224,7 +224,9 @@ public class ConceptSyncProcess extends SvrProcess {
 						}
 						overrides.get(conceptFromOcl.getUrl()).add(childConceptFromOcl.getUrl());
 					}
-					fetchChildConcepts(childConceptFromOcl);
+					if (!haveAlreadyFetchedChildConcepts) {
+						fetchChildConcepts(childConceptFromOcl);
+					}
 				});
 	}
 

@@ -12,6 +12,7 @@ import org.bandahealth.idempiere.graphql.utils.QueryUtil;
 import org.bandahealth.idempiere.graphql.utils.SortUtil;
 import org.bandahealth.idempiere.graphql.utils.SqlUtil;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.SystemIDs;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 
@@ -33,18 +34,18 @@ public class InventoryTransactionQuery implements GraphQLQueryResolver {
 				FilterUtil.getWhereClauseFromFilter(new FilterTableData(BandaGraphQLContext.getCtx(environment),
 						functionName,
 						Map.ofEntries(
-								Map.entry("created", Timestamp.class),
-								Map.entry("m_transaction_id", Integer.class),
-								Map.entry("c_order_id", Integer.class),
-								Map.entry("m_movement_id", Integer.class),
-								Map.entry("bh_visit_id", Integer.class),
-								Map.entry("m_product_id", Integer.class),
-								Map.entry("m_locator_id", Integer.class),
-								Map.entry("m_attributesetinstance_id", Integer.class),
-								Map.entry("createdby", Integer.class),
-								Map.entry("transaction_type", String.class),
-								Map.entry("movementqty", BigDecimal.class),
-								Map.entry("runningtotal_bylocator", BigDecimal.class)
+								Map.entry("created", SystemIDs.REFERENCE_DATATYPE_DATETIME),
+								Map.entry("m_transaction_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("c_order_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("m_movement_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("bh_visit_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("m_product_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("m_locator_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("m_attributesetinstance_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("createdby", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("transaction_type", SystemIDs.REFERENCE_DATATYPE_STRING),
+								Map.entry("movementqty", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
+								Map.entry("runningtotal_bylocator", SystemIDs.REFERENCE_DATATYPE_AMOUNT)
 						)
 				), Filter, parameters);
 

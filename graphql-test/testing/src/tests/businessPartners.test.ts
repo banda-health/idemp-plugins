@@ -1,7 +1,4 @@
 import { v4 } from 'uuid';
-import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
-import { createBusinessPartner, createInvoice, createOrder, createPayment, createProduct, createVisit } from '../utils';
 import {
 	Bh_VisitProcessDocument,
 	C_BPartnerDocument,
@@ -14,6 +11,17 @@ import {
 	C_LocationSaveDocument,
 	C_LocationUpdateWithBPartnerDocument,
 } from '../__generated__/graphql';
+import { mutate, query } from '../api';
+import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
+import {
+	createBusinessPartner,
+	createInvoice,
+	createOrder,
+	createPayment,
+	createProduct,
+	createVisit,
+	formatApiDate,
+} from '../utils';
 
 test(`information saved correctly`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -30,7 +38,7 @@ test(`information saved correctly`, async () => {
 				UU: businessPartnerUuid,
 				Name: businessPartnerName,
 				Description: valueObject.getStepMessageLong(),
-				BH_Birthday: valueObject.date?.getTime(),
+				BH_Birthday: formatApiDate(valueObject.date),
 				bh_gender: { UU: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
 				IsCustomer: true,
 				IsVendor: true,

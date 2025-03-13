@@ -2,7 +2,7 @@ import { isApolloError } from '@apollo/client/core';
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType, documentStatus, documentSubTypeSalesOrder } from '../models';
 import { RoleName } from '../types/roleName';
-import { createBusinessPartner, createOrder, createProduct, createVisit, getDateOffset } from '../utils';
+import { createBusinessPartner, createOrder, createProduct, createVisit, formatApiDate, getDateOffset } from '../utils';
 import {
 	Bh_VisitProcessDocument,
 	C_BPartnerGetDocument,
@@ -76,7 +76,7 @@ test(`invalid orders can be completed`, async () => {
 			mutation: M_AttributeSetInstanceSaveDocument,
 			variables: {
 				Entity: {
-					GuaranteeDate: getDateOffset(new Date(), 365).getTime(),
+					GuaranteeDate: formatApiDate(getDateOffset(new Date(), 365)),
 					M_AttributeSet: { UU: expiringAttributeSet.UU },
 				},
 			},
@@ -251,7 +251,7 @@ test(`changing a price on an old PO does not change last buying price for produc
 			mutation: M_AttributeSetInstanceSaveDocument,
 			variables: {
 				Entity: {
-					GuaranteeDate: getDateOffset(new Date(), 365).getTime(),
+					GuaranteeDate: formatApiDate(getDateOffset(new Date(), 365)),
 					M_AttributeSet: { UU: expiringAttributeSet.UU },
 				},
 			},
@@ -362,7 +362,7 @@ test(`reactivating a PO resets the quantity correctly`, async () => {
 			mutation: M_AttributeSetInstanceSaveDocument,
 			variables: {
 				Entity: {
-					GuaranteeDate: getDateOffset(new Date(), 365).getTime(),
+					GuaranteeDate: formatApiDate(getDateOffset(new Date(), 365)),
 					M_AttributeSet: { UU: expiringAttributeSet.UU },
 				},
 			},
@@ -426,7 +426,7 @@ test(`POs can be saved multiple times`, async () => {
 			variables: {
 				Entity: {
 					UU: valueObject.order!.UU,
-					DateOrdered: valueObject.date!.getTime(),
+					DateOrdered: formatApiDate(valueObject.date),
 					C_BPartner: { UU: valueObject.businessPartner?.UU! },
 				},
 			},

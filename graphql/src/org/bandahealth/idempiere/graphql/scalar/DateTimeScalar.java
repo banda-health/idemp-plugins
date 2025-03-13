@@ -51,14 +51,10 @@ public class DateTimeScalar {
 		if (input == null) {
 			return null;
 		}
-		if (input instanceof Integer || input instanceof Long) {
-			return new Timestamp(Long.parseLong(input.toString()));
-		} else if (input instanceof String) {
-			Timestamp timestamp = DateUtil.getAPITimestamp((String) input);
-			if (timestamp != null) {
-				return timestamp;
-			}
+		Timestamp parsedTimestamp = DateUtil.getAPITimestamp(input, false);
+		if (parsedTimestamp == null) {
+			throw new CoercingSerializeException("Could not parse input to datetime: " + input);
 		}
-		throw new CoercingSerializeException("Could not parse input to datetime: " + input);
+		return parsedTimestamp;
 	}
 }

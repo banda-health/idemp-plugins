@@ -248,6 +248,8 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(2, priceLists.size(), "Only two price lists exist for a client");
 			assertTrue(priceLists.stream().anyMatch(MPriceList::isSOPriceList), "One is a sales price list");
+			assertTrue(priceLists.stream().anyMatch(priceList -> priceList.getName().equals("Default Price List")),
+					"Default sales price list has the correct name");
 			assertTrue(priceLists.stream().anyMatch(Predicate.not(MPriceList::isSOPriceList)),
 					"One is a purchase price list");
 
