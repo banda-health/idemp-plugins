@@ -98,6 +98,38 @@ ALTER TABLE bh_allergy_reaction
 	ADD CONSTRAINT bh_allergy_reaction_isactive_check
 		CHECK (isactive = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar]));
 
+-- Add the AD_Tables
+INSERT INTO
+	ad_table (ad_table_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
+	          help, tablename, isview, accesslevel, entitytype, ad_window_id, ad_val_rule_id, loadseq, issecurityenabled,
+	          isdeleteable, ishighvolume, importtable, ischangelog, replicationtype, po_window_id, copycolumnsfromtable,
+	          iscentrallymaintained, ad_table_uu, processing, databaseviewdrop, copycomponentsfromview,
+	          createwindowfromtable, isshowindrilloptions, ispartition, createpartition)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_table_id) + 1
+		 FROM
+			 ad_table
+	 ), 0, 0, 'Y', '2025-03-14 12:23:20.729000', 100, '2025-03-14 12:23:20.729000', 100, 'Allergy Reaction', NULL, NULL,
+	 'BH_Allergy_Reaction', 'N', '3', 'U', NULL, NULL, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N', 'Y',
+	 '9358c5ff-0b55-44bb-9517-886ece2a9563', 'N', 'N', 'N', 'N', 'N', 'N', 'N');
+INSERT INTO
+	ad_table (ad_table_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
+	          help, tablename, isview, accesslevel, entitytype, ad_window_id, ad_val_rule_id, loadseq, issecurityenabled,
+	          isdeleteable, ishighvolume, importtable, ischangelog, replicationtype, po_window_id, copycolumnsfromtable,
+	          iscentrallymaintained, ad_table_uu, processing, databaseviewdrop, copycomponentsfromview,
+	          createwindowfromtable, isshowindrilloptions, ispartition, createpartition)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_table_id) + 1
+		 FROM
+			 ad_table
+	 ), 0, 0, 'Y', '2025-03-13 16:33:13.502000', 100, '2025-03-14 12:23:25.890000', 100, 'Allergy', NULL, NULL,
+	 'BH_Allergy', 'N', '3', 'U', NULL, NULL, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N', 'Y',
+	 '299e9a15-5ca1-49ff-93f5-b4ed315d2f52', 'N', 'N', 'N', 'N', 'N', 'N', 'N');
+
 -- Add the AD_Elements
 INSERT INTO
 	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
@@ -899,6 +931,33 @@ SET
 WHERE
 	bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03';
 
+-- Add the sequences
+INSERT INTO
+	ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
+	             description, vformat, isautosequence, incrementno, startno, currentnext, currentnextsys, isaudited,
+	             istableid, prefix, suffix, startnewyear, datecolumn, decimalpattern, ad_sequence_uu, startnewmonth,
+	             isorglevelsequence, orgcolumn)
+VALUES
+	((
+		 SELECT MAX(ad_sequence_id) + 1
+		 FROM ad_sequence
+	 ), 0, 0, 'Y', '2025-03-14 12:23:20.827000', 100, '2025-03-14 12:23:20.827000', 100, 'BH_Allergy_Reaction',
+	 'Table BH_Allergy_Reaction', NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL,
+	 '76aa438b-cd0f-45a8-a42c-ef91a3c3dfcf', 'N', 'N', NULL);
+INSERT INTO
+	ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
+	             description, vformat, isautosequence, incrementno, startno, currentnext, currentnextsys, isaudited,
+	             istableid, prefix, suffix, startnewyear, datecolumn, decimalpattern, ad_sequence_uu, startnewmonth,
+	             isorglevelsequence, orgcolumn)
+VALUES
+	((
+		 SELECT MAX(ad_sequence_id) + 1
+		 FROM ad_sequence
+	 ), 0, 0, 'Y', '2025-03-13 16:33:13.588000', 100, '2025-03-13 16:33:13.588000', 100, 'BH_Allergy', 'Table BH_Allergy',
+	 NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL,
+	 '81880f57-0c6f-4817-a35b-aead202da74f', 'N', 'N', NULL);
+
+-- Wrap up and be done
 SELECT
 	register_migration_script('202503141626_GO-2985.sql')
 FROM
