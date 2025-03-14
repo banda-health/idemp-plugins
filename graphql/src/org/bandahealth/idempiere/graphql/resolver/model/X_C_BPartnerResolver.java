@@ -192,6 +192,10 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 		return dataLoader.load(BH_GENDER_UUIDS_BY_VALUE.get(entity.getbh_gender()));
 	}
 
+	public Boolean BH_Have_Specified_No_Known_Allergies(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_Have_Specified_No_Known_Allergies();
+	}
+
 	public Boolean BH_IsApproximateDateOfBirth(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		return entity.isBH_IsApproximateDateOfBirth();
 	}
