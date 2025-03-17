@@ -114,4 +114,8 @@ test('correct menu names are returned', async () => {
 	expect(menu).not.toBeUndefined();
 	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
 	expect(menu?.SeqNo).toBe(2);
+	menu = backEndMenu?.Node?.ChildrenTree_NodeMMList?.find((menu) => menu.Node?.Name === 'Allergies');
+	expect(menu).not.toBeUndefined();
+	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
+	expect(menu?.SeqNo).toBe(5);
 });
