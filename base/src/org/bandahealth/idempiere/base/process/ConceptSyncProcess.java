@@ -71,6 +71,7 @@ public class ConceptSyncProcess extends SvrProcess {
 	private Set<String> visitedConcepts;
 	private Map<String, OCLConcept> conceptsFromOclByUrl;
 	private Map<String, OCLConcept> compressedConceptsFromOclByUrl;
+	private Map<String, MBHConceptMapping> newlySavedConceptMappingsByOclUuid;
 	private Map<String, Set<String>> overrides;
 	private AtomicInteger newRecords;
 	private AtomicInteger updatedRecords;
@@ -110,6 +111,7 @@ public class ConceptSyncProcess extends SvrProcess {
 		conceptsFromOclByUrl = new HashMap<>();
 		overrides = new HashMap<>();
 		savedSourceConcepts = new HashSet<>();
+		newlySavedConceptMappingsByOclUuid = new HashMap<>();
 
 		int conceptCount = getConceptCount();
 		if (conceptCount == 0) {
@@ -182,6 +184,9 @@ public class ConceptSyncProcess extends SvrProcess {
 				" secs";
 
 		log.log(Level.INFO, successMessage);
+
+		// Clear this to ensure memory can be freed
+		newlySavedConceptMappingsByOclUuid = new HashMap<>();
 
 		return successMessage;
 	}
@@ -612,11 +617,21 @@ public class ConceptSyncProcess extends SvrProcess {
 		oclConceptMappingsToWorkWith.forEach((conceptMappingFromOcl) -> {
 			MBHConceptMapping foundConceptMapping = conceptMappingsByOclUU.get(conceptMappingFromOcl.getUuid());
 
+			if (conceptMappingFromOcl.getUuid().contains("12462")) {
+				log.info("found it");
+			}
+
+			if (foundConceptMapping == null &&
+					newlySavedConceptMappingsByOclUuid.containsKey(conceptMappingFromOcl.getUuid())) {
+				foundConceptMapping = newlySavedConceptMappingsByOclUuid.get(conceptMappingFromOcl.getUuid());
+			}
+
 			if (foundConceptMapping == null) {
 				// new record
 				foundConceptMapping = new MBHConceptMapping(getCtx(), 0, get_TrxName());
 				foundConceptMapping.setOcl_Uuid(conceptMappingFromOcl.getUuid());
 				newRecords.incrementAndGet();
+				newlySavedConceptMappingsByOclUuid.put(conceptMappingFromOcl.getUuid(), foundConceptMapping);
 			} else {
 				updatedRecords.incrementAndGet();
 			}
