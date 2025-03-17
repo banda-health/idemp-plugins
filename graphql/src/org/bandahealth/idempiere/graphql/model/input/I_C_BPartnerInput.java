@@ -93,6 +93,25 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	ForeignEntityInput bh_gender();
 
 	/**
+	 * Column name BH_Have_Specified_No_Known_Allergies
+	 */
+	static final String COLUMNNAME_BH_Have_Specified_No_Known_Allergies = "BH_Have_Specified_No_Known_Allergies";
+
+	/**
+	 * Set Have Specified No Known Allergies.
+	 *
+	 * @param BH_Have_Specified_No_Known_Allergies Have Specified No Known Allergies
+	 */
+	void setBH_Have_Specified_No_Known_Allergies(boolean BH_Have_Specified_No_Known_Allergies);
+
+	/**
+	 * Get Have Specified No Known Allergies.
+	 *
+	 * @return Have Specified No Known Allergies
+	 */
+	boolean isBH_Have_Specified_No_Known_Allergies();
+
+	/**
 	 * Column name BH_IsApproximateDateOfBirth
 	 */
 	static final String COLUMNNAME_BH_IsApproximateDateOfBirth = "BH_IsApproximateDateOfBirth";

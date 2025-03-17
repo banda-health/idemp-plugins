@@ -397,7 +397,7 @@ public class MBPartner_BH extends MBPartner {
 	 * Set BH_Locked.
 	 *
 	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to
-	 *                   read from this field)
+	 *                  read from this field)
 	 */
 	public void setBH_Locked(boolean BH_Locked) {
 		set_Value(COLUMNNAME_BH_Locked, Boolean.valueOf(BH_Locked));
@@ -411,6 +411,35 @@ public class MBPartner_BH extends MBPartner {
 	 */
 	public boolean isBH_Locked() {
 		Object oo = get_Value(COLUMNNAME_BH_Locked);
+		if (oo != null) {
+			if (oo instanceof Boolean)
+				return ((Boolean) oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/**
+	 * Column name BH_Have_Specified_No_Known_Allergies
+	 */
+	public static final String COLUMNNAME_BH_Have_Specified_No_Known_Allergies = "BH_Have_Specified_No_Known_Allergies";
+
+	/**
+	 * Set Have Specified No Known Allergies.
+	 *
+	 * @param BH_Have_Specified_No_Known_Allergies Have Specified No Known Allergies
+	 */
+	public void setBH_Have_Specified_No_Known_Allergies(boolean BH_Have_Specified_No_Known_Allergies) {
+		set_Value(COLUMNNAME_BH_Have_Specified_No_Known_Allergies, Boolean.valueOf(BH_Have_Specified_No_Known_Allergies));
+	}
+
+	/**
+	 * Get Have Specified No Known Allergies.
+	 *
+	 * @return Have Specified No Known Allergies
+	 */
+	public boolean isBH_Have_Specified_No_Known_Allergies() {
+		Object oo = get_Value(COLUMNNAME_BH_Have_Specified_No_Known_Allergies);
 		if (oo != null) {
 			if (oo instanceof Boolean)
 				return ((Boolean) oo).booleanValue();
