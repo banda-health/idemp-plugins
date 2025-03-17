@@ -133,7 +133,7 @@ INSERT INTO
 	ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
 	                  isreadwrite, ad_window_access_uu, bh_candeactivate)
 SELECT
-	146,
+	w.ad_window_id,
 	ad_role_id,
 	0,
 	0,
