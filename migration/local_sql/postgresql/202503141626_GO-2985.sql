@@ -639,7 +639,9 @@ VALUES
 	 ), 0, 0, 'Y', '2025-03-13 16:38:20.705000', '2025-03-14 12:20:58.098000', 100, 100, 'Severity Concept ID', NULL,
 	 NULL, 0, 'U', 'Severity_Concept_ID', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '299e9a15-5ca1-49ff-93f5-b4ed315d2f52'
-	 ), 30, 1000051, NULL, 10, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+	 ), 30, (
+		 SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '9f81c0d2-3af8-4a2e-b6d4-7b15852a3bbc'
+	 ), NULL, 10, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '328bcdbd-c652-47f4-b3f8-48bbc6dfc777'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '19554deb-76f1-41d1-b271-f4155e56a69a', 'Y', 0, 'N', 'N', NULL,
 	 'SeverityConcept_BHAllergy', 'N', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL);
@@ -939,8 +941,10 @@ INSERT INTO
 	             isorglevelsequence, orgcolumn)
 VALUES
 	((
-		 SELECT MAX(ad_sequence_id) + 1
-		 FROM ad_sequence
+		 SELECT
+			 MAX(ad_sequence_id) + 1
+		 FROM
+			 ad_sequence
 	 ), 0, 0, 'Y', '2025-03-14 12:23:20.827000', 100, '2025-03-14 12:23:20.827000', 100, 'BH_Allergy_Reaction',
 	 'Table BH_Allergy_Reaction', NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL,
 	 '76aa438b-cd0f-45a8-a42c-ef91a3c3dfcf', 'N', 'N', NULL);
@@ -951,8 +955,10 @@ INSERT INTO
 	             isorglevelsequence, orgcolumn)
 VALUES
 	((
-		 SELECT MAX(ad_sequence_id) + 1
-		 FROM ad_sequence
+		 SELECT
+			 MAX(ad_sequence_id) + 1
+		 FROM
+			 ad_sequence
 	 ), 0, 0, 'Y', '2025-03-13 16:33:13.588000', 100, '2025-03-13 16:33:13.588000', 100, 'BH_Allergy', 'Table BH_Allergy',
 	 NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL,
 	 '81880f57-0c6f-4817-a35b-aead202da74f', 'N', 'N', NULL);
