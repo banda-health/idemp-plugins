@@ -2,32 +2,18 @@ package org.bandahealth.idempiere.base.process;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccess;
-import org.bandahealth.idempiere.base.model.MBandaSetup;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.bandahealth.idempiere.base.utils.QueryUtil;
-import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
-import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
-import org.compiere.model.MRole;
-import org.compiere.model.MUserRoles;
-import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.model.SystemIDs;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
-import org.compiere.util.Env;
-import org.compiere.util.Msg;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 /**
  * This is meant to assign all document actions to a new default role that's created (rather than the user having
@@ -73,7 +59,7 @@ public class AssignAllDocumentActionAccessProcess extends SvrProcess {
 		// Get a list of the right reference lists
 		List<MRefList> documentActions =
 				new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Reference_ID + "=?", get_TrxName())
-						.setParameters(MReference_BH.DOCUMENT_ACTION_AD_REFERENCE_ID).list();
+						.setParameters(SystemIDs.REFERENCE_DOCUMENTACTION).list();
 
 		// Do a cross join on our lists to get what all doc action access should be
 		List<Integer[]> documentActionAccessList = new ArrayList<>();

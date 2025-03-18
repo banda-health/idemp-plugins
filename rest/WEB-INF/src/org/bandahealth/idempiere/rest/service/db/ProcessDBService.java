@@ -164,7 +164,7 @@ public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 			// AD_Reference_Value property is the AD_Reference for the available values
 			Set<Integer> referencesThatAreListsAndNeedAcceptableValues = allProcessParameters.stream().filter(
 					processParameter -> referencesById.containsKey(processParameter.getAD_Reference_ID()) &&
-							processParameter.getAD_Reference_ID() == MReference_BH.LIST_AD_REFERENCE_ID
+							processParameter.getAD_Reference_ID() == 17
 			).map(MProcessPara::getAD_Reference_Value_ID).collect(Collectors.toSet());
 			Map<Integer, List<MRefList>> referenceListsByReference = referenceListDBService
 					.getGroupsByIds(MRefList::getAD_Reference_ID, MRefList.COLUMNNAME_AD_Reference_ID,
@@ -311,11 +311,11 @@ public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 			// Get the reference to help determine what type of parameter this is
 			MReference referenceForParameter = referencesByIdMap.get(processParameter.getAD_Reference_ID());
 			Object parameter = processInfoParameter.getParameter();
-			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATE_AD_REFERENCE_ID) {
+			if (referenceForParameter.getAD_Reference_ID() == 15) {
 				parameter = DateUtil.parseDate(processInfoParameter.getParameter().toString());
 			}
 
-			if (referenceForParameter.getAD_Reference_ID() == MReference_BH.DATETIME_AD_REFERENCE_ID) {
+			if (referenceForParameter.getAD_Reference_ID() == 16) {
 				if (processInfoParameter.getParameter() instanceof Integer) {
 					parameter = new Timestamp((Integer) processInfoParameter.getParameter());
 				} else {

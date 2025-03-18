@@ -1,12 +1,12 @@
 import { v4 } from 'uuid';
-import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentStatus } from '../models';
-import { createBusinessPartner, createOrder, createProduct } from '../utils';
 import {
 	M_MovementSaveWithMovementLinesAndProcessDocument,
 	M_StorageOnHandGetDocument,
 	M_WarehouseGetDocument,
 } from '../__generated__/graphql';
+import { mutate, query } from '../api';
+import { documentAction, documentBaseType, documentStatus } from '../models';
+import { createBusinessPartner, createOrder, createProduct, formatApiDate } from '../utils';
 
 test('can move inventory between warehouses', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -40,7 +40,7 @@ test('can move inventory between warehouses', async () => {
 				BH_To_Warehouse: { UU: differentWarehouse!.UU },
 				Description: valueObject.getStepMessageLong(),
 				C_DocType: { UU: valueObject.documentType!.UU },
-				MovementDate: valueObject.date?.getTime(),
+				MovementDate: formatApiDate(valueObject.date),
 				IsApproved: true,
 			},
 			M_MovementLine: {

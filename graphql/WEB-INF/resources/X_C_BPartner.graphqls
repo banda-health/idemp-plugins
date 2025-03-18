@@ -35,6 +35,7 @@ type C_BPartner {
 	# Electronic Mail Address
 	BH_EMail: String
 	bh_gender: AD_Ref_List
+	BH_Have_Specified_No_Known_Allergies: Boolean!
 	BH_IsApproximateDateOfBirth: Boolean!
 	# Local Patient ID
 	BH_Local_PatientID: String
@@ -193,6 +194,7 @@ input C_BPartnerInput {
 	# Electronic Mail Address
 	BH_EMail: String
 	bh_gender: ForeignEntityInput
+	BH_Have_Specified_No_Known_Allergies: Boolean
 	BH_IsApproximateDateOfBirth: Boolean
 	# Local Patient ID
 	BH_Local_PatientID: String

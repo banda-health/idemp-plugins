@@ -73,6 +73,8 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 				new MBankStatementLoaderQuery(),
 				new MBankStatementMatcherQuery(),
 				new MBankTransferQuery(),
+				new MBHAllergyReactionQuery(),
+				new MBHAllergyQuery(),
 				new MBHBPGeneralPayerInfoQuery(),
 				new MBHBPPayerInfoQuery(),
 				new MBHBPSpecificPayerInfoQuery(),

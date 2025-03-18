@@ -1,0 +1,3 @@
+extend type BH_Allergy {
+	BH_Allergy_Reactions: [BH_Allergy_Reaction!]
+}

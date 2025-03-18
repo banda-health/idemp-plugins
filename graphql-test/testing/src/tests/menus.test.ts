@@ -62,6 +62,10 @@ test('correct menu names are returned', async () => {
 	expect(menu).not.toBeUndefined();
 	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
 	expect(menu?.SeqNo).toBe(5);
+	menu = inventoryMenu?.Node?.ChildrenTree_NodeMMList?.find((menu) => menu.Node?.Name === 'Price Lists');
+	expect(menu).toBeDefined();
+	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
+	expect(menu?.SeqNo).toBe(6);
 
 	const accountingMenu = menus.find((menu) => menu.Node?.Name === 'Accounting');
 	expect(accountingMenu).not.toBeUndefined();
@@ -90,10 +94,6 @@ test('correct menu names are returned', async () => {
 	expect(menu).not.toBeUndefined();
 	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
 	expect(menu?.SeqNo).toBe(5);
-	menu = accountingMenu?.Node?.ChildrenTree_NodeMMList?.find((menu) => menu.Node?.Name === 'Price Lists');
-	expect(menu).toBeDefined();
-	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
-	expect(menu?.SeqNo).toBe(6);
 
 	const backEndMenu = menus.find((menu) => menu.Node?.Name === 'Back-End');
 	expect(backEndMenu).not.toBeUndefined();
@@ -114,4 +114,8 @@ test('correct menu names are returned', async () => {
 	expect(menu).not.toBeUndefined();
 	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
 	expect(menu?.SeqNo).toBe(2);
+	menu = backEndMenu?.Node?.ChildrenTree_NodeMMList?.find((menu) => menu.Node?.Name === 'Allergies');
+	expect(menu).not.toBeUndefined();
+	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
+	expect(menu?.SeqNo).toBe(5);
 });
