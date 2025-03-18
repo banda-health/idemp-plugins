@@ -72,6 +72,8 @@ public class BandaResolverComposer {
 				new MBankStatementLoaderResolver(),
 				new MBankStatementMatcherResolver(),
 				new MBankTransferResolver(),
+				new MBHAllergyReactionResolver(),
+				new MBHAllergyResolver(),
 				new MBHBPGeneralPayerInfoResolver(),
 				new MBHBPPayerInfoResolver(),
 				new MBHBPSpecificPayerInfoResolver(),

@@ -15,22 +15,6 @@ public class MReference_BH extends MReference {
 	public static final String STOCK_UPDATE_REASONS_AD_REFERENCE_UU = "dcdc79d7-8e55-428f-a8a5-e7a6f562404f";
 	public static final String ENCOUNTER_TYPES = "ced05cde-f4e6-4d72-9134-c16e27eb963f";
 	/**
-	 * This represents the reference IDs for all document actions in the system
-	 */
-	public static final int DOCUMENT_ACTION_AD_REFERENCE_ID = 135;
-	/**
-	 * This represents the reference ID for date types in the system
-	 */
-	public static final int DATE_AD_REFERENCE_ID = 15;
-	/**
-	 * This represents the reference ID for date/time types in the system
-	 */
-	public static final int DATETIME_AD_REFERENCE_ID = 16;
-	/**
-	 * This represents the reference ID for list types in the system
-	 */
-	public static final int LIST_AD_REFERENCE_ID = 17;
-	/**
 	 * Reference suffix for IDs
 	 * TODO: Remove this when all reports use UUIDs instead of IDs
 	 */

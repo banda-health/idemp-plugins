@@ -71,6 +71,7 @@ public class ConceptSyncProcess extends SvrProcess {
 	private Set<String> visitedConcepts;
 	private Map<String, OCLConcept> conceptsFromOclByUrl;
 	private Map<String, OCLConcept> compressedConceptsFromOclByUrl;
+	private Map<String, MBHConceptMapping> newlySavedConceptMappingsByOclUuid;
 	private Map<String, Set<String>> overrides;
 	private AtomicInteger newRecords;
 	private AtomicInteger updatedRecords;
@@ -110,6 +111,7 @@ public class ConceptSyncProcess extends SvrProcess {
 		conceptsFromOclByUrl = new HashMap<>();
 		overrides = new HashMap<>();
 		savedSourceConcepts = new HashSet<>();
+		newlySavedConceptMappingsByOclUuid = new HashMap<>();
 
 		int conceptCount = getConceptCount();
 		if (conceptCount == 0) {
@@ -183,6 +185,9 @@ public class ConceptSyncProcess extends SvrProcess {
 
 		log.log(Level.INFO, successMessage);
 
+		// Clear this to ensure memory can be freed
+		newlySavedConceptMappingsByOclUuid = new HashMap<>();
+
 		return successMessage;
 	}
 
@@ -204,6 +209,7 @@ public class ConceptSyncProcess extends SvrProcess {
 					// We're not going to exit out if we've already seen the child because we may need to handle SAME-AS mappings
 					OCLConcept childConceptFromOcl =
 							conceptsFromOclByUrl.getOrDefault(conceptMappingFromOcl.getToConceptUrl(), null);
+					boolean haveAlreadyFetchedChildConcepts = false;
 					if (childConceptFromOcl == null) {
 						childConceptFromOcl = getConceptFromOCL(conceptMappingFromOcl.getToConceptUrl());
 						if (childConceptFromOcl == null) {
@@ -211,8 +217,7 @@ public class ConceptSyncProcess extends SvrProcess {
 						}
 						conceptsFromOclByUrl.put(childConceptFromOcl.getUrl(), childConceptFromOcl);
 					} else {
-						// We've already fetched it, so no need to get it again
-						return;
+						haveAlreadyFetchedChildConcepts = true;
 					}
 					// If this child concept is active and has a same-as mapping that's not mapped to itself, add it
 					if (!childConceptFromOcl.isRetired() &&
@@ -224,7 +229,9 @@ public class ConceptSyncProcess extends SvrProcess {
 						}
 						overrides.get(conceptFromOcl.getUrl()).add(childConceptFromOcl.getUrl());
 					}
-					fetchChildConcepts(childConceptFromOcl);
+					if (!haveAlreadyFetchedChildConcepts) {
+						fetchChildConcepts(childConceptFromOcl);
+					}
 				});
 	}
 
@@ -610,11 +617,21 @@ public class ConceptSyncProcess extends SvrProcess {
 		oclConceptMappingsToWorkWith.forEach((conceptMappingFromOcl) -> {
 			MBHConceptMapping foundConceptMapping = conceptMappingsByOclUU.get(conceptMappingFromOcl.getUuid());
 
+			if (conceptMappingFromOcl.getUuid().contains("12462")) {
+				log.info("found it");
+			}
+
+			if (foundConceptMapping == null &&
+					newlySavedConceptMappingsByOclUuid.containsKey(conceptMappingFromOcl.getUuid())) {
+				foundConceptMapping = newlySavedConceptMappingsByOclUuid.get(conceptMappingFromOcl.getUuid());
+			}
+
 			if (foundConceptMapping == null) {
 				// new record
 				foundConceptMapping = new MBHConceptMapping(getCtx(), 0, get_TrxName());
 				foundConceptMapping.setOcl_Uuid(conceptMappingFromOcl.getUuid());
 				newRecords.incrementAndGet();
+				newlySavedConceptMappingsByOclUuid.put(conceptMappingFromOcl.getUuid(), foundConceptMapping);
 			} else {
 				updatedRecords.incrementAndGet();
 			}

@@ -76,10 +76,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private final String coaBandaFile = Adempiere.getAdempiereHome() + File.separator + "data"
 			+ File.separator + "import"
 			+ File.separator + "BandaGoChartofAccounts-Basic.csv";
-	private final String SALES_PRICE_LIST_NAME = "Sales";
-	private final String SALES_PRICE_LIST_VERSION_NAME = "Sales PriceList Version 1";
-	private final String PURCHASES_PRICE_LIST_NAME = "Purchase";
-	private final String PURCHASES_PRICE_LIST_VERSION_NAME = "Purchases PriceList Version 1";
+	private final String SALES_PRICE_LIST_NAME = "Default Price List";
+	private final String SALES_PRICE_LIST_VERSION_NAME = "Default Price List";
+	private final String PURCHASES_PRICE_LIST_NAME = "Default Purchase Price List";
+	private final String PURCHASES_PRICE_LIST_VERSION_NAME = "Default Purchase Price List";
 	private boolean wantsCashBoxAccount = false;
 	private boolean wantsMobileAccount = false;
 	private boolean wantsSavingsAccount = false;

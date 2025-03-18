@@ -296,6 +296,8 @@ public class BandaObjectMapper {
 							addMapping(I_A_RegistrationInput.class, MRegistrationInput.class);
 							addMapping(I_A_RegistrationProductInput.class, X_A_RegistrationProductInput.class);
 							addMapping(I_A_RegistrationValueInput.class, MRegistrationValueInput.class);
+							addMapping(I_BH_AllergyInput.class, MBHAllergyInput.class);
+							addMapping(I_BH_Allergy_ReactionInput.class, MBHAllergyReactionInput.class);
 							addMapping(I_BH_BP_General_Payer_InfoInput.class, MBHBPGeneralPayerInfoInput.class);
 							addMapping(I_BH_BP_Payer_InfoInput.class, MBHBPPayerInfoInput.class);
 							addMapping(I_BH_BP_Specific_Payer_InfoInput.class, MBHBPSpecificPayerInfoInput.class);

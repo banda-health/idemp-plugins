@@ -15,6 +15,7 @@ import {
 	createPayment,
 	createProduct,
 	createVisit,
+	formatApiDate,
 	loadBankAccount,
 } from '../utils';
 
@@ -248,7 +249,7 @@ test('can schedule and change a payment', async () => {
 				C_Currency: {
 					UU: valueObject.currency!.UU,
 				},
-				DateTrx: valueObject.date!.getTime(),
+				DateTrx: formatApiDate(valueObject.date),
 				Description: valueObject.getStepMessageLong(),
 				PayAmt: 100,
 				Scheduled: true,
@@ -282,7 +283,7 @@ test('can schedule and change a payment', async () => {
 		variables: {
 			Entity: {
 				UU: paymentUU,
-				DateTrx: valueObject.date!.getTime(),
+				DateTrx: formatApiDate(valueObject.date),
 			},
 		},
 	});
