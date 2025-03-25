@@ -136,23 +136,24 @@ public class ConceptSyncProcess extends SvrProcess {
 			String[] conceptIDs = sourceIDFilter.split(",");
 			int counter = 1;
 			for (String conceptID : conceptIDs) {
-				log.info("Fetching data from OCL...concept " + counter++ + " of " + conceptIDs.length + ": " + conceptID);
+				log.info("Fetching data from OCL...concept " + counter + " of " + conceptIDs.length + ": " + conceptID);
 				processMonitor.statusUpdate(
-						"Fetching data from OCL...concept " + counter++ + " of " + conceptIDs.length + ": " + conceptID);
+						"Fetching data from OCL...concept " + counter + " of " + conceptIDs.length + ": " + conceptID);
 				OCLConcept conceptFromOcl = getConceptFromOCL(constructUrlFromConceptID(conceptID.trim()));
 				if (conceptFromOcl == null) {
 					continue;
 				}
 				conceptsFromOclByUrl.put(conceptFromOcl.getUrl(), conceptFromOcl);
 				if (followMappings) {
-					log.info("Fetching data from OCL...concept " + counter++ + " of " + conceptIDs.length + ": " + conceptID +
+					log.info("Fetching data from OCL...concept " + counter + " of " + conceptIDs.length + ": " + conceptID +
 							", following mappings");
 					processMonitor.statusUpdate(
-							"Fetching data from OCL...concept " + counter++ + " of " + conceptIDs.length + ": " + conceptID +
+							"Fetching data from OCL...concept " + counter + " of " + conceptIDs.length + ": " + conceptID +
 									", following mappings");
 					fetchChildConcepts(conceptFromOcl);
 				}
 				allOclConceptsFromSource.add(conceptFromOcl);
+				counter++;
 			}
 		} else { // Go fetch based on pages
 			int conceptCount = getConceptCount();
@@ -175,12 +176,13 @@ public class ConceptSyncProcess extends SvrProcess {
 					conceptsFromOclByUrl.put(conceptFromOcl.getUrl(), conceptFromOcl);
 					if (followMappings) {
 						log.info(
-								"Fetching data from OCL...page " + page + " of " + numberOfPages + ", concept " + counter++ + " of " +
+								"Fetching data from OCL...page " + page + " of " + numberOfPages + ", concept " + counter + " of " +
 										conceptsFromOcl.size() + ", following mappings for " + conceptFromOcl.getDisplayName());
 						processMonitor.statusUpdate(
-								"Fetching data from OCL...page " + page + " of " + numberOfPages + ", concept " + counter++ + " of " +
+								"Fetching data from OCL...page " + page + " of " + numberOfPages + ", concept " + counter + " of " +
 										conceptsFromOcl.size() + ", following mappings for " + conceptFromOcl.getDisplayName());
 						fetchChildConcepts(conceptFromOcl);
+						counter++;
 					}
 				}
 				allOclConceptsFromSource.addAll(conceptsFromOcl);
