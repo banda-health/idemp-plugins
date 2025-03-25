@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh706LeftSide" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="68ef5eae-c2af-4563-879f-bd1fd6ee28fd">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh706LeftSide" pageWidth="595" pageHeight="1200" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="68ef5eae-c2af-4563-879f-bd1fd6ee28fd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="666"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="320"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -26,31 +26,36 @@
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '160735' ) AS bacteria_positive,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '163689' ) AS yeast_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND 
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 								   c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC < 3.9) AS blood_sugar_low,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND 
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 								   c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC > 7.8) AS blood_sugar_high,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-							 ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC < 3.9) OR 
+							 ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC < 3.9) OR
 							  (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC < 3.9))) AS oggt_low,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-							 ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC > 7.8) OR 
+							 ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC > 7.8) OR
 							  (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC > 7.8))) AS oggt_high,
-	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL 
+	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
 								AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_under5,
-	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL 
+	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL
 								AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_over5,
-	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' 
+	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive'
 								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_under5,
-	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' 
-								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_over5,		                    
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167353' ) AS taenia_spp_positive,	 
+	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive'
+								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_over5,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167353' ) AS taenia_spp_positive,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167351' ) AS hymenolepis_positive,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167349' ) AS hookworm_positive,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167348' ) AS roundsworms_positive,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '168019' ) AS s_mansoni_positive,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167350' ) AS trichuris_trichura_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167363' ) AS amoeba_positive                         		                           		                           		                           		                           		                                              
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167363' ) AS amoeba_positive,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid in('678','729') ) AS full_bloodcount_total,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='21' AND c.bh_oclid NOT IN('678','729') ) AS hb_estimation_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC < 5  AND c.bh_oclid in('678','729') ) AS hb_lessthan5,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC BETWEEN 5 AND 10  AND c.bh_oclid in('678','729') ) AS hb_between5and10
+                         		                           		                           		                           		                           		                                              
 FROM
 	bh_visit v
 		LEFT JOIN bh_encounter e
@@ -157,8 +162,20 @@ WHERE
 		<property name="com.jaspersoft.studio.field.name" value="amoeba_positive"/>
 		<property name="com.jaspersoft.studio.field.label" value="amoeba_positive"/>
 	</field>
+	<field name="full_bloodcount_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="full_bloodcount_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="full_bloodcount_total"/>
+	</field>
+	<field name="hb_estimation_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hb_estimation_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="hb_estimation_total"/>
+	</field>
+	<field name="hb_lessthan5" class="java.lang.Long"/>
+	<field name="bh_between5and10" class="java.lang.Long"/>
+	<field name="hb_estimation_lessthan5" class="java.lang.Long"/>
+	<field name="hb_estimation_between5and10" class="java.lang.Long"/>
 	<detail>
-		<band height="802" splitType="Stretch">
+		<band height="1190" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement x="0" y="0" width="280" height="22" uuid="02aa1694-fa43-46a1-a1d8-c2ddf88502eb"/>
@@ -892,8 +909,8 @@ WHERE
 					<font size="8"/>
 				</textElement>
 			</textField>
-			<staticText>
-				<reportElement mode="Transparent" x="210" y="490" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="d19f7e91-0940-45c2-b3c3-ca75da5365aa"/>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="490" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="a61d382d-0c4b-44da-9dd2-65fa063d8154"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -904,8 +921,8 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[$F{malaria_bs_under5}]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{malaria_bs_under5}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="0" y="512" width="140" height="22" uuid="6dc6e82b-c2e4-459d-ab27-2777e6da55b8"/>
 				<box leftPadding="3">
@@ -1068,8 +1085,8 @@ WHERE
 				</textElement>
 				<text><![CDATA[3.5 Taenia spp.]]></text>
 			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="210" y="600" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="6b354d5d-1656-4343-9c85-8db103e20dd6"/>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="600" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="9884e933-2d4a-465c-a9fc-f8473e854f45"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1080,8 +1097,8 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[$F{taenia_spp_positive}]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{taenia_spp_positive}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="0" y="622" width="140" height="22" uuid="0cb0b5ff-b5a8-4ba6-87d5-b76b520ea578"/>
 				<box leftPadding="3">
@@ -1137,8 +1154,8 @@ WHERE
 				</textElement>
 				<text><![CDATA[3.7 Hookworm]]></text>
 			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="210" y="644" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="97ea760a-210b-4e7d-9822-0f101cd31eca"/>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="644" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="d58083b4-90d0-4748-af5a-9a54c4d75a04"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1149,8 +1166,8 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[$F{hookworm_positive}]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{hookworm_positive}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="0" y="666" width="140" height="22" uuid="9b4adc4a-bdd9-4971-87f5-85d80b8ca116"/>
 				<box leftPadding="3">
@@ -1261,8 +1278,8 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$F{trichuris_trichura_positive}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement mode="Transparent" x="210" y="512" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="01183a39-ed59-47c9-8daa-666d6cdee68e"/>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="512" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="3c1ea587-07a0-4c0b-80e4-2fe4a578832a"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1273,8 +1290,8 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[$F{malaria_bs_over5}]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{malaria_bs_over5}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="0" y="732" width="140" height="22" uuid="69397ee9-74c7-4890-9206-274fb687d067"/>
 				<box leftPadding="3">
@@ -1357,6 +1374,292 @@ WHERE
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="790" width="450" height="22" uuid="08dd27e5-d257-4707-8ad3-76b0b2a9127b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[4. HAEMATOLOGY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="812" width="140" height="22" uuid="09505032-17e7-452c-b5c2-4da970595748"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Haematology tests]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="812" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="86be5d7f-f62f-49a9-9989-5f33ad2ce0ea"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HB <5 g/dl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="340" y="812" width="110" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="3d1b9a20-980d-4caf-b0b9-d579d2c06530"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HB between 5 and 10 g/dl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="834" width="140" height="22" uuid="6d8e8ff6-fd6b-4777-8ab2-47cea1ba7dc2"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[4.1 Full blood count]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="834" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="631d4098-c820-4202-9387-94ab37da58b4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hb_lessthan5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="340" y="834" width="110" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="98b05c18-728d-4e87-8845-25d20d549e50"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hb_between5and10}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="856" width="140" height="22" uuid="cd37fea3-6c4e-4d95-bd33-c0fc817c2e6d"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[4.2 HB estimation tests (other techniques)]]></text>
+			</staticText>
+			<textField pattern="#,##0.##" isBlankWhenNull="true">
+				<reportElement x="140" y="856" width="70" height="22" uuid="8c2ae319-6e34-4b3e-a7e3-bd8cc0b84b25"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hb_estimation_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="856" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="ba008cfc-2cbc-4e2e-b527-208d08c4b0c1"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hb_estimation_lessthan5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="340" y="856" width="110" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="86657347-ccac-436f-85e7-7ff823e75398"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hb_estimation_between5and10}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="878" width="140" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="4d800c17-f91e-4c6c-a41a-a55e7d1e0b76"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="878" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="30be628a-04b0-4398-a98b-373925ac1f15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pre-diabetes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="340" y="878" width="110" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="98eea9ba-ea6a-48ef-9c70-f60d22f12594"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diabetes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="900" width="140" height="22" uuid="308c0984-9ccc-4dbd-8ff8-2a90fc88c178"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[4.3 Haemoglobin A1c (HbA1c)]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="140" y="900" width="70" height="22" uuid="6b0cce09-0760-41a5-b0e6-c34cfa17f3bd"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="900" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="8da3626c-16b9-4455-8a79-b70ae1f5b006"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{malaria_bs_under5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="340" y="900" width="110" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="e3945a3a-574c-45e7-a4c8-ac26e3dce8a6"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{malaria_bs_under5}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="140" y="812" width="70" height="22" forecolor="#000000" backcolor="#000000" uuid="a509bc1b-0cfd-49ba-a5ff-aad26f651e06"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Exams]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="140" y="834" width="70" height="22" forecolor="#000000" backcolor="#FFFFFF" uuid="fb711992-c6f6-4a3e-94ca-302b6443d751"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{full_bloodcount_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="140" y="878" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="5f5fd4a0-6a3a-40c2-bb29-143336d2a1fe"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Exams]]></text>
 			</staticText>
 		</band>
 	</detail>
