@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh706LeftSide" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="68ef5eae-c2af-4563-879f-bd1fd6ee28fd">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="666"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="320"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -24,9 +24,33 @@
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '10715-1' ) AS haematobium_positive,
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '160735' ) AS bacteria_positive,
-	 COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' AND
-		                           c.bh_source = 'CIEL' AND c.bh_oclid = '160735' ) AS yeast_positive	                           
-
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid = '163689' ) AS yeast_positive,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND 
+								   c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC < 3.9) AS blood_sugar_low,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND 
+								   c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC > 7.8) AS blood_sugar_high,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+							 ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC < 3.9) OR 
+							  (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC < 3.9))) AS oggt_low,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+							 ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC > 7.8) OR 
+							  (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC > 7.8))) AS oggt_high,
+	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL 
+								AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_under5,
+	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL 
+								AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_over5,
+	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' 
+								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_under5,
+	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' 
+								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_over5,		                    
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167353' ) AS taenia_spp_positive,	 
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167351' ) AS hymenolepis_positive,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167349' ) AS hookworm_positive,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167348' ) AS roundsworms_positive,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '168019' ) AS s_mansoni_positive,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167350' ) AS trichuris_trichura_positive,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167363' ) AS amoeba_positive                         		                           		                           		                           		                           		                                              
 FROM
 	bh_visit v
 		LEFT JOIN bh_encounter e
@@ -35,6 +59,8 @@ FROM
 		ON e.bh_encounter_id = ed.bh_encounter_id
 		LEFT JOIN bh_concept c
 		ON ed.bh_concept_id = c.bh_concept_id
+		JOIN c_bpartner patient
+			ON patient.c_bpartner_id = v.patient_id
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date};]]>
@@ -70,6 +96,66 @@ WHERE
 	<field name="yeast_positive" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="yeast_positive"/>
 		<property name="com.jaspersoft.studio.field.label" value="yeast_positive"/>
+	</field>
+	<field name="blood_sugar_low" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="blood_sugar_low"/>
+		<property name="com.jaspersoft.studio.field.label" value="blood_sugar_low"/>
+	</field>
+	<field name="blood_sugar_high" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="blood_sugar_high"/>
+		<property name="com.jaspersoft.studio.field.label" value="blood_sugar_high"/>
+	</field>
+	<field name="oggt_low" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="oggt_low"/>
+		<property name="com.jaspersoft.studio.field.label" value="oggt_low"/>
+	</field>
+	<field name="oggt_high" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="oggt_high"/>
+		<property name="com.jaspersoft.studio.field.label" value="oggt_high"/>
+	</field>
+	<field name="malaria_bs_under5" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="malaria_bs_under5"/>
+		<property name="com.jaspersoft.studio.field.label" value="malaria_bs_under5"/>
+	</field>
+	<field name="malaria_bs_over5" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="malaria_bs_over5"/>
+		<property name="com.jaspersoft.studio.field.label" value="malaria_bs_over5"/>
+	</field>
+	<field name="malaria_rapid_under5" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="malaria_rapid_under5"/>
+		<property name="com.jaspersoft.studio.field.label" value="malaria_rapid_under5"/>
+	</field>
+	<field name="malaria_rapid_over5" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="malaria_rapid_over5"/>
+		<property name="com.jaspersoft.studio.field.label" value="malaria_rapid_over5"/>
+	</field>
+	<field name="taenia_spp_positive" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="taenia_spp_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="taenia_spp_positive"/>
+	</field>
+	<field name="hymenolepis_positive" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hymenolepis_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="hymenolepis_positive"/>
+	</field>
+	<field name="hookworm_positive" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hookworm_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="hookworm_positive"/>
+	</field>
+	<field name="roundsworms_positive" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="roundsworms_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="roundsworms_positive"/>
+	</field>
+	<field name="s_mansoni_positive" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="s_mansoni_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="s_mansoni_positive"/>
+	</field>
+	<field name="trichuris_trichura_positive" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="trichuris_trichura_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="trichuris_trichura_positive"/>
+	</field>
+	<field name="amoeba_positive" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="amoeba_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="amoeba_positive"/>
 	</field>
 	<detail>
 		<band height="802" splitType="Stretch">
@@ -617,7 +703,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="210" y="354" width="70" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="6433e84a-0d0a-404f-8d6e-bad7a5d1614c"/>
+				<reportElement mode="Transparent" x="210" y="354" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="6433e84a-0d0a-404f-8d6e-bad7a5d1614c"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -626,9 +712,9 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[$F{blood_sugar_low}]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="376" width="140" height="22" uuid="f716bc04-601f-4132-a9f0-79c4154becb3"/>
@@ -669,6 +755,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{oggt_low}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="280" y="332" width="60" height="22" uuid="fe50190f-bb72-4c2b-84f4-f2e406d0bd68"/>
@@ -685,7 +772,7 @@ WHERE
 				<text><![CDATA[High]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="280" y="354" width="60" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="29427ad1-b00a-4132-bd68-6f6d16260a5c"/>
+				<reportElement mode="Transparent" x="280" y="354" width="60" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="29427ad1-b00a-4132-bd68-6f6d16260a5c"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -694,9 +781,9 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[$F{blood_sugar_high}]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="280" y="376" width="60" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="d735eb23-fca2-4b60-901e-a431e27750f2"/>
@@ -713,7 +800,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="280" y="376" width="60" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="d735eb23-fca2-4b60-901e-a431e27750f2"/>
+				<reportElement mode="Transparent" x="280" y="376" width="60" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="d735eb23-fca2-4b60-901e-a431e27750f2"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -722,9 +809,9 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[$F{oggt_high}]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="446" width="340" height="22" uuid="178370a6-4031-444a-be05-b4af67845af9"/>
@@ -806,7 +893,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="210" y="490" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="d19f7e91-0940-45c2-b3c3-ca75da5365aa"/>
+				<reportElement mode="Transparent" x="210" y="490" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="d19f7e91-0940-45c2-b3c3-ca75da5365aa"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -815,9 +902,9 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[$F{malaria_bs_under5}]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="512" width="140" height="22" uuid="6dc6e82b-c2e4-459d-ab27-2777e6da55b8"/>
@@ -899,6 +986,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{malaria_rapid_under5}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="556" width="140" height="22" uuid="82961683-bb0a-41c1-ad46-c264e00f0b8e"/>
@@ -925,7 +1013,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField>
-				<reportElement mode="Transparent" x="210" y="556" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="38e59b88-9354-48ee-a8e8-6aef23f27536"/>
+				<reportElement mode="Transparent" x="210" y="556" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="38e59b88-9354-48ee-a8e8-6aef23f27536"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -934,9 +1022,9 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{malaria_rapid_over5}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="578" width="140" height="22" uuid="2eb31fa1-336f-4763-a9c7-01d1d278380b"/>
@@ -981,7 +1069,7 @@ WHERE
 				<text><![CDATA[3.5 Taenia spp.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="210" y="600" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="6b354d5d-1656-4343-9c85-8db103e20dd6"/>
+				<reportElement mode="Transparent" x="210" y="600" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="6b354d5d-1656-4343-9c85-8db103e20dd6"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -990,9 +1078,9 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[$F{taenia_spp_positive}]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="622" width="140" height="22" uuid="0cb0b5ff-b5a8-4ba6-87d5-b76b520ea578"/>
@@ -1033,6 +1121,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{hymenolepis_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="644" width="140" height="22" uuid="5aec7a1b-0b8f-4778-ae03-990aad217f70"/>
@@ -1049,7 +1138,7 @@ WHERE
 				<text><![CDATA[3.7 Hookworm]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="210" y="644" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="97ea760a-210b-4e7d-9822-0f101cd31eca"/>
+				<reportElement mode="Transparent" x="210" y="644" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="97ea760a-210b-4e7d-9822-0f101cd31eca"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1058,9 +1147,9 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[$F{hookworm_positive}]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="666" width="140" height="22" uuid="9b4adc4a-bdd9-4971-87f5-85d80b8ca116"/>
@@ -1101,6 +1190,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{roundsworms_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="688" width="140" height="22" uuid="c9293616-0f8d-4574-ab52-95609d013a3f"/>
@@ -1117,7 +1207,7 @@ WHERE
 				<text><![CDATA[3.9 S. mansoni]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Transparent" x="210" y="688" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="f712259a-3aa8-48a5-a4cd-ecb6687800dd"/>
+				<reportElement mode="Transparent" x="210" y="688" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="f712259a-3aa8-48a5-a4cd-ecb6687800dd"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1126,9 +1216,9 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{s_mansoni_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="710" width="140" height="22" uuid="dfd87d6e-bbac-49cc-a502-f4083e410eac"/>
@@ -1169,9 +1259,10 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{trichuris_trichura_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="210" y="512" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="01183a39-ed59-47c9-8daa-666d6cdee68e"/>
+				<reportElement mode="Transparent" x="210" y="512" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="01183a39-ed59-47c9-8daa-666d6cdee68e"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1180,9 +1271,9 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[$F{malaria_bs_over5}]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="732" width="140" height="22" uuid="69397ee9-74c7-4890-9206-274fb687d067"/>
@@ -1223,6 +1314,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{amoeba_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="140" y="600" width="70" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="3a22a541-2717-4dec-ad6a-0b2bda8abe67"/>
