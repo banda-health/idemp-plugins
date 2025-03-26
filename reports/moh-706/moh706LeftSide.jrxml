@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh706LeftSide" pageWidth="595" pageHeight="1200" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="68ef5eae-c2af-4563-879f-bd1fd6ee28fd">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh706LeftSide" pageWidth="595" pageHeight="2000" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="68ef5eae-c2af-4563-879f-bd1fd6ee28fd">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="666"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="320"/>
@@ -54,7 +54,35 @@
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid in('678','729') ) AS full_bloodcount_total,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='21' AND c.bh_oclid NOT IN('678','729') ) AS hb_estimation_total,
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC < 5  AND c.bh_oclid in('678','729') ) AS hb_lessthan5,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC BETWEEN 5 AND 10  AND c.bh_oclid in('678','729') ) AS hb_between5and10
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC BETWEEN 5 AND 10  AND c.bh_oclid in('678','729') ) AS hb_between5and10,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC < 5  AND c.bh_oclid NOT in('678','729') ) AS hb_estimation_lessthan5,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC BETWEEN 5 AND 10  AND c.bh_oclid NOT in('678','729') ) AS hb_estimation_between5and10,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='307') AS tb_smear_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='307' AND ed.bh_value IN('Positive', 'One plus', 'Two plus', 'Three plus','Scanty') ) AS tb_smear_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='299') AS vdrl_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='299' AND ed.bh_value = 'Reactive') AS vdrl_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='1032') AS tpha_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='1032' AND ed.bh_value = 'Reactive') AS tpha_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='161469') AS asot_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='161469' AND ed.bh_value::NUMERIC > 200) AS asot_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='163722') AS hiv_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='163722' AND ed.bh_value = 'Positive') AS hiv_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='305') AS brucella_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='305' AND ed.bh_value = 'Reactive') AS brucella_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='161470') AS rheumatoid_factor_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='161470' AND ed.bh_value = 'Positive') AS rheumatoid_factor_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='163620') AS hpylori_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='163620' AND ed.bh_value = 'Positive') AS hpylori_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('20575-7', '32018-4', '22314-9')) AS hepatitisa_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('20575-7', '32018-4', '22314-9') AND lower(ed.bh_value) not like 'neg%') AS hepatitisa_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('159430', '161472', '165301')) AS hepatitisb_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('159430', '161472', '165301') AND lower(ed.bh_value) = 'positive') AS hepatitisb_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('1325', '161471', '165302')) AS hepatitisc_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('1325', '161471', '165302') AND lower(ed.bh_value) = 'positive') AS hepatitisc_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='1945') AS hcg_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='1945' AND ed.bh_value = 'Positive') AS hcg_positive,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='166555') AS crag_test_total,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='166555' AND ed.bh_value = 'Positive') AS crag_test_positive
                          		                           		                           		                           		                           		                                              
 FROM
 	bh_visit v
@@ -171,11 +199,37 @@ WHERE
 		<property name="com.jaspersoft.studio.field.label" value="hb_estimation_total"/>
 	</field>
 	<field name="hb_lessthan5" class="java.lang.Long"/>
-	<field name="bh_between5and10" class="java.lang.Long"/>
+	<field name="hb_between5and10" class="java.lang.Long"/>
 	<field name="hb_estimation_lessthan5" class="java.lang.Long"/>
 	<field name="hb_estimation_between5and10" class="java.lang.Long"/>
+	<field name="tb_smear_total" class="java.lang.Long"/>
+	<field name="tb_smear_positive" class="java.lang.Long"/>
+	<field name="vdrl_total" class="java.lang.Long"/>
+	<field name="vdrl_positive" class="java.lang.Long"/>
+	<field name="tpha_total" class="java.lang.Long"/>
+	<field name="tpha_positive" class="java.lang.Long"/>
+	<field name="asot_total" class="java.lang.Long"/>
+	<field name="asot_positive" class="java.lang.Long"/>
+	<field name="hiv_total" class="java.lang.Long"/>
+	<field name="hiv_positive" class="java.lang.Long"/>
+	<field name="brucella_total" class="java.lang.Long"/>
+	<field name="brucella_positive" class="java.lang.Long"/>
+	<field name="rheumatoid_factor_total" class="java.lang.Long"/>
+	<field name="rheumatoid_factor_positive" class="java.lang.Long"/>
+	<field name="hpylori_total" class="java.lang.Long"/>
+	<field name="hpylori_positive" class="java.lang.Long"/>
+	<field name="hepatitisa_total" class="java.lang.Long"/>
+	<field name="hepatitisa_positive" class="java.lang.Long"/>
+	<field name="hepatitisb_total" class="java.lang.Long"/>
+	<field name="hepatitisb_positive" class="java.lang.Long"/>
+	<field name="hepatitisc_total" class="java.lang.Long"/>
+	<field name="hepatitisc_positive" class="java.lang.Long"/>
+	<field name="hcg_total" class="java.lang.Long"/>
+	<field name="hcg_positive" class="java.lang.Long"/>
+	<field name="crag_test_total" class="java.lang.Long"/>
+	<field name="crag_test_positive" class="java.lang.Long"/>
 	<detail>
-		<band height="1190" splitType="Stretch">
+		<band height="1990" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement x="0" y="0" width="280" height="22" uuid="02aa1694-fa43-46a1-a1d8-c2ddf88502eb"/>
@@ -246,7 +300,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[1.1 Urine Chemistry]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="140" y="44" width="70" height="22" uuid="9d0e37d3-e6cb-4e0f-80d5-cb0208dc0ba4"/>
 				<box leftPadding="3">
 					<bottomPen lineWidth="0.25"/>
@@ -298,7 +352,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.##" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="66" width="70" height="22" uuid="db82cfaa-b489-46d0-a964-ea0211159109"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -306,7 +360,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{glucose_postive}]]></textFieldExpression>
@@ -395,7 +449,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.##" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="88" width="70" height="22" uuid="b15d6299-2655-44aa-ba9c-5388fef8f18b"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -403,7 +457,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ketone_positive}]]></textFieldExpression>
@@ -422,7 +476,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.##" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="110" width="70" height="22" uuid="bc1a239c-6f17-4237-84f7-ccc2addde7cd"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -430,7 +484,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proteins_positive}]]></textFieldExpression>
@@ -463,7 +517,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.##" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="154" width="70" height="22" uuid="8208eb58-ef9c-4198-86b0-65b0e30c06ac"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -471,7 +525,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{puss_positive}]]></textFieldExpression>
@@ -490,7 +544,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.##" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="176" width="70" height="22" uuid="5c6b4d71-c698-41d7-8ac2-de0de25b2f6c"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -498,7 +552,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{haematobium_positive}]]></textFieldExpression>
@@ -517,7 +571,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.##" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="198" width="70" height="22" uuid="b7ee0a81-9442-49ac-8b56-377580b1f76e"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -525,7 +579,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{vaginalis_positive}]]></textFieldExpression>
@@ -558,7 +612,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.##" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="220" width="70" height="22" uuid="9ad34134-2fb3-425a-ba03-ddaf038b1d42"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -566,7 +620,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{yeast_positive}]]></textFieldExpression>
@@ -599,7 +653,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.##" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="242" width="70" height="22" uuid="40271687-7b31-43dc-a496-22f3b7edce2e"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -607,7 +661,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bacteria_positive}]]></textFieldExpression>
@@ -709,7 +763,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[2.1 Blood Sugar]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="140" y="354" width="70" height="22" uuid="04bbfeca-6a06-4212-bc9d-db92e6514a9e"/>
 				<box leftPadding="3">
 					<bottomPen lineWidth="0.25"/>
@@ -719,8 +773,8 @@ WHERE
 					<font size="8"/>
 				</textElement>
 			</textField>
-			<staticText>
-				<reportElement mode="Transparent" x="210" y="354" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="6433e84a-0d0a-404f-8d6e-bad7a5d1614c"/>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="354" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="b58b985c-e506-43a1-abd6-03bc97560b11"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -731,8 +785,8 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[$F{blood_sugar_low}]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{blood_sugar_low}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="0" y="376" width="140" height="22" uuid="f716bc04-601f-4132-a9f0-79c4154becb3"/>
 				<box leftPadding="3">
@@ -761,7 +815,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="376" width="70" height="22" uuid="ffc32195-4729-4f18-9c73-a7c0211fb28f"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -769,7 +823,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{oggt_low}]]></textFieldExpression>
@@ -788,8 +842,8 @@ WHERE
 				</textElement>
 				<text><![CDATA[High]]></text>
 			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="280" y="354" width="60" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="29427ad1-b00a-4132-bd68-6f6d16260a5c"/>
+			<textField>
+				<reportElement mode="Transparent" x="280" y="354" width="60" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="8e0223d1-489c-4bd4-b627-d17d74ba9c8c"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -800,8 +854,8 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[$F{blood_sugar_high}]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{blood_sugar_high}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement mode="Transparent" x="280" y="376" width="60" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="d735eb23-fca2-4b60-901e-a431e27750f2"/>
 				<box>
@@ -816,8 +870,8 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="280" y="376" width="60" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="d735eb23-fca2-4b60-901e-a431e27750f2"/>
+			<textField>
+				<reportElement mode="Transparent" x="280" y="376" width="60" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="4f7277ab-9b2d-489b-a3b9-27b6238b0817"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -828,8 +882,8 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[$F{oggt_high}]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{oggt_high}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="0" y="446" width="340" height="22" uuid="178370a6-4031-444a-be05-b4af67845af9"/>
 				<box>
@@ -899,7 +953,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[3.1 Malaria BS (Under five years)]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="140" y="490" width="70" height="22" uuid="eed497f9-8e72-4514-91e7-876acff2fcc5"/>
 				<box leftPadding="3">
 					<bottomPen lineWidth="0.25"/>
@@ -992,7 +1046,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="534" width="130" height="22" uuid="c82f0e0c-1410-4602-a956-3a4dac1abf19"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -1000,7 +1054,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{malaria_rapid_under5}]]></textFieldExpression>
@@ -1019,7 +1073,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[3.4 Malaria Rapid Diagnostic Tests (5 years and above)]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="140" y="556" width="70" height="22" uuid="7747bf5d-4fcc-4632-a9bc-8e00365dda15"/>
 				<box leftPadding="3">
 					<bottomPen lineWidth="0.25"/>
@@ -1127,7 +1181,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="622" width="130" height="22" uuid="c8306fcb-580c-4b79-bffa-3f4a293916a1"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -1135,7 +1189,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hymenolepis_positive}]]></textFieldExpression>
@@ -1196,7 +1250,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="666" width="130" height="22" uuid="c936d7f9-72f0-4612-8ef0-cb93d4a0f861"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -1204,7 +1258,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{roundsworms_positive}]]></textFieldExpression>
@@ -1265,7 +1319,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="710" width="130" height="22" uuid="50c8167f-0359-4250-9a7f-d8c5876114be"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -1273,7 +1327,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{trichuris_trichura_positive}]]></textFieldExpression>
@@ -1320,7 +1374,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="210" y="732" width="130" height="22" uuid="64798e1b-8c0d-4983-b572-4914944370c1"/>
 				<box leftPadding="3">
 					<topPen lineWidth="0.25"/>
@@ -1328,7 +1382,7 @@ WHERE
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amoeba_positive}]]></textFieldExpression>
@@ -1486,13 +1540,13 @@ WHERE
 				</textElement>
 				<text><![CDATA[4.2 HB estimation tests (other techniques)]]></text>
 			</staticText>
-			<textField pattern="#,##0.##" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="140" y="856" width="70" height="22" uuid="8c2ae319-6e34-4b3e-a7e3-bd8cc0b84b25"/>
 				<box leftPadding="3">
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hb_estimation_total}]]></textFieldExpression>
@@ -1581,7 +1635,7 @@ WHERE
 				</textElement>
 				<text><![CDATA[4.3 Haemoglobin A1c (HbA1c)]]></text>
 			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="140" y="900" width="70" height="22" uuid="6b0cce09-0760-41a5-b0e6-c34cfa17f3bd"/>
 				<box leftPadding="3">
 					<bottomPen lineWidth="0.25"/>
@@ -1661,6 +1715,1415 @@ WHERE
 				</textElement>
 				<text><![CDATA[Total Exams]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="0" y="957" width="340" height="22" uuid="ac091853-9f81-41b7-a06e-d2b089fa2fff"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[5. BACTERIOLOGY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="979" width="140" height="22" uuid="802422f7-4a4e-4593-a72e-b4aeda77b5f5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sputum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="979" width="70" height="22" uuid="e9cdec85-9149-4d9d-baf9-c003c010be8e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Exams]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="979" width="130" height="22" uuid="87533861-f45b-4521-abf1-67be8bd006a3"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number Positive]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1001" width="140" height="22" uuid="53e01164-20d7-46cd-9531-38b971f509bd"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[5.29 Total TB smears]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1001" width="70" height="22" uuid="676a3e0f-72bd-4eec-a3dc-fa26648240c3"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="1001" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="9b0f925a-3ebc-43c9-84e8-14f1cca8e181"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_smear_positive}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1023" width="140" height="22" uuid="6c82f405-74f4-471f-b148-2a563ab88841"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[5.30 New presumptive TB cases]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="140" y="1023" width="70" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="897811d5-30bb-4d31-9fb8-17f4c629ed77"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1045" width="140" height="22" uuid="2313d057-4b67-4053-b3fd-740e37ba776c"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[5.31 TB follow-up]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="140" y="1045" width="70" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="6bf49cfd-d071-48e5-a2b5-01f8882601f0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="1045" width="130" height="22" uuid="3b164987-bede-4ce5-8551-d30b84f67d23"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[NA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1067" width="140" height="22" uuid="2826bb0f-a9a9-4553-a4fd-41fd63cfb336"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[5.32 Rifampicin resistant TB]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1067" width="70" height="22" uuid="7802f418-87ab-4e60-8e92-9f5becb66583"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="1023" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="710f8d81-6d5e-45ac-92e9-91473bd52c04"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[NA]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1089" width="70" height="22" uuid="07b0f821-a672-4b56-84fc-597398a586fe"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1089" width="140" height="22" uuid="06a44ff5-d485-4aae-b1f0-61d06c5a03ca"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[5.33 MDR TB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="210" y="1067" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="f087df62-c363-4d6c-8975-66d3fffe6e9f">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="210" y="1089" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="96d2a358-457a-496d-bb8d-fee5fb931e09">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="140" y="1001" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="ef3cfded-72cc-437d-bf05-b6686415f97a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_smear_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1145" width="340" height="22" uuid="bae06161-ac44-4654-afbe-95508f37e927"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[6. SEROLOGY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1167" width="140" height="22" uuid="6e33f734-7f81-4083-b04a-46792cd5706d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serological test]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="1167" width="70" height="22" uuid="8f32371f-4b1f-4cb5-b884-3ab603ba5f45"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Exams]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="1167" width="130" height="22" uuid="4086b63e-cb42-45a3-acc6-e8edce8475c4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number Positive]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1189" width="140" height="22" uuid="1166ad5f-c47c-40bc-b8b7-c170504b9684"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.1 VDRL]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1189" width="70" height="22" uuid="a618e980-d645-41ba-a290-a18faa531f82"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="1189" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="893e236d-e652-4d9d-b8e0-9ab37a19408b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vdrl_positive}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1211" width="140" height="22" uuid="392dc18b-6124-4a8a-a951-11913169b9b7"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.2 TPHA]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="140" y="1211" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="ca54c4b1-125f-46bb-b47e-9e4ee956a499"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tpha_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1233" width="140" height="22" uuid="a36b1767-ede5-4083-be73-5355851d6150"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.3 ASOT]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="140" y="1233" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="0a6cee90-1756-40c2-9561-e29d627d2810"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{asot_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="1233" width="130" height="22" uuid="0fedd042-ba35-439a-85a1-80a0a57de01e"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{asot_positive}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1255" width="140" height="22" uuid="3ffa582e-05ba-4e5c-a922-f06badf7e829"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.4 HIV]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1255" width="70" height="22" uuid="af3bdc2e-923b-4b0c-9dd4-801462db6931"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hiv_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="1211" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="09fac850-138c-423e-8b92-610958642b9a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tpha_positive}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1277" width="70" height="22" uuid="53441868-add6-4646-9e39-79805540b98e"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{brucella_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1277" width="140" height="22" uuid="4d3c81d4-f251-497f-a631-5d38d9f1faf3"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.5 Brucella]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="140" y="1189" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="9493c8e9-65df-4edc-bf31-91621fb39c8f"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vdrl_positive}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1299" width="140" height="22" uuid="cf8b216c-5d0b-4379-9a45-84dfd8006070"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.6 Rheumatoid factor]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="140" y="1299" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="8b150fa3-65df-474d-bec9-3d1fe0055fec"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rheumatoid_factor_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1321" width="140" height="22" uuid="351cea1f-b89d-4d40-b85e-e7cfa8e75ae1"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.7 Helicobacter pylori]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="140" y="1321" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="ec3374dd-d778-4ebe-9d55-fefd7cdc48af"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hpylori_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="1321" width="130" height="22" uuid="2f59cff5-db32-48c9-987c-8d54187d9781"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hpylori_positive}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1343" width="140" height="22" uuid="434279e0-124e-462c-bae8-1a7a7345cabe"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.8 Hepatitis A test]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1343" width="70" height="22" uuid="f4b8360c-0c87-4ad9-8af7-d98b6b7d39d7"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hepatitisa_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="210" y="1299" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="273d5bce-ba50-4d16-865d-c6e88649e702"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rheumatoid_factor_positive}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1365" width="70" height="22" uuid="0a0b7de5-f2f4-4e6a-bec1-58e55d4d50c6"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hepatitisb_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1365" width="140" height="22" uuid="f5c3fc84-941a-4017-92ed-d184dac5c1ae"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.9 Hepatitis B test]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1387" width="140" height="22" uuid="5f57d1a2-1b73-474c-81ed-2007fa9e6dc2"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.10 Hepatitis C test]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="140" y="1387" width="70" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="6905b34d-6014-4f06-8293-8af6b91f018c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hepatitisc_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="1387" width="130" height="22" uuid="829ac44e-b2ab-4b1e-a16d-630565bdb089"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hepatitisc_positive}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1409" width="140" height="22" uuid="7f1e8bfe-189c-4d9a-9859-d507ea4966c5"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.11 HCG]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1409" width="70" height="22" uuid="160e3202-d4e4-4ed1-ac9e-37086ddfcb37"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hcg_total}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1431" width="70" height="22" uuid="89754384-2d8e-47ce-9f3a-2b2ffe7ca626"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{crag_test_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1431" width="140" height="22" uuid="6ed2e86a-bcd0-46ea-bf7d-754d1e6eb9ef"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7.12 CRAG Test]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1490" width="340" height="22" uuid="57921fea-b7d5-4290-8803-426c5cc3caed"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[7. SPECIMEN REFERRAL TO HIGHER LEVELS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1512" width="140" height="22" uuid="0c3d6b76-9b69-4d89-9888-9b1a96296d42"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Specimen referral]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="1512" width="70" height="22" uuid="ceabc956-aa71-4f72-9fb3-2d304cf2cd59"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of specimens]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="1512" width="130" height="22" uuid="9f45b75f-9fee-434e-aa18-fc586b276fc7"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. of results received]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1534" width="140" height="22" uuid="38c4852c-9478-497e-851b-78ea93855b2b"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.1 CD4]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1534" width="70" height="22" uuid="a91a0ea9-7ce4-485a-9c48-aaff927f237c"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="1534" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="7510f737-b4d3-4d40-bc78-a8f7b5f55c81"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1556" width="140" height="22" uuid="8f4d39ce-8156-490e-91f9-606c428635d6"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.2 Viral load]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="140" y="1556" width="70" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="c1100830-c917-40f0-b1be-bd7730e0e7b5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1578" width="140" height="22" uuid="459f5036-b06b-450b-8cf7-2c135f57af89"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.3 EID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="140" y="1578" width="70" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="6b125f55-5717-46e0-bc32-4eb40945dab1"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="1578" width="130" height="22" uuid="0440cdbf-f81d-49ac-ac8e-faf9d38ff7e6"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1600" width="140" height="22" uuid="c3b3cf25-674f-4748-b9a7-480ef3cbda7f"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.4 Discodant/discripant]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1600" width="70" height="22" uuid="16ef6f30-7d49-48cf-b349-40c6d8df9c68"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="1556" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="589606a9-b2e9-46d7-968d-759d244f0156"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1622" width="70" height="22" uuid="77d94cd5-8df7-417b-befc-190e4042b34a"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1622" width="140" height="22" uuid="1da6feb6-4711-43f6-a522-ad3d1b411861"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.5 TB Culture]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="210" y="1578" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="b470294d-a8cb-4b40-9642-10a439e73e7e">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="210" y="1600" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="a05d0ffa-ad7f-48a3-9675-b336064737e6">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1644" width="140" height="22" uuid="a6b3cd8e-d294-4c4d-b9dc-fd1d2cf2a3d6"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.6 Virological]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="140" y="1644" width="70" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="814df165-aa1d-4037-8dbf-c40dac290edc"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1666" width="140" height="22" uuid="fa64dc28-d262-4d4d-93d0-2c47264bf4e4"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.7 Clinical chemistry]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="140" y="1666" width="70" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="89600cd8-00a6-42fa-80d4-8fb8e98a14c4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="1754" width="130" height="22" uuid="80d40bfa-2c51-48b0-b0ce-69af4b99e350"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1688" width="140" height="22" uuid="2078401b-8f6c-4732-a64d-d67dd70f7255"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.8 Histology/cytology]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1688" width="70" height="22" uuid="e847e91f-dfd4-44ba-ac96-197f2974ad4a"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="1666" width="130" height="22" forecolor="#000000" backcolor="#D0CECE" uuid="e2cac9f5-64b2-4d67-baaf-60873fda4dd2"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1710" width="70" height="22" uuid="626af8b7-ca9a-429c-85f6-0083452faf3e"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1710" width="140" height="22" uuid="6b2521fc-5026-4c13-af1b-f3aa41622e8d"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.9 Haematological]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="210" y="1688" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="30f6fcf9-91fe-4b2f-ad88-f5f46066dc56">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1732" width="140" height="22" uuid="972ce94c-7ef9-4198-8255-b019fe9c5e05"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.10 Parasitological]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="140" y="1732" width="70" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="4f428bdc-7afe-431c-818f-c4e549a50b1a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="1732" width="130" height="22" uuid="6d69eed0-6cd5-4346-ad8d-e39686c8613a"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1754" width="140" height="22" uuid="924560f8-a1c5-4ed1-ba30-22f5ab7b842c"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8.11 Blood samples for transfussion screening]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="1754" width="70" height="22" uuid="41e1f91c-d615-4541-9cd2-894882243896"/>
+				<box leftPadding="3">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="210" y="1622" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="b0811c66-cb3d-4edd-8873-5a020b6f605b">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="210" y="1644" width="130" height="22" forecolor="#D0CECE" backcolor="#D0CECE" uuid="792859e9-dd02-40b3-a312-4ee76e848394">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="1710" width="130" height="22" uuid="1b6c4ec3-a5da-4bdb-81f9-a28591bcdb10"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="163" y="1811" width="141" height="16" uuid="7ead21d1-09df-4285-8e31-4c4502f20f29">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="1810" width="140" height="16" uuid="8ede073c-0878-4cb1-b197-d2454813b570">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Report compiled by:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="163" y="1831" width="141" height="16" uuid="9a558fe2-309b-4ad7-bdaa-8b76d5dca738">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="1830" width="140" height="16" uuid="b1a819ca-403a-47c2-84c3-fb04b921b2db">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Designation:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="1850" width="140" height="16" uuid="4c1453de-6068-4203-9582-78cbb7abc846">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="163" y="1851" width="141" height="16" uuid="c7ec1c86-e228-490d-96d8-60e5c0e914a1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="1868" width="140" height="16" uuid="e790aeab-9810-45d8-a099-15d0d0f788bd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Signature:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="163" y="1869" width="141" height="16" uuid="a7054905-0107-409c-8c6a-a656031a5650">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="210" y="1255" width="130" height="22" uuid="21a0d497-a3e2-41fc-9b3e-76858a130258"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hiv_positive}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="1277" width="130" height="22" uuid="65d53b3e-9e88-44d6-987f-27157a9396d6"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{brucella_positive}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="1343" width="130" height="22" uuid="34794403-a1e4-40b8-b917-5728f8eb0cab"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hepatitisa_positive}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="1365" width="130" height="22" uuid="cdb3e48e-d1f9-4068-8bcb-b441ad13d1b2"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hepatitisb_positive}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="1431" width="130" height="22" uuid="bf44fea5-ae6b-47ff-851a-cd43b299ec48"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{crag_test_positive}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="1409" width="130" height="22" uuid="4c5b8af5-4717-4fee-909d-4dcb4eadf27b"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hcg_positive}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
