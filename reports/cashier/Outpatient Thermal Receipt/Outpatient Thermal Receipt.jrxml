@@ -84,7 +84,7 @@ FROM
 				v.bh_visitdate   AS bill_date,
 				o.c_order_id     AS receipt_number,
 				u_cashier.name   AS cashierName,
-				u_patient.name   AS patientName,
+				bp.name          AS patientName,
 				bp.bh_birthday   AS age,
 				bp.bh_patientid  AS fileNumber,
 				u_clinician.name AS clinicianname,
@@ -95,8 +95,6 @@ FROM
 					ON v.bh_visit_id = o.bh_visit_id
 					JOIN c_bpartner bp
 					ON v.patient_id = bp.c_bpartner_id
-					JOIN ad_user u_patient
-					ON bp.c_bpartner_id = u_patient.c_bpartner_id
 					JOIN ad_user u_cashier
 					ON v.createdby = u_cashier.ad_user_id
 					LEFT JOIN ad_user u_clinician

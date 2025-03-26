@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Transactions Main" pageWidth="1875" pageHeight="744" orientation="Landscape" columnWidth="1875" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="cc04d203-d034-4a9b-95b5-22b226c482fc">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
@@ -69,11 +69,11 @@
 		FROM
 			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp) gvd
 				INNER JOIN c_bpartner cb
-					ON gvd.c_bpartner_id = cb.c_bpartner_id
+				ON gvd.c_bpartner_id = cb.c_bpartner_id
 				INNER JOIN ad_user
-					ON gvd.ad_user_id = ad_user.ad_user_id
+				ON gvd.ad_user_id = ad_user.ad_user_id
 				JOIN c_orderline ol
-					ON gvd.c_order_id = ol.c_order_id
+				ON gvd.c_order_id = ol.c_order_id
 				CROSS JOIN params p
 		WHERE
 			((gvd.docstatus <> 'VO' AND gvd.docstatus <> 'DR')
@@ -124,17 +124,17 @@ FROM
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
-			SUM(payamt) FILTER ( WHERE tendertype = 'X' )                            AS cash,
-			SUM(payamt) FILTER ( WHERE tendertype = 'M' )                            AS mobile,
-			SUM(payamt) FILTER ( WHERE tendertype IN ('C', 'A') )                            AS credit_debit,
-			SUM(payamt) FILTER ( WHERE tendertype = 'D' )                            AS bank,
-			SUM(payamt) FILTER ( WHERE tendertype = 'K' )                            AS "check",
-			SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K' ,'A') ) AS other
+			SUM(payamt) FILTER ( WHERE tendertype = 'X' )                                   AS cash,
+			SUM(payamt) FILTER ( WHERE tendertype = 'M' )                                   AS mobile,
+			SUM(payamt) FILTER ( WHERE tendertype IN ('C', 'A') )                           AS credit_debit,
+			SUM(payamt) FILTER ( WHERE tendertype = 'D' )                                   AS bank,
+			SUM(payamt) FILTER ( WHERE tendertype = 'K' )                                   AS "check",
+				SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K', 'A') ) AS other
 		FROM
 			patient_payments
 		GROUP BY bh_visit_id
 	) patient_payment_sums
-			ON billdetails.bh_visit_id = patient_payment_sums.bh_visit_id
+		ON billdetails.bh_visit_id = patient_payment_sums.bh_visit_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
@@ -145,19 +145,19 @@ FROM
 			non_patient_payments
 		GROUP BY bh_visit_id
 	) non_patient_payment_totals
-			ON billdetails.bh_visit_id = non_patient_payment_totals.bh_visit_id
+		ON billdetails.bh_visit_id = non_patient_payment_totals.bh_visit_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
-			chargetype_name,
-			member_id
+			STRING_AGG(chargetype_name, ', ') AS chargetype_name,
+			STRING_AGG(member_id, ', ')       AS member_id
 		FROM
 			non_patient_payments
 		WHERE
 			bh_subtype = 'I'
-		GROUP BY bh_visit_id, chargetype_name, member_id
+		GROUP BY bh_visit_id
 	) insurance_info
-			ON insurance_info.bh_visit_id = billdetails.bh_visit_id
+		ON insurance_info.bh_visit_id = billdetails.bh_visit_id
 		CROSS JOIN params p
 WHERE
 	EXISTS (
@@ -169,7 +169,7 @@ WHERE
 				FROM
 					billdetails
 						LEFT JOIN patient_payments
-							ON billdetails.bh_visit_id = patient_payments.bh_visit_id
+						ON billdetails.bh_visit_id = patient_payments.bh_visit_id
 				WHERE
 					(p.payment_mode = ''
 						OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M', 'A')))
@@ -179,7 +179,7 @@ WHERE
 				FROM
 					billdetails
 						LEFT JOIN non_patient_payments
-							ON billdetails.bh_visit_id = non_patient_payments.bh_visit_id
+						ON billdetails.bh_visit_id = non_patient_payments.bh_visit_id
 				WHERE
 					(p.payment_mode = ''
 						OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END

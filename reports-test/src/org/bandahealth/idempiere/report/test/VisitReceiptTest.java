@@ -14,6 +14,8 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
@@ -820,5 +822,77 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) && cell.getNumericCellValue() == 23d),
 					"Total outstanding amount is correct");
 		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void reportShowsDataWhenBusinessPartnerDoesntHaveAUser() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(200));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		MUser_BH currentUser = valueObject.getUser();
+		valueObject.clearBusinessPartner();
+		valueObject.setStepName("Create visit business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Delete created visit business partner user");
+		MUser_BH businessPartnerUser =
+				new Query(valueObject.getContext(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_C_BPartner_ID + "=?",
+						valueObject.getTransactionName()).setParameters(valueObject.getBusinessPartner().get_ID()).first();
+		if (businessPartnerUser != null) {
+			businessPartnerUser.deleteEx(true);
+			commitEx();
+			valueObject.setUser(currentUser);
+			valueObject.getBusinessPartner().getContacts(true);
+		}
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(30));
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_POSOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(19));
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the receipt");
+		valueObject.setProcessUuid("30dd7243-11c1-4584-af26-5d977d117c84");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Collections.singletonList(
+				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
+		valueObject.setReportType("pdf");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
+		assertTrue(reportContent.contains(valueObject.getBusinessPartner().getName().substring(0, 15)),
+				"Business partner is on the report");
 	}
 }

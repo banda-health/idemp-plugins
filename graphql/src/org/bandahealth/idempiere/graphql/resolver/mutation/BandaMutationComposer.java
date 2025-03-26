@@ -71,6 +71,8 @@ public class BandaMutationComposer {
 				new MBankStatementLoaderMutation(),
 				new MBankStatementMatcherMutation(),
 				new MBankTransferMutation(),
+				new MBHAllergyMutation(),
+				new MBHAllergyReactionMutation(),
 				new MBHBPGeneralPayerInfoMutation(),
 				new MBHBPPayerInfoMutation(),
 				new MBHBPSpecificPayerInfoMutation(),
