@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh706LeftSide" pageWidth="595" pageHeight="772" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="68ef5eae-c2af-4563-879f-bd1fd6ee28fd">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh706LeftSide" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="68ef5eae-c2af-4563-879f-bd1fd6ee28fd">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="666"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="320"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
@@ -241,10 +232,17 @@ WHERE
 	<field name="crag_test_total" class="java.lang.Long"/>
 	<field name="crag_test_positive" class="java.lang.Long"/>
 	<detail>
-		<band height="637" splitType="Stretch">
+		<band height="48" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="170" y="0" width="230" height="30" uuid="c887d1a3-87cc-4bec-bbd1-1bc841ffe6e9"/>
+				<textFieldExpression><![CDATA["Laboratory Test Summary Report"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="640">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="0" y="0" width="250" height="13" uuid="02aa1694-fa43-46a1-a1d8-c2ddf88502eb">
+				<reportElement x="0" y="3" width="250" height="13" uuid="02aa1694-fa43-46a1-a1d8-c2ddf88502eb">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -260,7 +258,7 @@ WHERE
 				<text><![CDATA[1. URINE ANALYSIS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="13" width="100" height="13" uuid="44ebbce1-b145-4f90-99df-11e5d3f41827">
+				<reportElement x="0" y="16" width="100" height="13" uuid="44ebbce1-b145-4f90-99df-11e5d3f41827">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -277,7 +275,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="13" width="50" height="13" uuid="ac3a5492-bcca-4023-afd6-c231a1cf67f2">
+				<reportElement x="100" y="16" width="50" height="13" uuid="ac3a5492-bcca-4023-afd6-c231a1cf67f2">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -294,7 +292,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="150" y="13" width="100" height="13" uuid="576dca22-c8d5-4dd8-abab-b86a4136dc60">
+				<reportElement x="150" y="16" width="100" height="13" uuid="576dca22-c8d5-4dd8-abab-b86a4136dc60">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -311,7 +309,7 @@ WHERE
 				<text><![CDATA[Number Positive]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="26" width="100" height="13" uuid="41bac2fa-2252-4913-8944-3660d76b3116"/>
+				<reportElement x="0" y="29" width="100" height="13" uuid="41bac2fa-2252-4913-8944-3660d76b3116"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -325,7 +323,7 @@ WHERE
 				<text><![CDATA[1.1 Urine Chemistry]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="26" width="50" height="13" uuid="9d0e37d3-e6cb-4e0f-80d5-cb0208dc0ba4"/>
+				<reportElement x="100" y="29" width="50" height="13" uuid="9d0e37d3-e6cb-4e0f-80d5-cb0208dc0ba4"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -337,7 +335,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="150" y="26" width="100" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="ce8d9a9e-5813-4789-a1ce-cc6051c66529"/>
+				<reportElement mode="Opaque" x="150" y="29" width="100" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="ce8d9a9e-5813-4789-a1ce-cc6051c66529"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -351,7 +349,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="39" width="100" height="13" uuid="cb1b041b-36e6-4d2a-91ff-21c8fdfdede3"/>
+				<reportElement x="0" y="42" width="100" height="13" uuid="cb1b041b-36e6-4d2a-91ff-21c8fdfdede3"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -365,7 +363,7 @@ WHERE
 				<text><![CDATA[1.2 Glucose]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="39" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="08d95e80-cfd7-4c20-963b-f4241473207e"/>
+				<reportElement mode="Opaque" x="100" y="42" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="08d95e80-cfd7-4c20-963b-f4241473207e"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -379,7 +377,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="39" width="100" height="13" uuid="db82cfaa-b489-46d0-a964-ea0211159109"/>
+				<reportElement x="150" y="42" width="100" height="13" uuid="db82cfaa-b489-46d0-a964-ea0211159109"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -392,7 +390,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{glucose_postive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="0" width="300" height="13" uuid="178370a6-4031-444a-be05-b4af67845af9">
+				<reportElement x="256" y="3" width="300" height="13" uuid="178370a6-4031-444a-be05-b4af67845af9">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -409,7 +407,7 @@ WHERE
 				<text><![CDATA[3. PARASITOLOGY ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="52" width="100" height="13" uuid="2f24583c-95cc-46fa-9912-5f90d697be49"/>
+				<reportElement x="0" y="55" width="100" height="13" uuid="2f24583c-95cc-46fa-9912-5f90d697be49"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -423,7 +421,7 @@ WHERE
 				<text><![CDATA[1.3 Ketones]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="52" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="181346c3-6798-48cf-a3b0-c8a1dff7341c"/>
+				<reportElement mode="Opaque" x="100" y="55" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="181346c3-6798-48cf-a3b0-c8a1dff7341c"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -437,7 +435,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="52" width="100" height="13" uuid="f395189f-4322-4846-bb2d-8b946c34a0fc"/>
+				<reportElement x="150" y="55" width="100" height="13" uuid="f395189f-4322-4846-bb2d-8b946c34a0fc"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -450,7 +448,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{ketone_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="65" width="100" height="13" uuid="de0d3e7d-e98f-4e1d-89a7-84b74a771cc1"/>
+				<reportElement x="0" y="68" width="100" height="13" uuid="de0d3e7d-e98f-4e1d-89a7-84b74a771cc1"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -464,7 +462,7 @@ WHERE
 				<text><![CDATA[1.4 Proteins]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="65" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="a525b49a-7efa-4323-b21e-8b634f769369"/>
+				<reportElement mode="Opaque" x="100" y="68" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="a525b49a-7efa-4323-b21e-8b634f769369"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -478,7 +476,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="65" width="100" height="13" uuid="571df3f9-e789-4937-b081-81f4841d3299"/>
+				<reportElement x="150" y="68" width="100" height="13" uuid="571df3f9-e789-4937-b081-81f4841d3299"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -491,7 +489,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{proteins_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="78" width="100" height="13" uuid="9c88c0ae-a4f1-40ab-8395-9ae4479f3aa7"/>
+				<reportElement x="0" y="81" width="100" height="13" uuid="9c88c0ae-a4f1-40ab-8395-9ae4479f3aa7"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -505,7 +503,7 @@ WHERE
 				<text><![CDATA[1.5 Urine Microscopy]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="78" width="50" height="13" uuid="575a6dc8-baea-4d36-961f-fca166fbc3ec"/>
+				<reportElement x="100" y="81" width="50" height="13" uuid="575a6dc8-baea-4d36-961f-fca166fbc3ec"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -517,7 +515,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="150" y="78" width="100" height="13" uuid="26b16729-6b7d-4a02-9f7b-860197d254ad">
+				<reportElement x="150" y="81" width="100" height="13" uuid="26b16729-6b7d-4a02-9f7b-860197d254ad">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -533,7 +531,7 @@ WHERE
 				<text><![CDATA[Number Positive]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="91" width="100" height="13" uuid="1bb223ae-7063-4f7b-85ad-5324780c5b36"/>
+				<reportElement x="0" y="94" width="100" height="13" uuid="1bb223ae-7063-4f7b-85ad-5324780c5b36"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -547,7 +545,7 @@ WHERE
 				<text><![CDATA[1.6 Pus cells (>5/hpf)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="91" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="ed4b59b0-a0a9-4177-9214-ec221ca3d93b"/>
+				<reportElement mode="Opaque" x="100" y="94" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="ed4b59b0-a0a9-4177-9214-ec221ca3d93b"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -561,7 +559,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="91" width="100" height="13" uuid="8c649a60-a0f0-454d-962b-25e9e12b0f15"/>
+				<reportElement x="150" y="94" width="100" height="13" uuid="8c649a60-a0f0-454d-962b-25e9e12b0f15"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -574,7 +572,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{puss_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="104" width="100" height="13" uuid="feafe30b-1316-489e-8c80-267a63636f12"/>
+				<reportElement x="0" y="107" width="100" height="13" uuid="feafe30b-1316-489e-8c80-267a63636f12"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -588,7 +586,7 @@ WHERE
 				<text><![CDATA[1.7 S. haematobium]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="104" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="31697b64-ed85-4d55-9468-9a12feab0b8a"/>
+				<reportElement mode="Opaque" x="100" y="107" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="31697b64-ed85-4d55-9468-9a12feab0b8a"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -602,7 +600,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="104" width="100" height="13" uuid="b5782905-137c-4be1-b319-ddf055fd748a"/>
+				<reportElement x="150" y="107" width="100" height="13" uuid="b5782905-137c-4be1-b319-ddf055fd748a"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -615,7 +613,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{haematobium_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="117" width="100" height="13" uuid="a002984d-2dba-4446-a0b2-4aff425df931"/>
+				<reportElement x="0" y="120" width="100" height="13" uuid="a002984d-2dba-4446-a0b2-4aff425df931"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -629,7 +627,7 @@ WHERE
 				<text><![CDATA[1.8 T. vaginalis]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="117" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="be67b7df-9f5b-404d-83ed-32e00d39218b"/>
+				<reportElement mode="Opaque" x="100" y="120" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="be67b7df-9f5b-404d-83ed-32e00d39218b"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -643,7 +641,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="117" width="100" height="13" uuid="a52a04db-f034-45a3-951c-8adcb3a2b420"/>
+				<reportElement x="150" y="120" width="100" height="13" uuid="a52a04db-f034-45a3-951c-8adcb3a2b420"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -656,7 +654,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{vaginalis_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="130" width="100" height="13" uuid="35a96de8-7c1b-4dc2-8199-5305ece850e8"/>
+				<reportElement x="0" y="133" width="100" height="13" uuid="35a96de8-7c1b-4dc2-8199-5305ece850e8"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -670,7 +668,7 @@ WHERE
 				<text><![CDATA[1.9 Yeast cells]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="130" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="78ae3f45-8e71-4dfa-98ab-c5a17aa1bac7"/>
+				<reportElement mode="Opaque" x="100" y="133" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="78ae3f45-8e71-4dfa-98ab-c5a17aa1bac7"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -684,7 +682,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="130" width="100" height="13" uuid="d988c660-925f-47db-bc4b-ddf805ee44a9"/>
+				<reportElement x="150" y="133" width="100" height="13" uuid="d988c660-925f-47db-bc4b-ddf805ee44a9"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -697,7 +695,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{yeast_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="143" width="100" height="13" uuid="c2207c34-ee2b-4a32-b790-02f02d0e3b96"/>
+				<reportElement x="0" y="146" width="100" height="13" uuid="c2207c34-ee2b-4a32-b790-02f02d0e3b96"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -711,7 +709,7 @@ WHERE
 				<text><![CDATA[1.10 Bacteria]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="143" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="cd2cc0d8-ce4c-4e16-9dd3-ccccf3beadd3"/>
+				<reportElement mode="Opaque" x="100" y="146" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="cd2cc0d8-ce4c-4e16-9dd3-ccccf3beadd3"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -725,7 +723,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="143" width="100" height="13" uuid="0bc0d095-f5d7-499d-8e9d-341bbaa25f14"/>
+				<reportElement x="150" y="146" width="100" height="13" uuid="0bc0d095-f5d7-499d-8e9d-341bbaa25f14"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -738,7 +736,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{bacteria_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="169" width="250" height="13" uuid="14947297-9bf4-4011-afc8-33d7c309a643">
+				<reportElement x="0" y="172" width="250" height="13" uuid="14947297-9bf4-4011-afc8-33d7c309a643">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -754,7 +752,7 @@ WHERE
 				<text><![CDATA[2. BLOOD CHEMISTRY]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="182" width="100" height="13" uuid="be4ab4a2-0f8a-4a17-a0ce-889531846605">
+				<reportElement x="0" y="185" width="100" height="13" uuid="be4ab4a2-0f8a-4a17-a0ce-889531846605">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -771,7 +769,7 @@ WHERE
 				<text><![CDATA[Blood Sugar Test]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="182" width="50" height="13" uuid="35ef78a9-618e-4c3a-9f25-5a60662926ba">
+				<reportElement x="100" y="185" width="50" height="13" uuid="35ef78a9-618e-4c3a-9f25-5a60662926ba">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -788,7 +786,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="150" y="182" width="50" height="13" uuid="aaa5fc4a-c31a-459d-9d0a-3916d9a6c5ad">
+				<reportElement x="150" y="185" width="50" height="13" uuid="aaa5fc4a-c31a-459d-9d0a-3916d9a6c5ad">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -804,7 +802,7 @@ WHERE
 				<text><![CDATA[Low]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="182" width="50" height="13" uuid="505689c0-d021-4ac2-8a2e-94ffba6d461b">
+				<reportElement x="200" y="185" width="50" height="13" uuid="505689c0-d021-4ac2-8a2e-94ffba6d461b">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -820,7 +818,7 @@ WHERE
 				<text><![CDATA[High]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="195" width="100" height="13" uuid="9ae98913-d7b0-43aa-a209-b64f92940388"/>
+				<reportElement x="0" y="198" width="100" height="13" uuid="9ae98913-d7b0-43aa-a209-b64f92940388"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -834,7 +832,7 @@ WHERE
 				<text><![CDATA[2.1 Blood Sugar]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="195" width="50" height="13" uuid="9ff63d57-b3f7-4e52-becd-86a9742ac47b"/>
+				<reportElement x="200" y="198" width="50" height="13" uuid="9ff63d57-b3f7-4e52-becd-86a9742ac47b"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -847,7 +845,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{blood_sugar_high}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="195" width="50" height="13" uuid="35087f7b-69ff-4785-ad8b-e2e3b6ac1456"/>
+				<reportElement x="100" y="198" width="50" height="13" uuid="35087f7b-69ff-4785-ad8b-e2e3b6ac1456"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -859,7 +857,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="195" width="50" height="13" uuid="5a64caf7-ff45-44bb-8bff-bcd62929808c"/>
+				<reportElement x="150" y="198" width="50" height="13" uuid="5a64caf7-ff45-44bb-8bff-bcd62929808c"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -872,7 +870,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{blood_sugar_low}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="208" width="100" height="13" uuid="d686234a-55f5-44ba-8fc3-7a72b8b26e47"/>
+				<reportElement x="0" y="211" width="100" height="13" uuid="d686234a-55f5-44ba-8fc3-7a72b8b26e47"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -886,7 +884,7 @@ WHERE
 				<text><![CDATA[2.2 OGTT]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="208" width="50" height="13" uuid="b4dc7856-0e34-47fd-811d-6d618e76bbf1"/>
+				<reportElement x="200" y="211" width="50" height="13" uuid="b4dc7856-0e34-47fd-811d-6d618e76bbf1"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -899,7 +897,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{oggt_high}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="208" width="50" height="13" uuid="48ca6808-28f0-467b-a802-04b922680d7c"/>
+				<reportElement x="100" y="211" width="50" height="13" uuid="48ca6808-28f0-467b-a802-04b922680d7c"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -911,7 +909,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="208" width="50" height="13" uuid="a0633272-0ec3-4f22-99be-34e99ad2dda9"/>
+				<reportElement x="150" y="211" width="50" height="13" uuid="a0633272-0ec3-4f22-99be-34e99ad2dda9"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -924,7 +922,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{oggt_low}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="221" width="50" height="13" uuid="223b45b1-f295-41d3-9025-82abd4e451ec"/>
+				<reportElement x="100" y="224" width="50" height="13" uuid="223b45b1-f295-41d3-9025-82abd4e451ec"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -936,7 +934,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="221" width="100" height="13" uuid="372d6797-12f4-4439-b0f2-0a914827915e"/>
+				<reportElement x="0" y="224" width="100" height="13" uuid="372d6797-12f4-4439-b0f2-0a914827915e"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -950,7 +948,7 @@ WHERE
 				<text><![CDATA[2.3 Renal Function Test]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="150" y="221" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="598b80de-9ade-4df1-9fbf-fece56fc6a9c"/>
+				<reportElement mode="Opaque" x="150" y="224" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="598b80de-9ade-4df1-9fbf-fece56fc6a9c"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -964,7 +962,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="200" y="221" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="70ec0a7f-0999-43bb-a9c1-c001dfd074bc"/>
+				<reportElement mode="Opaque" x="200" y="224" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="70ec0a7f-0999-43bb-a9c1-c001dfd074bc"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -978,7 +976,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="234" width="100" height="13" uuid="ff9e9ee0-6e57-4fac-ab90-d094247d4551"/>
+				<reportElement x="0" y="237" width="100" height="13" uuid="ff9e9ee0-6e57-4fac-ab90-d094247d4551"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -992,7 +990,7 @@ WHERE
 				<text><![CDATA[2.4 Creatinine]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="234" width="50" height="13" uuid="d5adea29-524c-4625-bbbd-ecd355c1ab9f"/>
+				<reportElement x="200" y="237" width="50" height="13" uuid="d5adea29-524c-4625-bbbd-ecd355c1ab9f"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1004,7 +1002,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="234" width="50" height="13" uuid="02eec34f-5500-45f4-9180-c1bcb8365164"/>
+				<reportElement x="150" y="237" width="50" height="13" uuid="02eec34f-5500-45f4-9180-c1bcb8365164"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1016,7 +1014,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="234" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="26054816-6555-4749-9633-64503e20c559"/>
+				<reportElement mode="Opaque" x="100" y="237" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="26054816-6555-4749-9633-64503e20c559"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1030,7 +1028,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="247" width="100" height="13" uuid="f65582c5-8d9a-4aab-84b3-bb02b997baec"/>
+				<reportElement x="0" y="250" width="100" height="13" uuid="f65582c5-8d9a-4aab-84b3-bb02b997baec"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1044,7 +1042,7 @@ WHERE
 				<text><![CDATA[2.5 Urea]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="247" width="50" height="13" uuid="fa2fbfbf-0313-49f2-a6f6-e404050d32ca"/>
+				<reportElement x="200" y="250" width="50" height="13" uuid="fa2fbfbf-0313-49f2-a6f6-e404050d32ca"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1056,7 +1054,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="247" width="50" height="13" uuid="103635b8-787b-4260-b84e-c4a7cdc9fef0"/>
+				<reportElement x="150" y="250" width="50" height="13" uuid="103635b8-787b-4260-b84e-c4a7cdc9fef0"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1068,7 +1066,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="247" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="3b379764-45de-40fd-8f52-c62b5b377a45"/>
+				<reportElement mode="Opaque" x="100" y="250" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="3b379764-45de-40fd-8f52-c62b5b377a45"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1082,7 +1080,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="260" width="100" height="13" uuid="d6cfb26c-8e40-4324-b514-f1131ac7e57f"/>
+				<reportElement x="0" y="263" width="100" height="13" uuid="d6cfb26c-8e40-4324-b514-f1131ac7e57f"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1096,7 +1094,7 @@ WHERE
 				<text><![CDATA[2.5 Sodium]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="260" width="50" height="13" uuid="652a4262-e24b-4ee2-923c-a08488dcc877"/>
+				<reportElement x="200" y="263" width="50" height="13" uuid="652a4262-e24b-4ee2-923c-a08488dcc877"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1108,7 +1106,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="260" width="50" height="13" uuid="84ee57d0-d743-4247-bd29-7d2ff82cdbad"/>
+				<reportElement x="150" y="263" width="50" height="13" uuid="84ee57d0-d743-4247-bd29-7d2ff82cdbad"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1120,7 +1118,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="260" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="fb613055-3df1-4ee6-9224-57d255cedb6e"/>
+				<reportElement mode="Opaque" x="100" y="263" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="fb613055-3df1-4ee6-9224-57d255cedb6e"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1134,7 +1132,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="273" width="100" height="13" uuid="a572d8f4-99f2-46c9-838d-6cee3b7a7c58"/>
+				<reportElement x="0" y="276" width="100" height="13" uuid="a572d8f4-99f2-46c9-838d-6cee3b7a7c58"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1148,7 +1146,7 @@ WHERE
 				<text><![CDATA[2.6 Potassium]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="273" width="50" height="13" uuid="0324857f-938f-4440-bbbf-33ac39050a00"/>
+				<reportElement x="200" y="276" width="50" height="13" uuid="0324857f-938f-4440-bbbf-33ac39050a00"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1160,7 +1158,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="273" width="50" height="13" uuid="94daaaa9-405e-4d22-a44e-d73ae741d8f6"/>
+				<reportElement x="150" y="276" width="50" height="13" uuid="94daaaa9-405e-4d22-a44e-d73ae741d8f6"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1172,7 +1170,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="273" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="81165233-8062-4499-8163-a50845d821c2"/>
+				<reportElement mode="Opaque" x="100" y="276" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="81165233-8062-4499-8163-a50845d821c2"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1186,7 +1184,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="286" width="100" height="13" uuid="9a5c972d-d7ad-4f9c-b8f3-81ff89e63985"/>
+				<reportElement x="0" y="289" width="100" height="13" uuid="9a5c972d-d7ad-4f9c-b8f3-81ff89e63985"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1200,7 +1198,7 @@ WHERE
 				<text><![CDATA[2.7 Chlorides]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="286" width="50" height="13" uuid="f920fae0-ef01-49c8-b26c-bd71375eadc1"/>
+				<reportElement x="200" y="289" width="50" height="13" uuid="f920fae0-ef01-49c8-b26c-bd71375eadc1"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1212,7 +1210,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="286" width="50" height="13" uuid="c3ef2865-7187-43e6-83e4-61dfc8faf73f"/>
+				<reportElement x="150" y="289" width="50" height="13" uuid="c3ef2865-7187-43e6-83e4-61dfc8faf73f"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1224,7 +1222,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="299" width="50" height="13" uuid="722efb6f-cd75-4086-8cd9-dc3134d6714c"/>
+				<reportElement x="100" y="302" width="50" height="13" uuid="722efb6f-cd75-4086-8cd9-dc3134d6714c"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1236,7 +1234,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="299" width="100" height="13" uuid="0cc0fad2-73cd-447b-a4fb-4d80b6a072d7"/>
+				<reportElement x="0" y="302" width="100" height="13" uuid="0cc0fad2-73cd-447b-a4fb-4d80b6a072d7"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1250,7 +1248,7 @@ WHERE
 				<text><![CDATA[2.8 Liver Function Test]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="150" y="299" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="4a8bc14e-b1bc-4d3b-8fd8-580aba9ea30c"/>
+				<reportElement mode="Opaque" x="150" y="302" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="4a8bc14e-b1bc-4d3b-8fd8-580aba9ea30c"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1264,7 +1262,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="200" y="299" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="072f9764-ca45-48a8-bdd2-e0a11a7291e7"/>
+				<reportElement mode="Opaque" x="200" y="302" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="072f9764-ca45-48a8-bdd2-e0a11a7291e7"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1278,7 +1276,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="286" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="287ecad9-8815-4e23-902e-1d0807a41161"/>
+				<reportElement mode="Opaque" x="100" y="289" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="287ecad9-8815-4e23-902e-1d0807a41161"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1292,7 +1290,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="312" width="100" height="13" uuid="ab643c11-79b2-41e5-8381-2319082c74e0"/>
+				<reportElement x="0" y="315" width="100" height="13" uuid="ab643c11-79b2-41e5-8381-2319082c74e0"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1306,7 +1304,7 @@ WHERE
 				<text><![CDATA[2.9 Direct bilirubin]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="312" width="50" height="13" uuid="e20f4891-5dd4-492e-828d-e9bfddf31e29"/>
+				<reportElement x="200" y="315" width="50" height="13" uuid="e20f4891-5dd4-492e-828d-e9bfddf31e29"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1318,7 +1316,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="312" width="50" height="13" uuid="39a18572-d557-400c-aef8-c60cd50697f7"/>
+				<reportElement x="150" y="315" width="50" height="13" uuid="39a18572-d557-400c-aef8-c60cd50697f7"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1330,7 +1328,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="312" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="8208756f-e317-4b81-a7ff-3bd6b25704c0"/>
+				<reportElement mode="Opaque" x="100" y="315" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="8208756f-e317-4b81-a7ff-3bd6b25704c0"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1344,7 +1342,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="325" width="100" height="13" uuid="d24f7652-87c5-4a7d-9482-8b4d18d38adc"/>
+				<reportElement x="0" y="328" width="100" height="13" uuid="d24f7652-87c5-4a7d-9482-8b4d18d38adc"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1358,7 +1356,7 @@ WHERE
 				<text><![CDATA[2.10 Total bilirubin]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="325" width="50" height="13" uuid="f8105b1f-ebdc-44f1-91ef-a2b60d2da4fa"/>
+				<reportElement x="200" y="328" width="50" height="13" uuid="f8105b1f-ebdc-44f1-91ef-a2b60d2da4fa"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1370,7 +1368,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="325" width="50" height="13" uuid="f9bcadd3-0ace-40f3-baca-15e8c1ebd970"/>
+				<reportElement x="150" y="328" width="50" height="13" uuid="f9bcadd3-0ace-40f3-baca-15e8c1ebd970"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1382,7 +1380,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="325" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="a8e642b3-6746-40da-b73a-2b32fca623fc"/>
+				<reportElement mode="Opaque" x="100" y="328" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="a8e642b3-6746-40da-b73a-2b32fca623fc"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1396,7 +1394,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="338" width="100" height="13" uuid="76068ced-82b8-490f-84b6-6614fdf68923"/>
+				<reportElement x="0" y="341" width="100" height="13" uuid="76068ced-82b8-490f-84b6-6614fdf68923"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1410,7 +1408,7 @@ WHERE
 				<text><![CDATA[2.11 ASAT (SGOT)]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="338" width="50" height="13" uuid="83ea7be5-2fff-428c-86b0-e85558075761"/>
+				<reportElement x="200" y="341" width="50" height="13" uuid="83ea7be5-2fff-428c-86b0-e85558075761"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1422,7 +1420,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="338" width="50" height="13" uuid="31fd4998-6da1-4d91-a0ac-fbf588bf1db0"/>
+				<reportElement x="150" y="341" width="50" height="13" uuid="31fd4998-6da1-4d91-a0ac-fbf588bf1db0"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1434,7 +1432,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="338" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="77504055-1d55-4c66-98cb-f9b98f22de4f"/>
+				<reportElement mode="Opaque" x="100" y="341" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="77504055-1d55-4c66-98cb-f9b98f22de4f"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1448,7 +1446,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="351" width="100" height="13" uuid="3cdcfe4f-7c0f-4565-a03c-b0474f4d084f"/>
+				<reportElement x="0" y="354" width="100" height="13" uuid="3cdcfe4f-7c0f-4565-a03c-b0474f4d084f"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1462,7 +1460,7 @@ WHERE
 				<text><![CDATA[2.12 ALAT (SGPT)]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="351" width="50" height="13" uuid="d2f52ad3-30aa-4498-a065-4834dca62f92"/>
+				<reportElement x="200" y="354" width="50" height="13" uuid="d2f52ad3-30aa-4498-a065-4834dca62f92"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1474,7 +1472,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="351" width="50" height="13" uuid="8aa0f0e7-536b-413f-9110-b0f013b3e401"/>
+				<reportElement x="150" y="354" width="50" height="13" uuid="8aa0f0e7-536b-413f-9110-b0f013b3e401"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1486,7 +1484,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="351" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="6ffbf412-d13a-4193-b88e-f9df14088878"/>
+				<reportElement mode="Opaque" x="100" y="354" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="6ffbf412-d13a-4193-b88e-f9df14088878"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1500,7 +1498,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="364" width="100" height="13" uuid="ed228789-35a7-49f0-b7fb-ac96bb6968f0"/>
+				<reportElement x="0" y="367" width="100" height="13" uuid="ed228789-35a7-49f0-b7fb-ac96bb6968f0"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1514,7 +1512,7 @@ WHERE
 				<text><![CDATA[2.13 Serum Protein]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="364" width="50" height="13" uuid="68c5d930-9db5-4a86-ad18-05fb15107d42"/>
+				<reportElement x="200" y="367" width="50" height="13" uuid="68c5d930-9db5-4a86-ad18-05fb15107d42"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1526,7 +1524,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="364" width="50" height="13" uuid="009985c3-7c7d-41b2-b8dc-24166e368fc1"/>
+				<reportElement x="150" y="367" width="50" height="13" uuid="009985c3-7c7d-41b2-b8dc-24166e368fc1"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1538,7 +1536,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="364" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="43e8b1eb-5511-4053-885b-5c4ffa60cd4a"/>
+				<reportElement mode="Opaque" x="100" y="367" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="43e8b1eb-5511-4053-885b-5c4ffa60cd4a"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1552,7 +1550,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="390" width="100" height="13" uuid="d155a67b-3c0e-4322-a04a-957283ff6e16"/>
+				<reportElement x="0" y="393" width="100" height="13" uuid="d155a67b-3c0e-4322-a04a-957283ff6e16"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1566,7 +1564,7 @@ WHERE
 				<text><![CDATA[2.15 Alkaline Phosphatase]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="390" width="50" height="13" uuid="ae7186a9-a59b-4865-8808-4cce58e85254"/>
+				<reportElement x="200" y="393" width="50" height="13" uuid="ae7186a9-a59b-4865-8808-4cce58e85254"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1578,7 +1576,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="390" width="50" height="13" uuid="3bd1bba6-ff26-46d6-9854-da96bbfa6572"/>
+				<reportElement x="150" y="393" width="50" height="13" uuid="3bd1bba6-ff26-46d6-9854-da96bbfa6572"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1590,7 +1588,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="403" width="50" height="13" uuid="5c95a8d3-19c6-45dd-8475-a34b591d88a8"/>
+				<reportElement x="100" y="406" width="50" height="13" uuid="5c95a8d3-19c6-45dd-8475-a34b591d88a8"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1602,7 +1600,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="403" width="100" height="13" uuid="e4eb863e-b6b6-4694-9ccb-59fda48b2b12"/>
+				<reportElement x="0" y="406" width="100" height="13" uuid="e4eb863e-b6b6-4694-9ccb-59fda48b2b12"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1616,7 +1614,7 @@ WHERE
 				<text><![CDATA[2.16 Lipid Profile]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="150" y="403" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="bcfee16c-72b1-46d4-9df5-589c96d7d278"/>
+				<reportElement mode="Opaque" x="150" y="406" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="bcfee16c-72b1-46d4-9df5-589c96d7d278"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1630,7 +1628,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="200" y="403" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="58e8312d-dc66-44b3-b8f8-cff3a14b1246"/>
+				<reportElement mode="Opaque" x="200" y="406" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="58e8312d-dc66-44b3-b8f8-cff3a14b1246"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1644,7 +1642,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="390" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="9fd52f0f-2623-4e24-aa0c-d88ccf0ecddf"/>
+				<reportElement mode="Opaque" x="100" y="393" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="9fd52f0f-2623-4e24-aa0c-d88ccf0ecddf"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1658,7 +1656,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="416" width="100" height="13" uuid="c41ad5f5-7881-4e32-a194-71cd0ac3589a"/>
+				<reportElement x="0" y="419" width="100" height="13" uuid="c41ad5f5-7881-4e32-a194-71cd0ac3589a"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1672,7 +1670,7 @@ WHERE
 				<text><![CDATA[2.17 Total cholesterol]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="416" width="50" height="13" uuid="eefbeb08-772b-4b88-bc9a-115db7c4eff7"/>
+				<reportElement x="200" y="419" width="50" height="13" uuid="eefbeb08-772b-4b88-bc9a-115db7c4eff7"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1684,7 +1682,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="416" width="50" height="13" uuid="7928cdb4-8561-41ae-b0b7-a38f277418bf"/>
+				<reportElement x="100" y="419" width="50" height="13" uuid="7928cdb4-8561-41ae-b0b7-a38f277418bf"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1696,7 +1694,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="416" width="50" height="13" uuid="49ac275a-2f3b-4e92-b0fd-eed86cc328c7"/>
+				<reportElement x="150" y="419" width="50" height="13" uuid="49ac275a-2f3b-4e92-b0fd-eed86cc328c7"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1708,7 +1706,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="429" width="100" height="13" uuid="3f005148-abc3-4846-a949-f600ad2cf1bc"/>
+				<reportElement x="0" y="432" width="100" height="13" uuid="3f005148-abc3-4846-a949-f600ad2cf1bc"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1722,7 +1720,7 @@ WHERE
 				<text><![CDATA[2.18 Triglycerides]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="429" width="50" height="13" uuid="e46d750a-8464-4d0b-b07f-6d23a015b782"/>
+				<reportElement x="200" y="432" width="50" height="13" uuid="e46d750a-8464-4d0b-b07f-6d23a015b782"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1734,7 +1732,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="429" width="50" height="13" uuid="eb978df4-2d0a-4417-aefc-d4f0831fb655"/>
+				<reportElement x="100" y="432" width="50" height="13" uuid="eb978df4-2d0a-4417-aefc-d4f0831fb655"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1746,7 +1744,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="429" width="50" height="13" uuid="b8b74285-ae86-4a61-abee-9fcf62133803"/>
+				<reportElement x="150" y="432" width="50" height="13" uuid="b8b74285-ae86-4a61-abee-9fcf62133803"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1758,7 +1756,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="442" width="100" height="13" uuid="fcc480e3-5053-490f-82b0-240c954c4c61"/>
+				<reportElement x="0" y="445" width="100" height="13" uuid="fcc480e3-5053-490f-82b0-240c954c4c61"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1772,7 +1770,7 @@ WHERE
 				<text><![CDATA[2.19 LDL]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="442" width="50" height="13" uuid="501ec757-a129-493c-b3d8-3a5aa833b81b"/>
+				<reportElement x="200" y="445" width="50" height="13" uuid="501ec757-a129-493c-b3d8-3a5aa833b81b"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1784,7 +1782,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="442" width="50" height="13" uuid="63e5d3bd-cbb9-45aa-8f7a-739852ec56bf"/>
+				<reportElement x="100" y="445" width="50" height="13" uuid="63e5d3bd-cbb9-45aa-8f7a-739852ec56bf"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1796,7 +1794,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="442" width="50" height="13" uuid="9b534536-64ab-4dd2-a0d3-3fd5f3bd457d"/>
+				<reportElement x="150" y="445" width="50" height="13" uuid="9b534536-64ab-4dd2-a0d3-3fd5f3bd457d"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1808,7 +1806,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="455" width="100" height="13" uuid="601de282-0d52-4863-80b8-a0a08effec1e">
+				<reportElement x="0" y="458" width="100" height="13" uuid="601de282-0d52-4863-80b8-a0a08effec1e">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -1824,7 +1822,7 @@ WHERE
 				<text><![CDATA[Hormonal Test]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="455" width="50" height="13" uuid="0e69dd0c-563c-4ab3-8f5a-3a1b6d377732">
+				<reportElement x="100" y="458" width="50" height="13" uuid="0e69dd0c-563c-4ab3-8f5a-3a1b6d377732">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -1840,7 +1838,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="150" y="455" width="50" height="13" uuid="c3182a23-a1f5-4842-a38b-845cd18977da">
+				<reportElement x="150" y="458" width="50" height="13" uuid="c3182a23-a1f5-4842-a38b-845cd18977da">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -1856,7 +1854,7 @@ WHERE
 				<text><![CDATA[Low]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="455" width="50" height="13" uuid="7207d959-bd14-41d7-a751-4a92acd64313">
+				<reportElement x="200" y="458" width="50" height="13" uuid="7207d959-bd14-41d7-a751-4a92acd64313">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -1872,7 +1870,7 @@ WHERE
 				<text><![CDATA[High]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="468" width="100" height="13" uuid="2441d7a3-785a-4c5b-9a40-f44f432d742f"/>
+				<reportElement x="0" y="471" width="100" height="13" uuid="2441d7a3-785a-4c5b-9a40-f44f432d742f"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1886,7 +1884,7 @@ WHERE
 				<text><![CDATA[2.20 T3]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="468" width="50" height="13" uuid="284c375a-f798-403e-8d6e-df2fbeec6691"/>
+				<reportElement x="200" y="471" width="50" height="13" uuid="284c375a-f798-403e-8d6e-df2fbeec6691"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1898,7 +1896,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="468" width="50" height="13" uuid="5b027c7e-3594-4211-a7e1-0153f970f61e"/>
+				<reportElement x="100" y="471" width="50" height="13" uuid="5b027c7e-3594-4211-a7e1-0153f970f61e"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1910,7 +1908,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="468" width="50" height="13" uuid="4a8be757-8e97-4bef-998c-97f156f3aa6b"/>
+				<reportElement x="150" y="471" width="50" height="13" uuid="4a8be757-8e97-4bef-998c-97f156f3aa6b"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1922,7 +1920,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="481" width="100" height="13" uuid="a32e740c-194a-4ef0-be30-de23abefbfce"/>
+				<reportElement x="0" y="484" width="100" height="13" uuid="a32e740c-194a-4ef0-be30-de23abefbfce"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1936,7 +1934,7 @@ WHERE
 				<text><![CDATA[2.21 T4]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="481" width="50" height="13" uuid="4eb9da82-3f79-4d89-a435-d3b690ee8f90"/>
+				<reportElement x="200" y="484" width="50" height="13" uuid="4eb9da82-3f79-4d89-a435-d3b690ee8f90"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1948,7 +1946,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="481" width="50" height="13" uuid="60c5a8a6-caf5-4e20-8390-d95f003fc4d7"/>
+				<reportElement x="100" y="484" width="50" height="13" uuid="60c5a8a6-caf5-4e20-8390-d95f003fc4d7"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1960,7 +1958,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="481" width="50" height="13" uuid="4e20d31e-e41f-4fe5-a4aa-913124c0d9b5"/>
+				<reportElement x="150" y="484" width="50" height="13" uuid="4e20d31e-e41f-4fe5-a4aa-913124c0d9b5"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1972,7 +1970,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="494" width="100" height="13" uuid="b98aac3a-1d34-4161-9b6a-89b6b7b3f296"/>
+				<reportElement x="0" y="497" width="100" height="13" uuid="b98aac3a-1d34-4161-9b6a-89b6b7b3f296"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1986,7 +1984,7 @@ WHERE
 				<text><![CDATA[2.22 TSH]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="494" width="50" height="13" uuid="2472999c-88cb-4301-b5f9-5206c53a8cf6"/>
+				<reportElement x="200" y="497" width="50" height="13" uuid="2472999c-88cb-4301-b5f9-5206c53a8cf6"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -1998,7 +1996,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="494" width="50" height="13" uuid="76c801a1-d557-4ce5-9492-3c3ac5320dfa"/>
+				<reportElement x="100" y="497" width="50" height="13" uuid="76c801a1-d557-4ce5-9492-3c3ac5320dfa"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2010,7 +2008,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="494" width="50" height="13" uuid="f846d9ad-5737-4f68-a6b1-87a53f317d54"/>
+				<reportElement x="150" y="497" width="50" height="13" uuid="f846d9ad-5737-4f68-a6b1-87a53f317d54"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2022,7 +2020,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="507" width="100" height="13" uuid="89c2ee26-f888-4fe6-adfc-c483cb665359">
+				<reportElement x="0" y="510" width="100" height="13" uuid="89c2ee26-f888-4fe6-adfc-c483cb665359">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -2038,7 +2036,7 @@ WHERE
 				<text><![CDATA[Tumor Markers]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="507" width="50" height="13" uuid="925e7e03-0699-437c-ac34-38aa3837a239">
+				<reportElement x="100" y="510" width="50" height="13" uuid="925e7e03-0699-437c-ac34-38aa3837a239">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -2054,7 +2052,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="150" y="507" width="100" height="13" uuid="169b5d0d-20d7-4c2e-8ac4-95be42206e59">
+				<reportElement x="150" y="510" width="100" height="13" uuid="169b5d0d-20d7-4c2e-8ac4-95be42206e59">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -2070,7 +2068,7 @@ WHERE
 				<text><![CDATA[Number Positive]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="520" width="100" height="13" uuid="e8710b3f-1222-46d4-a992-0b80f6467f1e"/>
+				<reportElement x="0" y="523" width="100" height="13" uuid="e8710b3f-1222-46d4-a992-0b80f6467f1e"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2084,7 +2082,7 @@ WHERE
 				<text><![CDATA[2.23 PSA]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="520" width="100" height="13" uuid="c30c646f-b744-40db-b272-234298c4b2d3"/>
+				<reportElement x="150" y="523" width="100" height="13" uuid="c30c646f-b744-40db-b272-234298c4b2d3"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -2096,7 +2094,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="520" width="50" height="13" uuid="8de0ac7b-7076-4c9d-9e21-f28d442e235e"/>
+				<reportElement x="100" y="523" width="50" height="13" uuid="8de0ac7b-7076-4c9d-9e21-f28d442e235e"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2108,7 +2106,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="533" width="100" height="13" uuid="1c47044e-160e-4e84-8077-fb9365e1dac2"/>
+				<reportElement x="0" y="536" width="100" height="13" uuid="1c47044e-160e-4e84-8077-fb9365e1dac2"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2122,7 +2120,7 @@ WHERE
 				<text><![CDATA[2.24 CA 15-3]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="533" width="100" height="13" uuid="a5581035-27a8-4f3d-9d63-941bb1fbe8c5"/>
+				<reportElement x="150" y="536" width="100" height="13" uuid="a5581035-27a8-4f3d-9d63-941bb1fbe8c5"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -2134,7 +2132,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="533" width="50" height="13" uuid="33052259-b9b6-4663-be3c-2d737e4c8399"/>
+				<reportElement x="100" y="536" width="50" height="13" uuid="33052259-b9b6-4663-be3c-2d737e4c8399"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2146,7 +2144,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="546" width="100" height="13" uuid="a6f0ea6d-2ca2-4e43-9bba-c32eaf6e6523"/>
+				<reportElement x="0" y="549" width="100" height="13" uuid="a6f0ea6d-2ca2-4e43-9bba-c32eaf6e6523"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2160,7 +2158,7 @@ WHERE
 				<text><![CDATA[2.25 CA 19-9]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="546" width="100" height="13" uuid="be07d181-0925-4d0c-9162-ab8c90104133"/>
+				<reportElement x="150" y="549" width="100" height="13" uuid="be07d181-0925-4d0c-9162-ab8c90104133"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -2172,7 +2170,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="546" width="50" height="13" uuid="05365f6f-d59a-4924-be68-e0bb6dd97d7b"/>
+				<reportElement x="100" y="549" width="50" height="13" uuid="05365f6f-d59a-4924-be68-e0bb6dd97d7b"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2184,7 +2182,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="559" width="100" height="13" uuid="b4716224-fc9f-4f83-a47d-4b3ed1d5b69c"/>
+				<reportElement x="0" y="562" width="100" height="13" uuid="b4716224-fc9f-4f83-a47d-4b3ed1d5b69c"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2198,7 +2196,7 @@ WHERE
 				<text><![CDATA[2.26 CA 125]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="559" width="100" height="13" uuid="9649af7a-fbc0-4b2f-b6ec-e1805acdd58e"/>
+				<reportElement x="150" y="562" width="100" height="13" uuid="9649af7a-fbc0-4b2f-b6ec-e1805acdd58e"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -2210,7 +2208,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="559" width="50" height="13" uuid="1e7d2cdf-e0d4-486c-9b17-ccfd7f2711f8"/>
+				<reportElement x="100" y="562" width="50" height="13" uuid="1e7d2cdf-e0d4-486c-9b17-ccfd7f2711f8"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2222,7 +2220,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="572" width="100" height="13" uuid="5313f343-b6b2-4df8-bac3-2dd1f28592fc"/>
+				<reportElement x="0" y="575" width="100" height="13" uuid="5313f343-b6b2-4df8-bac3-2dd1f28592fc"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2236,7 +2234,7 @@ WHERE
 				<text><![CDATA[2.27 CEA]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="572" width="100" height="13" uuid="6b786e6e-fe34-4d77-b433-a06ff00bd090"/>
+				<reportElement x="150" y="575" width="100" height="13" uuid="6b786e6e-fe34-4d77-b433-a06ff00bd090"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -2248,7 +2246,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="572" width="50" height="13" uuid="45f1b2ac-3723-475a-a449-fa111e720426"/>
+				<reportElement x="100" y="575" width="50" height="13" uuid="45f1b2ac-3723-475a-a449-fa111e720426"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2260,7 +2258,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="585" width="100" height="13" uuid="e78d29ca-985f-4439-bd2e-2a61ee95df9c"/>
+				<reportElement x="0" y="588" width="100" height="13" uuid="e78d29ca-985f-4439-bd2e-2a61ee95df9c"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2274,7 +2272,7 @@ WHERE
 				<text><![CDATA[2.28 AFP]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="585" width="100" height="13" uuid="4e4b2de7-7b44-46ce-a48e-ce8cc911f799"/>
+				<reportElement x="150" y="588" width="100" height="13" uuid="4e4b2de7-7b44-46ce-a48e-ce8cc911f799"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -2286,7 +2284,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="585" width="50" height="13" uuid="96b8f89e-7ef9-43f9-8bc6-f88fdaa3017a"/>
+				<reportElement x="100" y="588" width="50" height="13" uuid="96b8f89e-7ef9-43f9-8bc6-f88fdaa3017a"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2298,7 +2296,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="598" width="100" height="13" uuid="7989fb93-41fe-4746-a497-b6ffdb648981">
+				<reportElement x="0" y="601" width="100" height="13" uuid="7989fb93-41fe-4746-a497-b6ffdb648981">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -2314,7 +2312,7 @@ WHERE
 				<text><![CDATA[CSF Chemistry]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="598" width="50" height="13" uuid="6d33aab7-61a2-4e67-b0f1-eebb3ce28cc4">
+				<reportElement x="100" y="601" width="50" height="13" uuid="6d33aab7-61a2-4e67-b0f1-eebb3ce28cc4">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -2330,7 +2328,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="150" y="598" width="50" height="13" uuid="c31067f1-1b8b-4137-be34-0d38d556e08d">
+				<reportElement x="150" y="601" width="50" height="13" uuid="c31067f1-1b8b-4137-be34-0d38d556e08d">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -2346,7 +2344,7 @@ WHERE
 				<text><![CDATA[Low]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="598" width="50" height="13" uuid="33cfb4bf-8b9a-46dd-8ff7-56fa2aa1ebfe">
+				<reportElement x="200" y="601" width="50" height="13" uuid="33cfb4bf-8b9a-46dd-8ff7-56fa2aa1ebfe">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -2362,7 +2360,7 @@ WHERE
 				<text><![CDATA[High]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="611" width="100" height="13" uuid="24bd9c51-8874-49e0-bb27-d0999fd84f2c"/>
+				<reportElement x="0" y="614" width="100" height="13" uuid="24bd9c51-8874-49e0-bb27-d0999fd84f2c"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2376,7 +2374,7 @@ WHERE
 				<text><![CDATA[2.29 Proteins]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="611" width="50" height="13" uuid="c29cd97d-9834-48cd-b479-7f75d5abae3e"/>
+				<reportElement x="200" y="614" width="50" height="13" uuid="c29cd97d-9834-48cd-b479-7f75d5abae3e"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -2388,7 +2386,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="611" width="50" height="13" uuid="f7371921-7217-4324-8c8b-ad1c375092b0"/>
+				<reportElement x="100" y="614" width="50" height="13" uuid="f7371921-7217-4324-8c8b-ad1c375092b0"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2400,7 +2398,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="611" width="50" height="13" uuid="dfefddd2-ac7d-48bc-9a7a-df1ba6de3246"/>
+				<reportElement x="150" y="614" width="50" height="13" uuid="dfefddd2-ac7d-48bc-9a7a-df1ba6de3246"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2412,7 +2410,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="624" width="100" height="13" uuid="69d8d6ad-8182-49de-9cd2-e85e875e6787"/>
+				<reportElement x="0" y="627" width="100" height="13" uuid="69d8d6ad-8182-49de-9cd2-e85e875e6787"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2426,7 +2424,7 @@ WHERE
 				<text><![CDATA[2.30 Glucose]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="624" width="50" height="13" uuid="7489cb6e-91ff-4516-bf54-bf6d6bd1fff7"/>
+				<reportElement x="200" y="627" width="50" height="13" uuid="7489cb6e-91ff-4516-bf54-bf6d6bd1fff7"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -2438,7 +2436,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="624" width="50" height="13" uuid="d00bfab9-f1ca-4af7-8595-65ed7f8b1c70"/>
+				<reportElement x="100" y="627" width="50" height="13" uuid="d00bfab9-f1ca-4af7-8595-65ed7f8b1c70"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2450,7 +2448,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="624" width="50" height="13" uuid="4c63098c-f97b-4e08-95b4-fc849e7bf9db"/>
+				<reportElement x="150" y="627" width="50" height="13" uuid="4c63098c-f97b-4e08-95b4-fc849e7bf9db"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2462,7 +2460,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="13" width="120" height="13" uuid="a0eaab0c-148a-4364-91a1-49c83545ac64">
+				<reportElement x="256" y="16" width="120" height="13" uuid="a0eaab0c-148a-4364-91a1-49c83545ac64">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2480,7 +2478,7 @@ WHERE
 				<text><![CDATA[Malaria Test]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="376" y="13" width="60" height="13" uuid="048af16d-46bb-4a6e-86cc-ed61cb000013">
+				<reportElement x="376" y="16" width="60" height="13" uuid="048af16d-46bb-4a6e-86cc-ed61cb000013">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2498,7 +2496,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="13" width="120" height="13" uuid="b918f6ee-9016-4bed-883f-e9e02aedca7f">
+				<reportElement x="436" y="16" width="120" height="13" uuid="b918f6ee-9016-4bed-883f-e9e02aedca7f">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2516,7 +2514,7 @@ WHERE
 				<text><![CDATA[Number Positive]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="26" width="120" height="13" uuid="38721c95-e79f-4930-a936-988a33fc21e2">
+				<reportElement x="256" y="29" width="120" height="13" uuid="38721c95-e79f-4930-a936-988a33fc21e2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2533,7 +2531,7 @@ WHERE
 				<text><![CDATA[3.1 Malaria BS (Under five years)]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="26" width="120" height="13" uuid="b1e1298e-90e5-4628-a734-3f2a060c5b89">
+				<reportElement x="436" y="29" width="120" height="13" uuid="b1e1298e-90e5-4628-a734-3f2a060c5b89">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2549,7 +2547,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{malaria_bs_under5}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="26" width="60" height="13" uuid="c8eaa45c-2bc4-45c4-a967-59702f80a582">
+				<reportElement x="376" y="29" width="60" height="13" uuid="c8eaa45c-2bc4-45c4-a967-59702f80a582">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2564,7 +2562,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="39" width="120" height="13" uuid="e4152a92-f8fb-4c16-846a-28037df2145c">
+				<reportElement x="256" y="42" width="120" height="13" uuid="e4152a92-f8fb-4c16-846a-28037df2145c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2581,7 +2579,7 @@ WHERE
 				<text><![CDATA[3.2 Malaria BS (5 years and above)]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="39" width="120" height="13" uuid="582cc687-15e2-4902-a828-defd524be53c">
+				<reportElement x="436" y="42" width="120" height="13" uuid="582cc687-15e2-4902-a828-defd524be53c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2597,7 +2595,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{malaria_bs_over5}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="39" width="60" height="13" uuid="9c9857e1-0fc5-4c9a-9a8f-b9d89a396318">
+				<reportElement x="376" y="42" width="60" height="13" uuid="9c9857e1-0fc5-4c9a-9a8f-b9d89a396318">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2612,7 +2610,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="52" width="120" height="13" uuid="d16d67de-f279-42db-b9db-cb41e70e9136">
+				<reportElement x="256" y="55" width="120" height="13" uuid="d16d67de-f279-42db-b9db-cb41e70e9136">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2629,7 +2627,7 @@ WHERE
 				<text><![CDATA[3.3 Malaria Rapid Diagnostic Tests (Under five years)]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="52" width="120" height="13" uuid="19121e4a-e2db-44d4-b3c4-a98e9a56f264">
+				<reportElement x="436" y="55" width="120" height="13" uuid="19121e4a-e2db-44d4-b3c4-a98e9a56f264">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2645,7 +2643,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{malaria_rapid_under5}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="52" width="60" height="13" uuid="a21b0bd0-41fd-4623-af05-f29a7a10534e">
+				<reportElement x="376" y="55" width="60" height="13" uuid="a21b0bd0-41fd-4623-af05-f29a7a10534e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2660,7 +2658,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="65" width="120" height="13" uuid="24444a7e-541a-497f-98f4-e9beba8c7146">
+				<reportElement x="256" y="68" width="120" height="13" uuid="24444a7e-541a-497f-98f4-e9beba8c7146">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2677,7 +2675,7 @@ WHERE
 				<text><![CDATA[3.4 Malaria Rapid Diagnostic Tests (5 years and above)]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="65" width="120" height="13" uuid="0f0847ef-f7be-47fe-b00f-69638e05fee1">
+				<reportElement x="436" y="68" width="120" height="13" uuid="0f0847ef-f7be-47fe-b00f-69638e05fee1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2693,7 +2691,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{malaria_rapid_over5}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="65" width="60" height="13" uuid="3e80639f-72a5-432f-9eb3-184f78a5d578">
+				<reportElement x="376" y="68" width="60" height="13" uuid="3e80639f-72a5-432f-9eb3-184f78a5d578">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2708,7 +2706,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="78" width="120" height="13" uuid="b92cec83-7d85-482d-bb8a-f9824259496d">
+				<reportElement x="256" y="81" width="120" height="13" uuid="b92cec83-7d85-482d-bb8a-f9824259496d">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2726,7 +2724,7 @@ WHERE
 				<text><![CDATA[Stool Examination]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="376" y="78" width="60" height="13" uuid="01c44bb2-e6f7-4847-9708-ebe80986a432">
+				<reportElement x="376" y="81" width="60" height="13" uuid="01c44bb2-e6f7-4847-9708-ebe80986a432">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2744,7 +2742,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="78" width="120" height="13" uuid="10250bde-a467-4dee-a63f-5bcb71976f21">
+				<reportElement x="436" y="81" width="120" height="13" uuid="10250bde-a467-4dee-a63f-5bcb71976f21">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2762,7 +2760,7 @@ WHERE
 				<text><![CDATA[Number Positive]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="91" width="120" height="13" uuid="2857aecd-53fd-4a74-ab71-8e1ab4ad603f">
+				<reportElement x="256" y="94" width="120" height="13" uuid="2857aecd-53fd-4a74-ab71-8e1ab4ad603f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -2778,7 +2776,7 @@ WHERE
 				<text><![CDATA[3.5 Taenia spp.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="376" y="91" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="1f24548e-9e1c-4295-b139-51cc9a517dae">
+				<reportElement mode="Opaque" x="376" y="94" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="1f24548e-9e1c-4295-b139-51cc9a517dae">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -2794,7 +2792,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="91" width="120" height="13" uuid="b10c59cb-f9d5-4b18-ad71-4904199c4e66">
+				<reportElement x="436" y="94" width="120" height="13" uuid="b10c59cb-f9d5-4b18-ad71-4904199c4e66">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -2809,7 +2807,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{taenia_spp_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="104" width="120" height="13" uuid="00438ac0-b560-46ad-b195-0aee8120fb10">
+				<reportElement x="256" y="107" width="120" height="13" uuid="00438ac0-b560-46ad-b195-0aee8120fb10">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -2825,7 +2823,7 @@ WHERE
 				<text><![CDATA[3.6 Hymenolepis nana]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="376" y="104" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="db480554-7ebe-4316-908f-ef572fb0b9d7">
+				<reportElement mode="Opaque" x="376" y="107" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="db480554-7ebe-4316-908f-ef572fb0b9d7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -2841,7 +2839,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="104" width="120" height="13" uuid="2c82c9bb-4baf-4f20-b7d3-4ed74dd9f3ce">
+				<reportElement x="436" y="107" width="120" height="13" uuid="2c82c9bb-4baf-4f20-b7d3-4ed74dd9f3ce">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -2856,7 +2854,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{hymenolepis_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="117" width="120" height="13" uuid="b45202c7-c903-42ad-aee6-e366659a2c4c">
+				<reportElement x="256" y="120" width="120" height="13" uuid="b45202c7-c903-42ad-aee6-e366659a2c4c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -2872,7 +2870,7 @@ WHERE
 				<text><![CDATA[3.7 Hookworm]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="376" y="117" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="8c4a7aa2-6967-49d6-b108-828d6b709fda">
+				<reportElement mode="Opaque" x="376" y="120" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="8c4a7aa2-6967-49d6-b108-828d6b709fda">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -2888,7 +2886,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="117" width="120" height="13" uuid="4d22bbaa-a096-4189-8e78-c1e2a243e16d">
+				<reportElement x="436" y="120" width="120" height="13" uuid="4d22bbaa-a096-4189-8e78-c1e2a243e16d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -2903,7 +2901,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{hookworm_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="130" width="120" height="13" uuid="775567a8-1258-4c1d-802e-177d35923ef7">
+				<reportElement x="256" y="133" width="120" height="13" uuid="775567a8-1258-4c1d-802e-177d35923ef7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -2919,7 +2917,7 @@ WHERE
 				<text><![CDATA[3.8 Roundworms]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="376" y="130" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="0e397b98-779e-469a-b2d8-e7aad2f518a7">
+				<reportElement mode="Opaque" x="376" y="133" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="0e397b98-779e-469a-b2d8-e7aad2f518a7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -2935,7 +2933,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="130" width="120" height="13" uuid="0bb2a29e-f150-4e57-8ee4-d51c41af6afa">
+				<reportElement x="436" y="133" width="120" height="13" uuid="0bb2a29e-f150-4e57-8ee4-d51c41af6afa">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -2950,7 +2948,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{roundsworms_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="143" width="120" height="13" uuid="27ca1cd4-607a-49b7-bef7-e8cf7ad3adc1">
+				<reportElement x="256" y="146" width="120" height="13" uuid="27ca1cd4-607a-49b7-bef7-e8cf7ad3adc1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -2966,7 +2964,7 @@ WHERE
 				<text><![CDATA[3.9 S. mansoni]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="376" y="143" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="8b2ae22c-2853-41c1-b887-4a696eb6843c">
+				<reportElement mode="Opaque" x="376" y="146" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="8b2ae22c-2853-41c1-b887-4a696eb6843c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -2982,7 +2980,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="143" width="120" height="13" uuid="62b08ea8-1b61-486a-aca9-15c93f963882">
+				<reportElement x="436" y="146" width="120" height="13" uuid="62b08ea8-1b61-486a-aca9-15c93f963882">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -2997,7 +2995,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{s_mansoni_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="156" width="120" height="13" uuid="328c6f10-b9ea-412b-ad57-5e1da87d63b0">
+				<reportElement x="256" y="159" width="120" height="13" uuid="328c6f10-b9ea-412b-ad57-5e1da87d63b0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3013,7 +3011,7 @@ WHERE
 				<text><![CDATA[3.10 Trichuris trichura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="376" y="156" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="b18a7701-b3ec-4686-9892-048c3a0ed44a">
+				<reportElement mode="Opaque" x="376" y="159" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="b18a7701-b3ec-4686-9892-048c3a0ed44a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3029,7 +3027,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="156" width="120" height="13" uuid="9f627e9d-2f70-4fc0-b792-63d1dfb0c236">
+				<reportElement x="436" y="159" width="120" height="13" uuid="9f627e9d-2f70-4fc0-b792-63d1dfb0c236">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3044,7 +3042,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{trichuris_trichura_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="169" width="120" height="13" uuid="5cc09d34-e6c5-44ee-9344-e6e2b3c127f8">
+				<reportElement x="256" y="172" width="120" height="13" uuid="5cc09d34-e6c5-44ee-9344-e6e2b3c127f8">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3060,7 +3058,7 @@ WHERE
 				<text><![CDATA[3.11 Amoeba]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="376" y="169" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="9ca1fea0-a317-4dea-857b-9775f610623f">
+				<reportElement mode="Opaque" x="376" y="172" width="60" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="9ca1fea0-a317-4dea-857b-9775f610623f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3076,7 +3074,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="169" width="120" height="13" uuid="c7c508a6-919f-4cf3-a9fb-35a0fe4499c0">
+				<reportElement x="436" y="172" width="120" height="13" uuid="c7c508a6-919f-4cf3-a9fb-35a0fe4499c0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3091,7 +3089,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{amoeba_positive}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="195" width="300" height="13" uuid="1027d16c-82b1-431b-a65c-eb76f268760e">
+				<reportElement x="256" y="198" width="300" height="13" uuid="1027d16c-82b1-431b-a65c-eb76f268760e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3108,7 +3106,7 @@ WHERE
 				<text><![CDATA[4. HAEMATOLOGY]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="208" width="120" height="26" uuid="4bd882ef-2c98-433c-ac2f-2436bd5c3fb6">
+				<reportElement x="256" y="211" width="120" height="26" uuid="4bd882ef-2c98-433c-ac2f-2436bd5c3fb6">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3126,7 +3124,7 @@ WHERE
 				<text><![CDATA[Haematology tests]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="376" y="208" width="60" height="26" uuid="fd78be95-3d53-4471-962e-32ffc57421fc">
+				<reportElement x="376" y="211" width="60" height="26" uuid="fd78be95-3d53-4471-962e-32ffc57421fc">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3143,7 +3141,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="208" width="60" height="26" uuid="8ba07f4b-38a6-49a4-91a4-1a23d0c5dd11">
+				<reportElement x="436" y="211" width="60" height="26" uuid="8ba07f4b-38a6-49a4-91a4-1a23d0c5dd11">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3161,7 +3159,7 @@ WHERE
 				<text><![CDATA[HB <5 g/dl]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="496" y="208" width="60" height="26" uuid="669ecd35-e522-42be-941f-527473c8a0ed">
+				<reportElement x="496" y="211" width="60" height="26" uuid="669ecd35-e522-42be-941f-527473c8a0ed">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3179,7 +3177,7 @@ WHERE
 				<text><![CDATA[HB between 5 and 10 g/dl]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="234" width="120" height="13" uuid="692cc5ab-dcdf-4a7b-9907-b3e939d1c1b2">
+				<reportElement x="256" y="237" width="120" height="13" uuid="692cc5ab-dcdf-4a7b-9907-b3e939d1c1b2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3196,7 +3194,7 @@ WHERE
 				<text><![CDATA[4.1 Full blood count]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="234" width="60" height="13" uuid="f8990ab1-a264-4275-b94f-c7125b12a83e">
+				<reportElement x="436" y="237" width="60" height="13" uuid="f8990ab1-a264-4275-b94f-c7125b12a83e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3212,7 +3210,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{hb_lessthan5}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="234" width="60" height="13" uuid="f727872a-a8cf-4d08-8b79-8d4a88fc3d5c">
+				<reportElement x="376" y="237" width="60" height="13" uuid="f727872a-a8cf-4d08-8b79-8d4a88fc3d5c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3228,7 +3226,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{full_bloodcount_total}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="496" y="234" width="60" height="13" uuid="2a806e07-a79d-4268-91a6-64e9b8d46b78">
+				<reportElement x="496" y="237" width="60" height="13" uuid="2a806e07-a79d-4268-91a6-64e9b8d46b78">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3244,7 +3242,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{hb_between5and10}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="247" width="120" height="13" uuid="30272e0e-eab7-498a-a6a2-6851329d0fb5">
+				<reportElement x="256" y="250" width="120" height="13" uuid="30272e0e-eab7-498a-a6a2-6851329d0fb5">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3261,7 +3259,7 @@ WHERE
 				<text><![CDATA[4.2 HB estimation tests (other techniques)]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="247" width="60" height="13" uuid="2bd8eb99-9915-4a97-9bb8-504c3f791640">
+				<reportElement x="436" y="250" width="60" height="13" uuid="2bd8eb99-9915-4a97-9bb8-504c3f791640">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3277,7 +3275,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{hb_estimation_lessthan5}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="247" width="60" height="13" uuid="ba11decd-baa8-440e-9553-2d949c817e0c">
+				<reportElement x="376" y="250" width="60" height="13" uuid="ba11decd-baa8-440e-9553-2d949c817e0c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3293,7 +3291,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{hb_estimation_total}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="496" y="247" width="60" height="13" uuid="c8fe6e74-1a73-40ba-90b8-2a73b60881ef">
+				<reportElement x="496" y="250" width="60" height="13" uuid="c8fe6e74-1a73-40ba-90b8-2a73b60881ef">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3309,7 +3307,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{hb_estimation_between5and10}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="376" y="260" width="60" height="13" uuid="7fa298bc-f1ef-4339-8dd0-452434864a1e">
+				<reportElement x="376" y="263" width="60" height="13" uuid="7fa298bc-f1ef-4339-8dd0-452434864a1e">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3327,7 +3325,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="260" width="60" height="13" uuid="4a1d447b-032f-49b9-a2bb-b80030af25a2">
+				<reportElement x="436" y="263" width="60" height="13" uuid="4a1d447b-032f-49b9-a2bb-b80030af25a2">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3344,7 +3342,7 @@ WHERE
 				<text><![CDATA[Pre-diabetes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="496" y="260" width="60" height="13" uuid="86d84b5d-a4b9-4ca8-bfbc-3e59e74b3f80">
+				<reportElement x="496" y="263" width="60" height="13" uuid="86d84b5d-a4b9-4ca8-bfbc-3e59e74b3f80">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3361,7 +3359,7 @@ WHERE
 				<text><![CDATA[Diabetes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="256" y="260" width="120" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="82b8f86c-6881-417a-a015-818e8ba6bcdf">
+				<reportElement mode="Opaque" x="256" y="263" width="120" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="82b8f86c-6881-417a-a015-818e8ba6bcdf">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3377,7 +3375,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="273" width="120" height="26" uuid="8c8ba5ea-6ec8-4b39-bb21-704d20e7042b">
+				<reportElement x="256" y="276" width="120" height="26" uuid="8c8ba5ea-6ec8-4b39-bb21-704d20e7042b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3394,7 +3392,7 @@ WHERE
 				<text><![CDATA[4.3 Haemoglobin A1c (HbA1c)]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="273" width="60" height="26" uuid="9fa66d67-6b90-422d-82ee-36068345013b">
+				<reportElement x="436" y="276" width="60" height="26" uuid="9fa66d67-6b90-422d-82ee-36068345013b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3408,7 +3406,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="273" width="60" height="26" uuid="0a94fada-c633-4307-baad-990965cedc15">
+				<reportElement x="376" y="276" width="60" height="26" uuid="0a94fada-c633-4307-baad-990965cedc15">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3422,7 +3420,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="496" y="273" width="60" height="26" uuid="e5e8f84d-b5dc-45b3-aa58-1459d6131a2b">
+				<reportElement x="496" y="276" width="60" height="26" uuid="e5e8f84d-b5dc-45b3-aa58-1459d6131a2b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3436,7 +3434,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="376" y="299" width="60" height="13" uuid="464f09d9-3991-4f20-80d5-a0b207fba5af">
+				<reportElement x="376" y="302" width="60" height="13" uuid="464f09d9-3991-4f20-80d5-a0b207fba5af">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3454,7 +3452,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="299" width="120" height="13" uuid="3b3e6d60-6a6e-4110-8908-ca0d05ed6218">
+				<reportElement x="436" y="302" width="120" height="13" uuid="3b3e6d60-6a6e-4110-8908-ca0d05ed6218">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3471,7 +3469,7 @@ WHERE
 				<text><![CDATA[Number <500]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="256" y="299" width="120" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="b16dc521-2aef-41b2-b17b-2c5e360eac36">
+				<reportElement mode="Opaque" x="256" y="302" width="120" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="b16dc521-2aef-41b2-b17b-2c5e360eac36">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3487,7 +3485,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="312" width="120" height="13" uuid="492fa242-0ab4-48e9-b647-f55a27134c7e">
+				<reportElement x="256" y="315" width="120" height="13" uuid="492fa242-0ab4-48e9-b647-f55a27134c7e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3503,7 +3501,7 @@ WHERE
 				<text><![CDATA[4.4 CD4 count]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="312" width="60" height="13" uuid="f5ecba13-3966-424e-ad32-a8533a8b9cae">
+				<reportElement x="376" y="315" width="60" height="13" uuid="f5ecba13-3966-424e-ad32-a8533a8b9cae">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3518,7 +3516,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="312" width="120" height="13" uuid="811dc902-2666-48ef-a9b9-17fab7372468">
+				<reportElement x="436" y="315" width="120" height="13" uuid="811dc902-2666-48ef-a9b9-17fab7372468">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3533,7 +3531,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="325" width="120" height="13" uuid="db73ae07-48a1-49d2-8a65-ce2645fb45a8">
+				<reportElement x="256" y="328" width="120" height="13" uuid="db73ae07-48a1-49d2-8a65-ce2645fb45a8">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3550,7 +3548,7 @@ WHERE
 				<text><![CDATA[Other Haematology tests]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="376" y="325" width="60" height="13" uuid="b56af36d-10f4-4ada-899a-87408a0d5583">
+				<reportElement x="376" y="328" width="60" height="13" uuid="b56af36d-10f4-4ada-899a-87408a0d5583">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3568,7 +3566,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="325" width="120" height="13" uuid="79998a84-9931-405d-ae18-d5a998fe20a6">
+				<reportElement x="436" y="328" width="120" height="13" uuid="79998a84-9931-405d-ae18-d5a998fe20a6">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3585,7 +3583,7 @@ WHERE
 				<text><![CDATA[Number Positive]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="338" width="120" height="13" uuid="d14761f9-cc29-45ce-867f-48ba1bb33da1">
+				<reportElement x="256" y="341" width="120" height="13" uuid="d14761f9-cc29-45ce-867f-48ba1bb33da1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3601,7 +3599,7 @@ WHERE
 				<text><![CDATA[4.5 Sickling test]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="338" width="60" height="13" uuid="7ed89e31-79ca-4a85-b3fe-98785e13211b">
+				<reportElement x="376" y="341" width="60" height="13" uuid="7ed89e31-79ca-4a85-b3fe-98785e13211b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3616,7 +3614,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="338" width="120" height="13" uuid="654a9590-0502-49b1-a322-7d02bc59ae4d">
+				<reportElement x="436" y="341" width="120" height="13" uuid="654a9590-0502-49b1-a322-7d02bc59ae4d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3631,7 +3629,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="351" width="120" height="13" uuid="a0bf2636-7b17-4712-a9bb-35c62e94c941">
+				<reportElement x="256" y="354" width="120" height="13" uuid="a0bf2636-7b17-4712-a9bb-35c62e94c941">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3647,7 +3645,7 @@ WHERE
 				<text><![CDATA[4.6 Peripheral blood films]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="351" width="60" height="13" uuid="3b7d6756-ff1e-48bb-b49a-f5f9b5a559f2">
+				<reportElement x="376" y="354" width="60" height="13" uuid="3b7d6756-ff1e-48bb-b49a-f5f9b5a559f2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3662,7 +3660,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="364" width="120" height="13" uuid="6e650577-6b04-4af8-8a78-f4ae19925dce">
+				<reportElement x="256" y="367" width="120" height="13" uuid="6e650577-6b04-4af8-8a78-f4ae19925dce">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3678,7 +3676,7 @@ WHERE
 				<text><![CDATA[4.7 BMA]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="364" width="60" height="13" uuid="7608ade6-24b7-449b-bfba-03ee106394bc">
+				<reportElement x="376" y="367" width="60" height="13" uuid="7608ade6-24b7-449b-bfba-03ee106394bc">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3693,7 +3691,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="377" width="120" height="13" uuid="4e80c97a-f276-44ba-a8c2-1b10a70472fa">
+				<reportElement x="256" y="380" width="120" height="13" uuid="4e80c97a-f276-44ba-a8c2-1b10a70472fa">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3709,7 +3707,7 @@ WHERE
 				<text><![CDATA[4.8 Coagulation profile]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="377" width="60" height="13" uuid="3f02611a-a1c9-46df-a955-907a2522e4f0">
+				<reportElement x="376" y="380" width="60" height="13" uuid="3f02611a-a1c9-46df-a955-907a2522e4f0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3724,7 +3722,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="390" width="120" height="13" uuid="812a5b48-bc30-490a-842e-a6345aeaa1b5">
+				<reportElement x="256" y="393" width="120" height="13" uuid="812a5b48-bc30-490a-842e-a6345aeaa1b5">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3740,7 +3738,7 @@ WHERE
 				<text><![CDATA[4.9 Reticulocyte Count]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="390" width="60" height="13" uuid="136c9ec2-8374-40e0-96b8-b79d3181afd2">
+				<reportElement x="376" y="393" width="60" height="13" uuid="136c9ec2-8374-40e0-96b8-b79d3181afd2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3755,7 +3753,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="436" y="351" width="120" height="52" forecolor="#D0CECE" backcolor="#D0CECE" uuid="413840ff-b531-4aa1-9022-977c4aea762a">
+				<reportElement mode="Opaque" x="436" y="354" width="120" height="52" forecolor="#D0CECE" backcolor="#D0CECE" uuid="413840ff-b531-4aa1-9022-977c4aea762a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3772,7 +3770,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="376" y="403" width="60" height="13" uuid="6a044b6d-0256-4564-97cf-81e2d3f1e475">
+				<reportElement x="376" y="406" width="60" height="13" uuid="6a044b6d-0256-4564-97cf-81e2d3f1e475">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3790,7 +3788,7 @@ WHERE
 				<text><![CDATA[Total Exam]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="403" width="120" height="13" uuid="42db5bc4-91f8-44f8-a300-1250e4464bd8">
+				<reportElement x="436" y="406" width="120" height="13" uuid="42db5bc4-91f8-44f8-a300-1250e4464bd8">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3807,7 +3805,7 @@ WHERE
 				<text><![CDATA[High]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="256" y="403" width="120" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="57355911-979f-443f-b31a-dface236c134">
+				<reportElement mode="Opaque" x="256" y="406" width="120" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="57355911-979f-443f-b31a-dface236c134">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3823,7 +3821,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="416" width="120" height="13" uuid="45561982-548e-4b40-ab1a-8d0523cf093b">
+				<reportElement x="256" y="419" width="120" height="13" uuid="45561982-548e-4b40-ab1a-8d0523cf093b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3839,7 +3837,7 @@ WHERE
 				<text><![CDATA[4.10 Erythrocyte Sedimentation rate]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="376" y="416" width="60" height="13" uuid="78a1c97a-bfa8-4a92-84ad-c135a7f0a77a">
+				<reportElement x="376" y="419" width="60" height="13" uuid="78a1c97a-bfa8-4a92-84ad-c135a7f0a77a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3854,7 +3852,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="416" width="120" height="13" uuid="b09f5d1a-1b6e-4850-a63d-d07ef43993f6">
+				<reportElement x="436" y="419" width="120" height="13" uuid="b09f5d1a-1b6e-4850-a63d-d07ef43993f6">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3869,7 +3867,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="429" width="300" height="13" uuid="f4657730-ac64-4376-aa1e-a52dc09bac13">
+				<reportElement x="256" y="432" width="300" height="13" uuid="f4657730-ac64-4376-aa1e-a52dc09bac13">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3885,7 +3883,7 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="442" width="180" height="13" uuid="2e595146-ca9e-4e91-b727-813b3b8604bd">
+				<reportElement x="256" y="445" width="180" height="13" uuid="2e595146-ca9e-4e91-b727-813b3b8604bd">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3901,7 +3899,7 @@ WHERE
 				<text><![CDATA[Blood Grouping]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="442" width="120" height="13" uuid="4a6a15aa-2a4d-4634-8d1f-ae95f365ff1b">
+				<reportElement x="436" y="445" width="120" height="13" uuid="4a6a15aa-2a4d-4634-8d1f-ae95f365ff1b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -3917,7 +3915,7 @@ WHERE
 				<text><![CDATA[Number]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="455" width="180" height="13" uuid="f84d3a32-40c7-4f5c-8bba-948c8e96e4e2">
+				<reportElement x="256" y="458" width="180" height="13" uuid="f84d3a32-40c7-4f5c-8bba-948c8e96e4e2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3933,7 +3931,7 @@ WHERE
 				<text><![CDATA[4.11 Total blood group tests]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="455" width="120" height="13" uuid="e7a9f974-dac5-4fda-ad23-20310d3e4f46">
+				<reportElement x="436" y="458" width="120" height="13" uuid="e7a9f974-dac5-4fda-ad23-20310d3e4f46">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3948,7 +3946,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="468" width="180" height="13" uuid="be5cb1df-443d-401d-9e12-b28f0a3fbed2">
+				<reportElement x="256" y="471" width="180" height="13" uuid="be5cb1df-443d-401d-9e12-b28f0a3fbed2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3964,7 +3962,7 @@ WHERE
 				<text><![CDATA[4.12 Blood units grouped]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="468" width="120" height="13" uuid="ac6d2d48-ec3a-4112-9056-06a533220a93">
+				<reportElement x="436" y="471" width="120" height="13" uuid="ac6d2d48-ec3a-4112-9056-06a533220a93">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -3979,7 +3977,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="481" width="180" height="13" uuid="ae45631e-8a12-438c-8319-2b78d922b1a1">
+				<reportElement x="256" y="484" width="180" height="13" uuid="ae45631e-8a12-438c-8319-2b78d922b1a1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -3995,7 +3993,7 @@ WHERE
 				<text><![CDATA[Blood safety]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="481" width="120" height="13" uuid="8c4a5a8a-2637-483b-9e75-a867eadcb49c">
+				<reportElement x="436" y="484" width="120" height="13" uuid="8c4a5a8a-2637-483b-9e75-a867eadcb49c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -4011,7 +4009,7 @@ WHERE
 				<text><![CDATA[Number]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="494" width="180" height="13" uuid="f7830a2a-4c44-4a4e-aea8-940d6a1b7661">
+				<reportElement x="256" y="497" width="180" height="13" uuid="f7830a2a-4c44-4a4e-aea8-940d6a1b7661">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4027,7 +4025,7 @@ WHERE
 				<text><![CDATA[4.13 Blood units received from blood transfusion centres]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="494" width="120" height="13" uuid="991f1820-acd5-4d5c-bbf9-269f75dee498">
+				<reportElement x="436" y="497" width="120" height="13" uuid="991f1820-acd5-4d5c-bbf9-269f75dee498">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -4042,7 +4040,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="507" width="180" height="13" uuid="25dcbd8e-10f7-4d95-b48e-5984f21d53f0">
+				<reportElement x="256" y="510" width="180" height="13" uuid="25dcbd8e-10f7-4d95-b48e-5984f21d53f0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4058,7 +4056,7 @@ WHERE
 				<text><![CDATA[4.14 Blood units collected at facility]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="507" width="120" height="13" uuid="7c48d058-7ca0-4a48-8e0c-5169b77f6d41">
+				<reportElement x="436" y="510" width="120" height="13" uuid="7c48d058-7ca0-4a48-8e0c-5169b77f6d41">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -4073,7 +4071,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="520" width="180" height="13" uuid="6e469ea1-7a7e-439f-a462-b9fd24d8870e">
+				<reportElement x="256" y="523" width="180" height="13" uuid="6e469ea1-7a7e-439f-a462-b9fd24d8870e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4089,7 +4087,7 @@ WHERE
 				<text><![CDATA[4.15 Blood units transfused]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="520" width="120" height="13" uuid="b04efcb7-3d1d-45f9-8c83-72ee6014b9c4">
+				<reportElement x="436" y="523" width="120" height="13" uuid="b04efcb7-3d1d-45f9-8c83-72ee6014b9c4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -4104,7 +4102,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="533" width="180" height="13" uuid="974ddd37-96bf-4680-af60-2eabd76adee6">
+				<reportElement x="256" y="536" width="180" height="13" uuid="974ddd37-96bf-4680-af60-2eabd76adee6">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4120,7 +4118,7 @@ WHERE
 				<text><![CDATA[4.16 Transfusion reactions repoted and investigated]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="533" width="120" height="13" uuid="b955ce80-7bc0-45ef-870c-6a76e7ae7bce">
+				<reportElement x="436" y="536" width="120" height="13" uuid="b955ce80-7bc0-45ef-870c-6a76e7ae7bce">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -4135,7 +4133,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="546" width="180" height="13" uuid="3433a86b-604a-46bd-9fc7-08da1a1d1f8c">
+				<reportElement x="256" y="549" width="180" height="13" uuid="3433a86b-604a-46bd-9fc7-08da1a1d1f8c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4151,7 +4149,7 @@ WHERE
 				<text><![CDATA[4.17 Blood grouping and cross matched]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="546" width="120" height="13" uuid="ccd94c36-8fb7-48f0-be75-7979eabef449">
+				<reportElement x="436" y="549" width="120" height="13" uuid="ccd94c36-8fb7-48f0-be75-7979eabef449">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -4166,7 +4164,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="559" width="180" height="13" uuid="68af0448-11d3-4cfb-b182-2fe9be04abe2">
+				<reportElement x="256" y="562" width="180" height="13" uuid="68af0448-11d3-4cfb-b182-2fe9be04abe2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4182,7 +4180,7 @@ WHERE
 				<text><![CDATA[4.18 Blood units discarded]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="559" width="120" height="13" uuid="fb79c9c0-5a92-4e6d-991c-36eb894fea86">
+				<reportElement x="436" y="562" width="120" height="13" uuid="fb79c9c0-5a92-4e6d-991c-36eb894fea86">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -4197,7 +4195,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="572" width="180" height="13" uuid="a108a6f8-fe96-4abf-8530-fe2f292c5e4d">
+				<reportElement x="256" y="575" width="180" height="13" uuid="a108a6f8-fe96-4abf-8530-fe2f292c5e4d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4213,7 +4211,7 @@ WHERE
 				<text><![CDATA[Blood Screening at facility]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="436" y="572" width="120" height="13" uuid="07cb95b8-103f-44b8-aaeb-a87d0babd917">
+				<reportElement x="436" y="575" width="120" height="13" uuid="07cb95b8-103f-44b8-aaeb-a87d0babd917">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -4229,7 +4227,7 @@ WHERE
 				<text><![CDATA[Number Positive]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="585" width="180" height="13" uuid="7bc73eb7-edbf-4ca5-b243-ebe729e053aa">
+				<reportElement x="256" y="588" width="180" height="13" uuid="7bc73eb7-edbf-4ca5-b243-ebe729e053aa">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4245,7 +4243,7 @@ WHERE
 				<text><![CDATA[4.19 HIV]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="585" width="120" height="13" uuid="2c465a3d-4986-48ae-a8b5-85a2a5474c9e">
+				<reportElement x="436" y="588" width="120" height="13" uuid="2c465a3d-4986-48ae-a8b5-85a2a5474c9e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -4260,7 +4258,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="598" width="180" height="13" uuid="ec0b6626-b72b-410c-8a78-281bbdcbf4eb">
+				<reportElement x="256" y="601" width="180" height="13" uuid="ec0b6626-b72b-410c-8a78-281bbdcbf4eb">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4276,7 +4274,7 @@ WHERE
 				<text><![CDATA[4.20 Hepatitis B]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="598" width="120" height="13" uuid="68420c95-99a6-4b3f-9e13-6204f8adc6b8">
+				<reportElement x="436" y="601" width="120" height="13" uuid="68420c95-99a6-4b3f-9e13-6204f8adc6b8">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -4291,7 +4289,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="611" width="180" height="13" uuid="7b367056-acd1-4aca-bbb5-fcfc0a96a84b">
+				<reportElement x="256" y="614" width="180" height="13" uuid="7b367056-acd1-4aca-bbb5-fcfc0a96a84b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4307,7 +4305,7 @@ WHERE
 				<text><![CDATA[4.21 Hepatitis C]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="611" width="120" height="13" uuid="152094c8-2266-40c2-9892-30ac13d76ffe">
+				<reportElement x="436" y="614" width="120" height="13" uuid="152094c8-2266-40c2-9892-30ac13d76ffe">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -4322,7 +4320,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="256" y="624" width="180" height="13" uuid="fda062a1-e66e-413a-94b1-b1f36cf54e6a">
+				<reportElement x="256" y="627" width="180" height="13" uuid="fda062a1-e66e-413a-94b1-b1f36cf54e6a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="3">
@@ -4338,7 +4336,7 @@ WHERE
 				<text><![CDATA[4.22 Syphillis]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="436" y="624" width="120" height="13" uuid="5ec40625-df45-4df5-b408-529e097ca64a">
+				<reportElement x="436" y="627" width="120" height="13" uuid="5ec40625-df45-4df5-b408-529e097ca64a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -4353,7 +4351,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="377" width="100" height="13" uuid="d4d74958-4251-4ade-aa9b-9337451300f3"/>
+				<reportElement x="0" y="380" width="100" height="13" uuid="d4d74958-4251-4ade-aa9b-9337451300f3"/>
 				<box leftPadding="3">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -4367,7 +4365,7 @@ WHERE
 				<text><![CDATA[2.14 Albumin]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="377" width="50" height="13" uuid="cca00661-b15c-4f71-bc20-9ba083699708"/>
+				<reportElement x="200" y="380" width="50" height="13" uuid="cca00661-b15c-4f71-bc20-9ba083699708"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -4379,7 +4377,7 @@ WHERE
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="150" y="377" width="50" height="13" uuid="dac58f56-4fe8-4009-ada5-919eedf0b03a"/>
+				<reportElement x="150" y="380" width="50" height="13" uuid="dac58f56-4fe8-4009-ada5-919eedf0b03a"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -4391,7 +4389,7 @@ WHERE
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="377" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="cedd8783-3e5d-43df-bd7a-ab91dc67f1de"/>
+				<reportElement mode="Opaque" x="100" y="380" width="50" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="cedd8783-3e5d-43df-bd7a-ab91dc67f1de"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -4405,29 +4403,32 @@ WHERE
 				<text><![CDATA[]]></text>
 			</staticText>
 			<image scaleImage="FillFrame">
-				<reportElement x="0" y="221" width="250" height="416" uuid="d835c8a4-8668-4e22-b239-798f6be60489"/>
+				<reportElement x="0" y="224" width="250" height="416" uuid="d835c8a4-8668-4e22-b239-798f6be60489"/>
 				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "gray-background.png"]]></imageExpression>
 			</image>
 			<image scaleImage="FillFrame">
-				<reportElement x="256" y="299" width="300" height="338" uuid="68461abb-65f8-457e-882e-fc513feae1d4"/>
+				<reportElement x="256" y="302" width="300" height="338" uuid="68461abb-65f8-457e-882e-fc513feae1d4"/>
 				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "gray-background.png"]]></imageExpression>
 			</image>
 			<rectangle radius="6">
-				<reportElement mode="Opaque" x="360" y="430" width="100" height="40" backcolor="#FFFFFF" uuid="4fda8079-3472-494e-90f9-1fea9f2bcc96"/>
+				<reportElement mode="Opaque" x="360" y="433" width="100" height="40" backcolor="#FFFFFF" uuid="4fda8079-3472-494e-90f9-1fea9f2bcc96"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="360" y="430" width="100" height="40" uuid="5a15647b-0eeb-40f5-8619-18550800a281"/>
+				<reportElement x="360" y="433" width="100" height="40" uuid="5a15647b-0eeb-40f5-8619-18550800a281"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Not Yet Available]]></text>
 			</staticText>
 			<rectangle radius="6">
-				<reportElement mode="Opaque" x="70" y="400" width="100" height="40" backcolor="#FFFFFF" uuid="8a8ca44e-4101-40d0-bac9-b1f19203c1be"/>
+				<reportElement mode="Opaque" x="70" y="403" width="100" height="40" backcolor="#FFFFFF" uuid="8a8ca44e-4101-40d0-bac9-b1f19203c1be"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="70" y="400" width="100" height="40" uuid="6789ef25-4378-4eed-b257-7d012e6efefe"/>
+				<reportElement x="70" y="403" width="100" height="40" uuid="6789ef25-4378-4eed-b257-7d012e6efefe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Not Yet Available]]></text>
 			</staticText>
+		</band>
+		<band height="117">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</band>
 	</detail>
 </jasperReport>
