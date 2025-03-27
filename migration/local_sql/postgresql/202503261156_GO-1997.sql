@@ -384,10 +384,75 @@ FROM
 		ON ev.c_elementvalue_id = vc.account_id;
 
 /**********************************************************************************************************/
--- Update X to ensure that the new default product categories can be added to a new client
+-- Update bh_product_categorydefault to ensure that the new default product categories can be added to a new client
 /**********************************************************************************************************/
--- TODO!
+DROP TABLE IF EXISTS tmp_bh_product_categorydefault;
+create temp table tmp_bh_product_categorydefault
+(
+    ad_client_id                  numeric(10) default 0   not null,
+    ad_org_id                     numeric(10) default 0   not null,
+    bh_product_categorydefault_id serial                  not null,
+    bh_product_categorydefault_uu varchar(36) DEFAULT uuid_generate_v4(),
+    bh_product_category_type      char        default 'S' not null,
+    -- created                       timestamp    default statement_timestamp() not null,
+    createdby                     numeric(10) default 0   not null,
+    -- description                   varchar(255) default NULL::character varying,
+    -- isactive                      char         default 'Y'::bpchar           not null,
+    name                          varchar(60)             not null,
+    -- updated                       timestamp    default statement_timestamp() not null,
+    updatedby                     numeric(10) default 0   not null,
+    value                         varchar(40)             not null
+);
+SELECT
+	SETVAL(
+		'tmp_bh_product_categorydefault_bh_product_categorydefault_id_seq',
+		(
+			SELECT
+				currentnext
+			FROM
+				ad_sequence
+			WHERE
+				name = 'Bh_Product_Categorydefault'
+			LIMIT 1
+		)::INT,
+		FALSE
+	);
 
+INSERT INTO tmp_bh_product_categorydefault(name, value)
+SELECT pc.name, pc.c_elementvalue_value
+FROM
+    (VALUES
+        ('Consultation', '41201'),
+        ('Laboratory', '41202'),
+        ('Imaging', '41203'),
+        ('Dental', '41204'),
+        ('Orthopedic Trauma Services', '41205'),
+        ('OPD procedures', '41206'),
+        ('Antenatal care', '41207'),
+        ('Postnatal care', '41208'),
+        ('Family planning', '41209'),
+        ('Maternity', '41210'),
+        ('Eye Clinic', '41211'),
+        ('Surgery', '41212'),
+        ('Day-case Services', '41213'),
+        ('Home Care Services', '41214'),
+        ('Inpatient', '41215'),
+        ('Follow up', '41216')
+    ) AS pc (name, c_elementvalue_value);
+-- Update Bh_product_category	
+INSERT INTO bh_product_categorydefault(ad_client_id, ad_org_id, bh_product_categorydefault_id,
+                                       bh_product_categorydefault_uu, bh_product_category_type, createdby, name,
+                                       updatedby, value)
+SELECT ad_client_id,
+       ad_org_id,
+       bh_product_categorydefault_id,
+       bh_product_categorydefault_uu,
+       bh_product_category_type,
+       createdby,
+       name,
+       updatedby,
+       value
+FROM tmp_bh_product_categorydefault;	
 /**********************************************************************************************************/
 -- Wrap-up
 /**********************************************************************************************************/

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatement" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" uuid="242ed633-0df1-4a62-9620-ee7282e13576">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
@@ -112,11 +112,11 @@ FROM
 	) received_products
 		CROSS JOIN (
 		SELECT
-			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Pharmacy' ), 0)   AS pharmacysales,
-			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Services' ), 0)   AS servicessales,
-			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Laboratory' ), 0) AS labsales,
-			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Radiology' ), 0)  AS radiologysales,
-			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Other' ), 0)      AS othersales
+			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Pharmacy' AND pc.bh_product_category_type = 'P' ), 0)   AS pharmacysales,
+			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.bh_product_category_type = 'S' ), 0)   AS servicessales,
+			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Laboratory' AND pc.bh_product_category_type = 'P' ), 0) AS labsales,
+			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Radiology' AND pc.bh_product_category_type = 'P' ), 0)  AS radiologysales,
+			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE pc.name = 'Other' AND pc.bh_product_category_type = 'P'), 0)      AS othersales
 		FROM
 			bh_visit v
 				JOIN c_order o
