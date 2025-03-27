@@ -82,8 +82,7 @@
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='1945') AS hcg_total,
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='1945' AND ed.bh_value = 'Positive') AS hcg_positive,
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='166555') AS crag_test_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='166555' AND ed.bh_value = 'Positive') AS crag_test_positive,
-    u.name AS served_by
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='166555' AND ed.bh_value = 'Positive') AS crag_test_positive
                          		                           		                           		                           		                           		                                              
 FROM
 	bh_visit v
@@ -95,12 +94,9 @@ FROM
 		ON ed.bh_concept_id = c.bh_concept_id
 		JOIN c_bpartner patient
 			ON patient.c_bpartner_id = v.patient_id
-		JOIN c_order o ON v.bh_visit_id = o.bh_visit_id
-		LEFT JOIN ad_user u ON o.salesrep_id = u.ad_user_id	
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
-	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
-	GROUP BY u.name;]]>
+	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date};]]>
 	</queryString>
 	<field name="glucose_postive" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="glucose_postive"/>
@@ -232,7 +228,6 @@ WHERE
 	<field name="hcg_positive" class="java.lang.Long"/>
 	<field name="crag_test_total" class="java.lang.Long"/>
 	<field name="crag_test_positive" class="java.lang.Long"/>
-	<field name="served_by" class="java.lang.String"/>
 	<detail>
 		<band height="1990" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2979,10 +2974,12 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{served_by}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="1810" width="140" height="16" uuid="8ede073c-0878-4cb1-b197-d2454813b570">
@@ -2999,6 +2996,9 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.75"/>
+				</box>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
@@ -3028,10 +3028,12 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="1868" width="140" height="16" uuid="e790aeab-9810-45d8-a099-15d0d0f788bd">
@@ -3048,6 +3050,9 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
