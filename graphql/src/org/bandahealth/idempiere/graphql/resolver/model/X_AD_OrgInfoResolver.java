@@ -3,16 +3,19 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_OrgTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CalendarDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CashBookDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_LocationDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_WarehouseDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MBank;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MCashBook;
@@ -21,6 +24,8 @@ import org.compiere.model.MLocation;
 import org.compiere.model.X_AD_OrgType;
 import org.dataloader.DataLoader;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -45,6 +50,23 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 		DataLoader<Integer, X_AD_OrgType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_OrgTypeDataLoader.DATALOADER_AD_OrgType_BY_ID);
 		return dataLoader.load(entity.getAD_OrgType_ID());
+	}
+
+	public static Map<String, String> BH_AFFILIATION_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("G", "fc1e774a-e51b-4999-a450-60aeadaddf22"); // GOK
+			put("F", "57e24320-0a4d-4af1-a0e3-0f6cc6c06fa2"); // Faith Based
+			put("P", "4347cb29-65a9-4cf5-8e93-3bc147ea7b1f"); // Private
+			put("N", "b8b2a31d-61d8-4107-9fd1-99a365133614"); // NGO
+		}
+	};
+	public CompletableFuture<MRefList_BH> BH_Affiliation(MOrgInfo_BH entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getBH_Affiliation())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(BH_AFFILIATION_UUIDS_BY_VALUE.get(entity.getBH_Affiliation()));
 	}
 
 

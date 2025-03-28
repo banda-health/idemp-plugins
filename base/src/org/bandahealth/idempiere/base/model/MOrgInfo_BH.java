@@ -27,6 +27,13 @@ public class MOrgInfo_BH extends MOrgInfo {
 	 */
 	public static final String COLUMNNAME_BH_Header = "BH_Header";
 
+	/** Load Meta Data */
+
+	/**
+	 * Column name BH_Affiliation
+	 */
+	public static final String COLUMNNAME_BH_Affiliation = "BH_Affiliation";
+
 	/**
 	 * Column name BH_PaymentInformation
 	 */
@@ -130,5 +137,41 @@ public class MOrgInfo_BH extends MOrgInfo {
 	 */
 	public String getBH_PaymentInformation() {
 		return (String) get_Value(COLUMNNAME_BH_PaymentInformation);
+	}
+
+	/**
+	 * Faith Based = F
+	 */
+	public static final String BH_AFFILIATION_FaithBased = "F";
+	/**
+	 * GOK = G
+	 */
+	public static final String BH_AFFILIATION_GOK = "G";
+	/**
+	 * NGO = N
+	 */
+	public static final String BH_AFFILIATION_NGO = "N";
+	/**
+	 * Private = P
+	 */
+	public static final String BH_AFFILIATION_Private = "P";
+
+	/**
+	 * Set Affiliation.
+	 *
+	 * @param BH_Affiliation Affiliation
+	 */
+	public void setBH_Affiliation(String BH_Affiliation) {
+
+		set_Value(COLUMNNAME_BH_Affiliation, BH_Affiliation);
+	}
+
+	/**
+	 * Get Affiliation.
+	 *
+	 * @return Affiliation
+	 */
+	public String getBH_Affiliation() {
+		return (String) get_Value(COLUMNNAME_BH_Affiliation);
 	}
 }

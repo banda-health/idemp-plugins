@@ -24,6 +24,8 @@
 	<queryString>
 		<![CDATA[SELECT
 	cl.name                                                                                                  AS facility_name,
+	COALESCE(l.address1, '')                                                                                 AS county,
+	COALESCE(l.address2, '')                                                                                 AS sub_county,
 	u.name                                                                                                   AS compiled_by,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND ed.bh_value != 'Unknown' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid =
@@ -153,37 +155,48 @@
 		                                                    '159644')                                          AS hba1c_total
 
 FROM
-	bh_visit v
+	ad_client cl
+		LEFT JOIN bh_visit v
+		ON v.ad_client_id = cl.ad_client_id AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 		LEFT JOIN bh_encounter e
 		ON v.bh_visit_id = e.bh_visit_id
 		LEFT JOIN bh_encounter_diagnostic ed
 		ON e.bh_encounter_id = ed.bh_encounter_id
 		LEFT JOIN bh_concept c
 		ON ed.bh_concept_id = c.bh_concept_id
-		JOIN c_bpartner patient
+		LEFT JOIN c_bpartner patient
 		ON patient.c_bpartner_id = v.patient_id
-		JOIN bh_concept c_plt
+		LEFT JOIN bh_concept c_plt
 		ON c_plt.bh_source = 'CIEL' AND c_plt.bh_oclid = '729'
-		JOIN bh_concept c_wbc
+		LEFT JOIN bh_concept c_wbc
 		ON c_wbc.bh_source = 'CIEL' AND c_wbc.bh_oclid = '678'
 		LEFT JOIN bh_encounter_diagnostic ed_full_blood_plt
 		ON ed_full_blood_plt.bh_encounter_id = ed.bh_encounter_id AND ed_full_blood_plt.bh_concept_id = c_plt.bh_concept_id
 		LEFT JOIN bh_encounter_diagnostic ed_full_blood_wbc
 		ON ed_full_blood_wbc.bh_encounter_id = ed.bh_encounter_id AND ed_full_blood_wbc.bh_concept_id = c_plt.bh_concept_id
-		JOIN ad_client cl
-		ON v.ad_client_id = cl.ad_client_id
 		CROSS JOIN ad_user u
+		JOIN ad_orginfo oi
+		ON cl.ad_client_id = oi.ad_client_id
+		LEFT JOIN c_location l
+		ON oi.c_location_id = l.c_location_id
 WHERE
-	v.ad_client_id = $P{AD_CLIENT_ID}
-	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+	cl.ad_client_id = $P{AD_CLIENT_ID}
 	AND u.ad_user_id = $P{AD_USER_ID}
 GROUP BY
-	cl.name, u.name;]]>
+	cl.name, u.name, COALESCE(l.address1, ''), COALESCE(l.address2, '');]]>
 	</queryString>
 	<field name="facility_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="facility_name"/>
 		<property name="com.jaspersoft.studio.field.label" value="facility_name"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="ad_client"/>
+	</field>
+	<field name="county" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="county"/>
+		<property name="com.jaspersoft.studio.field.label" value="county"/>
+	</field>
+	<field name="sub_county" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sub_county"/>
+		<property name="com.jaspersoft.studio.field.label" value="sub_county"/>
 	</field>
 	<field name="compiled_by" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="compiled_by"/>
@@ -400,6 +413,7 @@ GROUP BY
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{county}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="426" y="11" width="42" height="9" uuid="eed05cc5-47fd-4905-aa55-24e3f26c77da">
@@ -429,6 +443,7 @@ GROUP BY
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{sub_county}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="162" y="20" width="40" height="9" uuid="6e9cb1fd-0cac-4e5d-a760-1802f9bb847a">

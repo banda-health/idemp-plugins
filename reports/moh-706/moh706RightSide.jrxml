@@ -22,6 +22,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
+	COALESCE(oi.bh_affiliation, '')                                                                                      AS affiliation,
 		COUNT(ed.*)
 		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '307')                            AS tb_smear_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '307' AND
@@ -90,19 +91,27 @@
 		                           'Positive')                                                                             AS crag_test_positive
 
 FROM
-	bh_visit v
+	ad_orginfo oi
+		LEFT JOIN bh_visit v
+		ON oi.ad_client_id = v.ad_client_id AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 		LEFT JOIN bh_encounter e
 		ON v.bh_visit_id = e.bh_visit_id
 		LEFT JOIN bh_encounter_diagnostic ed
 		ON e.bh_encounter_id = ed.bh_encounter_id
 		LEFT JOIN bh_concept c
 		ON ed.bh_concept_id = c.bh_concept_id
-		JOIN c_bpartner patient
+		LEFT JOIN c_bpartner patient
 		ON patient.c_bpartner_id = v.patient_id
 WHERE
-	v.ad_client_id = $P{AD_CLIENT_ID}
-	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date};]]>
+	oi.ad_client_id = $P{AD_CLIENT_ID}
+GROUP BY
+	oi.bh_affiliation;]]>
 	</queryString>
+	<field name="affiliation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="affiliation"/>
+		<property name="com.jaspersoft.studio.field.label" value="affiliation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_orginfo"/>
+	</field>
 	<field name="tb_smear_total" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="tb_smear_total"/>
 		<property name="com.jaspersoft.studio.field.label" value="tb_smear_total"/>
@@ -309,6 +318,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{affiliation}.equals("G") ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="310" y="13" width="33" height="13" uuid="f4f81902-8239-41d4-80b9-3ef2be7d05e1">
@@ -324,6 +334,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{affiliation}.equals("F") ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="384" y="13" width="40" height="13" uuid="0d0037ba-a2e7-4e26-8e65-7199d843eb18">
@@ -339,6 +350,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{affiliation}.equals("P") ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="470" y="13" width="76" height="13" uuid="03380d07-04b0-45e8-b0a4-80b76a6ecd0e">
@@ -354,6 +366,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{affiliation}.equals("N") ? "X" : ""]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="637">
