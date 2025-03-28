@@ -25,6 +25,7 @@ type AD_OrgInfo {
 	UU: ID!
 	# Organization Type
 	AD_OrgType: AD_OrgType
+	BH_Affiliation: AD_Ref_List
 	# Enter additional information for this organization
 	BH_ExtraInfo: String
 	# Facility Number (MFL No.)
@@ -81,6 +82,7 @@ input AD_OrgInfoInput {
 	UU: ID
 	# Organization Type
 	AD_OrgType: ForeignEntityInput
+	BH_Affiliation: ForeignEntityInput
 	# Enter additional information for this organization
 	BH_ExtraInfo: String
 	# Facility Number (MFL No.)
