@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_OrgInfoResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBank;
 import org.compiere.model.MCalendar;
@@ -29,6 +31,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_OrgType;
+	private ForeignEntityInput mBH_Affiliation;
 	private ForeignEntityInput mC_Calendar;
 	private ForeignEntityInput mC_Location;
 	private ForeignEntityInput mDropShip_Warehouse;
@@ -137,6 +140,45 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("AD_OrgType")
 	public ForeignEntityInput AD_OrgType() {
 		return mAD_OrgType;
+	}
+
+	/**
+	 * Set Affiliation.
+	 *
+	 * @param BH_Affiliation Affiliation
+	 */
+	@JsonProperty("BH_Affiliation")
+	public void setBH_AffiliationInput(ForeignEntityInput BH_Affiliation) {
+		this.mBH_Affiliation = BH_Affiliation;
+		if (BH_Affiliation != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_OrgInfoResolver.BH_AFFILIATION_UUIDS_BY_VALUE.containsValue(BH_Affiliation.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_Affiliation.getUU() +
+						" is not in the list defined for the BH_Affiliation column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BH_Affiliation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setBH_Affiliation(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BH_Affiliation.getUU());
+			}
+		} else {
+			this.setBH_Affiliation(null);
+		}
+	}
+
+	/**
+	 * Get Affiliation.
+	 *
+	 * @return Affiliation
+	 */
+	@JsonProperty("BH_Affiliation")
+	public ForeignEntityInput BH_Affiliation() {
+		return mBH_Affiliation;
 	}
 
 	/**

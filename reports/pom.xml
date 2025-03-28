@@ -70,6 +70,24 @@
                 <version>3.2.0</version>
                 <executions>
                     <execution>
+                        <id>copy-images-for-reports</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/target</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/</directory>
+                                    <includes>
+                                        <include>**/*.png</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>copy-reports-for-testing</id>
                         <phase>pre-integration-test</phase>
                         <goals>
