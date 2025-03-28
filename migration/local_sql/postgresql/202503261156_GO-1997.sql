@@ -412,7 +412,7 @@ SELECT
 			FROM
 				ad_sequence
 			WHERE
-				name = 'Bh_Product_Categorydefault'
+				name = 'Bh_Product_CategoryDefault'
 			LIMIT 1
 		)::INT,
 		FALSE
