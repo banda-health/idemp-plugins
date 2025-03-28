@@ -96,6 +96,18 @@ mutation AD_UserWithRoleSaveAndDelete(
 	AD_User_RolesDelete(UUs: $AD_User_RoleUUSToDelete)
 }
 
+mutation BH_Allergy_ReactionSave($BH_Allergy_Reaction: BH_Allergy_ReactionInput!) {
+	BH_Allergy_ReactionSave(Entity: $BH_Allergy_Reaction) {
+		UU
+	}
+}
+
+mutation BH_AllergySave($BH_Allergy: BH_AllergyInput!) {
+	BH_AllergySave(Entity: $BH_Allergy) {
+		UU
+	}
+}
+
 mutation BH_EncounterDelete($UUS: [String!]!) {
 	BH_EncounterDelete(UUs: $UUS)
 }

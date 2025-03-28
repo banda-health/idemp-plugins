@@ -199,7 +199,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 			Object parameter = processInfoParameterInput.getParameter();
 			if (referenceForParameter.getAD_Reference_ID() == SystemIDs.REFERENCE_DATATYPE_DATE ||
 					referenceForParameter.getAD_Reference_ID() == SystemIDs.REFERENCE_DATATYPE_DATETIME) {
-				parameter = DateUtil.getAPITimestamp(processInfoParameterInput.getParameter().toString(),
+				parameter = DateUtil.getAPITimestamp(processInfoParameterInput.getParameter(),
 						referenceForParameter.getAD_Reference_ID() == SystemIDs.REFERENCE_DATATYPE_DATE);
 			}
 

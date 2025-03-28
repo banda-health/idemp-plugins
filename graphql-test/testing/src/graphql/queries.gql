@@ -222,6 +222,38 @@ query AD_UserGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	}
 }
 
+query BH_Allergy($UU: String!) {
+	BH_Allergy(UU: $UU) {
+		BH_Allergy_Reactions {
+			BH_Concept {
+				UU
+			}
+			BH_Uncoded_Allergy_Reaction
+			UU
+		}
+		BH_Allergy_Note
+		BH_Concept {
+			UU
+		}
+		BH_Uncoded_Allergen
+		C_BPartner {
+			UU
+		}
+		Severity_Concept {
+			UU
+		}
+		UU
+	}
+}
+
+query BH_AllergyGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_AllergyGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
 query BH_ConceptGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_ConceptGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
@@ -347,6 +379,9 @@ query C_BP_GroupGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 query C_BPartner($UU: String!) {
 	C_BPartner(UU: $UU) {
 		...C_BPartnerFields
+		BH_Allergies {
+			UU
+		}
 	}
 }
 

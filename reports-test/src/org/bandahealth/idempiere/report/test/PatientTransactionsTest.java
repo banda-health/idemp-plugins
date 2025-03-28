@@ -1097,4 +1097,136 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 			assertEquals(1, patientRows.size(), "Patient only appears once");
 		}
 	}
+
+	@IPopulateAnnotation.CanRun
+	public void visitWithMultipleInsurerPaymentsDoesntDuplicateLines() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		valueObject.setSalesPrice(BigDecimal.TEN);
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_WarehouseOrder, true,
+				false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create invoice");
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		MInvoice_BH invoice = valueObject.getInvoice();
+		commitEx();
+
+		valueObject.setStepName("Create first insurer");
+		valueObject.stackAndClearBusinessPartner();
+		EntityUtils.getBandaHealthFeeForServiceInsurerAndAssociatedCharge(valueObject);
+		valueObject.getBusinessPartner()
+				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second insurer");
+		valueObject.stackAndClearBusinessPartner();
+		EntityUtils.getBandaHealthFeeForServiceInsurerAndAssociatedCharge(valueObject);
+		valueObject.getBusinessPartner()
+				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second insurer invoice line discount");
+		MInvoiceLine invoiceLine = new MInvoiceLine(valueObject.getContext(), 0, valueObject.getTransactionName());
+		invoiceLine.setC_Invoice_ID(invoice.get_ID());
+		invoiceLine.setDescription(valueObject.getStepMessageLong());
+		invoiceLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		invoiceLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		invoiceLine.setC_UOM_ID(valueObject.getProduct().getC_UOM_ID());
+		invoiceLine.setQty(Env.ONE);
+		invoiceLine.setPrice(new BigDecimal(-8));
+		invoiceLine.saveEx();
+
+		valueObject.setStepName("Create second insurer invoice");
+		valueObject.setOrder(null);
+		valueObject.setOrderLine(null);
+		valueObject.setSalesStandardPrice(invoiceLine.getPriceActual().negate());
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first insurer invoice line discount");
+		valueObject.popBusinessPartnerFromStack();
+		invoiceLine = new MInvoiceLine(valueObject.getContext(), 0, valueObject.getTransactionName());
+		invoiceLine.setC_Invoice_ID(invoice.get_ID());
+		invoiceLine.setDescription(valueObject.getStepMessageLong());
+		invoiceLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		invoiceLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		invoiceLine.setC_UOM_ID(valueObject.getProduct().getC_UOM_ID());
+		invoiceLine.setQty(Env.ONE);
+		invoiceLine.setPrice(new BigDecimal(-2));
+		invoiceLine.saveEx();
+
+		invoice.setDocAction(DocAction.ACTION_Complete);
+		assertTrue(invoice.processIt(DocAction.ACTION_Complete), "Invoice completed");
+		invoice.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create insurer invoice");
+		valueObject.setOrder(null);
+		valueObject.setOrderLine(null);
+		valueObject.setSalesStandardPrice(invoiceLine.getPriceActual().negate());
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.popBusinessPartnerFromStack();
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int insuranceColumnIndex = TableUtils.getColumnIndex(headerRow, "Insurance");
+
+			List<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null &&
+							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+
+			assertEquals(1, patientRows.size(), "Patient appears only once");
+			assertEquals(10L, patientRows.get(0).getCell(insuranceColumnIndex).getNumericCellValue(),
+					"Insurance total is correct");
+		}
+	}
 }
