@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh706LeftSide" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="68ef5eae-c2af-4563-879f-bd1fd6ee28fd">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="666"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="320"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -19,6 +19,8 @@
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '161442' ) AS ketone_positive,
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '1875' ) AS proteins_positive,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND 
+								   c.bh_source = 'CIEL' AND c.bh_oclid IN ('159734', '161442', '1875')) AS urine_chemistry_total,                     
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '163684' ) AS puss_positive,
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND
@@ -29,24 +31,38 @@
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '160735' ) AS bacteria_positive,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '163689' ) AS yeast_positive,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND 
+								   c.bh_source = 'CIEL' AND c.bh_oclid IN ('163684', '163686', '10715-1', '160735', '163689')) AS urine_microscopy_total,	                           
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 								   c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC < 3.9) AS blood_sugar_low,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 								   c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC > 7.8) AS blood_sugar_high,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+								   c.bh_source = 'CIEL' AND c.bh_oclid = '1458') AS blood_sugar_total,								   
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 							 ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC < 3.9) OR
-							  (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC < 3.9))) AS oggt_low,
+							  (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC < 3.9))) AS ogtt_low,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 							 ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC > 7.8) OR
-							  (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC > 7.8))) AS oggt_high,
+							  (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC > 7.8))) AS ogtt_high,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+							 c.bh_source = 'CIEL' AND c.bh_oclid IN ('163594', '163705')) AS ogtt_total,							  
 	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
 								AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_under5,
+    COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
+								AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_under5_total,								
 	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL
 								AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_over5,
+    COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL
+								AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_over5_total,								
 	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive'
 								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_under5,
+    COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
+								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_under5_total,								
 	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive'
 								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_over5,
+    COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL
+								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_over5_total,								
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167353' ) AS taenia_spp_positive,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167351' ) AS hymenolepis_positive,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167349' ) AS hookworm_positive,
@@ -56,6 +72,12 @@
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167363' ) AS amoeba_positive,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid in('678','729') ) AS full_bloodcount_total,
 	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='21' AND c.bh_oclid NOT IN('678','729') ) AS hb_estimation_total,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+							 c.bh_source = 'CIEL' AND c.bh_oclid = '159644' AND ed.bh_value::NUMERIC BETWEEN 5.7 AND 6.4) AS hba1c_prediabetic,
+    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+							 c.bh_source = 'CIEL' AND c.bh_oclid = '159644' AND ed.bh_value::NUMERIC > 6.5) AS hba1c_diabetic,
+	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+							 c.bh_source = 'CIEL' AND c.bh_oclid = '159644') AS hba1c_total,						 							 
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC < 5  AND c.bh_oclid in('678','729') ) AS hb_lessthan5,
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC BETWEEN 5 AND 10  AND c.bh_oclid in('678','729') ) AS hb_between5and10,
     COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC < 5  AND c.bh_oclid NOT in('678','729') ) AS hb_estimation_lessthan5,
@@ -141,13 +163,13 @@ WHERE
 		<property name="com.jaspersoft.studio.field.name" value="blood_sugar_high"/>
 		<property name="com.jaspersoft.studio.field.label" value="blood_sugar_high"/>
 	</field>
-	<field name="oggt_low" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.name" value="oggt_low"/>
-		<property name="com.jaspersoft.studio.field.label" value="oggt_low"/>
+	<field name="ogtt_low" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="ogtt_low"/>
+		<property name="com.jaspersoft.studio.field.label" value="ogtt_low"/>
 	</field>
-	<field name="oggt_high" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.name" value="oggt_high"/>
-		<property name="com.jaspersoft.studio.field.label" value="oggt_high"/>
+	<field name="ogtt_high" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="ogtt_high"/>
+		<property name="com.jaspersoft.studio.field.label" value="ogtt_high"/>
 	</field>
 	<field name="malaria_bs_under5" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="malaria_bs_under5"/>
@@ -231,6 +253,17 @@ WHERE
 	<field name="hcg_positive" class="java.lang.Long"/>
 	<field name="crag_test_total" class="java.lang.Long"/>
 	<field name="crag_test_positive" class="java.lang.Long"/>
+	<field name="urine_chemistry_total" class="java.lang.Long"/>
+	<field name="urine_microscopy_total" class="java.lang.Long"/>
+	<field name="blood_sugar_total" class="java.lang.Long"/>
+	<field name="ogtt_total" class="java.lang.Long"/>
+	<field name="malaria_bs_under5_total" class="java.lang.Long"/>
+	<field name="malaria_bs_over5_total" class="java.lang.Long"/>
+	<field name="malaria_rapid_under5_total" class="java.lang.Long"/>
+	<field name="malaria_rapid_over5_total" class="java.lang.Long"/>
+	<field name="hba1c_prediabetic" class="java.lang.Long"/>
+	<field name="hba1c_diabetic" class="java.lang.Long"/>
+	<field name="hba1c_total" class="java.lang.Long"/>
 	<detail>
 		<band height="48" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -330,9 +363,10 @@ WHERE
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{urine_chemistry_total}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="150" y="29" width="100" height="13" forecolor="#D0CECE" backcolor="#D0CECE" uuid="ce8d9a9e-5813-4789-a1ce-cc6051c66529"/>
@@ -510,9 +544,10 @@ WHERE
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{urine_microscopy_total}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="150" y="81" width="100" height="13" uuid="26b16729-6b7d-4a02-9f7b-860197d254ad">
@@ -855,6 +890,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{blood_sugar_total}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="198" width="50" height="13" uuid="5a64caf7-ff45-44bb-8bff-bcd62929808c"/>
@@ -894,7 +930,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{oggt_high}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ogtt_high}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="100" y="211" width="50" height="13" uuid="48ca6808-28f0-467b-a802-04b922680d7c"/>
@@ -907,6 +943,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{ogtt_total}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="211" width="50" height="13" uuid="a0633272-0ec3-4f22-99be-34e99ad2dda9"/>
@@ -919,7 +956,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{oggt_low}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ogtt_low}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="100" y="224" width="50" height="13" uuid="223b45b1-f295-41d3-9025-82abd4e451ec"/>
@@ -2560,6 +2597,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{malaria_bs_under5_total}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="256" y="42" width="120" height="13" uuid="e4152a92-f8fb-4c16-846a-28037df2145c">
@@ -2608,6 +2646,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{malaria_bs_over5_total}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="256" y="55" width="120" height="13" uuid="d16d67de-f279-42db-b9db-cb41e70e9136">
@@ -2656,6 +2695,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{malaria_rapid_under5_total}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="256" y="68" width="120" height="13" uuid="24444a7e-541a-497f-98f4-e9beba8c7146">
@@ -2704,6 +2744,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{malaria_rapid_over5_total}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="256" y="81" width="120" height="13" uuid="b92cec83-7d85-482d-bb8a-f9824259496d">
@@ -3404,6 +3445,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{hba1c_prediabetic}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="376" y="276" width="60" height="26" uuid="0a94fada-c633-4307-baad-990965cedc15">
@@ -3418,6 +3460,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{hba1c_total}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="496" y="276" width="60" height="26" uuid="e5e8f84d-b5dc-45b3-aa58-1459d6131a2b">
@@ -3432,6 +3475,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{hba1c_diabetic}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="376" y="302" width="60" height="13" uuid="464f09d9-3991-4f20-80d5-a0b207fba5af">
