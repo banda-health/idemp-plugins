@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh706LeftSide" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="15" bottomMargin="15" uuid="68ef5eae-c2af-4563-879f-bd1fd6ee28fd">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 11"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="666"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="320"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -20,104 +20,138 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="AD_USER_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND ed.bh_value != 'Unknown' AND
-		                           c.bh_source = 'CIEL' AND c.bh_oclid = '159734' ) AS glucose_postive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND
-		                           c.bh_source = 'CIEL' AND c.bh_oclid = '161442' ) AS ketone_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND
-		                           c.bh_source = 'CIEL' AND c.bh_oclid = '1875' ) AS proteins_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND 
-								   c.bh_source = 'CIEL' AND c.bh_oclid IN ('159734', '161442', '1875')) AS urine_chemistry_total,                     
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND
-		                           c.bh_source = 'CIEL' AND c.bh_oclid = '163684' ) AS puss_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND
-		                           c.bh_source = 'CIEL' AND c.bh_oclid = '163686' ) AS vaginalis_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND
-		                           c.bh_source = 'CIEL' AND c.bh_oclid = '10715-1' ) AS haematobium_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' AND
-		                           c.bh_source = 'CIEL' AND c.bh_oclid = '160735' ) AS bacteria_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' AND
-		                           c.bh_source = 'CIEL' AND c.bh_oclid = '163689' ) AS yeast_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND 
-								   c.bh_source = 'CIEL' AND c.bh_oclid IN ('163684', '163686', '10715-1', '160735', '163689')) AS urine_microscopy_total,	                           
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-								   c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC < 3.9) AS blood_sugar_low,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-								   c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC > 7.8) AS blood_sugar_high,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-								   c.bh_source = 'CIEL' AND c.bh_oclid = '1458') AS blood_sugar_total,								   
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-							 ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC < 3.9) OR
-							  (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC < 3.9))) AS ogtt_low,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-							 ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC > 7.8) OR
-							  (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC > 7.8))) AS ogtt_high,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-							 c.bh_source = 'CIEL' AND c.bh_oclid IN ('163594', '163705')) AS ogtt_total,							  
-	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
-								AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_under5,
-    COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
-								AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_under5_total,								
-	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL
-								AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_over5,
-    COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL
-								AND c.bh_source = 'CIEL' AND c.bh_oclid = '32') AS malaria_bs_over5_total,								
-	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive'
-								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_under5,
-    COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
-								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_under5_total,								
-	COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive'
-								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_over5,
-    COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) > 5 AND ed.bh_value IS NOT NULL
-								AND c.bh_source = 'CIEL' AND c.bh_oclid = '1643') AS malaria_rapid_over5_total,								
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167353' ) AS taenia_spp_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167351' ) AS hymenolepis_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167349' ) AS hookworm_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167348' ) AS roundsworms_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '168019' ) AS s_mansoni_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167350' ) AS trichuris_trichura_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND c.bh_oclid = '167363' ) AS amoeba_positive,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid in('678','729') ) AS full_bloodcount_total,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='21' AND c.bh_oclid NOT IN('678','729') ) AS hb_estimation_total,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-							 c.bh_source = 'CIEL' AND c.bh_oclid = '159644' AND ed.bh_value::NUMERIC BETWEEN 5.7 AND 6.4) AS hba1c_prediabetic,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-							 c.bh_source = 'CIEL' AND c.bh_oclid = '159644' AND ed.bh_value::NUMERIC > 6.5) AS hba1c_diabetic,
-	COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-							 c.bh_source = 'CIEL' AND c.bh_oclid = '159644') AS hba1c_total,						 							 
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC < 5  AND c.bh_oclid in('678','729') ) AS hb_lessthan5,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC BETWEEN 5 AND 10  AND c.bh_oclid in('678','729') ) AS hb_between5and10,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC < 5  AND c.bh_oclid NOT in('678','729') ) AS hb_estimation_lessthan5,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL'AND c.bh_oclid='21' AND ed.bh_value::NUMERIC BETWEEN 5 AND 10  AND c.bh_oclid NOT in('678','729') ) AS hb_estimation_between5and10,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='307') AS tb_smear_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='307' AND ed.bh_value IN('Positive', 'One plus', 'Two plus', 'Three plus','Scanty') ) AS tb_smear_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='299') AS vdrl_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='299' AND ed.bh_value = 'Reactive') AS vdrl_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='1032') AS tpha_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='1032' AND ed.bh_value = 'Reactive') AS tpha_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='161469') AS asot_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='161469' AND ed.bh_value::NUMERIC > 200) AS asot_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='163722') AS hiv_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='163722' AND ed.bh_value = 'Positive') AS hiv_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='305') AS brucella_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='305' AND ed.bh_value = 'Reactive') AS brucella_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='161470') AS rheumatoid_factor_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='161470' AND ed.bh_value = 'Positive') AS rheumatoid_factor_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='163620') AS hpylori_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='163620' AND ed.bh_value = 'Positive') AS hpylori_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('20575-7', '32018-4', '22314-9')) AS hepatitisa_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('20575-7', '32018-4', '22314-9') AND lower(ed.bh_value) not like 'neg%') AS hepatitisa_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('159430', '161472', '165301')) AS hepatitisb_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('159430', '161472', '165301') AND lower(ed.bh_value) = 'positive') AS hepatitisb_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('1325', '161471', '165302')) AS hepatitisc_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('1325', '161471', '165302') AND lower(ed.bh_value) = 'positive') AS hepatitisc_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='1945') AS hcg_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='1945' AND ed.bh_value = 'Positive') AS hcg_positive,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='166555') AS crag_test_total,
-    COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid='166555' AND ed.bh_value = 'Positive') AS crag_test_positive
-                         		                           		                           		                           		                           		                                              
+	cl.name                                                                                                  AS facility_name,
+	u.name                                                                                                   AS compiled_by,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND ed.bh_value != 'Unknown' AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid =
+		                                                    '159734' )                                         AS glucose_postive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND c.bh_source = 'CIEL' AND
+		                           c.bh_oclid =
+		                           '161442' )                                                                  AS ketone_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND c.bh_source = 'CIEL' AND
+		                           c.bh_oclid =
+		                           '1875' )                                                                    AS proteins_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid IN ('159734', '161442',
+		                                                                   '1875'))                            AS urine_chemistry_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid =
+		                                                    '163684' )                                         AS puss_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid =
+		                                                    '163686' )                                         AS vaginalis_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND
+		                           c.bh_source = 'LOINC' AND c.bh_oclid =
+		                                                     '10715-1' )                                       AS haematobium_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid =
+		                                                    '160735' )                                         AS bacteria_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid =
+		                                                    '163689' )                                         AS yeast_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid IN ('163684', '163686', '10715-1', '160735',
+		                                                                   '163689'))                          AS urine_microscopy_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC <
+		                                                                            3.9)                       AS blood_sugar_low,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC >
+		                                                                            7.8)                       AS blood_sugar_high,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid =
+		                                                    '1458')                                            AS blood_sugar_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC < 3.9) OR
+		                            (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC <
+		                                                                                3.9)))                 AS ogtt_low,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC > 7.8) OR
+		                            (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC >
+		                                                                                7.8)))                 AS ogtt_high,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid IN ('163594',
+		                                                                   '163705'))                          AS ogtt_total,
+		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
+		AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid =
+		                                                          '32')                                        AS malaria_bs_under5,
+		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
+		AND c.bh_source = 'CIEL' AND c.bh_oclid =
+		                             '32')                                                                     AS malaria_bs_under5_total,
+		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) >= 5 AND ed.bh_value IS NOT NULL
+		AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid =
+		                                                          '32')                                        AS malaria_bs_over5,
+		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) >= 5 AND ed.bh_value IS NOT NULL
+		AND c.bh_source = 'CIEL' AND c.bh_oclid =
+		                             '32')                                                                     AS malaria_bs_over5_total,
+		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL AND
+		                           ed.bh_value ILIKE '%positive%'
+		AND c.bh_source = 'CIEL' AND c.bh_oclid =
+		                             '1643')                                                                   AS malaria_rapid_under5,
+		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
+		AND c.bh_source = 'CIEL' AND c.bh_oclid =
+		                             '1643')                                                                   AS malaria_rapid_under5_total,
+		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) >= 5 AND ed.bh_value IS NOT NULL AND
+		                           ed.bh_value ILIKE '%positive%'
+		AND c.bh_source = 'CIEL' AND c.bh_oclid =
+		                             '1643')                                                                   AS malaria_rapid_over5,
+		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) >= 5 AND ed.bh_value IS NOT NULL
+		AND c.bh_source = 'CIEL' AND c.bh_oclid =
+		                             '1643')                                                                   AS malaria_rapid_over5_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
+		                           c.bh_oclid =
+		                           '167353' )                                                                  AS taenia_spp_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
+		                           c.bh_oclid =
+		                           '167351' )                                                                  AS hymenolepis_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
+		                           c.bh_oclid =
+		                           '167349' )                                                                  AS hookworm_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
+		                           c.bh_oclid =
+		                           '167348' )                                                                  AS roundsworms_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
+		                           c.bh_oclid =
+		                           '168019' )                                                                  AS s_mansoni_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
+		                           c.bh_oclid =
+		                           '167350' )                                                                  AS trichuris_trichura_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
+		                           c.bh_oclid =
+		                           '167363' )                                                                  AS amoeba_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
+		                           c.bh_oclid IN ('167363', '167350', '168019', '167348', '167349', '167351',
+		                                          '167353') )                                                  AS stool_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND (ed_full_blood_plt.bh_concept_id IS NOT NULL OR
+		                                                        ed_full_blood_wbc.bh_concept_id IS NOT NULL) ) AS full_bloodcount_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value::NUMERIC < 5 AND
+		                           (ed_full_blood_plt.bh_concept_id IS NOT NULL OR
+		                            ed_full_blood_wbc.bh_concept_id IS NOT NULL) )                             AS hb_lessthan5,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value::NUMERIC BETWEEN 5 AND 10 AND
+		                           (ed_full_blood_plt.bh_concept_id IS NOT NULL OR
+		                            ed_full_blood_wbc.bh_concept_id IS NOT NULL) )                             AS hb_between5and10,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
+		                           ed_full_blood_wbc.bh_concept_id IS NULL AND
+		                           ed_full_blood_plt.bh_concept_id IS NULL )                                   AS hb_estimation_total,
+		COUNT(ed.*)
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value::NUMERIC < 5 AND ed_full_blood_wbc.bh_concept_id IS NULL AND
+		               ed_full_blood_plt.bh_concept_id IS NULL )                                               AS hb_estimation_lessthan5,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value::NUMERIC BETWEEN 5 AND 10 AND
+		                           ed_full_blood_wbc.bh_concept_id IS NULL AND
+		                           ed_full_blood_plt.bh_concept_id IS NULL )                                   AS hb_estimation_between5and10,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid = '159644' AND
+		                           ed.bh_value::NUMERIC BETWEEN 5.7 AND 6.4)                                   AS hba1c_prediabetic,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid = '159644' AND ed.bh_value::NUMERIC >=
+		                                                                              6.5)                     AS hba1c_diabetic,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
+		                           c.bh_source = 'CIEL' AND c.bh_oclid =
+		                                                    '159644')                                          AS hba1c_total
+
 FROM
 	bh_visit v
 		LEFT JOIN bh_encounter e
@@ -127,11 +161,35 @@ FROM
 		LEFT JOIN bh_concept c
 		ON ed.bh_concept_id = c.bh_concept_id
 		JOIN c_bpartner patient
-			ON patient.c_bpartner_id = v.patient_id
+		ON patient.c_bpartner_id = v.patient_id
+		JOIN bh_concept c_plt
+		ON c_plt.bh_source = 'CIEL' AND c_plt.bh_oclid = '729'
+		JOIN bh_concept c_wbc
+		ON c_wbc.bh_source = 'CIEL' AND c_wbc.bh_oclid = '678'
+		LEFT JOIN bh_encounter_diagnostic ed_full_blood_plt
+		ON ed_full_blood_plt.bh_encounter_id = ed.bh_encounter_id AND ed_full_blood_plt.bh_concept_id = c_plt.bh_concept_id
+		LEFT JOIN bh_encounter_diagnostic ed_full_blood_wbc
+		ON ed_full_blood_wbc.bh_encounter_id = ed.bh_encounter_id AND ed_full_blood_wbc.bh_concept_id = c_plt.bh_concept_id
+		JOIN ad_client cl
+		ON v.ad_client_id = cl.ad_client_id
+		CROSS JOIN ad_user u
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
-	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date};]]>
+	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+	AND u.ad_user_id = $P{AD_USER_ID}
+GROUP BY
+	cl.name, u.name;]]>
 	</queryString>
+	<field name="facility_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="facility_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="facility_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_client"/>
+	</field>
+	<field name="compiled_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="compiled_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="compiled_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
 	<field name="glucose_postive" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="glucose_postive"/>
 		<property name="com.jaspersoft.studio.field.label" value="glucose_postive"/>
@@ -143,6 +201,10 @@ WHERE
 	<field name="proteins_positive" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="proteins_positive"/>
 		<property name="com.jaspersoft.studio.field.label" value="proteins_positive"/>
+	</field>
+	<field name="urine_chemistry_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="urine_chemistry_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="urine_chemistry_total"/>
 	</field>
 	<field name="puss_positive" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="puss_positive"/>
@@ -164,6 +226,10 @@ WHERE
 		<property name="com.jaspersoft.studio.field.name" value="yeast_positive"/>
 		<property name="com.jaspersoft.studio.field.label" value="yeast_positive"/>
 	</field>
+	<field name="urine_microscopy_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="urine_microscopy_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="urine_microscopy_total"/>
+	</field>
 	<field name="blood_sugar_low" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="blood_sugar_low"/>
 		<property name="com.jaspersoft.studio.field.label" value="blood_sugar_low"/>
@@ -171,6 +237,10 @@ WHERE
 	<field name="blood_sugar_high" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="blood_sugar_high"/>
 		<property name="com.jaspersoft.studio.field.label" value="blood_sugar_high"/>
+	</field>
+	<field name="blood_sugar_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="blood_sugar_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="blood_sugar_total"/>
 	</field>
 	<field name="ogtt_low" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="ogtt_low"/>
@@ -180,21 +250,41 @@ WHERE
 		<property name="com.jaspersoft.studio.field.name" value="ogtt_high"/>
 		<property name="com.jaspersoft.studio.field.label" value="ogtt_high"/>
 	</field>
+	<field name="ogtt_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="ogtt_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="ogtt_total"/>
+	</field>
 	<field name="malaria_bs_under5" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="malaria_bs_under5"/>
 		<property name="com.jaspersoft.studio.field.label" value="malaria_bs_under5"/>
+	</field>
+	<field name="malaria_bs_under5_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="malaria_bs_under5_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="malaria_bs_under5_total"/>
 	</field>
 	<field name="malaria_bs_over5" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="malaria_bs_over5"/>
 		<property name="com.jaspersoft.studio.field.label" value="malaria_bs_over5"/>
 	</field>
+	<field name="malaria_bs_over5_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="malaria_bs_over5_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="malaria_bs_over5_total"/>
+	</field>
 	<field name="malaria_rapid_under5" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="malaria_rapid_under5"/>
 		<property name="com.jaspersoft.studio.field.label" value="malaria_rapid_under5"/>
 	</field>
+	<field name="malaria_rapid_under5_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="malaria_rapid_under5_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="malaria_rapid_under5_total"/>
+	</field>
 	<field name="malaria_rapid_over5" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="malaria_rapid_over5"/>
 		<property name="com.jaspersoft.studio.field.label" value="malaria_rapid_over5"/>
+	</field>
+	<field name="malaria_rapid_over5_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="malaria_rapid_over5_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="malaria_rapid_over5_total"/>
 	</field>
 	<field name="taenia_spp_positive" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="taenia_spp_positive"/>
@@ -224,44 +314,46 @@ WHERE
 		<property name="com.jaspersoft.studio.field.name" value="amoeba_positive"/>
 		<property name="com.jaspersoft.studio.field.label" value="amoeba_positive"/>
 	</field>
+	<field name="stool_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="stool_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="stool_total"/>
+	</field>
 	<field name="full_bloodcount_total" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="full_bloodcount_total"/>
 		<property name="com.jaspersoft.studio.field.label" value="full_bloodcount_total"/>
+	</field>
+	<field name="hb_lessthan5" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hb_lessthan5"/>
+		<property name="com.jaspersoft.studio.field.label" value="hb_lessthan5"/>
+	</field>
+	<field name="hb_between5and10" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hb_between5and10"/>
+		<property name="com.jaspersoft.studio.field.label" value="hb_between5and10"/>
 	</field>
 	<field name="hb_estimation_total" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="hb_estimation_total"/>
 		<property name="com.jaspersoft.studio.field.label" value="hb_estimation_total"/>
 	</field>
-	<field name="hb_lessthan5" class="java.lang.Long"/>
-	<field name="hb_between5and10" class="java.lang.Long"/>
-	<field name="hb_estimation_lessthan5" class="java.lang.Long"/>
-	<field name="hb_estimation_between5and10" class="java.lang.Long"/>
-	<field name="tb_smear_total" class="java.lang.Long"/>
-	<field name="tb_smear_positive" class="java.lang.Long"/>
-	<field name="vdrl_total" class="java.lang.Long"/>
-	<field name="vdrl_positive" class="java.lang.Long"/>
-	<field name="tpha_total" class="java.lang.Long"/>
-	<field name="tpha_positive" class="java.lang.Long"/>
-	<field name="asot_total" class="java.lang.Long"/>
-	<field name="asot_positive" class="java.lang.Long"/>
-	<field name="hiv_total" class="java.lang.Long"/>
-	<field name="hiv_positive" class="java.lang.Long"/>
-	<field name="brucella_total" class="java.lang.Long"/>
-	<field name="brucella_positive" class="java.lang.Long"/>
-	<field name="rheumatoid_factor_total" class="java.lang.Long"/>
-	<field name="rheumatoid_factor_positive" class="java.lang.Long"/>
-	<field name="hpylori_total" class="java.lang.Long"/>
-	<field name="hpylori_positive" class="java.lang.Long"/>
-	<field name="hepatitisa_total" class="java.lang.Long"/>
-	<field name="hepatitisa_positive" class="java.lang.Long"/>
-	<field name="hepatitisb_total" class="java.lang.Long"/>
-	<field name="hepatitisb_positive" class="java.lang.Long"/>
-	<field name="hepatitisc_total" class="java.lang.Long"/>
-	<field name="hepatitisc_positive" class="java.lang.Long"/>
-	<field name="hcg_total" class="java.lang.Long"/>
-	<field name="hcg_positive" class="java.lang.Long"/>
-	<field name="crag_test_total" class="java.lang.Long"/>
-	<field name="crag_test_positive" class="java.lang.Long"/>
+	<field name="hb_estimation_lessthan5" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hb_estimation_lessthan5"/>
+		<property name="com.jaspersoft.studio.field.label" value="hb_estimation_lessthan5"/>
+	</field>
+	<field name="hb_estimation_between5and10" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hb_estimation_between5and10"/>
+		<property name="com.jaspersoft.studio.field.label" value="hb_estimation_between5and10"/>
+	</field>
+	<field name="hba1c_prediabetic" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hba1c_prediabetic"/>
+		<property name="com.jaspersoft.studio.field.label" value="hba1c_prediabetic"/>
+	</field>
+	<field name="hba1c_diabetic" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hba1c_diabetic"/>
+		<property name="com.jaspersoft.studio.field.label" value="hba1c_diabetic"/>
+	</field>
+	<field name="hba1c_total" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hba1c_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="hba1c_total"/>
+	</field>
 	<detail>
 		<band height="36" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -427,6 +519,7 @@ WHERE
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{facility_name}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="11" width="44" height="9" uuid="d3ff579f-9c2f-4fb5-9710-c449f68c6ea5">
@@ -2952,24 +3045,6 @@ WHERE
 				<text><![CDATA[Stool Examination]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="376" y="81" width="60" height="13" uuid="01c44bb2-e6f7-4847-9708-ebe80986a432">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="5" isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="436" y="81" width="120" height="13" uuid="10250bde-a467-4dee-a63f-5bcb71976f21">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -4657,6 +4732,22 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Not Yet Available]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="376" y="81" width="60" height="13" uuid="fdbbfd73-e244-4bf4-923e-0ef1c19402e6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stool_total}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="135" splitType="Prevent">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -7326,6 +7417,7 @@ WHERE
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{compiled_by}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="206" y="126" width="117" height="9" uuid="27afe29a-c7d7-4a56-80a5-f7abb31cdffb">
