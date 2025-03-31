@@ -823,7 +823,7 @@ GROUP BY
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="5" isBold="false"/>
 				</textElement>
-				<text><![CDATA[5.5 Rectal swap]]></text>
+				<text><![CDATA[5.5 Rectal swab]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="66" y="91" width="41" height="13" uuid="02795f63-01ae-47aa-a9f0-91a550aebc8e">
