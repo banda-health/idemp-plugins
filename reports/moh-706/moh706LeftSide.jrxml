@@ -129,19 +129,24 @@
 		                                          '167353') )                                                  AS stool_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND (ed_full_blood_plt.bh_concept_id IS NOT NULL OR
 		                                                        ed_full_blood_wbc.bh_concept_id IS NOT NULL) ) AS full_bloodcount_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value::NUMERIC < 5 AND
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
+		                           ed.bh_value::NUMERIC < 5 AND
 		                           (ed_full_blood_plt.bh_concept_id IS NOT NULL OR
 		                            ed_full_blood_wbc.bh_concept_id IS NOT NULL) )                             AS hb_lessthan5,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value::NUMERIC BETWEEN 5 AND 10 AND
-		                           (ed_full_blood_plt.bh_concept_id IS NOT NULL OR
-		                            ed_full_blood_wbc.bh_concept_id IS NOT NULL) )                             AS hb_between5and10,
+		COUNT(ed.*)
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
+		               ed.bh_value::NUMERIC BETWEEN 5 AND 10 AND
+		               (ed_full_blood_plt.bh_concept_id IS NOT NULL OR
+		                ed_full_blood_wbc.bh_concept_id IS NOT NULL) )                                         AS hb_between5and10,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
 		                           ed_full_blood_wbc.bh_concept_id IS NULL AND
 		                           ed_full_blood_plt.bh_concept_id IS NULL )                                   AS hb_estimation_total,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value::NUMERIC < 5 AND ed_full_blood_wbc.bh_concept_id IS NULL AND
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
+		               ed.bh_value::NUMERIC < 5 AND ed_full_blood_wbc.bh_concept_id IS NULL AND
 		               ed_full_blood_plt.bh_concept_id IS NULL )                                               AS hb_estimation_lessthan5,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value::NUMERIC BETWEEN 5 AND 10 AND
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
+		                           ed.bh_value::NUMERIC BETWEEN 5 AND 10 AND
 		                           ed_full_blood_wbc.bh_concept_id IS NULL AND
 		                           ed_full_blood_plt.bh_concept_id IS NULL )                                   AS hb_estimation_between5and10,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
@@ -150,10 +155,8 @@
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '159644' AND ed.bh_value::NUMERIC >=
 		                                                                              6.5)                     AS hba1c_diabetic,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
-		                           c.bh_source = 'CIEL' AND c.bh_oclid =
-		                                                    '159644')                                          AS hba1c_total
-
+		COUNT(ed.*)
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '159644')             AS hba1c_total
 FROM
 	ad_client cl
 		LEFT JOIN bh_visit v
