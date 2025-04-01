@@ -351,6 +351,25 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			assertEquals(MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX,
 					clientPatientNumberSequence.getName(), "Patient Sequence was created");
 
+			// Assert product categories are added (we subtract one from the created since it has "Standard" by default)
+			addAssertionSQL("""
+					SELECT
+						'Ensure all product categories are added' AS name,
+						COUNT(pc.*) - 1 = pcd.cou
+					FROM
+						m_product_category pc
+							CROSS JOIN (
+							SELECT
+								COUNT(*) AS cou
+							FROM
+								bh_product_categorydefault
+						) pcd
+					WHERE
+						pc.ad_client_id =\s""" + client.get_ID() + """
+					\nGROUP BY
+						pcd.cou;"""
+			);
+
 			// Confirm log levels correct
 			assertEquals(originalLogLevel, CLogMgt.getLevel(), "Log levels match after creating new client");
 		} finally {
