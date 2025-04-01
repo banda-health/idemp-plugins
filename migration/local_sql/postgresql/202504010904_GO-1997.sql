@@ -292,30 +292,30 @@ INSERT INTO
 SELECT
 	ad_client_id,
 	ad_org_id,
-	pc.name,
+	pc.value,
 	pc.name,
 	pc.c_elementvalue_value
 FROM
 	ad_org o
 		CROSS JOIN (
 		VALUES
-			('Consultation', '41201'),
-			('Laboratory', '41202'),
-			('Imaging', '41203'),
-			('Dental', '41204'),
-			('Orthopedic Trauma Services', '41205'),
-			('OPD procedures', '41206'),
-			('Antenatal care', '41207'),
-			('Postnatal care', '41208'),
-			('Family planning', '41209'),
-			('Maternity', '41210'),
-			('Eye Clinic', '41211'),
-			('Surgery', '41212'),
-			('Day-case Services', '41213'),
-			('Home Care Services', '41214'),
-			('Inpatient', '41215'),
-			('Follow up', '41216')
-	) pc (name, c_elementvalue_value)
+			('Consultation', '1000004', '41201'),
+			('Laboratory', '1000005', '41202'),
+			('Imaging', '1000006', '41203'),
+			('Dental', '1000007', '41204'),
+			('Orthopedic Trauma Services', '1000008', '41205'),
+			('OPD procedures', '1000009', '41206'),
+			('Antenatal care', '1000010', '41207'),
+			('Postnatal care', '1000011', '41208'),
+			('Family planning', '1000012', '41209'),
+			('Maternity', '1000013', '41210'),
+			('Eye Clinic', '1000014', '41211'),
+			('Surgery', '1000015', '41212'),
+			('Day-case Services', '1000016', '41213'),
+			('Home Care Services', '1000017', '41214'),
+			('Inpatient', '1000018', '41215'),
+			('Follow up', '1000019', '41216')
+	) pc (name, value, c_elementvalue_value)
 WHERE
 	o.ad_client_id > 999999;
 
