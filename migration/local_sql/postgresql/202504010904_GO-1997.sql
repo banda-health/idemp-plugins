@@ -340,7 +340,7 @@ FROM
 -- Update the existing services category to have a new name
 UPDATE m_product_category
 SET
-	value = 'Other',
+	value = '1000021',
 	name  = 'Other'
 WHERE
 	name = 'Services';
