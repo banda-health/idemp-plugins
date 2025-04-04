@@ -14,6 +14,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
@@ -23,140 +24,139 @@
 	<parameter name="AD_USER_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
-	cl.name                                                                                                  AS facility_name,
-	COALESCE(l.address1, '')                                                                                 AS county,
-	COALESCE(l.address2, '')                                                                                 AS sub_county,
-	u.name                                                                                                   AS compiled_by,
+	cl.name                                                                                          AS facility_name,
+	COALESCE(l.address1, '')                                                                         AS county,
+	COALESCE(l.address2, '')                                                                         AS sub_county,
+	u.name                                                                                           AS compiled_by,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND ed.bh_value != 'Unknown' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid =
-		                                                    '159734' )                                         AS glucose_postive,
+		                                                    '159734' )                                 AS glucose_postive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND c.bh_source = 'CIEL' AND
 		                           c.bh_oclid =
-		                           '161442' )                                                                  AS ketone_positive,
+		                           '161442' )                                                          AS ketone_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND c.bh_source = 'CIEL' AND
 		                           c.bh_oclid =
-		                           '1875' )                                                                    AS proteins_positive,
+		                           '1875' )                                                            AS proteins_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid IN ('159734', '161442',
-		                                                                   '1875'))                            AS urine_chemistry_total,
+		                                                                   '1875'))                    AS urine_chemistry_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid =
-		                                                    '163684' )                                         AS puss_positive,
+		                                                    '163684' )                                 AS puss_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid =
-		                                                    '163686' )                                         AS vaginalis_positive,
+		                                                    '163686' )                                 AS vaginalis_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'Negative' AND
 		                           c.bh_source = 'LOINC' AND c.bh_oclid =
-		                                                     '10715-1' )                                       AS haematobium_positive,
+		                                                     '10715-1' )                               AS haematobium_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value = 'Positive' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid =
-		                                                    '160735' )                                         AS bacteria_positive,
+		                                                    '160735' )                                 AS bacteria_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid =
-		                                                    '163689' )                                         AS yeast_positive,
+		                                                    '163689' )                                 AS yeast_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid IN ('163684', '163686', '10715-1', '160735',
-		                                                                   '163689'))                          AS urine_microscopy_total,
+		                                                                   '163689'))                  AS urine_microscopy_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC <
-		                                                                            3.9)                       AS blood_sugar_low,
+		                                                                            3.9)               AS blood_sugar_low,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '1458' AND ed.bh_value::NUMERIC >
-		                                                                            7.8)                       AS blood_sugar_high,
+		                                                                            7.8)               AS blood_sugar_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid =
-		                                                    '1458')                                            AS blood_sugar_total,
+		                                                    '1458')                                    AS blood_sugar_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC < 3.9) OR
 		                            (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC <
-		                                                                                3.9)))                 AS ogtt_low,
+		                                                                                3.9)))         AS ogtt_low,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           ((c.bh_source = 'CIEL' AND c.bh_oclid = '163594' AND ed.bh_value::NUMERIC > 7.8) OR
 		                            (c.bh_source = 'CIEL' AND c.bh_oclid = '163705' AND ed.bh_value::NUMERIC >
-		                                                                                7.8)))                 AS ogtt_high,
+		                                                                                7.8)))         AS ogtt_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid IN ('163594',
-		                                                                   '163705'))                          AS ogtt_total,
+		                                                                   '163705'))                  AS ogtt_total,
 		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
 		AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid =
-		                                                          '32')                                        AS malaria_bs_under5,
+		                                                          '32')                                AS malaria_bs_under5,
 		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
 		AND c.bh_source = 'CIEL' AND c.bh_oclid =
-		                             '32')                                                                     AS malaria_bs_under5_total,
+		                             '32')                                                             AS malaria_bs_under5_total,
 		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) >= 5 AND ed.bh_value IS NOT NULL
 		AND ed.bh_value = 'Positive' AND c.bh_source = 'CIEL' AND c.bh_oclid =
-		                                                          '32')                                        AS malaria_bs_over5,
+		                                                          '32')                                AS malaria_bs_over5,
 		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) >= 5 AND ed.bh_value IS NOT NULL
 		AND c.bh_source = 'CIEL' AND c.bh_oclid =
-		                             '32')                                                                     AS malaria_bs_over5_total,
+		                             '32')                                                             AS malaria_bs_over5_total,
 		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL AND
 		                           ed.bh_value ILIKE '%positive%'
 		AND c.bh_source = 'CIEL' AND c.bh_oclid =
-		                             '1643')                                                                   AS malaria_rapid_under5,
+		                             '1643')                                                           AS malaria_rapid_under5,
 		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) < 5 AND ed.bh_value IS NOT NULL
 		AND c.bh_source = 'CIEL' AND c.bh_oclid =
-		                             '1643')                                                                   AS malaria_rapid_under5_total,
+		                             '1643')                                                           AS malaria_rapid_under5_total,
 		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) >= 5 AND ed.bh_value IS NOT NULL AND
 		                           ed.bh_value ILIKE '%positive%'
 		AND c.bh_source = 'CIEL' AND c.bh_oclid =
-		                             '1643')                                                                   AS malaria_rapid_over5,
+		                             '1643')                                                           AS malaria_rapid_over5,
 		COUNT(ed.*) FILTER ( WHERE EXTRACT(YEAR FROM AGE(patient.bh_birthday)) >= 5 AND ed.bh_value IS NOT NULL
 		AND c.bh_source = 'CIEL' AND c.bh_oclid =
-		                             '1643')                                                                   AS malaria_rapid_over5_total,
+		                             '1643')                                                           AS malaria_rapid_over5_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
 		                           c.bh_oclid =
-		                           '167353' )                                                                  AS taenia_spp_positive,
+		                           '167353' )                                                          AS taenia_spp_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
 		                           c.bh_oclid =
-		                           '167351' )                                                                  AS hymenolepis_positive,
+		                           '167351' )                                                          AS hymenolepis_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
 		                           c.bh_oclid =
-		                           '167349' )                                                                  AS hookworm_positive,
+		                           '167349' )                                                          AS hookworm_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
 		                           c.bh_oclid =
-		                           '167348' )                                                                  AS roundsworms_positive,
+		                           '167348' )                                                          AS roundsworms_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
 		                           c.bh_oclid =
-		                           '168019' )                                                                  AS s_mansoni_positive,
+		                           '168019' )                                                          AS s_mansoni_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
 		                           c.bh_oclid =
-		                           '167350' )                                                                  AS trichuris_trichura_positive,
+		                           '167350' )                                                          AS trichuris_trichura_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
 		                           c.bh_oclid =
-		                           '167363' )                                                                  AS amoeba_positive,
+		                           '167363' )                                                          AS amoeba_positive,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND ed.bh_value != 'None' AND c.bh_source = 'CIEL' AND
 		                           c.bh_oclid IN ('167363', '167350', '168019', '167348', '167349', '167351',
-		                                          '167353') )                                                  AS stool_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND (ed_full_blood_plt.bh_concept_id IS NOT NULL OR
-		                                                        ed_full_blood_wbc.bh_concept_id IS NOT NULL) ) AS full_bloodcount_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
-		                           ed.bh_value::NUMERIC < 5 AND
-		                           (ed_full_blood_plt.bh_concept_id IS NOT NULL OR
-		                            ed_full_blood_wbc.bh_concept_id IS NOT NULL) )                             AS hb_lessthan5,
-		COUNT(ed.*)
+		                                          '167353') )                                          AS stool_total,
+		COUNT(DISTINCT ed.group1)
+		FILTER ( WHERE ed_cbc_plt.bh_concept_id IS NOT NULL AND
+		               ed_cbc_wbc.bh_concept_id IS NOT NULL )                                          AS full_bloodcount_total,
+		COUNT(DISTINCT ed.group1) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
+		                                         ed.bh_value::NUMERIC < 5 AND ed_cbc_plt.bh_concept_id IS NOT NULL AND
+		                                         ed_cbc_wbc.bh_concept_id IS NOT NULL )                AS hb_lessthan5,
+		COUNT(DISTINCT ed.group1)
 		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
-		               ed.bh_value::NUMERIC BETWEEN 5 AND 10 AND
-		               (ed_full_blood_plt.bh_concept_id IS NOT NULL OR
-		                ed_full_blood_wbc.bh_concept_id IS NOT NULL) )                                         AS hb_between5and10,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
-		                           ed_full_blood_wbc.bh_concept_id IS NULL AND
-		                           ed_full_blood_plt.bh_concept_id IS NULL )                                   AS hb_estimation_total,
-		COUNT(ed.*)
+		               ed.bh_value::NUMERIC BETWEEN 5 AND 10 AND ed_cbc_plt.bh_concept_id IS NOT NULL AND
+		               ed_cbc_wbc.bh_concept_id IS NOT NULL )                                          AS hb_between5and10,
+		COUNT(DISTINCT ed.group1) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
+		                                         (ed_cbc_wbc.bh_concept_id IS NULL OR
+		                                          ed_cbc_plt.bh_concept_id IS NULL) )                  AS hb_estimation_total,
+		COUNT(DISTINCT ed.group1)
 		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
-		               ed.bh_value::NUMERIC < 5 AND ed_full_blood_wbc.bh_concept_id IS NULL AND
-		               ed_full_blood_plt.bh_concept_id IS NULL )                                               AS hb_estimation_lessthan5,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
-		                           ed.bh_value::NUMERIC BETWEEN 5 AND 10 AND
-		                           ed_full_blood_wbc.bh_concept_id IS NULL AND
-		                           ed_full_blood_plt.bh_concept_id IS NULL )                                   AS hb_estimation_between5and10,
+		               ed.bh_value::NUMERIC < 5 AND (ed_cbc_wbc.bh_concept_id IS NULL OR
+		                                             ed_cbc_plt.bh_concept_id IS NULL) )               AS hb_estimation_lessthan5,
+		COUNT(DISTINCT ed.group1) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '21' AND
+		                                         ed.bh_value::NUMERIC BETWEEN 5 AND 10 AND
+		                                         (ed_cbc_wbc.bh_concept_id IS NULL OR
+		                                          ed_cbc_plt.bh_concept_id IS NULL) )                  AS hb_estimation_between5and10,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '159644' AND
-		                           ed.bh_value::NUMERIC BETWEEN 5.7 AND 6.4)                                   AS hba1c_prediabetic,
+		                           ed.bh_value::NUMERIC BETWEEN 5.7 AND 6.4)                           AS hba1c_prediabetic,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND
 		                           c.bh_source = 'CIEL' AND c.bh_oclid = '159644' AND ed.bh_value::NUMERIC >=
-		                                                                              6.5)                     AS hba1c_diabetic,
+		                                                                              6.5)             AS hba1c_diabetic,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '159644')             AS hba1c_total
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '159644')     AS hba1c_total
 FROM
 	ad_client cl
 		LEFT JOIN bh_visit v
@@ -169,18 +169,34 @@ FROM
 		ON ed.bh_concept_id = c.bh_concept_id
 		LEFT JOIN c_bpartner patient
 		ON patient.c_bpartner_id = v.patient_id
-		LEFT JOIN bh_concept c_plt
+		JOIN bh_concept c_plt
 		ON c_plt.bh_source = 'CIEL' AND c_plt.bh_oclid = '729'
 		LEFT JOIN bh_concept c_wbc
 		ON c_wbc.bh_source = 'CIEL' AND c_wbc.bh_oclid = '678'
-		LEFT JOIN bh_encounter_diagnostic ed_full_blood_plt
-		ON ed_full_blood_plt.bh_encounter_id = ed.bh_encounter_id AND ed_full_blood_plt.bh_concept_id = c_plt.bh_concept_id
-		LEFT JOIN bh_encounter_diagnostic ed_full_blood_wbc
-		ON ed_full_blood_wbc.bh_encounter_id = ed.bh_encounter_id AND ed_full_blood_wbc.bh_concept_id = c_plt.bh_concept_id
+		LEFT JOIN bh_encounter_diagnostic ed_cbc_plt
+		ON ed_cbc_plt.group1 = ed.group1 AND ed_cbc_plt.bh_value IS NOT NULL AND
+		   ed_cbc_plt.bh_concept_id = c_plt.bh_concept_id
+		LEFT JOIN bh_encounter_diagnostic ed_cbc_wbc
+		ON ed_cbc_wbc.group1 = ed.group1 AND ed_cbc_wbc.bh_value IS NOT NULL AND
+		   ed_cbc_wbc.bh_concept_id = c_wbc.bh_concept_id
 		CROSS JOIN ad_user u
-		JOIN ad_orginfo oi
+		JOIN (
+		SELECT *
+		FROM
+			ad_orginfo
+		WHERE
+			ad_client_id = $P{AD_CLIENT_ID}
+		LIMIT 1
+	) oi
 		ON cl.ad_client_id = oi.ad_client_id
-		LEFT JOIN c_location l
+		LEFT JOIN (
+		SELECT *
+		FROM
+			c_location
+		WHERE
+			ad_client_id = $P{AD_CLIENT_ID}
+		LIMIT 1
+	) l
 		ON oi.c_location_id = l.c_location_id
 WHERE
 	cl.ad_client_id = $P{AD_CLIENT_ID}
@@ -403,7 +419,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[County:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="338" y="11" width="88" height="9" uuid="75015cbd-2a93-4784-96c6-e362ae028fad">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -433,7 +449,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Sub County:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="468" y="11" width="88" height="9" uuid="f16343e5-5f4c-44f1-abbf-cb3dead9a5d1">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -463,7 +479,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Begin Date:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="202" y="20" width="80" height="9" uuid="f1919615-a632-45e1-8d89-ad66dcd83fe3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -494,7 +510,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[End Date:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="320" y="20" width="80" height="9" uuid="20ec5e2e-ee85-4e2b-b0cf-1e3700199ac6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -524,7 +540,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Facility Name:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="168" y="11" width="140" height="9" uuid="ca677558-f5c6-4851-b668-0be7256a4c8b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -555,7 +571,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[KMHFL Code:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="44" y="11" width="74" height="9" uuid="fb50913c-903a-4ceb-8b01-d843e0073635">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -653,7 +669,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[1.1 Urine Chemistry]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="29" width="50" height="13" uuid="9d0e37d3-e6cb-4e0f-80d5-cb0208dc0ba4"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -708,7 +724,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="42" width="100" height="13" uuid="db82cfaa-b489-46d0-a964-ea0211159109"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -736,7 +752,7 @@ GROUP BY
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="5" isBold="true"/>
 				</textElement>
-				<text><![CDATA[3. PARASITOLOGY ]]></text>
+				<text><![CDATA[3. PARASITOLOGY]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="55" width="100" height="13" uuid="2f24583c-95cc-46fa-9912-5f90d697be49"/>
@@ -766,7 +782,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="55" width="100" height="13" uuid="f395189f-4322-4846-bb2d-8b946c34a0fc"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -807,7 +823,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="68" width="100" height="13" uuid="571df3f9-e789-4937-b081-81f4841d3299"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -834,7 +850,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[1.5 Urine Microscopy]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="81" width="50" height="13" uuid="575a6dc8-baea-4d36-961f-fca166fbc3ec"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -891,7 +907,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="94" width="100" height="13" uuid="8c649a60-a0f0-454d-962b-25e9e12b0f15"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -932,7 +948,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="107" width="100" height="13" uuid="b5782905-137c-4be1-b319-ddf055fd748a"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -973,7 +989,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="120" width="100" height="13" uuid="a52a04db-f034-45a3-951c-8adcb3a2b420"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1014,7 +1030,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="133" width="100" height="13" uuid="d988c660-925f-47db-bc4b-ddf805ee44a9"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1055,7 +1071,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="146" width="100" height="13" uuid="0bc0d095-f5d7-499d-8e9d-341bbaa25f14"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1164,7 +1180,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.1 Blood Sugar]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="198" width="50" height="13" uuid="9ff63d57-b3f7-4e52-becd-86a9742ac47b"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1177,7 +1193,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{blood_sugar_high}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="198" width="50" height="13" uuid="35087f7b-69ff-4785-ad8b-e2e3b6ac1456"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1190,7 +1206,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{blood_sugar_total}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="198" width="50" height="13" uuid="5a64caf7-ff45-44bb-8bff-bcd62929808c"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1217,7 +1233,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.2 OGTT]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="211" width="50" height="13" uuid="b4dc7856-0e34-47fd-811d-6d618e76bbf1"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1230,7 +1246,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ogtt_high}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="211" width="50" height="13" uuid="48ca6808-28f0-467b-a802-04b922680d7c"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1243,7 +1259,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ogtt_total}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="211" width="50" height="13" uuid="a0633272-0ec3-4f22-99be-34e99ad2dda9"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1256,7 +1272,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ogtt_low}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="224" width="50" height="13" uuid="223b45b1-f295-41d3-9025-82abd4e451ec"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1324,7 +1340,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.4 Creatinine]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="237" width="50" height="13" uuid="d5adea29-524c-4625-bbbd-ecd355c1ab9f"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1336,7 +1352,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="237" width="50" height="13" uuid="02eec34f-5500-45f4-9180-c1bcb8365164"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1376,7 +1392,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.5 Urea]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="250" width="50" height="13" uuid="fa2fbfbf-0313-49f2-a6f6-e404050d32ca"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1388,7 +1404,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="250" width="50" height="13" uuid="103635b8-787b-4260-b84e-c4a7cdc9fef0"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1428,7 +1444,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.5 Sodium]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="263" width="50" height="13" uuid="652a4262-e24b-4ee2-923c-a08488dcc877"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1440,7 +1456,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="263" width="50" height="13" uuid="84ee57d0-d743-4247-bd29-7d2ff82cdbad"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1480,7 +1496,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.6 Potassium]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="276" width="50" height="13" uuid="0324857f-938f-4440-bbbf-33ac39050a00"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1492,7 +1508,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="276" width="50" height="13" uuid="94daaaa9-405e-4d22-a44e-d73ae741d8f6"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1532,7 +1548,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.7 Chlorides]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="289" width="50" height="13" uuid="f920fae0-ef01-49c8-b26c-bd71375eadc1"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1544,7 +1560,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="289" width="50" height="13" uuid="c3ef2865-7187-43e6-83e4-61dfc8faf73f"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1556,7 +1572,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="302" width="50" height="13" uuid="722efb6f-cd75-4086-8cd9-dc3134d6714c"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1638,7 +1654,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.9 Direct bilirubin]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="315" width="50" height="13" uuid="e20f4891-5dd4-492e-828d-e9bfddf31e29"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1650,7 +1666,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="315" width="50" height="13" uuid="39a18572-d557-400c-aef8-c60cd50697f7"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1690,7 +1706,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.10 Total bilirubin]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="328" width="50" height="13" uuid="f8105b1f-ebdc-44f1-91ef-a2b60d2da4fa"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1702,7 +1718,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="328" width="50" height="13" uuid="f9bcadd3-0ace-40f3-baca-15e8c1ebd970"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1742,7 +1758,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.11 ASAT (SGOT)]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="341" width="50" height="13" uuid="83ea7be5-2fff-428c-86b0-e85558075761"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1754,7 +1770,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="341" width="50" height="13" uuid="31fd4998-6da1-4d91-a0ac-fbf588bf1db0"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1794,7 +1810,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.12 ALAT (SGPT)]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="354" width="50" height="13" uuid="d2f52ad3-30aa-4498-a065-4834dca62f92"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1806,7 +1822,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="354" width="50" height="13" uuid="8aa0f0e7-536b-413f-9110-b0f013b3e401"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1846,7 +1862,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.13 Serum Protein]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="367" width="50" height="13" uuid="68c5d930-9db5-4a86-ad18-05fb15107d42"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1858,7 +1874,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="367" width="50" height="13" uuid="009985c3-7c7d-41b2-b8dc-24166e368fc1"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1898,7 +1914,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.15 Alkaline Phosphatase]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="393" width="50" height="13" uuid="ae7186a9-a59b-4865-8808-4cce58e85254"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -1910,7 +1926,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="393" width="50" height="13" uuid="3bd1bba6-ff26-46d6-9854-da96bbfa6572"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -1922,7 +1938,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="406" width="50" height="13" uuid="5c95a8d3-19c6-45dd-8475-a34b591d88a8"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -2004,7 +2020,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.17 Total cholesterol]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="419" width="50" height="13" uuid="eefbeb08-772b-4b88-bc9a-115db7c4eff7"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2016,7 +2032,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="419" width="50" height="13" uuid="7928cdb4-8561-41ae-b0b7-a38f277418bf"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2028,7 +2044,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="419" width="50" height="13" uuid="49ac275a-2f3b-4e92-b0fd-eed86cc328c7"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2054,7 +2070,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.18 Triglycerides]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="432" width="50" height="13" uuid="e46d750a-8464-4d0b-b07f-6d23a015b782"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2066,7 +2082,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="432" width="50" height="13" uuid="eb978df4-2d0a-4417-aefc-d4f0831fb655"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2078,7 +2094,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="432" width="50" height="13" uuid="b8b74285-ae86-4a61-abee-9fcf62133803"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2104,7 +2120,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.19 LDL]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="445" width="50" height="13" uuid="501ec757-a129-493c-b3d8-3a5aa833b81b"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2116,7 +2132,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="445" width="50" height="13" uuid="63e5d3bd-cbb9-45aa-8f7a-739852ec56bf"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2128,7 +2144,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="445" width="50" height="13" uuid="9b534536-64ab-4dd2-a0d3-3fd5f3bd457d"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2218,7 +2234,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.20 T3]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="471" width="50" height="13" uuid="284c375a-f798-403e-8d6e-df2fbeec6691"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2230,7 +2246,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="471" width="50" height="13" uuid="5b027c7e-3594-4211-a7e1-0153f970f61e"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2242,7 +2258,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="471" width="50" height="13" uuid="4a8be757-8e97-4bef-998c-97f156f3aa6b"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2268,7 +2284,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.21 T4]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="484" width="50" height="13" uuid="4eb9da82-3f79-4d89-a435-d3b690ee8f90"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2280,7 +2296,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="484" width="50" height="13" uuid="60c5a8a6-caf5-4e20-8390-d95f003fc4d7"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2292,7 +2308,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="484" width="50" height="13" uuid="4e20d31e-e41f-4fe5-a4aa-913124c0d9b5"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2318,7 +2334,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.22 TSH]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="497" width="50" height="13" uuid="2472999c-88cb-4301-b5f9-5206c53a8cf6"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2330,7 +2346,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="497" width="50" height="13" uuid="76c801a1-d557-4ce5-9492-3c3ac5320dfa"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2342,7 +2358,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="497" width="50" height="13" uuid="f846d9ad-5737-4f68-a6b1-87a53f317d54"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2416,7 +2432,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.23 PSA]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="523" width="100" height="13" uuid="c30c646f-b744-40db-b272-234298c4b2d3"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2428,7 +2444,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="523" width="50" height="13" uuid="8de0ac7b-7076-4c9d-9e21-f28d442e235e"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2454,7 +2470,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.24 CA 15-3]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="536" width="100" height="13" uuid="a5581035-27a8-4f3d-9d63-941bb1fbe8c5"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2466,7 +2482,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="536" width="50" height="13" uuid="33052259-b9b6-4663-be3c-2d737e4c8399"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2492,7 +2508,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.25 CA 19-9]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="549" width="100" height="13" uuid="be07d181-0925-4d0c-9162-ab8c90104133"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2504,7 +2520,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="549" width="50" height="13" uuid="05365f6f-d59a-4924-be68-e0bb6dd97d7b"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2530,7 +2546,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.26 CA 125]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="562" width="100" height="13" uuid="9649af7a-fbc0-4b2f-b6ec-e1805acdd58e"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2542,7 +2558,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="562" width="50" height="13" uuid="1e7d2cdf-e0d4-486c-9b17-ccfd7f2711f8"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2568,7 +2584,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.27 CEA]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="575" width="100" height="13" uuid="6b786e6e-fe34-4d77-b433-a06ff00bd090"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2580,7 +2596,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="575" width="50" height="13" uuid="45f1b2ac-3723-475a-a449-fa111e720426"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2606,7 +2622,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.28 AFP]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="588" width="100" height="13" uuid="4e4b2de7-7b44-46ce-a48e-ce8cc911f799"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2618,7 +2634,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="588" width="50" height="13" uuid="96b8f89e-7ef9-43f9-8bc6-f88fdaa3017a"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2708,7 +2724,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.29 Proteins]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="614" width="50" height="13" uuid="c29cd97d-9834-48cd-b479-7f75d5abae3e"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2720,7 +2736,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="614" width="50" height="13" uuid="f7371921-7217-4324-8c8b-ad1c375092b0"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2732,7 +2748,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="614" width="50" height="13" uuid="dfefddd2-ac7d-48bc-9a7a-df1ba6de3246"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2758,7 +2774,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.30 Glucose]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="627" width="50" height="13" uuid="7489cb6e-91ff-4516-bf54-bf6d6bd1fff7"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -2770,7 +2786,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="100" y="627" width="50" height="13" uuid="d00bfab9-f1ca-4af7-8595-65ed7f8b1c70"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2782,7 +2798,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="627" width="50" height="13" uuid="4c63098c-f97b-4e08-95b4-fc849e7bf9db"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -2865,7 +2881,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[3.1 Malaria BS (Under five years)]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="29" width="120" height="13" uuid="b1e1298e-90e5-4628-a734-3f2a060c5b89">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2881,7 +2897,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{malaria_bs_under5}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="29" width="60" height="13" uuid="c8eaa45c-2bc4-45c4-a967-59702f80a582">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2914,7 +2930,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[3.2 Malaria BS (5 years and above)]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="42" width="120" height="13" uuid="582cc687-15e2-4902-a828-defd524be53c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2930,7 +2946,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{malaria_bs_over5}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="42" width="60" height="13" uuid="9c9857e1-0fc5-4c9a-9a8f-b9d89a396318">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2963,7 +2979,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[3.3 Malaria Rapid Diagnostic Tests (Under five years)]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="55" width="120" height="13" uuid="19121e4a-e2db-44d4-b3c4-a98e9a56f264">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2979,7 +2995,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{malaria_rapid_under5}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="55" width="60" height="13" uuid="a21b0bd0-41fd-4623-af05-f29a7a10534e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3012,7 +3028,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[3.4 Malaria Rapid Diagnostic Tests (5 years and above)]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="68" width="120" height="13" uuid="0f0847ef-f7be-47fe-b00f-69638e05fee1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3028,7 +3044,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{malaria_rapid_over5}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="68" width="60" height="13" uuid="3e80639f-72a5-432f-9eb3-184f78a5d578">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3112,7 +3128,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="94" width="120" height="13" uuid="b10c59cb-f9d5-4b18-ad71-4904199c4e66">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3159,7 +3175,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="107" width="120" height="13" uuid="2c82c9bb-4baf-4f20-b7d3-4ed74dd9f3ce">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3206,7 +3222,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="120" width="120" height="13" uuid="4d22bbaa-a096-4189-8e78-c1e2a243e16d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3253,7 +3269,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="133" width="120" height="13" uuid="0bb2a29e-f150-4e57-8ee4-d51c41af6afa">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3300,7 +3316,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="146" width="120" height="13" uuid="62b08ea8-1b61-486a-aca9-15c93f963882">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3347,7 +3363,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="159" width="120" height="13" uuid="9f627e9d-2f70-4fc0-b792-63d1dfb0c236">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3394,7 +3410,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="172" width="120" height="13" uuid="c7c508a6-919f-4cf3-a9fb-35a0fe4499c0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3514,7 +3530,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.1 Full blood count]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="237" width="60" height="13" uuid="f8990ab1-a264-4275-b94f-c7125b12a83e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3530,7 +3546,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hb_lessthan5}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="237" width="60" height="13" uuid="f727872a-a8cf-4d08-8b79-8d4a88fc3d5c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3546,7 +3562,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{full_bloodcount_total}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="496" y="237" width="60" height="13" uuid="2a806e07-a79d-4268-91a6-64e9b8d46b78">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3579,7 +3595,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.2 HB estimation tests (other techniques)]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="250" width="60" height="13" uuid="2bd8eb99-9915-4a97-9bb8-504c3f791640">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3595,7 +3611,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hb_estimation_lessthan5}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="250" width="60" height="13" uuid="ba11decd-baa8-440e-9553-2d949c817e0c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3611,7 +3627,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hb_estimation_total}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="496" y="250" width="60" height="13" uuid="c8fe6e74-1a73-40ba-90b8-2a73b60881ef">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3712,7 +3728,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.3 Haemoglobin A1c (HbA1c)]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="276" width="60" height="26" uuid="9fa66d67-6b90-422d-82ee-36068345013b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3727,7 +3743,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hba1c_prediabetic}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="276" width="60" height="26" uuid="0a94fada-c633-4307-baad-990965cedc15">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3742,7 +3758,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hba1c_total}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="496" y="276" width="60" height="26" uuid="e5e8f84d-b5dc-45b3-aa58-1459d6131a2b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -3824,7 +3840,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.4 CD4 count]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="315" width="60" height="13" uuid="f5ecba13-3966-424e-ad32-a8533a8b9cae">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3839,7 +3855,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="315" width="120" height="13" uuid="811dc902-2666-48ef-a9b9-17fab7372468">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3922,7 +3938,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.5 Sickling test]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="341" width="60" height="13" uuid="7ed89e31-79ca-4a85-b3fe-98785e13211b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3937,7 +3953,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="341" width="120" height="13" uuid="654a9590-0502-49b1-a322-7d02bc59ae4d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3968,7 +3984,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.6 Peripheral blood films]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="354" width="60" height="13" uuid="3b7d6756-ff1e-48bb-b49a-f5f9b5a559f2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3999,7 +4015,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.7 BMA]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="367" width="60" height="13" uuid="7608ade6-24b7-449b-bfba-03ee106394bc">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4030,7 +4046,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.8 Coagulation profile]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="380" width="60" height="13" uuid="3f02611a-a1c9-46df-a955-907a2522e4f0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4061,7 +4077,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.9 Reticulocyte Count]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="393" width="60" height="13" uuid="136c9ec2-8374-40e0-96b8-b79d3181afd2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4160,7 +4176,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.10 Erythrocyte Sedimentation rate]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="419" width="60" height="13" uuid="78a1c97a-bfa8-4a92-84ad-c135a7f0a77a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4175,7 +4191,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="419" width="120" height="13" uuid="b09f5d1a-1b6e-4850-a63d-d07ef43993f6">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4254,7 +4270,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.11 Total blood group tests]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="458" width="120" height="13" uuid="e7a9f974-dac5-4fda-ad23-20310d3e4f46">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4285,7 +4301,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.12 Blood units grouped]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="471" width="120" height="13" uuid="ac6d2d48-ec3a-4112-9056-06a533220a93">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4348,7 +4364,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.13 Blood units received from blood transfusion centres]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="497" width="120" height="13" uuid="991f1820-acd5-4d5c-bbf9-269f75dee498">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4379,7 +4395,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.14 Blood units collected at facility]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="510" width="120" height="13" uuid="7c48d058-7ca0-4a48-8e0c-5169b77f6d41">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4410,7 +4426,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.15 Blood units transfused]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="523" width="120" height="13" uuid="b04efcb7-3d1d-45f9-8c83-72ee6014b9c4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4441,7 +4457,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.16 Transfusion reactions repoted and investigated]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="536" width="120" height="13" uuid="b955ce80-7bc0-45ef-870c-6a76e7ae7bce">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4472,7 +4488,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.17 Blood grouping and cross matched]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="549" width="120" height="13" uuid="ccd94c36-8fb7-48f0-be75-7979eabef449">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4503,7 +4519,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.18 Blood units discarded]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="562" width="120" height="13" uuid="fb79c9c0-5a92-4e6d-991c-36eb894fea86">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4566,7 +4582,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.19 HIV]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="588" width="120" height="13" uuid="2c465a3d-4986-48ae-a8b5-85a2a5474c9e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4597,7 +4613,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.20 Hepatitis B]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="601" width="120" height="13" uuid="68420c95-99a6-4b3f-9e13-6204f8adc6b8">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4628,7 +4644,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.21 Hepatitis C]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="614" width="120" height="13" uuid="152094c8-2266-40c2-9892-30ac13d76ffe">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4659,7 +4675,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[4.22 Syphillis]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="436" y="627" width="120" height="13" uuid="5ec40625-df45-4df5-b408-529e097ca64a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -4688,7 +4704,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[2.14 Albumin]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="200" y="380" width="50" height="13" uuid="cca00661-b15c-4f71-bc20-9ba083699708"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -4700,7 +4716,7 @@ GROUP BY
 					<font size="5"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="150" y="380" width="50" height="13" uuid="dac58f56-4fe8-4009-ada5-919eedf0b03a"/>
 				<box>
 					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -4750,7 +4766,7 @@ GROUP BY
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Not Yet Available]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="376" y="81" width="60" height="13" uuid="fdbbfd73-e244-4bf4-923e-0ef1c19402e6">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -5254,7 +5270,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[k. Amikacin]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="37" width="40" height="6" uuid="3c93777f-b381-4922-9a10-532e407cce5c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5268,7 +5284,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="43" width="40" height="6" uuid="0ddaadad-aaeb-478d-a396-32cf81d6cc9a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5282,7 +5298,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="49" width="40" height="6" uuid="3c0bb5ff-764e-4e06-9c99-a8dd1f5f2583">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5296,7 +5312,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="55" width="40" height="6" uuid="cf34c7a8-4537-455f-8758-053a99bbd73d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5310,7 +5326,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="61" width="40" height="6" uuid="6ab625b0-4e74-4990-b76a-502ef0497ae4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5324,7 +5340,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="67" width="40" height="6" uuid="ae1d2be9-51b2-436e-ac83-a2d2907ef920">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5338,7 +5354,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="73" width="40" height="6" uuid="74e2baad-89d4-4270-b71b-15cbd15409c0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5352,7 +5368,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="79" width="40" height="6" uuid="7df2e947-5ac5-4b09-8c39-ad5ddad5764f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5366,7 +5382,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="85" width="40" height="6" uuid="5760673a-ac4a-4d89-b941-046f7d546684">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5380,7 +5396,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="91" width="40" height="6" uuid="d197c2b8-e329-4b13-954d-4c800fb85de8">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5394,7 +5410,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="97" width="40" height="6" uuid="ed07a287-bf56-4a6f-8adb-adf002d77d60">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5408,7 +5424,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="103" width="40" height="6" uuid="cfa17e68-8ab6-451e-ac6a-659ea6220c38">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5422,7 +5438,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="109" width="40" height="6" uuid="eed8a10a-e39a-47ea-a112-23923c4a9b93">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5436,7 +5452,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="90" y="115" width="40" height="6" uuid="58c1a09c-a648-478f-87b5-f47e9f5f6115">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5450,7 +5466,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="37" width="40" height="6" uuid="3046b307-572d-4b90-9330-8433cdc56b87">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5464,7 +5480,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="43" width="40" height="6" uuid="8510e3e9-d017-43b4-a63f-0f931ffa009b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5478,7 +5494,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="49" width="40" height="6" uuid="793f7231-cb6b-4d1d-b11a-4e87729a6303">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5492,7 +5508,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="55" width="40" height="6" uuid="2e7fbeff-68b2-47aa-827d-2a42cbae3e6f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5506,7 +5522,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="61" width="40" height="6" uuid="9b7c6084-f366-4453-9f96-a9ee4d96092f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5520,7 +5536,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="67" width="40" height="6" uuid="5cd868a7-98ea-4399-aa9d-94691438670e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5534,7 +5550,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="73" width="40" height="6" uuid="537db028-031e-4812-999e-5901901a914b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5548,7 +5564,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="79" width="40" height="6" uuid="5df18150-636e-4a19-a14f-048f5ab43b62">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5562,7 +5578,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="85" width="40" height="6" uuid="570d7b7b-c6fd-4f61-91e4-395f0fd9ed13">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5576,7 +5592,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="91" width="40" height="6" uuid="6266cc11-e699-4ec5-87fa-2f2a55823432">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5590,7 +5606,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="97" width="40" height="6" uuid="2cc99f00-76d5-48f7-9a99-c044da944578">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5604,7 +5620,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="103" width="40" height="6" uuid="5f8528d8-85ef-4e34-aa40-bc241f301482">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5618,7 +5634,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="109" width="40" height="6" uuid="bd4b598f-9b9f-41e3-8c90-393d061647c6">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5632,7 +5648,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="130" y="115" width="40" height="6" uuid="b980c406-f69d-4c96-afa4-ccc3a570c620">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5646,7 +5662,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="37" width="34" height="6" uuid="387e47a2-c8ef-44db-a4c1-947aa3a857c3">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5660,7 +5676,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="43" width="34" height="6" uuid="ab6eee28-cc17-4f4d-a26d-bb3c652861d1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5674,7 +5690,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="49" width="34" height="6" uuid="047d7568-ff7c-45ee-9a3c-bc507491d45c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5688,7 +5704,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="55" width="34" height="6" uuid="e84122e2-85f2-4dd2-b03d-ff50cf0f14ad">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5702,7 +5718,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="61" width="34" height="6" uuid="50828404-f073-4010-8961-2fb474f53369">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5716,7 +5732,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="67" width="34" height="6" uuid="7991e4fa-b807-4f51-a35e-1a831f76c584">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5730,7 +5746,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="73" width="34" height="6" uuid="9887b185-8c02-4508-8ca5-7be758c8be0e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5744,7 +5760,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="79" width="34" height="6" uuid="ea645ec1-efc4-4f8c-99ad-4002c661b70f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5758,7 +5774,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="85" width="34" height="6" uuid="6be1c12d-e723-4947-8cbb-60e9bb59e002">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5772,7 +5788,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="91" width="34" height="6" uuid="0a3d4bd9-f713-41d2-a6c2-75112e7cdd91">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5786,7 +5802,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="97" width="34" height="6" uuid="44ab448e-27fb-4215-8bbb-2ee339be5067">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5800,7 +5816,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="103" width="34" height="6" uuid="22090b48-4360-4243-ae13-db1930b93918">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5814,7 +5830,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="109" width="34" height="6" uuid="41e69fe2-a607-4770-af2e-89c4d642fc4a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5828,7 +5844,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="170" y="115" width="34" height="6" uuid="f9b4a1c4-497a-4be3-854b-1553143d68d7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5842,7 +5858,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="37" width="40" height="6" uuid="cc2ff28c-8d27-4f16-aaf3-6f7cea564efb">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5856,7 +5872,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="43" width="40" height="6" uuid="b06355e8-d218-4479-86b5-a0adbcabf9a8">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5870,7 +5886,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="49" width="40" height="6" uuid="7e4842f7-2332-4b30-8af8-d02d03ff377a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5884,7 +5900,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="55" width="40" height="6" uuid="4167ac70-be66-4995-b8d4-68d68d670ef8">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5898,7 +5914,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="61" width="40" height="6" uuid="aea0f775-c4fe-4eb5-9062-8694668164a1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5912,7 +5928,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="67" width="40" height="6" uuid="d278cc75-599d-4ba7-9e04-6dfe9debf548">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5926,7 +5942,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="73" width="40" height="6" uuid="c3467b04-ebfd-4d9f-8e1f-6885990850d1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5940,7 +5956,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="79" width="40" height="6" uuid="90d92766-9b56-45a6-a571-66e74f0003af">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5954,7 +5970,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="85" width="40" height="6" uuid="7fe62cde-98ae-4836-bb76-c1b2832bb6cc">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5968,7 +5984,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="91" width="40" height="6" uuid="1574fa08-144f-439a-a652-98a5444cd528">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5982,7 +5998,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="97" width="40" height="6" uuid="ab68b2c9-b851-488b-8cc6-2524d139371c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -5996,7 +6012,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="103" width="40" height="6" uuid="e91aecac-fd82-49ad-9664-5f5ceadb31ad">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6010,7 +6026,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="109" width="40" height="6" uuid="ce8a51c1-16fb-4eff-8e49-91ac85fce0f4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6024,7 +6040,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="204" y="115" width="40" height="6" uuid="6ca5e731-8af4-43d3-8006-876dfb0a63ad">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6038,7 +6054,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="37" width="40" height="6" uuid="b649f161-bc0d-4625-a978-29a07b8e2683">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6052,7 +6068,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="43" width="40" height="6" uuid="7171f483-643c-4c69-bb2f-4525c1417612">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6066,7 +6082,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="49" width="40" height="6" uuid="110990b2-fd41-44af-952e-8d1c38a7dc28">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6080,7 +6096,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="55" width="40" height="6" uuid="2bdf6b8c-8b02-4fa7-bdec-9a85574d2b7b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6094,7 +6110,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="61" width="40" height="6" uuid="833a3072-1d7c-4e80-82e1-2375160872c7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6108,7 +6124,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="67" width="40" height="6" uuid="a9569fe0-61de-45ed-9c35-89f04a1e36e1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6122,7 +6138,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="73" width="40" height="6" uuid="3be2ce6f-1a04-4f32-bfbe-b4e48e35e612">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6136,7 +6152,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="79" width="40" height="6" uuid="feca8bc6-13b1-44bb-b957-3afd9fa79678">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6150,7 +6166,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="85" width="40" height="6" uuid="7762b240-ccbe-417d-b698-c50029b56385">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6164,7 +6180,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="91" width="40" height="6" uuid="a37dc29e-ce94-4237-bf76-dc6e45cb749c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6178,7 +6194,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="97" width="40" height="6" uuid="3e137a31-b3c3-4d17-9fc0-d813c0967187">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6192,7 +6208,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="103" width="40" height="6" uuid="2d9ed5b9-1050-4e63-a027-76bba336b475">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6206,7 +6222,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="109" width="40" height="6" uuid="d672bc43-3759-489b-970e-ca8cb4fd8729">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6220,7 +6236,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="244" y="115" width="40" height="6" uuid="57e07867-8b05-4e25-b9a7-92b8d6430e96">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6234,7 +6250,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="37" width="34" height="6" uuid="d4b8d735-d8a7-40f0-a548-092296b19a1c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6248,7 +6264,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="43" width="34" height="6" uuid="70b35a5b-2dd9-4d96-bde7-05be71d1deb2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6262,7 +6278,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="49" width="34" height="6" uuid="8348bcfd-7b1a-4b90-8773-60f8cf0b6b05">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6276,7 +6292,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="55" width="34" height="6" uuid="fb4b6167-66f3-4521-8ff0-9223bea94435">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6290,7 +6306,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="61" width="34" height="6" uuid="f96b920f-a14e-40bc-8453-c3a5775a0a1a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6304,7 +6320,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="67" width="34" height="6" uuid="97047472-e23c-47c3-bfc6-7d3e328dc93b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6318,7 +6334,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="73" width="34" height="6" uuid="4ee33c7c-23da-4b74-bed8-317ed0319e77">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6332,7 +6348,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="79" width="34" height="6" uuid="46b10d1d-782e-4929-87a5-709f8ef91f2f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6346,7 +6362,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="85" width="34" height="6" uuid="4a18d7f9-62e3-4447-98b4-b26397c8e81c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6360,7 +6376,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="91" width="34" height="6" uuid="695578ba-3187-477e-bf1a-bfd0d4bdfc56">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6374,7 +6390,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="97" width="34" height="6" uuid="2c92975e-060e-462b-b9d9-06a2d3463045">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6388,7 +6404,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="103" width="34" height="6" uuid="3e1d9eb2-17b8-45ca-9e45-1fcfb4d1ff57">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6402,7 +6418,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="109" width="34" height="6" uuid="015dbb98-0c90-456b-8513-123b90b938f7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6416,7 +6432,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="284" y="115" width="34" height="6" uuid="4cec9796-8c36-4e67-9949-5c67abfab340">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6430,7 +6446,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="37" width="40" height="6" uuid="c0408239-bef4-4344-8098-aaae8ea8965d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6444,7 +6460,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="43" width="40" height="6" uuid="16b6df9f-1817-48d7-828b-94b5cc2fc12e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6458,7 +6474,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="49" width="40" height="6" uuid="be1ab01a-59da-4174-a2f8-98dc50f384c4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6472,7 +6488,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="55" width="40" height="6" uuid="fb840ba6-eda6-473a-9337-8e8a3e2cee0b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6486,7 +6502,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="61" width="40" height="6" uuid="90d0e0a0-68ae-48bd-931a-2aee4910e934">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6500,7 +6516,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="67" width="40" height="6" uuid="6404310e-aef7-4260-921d-49bb7e804e0f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6514,7 +6530,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="73" width="40" height="6" uuid="c8a3292e-93ba-41fe-be86-0d0bd090169f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6528,7 +6544,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="79" width="40" height="6" uuid="6a5435e4-6e01-4d36-be2f-d601b3e947c9">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6542,7 +6558,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="85" width="40" height="6" uuid="3c5d2155-0e61-4044-893b-97951caa6256">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6556,7 +6572,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="91" width="40" height="6" uuid="5d192d7f-a799-41fb-ae3a-78623d92a96b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6570,7 +6586,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="97" width="40" height="6" uuid="2f00b2bd-3a81-40c0-a47f-d7a3bf46cb5b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6584,7 +6600,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="103" width="40" height="6" uuid="71dbf452-363e-4432-8021-4dc7d0177e75">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6598,7 +6614,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="109" width="40" height="6" uuid="a0980411-27ca-4ed8-a180-63f96363b973">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6612,7 +6628,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="318" y="115" width="40" height="6" uuid="bd6ac0f6-b193-4553-bae8-432e07b5befd">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6626,7 +6642,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="37" width="40" height="6" uuid="21614ca5-28f7-46dd-a234-844b89a5787a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6640,7 +6656,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="43" width="40" height="6" uuid="b655107f-6a0b-4b4d-bda6-a91aead4dae1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6654,7 +6670,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="49" width="40" height="6" uuid="db0cc815-fbf5-4dc1-b5c1-5dbe7e6f464d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6668,7 +6684,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="55" width="40" height="6" uuid="e7506fea-ffa5-4ce2-a54c-040b67c8093e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6682,7 +6698,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="61" width="40" height="6" uuid="3aa3bae0-7d00-46d7-b1bd-4ad0be10b83f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6696,7 +6712,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="67" width="40" height="6" uuid="1222ffcd-1f18-4086-aecc-270ff0ed801c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6710,7 +6726,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="73" width="40" height="6" uuid="f8657243-6dfd-4b1a-be57-37b622ff9bbe">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6724,7 +6740,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="79" width="40" height="6" uuid="d667bdf8-8847-4972-97a0-295ac358a800">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6738,7 +6754,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="85" width="40" height="6" uuid="57970fe1-48a6-4f45-b1c5-1a3572ab584a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6752,7 +6768,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="91" width="40" height="6" uuid="43c48773-f5eb-40c6-a42d-e9b538156df7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6766,7 +6782,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="97" width="40" height="6" uuid="1f03577e-d76f-4199-bf38-3137b3e4c0d5">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6780,7 +6796,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="103" width="40" height="6" uuid="c67f7621-2648-4f1e-b5c8-5f7e6ffe056c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6794,7 +6810,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="109" width="40" height="6" uuid="237764e7-7f57-4139-8534-c6044186294e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6808,7 +6824,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="358" y="115" width="40" height="6" uuid="0798147b-17cd-4085-9b78-46c8a52fc0cd">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6822,7 +6838,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="37" width="46" height="6" uuid="98624bcc-95a8-499e-970b-fbd3ec022d76">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6836,7 +6852,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="43" width="46" height="6" uuid="03437ac6-34b3-49ee-adf0-5982c4f5fc17">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6850,7 +6866,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="49" width="46" height="6" uuid="8df934a0-c5df-45b0-99a3-2823c45b04a2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6864,7 +6880,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="55" width="46" height="6" uuid="59cb1801-96a9-4c5d-ba7b-5ddc5b4714c6">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6878,7 +6894,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="61" width="46" height="6" uuid="3317093f-bb01-4d66-b34f-1a38cbd118e5">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6892,7 +6908,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="67" width="46" height="6" uuid="b04c365f-1f8e-4388-9385-7299fb3ea2fb">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6906,7 +6922,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="73" width="46" height="6" uuid="a9a76410-fa7e-4539-aac1-072b11e20482">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6920,7 +6936,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="79" width="46" height="6" uuid="cdda1e77-3334-448a-84a9-c3fb6cb7585e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6934,7 +6950,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="85" width="46" height="6" uuid="0ce67038-7b16-4a6a-b9dd-c8ebc11196c1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6948,7 +6964,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="91" width="46" height="6" uuid="68280704-8c78-401f-a58f-c14dc6e93b41">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6962,7 +6978,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="97" width="46" height="6" uuid="3849a992-3aeb-4d57-8ffe-980c7a06e1b1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6976,7 +6992,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="103" width="46" height="6" uuid="848554e7-a4f5-4531-ad8c-e25231addad4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -6990,7 +7006,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="109" width="46" height="6" uuid="5e97d939-af57-4da8-8dcf-5bbe9f4bc20a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7004,7 +7020,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="398" y="115" width="46" height="6" uuid="801606a8-4cb8-4969-ae43-70cf48df0907">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7018,7 +7034,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="37" width="30" height="6" uuid="3f748da9-4c1f-464d-a224-91b7a536fc84">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7032,7 +7048,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="43" width="30" height="6" uuid="d3c01c7c-1b38-45c8-9937-4363bd1487e5">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7046,7 +7062,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="49" width="30" height="6" uuid="e9545c8d-1a52-4e7a-abaa-a851685c7b62">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7060,7 +7076,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="55" width="30" height="6" uuid="86ec5285-5273-413e-adc7-2275eabf0b98">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7074,7 +7090,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="61" width="30" height="6" uuid="1f99538c-e815-46d7-8146-72f269d91bcb">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7088,7 +7104,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="67" width="30" height="6" uuid="833d067a-94f4-49fc-9107-d788a1582d5b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7102,7 +7118,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="73" width="30" height="6" uuid="3046fe32-d801-4a1c-b205-da09309109e8">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7116,7 +7132,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="79" width="30" height="6" uuid="accc1e1b-8a60-480c-b18c-45d69bd05e15">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7130,7 +7146,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="85" width="30" height="6" uuid="5b3e02c6-aaf4-4af5-9a8c-a71fb7c151ab">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7144,7 +7160,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="91" width="30" height="6" uuid="89209647-7000-45b8-8cfa-34a77cfb3545">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7158,7 +7174,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="97" width="30" height="6" uuid="e17da1b7-b726-4e7e-9feb-51da8666eccd">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7172,7 +7188,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="103" width="30" height="6" uuid="5cca2038-5ccf-4a80-8c69-4a18043e05d6">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7186,7 +7202,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="109" width="30" height="6" uuid="4b54c15f-9e30-49d8-9dd5-2625fd0aed92">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7200,7 +7216,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="444" y="115" width="30" height="6" uuid="ab42e105-d1ec-40e0-89f9-104343e24d92">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7214,7 +7230,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="37" width="82" height="6" uuid="9878807f-3d69-4d12-92cd-237f09a0919a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7228,7 +7244,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="43" width="82" height="6" uuid="f23f5dad-1d70-4458-a05f-5fd39d04eb1d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7242,7 +7258,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="49" width="82" height="6" uuid="ec3758a6-4eea-4a55-8f6a-fd4cbfe46cde">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7256,7 +7272,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="55" width="82" height="6" uuid="c1b91e0d-61d5-4d99-b727-e807b9483816">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7270,7 +7286,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="61" width="82" height="6" uuid="822d51d5-5b2c-486a-bd7e-5964b622940c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7284,7 +7300,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="67" width="82" height="6" uuid="9518419a-63f6-47a5-ab31-04e5330f4bed">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7298,7 +7314,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="73" width="82" height="6" uuid="7040d30b-ebb1-4d3e-81f0-cddc2acb15c7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7312,7 +7328,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="79" width="82" height="6" uuid="fc77f569-7806-4077-941a-f9921f8e90e2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7326,7 +7342,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="85" width="82" height="6" uuid="5433b5ed-47bd-4f5b-ac06-94736747e41b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7340,7 +7356,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="91" width="82" height="6" uuid="9b005201-37b4-48c1-bb37-091189d5d983">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7354,7 +7370,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="97" width="82" height="6" uuid="7a247ae6-c682-498d-a315-5604d37f0e4c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7368,7 +7384,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="103" width="82" height="6" uuid="c8c34778-d0a7-4150-9f81-3b40a009280c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7382,7 +7398,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="109" width="82" height="6" uuid="38bf53b4-4f18-4b6a-81a9-34264f75f377">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7396,7 +7412,7 @@ GROUP BY
 					<font size="4"/>
 				</textElement>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="115" width="82" height="6" uuid="283623d3-3429-45e0-b855-77a1c183d5f0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -7422,7 +7438,7 @@ GROUP BY
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Not Yet Available]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="66" y="126" width="94" height="9" uuid="7207bba3-dbca-4f54-9b70-2fd8e223e919">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -7437,7 +7453,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{compiled_by}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="206" y="126" width="117" height="9" uuid="27afe29a-c7d7-4a56-80a5-f7abb31cdffb">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -7462,7 +7478,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Designation:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="351" y="126" width="87" height="9" uuid="7b99b9e2-ec2f-4711-9969-9f515a4eb60b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -7499,7 +7515,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Signature:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement x="474" y="126" width="82" height="9" uuid="44c60b6b-cbf2-464a-a643-beff99860838">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>

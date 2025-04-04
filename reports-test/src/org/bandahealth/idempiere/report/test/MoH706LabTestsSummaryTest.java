@@ -1,20 +1,9 @@
 package org.bandahealth.idempiere.report.test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.StreamSupport;
-
+import com.chuboe.test.populate.ChuBoeCreateEntity;
+import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
+import com.chuboe.test.populate.IPopulateAnnotation;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -29,13 +18,119 @@ import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.hamcrest.Matchers;
 
-import com.chuboe.test.populate.ChuBoeCreateEntity;
-import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
-import com.chuboe.test.populate.ChuBoePopulateVO;
-import com.chuboe.test.populate.IPopulateAnnotation;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.StreamSupport;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 	private static final String reportUU = "83378587-d80f-4c79-874b-5cdc64893b77";
+
+	private Map<String, Map<String, Double>> getTableInformation(Sheet sheet, String tableText,
+			String lowerTableHeaderText) {
+		int startingTableRow = -1;
+		int startingTableColumn = -1;
+		int lowerTableStartRow = sheet.getLastRowNum();
+		int rightTableStartColumn = sheet.getRow(sheet.getFirstRowNum()).getLastCellNum();
+		boolean found = false;
+		boolean foundRightTable = false;
+		boolean foundBelowTable = false;
+		for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
+			Row row = sheet.getRow(i);
+			for (int j = row.getFirstCellNum(); j <= row.getLastCellNum(); j++) {
+				Cell cell = row.getCell(j);
+				if (cell == null) {
+					continue;
+				} else if (lowerTableHeaderText != null && cell.getCellType().equals(CellType.STRING) &&
+						cell.getStringCellValue().contains(lowerTableHeaderText)) {
+					lowerTableStartRow = i;
+					foundBelowTable = true;
+					break;
+				}
+				if (cell.getCellType().equals(CellType.STRING) && cell.getStringCellValue().contains(tableText)) {
+					startingTableRow = i;
+					startingTableColumn = j;
+					found = true;
+				} else if (found && !foundRightTable && cell.getCellType().equals(CellType.STRING) &&
+						!cell.getStringCellValue().isEmpty()) {
+					rightTableStartColumn = j;
+					foundRightTable = true;
+					break;
+				}
+			}
+			// If we found the table, then we will have found the right table start (i.e. the end of the sheet)
+			if (found) {
+				foundRightTable = true;
+			}
+			if (foundBelowTable) {
+				break;
+			}
+		}
+		if (!found) {
+			fail("Could not find table with label " + tableText);
+		}
+		// Go to the next row for the "header" information
+		startingTableRow++;
+		Map<String, Map<String, Double>> tableInformation = new HashMap<>();
+		Map<Integer, String> headerCells = new HashMap<>();
+		for (int i = startingTableRow; i < lowerTableStartRow; i++) {
+			Row row = sheet.getRow(i);
+			boolean isSubHeaderRow = false;
+			boolean isRowEmpty = true;
+			boolean doesRowHaveNumbers = false;
+			for (int j = startingTableColumn; j < rightTableStartColumn; j++) {
+				Cell cell = row.getCell(j);
+				// If every cell is empty, we'll skip it
+				if (cell != null && (!cell.getCellType().equals(CellType.STRING) || !cell.getStringCellValue().isEmpty())) {
+					isRowEmpty = false;
+				}
+				// If all cells beyond the first are strings, we'll consider this a sub-header
+				if (j > startingTableColumn && cell != null && cell.getCellType().equals(CellType.STRING) &&
+						!cell.getStringCellValue().isEmpty()) {
+					isSubHeaderRow = true;
+				}
+				if (j > startingTableColumn && cell != null && cell.getCellType().equals(CellType.NUMERIC)) {
+					doesRowHaveNumbers = true;
+				}
+			}
+			if (isRowEmpty) {
+				continue;
+			}
+			if (isSubHeaderRow && !doesRowHaveNumbers) {
+				headerCells = new HashMap<>();
+				for (int j = startingTableColumn + 1; j < rightTableStartColumn; j++) {
+					Cell cell = row.getCell(j);
+					if (cell != null && cell.getCellType().equals(CellType.STRING) && !cell.getStringCellValue().isEmpty()) {
+						headerCells.put(j, cell.getStringCellValue());
+					}
+				}
+				continue;
+			}
+			// Get the values
+			tableInformation.put(row.getCell(startingTableColumn).getStringCellValue(), new HashMap<>());
+			int finalStartingTableColumn = startingTableColumn;
+			headerCells.forEach((key, value) -> {
+				// Value cell
+				Cell cell = row.getCell(key);
+				tableInformation.get(row.getCell(finalStartingTableColumn).getStringCellValue()).put(value,
+						cell != null && cell.getCellType().equals(CellType.NUMERIC) ? cell.getNumericCellValue() : null);
+			});
+		}
+		return tableInformation;
+	}
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
@@ -86,6 +181,25 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		double originalGlucoseCount = 0;
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Map<String, Map<String, Double>> urineAnalysisTableInformation =
+					getTableInformation(sheet, "1. URINE ANALYSIS", "2. BLOOD CHEMISTRY");
+			originalGlucoseCount = urineAnalysisTableInformation.get("1.2 Glucose").get("Number Positive");
+		}
+
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
@@ -94,12 +208,10 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
-		MBHConcept diagnostic = null;
-
 		valueObject.setStepName("Create glucose concept if it doesn't exist");
-
-		diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_OclID + "=?",
-				valueObject.getTransactionName()).setParameters("159734").first();
+		MBHConcept diagnostic =
+				new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_OclID + "=?",
+						valueObject.getTransactionName()).setParameters("159734").first();
 		if (diagnostic == null) {
 			diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
@@ -114,7 +226,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create diagnostics");
 		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
-		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_LabDiagnostics);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
@@ -131,10 +243,31 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		encounterDiagnostic.saveEx();
 		commitEx();
 
-		int expectedCountOfGlucoseVisits = new Query(valueObject.getContext(), MBHEncounterDiagnostic.Table_Name,
-				MBHEncounterDiagnostic.COLUMNNAME_BH_Concept_ID + "=?" + " AND "
-						+ MBHEncounterDiagnostic.COLUMNNAME_BH_Value + "=?",
-				valueObject.getTransactionName()).setParameters(diagnostic.get_ID(), diagnosticValue).count() + 1;
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Map<String, Map<String, Double>> urineAnalysisTableInformation =
+					getTableInformation(sheet, "1. URINE ANALYSIS", "2. BLOOD CHEMISTRY");
+			assertEquals(originalGlucoseCount + 1, urineAnalysisTableInformation.get("1.2 Glucose").get("Number Positive"),
+					"glucose count correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void bloodChemistryTableCountAreCorrect() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Generate the report");
 		valueObject.setProcessUuid(reportUU);
@@ -147,61 +280,13 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
+		Map<String, Double> originalOgttData = new HashMap<>();
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			//
-			Optional<Row> urineAnalysisRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("1. URINE ANALYSIS")))
-					.findFirst();
-			assertTrue(urineAnalysisRow.isPresent(), "urine analysis is present");
-
-			Optional<Row> urineChemistryRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("1.1 Urine Chemistry")))
-					.findFirst();
-			assertTrue(urineChemistryRow.isPresent(), "urine chemistry row is present");
-			//
-			// get number of whatever
-			Optional<Row> glucoseRow = StreamSupport.stream(sheet.spliterator(), false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("1.2 Glucose")))
-					.findFirst();
-			assertTrue(glucoseRow.isPresent(), "glucose row is present");
-			Optional<Cell> glucoseCount = StreamSupport.stream(glucoseRow.get().spliterator(), false).filter(cell -> {
-				if (cell == null)
-					return false;
-
-				if (cell.getCellType().equals(CellType.NUMERIC)
-						&& cell.getNumericCellValue() == expectedCountOfGlucoseVisits) {
-					return true;
-				}
-
-				if (cell.getCellType().equals(CellType.STRING)) {
-					try {
-						return Integer.parseInt(cell.getStringCellValue()) == expectedCountOfGlucoseVisits;
-					} catch (NumberFormatException e) {
-						return false;
-					}
-				}
-				return false;
-			}).findFirst();
-			assertTrue(glucoseCount.isPresent(), "Glucose count present");
+			Map<String, Map<String, Double>> bloodChemistryInformation =
+					getTableInformation(sheet, "2. BLOOD CHEMISTRY", "9. Drug Susceptibility Testing");
+			originalOgttData = bloodChemistryInformation.get("2.2 OGTT");
 		}
-	}
-
-	@IPopulateAnnotation.CanRun
-	public void bloodChemistryTableCountAreCorrect() throws SQLException, IOException {
-		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
-		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -211,12 +296,10 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
-		MBHConcept diagnostic = null;
-
 		valueObject.setStepName("Create ogtt concept if it doesn't exist");
-
-		diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_OclID + "=?",
-				valueObject.getTransactionName()).setParameters("163594").first();
+		MBHConcept diagnostic =
+				new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_OclID + "=?",
+						valueObject.getTransactionName()).setParameters("163594").first();
 		if (diagnostic == null) {
 			diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
@@ -248,9 +331,32 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		encounterDiagnostic.saveEx();
 		commitEx();
 
-		int expectedCountOfBloodChemistryVisits = new Query(valueObject.getContext(), MBHEncounterDiagnostic.Table_Name,
-				MBHEncounterDiagnostic.COLUMNNAME_BH_Concept_ID + "=?", valueObject.getTransactionName())
-				.setParameters(diagnostic.get_ID()).count();
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Map<String, Double> ogttData =
+					getTableInformation(sheet, "2. BLOOD CHEMISTRY", "9. Drug Susceptibility Testing").get("2.2 OGTT");
+			assertEquals(originalOgttData.get("Total Exam") + 1, ogttData.get("Total Exam"), "OGTT total is correct");
+			assertEquals(originalOgttData.get("Low") + 1, ogttData.get("Low"), "OGTT Low is correct");
+			assertEquals(originalOgttData.get("High"), ogttData.get("High"), "OGTT high is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void parasitologyTableCountsAreCorrect() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Generate the report");
 		valueObject.setProcessUuid(reportUU);
@@ -263,61 +369,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
+		Map<String, Map<String, Double>> originalMalariaData = new HashMap<>();
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			//
-			Optional<Row> bloodChemistryRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("2. BLOOD CHEMISTRY")))
-					.findFirst();
-			assertTrue(bloodChemistryRow.isPresent(), "blood chemistry is present");
-
-			Optional<Row> bloodSugarRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("2.1 Blood Sugar")))
-					.findFirst();
-			assertTrue(bloodSugarRow.isPresent(), "blood sugar row is present");
-
-			Optional<Row> ogttRow = StreamSupport.stream(sheet.spliterator(), false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("2.2 OGTT")))
-					.findFirst();
-			assertTrue(ogttRow.isPresent(), "ogtt row is present");
-
-			Optional<Cell> glucoseCount = StreamSupport.stream(ogttRow.get().spliterator(), false).filter(cell -> {
-				if (cell == null)
-					return false;
-
-				if (cell.getCellType().equals(CellType.NUMERIC)
-						&& cell.getNumericCellValue() == expectedCountOfBloodChemistryVisits) {
-					return true;
-				}
-
-				if (cell.getCellType().equals(CellType.STRING)) {
-					try {
-						return Integer.parseInt(cell.getStringCellValue()) == expectedCountOfBloodChemistryVisits;
-					} catch (NumberFormatException e) {
-						return false;
-					}
-				}
-				return false;
-			}).findFirst();
-			assertTrue(glucoseCount.isPresent(), "Ogtt count present");
+			originalMalariaData = getTableInformation(sheet, "3. PARASITOLOGY", "4. HAEMATOLOGY");
 		}
-	}
-
-	@IPopulateAnnotation.CanRun
-	public void parisitologyTableCountsAreCorrect() throws SQLException, IOException {
-		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
-		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create a minor patient");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -329,11 +385,8 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
-		MBHConcept diagnostic = null;
-
 		valueObject.setStepName("Create malaria smear concept if it doesn't exist");
-
-		diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+		MBHConcept diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name,
 				MBHConcept.COLUMNNAME_BH_OclID + "=? AND " + MBHConcept.COLUMNNAME_BH_Source + " =?",
 				valueObject.getTransactionName()).setParameters("32", "CIEL").first();
 		if (diagnostic == null) {
@@ -366,13 +419,46 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		encounterDiagnostic.setLineNo(10);
 		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
 		encounterDiagnostic.saveEx();
-
 		commitEx();
 
-		int expectedCountOfMalariaVisits = new Query(valueObject.getContext(), MBHEncounterDiagnostic.Table_Name,
-				MBHEncounterDiagnostic.COLUMNNAME_BH_Concept_ID + "=?" + " AND "
-						+ MBHEncounterDiagnostic.COLUMNNAME_BH_Value + "=?" ,
-				valueObject.getTransactionName()).setParameters(diagnostic.get_ID(), diagnosticValue).count();
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Map<String, Map<String, Double>> malariaData = getTableInformation(sheet, "3. PARASITOLOGY", "4. HAEMATOLOGY");
+			//
+			// Under 5
+			Map<String, Double> original31MalariaData = originalMalariaData.get("3.1 Malaria BS (Under five years)");
+			Map<String, Double> current31MalariaData = malariaData.get("3.1 Malaria BS (Under five years)");
+			assertEquals(original31MalariaData.get("Total Exam") + 1, current31MalariaData.get("Total Exam"),
+					"3.1 Malaria total exams correct");
+			assertEquals(original31MalariaData.get("Number Positive") + 1, current31MalariaData.get("Total Exam"),
+					"3.1 Malaria total exams correct");
+			//
+			// Over 5
+			Map<String, Double> original32MalariaData = originalMalariaData.get("3.2 Malaria BS (5 years and above)");
+			Map<String, Double> current32MalariaData = malariaData.get("3.2 Malaria BS (5 years and above)");
+			assertEquals(original32MalariaData.get("Total Exam"), current32MalariaData.get("Total Exam"),
+					"3.2 Malaria total exams correct");
+			assertEquals(original32MalariaData.get("Number Positive"), current32MalariaData.get("Total Exam"),
+					"3.2 Malaria total exams correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void haematologyTableCountsAreCorrect() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Generate the report");
 		valueObject.setProcessUuid(reportUU);
@@ -385,58 +471,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
+		Map<String, Map<String, Double>> originalHaematologyData = new HashMap<>();
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			//
-			Optional<Row> parisitologyRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("3. PARASITOLOGY")))
-					.findFirst();
-			assertTrue(parisitologyRow.isPresent(), "parisitology analysis is present");
-
-			Optional<Row> parisitologyMalariaRow = StreamSupport.stream(sheet.spliterator(), false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("Malaria Test")))
-					.findFirst();
-			assertTrue(parisitologyMalariaRow.isPresent(), "malaria test row is present");
-			//
-			// get number of whatever
-			Optional<Row> malariaRow = StreamSupport.stream(sheet.spliterator(), false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("3.1 Malaria BS (Under five years)")))
-					.findFirst();
-			assertTrue(malariaRow.isPresent(), "malaria row is present");
-
-			Optional<Cell> malariaCount = StreamSupport.stream(malariaRow.get().spliterator(), false)
-					.filter(cell -> cell != null && cell.getCellType() == CellType.NUMERIC
-							|| cell.getCellType() == CellType.STRING)
-					.filter(cell -> {
-						if (cell.getCellType() == CellType.NUMERIC) {
-							return cell.getNumericCellValue() == expectedCountOfMalariaVisits;
-						} else if (cell.getCellType() == CellType.STRING) {
-							try {
-								return Integer
-										.parseInt(cell.getStringCellValue().trim()) == expectedCountOfMalariaVisits;
-							} catch (NumberFormatException e) {
-								return false;
-							}
-						}
-						return false;
-					}).findFirst();
-			assertTrue(malariaCount.isPresent(), "Malaria visit counts are correct");
+			originalHaematologyData = getTableInformation(sheet, "4. HAEMATOLOGY", "9. Drug Susceptibility Testing");
 		}
-	}
-
-	@IPopulateAnnotation.CanRun
-	public void haematologyTableCountsAreCorrect() throws SQLException, IOException {
-		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
-		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create a patient");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -446,22 +485,67 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
-		MBHConcept diagnostic = null;
+		valueObject.setStepName("Create CBC concept if it doesn't exist");
+		MBHConcept cbcConcept = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+				MBHConcept.COLUMNNAME_BH_OclID + "=? AND " + MBHConcept.COLUMNNAME_BH_Source + " =?",
+				valueObject.getTransactionName()).setParameters("1019", "CIEL").first();
+		if (cbcConcept == null) {
+			cbcConcept = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+			cbcConcept.setBH_Display_Name("Complete blood count");
+			cbcConcept.setIsActive(true);
+			cbcConcept.setBH_ExternalID("1019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			cbcConcept.setBH_OclID("1019");
+			cbcConcept.setBH_Owner("CIEL");
+			cbcConcept.setBH_Source("CIEL");
+			cbcConcept.saveEx();
+		}
+		commitEx();
 
-		valueObject.setStepName("Create wbc concept if it doesn't exist");
-
-		diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+		valueObject.setStepName("Create WBC concept if it doesn't exist");
+		MBHConcept wbcConcept = new Query(valueObject.getContext(), MBHConcept.Table_Name,
 				MBHConcept.COLUMNNAME_BH_OclID + "=? AND " + MBHConcept.COLUMNNAME_BH_Source + " =?",
 				valueObject.getTransactionName()).setParameters("678", "CIEL").first();
-		if (diagnostic == null) {
-			diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
-			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
-			diagnostic.setIsActive(true);
-			diagnostic.setBH_ExternalID("678AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			diagnostic.setBH_OclID("678");
-			diagnostic.setBH_Owner("CIEL");
-			diagnostic.setBH_Source("CIEL");
-			diagnostic.saveEx();
+		if (wbcConcept == null) {
+			wbcConcept = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+			wbcConcept.setBH_Display_Name("White blood cells");
+			wbcConcept.setIsActive(true);
+			wbcConcept.setBH_ExternalID("678AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			wbcConcept.setBH_OclID("678");
+			wbcConcept.setBH_Owner("CIEL");
+			wbcConcept.setBH_Source("CIEL");
+			wbcConcept.saveEx();
+		}
+		commitEx();
+
+		valueObject.setStepName("Create PLT concept if it doesn't exist");
+		MBHConcept plateletsConcept = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+				MBHConcept.COLUMNNAME_BH_OclID + "=? AND " + MBHConcept.COLUMNNAME_BH_Source + " =?",
+				valueObject.getTransactionName()).setParameters("729", "CIEL").first();
+		if (plateletsConcept == null) {
+			plateletsConcept = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+			plateletsConcept.setBH_Display_Name("Platelets");
+			plateletsConcept.setIsActive(true);
+			plateletsConcept.setBH_ExternalID("729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			plateletsConcept.setBH_OclID("729");
+			plateletsConcept.setBH_Owner("CIEL");
+			plateletsConcept.setBH_Source("CIEL");
+			plateletsConcept.saveEx();
+		}
+		commitEx();
+
+		valueObject.setStepName("Create HB concept if it doesn't exist");
+		MBHConcept hbConcept = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+				MBHConcept.COLUMNNAME_BH_OclID + "=? AND " + MBHConcept.COLUMNNAME_BH_Source + " =?",
+				valueObject.getTransactionName()).setParameters("21", "CIEL").first();
+		if (hbConcept == null) {
+			hbConcept = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+			hbConcept.setBH_Display_Name("Haemoglobin");
+			hbConcept.setIsActive(true);
+			hbConcept.setBH_ExternalID("21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			hbConcept.setBH_OclID("21");
+			hbConcept.setBH_Owner("CIEL");
+			hbConcept.setBH_Source("CIEL");
+			hbConcept.saveEx();
 		}
 		commitEx();
 
@@ -473,14 +557,97 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		encounter.saveEx();
 		commitEx();
 
-		String diagnosticValue = "5";
+		// Handle 4.1
+		// First add WBC as part of CBC panel
 		MBHEncounterDiagnostic encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
 				valueObject.getTransactionName());
 		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnostic.setBH_Concept_ID(diagnostic.get_ID());
-		encounterDiagnostic.setBH_Value(diagnosticValue);
+		encounterDiagnostic.setBH_Concept_ID(wbcConcept.get_ID());
+		encounterDiagnostic.setBH_Value("5");
 		encounterDiagnostic.setLineNo(10);
 		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
+		encounterDiagnostic.setSelected_Panel_ID(cbcConcept.get_ID());
+		encounterDiagnostic.saveEx();
+		commitEx();
+		// Add PLT as part of CBC panel
+		encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnostic.setBH_Concept_ID(plateletsConcept.get_ID());
+		encounterDiagnostic.setBH_Value("150");
+		encounterDiagnostic.setLineNo(20);
+		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
+		encounterDiagnostic.setSelected_Panel_ID(cbcConcept.get_ID());
+		encounterDiagnostic.saveEx();
+		commitEx();
+		// Finally add HB
+		encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnostic.setBH_Concept_ID(hbConcept.get_ID());
+		encounterDiagnostic.setBH_Value("5");
+		encounterDiagnostic.setLineNo(30);
+		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
+		encounterDiagnostic.setSelected_Panel_ID(cbcConcept.get_ID());
+		encounterDiagnostic.saveEx();
+		commitEx();
+
+		// Add another visit for 4.1 check
+		valueObject.setStepName("Create a visit");
+		valueObject.setRandom();
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create diagnostics");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+		commitEx();
+		//
+		// First add WBC as part of CBC panel
+		encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
+		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnostic.setBH_Concept_ID(wbcConcept.get_ID());
+		encounterDiagnostic.setBH_Value("5");
+		encounterDiagnostic.setLineNo(10);
+		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
+		encounterDiagnostic.setSelected_Panel_ID(cbcConcept.get_ID());
+		encounterDiagnostic.saveEx();
+		commitEx();
+		// DON'T ADD PLT, just add HB as part of CBC panel
+		encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnostic.setBH_Concept_ID(hbConcept.get_ID());
+		encounterDiagnostic.setBH_Value("5");
+		encounterDiagnostic.setLineNo(20);
+		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
+		encounterDiagnostic.setSelected_Panel_ID(cbcConcept.get_ID());
+		encounterDiagnostic.saveEx();
+		commitEx();
+
+		// Add another visit for 4.2 check
+		valueObject.setStepName("Create a visit");
+		valueObject.setRandom();
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create diagnostics");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+		commitEx();
+		//
+		// DON'T ADD PLT OR WBC, just add HB as part of CBC panel
+		encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnostic.setBH_Concept_ID(hbConcept.get_ID());
+		encounterDiagnostic.setBH_Value("5");
+		encounterDiagnostic.setLineNo(20);
+		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
+		encounterDiagnostic.setSelected_Panel_ID(cbcConcept.get_ID());
 		encounterDiagnostic.saveEx();
 		commitEx();
 
@@ -494,71 +661,63 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
-		FileInputStream file = new FileInputStream(valueObject.getReport());
+		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
+			Map<String, Map<String, Double>> HaematologyData =
+					getTableInformation(sheet, "4. HAEMATOLOGY", "9. Drug Susceptibility Testing");
 			//
-			Optional<Row> haematologyRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("4. HAEMATOLOGY")))
-					.findFirst();
-			assertTrue(haematologyRow.isPresent(), "haematology analysis is present");
-
-			Optional<Row> haematologyTestsRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("Haematology tests")))
-					.findFirst();
-			assertTrue(haematologyTestsRow.isPresent(), "haematology test row is present");
+			// FBC
+			Map<String, Double> originalFullBloodCount = originalHaematologyData.get("4.1 Full blood count");
+			Map<String, Double> fullBloodCount = HaematologyData.get("4.1 Full blood count");
+			assertEquals(originalFullBloodCount.get("Total Exam") + 1, fullBloodCount.get("Total Exam"),
+					"4.1 total count is correct");
+			assertEquals(originalFullBloodCount.get("HB <5 g/dl"), fullBloodCount.get("HB <5 g/dl"),
+					"4.1 HB <5 count is correct");
+			assertEquals(originalFullBloodCount.get("HB between 5 and 10 g/dl") + 1,
+					fullBloodCount.get("HB between 5 and 10 g/dl"), "4.1 HB 5<x<10 count is correct");
 			//
-			// get number of whatever
-			Optional<Row> fullBloodCountRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("4.1 Full blood count")))
-					.findFirst();
-			assertTrue(fullBloodCountRow.isPresent(), "full blood count row is present");
-
-			Optional<Cell> wbcCount = StreamSupport.stream(fullBloodCountRow.get().spliterator(), false)
-					.filter(cell -> cell != null && cell.getCellType() == CellType.NUMERIC
-							|| cell.getCellType() == CellType.STRING)
-					.filter(cell -> {
-						if (cell.getCellType() == CellType.NUMERIC) {
-							return cell.getNumericCellValue() > 0;
-						} else if (cell.getCellType() == CellType.STRING) {
-							try {
-								return Integer.parseInt(cell.getStringCellValue().trim()) > 0;
-							} catch (NumberFormatException e) {
-								return false;
-							}
-						}
-						return false;
-					}).findFirst();
-
-			assertTrue(wbcCount.isPresent(), "WBC count is present");
+			// HB estimations
+			Map<String, Double> originalHBEstimationCount =
+					originalHaematologyData.get("4.2 HB estimation tests (other techniques)");
+			Map<String, Double> hbEstimationCount = HaematologyData.get("4.2 HB estimation tests (other techniques)");
+			assertEquals(originalHBEstimationCount.get("Total Exam") + 2, hbEstimationCount.get("Total Exam"),
+					"4.1 total count is correct");
+			assertEquals(originalHBEstimationCount.get("HB <5 g/dl"), hbEstimationCount.get("HB <5 g/dl"),
+					"4.1 HB <5 count is correct");
+			assertEquals(originalHBEstimationCount.get("HB between 5 and 10 g/dl") + 2,
+					hbEstimationCount.get("HB between 5 and 10 g/dl"), "4.1 HB 5<x<10 count is correct");
 		}
 	}
 
 	/**
 	 * Enable test once the table has been implemented.
-	 * 
+	 *
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	// @IPopulateAnnotation.CanRun
+	@IPopulateAnnotation.CanRun
 	public void bacteriologyTableCountsAreCorrect() throws SQLException, IOException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
-		int initialCountOfTbSmearVisits = 0;
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		Map<String, Map<String, Double>> originalBacteriologyData = new HashMap<>();
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			originalBacteriologyData = getTableInformation(sheet, "5. BACTERIOLOGY", "l. Cefoxitin/oxacillin");
+		}
 
 		valueObject.setStepName("Create a patient");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -568,12 +727,10 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
-		MBHConcept diagnostic = null;
-
 		valueObject.setStepName("Create tb smear if it doesn't exist");
-
-		diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_OclID + "=?",
-				valueObject.getTransactionName()).setParameters("307").first();
+		MBHConcept diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+				MBHConcept.COLUMNNAME_BH_OclID + "=? AND " + MBHConcept.COLUMNNAME_BH_Source + " =?",
+				valueObject.getTransactionName()).setParameters("307", "CIEL").first();
 		if (diagnostic == null) {
 			diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
@@ -592,16 +749,45 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
+		commitEx();
 
-		String diagnosticValue = "Positive";
 		MBHEncounterDiagnostic encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
 				valueObject.getTransactionName());
 		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnostic.setBH_Concept_ID(diagnostic.get_ID());
-		encounterDiagnostic.setBH_Value(diagnosticValue);
+		encounterDiagnostic.setBH_Value("Positive");
 		encounterDiagnostic.setLineNo(10);
 		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
 		encounterDiagnostic.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Map<String, Map<String, Double>> bacteriologyData =
+					getTableInformation(sheet, "5. BACTERIOLOGY", "l. Cefoxitin/oxacillin");
+			assertEquals(originalBacteriologyData.get("5.29 Total TB smears").get("Total exam") + 1,
+					bacteriologyData.get("5.29 Total TB smears").get("Total exam"), "5.29 total counts correct");
+			assertEquals(originalBacteriologyData.get("5.29 Total TB smears").get("Number Positive") + 1,
+					bacteriologyData.get("5.29 Total TB smears").get("Number Positive"), "5.29 positive counts correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void serologyTableCountsAreCorrect() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Generate the report");
 		valueObject.setProcessUuid(reportUU);
@@ -614,47 +800,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
+		Map<String, Map<String, Double>> originalSerologyData = new HashMap<>();
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			//
-			Optional<Row> bacteriologyRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("5. BACTERIOLOGY")))
-					.findFirst();
-			assertTrue(bacteriologyRow.isPresent(), "bacteriology analysis is present");
-
-			Optional<Row> sputumRow = StreamSupport.stream(sheet.spliterator(), false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("Sputum")))
-					.findFirst();
-			assertTrue(sputumRow.isPresent(), "sputum row is present");
-			//
-			// get number of whatever
-			Optional<Row> tbSmearCountRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("5.29 Total TB smears")))
-					.findFirst();
-			assertTrue(tbSmearCountRow.isPresent(), "TB smear count row is present");
-			Optional<Cell> tbSmearCount = StreamSupport.stream(tbSmearCountRow.get().spliterator(), false)
-					.filter(cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC)
-							&& cell.getNumericCellValue() == initialCountOfTbSmearVisits + 1)
-					.findFirst();
-			assertEquals(tbSmearCount, initialCountOfTbSmearVisits);
+			originalSerologyData = getTableInformation(sheet, "7. SEROLOGY", "l. Cefoxitin/oxacillin");
 		}
-	}
-
-	@IPopulateAnnotation.CanRun
-	public void serologyTableCountsAreCorrect() throws SQLException, IOException {
-		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
-		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create a patient");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -664,12 +814,10 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
-		MBHConcept diagnostic = null;
-
 		valueObject.setStepName("Create vdrl if it doesn't exist");
-
-		diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_OclID + "=?",
-				valueObject.getTransactionName()).setParameters("299").first();
+		MBHConcept diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+				MBHConcept.COLUMNNAME_BH_OclID + "=? AND " + MBHConcept.COLUMNNAME_BH_Source + " =?",
+				valueObject.getTransactionName()).setParameters("299", "CIEL").first();
 		if (diagnostic == null) {
 			diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
@@ -690,12 +838,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		encounter.saveEx();
 		commitEx();
 
-		String diagnosticValue = "Reactive";
 		MBHEncounterDiagnostic encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
 				valueObject.getTransactionName());
 		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnostic.setBH_Concept_ID(diagnostic.get_ID());
-		encounterDiagnostic.setBH_Value(diagnosticValue);
+		encounterDiagnostic.setBH_Value("Reactive");
 		encounterDiagnostic.setLineNo(10);
 		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
 		encounterDiagnostic.saveEx();
@@ -711,125 +858,15 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
-		FileInputStream file = new FileInputStream(valueObject.getReport());
+		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			//
-			Optional<Row> serologyRow = StreamSupport.stream(sheet.spliterator(), false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("7. SEROLOGY")))
-					.findFirst();
-			assertTrue(serologyRow.isPresent(), "serology analysis is present");
-
-			Optional<Row> serologicalTestRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("Serological Test")))
-					.findFirst();
-			assertTrue(serologicalTestRow.isPresent(), "serological test row is present");
-			//
-			// get number of whatever
-			Optional<Row> vdrlCountRow = StreamSupport.stream(sheet.spliterator(), false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("7.1 VDRL")))
-					.findFirst();
-			assertTrue(vdrlCountRow.isPresent(), "VDRL count row is present");
-		}
-	}
-
-	@IPopulateAnnotation.CanRun
-	public void specimenReferralToHigherLevelsTableCountsAreCorrect() throws SQLException, IOException {
-		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
-		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
-
-		valueObject.setStepName("Create a patient");
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create a visit");
-		ChuBoeCreateEntity.createVisit(valueObject);
-		commitEx();
-
-		MBHConcept diagnostic = null;
-
-		valueObject.setStepName("Create cd4 if it doesn't exist");
-
-		diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_OclID + "=?",
-				valueObject.getTransactionName()).setParameters("5497").first();
-		if (diagnostic == null) {
-			diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
-			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
-			diagnostic.setIsActive(true);
-			diagnostic.setBH_ExternalID("5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			diagnostic.setBH_OclID("5497");
-			diagnostic.setBH_Owner("CIEL");
-			diagnostic.setOcl_Uuid(UUID.randomUUID().toString());
-			diagnostic.setBH_Source("CIEL");
-			diagnostic.saveEx();
-		}
-		commitEx();
-
-		valueObject.setStepName("Create diagnostics");
-		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
-		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
-		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
-		encounter.setBH_Encounter_Date(TimestampUtils.today());
-		encounter.saveEx();
-
-		commitEx();
-
-		String diagnosticValue = "Reactive";
-		MBHEncounterDiagnostic encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
-				valueObject.getTransactionName());
-		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnostic.setBH_Concept_ID(diagnostic.get_ID());
-		encounterDiagnostic.setBH_Value(diagnosticValue);
-		encounterDiagnostic.setLineNo(10);
-		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
-		encounterDiagnostic.saveEx();
-		commitEx();
-		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid(reportUU);
-		valueObject.setProcessRecordId(0);
-		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(
-				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
-						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
-		valueObject.setReportType("xlsx");
-		ChuBoeCreateEntity.runReport(valueObject);
-
-		FileInputStream file = new FileInputStream(valueObject.getReport());
-		try (Workbook workbook = new XSSFWorkbook(file)) {
-			Sheet sheet = workbook.getSheetAt(0);
-			//
-			Optional<Row> specifmenReferralRow = StreamSupport.stream(sheet.spliterator(), false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("8. SPECIMEN REFERRAL TO HIGHER LEVELS")))
-					.findFirst();
-			assertTrue(specifmenReferralRow.isPresent(), "specimen referral analysis is present");
-
-			Optional<Row> specimenReferralTestRow = StreamSupport
-					.stream(sheet.spliterator(),
-							false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("Specimen referral")))
-					.findFirst();
-			assertTrue(specimenReferralTestRow.isPresent(), "Specimen referral test row is present");
-			//
-			// get number of whatever
-			Optional<Row> cd4CountRow = StreamSupport.stream(sheet.spliterator(), false)
-					.filter(row -> StreamSupport.stream(row.spliterator(), false)
-							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-									&& cell.getStringCellValue().contains("8.1 CD4")))
-					.findFirst();
-			assertTrue(cd4CountRow.isPresent(), "CD4 count row is present");
+			Map<String, Map<String, Double>> serologyData =
+					getTableInformation(sheet, "7. SEROLOGY", "l. Cefoxitin/oxacillin");
+			assertEquals(originalSerologyData.get("7.1 VDRL").get("Total Exam") + 1,
+					serologyData.get("7.1 VDRL").get("Total Exam"), "7.1 total counts correct");
+			assertEquals(originalSerologyData.get("7.1 VDRL").get("Number Positive") + 1,
+					serologyData.get("7.1 VDRL").get("Number Positive"), "7.1 positive counts correct");
 		}
 	}
 }
