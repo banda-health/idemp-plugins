@@ -16,6 +16,7 @@ CREATE OR REPLACE FUNCTION bh_dashboard_get_general_data(_ad_client_id numeric, 
 	LANGUAGE sql
 	STABLE
 AS
+$$
 WITH completed_visits AS (
 	SELECT
 		v.bh_visit_id,
@@ -107,9 +108,12 @@ FROM
 	) prd_turn
 		CROSS JOIN (
 		SELECT
-		COALESCE((COUNT(v_v.*) FILTER ( WHERE v_v.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0), 0) AS ct_v,
-        COALESCE((COUNT(v_d.*) FILTER ( WHERE v_d.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0), 0 )AS ct_d,
-        COALESCE((COUNT(v_n.*) FILTER ( WHERE v_n.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0), 0) AS ct_n
+			COALESCE((COUNT(v_v.*) FILTER ( WHERE v_v.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
+			         0) AS ct_v,
+			COALESCE((COUNT(v_d.*) FILTER ( WHERE v_d.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
+			         0) AS ct_d,
+			COALESCE((COUNT(v_n.*) FILTER ( WHERE v_n.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
+			         0) AS ct_n
 		FROM
 			bh_visit v
 				JOIN completed_visits cv
@@ -156,9 +160,10 @@ FROM
 	) doc_quality
 		CROSS JOIN (
 		SELECT
-			COALESCE( (COUNT(ed.*)
-             FILTER ( WHERE ed.bh_diagnostic_note IS NOT NULL OR (ed.bh_value IS NOT NULL AND ed.bh_value != '') ))::numeric /
-            NULLIF(COUNT(ed.*)::numeric, 0), 0) AS ct
+			COALESCE((COUNT(ed.*)
+			          FILTER ( WHERE ed.bh_diagnostic_note IS NOT NULL OR
+			                         (ed.bh_value IS NOT NULL AND ed.bh_value != '') ))::numeric /
+			         NULLIF(COUNT(ed.*)::numeric, 0), 0) AS ct
 		FROM
 			bh_visit v
 				JOIN completed_visits cv
@@ -170,7 +175,8 @@ FROM
 	) labs
 		CROSS JOIN (
 		SELECT
-          COALESCE((COUNT(cv.*) FILTER ( WHERE cv.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0), 0) AS ct
+			COALESCE((COUNT(cv.*) FILTER ( WHERE cv.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
+			         0) AS ct
 		FROM
 			bh_visit v
 				JOIN c_bpartner bp
@@ -185,357 +191,6 @@ FROM
 			v.ad_client_id = _ad_client_id
 			AND v.bh_visitdate BETWEEN _begin_date AND _end_date
 	) v_per;
-$$;
-
-DROP FUNCTION IF EXISTS bh_dashboard_get_diagnosis_usage(_ad_client_id numeric, _begin_date timestamp, _end_date timestamp);
-CREATE OR REPLACE FUNCTION bh_dashboard_get_diagnosis_usage(_ad_client_id numeric, _begin_date timestamp, _end_date timestamp)
-	RETURNS table
-	        (
-		        m_product_id  numeric,
-		        name          varchar,
-		        current       numeric,
-		        previous      numeric,
-		        current_total numeric
-	        )
-	LANGUAGE sql
-	STABLE
-AS
-$$
-WITH current_period_primary_diagnoses AS (
-	SELECT
-		c.bh_concept_id,
-		ed.bh_uncoded_diagnosis,
-		COUNT(ed.*) AS ct
-	FROM
-		bh_encounter_diagnosis ed
-			JOIN bh_encounter e
-			ON e.bh_encounter_id = ed.bh_encounter_id
-			JOIN bh_visit v
-			ON e.bh_visit_id = v.bh_visit_id AND v.bh_visitdate BETWEEN _begin_date AND _end_date AND
-			   v.ad_client_id = _ad_client_id
-			LEFT JOIN bh_concept c
-			ON ed.bh_concept_id = c.bh_concept_id
-	WHERE
-		ed.lineno = 0
-	GROUP BY c.bh_concept_id, ed.bh_uncoded_diagnosis
-),
-	current_period_diagnoses AS (
-		SELECT
-			c.bh_concept_id,
-			ed.bh_uncoded_diagnosis,
-			COUNT(ed.*) AS ct
-		FROM
-			bh_encounter_diagnosis ed
-				JOIN bh_encounter e
-				ON e.bh_encounter_id = ed.bh_encounter_id
-				JOIN bh_visit v
-				ON e.bh_visit_id = v.bh_visit_id AND v.bh_visitdate BETWEEN _begin_date AND _end_date AND
-				   v.ad_client_id = _ad_client_id
-				LEFT JOIN bh_concept c
-				ON ed.bh_concept_id = c.bh_concept_id
-		GROUP BY c.bh_concept_id, ed.bh_uncoded_diagnosis
-	),
-	previous_period_diagnoses AS (
-		SELECT
-			c.bh_concept_id,
-			ed.bh_uncoded_diagnosis,
-			COUNT(ed.*) AS ct
-		FROM
-			bh_encounter_diagnosis ed
-				JOIN bh_encounter e
-				ON e.bh_encounter_id = ed.bh_encounter_id
-				JOIN bh_visit v
-				ON e.bh_visit_id = v.bh_visit_id AND
-				   v.bh_visitdate BETWEEN (_begin_date - (_end_date - _begin_date)) AND _begin_date AND
-				   v.ad_client_id = _ad_client_id
-				LEFT JOIN bh_concept c
-				ON ed.bh_concept_id = c.bh_concept_id
-		GROUP BY c.bh_concept_id, ed.bh_uncoded_diagnosis
-	)
-SELECT
-	cppd.bh_concept_id,
-	cppd.bh_uncoded_diagnosis,
-	cppd.ct             AS current,
-	COALESCE(ppd.ct, 0) AS previous,
-	COALESCE(cpd.ct, 0) AS current_total
-FROM
-	(
-		SELECT *
-		FROM
-			current_period_primary_diagnoses
-		ORDER BY ct DESC
-		LIMIT 10
-	) cppd
-		LEFT JOIN previous_period_diagnoses ppd
-		ON cppd.bh_concept_id = ppd.bh_concept_id OR cppd.bh_uncoded_diagnosis = ppd.bh_uncoded_diagnosis
-		LEFT JOIN current_period_diagnoses cpd
-		ON cppd.bh_concept_id = cpd.bh_concept_id OR cppd.bh_uncoded_diagnosis = cpd.bh_uncoded_diagnosis
-UNION ALL
-SELECT
-	NULL,
-	'Other',
-	COALESCE(SUM(ct), 0),
-	NULL,
-	NULL
-FROM
-	current_period_primary_diagnoses
-WHERE
-	bh_concept_id || COALESCE(bh_uncoded_diagnosis, '') NOT IN (
-		SELECT
-			bh_concept_id || COALESCE(bh_uncoded_diagnosis, '')
-		FROM
-			current_period_primary_diagnoses
-		ORDER BY ct DESC
-		LIMIT 10
-	);
-$$;
-
-DROP FUNCTION IF EXISTS bh_dashboard_get_product_usage(_ad_client_id numeric, _begin_date timestamp, _end_date timestamp);
-CREATE OR REPLACE FUNCTION bh_dashboard_get_product_usage(_ad_client_id numeric, _begin_date timestamp, _end_date timestamp)
-	RETURNS table
-	        (
-		        m_product_id numeric,
-		        name         varchar,
-		        current      numeric,
-		        previous     numeric
-	        )
-	LANGUAGE sql
-	STABLE
-AS
-$$
-WITH current_period_product AS (
-	SELECT
-		p.m_product_id,
-		COUNT(p.*) AS ct
-	FROM
-		m_product p
-			JOIN c_orderline ol
-			ON p.m_product_id = ol.m_product_id
-			JOIN c_order o
-			ON ol.c_order_id = o.c_order_id AND o.docstatus IN ('CO', 'CL')
-			JOIN bh_visit v
-			ON o.bh_visit_id = v.bh_visit_id AND v.bh_visitdate BETWEEN _begin_date AND _end_date AND
-			   v.ad_client_id = _ad_client_id
-			JOIN m_product_category pc
-			ON p.m_product_category_id = pc.m_product_category_id AND pc.name = 'Pharmacy'
-	WHERE
-		p.producttype = 'I'
-	GROUP BY p.m_product_id
-),
-	previous_period_product AS (
-		SELECT
-			p.m_product_id,
-			COUNT(p.*) AS ct
-		FROM
-			m_product p
-				JOIN c_orderline ol
-				ON p.m_product_id = ol.m_product_id
-				JOIN c_order o
-				ON ol.c_order_id = o.c_order_id AND o.docstatus IN ('CO', 'CL')
-				JOIN bh_visit v
-				ON o.bh_visit_id = v.bh_visit_id AND
-				   v.bh_visitdate BETWEEN (_begin_date - (_end_date - _begin_date)) AND _begin_date AND
-				   v.ad_client_id = _ad_client_id
-				JOIN m_product_category pc
-				ON p.m_product_category_id = pc.m_product_category_id AND pc.name = 'Pharmacy'
-		WHERE
-			p.producttype = 'I'
-		GROUP BY p.m_product_id
-	)
-SELECT
-	cpp.m_product_id,
-	p.name,
-	cpp.ct              AS current,
-	COALESCE(ppp.ct, 0) AS previous
-FROM
-	(
-		SELECT *
-		FROM
-			current_period_product
-		ORDER BY ct DESC
-		LIMIT 10
-	) cpp
-		LEFT JOIN previous_period_product ppp
-		ON cpp.m_product_id = ppp.m_product_id
-		JOIN m_product p
-		ON cpp.m_product_id = p.m_product_id
-UNION ALL
-SELECT
-	NULL,
-	'Other',
-	COALESCE(SUM(ct), 0),
-	NULL
-FROM
-	current_period_product
-WHERE
-	m_product_id NOT IN (
-		SELECT
-			m_product_id
-		FROM
-			current_period_product
-		ORDER BY ct DESC
-		LIMIT 10
-	);
-$$;
-
-DROP FUNCTION IF EXISTS bh_dashboard_get_lab_usage(_ad_client_id numeric, _begin_date timestamp, _end_date timestamp);
-CREATE OR REPLACE FUNCTION bh_dashboard_get_lab_usage(_ad_client_id numeric, _begin_date timestamp, _end_date timestamp)
-	RETURNS table
-	        (
-		        bh_concept_id numeric,
-		        name          varchar,
-		        current       numeric,
-		        previous      numeric
-	        )
-	LANGUAGE sql
-	STABLE
-AS
-$$
-WITH current_period_lab AS (
-	SELECT
-		bh_concept_id,
-		COUNT(*) AS ct
-	FROM
-		(
-			SELECT DISTINCT
-				v.bh_visit_id,
-				COALESCE(ed.selected_panel_id, ed.bh_concept_id) AS bh_concept_id
-			FROM
-				bh_encounter_diagnostic ed
-					JOIN bh_encounter e
-					ON e.bh_encounter_id = ed.bh_encounter_id
-					JOIN bh_visit v
-					ON e.bh_visit_id = v.bh_visit_id AND v.bh_visitdate BETWEEN _begin_date AND _end_date AND
-					   v.ad_client_id = _ad_client_id
-		) l
-	GROUP BY bh_concept_id
-),
-	previous_period_lab AS (
-		SELECT
-			bh_concept_id,
-			COUNT(*) AS ct
-		FROM
-			(
-				SELECT DISTINCT
-					v.bh_visit_id,
-					COALESCE(ed.selected_panel_id, ed.bh_concept_id) AS bh_concept_id
-				FROM
-					bh_encounter_diagnostic ed
-						JOIN bh_encounter e
-						ON e.bh_encounter_id = ed.bh_encounter_id
-						JOIN bh_visit v
-						ON e.bh_visit_id = v.bh_visit_id AND
-						   v.bh_visitdate BETWEEN (_begin_date - (_end_date - _begin_date)) AND _begin_date AND
-						   v.ad_client_id = _ad_client_id
-			) l
-		GROUP BY bh_concept_id
-	)
-SELECT
-	cpl.bh_concept_id,
-	c.bh_display_name   AS name,
-	cpl.ct              AS current,
-	COALESCE(ppl.ct, 0) AS previous
-FROM
-	(
-		SELECT *
-		FROM
-			current_period_lab
-		ORDER BY ct DESC
-		LIMIT 10
-	) cpl
-		LEFT JOIN previous_period_lab ppl
-		ON cpl.bh_concept_id = ppl.bh_concept_id
-		LEFT JOIN bh_concept c
-		ON cpl.bh_concept_id = c.bh_concept_id
-UNION ALL
-SELECT
-	NULL,
-	'Other',
-	COALESCE(SUM(ct), 0),
-	NULL
-FROM
-	current_period_lab
-WHERE
-	bh_concept_id NOT IN (
-		SELECT
-			bh_concept_id
-		FROM
-			current_period_lab
-		ORDER BY ct DESC
-		LIMIT 10
-	);
-$$;
-
-DROP FUNCTION IF EXISTS bh_dashboard_get_visit_history_stats(_ad_client_id numeric, _begin_date timestamp, _end_date timestamp);
-CREATE OR REPLACE FUNCTION bh_dashboard_get_visit_history_stats(_ad_client_id numeric, _begin_date timestamp, _end_date timestamp)
-	RETURNS table
-	        (
-		        bucket_value         timestamp,
-		        ad_ref_list_id       numeric,
-		        alternate_visit_type varchar,
-		        frequency            numeric
-	        )
-	LANGUAGE sql
-	STABLE
-AS
-$$
-WITH completed_visits AS (
-	SELECT
-		v.bh_visit_id,
-		bpg.name != 'Patients - DO NOT CHANGE' AS is_otc
-	FROM
-		bh_visit v
-			JOIN c_bpartner bp
-			ON v.patient_id = bp.c_bpartner_id
-			JOIN c_bp_group bpg
-			ON bp.c_bp_group_id = bpg.c_bp_group_id
-			JOIN c_order o
-			ON v.bh_visit_id = o.bh_visit_id AND o.docstatus IN ('CO', 'CL')
-	WHERE
-		v.ad_client_id = _ad_client_id
-		AND v.bh_visitdate BETWEEN _begin_date AND _end_date
-),
-	buckets_cte AS (
-		SELECT
-			CASE WHEN cv.is_otc = TRUE THEN NULL ELSE rl.ad_ref_list_id END AS ad_ref_list_id,
-			CASE
-				WHEN cv.is_otc = TRUE THEN 'Over the Counter (OTC)'
-				WHEN v.bh_patienttype IS NULL THEN 'None'
-				END                                                           AS alternate_visit_type,
-			WIDTH_BUCKET(EXTRACT(EPOCH FROM bh_visitdate), EXTRACT(EPOCH FROM _begin_date),
-			             EXTRACT(EPOCH FROM _end_date), 6)                  AS bucket_number
-		FROM
-			bh_visit v
-				JOIN completed_visits cv
-				ON cv.bh_visit_id = v.bh_visit_id
-				LEFT JOIN ad_ref_list rl
-				ON v.bh_patienttype = rl.value
-				LEFT JOIN ad_reference r
-				ON rl.ad_reference_id = r.ad_reference_id
-		WHERE
-			r.ad_reference_id IS NULL
-			OR r.ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
-	),
-	bucket_mapping (bucket_number, bucket_value) AS (
-		VALUES
-			(1, _begin_date),
-			(2, _end_date - (_end_date - _begin_date) * 5 / 6),
-			(3, _end_date - (_end_date - _begin_date) * 4 / 6),
-			(4, _end_date - (_end_date - _begin_date) * 3 / 6),
-			(5, _end_date - (_end_date - _begin_date) * 2 / 6),
-			(6, _end_date - (_end_date - _begin_date) / 6)
-	)
-SELECT
-	bm.bucket_value,
-	ad_ref_list_id,
-	alternate_visit_type,
-	COUNT(*) AS frequency
-FROM
-	bucket_mapping bm
-		JOIN buckets_cte bcte
-		ON bcte.bucket_number = bm.bucket_number
-GROUP BY
-	bm.bucket_value, ad_ref_list_id, alternate_visit_type;
 $$;
 
 -- Wrap up and be done

@@ -66,7 +66,7 @@ FROM
 	) new_p
 		CROSS JOIN (
 		SELECT
-			AVG(ct) AS avg
+			COALESCE(AVG(ct), 0) AS avg
 		FROM
 			(
 				SELECT
@@ -85,7 +85,7 @@ FROM
 	) avg_pr
 		CROSS JOIN (
 		SELECT
-			AVG(o.grandtotal) AS avg
+			COALESCE(AVG(o.grandtotal), 0) AS avg
 		FROM
 			bh_visit v
 				JOIN completed_visits cv
@@ -95,7 +95,7 @@ FROM
 	) avg_chg
 		CROSS JOIN (
 		SELECT
-			EXTRACT(DAY FROM AVG(t.movementdate - t_r.movementdate)) AS avg
+			COALESCE(EXTRACT(DAY FROM AVG(t.movementdate - t_r.movementdate)), 0) AS avg
 		FROM
 			m_transaction t
 				JOIN m_transaction t_r
@@ -108,9 +108,12 @@ FROM
 	) prd_turn
 		CROSS JOIN (
 		SELECT
-			(COUNT(v_v.*) FILTER ( WHERE v_v.bh_visit_id IS NOT NULL ))::numeric / COUNT(v.*)::numeric AS ct_v,
-			(COUNT(v_d.*) FILTER ( WHERE v_d.bh_visit_id IS NOT NULL ))::numeric / COUNT(v.*)::numeric AS ct_d,
-			(COUNT(v_n.*) FILTER ( WHERE v_n.bh_visit_id IS NOT NULL ))::numeric / COUNT(v.*)::numeric AS ct_n
+			COALESCE((COUNT(v_v.*) FILTER ( WHERE v_v.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
+			         0) AS ct_v,
+			COALESCE((COUNT(v_d.*) FILTER ( WHERE v_d.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
+			         0) AS ct_d,
+			COALESCE((COUNT(v_n.*) FILTER ( WHERE v_n.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
+			         0) AS ct_n
 		FROM
 			bh_visit v
 				JOIN completed_visits cv
@@ -157,9 +160,10 @@ FROM
 	) doc_quality
 		CROSS JOIN (
 		SELECT
-			(COUNT(ed.*)
-			 FILTER ( WHERE ed.bh_diagnostic_note IS NOT NULL OR (ed.bh_value IS NOT NULL AND ed.bh_value != '') ))::numeric /
-			COUNT(ed.*)::numeric AS ct
+			COALESCE((COUNT(ed.*)
+			          FILTER ( WHERE ed.bh_diagnostic_note IS NOT NULL OR
+			                         (ed.bh_value IS NOT NULL AND ed.bh_value != '') ))::numeric /
+			         NULLIF(COUNT(ed.*)::numeric, 0), 0) AS ct
 		FROM
 			bh_visit v
 				JOIN completed_visits cv
@@ -171,7 +175,8 @@ FROM
 	) labs
 		CROSS JOIN (
 		SELECT
-			(COUNT(cv.*) FILTER ( WHERE cv.bh_visit_id IS NOT NULL ))::numeric / COUNT(v.*)::numeric AS ct
+			COALESCE((COUNT(cv.*) FILTER ( WHERE cv.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
+			         0) AS ct
 		FROM
 			bh_visit v
 				JOIN c_bpartner bp
