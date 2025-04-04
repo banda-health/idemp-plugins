@@ -192,3 +192,9 @@ FROM
 			AND v.bh_visitdate BETWEEN _begin_date AND _end_date
 	) v_per;
 $$;
+
+-- Wrap up and be done
+SELECT
+	register_migration_script('202504041532_GO-3262.sql')
+FROM
+	dual;
