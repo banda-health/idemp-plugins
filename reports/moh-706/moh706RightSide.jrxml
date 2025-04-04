@@ -22,80 +22,143 @@
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT
-	COALESCE(oi.bh_affiliation, '')                                                                                      AS affiliation,
+		<![CDATA[WITH desired_ocl_urls (url) AS (
+	VALUES
+		('/orgs/CIEL/sources/CIEL/concepts/299/'),
+		('/orgs/CIEL/sources/CIEL/concepts/305/'),
+		('/orgs/CIEL/sources/CIEL/concepts/307/'),
+		('/orgs/CIEL/sources/CIEL/concepts/1032/'),
+		('/orgs/CIEL/sources/CIEL/concepts/1325/'),
+		('/orgs/CIEL/sources/CIEL/concepts/1945/'),
+		('/orgs/CIEL/sources/CIEL/concepts/159430/'),
+		('/orgs/CIEL/sources/CIEL/concepts/161469/'),
+		('/orgs/CIEL/sources/CIEL/concepts/161470/'),
+		('/orgs/CIEL/sources/CIEL/concepts/161471/'),
+		('/orgs/CIEL/sources/CIEL/concepts/161472/'),
+		('/orgs/CIEL/sources/CIEL/concepts/163620/'),
+		('/orgs/CIEL/sources/CIEL/concepts/163722/'),
+		('/orgs/CIEL/sources/CIEL/concepts/165301/'),
+		('/orgs/CIEL/sources/CIEL/concepts/165302/'),
+		('/orgs/CIEL/sources/CIEL/concepts/166555/'),
+		('/orgs/Regenstrief/sources/LOINC/concepts/20575-7/'),
+		('/orgs/Regenstrief/sources/LOINC/concepts/22314-9/'),
+		('/orgs/Regenstrief/sources/LOINC/concepts/32018-4/')
+),
+	concept_same_as_mappings AS
+		(
+			SELECT
+				dou.url,
+				cm.bh_from_concept_url
+			FROM
+				desired_ocl_urls dou
+					JOIN bh_concept_mapping cm
+					ON dou.url = cm.bh_to_concept_url AND bh_map_type IN ('SAME-AS', 'Same As') AND
+					   bh_from_concept_url != bh_to_concept_url
+			UNION ALL
+			SELECT
+				url,
+				url
+			FROM
+				desired_ocl_urls
+		)
+SELECT
+	COALESCE(oi.bh_affiliation, '')                                                                                     AS affiliation,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '307')                            AS tb_smear_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '307' AND
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
+		                                           '/orgs/CIEL/sources/CIEL/concepts/307/' )                              AS tb_smear_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url = '/orgs/CIEL/sources/CIEL/concepts/307/' AND
 		                           ed.bh_value IN ('Positive', 'One plus', 'Two plus', 'Three plus',
-		                                           'Scanty') )                                                             AS tb_smear_positive,
+		                                           'Scanty') )                                                            AS tb_smear_positive,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '299')                            AS vdrl_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '299' AND ed.bh_value =
-		                                                                                                       'Reactive') AS vdrl_positive,
-		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '1032')                           AS tpha_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '1032' AND
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
+		                                           '/orgs/CIEL/sources/CIEL/concepts/299/' )                              AS vdrl_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url = '/orgs/CIEL/sources/CIEL/concepts/299/' AND
 		                           ed.bh_value =
-		                           'Reactive')                                                                             AS tpha_positive,
+		                           'Reactive')                                                                            AS vdrl_positive,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '161469')                         AS asot_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '161469' AND
-		                           ed.bh_value::NUMERIC >
-		                           200)                                                                                    AS asot_positive,
-		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '163722')                         AS hiv_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '163722' AND
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
+		                                           '/orgs/CIEL/sources/CIEL/concepts/1032/' )                             AS tpha_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url = '/orgs/CIEL/sources/CIEL/concepts/1032/' AND
 		                           ed.bh_value =
-		                           'Positive')                                                                             AS hiv_positive,
+		                           'Reactive')                                                                            AS tpha_positive,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '305')                            AS brucella_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '305' AND ed.bh_value =
-		                                                                                                       'Reactive') AS brucella_positive,
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
+		                                           '/orgs/CIEL/sources/CIEL/concepts/161469/' )                           AS asot_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url = '/orgs/CIEL/sources/CIEL/concepts/161469/' AND
+		                           csam.url IS NOT NULL AND ed.bh_value::NUMERIC >
+		                                                    200)                                                          AS asot_positive,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '161470')                         AS rheumatoid_factor_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '161470' AND
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
+		                                           '/orgs/CIEL/sources/CIEL/concepts/163722/' )                           AS hiv_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url = '/orgs/CIEL/sources/CIEL/concepts/163722/' AND
 		                           ed.bh_value =
-		                           'Positive')                                                                             AS rheumatoid_factor_positive,
+		                           'Positive')                                                                            AS hiv_positive,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '163620')                         AS hpylori_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '163620' AND
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
+		                                           '/orgs/CIEL/sources/CIEL/concepts/305/' )                              AS brucella_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url = '/orgs/CIEL/sources/CIEL/concepts/305/' AND
 		                           ed.bh_value =
-		                           'Positive')                                                                             AS hpylori_positive,
+		                           'Reactive')                                                                            AS brucella_positive,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'LOINC' AND c.bh_oclid IN ('20575-7', '32018-4',
-		                                                                                    '22314-9'))                    AS hepatitisa_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'LOINC' AND
-		                           c.bh_oclid IN ('20575-7', '32018-4', '22314-9') AND ed.bh_value NOT ILIKE
-		                                                                               '%neg%')                            AS hepatitisa_positive,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('159430', '161472',
-		                                                                                               '165301'))          AS hepatitisb_total,
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
+		                                           '/orgs/CIEL/sources/CIEL/concepts/161470/' )                           AS rheumatoid_factor_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url = '/orgs/CIEL/sources/CIEL/concepts/161470/' AND
+		                           ed.bh_value =
+		                           'Positive')                                                                            AS rheumatoid_factor_positive,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('159430', '161472', '165301') AND
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
+		                                           '/orgs/CIEL/sources/CIEL/concepts/163620/' )                           AS hpylori_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url = '/orgs/CIEL/sources/CIEL/concepts/163620/' AND
+		                           ed.bh_value =
+		                           'Positive')                                                                            AS hpylori_positive,
+		COUNT(ed.*)
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url IN ('/orgs/Regenstrief/sources/LOINC/concepts/20575-7/',
+		                                                        '/orgs/Regenstrief/sources/LOINC/concepts/22314-9/',
+		                                                        '/orgs/Regenstrief/sources/LOINC/concepts/32018-4/') )    AS hepatitisa_total,
+		COUNT(ed.*)
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url IN ('/orgs/Regenstrief/sources/LOINC/concepts/20575-7/',
+		                                                        '/orgs/Regenstrief/sources/LOINC/concepts/22314-9/',
+		                                                        '/orgs/Regenstrief/sources/LOINC/concepts/32018-4/') AND
+		               ed.bh_value NOT ILIKE
+		               '%neg%')                                                                                           AS hepatitisa_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url IN ('/orgs/CIEL/sources/CIEL/concepts/159430/',
+		                                                                    '/orgs/CIEL/sources/CIEL/concepts/161472/',
+		                                                                    '/orgs/CIEL/sources/CIEL/concepts/165301/') ) AS hepatitisb_total,
+		COUNT(ed.*)
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url IN ('/orgs/CIEL/sources/CIEL/concepts/159430/',
+		                                                        '/orgs/CIEL/sources/CIEL/concepts/161472/',
+		                                                        '/orgs/CIEL/sources/CIEL/concepts/165301/') AND
 		               LOWER(ed.bh_value) =
-		               'positive')                                                                                         AS hepatitisb_positive,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('1325', '161471',
-		                                                                                               '165302'))          AS hepatitisc_total,
+		               'positive')                                                                                        AS hepatitisb_positive,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url IN ('/orgs/CIEL/sources/CIEL/concepts/1325/',
+		                                                                    '/orgs/CIEL/sources/CIEL/concepts/161471/',
+		                                                                    '/orgs/CIEL/sources/CIEL/concepts/165302/') ) AS hepatitisc_total,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid IN ('1325', '161471', '165302') AND
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url IN ('/orgs/CIEL/sources/CIEL/concepts/1325/',
+		                                                        '/orgs/CIEL/sources/CIEL/concepts/161471/',
+		                                                        '/orgs/CIEL/sources/CIEL/concepts/165302/') AND
 		               LOWER(ed.bh_value) =
-		               'positive')                                                                                         AS hepatitisc_positive,
+		               'positive')                                                                                        AS hepatitisc_positive,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '1945')                           AS hcg_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '1945' AND
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
+		                                           '/orgs/CIEL/sources/CIEL/concepts/1945/' )                             AS hcg_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url = '/orgs/CIEL/sources/CIEL/concepts/1945/' AND
 		                           ed.bh_value =
-		                           'Positive')                                                                             AS hcg_positive,
+		                           'Positive')                                                                            AS hcg_positive,
 		COUNT(ed.*)
-		FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '166555')                         AS crag_test_total,
-		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND c.bh_source = 'CIEL' AND c.bh_oclid = '166555' AND
+		FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
+		                                           '/orgs/CIEL/sources/CIEL/concepts/166555/' )                           AS crag_test_total,
+		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url = '/orgs/CIEL/sources/CIEL/concepts/166555/' AND
 		                           ed.bh_value =
-		                           'Positive')                                                                             AS crag_test_positive
+		                           'Positive')                                                                            AS crag_test_positive
 
 FROM
 	(
 		SELECT *
-		FROM ad_orginfo
-		WHERE ad_client_id = $P{AD_CLIENT_ID}
+		FROM
+			ad_orginfo
+		WHERE
+			ad_client_id = $P{AD_CLIENT_ID}
 		LIMIT 1
 	) oi
 		LEFT JOIN bh_visit v
@@ -106,6 +169,8 @@ FROM
 		ON e.bh_encounter_id = ed.bh_encounter_id
 		LEFT JOIN bh_concept c
 		ON ed.bh_concept_id = c.bh_concept_id
+		LEFT JOIN concept_same_as_mappings csam
+		ON c.url = csam.bh_from_concept_url
 		LEFT JOIN c_bpartner patient
 		ON patient.c_bpartner_id = v.patient_id
 GROUP BY

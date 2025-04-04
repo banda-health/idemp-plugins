@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnostic;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
@@ -192,7 +193,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
-		double originalGlucoseCount = 0;
+		double originalGlucoseCount;
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			Map<String, Map<String, Double>> urineAnalysisTableInformation =
@@ -280,7 +281,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
-		Map<String, Double> originalOgttData = new HashMap<>();
+		Map<String, Double> originalOgttData;
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			Map<String, Map<String, Double>> bloodChemistryInformation =
@@ -369,7 +370,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
-		Map<String, Map<String, Double>> originalMalariaData = new HashMap<>();
+		Map<String, Map<String, Double>> originalMalariaData;
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			originalMalariaData = getTableInformation(sheet, "3. PARASITOLOGY", "4. HAEMATOLOGY");
@@ -471,7 +472,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
-		Map<String, Map<String, Double>> originalHaematologyData = new HashMap<>();
+		Map<String, Map<String, Double>> originalHaematologyData;
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			originalHaematologyData = getTableInformation(sheet, "4. HAEMATOLOGY", "9. Drug Susceptibility Testing");
@@ -713,7 +714,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
-		Map<String, Map<String, Double>> originalBacteriologyData = new HashMap<>();
+		Map<String, Map<String, Double>> originalBacteriologyData;
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			originalBacteriologyData = getTableInformation(sheet, "5. BACTERIOLOGY", "l. Cefoxitin/oxacillin");
@@ -800,7 +801,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
-		Map<String, Map<String, Double>> originalSerologyData = new HashMap<>();
+		Map<String, Map<String, Double>> originalSerologyData;
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			originalSerologyData = getTableInformation(sheet, "7. SEROLOGY", "l. Cefoxitin/oxacillin");
@@ -867,6 +868,130 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 					serologyData.get("7.1 VDRL").get("Total Exam"), "7.1 total counts correct");
 			assertEquals(originalSerologyData.get("7.1 VDRL").get("Number Positive") + 1,
 					serologyData.get("7.1 VDRL").get("Number Positive"), "7.1 positive counts correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void bandaSameAsMappingIsCounted() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		Map<String, Map<String, Double>> originalSerologyData;
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			originalSerologyData = getTableInformation(sheet, "7. SEROLOGY", "l. Cefoxitin/oxacillin");
+		}
+
+		valueObject.setStepName("Create a patient");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create a visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create CIEL Helocobacter diagnostic if it doesn't exist");
+		MBHConcept cielConcept = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+				MBHConcept.COLUMNNAME_BH_OclID + "=? AND " + MBHConcept.COLUMNNAME_BH_Source + " =?",
+				valueObject.getTransactionName()).setParameters("163620", "CIEL").first();
+		if (cielConcept == null) {
+			cielConcept = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+			cielConcept.setBH_Display_Name("Helicobacter Pylori Ab presence in serum by immunofluorescence test");
+			cielConcept.setIsActive(true);
+			cielConcept.setBH_ExternalID("163620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			cielConcept.setBH_OclID("163620");
+			cielConcept.setBH_Owner("CIEL");
+			cielConcept.setBH_Source("CIEL");
+			cielConcept.saveEx();
+			commitEx();
+		}
+
+		valueObject.setStepName("Create BH Helocobacter diagnostic if it doesn't exist");
+		MBHConcept diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+				MBHConcept.COLUMNNAME_BH_OclID + "=? AND " + MBHConcept.COLUMNNAME_BH_Source + " =?",
+				valueObject.getTransactionName()).setParameters("7749563", "BHLabs").first();
+		if (diagnostic == null) {
+			diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+			diagnostic.setBH_Display_Name("Helicobacter Pylori Ab presence in serum by immunofluorescence test");
+			diagnostic.setIsActive(true);
+			diagnostic.setBH_ExternalID("8ba6a78c-f49e-4acc-b076-e7ba55415173");
+			diagnostic.setBH_OclID("7749563");
+			diagnostic.setBH_Owner("bandahealth");
+			diagnostic.setBH_Source("BHLabs");
+			diagnostic.setURL("/orgs/bandahealth/sources/BHLabs/concepts/7749563/");
+			diagnostic.saveEx();
+			commitEx();
+		}
+
+		// Confirm that the same-as mapping exists
+		MBHConceptMapping conceptMapping = new Query(valueObject.getContext(), MBHConceptMapping.Table_Name,
+				MBHConceptMapping.COLUMNNAME_BH_From_Concept_Url + "=? AND " + MBHConceptMapping.COLUMNNAME_BH_To_Concept_Url +
+						"=?", valueObject.getTransactionName()).setParameters("/orgs/bandahealth/sources/BHLabs/concepts/7749563/",
+				"/orgs/CIEL/sources/CIEL/concepts/163620/").first();
+		if (conceptMapping == null) {
+			conceptMapping = new MBHConceptMapping(valueObject.getContext(), 0, valueObject.getTransactionName());
+			conceptMapping.setBH_Map_Type("SAME-AS");
+			conceptMapping.setIsActive(true);
+			conceptMapping.setFrom_BH_Concept_ID(diagnostic.get_ID());
+			conceptMapping.setBH_From_Concept_Url("/orgs/bandahealth/sources/BHLabs/concepts/7749563/");
+			conceptMapping.setBH_OclID("10246889");
+			conceptMapping.setBH_Owner("bandahealth");
+			conceptMapping.setBH_Source("BHLabs");
+			conceptMapping.setTo_BH_Concept_ID(cielConcept.get_ID());
+			conceptMapping.setBH_To_Concept_Url("/orgs/CIEL/sources/CIEL/concepts/163620/");
+			conceptMapping.saveEx();
+			commitEx();
+		}
+
+		valueObject.setStepName("Create diagnostics");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+		commitEx();
+
+		MBHEncounterDiagnostic encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
+		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnostic.setBH_Concept_ID(diagnostic.get_ID());
+		encounterDiagnostic.setBH_Value("Positive");
+		encounterDiagnostic.setLineNo(10);
+		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
+		encounterDiagnostic.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Map<String, Map<String, Double>> serologyData =
+					getTableInformation(sheet, "7. SEROLOGY", "l. Cefoxitin/oxacillin");
+			assertEquals(originalSerologyData.get("7.7 Helicobacter pylori").get("Total Exam") + 1,
+					serologyData.get("7.7 Helicobacter pylori").get("Total Exam"), "7.7 total counts correct");
+			assertEquals(originalSerologyData.get("7.7 Helicobacter pylori").get("Number Positive") + 1,
+					serologyData.get("7.7 Helicobacter pylori").get("Number Positive"), "7.7 positive counts correct");
 		}
 	}
 }
