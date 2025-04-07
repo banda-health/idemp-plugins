@@ -35,12 +35,30 @@
 32900,Retained Earnings,Year end processing to balance account (Income Summary),Owner's Equity,,Yes,No,,32
 4,REVENUE,,Revenue,,,Yes,,
 41,Patient Revenue,Default Product or Service revenue,Revenue,,,Yes,,4
-41100,Patient Revenue - Services,,Revenue,,,No,,41
-41110,Patient Revenue - Pharmacy,,Revenue,,,No,,41
-41120,Patient Revenue - Laboratory,,Revenue,,,No,,41
-41130,Patient Revenue - Radiology,,Revenue,,,No,,41
-41140,Patient Revenue - Other,,Revenue,,,No,,41
-41150,Patient Revenue - Unassigned,,Revenue,,,No,P_REVENUE_ACCT,41
+411,Product Revenue,,Revenue,,,Yes,,41
+41110,Patient Revenue - Pharmacy,,Revenue,,,No,,411
+41120,Patient Revenue - Laboratory,,Revenue,,,No,,411
+41130,Patient Revenue - Radiology,,Revenue,,,No,,411
+41140,Patient Revenue - Other,,Revenue,,,No,,411
+41150,Patient Revenue - Unassigned,,Revenue,,,No,P_REVENUE_ACCT,411
+412,Service Revenue,,Revenue,,,Yes,,41
+41200,Service Revenue - Other,,Revenue,,,No,,412
+41201,Service Revenue - Consultation,,Revenue,,,No,,412
+41202,Service Revenue - Laboratory,,Revenue,,,No,,412
+41203,Service Revenue - Imaging,,Revenue,,,No,,412
+41204,Service Revenue - Dental,,Revenue,,,No,,412
+41205,Service Revenue - Orthopedic Trauma Services,,Revenue,,,No,,412
+41206,Service Revenue - OPD procedures,,Revenue,,,No,,412
+41207,Service Revenue - Antenatal care,,Revenue,,,No,,412
+41208,Service Revenue - Postnatal care,,Revenue,,,No,,412
+41209,Service Revenue - Family planning,,Revenue,,,No,,412
+41210,Service Revenue - Maternity,,Revenue,,,No,,412
+41211,Service Revenue - Eye Clinic,,Revenue,,,No,,412
+41212,Service Revenue - Surgery,,Revenue,,,No,,412
+41213,Service Revenue - Day-case Services,,Revenue,,,No,,412
+41214,Service Revenue - Home Care Services,,Revenue,,,No,,412
+41215,Service Revenue - Inpatient,,Revenue,,,No,,412
+41216,Service Revenue - Follow up,,Revenue,,,No,,412
 44,Insurance Revenue,,Revenue,,,Yes,,4
 44100,Capitation Insurance Revenue,Contra revenue,Revenue,,,No,,44
 44200,Regular Insurance Revenue,Contra revenue,Revenue,,,No,,44
