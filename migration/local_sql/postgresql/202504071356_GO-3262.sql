@@ -69,3 +69,9 @@ FROM
 GROUP BY
 	bm.bucket_value, ad_ref_list_id, alternate_visit_type;
 $$;
+
+-- Wrap up and be done
+SELECT
+	register_migration_script('202504041532_GO-3262.sql')
+FROM
+	dual;
