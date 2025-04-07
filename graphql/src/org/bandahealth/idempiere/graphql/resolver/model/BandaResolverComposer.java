@@ -13,6 +13,10 @@ public class BandaResolverComposer {
 	 */
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.resolvers(
+				new DashboardDiagnosisUsageResolver(),
+				new DashboardProductUsageResolver(),
+				new DashboardLabUsageResolver(),
+				new DashboardVisitHistoryStatResolver(),
 				new IncludedRoleWindowAccessResolver(),
 				new InventoryTransactionResolver(),
 				new M_ElementResolver(),

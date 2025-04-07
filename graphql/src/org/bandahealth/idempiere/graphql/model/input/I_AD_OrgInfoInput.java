@@ -53,6 +53,20 @@ public interface I_AD_OrgInfoInput extends I_AD_OrgInfo {
 	ForeignEntityInput AD_OrgType();
 
 	/**
+	 * Set BH_Affiliation.
+	 *
+	 * @param BH_Affiliation BH_Affiliation
+	 */
+	void setBH_AffiliationInput(ForeignEntityInput BH_Affiliation);
+
+	/**
+	 * Get BH_Affiliation.
+	 *
+	 * @return BH_Affiliation
+	 */
+	ForeignEntityInput BH_Affiliation();
+
+	/**
 	 * Column name BH_ExtraInfo
 	 */
 	static final String COLUMNNAME_BH_ExtraInfo = "BH_ExtraInfo";
