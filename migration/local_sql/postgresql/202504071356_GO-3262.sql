@@ -72,6 +72,6 @@ $$;
 
 -- Wrap up and be done
 SELECT
-	register_migration_script('202504041532_GO-3262.sql')
+	register_migration_script('202504071356_GO-3262.sql')
 FROM
 	dual;
