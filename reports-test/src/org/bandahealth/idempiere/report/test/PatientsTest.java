@@ -81,6 +81,8 @@ public class PatientsTest extends ChuBoePopulateFactoryVO {
 		String businessPartner1Name = valueObject.getBusinessPartner().getName();
 		commitEx();
 		
+		valueObject.clearBusinessPartner();
+		
 		valueObject.setStepName("Create business partner 2 without group");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		valueObject.getBusinessPartner().setTotalOpenBalance(new BigDecimal(1200));
