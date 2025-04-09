@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MBHClientConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -36,7 +38,9 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 
@@ -246,6 +250,160 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 							row.getCell(statusColumnIndex).getCellType().equals(CellType.STRING) &&
 							row.getCell(statusColumnIndex).getStringCellValue().contains("High")).collect(Collectors.toList());
 			assertFalse(testRows.isEmpty(), "Status message appears");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void clientReferenceRangesAreRespected() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.getOrderLine().setPrice(new BigDecimal(20));
+		valueObject.getOrderLine().setQty(new BigDecimal(10));
+		valueObject.getOrderLine().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create diagnostic concept");
+		valueObject.setRandom();
+		MBHConcept diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		diagnostic.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create low concept extra");
+		valueObject.setRandom();
+		MBHConceptExtra conceptExtra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+		conceptExtra.setBH_Key("low_normal");
+		conceptExtra.setBH_Value("5");
+		conceptExtra.setBH_Concept_ID(diagnostic.getBH_Concept_ID());
+		conceptExtra.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create high concept extra");
+		valueObject.setRandom();
+		conceptExtra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+		conceptExtra.setBH_Key("hi_normal");
+		conceptExtra.setBH_Value("10");
+		conceptExtra.setBH_Concept_ID(diagnostic.getBH_Concept_ID());
+		conceptExtra.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create diagnostics");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+		commitEx();
+
+		MBHEncounterDiagnostic encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
+		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnostic.setBH_Concept_ID(diagnostic.get_ID());
+		encounterDiagnostic.setBH_Value("7");
+		encounterDiagnostic.setLineNo(10);
+		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
+		encounterDiagnostic.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		MOrder_BH order = valueObject.getOrder();
+		order.setSalesRep_ID(valueObject.getUser().get_ID());
+		order.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("1a7175fe-2afe-4404-9c56-58d2fda9bc57");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				List.of(new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().get_UUID(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "REFERENCE RANGE");
+			int referenceRangeColumnIndex = TableUtils.getColumnIndex(headerRow, "REFERENCE RANGE");
+			int statusColumnIndex = TableUtils.getColumnIndex(headerRow, "STATUS");
+
+			Optional<Row> testRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(referenceRangeColumnIndex) != null &&
+							row.getCell(referenceRangeColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(referenceRangeColumnIndex).getStringCellValue().equals("5 - 10")).findFirst();
+			assertTrue(testRow.isPresent(), "Reference range is correct");
+			assertEquals("Normal", testRow.get().getCell(statusColumnIndex).getStringCellValue(),
+					"Status message is correct");
+		}
+
+		valueObject.setStepName("Create high normal override");
+		MBHClientConceptExtra clientConceptExtra = new MBHClientConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+		clientConceptExtra.setBH_Concept_Extra_ID(conceptExtra.get_ID());
+		clientConceptExtra.setBH_Value("6");
+		clientConceptExtra.saveEx();
+		commitEx();
+
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "REFERENCE RANGE");
+			int referenceRangeColumnIndex = TableUtils.getColumnIndex(headerRow, "REFERENCE RANGE");
+			int statusColumnIndex = TableUtils.getColumnIndex(headerRow, "STATUS");
+
+			Optional<Row> testRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(referenceRangeColumnIndex) != null &&
+							row.getCell(referenceRangeColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(referenceRangeColumnIndex).getStringCellValue().equals("5 - 6")).findFirst();
+			assertTrue(testRow.isPresent(), "Reference range is correct");
+			assertEquals("High", testRow.get().getCell(statusColumnIndex).getStringCellValue(),
+					"Status message is correct");
+		}
+
+		clientConceptExtra.setBH_Value(null);
+		clientConceptExtra.saveEx();
+		commitEx();
+
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "REFERENCE RANGE");
+			int referenceRangeColumnIndex = TableUtils.getColumnIndex(headerRow, "REFERENCE RANGE");
+			int statusColumnIndex = TableUtils.getColumnIndex(headerRow, "STATUS");
+
+			Optional<Row> testRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(referenceRangeColumnIndex) != null &&
+							row.getCell(referenceRangeColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(referenceRangeColumnIndex).getStringCellValue().equals("> 5")).findFirst();
+			assertTrue(testRow.isPresent(), "Reference range is correct");
+			assertEquals("Normal", testRow.get().getCell(statusColumnIndex).getStringCellValue(),
+					"Status message is correct");
 		}
 	}
 }

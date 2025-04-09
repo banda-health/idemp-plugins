@@ -14,6 +14,7 @@ import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -67,6 +68,55 @@ public class PatientsTest extends ChuBoePopulateFactoryVO {
 							row.getCell(patientNameColumnIndex).getStringCellValue()
 									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).findFirst();
 			assertTrue(patientRow.isPresent(), "Patient's name is on the report");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void patientsReportIsGeneratedCorrectly() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner 1");
+		ChuBoeCreateEntity.createPatient(valueObject);
+		valueObject.getBusinessPartner().setTotalOpenBalance(new BigDecimal(1000));
+		valueObject.getBusinessPartner().saveEx();
+		String businessPartner1Name = valueObject.getBusinessPartner().getName();
+		commitEx();
+
+		valueObject.clearBusinessPartner();
+
+		valueObject.setStepName("Create business partner 2 without group");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setTotalOpenBalance(new BigDecimal(1200));
+		valueObject.getBusinessPartner().saveEx();
+		String businessPartner2Name = valueObject.getBusinessPartner().getName();
+		commitEx();
+
+		valueObject.setStepName("Generate the report to get initial data");
+		valueObject.setProcessUuid(patientsReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Optional<Row> patientRow = StreamSupport
+					.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false)
+									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+											&& cell.getStringCellValue().contains(businessPartner1Name)))
+					.findFirst();
+			Optional<Row> patientRow2 = StreamSupport
+					.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false)
+									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+											&& cell.getStringCellValue().contains(businessPartner2Name)))
+					.findFirst();
+			assertTrue(patientRow.isPresent(), "Patient is present");
+			assertTrue(patientRow2.isEmpty(), "Business partner is not a patient");
 		}
 	}
 }
