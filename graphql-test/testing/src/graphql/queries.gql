@@ -262,7 +262,7 @@ query BH_ConceptGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 			BH_Display_Name
 			BH_Concept_Type
 			BH_Concept_Extras {
-				BH_Client_Concept_Extras {
+				BH_Client_Concept_Extra {
 					BH_Value
 					UU
 				}
