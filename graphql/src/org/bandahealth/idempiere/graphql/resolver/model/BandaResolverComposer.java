@@ -81,6 +81,7 @@ public class BandaResolverComposer {
 				new MBHBPGeneralPayerInfoResolver(),
 				new MBHBPPayerInfoResolver(),
 				new MBHBPSpecificPayerInfoResolver(),
+				new MBHClientConceptExtraResolver(),
 				new MBHClientConceptResolver(),
 				new MBHConceptDescriptionResolver(),
 				new MBHConceptExtraResolver(),

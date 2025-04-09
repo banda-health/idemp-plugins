@@ -76,6 +76,7 @@ public class BandaMutationComposer {
 				new MBHBPGeneralPayerInfoMutation(),
 				new MBHBPPayerInfoMutation(),
 				new MBHBPSpecificPayerInfoMutation(),
+				new MBHClientConceptExtraMutation(),
 				new MBHClientConceptMutation(),
 				new MBHConceptDescriptionMutation(),
 				new MBHConceptExtraMutation(),

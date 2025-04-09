@@ -1,0 +1,28 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.bandahealth.idempiere.base.model.MBHClientConceptExtra;
+import org.bandahealth.idempiere.graphql.repository.Repository;
+import org.dataloader.DataLoader;
+import org.dataloader.DataLoaderRegistry;
+import org.dataloader.MappedBatchLoaderWithContext;
+
+import java.util.List;
+import java.util.Properties;
+
+public class MBHClientConceptExtraDataLoader extends X_BH_Client_Concept_ExtraDataLoader {
+	public static String DATALOADER_BH_Client_Concept_Extra_BY_Concept_Extra_ID =
+			"DATALOADER_BH_Client_Concept_Extra_BY_Concept_Extra_ID";
+
+	@Override
+	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
+		super.register(registry, idempiereContext);
+		registry.register(DATALOADER_BH_Client_Concept_Extra_BY_Concept_Extra_ID,
+				DataLoader.newMappedDataLoader(getByConceptExtraIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
+	}
+
+	private MappedBatchLoaderWithContext<String, List<MBHClientConceptExtra>> getByConceptExtraIdBatchLoader() {
+		return (keys, batchLoaderEnvironment) -> Repository.getGroupsByModelKeysCompletableFuture(
+				batchLoaderEnvironment.getContext(), getTableName(), null, MBHClientConceptExtra::getBH_Concept_Extra_ID,
+				MBHClientConceptExtra.COLUMNNAME_BH_Concept_Extra_ID, keys);
+	}
+}

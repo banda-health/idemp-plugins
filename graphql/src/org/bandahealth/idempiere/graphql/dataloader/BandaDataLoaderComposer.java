@@ -53,6 +53,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPGeneralPayerInfoDa
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPSpecificPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHClientConceptDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHClientConceptExtraDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptDescriptionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptExtraDataLoader;
@@ -904,6 +905,7 @@ public class BandaDataLoaderComposer {
 				new MBHBPGeneralPayerInfoDataLoader(),
 				new MBHBPPayerInfoDataLoader(),
 				new MBHBPSpecificPayerInfoDataLoader(),
+				new MBHClientConceptExtraDataLoader(),
 				new MBHClientConceptDataLoader(),
 				new MBHConceptDataLoader(),
 				new MBHConceptDescriptionDataLoader(),

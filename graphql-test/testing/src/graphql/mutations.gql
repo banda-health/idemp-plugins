@@ -108,6 +108,28 @@ mutation BH_AllergySave($BH_Allergy: BH_AllergyInput!) {
 	}
 }
 
+mutation BH_Client_Concept_ExtraDelete($UUs: [String!]!) {
+	BH_Client_Concept_ExtraDelete(UUs: $UUs)
+}
+
+mutation BH_Client_Concept_ExtraSave($BH_Client_Concept_Extra: BH_Client_Concept_ExtraInput!) {
+	BH_Client_Concept_ExtraSave(Entity: $BH_Client_Concept_Extra) {
+		UU
+	}
+}
+
+mutation BH_Concept_ExtraSave($BH_Concept_Extra: BH_Concept_ExtraInput!) {
+	BH_Concept_ExtraSave(Entity: $BH_Concept_Extra) {
+		UU
+	}
+}
+
+mutation BH_ConceptSave($BH_Concept: BH_ConceptInput!) {
+	BH_ConceptSave(Entity: $BH_Concept) {
+		UU
+	}
+}
+
 mutation BH_EncounterDelete($UUS: [String!]!) {
 	BH_EncounterDelete(UUs: $UUS)
 }

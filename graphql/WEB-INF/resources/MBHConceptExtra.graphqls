@@ -1,0 +1,3 @@
+extend type BH_Concept_Extra {
+	BH_Client_Concept_Extras: [BH_Client_Concept_Extra!]
+}
