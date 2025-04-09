@@ -7,6 +7,7 @@ import java.util.Properties;
 
 public class MBPGroup_BH extends MBPGroup {
 	public static final String NAME_Patients = "Patients - DO NOT CHANGE";
+	public static final String NAME_OTC = "OTC Patient";
 	public static final String NAME_Donors = "Donors - DO NOT CHANGE";
 	public static final String NAME_FFS_Insurance = "FFS Insurance - DO NOT CHANGE";
 	/**
