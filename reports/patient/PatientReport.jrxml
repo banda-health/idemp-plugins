@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Report" pageWidth="800" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="800" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -58,7 +58,7 @@
 						bp.totalopenbalance				          AS openbalance
 					FROM
 						c_bpartner bp
-						JOIN c_bp_group cbg ON bp.c_bp_group_id = bp.c_bp_group_id AND cbg.NAME = 'Patients - DO NOT CHANGE'
+						JOIN c_bp_group cbg ON bp.c_bp_group_id = cbg.c_bp_group_id AND cbg.NAME = 'Patients - DO NOT CHANGE'
 					WHERE
 						bp.ad_client_id = $P{AD_CLIENT_ID}
 						AND bp.isactive = 'Y';]]>
