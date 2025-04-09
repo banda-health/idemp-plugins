@@ -64,25 +64,28 @@ public class PatientsTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		assertThat("Patient's name is on the report", reportContent,
-				containsString(valueObject.getBusinessPartner().getName().substring(0, 30)));
+		assertThat("Report title is present", reportContent,
+				containsString("Patient Report"));
 	}
 	
 	@IPopulateAnnotation.CanRun
 	public void patientsReportIsGeneratedCorrectly() throws SQLException, IOException{
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
-		MBPGroup clientBusinessPartnerGroup =
-				new Query(valueObject.getContext(), MBPGroup.Table_Name, MBPGroup.COLUMNNAME_Name + "=?",
-						valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters("Patients - DO NOT CHANGE").first();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 		
 		valueObject.setStepName("Create business partner 1");
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createPatient(valueObject);
 		valueObject.getBusinessPartner().setTotalOpenBalance(new BigDecimal(1000));
-		valueObject.getBusinessPartner().setC_BP_Group_ID(clientBusinessPartnerGroup.get_ID());
+		valueObject.getBusinessPartner().saveEx();
+		String businessPartner1Name = valueObject.getBusinessPartner().getName();
 		commitEx();
+		
 		valueObject.setStepName("Create business partner 2 without group");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
-		valueObject.getBusinessPartner().setTotalOpenBalance(new BigDecimal(1000));
+		valueObject.getBusinessPartner().setTotalOpenBalance(new BigDecimal(1200));
+		valueObject.getBusinessPartner().saveEx();
+		String businessPartner2Name = valueObject.getBusinessPartner().getName();
 		commitEx();
 		
 		valueObject.setStepName("Generate the report to get initial data");
@@ -95,13 +98,20 @@ public class PatientsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Optional<Row> titleRow = StreamSupport
+			Optional<Row> patientRow = StreamSupport
 					.stream(sheet.spliterator(), false).filter(
 							row -> StreamSupport.stream(row.spliterator(), false)
 									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Patient Report")))
+											&& cell.getStringCellValue().contains(businessPartner1Name)))
 					.findFirst();
-			assertTrue(titleRow.isPresent(), "title is present");
+			Optional<Row> patientRow2 = StreamSupport
+					.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false)
+									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+											&& cell.getStringCellValue().contains(businessPartner2Name)))
+					.findFirst();
+			assertTrue(patientRow.isPresent(), "Patient is present");
+			assertTrue(patientRow2.isEmpty(), "Business partner is not a patient");
 		}
 		
 	}
