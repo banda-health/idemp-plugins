@@ -88,13 +88,13 @@ VALUES
 	 ), 0, 0, 'Y', '2025-04-08 14:00:25.005153', 100, '2025-04-08 14:00:25.005153', 'Patients Report', 100,
 	 'Report of all patients in a clinic', 'N', 'Y', 'N', 'P', NULL, NULL, NULL, (
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = 'feaa97fb-b424-4dce-8790-035ba80ca023'
-	 ), NULL, NULL, 'U', 'Y', '6d1bb758-7b13-4ea0-b16e-132f2442bb20', NULL, NULL, NULL);
+	 ), NULL, NULL, 'U', 'Y', '5790943b-ba97-49e9-ab24-df1f4c64186c', NULL, NULL, NULL);
 INSERT INTO
 	ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
 	               parent_id, seqno, ad_treenodemm_uu)
 VALUES
 	(10, (
-		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '6d1bb758-7b13-4ea0-b16e-132f2442bb20'
+		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '5790943b-ba97-49e9-ab24-df1f4c64186c'
 	), 0, 0, 'Y', '2025-04-08 14:00:25.005153', 100, '2025-04-08 14:00:25.005153', 100, (
 		 SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '35ce7d6a-cf7d-4962-a748-75e27d0121bf'
 	 ), 22, 'fe3cdf50-9529-4914-9938-9d40168d4576');
