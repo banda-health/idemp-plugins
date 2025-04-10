@@ -1483,11 +1483,11 @@ test('lab/radiology basic role has correct access', async () => {
 		documentStatusActionMap[documentBaseType.SalesOrder]?.[documentStatus.Completed]?.includes(documentAction.Void),
 	).toBe(false);
 
-	expect(windowAccess?.[windowUuid.vitals]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
+	expect(windowAccess?.[windowUuid.vitals]).toBeUndefined();
 
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
-	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
+	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
