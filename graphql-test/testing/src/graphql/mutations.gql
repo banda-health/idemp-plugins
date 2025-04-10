@@ -508,6 +508,10 @@ mutation C_BPartnerSave($Entity: C_BPartnerInput!) {
 	}
 }
 
+mutation C_BPartnerMerge($OldUU: String!, $NewUU: String!) {
+	C_BPartnerMerge(OldUU: $OldUU, NewUU: $NewUU)
+}
+
 mutation C_BPartnerSaveWithLocation(
 	$C_BPartner: C_BPartnerInput!
 	$C_Location: C_LocationInput!
@@ -792,6 +796,10 @@ mutation M_PriceListSave($Entity: M_PriceListInput!) {
 	M_PriceListSave(Entity: $Entity) {
 		UU
 	}
+}
+
+mutation M_ProductMerge($OldUU: String!, $NewUU: String!) {
+	M_ProductMerge(OldUU: $OldUU, NewUU: $NewUU)
 }
 
 mutation M_ProductPriceSaveMany($Entities: [M_ProductPriceInput!]!) {

@@ -1,19 +1,25 @@
+import {
+	Bh_VisitProcessDocument,
+	C_OrderProcessDocument,
+	C_UomGetDefaultDocument,
+	M_ProductDocument,
+	M_ProductGetDocument,
+	M_ProductMergeDocument,
+	M_ProductSaveDocument,
+	M_ProductSaveManyDocument,
+} from '../__generated__/graphql';
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
 import {
 	createBusinessPartner,
+	createInvoice,
 	createOrder,
+	createPayment,
 	createProduct,
+	createVisit,
 	getDefaultProductCategory,
 	getDefaultTaxCategory,
 } from '../utils';
-import {
-	C_OrderProcessDocument,
-	C_UomGetDefaultDocument,
-	M_ProductGetDocument,
-	M_ProductSaveDocument,
-	M_ProductSaveManyDocument,
-} from '../__generated__/graphql';
 
 test('inactive products and services not returned from the search method', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -341,4 +347,119 @@ test('can sort by last purchase price', async () => {
 	expect(productSorts).toHaveLength(2);
 	expect(productSorts[0].UU).toBe(firstProduct.UU);
 	expect(productSorts[1].UU).toBe(secondProduct.UU);
+});
+
+test('merging patients', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner 1';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product 1';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order 1';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create visit 1';
+	valueObject.documentAction = undefined;
+	valueObject.setDateOffset(-2);
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order 1';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice 1';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment 1';
+	valueObject.documentAction = undefined;
+	valueObject.paymentAmount = 23;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	await createPayment(valueObject);
+
+	valueObject.stepName = 'Complete visit 1';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+	});
+
+	const product1 = valueObject.product!;
+
+	valueObject.clearBusinessPartner();
+	valueObject.clearProduct();
+
+	valueObject.stepName = 'Create business partner 2';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product 2';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order 2';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create visit 2';
+	valueObject.documentAction = undefined;
+	valueObject.setDateOffset(-2);
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order 2';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice 2';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment 2';
+	valueObject.documentAction = undefined;
+	valueObject.paymentAmount = 68;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	await createPayment(valueObject);
+
+	valueObject.stepName = 'Complete visit 2';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+	});
+
+	const product2 = valueObject.product!;
+
+	const result = (
+		await mutate(valueObject)({
+			mutation: M_ProductMergeDocument,
+			variables: { OldUU: product1.UU, NewUU: product2.UU },
+		})
+	).data?.M_ProductMerge;
+	expect(result).toBe(true);
+
+	let product = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product1.UU } })).data.M_Product;
+	expect(product).toBeFalsy();
+	product = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product2.UU } })).data.M_Product!;
+	expect(product).toBeTruthy();
 });

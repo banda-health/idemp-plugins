@@ -1,3 +1,7 @@
+extend type Mutation {
+	M_ProductMerge(OldUU: String!, NewUU: String!): Boolean!
+}
+
 extend type M_Product {
 	HasBeenPurchased: Boolean!
 	LastPurchaseDate: DateTime

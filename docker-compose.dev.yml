@@ -15,8 +15,6 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     volumes:
-      - ./rest-test/testing:/app/rest-test
-      - /app/rest-test/node_modules
       - ./graphql-test/testing:/app/graphql-test
       - /app/graphql-test/node_modules
     environment:

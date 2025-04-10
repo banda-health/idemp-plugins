@@ -387,6 +387,9 @@ query C_BPartner($UU: String!) {
 		BH_Allergies {
 			UU
 		}
+		Contacts {
+			UU
+		}
 	}
 }
 
@@ -594,6 +597,12 @@ query M_Product_CategoryGet($Page: Int, $Size: Int, $Sort: String, $Filter: Stri
 			UU
 			Name
 		}
+	}
+}
+
+query M_Product($UU: String!) {
+	M_Product(UU: $UU) {
+		...M_ProductFields
 	}
 }
 
