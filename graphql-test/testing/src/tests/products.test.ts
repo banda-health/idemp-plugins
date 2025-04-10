@@ -33,6 +33,8 @@ test('inactive products and services not returned from the search method', async
 
 	valueObject.stepName = 'Create product 2';
 	valueObject.product = undefined;
+	const oldRandom = valueObject.random;
+	valueObject.setRandom();
 	await createProduct(valueObject);
 	valueObject.product = (
 		await mutate(valueObject)({
@@ -40,12 +42,13 @@ test('inactive products and services not returned from the search method', async
 			variables: {
 				Entity: {
 					UU: valueObject.product!.UU,
-					Name: 'p2' + valueObject.product!.Name,
+					Name: 'p2' + product1.Name,
 				},
 			},
 		})
 	).data?.M_ProductSave;
 	let product2 = valueObject.product!;
+	valueObject.random = oldRandom;
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
@@ -302,6 +305,7 @@ test('can sort by last purchase price', async () => {
 
 	valueObject.stepName = 'Create second product';
 	valueObject.product = undefined;
+	valueObject.setRandom();
 	valueObject.setPurchasePrice(100);
 	await createProduct(valueObject);
 
