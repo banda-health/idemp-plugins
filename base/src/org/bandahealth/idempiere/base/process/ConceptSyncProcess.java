@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.base.process;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.adempiere.util.IProcessUI;
 import org.bandahealth.idempiere.base.function.Recursive;
+import org.bandahealth.idempiere.base.model.DummyProcessMonitor;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptDescription;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
@@ -128,6 +129,9 @@ public class ConceptSyncProcess extends SvrProcess {
 		client = HttpClient.newBuilder().version(Version.HTTP_2).build();
 
 		IProcessUI processMonitor = Env.getProcessUI(getCtx());
+		if (processMonitor == null) {
+			processMonitor = new DummyProcessMonitor();
+		}
 		processMonitor.statusUpdate("Fetching data from OCL...");
 		List<OCLConcept> allOclConceptsFromSource = new ArrayList<>();
 		//

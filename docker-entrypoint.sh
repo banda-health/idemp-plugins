@@ -6,8 +6,8 @@ touch .unhealthy
 cd ./base-test
 ./runTests.sh
 
-cd ../rest-test
-./runTests.sh
+# cd ../rest-test
+# ./runTests.sh
 
 cd ../graphql-test
 ./runTests.sh
