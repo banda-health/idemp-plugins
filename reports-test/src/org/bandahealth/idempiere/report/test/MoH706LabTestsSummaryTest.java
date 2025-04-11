@@ -218,9 +218,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
 			diagnostic.setIsActive(true);
 			diagnostic.setBH_ExternalID("159734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			diagnostic.setOcl_Uuid("159734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			diagnostic.setBH_OclID("159734");
 			diagnostic.setBH_Owner("CIEL");
 			diagnostic.setBH_Source("CIEL");
+			diagnostic.setURL("/orgs/CIEL/sources/CIEL/concepts/159734/");
 			diagnostic.saveEx();
 		}
 		commitEx();
@@ -306,9 +308,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
 			diagnostic.setIsActive(true);
 			diagnostic.setBH_ExternalID("163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			diagnostic.setOcl_Uuid("163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			diagnostic.setBH_OclID("163594");
 			diagnostic.setBH_Owner("CIEL");
 			diagnostic.setBH_Source("CIEL");
+			diagnostic.setURL("/orgs/CIEL/sources/CIEL/concepts/163594/");
 			diagnostic.saveEx();
 		}
 		commitEx();
@@ -395,10 +399,12 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
 			diagnostic.setIsActive(true);
 			diagnostic.setBH_ExternalID("32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			diagnostic.setOcl_Uuid("32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			diagnostic.setBH_OclID("32");
 			diagnostic.setBH_Owner("CIEL");
 			diagnostic.setOcl_Uuid(UUID.randomUUID().toString());
 			diagnostic.setBH_Source("CIEL");
+			diagnostic.setURL("/orgs/CIEL/sources/CIEL/concepts/32/");
 			diagnostic.saveEx();
 		}
 		commitEx();
@@ -495,9 +501,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			cbcConcept.setBH_Display_Name("Complete blood count");
 			cbcConcept.setIsActive(true);
 			cbcConcept.setBH_ExternalID("1019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			cbcConcept.setOcl_Uuid("1019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			cbcConcept.setBH_OclID("1019");
 			cbcConcept.setBH_Owner("CIEL");
 			cbcConcept.setBH_Source("CIEL");
+			cbcConcept.setURL("/orgs/CIEL/sources/CIEL/concepts/1019/");
 			cbcConcept.saveEx();
 		}
 		commitEx();
@@ -511,9 +519,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			wbcConcept.setBH_Display_Name("White blood cells");
 			wbcConcept.setIsActive(true);
 			wbcConcept.setBH_ExternalID("678AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			wbcConcept.setOcl_Uuid("678AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			wbcConcept.setBH_OclID("678");
 			wbcConcept.setBH_Owner("CIEL");
 			wbcConcept.setBH_Source("CIEL");
+			wbcConcept.setURL("/orgs/CIEL/sources/CIEL/concepts/678/");
 			wbcConcept.saveEx();
 		}
 		commitEx();
@@ -527,9 +537,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			plateletsConcept.setBH_Display_Name("Platelets");
 			plateletsConcept.setIsActive(true);
 			plateletsConcept.setBH_ExternalID("729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			plateletsConcept.setOcl_Uuid("729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			plateletsConcept.setBH_OclID("729");
 			plateletsConcept.setBH_Owner("CIEL");
 			plateletsConcept.setBH_Source("CIEL");
+			plateletsConcept.setURL("/orgs/CIEL/sources/CIEL/concepts/729/");
 			plateletsConcept.saveEx();
 		}
 		commitEx();
@@ -543,9 +555,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			hbConcept.setBH_Display_Name("Haemoglobin");
 			hbConcept.setIsActive(true);
 			hbConcept.setBH_ExternalID("21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			hbConcept.setOcl_Uuid("21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			hbConcept.setBH_OclID("21");
 			hbConcept.setBH_Owner("CIEL");
 			hbConcept.setBH_Source("CIEL");
+			hbConcept.setURL("/orgs/CIEL/sources/CIEL/concepts/21/");
 			hbConcept.saveEx();
 		}
 		commitEx();
@@ -737,9 +751,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
 			diagnostic.setIsActive(true);
 			diagnostic.setBH_ExternalID("307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			diagnostic.setOcl_Uuid("307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			diagnostic.setBH_OclID("307");
 			diagnostic.setBH_Owner("CIEL");
 			diagnostic.setBH_Source("CIEL");
+			diagnostic.setURL("/orgs/CIEL/sources/CIEL/concepts/307/");
 			diagnostic.saveEx();
 		}
 		commitEx();
@@ -824,9 +840,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
 			diagnostic.setIsActive(true);
 			diagnostic.setBH_ExternalID("299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			diagnostic.setOcl_Uuid("299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			diagnostic.setBH_OclID("299");
 			diagnostic.setBH_Owner("CIEL");
 			diagnostic.setBH_Source("CIEL");
+			diagnostic.setURL("/orgs/CIEL/sources/CIEL/concepts/299/");
 			diagnostic.saveEx();
 		}
 		commitEx();
@@ -911,9 +929,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			cielConcept.setBH_Display_Name("Helicobacter Pylori Ab presence in serum by immunofluorescence test");
 			cielConcept.setIsActive(true);
 			cielConcept.setBH_ExternalID("163620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			cielConcept.setOcl_Uuid("163620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			cielConcept.setBH_OclID("163620");
 			cielConcept.setBH_Owner("CIEL");
 			cielConcept.setBH_Source("CIEL");
+			cielConcept.setURL("/orgs/CIEL/sources/CIEL/concepts/163620/");
 			cielConcept.saveEx();
 			commitEx();
 		}
@@ -927,6 +947,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			diagnostic.setBH_Display_Name("Helicobacter Pylori Ab presence in serum by immunofluorescence test");
 			diagnostic.setIsActive(true);
 			diagnostic.setBH_ExternalID("8ba6a78c-f49e-4acc-b076-e7ba55415173");
+			diagnostic.setOcl_Uuid("8ba6a78c-f49e-4acc-b076-e7ba55415173");
 			diagnostic.setBH_OclID("7749563");
 			diagnostic.setBH_Owner("bandahealth");
 			diagnostic.setBH_Source("BHLabs");
@@ -947,6 +968,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			conceptMapping.setFrom_BH_Concept_ID(diagnostic.get_ID());
 			conceptMapping.setBH_From_Concept_Url("/orgs/bandahealth/sources/BHLabs/concepts/7749563/");
 			conceptMapping.setBH_OclID("10246889");
+			conceptMapping.setOcl_Uuid("10246889");
 			conceptMapping.setBH_Owner("bandahealth");
 			conceptMapping.setBH_Source("BHLabs");
 			conceptMapping.setTo_BH_Concept_ID(cielConcept.get_ID());

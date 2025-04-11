@@ -16,7 +16,9 @@ test('can save and delete client concept extras', async () => {
 	const conceptUU = v4();
 	await mutate(valueObject)({
 		mutation: Bh_ConceptSaveDocument,
-		variables: { BH_Concept: { BH_Display_Name: valueObject.getDynamicStepMessage(), UU: conceptUU } },
+		variables: {
+			BH_Concept: { BH_Display_Name: valueObject.getDynamicStepMessage(), Ocl_Uuid: conceptUU, UU: conceptUU },
+		},
 	});
 
 	valueObject.stepName = 'Create concept extra';
@@ -80,7 +82,9 @@ test('client cannot save multiple client extras for an extra', async () => {
 	const conceptUU = v4();
 	await mutate(valueObject)({
 		mutation: Bh_ConceptSaveDocument,
-		variables: { BH_Concept: { BH_Display_Name: valueObject.getDynamicStepMessage(), UU: conceptUU } },
+		variables: {
+			BH_Concept: { BH_Display_Name: valueObject.getDynamicStepMessage(), Ocl_Uuid: conceptUU, UU: conceptUU },
+		},
 	});
 
 	valueObject.stepName = 'Create concept extra';

@@ -106,6 +106,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setRandom();
 		MBHConcept diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 		diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		diagnostic.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		String diagnosticName = diagnostic.getBH_Display_Name();
 		diagnostic.saveEx();
 		commitEx();
@@ -186,6 +187,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setRandom();
 		MBHConcept diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 		diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		diagnostic.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		diagnostic.saveEx();
 		commitEx();
 
@@ -280,6 +282,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setRandom();
 		MBHConcept diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 		diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		diagnostic.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		diagnostic.saveEx();
 		commitEx();
 

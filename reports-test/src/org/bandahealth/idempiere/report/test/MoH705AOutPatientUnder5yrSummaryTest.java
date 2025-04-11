@@ -67,6 +67,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 				valueObject.setStepName("Create the pneumonia coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
+				codedDiagnosis.setOcl_Uuid(diagnosisToSearchFor);
 			}
 			codedDiagnosis.saveEx();
 
@@ -93,6 +94,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 				valueObject.setStepName("Create the burns coded diagnosis");
 				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+				codedDiagnosis2.setOcl_Uuid(diagnosisAfterDiagnosisToSearchForOnReport);
 			}
 			codedDiagnosis2.saveEx();
 
@@ -244,6 +246,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 				valueObject.setStepName("Create asthma coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
+				codedDiagnosis.setOcl_Uuid(diagnosisToSearchFor);
 			}
 
 			codedDiagnosis.saveEx();
@@ -269,6 +272,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 				valueObject.setStepName("Create the suspected malaria coded diagnosis");
 				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+				codedDiagnosis2.setOcl_Uuid(diagnosisAfterDiagnosisToSearchForOnReport);
 			}
 			codedDiagnosis2.saveEx();
 
@@ -421,6 +425,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 				valueObject.setStepName("Create asthma coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
+				codedDiagnosis.setOcl_Uuid(diagnosisToSearchFor);
 			}
 			codedDiagnosis.saveEx();
 			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
@@ -444,6 +449,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 				valueObject.setStepName("Create the suspected malaria coded diagnosis");
 				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+				codedDiagnosis2.setOcl_Uuid(diagnosisAfterDiagnosisToSearchForOnReport);
 			}
 			codedDiagnosis2.saveEx();
 

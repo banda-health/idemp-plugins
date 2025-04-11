@@ -66,6 +66,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 				valueObject.setStepName("Create the burns coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
+				codedDiagnosis.setOcl_Uuid(diagnosisToSearchFor);
 			}
 			codedDiagnosis.saveEx();
 
@@ -92,6 +93,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 				valueObject.setStepName("Create the burns coded diagnosis");
 				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+				codedDiagnosis2.setOcl_Uuid(diagnosisAfterDiagnosisToSearchForOnReport);
 			}
 			codedDiagnosis2.saveEx();
 
@@ -246,6 +248,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 				valueObject.setStepName("Create the burns coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
+				codedDiagnosis.setOcl_Uuid(diagnosisToSearchFor);
 			}
 			codedDiagnosis.saveEx();
 
@@ -271,6 +274,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 				valueObject.setStepName("Create the burns coded diagnosis");
 				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+				codedDiagnosis2.setOcl_Uuid(diagnosisAfterDiagnosisToSearchForOnReport);
 			}
 			codedDiagnosis2.saveEx();
 
