@@ -47,10 +47,13 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MAttributeValueDataLoad
 import org.bandahealth.idempiere.graphql.dataloader.impl.MAuthorizationAccountDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MAuthorizationCredentialDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MAuthorizationProviderDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHAllergyDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHAllergyReactionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPGeneralPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPSpecificPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHClientConceptDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHClientConceptExtraDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptDescriptionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptExtraDataLoader;
@@ -896,9 +899,13 @@ public class BandaDataLoaderComposer {
 				new MBankStatementLoaderDataLoader(),
 				new MBankStatementMatcherDataLoader(),
 				new MBankTransferDataLoader(),
+				new MBHAllergyDataLoader(),
+				new MBHAllergyReactionDataLoader(),
+				new MBHBPGeneralPayerInfoDataLoader(),
 				new MBHBPGeneralPayerInfoDataLoader(),
 				new MBHBPPayerInfoDataLoader(),
 				new MBHBPSpecificPayerInfoDataLoader(),
+				new MBHClientConceptExtraDataLoader(),
 				new MBHClientConceptDataLoader(),
 				new MBHConceptDataLoader(),
 				new MBHConceptDescriptionDataLoader(),

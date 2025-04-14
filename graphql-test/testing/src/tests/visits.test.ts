@@ -2,27 +2,6 @@ import { randomUUID } from 'crypto';
 import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
 import { v4 } from 'uuid';
-import { mutate, query } from '../api';
-import {
-	documentAction,
-	documentBaseType,
-	documentStatus,
-	documentSubTypeSalesOrder,
-	referenceUuid,
-	tenderTypeName,
-} from '../models';
-import {
-	createBusinessPartner,
-	createInvoice,
-	createOrder,
-	createPayment,
-	createProduct,
-	createVisit,
-	loadBankAccount,
-	runReport,
-	tomorrow,
-	yesterday,
-} from '../utils';
 import {
 	Ad_LanguageGetDocument,
 	Ad_Ref_ListGetDocument,
@@ -34,6 +13,7 @@ import {
 	Bh_Encounter_Type_WindowGetDocument,
 	Bh_ObservationsDeleteAndSaveManyAndEncounterDiagnosesDeleteDocument,
 	Bh_ObservationsDeleteAndSaveManyAndEncounterDiagnosesSaveManyDocument,
+	Bh_VisitCountDocument,
 	Bh_VisitDeleteAllDocument,
 	Bh_VisitDeleteDocument,
 	Bh_VisitDocument,
@@ -59,6 +39,28 @@ import {
 	C_PaymentSaveManyDocument,
 	ReportOutput,
 } from '../__generated__/graphql';
+import { mutate, query } from '../api';
+import {
+	documentAction,
+	documentBaseType,
+	documentStatus,
+	documentSubTypeSalesOrder,
+	referenceUuid,
+	tenderTypeName,
+} from '../models';
+import {
+	createBusinessPartner,
+	createInvoice,
+	createOrder,
+	createPayment,
+	createProduct,
+	createVisit,
+	formatApiDate,
+	loadBankAccount,
+	runReport,
+	tomorrow,
+	yesterday,
+} from '../utils';
 
 const CLINICAL_VITALS_WINDOW_UUID = '53b4d743-c311-40e5-aa8e-c0880c42c1b1';
 const CHIEF_COMPLAINT_WINDOW_UUID = 'ee3189d3-9bf5-4528-b5c8-26f2cabde1ed';
@@ -181,7 +183,7 @@ test(`visit saved from scratch is correct`, async () => {
 					UU: orderUuid,
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					DateOrdered: valueObject.date?.getTime(),
+					DateOrdered: formatApiDate(valueObject.date),
 					M_Warehouse: { UU: valueObject.warehouse!.UU },
 					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
@@ -204,7 +206,7 @@ test(`visit saved from scratch is correct`, async () => {
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					C_BPartner: { UU: valueObject.businessPartner!.UU },
-					DateInvoiced: valueObject.date?.getTime(),
+					DateInvoiced: formatApiDate(valueObject.date),
 					C_Order: { UU: orderUuid },
 					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
@@ -1921,7 +1923,7 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 					UU: orderUuid,
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					DateOrdered: valueObject.date?.getTime(),
+					DateOrdered: formatApiDate(valueObject.date),
 					M_Warehouse: { UU: valueObject.warehouse!.UU },
 					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
@@ -1944,7 +1946,7 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					C_BPartner: { UU: valueObject.businessPartner!.UU },
-					DateInvoiced: valueObject.date?.getTime(),
+					DateInvoiced: formatApiDate(valueObject.date),
 					C_Order: { UU: orderUuid },
 					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
@@ -1954,7 +1956,7 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					C_BPartner: { UU: insurerOrDonorToUse.UU },
-					DateInvoiced: valueObject.date?.getTime(),
+					DateInvoiced: formatApiDate(valueObject.date),
 					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
@@ -2124,7 +2126,7 @@ test(`visit invoice updates work`, async () => {
 					UU: orderUuid,
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					DateOrdered: valueObject.date?.getTime(),
+					DateOrdered: formatApiDate(valueObject.date),
 					M_Warehouse: { UU: valueObject.warehouse!.UU },
 					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
@@ -2147,7 +2149,7 @@ test(`visit invoice updates work`, async () => {
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					C_BPartner: { UU: valueObject.businessPartner!.UU },
-					DateInvoiced: valueObject.date?.getTime(),
+					DateInvoiced: formatApiDate(valueObject.date),
 					C_Order: { UU: orderUuid },
 					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
@@ -2157,7 +2159,7 @@ test(`visit invoice updates work`, async () => {
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					C_BPartner: { UU: insurerOrDonorToUse.UU },
-					DateInvoiced: valueObject.date?.getTime(),
+					DateInvoiced: formatApiDate(valueObject.date),
 					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
@@ -2345,7 +2347,7 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 					UU: orderUuid,
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					DateOrdered: valueObject.date?.getTime(),
+					DateOrdered: formatApiDate(valueObject.date),
 					M_Warehouse: { UU: valueObject.warehouse!.UU },
 					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
@@ -2368,7 +2370,7 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					C_BPartner: { UU: valueObject.businessPartner!.UU },
-					DateInvoiced: valueObject.date?.getTime(),
+					DateInvoiced: formatApiDate(valueObject.date),
 					C_Order: { UU: orderUuid },
 					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
@@ -2378,7 +2380,7 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					C_BPartner: { UU: insurer.UU },
-					DateInvoiced: valueObject.date?.getTime(),
+					DateInvoiced: formatApiDate(valueObject.date),
 					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
@@ -2653,7 +2655,7 @@ test(`visit can be saved without order and invoice lines`, async () => {
 					UU: orderUuid,
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					DateOrdered: valueObject.date?.getTime(),
+					DateOrdered: formatApiDate(valueObject.date),
 					M_Warehouse: { UU: valueObject.warehouse!.UU },
 					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
@@ -2665,7 +2667,7 @@ test(`visit can be saved without order and invoice lines`, async () => {
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					C_BPartner: { UU: valueObject.businessPartner!.UU },
-					DateInvoiced: valueObject.date?.getTime(),
+					DateInvoiced: formatApiDate(valueObject.date),
 					C_Order: { UU: orderUuid },
 					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
@@ -2783,7 +2785,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 					UU: orderUuid,
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					DateOrdered: valueObject.date?.getTime(),
+					DateOrdered: formatApiDate(valueObject.date),
 					M_Warehouse: { UU: valueObject.warehouse!.UU },
 					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
@@ -2814,7 +2816,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					C_BPartner: { UU: valueObject.businessPartner!.UU },
-					DateInvoiced: valueObject.date?.getTime(),
+					DateInvoiced: formatApiDate(valueObject.date),
 					C_Order: { UU: orderUuid },
 					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
@@ -3214,4 +3216,112 @@ test(`'coming from' shows the correct data`, async () => {
 	visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
 	expect(visit).toBeTruthy();
 	expect(visit.BH_Coming_From?.Name).toBe(processStages[1].Name);
+});
+
+test('can schedule and change scheduled visits', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	const visitTypes = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.VISIT_TYPE } }) },
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	valueObject.stepName = 'Create visit';
+	const visitUU = v4();
+	valueObject.setDateOffset(10);
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				UU: visitUU,
+				BH_PatientType: { UU: visitTypes[0].UU },
+				BH_VisitDate: valueObject.date?.getTime(),
+				Description: valueObject.getStepMessageLong(),
+				Patient: { UU: valueObject.businessPartner!.UU },
+				Scheduled: true,
+			},
+		},
+	});
+
+	let visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
+	expect(visit).toBeTruthy();
+	expect(visit.BH_VisitDate).toBe(valueObject.date?.getTime());
+	expect(visit.Change_Reason).toBeNull();
+	expect(visit.Scheduled).toBeTruthy();
+
+	valueObject.setDateOffset(10);
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				UU: visitUU,
+				BH_PatientType: { UU: visitTypes[0].UU },
+				BH_VisitDate: valueObject.date?.getTime(),
+				Change_Reason: 'the patient needs to wait another week',
+			},
+		},
+	});
+	visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
+	expect(visit).toBeTruthy();
+	expect(visit.BH_VisitDate).toBe(valueObject.date?.getTime());
+	expect(visit.Change_Reason).toBe('the patient needs to wait another week');
+	expect(visit.Scheduled).toBeTruthy();
+});
+
+test('search by not exists works', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	const visitTypes = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.VISIT_TYPE } }) },
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	valueObject.stepName = 'Create visit';
+	const visitUU = v4();
+	valueObject.setDateOffset(10);
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveDocument,
+		variables: {
+			Entity: {
+				UU: visitUU,
+				BH_PatientType: { UU: visitTypes[0].UU },
+				BH_VisitDate: valueObject.date?.getTime(),
+				Description: valueObject.getStepMessageLong(),
+				Patient: { UU: valueObject.businessPartner!.UU },
+				Scheduled: true,
+			},
+		},
+	});
+
+	let visit = (await query(valueObject)({ query: Bh_VisitDocument, variables: { UU: visitUU } })).data.BH_Visit!;
+	expect(visit).toBeTruthy();
+
+	visit = (
+		await query(valueObject)({
+			query: Bh_VisitGetDocument,
+			variables: { Filter: JSON.stringify({ bh_visit_uu: visitUU, ['$notExists(c_order)']: {} }) },
+		})
+	).data.BH_VisitGet.Results[0]!;
+	expect(visit).toBeTruthy();
+
+	expect(
+		(
+			await query(valueObject)({
+				query: Bh_VisitCountDocument,
+				variables: { Filter: JSON.stringify({ ['$notExists(c_order)']: {} }) },
+			})
+		).data.BH_VisitGet.PagingInfo.TotalCount,
+	).not.toBe((await query(valueObject)({ query: Bh_VisitCountDocument })).data.BH_VisitGet.PagingInfo.TotalCount);
 });

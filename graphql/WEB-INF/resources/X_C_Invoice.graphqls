@@ -62,7 +62,7 @@ type C_Invoice {
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
@@ -146,7 +146,7 @@ type C_Invoice {
 	# Total of all document lines
 	TotalLines: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1

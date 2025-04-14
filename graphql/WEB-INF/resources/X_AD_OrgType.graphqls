@@ -26,7 +26,7 @@ type AD_OrgType {
 	# Color used for printing and display
 	AD_PrintColor: AD_PrintColor
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -36,7 +36,7 @@ type AD_OrgType {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

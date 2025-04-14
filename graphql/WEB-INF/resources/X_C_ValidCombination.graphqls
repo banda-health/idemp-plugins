@@ -48,7 +48,7 @@ type C_ValidCombination {
 	# Unique combination of account elements
 	Combination: String
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -60,7 +60,7 @@ type C_ValidCombination {
 	# Product, Service, Item
 	M_Product: M_Product
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1

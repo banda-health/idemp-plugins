@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.filter;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.graphql.model.AuthenticationCookie;
 import org.bandahealth.idempiere.graphql.utils.AuthenticationUtil;
@@ -150,7 +151,7 @@ public class AuthenticationFilter implements Filter {
 						return;
 					}
 				}
-			} catch (JWTVerificationException ex) {
+			} catch (JWTVerificationException | AdempiereException ex) {
 				abortRequest(requestQuery, response, ERROR_UNAUTHORIZED);
 				return;
 			} catch (Exception ex) {

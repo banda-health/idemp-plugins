@@ -51,7 +51,7 @@ type U_POSTerminal {
 	CheckTransferCashBook: C_CashBook
 	CheckTransferType: AD_Ref_List
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -61,7 +61,7 @@ type U_POSTerminal {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Last time at which the terminal was locked
-	LastLockTime: Date
+	LastLockTime: DateTime
 	# Whether the terminal is locked
 	Locked: Boolean!
 	# Time in minutes the terminal should be kept in a locked state.
@@ -79,9 +79,9 @@ type U_POSTerminal {
 	SO_PriceList: M_PriceList
 	UU: ID!
 	# Time at which the terminal should be unlocked
-	UnlockingTime: Date
+	UnlockingTime: DateTime
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User
 	# Search key for the record in the format required - must be unique
@@ -126,7 +126,7 @@ input U_POSTerminalInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Last time at which the terminal was locked
-	LastLockTime: Date
+	LastLockTime: DateTime
 	# Whether the terminal is locked
 	Locked: Boolean
 	# Time in minutes the terminal should be kept in a locked state.
@@ -144,7 +144,7 @@ input U_POSTerminalInput {
 	SO_PriceList: ForeignEntityInput
 	UU: ID
 	# Time at which the terminal should be unlocked
-	UnlockingTime: Date
+	UnlockingTime: DateTime
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

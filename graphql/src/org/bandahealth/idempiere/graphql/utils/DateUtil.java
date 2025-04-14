@@ -1,31 +1,15 @@
 package org.bandahealth.idempiere.graphql.utils;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
-import java.util.Date;
-
-import org.compiere.util.CLogger;
 
 public class DateUtil {
-
 	public final static String DATE_FORMAT = "yyyy-MM-dd";
-	private final static String DEFAULT_FORMAT = "yyyy-MM-dd hh:mm:ss";
-	private final static String QUEUE_DATE_FORMAT = "E, dd MMMM - HH:mm";
-	private final static String REPORT_FORMAT = "yyyy-MM-dd hh:mm a";
-	private final static String REPORT_FORMAT_2 = "yyyy-MM-dd'T'hh:mm:ss.SSSX";
-
-	private static SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT);
-	private static CLogger log = CLogger.getCLogger(DateUtil.class);
-
-	public static String parse(Timestamp timestamp) {
-		if (timestamp != null) {
-			return sdf.format(timestamp);
-		}
-
-		return null;
-	}
 
 	public static String parseDateOnly(Timestamp timestamp, String dateFormat) {
 		if (timestamp != null) {
@@ -35,64 +19,43 @@ public class DateUtil {
 		return null;
 	}
 
-	public static String parseDateOnly(Timestamp timestamp) {
-		if (timestamp != null) {
-			return new SimpleDateFormat(DATE_FORMAT).format(timestamp);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Parse Visit Queue Date
-	 *
-	 * @param timestamp
-	 * @return
-	 */
-	public static String parseQueueTime(Timestamp timestamp) {
-		if (timestamp != null) {
-			return new SimpleDateFormat(QUEUE_DATE_FORMAT).format(timestamp);
-		}
-
-		return null;
-
-	}
-
-	/**
-	 * Parse a YYYY-MM-DD (with or without the timestamp) to a Timestamp
-	 *
-	 * @param date
-	 * @return
-	 */
-	public static Timestamp getTimestamp(String date) {
-		return getTimestamp(date, DATE_FORMAT);
-	}
-
-	public static Timestamp getTimestamp(String date, String dateFormat) {
-		if (date != null) {
-			try {
-				return new Timestamp(sdf.parse(date).getTime());
-			} catch (ParseException e) {
+	public static Timestamp getAPITimestamp(Object date, boolean shouldParseDateOnly) {
+		if (date instanceof Integer || date instanceof Long || date instanceof Double || date instanceof BigDecimal) {
+			long dateLong = date instanceof Integer ? Long.parseLong(date.toString()) : date instanceof Long ? (Long) date :
+					date instanceof Double ? ((Double) date).longValue() : ((BigDecimal) date).longValue();
+			if (shouldParseDateOnly) {
+				// The DB is going to truncate the time AND auto-adjust it to it's time zone
+				// So, subtract the offset so that the date is correct when the DB re-adds the time zone
+				// ! NB: if the DB is on a different time zone than this server, there will be issues
+				Instant instant = Instant.ofEpochMilli(dateLong);
+				ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+//				return new Timestamp(dateLong - zonedDateTime.getOffset().getTotalSeconds() * 1000L);
+			}
+			return new Timestamp(dateLong);
+		} else if (date instanceof String) {
+			if (!shouldParseDateOnly) {
 				try {
-					return new Timestamp(new SimpleDateFormat(dateFormat).parse(date).getTime());
-				} catch (ParseException e1) {
-					log.severe(e.getMessage());
+					return new Timestamp(new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSX").parse((String) date).getTime());
+				} catch (Exception ignored) {
+				}
+				try {
+					return new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse((String) date).getTime());
+				} catch (Exception ignored) {
+				}
+				try {
+					return new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm").parse((String) date).getTime());
+				} catch (Exception ignored) {
 				}
 			}
-		}
-
-		return null;
-	}
-
-	public static Date parseDate(String date) {
-		if (date != null) {
 			try {
-				return new SimpleDateFormat(DATE_FORMAT).parse(date);
-			} catch (ParseException ex) {
-				log.severe(ex.getMessage());
+				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd").parse((String) date).getTime());
+			} catch (Exception ignored) {
+			}
+			try {
+				return new Timestamp(new SimpleDateFormat("yyyy/MM/dd").parse((String) date).getTime());
+			} catch (Exception ignored) {
 			}
 		}
-
 		return null;
 	}
 
@@ -107,13 +70,5 @@ public class DateUtil {
 		endDateCalendar.setTime(currentDay);
 		endDateCalendar.add(Calendar.DATE, 1);
 		return new Timestamp(endDateCalendar.getTimeInMillis());
-	}
-
-	public static Timestamp getTimestampReportParameter(String date) {
-		Timestamp parsedDate = getTimestamp(date, REPORT_FORMAT);
-		if (parsedDate == null) {
-			return getTimestamp(date, REPORT_FORMAT_2);
-		}
-		return parsedDate;
 	}
 }

@@ -31,7 +31,7 @@ type M_DiscountSchemaLine {
 	# Date for selecting conversion rate
 	ConversionDate: Date!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -94,7 +94,7 @@ type M_DiscountSchemaLine {
 	# Rounding rule for calculated price
 	Std_Rounding: AD_Ref_List!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Product Category of the Business Partner

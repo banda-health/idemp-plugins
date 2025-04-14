@@ -34,11 +34,11 @@ type AD_BroadcastMessage {
 	# Type of Broadcast
 	BroadcastType: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Expire On
-	Expiration: Date
+	Expiration: DateTime
 	Expired: Boolean!
 	# Expire the broadcast message
 	ExpireNow: String
@@ -59,7 +59,7 @@ type AD_BroadcastMessage {
 	# Name this entity is referred to as
 	Title: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -79,7 +79,7 @@ input AD_BroadcastMessageInput {
 	# Type of Broadcast
 	BroadcastType: ForeignEntityInput
 	# Expire On
-	Expiration: Date
+	Expiration: DateTime
 	Expired: Boolean
 	# Expire the broadcast message
 	ExpireNow: String

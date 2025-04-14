@@ -28,7 +28,7 @@ type C_BP_ShippingAcct {
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: C_BPartner_Location
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	DutiesShipperAccount: String
@@ -38,7 +38,7 @@ type C_BP_ShippingAcct {
 	ShipperAccount: String
 	ShipperMeter: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

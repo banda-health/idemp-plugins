@@ -1,11 +1,10 @@
 import { v4 } from 'uuid';
-import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
-import { createBusinessPartner, createInvoice, createOrder, createPayment, createProduct, createVisit } from '../utils';
 import {
 	Bh_VisitProcessDocument,
 	C_BPartnerDocument,
 	C_BPartnerGetDocument,
+	C_BPartnerMergeDocument,
+	C_BPartnerSaveDocument,
 	C_BPartnerSaveWithLocationDocument,
 	C_BPartner_LocationSaveDocument,
 	C_Bp_GroupGetDocument,
@@ -13,6 +12,17 @@ import {
 	C_LocationSaveDocument,
 	C_LocationUpdateWithBPartnerDocument,
 } from '../__generated__/graphql';
+import { mutate, query } from '../api';
+import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
+import {
+	createBusinessPartner,
+	createInvoice,
+	createOrder,
+	createPayment,
+	createProduct,
+	createVisit,
+	formatApiDate,
+} from '../utils';
 
 test(`information saved correctly`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -29,7 +39,7 @@ test(`information saved correctly`, async () => {
 				UU: businessPartnerUuid,
 				Name: businessPartnerName,
 				Description: valueObject.getStepMessageLong(),
-				BH_Birthday: valueObject.date?.getTime(),
+				BH_Birthday: formatApiDate(valueObject.date),
 				bh_gender: { UU: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
 				IsCustomer: true,
 				IsVendor: true,
@@ -387,4 +397,148 @@ test(`drafted and re-opened visits don't count in the total visits or affect las
 	).data.C_BPartner!;
 	expect(businessPartner.TotalVisits).toBe(0);
 	expect(businessPartner.LastVisitDate).toBe(null);
+});
+
+test('can search using an apostrophe', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	const newName = `a'a${valueObject.businessPartner!.Name}`;
+	await mutate(valueObject)({
+		mutation: C_BPartnerSaveDocument,
+		variables: { Entity: { UU: valueObject.businessPartner!.UU, Name: newName } },
+	});
+
+	expect(
+		(
+			await query(valueObject)({
+				query: C_BPartnerGetDocument,
+				variables: { Filter: JSON.stringify({ name: { $text: newName } }) },
+			})
+		).data.C_BPartnerGet.Results,
+	).toHaveLength(1);
+});
+
+test('merging patients', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner 1';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product 1';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order 1';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create visit 1';
+	valueObject.documentAction = undefined;
+	valueObject.setDateOffset(-2);
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order 1';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice 1';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment 1';
+	valueObject.documentAction = undefined;
+	valueObject.paymentAmount = 23;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	await createPayment(valueObject);
+
+	valueObject.stepName = 'Complete visit 1';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+	});
+
+	const businessPartner1 = valueObject.businessPartner!;
+
+	valueObject.clearBusinessPartner();
+	valueObject.clearProduct();
+
+	valueObject.stepName = 'Create business partner 2';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product 2';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order 2';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create visit 2';
+	valueObject.documentAction = undefined;
+	valueObject.setDateOffset(-2);
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order 2';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice 2';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment 2';
+	valueObject.documentAction = undefined;
+	valueObject.paymentAmount = 68;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	await createPayment(valueObject);
+
+	valueObject.stepName = 'Complete visit 2';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+	});
+
+	const businessPartner2 = valueObject.businessPartner!;
+
+	const result = (
+		await mutate(valueObject)({
+			mutation: C_BPartnerMergeDocument,
+			variables: { OldUU: businessPartner1.UU, NewUU: businessPartner2.UU },
+		})
+	).data?.C_BPartnerMerge;
+	expect(result).toBe(true);
+
+	let businessPartner = (
+		await query(valueObject)({ query: C_BPartnerDocument, variables: { UU: businessPartner1.UU } })
+	).data.C_BPartner;
+	expect(businessPartner).toBeFalsy();
+	businessPartner = (await query(valueObject)({ query: C_BPartnerDocument, variables: { UU: businessPartner2.UU } }))
+		.data.C_BPartner!;
+	expect(businessPartner).toBeTruthy();
+	expect(businessPartner.TotalOpenBalance).toBe(109);
+	expect(businessPartner.Contacts).toHaveLength(1);
+	expect(businessPartner.C_BPartner_Locations).toHaveLength(1);
 });

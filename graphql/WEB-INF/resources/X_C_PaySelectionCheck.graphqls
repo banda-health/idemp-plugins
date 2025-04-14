@@ -32,7 +32,7 @@ type C_PaySelectionCheck {
 	C_PaySelection: C_PaySelection!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Calculated amount of discount
@@ -55,7 +55,7 @@ type C_PaySelectionCheck {
 	# Quantity
 	Qty: Int!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Amount to write-off

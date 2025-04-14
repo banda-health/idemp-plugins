@@ -13,6 +13,10 @@ public class BandaResolverComposer {
 	 */
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.resolvers(
+				new DashboardDiagnosisUsageResolver(),
+				new DashboardProductUsageResolver(),
+				new DashboardLabUsageResolver(),
+				new DashboardVisitHistoryStatResolver(),
 				new IncludedRoleWindowAccessResolver(),
 				new InventoryTransactionResolver(),
 				new M_ElementResolver(),
@@ -72,9 +76,12 @@ public class BandaResolverComposer {
 				new MBankStatementLoaderResolver(),
 				new MBankStatementMatcherResolver(),
 				new MBankTransferResolver(),
+				new MBHAllergyReactionResolver(),
+				new MBHAllergyResolver(),
 				new MBHBPGeneralPayerInfoResolver(),
 				new MBHBPPayerInfoResolver(),
 				new MBHBPSpecificPayerInfoResolver(),
+				new MBHClientConceptExtraResolver(),
 				new MBHClientConceptResolver(),
 				new MBHConceptDescriptionResolver(),
 				new MBHConceptExtraResolver(),

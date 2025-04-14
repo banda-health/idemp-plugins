@@ -272,7 +272,7 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Adjust inventory for product again");
-		BigDecimal secondEndingInventory = NumberUtils.randomBigDecimal(20, 250);
+		BigDecimal secondEndingInventory = NumberUtils.randomBigDecimal(260, 500);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(secondEndingInventory);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
@@ -316,7 +316,7 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Adjust inventory for product for the last time");
-		BigDecimal currentInventory = NumberUtils.randomBigDecimal(1, 250);
+		BigDecimal currentInventory = NumberUtils.randomBigDecimal(260, 500);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(currentInventory);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);

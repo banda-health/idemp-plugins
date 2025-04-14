@@ -40,7 +40,9 @@ import java.util.stream.Collectors;
 
 import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.util.IProcessUI;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.bandahealth.idempiere.base.model.DummyProcessMonitor;
 import org.compiere.model.MSystem;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -97,6 +99,11 @@ public class DoChuBoePopulate extends SvrProcess {
 		int totalClasses = 0;
 		int totalMethods = 0;
 		int totalLoops = 0;
+
+		IProcessUI processMonitor = Env.getProcessUI(getCtx());
+		if (processMonitor == null) {
+			processMonitor = new DummyProcessMonitor();
+		}
 
 		// Set a format for how the test timing should be displayed
 		DecimalFormat decimalFormat = new DecimalFormat("#.###");
@@ -194,6 +201,7 @@ public class DoChuBoePopulate extends SvrProcess {
 					CanRunBeforeClass annos = method.getAnnotation(CanRunBeforeClass.class);
 					if (!classBreak && annos != null) {
 						try {
+							processMonitor.statusUpdate(pop.getClass().getSimpleName() + " - " + method.getName());
 							pop.setScenarioName(pop.getClass().getSimpleName() + "_" + method.getName());
 							pop_response.appendNote("Starting... " + pop.getScenarioName());
 							pop_response.saveEx();
@@ -222,6 +230,7 @@ public class DoChuBoePopulate extends SvrProcess {
 							continue;
 						}
 						try {
+							processMonitor.statusUpdate(pop.getClass().getSimpleName() + " - " + method.getName());
 
 							//Look for and execute Before annotated methods
 							for (Method beforeMethod : methods) {
@@ -278,6 +287,7 @@ public class DoChuBoePopulate extends SvrProcess {
 					CanRunAfterClass annos = method.getAnnotation(CanRunAfterClass.class);
 					if (!classBreak && annos != null) {
 						try {
+							processMonitor.statusUpdate(pop.getClass().getSimpleName() + " - " + method.getName());
 							pop.setScenarioName(pop.getClass().getSimpleName() + "_" + method.getName());
 							pop_response.appendNote("Starting... " + pop.getScenarioName());
 							pop_response.saveEx();

@@ -32,7 +32,7 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20250127L;
+	private static final long serialVersionUID = 20250403L;
 
     /** Standard Constructor */
     public X_BH_Encounter (Properties ctx, int BH_Encounter_ID, String trxName)

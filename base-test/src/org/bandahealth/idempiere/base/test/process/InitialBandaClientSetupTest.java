@@ -21,6 +21,8 @@ import org.compiere.model.MAttributeSet;
 import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MClient;
+import org.compiere.model.MDiscountSchema;
+import org.compiere.model.MDiscountSchemaLine;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
@@ -246,6 +248,8 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							valueObject.getTransactionName()).setOnlyActiveRecords(true).setParameters(client.get_ID()).list();
 			assertEquals(2, priceLists.size(), "Only two price lists exist for a client");
 			assertTrue(priceLists.stream().anyMatch(MPriceList::isSOPriceList), "One is a sales price list");
+			assertTrue(priceLists.stream().anyMatch(priceList -> priceList.getName().equals("Default Price List")),
+					"Default sales price list has the correct name");
 			assertTrue(priceLists.stream().anyMatch(Predicate.not(MPriceList::isSOPriceList)),
 					"One is a purchase price list");
 
@@ -263,6 +267,16 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							"			AND validfrom <= NOW() - '1 year'::interval" +
 							"	)                                                                AS result"
 			);
+
+			// Discount schema is correct
+			MDiscountSchema bandaDiscountSchema;
+			assertNotNull((bandaDiscountSchema =
+							new Query(valueObject.getContext(), MDiscountSchema.Table_Name, "Name=? AND AD_Client_ID=?",
+									get_TrxName()).setParameters("Default Price List Schema - DO NOT CHANGE", client.get_ID()).first()),
+					"Price list schema is created");
+			assertNotNull(new Query(valueObject.getContext(), MDiscountSchemaLine.Table_Name, "M_DiscountSchema_ID=?",
+							get_TrxName()).setParameters(bandaDiscountSchema.get_ID()).first(),
+					"Price list schema line is created");
 
 			// Assert calendar year periods are opened
 			addAssertionSQL(
@@ -336,6 +350,25 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 					.setParameters(client.get_ID(), MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
 			assertEquals(MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX,
 					clientPatientNumberSequence.getName(), "Patient Sequence was created");
+
+			// Assert product categories are added (we subtract one from the created since it has "Standard" by default)
+			addAssertionSQL("""
+					SELECT
+						'Ensure all product categories are added' AS name,
+						COUNT(pc.*) - 1 = pcd.cou
+					FROM
+						m_product_category pc
+							CROSS JOIN (
+							SELECT
+								COUNT(*) AS cou
+							FROM
+								bh_product_categorydefault
+						) pcd
+					WHERE
+						pc.ad_client_id =\s""" + client.get_ID() + """
+					\nGROUP BY
+						pcd.cou;"""
+			);
 
 			// Confirm log levels correct
 			assertEquals(originalLogLevel, CLogMgt.getLevel(), "Log levels match after creating new client");

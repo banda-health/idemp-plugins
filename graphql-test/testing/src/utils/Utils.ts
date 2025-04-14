@@ -1,21 +1,16 @@
 import { v4 } from 'uuid';
-import { mutate, query } from '../api';
-import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
 	Ad_ProcessRunAndExportDocument,
 	Ad_Ref_ListGetDocument,
 	Bh_VisitGetDocument,
 	Bh_VisitSaveDocument,
-	C_AcctSchemaGetDocument,
 	C_BankAccountGetDocument,
 	C_BPartnerGetDocument,
 	C_BPartnerSaveWithLocationAndContactDocument,
-	C_BPartnerSaveWithLocationDocument,
 	C_ChargeSaveDocument,
 	C_InvoiceGetDocument,
 	C_InvoiceProcessDocument,
 	C_InvoiceSaveWithInvoiceLinesDocument,
-	C_LocationGetDocument,
 	C_OrderGetDocument,
 	C_OrderProcessDocument,
 	C_OrderSaveWithOrderLinesDocument,
@@ -25,20 +20,21 @@ import {
 	C_UomGetDefaultDocument,
 	M_AttributeSetInstanceGetDocument,
 	M_DiscountSchemaGetDocument,
-	M_DiscountSchemaGetQuery,
 	M_InventoryProcessDocument,
 	M_InventorySaveWithInventoryLinesDocument,
-	M_PriceListGetDocument,
-	M_PriceListSaveDocument,
 	M_PriceList_VersionGetDocument,
 	M_PriceList_VersionSaveDocument,
+	M_PriceListSaveDocument,
+	M_Product_CategoryGetDocument,
 	M_ProductPriceSaveManyDocument,
 	M_ProductSaveDocument,
-	M_Product_CategoryGetDocument,
 	M_StorageOnHandGetDocument,
 	M_WarehouseGetDocument,
 	ReportOutput,
 } from '../__generated__/graphql';
+import { mutate, query } from '../api';
+import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
+import { formatApiDate } from './DateUtil';
 
 export async function loadBankAccount(valueObject: ValueObject) {
 	if (valueObject.bankAccount) {
@@ -74,7 +70,7 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 						UU: businessPartnerUuid,
 						Name: valueObject.getDynamicStepMessage(),
 						Description: valueObject.getStepMessageLong(),
-						BH_Birthday: valueObject.date?.getTime(),
+						BH_Birthday: formatApiDate(valueObject.date),
 						bh_gender: { UU: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
 						IsCustomer: true,
 						IsVendor: true,
@@ -228,7 +224,7 @@ export async function createProduct(valueObject: ValueObject) {
 							Name: priceListDate + '; IsSOTrx=Y; ' + Math.floor(Math.random() * 1000000),
 							Description: 'Create sales price list version',
 							M_PriceList: { UU: valueObject.businessPartner.M_PriceList?.UU! },
-							ValidFrom: priceListDate.getTime(),
+							ValidFrom: formatApiDate(priceListDate),
 							M_DiscountSchema: { UU: schema.UU },
 						},
 					},
@@ -265,7 +261,7 @@ export async function createProduct(valueObject: ValueObject) {
 							Name: priceListDate + '; IsSOTrx=Y; ' + Math.floor(Math.random() * 1000000),
 							Description: 'Create sales price list version',
 							M_PriceList: { UU: valueObject.businessPartner.M_PriceList?.UU! },
-							ValidFrom: priceListDate.getTime(),
+							ValidFrom: formatApiDate(priceListDate),
 							M_DiscountSchema: { UU: schema.UU },
 						},
 					},
@@ -386,7 +382,7 @@ export async function createOrder(valueObject: ValueObject) {
 					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
 					C_BPartner: { UU: valueObject.businessPartner.UU },
 					C_DocTypeTarget: { UU: valueObject.documentType.UU },
-					DateOrdered: valueObject.date?.getTime(),
+					DateOrdered: formatApiDate(valueObject.date),
 					Description: valueObject.getStepMessageLong(),
 					IsSOTrx: valueObject.documentType.IsSOTrx,
 					M_Warehouse: { UU: valueObject.warehouse.UU },
@@ -463,7 +459,7 @@ export async function createInvoice(valueObject: ValueObject) {
 					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
 					Description: valueObject.getStepMessageLong(),
 					C_BPartner: { UU: valueObject.businessPartner.UU },
-					DateInvoiced: valueObject.date?.getTime(),
+					DateInvoiced: formatApiDate(valueObject.date),
 					C_DocTypeTarget: { UU: valueObject.documentType.UU },
 					IsSOTrx: valueObject.documentType!.IsSOTrx,
 					C_Order: valueObject.order ? { UU: valueObject.order.UU } : undefined,
@@ -793,7 +789,7 @@ export async function createInventory(valueObject: ValueObject) {
 					Description: valueObject.getStepMessageLong(),
 					C_DocType: { UU: valueObject.documentType.UU },
 					M_Warehouse: { UU: valueObject.warehouse.UU },
-					MovementDate: valueObject.date?.getTime(),
+					MovementDate: formatApiDate(valueObject.date),
 				},
 				M_InventoryLine: {
 					M_Inventory: { UU: inventoryUuid },

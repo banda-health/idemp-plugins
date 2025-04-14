@@ -39,7 +39,7 @@ type PA_Hierarchy {
 	# Trees are used for (financial) reporting
 	AD_Tree_SalesRegion: AD_Tree!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -52,7 +52,7 @@ type PA_Hierarchy {
 	Name: String!
 	UU: ID!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

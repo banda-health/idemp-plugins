@@ -32,13 +32,13 @@ type A_Asset_Retirement {
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

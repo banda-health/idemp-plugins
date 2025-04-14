@@ -42,14 +42,14 @@ type A_Asset_Info_Oth {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	Text: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

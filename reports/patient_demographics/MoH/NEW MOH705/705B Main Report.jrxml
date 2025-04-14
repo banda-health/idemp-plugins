@@ -4,6 +4,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT DB"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">

@@ -25,7 +25,7 @@ type M_ShippingProcessor {
 	ConnectionKey: String
 	ConnectionPassword: String!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -35,7 +35,7 @@ type M_ShippingProcessor {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User ID or account number

@@ -29,7 +29,7 @@ type AD_Attachment {
 	# Binary Data
 	BinaryData: Binary
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -39,7 +39,7 @@ type AD_Attachment {
 	# Name this entity is referred to as
 	Title: String!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

@@ -27,13 +27,13 @@ type AD_WorkflowProcessor {
 	# Send alert email when over priority
 	AlertOverPriority: Int
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Date the process will run next
-	DateNextRun: Date
+	DateNextRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# Send Alert when there is no activity after days (0= no alert)
@@ -50,7 +50,7 @@ type AD_WorkflowProcessor {
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: AD_User!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
@@ -63,9 +63,9 @@ input AD_WorkflowProcessorInput {
 	# Send alert email when over priority
 	AlertOverPriority: Int
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Date the process will run next
-	DateNextRun: Date
+	DateNextRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# Send Alert when there is no activity after days (0= no alert)

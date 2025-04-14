@@ -4,13 +4,18 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.report.test.utils.PDFUtils;
+import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
@@ -18,6 +23,7 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.Env;
 import org.hamcrest.Matchers;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -25,7 +31,8 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -57,16 +64,17 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		String diagnosisAfterDiagnosisToSearchForOnReport = "Burns";
 
 		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
-		MBHConcept codedDiagnosis = null;
+		MBHConcept codedDiagnosis;
 		try {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
 			codedDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
 					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
-							.setParameters(diagnosisToSearchFor).first();
+					.setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create the pneumonia coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
+				codedDiagnosis.setOcl_Uuid(diagnosisToSearchFor);
 			}
 			codedDiagnosis.saveEx();
 
@@ -84,15 +92,16 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 			}
 
 			commitEx();
-			
+
 			// verify second diagnosis exists
 			MBHConcept codedDiagnosis2 = new Query(valueObject.getContext(), MBHConcept.Table_Name,
 					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
-							.setParameters(diagnosisAfterDiagnosisToSearchForOnReport).first();
+					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport).first();
 			if (codedDiagnosis2 == null) {
 				valueObject.setStepName("Create the burns coded diagnosis");
 				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+				codedDiagnosis2.setOcl_Uuid(diagnosisAfterDiagnosisToSearchForOnReport);
 			}
 			codedDiagnosis2.saveEx();
 
@@ -100,7 +109,8 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
 							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
 					valueObject.getTransactionName())
-					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport, codedDiagnosis.getBH_Concept_ID(),
+							MOH705ALESSTHAN5).first();
 			if (extra2 == null) {
 				extra2 = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
 				extra2.setBH_Key(MOH705ALESSTHAN5);
@@ -122,11 +132,10 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setProcessInformationParameters(
 				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
-		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		List<String> diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
-				diagnosisAfterDiagnosisToSearchForOnReport);
-		int numberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
+
+		double numberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
 		Calendar calendar = GregorianCalendar.getInstance();
 		calendar.add(Calendar.YEAR, -3);
@@ -162,7 +171,8 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
@@ -214,12 +224,10 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setProcessInformationParameters(
 				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
-		reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
-				diagnosisAfterDiagnosisToSearchForOnReport);
-		int newNumberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
+		double newNumberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
 		assertThat("Number of diagnoses correctly counted", newNumberOfDiagnoses, is(numberOfDiagnoses + 1));
 	}
@@ -239,11 +247,12 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
 			codedDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
 					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
-							.setParameters(diagnosisToSearchFor).first();
+					.setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create asthma coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
+				codedDiagnosis.setOcl_Uuid(diagnosisToSearchFor);
 			}
 
 			codedDiagnosis.saveEx();
@@ -260,15 +269,16 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 				extra.saveEx();
 			}
 			commitEx();
-			
+
 			// verify second diagnosis exists
 			MBHConcept codedDiagnosis2 = new Query(valueObject.getContext(), MBHConcept.Table_Name,
 					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
-							.setParameters(diagnosisAfterDiagnosisToSearchForOnReport).first();
+					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport).first();
 			if (codedDiagnosis2 == null) {
 				valueObject.setStepName("Create the suspected malaria coded diagnosis");
 				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+				codedDiagnosis2.setOcl_Uuid(diagnosisAfterDiagnosisToSearchForOnReport);
 			}
 			codedDiagnosis2.saveEx();
 
@@ -276,7 +286,8 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
 							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
 					valueObject.getTransactionName())
-					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport, codedDiagnosis.getBH_Concept_ID(),
+							MOH705ALESSTHAN5).first();
 			if (extra2 == null) {
 				extra2 = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
 				extra2.setBH_Key(MOH705ALESSTHAN5);
@@ -288,23 +299,22 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 		}
-		
+
 		valueObject.setStepName("Generate the report to get initial data");
 		valueObject.setProcessUuid(reportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		
+
 		Timestamp threeYearsAgo = TimestampUtils.addToNow(Calendar.YEAR, -3);
 		Timestamp startOfMonth = TimestampUtils.startOfMonth();
 		Timestamp endOfMonth = TimestampUtils.endOfMonth();
 		valueObject.setProcessInformationParameters(
 				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
-		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		List<String> diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
-				diagnosisAfterDiagnosisToSearchForOnReport);
-		int numberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
+
+		double numberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
 		valueObject.setStepName("Create a minor patient");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -336,7 +346,8 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
@@ -390,13 +401,10 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setProcessInformationParameters(
 				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
-		reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-
-		diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
-				diagnosisAfterDiagnosisToSearchForOnReport);
-		int newNumberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
+		double newNumberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
 		assertThat("Should only pick 1 diagnosis", newNumberOfDiagnoses, is(numberOfDiagnoses + 1));
 	}
@@ -416,11 +424,12 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
 			codedDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
 					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
-							.setParameters(diagnosisToSearchFor).first();
+					.setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create asthma coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
+				codedDiagnosis.setOcl_Uuid(diagnosisToSearchFor);
 			}
 			codedDiagnosis.saveEx();
 			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
@@ -439,11 +448,12 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 			// verify second diagnosis exists
 			MBHConcept codedDiagnosis2 = new Query(valueObject.getContext(), MBHConcept.Table_Name,
 					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
-							.setParameters(diagnosisAfterDiagnosisToSearchForOnReport).first();
+					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport).first();
 			if (codedDiagnosis2 == null) {
 				valueObject.setStepName("Create the suspected malaria coded diagnosis");
 				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+				codedDiagnosis2.setOcl_Uuid(diagnosisAfterDiagnosisToSearchForOnReport);
 			}
 			codedDiagnosis2.saveEx();
 
@@ -451,7 +461,8 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
 							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
 					valueObject.getTransactionName())
-					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport, codedDiagnosis.getBH_Concept_ID(),
+							MOH705ALESSTHAN5).first();
 			if (extra2 == null) {
 				extra2 = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
 				extra2.setBH_Key(MOH705ALESSTHAN5);
@@ -476,11 +487,10 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setProcessInformationParameters(
 				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
-		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		List<String> diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
-				diagnosisAfterDiagnosisToSearchForOnReport);
-		int numberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
+
+		double numberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
 		valueObject.setStepName("Create a minor patient");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -512,7 +522,8 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
@@ -605,43 +616,34 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setProcessInformationParameters(
 				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
-		reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-
-		diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
-				diagnosisAfterDiagnosisToSearchForOnReport);
-		int newNumberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
+		double newNumberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
 		assertThat("Should only pick 1 diagnosis", newNumberOfDiagnoses, is(numberOfDiagnoses + 1));
 	}
 
-	private int getDiagnosesCountForDate(Timestamp reportDataBeginDate, Timestamp dateWantingDataFor,
-			List<String> diagnosisData) {
+	private double getDiagnosesCountForDate(ChuBoePopulateVO valueObject, Timestamp dateWantingDataFor,
+			String diagnosisName)
+			throws IOException {
 		// Get the index of the first data point
 		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.setTimeInMillis(reportDataBeginDate.getTime());
-		int dayOfMonthOrReportBeginDate = calendar.get(Calendar.DAY_OF_MONTH);
 		calendar.setTimeInMillis(dateWantingDataFor.getTime());
 		int dayOfMonthWantingDataFor = calendar.get(Calendar.DAY_OF_MONTH);
-		assertTrue(dayOfMonthOrReportBeginDate <= dayOfMonthWantingDataFor,
-				"Report was run with start date before date wanting data for");
-		int indexOfStartDateData = 0;
-		for (String data : diagnosisData) {
-			try {
-				// If we can get an integer value out of this, call it the starting data point
-				Integer.parseInt(data);
-				break;
-			} catch (Throwable ignored) {
-				indexOfStartDateData++;
-			}
-		}
-		return Integer.parseInt(
-				diagnosisData.get(indexOfStartDateData + dayOfMonthWantingDataFor - dayOfMonthOrReportBeginDate));
-	}
 
-	private List<String> getDataBetweenDiagnoses(String reportContent, String diagnosis1, String diagnosis2) {
-		return Arrays.asList(reportContent.substring(reportContent.toLowerCase().indexOf(diagnosis1.toLowerCase()),
-				reportContent.toLowerCase().indexOf(diagnosis2.toLowerCase())).split(" "));
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "DISEASES (New Cases Only)");
+			int countCellIndex = TableUtils.getColumnIndex(headerRow, dayOfMonthWantingDataFor);
+
+			Optional<Row> diagnosisRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equals(diagnosisName))).findFirst();
+			assertTrue(diagnosisRow.isPresent(), "Found row for diagnoses " + diagnosisName);
+			return diagnosisRow.get().getCell(countCellIndex).getNumericCellValue();
+		}
 	}
 }

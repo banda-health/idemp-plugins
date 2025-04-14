@@ -13,8 +13,10 @@ import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
+import org.compiere.model.MConversionType;
 import org.compiere.model.MCostElement;
 import org.compiere.model.MDiscountSchema;
+import org.compiere.model.MDiscountSchemaLine;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
@@ -50,6 +52,7 @@ import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -1205,21 +1208,55 @@ public class MBandaSetup {
 			return false;
 		}
 
-		MDiscountSchema discountSchema = new Query(context, MDiscountSchema.Table_Name,
-				MDiscountSchema.COLUMNNAME_AD_Client_ID + "=? AND " + MDiscountSchema.COLUMNNAME_Name + " =?",
-				getTransactionName()).setParameters(getAD_Client_ID(), DEFAULT_IDEMPIERE_ENTITY_NAME).first();
-		// create default price-list version
-		MPriceListVersion priceListVersion = new MPriceListVersion(context, 0, getTransactionName());
-		priceListVersion.setName(priceListVersionName);
-		priceListVersion.setIsActive(true);
-		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
-		priceListVersion.setM_DiscountSchema_ID(discountSchema.get_ID());
 		// GO-2240 Make sure the price list is valid from a date in the past because
 		// usually clients want to enter stuff
 		// they've recently received before today
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(Timestamp.from(Instant.now()));
 		calendar.add(Calendar.YEAR, -1);
+
+		// Create discount schemas to be used with new price lists
+		MDiscountSchema bandaDiscountSchema = new MDiscountSchema(context, 0, getTransactionName());
+		bandaDiscountSchema.setName("Default Price List Schema - DO NOT CHANGE");
+		bandaDiscountSchema.setValidFrom(new Timestamp(calendar.getTime().getTime()));
+		bandaDiscountSchema.setDiscountType(MDiscountSchema.DISCOUNTTYPE_Pricelist);
+		bandaDiscountSchema.setFlatDiscount(BigDecimal.ZERO);
+		bandaDiscountSchema.setCumulativeLevel(MDiscountSchema.CUMULATIVELEVEL_Line);
+		bandaDiscountSchema.setProcessing(false);
+		if (!bandaDiscountSchema.save()) {
+			log.log(Level.SEVERE, "Discount schema not saved");
+			transaction.rollback();
+			transaction.close();
+		}
+
+		MDiscountSchemaLine bandaDiscountSchemaLine = new MDiscountSchemaLine(context, 0, getTransactionName());
+		bandaDiscountSchemaLine.setM_DiscountSchema_ID(bandaDiscountSchema.get_ID());
+		bandaDiscountSchemaLine.setSeqNo(10);
+		bandaDiscountSchemaLine.setConversionDate(new Timestamp(System.currentTimeMillis()));
+		bandaDiscountSchemaLine.setList_Base(MDiscountSchemaLine.LIST_BASE_ListPrice);
+		bandaDiscountSchemaLine.setList_Discount(BigDecimal.ZERO);
+		bandaDiscountSchemaLine.setList_Rounding(MDiscountSchemaLine.LIST_ROUNDING_CurrencyPrecision);
+		bandaDiscountSchemaLine.setStd_Base(MDiscountSchemaLine.STD_BASE_StandardPrice);
+		bandaDiscountSchemaLine.setStd_Discount(BigDecimal.ZERO);
+		bandaDiscountSchemaLine.setStd_Rounding(MDiscountSchemaLine.LIST_ROUNDING_CurrencyPrecision);
+		bandaDiscountSchemaLine.setLimit_Base(MDiscountSchemaLine.LIMIT_BASE_LimitPOPrice);
+		bandaDiscountSchemaLine.setLimit_Discount(BigDecimal.ZERO);
+		bandaDiscountSchemaLine.setLimit_Rounding(MDiscountSchemaLine.LIST_ROUNDING_CurrencyPrecision);
+		MConversionType conversionType =
+				new Query(context, MConversionType.Table_Name, "Name=?", getTransactionName()).setParameters("Spot").first();
+		bandaDiscountSchemaLine.setC_ConversionType_ID(conversionType.get_ID());
+		if (!bandaDiscountSchemaLine.save()) {
+			log.log(Level.SEVERE, "Discount schema line not saved");
+			transaction.rollback();
+			transaction.close();
+		}
+
+		// create default price-list version
+		MPriceListVersion priceListVersion = new MPriceListVersion(context, 0, getTransactionName());
+		priceListVersion.setName(priceListVersionName);
+		priceListVersion.setIsActive(true);
+		priceListVersion.setM_PriceList_ID(bandaPriceList.get_ID());
+		priceListVersion.setM_DiscountSchema_ID(bandaDiscountSchema.get_ID());
 		priceListVersion.setValidFrom(new Timestamp(calendar.getTime().getTime()));
 		if (!priceListVersion.save()) {
 			log.log(Level.SEVERE, "Price-list version not saved");

@@ -1,0 +1,54 @@
+# Generated Schema for BH_Allergy_Reaction - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_Allergy_Reaction(UU: String!): BH_Allergy_Reaction
+	BH_Allergy_ReactionGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Allergy_ReactionConnection!
+}
+
+extend type Mutation {
+	BH_Allergy_ReactionSave(Entity: BH_Allergy_ReactionInput!): BH_Allergy_Reaction!
+	BH_Allergy_ReactionSaveMany(Entities: [BH_Allergy_ReactionInput!]!): [BH_Allergy_Reaction!]!
+	BH_Allergy_ReactionDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Allergy_ReactionConnection {
+	Results: [BH_Allergy_Reaction!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Allergy_Reaction {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_Allergy: BH_Allergy
+	UU: ID!
+	BH_Concept: BH_Concept
+	BH_Uncoded_Allergy_Reaction: String
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Allergy_ReactionInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Allergy: ForeignEntityInput
+	UU: ID
+	BH_Concept: ForeignEntityInput
+	BH_Uncoded_Allergy_Reaction: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+}

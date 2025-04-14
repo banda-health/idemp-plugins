@@ -36,7 +36,7 @@ type C_AcctSchema {
 	# Indicates how Costs will be calculated
 	CostingMethod: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -79,7 +79,7 @@ type C_AcctSchema {
 	# Type of Tax Correction
 	TaxCorrectionType: AD_Ref_List!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

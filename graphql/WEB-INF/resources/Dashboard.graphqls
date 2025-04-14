@@ -1,3 +1,50 @@
 extend type Query {
 	DashboardData(UU: String!, SqlQuery: String!): String
+	DashboardGeneralDataGet(BeginDate: DateTime!, EndDate: DateTime!): DashboardGeneralData!
+	DashboardDiagnosisUsageGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardDiagnosisUsage]!
+	DashboardProductUsageGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardProductUsage]!
+	DashboardLabUsageGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardLabUsage]!
+	DashboardVisitHistoryStatGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardVisitHistoryStat]!
+}
+
+type DashboardGeneralData {
+	TotalPatientsServed: Int!
+	NewPatientsRegistered: Int!
+	AverageNumberOfProductsDelivered: BigDecimal!
+	AverageChargePerPatient: BigDecimal!
+	AverageProductTurnover: BigDecimal!
+	PercentVitalsTracked: BigDecimal!
+	PercentDiagnosesCoded: BigDecimal!
+	PercentNotes: BigDecimal!
+	PercentCompletedLabs: BigDecimal!
+	PercentVisitsCompleted: BigDecimal!
+}
+
+type DashboardDiagnosisUsage {
+	BH_Concept: BH_Concept
+	BH_Uncoded_Diagnosis: String
+	Current: BigDecimal!
+	Previous: BigDecimal
+	CurrentTotal: BigDecimal
+}
+
+type DashboardProductUsage {
+	M_Product: M_Product
+	Name: String!
+	Current: BigDecimal!
+	Previous: BigDecimal
+}
+
+type DashboardLabUsage {
+	BH_Concept: BH_Concept
+	Name: String!
+	Current: BigDecimal!
+	Previous: BigDecimal
+}
+
+type DashboardVisitHistoryStat {
+	BucketValue: DateTime!
+	BH_PatientType: AD_Ref_List
+	AlternateVisitType: String
+	Frequency: Int!
 }

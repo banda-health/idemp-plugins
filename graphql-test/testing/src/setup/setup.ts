@@ -21,6 +21,18 @@ import {
 const workingDirectory = join(tmpdir(), 'rest-global-setup');
 const clientName = process.env.IDEMPIERE_GRAPHQL_TEST_CLIENT || 'GraphQL Test Client';
 
+function formatApiDate(date?: Date): string {
+	const [{ value: month }, , { value: day }, , { value: year }] = new Intl.DateTimeFormat('en', {
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+		hour: 'numeric',
+		minute: 'numeric',
+		hour12: true,
+	}).formatToParts(date || new Date());
+	return `${year}/${month}/${day}`;
+}
+
 async function createDefaultPriceLists(
 	priceLists: Ad_RoleLocationPriceListsCurrencyGetQuery['M_PriceListGet']['Results'],
 	loginInfo: LoginInfo,
@@ -81,6 +93,7 @@ async function createDefaultPriceLists(
 
 	const priceListDate = new Date();
 	priceListDate.setFullYear(priceListDate.getFullYear() - 1);
+	const priceListApiDate = formatApiDate(priceListDate);
 
 	let schema: M_DiscountSchemaGetQuery['M_DiscountSchemaGet']['Results'][0] | undefined;
 	let priceListVersionCount = (
@@ -89,7 +102,7 @@ async function createDefaultPriceLists(
 			variables: {
 				Filter: JSON.stringify({
 					m_pricelist: { m_pricelist_uu: defaultSalesPriceList.UU },
-					validfrom: { $lte: priceListDate.getTime() },
+					validfrom: { $lte: priceListApiDate },
 				}),
 			},
 			context,
@@ -109,10 +122,10 @@ async function createDefaultPriceLists(
 			mutation: M_PriceList_VersionSaveDocument,
 			variables: {
 				Entity: {
-					Name: priceListDate + '; IsSOTrx=Y; ' + Math.floor(Math.random() * 1000000),
+					Name: priceListApiDate + '; IsSOTrx=Y; ' + Math.floor(Math.random() * 1000000),
 					Description: 'Create sales price list version',
 					M_PriceList: { UU: defaultSalesPriceList.UU },
-					ValidFrom: priceListDate.getTime(),
+					ValidFrom: priceListApiDate,
 					M_DiscountSchema: { UU: schema.UU },
 				},
 			},
@@ -126,7 +139,7 @@ async function createDefaultPriceLists(
 			variables: {
 				Filter: JSON.stringify({
 					m_pricelist: { m_pricelist_uu: defaultPurchasePriceList.UU },
-					validfrom: { $lte: priceListDate.getTime() },
+					validfrom: { $lte: priceListApiDate },
 				}),
 			},
 			context,
@@ -146,10 +159,10 @@ async function createDefaultPriceLists(
 			mutation: M_PriceList_VersionSaveDocument,
 			variables: {
 				Entity: {
-					Name: priceListDate + '; IsSOTrx=N; ' + Math.floor(Math.random() * 1000000),
+					Name: priceListApiDate + '; IsSOTrx=N; ' + Math.floor(Math.random() * 1000000),
 					Description: 'Create sales price list version',
 					M_PriceList: { UU: defaultPurchasePriceList.UU },
-					ValidFrom: priceListDate.getTime(),
+					ValidFrom: priceListApiDate,
 					M_DiscountSchema: { UU: schema.UU },
 				},
 			},
@@ -160,11 +173,13 @@ async function createDefaultPriceLists(
 export default async function () {
 	let loginInfo: LoginInfo = {} as LoginInfo;
 	const valueObject: { sessionToken?: string } = { sessionToken: undefined };
-	loginInfo.AD_User = (await graphqlClient.mutate({
-		mutation: SignInDocument,
-		variables: { Credentials: initialLoginData },
-		context: { valueObject },
-	})).data?.SignIn.AD_User;
+	loginInfo.AD_User = (
+		await graphqlClient.mutate({
+			mutation: SignInDocument,
+			variables: { Credentials: initialLoginData },
+			context: { valueObject },
+		})
+	).data?.SignIn.AD_User;
 	if (!valueObject.sessionToken) {
 		throw new Error('no token generated');
 	}

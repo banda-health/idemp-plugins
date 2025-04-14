@@ -49,7 +49,7 @@ type C_OrderLine {
 	# Unit of Measure
 	C_UOM: C_UOM!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	CreateProduction: String
@@ -119,11 +119,11 @@ type C_OrderLine {
 	# Revenue Recognition Amount
 	RRAmt: BigDecimal
 	# Revenue Recognition Start Date
-	RRStartDate: Date
+	RRStartDate: DateTime
 	# Resource Assignment
 	S_ResourceAssignment: S_ResourceAssignment
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1
@@ -228,7 +228,7 @@ input C_OrderLineInput {
 	# Revenue Recognition Amount
 	RRAmt: BigDecimal
 	# Revenue Recognition Start Date
-	RRStartDate: Date
+	RRStartDate: DateTime
 	# Resource Assignment
 	S_ResourceAssignment: ForeignEntityInput
 	# User defined list element #1

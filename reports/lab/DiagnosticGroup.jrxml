@@ -49,7 +49,7 @@
 	<queryString>
 		<![CDATA[SELECT
 	COALESCE(pce.bh_value, panel.bh_display_name) AS panel,
-	COALESCE(tce.bh_value, test.bh_display_name)      AS name,
+	COALESCE(tce.bh_value, test.bh_display_name)  AS name,
 	ed.bh_value                                   AS result,
 	test_ref_range.reference_range                AS range,
 	test_ref_range.status
@@ -65,43 +65,50 @@ FROM
 		ON test.bh_concept_id = tce.bh_concept_id AND tce.bh_key = 'local_name'
 		LEFT JOIN (
 		SELECT
-			STRING_AGG(
-				CASE
-					WHEN bce.bh_key = 'low_normal' THEN CONCAT(bce.bh_value, ' - ')
-					WHEN bce.bh_key = 'hi_normal' THEN bce.bh_value
-					WHEN bce.bh_key = 'units' THEN bce.bh_value
-					END, ' '
-				ORDER BY
-					CASE
-						WHEN bce.bh_key = 'low_normal' THEN 1
-						WHEN bce.bh_key = 'hi_normal' THEN 2
-						WHEN bce.bh_key = 'units' THEN 3
-						END
-			) AS reference_range,
-			STRING_AGG(
-				CASE
-					WHEN bce.bh_key = 'low_normal' AND EXISTS (
-						SELECT
-							1
-						FROM
-							bh_concept_extra bce_sub
-						WHERE
-							bce_sub.bh_concept_id = bce.bh_concept_id
-							AND bce_sub.bh_key = 'hi_normal'
-							AND CAST(bed.bh_value AS FLOAT) BETWEEN CAST(bce.bh_value AS FLOAT) AND CAST(bce_sub.bh_value AS FLOAT)
-					) THEN 'Normal'
-					WHEN bce.bh_key = 'hi_normal' AND CAST(bed.bh_value AS FLOAT) > CAST(bce.bh_value AS FLOAT) THEN 'High'
-					WHEN bce.bh_key = 'low_normal' AND CAST(bed.bh_value AS FLOAT) < CAST(bce.bh_value AS FLOAT) THEN 'Low'
-					END, ''
-			) AS status,
-			c.bh_concept_id
+			CASE
+				WHEN low_normal IS NOT NULL AND high_normal IS NOT NULL
+					THEN low_normal || ' - ' || high_normal
+				WHEN low_normal IS NOT NULL THEN '> ' || low_normal
+				WHEN high_normal IS NOT NULL THEN '< ' || high_normal END AS reference_range,
+			CASE
+				WHEN low_normal IS NOT NULL AND high_normal IS NOT NULL THEN CASE
+					                                                             WHEN bh_value::numeric BETWEEN low_normal::numeric AND high_normal::numeric
+						                                                             THEN 'Normal'
+					                                                             WHEN bh_value::numeric < low_normal::numeric
+						                                                             THEN 'Low'
+					                                                             ELSE 'High' END
+				WHEN low_normal IS NOT NULL THEN CASE WHEN bh_value::numeric < low_normal::numeric THEN 'Low' ELSE 'Normal' END
+				WHEN high_normal IS NOT NULL THEN CASE
+					                                  WHEN bh_value::numeric > high_normal::numeric THEN 'High'
+					                                  ELSE 'Normal' END END AS status,
+			bh_concept_id
 		FROM
-			bh_concept c
-				JOIN bh_concept_extra bce
-				ON c.bh_concept_id = bce.bh_concept_id AND bce.bh_key != 'local_name'
-				JOIN bh_encounter_diagnostic bed
-				ON c.bh_concept_id = bed.bh_concept_id
-		GROUP BY c.bh_concept_id
+			(
+				SELECT
+					ed.bh_value,
+					c.bh_concept_id,
+					CASE
+						WHEN cce_low.bh_client_concept_extra_id IS NOT NULL THEN cce_low.bh_value
+						ELSE ce_low.bh_value END  AS low_normal,
+					CASE
+						WHEN cce_high.bh_client_concept_extra_id IS NOT NULL THEN cce_high.bh_value
+						ELSE ce_high.bh_value END AS high_normal
+				FROM
+					bh_concept c
+						JOIN bh_encounter_diagnostic ed
+						ON c.bh_concept_id = ed.bh_concept_id
+						LEFT JOIN bh_concept_extra ce_low
+						ON c.bh_concept_id = ce_low.bh_concept_id AND ce_low.bh_key = 'low_normal'
+						LEFT JOIN bh_client_concept_extra cce_low
+						ON ce_low.bh_concept_extra_id = cce_low.bh_concept_extra_id AND cce_low.ad_client_id = ed.ad_client_id
+						LEFT JOIN bh_concept_extra ce_high
+						ON c.bh_concept_id = ce_high.bh_concept_id AND ce_high.bh_key = 'hi_normal'
+						LEFT JOIN bh_client_concept_extra cce_high
+						ON ce_high.bh_concept_extra_id = cce_high.bh_concept_extra_id AND cce_high.ad_client_id = ed.ad_client_id
+				WHERE
+					ed.group1 = $P{Group1}
+					AND ed.bh_value IS NOT NULL
+			) t
 	) AS test_ref_range
 		ON test_ref_range.bh_concept_id = test.bh_concept_id
 WHERE

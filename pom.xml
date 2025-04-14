@@ -344,7 +344,5 @@
 		<module>graphql-test</module>
 		<module>reports</module>
 		<module>reports-test</module>
-		<module>rest</module>
-		<module>rest-test</module>
 	</modules>
 </project>

@@ -5,10 +5,14 @@ import graphql.schema.CoercingParseLiteralException;
 import graphql.schema.CoercingParseValueException;
 import graphql.schema.CoercingSerializeException;
 import graphql.schema.GraphQLScalarType;
+import org.bandahealth.idempiere.graphql.utils.DateUtil;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 /**
  * A custom scalar to allow passing of Date classes into the GraphQL API
@@ -22,9 +26,10 @@ public class DateScalar {
 						return null;
 					}
 					if (dataFetcherResult instanceof Date) {
-						return ((Date) dataFetcherResult).getTime();
+						// Hopefully this never gets used because it'll lead to problems
+						return new SimpleDateFormat("yyyy/MM/dd").format((Date) dataFetcherResult);
 					} else if (dataFetcherResult instanceof Timestamp) {
-						return ((Timestamp) dataFetcherResult).getTime();
+						return new SimpleDateFormat("yyyy/MM/dd").format((Timestamp) dataFetcherResult);
 					}
 					throw new CoercingSerializeException("Could not serialize to date: " + dataFetcherResult);
 				}
@@ -50,22 +55,10 @@ public class DateScalar {
 		if (input == null) {
 			return null;
 		}
-		if (input instanceof Integer || input instanceof Long) {
-			return new Timestamp(Long.parseLong(input.toString()));
-		} else if (input instanceof String) {
-			try {
-				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(input.toString()).getTime());
-			} catch (Exception ignored) {
-			}
-			try {
-				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(input.toString()).getTime());
-			} catch (Exception ignored) {
-			}
-			try {
-				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd").parse(input.toString()).getTime());
-			} catch (Exception ignored) {
-			}
+		Timestamp parsedTimestamp = DateUtil.getAPITimestamp(input, true);
+		if (parsedTimestamp == null) {
+			throw new CoercingSerializeException("Could not parse input to date: " + input);
 		}
-		throw new CoercingSerializeException("Could not parse input to date: " + input);
+		return parsedTimestamp;
 	}
 }

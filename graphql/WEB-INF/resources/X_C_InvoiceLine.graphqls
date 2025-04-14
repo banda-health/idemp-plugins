@@ -52,7 +52,7 @@ type C_InvoiceLine {
 	# Unit of Measure
 	C_UOM: C_UOM
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -95,13 +95,13 @@ type C_InvoiceLine {
 	# Revenue Recognition Amount
 	RRAmt: BigDecimal
 	# Revenue Recognition Start Date
-	RRStartDate: Date
+	RRStartDate: DateTime
 	# Resource Assignment
 	S_ResourceAssignment: S_ResourceAssignment
 	# Tax Amount for a document
 	TaxAmt: BigDecimal
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1
@@ -182,7 +182,7 @@ input C_InvoiceLineInput {
 	# Revenue Recognition Amount
 	RRAmt: BigDecimal
 	# Revenue Recognition Start Date
-	RRStartDate: Date
+	RRStartDate: DateTime
 	# Resource Assignment
 	S_ResourceAssignment: ForeignEntityInput
 	# Tax Amount for a document

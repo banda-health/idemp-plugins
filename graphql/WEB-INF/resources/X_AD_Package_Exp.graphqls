@@ -25,7 +25,7 @@ type AD_Package_Exp {
 	UU: ID!
 	AD_Package_Type: AD_Ref_List
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Starting date for a range
@@ -48,7 +48,7 @@ type AD_Package_Exp {
 	# Internal Release Number
 	ReleaseNo: AD_Ref_List
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	UserName: String

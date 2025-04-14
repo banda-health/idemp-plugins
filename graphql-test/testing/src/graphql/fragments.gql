@@ -12,6 +12,7 @@ fragment AD_RoleFields on AD_Role {
 
 fragment BH_VisitFields on BH_Visit {
 	BH_VisitDate
+	Change_Reason
 	Description
 	DocumentNo
 	UU
@@ -70,6 +71,7 @@ fragment BH_VisitFields on BH_Visit {
 		}
 		PayAmt
 	}
+	Scheduled
 }
 
 fragment C_BPartnerFields on C_BPartner {

@@ -76,6 +76,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		MBHConcept codedDiagnosis =
 				new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		String diagnosisName = codedDiagnosis.getBH_Display_Name();
 		codedDiagnosis.saveEx();
 		commitEx();
@@ -151,6 +152,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		MBHConcept codedDiagnosis =
 				new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		codedDiagnosis.saveEx();
 		commitEx();
 
@@ -190,6 +192,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setRandom();
 		codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		String diagnosisName = codedDiagnosis.getBH_Display_Name();
 		codedDiagnosis.saveEx();
 		commitEx();
@@ -284,6 +287,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		MBHConcept codedDiagnosis =
 				new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		codedDiagnosis.saveEx();
 		commitEx();
 
@@ -317,6 +321,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setRandom();
 		codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		codedDiagnosis.saveEx();
 		commitEx();
 
@@ -356,6 +361,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setRandom();
 		codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		codedDiagnosis.saveEx();
 		commitEx();
 

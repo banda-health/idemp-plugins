@@ -44,7 +44,7 @@ type C_TaxDeclarationAcct {
 	C_TaxDeclaration: C_TaxDeclaration!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Accounting Date
@@ -57,7 +57,7 @@ type C_TaxDeclarationAcct {
 	# Unique line for this document
 	Line: Int
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

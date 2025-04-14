@@ -32,7 +32,7 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20250127L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_Visit (Properties ctx, int BH_Visit_ID, String trxName)
@@ -43,6 +43,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 			setBH_Visit_ID (0);
 			setDocumentNo (null);
 			setPatient_ID (0);
+			setScheduled (false);
+// N
         } */
     }
 
@@ -55,6 +57,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 			setBH_Visit_ID (0);
 			setDocumentNo (null);
 			setPatient_ID (0);
+			setScheduled (false);
+// N
         } */
     }
 
@@ -67,6 +71,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 			setBH_Visit_ID (0);
 			setDocumentNo (null);
 			setPatient_ID (0);
+			setScheduled (false);
+// N
         } */
     }
 
@@ -79,6 +85,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 			setBH_Visit_ID (0);
 			setDocumentNo (null);
 			setPatient_ID (0);
+			setScheduled (false);
+// N
         } */
     }
 
@@ -188,6 +196,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public static final String BH_PATIENTTYPE_PTOT = "y";
 	/** Home Visit = z */
 	public static final String BH_PATIENTTYPE_HomeVisit = "z";
+	/** Mental Health = Z */
+	public static final String BH_PATIENTTYPE_MentalHealth = "Z";
 	/** Set Patient Type.
 		@param BH_PatientType Patient Type
 	*/
@@ -324,6 +334,22 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return ii.intValue();
 	}
 
+	/** Set Change Reason.
+		@param Change_Reason The reason for changing this entity
+	*/
+	public void setChange_Reason (String Change_Reason)
+	{
+		set_Value (COLUMNNAME_Change_Reason, Change_Reason);
+	}
+
+	/** Get Change Reason.
+		@return The reason for changing this entity
+	  */
+	public String getChange_Reason()
+	{
+		return (String)get_Value(COLUMNNAME_Change_Reason);
+	}
+
 	/** Set Description.
 		@param Description Optional short description of the record
 	*/
@@ -384,27 +410,26 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Referral to other health facility = OHF */
-	public static final String BH_REFERRAL_ReferralToOtherHealthFacility = "OHF";
-	/** Referral from Community Unit = fcu */
-	public static final String BH_REFERRAL_ReferralFromCommunityUnit = "fcu";
-	/** Referral from health facilities = hf */
-	public static final String BH_REFERRAL_ReferralFromHealthFacilities = "hf";
-	/** Referral to Community Unit = tcu */
-	public static final String BH_REFERRAL_ReferralToCommunityUnit = "tcu";
-	/** Set Referral.
-		@param bh_referral Referral
+	/** Set Scheduled.
+		@param Scheduled Whether the entity was scheduled or not
 	*/
-	public void setbh_referral (String bh_referral)
+	public void setScheduled (boolean Scheduled)
 	{
-
-		set_Value (COLUMNNAME_bh_referral, bh_referral);
+		set_Value (COLUMNNAME_Scheduled, Boolean.valueOf(Scheduled));
 	}
 
-	/** Get Referral.
-		@return Referral	  */
-	public String getbh_referral()
+	/** Get Scheduled.
+		@return Whether the entity was scheduled or not
+	  */
+	public boolean isScheduled()
 	{
-		return (String)get_Value(COLUMNNAME_bh_referral);
+		Object oo = get_Value(COLUMNNAME_Scheduled);
+		if (oo != null)
+		{
+			 if (oo instanceof Boolean)
+				 return ((Boolean)oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 }

@@ -39,7 +39,7 @@ type AD_Workflow {
 	# Cost information
 	Cost: BigDecimal!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -86,7 +86,7 @@ type AD_Workflow {
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
 	UnitsCycles: BigDecimal
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	ValidateWorkflow: String

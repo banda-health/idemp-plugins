@@ -65,7 +65,7 @@ type GL_JournalLine {
 	# Valid Account Combination
 	C_ValidCombination: C_ValidCombination
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Currency Conversion Rate
@@ -90,7 +90,7 @@ type GL_JournalLine {
 	# Quantity
 	Qty: BigDecimal
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User defined list element #1

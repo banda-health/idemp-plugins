@@ -27,7 +27,7 @@ type C_DepositBatchLine {
 	# Payment identifier
 	C_Payment: C_Payment!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -40,7 +40,7 @@ type C_DepositBatchLine {
 	Processed: Boolean!
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

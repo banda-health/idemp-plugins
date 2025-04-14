@@ -222,6 +222,38 @@ query AD_UserGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	}
 }
 
+query BH_Allergy($UU: String!) {
+	BH_Allergy(UU: $UU) {
+		BH_Allergy_Reactions {
+			BH_Concept {
+				UU
+			}
+			BH_Uncoded_Allergy_Reaction
+			UU
+		}
+		BH_Allergy_Note
+		BH_Concept {
+			UU
+		}
+		BH_Uncoded_Allergen
+		C_BPartner {
+			UU
+		}
+		Severity_Concept {
+			UU
+		}
+		UU
+	}
+}
+
+query BH_AllergyGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_AllergyGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
 query BH_ConceptGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_ConceptGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
@@ -230,8 +262,13 @@ query BH_ConceptGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 			BH_Display_Name
 			BH_Concept_Type
 			BH_Concept_Extras {
-				UU
+				BH_Client_Concept_Extra {
+					BH_Value
+					UU
+				}
 				BH_Key
+				BH_Value
+				UU
 			}
 		}
 	}
@@ -290,6 +327,14 @@ query BH_Visit($UU: String!) {
 	}
 }
 
+query BH_VisitCount($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_VisitGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		PagingInfo {
+			TotalCount
+		}
+	}
+}
+
 query BH_VisitGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_VisitGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
@@ -339,6 +384,12 @@ query C_BP_GroupGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 query C_BPartner($UU: String!) {
 	C_BPartner(UU: $UU) {
 		...C_BPartnerFields
+		BH_Allergies {
+			UU
+		}
+		Contacts {
+			UU
+		}
 	}
 }
 
@@ -447,6 +498,14 @@ query C_OrderForSalesRep($UU: String!) {
 	}
 }
 
+query C_Payment($UU: String!) {
+	C_Payment(UU: $UU) {
+		...C_PaymentFields
+		DateTrx
+		Scheduled
+	}
+}
+
 query C_PaymentGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	C_PaymentGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
@@ -538,6 +597,12 @@ query M_Product_CategoryGet($Page: Int, $Size: Int, $Sort: String, $Filter: Stri
 			UU
 			Name
 		}
+	}
+}
+
+query M_Product($UU: String!) {
+	M_Product(UU: $UU) {
+		...M_ProductFields
 	}
 }
 

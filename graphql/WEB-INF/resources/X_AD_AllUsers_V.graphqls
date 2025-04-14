@@ -25,11 +25,11 @@ type AD_AllUsers_V {
 	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# Date this record was created
-	Created: Date
+	Created: DateTime
 	# User who created this records
 	CreatedBy: AD_User
-	DateAccountLocked: Date
-	DateLastLogin: Date
+	DateAccountLocked: DateTime
+	DateLastLogin: DateTime
 	DatePasswordChanged: Date
 	# Optional short description of the record
 	Description: String
@@ -52,7 +52,7 @@ type AD_AllUsers_V {
 	# Random data added to improve password hash effectiveness
 	Salt: String
 	# Date this record was updated
-	Updated: Date
+	Updated: DateTime
 	# User who updated this records
 	UpdatedBy: AD_User
 	UserPIN: String
@@ -65,8 +65,8 @@ input AD_AllUsers_VInput {
 	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	DateAccountLocked: Date
-	DateLastLogin: Date
+	DateAccountLocked: DateTime
+	DateLastLogin: DateTime
 	DatePasswordChanged: Date
 	# Optional short description of the record
 	Description: String

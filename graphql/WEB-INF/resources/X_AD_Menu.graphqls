@@ -38,7 +38,7 @@ type AD_Menu {
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -62,7 +62,7 @@ type AD_Menu {
 	# Predefined context variables to inject when opening a menu entry or a window
 	PredefinedContextVariables: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

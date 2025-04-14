@@ -43,7 +43,7 @@ type BH_Concept_Mapping {
 	BH_To_Concept_Url: String
 	BH_To_Source_Name: String
 	# Date this record was created
-	Created: Date
+	Created: DateTime
 	# User who created this records
 	CreatedBy: AD_User
 	From_BH_Concept: BH_Concept!
@@ -53,7 +53,7 @@ type BH_Concept_Mapping {
 	Ocl_Uuid: String
 	To_BH_Concept: BH_Concept
 	# Date this record was updated
-	Updated: Date
+	Updated: DateTime
 	# User who updated this records
 	UpdatedBy: AD_User
 }

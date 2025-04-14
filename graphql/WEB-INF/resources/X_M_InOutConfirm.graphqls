@@ -31,7 +31,7 @@ type M_InOutConfirm {
 	# Type of confirmation
 	ConfirmType: AD_Ref_List!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	CreatePackage: String
@@ -60,7 +60,7 @@ type M_InOutConfirm {
 	Processed: Boolean!
 	Processing: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

@@ -30,13 +30,13 @@ type C_BankStatementLoader {
 	C_BankAccount: C_BankAccount!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Date format used in the input format
 	DateFormat: String
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# Name of the local file or URL
@@ -66,7 +66,7 @@ type C_BankStatementLoader {
 	# Class name of the bank statement loader
 	StmtLoaderClass: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# User ID or account number
@@ -86,7 +86,7 @@ input C_BankStatementLoaderInput {
 	# Date format used in the input format
 	DateFormat: String
 	# Date the process was last run.
-	DateLastRun: Date
+	DateLastRun: DateTime
 	# Optional short description of the record
 	Description: String
 	# Name of the local file or URL

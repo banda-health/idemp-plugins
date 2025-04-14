@@ -26,7 +26,7 @@ type C_ProjectIssueMA {
 	C_ProjectIssue: C_ProjectIssue!
 	UU: ID!
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
@@ -36,7 +36,7 @@ type C_ProjectIssueMA {
 	# Quantity of a product moved.
 	MovementQty: BigDecimal!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

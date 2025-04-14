@@ -38,13 +38,13 @@ type C_CashBook_Acct {
 	# Cash Book Receipts Account
 	CB_Receipt_A: C_ValidCombination
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }

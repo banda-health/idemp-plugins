@@ -61,7 +61,7 @@ type I_FixedAsset {
 	# Unit of Measure
 	C_UOM: C_UOM
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Accounting Date
@@ -100,7 +100,7 @@ type I_FixedAsset {
 	# Symbol for a Unit of Measure
 	UOMSymbol: String
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Months of the usable life of the asset

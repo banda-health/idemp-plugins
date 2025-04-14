@@ -31,7 +31,7 @@ type PA_ColorSchema {
 	# Forth color used
 	AD_PrintColor4: AD_PrintColor
 	# Date this record was created
-	Created: Date!
+	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Optional short description of the record
@@ -52,7 +52,7 @@ type PA_ColorSchema {
 	Name: String!
 	UU: ID!
 	# Date this record was updated
-	Updated: Date!
+	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
 }
