@@ -76,6 +76,20 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 				codedDiagnosis.saveEx();
 				commitEx();
 			}
+
+			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor, codedDiagnosis.getBH_Concept_ID(), MOH705BGREATERTHAN5).first();
+			if (extra == null) {
+				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra.setBH_Key(MOH705BGREATERTHAN5);
+				extra.setBH_Value(diagnosisToSearchFor);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
+				extra.saveEx();
+				commitEx();
+			}
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 		}
