@@ -6,6 +6,7 @@ import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.utils.StringUtil;
 import org.compiere.model.MImportTemplate;
 import org.compiere.model.X_AD_ImportTemplateAccess;
 import org.compiere.model.Query;
@@ -19,18 +20,27 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 	private static int BUSINESS_PARTNER_WINDOW_ID = 123;
 	private static int BUSINESS_PARTNER_TAB_ID = 220;
-	private static String BUSINESS_PARTNER_IMPORT_HEADER = "Name,C_BP_Group_ID[Value],IsCustomer,IsProspect,bh_gender,BH_Birthday,BH_Local_PatientID,BH_Phone,C_BPartner_Location>Name,C_BPartner_Location>C_Location>Address1,C_BPartner_Location>C_Location>C_Country_ID[Name]";
+	private static String BUSINESS_PARTNER_IMPORT_HEADER =
+			"Name,C_BP_Group_ID[Value],IsCustomer,IsProspect,bh_gender,BH_Birthday,BH_Local_PatientID,BH_Phone," +
+					"C_BPartner_Location>Name,C_BPartner_Location>C_Location>Address1," +
+					"C_BPartner_Location>C_Location>C_Country_ID[Name]";
 	private static String BUSINESS_PARTNER_IMPORT_CSV_FILENAME = "/testdata/BandaBusinessPartnerImportTest.csv";
 	private static String TEMP_FILE_PREFIX = "TempBusinessPartnerImport";
 
@@ -52,30 +62,46 @@ public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		// Copy the contents of the test CSV file in this package into a temp file so the
-		// iDempiere import can read it
-		InputStream in = getClass().getResourceAsStream(BUSINESS_PARTNER_IMPORT_CSV_FILENAME);
+		// iDempiere import can read it. Change the name of the BP to avoid duplicates, too
 		File tempCSVFile = File.createTempFile(TEMP_FILE_PREFIX, ".csv");
-		OutputStream out = new FileOutputStream(tempCSVFile);
-		in.transferTo(out);
-		in.close();
-		out.close();
-		
+		try (PrintWriter printWriter = new PrintWriter(tempCSVFile)) {
+			try (InputStream inputStream = getClass().getResourceAsStream(BUSINESS_PARTNER_IMPORT_CSV_FILENAME)) {
+				assert inputStream != null;
+				try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+					String line;
+					int lineCount = 0;
+					// Read each line from the file
+					while ((line = bufferedReader.readLine()) != null) {
+						// Split the line by comma and convert to a List
+						String[] values = line.split(",");
+						if (!StringUtil.isNullOrEmpty(values[0]) && lineCount > 0) {
+							values[0] = valueObject.getRandomNumber() + values[0];
+						}
+						printWriter.println(String.join(",", values));
+						lineCount++;
+					}
+				}
+			}
+		} catch (IOException e) {
+			getLog().severe("Error reading the CSV file: " + e.getMessage());
+		}
+
 		// Check if an import template already exists with the required elements
 		List<MImportTemplate> importTemplateList = new Query(valueObject.getContext(), MImportTemplate.Table_Name,
 				MImportTemplate.COLUMNNAME_AD_Client_ID + " IN (0,?) AND " +
-				MImportTemplate.COLUMNNAME_AD_Window_ID + "=? AND " + 
-				MImportTemplate.COLUMNNAME_AD_Tab_ID + "=? AND " +
-				MImportTemplate.COLUMNNAME_CSVHeader + "=?", get_TrxName())
-			.setParameters(
-				valueObject.getClient().getAD_Client_ID(),
-				BUSINESS_PARTNER_WINDOW_ID,
-				BUSINESS_PARTNER_TAB_ID,
-				BUSINESS_PARTNER_IMPORT_HEADER)
-			.setOnlyActiveRecords(true).list();
-		
+						MImportTemplate.COLUMNNAME_AD_Window_ID + "=? AND " +
+						MImportTemplate.COLUMNNAME_AD_Tab_ID + "=? AND " +
+						MImportTemplate.COLUMNNAME_CSVHeader + "=?", get_TrxName())
+				.setParameters(
+						valueObject.getClient().getAD_Client_ID(),
+						BUSINESS_PARTNER_WINDOW_ID,
+						BUSINESS_PARTNER_TAB_ID,
+						BUSINESS_PARTNER_IMPORT_HEADER)
+				.setOnlyActiveRecords(true).list();
+
 		int importTemplateId;
 		MImportTemplate newImportTemplate = null;
-		
+
 		if (importTemplateList.isEmpty()) {
 			// If no suitable template existed, create one
 			newImportTemplate = new MImportTemplate(valueObject.getContext(), 0, valueObject.getTransactionName());
@@ -89,22 +115,23 @@ public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 			// If there were suitable templates, get the ID of the first one
 			importTemplateId = importTemplateList.get(0).getAD_ImportTemplate_ID();
 		}
-		
+
 		// Check if there is an import template access record set up that is suitable for the current role
-		List<X_AD_ImportTemplateAccess> templateAccessList = new Query(valueObject.getContext(), X_AD_ImportTemplateAccess.Table_Name,
-				X_AD_ImportTemplateAccess.COLUMNNAME_AD_Client_ID + "=? AND " +
-				X_AD_ImportTemplateAccess.COLUMNNAME_AD_ImportTemplate_ID + "=? AND " +
-				X_AD_ImportTemplateAccess.COLUMNNAME_AD_Role_ID + "=? AND " +
-				X_AD_ImportTemplateAccess.COLUMNNAME_IsAllowInsert + "=?", get_TrxName())
-			.setParameters(
-				valueObject.getClient().getAD_Client_ID(),
-				importTemplateId,
-				Env.getAD_Role_ID(Env.getCtx()),
-				"Y")
-			.setOnlyActiveRecords(true).list();
-		
+		List<X_AD_ImportTemplateAccess> templateAccessList =
+				new Query(valueObject.getContext(), X_AD_ImportTemplateAccess.Table_Name,
+						X_AD_ImportTemplateAccess.COLUMNNAME_AD_Client_ID + "=? AND " +
+								X_AD_ImportTemplateAccess.COLUMNNAME_AD_ImportTemplate_ID + "=? AND " +
+								X_AD_ImportTemplateAccess.COLUMNNAME_AD_Role_ID + "=? AND " +
+								X_AD_ImportTemplateAccess.COLUMNNAME_IsAllowInsert + "=?", get_TrxName())
+						.setParameters(
+								valueObject.getClient().getAD_Client_ID(),
+								importTemplateId,
+								Env.getAD_Role_ID(Env.getCtx()),
+								"Y")
+						.setOnlyActiveRecords(true).list();
+
 		X_AD_ImportTemplateAccess newTemplateAccess = null;
-		
+
 		if (templateAccessList.isEmpty()) {
 			// Create the necessary access
 			newTemplateAccess = new X_AD_ImportTemplateAccess(valueObject.getContext(), 0, valueObject.getTransactionName());
@@ -113,13 +140,13 @@ public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 			newTemplateAccess.setIsAllowInsert(true);
 			newTemplateAccess.saveEx();
 		}
-		
+
 		commitEx();
-		
+
 		// Count the number of business partners before the import
 		int numberOfBusinessPartnersBeforeImport =
 				new Query(valueObject.getContext(), MBPartner_BH.Table_Name, null, valueObject.getTransactionName()).count();
-		
+
 		valueObject.setStepName("Run CSV Import");
 		valueObject.setProcessUuid("95ee94ea-d050-4f20-b4f3-1b6776df6d62");
 		valueObject.setProcessRecordId(0);
@@ -137,7 +164,7 @@ public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 		// Count the number of business partners after the import
 		int numberOfBusinessPartnersAfterImport =
 				new Query(valueObject.getContext(), MBPartner_BH.Table_Name, null, valueObject.getTransactionName()).count();
-		assertEquals(numberOfBusinessPartnersBeforeImport + 1, numberOfBusinessPartnersAfterImport, 
+		assertEquals(numberOfBusinessPartnersBeforeImport + 1, numberOfBusinessPartnersAfterImport,
 				"Business Partner was imported");
 
 		// Remove import template and/or access if it was newly created
@@ -148,8 +175,8 @@ public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 			newImportTemplate.deleteEx(true);
 		}
 		commitEx();
-		
+
 		// Delete the temp file that was created
 		tempCSVFile.delete();
-    }
+	}
 }
