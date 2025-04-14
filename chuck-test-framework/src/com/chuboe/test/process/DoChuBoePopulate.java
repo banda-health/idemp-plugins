@@ -42,6 +42,7 @@ import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.util.IProcessUI;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.bandahealth.idempiere.base.model.DummyProcessMonitor;
 import org.compiere.model.MSystem;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -100,6 +101,9 @@ public class DoChuBoePopulate extends SvrProcess {
 		int totalLoops = 0;
 
 		IProcessUI processMonitor = Env.getProcessUI(getCtx());
+		if (processMonitor == null) {
+			processMonitor = new DummyProcessMonitor();
+		}
 
 		// Set a format for how the test timing should be displayed
 		DecimalFormat decimalFormat = new DecimalFormat("#.###");

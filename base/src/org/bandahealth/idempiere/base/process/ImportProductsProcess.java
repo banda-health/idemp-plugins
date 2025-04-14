@@ -346,7 +346,10 @@ public class ImportProductsProcess extends SvrProcess {
 
 		// get product categories
 		List<MProductCategory_BH> productCategoryList = new Query(Env.getCtx(), MProductCategory_BH.Table_Name,
-				MProductCategory_BH.COLUMNNAME_AD_Client_ID + "=?", null).setParameters(clientId).setClient_ID().list();
+				MProductCategory_BH.COLUMNNAME_AD_Client_ID + "=? AND (" +
+						MProductCategory_BH.COLUMNNAME_BH_Product_Category_Type + "=? OR " +
+						MProductCategory_BH.COLUMNNAME_BH_Product_Category_Type + " IS NULL)", null).setParameters(clientId,
+				MProductCategory_BH.BH_PRODUCT_CATEGORY_TYPE_Product).setClient_ID().list();
 		Map<String, MProductCategory_BH> productCategoriesByName = productCategoryList.stream()
 				.collect(Collectors.toMap(MProductCategory_BH::getName, productCategory -> productCategory));
 

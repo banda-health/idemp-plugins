@@ -301,8 +301,36 @@ test('triage role has correct access', async () => {
 	).toBeFalsy();
 });
 
-test('lab/radiology role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login(RoleName.LabRadiology);
+test('lab/radiology advanced role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login(RoleName.LabRadiologyAdvanced);
+	const documentStatusActionMap = JSON.parse(
+		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
+	) as {
+		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+	};
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeFalsy();
+});
+
+test('lab/radiology basic role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login(RoleName.LabRadiologyBasic);
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {

@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.util.IProcessUI;
+import org.bandahealth.idempiere.base.model.DummyProcessMonitor;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
@@ -65,6 +66,9 @@ public class CompleteOrdersProcess extends SvrProcess {
 		int currentRoleId = Env.getAD_Role_ID(getCtx());
 		PO.setCrossTenantSafe();
 		IProcessUI processMonitor = Env.getProcessUI(getCtx());
+		if (processMonitor == null) {
+			processMonitor = new DummyProcessMonitor();
+		}
 		Set<Integer> notFixedOrderIds = new HashSet<>();
 		try {
 			// Get sales orders not completed (and are not processing) that have an invoice associated with them (invoices
