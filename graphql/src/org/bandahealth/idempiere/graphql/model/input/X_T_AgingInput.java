@@ -24,7 +24,7 @@ import java.sql.ResultSet;
  * Generated Model for T_Aging - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 

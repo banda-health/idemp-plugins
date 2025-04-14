@@ -6,7 +6,7 @@ import org.compiere.model.I_C_CyclePhase;
  * Generated Interface for C_CyclePhase - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_CyclePhaseInput extends I_C_CyclePhase {
 

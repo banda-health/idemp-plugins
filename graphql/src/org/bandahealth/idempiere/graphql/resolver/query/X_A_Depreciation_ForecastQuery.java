@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for A_Depreciation_Forecast - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_A_Depreciation_ForecastQuery extends POQuery<X_A_Depreciation_Forecast> implements GraphQLQueryResolver {
 	@Override

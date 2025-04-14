@@ -6,7 +6,7 @@ import org.compiere.model.MAlertProcessor;
  * Data Loader for AD_AlertProcessor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_AlertProcessorDataLoader extends PODataLoader<MAlertProcessor> {
 	public static String DATALOADER_AD_AlertProcessor_BY_ID = "AD_AlertProcessorByIdDataLoader";

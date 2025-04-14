@@ -20,7 +20,7 @@ import java.sql.Timestamp;
  * Generated Model for M_StorageOnHand - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_StorageOnHandInput extends MStorageOnHand implements I_M_StorageOnHandInput {
 

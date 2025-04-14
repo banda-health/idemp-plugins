@@ -1,6 +1,6 @@
 # Generated Schema for M_Product_Category_Acct - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	M_Product_Category_Acct(UU: String!): M_Product_Category_Acct
 	M_Product_Category_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Product_Category_AcctConnection!

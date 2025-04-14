@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for HR_Attribute - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_HR_AttributeQuery extends POQuery<X_HR_Attribute> implements GraphQLQueryResolver {
 	@Override

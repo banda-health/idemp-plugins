@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for QM_SpecificationLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_QM_SpecificationLineMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

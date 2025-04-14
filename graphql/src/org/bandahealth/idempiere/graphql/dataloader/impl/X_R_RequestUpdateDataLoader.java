@@ -6,7 +6,7 @@ import org.compiere.model.MRequestUpdate;
  * Data Loader for R_RequestUpdate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_R_RequestUpdateDataLoader extends PODataLoader<MRequestUpdate> {
 	public static String DATALOADER_R_RequestUpdate_BY_ID = "R_RequestUpdateByIdDataLoader";

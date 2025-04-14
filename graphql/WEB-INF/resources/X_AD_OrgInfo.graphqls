@@ -1,6 +1,6 @@
 # Generated Schema for AD_OrgInfo - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_OrgInfo(UU: String!): AD_OrgInfo
 	AD_OrgInfoGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_OrgInfoConnection!

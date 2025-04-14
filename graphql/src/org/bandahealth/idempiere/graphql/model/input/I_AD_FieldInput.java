@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Field;
  * Generated Interface for AD_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_FieldInput extends I_AD_Field {
 
@@ -252,6 +252,20 @@ public interface I_AD_FieldInput extends I_AD_Field {
 	 * @return The column is always updateable, even if the record is not active or processed
 	 */
 	ForeignEntityInput IsAlwaysUpdateable();
+
+	/**
+	 * Set IsHtml.
+	 *
+	 * @param IsHtml Text has HTML tags
+	 */
+	void setIsHtmlInput(ForeignEntityInput IsHtml);
+
+	/**
+	 * Get IsHtml.
+	 *
+	 * @return Text has HTML tags
+	 */
+	ForeignEntityInput IsHtml();
 
 	/**
 	 * Set IsMandatory.

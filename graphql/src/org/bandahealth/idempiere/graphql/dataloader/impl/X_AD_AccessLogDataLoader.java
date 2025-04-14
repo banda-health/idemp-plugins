@@ -6,7 +6,7 @@ import org.compiere.model.MAccessLog;
  * Data Loader for AD_AccessLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_AccessLogDataLoader extends PODataLoader<MAccessLog> {
 	public static String DATALOADER_AD_AccessLog_BY_ID = "AD_AccessLogByIdDataLoader";

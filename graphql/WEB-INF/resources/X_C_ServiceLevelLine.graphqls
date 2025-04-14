@@ -1,6 +1,6 @@
 # Generated Schema for C_ServiceLevelLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_ServiceLevelLine(UU: String!): C_ServiceLevelLine
 	C_ServiceLevelLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ServiceLevelLineConnection!

@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_Encounter_Type_Window - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow implements I_BH_Encounter_Type_WindowInput {
 

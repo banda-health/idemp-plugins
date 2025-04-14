@@ -1,6 +1,6 @@
 # Generated Schema for PA_DocumentStatus - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	PA_DocumentStatus(UU: String!): PA_DocumentStatus
 	PA_DocumentStatusGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_DocumentStatusConnection!

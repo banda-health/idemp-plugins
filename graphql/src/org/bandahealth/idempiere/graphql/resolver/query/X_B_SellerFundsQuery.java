@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for B_SellerFunds - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_B_SellerFundsQuery extends POQuery<X_B_SellerFunds> implements GraphQLQueryResolver {
 	@Override

@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_TreeNodeU4 - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_TreeNodeU4Resolver extends POResolver<X_AD_TreeNodeU4> implements GraphQLResolver<X_AD_TreeNodeU4> {
 

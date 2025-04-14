@@ -1,6 +1,6 @@
 # Generated Schema for M_MovementLineMA - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	M_MovementLineMA(UU: String!): M_MovementLineMA
 	M_MovementLineMAGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementLineMAConnection!

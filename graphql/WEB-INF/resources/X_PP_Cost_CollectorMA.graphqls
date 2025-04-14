@@ -1,6 +1,6 @@
 # Generated Schema for PP_Cost_CollectorMA - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	PP_Cost_CollectorMA(UU: String!): PP_Cost_CollectorMA
 	PP_Cost_CollectorMAGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Cost_CollectorMAConnection!

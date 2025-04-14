@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MSysConfig_BH;
  * Data Loader for AD_SysConfig - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_SysConfigDataLoader extends PODataLoader<MSysConfig_BH> {
 	public static String DATALOADER_AD_SysConfig_BY_ID = "AD_SysConfigByIdDataLoader";

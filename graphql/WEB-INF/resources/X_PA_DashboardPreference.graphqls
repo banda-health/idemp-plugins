@@ -1,6 +1,6 @@
 # Generated Schema for PA_DashboardPreference - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	PA_DashboardPreference(UU: String!): PA_DashboardPreference
 	PA_DashboardPreferenceGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_DashboardPreferenceConnection!

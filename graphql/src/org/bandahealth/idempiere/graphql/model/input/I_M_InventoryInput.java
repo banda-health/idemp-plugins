@@ -6,7 +6,7 @@ import org.compiere.model.I_M_Inventory;
  * Generated Interface for M_Inventory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_M_InventoryInput extends I_M_Inventory {
 

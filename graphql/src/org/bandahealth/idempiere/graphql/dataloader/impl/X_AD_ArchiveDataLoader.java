@@ -6,7 +6,7 @@ import org.compiere.model.MArchive;
  * Data Loader for AD_Archive - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_ArchiveDataLoader extends PODataLoader<MArchive> {
 	public static String DATALOADER_AD_Archive_BY_ID = "AD_ArchiveByIdDataLoader";

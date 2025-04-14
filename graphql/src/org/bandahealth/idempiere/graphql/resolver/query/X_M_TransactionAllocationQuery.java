@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for M_TransactionAllocation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_TransactionAllocationQuery extends POQuery<X_M_TransactionAllocation> implements GraphQLQueryResolver {
 	@Override

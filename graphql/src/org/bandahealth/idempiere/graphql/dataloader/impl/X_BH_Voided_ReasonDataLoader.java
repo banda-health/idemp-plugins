@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHVoidedReason;
  * Data Loader for BH_Voided_Reason - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_Voided_ReasonDataLoader extends PODataLoader<MBHVoidedReason> {
 	public static String DATALOADER_BH_Voided_Reason_BY_ID = "BH_Voided_ReasonByIdDataLoader";

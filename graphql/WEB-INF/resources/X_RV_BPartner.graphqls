@@ -1,6 +1,6 @@
 # Generated Schema for RV_BPartner - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	RV_BPartner(UU: String!): RV_BPartner
 	RV_BPartnerGet(Page: Int, Size: Int, Sort: String, Filter: String): RV_BPartnerConnection!
@@ -112,7 +112,7 @@ type RV_BPartner {
 	ContactDescription: String
 	# Business Partner Contact Name
 	ContactName: String!
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
 	# Country Name
 	CountryName: String!
@@ -350,7 +350,7 @@ input RV_BPartnerInput {
 	ContactDescription: String
 	# Business Partner Contact Name
 	ContactName: String
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
 	# Country Name
 	CountryName: String

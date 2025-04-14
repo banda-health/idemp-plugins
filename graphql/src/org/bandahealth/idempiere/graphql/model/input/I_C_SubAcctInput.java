@@ -6,7 +6,7 @@ import org.compiere.model.I_C_SubAcct;
  * Generated Interface for C_SubAcct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_SubAcctInput extends I_C_SubAcct {
 

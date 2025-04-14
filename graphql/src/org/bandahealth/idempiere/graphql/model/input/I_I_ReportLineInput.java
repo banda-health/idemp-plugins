@@ -6,7 +6,7 @@ import org.compiere.model.I_I_ReportLine;
  * Generated Interface for I_ReportLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_I_ReportLineInput extends I_I_ReportLine {
 

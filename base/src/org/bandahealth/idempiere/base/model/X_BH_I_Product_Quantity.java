@@ -35,7 +35,7 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20250205L;
+	private static final long serialVersionUID = 20250414L;
 
     /** Standard Constructor */
     public X_BH_I_Product_Quantity (Properties ctx, int BH_I_Product_Quantity_ID, String trxName)
@@ -47,9 +47,9 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 // 0
 			setBH_HasExpiration (false);
 // N
+			setBH_I_Product_Quantity_ID (0);
 			setBH_InitialQuantity (Env.ZERO);
 // 0
-			setBH_I_Product_Quantity_ID (0);
 			setBH_SellPrice (Env.ZERO);
 // 0
 			setCategoryName (null);
@@ -69,9 +69,9 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 // 0
 			setBH_HasExpiration (false);
 // N
+			setBH_I_Product_Quantity_ID (0);
 			setBH_InitialQuantity (Env.ZERO);
 // 0
-			setBH_I_Product_Quantity_ID (0);
 			setBH_SellPrice (Env.ZERO);
 // 0
 			setCategoryName (null);
@@ -91,9 +91,9 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 // 0
 			setBH_HasExpiration (false);
 // N
+			setBH_I_Product_Quantity_ID (0);
 			setBH_InitialQuantity (Env.ZERO);
 // 0
-			setBH_I_Product_Quantity_ID (0);
 			setBH_SellPrice (Env.ZERO);
 // 0
 			setCategoryName (null);
@@ -113,9 +113,9 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 // 0
 			setBH_HasExpiration (false);
 // N
+			setBH_I_Product_Quantity_ID (0);
 			setBH_InitialQuantity (Env.ZERO);
 // 0
-			setBH_I_Product_Quantity_ID (0);
 			setBH_SellPrice (Env.ZERO);
 // 0
 			setCategoryName (null);
@@ -326,6 +326,42 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 		return false;
 	}
 
+	/** Set Import Products with Quantities.
+		@param BH_I_Product_Quantity_ID Import Products with Quantities
+	*/
+	public void setBH_I_Product_Quantity_ID (int BH_I_Product_Quantity_ID)
+	{
+		if (BH_I_Product_Quantity_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_BH_I_Product_Quantity_ID, null);
+		else
+			set_ValueNoCheck (COLUMNNAME_BH_I_Product_Quantity_ID, Integer.valueOf(BH_I_Product_Quantity_ID));
+	}
+
+	/** Get Import Products with Quantities.
+		@return Import Products with Quantities	  */
+	public int getBH_I_Product_Quantity_ID()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_I_Product_Quantity_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set BH_I_Product_Quantity_UU.
+		@param BH_I_Product_Quantity_UU BH_I_Product_Quantity_UU
+	*/
+	public void setBH_I_Product_Quantity_UU (String BH_I_Product_Quantity_UU)
+	{
+		set_Value (COLUMNNAME_BH_I_Product_Quantity_UU, BH_I_Product_Quantity_UU);
+	}
+
+	/** Get BH_I_Product_Quantity_UU.
+		@return BH_I_Product_Quantity_UU	  */
+	public String getBH_I_Product_Quantity_UU()
+	{
+		return (String)get_Value(COLUMNNAME_BH_I_Product_Quantity_UU);
+	}
+
 	/** Set Initial Quantity.
 		@param BH_InitialQuantity The initial quantity of a product
 	*/
@@ -379,42 +415,6 @@ public class X_BH_I_Product_Quantity extends PO implements I_BH_I_Product_Quanti
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
-	}
-
-	/** Set Import Products with Quantities.
-		@param BH_I_Product_Quantity_ID Import Products with Quantities
-	*/
-	public void setBH_I_Product_Quantity_ID (int BH_I_Product_Quantity_ID)
-	{
-		if (BH_I_Product_Quantity_ID < 1)
-			set_ValueNoCheck (COLUMNNAME_BH_I_Product_Quantity_ID, null);
-		else
-			set_ValueNoCheck (COLUMNNAME_BH_I_Product_Quantity_ID, Integer.valueOf(BH_I_Product_Quantity_ID));
-	}
-
-	/** Get Import Products with Quantities.
-		@return Import Products with Quantities	  */
-	public int getBH_I_Product_Quantity_ID()
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_I_Product_Quantity_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set BH_I_Product_Quantity_UU.
-		@param BH_I_Product_Quantity_UU BH_I_Product_Quantity_UU
-	*/
-	public void setBH_I_Product_Quantity_UU (String BH_I_Product_Quantity_UU)
-	{
-		set_Value (COLUMNNAME_BH_I_Product_Quantity_UU, BH_I_Product_Quantity_UU);
-	}
-
-	/** Get BH_I_Product_Quantity_UU.
-		@return BH_I_Product_Quantity_UU	  */
-	public String getBH_I_Product_Quantity_UU()
-	{
-		return (String)get_Value(COLUMNNAME_BH_I_Product_Quantity_UU);
 	}
 
 	/** Set BH_PriceList2_Name.

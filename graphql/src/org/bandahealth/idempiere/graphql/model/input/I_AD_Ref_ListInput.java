@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Ref_List;
  * Generated Interface for AD_Ref_List - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_Ref_ListInput extends I_AD_Ref_List {
 

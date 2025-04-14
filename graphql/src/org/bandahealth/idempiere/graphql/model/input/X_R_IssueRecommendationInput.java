@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for R_IssueRecommendation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_R_IssueRecommendationInput extends X_R_IssueRecommendation implements I_R_IssueRecommendationInput {
 

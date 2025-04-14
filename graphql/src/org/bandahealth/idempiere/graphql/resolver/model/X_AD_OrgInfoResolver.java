@@ -32,7 +32,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_OrgInfo - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements GraphQLResolver<MOrgInfo_BH> {
 
@@ -54,10 +54,10 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 
 	public static Map<String, String> BH_AFFILIATION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("G", "fc1e774a-e51b-4999-a450-60aeadaddf22"); // GOK
-			put("F", "57e24320-0a4d-4af1-a0e3-0f6cc6c06fa2"); // Faith Based
 			put("P", "4347cb29-65a9-4cf5-8e93-3bc147ea7b1f"); // Private
 			put("N", "b8b2a31d-61d8-4107-9fd1-99a365133614"); // NGO
+			put("G", "fc1e774a-e51b-4999-a450-60aeadaddf22"); // GOK
+			put("F", "57e24320-0a4d-4af1-a0e3-0f6cc6c06fa2"); // Faith Based
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_Affiliation(MOrgInfo_BH entity, DataFetchingEnvironment environment) {

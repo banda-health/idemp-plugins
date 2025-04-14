@@ -6,7 +6,7 @@ import org.compiere.model.MAchievement;
  * Data Loader for PA_Achievement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PA_AchievementDataLoader extends PODataLoader<MAchievement> {
 	public static String DATALOADER_PA_Achievement_BY_ID = "PA_AchievementByIdDataLoader";

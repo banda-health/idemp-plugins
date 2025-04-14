@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for I_PriceList - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_I_PriceListQuery extends POQuery<X_I_PriceList> implements GraphQLQueryResolver {
 	@Override

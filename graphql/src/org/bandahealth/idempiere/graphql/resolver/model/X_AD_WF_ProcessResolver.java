@@ -26,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_WF_Process - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_WF_ProcessResolver extends POResolver<X_AD_WF_Process> implements GraphQLResolver<X_AD_WF_Process> {
 

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for I_Invoice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_I_InvoiceMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

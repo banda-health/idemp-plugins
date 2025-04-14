@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for M_DemandLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLineInput {
 

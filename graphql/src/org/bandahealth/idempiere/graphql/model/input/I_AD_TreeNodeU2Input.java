@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_TreeNodeU2;
  * Generated Interface for AD_TreeNodeU2 - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_TreeNodeU2Input extends I_AD_TreeNodeU2 {
 

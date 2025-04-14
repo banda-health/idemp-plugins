@@ -6,7 +6,7 @@ import org.compiere.model.I_M_DistributionRun;
  * Generated Interface for M_DistributionRun - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_M_DistributionRunInput extends I_M_DistributionRun {
 

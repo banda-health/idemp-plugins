@@ -6,7 +6,7 @@ import org.compiere.model.MTest;
  * Data Loader for Test - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_TestDataLoader extends PODataLoader<MTest> {
 	public static String DATALOADER_Test_BY_ID = "TestByIdDataLoader";

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * Generated Interface for C_OrderLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_OrderLineInput extends I_C_OrderLine {
 
@@ -268,20 +268,6 @@ public interface I_C_OrderLineInput extends I_C_OrderLine {
 	 * @return Product, Service, Item
 	 */
 	ForeignEntityInput M_Product();
-
-	/**
-	 * Set M_Promotion.
-	 *
-	 * @param M_Promotion M_Promotion
-	 */
-	void setM_PromotionInput(ForeignEntityInput M_Promotion);
-
-	/**
-	 * Get M_Promotion.
-	 *
-	 * @return M_Promotion
-	 */
-	ForeignEntityInput M_Promotion();
 
 	/**
 	 * Set M_Shipper.

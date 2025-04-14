@@ -6,7 +6,7 @@ import org.eevolution.model.I_HR_Attribute;
  * Generated Interface for HR_Attribute - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_HR_AttributeInput extends I_HR_Attribute {
 

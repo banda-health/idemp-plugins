@@ -1,6 +1,6 @@
 # Generated Schema for HR_Period - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	HR_Period(UU: String!): HR_Period
 	HR_PeriodGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_PeriodConnection!

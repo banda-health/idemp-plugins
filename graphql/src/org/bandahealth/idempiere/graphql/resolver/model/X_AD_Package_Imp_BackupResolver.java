@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Package_Imp_Backup - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp_Backup> implements GraphQLResolver<X_AD_Package_Imp_Backup> {
 

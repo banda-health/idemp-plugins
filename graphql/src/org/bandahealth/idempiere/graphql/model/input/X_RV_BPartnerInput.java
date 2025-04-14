@@ -36,7 +36,7 @@ import java.sql.Timestamp;
  * Generated Model for RV_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerInput {
 
@@ -1559,7 +1559,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	/**
 	 * Set ISO Country Code.
 	 *
-	 * @param CountryCode Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	 * @param CountryCode Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	 */
 	@JsonProperty("CountryCode")
 	public void setCountryCodeFromJson(String CountryCode) {

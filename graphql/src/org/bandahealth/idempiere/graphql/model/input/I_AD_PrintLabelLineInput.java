@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_PrintLabelLine;
  * Generated Interface for AD_PrintLabelLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_PrintLabelLineInput extends I_AD_PrintLabelLine {
 

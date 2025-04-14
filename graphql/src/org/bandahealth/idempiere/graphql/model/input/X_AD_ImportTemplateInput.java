@@ -3,6 +3,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_AD_ImportTemplateResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MImportTemplate;
 import org.compiere.model.MOrg;
@@ -17,13 +19,14 @@ import java.sql.ResultSet;
  * Generated Model for AD_ImportTemplate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_ImportTemplateInput extends MImportTemplate implements I_AD_ImportTemplateInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Tab;
 	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mImportTemplateType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -169,5 +172,44 @@ public class X_AD_ImportTemplateInput extends MImportTemplate implements I_AD_Im
 	@JsonProperty("AD_Window")
 	public ForeignEntityInput AD_Window() {
 		return mAD_Window;
+	}
+
+	/**
+	 * Set Import Template Type.
+	 *
+	 * @param ImportTemplateType Import Template Type
+	 */
+	@JsonProperty("ImportTemplateType")
+	public void setImportTemplateTypeInput(ForeignEntityInput ImportTemplateType) {
+		this.mImportTemplateType = ImportTemplateType;
+		if (ImportTemplateType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_ImportTemplateResolver.IMPORTTEMPLATETYPE_UUIDS_BY_VALUE.containsValue(ImportTemplateType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ImportTemplateType.getUU() +
+						" is not in the list defined for the ImportTemplateType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ImportTemplateType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setImportTemplateType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ImportTemplateType.getUU());
+			}
+		} else {
+			this.setImportTemplateType(null);
+		}
+	}
+
+	/**
+	 * Get Import Template Type.
+	 *
+	 * @return Import Template Type
+	 */
+	@JsonProperty("ImportTemplateType")
+	public ForeignEntityInput ImportTemplateType() {
+		return mImportTemplateType;
 	}
 }

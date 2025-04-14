@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Greeting - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_GreetingResolver extends POResolver<X_C_Greeting> implements GraphQLResolver<X_C_Greeting> {
 

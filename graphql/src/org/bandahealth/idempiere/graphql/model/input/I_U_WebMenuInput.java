@@ -6,7 +6,7 @@ import org.compiere.model.I_U_WebMenu;
  * Generated Interface for U_WebMenu - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_U_WebMenuInput extends I_U_WebMenu {
 

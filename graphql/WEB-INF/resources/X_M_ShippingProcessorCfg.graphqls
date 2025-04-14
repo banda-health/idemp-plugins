@@ -1,6 +1,6 @@
 # Generated Schema for M_ShippingProcessorCfg - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	M_ShippingProcessorCfg(UU: String!): M_ShippingProcessorCfg
 	M_ShippingProcessorCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShippingProcessorCfgConnection!

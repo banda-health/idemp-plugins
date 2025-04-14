@@ -1,6 +1,6 @@
 # Generated Schema for GL_BudgetControl - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	GL_BudgetControl(UU: String!): GL_BudgetControl
 	GL_BudgetControlGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_BudgetControlConnection!

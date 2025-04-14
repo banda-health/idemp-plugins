@@ -1,6 +1,6 @@
 # Generated Schema for C_Element - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_Element(UU: String!): C_Element
 	C_ElementGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ElementConnection!
@@ -45,7 +45,7 @@ type C_Element {
 	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }
 
@@ -67,6 +67,6 @@ input C_ElementInput {
 	IsNaturalAccount: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }

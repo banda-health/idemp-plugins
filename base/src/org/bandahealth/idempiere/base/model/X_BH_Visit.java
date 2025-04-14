@@ -32,7 +32,7 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250414L;
 
     /** Standard Constructor */
     public X_BH_Visit (Properties ctx, int BH_Visit_ID, String trxName)
@@ -196,8 +196,6 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public static final String BH_PATIENTTYPE_PTOT = "y";
 	/** Home Visit = z */
 	public static final String BH_PATIENTTYPE_HomeVisit = "z";
-	/** Mental Health = Z */
-	public static final String BH_PATIENTTYPE_MentalHealth = "Z";
 	/** Set Patient Type.
 		@param BH_PatientType Patient Type
 	*/
@@ -431,5 +429,29 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	/** Referral to other health facility = OHF */
+	public static final String BH_REFERRAL_ReferralToOtherHealthFacility = "OHF";
+	/** Referral from Community Unit = fcu */
+	public static final String BH_REFERRAL_ReferralFromCommunityUnit = "fcu";
+	/** Referral from health facilities = hf */
+	public static final String BH_REFERRAL_ReferralFromHealthFacilities = "hf";
+	/** Referral to Community Unit = tcu */
+	public static final String BH_REFERRAL_ReferralToCommunityUnit = "tcu";
+	/** Set Referral.
+		@param bh_referral Referral
+	*/
+	public void setbh_referral (String bh_referral)
+	{
+
+		set_Value (COLUMNNAME_bh_referral, bh_referral);
+	}
+
+	/** Get Referral.
+		@return Referral	  */
+	public String getbh_referral()
+	{
+		return (String)get_Value(COLUMNNAME_bh_referral);
 	}
 }

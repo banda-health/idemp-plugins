@@ -6,23 +6,9 @@ import org.bandahealth.idempiere.base.model.I_BH_Role_WarehouseAccess;
  * Generated Interface for BH_Role_WarehouseAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_BH_Role_WarehouseAccessInput extends I_BH_Role_WarehouseAccess {
-
-	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_Role.

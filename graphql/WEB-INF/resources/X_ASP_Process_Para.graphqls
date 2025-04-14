@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Process_Para - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	ASP_Process_Para(UU: String!): ASP_Process_Para
 	ASP_Process_ParaGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_Process_ParaConnection!

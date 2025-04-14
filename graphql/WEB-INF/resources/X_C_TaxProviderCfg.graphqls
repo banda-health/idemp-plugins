@@ -1,6 +1,6 @@
 # Generated Schema for C_TaxProviderCfg - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_TaxProviderCfg(UU: String!): C_TaxProviderCfg
 	C_TaxProviderCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxProviderCfgConnection!

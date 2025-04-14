@@ -29,7 +29,7 @@ import java.sql.Timestamp;
  * Generated Model for HR_Process - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput {
 

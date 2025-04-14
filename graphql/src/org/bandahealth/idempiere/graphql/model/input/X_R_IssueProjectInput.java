@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for R_IssueProject - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_R_IssueProjectInput extends X_R_IssueProject implements I_R_IssueProjectInput {
 

@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for B_Buyer - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_B_BuyerResolver extends POResolver<X_B_Buyer> implements GraphQLResolver<X_B_Buyer> {
 

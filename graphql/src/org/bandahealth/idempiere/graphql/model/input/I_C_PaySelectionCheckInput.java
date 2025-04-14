@@ -6,7 +6,7 @@ import org.compiere.model.I_C_PaySelectionCheck;
  * Generated Interface for C_PaySelectionCheck - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_PaySelectionCheckInput extends I_C_PaySelectionCheck {
 

@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for AD_Sequence - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_SequenceResolver extends POResolver<MSequence_BH> implements GraphQLResolver<MSequence_BH> {
 

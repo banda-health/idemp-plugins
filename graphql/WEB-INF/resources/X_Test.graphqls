@@ -1,6 +1,6 @@
 # Generated Schema for Test - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	Test(UU: String!): Test
 	TestGet(Page: Int, Size: Int, Sort: String, Filter: String): TestConnection!
@@ -25,6 +25,8 @@ type Test {
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table
+	# Binary Data
+	BinaryData: Binary
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# The Currency for this record
@@ -48,6 +50,8 @@ type Test {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
+	# The json field stores json data.
+	JsonData: String
 	# Warehouse Locator
 	M_Locator: M_Locator
 	# Product, Service, Item
@@ -80,6 +84,8 @@ input TestInput {
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
+	# Binary Data
+	BinaryData: Binary
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# The Currency for this record
@@ -99,6 +105,8 @@ input TestInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
+	# The json field stores json data.
+	JsonData: String
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item

@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for I_Conversion_Rate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I_Conversion_RateInput {
 

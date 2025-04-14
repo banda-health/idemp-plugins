@@ -6,7 +6,7 @@ import org.compiere.model.MStyleLine;
  * Data Loader for AD_StyleLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_StyleLineDataLoader extends PODataLoader<MStyleLine> {
 	public static String DATALOADER_AD_StyleLine_BY_ID = "AD_StyleLineByIdDataLoader";

@@ -24,7 +24,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_WF_Activity - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_WF_ActivityInput extends X_AD_WF_Activity implements I_AD_WF_ActivityInput {
 

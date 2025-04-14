@@ -6,7 +6,7 @@ import org.compiere.model.MCountryGroupCountry;
  * Data Loader for C_CountryGroupCountry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_CountryGroupCountryDataLoader extends PODataLoader<MCountryGroupCountry> {
 	public static String DATALOADER_C_CountryGroupCountry_BY_ID = "C_CountryGroupCountryByIdDataLoader";

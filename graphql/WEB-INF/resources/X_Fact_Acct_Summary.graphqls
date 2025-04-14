@@ -1,6 +1,6 @@
 # Generated Schema for Fact_Acct_Summary - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	Fact_Acct_Summary(UU: String!): Fact_Acct_Summary
 	Fact_Acct_SummaryGet(Page: Int, Size: Int, Sort: String, Filter: String): Fact_Acct_SummaryConnection!

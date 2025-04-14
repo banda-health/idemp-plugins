@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Subscription - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_SubscriptionInput extends X_C_Subscription implements I_C_SubscriptionInput {
 

@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for R_InterestArea - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_R_InterestAreaResolver extends POResolver<MInterestArea> implements GraphQLResolver<MInterestArea> {
 

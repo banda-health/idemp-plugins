@@ -1,6 +1,6 @@
 # Generated Schema for C_PaySchedule - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_PaySchedule(UU: String!): C_PaySchedule
 	C_PayScheduleGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PayScheduleConnection!

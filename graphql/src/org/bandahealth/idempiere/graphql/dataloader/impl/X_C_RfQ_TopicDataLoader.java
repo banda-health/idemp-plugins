@@ -6,7 +6,7 @@ import org.compiere.model.MRfQTopic;
  * Data Loader for C_RfQ_Topic - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_RfQ_TopicDataLoader extends PODataLoader<MRfQTopic> {
 	public static String DATALOADER_C_RfQ_Topic_BY_ID = "C_RfQ_TopicByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.I_PA_ReportColumn;
  * Generated Interface for PA_ReportColumn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 

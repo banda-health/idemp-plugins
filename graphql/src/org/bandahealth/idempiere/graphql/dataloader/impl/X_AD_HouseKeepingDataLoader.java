@@ -6,7 +6,7 @@ import org.compiere.model.MHouseKeeping;
  * Data Loader for AD_HouseKeeping - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_HouseKeepingDataLoader extends PODataLoader<MHouseKeeping> {
 	public static String DATALOADER_AD_HouseKeeping_BY_ID = "AD_HouseKeepingByIdDataLoader";

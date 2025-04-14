@@ -1,6 +1,6 @@
 # Generated Schema for AD_StyleLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_StyleLine(UU: String!): AD_StyleLine
 	AD_StyleLineGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StyleLineConnection!

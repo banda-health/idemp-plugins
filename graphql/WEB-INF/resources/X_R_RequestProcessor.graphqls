@@ -1,6 +1,6 @@
 # Generated Schema for R_RequestProcessor - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	R_RequestProcessor(UU: String!): R_RequestProcessor
 	R_RequestProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestProcessorConnection!

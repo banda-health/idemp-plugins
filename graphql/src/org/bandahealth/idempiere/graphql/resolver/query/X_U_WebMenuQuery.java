@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for U_WebMenu - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_U_WebMenuQuery extends POQuery<MWebMenu> implements GraphQLQueryResolver {
 	@Override

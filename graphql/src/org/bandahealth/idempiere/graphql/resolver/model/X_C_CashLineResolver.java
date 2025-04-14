@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_CashLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_CashLineResolver extends POResolver<MCashLine> implements GraphQLResolver<MCashLine> {
 

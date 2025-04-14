@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_ImpFormat_Row - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_ImpFormat_RowResolver extends POResolver<X_AD_ImpFormat_Row> implements GraphQLResolver<X_AD_ImpFormat_Row> {
 

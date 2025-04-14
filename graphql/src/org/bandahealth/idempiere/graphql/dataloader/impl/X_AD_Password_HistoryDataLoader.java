@@ -6,7 +6,7 @@ import org.compiere.model.MPasswordHistory;
  * Data Loader for AD_Password_History - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_Password_HistoryDataLoader extends PODataLoader<MPasswordHistory> {
 	public static String DATALOADER_AD_Password_History_BY_ID = "AD_Password_HistoryByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.MDashboardPreference;
  * Data Loader for PA_DashboardPreference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PA_DashboardPreferenceDataLoader extends PODataLoader<MDashboardPreference> {
 	public static String DATALOADER_PA_DashboardPreference_BY_ID = "PA_DashboardPreferenceByIdDataLoader";

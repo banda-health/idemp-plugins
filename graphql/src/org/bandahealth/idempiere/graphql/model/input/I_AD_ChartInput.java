@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Chart;
  * Generated Interface for AD_Chart - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_ChartInput extends I_AD_Chart {
 

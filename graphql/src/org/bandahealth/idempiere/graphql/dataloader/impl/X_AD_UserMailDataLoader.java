@@ -6,7 +6,7 @@ import org.compiere.model.MUserMail;
  * Data Loader for AD_UserMail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_UserMailDataLoader extends PODataLoader<MUserMail> {
 	public static String DATALOADER_AD_UserMail_BY_ID = "AD_UserMailByIdDataLoader";

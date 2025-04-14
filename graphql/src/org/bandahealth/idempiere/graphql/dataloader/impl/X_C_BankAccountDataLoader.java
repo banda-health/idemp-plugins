@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBankAccount_BH;
  * Data Loader for C_BankAccount - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_BankAccountDataLoader extends PODataLoader<MBankAccount_BH> {
 	public static String DATALOADER_C_BankAccount_BY_ID = "C_BankAccountByIdDataLoader";

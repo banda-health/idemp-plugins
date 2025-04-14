@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Tree_Favorite_Node;
  * Generated Interface for AD_Tree_Favorite_Node - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_Tree_Favorite_NodeInput extends I_AD_Tree_Favorite_Node {
 

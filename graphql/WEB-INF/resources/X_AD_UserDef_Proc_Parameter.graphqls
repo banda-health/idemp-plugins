@@ -1,6 +1,6 @@
 # Generated Schema for AD_UserDef_Proc_Parameter - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_UserDef_Proc_Parameter(UU: String!): AD_UserDef_Proc_Parameter
 	AD_UserDef_Proc_ParameterGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_Proc_ParameterConnection!
@@ -73,7 +73,7 @@ type AD_UserDef_Proc_Parameter {
 	ValueMax: String
 	# Minimum Value for a field
 	ValueMin: String
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }
 
@@ -123,6 +123,6 @@ input AD_UserDef_Proc_ParameterInput {
 	ValueMax: String
 	# Minimum Value for a field
 	ValueMin: String
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }

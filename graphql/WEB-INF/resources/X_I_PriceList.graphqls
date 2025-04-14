@@ -1,6 +1,6 @@
 # Generated Schema for I_PriceList - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	I_PriceList(UU: String!): I_PriceList
 	I_PriceListGet(Page: Int, Size: Int, Sort: String, Filter: String): I_PriceListConnection!

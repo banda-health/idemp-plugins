@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_InOutLineConfirm - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_I_InOutLineConfirmResolver extends POResolver<X_I_InOutLineConfirm> implements GraphQLResolver<X_I_InOutLineConfirm> {
 

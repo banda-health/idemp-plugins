@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_ReplicationDocument;
  * Data Loader for AD_ReplicationDocument - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_ReplicationDocumentDataLoader extends PODataLoader<X_AD_ReplicationDocument> {
 	public static String DATALOADER_AD_ReplicationDocument_BY_ID = "AD_ReplicationDocumentByIdDataLoader";

@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_PrintLabel - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_PrintLabelInput extends X_AD_PrintLabel implements I_AD_PrintLabelInput {
 

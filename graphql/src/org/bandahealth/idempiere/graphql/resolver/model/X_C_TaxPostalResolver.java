@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_TaxPostal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_TaxPostalResolver extends POResolver<MTaxPostal> implements GraphQLResolver<MTaxPostal> {
 

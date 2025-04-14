@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_LabelPrinterFunction;
  * Data Loader for AD_LabelPrinterFunction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_LabelPrinterFunctionDataLoader extends PODataLoader<X_AD_LabelPrinterFunction> {
 	public static String DATALOADER_AD_LabelPrinterFunction_BY_ID = "AD_LabelPrinterFunctionByIdDataLoader";

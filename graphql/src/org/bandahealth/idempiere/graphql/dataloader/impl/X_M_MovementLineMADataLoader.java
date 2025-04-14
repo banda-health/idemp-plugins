@@ -6,7 +6,7 @@ import org.compiere.model.MMovementLineMA;
  * Data Loader for M_MovementLineMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_MovementLineMADataLoader extends PODataLoader<MMovementLineMA> {
 	public static String DATALOADER_M_MovementLineMA_BY_ID = "M_MovementLineMAByIdDataLoader";

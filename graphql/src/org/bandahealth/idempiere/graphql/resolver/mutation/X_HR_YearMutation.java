@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for HR_Year - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_HR_YearMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

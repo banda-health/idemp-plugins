@@ -6,7 +6,7 @@ import org.compiere.model.I_PA_ReportCube;
  * Generated Interface for PA_ReportCube - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_PA_ReportCubeInput extends I_PA_ReportCube {
 

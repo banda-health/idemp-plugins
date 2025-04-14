@@ -21,7 +21,7 @@ import java.sql.Timestamp;
  * Generated Model for M_MatchInv - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 

@@ -30,7 +30,7 @@ import java.sql.ResultSet;
  * Generated Model for Fact_Acct_Summary - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_Fact_Acct_SummaryInput {
 

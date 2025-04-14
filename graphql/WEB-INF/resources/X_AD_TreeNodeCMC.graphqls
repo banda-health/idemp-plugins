@@ -1,6 +1,6 @@
 # Generated Schema for AD_TreeNodeCMC - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_TreeNodeCMC(UU: String!): AD_TreeNodeCMC
 	AD_TreeNodeCMCGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TreeNodeCMCConnection!

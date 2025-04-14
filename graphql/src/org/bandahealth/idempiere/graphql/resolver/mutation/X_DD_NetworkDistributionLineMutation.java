@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for DD_NetworkDistributionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_DD_NetworkDistributionLineMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

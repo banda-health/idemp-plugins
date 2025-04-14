@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for PA_DashboardPreference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PA_DashboardPreferenceInput extends MDashboardPreference implements I_PA_DashboardPreferenceInput {
 

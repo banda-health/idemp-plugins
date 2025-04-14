@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for C_ContactActivity - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C_ContactActivityInput {
 

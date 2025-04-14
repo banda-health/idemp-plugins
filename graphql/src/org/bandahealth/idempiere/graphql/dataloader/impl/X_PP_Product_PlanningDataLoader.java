@@ -6,7 +6,7 @@ import org.eevolution.model.MPPProductPlanning;
  * Data Loader for PP_Product_Planning - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PP_Product_PlanningDataLoader extends PODataLoader<MPPProductPlanning> {
 	public static String DATALOADER_PP_Product_Planning_BY_ID = "PP_Product_PlanningByIdDataLoader";

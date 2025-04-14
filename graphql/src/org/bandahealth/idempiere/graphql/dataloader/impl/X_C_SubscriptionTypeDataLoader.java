@@ -6,7 +6,7 @@ import org.compiere.model.X_C_SubscriptionType;
  * Data Loader for C_SubscriptionType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_SubscriptionTypeDataLoader extends PODataLoader<X_C_SubscriptionType> {
 	public static String DATALOADER_C_SubscriptionType_BY_ID = "C_SubscriptionTypeByIdDataLoader";

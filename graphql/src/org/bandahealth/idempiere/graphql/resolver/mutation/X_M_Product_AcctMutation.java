@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for M_Product_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_Product_AcctMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Process_Para;
  * Generated Interface for AD_Process_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_Process_ParaInput extends I_AD_Process_Para {
 

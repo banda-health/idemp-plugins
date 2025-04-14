@@ -6,7 +6,7 @@ import org.compiere.model.I_M_Product_Category_Acct;
  * Generated Interface for M_Product_Category_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_M_Product_Category_AcctInput extends I_M_Product_Category_Acct {
 

@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for C_RecurringGroup - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_RecurringGroupResolver extends POResolver<X_C_RecurringGroup> implements GraphQLResolver<X_C_RecurringGroup> {
 

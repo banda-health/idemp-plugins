@@ -6,7 +6,7 @@ import org.compiere.model.MJournalBatch;
  * Data Loader for GL_JournalBatch - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_GL_JournalBatchDataLoader extends PODataLoader<MJournalBatch> {
 	public static String DATALOADER_GL_JournalBatch_BY_ID = "GL_JournalBatchByIdDataLoader";

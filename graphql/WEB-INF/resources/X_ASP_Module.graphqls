@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Module - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	ASP_Module(UU: String!): ASP_Module
 	ASP_ModuleGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ModuleConnection!

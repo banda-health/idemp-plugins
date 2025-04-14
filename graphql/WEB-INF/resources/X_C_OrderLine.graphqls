@@ -1,6 +1,6 @@
 # Generated Schema for C_OrderLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_OrderLine(UU: String!): C_OrderLine
 	C_OrderLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrderLineConnection!
@@ -82,7 +82,6 @@ type C_OrderLine {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Product, Service, Item
 	M_Product: M_Product
-	M_Promotion: M_Promotion
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper
 	# Storage Warehouse and Service Point
@@ -191,7 +190,6 @@ input C_OrderLineInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	M_Promotion: ForeignEntityInput
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
 	# Storage Warehouse and Service Point

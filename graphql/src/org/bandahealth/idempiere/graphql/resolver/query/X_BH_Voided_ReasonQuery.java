@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for BH_Voided_Reason - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_Voided_ReasonQuery extends POQuery<MBHVoidedReason> implements GraphQLQueryResolver {
 	@Override

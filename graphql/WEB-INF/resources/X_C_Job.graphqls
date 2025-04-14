@@ -1,6 +1,6 @@
 # Generated Schema for C_Job - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_Job(UU: String!): C_Job
 	C_JobGet(Page: Int, Size: Int, Sort: String, Filter: String): C_JobConnection!

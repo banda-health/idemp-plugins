@@ -1,6 +1,6 @@
 # Generated Schema for I_BPartner - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	I_BPartner(UU: String!): I_BPartner
 	I_BPartnerGet(Page: Int, Size: Int, Sort: String, Filter: String): I_BPartnerConnection!
@@ -52,7 +52,7 @@ type I_BPartner {
 	ContactDescription: String
 	# Business Partner Contact Name
 	ContactName: String
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
 	# Date this record was created
 	Created: DateTime!
@@ -151,7 +151,7 @@ input I_BPartnerInput {
 	ContactDescription: String
 	# Business Partner Contact Name
 	ContactName: String
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
 	# Optional short description of the record
 	Description: String

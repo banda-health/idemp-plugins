@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for R_IssueUser - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_R_IssueUserInput extends X_R_IssueUser implements I_R_IssueUserInput {
 

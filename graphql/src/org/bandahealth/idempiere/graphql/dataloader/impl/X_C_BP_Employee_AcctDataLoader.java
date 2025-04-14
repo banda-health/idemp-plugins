@@ -6,7 +6,7 @@ import org.compiere.model.X_C_BP_Employee_Acct;
  * Data Loader for C_BP_Employee_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_BP_Employee_AcctDataLoader extends PODataLoader<X_C_BP_Employee_Acct> {
 	public static String DATALOADER_C_BP_Employee_Acct_BY_ID = "C_BP_Employee_AcctByIdDataLoader";

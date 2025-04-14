@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for M_PriceList_Version - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M_PriceList_VersionInput {
 

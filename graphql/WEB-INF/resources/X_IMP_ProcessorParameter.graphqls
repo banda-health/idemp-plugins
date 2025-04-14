@@ -1,6 +1,6 @@
 # Generated Schema for IMP_ProcessorParameter - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	IMP_ProcessorParameter(UU: String!): IMP_ProcessorParameter
 	IMP_ProcessorParameterGet(Page: Int, Size: Int, Sort: String, Filter: String): IMP_ProcessorParameterConnection!

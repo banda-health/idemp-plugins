@@ -8,10 +8,10 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCostDetail;
 import org.compiere.model.MCostElement;
+import org.compiere.model.MCostHistory;
 import org.compiere.model.MCostType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_M_CostHistory;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;
@@ -21,9 +21,9 @@ import java.sql.ResultSet;
  * Generated Model for M_CostHistory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
-public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHistoryInput {
+public class X_M_CostHistoryInput extends MCostHistory implements I_M_CostHistoryInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mM_AttributeSetInstance;

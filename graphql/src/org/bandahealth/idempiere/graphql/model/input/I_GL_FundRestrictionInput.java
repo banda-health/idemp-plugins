@@ -6,7 +6,7 @@ import org.compiere.model.I_GL_FundRestriction;
  * Generated Interface for GL_FundRestriction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_GL_FundRestrictionInput extends I_GL_FundRestriction {
 

@@ -1,6 +1,6 @@
 # Generated Schema for C_POSKey - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_POSKey(UU: String!): C_POSKey
 	C_POSKeyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_POSKeyConnection!

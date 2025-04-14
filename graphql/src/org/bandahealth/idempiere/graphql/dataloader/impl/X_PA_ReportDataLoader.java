@@ -6,7 +6,7 @@ import org.compiere.report.MReport;
  * Data Loader for PA_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PA_ReportDataLoader extends PODataLoader<MReport> {
 	public static String DATALOADER_PA_Report_BY_ID = "PA_ReportByIdDataLoader";

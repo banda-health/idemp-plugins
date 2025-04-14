@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_UserDef_Tab;
  * Generated Interface for AD_UserDef_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_UserDef_TabInput extends I_AD_UserDef_Tab {
 

@@ -6,7 +6,7 @@ import org.eevolution.model.I_HR_Concept_Acct;
  * Generated Interface for HR_Concept_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_HR_Concept_AcctInput extends I_HR_Concept_Acct {
 

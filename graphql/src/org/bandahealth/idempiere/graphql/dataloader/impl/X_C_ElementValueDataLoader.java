@@ -6,7 +6,7 @@ import org.compiere.model.MElementValue;
  * Data Loader for C_ElementValue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_ElementValueDataLoader extends PODataLoader<MElementValue> {
 	public static String DATALOADER_C_ElementValue_BY_ID = "C_ElementValueByIdDataLoader";

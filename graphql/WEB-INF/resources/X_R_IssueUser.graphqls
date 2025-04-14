@@ -1,6 +1,6 @@
 # Generated Schema for R_IssueUser - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	R_IssueUser(UU: String!): R_IssueUser
 	R_IssueUserGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueUserConnection!

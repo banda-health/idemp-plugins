@@ -6,7 +6,7 @@ import org.compiere.model.MMeasureCalc;
  * Data Loader for PA_MeasureCalc - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PA_MeasureCalcDataLoader extends PODataLoader<MMeasureCalc> {
 	public static String DATALOADER_PA_MeasureCalc_BY_ID = "PA_MeasureCalcByIdDataLoader";

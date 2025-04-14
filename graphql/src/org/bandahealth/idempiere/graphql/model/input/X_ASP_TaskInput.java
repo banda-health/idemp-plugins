@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_Task - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 

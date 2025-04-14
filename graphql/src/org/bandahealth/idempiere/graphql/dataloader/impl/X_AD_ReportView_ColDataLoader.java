@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_ReportView_Col;
  * Data Loader for AD_ReportView_Col - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_ReportView_ColDataLoader extends PODataLoader<X_AD_ReportView_Col> {
 	public static String DATALOADER_AD_ReportView_Col_BY_ID = "AD_ReportView_ColByIdDataLoader";

@@ -1,6 +1,6 @@
 # Generated Schema for C_1099Box - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_1099Box(UU: String!): C_1099Box
 	C_1099BoxGet(Page: Int, Size: Int, Sort: String, Filter: String): C_1099BoxConnection!

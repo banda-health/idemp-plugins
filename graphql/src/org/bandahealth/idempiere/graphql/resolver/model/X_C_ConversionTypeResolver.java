@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for C_ConversionType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_ConversionTypeResolver extends POResolver<MConversionType> implements GraphQLResolver<MConversionType> {
 

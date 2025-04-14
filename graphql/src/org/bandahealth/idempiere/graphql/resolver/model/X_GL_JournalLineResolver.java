@@ -43,7 +43,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for GL_JournalLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implements GraphQLResolver<MJournalLine> {
 

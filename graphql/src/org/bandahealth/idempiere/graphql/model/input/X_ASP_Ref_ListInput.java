@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_Ref_List - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_ListInput {
 

@@ -6,7 +6,7 @@ import org.compiere.model.MFactAcct;
  * Data Loader for Fact_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_Fact_AcctDataLoader extends PODataLoader<MFactAcct> {
 	public static String DATALOADER_Fact_Acct_BY_ID = "Fact_AcctByIdDataLoader";

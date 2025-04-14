@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_PrintPaper - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintPaperInput {
 

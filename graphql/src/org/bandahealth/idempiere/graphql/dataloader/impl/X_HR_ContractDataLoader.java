@@ -6,7 +6,7 @@ import org.eevolution.model.X_HR_Contract;
  * Data Loader for HR_Contract - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_HR_ContractDataLoader extends PODataLoader<X_HR_Contract> {
 	public static String DATALOADER_HR_Contract_BY_ID = "HR_ContractByIdDataLoader";

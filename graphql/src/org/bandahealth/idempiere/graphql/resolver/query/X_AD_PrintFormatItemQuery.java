@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for AD_PrintFormatItem - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_PrintFormatItemQuery extends POQuery<X_AD_PrintFormatItem> implements GraphQLQueryResolver {
 	@Override

@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Form - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResolver<MForm> {
 

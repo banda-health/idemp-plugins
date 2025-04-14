@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
  * Data Loader for BH_Role_WarehouseAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_Role_WarehouseAccessDataLoader extends PODataLoader<MBHRoleWarehouseAccess> {
 	public static String DATALOADER_BH_Role_WarehouseAccess_BY_ID = "BH_Role_WarehouseAccessByIdDataLoader";

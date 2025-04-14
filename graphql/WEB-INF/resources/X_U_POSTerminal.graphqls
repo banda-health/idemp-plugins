@@ -1,6 +1,6 @@
 # Generated Schema for U_POSTerminal - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	U_POSTerminal(UU: String!): U_POSTerminal
 	U_POSTerminalGet(Page: Int, Size: Int, Sort: String, Filter: String): U_POSTerminalConnection!
@@ -37,7 +37,7 @@ type U_POSTerminal {
 	# Cash Book on which to transfer all Card transactions
 	CardTransferCashBook: C_CashBook
 	CardTransferType: AD_Ref_List
-	# Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
+	# Where the money in the cash book should be transferred to. Either a Bank Account or another Cash Book
 	CashBookTransferType: AD_Ref_List!
 	# Bank Account on which to transfer all Cash transactions
 	CashTransferBankAccount: C_BankAccount
@@ -106,7 +106,7 @@ input U_POSTerminalInput {
 	# Cash Book on which to transfer all Card transactions
 	CardTransferCashBook: ForeignEntityInput
 	CardTransferType: ForeignEntityInput
-	# Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
+	# Where the money in the cash book should be transferred to. Either a Bank Account or another Cash Book
 	CashBookTransferType: ForeignEntityInput
 	# Bank Account on which to transfer all Cash transactions
 	CashTransferBankAccount: ForeignEntityInput

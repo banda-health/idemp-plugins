@@ -6,7 +6,7 @@ import org.compiere.model.X_GL_FundRestriction;
  * Data Loader for GL_FundRestriction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_GL_FundRestrictionDataLoader extends PODataLoader<X_GL_FundRestriction> {
 	public static String DATALOADER_GL_FundRestriction_BY_ID = "GL_FundRestrictionByIdDataLoader";

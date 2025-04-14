@@ -6,7 +6,7 @@ import org.compiere.model.MProcessPara;
  * Data Loader for AD_Process_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_Process_ParaDataLoader extends PODataLoader<MProcessPara> {
 	public static String DATALOADER_AD_Process_Para_BY_ID = "AD_Process_ParaByIdDataLoader";

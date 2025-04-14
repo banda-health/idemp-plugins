@@ -1,6 +1,6 @@
 # Generated Schema for C_PaySelectionCheck - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_PaySelectionCheck(UU: String!): C_PaySelectionCheck
 	C_PaySelectionCheckGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaySelectionCheckConnection!

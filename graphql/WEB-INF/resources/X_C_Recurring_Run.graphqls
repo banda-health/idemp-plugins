@@ -1,6 +1,6 @@
 # Generated Schema for C_Recurring_Run - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_Recurring_Run(UU: String!): C_Recurring_Run
 	C_Recurring_RunGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Recurring_RunConnection!

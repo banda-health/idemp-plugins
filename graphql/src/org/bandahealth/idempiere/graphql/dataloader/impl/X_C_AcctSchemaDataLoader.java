@@ -6,7 +6,7 @@ import org.compiere.model.MAcctSchema;
  * Data Loader for C_AcctSchema - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_AcctSchemaDataLoader extends PODataLoader<MAcctSchema> {
 	public static String DATALOADER_C_AcctSchema_BY_ID = "C_AcctSchemaByIdDataLoader";

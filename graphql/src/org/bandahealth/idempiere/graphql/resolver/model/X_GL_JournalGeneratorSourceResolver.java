@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for GL_JournalGeneratorSource - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_GL_JournalGeneratorSourceResolver extends POResolver<MJournalGeneratorSource> implements GraphQLResolver<MJournalGeneratorSource> {
 

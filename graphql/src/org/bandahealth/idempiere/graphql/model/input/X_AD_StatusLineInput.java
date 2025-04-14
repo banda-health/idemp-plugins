@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MStatusLine;
+import org.compiere.model.MStyle;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -17,13 +18,14 @@ import java.sql.ResultSet;
  * Generated Model for AD_StatusLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLineInput {
 
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Message;
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Style;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -135,6 +137,40 @@ public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLine
 	 */
 	public String getUU() {
 		return getAD_StatusLine_UU();
+	}
+
+	/**
+	 * Set Style.
+	 *
+	 * @param AD_Style CSS style for field and label
+	 */
+	@JsonProperty("AD_Style")
+	public void setAD_StyleInput(ForeignEntityInput AD_Style) {
+		this.mAD_Style = AD_Style;
+		if (AD_Style != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MStyle foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
+							.setParameters(AD_Style.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setAD_Style_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Style with UU " + AD_Style.getUU());
+			}
+		} else {
+			this.setAD_Style_ID(0);
+		}
+	}
+
+	/**
+	 * Get Style.
+	 *
+	 * @return CSS style for field and label
+	 */
+	@JsonProperty("AD_Style")
+	public ForeignEntityInput AD_Style() {
+		return mAD_Style;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 # Generated Schema for AD_Field - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_Field(UU: String!): AD_Field
 	AD_FieldGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_FieldConnection!
@@ -87,6 +87,8 @@ type AD_Field {
 	IsFieldOnly: Boolean!
 	# Field without Column - Only label is displayed
 	IsHeading: Boolean!
+	# Text has HTML tags
+	IsHtml: AD_Ref_List
 	# Data entry is required in this column
 	IsMandatory: AD_Ref_List
 	IsQuickEntry: Boolean!
@@ -121,7 +123,7 @@ type AD_Field {
 	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 	# Absolute X (horizontal) position in 1/72 of an inch
 	XPosition: Int
@@ -191,6 +193,8 @@ input AD_FieldInput {
 	IsFieldOnly: Boolean
 	# Field without Column - Only label is displayed
 	IsHeading: Boolean
+	# Text has HTML tags
+	IsHtml: ForeignEntityInput
 	# Data entry is required in this column
 	IsMandatory: ForeignEntityInput
 	IsQuickEntry: Boolean
@@ -221,7 +225,7 @@ input AD_FieldInput {
 	SeqNoGrid: Int
 	# Determines in what order the records are displayed
 	SortNo: BigDecimal
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 	# Absolute X (horizontal) position in 1/72 of an inch
 	XPosition: Int

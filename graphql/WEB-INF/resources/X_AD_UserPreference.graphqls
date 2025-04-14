@@ -1,6 +1,6 @@
 # Generated Schema for AD_UserPreference - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_UserPreference(UU: String!): AD_UserPreference
 	AD_UserPreferenceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserPreferenceConnection!
@@ -25,6 +25,7 @@ type AD_UserPreference {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	UU: ID!
+	# Automatically save changes to the current record upon user navigation.
 	AutoCommit: Boolean!
 	# Automatically insert a decimal point
 	AutomaticDecimalPlacesForAmoun: Int
@@ -38,6 +39,8 @@ type AD_UserPreference {
 	# The record is active in the system
 	IsActive: Boolean!
 	IsDetailedZoomAcross: Boolean!
+	IsReadOnlySession: Boolean!
+	IsShowTechnicalInfOnHelp: Boolean!
 	IsUseSimilarTo: Boolean!
 	MigrationScriptComment: String
 	# Defines if double click in a field on grid mode switch to form view
@@ -56,6 +59,7 @@ input AD_UserPreferenceInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UU: ID
+	# Automatically save changes to the current record upon user navigation.
 	AutoCommit: Boolean
 	# Automatically insert a decimal point
 	AutomaticDecimalPlacesForAmoun: Int
@@ -65,6 +69,8 @@ input AD_UserPreferenceInput {
 	# The record is active in the system
 	IsActive: Boolean
 	IsDetailedZoomAcross: Boolean
+	IsReadOnlySession: Boolean
+	IsShowTechnicalInfOnHelp: Boolean
 	IsUseSimilarTo: Boolean
 	MigrationScriptComment: String
 	# Defines if double click in a field on grid mode switch to form view

@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHVisit;
  * Data Loader for BH_Visit - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_VisitDataLoader extends PODataLoader<MBHVisit> {
 	public static String DATALOADER_BH_Visit_BY_ID = "BH_VisitByIdDataLoader";

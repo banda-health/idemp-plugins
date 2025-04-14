@@ -6,7 +6,7 @@ import org.compiere.model.MPackage;
  * Data Loader for M_Package - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_PackageDataLoader extends PODataLoader<MPackage> {
 	public static String DATALOADER_M_Package_BY_ID = "M_PackageByIdDataLoader";

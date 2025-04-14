@@ -1,6 +1,6 @@
 # Generated Schema for M_ShipperPickupTypesCfg - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	M_ShipperPickupTypesCfg(UU: String!): M_ShipperPickupTypesCfg
 	M_ShipperPickupTypesCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperPickupTypesCfgConnection!

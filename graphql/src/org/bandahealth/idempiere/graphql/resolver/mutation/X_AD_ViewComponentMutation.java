@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for AD_ViewComponent - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_ViewComponentMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

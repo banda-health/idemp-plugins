@@ -3,11 +3,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MSearchDefinition;
+import org.compiere.model.MStyle;
 import org.compiere.model.MTable;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
@@ -19,13 +21,15 @@ import java.sql.ResultSet;
  * Generated Model for AD_SearchDefinition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_SearchDefinitionInput extends MSearchDefinition implements I_AD_SearchDefinitionInput {
 
 	private ForeignEntityInput mAD_Column;
 	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Message;
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Style;
 	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mAD_Window;
 	private ForeignEntityInput mPO_Window;
@@ -74,6 +78,40 @@ public class X_AD_SearchDefinitionInput extends MSearchDefinition implements I_A
 	@JsonProperty("AD_Column")
 	public ForeignEntityInput AD_Column() {
 		return mAD_Column;
+	}
+
+	/**
+	 * Set Message.
+	 *
+	 * @param AD_Message System Message
+	 */
+	@JsonProperty("AD_Message")
+	public void setAD_MessageInput(ForeignEntityInput AD_Message) {
+		this.mAD_Message = AD_Message;
+		if (AD_Message != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MMessage_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
+							.setParameters(AD_Message.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setAD_Message_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Message with UU " + AD_Message.getUU());
+			}
+		} else {
+			this.setAD_Message_ID(0);
+		}
+	}
+
+	/**
+	 * Get Message.
+	 *
+	 * @return System Message
+	 */
+	@JsonProperty("AD_Message")
+	public ForeignEntityInput AD_Message() {
+		return mAD_Message;
 	}
 
 	/**
@@ -140,6 +178,40 @@ public class X_AD_SearchDefinitionInput extends MSearchDefinition implements I_A
 	 */
 	public String getUU() {
 		return getAD_SearchDefinition_UU();
+	}
+
+	/**
+	 * Set Style.
+	 *
+	 * @param AD_Style CSS style for field and label
+	 */
+	@JsonProperty("AD_Style")
+	public void setAD_StyleInput(ForeignEntityInput AD_Style) {
+		this.mAD_Style = AD_Style;
+		if (AD_Style != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MStyle foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
+							.setParameters(AD_Style.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setAD_Style_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Style with UU " + AD_Style.getUU());
+			}
+		} else {
+			this.setAD_Style_ID(0);
+		}
+	}
+
+	/**
+	 * Get Style.
+	 *
+	 * @return CSS style for field and label
+	 */
+	@JsonProperty("AD_Style")
+	public ForeignEntityInput AD_Style() {
+		return mAD_Style;
 	}
 
 	/**

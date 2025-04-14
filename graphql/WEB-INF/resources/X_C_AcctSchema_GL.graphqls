@@ -1,6 +1,6 @@
 # Generated Schema for C_AcctSchema_GL - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_AcctSchema_GL(UU: String!): C_AcctSchema_GL
 	C_AcctSchema_GLGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctSchema_GLConnection!

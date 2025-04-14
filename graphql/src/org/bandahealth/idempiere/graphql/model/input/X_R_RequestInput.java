@@ -41,7 +41,7 @@ import java.sql.Timestamp;
  * Generated Model for R_Request - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 

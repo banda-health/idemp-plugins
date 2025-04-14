@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_SearchDefinition;
  * Generated Interface for AD_SearchDefinition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_SearchDefinitionInput extends I_AD_SearchDefinition {
 
@@ -23,6 +23,20 @@ public interface I_AD_SearchDefinitionInput extends I_AD_SearchDefinition {
 	 * @return Column in the table
 	 */
 	ForeignEntityInput AD_Column();
+
+	/**
+	 * Set AD_Message.
+	 *
+	 * @param AD_Message System Message
+	 */
+	void setAD_MessageInput(ForeignEntityInput AD_Message);
+
+	/**
+	 * Get AD_Message.
+	 *
+	 * @return System Message
+	 */
+	ForeignEntityInput AD_Message();
 
 	/**
 	 * Set AD_Org.
@@ -51,6 +65,20 @@ public interface I_AD_SearchDefinitionInput extends I_AD_SearchDefinition {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set AD_Style.
+	 *
+	 * @param AD_Style CSS style for field and label
+	 */
+	void setAD_StyleInput(ForeignEntityInput AD_Style);
+
+	/**
+	 * Get AD_Style.
+	 *
+	 * @return CSS style for field and label
+	 */
+	ForeignEntityInput AD_Style();
 
 	/**
 	 * Set AD_Table.

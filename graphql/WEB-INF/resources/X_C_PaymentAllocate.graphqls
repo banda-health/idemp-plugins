@@ -1,6 +1,6 @@
 # Generated Schema for C_PaymentAllocate - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_PaymentAllocate(UU: String!): C_PaymentAllocate
 	C_PaymentAllocateGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaymentAllocateConnection!

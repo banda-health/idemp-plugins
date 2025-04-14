@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for AD_TreeNodeU2 - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_TreeNodeU2Query extends POQuery<X_AD_TreeNodeU2> implements GraphQLQueryResolver {
 	@Override

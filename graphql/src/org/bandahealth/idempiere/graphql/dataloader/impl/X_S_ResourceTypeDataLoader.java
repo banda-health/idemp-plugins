@@ -6,7 +6,7 @@ import org.compiere.model.MResourceType;
  * Data Loader for S_ResourceType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_S_ResourceTypeDataLoader extends PODataLoader<MResourceType> {
 	public static String DATALOADER_S_ResourceType_BY_ID = "S_ResourceTypeByIdDataLoader";

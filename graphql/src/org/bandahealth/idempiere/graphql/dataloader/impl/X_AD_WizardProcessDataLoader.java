@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_WizardProcess;
  * Data Loader for AD_WizardProcess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_WizardProcessDataLoader extends PODataLoader<X_AD_WizardProcess> {
 	public static String DATALOADER_AD_WizardProcess_BY_ID = "AD_WizardProcessByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.X_C_Withholding_Acct;
  * Data Loader for C_Withholding_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_Withholding_AcctDataLoader extends PODataLoader<X_C_Withholding_Acct> {
 	public static String DATALOADER_C_Withholding_Acct_BY_ID = "C_Withholding_AcctByIdDataLoader";

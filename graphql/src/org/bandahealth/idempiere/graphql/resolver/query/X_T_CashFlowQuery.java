@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for T_CashFlow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_T_CashFlowQuery extends POQuery<X_T_CashFlow> implements GraphQLQueryResolver {
 	@Override

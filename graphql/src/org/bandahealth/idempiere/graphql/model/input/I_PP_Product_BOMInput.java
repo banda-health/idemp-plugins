@@ -6,7 +6,7 @@ import org.eevolution.model.I_PP_Product_BOM;
  * Generated Interface for PP_Product_BOM - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_PP_Product_BOMInput extends I_PP_Product_BOM {
 

@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for GL_BudgetControl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_BudgetControlInput {
 

@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_POSPayment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_POSPaymentResolver extends POResolver<MPOSPayment> implements GraphQLResolver<MPOSPayment> {
 
@@ -123,7 +123,7 @@ public class X_C_POSPaymentResolver extends POResolver<MPOSPayment> implements G
 			put("C", "d3874573-b7bf-4556-9b9c-3644698c959e"); // Credit or Debit Card
 			put("K", "900adbf9-5069-4f56-9d97-0313c6372af3"); // Cheque
 			put("A", "220f3864-24b8-42ba-9a91-a247f4697530"); // Direct Deposit
-			put("D", "487227e8-c88e-45ef-8e6d-c0a480fdd0de"); // Debit Card
+			put("D", "487227e8-c88e-45ef-8e6d-c0a480fdd0de"); // Bank Transfer
 			put("T", "bd6f5227-483d-4bcf-b1fe-a840a3142327"); // Account
 			put("X", "52c6c5a6-83ce-48c4-b874-721f8cd4e66b"); // Cash
 			put("M", "7a78334e-3494-4d40-a718-c42cb053eea6"); // Mobile Money
@@ -135,9 +135,9 @@ public class X_C_POSPaymentResolver extends POResolver<MPOSPayment> implements G
 			put("G", "bb077404-71a4-4348-9afa-2b99ae9e1381"); // CCC
 			put("H", "55df64a7-1c7f-43f2-846b-f542c9cafa45"); // MCH
 			put("O", "4caa3109-804f-4773-8115-9bdb116f329b"); // Outreach
+			put("V", "52fc8585-3c61-45b8-a0dd-db10c1e7d79c"); // Liason insurance
 			put("P", "64e8ad21-7c9d-442b-9655-f5223d76140c"); // PesaPal
 			put("U", "97e54f17-fbae-40de-8dbd-e8ad7f884732"); // Jubilee insurance
-			put("V", "52fc8585-3c61-45b8-a0dd-db10c1e7d79c"); // Liason insurance
 		}
 	};
 	public CompletableFuture<MRefList_BH> TenderType(MPOSPayment entity, DataFetchingEnvironment environment) {

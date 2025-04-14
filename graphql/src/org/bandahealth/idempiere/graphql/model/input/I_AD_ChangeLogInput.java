@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_ChangeLog;
  * Generated Interface for AD_ChangeLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_ChangeLogInput extends I_AD_ChangeLog {
 

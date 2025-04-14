@@ -1,6 +1,6 @@
 # Generated Schema for C_AllocationHdr - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_AllocationHdr(UU: String!): C_AllocationHdr
 	C_AllocationHdrGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AllocationHdrConnection!

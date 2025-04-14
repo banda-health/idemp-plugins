@@ -40,7 +40,7 @@ import java.sql.Timestamp;
  * Generated Model for Fact_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 

@@ -1,6 +1,6 @@
 # Generated Schema for S_TimeExpenseLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	S_TimeExpenseLine(UU: String!): S_TimeExpenseLine
 	S_TimeExpenseLineGet(Page: Int, Size: Int, Sort: String, Filter: String): S_TimeExpenseLineConnection!

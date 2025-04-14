@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for AD_Role_OrgAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_Role_OrgAccessQuery extends POQuery<MRoleOrgAccess> implements GraphQLQueryResolver {
 	@Override

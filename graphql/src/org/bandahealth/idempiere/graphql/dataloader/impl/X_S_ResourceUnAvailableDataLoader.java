@@ -6,7 +6,7 @@ import org.compiere.model.MResourceUnAvailable;
  * Data Loader for S_ResourceUnAvailable - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_S_ResourceUnAvailableDataLoader extends PODataLoader<MResourceUnAvailable> {
 	public static String DATALOADER_S_ResourceUnAvailable_BY_ID = "S_ResourceUnAvailableByIdDataLoader";

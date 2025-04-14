@@ -6,7 +6,7 @@ import org.compiere.model.I_C_DunningLevel;
  * Generated Interface for C_DunningLevel - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_DunningLevelInput extends I_C_DunningLevel {
 

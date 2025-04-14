@@ -6,7 +6,7 @@ import org.compiere.model.MTable;
  * Data Loader for AD_Table - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_TableDataLoader extends PODataLoader<MTable> {
 	public static String DATALOADER_AD_Table_BY_ID = "AD_TableByIdDataLoader";

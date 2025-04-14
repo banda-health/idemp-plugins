@@ -6,7 +6,7 @@ import org.compiere.model.I_C_RfQ_TopicSubscriberOnly;
  * Generated Interface for C_RfQ_TopicSubscriberOnly - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_RfQ_TopicSubscriberOnlyInput extends I_C_RfQ_TopicSubscriberOnly {
 

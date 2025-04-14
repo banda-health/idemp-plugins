@@ -6,7 +6,7 @@ import org.compiere.model.MMovementLineConfirm;
  * Data Loader for M_MovementLineConfirm - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_MovementLineConfirmDataLoader extends PODataLoader<MMovementLineConfirm> {
 	public static String DATALOADER_M_MovementLineConfirm_BY_ID = "M_MovementLineConfirmByIdDataLoader";

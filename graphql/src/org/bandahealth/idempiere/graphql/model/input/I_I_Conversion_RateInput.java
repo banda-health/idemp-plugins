@@ -6,7 +6,7 @@ import org.compiere.model.I_I_Conversion_Rate;
  * Generated Interface for I_Conversion_Rate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_I_Conversion_RateInput extends I_I_Conversion_Rate {
 

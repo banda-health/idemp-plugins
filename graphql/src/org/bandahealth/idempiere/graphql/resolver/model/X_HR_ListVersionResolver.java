@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for HR_ListVersion - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_HR_ListVersionResolver extends POResolver<X_HR_ListVersion> implements GraphQLResolver<X_HR_ListVersion> {
 

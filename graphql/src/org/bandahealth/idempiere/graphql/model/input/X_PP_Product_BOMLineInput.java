@@ -22,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_Product_BOMLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP_Product_BOMLineInput {
 

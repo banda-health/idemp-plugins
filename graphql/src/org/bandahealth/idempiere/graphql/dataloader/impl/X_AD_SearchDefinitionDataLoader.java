@@ -6,7 +6,7 @@ import org.compiere.model.MSearchDefinition;
  * Data Loader for AD_SearchDefinition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_SearchDefinitionDataLoader extends PODataLoader<MSearchDefinition> {
 	public static String DATALOADER_AD_SearchDefinition_BY_ID = "AD_SearchDefinitionByIdDataLoader";

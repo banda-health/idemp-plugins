@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Greeting - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_GreetingInput extends X_C_Greeting implements I_C_GreetingInput {
 

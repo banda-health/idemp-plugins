@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
  * Data Loader for M_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_ProductDataLoader extends PODataLoader<MProduct_BH> {
 	public static String DATALOADER_M_Product_BY_ID = "M_ProductByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.X_C_SalesStage;
  * Data Loader for C_SalesStage - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_SalesStageDataLoader extends PODataLoader<X_C_SalesStage> {
 	public static String DATALOADER_C_SalesStage_BY_ID = "C_SalesStageByIdDataLoader";

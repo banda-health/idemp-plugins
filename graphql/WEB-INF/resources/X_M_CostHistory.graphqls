@@ -1,6 +1,6 @@
 # Generated Schema for M_CostHistory - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	M_CostHistory(UU: String!): M_CostHistory
 	M_CostHistoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CostHistoryConnection!
@@ -22,12 +22,17 @@ type M_CostHistory {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# The date+time (expressed in decimal format) when the document has been processed
+	BackDateProcessedOn: DateTime
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
 	# The record is active in the system
 	IsActive: Boolean!
+	IsBackDate: Boolean!
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Cost Detail Information
@@ -64,8 +69,13 @@ type M_CostHistory {
 input M_CostHistoryInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# The date+time (expressed in decimal format) when the document has been processed
+	BackDateProcessedOn: DateTime
+	# Accounting Date
+	DateAcct: Date
 	# The record is active in the system
 	IsActive: Boolean
+	IsBackDate: Boolean
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	# Cost Detail Information

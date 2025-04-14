@@ -6,7 +6,7 @@ import org.compiere.model.MPeriodControl;
  * Data Loader for C_PeriodControl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_PeriodControlDataLoader extends PODataLoader<MPeriodControl> {
 	public static String DATALOADER_C_PeriodControl_BY_ID = "C_PeriodControlByIdDataLoader";

@@ -1,6 +1,6 @@
 # Generated Schema for C_LandedCostAllocation - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_LandedCostAllocation(UU: String!): C_LandedCostAllocation
 	C_LandedCostAllocationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_LandedCostAllocationConnection!

@@ -6,7 +6,7 @@ import org.compiere.model.I_C_UOM;
  * Generated Interface for C_UOM - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_UOMInput extends I_C_UOM {
 

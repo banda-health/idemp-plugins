@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_PrintGraph - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_PrintGraphInput extends X_AD_PrintGraph implements I_AD_PrintGraphInput {
 

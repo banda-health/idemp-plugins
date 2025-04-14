@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLocator;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrg;
+import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.eevolution.model.MDDOrderLine;
@@ -20,11 +21,12 @@ import java.sql.ResultSet;
  * Generated Model for M_MovementLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_MovementLineInput extends MMovementLine implements I_M_MovementLineInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_UOM;
 	private ForeignEntityInput mDD_OrderLine;
 	private ForeignEntityInput mM_AttributeSetInstance;
 	private ForeignEntityInput mM_AttributeSetInstanceTo;
@@ -81,6 +83,40 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+
+	/**
+	 * Set UOM.
+	 *
+	 * @param C_UOM Unit of Measure
+	 */
+	@JsonProperty("C_UOM")
+	public void setC_UOMInput(ForeignEntityInput C_UOM) {
+		this.mC_UOM = C_UOM;
+		if (C_UOM != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
+							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_UOM_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_UOM with UU " + C_UOM.getUU());
+			}
+		} else {
+			this.setC_UOM_ID(0);
+		}
+	}
+
+	/**
+	 * Get UOM.
+	 *
+	 * @return Unit of Measure
+	 */
+	@JsonProperty("C_UOM")
+	public ForeignEntityInput C_UOM() {
+		return mC_UOM;
 	}
 
 	/**

@@ -6,7 +6,7 @@ import org.compiere.model.MRMA;
  * Data Loader for M_RMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_RMADataLoader extends PODataLoader<MRMA> {
 	public static String DATALOADER_M_RMA_BY_ID = "M_RMAByIdDataLoader";

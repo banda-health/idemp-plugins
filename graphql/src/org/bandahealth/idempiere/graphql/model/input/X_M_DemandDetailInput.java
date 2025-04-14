@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for M_DemandDetail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_DemandDetailInput {
 

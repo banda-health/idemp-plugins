@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Tab - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	ASP_Tab(UU: String!): ASP_Tab
 	ASP_TabGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_TabConnection!

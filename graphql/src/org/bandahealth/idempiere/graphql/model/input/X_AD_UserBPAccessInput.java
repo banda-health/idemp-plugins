@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserBPAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBPAccessInput {
 
@@ -86,9 +86,6 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
-			return;
-		}
 		if (AD_User != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MUser_BH foreignEntity;

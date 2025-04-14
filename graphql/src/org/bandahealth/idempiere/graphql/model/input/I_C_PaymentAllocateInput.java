@@ -6,7 +6,7 @@ import org.compiere.model.I_C_PaymentAllocate;
  * Generated Interface for C_PaymentAllocate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_PaymentAllocateInput extends I_C_PaymentAllocate {
 

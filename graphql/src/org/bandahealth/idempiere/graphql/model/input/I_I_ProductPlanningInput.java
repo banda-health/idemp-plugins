@@ -6,7 +6,7 @@ import org.eevolution.model.I_I_ProductPlanning;
  * Generated Interface for I_ProductPlanning - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_I_ProductPlanningInput extends I_I_ProductPlanning {
 

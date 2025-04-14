@@ -23,7 +23,7 @@ import java.sql.ResultSet;
  * Generated Model for U_POSTerminal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTerminalInput {
 
@@ -342,7 +342,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	/**
 	 * Set Cash Book Transfer Type.
 	 *
-	 * @param CashBookTransferType Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
+	 * @param CashBookTransferType Where the money in the cash book should be transferred to. Either a Bank Account or another Cash Book
 	 */
 	@JsonProperty("CashBookTransferType")
 	public void setCashBookTransferTypeInput(ForeignEntityInput CashBookTransferType) {
@@ -371,7 +371,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	/**
 	 * Get Cash Book Transfer Type.
 	 *
-	 * @return Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
+	 * @return Where the money in the cash book should be transferred to. Either a Bank Account or another Cash Book
 	 */
 	@JsonProperty("CashBookTransferType")
 	public ForeignEntityInput CashBookTransferType() {

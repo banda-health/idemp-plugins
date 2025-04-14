@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for GL_Fund - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_GL_FundResolver extends POResolver<X_GL_Fund> implements GraphQLResolver<X_GL_Fund> {
 

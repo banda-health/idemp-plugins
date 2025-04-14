@@ -6,7 +6,7 @@ import org.compiere.model.I_M_CostHistory;
  * Generated Interface for M_CostHistory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_M_CostHistoryInput extends I_M_CostHistory {
 

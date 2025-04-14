@@ -6,7 +6,6 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
 import org.compiere.util.Env;
@@ -17,11 +16,10 @@ import java.sql.ResultSet;
  * Generated Model for BH_Role_WarehouseAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess implements I_BH_Role_WarehouseAccessInput {
 
-	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Role;
 	private ForeignEntityInput mBH_Role_WarehouseAccess;
 	private ForeignEntityInput mM_Warehouse;
@@ -36,43 +34,6 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 	public X_BH_Role_WarehouseAccessInput(@JsonProperty("UU") String UU) {
 		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
 		setUU(UU);
-	}
-
-	/**
-	 * Set Organization.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
-		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (AD_Org != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MOrg foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setAD_Org_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
-			}
-		} else {
-			this.setAD_Org_ID(0);
-		}
-	}
-
-	/**
-	 * Get Organization.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	@JsonProperty("AD_Org")
-	public ForeignEntityInput AD_Org() {
-		return mAD_Org;
 	}
 
 	/**

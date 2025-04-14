@@ -32,7 +32,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_BankStatement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_I_BankStatementResolver extends POResolver<X_I_BankStatement> implements GraphQLResolver<X_I_BankStatement> {
 

@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for PP_MRP - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PP_MRPQuery extends POQuery<X_PP_MRP> implements GraphQLQueryResolver {
 	@Override

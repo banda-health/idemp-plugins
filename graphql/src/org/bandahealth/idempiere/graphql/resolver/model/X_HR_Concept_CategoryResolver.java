@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for HR_Concept_Category - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_HR_Concept_CategoryResolver extends POResolver<X_HR_Concept_Category> implements GraphQLResolver<X_HR_Concept_Category> {
 

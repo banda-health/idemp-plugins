@@ -6,7 +6,7 @@ import org.compiere.model.MSerNoCtlExclude;
  * Data Loader for M_SerNoCtlExclude - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_SerNoCtlExcludeDataLoader extends PODataLoader<MSerNoCtlExclude> {
 	public static String DATALOADER_M_SerNoCtlExclude_BY_ID = "M_SerNoCtlExcludeByIdDataLoader";

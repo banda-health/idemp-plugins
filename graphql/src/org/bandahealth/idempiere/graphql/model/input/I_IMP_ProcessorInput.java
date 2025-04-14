@@ -6,7 +6,7 @@ import org.compiere.model.I_IMP_Processor;
  * Generated Interface for IMP_Processor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_IMP_ProcessorInput extends I_IMP_Processor {
 

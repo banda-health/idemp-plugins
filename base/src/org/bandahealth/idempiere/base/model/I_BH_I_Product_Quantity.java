@@ -149,6 +149,24 @@ public interface I_BH_I_Product_Quantity
 	/** Get Has Lot 3	  */
 	public boolean isBH_HasLot3();
 
+    /** Column name BH_I_Product_Quantity_ID */
+    public static final String COLUMNNAME_BH_I_Product_Quantity_ID = "BH_I_Product_Quantity_ID";
+
+	/** Set Import Products with Quantities	  */
+	public void setBH_I_Product_Quantity_ID (int BH_I_Product_Quantity_ID);
+
+	/** Get Import Products with Quantities	  */
+	public int getBH_I_Product_Quantity_ID();
+
+    /** Column name BH_I_Product_Quantity_UU */
+    public static final String COLUMNNAME_BH_I_Product_Quantity_UU = "BH_I_Product_Quantity_UU";
+
+	/** Set BH_I_Product_Quantity_UU	  */
+	public void setBH_I_Product_Quantity_UU (String BH_I_Product_Quantity_UU);
+
+	/** Get BH_I_Product_Quantity_UU	  */
+	public String getBH_I_Product_Quantity_UU();
+
     /** Column name BH_InitialQuantity */
     public static final String COLUMNNAME_BH_InitialQuantity = "BH_InitialQuantity";
 
@@ -179,24 +197,6 @@ public interface I_BH_I_Product_Quantity
 
 	/** Get Lot 3 Initial Quantity	  */
 	public BigDecimal getBH_InitialQuantity_Lot3();
-
-    /** Column name BH_I_Product_Quantity_ID */
-    public static final String COLUMNNAME_BH_I_Product_Quantity_ID = "BH_I_Product_Quantity_ID";
-
-	/** Set Import Products with Quantities	  */
-	public void setBH_I_Product_Quantity_ID (int BH_I_Product_Quantity_ID);
-
-	/** Get Import Products with Quantities	  */
-	public int getBH_I_Product_Quantity_ID();
-
-    /** Column name BH_I_Product_Quantity_UU */
-    public static final String COLUMNNAME_BH_I_Product_Quantity_UU = "BH_I_Product_Quantity_UU";
-
-	/** Set BH_I_Product_Quantity_UU	  */
-	public void setBH_I_Product_Quantity_UU (String BH_I_Product_Quantity_UU);
-
-	/** Get BH_I_Product_Quantity_UU	  */
-	public String getBH_I_Product_Quantity_UU();
 
     /** Column name BH_PriceList2_Name */
     public static final String COLUMNNAME_BH_PriceList2_Name = "BH_PriceList2_Name";

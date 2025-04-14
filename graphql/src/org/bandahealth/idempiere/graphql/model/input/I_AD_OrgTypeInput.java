@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_OrgType;
  * Generated Interface for AD_OrgType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_OrgTypeInput extends I_AD_OrgType {
 

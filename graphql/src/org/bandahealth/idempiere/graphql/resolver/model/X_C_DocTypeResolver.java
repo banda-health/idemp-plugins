@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_DocType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements GraphQLResolver<MDocType_BH> {
 
@@ -257,6 +257,14 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 
 	public Boolean HasProforma(MDocType_BH entity, DataFetchingEnvironment environment) {
 		return entity.isHasProforma();
+	}
+
+	public Boolean IsAutoGenerateInout(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isAutoGenerateInout();
+	}
+
+	public Boolean IsAutoGenerateInvoice(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isAutoGenerateInvoice();
 	}
 
 	public Boolean IsChargeOrProductMandatory(MDocType_BH entity, DataFetchingEnvironment environment) {

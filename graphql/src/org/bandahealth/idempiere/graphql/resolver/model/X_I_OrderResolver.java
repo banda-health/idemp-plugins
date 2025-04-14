@@ -60,7 +60,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_Order - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_I_OrderResolver extends POResolver<X_I_Order> implements GraphQLResolver<X_I_Order> {
 

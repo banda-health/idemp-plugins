@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for M_ShippingProcessorCfg - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_ShippingProcessorCfgInput extends X_M_ShippingProcessorCfg implements I_M_ShippingProcessorCfgInput {
 

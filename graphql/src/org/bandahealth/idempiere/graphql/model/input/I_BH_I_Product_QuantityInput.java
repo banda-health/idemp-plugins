@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_I_Product_Quantity;
  * Generated Interface for BH_I_Product_Quantity - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_BH_I_Product_QuantityInput extends I_BH_I_Product_Quantity {
 

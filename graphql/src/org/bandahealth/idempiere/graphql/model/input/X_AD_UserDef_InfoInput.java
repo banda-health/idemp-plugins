@@ -22,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Info - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef_InfoInput {
 

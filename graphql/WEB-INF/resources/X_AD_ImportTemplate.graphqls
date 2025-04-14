@@ -1,6 +1,6 @@
 # Generated Schema for AD_ImportTemplate - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_ImportTemplate(UU: String!): AD_ImportTemplate
 	AD_ImportTemplateGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ImportTemplateConnection!
@@ -36,10 +36,13 @@ type AD_ImportTemplate {
 	CSVHeader: String!
 	# Optional short description of the record
 	Description: String
+	ImportTemplateType: AD_Ref_List!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
+	QuoteChar: String!
+	SeparatorChar: String!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -59,8 +62,11 @@ input AD_ImportTemplateInput {
 	CSVHeader: String
 	# Optional short description of the record
 	Description: String
+	ImportTemplateType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
+	QuoteChar: String
+	SeparatorChar: String
 }

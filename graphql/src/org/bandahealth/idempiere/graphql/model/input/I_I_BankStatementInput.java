@@ -6,7 +6,7 @@ import org.compiere.model.I_I_BankStatement;
  * Generated Interface for I_BankStatement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_I_BankStatementInput extends I_I_BankStatement {
 

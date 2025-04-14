@@ -1,6 +1,6 @@
 # Generated Schema for BH_Client_Concept_Extra - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	BH_Client_Concept_Extra(UU: String!): BH_Client_Concept_Extra
 	BH_Client_Concept_ExtraGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Client_Concept_ExtraConnection!

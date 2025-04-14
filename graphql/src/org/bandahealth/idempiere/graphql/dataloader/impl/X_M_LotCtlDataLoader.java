@@ -6,7 +6,7 @@ import org.compiere.model.MLotCtl;
  * Data Loader for M_LotCtl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_LotCtlDataLoader extends PODataLoader<MLotCtl> {
 	public static String DATALOADER_M_LotCtl_BY_ID = "M_LotCtlByIdDataLoader";

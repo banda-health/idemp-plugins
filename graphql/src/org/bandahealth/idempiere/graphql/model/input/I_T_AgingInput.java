@@ -6,7 +6,7 @@ import org.compiere.model.I_T_Aging;
  * Generated Interface for T_Aging - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_T_AgingInput extends I_T_Aging {
 

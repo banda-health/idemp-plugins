@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for C_RevenueRecognition_Run - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun implements I_C_RevenueRecognition_RunInput {
 

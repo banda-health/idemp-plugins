@@ -11,8 +11,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_CostTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.compiere.model.MCostDetail;
 import org.compiere.model.MCostElement;
+import org.compiere.model.MCostHistory;
 import org.compiere.model.MCostType;
-import org.compiere.model.X_M_CostHistory;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,10 +21,14 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_CostHistory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
-public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> implements GraphQLResolver<X_M_CostHistory> {
+public class X_M_CostHistoryResolver extends POResolver<MCostHistory> implements GraphQLResolver<MCostHistory> {
 
+
+	public Boolean IsBackDate(MCostHistory entity, DataFetchingEnvironment environment) {
+		return entity.isBackDate();
+	}
 
 
 	/**
@@ -32,7 +36,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_M_CostHistory entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MCostHistory entity, DataFetchingEnvironment environment) {
 		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
@@ -47,7 +51,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 	 *
 	 * @return Cost Detail Information
 	 */
-	public CompletableFuture<MCostDetail> M_CostDetail(X_M_CostHistory entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCostDetail> M_CostDetail(MCostHistory entity, DataFetchingEnvironment environment) {
 		if (entity.getM_CostDetail_ID() < 1) {
 			return null;
 		}
@@ -62,7 +66,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 	 *
 	 * @return Product Cost Element
 	 */
-	public CompletableFuture<MCostElement> M_CostElement(X_M_CostHistory entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCostElement> M_CostElement(MCostHistory entity, DataFetchingEnvironment environment) {
 		if (entity.getM_CostElement_ID() < 1) {
 			return null;
 		}
@@ -77,7 +81,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 	 *
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
-	public CompletableFuture<MCostType> M_CostType(X_M_CostHistory entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCostType> M_CostType(MCostHistory entity, DataFetchingEnvironment environment) {
 		if (entity.getM_CostType_ID() < 1) {
 			return null;
 		}
@@ -92,7 +96,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 	 *
 	 * @return Product, Service, Item
 	 */
-	public CompletableFuture<MProduct_BH> M_Product(X_M_CostHistory entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProduct_BH> M_Product(MCostHistory entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Product_ID() < 1) {
 			return null;
 		}

@@ -6,7 +6,7 @@ import org.compiere.model.I_C_Recurring;
  * Generated Interface for C_Recurring - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_RecurringInput extends I_C_Recurring {
 

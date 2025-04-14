@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for M_RMAType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_RMATypeInput extends X_M_RMAType implements I_M_RMATypeInput {
 

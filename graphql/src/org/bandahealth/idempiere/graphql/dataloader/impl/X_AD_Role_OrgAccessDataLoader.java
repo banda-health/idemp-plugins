@@ -6,7 +6,7 @@ import org.compiere.model.MRoleOrgAccess;
  * Data Loader for AD_Role_OrgAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_Role_OrgAccessDataLoader extends PODataLoader<MRoleOrgAccess> {
 	public static String DATALOADER_AD_Role_OrgAccess_BY_ID = "AD_Role_OrgAccessByIdDataLoader";

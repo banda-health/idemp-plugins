@@ -6,7 +6,7 @@ import org.compiere.model.I_R_ContactInterest;
  * Generated Interface for R_ContactInterest - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_R_ContactInterestInput extends I_R_ContactInterest {
 

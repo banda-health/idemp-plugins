@@ -1,6 +1,6 @@
 # Generated Schema for M_RMATax - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	M_RMATax(UU: String!): M_RMATax
 	M_RMATaxGet(Page: Int, Size: Int, Sort: String, Filter: String): M_RMATaxConnection!

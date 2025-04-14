@@ -1,6 +1,6 @@
 # Generated Schema for C_RevenueRecog_Service - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_RevenueRecog_Service(UU: String!): C_RevenueRecog_Service
 	C_RevenueRecog_ServiceGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RevenueRecog_ServiceConnection!

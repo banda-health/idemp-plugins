@@ -1,6 +1,6 @@
 # Generated Schema for C_BankStatementLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_BankStatementLine(UU: String!): C_BankStatementLine
 	C_BankStatementLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankStatementLineConnection!
@@ -31,6 +31,7 @@ type C_BankStatementLine {
 	C_Charge: C_Charge
 	# The Currency for this record
 	C_Currency: C_Currency!
+	C_DepositBatch: C_DepositBatch
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Payment identifier
@@ -111,6 +112,7 @@ input C_BankStatementLineInput {
 	C_Charge: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
+	C_DepositBatch: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Payment identifier

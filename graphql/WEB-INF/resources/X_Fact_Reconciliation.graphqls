@@ -1,6 +1,6 @@
 # Generated Schema for Fact_Reconciliation - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	Fact_Reconciliation(UU: String!): Fact_Reconciliation
 	Fact_ReconciliationGet(Page: Int, Size: Int, Sort: String, Filter: String): Fact_ReconciliationConnection!

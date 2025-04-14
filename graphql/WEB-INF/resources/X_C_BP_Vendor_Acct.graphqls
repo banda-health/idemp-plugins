@@ -1,6 +1,6 @@
 # Generated Schema for C_BP_Vendor_Acct - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_BP_Vendor_Acct(UU: String!): C_BP_Vendor_Acct
 	C_BP_Vendor_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_Vendor_AcctConnection!

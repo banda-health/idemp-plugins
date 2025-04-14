@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for PA_ReportColumnSet - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PA_ReportColumnSetResolver extends POResolver<MReportColumnSet> implements GraphQLResolver<MReportColumnSet> {
 

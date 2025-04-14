@@ -1,6 +1,6 @@
 # Generated Schema for R_StatusCategory - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	R_StatusCategory(UU: String!): R_StatusCategory
 	R_StatusCategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): R_StatusCategoryConnection!

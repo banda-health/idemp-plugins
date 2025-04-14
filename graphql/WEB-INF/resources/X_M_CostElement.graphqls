@@ -1,6 +1,6 @@
 # Generated Schema for M_CostElement - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	M_CostElement(UU: String!): M_CostElement
 	M_CostElementGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CostElementConnection!

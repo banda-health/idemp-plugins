@@ -6,7 +6,7 @@ import org.compiere.model.I_B_TopicCategory;
  * Generated Interface for B_TopicCategory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_B_TopicCategoryInput extends I_B_TopicCategory {
 

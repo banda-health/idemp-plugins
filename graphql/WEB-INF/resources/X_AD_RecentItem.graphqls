@@ -1,6 +1,6 @@
 # Generated Schema for AD_RecentItem - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_RecentItem(UU: String!): AD_RecentItem
 	AD_RecentItemGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_RecentItemConnection!

@@ -1,6 +1,6 @@
 # Generated Schema for AD_TreeNodeU1 - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_TreeNodeU1(UU: String!): AD_TreeNodeU1
 	AD_TreeNodeU1Get(Page: Int, Size: Int, Sort: String, Filter: String): AD_TreeNodeU1Connection!

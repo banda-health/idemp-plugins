@@ -37,7 +37,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_DashboardContent - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent> implements GraphQLResolver<MDashboardContent> {
 
@@ -177,6 +177,22 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(GOALDISPLAY_UUIDS_BY_VALUE.get(entity.getGoalDisplay()));
+	}
+
+	/**
+	 * Get Comment/Help.
+	 *
+	 * @return Comment or Hint
+	 */
+	public CompletableFuture<String> Help(MDashboardContent entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getHelp);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PA_DashboardContent_TrlDataLoader.DATALOADER_PA_DashboardContent_Trl_BY_ID);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MDashboardContent.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	/**

@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_WF_Responsible;
  * Generated Interface for AD_WF_Responsible - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_WF_ResponsibleInput extends I_AD_WF_Responsible {
 

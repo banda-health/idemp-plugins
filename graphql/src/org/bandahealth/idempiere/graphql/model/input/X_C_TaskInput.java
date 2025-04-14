@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Task - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_TaskInput extends MProjectTypeTask implements I_C_TaskInput {
 

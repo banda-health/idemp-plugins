@@ -6,7 +6,7 @@ import org.compiere.model.MOnlineTrxHistory;
  * Data Loader for C_OnlineTrxHistory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_OnlineTrxHistoryDataLoader extends PODataLoader<MOnlineTrxHistory> {
 	public static String DATALOADER_C_OnlineTrxHistory_BY_ID = "C_OnlineTrxHistoryByIdDataLoader";

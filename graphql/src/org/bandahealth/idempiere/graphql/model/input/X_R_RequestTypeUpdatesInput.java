@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for R_RequestTypeUpdates - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_R_RequestTypeUpdatesInput extends X_R_RequestTypeUpdates implements I_R_RequestTypeUpdatesInput {
 

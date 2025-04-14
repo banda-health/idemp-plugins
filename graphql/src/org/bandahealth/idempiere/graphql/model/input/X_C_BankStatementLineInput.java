@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBankStatement;
 import org.compiere.model.MBankStatementLine;
+import org.compiere.model.MDepositBatch;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -21,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for C_BankStatementLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_BankStatementLineInput extends MBankStatementLine implements I_C_BankStatementLineInput {
 
@@ -30,6 +31,7 @@ public class X_C_BankStatementLineInput extends MBankStatementLine implements I_
 	private ForeignEntityInput mC_BankStatement;
 	private ForeignEntityInput mC_Charge;
 	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_DepositBatch;
 	private ForeignEntityInput mC_Invoice;
 	private ForeignEntityInput mC_Payment;
 
@@ -248,6 +250,40 @@ public class X_C_BankStatementLineInput extends MBankStatementLine implements I_
 	@JsonProperty("C_Currency")
 	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
+	}
+
+	/**
+	 * Set Deposit Batch.
+	 *
+	 * @param C_DepositBatch Deposit Batch
+	 */
+	@JsonProperty("C_DepositBatch")
+	public void setC_DepositBatchInput(ForeignEntityInput C_DepositBatch) {
+		this.mC_DepositBatch = C_DepositBatch;
+		if (C_DepositBatch != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDepositBatch foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DepositBatch", "C_DepositBatch_UU=?", get_TrxName())
+							.setParameters(C_DepositBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_DepositBatch_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DepositBatch with UU " + C_DepositBatch.getUU());
+			}
+		} else {
+			this.setC_DepositBatch_ID(0);
+		}
+	}
+
+	/**
+	 * Get Deposit Batch.
+	 *
+	 * @return Deposit Batch
+	 */
+	@JsonProperty("C_DepositBatch")
+	public ForeignEntityInput C_DepositBatch() {
+		return mC_DepositBatch;
 	}
 
 	/**

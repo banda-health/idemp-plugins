@@ -1,6 +1,6 @@
 # Generated Schema for C_AcctSchema - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_AcctSchema(UU: String!): C_AcctSchema
 	C_AcctSchemaGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctSchemaConnection!
@@ -24,6 +24,8 @@ type C_AcctSchema {
 	AD_Org: AD_Org!
 	# If selected, the periods are automatically opened and closed
 	AutoPeriodControl: Boolean!
+	# Number of days to be able to post a back-date transaction (based on system date)
+	BackDateDay: Int
 	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
@@ -89,6 +91,8 @@ input C_AcctSchemaInput {
 	AD_Org: ForeignEntityInput
 	# If selected, the periods are automatically opened and closed
 	AutoPeriodControl: Boolean
+	# Number of days to be able to post a back-date transaction (based on system date)
+	BackDateDay: Int
 	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput

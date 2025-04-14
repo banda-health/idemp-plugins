@@ -1,6 +1,6 @@
 # Generated Schema for BH_Role_WarehouseAccess - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	BH_Role_WarehouseAccess(UU: String!): BH_Role_WarehouseAccess
 	BH_Role_WarehouseAccessGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Role_WarehouseAccessConnection!

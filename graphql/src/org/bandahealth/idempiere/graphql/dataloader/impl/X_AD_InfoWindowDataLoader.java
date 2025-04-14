@@ -6,7 +6,7 @@ import org.compiere.model.MInfoWindow;
  * Data Loader for AD_InfoWindow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_InfoWindowDataLoader extends PODataLoader<MInfoWindow> {
 	public static String DATALOADER_AD_InfoWindow_BY_ID = "AD_InfoWindowByIdDataLoader";

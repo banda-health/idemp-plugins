@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for C_OrderTax - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 

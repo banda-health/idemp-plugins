@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for Fact_Acct_Summary - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_Fact_Acct_SummaryQuery extends POQuery<X_Fact_Acct_Summary> implements GraphQLQueryResolver {
 	@Override

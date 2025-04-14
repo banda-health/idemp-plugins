@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for T_Replenish - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_T_ReplenishQuery extends POQuery<X_T_Replenish> implements GraphQLQueryResolver {
 	@Override

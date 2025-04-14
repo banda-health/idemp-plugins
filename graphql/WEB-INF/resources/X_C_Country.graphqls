@@ -1,6 +1,6 @@
 # Generated Schema for C_Country - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_Country(UU: String!): C_Country
 	C_CountryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CountryConnection!
@@ -30,7 +30,7 @@ type C_Country {
 	# The Currency for this record
 	C_Currency: C_Currency
 	CaptureSequence: String
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String!
 	# Date this record was created
 	Created: DateTime!
@@ -62,6 +62,8 @@ type C_Country {
 	IsAddressLinesLocalReverse: Boolean!
 	# Print Address in reverse Order
 	IsAddressLinesReverse: Boolean!
+	# ISO Alpha-3 country code - a three-letter code that represents a country name, which is usually more closely related to the country name
+	ISOCountryCodeAlpha3: String
 	# Does this country have a post code web service
 	IsPostcodeLookup: Boolean!
 	# The class name of the postcode lookup plugin
@@ -72,6 +74,8 @@ type C_Country {
 	LookupPassword: String
 	# The URL of the web service that the plugin connects to in order to retrieve postcode data
 	LookupUrl: String
+	# Standard country codes for statistical use (M49) defined by the United Nations
+	M49Code: String
 	# Java Media Size
 	MediaSize: String
 	# Alphanumeric identifier of the entity
@@ -104,7 +108,7 @@ input C_CountryInput {
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	CaptureSequence: String
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
 	# Optional short description of the record
 	Description: String
@@ -132,6 +136,8 @@ input C_CountryInput {
 	IsAddressLinesLocalReverse: Boolean
 	# Print Address in reverse Order
 	IsAddressLinesReverse: Boolean
+	# ISO Alpha-3 country code - a three-letter code that represents a country name, which is usually more closely related to the country name
+	ISOCountryCodeAlpha3: String
 	# Does this country have a post code web service
 	IsPostcodeLookup: Boolean
 	# The class name of the postcode lookup plugin
@@ -142,6 +148,8 @@ input C_CountryInput {
 	LookupPassword: String
 	# The URL of the web service that the plugin connects to in order to retrieve postcode data
 	LookupUrl: String
+	# Standard country codes for statistical use (M49) defined by the United Nations
+	M49Code: String
 	# Java Media Size
 	MediaSize: String
 	# Alphanumeric identifier of the entity

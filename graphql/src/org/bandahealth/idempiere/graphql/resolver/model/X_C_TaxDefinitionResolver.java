@@ -31,7 +31,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_TaxDefinition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> implements GraphQLResolver<X_C_TaxDefinition> {
 

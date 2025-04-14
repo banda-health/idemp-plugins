@@ -6,7 +6,7 @@ import org.compiere.model.MTaxCategory;
  * Data Loader for C_TaxCategory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_TaxCategoryDataLoader extends PODataLoader<MTaxCategory> {
 	public static String DATALOADER_C_TaxCategory_BY_ID = "C_TaxCategoryByIdDataLoader";

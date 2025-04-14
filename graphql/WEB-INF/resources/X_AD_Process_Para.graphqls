@@ -1,6 +1,6 @@
 # Generated Schema for AD_Process_Para - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_Process_Para(UU: String!): AD_Process_Para
 	AD_Process_ParaGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Process_ParaConnection!
@@ -90,7 +90,7 @@ type AD_Process_Para {
 	ValueMax: String
 	# Minimum Value for a field
 	ValueMin: String
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }
 
@@ -157,6 +157,6 @@ input AD_Process_ParaInput {
 	ValueMax: String
 	# Minimum Value for a field
 	ValueMin: String
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }

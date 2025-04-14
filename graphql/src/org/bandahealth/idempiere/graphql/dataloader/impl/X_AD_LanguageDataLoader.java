@@ -6,7 +6,7 @@ import org.compiere.model.MLanguage;
  * Data Loader for AD_Language - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_LanguageDataLoader extends PODataLoader<MLanguage> {
 	public static String DATALOADER_AD_Language_BY_ID = "AD_LanguageByIdDataLoader";

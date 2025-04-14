@@ -6,7 +6,7 @@ import org.compiere.model.I_M_ShipperPackaging;
  * Generated Interface for M_ShipperPackaging - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_M_ShipperPackagingInput extends I_M_ShipperPackaging {
 

@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for EXP_FormatLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_EXP_FormatLineQuery extends POQuery<MEXPFormatLine> implements GraphQLQueryResolver {
 	@Override

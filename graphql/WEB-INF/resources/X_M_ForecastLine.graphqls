@@ -1,6 +1,6 @@
 # Generated Schema for M_ForecastLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	M_ForecastLine(UU: String!): M_ForecastLine
 	M_ForecastLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ForecastLineConnection!

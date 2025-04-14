@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_Encounter_Diagnosis - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis implements I_BH_Encounter_DiagnosisInput {
 

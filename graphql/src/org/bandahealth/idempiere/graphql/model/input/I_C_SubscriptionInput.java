@@ -6,7 +6,7 @@ import org.compiere.model.I_C_Subscription;
  * Generated Interface for C_Subscription - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_SubscriptionInput extends I_C_Subscription {
 

@@ -6,7 +6,7 @@ import org.compiere.model.MUserDefProc;
  * Data Loader for AD_UserDef_Proc - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_UserDef_ProcDataLoader extends PODataLoader<MUserDefProc> {
 	public static String DATALOADER_AD_UserDef_Proc_BY_ID = "AD_UserDef_ProcByIdDataLoader";

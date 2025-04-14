@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for C_BankStatement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_BankStatementInput extends MBankStatement implements I_C_BankStatementInput {
 

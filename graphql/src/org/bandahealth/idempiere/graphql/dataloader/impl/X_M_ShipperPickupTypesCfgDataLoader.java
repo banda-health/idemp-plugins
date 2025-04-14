@@ -6,7 +6,7 @@ import org.compiere.model.X_M_ShipperPickupTypesCfg;
  * Data Loader for M_ShipperPickupTypesCfg - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_ShipperPickupTypesCfgDataLoader extends PODataLoader<X_M_ShipperPickupTypesCfg> {
 	public static String DATALOADER_M_ShipperPickupTypesCfg_BY_ID = "M_ShipperPickupTypesCfgByIdDataLoader";

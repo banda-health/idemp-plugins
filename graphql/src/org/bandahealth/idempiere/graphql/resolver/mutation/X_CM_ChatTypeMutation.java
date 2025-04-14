@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for CM_ChatType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_CM_ChatTypeMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

@@ -1,6 +1,6 @@
 # Generated Schema for AD_Modification - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_Modification(UU: String!): AD_Modification
 	AD_ModificationGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ModificationConnection!

@@ -6,7 +6,7 @@ import org.compiere.model.X_C_Cycle;
  * Data Loader for C_Cycle - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_CycleDataLoader extends PODataLoader<X_C_Cycle> {
 	public static String DATALOADER_C_Cycle_BY_ID = "C_CycleByIdDataLoader";

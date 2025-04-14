@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for C_TaxBase - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_TaxBaseQuery extends POQuery<X_C_TaxBase> implements GraphQLQueryResolver {
 	@Override

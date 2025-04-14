@@ -6,7 +6,7 @@ import org.compiere.model.MMatchPO;
  * Data Loader for M_MatchPO - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_MatchPODataLoader extends PODataLoader<MMatchPO> {
 	public static String DATALOADER_M_MatchPO_BY_ID = "M_MatchPOByIdDataLoader";

@@ -1,6 +1,6 @@
 # Generated Schema for PP_WF_Node_Asset - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	PP_WF_Node_Asset(UU: String!): PP_WF_Node_Asset
 	PP_WF_Node_AssetGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_WF_Node_AssetConnection!

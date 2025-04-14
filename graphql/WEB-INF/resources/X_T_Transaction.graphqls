@@ -1,6 +1,6 @@
 # Generated Schema for T_Transaction - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	T_Transaction(UU: String!): T_Transaction
 	T_TransactionGet(Page: Int, Size: Int, Sort: String, Filter: String): T_TransactionConnection!

@@ -6,7 +6,7 @@ import org.compiere.model.MCurrencyAcct;
  * Data Loader for C_Currency_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_Currency_AcctDataLoader extends PODataLoader<MCurrencyAcct> {
 	public static String DATALOADER_C_Currency_Acct_BY_ID = "C_Currency_AcctByIdDataLoader";

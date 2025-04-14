@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Split - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	A_Asset_Split(UU: String!): A_Asset_Split
 	A_Asset_SplitGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_SplitConnection!

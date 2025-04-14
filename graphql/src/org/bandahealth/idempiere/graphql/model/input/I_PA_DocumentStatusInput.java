@@ -6,7 +6,7 @@ import org.compiere.model.I_PA_DocumentStatus;
  * Generated Interface for PA_DocumentStatus - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_PA_DocumentStatusInput extends I_PA_DocumentStatus {
 

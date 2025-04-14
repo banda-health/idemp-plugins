@@ -29,7 +29,7 @@ import java.sql.ResultSet;
  * Generated Model for M_Movement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput {
 

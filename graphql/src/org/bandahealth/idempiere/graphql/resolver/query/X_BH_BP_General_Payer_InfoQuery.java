@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for BH_BP_General_Payer_Info - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_BP_General_Payer_InfoQuery extends POQuery<MBHBPGeneralPayerInfo> implements GraphQLQueryResolver {
 	@Override

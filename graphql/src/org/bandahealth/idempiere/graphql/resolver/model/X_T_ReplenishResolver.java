@@ -26,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for T_Replenish - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements GraphQLResolver<X_T_Replenish> {
 

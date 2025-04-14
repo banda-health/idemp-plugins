@@ -1,6 +1,6 @@
 # Generated Schema for T_BankRegister - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	T_BankRegister(UU: String!): T_BankRegister
 	T_BankRegisterGet(Page: Int, Size: Int, Sort: String, Filter: String): T_BankRegisterConnection!

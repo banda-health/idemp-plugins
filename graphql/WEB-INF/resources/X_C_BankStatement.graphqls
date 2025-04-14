@@ -1,6 +1,6 @@
 # Generated Schema for C_BankStatement - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_BankStatement(UU: String!): C_BankStatement
 	C_BankStatementGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankStatementConnection!

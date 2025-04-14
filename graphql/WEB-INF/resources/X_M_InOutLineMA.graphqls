@@ -1,6 +1,6 @@
 # Generated Schema for M_InOutLineMA - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	M_InOutLineMA(UU: String!): M_InOutLineMA
 	M_InOutLineMAGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InOutLineMAConnection!

@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for T_InventoryValue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> implements GraphQLResolver<X_T_InventoryValue> {
 

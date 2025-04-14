@@ -6,7 +6,7 @@ import org.compiere.model.I_A_Asset_Split;
  * Generated Interface for A_Asset_Split - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_A_Asset_SplitInput extends I_A_Asset_Split {
 

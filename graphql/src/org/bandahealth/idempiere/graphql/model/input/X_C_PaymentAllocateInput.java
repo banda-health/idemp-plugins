@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for C_PaymentAllocate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_PaymentAllocateInput {
 

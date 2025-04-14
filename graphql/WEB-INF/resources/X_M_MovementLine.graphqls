@@ -1,6 +1,6 @@
 # Generated Schema for M_MovementLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	M_MovementLine(UU: String!): M_MovementLine
 	M_MovementLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementLineConnection!
@@ -22,6 +22,8 @@ type M_MovementLine {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# Unit of Measure
+	C_UOM: C_UOM!
 	# Confirmation of a received quantity
 	ConfirmedQty: BigDecimal
 	# Date this record was created
@@ -52,6 +54,8 @@ type M_MovementLine {
 	MovementQty: BigDecimal!
 	# The document has been processed
 	Processed: Boolean!
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: BigDecimal!
 	# Use to keep the reversal line ID for reversing costing purpose
 	ReversalLine: M_MovementLine
 	# The Quantity scrapped due to QA issues
@@ -69,6 +73,8 @@ type M_MovementLine {
 input M_MovementLineInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
 	# Confirmation of a received quantity
 	ConfirmedQty: BigDecimal
 	DD_OrderLine: ForeignEntityInput
@@ -95,6 +101,8 @@ input M_MovementLineInput {
 	MovementQty: BigDecimal
 	# The document has been processed
 	Processed: Boolean
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: BigDecimal
 	# Use to keep the reversal line ID for reversing costing purpose
 	ReversalLine: ForeignEntityInput
 	# The Quantity scrapped due to QA issues

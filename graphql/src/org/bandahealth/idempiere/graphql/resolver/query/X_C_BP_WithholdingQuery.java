@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for C_BP_Withholding - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_BP_WithholdingQuery extends POQuery<X_C_BP_Withholding> implements GraphQLQueryResolver {
 	@Override

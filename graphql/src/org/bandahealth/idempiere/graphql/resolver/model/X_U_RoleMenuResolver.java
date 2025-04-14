@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for U_RoleMenu - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_U_RoleMenuResolver extends POResolver<MRoleMenu> implements GraphQLResolver<MRoleMenu> {
 

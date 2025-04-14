@@ -6,7 +6,7 @@ import org.compiere.model.MEXPProcessor;
  * Data Loader for EXP_Processor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_EXP_ProcessorDataLoader extends PODataLoader<MEXPProcessor> {
 	public static String DATALOADER_EXP_Processor_BY_ID = "EXP_ProcessorByIdDataLoader";

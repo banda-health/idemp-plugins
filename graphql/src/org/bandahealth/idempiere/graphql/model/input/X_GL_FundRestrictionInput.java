@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for GL_FundRestriction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I_GL_FundRestrictionInput {
 

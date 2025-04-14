@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for AD_ChartDatasource_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_ChartDatasource_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_AD_ChartDatasource_Trl_BY_ID = "AD_ChartDatasource_TrlByIdDataLoader";

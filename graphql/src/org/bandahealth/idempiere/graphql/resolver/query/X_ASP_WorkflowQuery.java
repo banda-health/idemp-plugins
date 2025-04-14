@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for ASP_Workflow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_ASP_WorkflowQuery extends POQuery<X_ASP_Workflow> implements GraphQLQueryResolver {
 	@Override

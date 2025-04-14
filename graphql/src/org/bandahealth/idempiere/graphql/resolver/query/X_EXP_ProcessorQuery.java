@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for EXP_Processor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_EXP_ProcessorQuery extends POQuery<MEXPProcessor> implements GraphQLQueryResolver {
 	@Override

@@ -6,7 +6,7 @@ import org.compiere.model.MRfQResponseLine;
  * Data Loader for C_RfQResponseLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_RfQResponseLineDataLoader extends PODataLoader<MRfQResponseLine> {
 	public static String DATALOADER_C_RfQResponseLine_BY_ID = "C_RfQResponseLineByIdDataLoader";

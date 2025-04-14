@@ -6,7 +6,7 @@ import org.compiere.model.X_PA_SLA_Goal;
  * Data Loader for PA_SLA_Goal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PA_SLA_GoalDataLoader extends PODataLoader<X_PA_SLA_Goal> {
 	public static String DATALOADER_PA_SLA_Goal_BY_ID = "PA_SLA_GoalByIdDataLoader";

@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MMenu_BH;
  * Data Loader for AD_Menu - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_MenuDataLoader extends PODataLoader<MMenu_BH> {
 	public static String DATALOADER_AD_Menu_BY_ID = "AD_MenuByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.I_ASP_Process;
  * Generated Interface for ASP_Process - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_ASP_ProcessInput extends I_ASP_Process {
 

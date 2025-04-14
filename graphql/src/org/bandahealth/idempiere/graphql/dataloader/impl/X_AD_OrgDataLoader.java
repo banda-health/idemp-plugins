@@ -6,7 +6,7 @@ import org.compiere.model.MOrg;
  * Data Loader for AD_Org - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_OrgDataLoader extends PODataLoader<MOrg> {
 	public static String DATALOADER_AD_Org_BY_ID = "AD_OrgByIdDataLoader";

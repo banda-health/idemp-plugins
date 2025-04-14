@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for R_StandardResponse - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_R_StandardResponseInput extends X_R_StandardResponse implements I_R_StandardResponseInput {
 

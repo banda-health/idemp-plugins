@@ -6,7 +6,7 @@ import org.compiere.model.MColorSchema;
  * Data Loader for PA_ColorSchema - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PA_ColorSchemaDataLoader extends PODataLoader<MColorSchema> {
 	public static String DATALOADER_PA_ColorSchema_BY_ID = "PA_ColorSchemaByIdDataLoader";

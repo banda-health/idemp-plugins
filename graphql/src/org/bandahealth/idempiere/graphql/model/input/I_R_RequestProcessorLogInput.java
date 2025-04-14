@@ -6,7 +6,7 @@ import org.compiere.model.I_R_RequestProcessorLog;
  * Generated Interface for R_RequestProcessorLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_R_RequestProcessorLogInput extends I_R_RequestProcessorLog {
 

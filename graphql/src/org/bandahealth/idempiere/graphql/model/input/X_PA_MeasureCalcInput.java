@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for PA_MeasureCalc - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureCalcInput {
 

@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for R_MailText - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_R_MailTextResolver extends POResolver<MMailText> implements GraphQLResolver<MMailText> {
 

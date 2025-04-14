@@ -11,10 +11,12 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankStatementDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DepositBatchDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoiceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PaymentDataLoader;
 import org.compiere.model.MBankStatement;
 import org.compiere.model.MBankStatementLine;
+import org.compiere.model.MDepositBatch;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -23,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_BankStatementLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_BankStatementLineResolver extends POResolver<MBankStatementLine> implements GraphQLResolver<MBankStatementLine> {
 
@@ -86,6 +88,21 @@ public class X_C_BankStatementLineResolver extends POResolver<MBankStatementLine
 		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
+	}
+
+
+	/**
+	 * Get Deposit Batch.
+	 *
+	 * @return Deposit Batch
+	 */
+	public CompletableFuture<MDepositBatch> C_DepositBatch(MBankStatementLine entity, DataFetchingEnvironment environment) {
+		if (entity.getC_DepositBatch_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MDepositBatch> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DepositBatchDataLoader.DATALOADER_C_DepositBatch_BY_ID);
+		return dataLoader.load(entity.getC_DepositBatch_ID());
 	}
 
 

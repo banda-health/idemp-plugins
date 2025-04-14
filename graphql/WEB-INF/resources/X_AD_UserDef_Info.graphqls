@@ -1,6 +1,6 @@
 # Generated Schema for AD_UserDef_Info - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_UserDef_Info(UU: String!): AD_UserDef_Info
 	AD_UserDef_InfoGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_InfoConnection!

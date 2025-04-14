@@ -1,6 +1,6 @@
 # Generated Schema for I_InOutLineConfirm - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	I_InOutLineConfirm(UU: String!): I_InOutLineConfirm
 	I_InOutLineConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): I_InOutLineConfirmConnection!

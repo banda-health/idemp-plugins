@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for Fact_Reconciliation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_Fact_ReconciliationResolver extends POResolver<MFactReconciliation> implements GraphQLResolver<MFactReconciliation> {
 

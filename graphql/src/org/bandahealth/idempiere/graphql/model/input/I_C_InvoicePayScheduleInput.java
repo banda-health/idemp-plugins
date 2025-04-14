@@ -6,7 +6,7 @@ import org.compiere.model.I_C_InvoicePaySchedule;
  * Generated Interface for C_InvoicePaySchedule - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_C_InvoicePayScheduleInput extends I_C_InvoicePaySchedule {
 

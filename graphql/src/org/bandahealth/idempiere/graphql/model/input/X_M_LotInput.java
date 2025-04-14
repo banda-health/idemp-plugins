@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for M_Lot - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_LotInput extends MLot implements I_M_LotInput {
 

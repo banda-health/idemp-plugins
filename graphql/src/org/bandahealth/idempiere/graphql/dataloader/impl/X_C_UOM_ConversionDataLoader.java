@@ -6,7 +6,7 @@ import org.compiere.model.MUOMConversion;
  * Data Loader for C_UOM_Conversion - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_UOM_ConversionDataLoader extends PODataLoader<MUOMConversion> {
 	public static String DATALOADER_C_UOM_Conversion_BY_ID = "C_UOM_ConversionByIdDataLoader";

@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  * Generated Interface for AD_User - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_AD_UserInput extends I_AD_User {
 

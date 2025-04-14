@@ -1,6 +1,6 @@
 # Generated Schema for PP_Order_Cost - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	PP_Order_Cost(UU: String!): PP_Order_Cost
 	PP_Order_CostGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_CostConnection!

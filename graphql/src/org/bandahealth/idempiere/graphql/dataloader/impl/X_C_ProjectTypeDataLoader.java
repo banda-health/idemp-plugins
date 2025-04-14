@@ -6,7 +6,7 @@ import org.compiere.model.MProjectType;
  * Data Loader for C_ProjectType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_ProjectTypeDataLoader extends PODataLoader<MProjectType> {
 	public static String DATALOADER_C_ProjectType_BY_ID = "C_ProjectTypeByIdDataLoader";

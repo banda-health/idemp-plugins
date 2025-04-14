@@ -1,6 +1,6 @@
 # Generated Schema for AD_WF_NextCondition - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	AD_WF_NextCondition(UU: String!): AD_WF_NextCondition
 	AD_WF_NextConditionGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_NextConditionConnection!

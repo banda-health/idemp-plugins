@@ -31,7 +31,7 @@ import java.sql.ResultSet;
  * Generated Model for C_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput {
 

@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for T_BOM_Indented - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_IndentedInput {
 

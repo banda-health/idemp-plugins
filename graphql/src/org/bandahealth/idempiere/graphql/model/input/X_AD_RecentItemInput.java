@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_RecentItem - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_AD_RecentItemInput extends MRecentItem implements I_AD_RecentItemInput {
 

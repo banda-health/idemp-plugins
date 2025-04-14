@@ -6,7 +6,7 @@ import org.compiere.model.X_ASP_Tab;
  * Data Loader for ASP_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_ASP_TabDataLoader extends PODataLoader<X_ASP_Tab> {
 	public static String DATALOADER_ASP_Tab_BY_ID = "ASP_TabByIdDataLoader";

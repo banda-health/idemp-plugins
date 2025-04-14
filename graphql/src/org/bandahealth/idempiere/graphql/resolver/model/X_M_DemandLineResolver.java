@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_DemandLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_M_DemandLineResolver extends POResolver<X_M_DemandLine> implements GraphQLResolver<X_M_DemandLine> {
 

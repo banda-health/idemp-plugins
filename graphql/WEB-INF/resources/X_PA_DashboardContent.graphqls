@@ -1,6 +1,6 @@
 # Generated Schema for PA_DashboardContent - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	PA_DashboardContent(UU: String!): PA_DashboardContent
 	PA_DashboardContentGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_DashboardContentConnection!
@@ -44,6 +44,8 @@ type PA_DashboardContent {
 	Description: String
 	# Type of goal display on dashboard
 	GoalDisplay: AD_Ref_List
+	# Comment or Hint
+	Help: String
 	HTML: String
 	# The record is active in the system
 	IsActive: Boolean!
@@ -96,6 +98,8 @@ input PA_DashboardContentInput {
 	Description: String
 	# Type of goal display on dashboard
 	GoalDisplay: ForeignEntityInput
+	# Comment or Hint
+	Help: String
 	HTML: String
 	# The record is active in the system
 	IsActive: Boolean

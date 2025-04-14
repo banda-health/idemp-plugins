@@ -1,6 +1,6 @@
 # Generated Schema for C_ProjectIssueMA - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	C_ProjectIssueMA(UU: String!): C_ProjectIssueMA
 	C_ProjectIssueMAGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectIssueMAConnection!

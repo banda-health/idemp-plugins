@@ -6,7 +6,7 @@ import org.compiere.model.MDistribution;
  * Data Loader for GL_Distribution - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_GL_DistributionDataLoader extends PODataLoader<MDistribution> {
 	public static String DATALOADER_GL_Distribution_BY_ID = "GL_DistributionByIdDataLoader";

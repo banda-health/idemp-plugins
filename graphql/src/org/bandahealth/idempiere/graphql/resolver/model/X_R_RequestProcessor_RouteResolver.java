@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for R_RequestProcessor_Route - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_R_RequestProcessor_RouteResolver extends POResolver<MRequestProcessorRoute> implements GraphQLResolver<MRequestProcessorRoute> {
 

@@ -6,7 +6,7 @@ import org.compiere.model.MPOSPayment;
  * Data Loader for C_POSPayment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_C_POSPaymentDataLoader extends PODataLoader<MPOSPayment> {
 	public static String DATALOADER_C_POSPayment_BY_ID = "C_POSPaymentByIdDataLoader";

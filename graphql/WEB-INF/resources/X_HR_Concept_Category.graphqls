@@ -1,6 +1,6 @@
 # Generated Schema for HR_Concept_Category - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	HR_Concept_Category(UU: String!): HR_Concept_Category
 	HR_Concept_CategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_Concept_CategoryConnection!

@@ -1,6 +1,6 @@
 # Generated Schema for EXP_FormatLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	EXP_FormatLine(UU: String!): EXP_FormatLine
 	EXP_FormatLineGet(Page: Int, Size: Int, Sort: String, Filter: String): EXP_FormatLineConnection!
