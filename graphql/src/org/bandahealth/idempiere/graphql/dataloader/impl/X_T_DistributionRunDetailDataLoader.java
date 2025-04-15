@@ -6,7 +6,7 @@ import org.compiere.model.MDistributionRunDetail;
  * Data Loader for T_DistributionRunDetail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_DistributionRunDetailDataLoader extends PODataLoader<MDistributionRunDetail> {
 	public static String DATALOADER_T_DistributionRunDetail_BY_ID = "T_DistributionRunDetailByIdDataLoader";

@@ -1,6 +1,6 @@
 # Generated Schema for C_Tax_Acct - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Tax_Acct(UU: String!): C_Tax_Acct
 	C_Tax_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Tax_AcctConnection!

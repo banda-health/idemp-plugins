@@ -1,6 +1,6 @@
 # Generated Schema for ASP_ClientException - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	ASP_ClientException(UU: String!): ASP_ClientException
 	ASP_ClientExceptionGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ClientExceptionConnection!

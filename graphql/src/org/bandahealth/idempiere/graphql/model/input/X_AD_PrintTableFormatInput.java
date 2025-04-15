@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_PrintTableFormat - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements I_AD_PrintTableFormatInput {
 

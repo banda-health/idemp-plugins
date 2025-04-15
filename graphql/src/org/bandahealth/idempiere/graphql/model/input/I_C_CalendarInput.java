@@ -6,7 +6,7 @@ import org.compiere.model.I_C_Calendar;
  * Generated Interface for C_Calendar - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_CalendarInput extends I_C_Calendar {
 

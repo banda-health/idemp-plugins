@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for C_1099Box - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_1099BoxInput extends X_C_1099Box implements I_C_1099BoxInput {
 

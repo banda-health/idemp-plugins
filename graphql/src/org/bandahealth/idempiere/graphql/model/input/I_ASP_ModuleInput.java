@@ -6,7 +6,7 @@ import org.compiere.model.I_ASP_Module;
  * Generated Interface for ASP_Module - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_ASP_ModuleInput extends I_ASP_Module {
 

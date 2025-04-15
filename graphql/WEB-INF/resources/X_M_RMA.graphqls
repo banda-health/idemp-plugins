@@ -1,6 +1,6 @@
 # Generated Schema for M_RMA - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_RMA(UU: String!): M_RMA
 	M_RMAGet(Page: Int, Size: Int, Sort: String, Filter: String): M_RMAConnection!

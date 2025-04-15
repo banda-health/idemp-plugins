@@ -25,7 +25,7 @@ import org.compiere.util.Env;
 
 /** Generated Model for BH_Voided_Reason
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Voided_Reason")
 public class X_BH_Voided_Reason extends PO implements I_BH_Voided_Reason, I_Persistent
 {
@@ -33,7 +33,7 @@ public class X_BH_Voided_Reason extends PO implements I_BH_Voided_Reason, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Voided_Reason (Properties ctx, int BH_Voided_Reason_ID, String trxName)
@@ -124,37 +124,19 @@ public class X_BH_Voided_Reason extends PO implements I_BH_Voided_Reason, I_Pers
 		return ii.intValue();
 	}
 
-	/** Set bh_voided_reason_uu.
-		@param BH_Voided_Reason_UU bh_voided_reason_uu
+	/** Set BH_Voided_Reason_UU.
+		@param BH_Voided_Reason_UU BH_Voided_Reason_UU
 	*/
 	public void setBH_Voided_Reason_UU (String BH_Voided_Reason_UU)
 	{
 		set_Value (COLUMNNAME_BH_Voided_Reason_UU, BH_Voided_Reason_UU);
 	}
 
-	/** Get bh_voided_reason_uu.
-		@return bh_voided_reason_uu	  */
+	/** Get BH_Voided_Reason_UU.
+		@return BH_Voided_Reason_UU	  */
 	public String getBH_Voided_Reason_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Voided_Reason_UU);
-	}
-
-	/** Set Window ID.
-		@param bh_window_id Window ID
-	*/
-	public void setbh_window_id (BigDecimal bh_window_id)
-	{
-		set_Value (COLUMNNAME_bh_window_id, bh_window_id);
-	}
-
-	/** Get Window ID.
-		@return Window ID	  */
-	public BigDecimal getbh_window_id()
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_bh_window_id);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
 	}
 
 	/** Set Description.
@@ -206,5 +188,23 @@ public class X_BH_Voided_Reason extends PO implements I_BH_Voided_Reason, I_Pers
 	public String getName()
 	{
 		return (String)get_Value(COLUMNNAME_Name);
+	}
+
+	/** Set Window ID.
+		@param bh_window_id Window ID
+	*/
+	public void setbh_window_id (BigDecimal bh_window_id)
+	{
+		set_Value (COLUMNNAME_bh_window_id, bh_window_id);
+	}
+
+	/** Get Window ID.
+		@return Window ID	  */
+	public BigDecimal getbh_window_id()
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_bh_window_id);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 }

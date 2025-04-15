@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for BH_Encounter_Type_Window - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Encounter_Type_WindowResolver extends POResolver<MBHEncounterTypeWindow> implements GraphQLResolver<MBHEncounterTypeWindow> {
 

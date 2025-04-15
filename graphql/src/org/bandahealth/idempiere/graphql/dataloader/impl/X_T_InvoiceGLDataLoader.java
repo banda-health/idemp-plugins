@@ -6,7 +6,7 @@ import org.compiere.model.X_T_InvoiceGL;
  * Data Loader for T_InvoiceGL - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_InvoiceGLDataLoader extends PODataLoader<X_T_InvoiceGL> {
 	public static String DATALOADER_T_InvoiceGL_BY_ID = "T_InvoiceGLByIdDataLoader";

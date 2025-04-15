@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Val_Rule;
  * Generated Interface for AD_Val_Rule - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_Val_RuleInput extends I_AD_Val_Rule {
 

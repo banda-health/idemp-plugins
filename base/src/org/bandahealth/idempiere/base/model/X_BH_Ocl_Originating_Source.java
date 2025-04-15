@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Ocl_Originating_Source
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Ocl_Originating_Source")
 public class X_BH_Ocl_Originating_Source extends PO implements I_BH_Ocl_Originating_Source, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Ocl_Originating_Source extends PO implements I_BH_Ocl_Originat
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20241003L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Ocl_Originating_Source (Properties ctx, int BH_Ocl_Originating_Source_ID, String trxName)

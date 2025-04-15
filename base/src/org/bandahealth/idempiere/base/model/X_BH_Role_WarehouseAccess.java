@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Role_WarehouseAccess
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Role_WarehouseAccess")
 public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_WarehouseAccess, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_Warehouse
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Role_WarehouseAccess (Properties ctx, int BH_Role_WarehouseAccess_ID, String trxName)

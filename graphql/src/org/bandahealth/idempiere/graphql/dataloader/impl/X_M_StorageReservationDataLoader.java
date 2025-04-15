@@ -6,7 +6,7 @@ import org.compiere.model.MStorageReservation;
  * Data Loader for M_StorageReservation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_StorageReservationDataLoader extends PODataLoader<MStorageReservation> {
 	public static String DATALOADER_M_StorageReservation_BY_ID = "M_StorageReservationByIdDataLoader";

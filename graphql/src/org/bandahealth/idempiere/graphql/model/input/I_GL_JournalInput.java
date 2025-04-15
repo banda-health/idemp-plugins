@@ -6,7 +6,7 @@ import org.compiere.model.I_GL_Journal;
  * Generated Interface for GL_Journal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_GL_JournalInput extends I_GL_Journal {
 

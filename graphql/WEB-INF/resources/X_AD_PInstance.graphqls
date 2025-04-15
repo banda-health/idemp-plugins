@@ -1,6 +1,6 @@
 # Generated Schema for AD_PInstance - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_PInstance(UU: String!): AD_PInstance
 	AD_PInstanceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PInstanceConnection!
@@ -45,6 +45,8 @@ type AD_PInstance {
 	IsRunAsJob: Boolean!
 	# This is a summary entity
 	IsSummary: Boolean!
+	# The json field stores json data.
+	JsonData: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Type of Notifications
@@ -80,6 +82,8 @@ input AD_PInstanceInput {
 	IsRunAsJob: Boolean
 	# This is a summary entity
 	IsSummary: Boolean
+	# The json field stores json data.
+	JsonData: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Type of Notifications

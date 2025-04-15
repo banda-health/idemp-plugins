@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for M_ShipperPickupTypes - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements I_M_ShipperPickupTypesInput {
 

@@ -660,13 +660,6 @@ public class BandaObjectMapper {
 							addMapping(I_M_Product_Category_AcctInput.class, MProductCategoryAcctInput.class);
 							addMapping(I_M_Product_POInput.class, MProductPOInput.class);
 							addMapping(I_M_Product_QualityTestInput.class, X_M_Product_QualityTestInput.class);
-							addMapping(I_M_PromotionDistributionInput.class, X_M_PromotionDistributionInput.class);
-							addMapping(I_M_PromotionGroupInput.class, X_M_PromotionGroupInput.class);
-							addMapping(I_M_PromotionGroupLineInput.class, X_M_PromotionGroupLineInput.class);
-							addMapping(I_M_PromotionInput.class, X_M_PromotionInput.class);
-							addMapping(I_M_PromotionLineInput.class, X_M_PromotionLineInput.class);
-							addMapping(I_M_PromotionPreConditionInput.class, X_M_PromotionPreConditionInput.class);
-							addMapping(I_M_PromotionRewardInput.class, X_M_PromotionRewardInput.class);
 							addMapping(I_M_QualityTestInput.class, MQualityTestInput.class);
 							addMapping(I_M_QualityTestResultInput.class, MQualityTestResultInput.class);
 							addMapping(I_M_RelatedProductInput.class, X_M_RelatedProductInput.class);

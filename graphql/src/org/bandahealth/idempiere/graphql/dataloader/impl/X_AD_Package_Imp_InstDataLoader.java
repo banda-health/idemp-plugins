@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_Package_Imp_Inst;
  * Data Loader for AD_Package_Imp_Inst - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Package_Imp_InstDataLoader extends PODataLoader<X_AD_Package_Imp_Inst> {
 	public static String DATALOADER_AD_Package_Imp_Inst_BY_ID = "AD_Package_Imp_InstByIdDataLoader";

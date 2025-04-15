@@ -1,6 +1,6 @@
 # Generated Schema for PA_BenchmarkData - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	PA_BenchmarkData(UU: String!): PA_BenchmarkData
 	PA_BenchmarkDataGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_BenchmarkDataConnection!

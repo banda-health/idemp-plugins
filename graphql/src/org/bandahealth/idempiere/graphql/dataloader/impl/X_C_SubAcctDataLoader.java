@@ -6,7 +6,7 @@ import org.compiere.model.X_C_SubAcct;
  * Data Loader for C_SubAcct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_SubAcctDataLoader extends PODataLoader<X_C_SubAcct> {
 	public static String DATALOADER_C_SubAcct_BY_ID = "C_SubAcctByIdDataLoader";

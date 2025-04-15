@@ -9,7 +9,7 @@ import java.sql.Timestamp;
  * Generated Interface for M_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_M_ProductInput extends I_M_Product {
 

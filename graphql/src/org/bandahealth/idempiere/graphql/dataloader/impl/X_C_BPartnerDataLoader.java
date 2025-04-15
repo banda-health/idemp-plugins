@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
  * Data Loader for C_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_BPartnerDataLoader extends PODataLoader<MBPartner_BH> {
 	public static String DATALOADER_C_BPartner_BY_ID = "C_BPartnerByIdDataLoader";

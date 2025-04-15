@@ -5,6 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_UOMDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_DD_OrderLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetInstanceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_LocatorDataLoader;
@@ -13,6 +14,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_MovementLineDataLoa
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.compiere.model.MLocator;
 import org.compiere.model.MMovementLine;
+import org.compiere.model.MUOM;
 import org.dataloader.DataLoader;
 import org.eevolution.model.MDDOrderLine;
 
@@ -22,10 +24,25 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_MovementLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_MovementLineResolver extends POResolver<MMovementLine> implements GraphQLResolver<MMovementLine> {
 
+
+
+	/**
+	 * Get UOM.
+	 *
+	 * @return Unit of Measure
+	 */
+	public CompletableFuture<MUOM> C_UOM(MMovementLine entity, DataFetchingEnvironment environment) {
+		if (entity.getC_UOM_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MUOM> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
+		return dataLoader.load(entity.getC_UOM_ID());
+	}
 
 
 	/**

@@ -6,7 +6,7 @@ import org.compiere.model.MAllocationLine;
  * Data Loader for C_AllocationLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_AllocationLineDataLoader extends PODataLoader<MAllocationLine> {
 	public static String DATALOADER_C_AllocationLine_BY_ID = "C_AllocationLineByIdDataLoader";

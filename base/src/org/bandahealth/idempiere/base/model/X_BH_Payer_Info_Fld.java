@@ -24,7 +24,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_Payer_Info_Fld
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Payer_Info_Fld")
 public class X_BH_Payer_Info_Fld extends PO implements I_BH_Payer_Info_Fld, I_Persistent
 {
@@ -32,7 +32,7 @@ public class X_BH_Payer_Info_Fld extends PO implements I_BH_Payer_Info_Fld, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Payer_Info_Fld (Properties ctx, int BH_Payer_Info_Fld_ID, String trxName)
@@ -42,10 +42,10 @@ public class X_BH_Payer_Info_Fld extends PO implements I_BH_Payer_Info_Fld, I_Pe
         {
 			setBH_FillFromPatient (false);
 // N
-			setBH_Payer_ID (0);
-			setBH_Payer_Info_Fld_ID (0);
 			setBH_PayerInfoFieldDataType (null);
 // T
+			setBH_Payer_ID (0);
+			setBH_Payer_Info_Fld_ID (0);
 			setLine (0);
 			setName (null);
         } */
@@ -59,10 +59,10 @@ public class X_BH_Payer_Info_Fld extends PO implements I_BH_Payer_Info_Fld, I_Pe
         {
 			setBH_FillFromPatient (false);
 // N
-			setBH_Payer_ID (0);
-			setBH_Payer_Info_Fld_ID (0);
 			setBH_PayerInfoFieldDataType (null);
 // T
+			setBH_Payer_ID (0);
+			setBH_Payer_Info_Fld_ID (0);
 			setLine (0);
 			setName (null);
         } */
@@ -76,10 +76,10 @@ public class X_BH_Payer_Info_Fld extends PO implements I_BH_Payer_Info_Fld, I_Pe
         {
 			setBH_FillFromPatient (false);
 // N
-			setBH_Payer_ID (0);
-			setBH_Payer_Info_Fld_ID (0);
 			setBH_PayerInfoFieldDataType (null);
 // T
+			setBH_Payer_ID (0);
+			setBH_Payer_Info_Fld_ID (0);
 			setLine (0);
 			setName (null);
         } */
@@ -93,10 +93,10 @@ public class X_BH_Payer_Info_Fld extends PO implements I_BH_Payer_Info_Fld, I_Pe
         {
 			setBH_FillFromPatient (false);
 // N
-			setBH_Payer_ID (0);
-			setBH_Payer_Info_Fld_ID (0);
 			setBH_PayerInfoFieldDataType (null);
 // T
+			setBH_Payer_ID (0);
+			setBH_Payer_Info_Fld_ID (0);
 			setLine (0);
 			setName (null);
         } */
@@ -150,6 +150,26 @@ public class X_BH_Payer_Info_Fld extends PO implements I_BH_Payer_Info_Fld, I_Pe
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	/** List = L */
+	public static final String BH_PAYERINFOFIELDDATATYPE_List = "L";
+	/** Text = T */
+	public static final String BH_PAYERINFOFIELDDATATYPE_Text = "T";
+	/** Set Payer Info Field Data Type.
+		@param BH_PayerInfoFieldDataType Payer Info Field Data Type
+	*/
+	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType)
+	{
+
+		set_Value (COLUMNNAME_BH_PayerInfoFieldDataType, BH_PayerInfoFieldDataType);
+	}
+
+	/** Get Payer Info Field Data Type.
+		@return Payer Info Field Data Type	  */
+	public String getBH_PayerInfoFieldDataType()
+	{
+		return (String)get_Value(COLUMNNAME_BH_PayerInfoFieldDataType);
 	}
 
 	public org.compiere.model.I_C_BPartner getBH_Payer() throws RuntimeException
@@ -213,26 +233,6 @@ public class X_BH_Payer_Info_Fld extends PO implements I_BH_Payer_Info_Fld, I_Pe
 	public String getBH_Payer_Info_Fld_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Payer_Info_Fld_UU);
-	}
-
-	/** List = L */
-	public static final String BH_PAYERINFOFIELDDATATYPE_List = "L";
-	/** Text = T */
-	public static final String BH_PAYERINFOFIELDDATATYPE_Text = "T";
-	/** Set Payer Info Field Data Type.
-		@param BH_PayerInfoFieldDataType Payer Info Field Data Type
-	*/
-	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType)
-	{
-
-		set_Value (COLUMNNAME_BH_PayerInfoFieldDataType, BH_PayerInfoFieldDataType);
-	}
-
-	/** Get Payer Info Field Data Type.
-		@return Payer Info Field Data Type	  */
-	public String getBH_PayerInfoFieldDataType()
-	{
-		return (String)get_Value(COLUMNNAME_BH_PayerInfoFieldDataType);
 	}
 
 	/** Set Description.

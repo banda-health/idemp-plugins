@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Ref_Table - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Ref_TableInput extends MRefTable implements I_AD_Ref_TableInput {
 

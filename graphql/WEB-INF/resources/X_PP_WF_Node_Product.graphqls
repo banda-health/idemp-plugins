@@ -1,6 +1,6 @@
 # Generated Schema for PP_WF_Node_Product - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	PP_WF_Node_Product(UU: String!): PP_WF_Node_Product
 	PP_WF_Node_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_WF_Node_ProductConnection!

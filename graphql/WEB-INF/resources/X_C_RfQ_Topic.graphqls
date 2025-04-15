@@ -1,6 +1,6 @@
 # Generated Schema for C_RfQ_Topic - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_RfQ_Topic(UU: String!): C_RfQ_Topic
 	C_RfQ_TopicGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQ_TopicConnection!

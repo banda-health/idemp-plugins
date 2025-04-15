@@ -6,7 +6,7 @@ import org.compiere.model.I_PA_RatioElement;
  * Generated Interface for PA_RatioElement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_PA_RatioElementInput extends I_PA_RatioElement {
 

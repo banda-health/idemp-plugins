@@ -1,6 +1,6 @@
 # Generated Schema for BH_Payer_Info_Fld_Sug - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	BH_Payer_Info_Fld_Sug(UU: String!): BH_Payer_Info_Fld_Sug
 	BH_Payer_Info_Fld_SugGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Payer_Info_Fld_SugConnection!

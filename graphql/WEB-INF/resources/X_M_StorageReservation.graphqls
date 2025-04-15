@@ -1,6 +1,6 @@
 # Generated Schema for M_StorageReservation - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_StorageReservation(UU: String!): M_StorageReservation
 	M_StorageReservationGet(Page: Int, Size: Int, Sort: String, Filter: String): M_StorageReservationConnection!

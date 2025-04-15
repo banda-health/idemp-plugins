@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for DD_NetworkDistribution - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_DD_NetworkDistributionInput extends X_DD_NetworkDistribution implements I_DD_NetworkDistributionInput {
 

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for BH_Encounter_Type_Window - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Encounter_Type_WindowMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

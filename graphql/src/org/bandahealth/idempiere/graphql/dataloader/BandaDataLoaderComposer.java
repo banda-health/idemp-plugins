@@ -492,7 +492,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImpFormatDataLoade
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImpFormat_RowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImportTemplateAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoColumn_TrlDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoProcessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoWindow_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LabelPrinterDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LabelPrinterFunctionDataLoader;
@@ -743,13 +742,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_Product_AcctDataLoa
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_Product_Category_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_Product_QualityTestDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_Product_TrlDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PromotionDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PromotionDistributionDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PromotionGroupDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PromotionGroupLineDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PromotionLineDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PromotionPreConditionDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PromotionRewardDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_RMATypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_RelatedProductDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperCfgDataLoader;
@@ -1585,13 +1577,6 @@ public class BandaDataLoaderComposer {
 				new X_M_Product_TrlDataLoader(),
 				new X_M_ProductOperationDataLoader(),
 				new X_M_ProductPriceVendorBreakDataLoader(),
-				new X_M_PromotionDataLoader(),
-				new X_M_PromotionDistributionDataLoader(),
-				new X_M_PromotionGroupDataLoader(),
-				new X_M_PromotionGroupLineDataLoader(),
-				new X_M_PromotionLineDataLoader(),
-				new X_M_PromotionPreConditionDataLoader(),
-				new X_M_PromotionRewardDataLoader(),
 				new X_M_RelatedProductDataLoader(),
 				new X_M_RMATypeDataLoader(),
 				new X_M_ShipperCfgDataLoader(),

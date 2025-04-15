@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for B_BidComment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_B_BidCommentInput extends X_B_BidComment implements I_B_BidCommentInput {
 

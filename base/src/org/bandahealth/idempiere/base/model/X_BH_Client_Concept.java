@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Client_Concept
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Client_Concept")
 public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20241108L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Client_Concept (Properties ctx, int BH_Client_Concept_ID, String trxName)

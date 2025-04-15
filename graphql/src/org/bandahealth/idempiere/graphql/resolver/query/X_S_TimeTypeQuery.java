@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for S_TimeType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_S_TimeTypeQuery extends POQuery<X_S_TimeType> implements GraphQLQueryResolver {
 	@Override

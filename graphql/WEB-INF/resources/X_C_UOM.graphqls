@@ -1,6 +1,6 @@
 # Generated Schema for C_UOM - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_UOM(UU: String!): C_UOM
 	C_UOMGet(Page: Int, Size: Int, Sort: String, Filter: String): C_UOMConnection!
@@ -39,6 +39,8 @@ type C_UOM {
 	Name: String!
 	# Rule for rounding  calculated amounts
 	StdPrecision: Int!
+	# Code for Units of Measure used in International Trade
+	UNCEFACT: String
 	# Symbol for a Unit of Measure
 	UOMSymbol: String
 	UOMType: AD_Ref_List
@@ -66,6 +68,8 @@ input C_UOMInput {
 	Name: String
 	# Rule for rounding  calculated amounts
 	StdPrecision: Int
+	# Code for Units of Measure used in International Trade
+	UNCEFACT: String
 	# Symbol for a Unit of Measure
 	UOMSymbol: String
 	UOMType: ForeignEntityInput

@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for AD_Attribute_Value - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Attribute_ValueQuery extends POQuery<X_AD_Attribute_Value> implements GraphQLQueryResolver {
 	@Override

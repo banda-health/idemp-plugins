@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for B_Buyer - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_B_BuyerInput extends X_B_Buyer implements I_B_BuyerInput {
 

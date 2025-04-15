@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for M_DiscountSchemaBreak - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implements I_M_DiscountSchemaBreakInput {
 

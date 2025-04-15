@@ -6,7 +6,7 @@ import org.compiere.model.MStorageOnHand;
  * Data Loader for M_StorageOnHand - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_StorageOnHandDataLoader extends PODataLoader<MStorageOnHand> {
 	public static String DATALOADER_M_StorageOnHand_BY_ID = "M_StorageOnHandByIdDataLoader";

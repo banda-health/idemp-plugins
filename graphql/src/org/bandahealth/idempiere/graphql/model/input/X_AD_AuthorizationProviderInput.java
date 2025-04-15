@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_AuthorizationProvider - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_AuthorizationProviderInput extends MAuthorizationProvider implements I_AD_AuthorizationProviderInput {
 

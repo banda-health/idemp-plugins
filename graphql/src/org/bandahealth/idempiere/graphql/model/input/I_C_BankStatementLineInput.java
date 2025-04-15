@@ -6,7 +6,7 @@ import org.compiere.model.I_C_BankStatementLine;
  * Generated Interface for C_BankStatementLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_BankStatementLineInput extends I_C_BankStatementLine {
 
@@ -93,6 +93,20 @@ public interface I_C_BankStatementLineInput extends I_C_BankStatementLine {
 	 * @return The Currency for this record
 	 */
 	ForeignEntityInput C_Currency();
+
+	/**
+	 * Set C_DepositBatch.
+	 *
+	 * @param C_DepositBatch C_DepositBatch
+	 */
+	void setC_DepositBatchInput(ForeignEntityInput C_DepositBatch);
+
+	/**
+	 * Get C_DepositBatch.
+	 *
+	 * @return C_DepositBatch
+	 */
+	ForeignEntityInput C_DepositBatch();
 
 	/**
 	 * Set C_Invoice.

@@ -1,6 +1,6 @@
 # Generated Schema for M_Inventory - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_Inventory(UU: String!): M_Inventory
 	M_InventoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InventoryConnection!

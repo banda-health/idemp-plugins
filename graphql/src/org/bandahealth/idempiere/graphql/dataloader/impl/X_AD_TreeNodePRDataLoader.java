@@ -6,7 +6,7 @@ import org.compiere.model.MTree_NodePR;
  * Data Loader for AD_TreeNodePR - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_TreeNodePRDataLoader extends PODataLoader<MTree_NodePR> {
 	public static String DATALOADER_AD_TreeNodePR_BY_ID = "AD_TreeNodePRByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.I_PA_SLA_Criteria;
  * Generated Interface for PA_SLA_Criteria - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_PA_SLA_CriteriaInput extends I_PA_SLA_Criteria {
 

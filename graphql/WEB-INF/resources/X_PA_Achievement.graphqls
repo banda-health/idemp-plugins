@@ -1,6 +1,6 @@
 # Generated Schema for PA_Achievement - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	PA_Achievement(UU: String!): PA_Achievement
 	PA_AchievementGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_AchievementConnection!

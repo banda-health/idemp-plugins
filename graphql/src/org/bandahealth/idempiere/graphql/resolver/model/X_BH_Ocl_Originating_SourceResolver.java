@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for BH_Ocl_Originating_Source - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_Ocl_Originating_SourceResolver extends POResolver<MBHOclOriginatingSource> implements GraphQLResolver<MBHOclOriginatingSource> {
 
@@ -42,6 +42,10 @@ public class X_BH_Ocl_Originating_SourceResolver extends POResolver<MBHOclOrigin
 		{
 			put("BHGO", "e5517bb6-f4b5-40cf-b98f-0e32213413cf"); // BHGO - Coded diagnoses
 			put("BHLabs", "0ec64177-8a96-41a4-add6-e411046377c9"); // BHLabs - Lab tests
+			put("BHAllergies", "42fb416a-4b53-469c-b9b5-419fae9b97d9"); // BHAllergies - Allergies
+			put("BHAllergyReactions", "b9f21bfc-d7c9-4b07-a628-93086ce650a8"); // BHAllergyReactions - Allergy reaqctions
+			put("BHAllergySeverities", "06b7f750-4a16-43e8-ab66-32e8496ed15e"); // BHAllergySeverities - Allergy severities
+			put("BHDrugs", "be0c7cb3-baf7-47fa-b420-80e99b8e0382"); // BHDrugs - Drug list
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_Ocl_Source(MBHOclOriginatingSource entity, DataFetchingEnvironment environment) {

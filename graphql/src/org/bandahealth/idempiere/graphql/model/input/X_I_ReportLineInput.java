@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for I_ReportLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLineInput {
 

@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for T_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 

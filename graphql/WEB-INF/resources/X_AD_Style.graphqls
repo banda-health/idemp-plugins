@@ -1,6 +1,6 @@
 # Generated Schema for AD_Style - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_Style(UU: String!): AD_Style
 	AD_StyleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StyleConnection!

@@ -6,7 +6,7 @@ import org.compiere.model.I_R_MailText;
  * Generated Interface for R_MailText - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_R_MailTextInput extends I_R_MailText {
 

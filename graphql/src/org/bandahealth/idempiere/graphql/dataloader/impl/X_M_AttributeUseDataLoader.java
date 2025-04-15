@@ -6,7 +6,7 @@ import org.compiere.model.MAttributeUse;
  * Data Loader for M_AttributeUse - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_AttributeUseDataLoader extends PODataLoader<MAttributeUse> {
 	public static String DATALOADER_M_AttributeUse_BY_ID = "M_AttributeUseByIdDataLoader";

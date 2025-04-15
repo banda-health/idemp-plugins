@@ -37,7 +37,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQLResolver<MField_BH> {
 
@@ -346,6 +346,21 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 
 	public Boolean IsHeading(MField_BH entity, DataFetchingEnvironment environment) {
 		return entity.isHeading();
+	}
+
+	public static Map<String, String> ISHTML_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5"); // Yes
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db"); // No
+		}
+	};
+	public CompletableFuture<MRefList_BH> IsHtml(MField_BH entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getIsHtml())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(ISHTML_UUIDS_BY_VALUE.get(entity.getIsHtml()));
 	}
 
 	public static Map<String, String> ISMANDATORY_UUIDS_BY_VALUE = new HashMap<>() {

@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for A_Depreciation_Table_Header - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_Header implements I_A_Depreciation_Table_HeaderInput {
 

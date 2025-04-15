@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_Workflow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_WorkflowInput {
 

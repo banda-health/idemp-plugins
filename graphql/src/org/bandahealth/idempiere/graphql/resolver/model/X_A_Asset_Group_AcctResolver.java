@@ -30,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for A_Asset_Group_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_Asset_Group_AcctResolver extends POResolver<MAssetGroupAcct> implements GraphQLResolver<MAssetGroupAcct> {
 

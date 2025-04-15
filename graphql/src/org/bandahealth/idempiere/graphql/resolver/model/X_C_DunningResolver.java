@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for C_Dunning - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_DunningResolver extends POResolver<MDunning> implements GraphQLResolver<MDunning> {
 

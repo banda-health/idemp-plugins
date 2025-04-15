@@ -6,7 +6,7 @@ import org.compiere.model.MFieldSuggestion;
  * Data Loader for AD_FieldSuggestion - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_FieldSuggestionDataLoader extends PODataLoader<MFieldSuggestion> {
 	public static String DATALOADER_AD_FieldSuggestion_BY_ID = "AD_FieldSuggestionByIdDataLoader";

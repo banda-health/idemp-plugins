@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_GraphQLGeneratorTemplate
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_GraphQLGeneratorTemplate")
 public class X_BH_GraphQLGeneratorTemplate extends PO implements I_BH_GraphQLGeneratorTemplate, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_GraphQLGeneratorTemplate extends PO implements I_BH_GraphQLGen
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240404L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_GraphQLGeneratorTemplate (Properties ctx, int BH_GraphQLGeneratorTemplate_ID, String trxName)

@@ -23,7 +23,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Process_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process_ParaInput {
 

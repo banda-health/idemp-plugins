@@ -18,7 +18,7 @@ import java.sql.Timestamp;
  * Generated Model for M_InOutLineMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_InOutLineMAInput extends MInOutLineMA implements I_M_InOutLineMAInput {
 

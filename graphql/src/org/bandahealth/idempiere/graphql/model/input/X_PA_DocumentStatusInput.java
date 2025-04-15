@@ -24,7 +24,7 @@ import java.sql.ResultSet;
  * Generated Model for PA_DocumentStatus - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_DocumentStatusInput {
 

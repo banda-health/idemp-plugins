@@ -1,6 +1,6 @@
 # Generated Schema for C_AddressTransaction - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_AddressTransaction(UU: String!): C_AddressTransaction
 	C_AddressTransactionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AddressTransactionConnection!

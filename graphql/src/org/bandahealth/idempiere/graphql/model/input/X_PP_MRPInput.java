@@ -32,7 +32,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_MRP - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 

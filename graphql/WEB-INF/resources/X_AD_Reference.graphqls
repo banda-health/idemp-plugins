@@ -1,6 +1,6 @@
 # Generated Schema for AD_Reference - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_Reference(UU: String!): AD_Reference
 	AD_ReferenceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReferenceConnection!
@@ -49,7 +49,7 @@ type AD_Reference {
 	UpdatedBy: AD_User!
 	# Different method of validating data
 	ValidationType: AD_Ref_List!
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }
 
@@ -75,6 +75,6 @@ input AD_ReferenceInput {
 	ShowInactive: ForeignEntityInput
 	# Different method of validating data
 	ValidationType: ForeignEntityInput
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }

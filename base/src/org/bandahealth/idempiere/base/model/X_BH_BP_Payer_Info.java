@@ -24,7 +24,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_BP_Payer_Info
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_BP_Payer_Info")
 public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Persistent
 {
@@ -32,7 +32,7 @@ public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_BP_Payer_Info (Properties ctx, int BH_BP_Payer_Info_ID, String trxName)

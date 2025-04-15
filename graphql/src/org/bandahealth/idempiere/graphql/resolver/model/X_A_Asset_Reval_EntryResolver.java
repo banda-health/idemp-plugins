@@ -26,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for A_Asset_Reval_Entry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_Entry> implements GraphQLResolver<X_A_Asset_Reval_Entry> {
 
@@ -65,7 +65,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 
 	public static Map<String, String> A_REVAL_EFFECTIVE_DATE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put("DA", "f20a49c2-43db-4df5-acfe-4272a089423a"); // Date Aquired
+			put("DA", "f20a49c2-43db-4df5-acfe-4272a089423a"); // Date Acquired
 			put("RD", "46a86834-cdb1-478c-bf2b-f0f82cda336c"); // Revaluation Date
 			put("SD", "29a40d61-8a8c-483b-9f43-03f25c4e5209"); // Date Depreciation Started
 		}

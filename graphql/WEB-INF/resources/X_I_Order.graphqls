@@ -1,6 +1,6 @@
 # Generated Schema for I_Order - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	I_Order(UU: String!): I_Order
 	I_OrderGet(Page: Int, Size: Int, Sort: String, Filter: String): I_OrderConnection!
@@ -72,7 +72,7 @@ type I_Order {
 	City: String
 	# Business Partner Contact Name
 	ContactName: String
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
 	# Date this record was created
 	Created: DateTime!
@@ -201,7 +201,7 @@ input I_OrderInput {
 	City: String
 	# Business Partner Contact Name
 	ContactName: String
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
 	# Accounting Date
 	DateAcct: Date
