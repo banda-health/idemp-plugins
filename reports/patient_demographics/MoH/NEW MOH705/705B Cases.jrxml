@@ -108,8 +108,18 @@
 				ON pd.bh_visit_id = v.bh_visit_id AND pd.diagnosis_rank = 1
 				JOIN bh_concept c
 				ON pd.bh_concept_id = c.bh_concept_id
-				JOIN bh_concept_extra ce
-				ON c.bh_concept_id = ce.bh_concept_id AND LOWER(ce.bh_key) = 'moh-705b-greaterthan5'
+				JOIN (
+				SELECT
+					bh_concept_id,
+					bh_value
+				FROM
+					bh_concept_extra
+				WHERE
+					LOWER(bh_key) = 'moh-705b-greaterthan5'
+					AND isactive = 'Y'
+				GROUP BY bh_concept_id, bh_value
+			) ce
+				ON c.bh_concept_id = ce.bh_concept_id
 				JOIN c_bpartner bp
 				ON v.patient_id = bp.c_bpartner_id
 		WHERE
