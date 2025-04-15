@@ -109,6 +109,9 @@ public class ImportBusinessPartnersProcessTest extends ChuBoePopulateFactoryVO {
 			newImportTemplate.setAD_Window_ID(BUSINESS_PARTNER_WINDOW_ID);
 			newImportTemplate.setAD_Tab_ID(BUSINESS_PARTNER_TAB_ID);
 			newImportTemplate.setCSVHeader(BUSINESS_PARTNER_IMPORT_HEADER);
+			newImportTemplate.setSeparatorChar(",");
+			newImportTemplate.setQuoteChar("\"");
+			newImportTemplate.setImportTemplateType(MImportTemplate.IMPORTTEMPLATETYPE_Comma_SeparatedValuesCSV);
 			newImportTemplate.saveEx();
 			importTemplateId = newImportTemplate.getAD_ImportTemplate_ID();
 		} else {
