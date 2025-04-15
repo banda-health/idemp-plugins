@@ -6,7 +6,7 @@ import org.compiere.model.MIndexColumn;
  * Data Loader for AD_IndexColumn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_IndexColumnDataLoader extends PODataLoader<MIndexColumn> {
 	public static String DATALOADER_AD_IndexColumn_BY_ID = "AD_IndexColumnByIdDataLoader";

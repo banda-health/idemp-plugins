@@ -6,7 +6,7 @@ import org.eevolution.model.X_PP_MRP;
  * Data Loader for PP_MRP - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_MRPDataLoader extends PODataLoader<X_PP_MRP> {
 	public static String DATALOADER_PP_MRP_BY_ID = "PP_MRPByIdDataLoader";

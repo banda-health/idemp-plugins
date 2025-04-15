@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for C_UOM_Conversion - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_UOM_ConversionInput extends MUOMConversion implements I_C_UOM_ConversionInput {
 

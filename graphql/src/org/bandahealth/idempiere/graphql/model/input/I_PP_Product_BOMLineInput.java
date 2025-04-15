@@ -6,7 +6,7 @@ import org.eevolution.model.I_PP_Product_BOMLine;
  * Generated Interface for PP_Product_BOMLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_PP_Product_BOMLineInput extends I_PP_Product_BOMLine {
 

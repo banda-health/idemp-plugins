@@ -1,6 +1,6 @@
 # Generated Schema for M_Substitute - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_Substitute(UU: String!): M_Substitute
 	M_SubstituteGet(Page: Int, Size: Int, Sort: String, Filter: String): M_SubstituteConnection!

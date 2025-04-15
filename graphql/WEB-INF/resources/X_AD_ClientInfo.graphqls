@@ -1,6 +1,6 @@
 # Generated Schema for AD_ClientInfo - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_ClientInfo(UU: String!): AD_ClientInfo
 	AD_ClientInfoGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ClientInfoConnection!

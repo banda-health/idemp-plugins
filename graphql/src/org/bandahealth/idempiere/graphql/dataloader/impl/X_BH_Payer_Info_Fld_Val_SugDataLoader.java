@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHPayerInfoFldValSug;
  * Data Loader for BH_Payer_Info_Fld_Val_Sug - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Payer_Info_Fld_Val_SugDataLoader extends PODataLoader<MBHPayerInfoFldValSug> {
 	public static String DATALOADER_BH_Payer_Info_Fld_Val_Sug_BY_ID = "BH_Payer_Info_Fld_Val_SugByIdDataLoader";

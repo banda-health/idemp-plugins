@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_Window - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput {
 

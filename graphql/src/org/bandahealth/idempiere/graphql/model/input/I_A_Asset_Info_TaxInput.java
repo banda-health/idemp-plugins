@@ -6,7 +6,7 @@ import org.compiere.model.I_A_Asset_Info_Tax;
  * Generated Interface for A_Asset_Info_Tax - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_A_Asset_Info_TaxInput extends I_A_Asset_Info_Tax {
 

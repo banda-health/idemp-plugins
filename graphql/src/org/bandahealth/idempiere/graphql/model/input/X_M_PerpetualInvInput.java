@@ -18,7 +18,7 @@ import java.sql.Timestamp;
  * Generated Model for M_PerpetualInv - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_PerpetualInvInput {
 

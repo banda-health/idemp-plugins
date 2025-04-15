@@ -1,6 +1,6 @@
 # Generated Schema for M_ShipperPackagingCfg - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_ShipperPackagingCfg(UU: String!): M_ShipperPackagingCfg
 	M_ShipperPackagingCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperPackagingCfgConnection!

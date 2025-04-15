@@ -1,6 +1,6 @@
 # Generated Schema for GL_FundRestriction - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	GL_FundRestriction(UU: String!): GL_FundRestriction
 	GL_FundRestrictionGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_FundRestrictionConnection!

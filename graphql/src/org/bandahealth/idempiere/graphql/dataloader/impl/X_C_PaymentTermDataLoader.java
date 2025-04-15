@@ -6,7 +6,7 @@ import org.compiere.model.MPaymentTerm;
  * Data Loader for C_PaymentTerm - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_PaymentTermDataLoader extends PODataLoader<MPaymentTerm> {
 	public static String DATALOADER_C_PaymentTerm_BY_ID = "C_PaymentTermByIdDataLoader";

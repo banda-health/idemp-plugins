@@ -6,7 +6,7 @@ import org.compiere.model.MPasswordRule;
  * Data Loader for AD_PasswordRule - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_PasswordRuleDataLoader extends PODataLoader<MPasswordRule> {
 	public static String DATALOADER_AD_PasswordRule_BY_ID = "AD_PasswordRuleByIdDataLoader";

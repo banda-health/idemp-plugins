@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_TreeNodeU3 - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_TreeNodeU3Input extends X_AD_TreeNodeU3 implements I_AD_TreeNodeU3Input {
 

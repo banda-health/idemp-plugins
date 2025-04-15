@@ -1,6 +1,6 @@
 # Generated Schema for IMP_Processor - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	IMP_Processor(UU: String!): IMP_Processor
 	IMP_ProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): IMP_ProcessorConnection!

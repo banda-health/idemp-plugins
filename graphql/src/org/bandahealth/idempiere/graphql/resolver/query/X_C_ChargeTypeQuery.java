@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for C_ChargeType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_ChargeTypeQuery extends POQuery<MChargeType_BH> implements GraphQLQueryResolver {
 	@Override

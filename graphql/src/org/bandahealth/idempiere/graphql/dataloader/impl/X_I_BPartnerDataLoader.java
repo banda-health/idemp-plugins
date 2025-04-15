@@ -6,7 +6,7 @@ import org.compiere.model.X_I_BPartner;
  * Data Loader for I_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_BPartnerDataLoader extends PODataLoader<X_I_BPartner> {
 	public static String DATALOADER_I_BPartner_BY_ID = "I_BPartnerByIdDataLoader";

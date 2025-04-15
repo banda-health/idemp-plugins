@@ -6,7 +6,7 @@ import org.compiere.model.MChatEntry;
  * Data Loader for CM_ChatEntry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_CM_ChatEntryDataLoader extends PODataLoader<MChatEntry> {
 	public static String DATALOADER_CM_ChatEntry_BY_ID = "CM_ChatEntryByIdDataLoader";

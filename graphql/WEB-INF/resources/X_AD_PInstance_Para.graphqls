@@ -1,6 +1,6 @@
 # Generated Schema for AD_PInstance_Para - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_PInstance_Para(UU: String!): AD_PInstance_Para
 	AD_PInstance_ParaGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PInstance_ParaConnection!

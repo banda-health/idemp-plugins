@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for B_TopicType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeInput {
 

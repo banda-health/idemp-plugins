@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_WF_Responsible - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_AD_WF_ResponsibleInput {
 

@@ -1,6 +1,6 @@
 # Generated Schema for C_Cash - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Cash(UU: String!): C_Cash
 	C_CashGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CashConnection!

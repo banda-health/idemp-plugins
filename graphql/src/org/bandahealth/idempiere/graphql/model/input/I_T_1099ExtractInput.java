@@ -6,7 +6,7 @@ import org.compiere.model.I_T_1099Extract;
  * Generated Interface for T_1099Extract - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_T_1099ExtractInput extends I_T_1099Extract {
 

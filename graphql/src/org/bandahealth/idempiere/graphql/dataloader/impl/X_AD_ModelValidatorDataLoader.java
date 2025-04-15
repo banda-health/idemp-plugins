@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_ModelValidator;
  * Data Loader for AD_ModelValidator - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_ModelValidatorDataLoader extends PODataLoader<X_AD_ModelValidator> {
 	public static String DATALOADER_AD_ModelValidator_BY_ID = "AD_ModelValidatorByIdDataLoader";

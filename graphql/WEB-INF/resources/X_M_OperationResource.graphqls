@@ -1,6 +1,6 @@
 # Generated Schema for M_OperationResource - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_OperationResource(UU: String!): M_OperationResource
 	M_OperationResourceGet(Page: Int, Size: Int, Sort: String, Filter: String): M_OperationResourceConnection!

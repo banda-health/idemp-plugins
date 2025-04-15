@@ -6,7 +6,7 @@ import org.compiere.model.MTaxDeclaration;
  * Data Loader for C_TaxDeclaration - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_TaxDeclarationDataLoader extends PODataLoader<MTaxDeclaration> {
 	public static String DATALOADER_C_TaxDeclaration_BY_ID = "C_TaxDeclarationByIdDataLoader";

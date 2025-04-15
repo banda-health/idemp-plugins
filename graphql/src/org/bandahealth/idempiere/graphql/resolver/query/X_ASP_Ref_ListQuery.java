@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for ASP_Ref_List - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_Ref_ListQuery extends POQuery<X_ASP_Ref_List> implements GraphQLQueryResolver {
 	@Override

@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for BH_Product_CategoryDefault - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Product_CategoryDefaultQuery extends POQuery<MBHProductCategoryDefault> implements GraphQLQueryResolver {
 	@Override

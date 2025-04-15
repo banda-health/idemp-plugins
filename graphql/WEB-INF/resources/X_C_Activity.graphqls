@@ -1,6 +1,6 @@
 # Generated Schema for C_Activity - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Activity(UU: String!): C_Activity
 	C_ActivityGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ActivityConnection!

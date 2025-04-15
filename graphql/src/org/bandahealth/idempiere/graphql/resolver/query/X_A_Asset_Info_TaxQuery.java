@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for A_Asset_Info_Tax - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_Asset_Info_TaxQuery extends POQuery<X_A_Asset_Info_Tax> implements GraphQLQueryResolver {
 	@Override

@@ -34,7 +34,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_ReportSource - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_ReportSourceResolver extends POResolver<MReportSource> implements GraphQLResolver<MReportSource> {
 

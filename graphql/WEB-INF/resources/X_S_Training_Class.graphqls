@@ -1,6 +1,6 @@
 # Generated Schema for S_Training_Class - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	S_Training_Class(UU: String!): S_Training_Class
 	S_Training_ClassGet(Page: Int, Size: Int, Sort: String, Filter: String): S_Training_ClassConnection!

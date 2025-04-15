@@ -6,7 +6,7 @@ import org.compiere.model.MPackageLine;
  * Data Loader for M_PackageLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_PackageLineDataLoader extends PODataLoader<MPackageLine> {
 	public static String DATALOADER_M_PackageLine_BY_ID = "M_PackageLineByIdDataLoader";

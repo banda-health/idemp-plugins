@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for C_PaymentBatch - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentBatchInput {
 

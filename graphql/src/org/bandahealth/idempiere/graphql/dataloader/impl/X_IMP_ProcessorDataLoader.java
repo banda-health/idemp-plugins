@@ -6,7 +6,7 @@ import org.compiere.model.MIMPProcessor;
  * Data Loader for IMP_Processor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_IMP_ProcessorDataLoader extends PODataLoader<MIMPProcessor> {
 	public static String DATALOADER_IMP_Processor_BY_ID = "IMP_ProcessorByIdDataLoader";

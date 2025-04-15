@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_ClientLevel - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_ClientLevelInput {
 

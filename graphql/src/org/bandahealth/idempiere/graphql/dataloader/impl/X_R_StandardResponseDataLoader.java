@@ -6,7 +6,7 @@ import org.compiere.model.X_R_StandardResponse;
  * Data Loader for R_StandardResponse - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_R_StandardResponseDataLoader extends PODataLoader<X_R_StandardResponse> {
 	public static String DATALOADER_R_StandardResponse_BY_ID = "R_StandardResponseByIdDataLoader";

@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for ASP_Workflow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_WorkflowResolver extends POResolver<X_ASP_Workflow> implements GraphQLResolver<X_ASP_Workflow> {
 

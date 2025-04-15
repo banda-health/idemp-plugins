@@ -6,7 +6,7 @@ import org.compiere.model.MRecurring;
  * Data Loader for C_Recurring - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_RecurringDataLoader extends PODataLoader<MRecurring> {
 	public static String DATALOADER_C_Recurring_BY_ID = "C_RecurringByIdDataLoader";

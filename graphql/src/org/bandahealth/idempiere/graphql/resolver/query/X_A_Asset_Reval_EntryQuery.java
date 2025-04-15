@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for A_Asset_Reval_Entry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_Asset_Reval_EntryQuery extends POQuery<X_A_Asset_Reval_Entry> implements GraphQLQueryResolver {
 	@Override

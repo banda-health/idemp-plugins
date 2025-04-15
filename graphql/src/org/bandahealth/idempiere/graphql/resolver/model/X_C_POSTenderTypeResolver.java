@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_POSTenderType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_POSTenderTypeResolver extends POResolver<X_C_POSTenderType> implements GraphQLResolver<X_C_POSTenderType> {
 

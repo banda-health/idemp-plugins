@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for R_RequestProcessor_Route - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute implements I_R_RequestProcessor_RouteInput {
 

@@ -6,7 +6,7 @@ import org.compiere.model.X_ASP_Process_Para;
  * Data Loader for ASP_Process_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_Process_ParaDataLoader extends PODataLoader<X_ASP_Process_Para> {
 	public static String DATALOADER_ASP_Process_Para_BY_ID = "ASP_Process_ParaByIdDataLoader";

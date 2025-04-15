@@ -27,7 +27,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_Order_BOMLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_Order_BOMLineInput {
 

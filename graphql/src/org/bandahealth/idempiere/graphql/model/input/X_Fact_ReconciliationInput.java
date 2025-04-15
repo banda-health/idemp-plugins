@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for Fact_Reconciliation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_Fact_ReconciliationInput extends MFactReconciliation implements I_Fact_ReconciliationInput {
 

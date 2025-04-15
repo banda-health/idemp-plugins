@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_RelationType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> implements GraphQLResolver<X_AD_RelationType> {
 

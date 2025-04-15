@@ -1,6 +1,6 @@
 # Generated Schema for C_CommissionRun - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_CommissionRun(UU: String!): C_CommissionRun
 	C_CommissionRunGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CommissionRunConnection!

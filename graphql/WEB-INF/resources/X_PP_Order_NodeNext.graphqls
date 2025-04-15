@@ -1,6 +1,6 @@
 # Generated Schema for PP_Order_NodeNext - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	PP_Order_NodeNext(UU: String!): PP_Order_NodeNext
 	PP_Order_NodeNextGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_NodeNextConnection!

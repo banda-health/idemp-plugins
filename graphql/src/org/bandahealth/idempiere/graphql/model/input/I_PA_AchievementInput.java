@@ -6,7 +6,7 @@ import org.compiere.model.I_PA_Achievement;
  * Generated Interface for PA_Achievement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_PA_AchievementInput extends I_PA_Achievement {
 

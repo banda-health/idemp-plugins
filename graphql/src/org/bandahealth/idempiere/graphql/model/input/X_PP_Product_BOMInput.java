@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_Product_BOM - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product_BOMInput {
 

@@ -6,7 +6,7 @@ import org.compiere.model.I_M_TransactionAllocation;
  * Generated Interface for M_TransactionAllocation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_M_TransactionAllocationInput extends I_M_TransactionAllocation {
 

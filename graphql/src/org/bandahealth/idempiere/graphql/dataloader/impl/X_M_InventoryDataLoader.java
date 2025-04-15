@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MInventory_BH;
  * Data Loader for M_Inventory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_InventoryDataLoader extends PODataLoader<MInventory_BH> {
 	public static String DATALOADER_M_Inventory_BY_ID = "M_InventoryByIdDataLoader";

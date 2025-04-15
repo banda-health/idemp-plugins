@@ -6,7 +6,7 @@ import org.compiere.model.I_C_CommissionRun;
  * Generated Interface for C_CommissionRun - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_CommissionRunInput extends I_C_CommissionRun {
 

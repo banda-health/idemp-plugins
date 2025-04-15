@@ -6,7 +6,7 @@ import org.compiere.model.MInvoicePaySchedule;
  * Data Loader for C_InvoicePaySchedule - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_InvoicePayScheduleDataLoader extends PODataLoader<MInvoicePaySchedule> {
 	public static String DATALOADER_C_InvoicePaySchedule_BY_ID = "C_InvoicePayScheduleByIdDataLoader";

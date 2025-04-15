@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Subscription - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_SubscriptionResolver extends POResolver<X_C_Subscription> implements GraphQLResolver<X_C_Subscription> {
 

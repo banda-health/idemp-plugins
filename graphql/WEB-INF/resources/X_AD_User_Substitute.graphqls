@@ -1,6 +1,6 @@
 # Generated Schema for AD_User_Substitute - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_User_Substitute(UU: String!): AD_User_Substitute
 	AD_User_SubstituteGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_User_SubstituteConnection!

@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for M_SerNoCtlExclude - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_SerNoCtlExcludeInput extends MSerNoCtlExclude implements I_M_SerNoCtlExcludeInput {
 

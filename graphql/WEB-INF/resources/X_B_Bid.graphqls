@@ -1,6 +1,6 @@
 # Generated Schema for B_Bid - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	B_Bid(UU: String!): B_Bid
 	B_BidGet(Page: Int, Size: Int, Sort: String, Filter: String): B_BidConnection!

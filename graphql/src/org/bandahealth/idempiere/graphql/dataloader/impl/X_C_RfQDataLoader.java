@@ -6,7 +6,7 @@ import org.compiere.model.MRfQ;
  * Data Loader for C_RfQ - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_RfQDataLoader extends PODataLoader<MRfQ> {
 	public static String DATALOADER_C_RfQ_BY_ID = "C_RfQByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.I_C_AddressValidation;
  * Generated Interface for C_AddressValidation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_AddressValidationInput extends I_C_AddressValidation {
 

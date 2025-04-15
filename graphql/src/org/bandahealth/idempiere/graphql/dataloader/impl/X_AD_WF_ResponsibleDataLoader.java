@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_WF_Responsible;
  * Data Loader for AD_WF_Responsible - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_WF_ResponsibleDataLoader extends PODataLoader<X_AD_WF_Responsible> {
 	public static String DATALOADER_AD_WF_Responsible_BY_ID = "AD_WF_ResponsibleByIdDataLoader";

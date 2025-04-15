@@ -6,7 +6,7 @@ import org.compiere.model.I_ASP_Ref_List;
  * Generated Interface for ASP_Ref_List - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_ASP_Ref_ListInput extends I_ASP_Ref_List {
 

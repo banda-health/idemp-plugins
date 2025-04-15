@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Record_Access;
  * Generated Interface for AD_Record_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_Record_AccessInput extends I_AD_Record_Access {
 

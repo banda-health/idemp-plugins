@@ -1,6 +1,6 @@
 # Generated Schema for ASP_ClientLevel - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	ASP_ClientLevel(UU: String!): ASP_ClientLevel
 	ASP_ClientLevelGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ClientLevelConnection!

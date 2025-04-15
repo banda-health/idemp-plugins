@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_Conversion_Rate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_Conversion_RateResolver extends POResolver<X_I_Conversion_Rate> implements GraphQLResolver<X_I_Conversion_Rate> {
 

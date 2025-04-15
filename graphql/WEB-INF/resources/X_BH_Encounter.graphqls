@@ -1,6 +1,6 @@
 # Generated Schema for BH_Encounter - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	BH_Encounter(UU: String!): BH_Encounter
 	BH_EncounterGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_EncounterConnection!

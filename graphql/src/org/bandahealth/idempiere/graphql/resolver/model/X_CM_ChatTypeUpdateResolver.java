@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for CM_ChatTypeUpdate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_CM_ChatTypeUpdateResolver extends POResolver<X_CM_ChatTypeUpdate> implements GraphQLResolver<X_CM_ChatTypeUpdate> {
 

@@ -1,6 +1,6 @@
 # Generated Schema for C_ProjectTask - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_ProjectTask(UU: String!): C_ProjectTask
 	C_ProjectTaskGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectTaskConnection!

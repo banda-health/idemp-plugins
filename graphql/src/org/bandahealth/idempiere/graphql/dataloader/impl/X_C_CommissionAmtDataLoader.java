@@ -6,7 +6,7 @@ import org.compiere.model.MCommissionAmt;
  * Data Loader for C_CommissionAmt - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_CommissionAmtDataLoader extends PODataLoader<MCommissionAmt> {
 	public static String DATALOADER_C_CommissionAmt_BY_ID = "C_CommissionAmtByIdDataLoader";

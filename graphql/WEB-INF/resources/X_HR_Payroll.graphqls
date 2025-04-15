@@ -1,6 +1,6 @@
 # Generated Schema for HR_Payroll - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	HR_Payroll(UU: String!): HR_Payroll
 	HR_PayrollGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_PayrollConnection!

@@ -28,7 +28,7 @@ import java.sql.ResultSet;
  * Generated Model for PA_ReportColumn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_ReportColumnInput {
 

@@ -1,6 +1,6 @@
 # Generated Schema for U_WebMenu - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	U_WebMenu(UU: String!): U_WebMenu
 	U_WebMenuGet(Page: Int, Size: Int, Sort: String, Filter: String): U_WebMenuConnection!

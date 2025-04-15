@@ -1,6 +1,6 @@
 # Generated Schema for M_MatchInv - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_MatchInv(UU: String!): M_MatchInv
 	M_MatchInvGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MatchInvConnection!

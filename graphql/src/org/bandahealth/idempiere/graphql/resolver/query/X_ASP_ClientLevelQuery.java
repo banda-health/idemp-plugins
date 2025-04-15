@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for ASP_ClientLevel - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_ClientLevelQuery extends POQuery<X_ASP_ClientLevel> implements GraphQLQueryResolver {
 	@Override

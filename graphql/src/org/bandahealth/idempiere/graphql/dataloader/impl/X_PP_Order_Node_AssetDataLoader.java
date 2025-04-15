@@ -6,7 +6,7 @@ import org.eevolution.model.X_PP_Order_Node_Asset;
  * Data Loader for PP_Order_Node_Asset - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Order_Node_AssetDataLoader extends PODataLoader<X_PP_Order_Node_Asset> {
 	public static String DATALOADER_PP_Order_Node_Asset_BY_ID = "PP_Order_Node_AssetByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.MReplicationStrategy;
  * Data Loader for AD_ReplicationStrategy - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_ReplicationStrategyDataLoader extends PODataLoader<MReplicationStrategy> {
 	public static String DATALOADER_AD_ReplicationStrategy_BY_ID = "AD_ReplicationStrategyByIdDataLoader";

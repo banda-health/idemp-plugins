@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Info_Tax - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	A_Asset_Info_Tax(UU: String!): A_Asset_Info_Tax
 	A_Asset_Info_TaxGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Info_TaxConnection!

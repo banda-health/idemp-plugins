@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for B_BidComment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_B_BidCommentResolver extends POResolver<X_B_BidComment> implements GraphQLResolver<X_B_BidComment> {
 

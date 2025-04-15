@@ -1,6 +1,6 @@
 # Generated Schema for C_ChargeType - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_ChargeType(UU: String!): C_ChargeType
 	C_ChargeTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ChargeTypeConnection!

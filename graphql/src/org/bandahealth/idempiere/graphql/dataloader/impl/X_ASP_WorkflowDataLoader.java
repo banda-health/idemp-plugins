@@ -6,7 +6,7 @@ import org.compiere.model.X_ASP_Workflow;
  * Data Loader for ASP_Workflow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_WorkflowDataLoader extends PODataLoader<X_ASP_Workflow> {
 	public static String DATALOADER_ASP_Workflow_BY_ID = "ASP_WorkflowByIdDataLoader";

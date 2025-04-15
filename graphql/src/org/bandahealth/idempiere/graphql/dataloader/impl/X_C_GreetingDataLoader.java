@@ -6,7 +6,7 @@ import org.compiere.model.X_C_Greeting;
  * Data Loader for C_Greeting - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_GreetingDataLoader extends PODataLoader<X_C_Greeting> {
 	public static String DATALOADER_C_Greeting_BY_ID = "C_GreetingByIdDataLoader";

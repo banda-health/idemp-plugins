@@ -6,7 +6,7 @@ import org.compiere.model.MLocator;
  * Data Loader for M_Locator - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_LocatorDataLoader extends PODataLoader<MLocator> {
 	public static String DATALOADER_M_Locator_BY_ID = "M_LocatorByIdDataLoader";

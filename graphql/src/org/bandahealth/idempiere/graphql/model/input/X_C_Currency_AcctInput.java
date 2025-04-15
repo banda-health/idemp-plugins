@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Currency_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_Currency_AcctInput extends MCurrencyAcct implements I_C_Currency_AcctInput {
 

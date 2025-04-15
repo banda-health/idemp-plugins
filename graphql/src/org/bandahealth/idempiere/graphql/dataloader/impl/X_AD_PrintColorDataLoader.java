@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_PrintColor;
  * Data Loader for AD_PrintColor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_PrintColorDataLoader extends PODataLoader<X_AD_PrintColor> {
 	public static String DATALOADER_AD_PrintColor_BY_ID = "AD_PrintColorByIdDataLoader";

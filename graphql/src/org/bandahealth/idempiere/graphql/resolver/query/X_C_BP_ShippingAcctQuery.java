@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for C_BP_ShippingAcct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_BP_ShippingAcctQuery extends POQuery<X_C_BP_ShippingAcct> implements GraphQLQueryResolver {
 	@Override

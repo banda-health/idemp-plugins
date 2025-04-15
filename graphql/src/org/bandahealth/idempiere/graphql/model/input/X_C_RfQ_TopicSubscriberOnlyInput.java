@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for C_RfQ_TopicSubscriberOnly - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_RfQ_TopicSubscriberOnlyInput extends MRfQTopicSubscriberOnly implements I_C_RfQ_TopicSubscriberOnlyInput {
 

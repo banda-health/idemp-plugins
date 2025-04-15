@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_AllClients_V;
  * Generated Interface for AD_AllClients_V - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_AllClients_VInput extends I_AD_AllClients_V {
 

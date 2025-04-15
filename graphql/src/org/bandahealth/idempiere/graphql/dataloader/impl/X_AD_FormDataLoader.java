@@ -6,7 +6,7 @@ import org.compiere.model.MForm;
  * Data Loader for AD_Form - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_FormDataLoader extends PODataLoader<MForm> {
 	public static String DATALOADER_AD_Form_BY_ID = "AD_FormByIdDataLoader";

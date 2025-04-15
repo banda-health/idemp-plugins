@@ -6,7 +6,7 @@ import org.compiere.model.MTax;
  * Data Loader for C_Tax - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_TaxDataLoader extends PODataLoader<MTax> {
 	public static String DATALOADER_C_Tax_BY_ID = "C_TaxByIdDataLoader";

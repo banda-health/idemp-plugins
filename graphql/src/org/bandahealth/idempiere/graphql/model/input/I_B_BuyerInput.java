@@ -6,7 +6,7 @@ import org.compiere.model.I_B_Buyer;
  * Generated Interface for B_Buyer - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_B_BuyerInput extends I_B_Buyer {
 

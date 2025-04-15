@@ -6,7 +6,7 @@ import org.compiere.model.I_T_BankRegister;
  * Generated Interface for T_BankRegister - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_T_BankRegisterInput extends I_T_BankRegister {
 

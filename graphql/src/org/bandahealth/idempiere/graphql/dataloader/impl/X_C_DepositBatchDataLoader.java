@@ -6,7 +6,7 @@ import org.compiere.model.MDepositBatch;
  * Data Loader for C_DepositBatch - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_DepositBatchDataLoader extends PODataLoader<MDepositBatch> {
 	public static String DATALOADER_C_DepositBatch_BY_ID = "C_DepositBatchByIdDataLoader";

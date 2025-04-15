@@ -1,6 +1,6 @@
 # Generated Schema for QM_SpecificationLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	QM_SpecificationLine(UU: String!): QM_SpecificationLine
 	QM_SpecificationLineGet(Page: Int, Size: Int, Sort: String, Filter: String): QM_SpecificationLineConnection!

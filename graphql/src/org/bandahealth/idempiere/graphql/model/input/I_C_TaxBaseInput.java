@@ -6,7 +6,7 @@ import org.eevolution.model.I_C_TaxBase;
  * Generated Interface for C_TaxBase - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_TaxBaseInput extends I_C_TaxBase {
 

@@ -1,6 +1,6 @@
 # Generated Schema for AD_AlertRule - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_AlertRule(UU: String!): AD_AlertRule
 	AD_AlertRuleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AlertRuleConnection!

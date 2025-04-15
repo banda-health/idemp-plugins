@@ -36,7 +36,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Project - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQLResolver<MProject> {
 

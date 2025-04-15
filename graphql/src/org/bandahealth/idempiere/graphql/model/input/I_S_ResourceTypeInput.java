@@ -6,7 +6,7 @@ import org.compiere.model.I_S_ResourceType;
  * Generated Interface for S_ResourceType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_S_ResourceTypeInput extends I_S_ResourceType {
 

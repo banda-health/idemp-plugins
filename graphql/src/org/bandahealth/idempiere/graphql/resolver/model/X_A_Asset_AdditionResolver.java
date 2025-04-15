@@ -46,7 +46,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for A_Asset_Addition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> implements GraphQLResolver<MAssetAddition> {
 

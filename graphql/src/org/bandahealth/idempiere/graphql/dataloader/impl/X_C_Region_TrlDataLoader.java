@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for C_Region_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_Region_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_C_Region_Trl_BY_ID = "C_Region_TrlByIdDataLoader";

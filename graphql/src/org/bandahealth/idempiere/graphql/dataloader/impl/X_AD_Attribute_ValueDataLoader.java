@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_Attribute_Value;
  * Data Loader for AD_Attribute_Value - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Attribute_ValueDataLoader extends PODataLoader<X_AD_Attribute_Value> {
 	public static String DATALOADER_AD_Attribute_Value_BY_ID = "AD_Attribute_ValueByIdDataLoader";

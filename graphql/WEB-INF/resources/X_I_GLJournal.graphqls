@@ -1,6 +1,6 @@
 # Generated Schema for I_GLJournal - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	I_GLJournal(UU: String!): I_GLJournal
 	I_GLJournalGet(Page: Int, Size: Int, Sort: String, Filter: String): I_GLJournalConnection!

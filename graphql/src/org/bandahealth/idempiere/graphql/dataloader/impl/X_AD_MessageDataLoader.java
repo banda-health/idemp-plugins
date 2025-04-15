@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MMessage_BH;
  * Data Loader for AD_Message - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_MessageDataLoader extends PODataLoader<MMessage_BH> {
 	public static String DATALOADER_AD_Message_BY_ID = "AD_MessageByIdDataLoader";

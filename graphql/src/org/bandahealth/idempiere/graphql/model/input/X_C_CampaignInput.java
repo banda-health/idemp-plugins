@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Campaign - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 

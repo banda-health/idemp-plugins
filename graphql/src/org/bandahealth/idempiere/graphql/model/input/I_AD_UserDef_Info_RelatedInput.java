@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_UserDef_Info_Related;
  * Generated Interface for AD_UserDef_Info_Related - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_UserDef_Info_RelatedInput extends I_AD_UserDef_Info_Related {
 

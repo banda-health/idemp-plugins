@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for C_DunningRunEntry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_DunningRunEntryInput {
 

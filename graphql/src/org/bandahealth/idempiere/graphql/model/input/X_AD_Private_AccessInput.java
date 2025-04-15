@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Private_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Private_AccessInput extends MPrivateAccess implements I_AD_Private_AccessInput {
 

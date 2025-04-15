@@ -1,6 +1,6 @@
 # Generated Schema for I_Invoice - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	I_Invoice(UU: String!): I_Invoice
 	I_InvoiceGet(Page: Int, Size: Int, Sort: String, Filter: String): I_InvoiceConnection!

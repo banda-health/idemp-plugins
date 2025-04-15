@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for IMP_Processor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_ProcessorInput {
 

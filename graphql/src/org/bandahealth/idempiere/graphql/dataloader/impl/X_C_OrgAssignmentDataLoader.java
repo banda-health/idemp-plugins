@@ -6,7 +6,7 @@ import org.compiere.model.X_C_OrgAssignment;
  * Data Loader for C_OrgAssignment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_OrgAssignmentDataLoader extends PODataLoader<X_C_OrgAssignment> {
 	public static String DATALOADER_C_OrgAssignment_BY_ID = "C_OrgAssignmentByIdDataLoader";

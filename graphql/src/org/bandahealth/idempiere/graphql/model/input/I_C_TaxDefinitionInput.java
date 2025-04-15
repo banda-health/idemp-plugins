@@ -6,7 +6,7 @@ import org.eevolution.model.I_C_TaxDefinition;
  * Generated Interface for C_TaxDefinition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_TaxDefinitionInput extends I_C_TaxDefinition {
 

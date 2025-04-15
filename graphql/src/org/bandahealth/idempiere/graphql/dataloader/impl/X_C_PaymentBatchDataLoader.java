@@ -6,7 +6,7 @@ import org.compiere.model.MPaymentBatch;
  * Data Loader for C_PaymentBatch - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_PaymentBatchDataLoader extends PODataLoader<MPaymentBatch> {
 	public static String DATALOADER_C_PaymentBatch_BY_ID = "C_PaymentBatchByIdDataLoader";

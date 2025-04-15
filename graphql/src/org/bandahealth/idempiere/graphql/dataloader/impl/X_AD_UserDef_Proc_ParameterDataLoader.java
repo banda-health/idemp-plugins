@@ -6,7 +6,7 @@ import org.compiere.model.MUserDefProcParameter;
  * Data Loader for AD_UserDef_Proc_Parameter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_UserDef_Proc_ParameterDataLoader extends PODataLoader<MUserDefProcParameter> {
 	public static String DATALOADER_AD_UserDef_Proc_Parameter_BY_ID = "AD_UserDef_Proc_ParameterByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.I_M_DemandDetail;
  * Generated Interface for M_DemandDetail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_M_DemandDetailInput extends I_M_DemandDetail {
 

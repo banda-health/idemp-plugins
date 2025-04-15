@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for C_AddressValidationCfg - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_AddressValidationCfgQuery extends POQuery<X_C_AddressValidationCfg> implements GraphQLQueryResolver {
 	@Override

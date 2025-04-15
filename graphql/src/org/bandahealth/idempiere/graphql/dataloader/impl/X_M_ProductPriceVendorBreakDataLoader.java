@@ -6,7 +6,7 @@ import org.compiere.model.X_M_ProductPriceVendorBreak;
  * Data Loader for M_ProductPriceVendorBreak - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_ProductPriceVendorBreakDataLoader extends PODataLoader<X_M_ProductPriceVendorBreak> {
 	public static String DATALOADER_M_ProductPriceVendorBreak_BY_ID = "M_ProductPriceVendorBreakByIdDataLoader";

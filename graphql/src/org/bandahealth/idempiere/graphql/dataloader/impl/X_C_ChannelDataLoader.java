@@ -6,7 +6,7 @@ import org.compiere.model.X_C_Channel;
  * Data Loader for C_Channel - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_ChannelDataLoader extends PODataLoader<X_C_Channel> {
 	public static String DATALOADER_C_Channel_BY_ID = "C_ChannelByIdDataLoader";

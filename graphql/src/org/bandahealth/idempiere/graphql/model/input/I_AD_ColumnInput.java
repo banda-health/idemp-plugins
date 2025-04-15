@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Column;
  * Generated Interface for AD_Column - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_ColumnInput extends I_AD_Column {
 

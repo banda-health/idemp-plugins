@@ -1,6 +1,6 @@
 # Generated Schema for AD_ReportView_Col - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_ReportView_Col(UU: String!): AD_ReportView_Col
 	AD_ReportView_ColGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReportView_ColConnection!

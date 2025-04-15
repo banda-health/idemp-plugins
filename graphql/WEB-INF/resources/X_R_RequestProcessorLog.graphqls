@@ -1,6 +1,6 @@
 # Generated Schema for R_RequestProcessorLog - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	R_RequestProcessorLog(UU: String!): R_RequestProcessorLog
 	R_RequestProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestProcessorLogConnection!

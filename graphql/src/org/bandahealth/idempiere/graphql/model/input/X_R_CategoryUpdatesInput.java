@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for R_CategoryUpdates - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_R_CategoryUpdatesInput extends X_R_CategoryUpdates implements I_R_CategoryUpdatesInput {
 

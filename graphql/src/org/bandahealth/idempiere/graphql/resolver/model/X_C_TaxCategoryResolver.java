@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_TaxCategory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_TaxCategoryResolver extends POResolver<MTaxCategory> implements GraphQLResolver<MTaxCategory> {
 

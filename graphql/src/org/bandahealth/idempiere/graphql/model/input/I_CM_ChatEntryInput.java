@@ -6,7 +6,7 @@ import org.compiere.model.I_CM_ChatEntry;
  * Generated Interface for CM_ChatEntry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_CM_ChatEntryInput extends I_CM_ChatEntry {
 

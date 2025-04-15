@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_Role;
  * Data Loader for AD_Role - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_RoleDataLoader extends PODataLoader<X_AD_Role> {
 	public static String DATALOADER_AD_Role_BY_ID = "AD_RoleByIdDataLoader";

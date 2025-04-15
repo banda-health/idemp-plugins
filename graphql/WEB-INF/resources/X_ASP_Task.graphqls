@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Task - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	ASP_Task(UU: String!): ASP_Task
 	ASP_TaskGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_TaskConnection!

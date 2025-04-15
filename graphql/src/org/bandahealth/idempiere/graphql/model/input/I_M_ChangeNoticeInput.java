@@ -6,7 +6,7 @@ import org.compiere.model.I_M_ChangeNotice;
  * Generated Interface for M_ChangeNotice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_M_ChangeNoticeInput extends I_M_ChangeNotice {
 

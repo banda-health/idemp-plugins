@@ -1,6 +1,6 @@
 # Generated Schema for AD_ImpFormat_Row - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_ImpFormat_Row(UU: String!): AD_ImpFormat_Row
 	AD_ImpFormat_RowGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ImpFormat_RowConnection!

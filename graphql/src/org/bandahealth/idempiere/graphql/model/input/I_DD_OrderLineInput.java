@@ -6,7 +6,7 @@ import org.eevolution.model.I_DD_OrderLine;
  * Generated Interface for DD_OrderLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_DD_OrderLineInput extends I_DD_OrderLine {
 

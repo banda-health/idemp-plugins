@@ -1,6 +1,6 @@
 # Generated Schema for AD_Package_Imp_Detail - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_Package_Imp_Detail(UU: String!): AD_Package_Imp_Detail
 	AD_Package_Imp_DetailGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Package_Imp_DetailConnection!

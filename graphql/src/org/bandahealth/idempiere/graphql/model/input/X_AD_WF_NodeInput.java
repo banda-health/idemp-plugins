@@ -32,7 +32,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_WF_Node - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput {
 

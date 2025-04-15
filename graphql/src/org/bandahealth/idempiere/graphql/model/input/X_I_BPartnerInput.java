@@ -23,7 +23,7 @@ import java.sql.ResultSet;
  * Generated Model for I_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput {
 

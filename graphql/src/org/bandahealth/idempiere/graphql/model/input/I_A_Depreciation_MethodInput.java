@@ -6,7 +6,7 @@ import org.compiere.model.I_A_Depreciation_Method;
  * Generated Interface for A_Depreciation_Method - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_A_Depreciation_MethodInput extends I_A_Depreciation_Method {
 

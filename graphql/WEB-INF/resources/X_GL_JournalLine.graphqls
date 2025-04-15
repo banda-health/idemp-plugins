@@ -1,6 +1,6 @@
 # Generated Schema for GL_JournalLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	GL_JournalLine(UU: String!): GL_JournalLine
 	GL_JournalLineGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_JournalLineConnection!

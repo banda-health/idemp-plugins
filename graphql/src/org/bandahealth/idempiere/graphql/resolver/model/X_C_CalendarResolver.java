@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for C_Calendar - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_CalendarResolver extends POResolver<MCalendar> implements GraphQLResolver<MCalendar> {
 

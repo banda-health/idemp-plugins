@@ -6,7 +6,7 @@ import org.compiere.model.I_M_Warehouse;
  * Generated Interface for M_Warehouse - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_M_WarehouseInput extends I_M_Warehouse {
 

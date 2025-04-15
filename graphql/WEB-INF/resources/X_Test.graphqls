@@ -1,6 +1,6 @@
 # Generated Schema for Test - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	Test(UU: String!): Test
 	TestGet(Page: Int, Size: Int, Sort: String, Filter: String): TestConnection!

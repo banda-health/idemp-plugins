@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for C_Recurring_Run - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_Recurring_RunMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

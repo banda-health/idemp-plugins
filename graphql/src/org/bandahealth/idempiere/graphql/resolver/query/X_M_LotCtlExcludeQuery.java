@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for M_LotCtlExclude - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_LotCtlExcludeQuery extends POQuery<MLotCtlExclude> implements GraphQLQueryResolver {
 	@Override

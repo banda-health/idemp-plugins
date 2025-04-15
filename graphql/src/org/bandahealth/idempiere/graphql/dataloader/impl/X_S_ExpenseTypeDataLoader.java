@@ -6,7 +6,7 @@ import org.compiere.model.MExpenseType;
  * Data Loader for S_ExpenseType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_S_ExpenseTypeDataLoader extends PODataLoader<MExpenseType> {
 	public static String DATALOADER_S_ExpenseType_BY_ID = "S_ExpenseTypeByIdDataLoader";

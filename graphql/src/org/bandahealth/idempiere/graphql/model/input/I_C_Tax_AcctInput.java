@@ -6,7 +6,7 @@ import org.compiere.model.I_C_Tax_Acct;
  * Generated Interface for C_Tax_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_Tax_AcctInput extends I_C_Tax_Acct {
 

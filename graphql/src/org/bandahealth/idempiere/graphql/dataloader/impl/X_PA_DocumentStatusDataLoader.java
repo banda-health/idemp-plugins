@@ -6,7 +6,7 @@ import org.compiere.model.MDocumentStatus;
  * Data Loader for PA_DocumentStatus - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_DocumentStatusDataLoader extends PODataLoader<MDocumentStatus> {
 	public static String DATALOADER_PA_DocumentStatus_BY_ID = "PA_DocumentStatusByIdDataLoader";

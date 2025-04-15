@@ -6,7 +6,7 @@ import org.compiere.model.X_I_Order;
  * Data Loader for I_Order - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_OrderDataLoader extends PODataLoader<X_I_Order> {
 	public static String DATALOADER_I_Order_BY_ID = "I_OrderByIdDataLoader";

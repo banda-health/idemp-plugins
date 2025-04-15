@@ -6,7 +6,7 @@ import org.compiere.model.MFreightCategory;
  * Data Loader for M_FreightCategory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_FreightCategoryDataLoader extends PODataLoader<MFreightCategory> {
 	public static String DATALOADER_M_FreightCategory_BY_ID = "M_FreightCategoryByIdDataLoader";

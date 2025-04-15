@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for C_BankStatementMatcher - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_BankStatementMatcherInput extends MBankStatementMatcher implements I_C_BankStatementMatcherInput {
 

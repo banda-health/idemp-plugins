@@ -58,7 +58,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for Fact_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQLResolver<MFactAcct> {
 

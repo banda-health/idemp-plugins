@@ -6,7 +6,7 @@ import org.compiere.model.MCommissionRun;
  * Data Loader for C_CommissionRun - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_CommissionRunDataLoader extends PODataLoader<MCommissionRun> {
 	public static String DATALOADER_C_CommissionRun_BY_ID = "C_CommissionRunByIdDataLoader";

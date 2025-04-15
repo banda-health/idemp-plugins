@@ -6,7 +6,7 @@ import org.compiere.model.X_R_IssueRecommendation;
  * Data Loader for R_IssueRecommendation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_R_IssueRecommendationDataLoader extends PODataLoader<X_R_IssueRecommendation> {
 	public static String DATALOADER_R_IssueRecommendation_BY_ID = "R_IssueRecommendationByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.I_C_Channel;
  * Generated Interface for C_Channel - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_ChannelInput extends I_C_Channel {
 

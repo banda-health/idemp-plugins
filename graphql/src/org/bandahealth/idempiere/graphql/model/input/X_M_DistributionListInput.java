@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for M_DistributionList - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_DistributionListInput extends MDistributionList implements I_M_DistributionListInput {
 

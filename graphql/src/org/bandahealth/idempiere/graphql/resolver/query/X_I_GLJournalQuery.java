@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for I_GLJournal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_GLJournalQuery extends POQuery<X_I_GLJournal> implements GraphQLQueryResolver {
 	@Override

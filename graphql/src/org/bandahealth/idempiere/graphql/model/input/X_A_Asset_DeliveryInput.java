@@ -20,7 +20,7 @@ import java.sql.Timestamp;
  * Generated Model for A_Asset_Delivery - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset_DeliveryInput {
 

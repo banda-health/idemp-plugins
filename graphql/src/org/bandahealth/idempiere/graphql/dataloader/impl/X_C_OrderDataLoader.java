@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
  * Data Loader for C_Order - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_OrderDataLoader extends PODataLoader<MOrder_BH> {
 	public static String DATALOADER_C_Order_BY_ID = "C_OrderByIdDataLoader";

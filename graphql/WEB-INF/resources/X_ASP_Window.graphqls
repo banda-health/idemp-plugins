@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Window - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	ASP_Window(UU: String!): ASP_Window
 	ASP_WindowGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_WindowConnection!

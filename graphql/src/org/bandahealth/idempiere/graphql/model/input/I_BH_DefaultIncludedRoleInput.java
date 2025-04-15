@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_DefaultIncludedRole;
  * Generated Interface for BH_DefaultIncludedRole - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_BH_DefaultIncludedRoleInput extends I_BH_DefaultIncludedRole {
 

@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_TaskInstance;
  * Data Loader for AD_TaskInstance - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_TaskInstanceDataLoader extends PODataLoader<X_AD_TaskInstance> {
 	public static String DATALOADER_AD_TaskInstance_BY_ID = "AD_TaskInstanceByIdDataLoader";

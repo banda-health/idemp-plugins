@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_TreeNodeU2;
  * Data Loader for AD_TreeNodeU2 - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_TreeNodeU2DataLoader extends PODataLoader<X_AD_TreeNodeU2> {
 	public static String DATALOADER_AD_TreeNodeU2_BY_ID = "AD_TreeNodeU2ByIdDataLoader";

@@ -1,6 +1,6 @@
 # Generated Schema for S_TimeType - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	S_TimeType(UU: String!): S_TimeType
 	S_TimeTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): S_TimeTypeConnection!

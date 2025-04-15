@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Package_Exp - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_ExpInput {
 

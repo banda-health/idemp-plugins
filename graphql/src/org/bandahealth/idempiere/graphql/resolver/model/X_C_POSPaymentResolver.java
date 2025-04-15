@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_POSPayment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_POSPaymentResolver extends POResolver<MPOSPayment> implements GraphQLResolver<MPOSPayment> {
 

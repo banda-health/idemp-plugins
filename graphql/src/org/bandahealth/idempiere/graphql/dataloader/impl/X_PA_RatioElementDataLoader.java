@@ -6,7 +6,7 @@ import org.compiere.model.X_PA_RatioElement;
  * Data Loader for PA_RatioElement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_RatioElementDataLoader extends PODataLoader<X_PA_RatioElement> {
 	public static String DATALOADER_PA_RatioElement_BY_ID = "PA_RatioElementByIdDataLoader";

@@ -23,7 +23,7 @@ import java.sql.ResultSet;
  * Generated Model for C_RfQ - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_RfQInput extends MRfQ implements I_C_RfQInput {
 

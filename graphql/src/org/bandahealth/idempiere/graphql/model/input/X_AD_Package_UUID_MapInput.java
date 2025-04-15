@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Package_UUID_Map - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements I_AD_Package_UUID_MapInput {
 

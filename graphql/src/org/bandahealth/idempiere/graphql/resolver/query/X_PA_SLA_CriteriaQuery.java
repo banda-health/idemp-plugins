@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for PA_SLA_Criteria - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_SLA_CriteriaQuery extends POQuery<X_PA_SLA_Criteria> implements GraphQLQueryResolver {
 	@Override

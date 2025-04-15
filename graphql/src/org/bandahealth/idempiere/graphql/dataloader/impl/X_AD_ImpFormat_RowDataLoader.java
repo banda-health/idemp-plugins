@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_ImpFormat_Row;
  * Data Loader for AD_ImpFormat_Row - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_ImpFormat_RowDataLoader extends PODataLoader<X_AD_ImpFormat_Row> {
 	public static String DATALOADER_AD_ImpFormat_Row_BY_ID = "AD_ImpFormat_RowByIdDataLoader";

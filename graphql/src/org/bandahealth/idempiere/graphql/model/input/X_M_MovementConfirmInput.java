@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for M_MovementConfirm - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_MovementConfirmInput extends MMovementConfirm implements I_M_MovementConfirmInput {
 

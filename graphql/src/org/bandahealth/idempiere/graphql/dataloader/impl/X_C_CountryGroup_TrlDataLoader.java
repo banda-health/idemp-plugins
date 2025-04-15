@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for C_CountryGroup_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_CountryGroup_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_C_CountryGroup_Trl_BY_ID = "C_CountryGroup_TrlByIdDataLoader";

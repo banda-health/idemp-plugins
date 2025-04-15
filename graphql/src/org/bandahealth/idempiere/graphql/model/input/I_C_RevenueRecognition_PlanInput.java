@@ -6,7 +6,7 @@ import org.compiere.model.I_C_RevenueRecognition_Plan;
  * Generated Interface for C_RevenueRecognition_Plan - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_RevenueRecognition_PlanInput extends I_C_RevenueRecognition_Plan {
 

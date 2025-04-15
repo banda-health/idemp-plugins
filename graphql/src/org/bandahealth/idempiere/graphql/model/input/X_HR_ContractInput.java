@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for HR_Contract - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_HR_ContractInput extends X_HR_Contract implements I_HR_ContractInput {
 

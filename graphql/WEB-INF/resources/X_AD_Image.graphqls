@@ -1,6 +1,6 @@
 # Generated Schema for AD_Image - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_Image(UU: String!): AD_Image
 	AD_ImageGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ImageConnection!

@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserMail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput {
 

@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for C_UserRemuneration - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I_C_UserRemunerationInput {
 

@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for BH_Default_DocAction_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Default_DocAction_AccessResolver extends POResolver<MBHDefaultDocActionAccess> implements GraphQLResolver<MBHDefaultDocActionAccess> {
 

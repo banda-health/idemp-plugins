@@ -1,6 +1,6 @@
 # Generated Schema for M_AttributeValue - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_AttributeValue(UU: String!): M_AttributeValue
 	M_AttributeValueGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeValueConnection!

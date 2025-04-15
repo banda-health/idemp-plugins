@@ -9,7 +9,7 @@ import org.eevolution.model.X_C_TaxGroup;
  * Generated ModelResolver for C_TaxGroup - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_TaxGroupResolver extends POResolver<X_C_TaxGroup> implements GraphQLResolver<X_C_TaxGroup> {
 

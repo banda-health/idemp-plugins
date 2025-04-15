@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_Process - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_ProcessInput extends X_ASP_Process implements I_ASP_ProcessInput {
 

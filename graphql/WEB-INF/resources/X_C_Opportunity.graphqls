@@ -1,6 +1,6 @@
 # Generated Schema for C_Opportunity - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Opportunity(UU: String!): C_Opportunity
 	C_OpportunityGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OpportunityConnection!

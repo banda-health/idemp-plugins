@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for C_CountryGroupCountry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_CountryGroupCountryInput extends MCountryGroupCountry implements I_C_CountryGroupCountryInput {
 

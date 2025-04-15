@@ -1,6 +1,6 @@
 # Generated Schema for C_CountryGroup - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_CountryGroup(UU: String!): C_CountryGroup
 	C_CountryGroupGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CountryGroupConnection!

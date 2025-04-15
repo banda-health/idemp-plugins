@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_DocTypeCounter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_DocTypeCounterResolver extends POResolver<MDocTypeCounter> implements GraphQLResolver<MDocTypeCounter> {
 

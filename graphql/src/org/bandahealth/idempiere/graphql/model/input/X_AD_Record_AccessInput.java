@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Record_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Record_AccessInput extends MRecordAccess implements I_AD_Record_AccessInput {
 

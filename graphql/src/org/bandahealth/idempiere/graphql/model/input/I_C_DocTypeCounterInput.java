@@ -6,7 +6,7 @@ import org.compiere.model.I_C_DocTypeCounter;
  * Generated Interface for C_DocTypeCounter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_DocTypeCounterInput extends I_C_DocTypeCounter {
 

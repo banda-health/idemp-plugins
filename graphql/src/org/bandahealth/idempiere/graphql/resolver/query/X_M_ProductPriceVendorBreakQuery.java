@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for M_ProductPriceVendorBreak - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_ProductPriceVendorBreakQuery extends POQuery<X_M_ProductPriceVendorBreak> implements GraphQLQueryResolver {
 	@Override

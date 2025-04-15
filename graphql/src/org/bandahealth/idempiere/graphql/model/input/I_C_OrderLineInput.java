@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * Generated Interface for C_OrderLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_OrderLineInput extends I_C_OrderLine {
 

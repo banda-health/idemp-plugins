@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for AD_InfoColumn_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_InfoColumn_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_AD_InfoColumn_Trl_BY_ID = "AD_InfoColumn_TrlByIdDataLoader";

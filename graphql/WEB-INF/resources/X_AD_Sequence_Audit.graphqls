@@ -1,6 +1,6 @@
 # Generated Schema for AD_Sequence_Audit - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_Sequence_Audit(UU: String!): AD_Sequence_Audit
 	AD_Sequence_AuditGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Sequence_AuditConnection!

@@ -6,7 +6,7 @@ import org.compiere.model.I_PA_Goal;
  * Generated Interface for PA_Goal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_PA_GoalInput extends I_PA_Goal {
 

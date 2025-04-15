@@ -6,7 +6,7 @@ import org.eevolution.model.I_PP_Cost_CollectorMA;
  * Generated Interface for PP_Cost_CollectorMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_PP_Cost_CollectorMAInput extends I_PP_Cost_CollectorMA {
 

@@ -1,6 +1,6 @@
 # Generated Schema for A_Depreciation_Build - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	A_Depreciation_Build(UU: String!): A_Depreciation_Build
 	A_Depreciation_BuildGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Depreciation_BuildConnection!

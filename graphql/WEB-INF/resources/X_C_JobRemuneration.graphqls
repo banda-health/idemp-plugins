@@ -1,6 +1,6 @@
 # Generated Schema for C_JobRemuneration - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_JobRemuneration(UU: String!): C_JobRemuneration
 	C_JobRemunerationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_JobRemunerationConnection!

@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_PaymentRef - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_PaymentRefInput extends MBHPaymentRef implements I_BH_PaymentRefInput {
 

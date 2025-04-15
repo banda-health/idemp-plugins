@@ -6,7 +6,7 @@ import org.compiere.model.X_T_BankRegister;
  * Data Loader for T_BankRegister - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_BankRegisterDataLoader extends PODataLoader<X_T_BankRegister> {
 	public static String DATALOADER_T_BankRegister_BY_ID = "T_BankRegisterByIdDataLoader";

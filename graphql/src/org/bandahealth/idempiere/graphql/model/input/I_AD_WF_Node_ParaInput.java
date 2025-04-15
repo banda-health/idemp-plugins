@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_WF_Node_Para;
  * Generated Interface for AD_WF_Node_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_WF_Node_ParaInput extends I_AD_WF_Node_Para {
 

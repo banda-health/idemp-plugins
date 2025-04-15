@@ -6,7 +6,7 @@ import org.compiere.model.I_Test;
  * Generated Interface for Test - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_TestInput extends I_Test {
 

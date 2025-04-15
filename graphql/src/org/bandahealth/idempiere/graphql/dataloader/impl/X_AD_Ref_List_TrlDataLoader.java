@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for AD_Ref_List_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Ref_List_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_AD_Ref_List_Trl_BY_ID = "AD_Ref_List_TrlByIdDataLoader";

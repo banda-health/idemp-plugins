@@ -6,7 +6,7 @@ import org.compiere.model.MOrderPaySchedule;
  * Data Loader for C_OrderPaySchedule - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_OrderPayScheduleDataLoader extends PODataLoader<MOrderPaySchedule> {
 	public static String DATALOADER_C_OrderPaySchedule_BY_ID = "C_OrderPayScheduleByIdDataLoader";

@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
  * Data Loader for BH_Encounter_Diagnosis - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Encounter_DiagnosisDataLoader extends PODataLoader<MBHEncounterDiagnosis> {
 	public static String DATALOADER_BH_Encounter_Diagnosis_BY_ID = "BH_Encounter_DiagnosisByIdDataLoader";

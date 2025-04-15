@@ -1,6 +1,6 @@
 # Generated Schema for PA_DashboardContent_Access - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	PA_DashboardContent_Access(UU: String!): PA_DashboardContent_Access
 	PA_DashboardContent_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_DashboardContent_AccessConnection!

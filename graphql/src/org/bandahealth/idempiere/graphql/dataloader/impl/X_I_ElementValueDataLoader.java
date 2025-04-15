@@ -6,7 +6,7 @@ import org.compiere.model.X_I_ElementValue;
  * Data Loader for I_ElementValue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_ElementValueDataLoader extends PODataLoader<X_I_ElementValue> {
 	public static String DATALOADER_I_ElementValue_BY_ID = "I_ElementValueByIdDataLoader";

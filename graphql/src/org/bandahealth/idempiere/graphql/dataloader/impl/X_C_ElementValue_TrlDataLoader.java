@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for C_ElementValue_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_ElementValue_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_C_ElementValue_Trl_BY_ID = "C_ElementValue_TrlByIdDataLoader";

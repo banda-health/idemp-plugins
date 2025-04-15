@@ -6,7 +6,7 @@ import org.compiere.model.MRevenueRecognition;
  * Data Loader for C_RevenueRecognition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_RevenueRecognitionDataLoader extends PODataLoader<MRevenueRecognition> {
 	public static String DATALOADER_C_RevenueRecognition_BY_ID = "C_RevenueRecognitionByIdDataLoader";

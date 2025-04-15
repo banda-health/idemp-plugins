@@ -1,6 +1,6 @@
 # Generated Schema for C_BP_BankAccount - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_BP_BankAccount(UU: String!): C_BP_BankAccount
 	C_BP_BankAccountGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_BankAccountConnection!

@@ -6,7 +6,7 @@ import org.eevolution.model.I_DD_NetworkDistributionLine;
  * Generated Interface for DD_NetworkDistributionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_DD_NetworkDistributionLineInput extends I_DD_NetworkDistributionLine {
 

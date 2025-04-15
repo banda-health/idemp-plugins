@@ -6,7 +6,7 @@ import org.compiere.model.I_I_Invoice;
  * Generated Interface for I_Invoice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_I_InvoiceInput extends I_I_Invoice {
 

@@ -1,6 +1,6 @@
 # Generated Schema for HR_List - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	HR_List(UU: String!): HR_List
 	HR_ListGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_ListConnection!

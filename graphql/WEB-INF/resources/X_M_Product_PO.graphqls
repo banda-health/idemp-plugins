@@ -1,6 +1,6 @@
 # Generated Schema for M_Product_PO - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_Product_PO(UU: String!): M_Product_PO
 	M_Product_POGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Product_POConnection!

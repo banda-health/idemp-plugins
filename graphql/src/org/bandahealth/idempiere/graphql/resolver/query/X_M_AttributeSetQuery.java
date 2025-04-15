@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for M_AttributeSet - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_AttributeSetQuery extends POQuery<MAttributeSet_BH> implements GraphQLQueryResolver {
 	@Override

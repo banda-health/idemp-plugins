@@ -6,7 +6,7 @@ import org.compiere.model.MForecastLine;
  * Data Loader for M_ForecastLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_ForecastLineDataLoader extends PODataLoader<MForecastLine> {
 	public static String DATALOADER_M_ForecastLine_BY_ID = "M_ForecastLineByIdDataLoader";

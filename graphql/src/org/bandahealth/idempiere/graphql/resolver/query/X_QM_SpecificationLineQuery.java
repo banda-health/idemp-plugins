@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for QM_SpecificationLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_QM_SpecificationLineQuery extends POQuery<X_QM_SpecificationLine> implements GraphQLQueryResolver {
 	@Override

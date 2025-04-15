@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_PrintForm - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFormInput {
 

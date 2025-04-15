@@ -1,6 +1,6 @@
 # Generated Schema for M_DiscountSchemaLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_DiscountSchemaLine(UU: String!): M_DiscountSchemaLine
 	M_DiscountSchemaLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DiscountSchemaLineConnection!

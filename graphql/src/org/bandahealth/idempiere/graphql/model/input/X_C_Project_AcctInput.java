@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Project_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Project_AcctInput {
 

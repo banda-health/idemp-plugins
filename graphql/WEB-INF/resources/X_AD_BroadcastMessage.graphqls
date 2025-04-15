@@ -1,6 +1,6 @@
 # Generated Schema for AD_BroadcastMessage - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_BroadcastMessage(UU: String!): AD_BroadcastMessage
 	AD_BroadcastMessageGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_BroadcastMessageConnection!

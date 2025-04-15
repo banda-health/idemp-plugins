@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_Role_WarehouseAccess;
  * Generated Interface for BH_Role_WarehouseAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_BH_Role_WarehouseAccessInput extends I_BH_Role_WarehouseAccess {
 

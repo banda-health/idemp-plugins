@@ -1,6 +1,6 @@
 # Generated Schema for R_MailText - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	R_MailText(UU: String!): R_MailText
 	R_MailTextGet(Page: Int, Size: Int, Sort: String, Filter: String): R_MailTextConnection!

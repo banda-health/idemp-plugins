@@ -1,6 +1,6 @@
 # Generated Schema for AD_PrintLabel - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_PrintLabel(UU: String!): AD_PrintLabel
 	AD_PrintLabelGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintLabelConnection!

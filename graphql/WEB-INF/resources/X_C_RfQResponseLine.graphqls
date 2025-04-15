@@ -1,6 +1,6 @@
 # Generated Schema for C_RfQResponseLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_RfQResponseLine(UU: String!): C_RfQResponseLine
 	C_RfQResponseLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQResponseLineConnection!

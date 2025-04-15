@@ -6,7 +6,7 @@ import org.compiere.model.I_ASP_Level;
  * Generated Interface for ASP_Level - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_ASP_LevelInput extends I_ASP_Level {
 

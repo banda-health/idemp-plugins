@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_InfoProcess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_InfoProcessInput {
 

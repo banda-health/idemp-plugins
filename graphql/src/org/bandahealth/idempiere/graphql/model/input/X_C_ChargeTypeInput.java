@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for C_ChargeType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_ChargeTypeInput extends MChargeType_BH implements I_C_ChargeTypeInput {
 

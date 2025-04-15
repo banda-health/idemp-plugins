@@ -1,6 +1,6 @@
 # Generated Schema for C_SalesStage - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_SalesStage(UU: String!): C_SalesStage
 	C_SalesStageGet(Page: Int, Size: Int, Sort: String, Filter: String): C_SalesStageConnection!

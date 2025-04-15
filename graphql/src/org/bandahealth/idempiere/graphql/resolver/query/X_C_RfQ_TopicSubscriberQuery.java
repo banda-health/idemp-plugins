@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for C_RfQ_TopicSubscriber - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_RfQ_TopicSubscriberQuery extends POQuery<MRfQTopicSubscriber> implements GraphQLQueryResolver {
 	@Override

@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for S_Training_Class - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_Training_ClassInput {
 

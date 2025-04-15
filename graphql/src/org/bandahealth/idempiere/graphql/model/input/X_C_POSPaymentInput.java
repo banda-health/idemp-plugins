@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for C_POSPayment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentInput {
 

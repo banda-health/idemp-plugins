@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for T_MRP_CRP - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_MRP_CRPResolver extends POResolver<X_T_MRP_CRP> implements GraphQLResolver<X_T_MRP_CRP> {
 

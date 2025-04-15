@@ -6,7 +6,7 @@ import org.compiere.model.X_B_TopicCategory;
  * Data Loader for B_TopicCategory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_B_TopicCategoryDataLoader extends PODataLoader<X_B_TopicCategory> {
 	public static String DATALOADER_B_TopicCategory_BY_ID = "B_TopicCategoryByIdDataLoader";

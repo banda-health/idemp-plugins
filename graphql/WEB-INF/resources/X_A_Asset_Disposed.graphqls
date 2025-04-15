@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Disposed - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	A_Asset_Disposed(UU: String!): A_Asset_Disposed
 	A_Asset_DisposedGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_DisposedConnection!

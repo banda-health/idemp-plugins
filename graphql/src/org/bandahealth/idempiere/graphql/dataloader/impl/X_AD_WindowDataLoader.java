@@ -6,7 +6,7 @@ import org.compiere.model.MWindow;
  * Data Loader for AD_Window - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_WindowDataLoader extends PODataLoader<MWindow> {
 	public static String DATALOADER_AD_Window_BY_ID = "AD_WindowByIdDataLoader";

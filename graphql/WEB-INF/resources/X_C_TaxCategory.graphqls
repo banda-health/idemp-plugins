@@ -1,6 +1,6 @@
 # Generated Schema for C_TaxCategory - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_TaxCategory(UU: String!): C_TaxCategory
 	C_TaxCategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxCategoryConnection!

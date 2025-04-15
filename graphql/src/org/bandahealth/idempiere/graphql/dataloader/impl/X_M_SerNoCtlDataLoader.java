@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
  * Data Loader for M_SerNoCtl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_SerNoCtlDataLoader extends PODataLoader<MSerNoCtl_BH> {
 	public static String DATALOADER_M_SerNoCtl_BY_ID = "M_SerNoCtlByIdDataLoader";

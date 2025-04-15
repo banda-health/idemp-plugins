@@ -6,7 +6,7 @@ import org.compiere.model.MShippingProcessor;
  * Data Loader for M_ShippingProcessor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_ShippingProcessorDataLoader extends PODataLoader<MShippingProcessor> {
 	public static String DATALOADER_M_ShippingProcessor_BY_ID = "M_ShippingProcessorByIdDataLoader";

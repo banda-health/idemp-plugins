@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_Payer_Info_Fld - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Payer_Info_FldInput {
 

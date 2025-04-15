@@ -1,6 +1,6 @@
 # Generated Schema for C_RevenueRecognition_Run - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_RevenueRecognition_Run(UU: String!): C_RevenueRecognition_Run
 	C_RevenueRecognition_RunGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RevenueRecognition_RunConnection!

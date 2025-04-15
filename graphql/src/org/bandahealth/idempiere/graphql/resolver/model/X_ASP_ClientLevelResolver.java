@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for ASP_ClientLevel - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_ClientLevelResolver extends POResolver<X_ASP_ClientLevel> implements GraphQLResolver<X_ASP_ClientLevel> {
 

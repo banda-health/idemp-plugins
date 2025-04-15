@@ -6,7 +6,7 @@ import org.compiere.model.I_GL_BudgetControl;
  * Generated Interface for GL_BudgetControl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_GL_BudgetControlInput extends I_GL_BudgetControl {
 

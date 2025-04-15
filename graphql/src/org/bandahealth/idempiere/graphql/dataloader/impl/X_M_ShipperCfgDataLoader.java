@@ -6,7 +6,7 @@ import org.compiere.model.X_M_ShipperCfg;
  * Data Loader for M_ShipperCfg - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_ShipperCfgDataLoader extends PODataLoader<X_M_ShipperCfg> {
 	public static String DATALOADER_M_ShipperCfg_BY_ID = "M_ShipperCfgByIdDataLoader";

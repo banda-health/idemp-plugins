@@ -29,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for T_Aging - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLResolver<MAging> {
 

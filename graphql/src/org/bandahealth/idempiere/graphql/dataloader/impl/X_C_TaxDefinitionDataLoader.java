@@ -6,7 +6,7 @@ import org.eevolution.model.X_C_TaxDefinition;
  * Data Loader for C_TaxDefinition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_TaxDefinitionDataLoader extends PODataLoader<X_C_TaxDefinition> {
 	public static String DATALOADER_C_TaxDefinition_BY_ID = "C_TaxDefinitionByIdDataLoader";

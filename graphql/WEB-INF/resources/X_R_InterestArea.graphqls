@@ -1,6 +1,6 @@
 # Generated Schema for R_InterestArea - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	R_InterestArea(UU: String!): R_InterestArea
 	R_InterestAreaGet(Page: Int, Size: Int, Sort: String, Filter: String): R_InterestAreaConnection!

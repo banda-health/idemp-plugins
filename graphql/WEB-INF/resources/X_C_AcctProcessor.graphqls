@@ -1,6 +1,6 @@
 # Generated Schema for C_AcctProcessor - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_AcctProcessor(UU: String!): C_AcctProcessor
 	C_AcctProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctProcessorConnection!

@@ -1,6 +1,6 @@
 # Generated Schema for AD_Workflow - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_Workflow(UU: String!): AD_Workflow
 	AD_WorkflowGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WorkflowConnection!

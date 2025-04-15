@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_I_Product_Quantity - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_I_Product_QuantityInput extends X_BH_I_Product_Quantity implements I_BH_I_Product_QuantityInput {
 

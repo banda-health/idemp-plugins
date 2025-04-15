@@ -6,7 +6,7 @@ import org.compiere.model.MDiscountSchemaLine;
  * Data Loader for M_DiscountSchemaLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_DiscountSchemaLineDataLoader extends PODataLoader<MDiscountSchemaLine> {
 	public static String DATALOADER_M_DiscountSchemaLine_BY_ID = "M_DiscountSchemaLineByIdDataLoader";

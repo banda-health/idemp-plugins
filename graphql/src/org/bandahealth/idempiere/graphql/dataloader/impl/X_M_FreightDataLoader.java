@@ -6,7 +6,7 @@ import org.compiere.model.MFreight;
  * Data Loader for M_Freight - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_FreightDataLoader extends PODataLoader<MFreight> {
 	public static String DATALOADER_M_Freight_BY_ID = "M_FreightByIdDataLoader";

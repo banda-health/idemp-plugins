@@ -1,6 +1,6 @@
 # Generated Schema for M_StorageOnHand - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_StorageOnHand(UU: String!): M_StorageOnHand
 	M_StorageOnHandGet(Page: Int, Size: Int, Sort: String, Filter: String): M_StorageOnHandConnection!

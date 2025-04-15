@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_Observation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_ObservationInput extends MBHObservation implements I_BH_ObservationInput {
 

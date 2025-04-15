@@ -1,6 +1,6 @@
 # Generated Schema for A_RegistrationProduct - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	A_RegistrationProduct(UU: String!): A_RegistrationProduct
 	A_RegistrationProductGet(Page: Int, Size: Int, Sort: String, Filter: String): A_RegistrationProductConnection!

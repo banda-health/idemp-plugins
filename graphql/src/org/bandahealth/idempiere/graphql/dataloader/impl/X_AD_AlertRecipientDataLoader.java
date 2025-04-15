@@ -6,7 +6,7 @@ import org.compiere.model.MAlertRecipient;
  * Data Loader for AD_AlertRecipient - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_AlertRecipientDataLoader extends PODataLoader<MAlertRecipient> {
 	public static String DATALOADER_AD_AlertRecipient_BY_ID = "AD_AlertRecipientByIdDataLoader";

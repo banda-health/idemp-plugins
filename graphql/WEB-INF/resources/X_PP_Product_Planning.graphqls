@@ -1,6 +1,6 @@
 # Generated Schema for PP_Product_Planning - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	PP_Product_Planning(UU: String!): PP_Product_Planning
 	PP_Product_PlanningGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Product_PlanningConnection!

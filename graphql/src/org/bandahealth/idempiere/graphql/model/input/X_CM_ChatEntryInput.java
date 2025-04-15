@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for CM_ChatEntry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInput {
 

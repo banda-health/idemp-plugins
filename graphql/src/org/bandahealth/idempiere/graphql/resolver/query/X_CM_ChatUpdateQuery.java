@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for CM_ChatUpdate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_CM_ChatUpdateQuery extends POQuery<X_CM_ChatUpdate> implements GraphQLQueryResolver {
 	@Override

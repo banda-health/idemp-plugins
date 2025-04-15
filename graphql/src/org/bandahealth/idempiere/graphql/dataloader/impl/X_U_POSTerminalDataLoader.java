@@ -6,7 +6,7 @@ import org.compiere.model.MPOSTerminal;
  * Data Loader for U_POSTerminal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_U_POSTerminalDataLoader extends PODataLoader<MPOSTerminal> {
 	public static String DATALOADER_U_POSTerminal_BY_ID = "U_POSTerminalByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_Error;
  * Data Loader for AD_Error - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_ErrorDataLoader extends PODataLoader<X_AD_Error> {
 	public static String DATALOADER_AD_Error_BY_ID = "AD_ErrorByIdDataLoader";

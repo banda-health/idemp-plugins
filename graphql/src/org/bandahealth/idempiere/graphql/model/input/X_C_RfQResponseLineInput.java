@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for C_RfQResponseLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_RfQResponseLineInput extends MRfQResponseLine implements I_C_RfQResponseLineInput {
 

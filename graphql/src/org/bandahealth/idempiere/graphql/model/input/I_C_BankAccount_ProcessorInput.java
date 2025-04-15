@@ -6,7 +6,7 @@ import org.compiere.model.I_C_BankAccount_Processor;
  * Generated Interface for C_BankAccount_Processor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_BankAccount_ProcessorInput extends I_C_BankAccount_Processor {
 

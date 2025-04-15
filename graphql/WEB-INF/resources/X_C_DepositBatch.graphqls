@@ -1,6 +1,6 @@
 # Generated Schema for C_DepositBatch - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_DepositBatch(UU: String!): C_DepositBatch
 	C_DepositBatchGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DepositBatchConnection!

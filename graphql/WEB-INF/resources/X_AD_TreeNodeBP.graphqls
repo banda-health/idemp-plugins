@@ -1,6 +1,6 @@
 # Generated Schema for AD_TreeNodeBP - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_TreeNodeBP(UU: String!): AD_TreeNodeBP
 	AD_TreeNodeBPGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TreeNodeBPConnection!

@@ -6,7 +6,7 @@ import org.eevolution.model.I_PP_Order_Cost;
  * Generated Interface for PP_Order_Cost - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_PP_Order_CostInput extends I_PP_Order_Cost {
 

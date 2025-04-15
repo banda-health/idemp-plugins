@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for GL_JournalGeneratorSource - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource implements I_GL_JournalGeneratorSourceInput {
 

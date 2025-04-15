@@ -6,7 +6,7 @@ import org.compiere.model.MLandedCostAllocation;
  * Data Loader for C_LandedCostAllocation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_LandedCostAllocationDataLoader extends PODataLoader<MLandedCostAllocation> {
 	public static String DATALOADER_C_LandedCostAllocation_BY_ID = "C_LandedCostAllocationByIdDataLoader";

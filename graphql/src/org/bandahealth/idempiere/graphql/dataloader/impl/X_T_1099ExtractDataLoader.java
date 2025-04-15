@@ -6,7 +6,7 @@ import org.compiere.model.X_T_1099Extract;
  * Data Loader for T_1099Extract - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_1099ExtractDataLoader extends PODataLoader<X_T_1099Extract> {
 	public static String DATALOADER_T_1099Extract_BY_ID = "T_1099ExtractByIdDataLoader";

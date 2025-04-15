@@ -1,6 +1,6 @@
 # Generated Schema for C_Region - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Region(UU: String!): C_Region
 	C_RegionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RegionConnection!

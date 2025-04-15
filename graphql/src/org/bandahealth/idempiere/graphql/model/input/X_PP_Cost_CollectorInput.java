@@ -32,7 +32,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_Cost_Collector - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_PP_Cost_CollectorInput {
 

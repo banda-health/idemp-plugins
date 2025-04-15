@@ -1,6 +1,6 @@
 # Generated Schema for T_Replenish - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	T_Replenish(UU: String!): T_Replenish
 	T_ReplenishGet(Page: Int, Size: Int, Sort: String, Filter: String): T_ReplenishConnection!

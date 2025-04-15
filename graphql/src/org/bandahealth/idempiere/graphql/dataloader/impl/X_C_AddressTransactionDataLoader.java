@@ -6,7 +6,7 @@ import org.compiere.model.MAddressTransaction;
  * Data Loader for C_AddressTransaction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_AddressTransactionDataLoader extends PODataLoader<MAddressTransaction> {
 	public static String DATALOADER_C_AddressTransaction_BY_ID = "C_AddressTransactionByIdDataLoader";

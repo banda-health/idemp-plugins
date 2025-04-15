@@ -6,7 +6,7 @@ import org.compiere.model.I_C_BP_Relation;
  * Generated Interface for C_BP_Relation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_BP_RelationInput extends I_C_BP_Relation {
 

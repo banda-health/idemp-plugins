@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_LandedCostAllocation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_LandedCostAllocationResolver extends POResolver<MLandedCostAllocation> implements GraphQLResolver<MLandedCostAllocation> {
 

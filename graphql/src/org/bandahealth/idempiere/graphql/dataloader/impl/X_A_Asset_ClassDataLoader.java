@@ -6,7 +6,7 @@ import org.compiere.model.MAssetClass;
  * Data Loader for A_Asset_Class - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_Asset_ClassDataLoader extends PODataLoader<MAssetClass> {
 	public static String DATALOADER_A_Asset_Class_BY_ID = "A_Asset_ClassByIdDataLoader";

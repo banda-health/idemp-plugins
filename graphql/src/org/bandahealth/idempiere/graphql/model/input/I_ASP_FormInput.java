@@ -6,7 +6,7 @@ import org.compiere.model.I_ASP_Form;
  * Generated Interface for ASP_Form - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_ASP_FormInput extends I_ASP_Form {
 

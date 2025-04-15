@@ -6,7 +6,7 @@ import org.compiere.model.MDocumentActionAccess;
  * Data Loader for AD_Document_Action_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Document_Action_AccessDataLoader extends PODataLoader<MDocumentActionAccess> {
 	public static String DATALOADER_AD_Document_Action_Access_BY_ID = "AD_Document_Action_AccessByIdDataLoader";

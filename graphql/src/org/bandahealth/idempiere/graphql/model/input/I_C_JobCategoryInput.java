@@ -6,7 +6,7 @@ import org.compiere.model.I_C_JobCategory;
  * Generated Interface for C_JobCategory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_JobCategoryInput extends I_C_JobCategory {
 

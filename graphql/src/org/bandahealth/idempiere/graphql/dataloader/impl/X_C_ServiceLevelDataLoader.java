@@ -6,7 +6,7 @@ import org.compiere.model.X_C_ServiceLevel;
  * Data Loader for C_ServiceLevel - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_ServiceLevelDataLoader extends PODataLoader<X_C_ServiceLevel> {
 	public static String DATALOADER_C_ServiceLevel_BY_ID = "C_ServiceLevelByIdDataLoader";

@@ -6,7 +6,7 @@ import org.eevolution.model.X_HR_ListLine;
  * Data Loader for HR_ListLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_HR_ListLineDataLoader extends PODataLoader<X_HR_ListLine> {
 	public static String DATALOADER_HR_ListLine_BY_ID = "HR_ListLineByIdDataLoader";

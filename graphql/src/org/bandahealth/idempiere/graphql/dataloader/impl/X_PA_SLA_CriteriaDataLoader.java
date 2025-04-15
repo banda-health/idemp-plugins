@@ -6,7 +6,7 @@ import org.compiere.model.X_PA_SLA_Criteria;
  * Data Loader for PA_SLA_Criteria - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_SLA_CriteriaDataLoader extends PODataLoader<X_PA_SLA_Criteria> {
 	public static String DATALOADER_PA_SLA_Criteria_BY_ID = "PA_SLA_CriteriaByIdDataLoader";
