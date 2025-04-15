@@ -228,3 +228,33 @@ test('complex role filtering works', async () => {
 	).toBeTruthy();
 	expect(secondQueryResults.length).toBe(initialRoleQueryResults.length + 1);
 });
+
+test('long names are okay', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create role';
+	const roleUU = v4();
+	const roleName = valueObject.getDynamicStepMessage().repeat(100).substring(0, 400);
+	await mutate(valueObject)({
+		mutation: Ad_RoleSaveDocument,
+		variables: {
+			Entity: {
+				Description: valueObject.getStepMessageLong(),
+				IsActive: true,
+				IsMasterRole: false,
+				Name: roleName,
+				UU: roleUU,
+			},
+		},
+	});
+
+	expect(
+		(
+			await query(valueObject)({
+				query: Ad_RoleGetDocument,
+				variables: { Filter: JSON.stringify({ ad_role_uu: roleUU }) },
+			})
+		).data.AD_RoleGet.Results[0].Name,
+	).toBe(roleName);
+});
