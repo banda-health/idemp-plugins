@@ -24,7 +24,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_PaymentRef_BankAcct
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_PaymentRef_BankAcct")
 public class X_BH_PaymentRef_BankAcct extends PO implements I_BH_PaymentRef_BankAcct, I_Persistent
 {
@@ -32,7 +32,7 @@ public class X_BH_PaymentRef_BankAcct extends PO implements I_BH_PaymentRef_Bank
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_PaymentRef_BankAcct (Properties ctx, int BH_PaymentRef_BankAcct_ID, String trxName)
@@ -138,6 +138,22 @@ public class X_BH_PaymentRef_BankAcct extends PO implements I_BH_PaymentRef_Bank
 		return ii.intValue();
 	}
 
+	/** Set BH_PaymentRefList_Value.
+		@param BH_PaymentRefList_Value The value of the payment reference list entry
+	*/
+	public void setBH_PaymentRefList_Value (String BH_PaymentRefList_Value)
+	{
+		set_Value (COLUMNNAME_BH_PaymentRefList_Value, BH_PaymentRefList_Value);
+	}
+
+	/** Get BH_PaymentRefList_Value.
+		@return The value of the payment reference list entry
+	  */
+	public String getBH_PaymentRefList_Value()
+	{
+		return (String)get_Value(COLUMNNAME_BH_PaymentRefList_Value);
+	}
+
 	/** Set BH_PaymentRef_BankAcct.
 		@param BH_PaymentRef_BankAcct_ID BH_PaymentRef_BankAcct
 	*/
@@ -199,22 +215,6 @@ public class X_BH_PaymentRef_BankAcct extends PO implements I_BH_PaymentRef_Bank
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
-	}
-
-	/** Set BH_PaymentRefList_Value.
-		@param BH_PaymentRefList_Value The value of the payment reference list entry
-	*/
-	public void setBH_PaymentRefList_Value (String BH_PaymentRefList_Value)
-	{
-		set_Value (COLUMNNAME_BH_PaymentRefList_Value, BH_PaymentRefList_Value);
-	}
-
-	/** Get BH_PaymentRefList_Value.
-		@return The value of the payment reference list entry
-	  */
-	public String getBH_PaymentRefList_Value()
-	{
-		return (String)get_Value(COLUMNNAME_BH_PaymentRefList_Value);
 	}
 
 	/** Set BH_ReferenceList_IsActive.

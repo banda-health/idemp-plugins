@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for C_City - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_CityMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

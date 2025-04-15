@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for PP_Cost_Collector - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Cost_CollectorQuery extends POQuery<X_PP_Cost_Collector> implements GraphQLQueryResolver {
 	@Override

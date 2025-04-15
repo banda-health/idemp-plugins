@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for PP_Product_BOMLine_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Product_BOMLine_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_PP_Product_BOMLine_Trl_BY_ID = "PP_Product_BOMLine_TrlByIdDataLoader";

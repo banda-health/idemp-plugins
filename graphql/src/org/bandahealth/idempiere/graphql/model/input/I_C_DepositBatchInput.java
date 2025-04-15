@@ -6,7 +6,7 @@ import org.compiere.model.I_C_DepositBatch;
  * Generated Interface for C_DepositBatch - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_DepositBatchInput extends I_C_DepositBatch {
 
@@ -39,6 +39,20 @@ public interface I_C_DepositBatchInput extends I_C_DepositBatch {
 	ForeignEntityInput C_BankAccount();
 
 	/**
+	 * Set C_Currency.
+	 *
+	 * @param C_Currency The Currency for this record
+	 */
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
+
+	/**
+	 * Get C_Currency.
+	 *
+	 * @return The Currency for this record
+	 */
+	ForeignEntityInput C_Currency();
+
+	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -65,6 +79,20 @@ public interface I_C_DepositBatchInput extends I_C_DepositBatch {
 	 * @return Document type or rules
 	 */
 	ForeignEntityInput C_DocType();
+
+	/**
+	 * Set DocAction.
+	 *
+	 * @param DocAction The targeted status of the document
+	 */
+	void setDocActionInput(ForeignEntityInput DocAction);
+
+	/**
+	 * Get DocAction.
+	 *
+	 * @return The targeted status of the document
+	 */
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.

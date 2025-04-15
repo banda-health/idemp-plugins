@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_RfQLineQty - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_RfQLineQtyResolver extends POResolver<MRfQLineQty> implements GraphQLResolver<MRfQLineQty> {
 

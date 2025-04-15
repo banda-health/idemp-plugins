@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_Cost_CollectorMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements I_PP_Cost_CollectorMAInput {
 

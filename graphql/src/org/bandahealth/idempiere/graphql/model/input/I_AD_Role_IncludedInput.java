@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Role_Included;
  * Generated Interface for AD_Role_Included - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_Role_IncludedInput extends I_AD_Role_Included {
 

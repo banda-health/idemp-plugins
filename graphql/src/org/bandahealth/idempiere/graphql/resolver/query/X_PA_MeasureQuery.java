@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for PA_Measure - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_MeasureQuery extends POQuery<MMeasure> implements GraphQLQueryResolver {
 	@Override

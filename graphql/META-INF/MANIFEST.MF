@@ -77,6 +77,7 @@ Bundle-ClassPath: .,
  lib/commons-lang3.jar,
  lib/jackson-annotations.jar
 Web-ContextPath: graphql
+Jetty-Environment: ee8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.bandahealth.idempiere.graphql,
  org.bandahealth.idempiere.graphql.error,

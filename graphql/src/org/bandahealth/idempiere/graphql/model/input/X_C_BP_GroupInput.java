@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for C_BP_Group - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput {
 

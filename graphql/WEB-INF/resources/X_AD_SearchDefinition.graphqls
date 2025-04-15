@@ -1,6 +1,6 @@
 # Generated Schema for AD_SearchDefinition - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_SearchDefinition(UU: String!): AD_SearchDefinition
 	AD_SearchDefinitionGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_SearchDefinitionConnection!
@@ -22,9 +22,13 @@ type AD_SearchDefinition {
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column
+	# System Message
+	AD_Message: AD_Message
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UU: ID!
+	# CSS style for field and label
+	AD_Style: AD_Style
 	# Database Table information
 	AD_Table: AD_Table!
 	# Data entry or display window
@@ -62,9 +66,13 @@ type AD_SearchDefinition {
 input AD_SearchDefinitionInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
+	# System Message
+	AD_Message: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UU: ID
+	# CSS style for field and label
+	AD_Style: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Data entry or display window

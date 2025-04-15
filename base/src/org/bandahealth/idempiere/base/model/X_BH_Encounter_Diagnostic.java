@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Encounter_Diagnostic
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Encounter_Diagnostic")
 public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diagnostic, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Encounter_Diagnostic extends PO implements I_BH_Encounter_Diag
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20241203L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Diagnostic (Properties ctx, int BH_Encounter_Diagnostic_ID, String trxName)

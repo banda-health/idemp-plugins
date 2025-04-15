@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for GL_BudgetControl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_GL_BudgetControlQuery extends POQuery<X_GL_BudgetControl> implements GraphQLQueryResolver {
 	@Override

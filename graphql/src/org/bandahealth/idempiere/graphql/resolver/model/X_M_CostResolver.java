@@ -26,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_Cost - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_CostResolver extends POResolver<MCost> implements GraphQLResolver<MCost> {
 

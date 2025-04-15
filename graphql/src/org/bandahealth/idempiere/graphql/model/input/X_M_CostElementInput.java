@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for M_CostElement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_CostElementInput extends MCostElement implements I_M_CostElementInput {
 

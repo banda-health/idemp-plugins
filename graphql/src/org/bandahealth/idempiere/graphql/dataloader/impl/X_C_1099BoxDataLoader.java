@@ -6,7 +6,7 @@ import org.compiere.model.X_C_1099Box;
  * Data Loader for C_1099Box - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_1099BoxDataLoader extends PODataLoader<X_C_1099Box> {
 	public static String DATALOADER_C_1099Box_BY_ID = "C_1099BoxByIdDataLoader";

@@ -6,7 +6,7 @@ import org.eevolution.model.I_PP_WF_Node_Asset;
  * Generated Interface for PP_WF_Node_Asset - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_PP_WF_Node_AssetInput extends I_PP_WF_Node_Asset {
 

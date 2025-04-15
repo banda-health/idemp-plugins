@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_ChangeLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements GraphQLResolver<MChangeLog> {
 

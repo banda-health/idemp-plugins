@@ -1,6 +1,6 @@
 # Generated Schema for AD_AttachmentNote - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_AttachmentNote(UU: String!): AD_AttachmentNote
 	AD_AttachmentNoteGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AttachmentNoteConnection!

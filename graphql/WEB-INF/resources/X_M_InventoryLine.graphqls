@@ -1,6 +1,6 @@
 # Generated Schema for M_InventoryLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_InventoryLine(UU: String!): M_InventoryLine
 	M_InventoryLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InventoryLineConnection!

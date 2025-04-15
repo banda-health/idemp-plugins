@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_AttachmentNote;
  * Generated Interface for AD_AttachmentNote - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_AttachmentNoteInput extends I_AD_AttachmentNote {
 

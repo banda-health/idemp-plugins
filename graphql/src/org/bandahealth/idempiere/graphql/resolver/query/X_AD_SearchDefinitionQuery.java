@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for AD_SearchDefinition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_SearchDefinitionQuery extends POQuery<MSearchDefinition> implements GraphQLQueryResolver {
 	@Override

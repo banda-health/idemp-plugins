@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Concept_Description
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Concept_Description")
 public class X_BH_Concept_Description extends PO implements I_BH_Concept_Description, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20241028L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Concept_Description (Properties ctx, int BH_Concept_Description_ID, String trxName)
@@ -256,7 +256,7 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 	}
 
 	/** Set Description.
-		@param Description Description of the record
+		@param Description Optional short description of the record
 	*/
 	public void setDescription (String Description)
 	{
@@ -264,7 +264,7 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 	}
 
 	/** Get Description.
-		@return Description of the record
+		@return Optional short description of the record
 	  */
 	public String getDescription()
 	{

@@ -6,7 +6,7 @@ import org.eevolution.model.X_HR_Attribute;
  * Data Loader for HR_Attribute - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_HR_AttributeDataLoader extends PODataLoader<X_HR_Attribute> {
 	public static String DATALOADER_HR_Attribute_BY_ID = "HR_AttributeByIdDataLoader";

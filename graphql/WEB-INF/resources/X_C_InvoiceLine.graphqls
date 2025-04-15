@@ -1,6 +1,6 @@
 # Generated Schema for C_InvoiceLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_InvoiceLine(UU: String!): C_InvoiceLine
 	C_InvoiceLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceLineConnection!

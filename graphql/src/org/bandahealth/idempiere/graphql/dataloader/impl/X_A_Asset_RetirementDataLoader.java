@@ -6,7 +6,7 @@ import org.compiere.model.X_A_Asset_Retirement;
  * Data Loader for A_Asset_Retirement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_Asset_RetirementDataLoader extends PODataLoader<X_A_Asset_Retirement> {
 	public static String DATALOADER_A_Asset_Retirement_BY_ID = "A_Asset_RetirementByIdDataLoader";

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for HR_Concept_Category - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_HR_Concept_CategoryMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

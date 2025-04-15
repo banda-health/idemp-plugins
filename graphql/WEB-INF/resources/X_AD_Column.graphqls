@@ -1,6 +1,6 @@
 # Generated Schema for AD_Column - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_Column(UU: String!): AD_Column
 	AD_ColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ColumnConnection!
@@ -130,7 +130,7 @@ type AD_Column {
 	ValueMin: String
 	# Version of the table definition
 	Version: BigDecimal!
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }
 
@@ -237,6 +237,6 @@ input AD_ColumnInput {
 	ValueMin: String
 	# Version of the table definition
 	Version: BigDecimal
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }

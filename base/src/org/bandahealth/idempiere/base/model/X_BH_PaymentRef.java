@@ -24,7 +24,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_PaymentRef
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_PaymentRef")
 public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 {
@@ -32,7 +32,7 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_PaymentRef (Properties ctx, int BH_PaymentRef_ID, String trxName)

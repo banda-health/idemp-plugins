@@ -1,6 +1,6 @@
 # Generated Schema for R_StandardResponse - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	R_StandardResponse(UU: String!): R_StandardResponse
 	R_StandardResponseGet(Page: Int, Size: Int, Sort: String, Filter: String): R_StandardResponseConnection!

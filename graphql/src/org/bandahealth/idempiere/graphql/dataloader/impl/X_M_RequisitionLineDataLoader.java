@@ -6,7 +6,7 @@ import org.compiere.model.MRequisitionLine;
  * Data Loader for M_RequisitionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_RequisitionLineDataLoader extends PODataLoader<MRequisitionLine> {
 	public static String DATALOADER_M_RequisitionLine_BY_ID = "M_RequisitionLineByIdDataLoader";

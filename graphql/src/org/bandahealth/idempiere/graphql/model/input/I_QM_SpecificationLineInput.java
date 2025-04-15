@@ -6,7 +6,7 @@ import org.eevolution.model.I_QM_SpecificationLine;
  * Generated Interface for QM_SpecificationLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_QM_SpecificationLineInput extends I_QM_SpecificationLine {
 

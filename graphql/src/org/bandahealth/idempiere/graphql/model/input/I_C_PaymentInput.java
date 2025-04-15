@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * Generated Interface for C_Payment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_PaymentInput extends I_C_Payment {
 

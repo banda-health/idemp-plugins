@@ -6,7 +6,7 @@ import org.eevolution.model.X_PP_Order;
  * Data Loader for PP_Order - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_OrderDataLoader extends PODataLoader<X_PP_Order> {
 	public static String DATALOADER_PP_Order_BY_ID = "PP_OrderByIdDataLoader";

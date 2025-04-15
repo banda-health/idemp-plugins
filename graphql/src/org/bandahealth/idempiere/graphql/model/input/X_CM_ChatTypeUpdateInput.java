@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for CM_ChatTypeUpdate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_CM_ChatTypeUpdateInput {
 

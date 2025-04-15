@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Calendar - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_CalendarInput extends MCalendar implements I_C_CalendarInput {
 

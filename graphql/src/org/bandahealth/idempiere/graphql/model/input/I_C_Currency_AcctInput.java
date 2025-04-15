@@ -6,7 +6,7 @@ import org.compiere.model.I_C_Currency_Acct;
  * Generated Interface for C_Currency_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_Currency_AcctInput extends I_C_Currency_Acct {
 

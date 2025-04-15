@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MWarehouse_BH;
  * Data Loader for M_Warehouse - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_WarehouseDataLoader extends PODataLoader<MWarehouse_BH> {
 	public static String DATALOADER_M_Warehouse_BY_ID = "M_WarehouseByIdDataLoader";

@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Level - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	ASP_Level(UU: String!): ASP_Level
 	ASP_LevelGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_LevelConnection!

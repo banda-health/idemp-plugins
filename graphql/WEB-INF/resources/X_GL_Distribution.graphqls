@@ -1,6 +1,6 @@
 # Generated Schema for GL_Distribution - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	GL_Distribution(UU: String!): GL_Distribution
 	GL_DistributionGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_DistributionConnection!

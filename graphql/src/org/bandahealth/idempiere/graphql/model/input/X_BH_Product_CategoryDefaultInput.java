@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_Product_CategoryDefault - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Product_CategoryDefaultInput extends MBHProductCategoryDefault implements I_BH_Product_CategoryDefaultInput {
 

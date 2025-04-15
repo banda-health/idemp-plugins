@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_ImportTemplate;
  * Generated Interface for AD_ImportTemplate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_ImportTemplateInput extends I_AD_ImportTemplate {
 
@@ -65,4 +65,18 @@ public interface I_AD_ImportTemplateInput extends I_AD_ImportTemplate {
 	 * @return Data entry or display window
 	 */
 	ForeignEntityInput AD_Window();
+
+	/**
+	 * Set ImportTemplateType.
+	 *
+	 * @param ImportTemplateType ImportTemplateType
+	 */
+	void setImportTemplateTypeInput(ForeignEntityInput ImportTemplateType);
+
+	/**
+	 * Get ImportTemplateType.
+	 *
+	 * @return ImportTemplateType
+	 */
+	ForeignEntityInput ImportTemplateType();
 }

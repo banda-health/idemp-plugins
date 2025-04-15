@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
  * Data Loader for C_Payment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_PaymentDataLoader extends PODataLoader<MPayment_BH> {
 	public static String DATALOADER_C_Payment_BY_ID = "C_PaymentByIdDataLoader";

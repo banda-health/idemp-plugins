@@ -1,6 +1,6 @@
 # Generated Schema for U_RoleMenu - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	U_RoleMenu(UU: String!): U_RoleMenu
 	U_RoleMenuGet(Page: Int, Size: Int, Sort: String, Filter: String): U_RoleMenuConnection!

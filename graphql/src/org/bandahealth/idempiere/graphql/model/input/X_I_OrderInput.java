@@ -39,7 +39,7 @@ import java.sql.ResultSet;
  * Generated Model for I_Order - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_OrderInput extends X_I_Order implements I_I_OrderInput {
 

@@ -1,6 +1,6 @@
 # Generated Schema for M_Replenish - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_Replenish(UU: String!): M_Replenish
 	M_ReplenishGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ReplenishConnection!

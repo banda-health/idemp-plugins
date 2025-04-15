@@ -1,6 +1,6 @@
 # Generated Schema for C_DocType - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_DocType(UU: String!): C_DocType
 	C_DocTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DocTypeConnection!
@@ -60,6 +60,10 @@ type C_DocType {
 	HasProforma: Boolean!
 	# The record is active in the system
 	IsActive: Boolean!
+	# Automatically Generate Shipment after (Sales/Purchase) Order completed
+	IsAutoGenerateInout: Boolean!
+	# Automatically Generate Invoice after (Sales/Purchase) Order completed
+	IsAutoGenerateInvoice: Boolean!
 	IsChargeOrProductMandatory: Boolean!
 	# Create Counter Document
 	IsCreateCounter: Boolean!
@@ -133,6 +137,10 @@ input C_DocTypeInput {
 	HasProforma: Boolean
 	# The record is active in the system
 	IsActive: Boolean
+	# Automatically Generate Shipment after (Sales/Purchase) Order completed
+	IsAutoGenerateInout: Boolean
+	# Automatically Generate Invoice after (Sales/Purchase) Order completed
+	IsAutoGenerateInvoice: Boolean
 	IsChargeOrProductMandatory: Boolean
 	# Create Counter Document
 	IsCreateCounter: Boolean

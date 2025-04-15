@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for A_Asset_Info_Lic - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_Asset_Info_LicInput extends X_A_Asset_Info_Lic implements I_A_Asset_Info_LicInput {
 

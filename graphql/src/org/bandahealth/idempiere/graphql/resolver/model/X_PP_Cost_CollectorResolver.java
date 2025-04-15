@@ -47,7 +47,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PP_Cost_Collector - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector> implements GraphQLResolver<X_PP_Cost_Collector> {
 
@@ -161,7 +161,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 		{
 			put("100", "6fc51ee8-c1fc-491f-b255-bea65c67c90e"); // Material Receipt
 			put("110", "5eb1adfa-5acb-4f43-8b8f-6494858ca467"); // Component Issue
-			put("120", "b8083980-443f-4d35-bd14-37d73ac6aef0"); // Usege Variance
+			put("120", "b8083980-443f-4d35-bd14-37d73ac6aef0"); // Usage Variance
 			put("130", "9b05daf5-998c-4e51-b248-e338aa732455"); // Method Change Variance
 			put("140", "e8c88c2a-18e6-4056-a0a5-ececd2a24b73"); // Rate Variance
 			put("150", "458e1a27-ce3d-4707-bd78-d7143bbb0837"); // Mix Variance

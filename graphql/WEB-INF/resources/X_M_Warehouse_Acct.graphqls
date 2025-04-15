@@ -1,6 +1,6 @@
 # Generated Schema for M_Warehouse_Acct - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_Warehouse_Acct(UU: String!): M_Warehouse_Acct
 	M_Warehouse_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Warehouse_AcctConnection!

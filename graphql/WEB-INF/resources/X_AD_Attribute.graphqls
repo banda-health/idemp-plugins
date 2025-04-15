@@ -1,6 +1,6 @@
 # Generated Schema for AD_Attribute - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_Attribute(UU: String!): AD_Attribute
 	AD_AttributeGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AttributeConnection!
@@ -77,7 +77,7 @@ type AD_Attribute {
 	ValueMax: String
 	# Minimum Value for a field
 	ValueMin: String
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }
 
@@ -131,6 +131,6 @@ input AD_AttributeInput {
 	ValueMax: String
 	# Minimum Value for a field
 	ValueMin: String
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex
 	VFormat: String
 }

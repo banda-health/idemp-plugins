@@ -42,7 +42,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Order - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 

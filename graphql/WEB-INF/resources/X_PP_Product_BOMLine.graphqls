@@ -1,6 +1,6 @@
 # Generated Schema for PP_Product_BOMLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	PP_Product_BOMLine(UU: String!): PP_Product_BOMLine
 	PP_Product_BOMLineGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Product_BOMLineConnection!
@@ -67,7 +67,7 @@ type PP_Product_BOMLine {
 	UU: ID!
 	# Indicate the Quantity % use in this Formula
 	QtyBatch: BigDecimal
-	# Indicate the Quantity  use in this BOM
+	# Indicate the Quantity use in this BOM
 	QtyBOM: BigDecimal
 	# Indicate the Scrap %  for calculate the Scrap Quantity
 	Scrap: BigDecimal
@@ -125,7 +125,7 @@ input PP_Product_BOMLineInput {
 	UU: ID
 	# Indicate the Quantity % use in this Formula
 	QtyBatch: BigDecimal
-	# Indicate the Quantity  use in this BOM
+	# Indicate the Quantity use in this BOM
 	QtyBOM: BigDecimal
 	# Indicate the Scrap %  for calculate the Scrap Quantity
 	Scrap: BigDecimal

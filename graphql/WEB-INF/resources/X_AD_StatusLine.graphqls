@@ -1,6 +1,6 @@
 # Generated Schema for AD_StatusLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_StatusLine(UU: String!): AD_StatusLine
 	AD_StatusLineGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StatusLineConnection!
@@ -25,6 +25,8 @@ type AD_StatusLine {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UU: ID!
+	# CSS style for field and label
+	AD_Style: AD_Style
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -48,6 +50,8 @@ input AD_StatusLineInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UU: ID
+	# CSS style for field and label
+	AD_Style: ForeignEntityInput
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# The record is active in the system

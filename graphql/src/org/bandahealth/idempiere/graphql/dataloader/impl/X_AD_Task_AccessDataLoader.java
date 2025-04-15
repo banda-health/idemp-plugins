@@ -6,7 +6,7 @@ import org.compiere.model.MTaskAccess;
  * Data Loader for AD_Task_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Task_AccessDataLoader extends PODataLoader<MTaskAccess> {
 	public static String DATALOADER_AD_Task_Access_BY_ID = "AD_Task_AccessByIdDataLoader";

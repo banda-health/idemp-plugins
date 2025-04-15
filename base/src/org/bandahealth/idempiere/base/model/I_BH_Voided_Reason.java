@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Voided_Reason
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_Voided_Reason 
@@ -76,20 +76,11 @@ public interface I_BH_Voided_Reason
     /** Column name BH_Voided_Reason_UU */
     public static final String COLUMNNAME_BH_Voided_Reason_UU = "BH_Voided_Reason_UU";
 
-	/** Set bh_voided_reason_uu	  */
+	/** Set BH_Voided_Reason_UU	  */
 	public void setBH_Voided_Reason_UU (String BH_Voided_Reason_UU);
 
-	/** Get bh_voided_reason_uu	  */
+	/** Get BH_Voided_Reason_UU	  */
 	public String getBH_Voided_Reason_UU();
-
-    /** Column name bh_window_id */
-    public static final String COLUMNNAME_bh_window_id = "bh_window_id";
-
-	/** Set Window ID	  */
-	public void setbh_window_id (BigDecimal bh_window_id);
-
-	/** Get Window ID	  */
-	public BigDecimal getbh_window_id();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -174,4 +165,13 @@ public interface I_BH_Voided_Reason
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name bh_window_id */
+    public static final String COLUMNNAME_bh_window_id = "bh_window_id";
+
+	/** Set Window ID	  */
+	public void setbh_window_id (BigDecimal bh_window_id);
+
+	/** Get Window ID	  */
+	public BigDecimal getbh_window_id();
 }

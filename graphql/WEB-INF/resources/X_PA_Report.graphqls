@@ -1,6 +1,6 @@
 # Generated Schema for PA_Report - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	PA_Report(UU: String!): PA_Report
 	PA_ReportGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_ReportConnection!

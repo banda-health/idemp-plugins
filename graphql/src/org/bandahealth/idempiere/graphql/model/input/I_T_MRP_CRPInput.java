@@ -6,7 +6,7 @@ import org.eevolution.model.I_T_MRP_CRP;
  * Generated Interface for T_MRP_CRP - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_T_MRP_CRPInput extends I_T_MRP_CRP {
 

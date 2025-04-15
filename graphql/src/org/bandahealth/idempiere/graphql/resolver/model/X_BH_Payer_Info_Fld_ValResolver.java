@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for BH_Payer_Info_Fld_Val - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Payer_Info_Fld_ValResolver extends POResolver<MBHPayerInfoFldVal> implements GraphQLResolver<MBHPayerInfoFldVal> {
 

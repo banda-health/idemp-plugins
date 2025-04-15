@@ -24,7 +24,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_Payer_Info_Fld_Sug
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Payer_Info_Fld_Sug")
 public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_Sug, I_Persistent
 {
@@ -32,7 +32,7 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Payer_Info_Fld_Sug (Properties ctx, int BH_Payer_Info_Fld_Sug_ID, String trxName)
@@ -42,9 +42,9 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
         {
 			setBH_FillFromPatient (false);
 // N
-			setBH_Payer_Info_Fld_Sug_ID (0);
 			setBH_PayerInfoFieldDataType (null);
 // T
+			setBH_Payer_Info_Fld_Sug_ID (0);
 			setBH_SubType (null);
 // I
 			setLine (0);
@@ -60,9 +60,9 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
         {
 			setBH_FillFromPatient (false);
 // N
-			setBH_Payer_Info_Fld_Sug_ID (0);
 			setBH_PayerInfoFieldDataType (null);
 // T
+			setBH_Payer_Info_Fld_Sug_ID (0);
 			setBH_SubType (null);
 // I
 			setLine (0);
@@ -78,9 +78,9 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
         {
 			setBH_FillFromPatient (false);
 // N
-			setBH_Payer_Info_Fld_Sug_ID (0);
 			setBH_PayerInfoFieldDataType (null);
 // T
+			setBH_Payer_Info_Fld_Sug_ID (0);
 			setBH_SubType (null);
 // I
 			setLine (0);
@@ -96,9 +96,9 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
         {
 			setBH_FillFromPatient (false);
 // N
-			setBH_Payer_Info_Fld_Sug_ID (0);
 			setBH_PayerInfoFieldDataType (null);
 // T
+			setBH_Payer_Info_Fld_Sug_ID (0);
 			setBH_SubType (null);
 // I
 			setLine (0);
@@ -156,6 +156,26 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 		return false;
 	}
 
+	/** List = L */
+	public static final String BH_PAYERINFOFIELDDATATYPE_List = "L";
+	/** Text = T */
+	public static final String BH_PAYERINFOFIELDDATATYPE_Text = "T";
+	/** Set Payer Info Field Data Type.
+		@param BH_PayerInfoFieldDataType Payer Info Field Data Type
+	*/
+	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType)
+	{
+
+		set_Value (COLUMNNAME_BH_PayerInfoFieldDataType, BH_PayerInfoFieldDataType);
+	}
+
+	/** Get Payer Info Field Data Type.
+		@return Payer Info Field Data Type	  */
+	public String getBH_PayerInfoFieldDataType()
+	{
+		return (String)get_Value(COLUMNNAME_BH_PayerInfoFieldDataType);
+	}
+
 	/** Set Payer Info Field Suggestion.
 		@param BH_Payer_Info_Fld_Sug_ID Payer Info Field Suggestion
 	*/
@@ -190,26 +210,6 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 	public String getBH_Payer_Info_Fld_Sug_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Payer_Info_Fld_Sug_UU);
-	}
-
-	/** List = L */
-	public static final String BH_PAYERINFOFIELDDATATYPE_List = "L";
-	/** Text = T */
-	public static final String BH_PAYERINFOFIELDDATATYPE_Text = "T";
-	/** Set Payer Info Field Data Type.
-		@param BH_PayerInfoFieldDataType Payer Info Field Data Type
-	*/
-	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType)
-	{
-
-		set_Value (COLUMNNAME_BH_PayerInfoFieldDataType, BH_PayerInfoFieldDataType);
-	}
-
-	/** Get Payer Info Field Data Type.
-		@return Payer Info Field Data Type	  */
-	public String getBH_PayerInfoFieldDataType()
-	{
-		return (String)get_Value(COLUMNNAME_BH_PayerInfoFieldDataType);
 	}
 
 	/** Donation = D */

@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_WizardProcess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_WizardProcessResolver extends POResolver<X_AD_WizardProcess> implements GraphQLResolver<X_AD_WizardProcess> {
 

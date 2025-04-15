@@ -1,6 +1,6 @@
 # Generated Schema for BH_Concept_Name - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 13 - $Id$
 extend type Query {
 	BH_Concept_Name(UU: String!): BH_Concept_Name
 	BH_Concept_NameGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Concept_NameConnection!

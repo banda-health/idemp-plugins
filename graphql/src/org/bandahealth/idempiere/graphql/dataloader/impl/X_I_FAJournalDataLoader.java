@@ -6,7 +6,7 @@ import org.compiere.model.MXIFAJournal;
  * Data Loader for I_FAJournal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_FAJournalDataLoader extends PODataLoader<MXIFAJournal> {
 	public static String DATALOADER_I_FAJournal_BY_ID = "I_FAJournalByIdDataLoader";

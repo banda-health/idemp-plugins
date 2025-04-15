@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for C_AcctProcessor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctProcessorInput {
 

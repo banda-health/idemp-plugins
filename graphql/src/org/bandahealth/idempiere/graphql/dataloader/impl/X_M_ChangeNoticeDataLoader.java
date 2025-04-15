@@ -6,7 +6,7 @@ import org.compiere.model.MChangeNotice;
  * Data Loader for M_ChangeNotice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_ChangeNoticeDataLoader extends PODataLoader<MChangeNotice> {
 	public static String DATALOADER_M_ChangeNotice_BY_ID = "M_ChangeNoticeByIdDataLoader";
