@@ -14,6 +14,8 @@ import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnostic;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.utils.StringUtil;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
@@ -24,12 +26,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.StreamSupport;
 
+import static java.util.UUID.randomUUID;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -210,22 +213,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create glucose concept if it doesn't exist");
-		MBHConcept diagnostic =
-				new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_OclID + "=?",
-						valueObject.getTransactionName()).setParameters("159734").first();
-		if (diagnostic == null) {
-			diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
-			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
-			diagnostic.setIsActive(true);
-			diagnostic.setBH_ExternalID("159734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			diagnostic.setOcl_Uuid("159734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			diagnostic.setBH_OclID("159734");
-			diagnostic.setBH_Owner("CIEL");
-			diagnostic.setBH_Source("CIEL");
-			diagnostic.setURL("/orgs/CIEL/sources/CIEL/concepts/159734/");
-			diagnostic.saveEx();
-		}
-		commitEx();
+		MBHConcept diagnostic = getOrCreateConcept(valueObject, "CIEL", "159734", "CIEL");
 
 		valueObject.setStepName("Create diagnostics");
 		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
@@ -283,58 +271,332 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
-		Map<String, Double> originalOgttData;
+		Map<String, Map<String, Double>> originalBloodChemistryData;
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Map<String, Map<String, Double>> bloodChemistryInformation =
+			originalBloodChemistryData =
 					getTableInformation(sheet, "2. BLOOD CHEMISTRY", "9. Drug Susceptibility Testing");
-			originalOgttData = bloodChemistryInformation.get("2.2 OGTT");
 		}
-
-		valueObject.setStepName("Create business partner");
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create a visit");
-		ChuBoeCreateEntity.createVisit(valueObject);
-		commitEx();
 
 		valueObject.setStepName("Create ogtt concept if it doesn't exist");
-		MBHConcept diagnostic =
-				new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_OclID + "=?",
-						valueObject.getTransactionName()).setParameters("163594").first();
-		if (diagnostic == null) {
-			diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
-			diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
-			diagnostic.setIsActive(true);
-			diagnostic.setBH_ExternalID("163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			diagnostic.setOcl_Uuid("163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			diagnostic.setBH_OclID("163594");
-			diagnostic.setBH_Owner("CIEL");
-			diagnostic.setBH_Source("CIEL");
-			diagnostic.setURL("/orgs/CIEL/sources/CIEL/concepts/163594/");
-			diagnostic.saveEx();
-		}
-		commitEx();
+		MBHConcept diagnostic = getOrCreateConcept(valueObject, "CIEL", "163594", "CIEL");
+		createNVisitsForThisDiagnosticWithValue(valueObject, 1, diagnostic, "3");
 
-		valueObject.setStepName("Create diagnostics");
-		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
-		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
-		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
-		encounter.setBH_Encounter_Date(TimestampUtils.today());
-		encounter.saveEx();
-		commitEx();
+		valueObject.setStepName("Create creatinine concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "790", "CIEL");
+		Timestamp newbornBirthday = TimestampUtils.addToNow(Calendar.DATE, -15);
+		int numberCreatinineNewbornLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineNewbornLow, null,
+				newbornBirthday, diagnostic, "26");
+		int numberCreatinineNewbornNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineNewbornNormalLow, null,
+				newbornBirthday, diagnostic, "27");
+		int numberCreatinineNewbornNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineNewbornNormalHigh, null,
+				newbornBirthday, diagnostic, "106");
+		int numberCreatinineNewbornHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineNewbornHigh, null,
+				newbornBirthday, diagnostic, "107");
+		//
+		Timestamp babyBirthday = TimestampUtils.addToNow(Calendar.MONTH, -6);
+		int numberCreatinineBabyLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineBabyLow, null, babyBirthday,
+				diagnostic, "17");
+		int numberCreatinineBabyNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineBabyNormalLow, null,
+				babyBirthday, diagnostic, "18");
+		int numberCreatinineBabyNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineBabyNormalHigh, null,
+				babyBirthday, diagnostic, "35");
+		int numberCreatinineBabyHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineBabyHigh, null, babyBirthday,
+				diagnostic, "36");
+		//
+		Timestamp childBirthday = TimestampUtils.addToNow(Calendar.YEAR, -6);
+		int numberCreatinineChildLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineChildLow, null, childBirthday,
+				diagnostic, "26");
+		int numberCreatinineChildNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineChildNormalLow, null,
+				childBirthday, diagnostic, "27");
+		int numberCreatinineChildNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineChildNormalHigh, null,
+				childBirthday, diagnostic, "62");
+		int numberCreatinineChildHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineChildHigh, null,
+				childBirthday,
+				diagnostic, "63");
+		//
+		Timestamp teenagerBirthday = TimestampUtils.addToNow(Calendar.YEAR, -15);
+		int numberCreatinineTeenagerBoyLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineTeenagerBoyLow,
+				MBPartner_BH.BH_GENDER_Male, teenagerBirthday, diagnostic, "52");
+		int numberCreatinineTeenagerBoyNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineTeenagerBoyNormalLow,
+				MBPartner_BH.BH_GENDER_Male, teenagerBirthday, diagnostic, "53");
+		int numberCreatinineTeenagerBoyNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineTeenagerBoyNormalHigh,
+				MBPartner_BH.BH_GENDER_Male, teenagerBirthday, diagnostic, "106");
+		int numberCreatinineTeenagerBoyHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineTeenagerBoyHigh,
+				MBPartner_BH.BH_GENDER_Male, teenagerBirthday, diagnostic, "107");
+		int numberCreatinineTeenagerGirlLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineTeenagerGirlLow,
+				MBPartner_BH.BH_GENDER_Female, teenagerBirthday, diagnostic, "43");
+		int numberCreatinineTeenagerGirlNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineTeenagerGirlNormalLow,
+				MBPartner_BH.BH_GENDER_Female, teenagerBirthday, diagnostic, "44");
+		int numberCreatinineTeenagerGirlNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineTeenagerGirlNormalHigh,
+				MBPartner_BH.BH_GENDER_Female, teenagerBirthday, diagnostic, "88");
+		int numberCreatinineTeenagerGirlHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineTeenagerGirlHigh,
+				MBPartner_BH.BH_GENDER_Female, teenagerBirthday, diagnostic, "89");
+		//
+		Timestamp adultBirthday = TimestampUtils.addToNow(Calendar.YEAR, -30);
+		int numberCreatinineAdultBoyLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineAdultBoyLow,
+				MBPartner_BH.BH_GENDER_Male, adultBirthday, diagnostic, "59");
+		int numberCreatinineAdultBoyNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineAdultBoyNormalLow,
+				MBPartner_BH.BH_GENDER_Male, adultBirthday, diagnostic, "60");
+		int numberCreatinineAdultBoyNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineAdultBoyNormalHigh,
+				MBPartner_BH.BH_GENDER_Male, adultBirthday, diagnostic, "110");
+		int numberCreatinineAdultBoyHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineAdultBoyHigh,
+				MBPartner_BH.BH_GENDER_Male, adultBirthday, diagnostic, "111");
+		int numberCreatinineAdultGirlLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineAdultGirlLow,
+				MBPartner_BH.BH_GENDER_Female, adultBirthday, diagnostic, "44");
+		int numberCreatinineAdultGirlNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineAdultGirlNormalLow,
+				MBPartner_BH.BH_GENDER_Female, adultBirthday, diagnostic, "45");
+		int numberCreatinineAdultGirlNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineAdultGirlNormalHigh,
+				MBPartner_BH.BH_GENDER_Female, adultBirthday, diagnostic, "90");
+		int numberCreatinineAdultGirlHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberCreatinineAdultGirlHigh,
+				MBPartner_BH.BH_GENDER_Female, adultBirthday, diagnostic, "91");
 
-		String diagnosticValue = "3";
-		MBHEncounterDiagnostic encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
-				valueObject.getTransactionName());
-		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnostic.setBH_Concept_ID(diagnostic.get_ID());
-		encounterDiagnostic.setBH_Value(diagnosticValue);
-		encounterDiagnostic.setLineNo(10);
-		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
-		encounterDiagnostic.saveEx();
-		commitEx();
+		valueObject.setStepName("Create sodium concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "1132", "CIEL");
+		int numberSodiumLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberSodiumLow, diagnostic, "134");
+		int numberSodiumNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberSodiumNormalLow, diagnostic, "135");
+		int numberSodiumNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberSodiumNormalHigh, diagnostic, "145");
+		int numberSodiumHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberSodiumHigh, diagnostic, "146");
+
+		valueObject.setStepName("Create urea concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "857", "CIEL");
+		int numberUreaLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberUreaLow, diagnostic, "2.05");
+		int numberUreaNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberUreaNormalLow, diagnostic, "2.1");
+		int numberUreaNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberUreaNormalHigh, diagnostic, "7.1");
+		int numberUreaHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberUreaHigh, diagnostic, "7.15");
+
+		valueObject.setStepName("Create potassium concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "1133", "CIEL");
+		int numberPotassiumLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberPotassiumLow, diagnostic, "3.45");
+		int numberPotassiumNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberPotassiumNormalLow, diagnostic, "3.5");
+		int numberPotassiumNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberPotassiumNormalHigh, diagnostic, "5.6");
+		int numberPotassiumHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberPotassiumHigh, diagnostic, "5.65");
+
+		valueObject.setStepName("Create chlorides concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "1134", "CIEL");
+		int numberChloridesLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberChloridesLow, diagnostic, "95");
+		int numberChloridesNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberChloridesNormalLow, diagnostic, "96");
+		int numberChloridesNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberChloridesNormalHigh, diagnostic, "107");
+		int numberChloridesHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberChloridesHigh, diagnostic, "108");
+
+		valueObject.setStepName("Create direct bilirubin concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "1297", "CIEL");
+		int numberDirectBilirubinNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberDirectBilirubinNormalLow, diagnostic, "0.1");
+		int numberDirectBilirubinNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberDirectBilirubinNormalHigh, diagnostic, "5.1");
+		int numberDirectBilirubinHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberDirectBilirubinHigh, diagnostic, "5.15");
+
+		valueObject.setStepName("Create total bilirubin concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "655", "CIEL");
+		int numberTotalBilirubinLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTotalBilirubinLow, diagnostic, "1.7");
+		int numberTotalBilirubinNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTotalBilirubinNormalLow, diagnostic, "1.71");
+		int numberTotalBilirubinNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTotalBilirubinNormalHigh, diagnostic, "20.5");
+		int numberTotalBilirubinHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTotalBilirubinHigh, diagnostic, "20.6");
+
+		valueObject.setStepName("Create asat concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "653", "CIEL");
+		int numberAsatLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAsatLow, diagnostic, "24");
+		int numberAsatNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAsatNormalLow, diagnostic, "25");
+		int numberAsatNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAsatNormalHigh, diagnostic, "45");
+		int numberAsatHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAsatHigh, diagnostic, "46");
+
+		valueObject.setStepName("Create alat concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "654", "CIEL");
+		int numberAlatNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlatNormalLow, diagnostic, "0.1");
+		int numberAlatNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlatNormalHigh, diagnostic, "35");
+		int numberAlatHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlatHigh, diagnostic, "36");
+
+		valueObject.setStepName("Create serum protein concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "717", "CIEL");
+		int numberSerumProteinLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberSerumProteinLow, diagnostic, "5.9");
+		int numberSerumProteinNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberSerumProteinNormalLow, diagnostic, "6");
+		int numberSerumProteinNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberSerumProteinNormalHigh, diagnostic, "8.3");
+		int numberSerumProteinHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberSerumProteinHigh, diagnostic, "8.4");
+
+		valueObject.setStepName("Create albumin concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "848", "CIEL");
+		int numberAlbuminLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlbuminLow, diagnostic, "3.4");
+		int numberAlbuminNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlbuminNormalLow, diagnostic, "3.5");
+		int numberAlbuminNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlbuminNormalHigh, diagnostic, "5");
+		int numberAlbuminHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlbuminHigh, diagnostic, "5.1");
+
+		valueObject.setStepName("Create alkaline phosphatase concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "785", "CIEL");
+		int numberAlkalinePhosphataseLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseLow, diagnostic, "29");
+		int numberAlkalinePhosphataseNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseNormalLow, diagnostic, "30");
+		int numberAlkalinePhosphataseNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseNormalHigh, diagnostic, "120");
+		int numberAlkalinePhosphataseHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseHigh, diagnostic, "121");
+
+		valueObject.setStepName("Create total cholesterol concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "1006", "CIEL");
+		int numberTotalCholesterolNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTotalCholesterolNormalLow, diagnostic, "0.1");
+		int numberTotalCholesterolNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTotalCholesterolNormalHigh, diagnostic, "5.17");
+		int numberTotalCholesterolHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTotalCholesterolHigh, diagnostic, "5.18");
+
+		valueObject.setStepName("Create triglycerides concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "1009", "CIEL");
+		int numberTriglyceridesNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTriglyceridesNormalLow, diagnostic, "0.1");
+		int numberTriglyceridesNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTriglyceridesNormalHigh, diagnostic, "2.26");
+		int numberTriglyceridesHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTriglyceridesHigh, diagnostic, "2.27");
+
+		valueObject.setStepName("Create ldl concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "1008", "CIEL");
+		int numberLdlNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberLdlNormalLow, diagnostic, "0.1");
+		int numberLdlNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberLdlNormalHigh, diagnostic, "3.4");
+		int numberLdlHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberLdlHigh, diagnostic, "3.5");
+
+		valueObject.setStepName("Create T3 concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "161503", "CIEL");
+		int numberT3Low = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberT3Low, diagnostic, "0.15");
+		int numberT3NormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberT3NormalLow, diagnostic, "0.2");
+		int numberT3NormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberT3NormalHigh, diagnostic, "0.5");
+		int numberT3High = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberT3High, diagnostic, "0.55");
+
+		valueObject.setStepName("Create T4 concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "161504", "CIEL");
+		int numberT4Low = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberT4Low, diagnostic, "4.4");
+		int numberT4NormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberT4NormalLow, diagnostic, "4.5");
+		int numberT4NormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberT4NormalHigh, diagnostic, "12.5");
+		int numberT4High = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberT4High, diagnostic, "12.6");
+
+		valueObject.setStepName("Create TSH concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "168213", "CIEL");
+		int numberTshLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTshLow, diagnostic, "0.35");
+		int numberTshNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTshNormalLow, diagnostic, "0.4");
+		int numberTshNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTshNormalHigh, diagnostic, "4.5");
+		int numberTshHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberTshHigh, diagnostic, "4.6");
+
+		valueObject.setStepName("Create PSA concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "160913", "CIEL");
+		int numberPsaNormal = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberPsaNormal, diagnostic, "4");
+		int numberPsaPositive = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberPsaPositive, diagnostic, "4.1");
+
+		valueObject.setStepName("Create CA 15-3 concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "160920", "CIEL");
+		int numberCa15_3Normal = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberCa15_3Normal, diagnostic, "30");
+		int numberCa15_3Positive = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberCa15_3Positive, diagnostic, "31");
+
+		valueObject.setStepName("Create CA 19-9 concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "160921", "CIEL");
+		int numberCa19_9Normal = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberCa19_9Normal, diagnostic, "37");
+		int numberCa19_9Positive = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberCa19_9Positive, diagnostic, "38");
+
+		valueObject.setStepName("Create CA 125 concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "160919", "CIEL");
+		int numberCa125Normal = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberCa125Normal, diagnostic, "35");
+		int numberCa125Positive = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberCa125Positive, diagnostic, "36");
+
+		valueObject.setStepName("Create CEA concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "160915", "CIEL");
+		int numberCeaNormal = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberCeaNormal, diagnostic, "3");
+		int numberCeaPositive = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberCeaPositive, diagnostic, "3.05");
+
+		valueObject.setStepName("Create AFP concept if it doesn't exist");
+		diagnostic = getOrCreateConcept(valueObject, "CIEL", "160917", "CIEL");
+		int numberAfpNormal = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAfpNormal, diagnostic, "10");
+		int numberAfpPositive = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsForThisDiagnosticWithValue(valueObject, numberAfpPositive, diagnostic, "11");
 
 		valueObject.setStepName("Generate the report");
 		valueObject.setProcessUuid(reportUU);
@@ -349,11 +611,191 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Map<String, Double> ogttData =
-					getTableInformation(sheet, "2. BLOOD CHEMISTRY", "9. Drug Susceptibility Testing").get("2.2 OGTT");
-			assertEquals(originalOgttData.get("Total Exam") + 1, ogttData.get("Total Exam"), "OGTT total is correct");
-			assertEquals(originalOgttData.get("Low") + 1, ogttData.get("Low"), "OGTT Low is correct");
-			assertEquals(originalOgttData.get("High"), ogttData.get("High"), "OGTT high is correct");
+			Map<String, Map<String, Double>> bloodChemistryData =
+					getTableInformation(sheet, "2. BLOOD CHEMISTRY", "9. Drug Susceptibility Testing");
+			String label = "2.2 OGTT";
+			Map<String, Double> data = bloodChemistryData.get(label);
+			Map<String, Double> originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + 1, data.get("Total Exam"), label + " total is correct");
+			assertEquals(originalData.get("Low") + 1, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High"), data.get("High"), label + " high is correct");
+			//
+			label = "2.4 Creatinine";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(
+					originalData.get("Low") + numberCreatinineNewbornLow + numberCreatinineBabyLow + numberCreatinineChildLow +
+							numberCreatinineTeenagerBoyLow + numberCreatinineTeenagerGirlLow + numberCreatinineAdultBoyLow +
+							numberCreatinineAdultGirlLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberCreatinineNewbornHigh + numberCreatinineBabyHigh +
+					numberCreatinineChildHigh + numberCreatinineTeenagerBoyHigh + numberCreatinineTeenagerGirlHigh +
+					numberCreatinineAdultBoyHigh + numberCreatinineAdultGirlHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.5 Urea";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Low") + numberUreaLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberUreaHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.5 Sodium";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Low") + numberSodiumLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberSodiumHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.6 Potassium";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Low") + numberPotassiumLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberPotassiumHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.7 Chlorides";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Low") + numberChloridesLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberChloridesHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.9 Direct bilirubin";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(0, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberDirectBilirubinHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.10 Total bilirubin";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Low") + numberTotalBilirubinLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberTotalBilirubinHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.11 ASAT (SGOT)";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Low") + numberAsatLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberAsatHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.12 ALAT (SGPT)";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(0, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberAlatHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.13 Serum Protein";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Low") + numberSerumProteinLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberSerumProteinHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.14 Albumin";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Low") + numberAlbuminLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberAlbuminHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.15 Alkaline Phosphatase";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Low") + numberAlkalinePhosphataseLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberAlkalinePhosphataseHigh, data.get("High"),
+					label + " high is correct");
+			//
+			label = "2.17 Total cholesterol";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberTotalCholesterolHigh + numberTotalCholesterolNormalHigh +
+					numberTotalCholesterolNormalLow, data.get("Total Exam"), label + " total is correct");
+			assertEquals(0, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberTotalCholesterolHigh, data.get("High"), label + " high is " +
+					"correct");
+			//
+			label = "2.18 Triglycerides";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberTriglyceridesNormalLow + numberTriglyceridesNormalHigh +
+					numberTriglyceridesHigh, data.get("Total Exam"), label + " total is correct");
+			assertEquals(0, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberTriglyceridesHigh, data.get("High"), label + " high is " +
+					"correct");
+			//
+			label = "2.19 LDL";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberLdlNormalLow + numberLdlNormalHigh + numberLdlHigh,
+					data.get("Total Exam"), label + " total is correct");
+			assertEquals(0, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberLdlHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.20 T3";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberT3Low + numberT3NormalLow + numberT3NormalHigh + numberT3High,
+					data.get("Total Exam"), label + " total is correct");
+			assertEquals(originalData.get("Low") + numberT3Low, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberT3High, data.get("High"), label + " high is correct");
+			//
+			label = "2.21 T4";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberT4Low + numberT4NormalLow + numberT4NormalHigh + numberT4High,
+					data.get("Total Exam"), label + " total is correct");
+			assertEquals(originalData.get("Low") + numberT4Low, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberT4High, data.get("High"), label + " high is correct");
+			//
+			label = "2.22 TSH";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(
+					originalData.get("Total Exam") + numberTshLow + numberTshNormalLow + numberTshNormalHigh + numberTshHigh,
+					data.get("Total Exam"), label + " total is correct");
+			assertEquals(originalData.get("Low") + numberTshLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberTshHigh, data.get("High"), label + " high is correct");
+			//
+			label = "2.23 PSA";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberPsaNormal + numberPsaPositive, data.get("Total Exam"),
+					label + " total is correct");
+			assertEquals(originalData.get("Number Positive") + numberPsaPositive, data.get("Number Positive"),
+					label + " number positive is correct");
+			//
+			label = "2.24 CA 15-3";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberCa15_3Normal + numberCa15_3Positive, data.get("Total Exam"),
+					label + " total is correct");
+			assertEquals(originalData.get("Number Positive") + numberCa15_3Positive, data.get("Number Positive"),
+					label + " number positive is correct");
+			//
+			label = "2.25 CA 19-9";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberCa19_9Normal + numberCa19_9Positive, data.get("Total Exam"),
+					label + " total is correct");
+			assertEquals(originalData.get("Number Positive") + numberCa19_9Positive, data.get("Number Positive"),
+					label + " number positive is correct");
+			//
+			label = "2.26 CA 125";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberCa125Normal + numberCa125Positive, data.get("Total Exam"),
+					label + " total is correct");
+			assertEquals(originalData.get("Number Positive") + numberCa125Positive, data.get("Number Positive"),
+					label + " number positive is correct");
+			//
+			label = "2.27 CEA";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberCeaNormal + numberCeaPositive, data.get("Total Exam"),
+					label + " total is correct");
+			assertEquals(originalData.get("Number Positive") + numberCeaPositive, data.get("Number Positive"),
+					label + " number positive is correct");
+			//
+			label = "2.28 AFP";
+			data = bloodChemistryData.get(label);
+			originalData = originalBloodChemistryData.get(label);
+			assertEquals(originalData.get("Total Exam") + numberAfpNormal + numberAfpPositive, data.get("Total Exam"),
+					label + " total is correct");
+			assertEquals(originalData.get("Number Positive") + numberAfpPositive, data.get("Number Positive"),
+					label + " number positive is correct");
 		}
 	}
 
@@ -402,7 +844,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			diagnostic.setOcl_Uuid("32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			diagnostic.setBH_OclID("32");
 			diagnostic.setBH_Owner("CIEL");
-			diagnostic.setOcl_Uuid(UUID.randomUUID().toString());
+			diagnostic.setOcl_Uuid(randomUUID().toString());
 			diagnostic.setBH_Source("CIEL");
 			diagnostic.setURL("/orgs/CIEL/sources/CIEL/concepts/32/");
 			diagnostic.saveEx();
@@ -1014,6 +1456,81 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 					serologyData.get("7.7 Helicobacter pylori").get("Total Exam"), "7.7 total counts correct");
 			assertEquals(originalSerologyData.get("7.7 Helicobacter pylori").get("Number Positive") + 1,
 					serologyData.get("7.7 Helicobacter pylori").get("Number Positive"), "7.7 positive counts correct");
+		}
+	}
+
+	private MBHConcept getOrCreateConcept(ChuBoePopulateVO valueObject, String source, String oclID, String owner)
+			throws SQLException {
+		MBHConcept diagnostic = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+				MBHConcept.COLUMNNAME_BH_OclID + "=? AND " + MBHConcept.COLUMNNAME_BH_Source + " =?",
+				valueObject.getTransactionName()).setParameters(oclID, source).first();
+		if (diagnostic == null) {
+			diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+			diagnostic.setBH_Display_Name(valueObject.getStepMessage());
+			diagnostic.setIsActive(true);
+			diagnostic.setBH_ExternalID(String.valueOf(randomUUID()));
+			diagnostic.setOcl_Uuid(String.valueOf(randomUUID()));
+			diagnostic.setBH_OclID(oclID);
+			diagnostic.setBH_Owner(owner);
+			diagnostic.setBH_Source(source);
+			diagnostic.setURL("/orgs/" + owner + "/sources/" + source + "/concepts/" + oclID + "/");
+			diagnostic.saveEx();
+			commitEx();
+		}
+		return diagnostic;
+	}
+
+	private void createNVisitsForThisDiagnosticWithValue(ChuBoePopulateVO valueObject, int numberOfVisits,
+			MBHConcept diagnostic, String diagnosticValue) throws SQLException {
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberOfVisits, null, null, diagnostic,
+				diagnosticValue);
+	}
+
+	private void createNVisitsWithAPatientLikeForThisDiagnosticWithValue(ChuBoePopulateVO valueObject,
+			int numberOfVisits, String patientGender, Timestamp patientBirthday, MBHConcept diagnostic,
+			String diagnosticValue) throws SQLException {
+		String stepName = "Create a patient";
+		if (!StringUtil.isNullOrEmpty(patientGender)) {
+			stepName += " with gender " + patientGender;
+		}
+		if (patientBirthday != null) {
+			stepName += " with birthday " + patientBirthday;
+		}
+		valueObject.setStepName(stepName);
+		valueObject.clearBusinessPartner();
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		if (!StringUtil.isNullOrEmpty(patientGender)) {
+			valueObject.getBusinessPartner().setbh_gender(patientGender);
+		}
+		if (patientBirthday != null) {
+			valueObject.getBusinessPartner().setBH_Birthday(patientBirthday);
+		}
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create a visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create encounter");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create diagnostics");
+		for (int i = 0; i < numberOfVisits; i++) {
+			MBHEncounterDiagnostic encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
+					valueObject.getTransactionName());
+			encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+			encounterDiagnostic.setBH_Concept_ID(diagnostic.get_ID());
+			encounterDiagnostic.setBH_Value(diagnosticValue);
+			encounterDiagnostic.setLineNo((i + 1) * 10);
+			encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
+			encounterDiagnostic.saveEx();
+			commitEx();
 		}
 	}
 }
