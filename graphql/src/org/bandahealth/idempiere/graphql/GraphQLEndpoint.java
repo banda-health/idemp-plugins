@@ -93,7 +93,7 @@ public class GraphQLEndpoint extends GraphQLHttpServlet {
 				= new DataLoaderDispatcherInstrumentation(options);
 		List<Instrumentation> instrumentationList = new ArrayList<>();
 		if (MSystem.get(Env.getCtx()).getSystemStatus().equals(MSystem.SYSTEMSTATUS_Production)) {
-			instrumentationList.add(new MaxQueryDepthInstrumentation(8));
+			instrumentationList.add(new MaxQueryDepthInstrumentation(12));
 		}
 		instrumentationList.add(new LoggingInstrumentation());
 		// This is to make sure that each thread accurately gets the right context
