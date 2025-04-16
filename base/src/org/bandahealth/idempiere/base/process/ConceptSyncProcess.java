@@ -499,6 +499,7 @@ public class ConceptSyncProcess extends SvrProcess {
 			foundConceptName.setBH_Concept_Name_Type(oclConceptName.getNameType());
 			foundConceptName.setBH_Concept_Locale_Preferred(oclConceptName.isLocalePreferred());
 			foundConceptName.saveEx();
+			conceptNamesByOclUU.put(oclConceptName.getUuid(), foundConceptName);
 		});
 
 		// Deactivate names that are no longer used (if we followed child mappings because then we could have compressed
@@ -519,9 +520,8 @@ public class ConceptSyncProcess extends SvrProcess {
 		// get concept descriptions
 		List<MBHConceptDescription> conceptDescriptions = new Query(getCtx(), MBHConceptDescription.Table_Name,
 				MBHConceptDescription.COLUMNNAME_BH_Concept_ID + "=?", get_TrxName()).setParameters(conceptID).list();
-		Map<String, MBHConceptDescription> conceptDescriptionsByOclUU =
-				conceptDescriptions.stream()
-						.collect(Collectors.toMap(MBHConceptDescription::getOcl_Uuid, conceptName -> conceptName));
+		Map<String, MBHConceptDescription> conceptDescriptionsByOclUU = conceptDescriptions.stream()
+				.collect(Collectors.toMap(MBHConceptDescription::getOcl_Uuid, conceptDescription -> conceptDescription));
 		conceptFromOcl.getDescriptionsByLanguageAndType().values().stream().flatMap(Collection::stream)
 				.forEach(oclConceptDescription -> {
 					// search name in db list
@@ -544,6 +544,7 @@ public class ConceptSyncProcess extends SvrProcess {
 					conceptDescription.setBH_Concept_Description_Type(oclConceptDescription.getDescriptionType());
 					conceptDescription.setBH_Concept_Locale_Preferred(oclConceptDescription.isLocalePreferred());
 					conceptDescription.saveEx();
+					conceptDescriptionsByOclUU.put(conceptDescription.getOcl_Uuid(), conceptDescription);
 				});
 
 		// Deactivate descriptions that are no longer used (if we followed child mappings because then we could have
