@@ -429,15 +429,15 @@ SELECT
 			                                                                           WHEN patient.bh_gender = 'male'
 				                                                                           THEN CASE
 					                                                                                WHEN patient_age.years < 15
-						                                                                                THEN 300
+						                                                                                THEN 420
 					                                                                                WHEN patient_age.years < 17
-						                                                                                THEN 80
+						                                                                                THEN 300
 					                                                                                ELSE 149 END
 			                                                                           ELSE CASE
 					                                                                                WHEN patient_age.years < 15
-						                                                                                THEN 116
+						                                                                                THEN 255
 					                                                                                WHEN patient_age.years < 17
-						                                                                                THEN 50
+						                                                                                THEN 116
 					                                                                                ELSE 87 END
 			END )                                                                                                           AS alkaline_phosphatase_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
