@@ -487,14 +487,179 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create alkaline phosphatase concept if it doesn't exist");
 		diagnostic = getOrCreateConcept(valueObject, "CIEL", "785", "CIEL");
-		int numberAlkalinePhosphataseLow = (int) Math.floor(Math.random() * 5) + 1;
-		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseLow, diagnostic, "29");
-		int numberAlkalinePhosphataseNormalLow = (int) Math.floor(Math.random() * 5) + 1;
-		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseNormalLow, diagnostic, "30");
-		int numberAlkalinePhosphataseNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
-		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseNormalHigh, diagnostic, "120");
-		int numberAlkalinePhosphataseHigh = (int) Math.floor(Math.random() * 5) + 1;
-		createNVisitsForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseHigh, diagnostic, "121");
+		newbornBirthday = TimestampUtils.addToNow(Calendar.DATE, -15);
+		int numberAlkalinePhosphataseNewbornLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseNewbornLow, null,
+				newbornBirthday, diagnostic, "82");
+		int numberAlkalinePhosphataseNewbornNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseNewbornNormalLow,
+				null,
+				newbornBirthday, diagnostic, "83");
+		int numberAlkalinePhosphataseNewbornNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseNewbornNormalHigh,
+				null,
+				newbornBirthday, diagnostic, "380");
+		int numberAlkalinePhosphataseNewbornHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseNewbornHigh, null,
+				newbornBirthday, diagnostic, "381");
+		//
+		babyBirthday = TimestampUtils.addToNow(Calendar.MONTH, -6);
+		int numberAlkalinePhosphataseBabyLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseBabyLow, null,
+				babyBirthday,
+				diagnostic, "119");
+		int numberAlkalinePhosphataseBabyNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseBabyNormalLow, null,
+				babyBirthday, diagnostic, "120");
+		int numberAlkalinePhosphataseBabyNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseBabyNormalHigh, null,
+				babyBirthday, diagnostic, "470");
+		int numberAlkalinePhosphataseBabyHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseBabyHigh, null,
+				babyBirthday,
+				diagnostic, "471");
+		//
+		childBirthday = TimestampUtils.addToNow(Calendar.YEAR, -6);
+		int numberAlkalinePhosphataseChildLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseChildLow, null,
+				childBirthday,
+				diagnostic, "139");
+		int numberAlkalinePhosphataseChildNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseChildNormalLow, null,
+				childBirthday, diagnostic, "140");
+		int numberAlkalinePhosphataseChildNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseChildNormalHigh,
+				null,
+				childBirthday, diagnostic, "335");
+		int numberAlkalinePhosphataseChildHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseChildHigh, null,
+				childBirthday, diagnostic, "336");
+		//
+		Timestamp tweenBirthday = TimestampUtils.addToNow(Calendar.YEAR, -11);
+		int numberAlkalinePhosphataseTweenLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseTweenLow, null,
+				tweenBirthday,
+				diagnostic, "129");
+		int numberAlkalinePhosphataseTweenNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseTweenNormalLow, null,
+				tweenBirthday, diagnostic, "130");
+		int numberAlkalinePhosphataseTweenNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseTweenNormalHigh,
+				null,
+				tweenBirthday, diagnostic, "420");
+		int numberAlkalinePhosphataseTweenHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseTweenHigh, null,
+				tweenBirthday, diagnostic, "421");
+		//
+		Timestamp youngTeenagerBirthday = TimestampUtils.addToNow(Calendar.YEAR, -14);
+		int numberAlkalinePhosphataseYoungTeenagerBoyLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseYoungTeenagerBoyLow,
+				MBPartner_BH.BH_GENDER_Male, youngTeenagerBirthday, diagnostic, "114");
+		int numberAlkalinePhosphataseYoungTeenagerBoyNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseYoungTeenagerBoyNormalLow,
+				MBPartner_BH.BH_GENDER_Male, youngTeenagerBirthday, diagnostic, "115");
+		int numberAlkalinePhosphataseYoungTeenagerBoyNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseYoungTeenagerBoyNormalHigh,
+				MBPartner_BH.BH_GENDER_Male, youngTeenagerBirthday, diagnostic, "300");
+		int numberAlkalinePhosphataseYoungTeenagerBoyHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseYoungTeenagerBoyHigh,
+				MBPartner_BH.BH_GENDER_Male, youngTeenagerBirthday, diagnostic, "301");
+		int numberAlkalinePhosphataseYoungTeenagerGirlLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseYoungTeenagerGirlLow,
+				MBPartner_BH.BH_GENDER_Female, youngTeenagerBirthday, diagnostic, "51");
+		int numberAlkalinePhosphataseYoungTeenagerGirlNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseYoungTeenagerGirlNormalLow,
+				MBPartner_BH.BH_GENDER_Female, youngTeenagerBirthday, diagnostic, "52");
+		int numberAlkalinePhosphataseYoungTeenagerGirlNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseYoungTeenagerGirlNormalHigh,
+				MBPartner_BH.BH_GENDER_Female, youngTeenagerBirthday, diagnostic, "116");
+		int numberAlkalinePhosphataseYoungTeenagerGirlHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseYoungTeenagerGirlHigh,
+				MBPartner_BH.BH_GENDER_Female, youngTeenagerBirthday, diagnostic, "117");
+		//
+		Timestamp middleTeenagerBirthday = TimestampUtils.addToNow(Calendar.YEAR, -15);
+		int numberAlkalinePhosphataseMiddleTeenagerBoyLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseMiddleTeenagerBoyLow,
+				MBPartner_BH.BH_GENDER_Male, middleTeenagerBirthday, diagnostic, "79");
+		int numberAlkalinePhosphataseMiddleTeenagerBoyNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseMiddleTeenagerBoyNormalLow,
+				MBPartner_BH.BH_GENDER_Male, middleTeenagerBirthday, diagnostic, "80");
+		int numberAlkalinePhosphataseMiddleTeenagerBoyNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseMiddleTeenagerBoyNormalHigh,
+				MBPartner_BH.BH_GENDER_Male, middleTeenagerBirthday, diagnostic, "80");
+		int numberAlkalinePhosphataseMiddleTeenagerBoyHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseMiddleTeenagerBoyHigh,
+				MBPartner_BH.BH_GENDER_Male, middleTeenagerBirthday, diagnostic, "81");
+		int numberAlkalinePhosphataseMiddleTeenagerGirlLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseMiddleTeenagerGirlLow,
+				MBPartner_BH.BH_GENDER_Female, middleTeenagerBirthday, diagnostic, "49");
+		int numberAlkalinePhosphataseMiddleTeenagerGirlNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseMiddleTeenagerGirlNormalLow,
+				MBPartner_BH.BH_GENDER_Female, middleTeenagerBirthday, diagnostic, "50");
+		int numberAlkalinePhosphataseMiddleTeenagerGirlNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseMiddleTeenagerGirlNormalHigh,
+				MBPartner_BH.BH_GENDER_Female, middleTeenagerBirthday, diagnostic, "50");
+		int numberAlkalinePhosphataseMiddleTeenagerGirlHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseMiddleTeenagerGirlHigh,
+				MBPartner_BH.BH_GENDER_Female, middleTeenagerBirthday, diagnostic, "51");
+		//
+		Timestamp oldTeenagerBirthday = TimestampUtils.addToNow(Calendar.YEAR, -18);
+		int numberAlkalinePhosphataseOldTeenagerBoyLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseOldTeenagerBoyLow,
+				MBPartner_BH.BH_GENDER_Male, oldTeenagerBirthday, diagnostic, "54");
+		int numberAlkalinePhosphataseOldTeenagerBoyNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseOldTeenagerBoyNormalLow,
+				MBPartner_BH.BH_GENDER_Male, oldTeenagerBirthday, diagnostic, "55");
+		int numberAlkalinePhosphataseOldTeenagerBoyNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseOldTeenagerBoyNormalHigh,
+				MBPartner_BH.BH_GENDER_Male, oldTeenagerBirthday, diagnostic, "149");
+		int numberAlkalinePhosphataseOldTeenagerBoyHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseOldTeenagerBoyHigh,
+				MBPartner_BH.BH_GENDER_Male, oldTeenagerBirthday, diagnostic, "150");
+		int numberAlkalinePhosphataseOldTeenagerGirlLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseOldTeenagerGirlLow,
+				MBPartner_BH.BH_GENDER_Female, oldTeenagerBirthday, diagnostic, "44");
+		int numberAlkalinePhosphataseOldTeenagerGirlNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseOldTeenagerGirlNormalLow,
+				MBPartner_BH.BH_GENDER_Female, oldTeenagerBirthday, diagnostic, "45");
+		int numberAlkalinePhosphataseOldTeenagerGirlNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
+				numberAlkalinePhosphataseOldTeenagerGirlNormalHigh,
+				MBPartner_BH.BH_GENDER_Female, oldTeenagerBirthday, diagnostic, "87");
+		int numberAlkalinePhosphataseOldTeenagerGirlHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseOldTeenagerGirlHigh,
+				MBPartner_BH.BH_GENDER_Female, oldTeenagerBirthday, diagnostic, "88");
+		//
+		adultBirthday = TimestampUtils.addToNow(Calendar.YEAR, -30);
+		int numberAlkalinePhosphataseAdultLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseAdultLow, null,
+				adultBirthday,
+				diagnostic, "29");
+		int numberAlkalinePhosphataseAdultNormalLow = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseAdultNormalLow, null,
+				adultBirthday, diagnostic, "30");
+		int numberAlkalinePhosphataseAdultNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseAdultNormalHigh,
+				null,
+				adultBirthday, diagnostic, "130");
+		int numberAlkalinePhosphataseAdultHigh = (int) Math.floor(Math.random() * 5) + 1;
+		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseAdultHigh, null,
+				adultBirthday, diagnostic, "131");
 
 		valueObject.setStepName("Create total cholesterol concept if it doesn't exist");
 		diagnostic = getOrCreateConcept(valueObject, "CIEL", "1006", "CIEL");
@@ -694,8 +859,18 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 			label = "2.15 Alkaline Phosphatase";
 			data = bloodChemistryData.get(label);
 			originalData = originalBloodChemistryData.get(label);
-			assertEquals(originalData.get("Low") + numberAlkalinePhosphataseLow, data.get("Low"), label + " Low is correct");
-			assertEquals(originalData.get("High") + numberAlkalinePhosphataseHigh, data.get("High"),
+			assertEquals(originalData.get("Low") + numberAlkalinePhosphataseNewbornLow + numberAlkalinePhosphataseBabyLow +
+					numberAlkalinePhosphataseChildLow + numberAlkalinePhosphataseTweenLow +
+					numberAlkalinePhosphataseYoungTeenagerBoyLow + numberAlkalinePhosphataseYoungTeenagerGirlLow +
+					numberAlkalinePhosphataseMiddleTeenagerBoyLow + numberAlkalinePhosphataseMiddleTeenagerGirlLow +
+					numberAlkalinePhosphataseOldTeenagerBoyLow + numberAlkalinePhosphataseOldTeenagerGirlLow +
+					numberAlkalinePhosphataseAdultLow, data.get("Low"), label + " Low is correct");
+			assertEquals(originalData.get("High") + numberAlkalinePhosphataseNewbornHigh + numberAlkalinePhosphataseBabyHigh +
+							numberAlkalinePhosphataseChildHigh + numberAlkalinePhosphataseTweenHigh +
+							numberAlkalinePhosphataseYoungTeenagerBoyHigh + numberAlkalinePhosphataseYoungTeenagerGirlHigh +
+							numberAlkalinePhosphataseMiddleTeenagerBoyHigh + numberAlkalinePhosphataseMiddleTeenagerGirlHigh +
+							numberAlkalinePhosphataseOldTeenagerBoyHigh + numberAlkalinePhosphataseOldTeenagerGirlHigh +
+							numberAlkalinePhosphataseAdultHigh, data.get("High"),
 					label + " high is correct");
 			//
 			label = "2.17 Total cholesterol";
