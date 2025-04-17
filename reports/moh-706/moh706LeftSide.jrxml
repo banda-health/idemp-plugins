@@ -398,14 +398,48 @@ SELECT
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/785/' )                                           AS alkaline_phosphatase_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/785/' AND
-		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric <
-		                           30 )                                                                                                            AS alkaline_phosphatase_low,
+		                           csam.url IS NOT NULL AND ed.bh_value::numeric < CASE
+			                                                                           WHEN patient_age.months = 0 THEN 83
+			                                                                           WHEN patient_age.years = 0 THEN 120
+			                                                                           WHEN patient_age.years < 10 THEN 140
+			                                                                           WHEN patient_age.years < 13 THEN 130
+			                                                                           WHEN patient_age.years > 18 THEN 30
+			                                                                           WHEN patient.bh_gender = 'male'
+				                                                                           THEN CASE
+					                                                                                WHEN patient_age.years < 15
+						                                                                                THEN 115
+					                                                                                WHEN patient_age.years < 17
+						                                                                                THEN 80
+					                                                                                ELSE 55 END
+			                                                                           ELSE CASE
+					                                                                                WHEN patient_age.years < 15
+						                                                                                THEN 52
+					                                                                                WHEN patient_age.years < 17
+						                                                                                THEN 50
+					                                                                                ELSE 45 END
+			END )                                                                                                                                    AS alkaline_phosphatase_low,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/785/' AND
-		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
-		                           120 )                                                                                                           AS alkaline_phosphatase_high,
+		                           csam.url IS NOT NULL  AND ed.bh_value::numeric > CASE
+			                                                                           WHEN patient_age.months = 0 THEN 380
+			                                                                           WHEN patient_age.years = 0 THEN 470
+			                                                                           WHEN patient_age.years < 10 THEN 335
+			                                                                           WHEN patient_age.years < 13 THEN 420
+			                                                                           WHEN patient_age.years > 18 THEN 130
+			                                                                           WHEN patient.bh_gender = 'male'
+				                                                                           THEN CASE
+					                                                                                WHEN patient_age.years < 15
+						                                                                                THEN 300
+					                                                                                WHEN patient_age.years < 17
+						                                                                                THEN 80
+					                                                                                ELSE 149 END
+			                                                                           ELSE CASE
+					                                                                                WHEN patient_age.years < 15
+						                                                                                THEN 116
+					                                                                                WHEN patient_age.years < 17
+						                                                                                THEN 50
+					                                                                                ELSE 87 END
+			END )                                                                                                           AS alkaline_phosphatase_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/1006/' )                                          AS total_cholesterol_total,
 
@@ -413,7 +447,7 @@ SELECT
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/1006/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           5.17 )                                                                                                          AS total_cholesterol_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/1009/' )                                          AS triglycerides_total,
@@ -422,7 +456,7 @@ SELECT
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/1009/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           2.26 )                                                                                                          AS triglycerides_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/1008/' )                                          AS ldl_total,
@@ -431,7 +465,7 @@ SELECT
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/1008/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           3.4 )                                                                                                           AS ldl_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/161503/' )                                        AS t3_total,
@@ -439,12 +473,12 @@ SELECT
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/161503/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric <
+		                           ed.bh_value::NUMERIC <
 		                           0.2 )                                                                                                           AS t3_low,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/161503/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           0.5 )                                                                                                           AS t3_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/161504/' )                                        AS t4_total,
@@ -452,12 +486,12 @@ SELECT
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/161504/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric <
+		                           ed.bh_value::NUMERIC <
 		                           4.5 )                                                                                                           AS t4_low,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/161504/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           12.5 )                                                                                                          AS t4_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/168213/' )                                        AS tsh_total,
@@ -465,54 +499,54 @@ SELECT
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/168213/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric <
+		                           ed.bh_value::NUMERIC <
 		                           0.4 )                                                                                                           AS tsh_low,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/168213/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           4.5 )                                                                                                           AS tsh_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160913/' )                                        AS psa_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160913/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           4 )                                                                                                             AS psa_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160920/' )                                        AS ca15_3_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160920/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           30 )                                                                                                            AS ca15_3_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160921/' )                                        AS ca19_9_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160921/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           37 )                                                                                                            AS ca19_9_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160919/' )                                        AS ca125_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160919/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           35 )                                                                                                            AS ca125_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160915/' )                                        AS cea_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160915/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           3 )                                                                                                             AS cea_high,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160917/' )                                        AS afp_total,
 		COUNT(ed.*) FILTER ( WHERE ed.bh_value IS NOT NULL AND csam.url =
 		                                                       '/orgs/CIEL/sources/CIEL/concepts/160917/' AND
 		                           csam.url IS NOT NULL AND
-		                           ed.bh_value::numeric >
+		                           ed.bh_value::NUMERIC >
 		                           10 )                                                                                                            AS afp_high
 FROM
 	ad_client cl
