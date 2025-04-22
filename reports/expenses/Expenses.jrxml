@@ -12,12 +12,13 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 11"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF" isBold="true">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF" isBold="true">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
@@ -100,22 +101,6 @@ WHERE
 	<title>
 		<band height="80" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField>
-				<reportElement x="23" y="50" width="508" height="20" uuid="e69fc875-5848-46f9-86f2-7d3d7ca3ff4a">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box leftPadding="2">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Report as of: " + new SimpleDateFormat("d MMM, YYYY").format(new Date()) +
- " at " +  new SimpleDateFormat("HH:mm").format(new Date())]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="22" y="0" width="510" height="30" uuid="675790b2-49c1-40db-963c-3e81130e8ee5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -140,25 +125,41 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA["Expenses Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="330" y="60" width="100" height="15" uuid="99a63167-6bd3-43f7-a868-0d08753b3f16">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expenses Total:]]></text>
+			</staticText>
+			<textField evaluationTime="Report" pattern="#,##0.00">
+				<reportElement mode="Opaque" x="430" y="60" width="125" height="15" backcolor="#969696" uuid="25cfa4bd-0492-4f87-821a-7360c0e7d70f"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalExpenses}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>
 		<band height="26" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement style="table_TH" x="0" y="0" width="90" height="26" uuid="896186b4-8991-4d3a-bb88-af454d1a9256"/>
+				<reportElement style="table_CH" x="0" y="0" width="90" height="26" uuid="896186b4-8991-4d3a-bb88-af454d1a9256"/>
 				<box leftPadding="3" rightPadding="3"/>
 				<textElement verticalAlignment="Bottom"/>
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TH" x="90" y="0" width="120" height="26" uuid="1ea687d4-fcb0-4354-b1f3-53f4e3bebd72"/>
+				<reportElement style="table_CH" x="90" y="0" width="120" height="26" uuid="1ea687d4-fcb0-4354-b1f3-53f4e3bebd72"/>
 				<box leftPadding="3" rightPadding="3"/>
 				<textElement verticalAlignment="Bottom"/>
 				<text><![CDATA[Expense Category]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TH" x="210" y="0" width="120" height="26" uuid="cd821adb-a3fb-4237-a1ac-86cda2ad0d4b">
+				<reportElement style="table_CH" x="210" y="0" width="120" height="26" uuid="cd821adb-a3fb-4237-a1ac-86cda2ad0d4b">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box leftPadding="3" rightPadding="3"/>
@@ -166,7 +167,7 @@ WHERE
 				<text><![CDATA[Supplier]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TH" x="330" y="0" width="90" height="26" uuid="1ca33399-ffa6-4770-80ca-17d088bf55d5">
+				<reportElement style="table_CH" x="330" y="0" width="90" height="26" uuid="1ca33399-ffa6-4770-80ca-17d088bf55d5">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box leftPadding="3" rightPadding="3"/>
@@ -174,7 +175,7 @@ WHERE
 				<text><![CDATA[Tracked By]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TH" x="420" y="0" width="80" height="26" uuid="873a98e9-8850-492e-a51a-7be4252d7025">
+				<reportElement style="table_CH" x="420" y="0" width="80" height="26" uuid="873a98e9-8850-492e-a51a-7be4252d7025">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -183,7 +184,7 @@ WHERE
 				<text><![CDATA[Payment Method]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TH" x="500" y="0" width="55" height="26" uuid="f81cdc64-61fb-4a08-a37c-d6eba7e551fe">
+				<reportElement style="table_CH" x="500" y="0" width="55" height="26" uuid="f81cdc64-61fb-4a08-a37c-d6eba7e551fe">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -217,7 +218,7 @@ WHERE
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box leftPadding="3" rightPadding="3"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{supplier_name}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
@@ -236,7 +237,7 @@ WHERE
 				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{payment_method}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight">
+			<textField textAdjust="StretchHeight" pattern="#,##0.00">
 				<reportElement style="table_TD" stretchType="ContainerHeight" x="500" y="0" width="55" height="15" uuid="5c6666c2-1d49-4257-80cc-5923fb9b6b98">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -246,25 +247,20 @@ WHERE
 			</textField>
 		</band>
 	</detail>
-	<summary>
-		<band height="50" splitType="Stretch">
+	<pageFooter>
+		<band height="26">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<staticText>
-				<reportElement x="330" y="18" width="100" height="15" uuid="8d4dd71e-ec3d-4760-b22d-e8b26211bfb5">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box rightPadding="3"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Expenses Total:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="430" y="18" width="125" height="15" uuid="8fbf6944-9429-4dc2-8e23-fe800ca60349"/>
-				<box rightPadding="3"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{totalExpenses}]]></textFieldExpression>
+				<reportElement x="0" y="10" width="259" height="16" uuid="8eeb961b-0f39-4659-ab4e-ab23edc02464">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 		</band>
-	</summary>
+	</pageFooter>
 </jasperReport>
