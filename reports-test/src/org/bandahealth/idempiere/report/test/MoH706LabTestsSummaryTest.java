@@ -562,10 +562,10 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		int numberAlkalinePhosphataseYoungTeenagerBoyNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
 		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
 				numberAlkalinePhosphataseYoungTeenagerBoyNormalHigh,
-				MBPartner_BH.BH_GENDER_Male, youngTeenagerBirthday, diagnostic, "300");
+				MBPartner_BH.BH_GENDER_Male, youngTeenagerBirthday, diagnostic, "420");
 		int numberAlkalinePhosphataseYoungTeenagerBoyHigh = (int) Math.floor(Math.random() * 5) + 1;
 		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseYoungTeenagerBoyHigh,
-				MBPartner_BH.BH_GENDER_Male, youngTeenagerBirthday, diagnostic, "301");
+				MBPartner_BH.BH_GENDER_Male, youngTeenagerBirthday, diagnostic, "421");
 		int numberAlkalinePhosphataseYoungTeenagerGirlLow = (int) Math.floor(Math.random() * 5) + 1;
 		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject, numberAlkalinePhosphataseYoungTeenagerGirlLow,
 				MBPartner_BH.BH_GENDER_Female, youngTeenagerBirthday, diagnostic, "51");
@@ -576,11 +576,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		int numberAlkalinePhosphataseYoungTeenagerGirlNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
 		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
 				numberAlkalinePhosphataseYoungTeenagerGirlNormalHigh,
-				MBPartner_BH.BH_GENDER_Female, youngTeenagerBirthday, diagnostic, "116");
+				MBPartner_BH.BH_GENDER_Female, youngTeenagerBirthday, diagnostic, "255");
 		int numberAlkalinePhosphataseYoungTeenagerGirlHigh = (int) Math.floor(Math.random() * 5) + 1;
 		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
 				numberAlkalinePhosphataseYoungTeenagerGirlHigh,
-				MBPartner_BH.BH_GENDER_Female, youngTeenagerBirthday, diagnostic, "117");
+				MBPartner_BH.BH_GENDER_Female, youngTeenagerBirthday, diagnostic, "256");
 		//
 		Timestamp middleTeenagerBirthday = TimestampUtils.addToNow(Calendar.YEAR, -15);
 		int numberAlkalinePhosphataseMiddleTeenagerBoyLow = (int) Math.floor(Math.random() * 5) + 1;
@@ -593,11 +593,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		int numberAlkalinePhosphataseMiddleTeenagerBoyNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
 		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
 				numberAlkalinePhosphataseMiddleTeenagerBoyNormalHigh,
-				MBPartner_BH.BH_GENDER_Male, middleTeenagerBirthday, diagnostic, "80");
+				MBPartner_BH.BH_GENDER_Male, middleTeenagerBirthday, diagnostic, "300");
 		int numberAlkalinePhosphataseMiddleTeenagerBoyHigh = (int) Math.floor(Math.random() * 5) + 1;
 		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
 				numberAlkalinePhosphataseMiddleTeenagerBoyHigh,
-				MBPartner_BH.BH_GENDER_Male, middleTeenagerBirthday, diagnostic, "81");
+				MBPartner_BH.BH_GENDER_Male, middleTeenagerBirthday, diagnostic, "301");
 		int numberAlkalinePhosphataseMiddleTeenagerGirlLow = (int) Math.floor(Math.random() * 5) + 1;
 		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
 				numberAlkalinePhosphataseMiddleTeenagerGirlLow,
@@ -609,11 +609,11 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 		int numberAlkalinePhosphataseMiddleTeenagerGirlNormalHigh = (int) Math.floor(Math.random() * 5) + 1;
 		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
 				numberAlkalinePhosphataseMiddleTeenagerGirlNormalHigh,
-				MBPartner_BH.BH_GENDER_Female, middleTeenagerBirthday, diagnostic, "50");
+				MBPartner_BH.BH_GENDER_Female, middleTeenagerBirthday, diagnostic, "116");
 		int numberAlkalinePhosphataseMiddleTeenagerGirlHigh = (int) Math.floor(Math.random() * 5) + 1;
 		createNVisitsWithAPatientLikeForThisDiagnosticWithValue(valueObject,
 				numberAlkalinePhosphataseMiddleTeenagerGirlHigh,
-				MBPartner_BH.BH_GENDER_Female, middleTeenagerBirthday, diagnostic, "51");
+				MBPartner_BH.BH_GENDER_Female, middleTeenagerBirthday, diagnostic, "117");
 		//
 		Timestamp oldTeenagerBirthday = TimestampUtils.addToNow(Calendar.YEAR, -18);
 		int numberAlkalinePhosphataseOldTeenagerBoyLow = (int) Math.floor(Math.random() * 5) + 1;

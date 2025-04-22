@@ -136,7 +136,9 @@ public class ConceptSyncProcess extends SvrProcess {
 		List<OCLConcept> allOclConceptsFromSource = new ArrayList<>();
 		//
 		// If we're filtering to the specific IDs, go and get those
+		boolean areFilteringByID = false;
 		if (sourceIDFilter != null && !sourceIDFilter.isEmpty() && !sourceIDFilter.isBlank()) {
+			areFilteringByID = true;
 			String[] conceptIDs = sourceIDFilter.split(",");
 			int counter = 1;
 			for (String conceptID : conceptIDs) {
@@ -230,7 +232,7 @@ public class ConceptSyncProcess extends SvrProcess {
 		parameters = new ArrayList<>();
 		parameters.add(source);
 		String whereClause = MBHOclOriginatingSource.COLUMNNAME_BH_Ocl_Source + "=?";
-		if (!savedSourceConcepts.isEmpty()) {
+		if (!savedSourceConcepts.isEmpty() && !areFilteringByID) {
 			inClause = QueryUtil.getWhereClauseAndSetParametersForSet(savedSourceConcepts, parameters);
 			whereClause += " AND " + MBHOclOriginatingSource.COLUMNNAME_BH_Concept_ID + " NOT IN (" + inClause + ")";
 		}
