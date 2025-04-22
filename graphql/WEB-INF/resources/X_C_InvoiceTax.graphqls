@@ -1,6 +1,6 @@
 # Generated Schema for C_InvoiceTax - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_InvoiceTax(UU: String!): C_InvoiceTax
 	C_InvoiceTaxGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceTaxConnection!

@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_Encounter_Diagnosis;
  * Generated Interface for BH_Encounter_Diagnosis - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_BH_Encounter_DiagnosisInput extends I_BH_Encounter_Diagnosis {
 

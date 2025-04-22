@@ -6,7 +6,7 @@ import org.compiere.model.I_M_ChangeRequest;
  * Generated Interface for M_ChangeRequest - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_M_ChangeRequestInput extends I_M_ChangeRequest {
 

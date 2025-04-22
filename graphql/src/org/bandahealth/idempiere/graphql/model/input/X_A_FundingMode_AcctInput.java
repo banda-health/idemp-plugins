@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for A_FundingMode_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I_A_FundingMode_AcctInput {
 

@@ -66,6 +66,26 @@ public class TableUtils {
 	}
 
 	/**
+	 * Provided the header row of a table, get the column index for the column with the specified header text
+	 *
+	 * @param headerRow        The header row of the table
+	 * @param columnHeaderText The header text of the desired column
+	 * @return The column index
+	 */
+	public static int getColumnIndex(Row headerRow, double columnHeaderText) {
+		int columnIndex = -1;
+		for (int i = headerRow.getFirstCellNum(); i < headerRow.getLastCellNum(); i++) {
+			if (headerRow.getCell(i) != null && headerRow.getCell(i).getCellType().equals(CellType.NUMERIC) &&
+					headerRow.getCell(i).getNumericCellValue() == columnHeaderText) {
+				columnIndex = i;
+				break;
+			}
+		}
+		assertTrue(columnIndex > -1, columnHeaderText + " column exists");
+		return columnIndex;
+	}
+
+	/**
 	 * Provided the header row of a table, get the column index for the column containing the specified header text
 	 *
 	 * @param headerRow        The header row of the table

@@ -24,7 +24,7 @@ import java.sql.ResultSet;
  * Generated Model for T_BOMLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 

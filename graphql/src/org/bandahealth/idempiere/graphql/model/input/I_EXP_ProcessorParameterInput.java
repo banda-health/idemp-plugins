@@ -6,7 +6,7 @@ import org.compiere.model.I_EXP_ProcessorParameter;
  * Generated Interface for EXP_ProcessorParameter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_EXP_ProcessorParameterInput extends I_EXP_ProcessorParameter {
 

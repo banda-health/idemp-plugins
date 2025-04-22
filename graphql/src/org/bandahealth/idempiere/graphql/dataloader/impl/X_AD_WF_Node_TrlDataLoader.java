@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for AD_WF_Node_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_WF_Node_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_AD_WF_Node_Trl_BY_ID = "AD_WF_Node_TrlByIdDataLoader";

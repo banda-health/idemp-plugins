@@ -6,7 +6,7 @@ import org.compiere.model.X_CM_ChatTypeUpdate;
  * Data Loader for CM_ChatTypeUpdate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_CM_ChatTypeUpdateDataLoader extends PODataLoader<X_CM_ChatTypeUpdate> {
 	public static String DATALOADER_CM_ChatTypeUpdate_BY_ID = "CM_ChatTypeUpdateByIdDataLoader";

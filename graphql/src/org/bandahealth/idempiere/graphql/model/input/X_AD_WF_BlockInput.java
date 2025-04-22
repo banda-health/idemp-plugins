@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_WF_Block - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockInput {
 

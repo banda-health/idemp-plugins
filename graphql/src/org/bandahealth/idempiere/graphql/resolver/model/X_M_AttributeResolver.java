@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_Attribute - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_AttributeResolver extends POResolver<MAttribute> implements GraphQLResolver<MAttribute> {
 
@@ -79,6 +79,7 @@ public class X_M_AttributeResolver extends POResolver<MAttribute> implements Gra
 			put("L", "ce8ac306-42ef-47f8-bb62-2b52a0b6468e"); // List
 			put("D", "34c7fbc0-6718-433e-a55c-6d203496e06a"); // Date
 			put("R", "57503d9a-9bd2-4eb9-b2cf-1f43dc144dcc"); // Reference
+			put("C", "e596bc0d-980b-4751-8bbf-c7b5fdf20bfa"); // Chosen Multiple Selection List
 		}
 	};
 	public CompletableFuture<MRefList_BH> AttributeValueType(MAttribute entity, DataFetchingEnvironment environment) {

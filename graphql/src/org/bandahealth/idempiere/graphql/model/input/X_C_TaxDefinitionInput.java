@@ -25,7 +25,7 @@ import java.sql.ResultSet;
  * Generated Model for C_TaxDefinition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_TaxDefinitionInput {
 

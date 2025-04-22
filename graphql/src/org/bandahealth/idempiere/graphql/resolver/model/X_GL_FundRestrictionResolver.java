@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for GL_FundRestriction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_GL_FundRestrictionResolver extends POResolver<X_GL_FundRestriction> implements GraphQLResolver<X_GL_FundRestriction> {
 

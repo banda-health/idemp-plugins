@@ -6,7 +6,7 @@ import org.eevolution.model.X_PP_WF_Node_Asset;
  * Data Loader for PP_WF_Node_Asset - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_WF_Node_AssetDataLoader extends PODataLoader<X_PP_WF_Node_Asset> {
 	public static String DATALOADER_PP_WF_Node_Asset_BY_ID = "PP_WF_Node_AssetByIdDataLoader";

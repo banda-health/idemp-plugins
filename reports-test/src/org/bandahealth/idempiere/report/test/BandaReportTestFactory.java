@@ -18,6 +18,7 @@ public class BandaReportTestFactory implements IChuBoePopulateFactory {
 		tests.add(new DailyCashierCollectionsTest());
 		tests.add(new DiagnosisReportTest());
 		tests.add(new DonorFundReportTest());
+		tests.add(new ExpensesTest());
 		tests.add(new ExpiredProductListTest());
 		tests.add(new IncomeAndExpensesTest());
 		tests.add(new InventoryQuantityReportTest());
@@ -29,6 +30,8 @@ public class BandaReportTestFactory implements IChuBoePopulateFactory {
 		tests.add(new OpenBalanceListTest());
 		tests.add(new OpenBalanceInvoiceTest());
 		tests.add(new OpenBalanceReceiptTest());
+		tests.add(new OTCSalesTest());
+		tests.add(new PatientsTest());
 		tests.add(new PatientTransactionsTest());
 		tests.add(new PatientVisitsAndReferralsTest());
 		tests.add(new PaymentTrailTest());

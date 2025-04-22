@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 

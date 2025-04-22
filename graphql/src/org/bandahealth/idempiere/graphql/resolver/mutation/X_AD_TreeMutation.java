@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for AD_Tree - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_TreeMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

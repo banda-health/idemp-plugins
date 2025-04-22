@@ -19,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for RV_WarehousePrice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_RV_WarehousePriceResolver extends POResolver<MWarehousePrice> implements GraphQLResolver<MWarehousePrice> {
 

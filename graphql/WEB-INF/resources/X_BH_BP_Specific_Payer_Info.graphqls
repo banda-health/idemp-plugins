@@ -1,6 +1,6 @@
 # Generated Schema for BH_BP_Specific_Payer_Info - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	BH_BP_Specific_Payer_Info(UU: String!): BH_BP_Specific_Payer_Info
 	BH_BP_Specific_Payer_InfoGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_BP_Specific_Payer_InfoConnection!

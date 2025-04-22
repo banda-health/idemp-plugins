@@ -6,7 +6,7 @@ import org.compiere.model.I_C_ChargeType;
  * Generated Interface for C_ChargeType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_ChargeTypeInput extends I_C_ChargeType {
 

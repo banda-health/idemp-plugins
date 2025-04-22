@@ -1,6 +1,6 @@
 # Generated Schema for C_Calendar - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Calendar(UU: String!): C_Calendar
 	C_CalendarGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CalendarConnection!

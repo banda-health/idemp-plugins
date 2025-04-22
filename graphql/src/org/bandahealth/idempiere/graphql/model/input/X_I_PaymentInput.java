@@ -24,7 +24,7 @@ import java.sql.ResultSet;
  * Generated Model for I_Payment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 

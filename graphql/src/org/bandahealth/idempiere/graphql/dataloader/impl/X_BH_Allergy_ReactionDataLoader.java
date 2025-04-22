@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHAllergyReaction;
  * Data Loader for BH_Allergy_Reaction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_Allergy_ReactionDataLoader extends PODataLoader<MBHAllergyReaction> {
 	public static String DATALOADER_BH_Allergy_Reaction_BY_ID = "BH_Allergy_ReactionByIdDataLoader";

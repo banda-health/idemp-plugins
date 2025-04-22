@@ -6,7 +6,7 @@ import org.eevolution.model.I_HR_PayrollConcept;
  * Generated Interface for HR_PayrollConcept - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_HR_PayrollConceptInput extends I_HR_PayrollConcept {
 

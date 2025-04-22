@@ -19,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for HR_Period - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_HR_PeriodResolver extends POResolver<X_HR_Period> implements GraphQLResolver<X_HR_Period> {
 

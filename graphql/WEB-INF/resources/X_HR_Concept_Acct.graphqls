@@ -1,6 +1,6 @@
 # Generated Schema for HR_Concept_Acct - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	HR_Concept_Acct(UU: String!): HR_Concept_Acct
 	HR_Concept_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_Concept_AcctConnection!

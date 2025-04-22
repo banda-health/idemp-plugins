@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Addition - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	A_Asset_Addition(UU: String!): A_Asset_Addition
 	A_Asset_AdditionGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_AdditionConnection!

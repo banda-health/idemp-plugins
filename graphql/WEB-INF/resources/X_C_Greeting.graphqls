@@ -1,6 +1,6 @@
 # Generated Schema for C_Greeting - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Greeting(UU: String!): C_Greeting
 	C_GreetingGet(Page: Int, Size: Int, Sort: String, Filter: String): C_GreetingConnection!

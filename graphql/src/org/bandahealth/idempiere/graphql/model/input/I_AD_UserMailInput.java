@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_UserMail;
  * Generated Interface for AD_UserMail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_UserMailInput extends I_AD_UserMail {
 

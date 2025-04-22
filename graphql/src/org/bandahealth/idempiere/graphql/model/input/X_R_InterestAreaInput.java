@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for R_InterestArea - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_R_InterestAreaInput extends MInterestArea implements I_R_InterestAreaInput {
 

@@ -1,6 +1,6 @@
 # Generated Schema for C_Subscription - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Subscription(UU: String!): C_Subscription
 	C_SubscriptionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_SubscriptionConnection!

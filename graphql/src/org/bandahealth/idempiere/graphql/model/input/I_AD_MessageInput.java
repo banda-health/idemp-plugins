@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Message;
  * Generated Interface for AD_Message - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_MessageInput extends I_AD_Message {
 

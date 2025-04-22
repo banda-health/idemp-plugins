@@ -6,7 +6,7 @@ import org.compiere.model.MAuthorizationCredential;
  * Data Loader for AD_AuthorizationCredential - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_AuthorizationCredentialDataLoader extends PODataLoader<MAuthorizationCredential> {
 	public static String DATALOADER_AD_AuthorizationCredential_BY_ID = "AD_AuthorizationCredentialByIdDataLoader";

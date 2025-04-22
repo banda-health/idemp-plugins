@@ -6,7 +6,7 @@ import org.compiere.model.X_I_PriceList;
  * Data Loader for I_PriceList - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_PriceListDataLoader extends PODataLoader<X_I_PriceList> {
 	public static String DATALOADER_I_PriceList_BY_ID = "I_PriceListByIdDataLoader";

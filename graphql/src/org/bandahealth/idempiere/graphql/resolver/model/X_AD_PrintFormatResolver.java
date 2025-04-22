@@ -34,7 +34,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_PrintFormat - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> implements GraphQLResolver<X_AD_PrintFormat> {
 

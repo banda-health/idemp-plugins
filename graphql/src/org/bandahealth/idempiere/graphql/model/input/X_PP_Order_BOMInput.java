@@ -22,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_Order_BOM - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BOMInput {
 

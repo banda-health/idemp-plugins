@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Recurring_Run - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_Recurring_RunResolver extends POResolver<MRecurringRun> implements GraphQLResolver<MRecurringRun> {
 

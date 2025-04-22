@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for IMP_Processor_Type - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_IMP_Processor_TypeQuery extends POQuery<X_IMP_Processor_Type> implements GraphQLQueryResolver {
 	@Override

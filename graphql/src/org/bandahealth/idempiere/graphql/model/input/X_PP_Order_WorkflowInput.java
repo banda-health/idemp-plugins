@@ -26,7 +26,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_Order_Workflow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_PP_Order_WorkflowInput {
 

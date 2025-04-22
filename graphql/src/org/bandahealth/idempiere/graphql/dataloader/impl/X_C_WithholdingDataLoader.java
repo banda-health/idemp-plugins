@@ -6,7 +6,7 @@ import org.compiere.model.MWithholding;
  * Data Loader for C_Withholding - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_WithholdingDataLoader extends PODataLoader<MWithholding> {
 	public static String DATALOADER_C_Withholding_BY_ID = "C_WithholdingByIdDataLoader";

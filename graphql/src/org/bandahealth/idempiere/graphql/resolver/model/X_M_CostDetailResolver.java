@@ -37,7 +37,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_CostDetail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements GraphQLResolver<MCostDetail> {
 
@@ -100,6 +100,10 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 		DataLoader<Integer, MProjectIssue> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectIssueDataLoader.DATALOADER_C_ProjectIssue_BY_ID);
 		return dataLoader.load(entity.getC_ProjectIssue_ID());
+	}
+
+	public Boolean IsBackDate(MCostDetail entity, DataFetchingEnvironment environment) {
+		return entity.isBackDate();
 	}
 
 	public Boolean IsSOTrx(MCostDetail entity, DataFetchingEnvironment environment) {

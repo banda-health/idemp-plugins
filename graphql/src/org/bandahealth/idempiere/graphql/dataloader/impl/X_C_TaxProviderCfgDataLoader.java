@@ -6,7 +6,7 @@ import org.compiere.model.X_C_TaxProviderCfg;
  * Data Loader for C_TaxProviderCfg - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_TaxProviderCfgDataLoader extends PODataLoader<X_C_TaxProviderCfg> {
 	public static String DATALOADER_C_TaxProviderCfg_BY_ID = "C_TaxProviderCfgByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.X_C_BankAccountDoc;
  * Data Loader for C_BankAccountDoc - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_BankAccountDocDataLoader extends PODataLoader<X_C_BankAccountDoc> {
 	public static String DATALOADER_C_BankAccountDoc_BY_ID = "C_BankAccountDocByIdDataLoader";

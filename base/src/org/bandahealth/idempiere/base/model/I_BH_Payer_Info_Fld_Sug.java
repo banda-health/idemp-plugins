@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Payer_Info_Fld_Sug
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_Payer_Info_Fld_Sug 
@@ -73,6 +73,15 @@ public interface I_BH_Payer_Info_Fld_Sug
 	/** Get Fill From Patient	  */
 	public boolean isBH_FillFromPatient();
 
+    /** Column name BH_PayerInfoFieldDataType */
+    public static final String COLUMNNAME_BH_PayerInfoFieldDataType = "BH_PayerInfoFieldDataType";
+
+	/** Set Payer Info Field Data Type	  */
+	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType);
+
+	/** Get Payer Info Field Data Type	  */
+	public String getBH_PayerInfoFieldDataType();
+
     /** Column name BH_Payer_Info_Fld_Sug_ID */
     public static final String COLUMNNAME_BH_Payer_Info_Fld_Sug_ID = "BH_Payer_Info_Fld_Sug_ID";
 
@@ -90,15 +99,6 @@ public interface I_BH_Payer_Info_Fld_Sug
 
 	/** Get BH_Payer_Info_Fld_Sug_UU	  */
 	public String getBH_Payer_Info_Fld_Sug_UU();
-
-    /** Column name BH_PayerInfoFieldDataType */
-    public static final String COLUMNNAME_BH_PayerInfoFieldDataType = "BH_PayerInfoFieldDataType";
-
-	/** Set Payer Info Field Data Type	  */
-	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType);
-
-	/** Get Payer Info Field Data Type	  */
-	public String getBH_PayerInfoFieldDataType();
 
     /** Column name BH_SubType */
     public static final String COLUMNNAME_BH_SubType = "BH_SubType";

@@ -6,7 +6,7 @@ import org.compiere.model.MDistributionListLine;
  * Data Loader for M_DistributionListLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_DistributionListLineDataLoader extends PODataLoader<MDistributionListLine> {
 	public static String DATALOADER_M_DistributionListLine_BY_ID = "M_DistributionListLineByIdDataLoader";

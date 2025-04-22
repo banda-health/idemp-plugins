@@ -1,6 +1,6 @@
 # Generated Schema for T_BOM_Indented - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	T_BOM_Indented(UU: String!): T_BOM_Indented
 	T_BOM_IndentedGet(Page: Int, Size: Int, Sort: String, Filter: String): T_BOM_IndentedConnection!
@@ -50,7 +50,7 @@ type T_BOM_Indented {
 	M_Product: M_Product
 	# Quantity
 	Qty: BigDecimal
-	# Indicate the Quantity  use in this BOM
+	# Indicate the Quantity use in this BOM
 	QtyBOM: BigDecimal
 	Sel_Product: M_Product
 	# Method of ordering records; lowest number comes first
@@ -89,7 +89,7 @@ input T_BOM_IndentedInput {
 	M_Product: ForeignEntityInput
 	# Quantity
 	Qty: BigDecimal
-	# Indicate the Quantity  use in this BOM
+	# Indicate the Quantity use in this BOM
 	QtyBOM: BigDecimal
 	Sel_Product: ForeignEntityInput
 	# Method of ordering records; lowest number comes first

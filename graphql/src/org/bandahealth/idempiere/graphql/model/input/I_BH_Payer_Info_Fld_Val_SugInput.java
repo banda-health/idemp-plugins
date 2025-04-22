@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_Payer_Info_Fld_Val_Sug;
  * Generated Interface for BH_Payer_Info_Fld_Val_Sug - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_BH_Payer_Info_Fld_Val_SugInput extends I_BH_Payer_Info_Fld_Val_Sug {
 

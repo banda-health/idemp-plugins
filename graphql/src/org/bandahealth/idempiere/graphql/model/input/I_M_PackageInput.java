@@ -6,7 +6,7 @@ import org.compiere.model.I_M_Package;
  * Generated Interface for M_Package - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_M_PackageInput extends I_M_Package {
 

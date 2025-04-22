@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for HR_Payroll - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_HR_PayrollQuery extends POQuery<X_HR_Payroll> implements GraphQLQueryResolver {
 	@Override

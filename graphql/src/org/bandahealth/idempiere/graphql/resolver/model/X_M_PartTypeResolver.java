@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for M_PartType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_PartTypeResolver extends POResolver<X_M_PartType> implements GraphQLResolver<X_M_PartType> {
 

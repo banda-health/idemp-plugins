@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Concept_Description
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_Concept_Description 
@@ -32,7 +32,7 @@ public interface I_BH_Concept_Description
     /** TableName=BH_Concept_Description */
     public static final String Table_Name = "BH_Concept_Description";
 
-    /** AD_Table_ID=1000056 */
+    /** AD_Table_ID=1000057 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -162,12 +162,12 @@ public interface I_BH_Concept_Description
     public static final String COLUMNNAME_Description = "Description";
 
 	/** Set Description.
-	  * Description of the record
+	  * Optional short description of the record
 	  */
 	public void setDescription (String Description);
 
 	/** Get Description.
-	  * Description of the record
+	  * Optional short description of the record
 	  */
 	public String getDescription();
 

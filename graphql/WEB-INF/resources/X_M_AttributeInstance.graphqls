@@ -1,6 +1,6 @@
 # Generated Schema for M_AttributeInstance - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	M_AttributeInstance(UU: String!): M_AttributeInstance
 	M_AttributeInstanceGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeInstanceConnection!
@@ -42,6 +42,8 @@ type M_AttributeInstance {
 	# Search key for the record in the format required - must be unique
 	Value: String
 	ValueDate: Date
+	# Comma separated values.
+	ValueMultipleSelection: String
 	# Numeric Value
 	ValueNumber: BigDecimal
 }
@@ -61,6 +63,8 @@ input M_AttributeInstanceInput {
 	# Search key for the record in the format required - must be unique
 	Value: String
 	ValueDate: Date
+	# Comma separated values.
+	ValueMultipleSelection: String
 	# Numeric Value
 	ValueNumber: BigDecimal
 }

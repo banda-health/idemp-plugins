@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for AD_Package_UUID_Map - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Package_UUID_MapQuery extends POQuery<X_AD_Package_UUID_Map> implements GraphQLQueryResolver {
 	@Override

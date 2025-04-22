@@ -1,6 +1,6 @@
 # Generated Schema for T_CashFlow - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	T_CashFlow(UU: String!): T_CashFlow
 	T_CashFlowGet(Page: Int, Size: Int, Sort: String, Filter: String): T_CashFlowConnection!

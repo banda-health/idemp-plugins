@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for BH_BP_Payer_Info - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_BP_Payer_InfoMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

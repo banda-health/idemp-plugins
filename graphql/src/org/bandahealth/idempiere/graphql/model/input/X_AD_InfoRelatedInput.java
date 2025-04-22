@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_InfoRelated - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_InfoRelatedInput {
 

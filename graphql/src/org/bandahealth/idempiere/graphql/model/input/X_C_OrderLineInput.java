@@ -25,7 +25,6 @@ import org.compiere.model.MShipper;
 import org.compiere.model.MTax;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
-import org.compiere.model.X_M_Promotion;
 import org.compiere.util.Env;
 import org.eevolution.model.X_PP_Cost_Collector;
 
@@ -37,7 +36,7 @@ import java.sql.Timestamp;
  * Generated Model for C_OrderLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineInput {
 
@@ -57,7 +56,6 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	private ForeignEntityInput mLink_OrderLine;
 	private ForeignEntityInput mM_AttributeSetInstance;
 	private ForeignEntityInput mM_Product;
-	private ForeignEntityInput mM_Promotion;
 	private ForeignEntityInput mM_Shipper;
 	private ForeignEntityInput mM_Warehouse;
 	private ForeignEntityInput mPP_Cost_Collector;
@@ -703,40 +701,6 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	@JsonProperty("M_Product")
 	public ForeignEntityInput M_Product() {
 		return mM_Product;
-	}
-
-	/**
-	 * Set Promotion.
-	 *
-	 * @param M_Promotion Promotion
-	 */
-	@JsonProperty("M_Promotion")
-	public void setM_PromotionInput(ForeignEntityInput M_Promotion) {
-		this.mM_Promotion = M_Promotion;
-		if (M_Promotion != null) {
-			// Since an entity was passed, make sure it's in the DB
-			X_M_Promotion foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
-							.setParameters(M_Promotion.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setM_Promotion_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table M_Promotion with UU " + M_Promotion.getUU());
-			}
-		} else {
-			this.setM_Promotion_ID(0);
-		}
-	}
-
-	/**
-	 * Get Promotion.
-	 *
-	 * @return Promotion
-	 */
-	@JsonProperty("M_Promotion")
-	public ForeignEntityInput M_Promotion() {
-		return mM_Promotion;
 	}
 
 	/**

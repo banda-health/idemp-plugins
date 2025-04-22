@@ -6,7 +6,7 @@ import org.compiere.model.I_I_FAJournal;
  * Generated Interface for I_FAJournal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_I_FAJournalInput extends I_I_FAJournal {
 

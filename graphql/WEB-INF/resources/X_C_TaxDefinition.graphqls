@@ -1,6 +1,6 @@
 # Generated Schema for C_TaxDefinition - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_TaxDefinition(UU: String!): C_TaxDefinition
 	C_TaxDefinitionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxDefinitionConnection!

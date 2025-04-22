@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_AlertRecipient - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_AlertRecipientInput {
 

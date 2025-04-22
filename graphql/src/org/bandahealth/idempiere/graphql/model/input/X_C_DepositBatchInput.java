@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.resolver.model.X_C_DepositBatchResolver;
@@ -19,13 +20,15 @@ import java.sql.ResultSet;
  * Generated Model for C_DepositBatch - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositBatchInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_BankAccount;
+	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_DocType;
+	private ForeignEntityInput mDocAction;
 	private ForeignEntityInput mDocStatus;
 
 	/**
@@ -110,6 +113,40 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	public ForeignEntityInput C_BankAccount() {
 		return mC_BankAccount;
 	}
+
+	/**
+	 * Set Currency.
+	 *
+	 * @param C_Currency The Currency for this record
+	 */
+	@JsonProperty("C_Currency")
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
+		this.mC_Currency = C_Currency;
+		if (C_Currency != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Currency_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
+			}
+		} else {
+			this.setC_Currency_ID(0);
+		}
+	}
+
+	/**
+	 * Get Currency.
+	 *
+	 * @return The Currency for this record
+	 */
+	@JsonProperty("C_Currency")
+	public ForeignEntityInput C_Currency() {
+		return mC_Currency;
+	}
 	/**
 	 * Set Deposit Batch.
 	 *
@@ -172,6 +209,45 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	@JsonProperty("C_DocType")
 	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
+	}
+
+	/**
+	 * Set Document Action.
+	 *
+	 * @param DocAction The targeted status of the document
+	 */
+	@JsonProperty("DocAction")
+	public void setDocActionInput(ForeignEntityInput DocAction) {
+		this.mDocAction = DocAction;
+		if (DocAction != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_DepositBatchResolver.DOCACTION_UUIDS_BY_VALUE.containsValue(DocAction.getUU())) {
+				throw new AdempiereException("The reference list UU of " + DocAction.getUU() +
+						" is not in the list defined for the DocAction column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocAction.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setDocAction(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DocAction.getUU());
+			}
+		} else {
+			this.setDocAction(null);
+		}
+	}
+
+	/**
+	 * Get Document Action.
+	 *
+	 * @return The targeted status of the document
+	 */
+	@JsonProperty("DocAction")
+	public ForeignEntityInput DocAction() {
+		return mDocAction;
 	}
 
 	/**

@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_CtxHelpMsg;
  * Generated Interface for AD_CtxHelpMsg - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_CtxHelpMsgInput extends I_AD_CtxHelpMsg {
 

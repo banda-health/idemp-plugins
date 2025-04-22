@@ -6,7 +6,7 @@ import org.compiere.model.MCashBook;
  * Data Loader for C_CashBook - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_CashBookDataLoader extends PODataLoader<MCashBook> {
 	public static String DATALOADER_C_CashBook_BY_ID = "C_CashBookByIdDataLoader";

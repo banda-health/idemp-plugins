@@ -6,7 +6,7 @@ import org.compiere.model.MGoalRestriction;
  * Data Loader for PA_GoalRestriction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_GoalRestrictionDataLoader extends PODataLoader<MGoalRestriction> {
 	public static String DATALOADER_PA_GoalRestriction_BY_ID = "PA_GoalRestrictionByIdDataLoader";

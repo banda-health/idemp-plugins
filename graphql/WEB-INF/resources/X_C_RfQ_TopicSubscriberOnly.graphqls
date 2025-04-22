@@ -1,6 +1,6 @@
 # Generated Schema for C_RfQ_TopicSubscriberOnly - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_RfQ_TopicSubscriberOnly(UU: String!): C_RfQ_TopicSubscriberOnly
 	C_RfQ_TopicSubscriberOnlyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQ_TopicSubscriberOnlyConnection!

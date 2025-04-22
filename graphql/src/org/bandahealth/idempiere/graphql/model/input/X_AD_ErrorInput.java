@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Error - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_ErrorInput extends X_AD_Error implements I_AD_ErrorInput {
 

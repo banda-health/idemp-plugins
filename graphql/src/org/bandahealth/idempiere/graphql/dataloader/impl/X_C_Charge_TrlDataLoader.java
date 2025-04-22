@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for C_Charge_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_Charge_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_C_Charge_Trl_BY_ID = "C_Charge_TrlByIdDataLoader";

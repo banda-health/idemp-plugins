@@ -6,7 +6,7 @@ import org.compiere.model.MStatusLine;
  * Data Loader for AD_StatusLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_StatusLineDataLoader extends PODataLoader<MStatusLine> {
 	public static String DATALOADER_AD_StatusLine_BY_ID = "AD_StatusLineByIdDataLoader";

@@ -1,6 +1,6 @@
 # Generated Schema for T_Aging - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	T_Aging(UU: String!): T_Aging
 	T_AgingGet(Page: Int, Size: Int, Sort: String, Filter: String): T_AgingConnection!

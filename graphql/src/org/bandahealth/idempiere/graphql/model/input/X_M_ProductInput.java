@@ -31,7 +31,7 @@ import java.sql.ResultSet;
  * Generated Model for M_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 

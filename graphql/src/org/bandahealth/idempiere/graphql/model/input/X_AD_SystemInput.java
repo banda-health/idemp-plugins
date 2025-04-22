@@ -18,7 +18,7 @@ import java.sql.Timestamp;
  * Generated Model for AD_System - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 

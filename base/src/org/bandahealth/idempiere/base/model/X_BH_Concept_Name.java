@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Concept_Name
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Concept_Name")
 public class X_BH_Concept_Name extends PO implements I_BH_Concept_Name, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Concept_Name extends PO implements I_BH_Concept_Name, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20241003L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Concept_Name (Properties ctx, int BH_Concept_Name_ID, String trxName)
@@ -272,7 +272,7 @@ public class X_BH_Concept_Name extends PO implements I_BH_Concept_Name, I_Persis
 	}
 
 	/** Set Ocl Uuid.
-		@param Ocl_Uuid A UUID from the OCL System
+		@param Ocl_Uuid A UUID from the OCL system
 	*/
 	public void setOcl_Uuid (String Ocl_Uuid)
 	{
@@ -280,7 +280,7 @@ public class X_BH_Concept_Name extends PO implements I_BH_Concept_Name, I_Persis
 	}
 
 	/** Get Ocl Uuid.
-		@return A UUID from the OCL System
+		@return A UUID from the OCL system
 	  */
 	public String getOcl_Uuid()
 	{

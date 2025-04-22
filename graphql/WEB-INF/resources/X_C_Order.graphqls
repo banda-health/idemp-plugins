@@ -1,6 +1,6 @@
 # Generated Schema for C_Order - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Order(UU: String!): C_Order
 	C_OrderGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrderConnection!

@@ -1,3 +1,7 @@
+extend type Mutation {
+	C_BPartnerMerge(OldUU: String!, NewUU: String!): Boolean!
+}
+
 extend type C_BPartner {
 	BH_Allergies: [BH_Allergy!]
 	BH_BP_Payer_Info_BPList: [BH_BP_Payer_Info!]

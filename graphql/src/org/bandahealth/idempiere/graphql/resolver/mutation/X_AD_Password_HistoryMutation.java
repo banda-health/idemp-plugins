@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for AD_Password_History - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Password_HistoryMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

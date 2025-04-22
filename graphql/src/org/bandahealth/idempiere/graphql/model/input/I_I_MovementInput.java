@@ -6,7 +6,7 @@ import org.eevolution.model.I_I_Movement;
  * Generated Interface for I_Movement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_I_MovementInput extends I_I_Movement {
 

@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for M_AttributeSet - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_AttributeSetInput {
 

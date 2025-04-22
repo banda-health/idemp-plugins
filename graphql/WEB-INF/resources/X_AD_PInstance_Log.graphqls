@@ -1,6 +1,6 @@
 # Generated Schema for AD_PInstance_Log - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_PInstance_Log(UU: String!): AD_PInstance_Log
 	AD_PInstance_LogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PInstance_LogConnection!
@@ -23,6 +23,8 @@ type AD_PInstance_Log {
 	UU: ID!
 	# Database Table information
 	AD_Table: AD_Table
+	# The json field stores json data.
+	JsonData: String
 	Log_ID: Int!
 	# Process Parameter
 	P_Date: Date
@@ -39,6 +41,8 @@ input AD_PInstance_LogInput {
 	UU: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
+	# The json field stores json data.
+	JsonData: String
 	Log_ID: Int
 	# Process Parameter
 	P_Date: Date

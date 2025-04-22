@@ -6,7 +6,7 @@ import org.compiere.model.MWarehousePrice;
  * Data Loader for RV_WarehousePrice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_RV_WarehousePriceDataLoader extends PODataLoader<MWarehousePrice> {
 	public static String DATALOADER_RV_WarehousePrice_BY_ID = "RV_WarehousePriceByIdDataLoader";

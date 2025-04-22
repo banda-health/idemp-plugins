@@ -1,6 +1,6 @@
 # Generated Schema for HR_Year - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	HR_Year(UU: String!): HR_Year
 	HR_YearGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_YearConnection!

@@ -6,7 +6,7 @@ import org.compiere.model.X_C_BP_EDI;
  * Data Loader for C_BP_EDI - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_BP_EDIDataLoader extends PODataLoader<X_C_BP_EDI> {
 	public static String DATALOADER_C_BP_EDI_BY_ID = "C_BP_EDIByIdDataLoader";

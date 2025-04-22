@@ -1,6 +1,6 @@
 # Generated Schema for AD_Language - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	AD_Language(UU: String!): AD_Language
 	AD_LanguageGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LanguageConnection!
@@ -27,7 +27,7 @@ type AD_Language {
 	AD_Org: AD_Org!
 	# Printer paper definition
 	AD_PrintPaper: AD_PrintPaper
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
 	# Date this record was created
 	Created: DateTime!
@@ -67,7 +67,7 @@ input AD_LanguageInput {
 	AD_Org: ForeignEntityInput
 	# Printer paper definition
 	AD_PrintPaper: ForeignEntityInput
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
 	# Java Date Pattern
 	DatePattern: String
