@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Concept_Mapping
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Concept_Mapping")
 public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_Persistent
 {

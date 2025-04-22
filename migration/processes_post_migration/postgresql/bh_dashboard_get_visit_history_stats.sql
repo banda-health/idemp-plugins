@@ -64,7 +64,7 @@ SELECT
 	COUNT(*) AS frequency
 FROM
 	bucket_mapping bm
-		JOIN buckets_cte bcte
+		LEFT JOIN buckets_cte bcte
 		ON bcte.bucket_number = bm.bucket_number
 GROUP BY
 	bm.bucket_value, ad_ref_list_id, alternate_visit_type;

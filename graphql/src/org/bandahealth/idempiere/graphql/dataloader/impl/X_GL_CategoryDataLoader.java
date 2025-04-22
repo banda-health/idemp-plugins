@@ -6,7 +6,7 @@ import org.compiere.model.MGLCategory;
  * Data Loader for GL_Category - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_GL_CategoryDataLoader extends PODataLoader<MGLCategory> {
 	public static String DATALOADER_GL_Category_BY_ID = "GL_CategoryByIdDataLoader";

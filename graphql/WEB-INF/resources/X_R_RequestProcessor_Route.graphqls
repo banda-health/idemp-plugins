@@ -1,6 +1,6 @@
 # Generated Schema for R_RequestProcessor_Route - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	R_RequestProcessor_Route(UU: String!): R_RequestProcessor_Route
 	R_RequestProcessor_RouteGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestProcessor_RouteConnection!

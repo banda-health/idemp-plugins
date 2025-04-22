@@ -33,7 +33,7 @@ import java.sql.Timestamp;
  * Generated Model for M_InOut - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 

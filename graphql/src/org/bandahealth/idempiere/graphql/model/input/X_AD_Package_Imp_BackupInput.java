@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Package_Imp_Backup - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Package_Imp_BackupInput extends X_AD_Package_Imp_Backup implements I_AD_Package_Imp_BackupInput {
 

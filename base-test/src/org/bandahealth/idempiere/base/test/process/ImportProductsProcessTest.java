@@ -313,7 +313,7 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		X_BH_I_Product_Quantity productQuantity1 = new X_BH_I_Product_Quantity(valueObject.getContext(), 0,
 				valueObject.getTransactionName());
 		productQuantity1.setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
-		productQuantity1.setCategoryName("Pharmacy");
+		productQuantity1.setCategoryName("Standard");
 		productQuantity1.setBH_BuyPrice(new BigDecimal(5));
 		productQuantity1.setBH_SellPrice(new BigDecimal(25));
 		productQuantity1.setBH_PriceList2_Name(priceList1.getName());
@@ -326,7 +326,7 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		X_BH_I_Product_Quantity productQuantity2 = new X_BH_I_Product_Quantity(valueObject.getContext(), 0,
 				valueObject.getTransactionName());
 		productQuantity2.setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
-		productQuantity2.setCategoryName("Pharmacy");
+		productQuantity2.setCategoryName("Standard");
 		productQuantity2.setBH_BuyPrice(new BigDecimal(5));
 		productQuantity2.setBH_SellPrice(new BigDecimal(30));
 		productQuantity2.setBH_PriceList2_Name(priceList2.getName());

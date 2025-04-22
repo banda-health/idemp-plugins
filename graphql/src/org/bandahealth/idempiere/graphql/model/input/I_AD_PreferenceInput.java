@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Preference;
  * Generated Interface for AD_Preference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_PreferenceInput extends I_AD_Preference {
 

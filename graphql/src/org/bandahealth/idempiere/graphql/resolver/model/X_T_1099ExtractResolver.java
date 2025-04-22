@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for T_1099Extract - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_1099ExtractResolver extends POResolver<X_T_1099Extract> implements GraphQLResolver<X_T_1099Extract> {
 

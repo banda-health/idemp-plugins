@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Process - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	ASP_Process(UU: String!): ASP_Process
 	ASP_ProcessGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ProcessConnection!

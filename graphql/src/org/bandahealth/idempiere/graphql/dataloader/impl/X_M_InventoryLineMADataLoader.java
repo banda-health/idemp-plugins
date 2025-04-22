@@ -6,7 +6,7 @@ import org.compiere.model.MInventoryLineMA;
  * Data Loader for M_InventoryLineMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_InventoryLineMADataLoader extends PODataLoader<MInventoryLineMA> {
 	public static String DATALOADER_M_InventoryLineMA_BY_ID = "M_InventoryLineMAByIdDataLoader";

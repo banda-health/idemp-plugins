@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for R_MailText - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_R_MailTextInput extends MMailText implements I_R_MailTextInput {
 

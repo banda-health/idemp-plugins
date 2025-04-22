@@ -25,7 +25,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 
@@ -44,6 +44,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	private ForeignEntityInput mIncluded_Tab;
 	private ForeignEntityInput mIsAllowCopy;
 	private ForeignEntityInput mIsAlwaysUpdateable;
+	private ForeignEntityInput mIsHtml;
 	private ForeignEntityInput mIsMandatory;
 	private ForeignEntityInput mIsSelectionColumn;
 	private ForeignEntityInput mIsToolbarButton;
@@ -615,6 +616,45 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	@JsonProperty("IsAlwaysUpdateable")
 	public ForeignEntityInput IsAlwaysUpdateable() {
 		return mIsAlwaysUpdateable;
+	}
+
+	/**
+	 * Set HTML.
+	 *
+	 * @param IsHtml Text has HTML tags
+	 */
+	@JsonProperty("IsHtml")
+	public void setIsHtmlInput(ForeignEntityInput IsHtml) {
+		this.mIsHtml = IsHtml;
+		if (IsHtml != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_AD_FieldResolver.ISHTML_UUIDS_BY_VALUE.containsValue(IsHtml.getUU())) {
+				throw new AdempiereException("The reference list UU of " + IsHtml.getUU() +
+						" is not in the list defined for the IsHtml column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsHtml.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setIsHtml(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + IsHtml.getUU());
+			}
+		} else {
+			this.setIsHtml(null);
+		}
+	}
+
+	/**
+	 * Get HTML.
+	 *
+	 * @return Text has HTML tags
+	 */
+	@JsonProperty("IsHtml")
+	public ForeignEntityInput IsHtml() {
+		return mIsHtml;
 	}
 
 	/**

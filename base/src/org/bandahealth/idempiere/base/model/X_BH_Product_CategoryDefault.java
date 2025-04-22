@@ -24,7 +24,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_Product_CategoryDefault
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Product_CategoryDefault")
 public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_CategoryDefault, I_Persistent
 {
@@ -32,7 +32,7 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Product_CategoryDefault (Properties ctx, int BH_Product_CategoryDefault_ID, String trxName)
@@ -40,8 +40,8 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
       super (ctx, BH_Product_CategoryDefault_ID, trxName);
       /** if (BH_Product_CategoryDefault_ID == 0)
         {
-			setBH_Product_Category_Type (null);
 			setBH_Product_CategoryDefault_ID (0);
+			setBH_Product_Category_Type (null);
 			setName (null);
 			setValue (null);
         } */
@@ -53,8 +53,8 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
       super (ctx, BH_Product_CategoryDefault_ID, trxName, virtualColumns);
       /** if (BH_Product_CategoryDefault_ID == 0)
         {
-			setBH_Product_Category_Type (null);
 			setBH_Product_CategoryDefault_ID (0);
+			setBH_Product_Category_Type (null);
 			setName (null);
 			setValue (null);
         } */
@@ -66,8 +66,8 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
       super (ctx, BH_Product_CategoryDefault_UU, trxName);
       /** if (BH_Product_CategoryDefault_UU == null)
         {
-			setBH_Product_Category_Type (null);
 			setBH_Product_CategoryDefault_ID (0);
+			setBH_Product_Category_Type (null);
 			setName (null);
 			setValue (null);
         } */
@@ -79,8 +79,8 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
       super (ctx, BH_Product_CategoryDefault_UU, trxName, virtualColumns);
       /** if (BH_Product_CategoryDefault_UU == null)
         {
-			setBH_Product_Category_Type (null);
 			setBH_Product_CategoryDefault_ID (0);
+			setBH_Product_Category_Type (null);
 			setName (null);
 			setValue (null);
         } */
@@ -113,27 +113,6 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
         .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
-
-	/** Product = P */
-	public static final String BH_PRODUCT_CATEGORY_TYPE_Product = "P";
-	/** Service = S */
-	public static final String BH_PRODUCT_CATEGORY_TYPE_Service = "S";
-	/** Set BH Product Category Type.
-		@param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
-	*/
-	public void setBH_Product_Category_Type (String BH_Product_Category_Type)
-	{
-
-		set_Value (COLUMNNAME_BH_Product_Category_Type, BH_Product_Category_Type);
-	}
-
-	/** Get BH Product Category Type.
-		@return Contains a character the is linked to a ref list to determine types of product categories
-	  */
-	public String getBH_Product_Category_Type()
-	{
-		return (String)get_Value(COLUMNNAME_BH_Product_Category_Type);
-	}
 
 	/** Set BH_Product_CategoryDefault.
 		@param BH_Product_CategoryDefault_ID BH_Product_CategoryDefault
@@ -169,6 +148,27 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
 	public String getBH_Product_CategoryDefault_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Product_CategoryDefault_UU);
+	}
+
+	/** Product = P */
+	public static final String BH_PRODUCT_CATEGORY_TYPE_Product = "P";
+	/** Service = S */
+	public static final String BH_PRODUCT_CATEGORY_TYPE_Service = "S";
+	/** Set BH Product Category Type.
+		@param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
+	*/
+	public void setBH_Product_Category_Type (String BH_Product_Category_Type)
+	{
+
+		set_Value (COLUMNNAME_BH_Product_Category_Type, BH_Product_Category_Type);
+	}
+
+	/** Get BH Product Category Type.
+		@return Contains a character the is linked to a ref list to determine types of product categories
+	  */
+	public String getBH_Product_Category_Type()
+	{
+		return (String)get_Value(COLUMNNAME_BH_Product_Category_Type);
 	}
 
 	/** Set Description.

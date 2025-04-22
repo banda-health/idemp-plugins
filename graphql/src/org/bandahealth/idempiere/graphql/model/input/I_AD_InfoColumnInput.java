@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_InfoColumn;
  * Generated Interface for AD_InfoColumn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_InfoColumnInput extends I_AD_InfoColumn {
 

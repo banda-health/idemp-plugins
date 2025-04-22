@@ -6,7 +6,7 @@ import org.compiere.model.I_U_POSTerminal;
  * Generated Interface for U_POSTerminal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_U_POSTerminalInput extends I_U_POSTerminal {
 
@@ -125,14 +125,14 @@ public interface I_U_POSTerminalInput extends I_U_POSTerminal {
 	/**
 	 * Set CashBookTransferType.
 	 *
-	 * @param CashBookTransferType Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
+	 * @param CashBookTransferType Where the money in the cash book should be transferred to. Either a Bank Account or another Cash Book
 	 */
 	void setCashBookTransferTypeInput(ForeignEntityInput CashBookTransferType);
 
 	/**
 	 * Get CashBookTransferType.
 	 *
-	 * @return Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
+	 * @return Where the money in the cash book should be transferred to. Either a Bank Account or another Cash Book
 	 */
 	ForeignEntityInput CashBookTransferType();
 

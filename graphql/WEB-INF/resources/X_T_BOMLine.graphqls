@@ -1,6 +1,6 @@
 # Generated Schema for T_BOMLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	T_BOMLine(UU: String!): T_BOMLine
 	T_BOMLineGet(Page: Int, Size: Int, Sort: String, Filter: String): T_BOMLineConnection!
@@ -60,7 +60,7 @@ type T_BOMLine {
 	PP_Product_BOM: PP_Product_BOM
 	# BOM Line
 	PP_Product_BOMLine: PP_Product_BOMLine
-	# Indicate the Quantity  use in this BOM
+	# Indicate the Quantity use in this BOM
 	QtyBOM: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
@@ -108,7 +108,7 @@ input T_BOMLineInput {
 	PP_Product_BOM: ForeignEntityInput
 	# BOM Line
 	PP_Product_BOMLine: ForeignEntityInput
-	# Indicate the Quantity  use in this BOM
+	# Indicate the Quantity use in this BOM
 	QtyBOM: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int

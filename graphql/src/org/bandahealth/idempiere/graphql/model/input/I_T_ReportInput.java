@@ -6,7 +6,7 @@ import org.compiere.model.I_T_Report;
  * Generated Interface for T_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_T_ReportInput extends I_T_Report {
 

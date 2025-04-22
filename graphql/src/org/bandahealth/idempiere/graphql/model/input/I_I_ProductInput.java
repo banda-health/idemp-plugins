@@ -6,7 +6,7 @@ import org.compiere.model.I_I_Product;
  * Generated Interface for I_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_I_ProductInput extends I_I_Product {
 

@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_Ocl_Originating_Source;
  * Generated Interface for BH_Ocl_Originating_Source - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_BH_Ocl_Originating_SourceInput extends I_BH_Ocl_Originating_Source {
 

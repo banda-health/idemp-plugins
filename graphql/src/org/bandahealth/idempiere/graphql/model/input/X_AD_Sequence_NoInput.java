@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Sequence_No - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Sequence_NoInput extends X_AD_Sequence_No implements I_AD_Sequence_NoInput {
 

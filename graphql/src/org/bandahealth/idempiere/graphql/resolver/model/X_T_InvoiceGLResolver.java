@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for T_InvoiceGL - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_InvoiceGLResolver extends POResolver<X_T_InvoiceGL> implements GraphQLResolver<X_T_InvoiceGL> {
 

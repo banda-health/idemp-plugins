@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_PaymentRef_BankAcct
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_PaymentRef_BankAcct 
@@ -79,6 +79,19 @@ public interface I_BH_PaymentRef_BankAcct
 
 	public org.compiere.model.I_AD_Ref_List getAD_Ref_List() throws RuntimeException;
 
+    /** Column name BH_PaymentRefList_Value */
+    public static final String COLUMNNAME_BH_PaymentRefList_Value = "BH_PaymentRefList_Value";
+
+	/** Set BH_PaymentRefList_Value.
+	  * The value of the payment reference list entry
+	  */
+	public void setBH_PaymentRefList_Value (String BH_PaymentRefList_Value);
+
+	/** Get BH_PaymentRefList_Value.
+	  * The value of the payment reference list entry
+	  */
+	public String getBH_PaymentRefList_Value();
+
     /** Column name BH_PaymentRef_BankAcct_ID */
     public static final String COLUMNNAME_BH_PaymentRef_BankAcct_ID = "BH_PaymentRef_BankAcct_ID";
 
@@ -107,19 +120,6 @@ public interface I_BH_PaymentRef_BankAcct
 	public int getBH_PaymentRef_ID();
 
 	public I_BH_PaymentRef getBH_PaymentRef() throws RuntimeException;
-
-    /** Column name BH_PaymentRefList_Value */
-    public static final String COLUMNNAME_BH_PaymentRefList_Value = "BH_PaymentRefList_Value";
-
-	/** Set BH_PaymentRefList_Value.
-	  * The value of the payment reference list entry
-	  */
-	public void setBH_PaymentRefList_Value (String BH_PaymentRefList_Value);
-
-	/** Get BH_PaymentRefList_Value.
-	  * The value of the payment reference list entry
-	  */
-	public String getBH_PaymentRefList_Value();
 
     /** Column name BH_ReferenceList_IsActive */
     public static final String COLUMNNAME_BH_ReferenceList_IsActive = "BH_ReferenceList_IsActive";

@@ -1,6 +1,6 @@
 # Generated Schema for B_SellerFunds - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	B_SellerFunds(UU: String!): B_SellerFunds
 	B_SellerFundsGet(Page: Int, Size: Int, Sort: String, Filter: String): B_SellerFundsConnection!

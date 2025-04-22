@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_Workflow;
  * Data Loader for AD_Workflow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_WorkflowDataLoader extends PODataLoader<X_AD_Workflow> {
 	public static String DATALOADER_AD_Workflow_BY_ID = "AD_WorkflowByIdDataLoader";

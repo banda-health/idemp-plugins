@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_UserDef_Field;
  * Generated Interface for AD_UserDef_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 
@@ -233,6 +233,20 @@ public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 	 * @return IsDisplayedGrid
 	 */
 	ForeignEntityInput IsDisplayedGrid();
+
+	/**
+	 * Set IsHtml.
+	 *
+	 * @param IsHtml Text has HTML tags
+	 */
+	void setIsHtmlInput(ForeignEntityInput IsHtml);
+
+	/**
+	 * Get IsHtml.
+	 *
+	 * @return Text has HTML tags
+	 */
+	ForeignEntityInput IsHtml();
 
 	/**
 	 * Set IsMandatory.

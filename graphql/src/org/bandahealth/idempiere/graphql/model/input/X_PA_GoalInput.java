@@ -23,7 +23,7 @@ import java.sql.Timestamp;
  * Generated Model for PA_Goal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 

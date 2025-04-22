@@ -31,7 +31,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PP_Order_BOM - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implements GraphQLResolver<X_PP_Order_BOM> {
 

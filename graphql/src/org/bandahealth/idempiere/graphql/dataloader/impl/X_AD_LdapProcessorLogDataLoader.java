@@ -6,7 +6,7 @@ import org.compiere.model.MLdapProcessorLog;
  * Data Loader for AD_LdapProcessorLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_LdapProcessorLogDataLoader extends PODataLoader<MLdapProcessorLog> {
 	public static String DATALOADER_AD_LdapProcessorLog_BY_ID = "AD_LdapProcessorLogByIdDataLoader";

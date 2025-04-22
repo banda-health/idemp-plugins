@@ -1,6 +1,6 @@
 # Generated Schema for R_RequestUpdate - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	R_RequestUpdate(UU: String!): R_RequestUpdate
 	R_RequestUpdateGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestUpdateConnection!

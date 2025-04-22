@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Role_Included - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Role_IncludedInput extends MRoleIncluded implements I_AD_Role_IncludedInput {
 

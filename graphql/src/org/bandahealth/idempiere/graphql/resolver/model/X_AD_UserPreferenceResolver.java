@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_UserPreference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_UserPreferenceResolver extends POResolver<MUserPreference> implements GraphQLResolver<MUserPreference> {
 
@@ -48,6 +48,14 @@ public class X_AD_UserPreferenceResolver extends POResolver<MUserPreference> imp
 
 	public Boolean IsDetailedZoomAcross(MUserPreference entity, DataFetchingEnvironment environment) {
 		return entity.isDetailedZoomAcross();
+	}
+
+	public Boolean IsReadOnlySession(MUserPreference entity, DataFetchingEnvironment environment) {
+		return entity.isReadOnlySession();
+	}
+
+	public Boolean IsShowTechnicalInfOnHelp(MUserPreference entity, DataFetchingEnvironment environment) {
+		return entity.isShowTechnicalInfOnHelp();
 	}
 
 	public Boolean IsUseSimilarTo(MUserPreference entity, DataFetchingEnvironment environment) {

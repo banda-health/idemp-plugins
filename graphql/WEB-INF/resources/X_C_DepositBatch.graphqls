@@ -1,6 +1,6 @@
 # Generated Schema for C_DepositBatch - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_DepositBatch(UU: String!): C_DepositBatch
 	C_DepositBatchGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DepositBatchConnection!
@@ -24,6 +24,8 @@ type C_DepositBatch {
 	AD_Org: AD_Org!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
+	# The Currency for this record
+	C_Currency: C_Currency!
 	UU: ID!
 	# Document type or rules
 	C_DocType: C_DocType!
@@ -39,6 +41,8 @@ type C_DepositBatch {
 	DepositAmt: BigDecimal!
 	# Optional short description of the record
 	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List
 	# The current status of the document
 	DocStatus: AD_Ref_List!
 	# Document sequence number of the document
@@ -47,7 +51,6 @@ type C_DepositBatch {
 	IsActive: Boolean!
 	# The document has been processed
 	Processed: Boolean!
-	Processing: Boolean!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -59,6 +62,8 @@ input C_DepositBatchInput {
 	AD_Org: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
 	UU: ID
 	# Document type or rules
 	C_DocType: ForeignEntityInput
@@ -70,6 +75,8 @@ input C_DepositBatchInput {
 	DepositAmt: BigDecimal
 	# Optional short description of the record
 	Description: String
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
 	# The current status of the document
 	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
@@ -78,5 +85,4 @@ input C_DepositBatchInput {
 	IsActive: Boolean
 	# The document has been processed
 	Processed: Boolean
-	Processing: Boolean
 }

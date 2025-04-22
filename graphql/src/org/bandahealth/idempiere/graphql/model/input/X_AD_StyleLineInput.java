@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_StyleLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_StyleLineInput extends MStyleLine implements I_AD_StyleLineInput {
 

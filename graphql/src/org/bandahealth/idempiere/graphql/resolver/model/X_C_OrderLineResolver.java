@@ -26,7 +26,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_UOMDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetInstanceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PromotionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_WarehouseDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Cost_CollectorDataLoader;
@@ -42,7 +41,6 @@ import org.compiere.model.MResourceAssignment;
 import org.compiere.model.MShipper;
 import org.compiere.model.MTax;
 import org.compiere.model.MUOM;
-import org.compiere.model.X_M_Promotion;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_PP_Cost_Collector;
 
@@ -52,7 +50,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_OrderLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements GraphQLResolver<MOrderLine_BH> {
 
@@ -284,21 +282,6 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 		DataLoader<Integer, MProduct_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
-	}
-
-
-	/**
-	 * Get Promotion.
-	 *
-	 * @return Promotion
-	 */
-	public CompletableFuture<X_M_Promotion> M_Promotion(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Promotion_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, X_M_Promotion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDataLoader.DATALOADER_M_Promotion_BY_ID);
-		return dataLoader.load(entity.getM_Promotion_ID());
 	}
 
 

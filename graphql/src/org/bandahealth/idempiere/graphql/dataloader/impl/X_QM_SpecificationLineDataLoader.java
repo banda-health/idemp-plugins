@@ -6,7 +6,7 @@ import org.eevolution.model.X_QM_SpecificationLine;
  * Data Loader for QM_SpecificationLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_QM_SpecificationLineDataLoader extends PODataLoader<X_QM_SpecificationLine> {
 	public static String DATALOADER_QM_SpecificationLine_BY_ID = "QM_SpecificationLineByIdDataLoader";

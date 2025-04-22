@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_GraphQLGeneratorTemplate
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_GraphQLGeneratorTemplate 
@@ -32,7 +32,7 @@ public interface I_BH_GraphQLGeneratorTemplate
     /** TableName=BH_GraphQLGeneratorTemplate */
     public static final String Table_Name = "BH_GraphQLGeneratorTemplate";
 
-    /** AD_Table_ID=1000053 */
+    /** AD_Table_ID=1000060 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);

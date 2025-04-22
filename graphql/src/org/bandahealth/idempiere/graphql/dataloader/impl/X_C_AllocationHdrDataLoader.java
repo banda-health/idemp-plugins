@@ -6,7 +6,7 @@ import org.compiere.model.MAllocationHdr;
  * Data Loader for C_AllocationHdr - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_AllocationHdrDataLoader extends PODataLoader<MAllocationHdr> {
 	public static String DATALOADER_C_AllocationHdr_BY_ID = "C_AllocationHdrByIdDataLoader";

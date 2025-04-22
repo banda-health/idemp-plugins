@@ -6,7 +6,7 @@ import org.compiere.model.MForecast;
  * Data Loader for M_Forecast - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_ForecastDataLoader extends PODataLoader<MForecast> {
 	public static String DATALOADER_M_Forecast_BY_ID = "M_ForecastByIdDataLoader";

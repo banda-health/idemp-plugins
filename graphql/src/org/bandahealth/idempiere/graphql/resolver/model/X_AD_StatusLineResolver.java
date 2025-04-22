@@ -5,9 +5,11 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_MessageDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_StyleDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MStatusLine;
+import org.compiere.model.MStyle;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -18,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_StatusLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_StatusLineResolver extends POResolver<MStatusLine> implements GraphQLResolver<MStatusLine> {
 
@@ -36,6 +38,21 @@ public class X_AD_StatusLineResolver extends POResolver<MStatusLine> implements 
 		DataLoader<Integer, MMessage_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_MessageDataLoader.DATALOADER_AD_Message_BY_ID);
 		return dataLoader.load(entity.getAD_Message_ID());
+	}
+
+
+	/**
+	 * Get Style.
+	 *
+	 * @return CSS style for field and label
+	 */
+	public CompletableFuture<MStyle> AD_Style(MStatusLine entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Style_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MStyle> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_StyleDataLoader.DATALOADER_AD_Style_BY_ID);
+		return dataLoader.load(entity.getAD_Style_ID());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {

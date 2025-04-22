@@ -6,7 +6,7 @@ import org.compiere.model.I_ASP_Field;
  * Generated Interface for ASP_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_ASP_FieldInput extends I_ASP_Field {
 

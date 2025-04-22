@@ -6,7 +6,7 @@ import org.compiere.model.X_A_Registration;
  * Data Loader for A_Registration - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_RegistrationDataLoader extends PODataLoader<X_A_Registration> {
 	public static String DATALOADER_A_Registration_BY_ID = "A_RegistrationByIdDataLoader";

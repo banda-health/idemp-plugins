@@ -6,7 +6,7 @@ import org.compiere.model.X_T_ReportStatement;
  * Data Loader for T_ReportStatement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_ReportStatementDataLoader extends PODataLoader<X_T_ReportStatement> {
 	public static String DATALOADER_T_ReportStatement_BY_ID = "T_ReportStatementByIdDataLoader";

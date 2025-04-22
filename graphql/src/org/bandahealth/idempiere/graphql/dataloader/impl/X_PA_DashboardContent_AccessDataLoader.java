@@ -6,7 +6,7 @@ import org.compiere.model.MDashboardContentAccess;
  * Data Loader for PA_DashboardContent_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PA_DashboardContent_AccessDataLoader extends PODataLoader<MDashboardContentAccess> {
 	public static String DATALOADER_PA_DashboardContent_Access_BY_ID = "PA_DashboardContent_AccessByIdDataLoader";

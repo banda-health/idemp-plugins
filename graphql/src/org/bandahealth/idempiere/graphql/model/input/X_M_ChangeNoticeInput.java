@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for M_ChangeNotice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_ChangeNoticeInput extends MChangeNotice implements I_M_ChangeNoticeInput {
 

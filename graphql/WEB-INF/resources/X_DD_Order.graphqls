@@ -1,6 +1,6 @@
 # Generated Schema for DD_Order - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	DD_Order(UU: String!): DD_Order
 	DD_OrderGet(Page: Int, Size: Int, Sort: String, Filter: String): DD_OrderConnection!

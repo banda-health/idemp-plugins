@@ -6,7 +6,7 @@ import org.compiere.model.I_R_Category;
  * Generated Interface for R_Category - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_R_CategoryInput extends I_R_Category {
 

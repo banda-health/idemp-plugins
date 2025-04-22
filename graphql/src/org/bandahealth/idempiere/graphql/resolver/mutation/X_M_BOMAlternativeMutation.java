@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for M_BOMAlternative - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_BOMAlternativeMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

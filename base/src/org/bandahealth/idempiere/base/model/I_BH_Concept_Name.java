@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Concept_Name
  *  @author iDempiere (generated) 
- *  @version Release 11
+ *  @version Release 13
  */
 @SuppressWarnings("all")
 public interface I_BH_Concept_Name 
@@ -188,12 +188,12 @@ public interface I_BH_Concept_Name
     public static final String COLUMNNAME_Ocl_Uuid = "Ocl_Uuid";
 
 	/** Set Ocl Uuid.
-	  * A UUID from the OCL System
+	  * A UUID from the OCL system
 	  */
 	public void setOcl_Uuid (String Ocl_Uuid);
 
 	/** Get Ocl Uuid.
-	  * A UUID from the OCL System
+	  * A UUID from the OCL system
 	  */
 	public String getOcl_Uuid();
 

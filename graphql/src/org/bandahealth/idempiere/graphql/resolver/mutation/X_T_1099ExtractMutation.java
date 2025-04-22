@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Generated Query Resolver for T_1099Extract - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_1099ExtractMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

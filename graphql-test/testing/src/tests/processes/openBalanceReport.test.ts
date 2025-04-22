@@ -174,9 +174,21 @@ test('triage role cannot run report', async () => {
 	expect(runReport(valueObject)).rejects.toBeTruthy();
 });
 
-test('lab/radiology role can run report', async () => {
+test('lab/radiology advanced role can run report', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
-	await valueObject.login(RoleName.LabRadiology);
+	await valueObject.login(RoleName.LabRadiologyAdvanced);
+
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process!.UU;
+	valueObject.processInformationParameters = [processInformationParameter!];
+	await runReport(valueObject);
+
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});
+
+test('lab/radiology basic role can run report', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login(RoleName.LabRadiologyBasic);
 
 	valueObject.stepName = 'Run report';
 	valueObject.processUuid = process!.UU;

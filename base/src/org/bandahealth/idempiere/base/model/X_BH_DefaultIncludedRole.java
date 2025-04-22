@@ -24,7 +24,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_DefaultIncludedRole
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_DefaultIncludedRole")
 public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncludedRole, I_Persistent
 {
@@ -32,7 +32,7 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_DefaultIncludedRole (Properties ctx, int BH_DefaultIncludedRole_ID, String trxName)
@@ -158,6 +158,8 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
 	public static final String DB_USERTYPE_ClinicUser = "M";
 	/** Cashier/Registration Basic = R */
 	public static final String DB_USERTYPE_CashierRegistrationBasic = "R";
+	/** Cashier/Registration Basic+ = S */
+	public static final String DB_USERTYPE_CashierRegistrationBasicPlus = "S";
 	/** Triage = T */
 	public static final String DB_USERTYPE_Triage = "T";
 	/** User = U */

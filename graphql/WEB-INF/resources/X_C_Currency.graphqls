@@ -1,6 +1,6 @@
 # Generated Schema for C_Currency - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Currency(UU: String!): C_Currency
 	C_CurrencyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CurrencyConnection!

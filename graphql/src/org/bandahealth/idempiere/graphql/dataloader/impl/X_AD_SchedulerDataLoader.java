@@ -6,7 +6,7 @@ import org.compiere.model.MScheduler;
  * Data Loader for AD_Scheduler - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_SchedulerDataLoader extends PODataLoader<MScheduler> {
 	public static String DATALOADER_AD_Scheduler_BY_ID = "AD_SchedulerByIdDataLoader";

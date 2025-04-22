@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Default_DocAction_Access
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Default_DocAction_Access")
 public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_DocAction_Access, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_Do
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240326L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Default_DocAction_Access (Properties ctx, int BH_Default_DocAction_Access_ID, String trxName)
@@ -225,6 +225,8 @@ public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_Do
 	public static final String DB_USERTYPE_ClinicUser = "M";
 	/** Cashier/Registration Basic = R */
 	public static final String DB_USERTYPE_CashierRegistrationBasic = "R";
+	/** Cashier/Registration Basic+ = S */
+	public static final String DB_USERTYPE_CashierRegistrationBasicPlus = "S";
 	/** Triage = T */
 	public static final String DB_USERTYPE_Triage = "T";
 	/** User = U */

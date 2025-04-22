@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_ProjectTask - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_ProjectTaskResolver extends POResolver<MProjectTask> implements GraphQLResolver<MProjectTask> {
 
@@ -76,7 +76,7 @@ public class X_C_ProjectTaskResolver extends POResolver<MProjectTask> implements
 		{
 			put("-", "b2c13436-dfd4-4b95-a0fe-a0429485d425"); // None
 			put("C", "4311a616-dbf6-4e2a-bc9b-a7726e4f075c"); // Committed Amount
-			put("c", "e9bbae09-f9ce-4dfd-a9d6-487109574052"); // Time&Material max Comitted
+			put("c", "e9bbae09-f9ce-4dfd-a9d6-487109574052"); // Time&Material max Committed
 			put("T", "f724e224-f0fb-4575-94ae-b4aa8e6c8c54"); // Time&Material
 			put("P", "c6d2fa2b-6f89-41b1-9e53-db77217d3ff1"); // Product  Quantity
 		}

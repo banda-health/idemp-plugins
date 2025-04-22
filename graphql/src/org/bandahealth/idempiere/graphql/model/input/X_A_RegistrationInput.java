@@ -20,7 +20,7 @@ import java.sql.Timestamp;
  * Generated Model for A_Registration - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_A_RegistrationInput extends X_A_Registration implements I_A_RegistrationInput {
 

@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_Product_CategoryDefault;
  * Generated Interface for BH_Product_CategoryDefault - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_BH_Product_CategoryDefaultInput extends I_BH_Product_CategoryDefault {
 

@@ -1,6 +1,6 @@
 # Generated Schema for C_Period - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	C_Period(UU: String!): C_Period
 	C_PeriodGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PeriodConnection!

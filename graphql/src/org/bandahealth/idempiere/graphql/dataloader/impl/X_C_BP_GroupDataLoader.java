@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBPGroup_BH;
  * Data Loader for C_BP_Group - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_BP_GroupDataLoader extends PODataLoader<MBPGroup_BH> {
 	public static String DATALOADER_C_BP_Group_BY_ID = "C_BP_GroupByIdDataLoader";

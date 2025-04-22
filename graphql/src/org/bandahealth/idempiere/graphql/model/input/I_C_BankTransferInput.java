@@ -6,7 +6,7 @@ import org.compiere.model.I_C_BankTransfer;
  * Generated Interface for C_BankTransfer - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_C_BankTransferInput extends I_C_BankTransfer {
 

@@ -23,7 +23,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Concept
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Concept")
 public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 {
@@ -31,7 +31,7 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20241003L;
+	private static final long serialVersionUID = 20250127L;
 
     /** Standard Constructor */
     public X_BH_Concept (Properties ctx, int BH_Concept_ID, String trxName)
@@ -100,21 +100,6 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
         .append(get_ID()).append("]");
       return sb.toString();
     }
-
-	/** Set bh_concept_class.
-		@param bh_concept_class bh_concept_class
-	*/
-	public void setbh_concept_class (String bh_concept_class)
-	{
-		set_Value (COLUMNNAME_bh_concept_class, bh_concept_class);
-	}
-
-	/** Get bh_concept_class.
-		@return bh_concept_class	  */
-	public String getbh_concept_class()
-	{
-		return (String)get_Value(COLUMNNAME_bh_concept_class);
-	}
 
 	/** Set Concept.
 		@param BH_Concept_ID Concept
@@ -293,7 +278,7 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	}
 
 	/** Set Ocl Uuid.
-		@param Ocl_Uuid A UUID from the OCL System
+		@param Ocl_Uuid A UUID from the OCL system
 	*/
 	public void setOcl_Uuid (String Ocl_Uuid)
 	{
@@ -301,7 +286,7 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	}
 
 	/** Get Ocl Uuid.
-		@return A UUID from the OCL System
+		@return A UUID from the OCL system
 	  */
 	public String getOcl_Uuid()
 	{
@@ -322,5 +307,20 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	public String getURL()
 	{
 		return (String)get_Value(COLUMNNAME_URL);
+	}
+
+	/** Set bh_concept_class.
+		@param bh_concept_class bh_concept_class
+	*/
+	public void setbh_concept_class (String bh_concept_class)
+	{
+		set_Value (COLUMNNAME_bh_concept_class, bh_concept_class);
+	}
+
+	/** Get bh_concept_class.
+		@return bh_concept_class	  */
+	public String getbh_concept_class()
+	{
+		return (String)get_Value(COLUMNNAME_bh_concept_class);
 	}
 }

@@ -6,7 +6,7 @@ import org.compiere.model.MRequestProcessor;
  * Data Loader for R_RequestProcessor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_R_RequestProcessorDataLoader extends PODataLoader<MRequestProcessor> {
 	public static String DATALOADER_R_RequestProcessor_BY_ID = "R_RequestProcessorByIdDataLoader";

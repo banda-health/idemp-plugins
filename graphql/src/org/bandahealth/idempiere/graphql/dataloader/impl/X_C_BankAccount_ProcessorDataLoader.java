@@ -6,7 +6,7 @@ import org.compiere.model.MBankAccountProcessor;
  * Data Loader for C_BankAccount_Processor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_C_BankAccount_ProcessorDataLoader extends PODataLoader<MBankAccountProcessor> {
 	public static String DATALOADER_C_BankAccount_Processor_BY_ID = "C_BankAccount_ProcessorByIdDataLoader";

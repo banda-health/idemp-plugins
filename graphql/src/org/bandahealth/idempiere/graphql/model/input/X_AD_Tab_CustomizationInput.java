@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Tab_Customization - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implements I_AD_Tab_CustomizationInput {
 

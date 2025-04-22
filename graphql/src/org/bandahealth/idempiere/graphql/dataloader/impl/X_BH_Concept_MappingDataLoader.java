@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHConceptMapping;
  * Data Loader for BH_Concept_Mapping - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public class X_BH_Concept_MappingDataLoader extends PODataLoader<MBHConceptMapping> {
 	public static String DATALOADER_BH_Concept_Mapping_BY_ID = "BH_Concept_MappingByIdDataLoader";

@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MClientInfo;
 import org.compiere.model.MRole;
@@ -99,9 +100,9 @@ public class AuthenticationUtil {
 		if (!claim.isNull()) {
 			AD_Session_ID = claim.asInt();
 			Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, AD_Session_ID);
-			// If we see a session ID but no session exists, just clear the session from the context
+			// If we see a session ID but no session exists, we'll throw an exception
 			if (AD_Session_ID > 0 && MSession.get(Env.getCtx()) == null) {
-				Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, 0);
+				throw new AdempiereException("Session not found");
 			}
 		}
 

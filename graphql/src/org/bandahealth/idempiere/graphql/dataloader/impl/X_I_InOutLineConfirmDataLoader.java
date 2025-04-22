@@ -6,7 +6,7 @@ import org.compiere.model.X_I_InOutLineConfirm;
  * Data Loader for I_InOutLineConfirm - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_I_InOutLineConfirmDataLoader extends PODataLoader<X_I_InOutLineConfirm> {
 	public static String DATALOADER_I_InOutLineConfirm_BY_ID = "I_InOutLineConfirmByIdDataLoader";

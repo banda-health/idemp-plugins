@@ -79,6 +79,7 @@ public class PrescriptionFormReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setRandom();
 		MBHConcept codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		String diagnosisName = codedDiagnosis.getBH_Display_Name();
 		codedDiagnosis.saveEx();
 		commitEx();

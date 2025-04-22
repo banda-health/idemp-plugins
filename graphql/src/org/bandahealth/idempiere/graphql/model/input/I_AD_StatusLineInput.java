@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_StatusLine;
  * Generated Interface for AD_StatusLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_AD_StatusLineInput extends I_AD_StatusLine {
 
@@ -51,6 +51,20 @@ public interface I_AD_StatusLineInput extends I_AD_StatusLine {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set AD_Style.
+	 *
+	 * @param AD_Style CSS style for field and label
+	 */
+	void setAD_StyleInput(ForeignEntityInput AD_Style);
+
+	/**
+	 * Get AD_Style.
+	 *
+	 * @return CSS style for field and label
+	 */
+	ForeignEntityInput AD_Style();
 
 	/**
 	 * Set AD_EntityType.

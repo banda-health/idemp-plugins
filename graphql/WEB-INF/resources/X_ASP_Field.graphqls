@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Field - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	ASP_Field(UU: String!): ASP_Field
 	ASP_FieldGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_FieldConnection!

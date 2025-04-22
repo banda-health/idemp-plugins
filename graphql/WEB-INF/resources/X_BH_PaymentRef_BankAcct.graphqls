@@ -1,6 +1,6 @@
 # Generated Schema for BH_PaymentRef_BankAcct - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	BH_PaymentRef_BankAcct(UU: String!): BH_PaymentRef_BankAcct
 	BH_PaymentRef_BankAcctGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_PaymentRef_BankAcctConnection!

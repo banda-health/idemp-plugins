@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_Allergy;
  * Generated Interface for BH_Allergy - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 13 - $Id$
  */
 public interface I_BH_AllergyInput extends I_BH_Allergy {
 

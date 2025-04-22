@@ -24,7 +24,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Encounter
  *  @author iDempiere (generated)
- *  @version Release 11 - $Id$ */
+ *  @version Release 13 - $Id$ */
 @org.adempiere.base.Model(table="BH_Encounter")
 public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 {
@@ -156,12 +156,12 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 	public static final String BH_ENCOUNTER_TYPE_ClinicalDetails = "D";
 	/** Immunizations = I */
 	public static final String BH_ENCOUNTER_TYPE_Immunizations = "I";
+	/** Capture Vitals = V */
+	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "V";
 	/** Lab Diagnostics = l */
 	public static final String BH_ENCOUNTER_TYPE_LabDiagnostics = "l";
 	/** Diagnosis = m */
 	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
-	/** Capture Vitals = V */
-	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "V";
 	/** Set Encounter Type.
 		@param BH_Encounter_Type Encounter Type
 	*/

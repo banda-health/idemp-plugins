@@ -6,7 +6,7 @@ import org.compiere.model.X_S_TimeType;
  * Data Loader for S_TimeType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_S_TimeTypeDataLoader extends PODataLoader<X_S_TimeType> {
 	public static String DATALOADER_S_TimeType_BY_ID = "S_TimeTypeByIdDataLoader";

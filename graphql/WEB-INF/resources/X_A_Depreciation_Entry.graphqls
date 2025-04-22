@@ -1,6 +1,6 @@
 # Generated Schema for A_Depreciation_Entry - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 11 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	A_Depreciation_Entry(UU: String!): A_Depreciation_Entry
 	A_Depreciation_EntryGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Depreciation_EntryConnection!

@@ -33,7 +33,7 @@ import java.sql.Timestamp;
  * Generated Model for PP_Order - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 

@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for T_BOM_Indented - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 11 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_T_BOM_IndentedQuery extends POQuery<X_T_BOM_Indented> implements GraphQLQueryResolver {
 	@Override
