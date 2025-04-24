@@ -54,11 +54,14 @@ test('report names are correct', async () => {
 	);
 	expect(reportMenuList).toBeTruthy();
 
-	expect(reportMenuList[0].Name).toBe(
-		`Financial (Understand the clinic's financial position, revenue streams, and liabilities)`,
+	expect(reportMenuList[0].Name).toBe('Financial');
+	expect(reportMenuList[0].Description).toBe(
+		`Understand the clinic's financial position, revenue streams, and liabilities`,
 	);
-	expect(reportMenuList[1].Name).toBe(`Clinical (Monitor patient trends, clinical workload, and service delivery)`);
-	expect(reportMenuList[2].Name).toBe(`Inventory (View what's going on with your stocks)`);
+	expect(reportMenuList[1].Name).toBe('Clinical');
+	expect(reportMenuList[1].Description).toBe('Monitor patient trends, clinical workload, and service delivery');
+	expect(reportMenuList[2].Name).toBe(`Inventory`);
+	expect(reportMenuList[2].Description).toBe(`View what's going on with your stocks`);
 
 	const financialReports = reportMenuList[0].ChildrenTree_NodeMMList?.flatMap((node) => (node.Node ? [node.Node] : []));
 	expect(financialReports).toBeTruthy();
