@@ -1245,6 +1245,11 @@ SET
 	name = 'Value of Opening and Closing Stock'
 WHERE
 	name = 'Value of Opening and Closing Stock ';
+UPDATE ad_process
+SET
+	name = 'Value of Opening and Closing Stock'
+WHERE
+	name = 'Value of Opening and Closing Stock ';
 
 SELECT
 	register_migration_script('202504241330_GO-3279.sql')
