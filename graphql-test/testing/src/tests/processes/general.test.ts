@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash';
 import { Ad_MenuGetDocument, Ad_ProcessGetDocument } from '../../__generated__/graphql';
 import { query } from '../../api';
 import { RoleName } from '../../types/roleName';
@@ -44,14 +45,15 @@ const isActiveFilter = JSON.stringify({ isActive: 'Y' });
 test('report names are correct', async () => {
 	await globalThis.__VALUE_OBJECT__.login();
 
-	const reportMenuList = (
-		await query(globalThis.__VALUE_OBJECT__)({
-			query: Ad_MenuGetDocument,
-			variables: { Size: 1, Filter: JSON.stringify({ ad_menu_uu: reportsMenuRootUuid }) },
-		})
-	).data.AD_MenuGet.Results[0].ChildrenTree_NodeMMList!.flatMap((mainMenuTreeNode) =>
-		mainMenuTreeNode.Node ? [mainMenuTreeNode.Node] : [],
-	);
+	const reportMenuList = sortBy(
+		(
+			await query(globalThis.__VALUE_OBJECT__)({
+				query: Ad_MenuGetDocument,
+				variables: { Size: 1, Filter: JSON.stringify({ ad_menu_uu: reportsMenuRootUuid }) },
+			})
+		).data.AD_MenuGet.Results[0].ChildrenTree_NodeMMList || [],
+		'SeqNo',
+	).flatMap((mainMenuTreeNode) => (mainMenuTreeNode.Node ? [mainMenuTreeNode.Node] : []));
 	expect(reportMenuList).toBeTruthy();
 
 	expect(reportMenuList[0].Name).toBe('Financial');
@@ -63,7 +65,9 @@ test('report names are correct', async () => {
 	expect(reportMenuList[2].Name).toBe(`Inventory`);
 	expect(reportMenuList[2].Description).toBe(`View what's going on with your stocks`);
 
-	const financialReports = reportMenuList[0].ChildrenTree_NodeMMList?.flatMap((node) => (node.Node ? [node.Node] : []));
+	const financialReports = sortBy(reportMenuList[0].ChildrenTree_NodeMMList || [], 'SeqNo').flatMap((node) =>
+		node.Node ? [node.Node] : [],
+	);
 	expect(financialReports).toBeTruthy();
 	expect(financialReports![0].Name).toBe('Patient Transactions');
 	expect(financialReports![0].AD_Process?.UU).toBe(processUuid.patientTransactions);
@@ -90,7 +94,9 @@ test('report names are correct', async () => {
 	expect(financialReports![11].Name).toBe('Expenses');
 	expect(financialReports![11].AD_Process?.UU).toBe(processUuid.expenses);
 
-	const clinicalReports = reportMenuList[1].ChildrenTree_NodeMMList?.flatMap((node) => (node.Node ? [node.Node] : []));
+	const clinicalReports = sortBy(reportMenuList[1].ChildrenTree_NodeMMList || [], 'SeqNo').flatMap((node) =>
+		node.Node ? [node.Node] : [],
+	);
 	expect(clinicalReports).toBeTruthy();
 	expect(clinicalReports![0].Name).toBe('MoH705A Out Patient Under 5yr Summary');
 	expect(clinicalReports![0].AD_Process?.UU).toBe(processUuid.moh705AOutpatientUnder5YearsSummary);
@@ -105,7 +111,9 @@ test('report names are correct', async () => {
 	expect(clinicalReports![5].Name).toBe('Patients Report');
 	expect(clinicalReports![5].AD_Process?.UU).toBe(processUuid.patients);
 
-	const inventoryReports = reportMenuList[1].ChildrenTree_NodeMMList?.flatMap((node) => (node.Node ? [node.Node] : []));
+	const inventoryReports = sortBy(reportMenuList[2].ChildrenTree_NodeMMList || [], 'SeqNo').flatMap((node) =>
+		node.Node ? [node.Node] : [],
+	);
 	expect(inventoryReports).toBeTruthy();
 	expect(inventoryReports![0].Name).toBe('Inventory Sold Report');
 	expect(inventoryReports![0].AD_Process?.UU).toBe(processUuid.inventorySoldReport);
