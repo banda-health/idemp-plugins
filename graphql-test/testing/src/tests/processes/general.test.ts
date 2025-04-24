@@ -63,7 +63,7 @@ test('report names are correct', async () => {
 	expect(reportMenuList[1].Name).toBe('Clinical');
 	expect(reportMenuList[1].Description).toBe('Monitor patient trends, clinical workload, and service delivery');
 	expect(reportMenuList[2].Name).toBe(`Inventory`);
-	expect(reportMenuList[2].Description).toBe(`View what's going on with your stocks`);
+	expect(reportMenuList[2].Description).toBe(`Track stock, purchases, and resources`);
 
 	const financialReports = sortBy(reportMenuList[0].ChildrenTree_NodeMMList || [], 'SeqNo').flatMap((node) =>
 		node.Node ? [node.Node] : [],
