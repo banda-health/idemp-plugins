@@ -753,7 +753,7 @@ export type Ad_Attribute = {
   Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: Maybe<Scalars['String']['output']>;
   /** Maximum Value for a field */
   ValueMax?: Maybe<Scalars['String']['output']>;
@@ -813,7 +813,7 @@ export type Ad_AttributeInput = {
   /** Method of ordering records; lowest number comes first */
   SeqNo?: InputMaybe<Scalars['Int']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: InputMaybe<Scalars['String']['input']>;
   /** Maximum Value for a field */
   ValueMax?: InputMaybe<Scalars['String']['input']>;
@@ -1847,7 +1847,7 @@ export type Ad_Column = {
   Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: Maybe<Scalars['String']['output']>;
   /** Maximum Value for a field */
   ValueMax?: Maybe<Scalars['String']['output']>;
@@ -1960,7 +1960,7 @@ export type Ad_ColumnInput = {
   /** Selection Column Sequence */
   SeqNoSelection?: InputMaybe<Scalars['Int']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: InputMaybe<Scalars['String']['input']>;
   /** Maximum Value for a field */
   ValueMax?: InputMaybe<Scalars['String']['input']>;
@@ -2480,6 +2480,8 @@ export type Ad_Field = {
   IsFieldOnly: Scalars['Boolean']['output'];
   /** Field without Column - Only label is displayed */
   IsHeading: Scalars['Boolean']['output'];
+  /** Text has HTML tags */
+  IsHtml?: Maybe<Ad_Ref_List>;
   /** Data entry is required in this column */
   IsMandatory?: Maybe<Ad_Ref_List>;
   IsQuickEntry: Scalars['Boolean']['output'];
@@ -2515,7 +2517,7 @@ export type Ad_Field = {
   Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: Maybe<Scalars['String']['output']>;
   /** Absolute X (horizontal) position in 1/72 of an inch */
   XPosition?: Maybe<Scalars['Int']['output']>;
@@ -2641,6 +2643,8 @@ export type Ad_FieldInput = {
   IsFieldOnly?: InputMaybe<Scalars['Boolean']['input']>;
   /** Field without Column - Only label is displayed */
   IsHeading?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Text has HTML tags */
+  IsHtml?: InputMaybe<ForeignEntityInput>;
   /** Data entry is required in this column */
   IsMandatory?: InputMaybe<ForeignEntityInput>;
   IsQuickEntry?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2672,7 +2676,7 @@ export type Ad_FieldInput = {
   /** Determines in what order the records are displayed */
   SortNo?: InputMaybe<Scalars['BigDecimal']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: InputMaybe<Scalars['String']['input']>;
   /** Absolute X (horizontal) position in 1/72 of an inch */
   XPosition?: InputMaybe<Scalars['Int']['input']>;
@@ -3223,10 +3227,13 @@ export type Ad_ImportTemplate = {
   CreatedBy: Ad_User;
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
+  ImportTemplateType: Ad_Ref_List;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Alphanumeric identifier of the entity */
   Name: Scalars['String']['output'];
+  QuoteChar: Scalars['String']['output'];
+  SeparatorChar: Scalars['String']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated: Scalars['DateTime']['output'];
@@ -3297,10 +3304,13 @@ export type Ad_ImportTemplateInput = {
   CharacterSet?: InputMaybe<Scalars['String']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
+  ImportTemplateType?: InputMaybe<ForeignEntityInput>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Alphanumeric identifier of the entity */
   Name?: InputMaybe<Scalars['String']['input']>;
+  QuoteChar?: InputMaybe<Scalars['String']['input']>;
+  SeparatorChar?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -4110,7 +4120,7 @@ export type Ad_Language = {
   AD_Org: Ad_Org;
   /** Printer paper definition */
   AD_PrintPaper?: Maybe<Ad_PrintPaper>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
   Created: Scalars['DateTime']['output'];
@@ -4156,7 +4166,7 @@ export type Ad_LanguageInput = {
   AD_Org?: InputMaybe<ForeignEntityInput>;
   /** Printer paper definition */
   AD_PrintPaper?: InputMaybe<ForeignEntityInput>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode?: InputMaybe<Scalars['String']['input']>;
   /** Java Date Pattern */
   DatePattern?: InputMaybe<Scalars['String']['input']>;
@@ -5015,6 +5025,8 @@ export type Ad_PInstance = {
   IsRunAsJob: Scalars['Boolean']['output'];
   /** This is a summary entity */
   IsSummary: Scalars['Boolean']['output'];
+  /** The json field stores json data. */
+  JsonData?: Maybe<Scalars['String']['output']>;
   /** Alphanumeric identifier of the entity */
   Name?: Maybe<Scalars['String']['output']>;
   /** Type of Notifications */
@@ -5056,6 +5068,8 @@ export type Ad_PInstanceInput = {
   IsRunAsJob?: InputMaybe<Scalars['Boolean']['input']>;
   /** This is a summary entity */
   IsSummary?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The json field stores json data. */
+  JsonData?: InputMaybe<Scalars['String']['input']>;
   /** Alphanumeric identifier of the entity */
   Name?: InputMaybe<Scalars['String']['input']>;
   /** Type of Notifications */
@@ -5072,6 +5086,8 @@ export type Ad_PInstance_Log = {
   AD_PInstance: Ad_PInstance;
   /** Database Table information */
   AD_Table?: Maybe<Ad_Table>;
+  /** The json field stores json data. */
+  JsonData?: Maybe<Scalars['String']['output']>;
   Log_ID: Scalars['Int']['output'];
   /** Process Audit Log Type */
   PInstanceLogType?: Maybe<Ad_Ref_List>;
@@ -5094,6 +5110,8 @@ export type Ad_PInstance_LogInput = {
   AD_PInstance?: InputMaybe<ForeignEntityInput>;
   /** Database Table information */
   AD_Table?: InputMaybe<ForeignEntityInput>;
+  /** The json field stores json data. */
+  JsonData?: InputMaybe<Scalars['String']['input']>;
   Log_ID?: InputMaybe<Scalars['Int']['input']>;
   /** Process Audit Log Type */
   PInstanceLogType?: InputMaybe<ForeignEntityInput>;
@@ -7351,7 +7369,7 @@ export type Ad_Process_Para = {
   Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: Maybe<Scalars['String']['output']>;
   /** Maximum Value for a field */
   ValueMax?: Maybe<Scalars['String']['output']>;
@@ -7424,7 +7442,7 @@ export type Ad_Process_ParaInput = {
   /** Method of ordering records; lowest number comes first */
   SeqNo?: InputMaybe<Scalars['Int']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: InputMaybe<Scalars['String']['input']>;
   /** Maximum Value for a field */
   ValueMax?: InputMaybe<Scalars['String']['input']>;
@@ -7710,7 +7728,7 @@ export type Ad_Reference = {
   Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: Maybe<Scalars['String']['output']>;
   /** Different method of validating data */
   ValidationType: Ad_Ref_List;
@@ -7742,7 +7760,7 @@ export type Ad_ReferenceInput = {
   /** Show Inactive Records */
   ShowInactive?: InputMaybe<ForeignEntityInput>;
   UU?: InputMaybe<Scalars['ID']['input']>;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: InputMaybe<Scalars['String']['input']>;
   /** Different method of validating data */
   ValidationType?: InputMaybe<ForeignEntityInput>;
@@ -9064,8 +9082,12 @@ export type Ad_SearchDefinition = {
   AD_Column?: Maybe<Ad_Column>;
   /** Dictionary Entity Type; Determines ownership and synchronization */
   AD_EntityType: Ad_EntityType;
+  /** System Message */
+  AD_Message?: Maybe<Ad_Message>;
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
+  /** CSS style for field and label */
+  AD_Style?: Maybe<Ad_Style>;
   /** Database Table information */
   AD_Table: Ad_Table;
   /** Data entry or display window */
@@ -9110,8 +9132,12 @@ export type Ad_SearchDefinitionInput = {
   AD_Column?: InputMaybe<ForeignEntityInput>;
   /** Dictionary Entity Type; Determines ownership and synchronization */
   AD_EntityType?: InputMaybe<ForeignEntityInput>;
+  /** System Message */
+  AD_Message?: InputMaybe<ForeignEntityInput>;
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
+  /** CSS style for field and label */
+  AD_Style?: InputMaybe<ForeignEntityInput>;
   /** Database Table information */
   AD_Table?: InputMaybe<ForeignEntityInput>;
   /** Data entry or display window */
@@ -9187,7 +9213,7 @@ export type Ad_Sequence = {
   Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: Maybe<Scalars['String']['output']>;
 };
 
@@ -9236,7 +9262,7 @@ export type Ad_SequenceInput = {
   /** Suffix after the number */
   Suffix?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -9401,6 +9427,8 @@ export type Ad_StatusLine = {
   AD_Message: Ad_Message;
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
+  /** CSS style for field and label */
+  AD_Style?: Maybe<Ad_Style>;
   /** Date this record was created */
   Created: Scalars['DateTime']['output'];
   /** User who created this records */
@@ -9430,6 +9458,8 @@ export type Ad_StatusLineInput = {
   AD_Message?: InputMaybe<ForeignEntityInput>;
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
+  /** CSS style for field and label */
+  AD_Style?: InputMaybe<ForeignEntityInput>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Alphanumeric identifier of the entity */
@@ -11591,6 +11621,8 @@ export type Ad_UserDef_Field = {
   /** Determines, if this field is displayed */
   IsDisplayed?: Maybe<Ad_Ref_List>;
   IsDisplayedGrid?: Maybe<Ad_Ref_List>;
+  /** Text has HTML tags */
+  IsHtml?: Maybe<Ad_Ref_List>;
   /** Data entry is required in this column */
   IsMandatory?: Maybe<Ad_Ref_List>;
   /** Field is read only */
@@ -11620,7 +11652,7 @@ export type Ad_UserDef_Field = {
   Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: Maybe<Scalars['String']['output']>;
   /** Absolute X (horizontal) position in 1/72 of an inch */
   XPosition?: Maybe<Scalars['Int']['output']>;
@@ -11676,6 +11708,8 @@ export type Ad_UserDef_FieldInput = {
   /** Determines, if this field is displayed */
   IsDisplayed?: InputMaybe<ForeignEntityInput>;
   IsDisplayedGrid?: InputMaybe<ForeignEntityInput>;
+  /** Text has HTML tags */
+  IsHtml?: InputMaybe<ForeignEntityInput>;
   /** Data entry is required in this column */
   IsMandatory?: InputMaybe<ForeignEntityInput>;
   /** Field is read only */
@@ -11701,7 +11735,7 @@ export type Ad_UserDef_FieldInput = {
   /** Determines in what order the records are displayed */
   SortNo?: InputMaybe<Scalars['Int']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: InputMaybe<Scalars['String']['input']>;
   /** Absolute X (horizontal) position in 1/72 of an inch */
   XPosition?: InputMaybe<Scalars['Int']['input']>;
@@ -12084,7 +12118,7 @@ export type Ad_UserDef_Proc_Parameter = {
   Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: Maybe<Scalars['String']['output']>;
   /** Maximum Value for a field */
   ValueMax?: Maybe<Scalars['String']['output']>;
@@ -12140,7 +12174,7 @@ export type Ad_UserDef_Proc_ParameterInput = {
   /** Method of ordering records; lowest number comes first */
   SeqNo?: InputMaybe<Scalars['Int']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: InputMaybe<Scalars['String']['input']>;
   /** Maximum Value for a field */
   ValueMax?: InputMaybe<Scalars['String']['input']>;
@@ -12505,6 +12539,7 @@ export type Ad_UserPreference = {
   AD_Org: Ad_Org;
   /** User within the system - Internal or Business Partner Contact */
   AD_User: Ad_User;
+  /** Automatically save changes to the current record upon user navigation. */
   AutoCommit: Scalars['Boolean']['output'];
   AutoNew: Scalars['Boolean']['output'];
   /** Automatically insert a decimal point */
@@ -12518,6 +12553,8 @@ export type Ad_UserPreference = {
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   IsDetailedZoomAcross: Scalars['Boolean']['output'];
+  IsReadOnlySession: Scalars['Boolean']['output'];
+  IsShowTechnicalInfOnHelp: Scalars['Boolean']['output'];
   IsUseSimilarTo: Scalars['Boolean']['output'];
   MigrationScriptComment?: Maybe<Scalars['String']['output']>;
   /** Defines if double click in a field on grid mode switch to form view */
@@ -12542,6 +12579,7 @@ export type Ad_UserPreferenceInput = {
   AD_Org?: InputMaybe<ForeignEntityInput>;
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: InputMaybe<ForeignEntityInput>;
+  /** Automatically save changes to the current record upon user navigation. */
   AutoCommit?: InputMaybe<Scalars['Boolean']['input']>;
   AutoNew?: InputMaybe<Scalars['Boolean']['input']>;
   /** Automatically insert a decimal point */
@@ -12551,6 +12589,8 @@ export type Ad_UserPreferenceInput = {
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   IsDetailedZoomAcross?: InputMaybe<Scalars['Boolean']['input']>;
+  IsReadOnlySession?: InputMaybe<Scalars['Boolean']['input']>;
+  IsShowTechnicalInfOnHelp?: InputMaybe<Scalars['Boolean']['input']>;
   IsUseSimilarTo?: InputMaybe<Scalars['Boolean']['input']>;
   MigrationScriptComment?: InputMaybe<Scalars['String']['input']>;
   /** Defines if double click in a field on grid mode switch to form view */
@@ -15160,7 +15200,7 @@ export type A_Asset = {
   Name: Scalars['String']['output'];
   /** Next Maintenance Date */
   NextMaintenenceDate?: Maybe<Scalars['Date']['output']>;
-  /** Next Maintenence Unit */
+  /** Next Maintenance Unit */
   NextMaintenenceUnit?: Maybe<Scalars['Int']['output']>;
   /** The document has been processed */
   Processed: Scalars['Boolean']['output'];
@@ -15278,7 +15318,7 @@ export type A_AssetInput = {
   Name?: InputMaybe<Scalars['String']['input']>;
   /** Next Maintenance Date */
   NextMaintenenceDate?: InputMaybe<Scalars['Date']['input']>;
-  /** Next Maintenence Unit */
+  /** Next Maintenance Unit */
   NextMaintenenceUnit?: InputMaybe<Scalars['Int']['input']>;
   /** The document has been processed */
   Processed?: InputMaybe<Scalars['Boolean']['input']>;
@@ -20849,6 +20889,8 @@ export type C_AcctSchema = {
   AD_Org: Ad_Org;
   /** If selected, the periods are automatically opened and closed */
   AutoPeriodControl: Scalars['Boolean']['output'];
+  /** Number of days to be able to post a back-date transaction (based on system date) */
+  BackDateDay?: Maybe<Scalars['Int']['output']>;
   C_AcctSchema_Elements?: Maybe<Array<C_AcctSchema_Element>>;
   /** The Currency for this record */
   C_Currency: C_Currency;
@@ -20921,6 +20963,8 @@ export type C_AcctSchemaInput = {
   AD_Org?: InputMaybe<ForeignEntityInput>;
   /** If selected, the periods are automatically opened and closed */
   AutoPeriodControl?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Number of days to be able to post a back-date transaction (based on system date) */
+  BackDateDay?: InputMaybe<Scalars['Int']['input']>;
   /** The Currency for this record */
   C_Currency?: InputMaybe<ForeignEntityInput>;
   /** Period of the Calendar */
@@ -23561,6 +23605,7 @@ export type C_BankStatementLine = {
   C_Charge?: Maybe<C_Charge>;
   /** The Currency for this record */
   C_Currency: C_Currency;
+  C_DepositBatch?: Maybe<C_DepositBatch>;
   /** Invoice Identifier */
   C_Invoice?: Maybe<C_Invoice>;
   /** Payment identifier */
@@ -23647,6 +23692,7 @@ export type C_BankStatementLineInput = {
   C_Charge?: InputMaybe<ForeignEntityInput>;
   /** The Currency for this record */
   C_Currency?: InputMaybe<ForeignEntityInput>;
+  C_DepositBatch?: InputMaybe<ForeignEntityInput>;
   /** Invoice Identifier */
   C_Invoice?: InputMaybe<ForeignEntityInput>;
   /** Payment identifier */
@@ -25452,7 +25498,7 @@ export type C_Country = {
   C_Currency?: Maybe<C_Currency>;
   C_Regions?: Maybe<Array<C_Region>>;
   CaptureSequence?: Maybe<Scalars['String']['output']>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode: Scalars['String']['output'];
   /** Date this record was created */
   Created: Scalars['DateTime']['output'];
@@ -25478,6 +25524,8 @@ export type C_Country = {
   HasPostal_Add: Scalars['Boolean']['output'];
   /** Country contains Regions */
   HasRegion: Scalars['Boolean']['output'];
+  /** ISO Alpha-3 country code - a three-letter code that represents a country name, which is usually more closely related to the country name */
+  ISOCountryCodeAlpha3?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Print Local Address in reverse Order */
@@ -25494,6 +25542,8 @@ export type C_Country = {
   LookupPassword?: Maybe<Scalars['String']['output']>;
   /** The URL of the web service that the plugin connects to in order to retrieve postcode data */
   LookupUrl?: Maybe<Scalars['String']['output']>;
+  /** Standard country codes for statistical use (M49) defined by the United Nations */
+  M49Code?: Maybe<Scalars['String']['output']>;
   /** Java Media Size */
   MediaSize?: Maybe<Scalars['String']['output']>;
   /** Alphanumeric identifier of the entity */
@@ -25636,7 +25686,7 @@ export type C_CountryInput = {
   /** The Currency for this record */
   C_Currency?: InputMaybe<ForeignEntityInput>;
   CaptureSequence?: InputMaybe<Scalars['String']['input']>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode?: InputMaybe<Scalars['String']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
@@ -25658,6 +25708,8 @@ export type C_CountryInput = {
   HasPostal_Add?: InputMaybe<Scalars['Boolean']['input']>;
   /** Country contains Regions */
   HasRegion?: InputMaybe<Scalars['Boolean']['input']>;
+  /** ISO Alpha-3 country code - a three-letter code that represents a country name, which is usually more closely related to the country name */
+  ISOCountryCodeAlpha3?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Print Local Address in reverse Order */
@@ -25674,6 +25726,8 @@ export type C_CountryInput = {
   LookupPassword?: InputMaybe<Scalars['String']['input']>;
   /** The URL of the web service that the plugin connects to in order to retrieve postcode data */
   LookupUrl?: InputMaybe<Scalars['String']['input']>;
+  /** Standard country codes for statistical use (M49) defined by the United Nations */
+  M49Code?: InputMaybe<Scalars['String']['input']>;
   /** Java Media Size */
   MediaSize?: InputMaybe<Scalars['String']['input']>;
   /** Alphanumeric identifier of the entity */
@@ -25953,6 +26007,8 @@ export type C_DepositBatch = {
   AD_Org: Ad_Org;
   /** Account at the Bank */
   C_BankAccount: C_BankAccount;
+  /** The Currency for this record */
+  C_Currency: C_Currency;
   C_DepositBatchLines?: Maybe<Array<C_DepositBatchLine>>;
   /** Document type or rules */
   C_DocType: C_DocType;
@@ -25968,6 +26024,8 @@ export type C_DepositBatch = {
   DepositAmt: Scalars['BigDecimal']['output'];
   /** Optional short description of the record */
   Description?: Maybe<Scalars['String']['output']>;
+  /** The targeted status of the document */
+  DocAction?: Maybe<Ad_Ref_List>;
   /** The current status of the document */
   DocStatus: Ad_Ref_List;
   /** Document sequence number of the document */
@@ -25976,7 +26034,6 @@ export type C_DepositBatch = {
   IsActive: Scalars['Boolean']['output'];
   /** The document has been processed */
   Processed: Scalars['Boolean']['output'];
-  Processing: Scalars['Boolean']['output'];
   UU: Scalars['ID']['output'];
   /** Date this record was updated */
   Updated: Scalars['DateTime']['output'];
@@ -25995,6 +26052,8 @@ export type C_DepositBatchInput = {
   AD_Org?: InputMaybe<ForeignEntityInput>;
   /** Account at the Bank */
   C_BankAccount?: InputMaybe<ForeignEntityInput>;
+  /** The Currency for this record */
+  C_Currency?: InputMaybe<ForeignEntityInput>;
   /** Document type or rules */
   C_DocType?: InputMaybe<ForeignEntityInput>;
   /** Process which will generate a new document lines based on an existing document */
@@ -26005,6 +26064,8 @@ export type C_DepositBatchInput = {
   DepositAmt?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
+  /** The targeted status of the document */
+  DocAction?: InputMaybe<ForeignEntityInput>;
   /** The current status of the document */
   DocStatus?: InputMaybe<ForeignEntityInput>;
   /** Document sequence number of the document */
@@ -26013,7 +26074,6 @@ export type C_DepositBatchInput = {
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** The document has been processed */
   Processed?: InputMaybe<Scalars['Boolean']['input']>;
-  Processing?: InputMaybe<Scalars['Boolean']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -26113,6 +26173,10 @@ export type C_DocType = {
   HasProforma: Scalars['Boolean']['output'];
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  /** Automatically Generate Shipment after (Sales/Purchase) Order completed */
+  IsAutoGenerateInout: Scalars['Boolean']['output'];
+  /** Automatically Generate Invoice after (Sales/Purchase) Order completed */
+  IsAutoGenerateInvoice: Scalars['Boolean']['output'];
   IsChargeOrProductMandatory: Scalars['Boolean']['output'];
   /** Create Counter Document */
   IsCreateCounter: Scalars['Boolean']['output'];
@@ -26255,6 +26319,10 @@ export type C_DocTypeInput = {
   HasProforma?: InputMaybe<Scalars['Boolean']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Automatically Generate Shipment after (Sales/Purchase) Order completed */
+  IsAutoGenerateInout?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Automatically Generate Invoice after (Sales/Purchase) Order completed */
+  IsAutoGenerateInvoice?: InputMaybe<Scalars['Boolean']['input']>;
   IsChargeOrProductMandatory?: InputMaybe<Scalars['Boolean']['input']>;
   /** Create Counter Document */
   IsCreateCounter?: InputMaybe<Scalars['Boolean']['input']>;
@@ -26700,7 +26768,7 @@ export type C_Element = {
   Updated: Scalars['DateTime']['output'];
   /** User who updated this records */
   UpdatedBy: Ad_User;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: Maybe<Scalars['String']['output']>;
 };
 
@@ -26728,7 +26796,7 @@ export type C_ElementInput = {
   /** Alphanumeric identifier of the entity */
   Name?: InputMaybe<Scalars['String']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
-  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09" */
+  /** Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09", or ~regex */
   VFormat?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -28943,7 +29011,6 @@ export type C_OrderLine = {
   M_MatchPOList?: Maybe<Array<M_MatchPo>>;
   /** Product, Service, Item */
   M_Product?: Maybe<M_Product>;
-  M_Promotion?: Maybe<M_Promotion>;
   /** Method or manner of product delivery */
   M_Shipper?: Maybe<M_Shipper>;
   /** Storage Warehouse and Service Point */
@@ -29058,7 +29125,6 @@ export type C_OrderLineInput = {
   M_AttributeSetInstance?: InputMaybe<ForeignEntityInput>;
   /** Product, Service, Item */
   M_Product?: InputMaybe<ForeignEntityInput>;
-  M_Promotion?: InputMaybe<ForeignEntityInput>;
   /** Method or manner of product delivery */
   M_Shipper?: InputMaybe<ForeignEntityInput>;
   /** Storage Warehouse and Service Point */
@@ -34581,6 +34647,8 @@ export type C_Uom = {
   Name: Scalars['String']['output'];
   /** Rule for rounding  calculated amounts */
   StdPrecision: Scalars['Int']['output'];
+  /** Code for Units of Measure used in International Trade */
+  UNCEFACT?: Maybe<Scalars['String']['output']>;
   /** Symbol for a Unit of Measure */
   UOMSymbol?: Maybe<Scalars['String']['output']>;
   UOMType?: Maybe<Ad_Ref_List>;
@@ -34614,6 +34682,8 @@ export type C_UomInput = {
   Name?: InputMaybe<Scalars['String']['input']>;
   /** Rule for rounding  calculated amounts */
   StdPrecision?: InputMaybe<Scalars['Int']['input']>;
+  /** Code for Units of Measure used in International Trade */
+  UNCEFACT?: InputMaybe<Scalars['String']['input']>;
   /** Symbol for a Unit of Measure */
   UOMSymbol?: InputMaybe<Scalars['String']['input']>;
   UOMType?: InputMaybe<ForeignEntityInput>;
@@ -39272,7 +39342,7 @@ export type I_BPartner = {
   ContactDescription?: Maybe<Scalars['String']['output']>;
   /** Business Partner Contact Name */
   ContactName?: Maybe<Scalars['String']['output']>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
   Created: Scalars['DateTime']['output'];
@@ -39377,7 +39447,7 @@ export type I_BPartnerInput = {
   ContactDescription?: InputMaybe<Scalars['String']['input']>;
   /** Business Partner Contact Name */
   ContactName?: InputMaybe<Scalars['String']['input']>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode?: InputMaybe<Scalars['String']['input']>;
   /** Dun & Bradstreet Number */
   DUNS?: InputMaybe<Scalars['String']['input']>;
@@ -40954,7 +41024,7 @@ export type I_Invoice = {
   City?: Maybe<Scalars['String']['output']>;
   /** Business Partner Contact Name */
   ContactName?: Maybe<Scalars['String']['output']>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode: Scalars['Boolean']['output'];
   /** Date this record was created */
   Created: Scalars['DateTime']['output'];
@@ -41081,7 +41151,7 @@ export type I_InvoiceInput = {
   City?: InputMaybe<Scalars['String']['input']>;
   /** Business Partner Contact Name */
   ContactName?: InputMaybe<Scalars['String']['input']>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode?: InputMaybe<Scalars['Boolean']['input']>;
   /** Accounting Date */
   DateAcct?: InputMaybe<Scalars['Date']['input']>;
@@ -41362,7 +41432,7 @@ export type I_Order = {
   City?: Maybe<Scalars['String']['output']>;
   /** Business Partner Contact Name */
   ContactName?: Maybe<Scalars['String']['output']>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode?: Maybe<Scalars['String']['output']>;
   /** Date this record was created */
   Created: Scalars['DateTime']['output'];
@@ -41497,7 +41567,7 @@ export type I_OrderInput = {
   City?: InputMaybe<Scalars['String']['input']>;
   /** Business Partner Contact Name */
   ContactName?: InputMaybe<Scalars['String']['input']>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode?: InputMaybe<Scalars['String']['input']>;
   /** Accounting Date */
   DateAcct?: InputMaybe<Scalars['Date']['input']>;
@@ -42618,6 +42688,8 @@ export type M_AttributeInstance = {
   /** Search key for the record in the format required - must be unique */
   Value?: Maybe<Scalars['String']['output']>;
   ValueDate?: Maybe<Scalars['Date']['output']>;
+  /** Comma separated values. */
+  ValueMultipleSelection?: Maybe<Scalars['String']['output']>;
   /** Numeric Value */
   ValueNumber?: Maybe<Scalars['BigDecimal']['output']>;
 };
@@ -42643,6 +42715,8 @@ export type M_AttributeInstanceInput = {
   /** Search key for the record in the format required - must be unique */
   Value?: InputMaybe<Scalars['String']['input']>;
   ValueDate?: InputMaybe<Scalars['Date']['input']>;
+  /** Comma separated values. */
+  ValueMultipleSelection?: InputMaybe<Scalars['String']['input']>;
   /** Numeric Value */
   ValueNumber?: InputMaybe<Scalars['BigDecimal']['input']>;
 };
@@ -43374,6 +43448,8 @@ export type M_CostDetail = {
   AD_Org: Ad_Org;
   /** Amount */
   Amt: Scalars['BigDecimal']['output'];
+  /** The date+time (expressed in decimal format) when the document has been processed */
+  BackDateProcessedOn?: Maybe<Scalars['DateTime']['output']>;
   /** Rules for accounting */
   C_AcctSchema: C_AcctSchema;
   /** Invoice Detail Line */
@@ -43394,6 +43470,8 @@ export type M_CostDetail = {
   CurrentCostPrice?: Maybe<Scalars['BigDecimal']['output']>;
   /** Current Quantity */
   CurrentQty?: Maybe<Scalars['BigDecimal']['output']>;
+  /** Accounting Date */
+  DateAcct: Scalars['Date']['output'];
   /** Difference Amount */
   DeltaAmt?: Maybe<Scalars['BigDecimal']['output']>;
   /** Quantity Difference */
@@ -43402,6 +43480,7 @@ export type M_CostDetail = {
   Description?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  IsBackDate: Scalars['Boolean']['output'];
   /** This is a Sales Transaction */
   IsSOTrx: Scalars['Boolean']['output'];
   /** Product Attribute Set Instance */
@@ -43445,6 +43524,8 @@ export type M_CostDetailInput = {
   AD_Org?: InputMaybe<ForeignEntityInput>;
   /** Amount */
   Amt?: InputMaybe<Scalars['BigDecimal']['input']>;
+  /** The date+time (expressed in decimal format) when the document has been processed */
+  BackDateProcessedOn?: InputMaybe<Scalars['DateTime']['input']>;
   /** Rules for accounting */
   C_AcctSchema?: InputMaybe<ForeignEntityInput>;
   /** Invoice Detail Line */
@@ -43461,6 +43542,8 @@ export type M_CostDetailInput = {
   CurrentCostPrice?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Current Quantity */
   CurrentQty?: InputMaybe<Scalars['BigDecimal']['input']>;
+  /** Accounting Date */
+  DateAcct?: InputMaybe<Scalars['Date']['input']>;
   /** Difference Amount */
   DeltaAmt?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Quantity Difference */
@@ -43469,6 +43552,7 @@ export type M_CostDetailInput = {
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  IsBackDate?: InputMaybe<Scalars['Boolean']['input']>;
   /** This is a Sales Transaction */
   IsSOTrx?: InputMaybe<Scalars['Boolean']['input']>;
   /** Product Attribute Set Instance */
@@ -43554,12 +43638,17 @@ export type M_CostHistory = {
   AD_Client: Ad_Client;
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
+  /** The date+time (expressed in decimal format) when the document has been processed */
+  BackDateProcessedOn?: Maybe<Scalars['DateTime']['output']>;
   /** Date this record was created */
   Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
+  /** Accounting Date */
+  DateAcct: Scalars['Date']['output'];
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  IsBackDate: Scalars['Boolean']['output'];
   /** Product Attribute Set Instance */
   M_AttributeSetInstance: M_AttributeSetInstance;
   /** Cost Detail Information */
@@ -43602,8 +43691,13 @@ export type M_CostHistoryConnection = {
 export type M_CostHistoryInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
+  /** The date+time (expressed in decimal format) when the document has been processed */
+  BackDateProcessedOn?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Accounting Date */
+  DateAcct?: InputMaybe<Scalars['Date']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  IsBackDate?: InputMaybe<Scalars['Boolean']['input']>;
   /** Product Attribute Set Instance */
   M_AttributeSetInstance?: InputMaybe<ForeignEntityInput>;
   /** Cost Detail Information */
@@ -46379,6 +46473,8 @@ export type M_MovementLine = {
   AD_Client: Ad_Client;
   /** Organizational entity within tenant */
   AD_Org: Ad_Org;
+  /** Unit of Measure */
+  C_UOM: C_Uom;
   /** Confirmation of a received quantity */
   ConfirmedQty?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was created */
@@ -46410,6 +46506,8 @@ export type M_MovementLine = {
   MovementQty: Scalars['BigDecimal']['output'];
   /** The document has been processed */
   Processed: Scalars['Boolean']['output'];
+  /** The Quantity Entered is based on the selected UoM */
+  QtyEntered: Scalars['BigDecimal']['output'];
   /** Use to keep the reversal line ID for reversing costing purpose */
   ReversalLine?: Maybe<M_MovementLine>;
   /** The Quantity scrapped due to QA issues */
@@ -46503,6 +46601,8 @@ export type M_MovementLineConnection = {
 export type M_MovementLineInput = {
   /** Organizational entity within tenant */
   AD_Org?: InputMaybe<ForeignEntityInput>;
+  /** Unit of Measure */
+  C_UOM?: InputMaybe<ForeignEntityInput>;
   /** Confirmation of a received quantity */
   ConfirmedQty?: InputMaybe<Scalars['BigDecimal']['input']>;
   DD_OrderLine?: InputMaybe<ForeignEntityInput>;
@@ -46528,6 +46628,8 @@ export type M_MovementLineInput = {
   MovementQty?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** The document has been processed */
   Processed?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The Quantity Entered is based on the selected UoM */
+  QtyEntered?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Use to keep the reversal line ID for reversing costing purpose */
   ReversalLine?: InputMaybe<ForeignEntityInput>;
   /** The Quantity scrapped due to QA issues */
@@ -48560,389 +48662,6 @@ export type M_ProductionPlanInput = {
   Processed?: InputMaybe<Scalars['Boolean']['input']>;
   /** Quantity of products to produce */
   ProductionQty?: InputMaybe<Scalars['BigDecimal']['input']>;
-  UU?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type M_Promotion = {
-  __typename?: 'M_Promotion';
-  /** Tenant for this installation. */
-  AD_Client: Ad_Client;
-  /** Organizational entity within tenant */
-  AD_Org: Ad_Org;
-  /** Marketing Campaign */
-  C_Campaign?: Maybe<C_Campaign>;
-  /** Date this record was created */
-  Created: Scalars['DateTime']['output'];
-  /** User who created this records */
-  CreatedBy: Ad_User;
-  /** Optional short description of the record */
-  Description?: Maybe<Scalars['String']['output']>;
-  /** The record is active in the system */
-  IsActive: Scalars['Boolean']['output'];
-  /** Alphanumeric identifier of the entity */
-  Name: Scalars['String']['output'];
-  /** Which promotion should be apply to a product */
-  PromotionPriority: Scalars['Int']['output'];
-  UU: Scalars['ID']['output'];
-  /** Date this record was updated */
-  Updated: Scalars['DateTime']['output'];
-  /** User who updated this records */
-  UpdatedBy: Ad_User;
-};
-
-export type M_PromotionConnection = {
-  __typename?: 'M_PromotionConnection';
-  PagingInfo: PagingInfo;
-  Results: Array<M_Promotion>;
-};
-
-export type M_PromotionDistribution = {
-  __typename?: 'M_PromotionDistribution';
-  /** Tenant for this installation. */
-  AD_Client: Ad_Client;
-  /** Organizational entity within tenant */
-  AD_Org: Ad_Org;
-  /** Date this record was created */
-  Created: Scalars['DateTime']['output'];
-  /** User who created this records */
-  CreatedBy: Ad_User;
-  /** Quantity distribution sorting by unit price */
-  DistributionSorting?: Maybe<Ad_Ref_List>;
-  /** Type of quantity distribution calculation using comparison qty and order qty as operand */
-  DistributionType: Ad_Ref_List;
-  /** The record is active in the system */
-  IsActive: Scalars['Boolean']['output'];
-  M_Promotion: M_Promotion;
-  M_PromotionLine: M_PromotionLine;
-  /** Compare Operation */
-  Operation: Ad_Ref_List;
-  /** Quantity */
-  Qty: Scalars['BigDecimal']['output'];
-  /** Method of ordering records; lowest number comes first */
-  SeqNo: Scalars['Int']['output'];
-  UU: Scalars['ID']['output'];
-  /** Date this record was updated */
-  Updated: Scalars['DateTime']['output'];
-  /** User who updated this records */
-  UpdatedBy: Ad_User;
-};
-
-export type M_PromotionDistributionConnection = {
-  __typename?: 'M_PromotionDistributionConnection';
-  PagingInfo: PagingInfo;
-  Results: Array<M_PromotionDistribution>;
-};
-
-export type M_PromotionDistributionInput = {
-  /** Organizational entity within tenant */
-  AD_Org?: InputMaybe<ForeignEntityInput>;
-  /** Quantity distribution sorting by unit price */
-  DistributionSorting?: InputMaybe<ForeignEntityInput>;
-  /** Type of quantity distribution calculation using comparison qty and order qty as operand */
-  DistributionType?: InputMaybe<ForeignEntityInput>;
-  /** The record is active in the system */
-  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  M_Promotion?: InputMaybe<ForeignEntityInput>;
-  M_PromotionLine?: InputMaybe<ForeignEntityInput>;
-  /** Compare Operation */
-  Operation?: InputMaybe<ForeignEntityInput>;
-  /** Quantity */
-  Qty?: InputMaybe<Scalars['BigDecimal']['input']>;
-  /** Method of ordering records; lowest number comes first */
-  SeqNo?: InputMaybe<Scalars['Int']['input']>;
-  UU?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type M_PromotionGroup = {
-  __typename?: 'M_PromotionGroup';
-  /** Tenant for this installation. */
-  AD_Client: Ad_Client;
-  /** Organizational entity within tenant */
-  AD_Org: Ad_Org;
-  /** Date this record was created */
-  Created: Scalars['DateTime']['output'];
-  /** User who created this records */
-  CreatedBy: Ad_User;
-  /** Optional short description of the record */
-  Description?: Maybe<Scalars['String']['output']>;
-  /** The record is active in the system */
-  IsActive: Scalars['Boolean']['output'];
-  /** Alphanumeric identifier of the entity */
-  Name: Scalars['String']['output'];
-  UU: Scalars['ID']['output'];
-  /** Date this record was updated */
-  Updated: Scalars['DateTime']['output'];
-  /** User who updated this records */
-  UpdatedBy: Ad_User;
-};
-
-export type M_PromotionGroupConnection = {
-  __typename?: 'M_PromotionGroupConnection';
-  PagingInfo: PagingInfo;
-  Results: Array<M_PromotionGroup>;
-};
-
-export type M_PromotionGroupInput = {
-  /** Organizational entity within tenant */
-  AD_Org?: InputMaybe<ForeignEntityInput>;
-  /** Optional short description of the record */
-  Description?: InputMaybe<Scalars['String']['input']>;
-  /** The record is active in the system */
-  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Alphanumeric identifier of the entity */
-  Name?: InputMaybe<Scalars['String']['input']>;
-  UU?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type M_PromotionGroupLine = {
-  __typename?: 'M_PromotionGroupLine';
-  /** Tenant for this installation. */
-  AD_Client: Ad_Client;
-  /** Organizational entity within tenant */
-  AD_Org: Ad_Org;
-  /** Date this record was created */
-  Created: Scalars['DateTime']['output'];
-  /** User who created this records */
-  CreatedBy: Ad_User;
-  /** The record is active in the system */
-  IsActive: Scalars['Boolean']['output'];
-  /** Product, Service, Item */
-  M_Product: M_Product;
-  M_PromotionGroup: M_PromotionGroup;
-  UU: Scalars['ID']['output'];
-  /** Date this record was updated */
-  Updated: Scalars['DateTime']['output'];
-  /** User who updated this records */
-  UpdatedBy: Ad_User;
-};
-
-export type M_PromotionGroupLineConnection = {
-  __typename?: 'M_PromotionGroupLineConnection';
-  PagingInfo: PagingInfo;
-  Results: Array<M_PromotionGroupLine>;
-};
-
-export type M_PromotionGroupLineInput = {
-  /** Organizational entity within tenant */
-  AD_Org?: InputMaybe<ForeignEntityInput>;
-  /** The record is active in the system */
-  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Product, Service, Item */
-  M_Product?: InputMaybe<ForeignEntityInput>;
-  M_PromotionGroup?: InputMaybe<ForeignEntityInput>;
-  UU?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type M_PromotionInput = {
-  /** Organizational entity within tenant */
-  AD_Org?: InputMaybe<ForeignEntityInput>;
-  /** Marketing Campaign */
-  C_Campaign?: InputMaybe<ForeignEntityInput>;
-  /** Optional short description of the record */
-  Description?: InputMaybe<Scalars['String']['input']>;
-  /** The record is active in the system */
-  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Alphanumeric identifier of the entity */
-  Name?: InputMaybe<Scalars['String']['input']>;
-  /** Which promotion should be apply to a product */
-  PromotionPriority?: InputMaybe<Scalars['Int']['input']>;
-  UU?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type M_PromotionLine = {
-  __typename?: 'M_PromotionLine';
-  /** Tenant for this installation. */
-  AD_Client: Ad_Client;
-  /** Organizational entity within tenant */
-  AD_Org: Ad_Org;
-  /** Date this record was created */
-  Created: Scalars['DateTime']['output'];
-  /** User who created this records */
-  CreatedBy: Ad_User;
-  /** The record is active in the system */
-  IsActive: Scalars['Boolean']['output'];
-  /** Order must have this promotion line */
-  IsMandatoryPL: Scalars['Boolean']['output'];
-  M_Promotion: M_Promotion;
-  M_PromotionGroup?: Maybe<M_PromotionGroup>;
-  /** Minimum Amount in Document Currency */
-  MinimumAmt?: Maybe<Scalars['BigDecimal']['output']>;
-  UU: Scalars['ID']['output'];
-  /** Date this record was updated */
-  Updated: Scalars['DateTime']['output'];
-  /** User who updated this records */
-  UpdatedBy: Ad_User;
-};
-
-export type M_PromotionLineConnection = {
-  __typename?: 'M_PromotionLineConnection';
-  PagingInfo: PagingInfo;
-  Results: Array<M_PromotionLine>;
-};
-
-export type M_PromotionLineInput = {
-  /** Organizational entity within tenant */
-  AD_Org?: InputMaybe<ForeignEntityInput>;
-  /** The record is active in the system */
-  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Order must have this promotion line */
-  IsMandatoryPL?: InputMaybe<Scalars['Boolean']['input']>;
-  M_Promotion?: InputMaybe<ForeignEntityInput>;
-  M_PromotionGroup?: InputMaybe<ForeignEntityInput>;
-  /** Minimum Amount in Document Currency */
-  MinimumAmt?: InputMaybe<Scalars['BigDecimal']['input']>;
-  UU?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type M_PromotionPreCondition = {
-  __typename?: 'M_PromotionPreCondition';
-  /** Tenant for this installation. */
-  AD_Client: Ad_Client;
-  /** Organizational entity within tenant */
-  AD_Org: Ad_Org;
-  /** Business Activity */
-  C_Activity?: Maybe<C_Activity>;
-  /** Business Partner Group */
-  C_BP_Group?: Maybe<C_Bp_Group>;
-  /** Identifies a Business Partner */
-  C_BPartner?: Maybe<C_BPartner>;
-  /** Date this record was created */
-  Created: Scalars['DateTime']['output'];
-  /** User who created this records */
-  CreatedBy: Ad_User;
-  /** Last effective date (inclusive) */
-  EndDate?: Maybe<Scalars['DateTime']['output']>;
-  /** The record is active in the system */
-  IsActive: Scalars['Boolean']['output'];
-  /** Unique identifier of a Price List */
-  M_PriceList?: Maybe<M_PriceList>;
-  M_Promotion: M_Promotion;
-  /** Storage Warehouse and Service Point */
-  M_Warehouse?: Maybe<M_Warehouse>;
-  /** User entered promotion code at sales time */
-  PromotionCode?: Maybe<Scalars['String']['output']>;
-  /** Usage counter */
-  PromotionCounter?: Maybe<Scalars['Int']['output']>;
-  /** Maximum usage limit */
-  PromotionUsageLimit?: Maybe<Scalars['Int']['output']>;
-  /** Method of ordering records; lowest number comes first */
-  SeqNo: Scalars['Int']['output'];
-  /** First effective day (inclusive) */
-  StartDate: Scalars['DateTime']['output'];
-  UU: Scalars['ID']['output'];
-  /** Date this record was updated */
-  Updated: Scalars['DateTime']['output'];
-  /** User who updated this records */
-  UpdatedBy: Ad_User;
-};
-
-export type M_PromotionPreConditionConnection = {
-  __typename?: 'M_PromotionPreConditionConnection';
-  PagingInfo: PagingInfo;
-  Results: Array<M_PromotionPreCondition>;
-};
-
-export type M_PromotionPreConditionInput = {
-  /** Organizational entity within tenant */
-  AD_Org?: InputMaybe<ForeignEntityInput>;
-  /** Business Activity */
-  C_Activity?: InputMaybe<ForeignEntityInput>;
-  /** Business Partner Group */
-  C_BP_Group?: InputMaybe<ForeignEntityInput>;
-  /** Identifies a Business Partner */
-  C_BPartner?: InputMaybe<ForeignEntityInput>;
-  /** Last effective date (inclusive) */
-  EndDate?: InputMaybe<Scalars['DateTime']['input']>;
-  /** The record is active in the system */
-  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Unique identifier of a Price List */
-  M_PriceList?: InputMaybe<ForeignEntityInput>;
-  M_Promotion?: InputMaybe<ForeignEntityInput>;
-  /** Storage Warehouse and Service Point */
-  M_Warehouse?: InputMaybe<ForeignEntityInput>;
-  /** User entered promotion code at sales time */
-  PromotionCode?: InputMaybe<Scalars['String']['input']>;
-  /** Usage counter */
-  PromotionCounter?: InputMaybe<Scalars['Int']['input']>;
-  /** Maximum usage limit */
-  PromotionUsageLimit?: InputMaybe<Scalars['Int']['input']>;
-  /** Method of ordering records; lowest number comes first */
-  SeqNo?: InputMaybe<Scalars['Int']['input']>;
-  /** First effective day (inclusive) */
-  StartDate?: InputMaybe<Scalars['DateTime']['input']>;
-  UU?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type M_PromotionReward = {
-  __typename?: 'M_PromotionReward';
-  /** Tenant for this installation. */
-  AD_Client: Ad_Client;
-  /** Organizational entity within tenant */
-  AD_Org: Ad_Org;
-  /** Amount in a defined currency */
-  Amount?: Maybe<Scalars['BigDecimal']['output']>;
-  /** Additional document charges */
-  C_Charge: C_Charge;
-  /** Date this record was created */
-  Created: Scalars['DateTime']['output'];
-  /** User who created this records */
-  CreatedBy: Ad_User;
-  /** Quantity distribution sorting by unit price */
-  DistributionSorting?: Maybe<Ad_Ref_List>;
-  /** The record is active in the system */
-  IsActive: Scalars['Boolean']['output'];
-  /** This reward is for all distribution */
-  IsForAllDistribution: Scalars['Boolean']['output'];
-  /** Use the same distribution for source and target */
-  IsSameDistribution: Scalars['Boolean']['output'];
-  M_Promotion: M_Promotion;
-  M_PromotionDistribution?: Maybe<M_PromotionDistribution>;
-  /** Get product from target distribution to apply the promotion reward */
-  M_TargetDistribution?: Maybe<M_PromotionDistribution>;
-  /** Quantity */
-  Qty?: Maybe<Scalars['BigDecimal']['output']>;
-  /** Type of reward which consists of percentage discount, flat discount or absolute amount */
-  RewardType: Ad_Ref_List;
-  /** Method of ordering records; lowest number comes first */
-  SeqNo: Scalars['Int']['output'];
-  UU: Scalars['ID']['output'];
-  /** Date this record was updated */
-  Updated: Scalars['DateTime']['output'];
-  /** User who updated this records */
-  UpdatedBy: Ad_User;
-};
-
-export type M_PromotionRewardConnection = {
-  __typename?: 'M_PromotionRewardConnection';
-  PagingInfo: PagingInfo;
-  Results: Array<M_PromotionReward>;
-};
-
-export type M_PromotionRewardInput = {
-  /** Organizational entity within tenant */
-  AD_Org?: InputMaybe<ForeignEntityInput>;
-  /** Amount in a defined currency */
-  Amount?: InputMaybe<Scalars['BigDecimal']['input']>;
-  /** Additional document charges */
-  C_Charge?: InputMaybe<ForeignEntityInput>;
-  /** Quantity distribution sorting by unit price */
-  DistributionSorting?: InputMaybe<ForeignEntityInput>;
-  /** The record is active in the system */
-  IsActive?: InputMaybe<Scalars['Boolean']['input']>;
-  /** This reward is for all distribution */
-  IsForAllDistribution?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Use the same distribution for source and target */
-  IsSameDistribution?: InputMaybe<Scalars['Boolean']['input']>;
-  M_Promotion?: InputMaybe<ForeignEntityInput>;
-  M_PromotionDistribution?: InputMaybe<ForeignEntityInput>;
-  /** Get product from target distribution to apply the promotion reward */
-  M_TargetDistribution?: InputMaybe<ForeignEntityInput>;
-  /** Quantity */
-  Qty?: InputMaybe<Scalars['BigDecimal']['input']>;
-  /** Type of reward which consists of percentage discount, flat discount or absolute amount */
-  RewardType?: InputMaybe<ForeignEntityInput>;
-  /** Method of ordering records; lowest number comes first */
-  SeqNo?: InputMaybe<Scalars['Int']['input']>;
   UU?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -52944,27 +52663,6 @@ export type Mutation = {
   M_ProductionPlanSaveMany: Array<M_ProductionPlan>;
   M_ProductionSave: M_Production;
   M_ProductionSaveMany: Array<M_Production>;
-  M_PromotionDelete: Scalars['Boolean']['output'];
-  M_PromotionDistributionDelete: Scalars['Boolean']['output'];
-  M_PromotionDistributionSave: M_PromotionDistribution;
-  M_PromotionDistributionSaveMany: Array<M_PromotionDistribution>;
-  M_PromotionGroupDelete: Scalars['Boolean']['output'];
-  M_PromotionGroupLineDelete: Scalars['Boolean']['output'];
-  M_PromotionGroupLineSave: M_PromotionGroupLine;
-  M_PromotionGroupLineSaveMany: Array<M_PromotionGroupLine>;
-  M_PromotionGroupSave: M_PromotionGroup;
-  M_PromotionGroupSaveMany: Array<M_PromotionGroup>;
-  M_PromotionLineDelete: Scalars['Boolean']['output'];
-  M_PromotionLineSave: M_PromotionLine;
-  M_PromotionLineSaveMany: Array<M_PromotionLine>;
-  M_PromotionPreConditionDelete: Scalars['Boolean']['output'];
-  M_PromotionPreConditionSave: M_PromotionPreCondition;
-  M_PromotionPreConditionSaveMany: Array<M_PromotionPreCondition>;
-  M_PromotionRewardDelete: Scalars['Boolean']['output'];
-  M_PromotionRewardSave: M_PromotionReward;
-  M_PromotionRewardSaveMany: Array<M_PromotionReward>;
-  M_PromotionSave: M_Promotion;
-  M_PromotionSaveMany: Array<M_Promotion>;
   M_QualityTestDelete: Scalars['Boolean']['output'];
   M_QualityTestResultDelete: Scalars['Boolean']['output'];
   M_QualityTestResultSave: M_QualityTestResult;
@@ -64561,132 +64259,6 @@ export type MutationM_ProductionSaveManyArgs = {
 
 
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionDeleteArgs = {
-  UUs: Array<Scalars['String']['input']>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionDistributionDeleteArgs = {
-  UUs: Array<Scalars['String']['input']>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionDistributionSaveArgs = {
-  Entity: M_PromotionDistributionInput;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionDistributionSaveManyArgs = {
-  Entities: Array<M_PromotionDistributionInput>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionGroupDeleteArgs = {
-  UUs: Array<Scalars['String']['input']>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionGroupLineDeleteArgs = {
-  UUs: Array<Scalars['String']['input']>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionGroupLineSaveArgs = {
-  Entity: M_PromotionGroupLineInput;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionGroupLineSaveManyArgs = {
-  Entities: Array<M_PromotionGroupLineInput>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionGroupSaveArgs = {
-  Entity: M_PromotionGroupInput;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionGroupSaveManyArgs = {
-  Entities: Array<M_PromotionGroupInput>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionLineDeleteArgs = {
-  UUs: Array<Scalars['String']['input']>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionLineSaveArgs = {
-  Entity: M_PromotionLineInput;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionLineSaveManyArgs = {
-  Entities: Array<M_PromotionLineInput>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionPreConditionDeleteArgs = {
-  UUs: Array<Scalars['String']['input']>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionPreConditionSaveArgs = {
-  Entity: M_PromotionPreConditionInput;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionPreConditionSaveManyArgs = {
-  Entities: Array<M_PromotionPreConditionInput>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionRewardDeleteArgs = {
-  UUs: Array<Scalars['String']['input']>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionRewardSaveArgs = {
-  Entity: M_PromotionRewardInput;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionRewardSaveManyArgs = {
-  Entities: Array<M_PromotionRewardInput>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionSaveArgs = {
-  Entity: M_PromotionInput;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
-export type MutationM_PromotionSaveManyArgs = {
-  Entities: Array<M_PromotionInput>;
-};
-
-
-/** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationM_QualityTestDeleteArgs = {
   UUs: Array<Scalars['String']['input']>;
 };
@@ -67364,6 +66936,8 @@ export type Pa_DashboardContent = {
   /** Type of goal display on dashboard */
   GoalDisplay?: Maybe<Ad_Ref_List>;
   HTML?: Maybe<Scalars['String']['output']>;
+  /** Comment or Hint */
+  Help?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
   /** Flag to set the initial state of collapsible field group. */
@@ -67422,6 +66996,8 @@ export type Pa_DashboardContentInput = {
   /** Type of goal display on dashboard */
   GoalDisplay?: InputMaybe<ForeignEntityInput>;
   HTML?: InputMaybe<Scalars['String']['input']>;
+  /** Comment or Hint */
+  Help?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
   /** Flag to set the initial state of collapsible field group. */
@@ -69841,7 +69417,7 @@ export type Pp_Order_BomLine = {
   /** Manufacturing Order */
   PP_Order: Pp_Order;
   PP_Order_BOM: Pp_Order_Bom;
-  /** Indicate the Quantity  use in this BOM */
+  /** Indicate the Quantity use in this BOM */
   QtyBOM: Scalars['BigDecimal']['output'];
   /** Indicate the Quantity % use in this Formula */
   QtyBatch: Scalars['BigDecimal']['output'];
@@ -69925,7 +69501,7 @@ export type Pp_Order_BomLineInput = {
   /** Manufacturing Order */
   PP_Order?: InputMaybe<ForeignEntityInput>;
   PP_Order_BOM?: InputMaybe<ForeignEntityInput>;
-  /** Indicate the Quantity  use in this BOM */
+  /** Indicate the Quantity use in this BOM */
   QtyBOM?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Indicate the Quantity % use in this Formula */
   QtyBatch?: InputMaybe<Scalars['BigDecimal']['input']>;
@@ -70785,7 +70361,7 @@ export type Pp_Product_BomLine = {
   M_Product: M_Product;
   /** BOM & Formula */
   PP_Product_BOM: Pp_Product_Bom;
-  /** Indicate the Quantity  use in this BOM */
+  /** Indicate the Quantity use in this BOM */
   QtyBOM?: Maybe<Scalars['BigDecimal']['output']>;
   /** Indicate the Quantity % use in this Formula */
   QtyBatch?: Maybe<Scalars['BigDecimal']['output']>;
@@ -70849,7 +70425,7 @@ export type Pp_Product_BomLineInput = {
   M_Product?: InputMaybe<ForeignEntityInput>;
   /** BOM & Formula */
   PP_Product_BOM?: InputMaybe<ForeignEntityInput>;
-  /** Indicate the Quantity  use in this BOM */
+  /** Indicate the Quantity use in this BOM */
   QtyBOM?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Indicate the Quantity % use in this Formula */
   QtyBatch?: InputMaybe<Scalars['BigDecimal']['input']>;
@@ -72468,20 +72044,6 @@ export type Query = {
   M_ProductionLineMAGet: M_ProductionLineMaConnection;
   M_ProductionPlan?: Maybe<M_ProductionPlan>;
   M_ProductionPlanGet: M_ProductionPlanConnection;
-  M_Promotion?: Maybe<M_Promotion>;
-  M_PromotionDistribution?: Maybe<M_PromotionDistribution>;
-  M_PromotionDistributionGet: M_PromotionDistributionConnection;
-  M_PromotionGet: M_PromotionConnection;
-  M_PromotionGroup?: Maybe<M_PromotionGroup>;
-  M_PromotionGroupGet: M_PromotionGroupConnection;
-  M_PromotionGroupLine?: Maybe<M_PromotionGroupLine>;
-  M_PromotionGroupLineGet: M_PromotionGroupLineConnection;
-  M_PromotionLine?: Maybe<M_PromotionLine>;
-  M_PromotionLineGet: M_PromotionLineConnection;
-  M_PromotionPreCondition?: Maybe<M_PromotionPreCondition>;
-  M_PromotionPreConditionGet: M_PromotionPreConditionConnection;
-  M_PromotionReward?: Maybe<M_PromotionReward>;
-  M_PromotionRewardGet: M_PromotionRewardConnection;
   M_QualityTest?: Maybe<M_QualityTest>;
   M_QualityTestGet: M_QualityTestConnection;
   M_QualityTestResult?: Maybe<M_QualityTestResult>;
@@ -82028,111 +81590,6 @@ export type QueryM_ProductionPlanGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionArgs = {
-  UU: Scalars['String']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionDistributionArgs = {
-  UU: Scalars['String']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionDistributionGetArgs = {
-  Filter?: InputMaybe<Scalars['String']['input']>;
-  Page?: InputMaybe<Scalars['Int']['input']>;
-  Size?: InputMaybe<Scalars['Int']['input']>;
-  Sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionGetArgs = {
-  Filter?: InputMaybe<Scalars['String']['input']>;
-  Page?: InputMaybe<Scalars['Int']['input']>;
-  Size?: InputMaybe<Scalars['Int']['input']>;
-  Sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionGroupArgs = {
-  UU: Scalars['String']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionGroupGetArgs = {
-  Filter?: InputMaybe<Scalars['String']['input']>;
-  Page?: InputMaybe<Scalars['Int']['input']>;
-  Size?: InputMaybe<Scalars['Int']['input']>;
-  Sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionGroupLineArgs = {
-  UU: Scalars['String']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionGroupLineGetArgs = {
-  Filter?: InputMaybe<Scalars['String']['input']>;
-  Page?: InputMaybe<Scalars['Int']['input']>;
-  Size?: InputMaybe<Scalars['Int']['input']>;
-  Sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionLineArgs = {
-  UU: Scalars['String']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionLineGetArgs = {
-  Filter?: InputMaybe<Scalars['String']['input']>;
-  Page?: InputMaybe<Scalars['Int']['input']>;
-  Size?: InputMaybe<Scalars['Int']['input']>;
-  Sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionPreConditionArgs = {
-  UU: Scalars['String']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionPreConditionGetArgs = {
-  Filter?: InputMaybe<Scalars['String']['input']>;
-  Page?: InputMaybe<Scalars['Int']['input']>;
-  Size?: InputMaybe<Scalars['Int']['input']>;
-  Sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionRewardArgs = {
-  UU: Scalars['String']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryM_PromotionRewardGetArgs = {
-  Filter?: InputMaybe<Scalars['String']['input']>;
-  Page?: InputMaybe<Scalars['Int']['input']>;
-  Size?: InputMaybe<Scalars['Int']['input']>;
-  Sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryM_QualityTestArgs = {
   UU: Scalars['String']['input'];
 };
@@ -84195,7 +83652,7 @@ export type Rv_BPartner = {
   ContactDescription?: Maybe<Scalars['String']['output']>;
   /** Business Partner Contact Name */
   ContactName: Scalars['String']['output'];
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode?: Maybe<Scalars['String']['output']>;
   /** Country Name */
   CountryName: Scalars['String']['output'];
@@ -84439,7 +83896,7 @@ export type Rv_BPartnerInput = {
   ContactDescription?: InputMaybe<Scalars['String']['input']>;
   /** Business Partner Contact Name */
   ContactName?: InputMaybe<Scalars['String']['input']>;
-  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html */
+  /** Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 */
   CountryCode?: InputMaybe<Scalars['String']['input']>;
   /** Country Name */
   CountryName?: InputMaybe<Scalars['String']['input']>;
@@ -87538,7 +86995,7 @@ export type T_BomLine = {
   PP_Product_BOM?: Maybe<Pp_Product_Bom>;
   /** BOM Line */
   PP_Product_BOMLine?: Maybe<Pp_Product_BomLine>;
-  /** Indicate the Quantity  use in this BOM */
+  /** Indicate the Quantity use in this BOM */
   QtyBOM?: Maybe<Scalars['BigDecimal']['output']>;
   /** Method of ordering records; lowest number comes first */
   SeqNo?: Maybe<Scalars['Int']['output']>;
@@ -87592,7 +87049,7 @@ export type T_BomLineInput = {
   PP_Product_BOM?: InputMaybe<ForeignEntityInput>;
   /** BOM Line */
   PP_Product_BOMLine?: InputMaybe<ForeignEntityInput>;
-  /** Indicate the Quantity  use in this BOM */
+  /** Indicate the Quantity use in this BOM */
   QtyBOM?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Method of ordering records; lowest number comes first */
   SeqNo?: InputMaybe<Scalars['Int']['input']>;
@@ -87633,7 +87090,7 @@ export type T_Bom_Indented = {
   M_Product?: Maybe<M_Product>;
   /** Quantity */
   Qty?: Maybe<Scalars['BigDecimal']['output']>;
-  /** Indicate the Quantity  use in this BOM */
+  /** Indicate the Quantity use in this BOM */
   QtyBOM?: Maybe<Scalars['BigDecimal']['output']>;
   Sel_Product?: Maybe<M_Product>;
   /** Method of ordering records; lowest number comes first */
@@ -87678,7 +87135,7 @@ export type T_Bom_IndentedInput = {
   M_Product?: InputMaybe<ForeignEntityInput>;
   /** Quantity */
   Qty?: InputMaybe<Scalars['BigDecimal']['input']>;
-  /** Indicate the Quantity  use in this BOM */
+  /** Indicate the Quantity use in this BOM */
   QtyBOM?: InputMaybe<Scalars['BigDecimal']['input']>;
   Sel_Product?: InputMaybe<ForeignEntityInput>;
   /** Method of ordering records; lowest number comes first */
@@ -88574,6 +88031,8 @@ export type Test = {
   /** Database Table information */
   AD_Table?: Maybe<Ad_Table>;
   Account_A?: Maybe<C_ValidCombination>;
+  /** Binary Data */
+  BinaryData?: Maybe<Scalars['Binary']['output']>;
   /** Identifies a Business Partner */
   C_BPartner?: Maybe<C_BPartner>;
   /** The Currency for this record */
@@ -88597,6 +88056,8 @@ export type Test = {
   Help?: Maybe<Scalars['String']['output']>;
   /** The record is active in the system */
   IsActive: Scalars['Boolean']['output'];
+  /** The json field stores json data. */
+  JsonData?: Maybe<Scalars['String']['output']>;
   /** Warehouse Locator */
   M_Locator?: Maybe<M_Locator>;
   /** Product, Service, Item */
@@ -88635,6 +88096,8 @@ export type TestInput = {
   /** Database Table information */
   AD_Table?: InputMaybe<ForeignEntityInput>;
   Account_A?: InputMaybe<ForeignEntityInput>;
+  /** Binary Data */
+  BinaryData?: InputMaybe<Scalars['Binary']['input']>;
   /** Identifies a Business Partner */
   C_BPartner?: InputMaybe<ForeignEntityInput>;
   /** The Currency for this record */
@@ -88654,6 +88117,8 @@ export type TestInput = {
   Help?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */
   IsActive?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The json field stores json data. */
+  JsonData?: InputMaybe<Scalars['String']['input']>;
   /** Warehouse Locator */
   M_Locator?: InputMaybe<ForeignEntityInput>;
   /** Product, Service, Item */
@@ -88695,7 +88160,7 @@ export type U_PosTerminal = {
   CardTransferType?: Maybe<Ad_Ref_List>;
   /** Bank Account on which card transactions will be processed */
   Card_BankAccount?: Maybe<C_BankAccount>;
-  /** Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book */
+  /** Where the money in the cash book should be transferred to. Either a Bank Account or another Cash Book */
   CashBookTransferType: Ad_Ref_List;
   /** Bank Account on which to transfer all Cash transactions */
   CashTransferBankAccount?: Maybe<C_BankAccount>;
@@ -88770,7 +88235,7 @@ export type U_PosTerminalInput = {
   CardTransferType?: InputMaybe<ForeignEntityInput>;
   /** Bank Account on which card transactions will be processed */
   Card_BankAccount?: InputMaybe<ForeignEntityInput>;
-  /** Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book */
+  /** Where the money in the cash book should be transferred to. Either a Bank Account or another Cash Book */
   CashBookTransferType?: InputMaybe<ForeignEntityInput>;
   /** Bank Account on which to transfer all Cash transactions */
   CashTransferBankAccount?: InputMaybe<ForeignEntityInput>;
@@ -89677,7 +89142,7 @@ export type Ad_MenuGetQueryVariables = Exact<{
 }>;
 
 
-export type Ad_MenuGetQuery = { __typename?: 'Query', AD_MenuGet: { __typename?: 'AD_MenuConnection', Results: Array<{ __typename?: 'AD_Menu', ChildrenTree_NodeMMList?: Array<{ __typename?: 'AD_TreeNodeMM', SeqNo?: number | null, Node?: { __typename?: 'AD_Menu', Name: string, UU: string, ChildrenTree_NodeMMList?: Array<{ __typename?: 'AD_TreeNodeMM', SeqNo?: number | null, Node?: { __typename?: 'AD_Menu', Name: string, AD_Process?: { __typename?: 'AD_Process', UU: string, Name: string } | null, AD_Window?: { __typename?: 'AD_Window', UU: string, Name: string } | null } | null }> | null, AD_Process?: { __typename?: 'AD_Process', UU: string, Name: string } | null, AD_Window?: { __typename?: 'AD_Window', UU: string, Name: string } | null } | null }> | null }> } };
+export type Ad_MenuGetQuery = { __typename?: 'Query', AD_MenuGet: { __typename?: 'AD_MenuConnection', Results: Array<{ __typename?: 'AD_Menu', ChildrenTree_NodeMMList?: Array<{ __typename?: 'AD_TreeNodeMM', SeqNo?: number | null, Node?: { __typename?: 'AD_Menu', Description?: string | null, Name: string, UU: string, ChildrenTree_NodeMMList?: Array<{ __typename?: 'AD_TreeNodeMM', SeqNo?: number | null, Node?: { __typename?: 'AD_Menu', Name: string, AD_Process?: { __typename?: 'AD_Process', UU: string, Name: string } | null, AD_Window?: { __typename?: 'AD_Window', UU: string, Name: string } | null } | null }> | null, AD_Process?: { __typename?: 'AD_Process', UU: string, Name: string } | null, AD_Window?: { __typename?: 'AD_Window', UU: string, Name: string } | null } | null }> | null }> } };
 
 export type Ad_OrgGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -90234,7 +89699,7 @@ export const M_ProductSaveManyDocument = {"kind":"Document","definitions":[{"kin
 export const SignInDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignIn"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Credentials"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AuthenticationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"SignIn"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Credentials"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Credentials"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_User"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsExpired"}}]}}]}}]}}]} as unknown as DocumentNode<SignInMutation, SignInMutationVariables>;
 export const Ad_ClientGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_ClientGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_ClientGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Orgs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Roles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"M_Warehouses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"BH_DefaultWarehouse"}},{"kind":"Field","name":{"kind":"Name","value":"IsActive"}},{"kind":"Field","name":{"kind":"Name","value":"M_Locators"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<Ad_ClientGetQuery, Ad_ClientGetQueryVariables>;
 export const Ad_LanguageGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_LanguageGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_LanguageGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_Language"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"PrintName"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<Ad_LanguageGetQuery, Ad_LanguageGetQueryVariables>;
-export const Ad_MenuGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_MenuGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_MenuGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ChildrenTree_NodeMMList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"ChildrenTree_NodeMMList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Process"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"AD_Window"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}}]}},{"kind":"Field","name":{"kind":"Name","value":"AD_Process"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"AD_Window"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Ad_MenuGetQuery, Ad_MenuGetQueryVariables>;
+export const Ad_MenuGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_MenuGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_MenuGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ChildrenTree_NodeMMList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"ChildrenTree_NodeMMList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Process"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"AD_Window"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}}]}},{"kind":"Field","name":{"kind":"Name","value":"AD_Process"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"AD_Window"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Ad_MenuGetQuery, Ad_MenuGetQueryVariables>;
 export const Ad_OrgGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_OrgGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_OrgGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"AD_OrgInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_FacilityNumber"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Header"}},{"kind":"Field","name":{"kind":"Name","value":"ReceiptFooterMsg"}}]}},{"kind":"Field","name":{"kind":"Name","value":"M_Warehouses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"BH_DefaultWarehouse"}},{"kind":"Field","name":{"kind":"Name","value":"IsActive"}},{"kind":"Field","name":{"kind":"Name","value":"M_Locators"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<Ad_OrgGetQuery, Ad_OrgGetQueryVariables>;
 export const Ad_OrgInfoGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_OrgInfoGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_OrgInfoGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Country"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Region"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Logo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<Ad_OrgInfoGetQuery, Ad_OrgInfoGetQueryVariables>;
 export const Ad_ProcessGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AD_ProcessGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_ProcessGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_Process_ParaList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<Ad_ProcessGetQuery, Ad_ProcessGetQueryVariables>;

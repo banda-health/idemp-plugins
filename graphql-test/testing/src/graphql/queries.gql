@@ -40,6 +40,7 @@ query AD_MenuGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 		Results {
 			ChildrenTree_NodeMMList {
 				Node {
+					Description
 					Name
 					ChildrenTree_NodeMMList {
 						Node {
