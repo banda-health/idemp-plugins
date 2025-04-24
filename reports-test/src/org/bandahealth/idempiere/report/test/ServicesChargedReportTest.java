@@ -311,7 +311,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 			Sheet sheet = workbook.getSheetAt(0);
 
 			double totalServicesCharged = 0;
-			Map<String, Double> chargesByCategory = new HashMap<String, Double>();
+			double currentServiceCharged = 0;
 
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Service Name");
 			int categoryColumnIndex = TableUtils.getColumnIndexContaining(headerRow, "Category");
@@ -323,7 +323,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 				if (StreamSupport.stream(row.spliterator(), false).anyMatch(
 						cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
 								cell.getStringCellValue().equals("Service Name"))) {
-					totalServicesCharged = 0;
+					currentServiceCharged = 0;
 					continue;
 				}
 				// If this is a table row
@@ -331,11 +331,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 						row.getCell(categoryColumnIndex).getCellType().equals(CellType.STRING) &&
 						!StringUtil.isNullOrEmpty(row.getCell(categoryColumnIndex).getStringCellValue())) {
 					currentCategory = row.getCell(categoryColumnIndex).getStringCellValue();
-					if (!chargesByCategory.containsKey(currentCategory)) {
-						chargesByCategory.put(currentCategory, 0D);
-					}
-					chargesByCategory.put(currentCategory,
-							chargesByCategory.get(currentCategory) + row.getCell(amountColumnIndex).getNumericCellValue());
+					currentServiceCharged += row.getCell(amountColumnIndex).getNumericCellValue();
 					totalServicesCharged += row.getCell(amountColumnIndex).getNumericCellValue();
 					continue;
 				}
@@ -343,8 +339,8 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 				if (!StringUtil.isNullOrEmpty(currentCategory) && StreamSupport.stream(row.spliterator(), false).anyMatch(
 						cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
 								cell.getStringCellValue().equals(finalCurrentCategory + " Total"))) {
-					assertEquals(row.getCell(amountColumnIndex).getNumericCellValue(),
-							chargesByCategory.get(finalCurrentCategory), finalCurrentCategory + " total is correct");
+					assertEquals(row.getCell(amountColumnIndex).getNumericCellValue(), currentServiceCharged,
+							finalCurrentCategory + " total is correct");
 				}
 			}
 
