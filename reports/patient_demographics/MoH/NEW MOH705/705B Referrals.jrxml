@@ -61,24 +61,6 @@
 		WHERE
 			ad_reference_uu = '090f3a94-25a4-4f65-a270-96732df35407'
 	),
-	visit_diagnoses AS (
-		SELECT
-			v.bh_visit_id,
-			ev.bh_concept_id,
-			ev.bh_uncoded_diagnosis,
-			ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
-		FROM
-			bh_visit v
-				JOIN bh_encounter e
-				ON v.bh_visit_id = e.bh_visit_id
-				JOIN bh_encounter_diagnosis ev
-				ON e.bh_encounter_id = ev.bh_encounter_id
-		WHERE
-			v.bh_visit_id IN (
-				SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
-			)
-			AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
-	),
 	referral_count AS (
 		SELECT DISTINCT
 			c.bh_moh705b_greaterthan5,
@@ -95,10 +77,12 @@
 					COUNT(cd.bh_concept_id)    AS noofreferral
 				FROM
 					bh_visit v
-						JOIN visit_diagnoses pd
-						ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
+						JOIN bh_encounter e
+						ON v.bh_visit_id = e.bh_visit_id
+						JOIN bh_encounter_diagnosis ed
+						ON e.bh_encounter_id = ed.bh_encounter_id
 						JOIN bh_concept cd
-						ON pd.bh_concept_id = cd.bh_concept_id
+						ON ed.bh_concept_id = cd.bh_concept_id
 						JOIN bh_concept_extra ce
 						ON cd.bh_concept_id = ce.bh_concept_id AND LOWER(ce.bh_key) = 'moh-705b-greaterthan5'
 						JOIN c_bpartner bp
@@ -106,7 +90,11 @@
 				WHERE
 					bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
-			    AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+					AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+					AND v.bh_visit_id IN (
+						SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
+					)
+					AND COALESCE(v.bh_patienttype, '') != 'Im'
 				GROUP BY bh_referral, ce.bh_value, CAST(bh_visitdate AS date)
 			) c
 				ON rl.value = c.bh_referral
