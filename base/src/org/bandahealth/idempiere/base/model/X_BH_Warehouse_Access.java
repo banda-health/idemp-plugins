@@ -21,74 +21,78 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
 
-/** Generated Model for BH_Role_WarehouseAccess
+/** Generated Model for BH_Warehouse_Access
  *  @author iDempiere (generated)
- *  @version Release 13 - $Id$ */
-@org.adempiere.base.Model(table="BH_Role_WarehouseAccess")
-public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_WarehouseAccess, I_Persistent
+ *  @version Release 12 - $Id$ */
+@org.adempiere.base.Model(table="BH_Warehouse_Access")
+public class X_BH_Warehouse_Access extends PO implements I_BH_Warehouse_Access, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20250127L;
+	private static final long serialVersionUID = 20250425L;
 
     /** Standard Constructor */
-    public X_BH_Role_WarehouseAccess (Properties ctx, int BH_Role_WarehouseAccess_ID, String trxName)
+    public X_BH_Warehouse_Access (Properties ctx, int BH_Warehouse_Access_ID, String trxName)
     {
-      super (ctx, BH_Role_WarehouseAccess_ID, trxName);
-      /** if (BH_Role_WarehouseAccess_ID == 0)
+      super (ctx, BH_Warehouse_Access_ID, trxName);
+      /** if (BH_Warehouse_Access_ID == 0)
         {
-			setBH_Role_WarehouseAccess_ID (0);
-			setIsReadOnly (false);
+			setAD_Role_ID (0);
+			setIsReadWrite (false);
+// N
 			setM_Warehouse_ID (0);
         } */
     }
 
     /** Standard Constructor */
-    public X_BH_Role_WarehouseAccess (Properties ctx, int BH_Role_WarehouseAccess_ID, String trxName, String ... virtualColumns)
+    public X_BH_Warehouse_Access (Properties ctx, int BH_Warehouse_Access_ID, String trxName, String ... virtualColumns)
     {
-      super (ctx, BH_Role_WarehouseAccess_ID, trxName, virtualColumns);
-      /** if (BH_Role_WarehouseAccess_ID == 0)
+      super (ctx, BH_Warehouse_Access_ID, trxName, virtualColumns);
+      /** if (BH_Warehouse_Access_ID == 0)
         {
-			setBH_Role_WarehouseAccess_ID (0);
-			setIsReadOnly (false);
+			setAD_Role_ID (0);
+			setIsReadWrite (false);
+// N
 			setM_Warehouse_ID (0);
         } */
     }
 
     /** Standard Constructor */
-    public X_BH_Role_WarehouseAccess (Properties ctx, String BH_Role_WarehouseAccess_UU, String trxName)
+    public X_BH_Warehouse_Access (Properties ctx, String BH_Warehouse_Access_UU, String trxName)
     {
-      super (ctx, BH_Role_WarehouseAccess_UU, trxName);
-      /** if (BH_Role_WarehouseAccess_UU == null)
+      super (ctx, BH_Warehouse_Access_UU, trxName);
+      /** if (BH_Warehouse_Access_UU == null)
         {
-			setBH_Role_WarehouseAccess_ID (0);
-			setIsReadOnly (false);
+			setAD_Role_ID (0);
+			setIsReadWrite (false);
+// N
 			setM_Warehouse_ID (0);
         } */
     }
 
     /** Standard Constructor */
-    public X_BH_Role_WarehouseAccess (Properties ctx, String BH_Role_WarehouseAccess_UU, String trxName, String ... virtualColumns)
+    public X_BH_Warehouse_Access (Properties ctx, String BH_Warehouse_Access_UU, String trxName, String ... virtualColumns)
     {
-      super (ctx, BH_Role_WarehouseAccess_UU, trxName, virtualColumns);
-      /** if (BH_Role_WarehouseAccess_UU == null)
+      super (ctx, BH_Warehouse_Access_UU, trxName, virtualColumns);
+      /** if (BH_Warehouse_Access_UU == null)
         {
-			setBH_Role_WarehouseAccess_ID (0);
-			setIsReadOnly (false);
+			setAD_Role_ID (0);
+			setIsReadWrite (false);
+// N
 			setM_Warehouse_ID (0);
         } */
     }
 
     /** Load Constructor */
-    public X_BH_Role_WarehouseAccess (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_Warehouse_Access (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
 
     /** AccessLevel
-      * @return 6 - System - Client
+      * @return 3 - Client - Org
       */
     protected int get_AccessLevel()
     {
@@ -104,7 +108,7 @@ public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_Warehouse
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_Role_WarehouseAccess[")
+      StringBuilder sb = new StringBuilder ("X_BH_Warehouse_Access[")
         .append(get_UUID()).append("]");
       return sb.toString();
     }
@@ -137,56 +141,35 @@ public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_Warehouse
 		return ii.intValue();
 	}
 
-	/** Set BH_Role_WarehouseAccess_ID.
-		@param BH_Role_WarehouseAccess_ID BH_Role_WarehouseAccess_ID
+	/** Set BH_Warehouse_Access_UU.
+		@param BH_Warehouse_Access_UU BH_Warehouse_Access_UU
 	*/
-	public void setBH_Role_WarehouseAccess_ID (int BH_Role_WarehouseAccess_ID)
+	public void setBH_Warehouse_Access_UU (String BH_Warehouse_Access_UU)
 	{
-		if (BH_Role_WarehouseAccess_ID < 1)
-			set_Value (COLUMNNAME_BH_Role_WarehouseAccess_ID, null);
-		else
-			set_Value (COLUMNNAME_BH_Role_WarehouseAccess_ID, Integer.valueOf(BH_Role_WarehouseAccess_ID));
+		set_Value (COLUMNNAME_BH_Warehouse_Access_UU, BH_Warehouse_Access_UU);
 	}
 
-	/** Get BH_Role_WarehouseAccess_ID.
-		@return BH_Role_WarehouseAccess_ID	  */
-	public int getBH_Role_WarehouseAccess_ID()
+	/** Get BH_Warehouse_Access_UU.
+		@return BH_Warehouse_Access_UU	  */
+	public String getBH_Warehouse_Access_UU()
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Role_WarehouseAccess_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
+		return (String)get_Value(COLUMNNAME_BH_Warehouse_Access_UU);
 	}
 
-	/** Set BH_Role_WarehouseAccess_UU.
-		@param BH_Role_WarehouseAccess_UU BH_Role_WarehouseAccess_UU
+	/** Set Read Write.
+		@param IsReadWrite Field is read / write
 	*/
-	public void setBH_Role_WarehouseAccess_UU (String BH_Role_WarehouseAccess_UU)
+	public void setIsReadWrite (boolean IsReadWrite)
 	{
-		set_Value (COLUMNNAME_BH_Role_WarehouseAccess_UU, BH_Role_WarehouseAccess_UU);
+		set_Value (COLUMNNAME_IsReadWrite, Boolean.valueOf(IsReadWrite));
 	}
 
-	/** Get BH_Role_WarehouseAccess_UU.
-		@return BH_Role_WarehouseAccess_UU	  */
-	public String getBH_Role_WarehouseAccess_UU()
-	{
-		return (String)get_Value(COLUMNNAME_BH_Role_WarehouseAccess_UU);
-	}
-
-	/** Set Read Only.
-		@param IsReadOnly Field is read only
-	*/
-	public void setIsReadOnly (boolean IsReadOnly)
-	{
-		set_Value (COLUMNNAME_IsReadOnly, Boolean.valueOf(IsReadOnly));
-	}
-
-	/** Get Read Only.
-		@return Field is read only
+	/** Get Read Write.
+		@return Field is read / write
 	  */
-	public boolean isReadOnly()
+	public boolean isReadWrite()
 	{
-		Object oo = get_Value(COLUMNNAME_IsReadOnly);
+		Object oo = get_Value(COLUMNNAME_IsReadWrite);
 		if (oo != null)
 		{
 			 if (oo instanceof Boolean)

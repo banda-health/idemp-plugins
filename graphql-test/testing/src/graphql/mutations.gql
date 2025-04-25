@@ -496,6 +496,12 @@ mutation BH_VisitSaveWithPayments($BH_Visit: BH_VisitInput!, $C_Payments: [C_Pay
 	}
 }
 
+mutation BH_Warehouse_AccessSave($BH_Warehouse_Access: BH_Warehouse_AccessInput!) {
+	BH_Warehouse_AccessSave(Entity: $BH_Warehouse_Access) {
+		UU
+	}
+}
+
 mutation C_BPartner_LocationSave($Entity: C_BPartner_LocationInput!) {
 	C_BPartner_LocationSave(Entity: $Entity) {
 		UU
@@ -757,6 +763,12 @@ mutation M_InventorySaveWithInventoryLines($M_Inventory: M_InventoryInput!, $M_I
 	}
 }
 
+mutation M_LocatorSave($M_Locator: M_LocatorInput!) {
+	M_LocatorSave(Entity: $M_Locator) {
+		UU
+	}
+}
+
 mutation M_MovementProcess($UU: ID!, $DocumentAction: String!) {
 	M_MovementProcess(UU: $UU, DocumentAction: $DocumentAction) {
 		...M_MovementFields
@@ -824,6 +836,12 @@ mutation M_ProductSaveMany($Entities: [M_ProductInput!]!) {
 		M_Product_Category {
 			UU
 		}
+	}
+}
+
+mutation M_WarehouseSave($M_Warehouse: M_WarehouseInput!) {
+	M_WarehouseSave(Entity: $M_Warehouse) {
+		UU
 	}
 }
 

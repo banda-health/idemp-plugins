@@ -1,0 +1,34 @@
+package org.bandahealth.idempiere.graphql.resolver.query;
+
+import graphql.kickstart.tools.GraphQLQueryResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MBHWarehouseAccess;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Warehouse_AccessDataLoader;
+import org.bandahealth.idempiere.graphql.model.Connection;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Generated Query Resolver for BH_Warehouse_Access - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 12 - $Id$
+ */
+public class X_BH_Warehouse_AccessQuery extends POQuery<MBHWarehouseAccess> implements GraphQLQueryResolver {
+	@Override
+	protected String getTableName() {
+		return MBHWarehouseAccess.Table_Name;
+	}
+
+	public CompletableFuture<MBHWarehouseAccess> BH_Warehouse_Access(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MBHWarehouseAccess> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_BH_Warehouse_AccessDataLoader.DATALOADER_BH_Warehouse_Access_BY_UUID);
+		return dataLoader.load(UU);
+	}
+
+	public Connection<MBHWarehouseAccess> BH_Warehouse_AccessGet(int Page, int PageSize, String Sort, String Filter,
+			DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, environment);
+	}
+}

@@ -35,4 +35,34 @@ public class MWarehouseDataLoader extends X_M_WarehouseDataLoader {
 			}
 		});
 	}
+
+	@Override
+	protected MappedBatchLoaderWithContext<Integer, MWarehouse_BH> getByIdBatchLoader() {
+		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
+			try {
+				// If the user is currently the system client, we can get everything
+				if (Env.getAD_Client_ID(batchLoaderEnvironment.getContext()) == 0) {
+					Repository.setApplyAccessFilterNotNeeded();
+				}
+				return Repository.getByIds(batchLoaderEnvironment.getContext(), getTableName(), null, keys);
+			} finally {
+				Repository.clearApplyAccessFilterNotNeeded();
+			}
+		});
+	}
+
+	@Override
+	protected MappedBatchLoaderWithContext<String, MWarehouse_BH> getByUuidBatchLoader() {
+		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
+			try {
+				// If the user is currently the system client, we can get everything
+				if (Env.getAD_Client_ID(batchLoaderEnvironment.getContext()) == 0) {
+					Repository.setApplyAccessFilterNotNeeded();
+				}
+				return Repository.getByUuids(batchLoaderEnvironment.getContext(), getTableName(), null, keys);
+			} finally {
+				Repository.clearApplyAccessFilterNotNeeded();
+			}
+		});
+	}
 }

@@ -1,0 +1,52 @@
+# Generated Schema for BH_Warehouse_Access - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Warehouse_Access(UU: String!): BH_Warehouse_Access
+	BH_Warehouse_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Warehouse_AccessConnection!
+}
+
+extend type Mutation {
+	BH_Warehouse_AccessSave(Entity: BH_Warehouse_AccessInput!): BH_Warehouse_Access!
+	BH_Warehouse_AccessSaveMany(Entities: [BH_Warehouse_AccessInput!]!): [BH_Warehouse_Access!]!
+	BH_Warehouse_AccessDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Warehouse_AccessConnection {
+	Results: [BH_Warehouse_Access!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Warehouse_Access {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role!
+	UU: ID!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Field is read / write
+	IsReadWrite: Boolean!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Warehouse_AccessInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	UU: ID
+	# Field is read / write
+	IsReadWrite: Boolean
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+}

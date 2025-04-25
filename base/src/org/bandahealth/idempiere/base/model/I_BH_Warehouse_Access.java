@@ -21,27 +21,48 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Role_WarehouseAccess
+/** Generated Interface for BH_Warehouse_Access
  *  @author iDempiere (generated) 
- *  @version Release 13
+ *  @version Release 12
  */
 @SuppressWarnings("all")
-public interface I_BH_Role_WarehouseAccess 
+public interface I_BH_Warehouse_Access 
 {
 
-    /** TableName=BH_Role_WarehouseAccess */
-    public static final String Table_Name = "BH_Role_WarehouseAccess";
+    /** TableName=BH_Warehouse_Access */
+    public static final String Table_Name = "BH_Warehouse_Access";
 
-    /** AD_Table_ID=1000037 */
+    /** AD_Table_ID=1000065 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
 
-    /** AccessLevel = 6 - System - Client 
+    /** AccessLevel = 3 - Client - Org 
      */
-    BigDecimal accessLevel = BigDecimal.valueOf(6);
+    BigDecimal accessLevel = BigDecimal.valueOf(3);
 
     /** Load Meta Data */
+
+    /** Column name AD_Client_ID */
+    public static final String COLUMNNAME_AD_Client_ID = "AD_Client_ID";
+
+	/** Get Tenant.
+	  * Tenant for this installation.
+	  */
+	public int getAD_Client_ID();
+
+    /** Column name AD_Org_ID */
+    public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
+
+	/** Set Organization.
+	  * Organizational entity within tenant
+	  */
+	public void setAD_Org_ID (int AD_Org_ID);
+
+	/** Get Organization.
+	  * Organizational entity within tenant
+	  */
+	public int getAD_Org_ID();
 
     /** Column name AD_Role_ID */
     public static final String COLUMNNAME_AD_Role_ID = "AD_Role_ID";
@@ -58,23 +79,14 @@ public interface I_BH_Role_WarehouseAccess
 
 	public org.compiere.model.I_AD_Role getAD_Role() throws RuntimeException;
 
-    /** Column name BH_Role_WarehouseAccess_ID */
-    public static final String COLUMNNAME_BH_Role_WarehouseAccess_ID = "BH_Role_WarehouseAccess_ID";
+    /** Column name BH_Warehouse_Access_UU */
+    public static final String COLUMNNAME_BH_Warehouse_Access_UU = "BH_Warehouse_Access_UU";
 
-	/** Set BH_Role_WarehouseAccess_ID	  */
-	public void setBH_Role_WarehouseAccess_ID (int BH_Role_WarehouseAccess_ID);
+	/** Set BH_Warehouse_Access_UU	  */
+	public void setBH_Warehouse_Access_UU (String BH_Warehouse_Access_UU);
 
-	/** Get BH_Role_WarehouseAccess_ID	  */
-	public int getBH_Role_WarehouseAccess_ID();
-
-    /** Column name BH_Role_WarehouseAccess_UU */
-    public static final String COLUMNNAME_BH_Role_WarehouseAccess_UU = "BH_Role_WarehouseAccess_UU";
-
-	/** Set BH_Role_WarehouseAccess_UU	  */
-	public void setBH_Role_WarehouseAccess_UU (String BH_Role_WarehouseAccess_UU);
-
-	/** Get BH_Role_WarehouseAccess_UU	  */
-	public String getBH_Role_WarehouseAccess_UU();
+	/** Get BH_Warehouse_Access_UU	  */
+	public String getBH_Warehouse_Access_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -92,31 +104,18 @@ public interface I_BH_Role_WarehouseAccess
 	  */
 	public int getCreatedBy();
 
-    /** Column name IsActive */
-    public static final String COLUMNNAME_IsActive = "IsActive";
+    /** Column name IsReadWrite */
+    public static final String COLUMNNAME_IsReadWrite = "IsReadWrite";
 
-	/** Set Active.
-	  * The record is active in the system
+	/** Set Read Write.
+	  * Field is read / write
 	  */
-	public void setIsActive (boolean IsActive);
+	public void setIsReadWrite (boolean IsReadWrite);
 
-	/** Get Active.
-	  * The record is active in the system
+	/** Get Read Write.
+	  * Field is read / write
 	  */
-	public boolean isActive();
-
-    /** Column name IsReadOnly */
-    public static final String COLUMNNAME_IsReadOnly = "IsReadOnly";
-
-	/** Set Read Only.
-	  * Field is read only
-	  */
-	public void setIsReadOnly (boolean IsReadOnly);
-
-	/** Get Read Only.
-	  * Field is read only
-	  */
-	public boolean isReadOnly();
+	public boolean isReadWrite();
 
     /** Column name M_Warehouse_ID */
     public static final String COLUMNNAME_M_Warehouse_ID = "M_Warehouse_ID";

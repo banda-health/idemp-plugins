@@ -7,8 +7,13 @@ query AD_ClientGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 				UU
 				Name
 				AD_Roles {
-					UU
+					BH_Warehouse_AccessList {
+						M_Warehouse {
+							UU
+						}
+					}
 					Name
+					UU
 				}
 				M_Warehouses {
 					UU
