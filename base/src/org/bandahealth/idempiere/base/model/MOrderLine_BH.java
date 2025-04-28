@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.base.model;
 
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MTable;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.util.Properties;
 
 public class MOrderLine_BH extends MOrderLine {
@@ -17,6 +17,11 @@ public class MOrderLine_BH extends MOrderLine {
 	public static final String COLUMNNAME_QtyAvailable = "QtyAvailable";
 
 	public static final String COLUMNNAME_BH_Instructions = "BH_Instructions";
+
+	/**
+	 * Column name Included_OrderLine_ID
+	 */
+	public static final String COLUMNNAME_Included_OrderLine_ID = "Included_OrderLine_ID";
 
 	public MOrderLine_BH(Properties ctx, String C_OrderLine_UU, String trxName) {
 		super(ctx, C_OrderLine_UU, trxName);
@@ -36,6 +41,35 @@ public class MOrderLine_BH extends MOrderLine {
 
 	public MOrderLine_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
+	}
+
+	public org.compiere.model.I_C_OrderLine getIncluded_OrderLine() throws RuntimeException {
+		return (org.compiere.model.I_C_OrderLine) MTable.get(getCtx(), org.compiere.model.I_C_OrderLine.Table_ID)
+				.getPO(getIncluded_OrderLine_ID(), get_TrxName());
+	}
+
+	/**
+	 * Set Included OrdeLine ID.
+	 *
+	 * @param Included_OrderLine_ID Included OrdeLine ID
+	 */
+	public void setIncluded_OrderLine_ID(int Included_OrderLine_ID) {
+		if (Included_OrderLine_ID < 1)
+			set_Value(COLUMNNAME_Included_OrderLine_ID, null);
+		else
+			set_Value(COLUMNNAME_Included_OrderLine_ID, Integer.valueOf(Included_OrderLine_ID));
+	}
+
+	/**
+	 * Get Included OrdeLine ID.
+	 *
+	 * @return Included OrdeLine ID
+	 */
+	public int getIncluded_OrderLine_ID() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_Included_OrderLine_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
 	}
 
 	/**

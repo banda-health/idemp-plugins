@@ -5,6 +5,7 @@ import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInOutLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MMatchPODataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MOrderLandedCostAllocationDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MOrderLineDataLoader;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MMatchPO;
@@ -15,6 +16,11 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MOrderLineResolver extends X_C_OrderLineResolver {
+	public CompletableFuture<List<MOrderLine_BH>> Included_OrderLineList(MOrderLine_BH entity, DataFetchingEnvironment environment) {
+		DataLoader<String, List<MOrderLine_BH>> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(MOrderLineDataLoader.DATALOADER_C_OrderLine_BY_Included_OrderLine_ID);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getC_OrderLine_ID()));
+	}
 
 	public CompletableFuture<List<MOrderLandedCostAllocation>> C_OrderLandedCostAllocationList(MOrderLine_BH entity,
 			DataFetchingEnvironment environment) {

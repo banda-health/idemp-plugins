@@ -1,4 +1,6 @@
 import {
+	Bh_Product_IncludedDeleteDocument,
+	Bh_Product_IncludedSaveManyDocument,
 	Bh_VisitProcessDocument,
 	C_OrderProcessDocument,
 	C_UomGetDefaultDocument,
@@ -462,4 +464,53 @@ test('merging patients', async () => {
 	expect(product).toBeFalsy();
 	product = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product2.UU } })).data.M_Product!;
 	expect(product).toBeTruthy();
+});
+
+test('can work with included products', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product 1';
+	await createProduct(valueObject);
+	const product1 = valueObject.product!;
+
+	valueObject.stepName = 'Create product 2';
+	valueObject.clearProduct();
+	await createProduct(valueObject);
+	const product2 = valueObject.product!;
+
+	valueObject.stepName = 'Create product 3';
+	valueObject.clearProduct();
+	await createProduct(valueObject);
+	const product3 = valueObject.product!;
+
+	await mutate(valueObject)({
+		mutation: Bh_Product_IncludedSaveManyDocument,
+		variables: {
+			BH_Product_IncludedList: [
+				{ Included_Product: { UU: product2.UU }, M_Product: { UU: product1.UU }, SeqNo: 10 },
+				{ Included_Product: { UU: product3.UU }, M_Product: { UU: product1.UU }, SeqNo: 20 },
+			],
+		},
+	});
+
+	let productToCheck = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product1.UU } })).data
+		.M_Product!;
+	expect(productToCheck.BH_Product_IncludedList).toHaveLength(2);
+	expect(productToCheck.BH_Product_IncludedList![0].SeqNo).toBe(10);
+	expect(productToCheck.BH_Product_IncludedList![0].Included_Product.UU).toBe(product2.UU);
+	expect(productToCheck.BH_Product_IncludedList![1].SeqNo).toBe(20);
+	expect(productToCheck.BH_Product_IncludedList![1].Included_Product.UU).toBe(product3.UU);
+
+	await mutate(valueObject)({
+		mutation: Bh_Product_IncludedDeleteDocument,
+		variables: { UUs: [productToCheck.BH_Product_IncludedList![1].UU] },
+	});
+
+	productToCheck = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product1.UU } })).data
+		.M_Product!;
+	expect(productToCheck.BH_Product_IncludedList).toHaveLength(1);
 });

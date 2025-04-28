@@ -504,6 +504,26 @@ query C_OrderForSalesRep($UU: String!) {
 	}
 }
 
+query C_OrderLine($UU: String!) {
+	C_OrderLine(UU: $UU) {
+		Included_OrderLineList {
+			UU
+		}
+		UU
+	}
+}
+
+query C_OrderLineGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_OrderLineGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			Included_OrderLine {
+				UU
+			}
+			UU
+		}
+	}
+}
+
 query C_Payment($UU: String!) {
 	C_Payment(UU: $UU) {
 		...C_PaymentFields

@@ -38,7 +38,7 @@ VALUES
 			 ad_table
 	 ) + 1, 0, 0, 'Y', '2025-04-28 11:53:00.918000', 100,
 	 '2025-04-28 12:05:37.844000', 100, ' Included Product',
-	 NULL, NULL, 'BH_Product_Included', 'N', '3', 'D', NULL, NULL, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N', 'Y',
+	 NULL, NULL, 'BH_Product_Included', 'N', '3', 'U', NULL, NULL, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N', 'Y',
 	 '7d10e5d2-6fba-4f07-ab4d-50e0e5ead7c0', 'N', 'N', 'N', 'N', 'N', 'N', 'N');
 INSERT INTO
 	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
