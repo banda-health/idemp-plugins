@@ -31,6 +31,7 @@ import org.bandahealth.idempiere.base.model.MBHPayerInfoFldValSug;
 import org.bandahealth.idempiere.base.model.MBHPaymentRef;
 import org.bandahealth.idempiere.base.model.MBHPaymentRefBankAccount;
 import org.bandahealth.idempiere.base.model.MBHProductCategoryDefault;
+import org.bandahealth.idempiere.base.model.MBHProductIncluded;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBHWarehouseAccess;
@@ -213,6 +214,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHOclOriginatingSource.class;
 		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
 			return MBHClientConceptExtra.class;
+		} else if (tableName.equalsIgnoreCase(MBHProductIncluded.Table_Name)) {
+			return MBHProductIncluded.class;
 		}
 
 		return null;
@@ -352,6 +355,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHOclOriginatingSource(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
 			return new MBHClientConceptExtra(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHProductIncluded.Table_Name)) {
+			return new MBHProductIncluded(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -495,6 +500,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHOclOriginatingSource(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
 			return new MBHClientConceptExtra(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHProductIncluded.Table_Name)) {
+			return new MBHProductIncluded(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
@@ -620,6 +627,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHOclOriginatingSource(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
 			return new MBHClientConceptExtra(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHProductIncluded.Table_Name)) {
+			return new MBHProductIncluded(Env.getCtx(), Record_UU, trxName);
 		}
 
 		return null;

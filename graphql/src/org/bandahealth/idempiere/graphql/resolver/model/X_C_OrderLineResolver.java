@@ -235,6 +235,21 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
+
+	/**
+	 * Get Included OrdeLine ID.
+	 *
+	 * @return Included OrdeLine ID
+	 */
+	public CompletableFuture<MOrderLine_BH> Included_OrderLine(MOrderLine_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getIncluded_OrderLine_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MOrderLine_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.DATALOADER_C_OrderLine_BY_ID);
+		return dataLoader.load(entity.getIncluded_OrderLine_ID());
+	}
+
 	public Boolean IsDescription(MOrderLine_BH entity, DataFetchingEnvironment environment) {
 		return entity.isDescription();
 	}

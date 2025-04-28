@@ -183,6 +183,14 @@ fragment M_MovementFields on M_Movement {
 
 fragment M_ProductFields on M_Product {
 	BH_BuyPrice
+	BH_Product_IncludedList {
+		Included_Product {
+			UU
+			Name
+		}
+		SeqNo
+		UU
+	}
 	BH_SellPrice
 	Description
 	HasBeenPurchased

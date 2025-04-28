@@ -98,6 +98,7 @@ public class BandaMutationComposer {
 				new MBHPaymentRefBankAccountMutation(),
 				new MBHPaymentRefMutation(),
 				new MBHProductCategoryDefaultMutation(),
+				new MBHProductIncludedMutation(),
 				new MBHVisitMutation(),
 				new MBHVoidedReasonMutation(),
 				new MBHWarehouseAccessMutation(),

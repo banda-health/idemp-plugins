@@ -53,6 +53,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	private ForeignEntityInput mC_ProjectTask;
 	private ForeignEntityInput mC_Tax;
 	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mIncluded_OrderLine;
 	private ForeignEntityInput mLink_OrderLine;
 	private ForeignEntityInput mM_AttributeSetInstance;
 	private ForeignEntityInput mM_Product;
@@ -585,6 +586,40 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		if (get_ID() == 0) {
 			super.setDateInvoiced(DateInvoiced);
 		}
+	}
+
+	/**
+	 * Set Included OrdeLine ID.
+	 *
+	 * @param Included_OrderLine Included OrdeLine ID
+	 */
+	@JsonProperty("Included_OrderLine")
+	public void setIncluded_OrderLineInput(ForeignEntityInput Included_OrderLine) {
+		this.mIncluded_OrderLine = Included_OrderLine;
+		if (Included_OrderLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrderLine_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
+							.setParameters(Included_OrderLine.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setIncluded_OrderLine_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_OrderLine with UU " + Included_OrderLine.getUU());
+			}
+		} else {
+			this.setIncluded_OrderLine_ID(0);
+		}
+	}
+
+	/**
+	 * Get Included OrdeLine ID.
+	 *
+	 * @return Included OrdeLine ID
+	 */
+	@JsonProperty("Included_OrderLine")
+	public ForeignEntityInput Included_OrderLine() {
+		return mIncluded_OrderLine;
 	}
 	/**
 	 * Set Line Amount.
