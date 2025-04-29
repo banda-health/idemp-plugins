@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Transactions Main" pageWidth="1875" pageHeight="744" orientation="Landscape" columnWidth="1875" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="cc04d203-d034-4a9b-95b5-22b226c482fc">
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Transactions Main" pageWidth="1960" pageHeight="744" orientation="Landscape" columnWidth="1960" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="cc04d203-d034-4a9b-95b5-22b226c482fc">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -118,7 +118,8 @@ SELECT
 	insurance_info.ChargeType_name                    AS insurance_type,
 	COALESCE(non_patient_payment_totals.insurance, 0) AS insurance,
 	COALESCE(non_patient_payment_totals.waiver, 0)    AS waiver,
-	COALESCE(non_patient_payment_totals.donation, 0)  AS donation
+	COALESCE(non_patient_payment_totals.donation, 0)  AS donation,
+	cb.totalopenbalance
 FROM
 	billdetails
 		LEFT JOIN (
@@ -135,6 +136,7 @@ FROM
 		GROUP BY bh_visit_id
 	) patient_payment_sums
 		ON billdetails.bh_visit_id = patient_payment_sums.bh_visit_id
+		JOIN c_bpartner cb ON billdetails.c_bpartner_id = cb.c_bpartner_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
@@ -227,6 +229,7 @@ ORDER BY
 		<field name="insurance" class="java.math.BigDecimal"/>
 		<field name="waiver" class="java.math.BigDecimal"/>
 		<field name="donation" class="java.math.BigDecimal"/>
+		<field name="totalopenbalance" class="java.math.BigDecimal"/>
 		<variable name="totalPaymentsV" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{cash}.add($F{mobile}).add($F{credit_debit}).add($F{bank}).add($F{check}).add($F{other}).add($F{insurance}).add($F{waiver}).add($F{donation})]]></variableExpression>
 		</variable>
@@ -319,7 +322,7 @@ WHERE
 	<pageHeader>
 		<band height="23">
 			<textField>
-				<reportElement x="0" y="0" width="1875" height="20" uuid="40b599ef-b08c-4c03-8fa4-23535f38c3b6">
+				<reportElement x="0" y="0" width="1960" height="20" uuid="40b599ef-b08c-4c03-8fa4-23535f38c3b6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -339,7 +342,7 @@ WHERE
 	<detail>
 		<band height="67" splitType="Stretch">
 			<componentElement>
-				<reportElement x="0" y="0" width="1875" height="64" uuid="5ccfd657-1202-43cb-a60a-9dea99ca5a41">
+				<reportElement x="0" y="0" width="1960" height="64" uuid="5ccfd657-1202-43cb-a60a-9dea99ca5a41">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
@@ -392,12 +395,12 @@ WHERE
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="240" uuid="32fc00be-f6d4-43f4-8b08-97311c8d00f7">
+					<jr:column width="230" uuid="32fc00be-f6d4-43f4-8b08-97311c8d00f7">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="240" height="30" uuid="c6236565-c1d5-4d2a-8213-4922d9248c9e"/>
+								<reportElement x="0" y="0" width="230" height="30" uuid="c6236565-c1d5-4d2a-8213-4922d9248c9e"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -407,7 +410,7 @@ WHERE
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<textField textAdjust="StretchHeight">
-								<reportElement stretchType="ContainerHeight" x="0" y="0" width="240" height="17" uuid="ee417bb7-7867-429f-8881-4281e044c6e4"/>
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="230" height="17" uuid="ee417bb7-7867-429f-8881-4281e044c6e4"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
@@ -868,7 +871,7 @@ WHERE
 								<textElement verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Unpaid Amount]]></text>
+								<text><![CDATA[Balance Due]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
@@ -895,6 +898,33 @@ WHERE
 									<paragraph rightIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{totalOutstanding}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="4cf12512-f2a2-4f48-9fc2-28cad12f84d8">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column18"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="9b74b749-977f-482d-a20b-5594b0bdee1c"/>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Current Open Balance]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
+								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="18360a6e-a456-4242-98b4-31215f740245">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Bottom">
+									<font fontName="DejaVu Sans" size="12"/>
+									<paragraph rightIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{totalopenbalance}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
