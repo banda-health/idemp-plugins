@@ -363,7 +363,8 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		}
 
 		valueObject.setStepName("Create high normal override");
-		MBHClientConceptExtra clientConceptExtra = new MBHClientConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHClientConceptExtra clientConceptExtra =
+				new MBHClientConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
 		clientConceptExtra.setBH_Concept_Extra_ID(conceptExtra.get_ID());
 		clientConceptExtra.setBH_Value("6");
 		clientConceptExtra.saveEx();
@@ -409,7 +410,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 					"Status message is correct");
 		}
 	}
-	
+
 	@IPopulateAnnotation.CanRun
 	public void labNotesAreDisplayedCorrectly() throws SQLException, IOException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
@@ -495,15 +496,12 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Row headerRow = TableUtils.getHeaderRow(sheet, "Notes");
-			int statusColumnIndex = TableUtils.getColumnIndex(headerRow, "Notes");
 
-			List<Row> testRows = StreamSupport.stream(sheet.spliterator(), false).filter(
-					row -> row.getCell(statusColumnIndex) != null &&
-							row.getCell(statusColumnIndex).getCellType().equals(CellType.STRING) &&
-							row.getCell(statusColumnIndex).getStringCellValue().contains("Are within range")).collect(Collectors.toList());
-			assertFalse(testRows.isEmpty(), "Notes Appear");
+			Optional<Row> notesRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equals("Are within range"))).findFirst();
+			assertTrue(notesRow.isPresent(), "Notes Appear");
 		}
 	}
-
 }
