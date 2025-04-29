@@ -68,6 +68,7 @@ type C_OrderLine {
 	Discount: BigDecimal
 	# Freight Amount 
 	FreightAmt: BigDecimal!
+	Included_OrderLine: C_OrderLine
 	# The record is active in the system
 	IsActive: Boolean!
 	# if true, the line is just description and no transaction
@@ -176,6 +177,7 @@ input C_OrderLineInput {
 	Discount: BigDecimal
 	# Freight Amount 
 	FreightAmt: BigDecimal
+	Included_OrderLine: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# if true, the line is just description and no transaction

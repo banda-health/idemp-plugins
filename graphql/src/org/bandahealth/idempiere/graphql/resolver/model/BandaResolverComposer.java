@@ -103,6 +103,7 @@ public class BandaResolverComposer {
 				new MBHPaymentRefBankAccountResolver(),
 				new MBHPaymentRefResolver(),
 				new MBHProductCategoryDefaultResolver(),
+				new MBHProductIncludedResolver(),
 				new MBHVisitResolver(),
 				new MBHVoidedReasonResolver(),
 				new MBHWarehouseAccessResolver(),

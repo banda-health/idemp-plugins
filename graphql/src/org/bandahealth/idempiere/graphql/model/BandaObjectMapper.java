@@ -324,6 +324,7 @@ public class BandaObjectMapper {
 							addMapping(I_BH_PaymentRefInput.class, MBHPaymentRefInput.class);
 							addMapping(I_BH_PaymentRef_BankAcctInput.class, MBHPaymentRefBankAccountInput.class);
 							addMapping(I_BH_Product_CategoryDefaultInput.class, MBHProductCategoryDefaultInput.class);
+							addMapping(I_BH_Product_IncludedInput.class, MBHProductIncludedInput.class);
 							addMapping(I_BH_VisitInput.class, MBHVisitInput.class);
 							addMapping(I_BH_Voided_ReasonInput.class, MBHVoidedReasonInput.class);
 							addMapping(I_BH_Warehouse_AccessInput.class, MBHWarehouseAccessInput.class);
