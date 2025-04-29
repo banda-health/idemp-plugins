@@ -188,6 +188,7 @@ fragment M_ProductFields on M_Product {
 			UU
 			Name
 		}
+		Qty
 		SeqNo
 		UU
 	}

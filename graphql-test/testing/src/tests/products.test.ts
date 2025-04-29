@@ -491,8 +491,8 @@ test('can work with included products', async () => {
 		mutation: Bh_Product_IncludedSaveManyDocument,
 		variables: {
 			BH_Product_IncludedList: [
-				{ Included_Product: { UU: product2.UU }, M_Product: { UU: product1.UU }, SeqNo: 10 },
-				{ Included_Product: { UU: product3.UU }, M_Product: { UU: product1.UU }, SeqNo: 20 },
+				{ Included_Product: { UU: product2.UU }, M_Product: { UU: product1.UU }, Qty: 5, SeqNo: 10 },
+				{ Included_Product: { UU: product3.UU }, M_Product: { UU: product1.UU }, Qty: 6, SeqNo: 20 },
 			],
 		},
 	});
@@ -501,8 +501,10 @@ test('can work with included products', async () => {
 		.M_Product!;
 	expect(productToCheck.BH_Product_IncludedList).toHaveLength(2);
 	expect(productToCheck.BH_Product_IncludedList![0].SeqNo).toBe(10);
+	expect(productToCheck.BH_Product_IncludedList![0].Qty).toBe(5);
 	expect(productToCheck.BH_Product_IncludedList![0].Included_Product.UU).toBe(product2.UU);
 	expect(productToCheck.BH_Product_IncludedList![1].SeqNo).toBe(20);
+	expect(productToCheck.BH_Product_IncludedList![1].Qty).toBe(6);
 	expect(productToCheck.BH_Product_IncludedList![1].Included_Product.UU).toBe(product3.UU);
 
 	await mutate(valueObject)({

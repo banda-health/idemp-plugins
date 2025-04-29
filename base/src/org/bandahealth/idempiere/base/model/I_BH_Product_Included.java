@@ -128,6 +128,19 @@ public interface I_BH_Product_Included
 
 	public org.compiere.model.I_M_Product getM_Product() throws RuntimeException;
 
+    /** Column name Qty */
+    public static final String COLUMNNAME_Qty = "Qty";
+
+	/** Set Quantity.
+	  * Quantity
+	  */
+	public void setQty (BigDecimal Qty);
+
+	/** Get Quantity.
+	  * Quantity
+	  */
+	public BigDecimal getQty();
+
     /** Column name SeqNo */
     public static final String COLUMNNAME_SeqNo = "SeqNo";
 

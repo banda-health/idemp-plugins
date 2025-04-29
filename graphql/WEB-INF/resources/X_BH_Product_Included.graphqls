@@ -32,6 +32,8 @@ type BH_Product_Included {
 	IsActive: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
+	# Quantity
+	Qty: BigDecimal!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -49,6 +51,8 @@ input BH_Product_IncludedInput {
 	IsActive: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
+	# Quantity
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

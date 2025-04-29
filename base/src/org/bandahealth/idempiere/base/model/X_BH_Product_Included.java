@@ -17,9 +17,11 @@
 /** Generated Model - DO NOT CHANGE */
 package org.bandahealth.idempiere.base.model;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
+import org.compiere.util.Env;
 
 /** Generated Model for BH_Product_Included
  *  @author iDempiere (generated)
@@ -31,7 +33,7 @@ public class X_BH_Product_Included extends PO implements I_BH_Product_Included, 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20250428L;
+	private static final long serialVersionUID = 20250429L;
 
     /** Standard Constructor */
     public X_BH_Product_Included (Properties ctx, int BH_Product_Included_ID, String trxName)
@@ -41,6 +43,7 @@ public class X_BH_Product_Included extends PO implements I_BH_Product_Included, 
         {
 			setIncluded_Product_ID (0);
 			setM_Product_ID (0);
+			setQty (Env.ZERO);
 			setSeqNo (0);
 // @SQL=SELECT NVL(MAX(SeqNo),0)+10 AS DefaultValue FROM AD_Role_Included WHERE AD_Role_ID=@AD_Role_ID@
         } */
@@ -54,6 +57,7 @@ public class X_BH_Product_Included extends PO implements I_BH_Product_Included, 
         {
 			setIncluded_Product_ID (0);
 			setM_Product_ID (0);
+			setQty (Env.ZERO);
 			setSeqNo (0);
 // @SQL=SELECT NVL(MAX(SeqNo),0)+10 AS DefaultValue FROM AD_Role_Included WHERE AD_Role_ID=@AD_Role_ID@
         } */
@@ -67,6 +71,7 @@ public class X_BH_Product_Included extends PO implements I_BH_Product_Included, 
         {
 			setIncluded_Product_ID (0);
 			setM_Product_ID (0);
+			setQty (Env.ZERO);
 			setSeqNo (0);
 // @SQL=SELECT NVL(MAX(SeqNo),0)+10 AS DefaultValue FROM AD_Role_Included WHERE AD_Role_ID=@AD_Role_ID@
         } */
@@ -80,6 +85,7 @@ public class X_BH_Product_Included extends PO implements I_BH_Product_Included, 
         {
 			setIncluded_Product_ID (0);
 			setM_Product_ID (0);
+			setQty (Env.ZERO);
 			setSeqNo (0);
 // @SQL=SELECT NVL(MAX(SeqNo),0)+10 AS DefaultValue FROM AD_Role_Included WHERE AD_Role_ID=@AD_Role_ID@
         } */
@@ -181,6 +187,25 @@ public class X_BH_Product_Included extends PO implements I_BH_Product_Included, 
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set Quantity.
+		@param Qty Quantity
+	*/
+	public void setQty (BigDecimal Qty)
+	{
+		set_Value (COLUMNNAME_Qty, Qty);
+	}
+
+	/** Get Quantity.
+		@return Quantity
+	  */
+	public BigDecimal getQty()
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_Qty);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 
 	/** Set Sequence.
