@@ -1229,4 +1229,74 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 					"Insurance total is correct");
 		}
 	}
+
+	@IPopulateAnnotation.CanRun
+	public void addBalanceDueAndOpenBalanceColumns() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		valueObject.setSalesPrice(BigDecimal.TEN);
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+		MProduct_BH product = valueObject.getProduct();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(10));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setProduct(product);
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		MOrder_BH order = valueObject.getOrder();
+		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.setOrder(order);
+		valueObject.getOrderLine().setC_Order_ID(order.get_ID());
+		valueObject.getOrderLine().setQty(new BigDecimal(1));
+		valueObject.getOrderLine().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create payment");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setPaymentAmount(new BigDecimal(10));
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			assertTrue(TableUtils.getHeaderRow(sheet, "Balance Due") != null, "Balance due column exists");
+			assertTrue(TableUtils.getHeaderRow(sheet, "Current Open Balance") != null, "Current open balance column exists");
+		}
+	}
 }
