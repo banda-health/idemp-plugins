@@ -109,6 +109,7 @@ FROM
 		ON p.m_product_category_id = pc.m_product_category_id AND pc.name = 'Pharmacy'
 WHERE
 	issotrx = 'Y'
+	AND ol.included_orderline_id IS NULL
 	AND v.bh_visit_uu = $P{BH_Visit_UU}]]>
 		</queryString>
 		<field name="product" class="java.lang.String">

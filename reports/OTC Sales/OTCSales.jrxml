@@ -56,6 +56,7 @@ FROM
 		ON ol.m_product_id = p.m_product_id
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
+	AND ol.included_orderline_id IS NULL
 	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}]]>
 	</queryString>
 	<field name="sale_date" class="java.lang.String">

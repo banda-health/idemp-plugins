@@ -125,6 +125,7 @@ FROM
 		ON ol.m_product_id = p.m_product_id
 WHERE
 	issotrx = 'Y'
+	AND ol.included_orderline_id IS NULL
 	AND v.bh_visit_uu = $P{BH_Visit_UU}]]>
 		</queryString>
 		<field name="product" class="java.lang.String">
