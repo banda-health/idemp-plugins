@@ -228,6 +228,20 @@ public interface I_C_OrderLineInput extends I_C_OrderLine {
 	ForeignEntityInput C_UOM();
 
 	/**
+	 * Set Included_OrderLine.
+	 *
+	 * @param Included_OrderLine Included_OrderLine
+	 */
+	void setIncluded_OrderLineInput(ForeignEntityInput Included_OrderLine);
+
+	/**
+	 * Get Included_OrderLine.
+	 *
+	 * @return Included_OrderLine
+	 */
+	ForeignEntityInput Included_OrderLine();
+
+	/**
 	 * Set Link_OrderLine.
 	 *
 	 * @param Link_OrderLine This field links a sales order line to the purchase order line that is generated from it.

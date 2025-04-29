@@ -343,7 +343,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int waiverColumnIndex = TableUtils.getColumnIndex(headerRow, "Waiver");
 			int donationsColumnIndex = TableUtils.getColumnIndex(headerRow, "Donations");
 			int otherColumnIndex = TableUtils.getColumnIndex(headerRow, "Other");
-			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
+			int balanceDueColumnIndex = TableUtils.getColumnIndex(headerRow, "Balance Due");
 
 			int totalsRowIndex = -1;
 			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
@@ -366,7 +366,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 					totalWaiverPaid = row.getCell(waiverColumnIndex).getNumericCellValue();
 					totalDonationsPaid = row.getCell(donationsColumnIndex).getNumericCellValue();
 					totalOtherPaid = row.getCell(otherColumnIndex).getNumericCellValue();
-					totalUnpaid = row.getCell(unpaidColumnIndex).getNumericCellValue();
+					totalUnpaid = row.getCell(balanceDueColumnIndex).getNumericCellValue();
 					break;
 				}
 			}
@@ -497,7 +497,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
 			int billTotalColumnIndex = TableUtils.getColumnIndex(headerRow, "Bill Total");
 			int totalPaymentColumnIndex = TableUtils.getColumnIndex(headerRow, "Total Payment");
-			int unpaidColumnIndex = TableUtils.getColumnIndex(headerRow, "Unpaid Amount");
+			int balanceDueColumnIndex = TableUtils.getColumnIndex(headerRow, "Balance Due");
 
 			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
 				Row row = sheet.getRow(i);
@@ -509,7 +509,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 						&& billTotalTotalsCell.getNumericCellValue() > 0) {
 					totalCharged = billTotalTotalsCell.getNumericCellValue();
 					totalPaid = row.getCell(totalPaymentColumnIndex).getNumericCellValue();
-					totalUnpaid = row.getCell(unpaidColumnIndex).getNumericCellValue();
+					totalUnpaid = row.getCell(balanceDueColumnIndex).getNumericCellValue();
 					break;
 				}
 			}

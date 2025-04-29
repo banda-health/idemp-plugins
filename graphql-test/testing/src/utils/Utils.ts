@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import {
+	Ad_OrgInfoGetDocument,
 	Ad_ProcessRunAndExportDocument,
 	Ad_Ref_ListGetDocument,
 	Bh_VisitGetDocument,
@@ -22,6 +23,7 @@ import {
 	M_DiscountSchemaGetDocument,
 	M_InventoryProcessDocument,
 	M_InventorySaveWithInventoryLinesDocument,
+	M_LocatorSaveDocument,
 	M_PriceList_VersionGetDocument,
 	M_PriceList_VersionSaveDocument,
 	M_PriceListSaveDocument,
@@ -30,6 +32,7 @@ import {
 	M_ProductSaveDocument,
 	M_StorageOnHandGetDocument,
 	M_WarehouseGetDocument,
+	M_WarehouseSaveDocument,
 	ReportOutput,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
@@ -637,10 +640,55 @@ export async function changeWarehouse(valueObject: ValueObject) {
 	const differentWarehouse = (
 		await query(valueObject)({ query: M_WarehouseGetDocument })
 	).data.M_WarehouseGet.Results.find((warehouse) => warehouse.UU !== valueObject.warehouse?.UU);
-	valueObject.warehouse = differentWarehouse || valueObject.warehouse;
-	if (!valueObject.warehouse || !differentWarehouse) {
-		throw new Error('Warehouse not switched');
+
+	if (!differentWarehouse) {
+		createWarehouse(valueObject);
+	} else {
+		valueObject.warehouse = differentWarehouse;
 	}
+}
+
+export async function createWarehouse(valueObject: ValueObject) {
+	const warehouseUU = v4();
+	await mutate(valueObject)({
+		mutation: M_WarehouseSaveDocument,
+		variables: {
+			M_Warehouse: {
+				AD_Org: { UU: valueObject.organization!.UU },
+				C_Location: {
+					UU: (
+						await query(valueObject)({
+							query: Ad_OrgInfoGetDocument,
+							variables: { Filter: JSON.stringify({ 'ad_org.ad_org_uu': valueObject.organization!.UU }) },
+						})
+					).data.AD_OrgInfoGet.Results[0].C_Location!.UU,
+				},
+				Description: valueObject.getStepMessageLong(),
+				Name: valueObject.random + valueObject.getStepMessageLong(),
+				UU: warehouseUU,
+			},
+		},
+	});
+	await mutate(valueObject)({
+		mutation: M_LocatorSaveDocument,
+		variables: {
+			M_Locator: {
+				AD_Org: { UU: valueObject.organization!.UU },
+				IsDefault: true,
+				M_Warehouse: { UU: warehouseUU },
+				Value: valueObject.random.toString(),
+				X: '0',
+				Y: '0',
+				Z: '0',
+			},
+		},
+	});
+	valueObject.warehouse = (
+		await query(valueObject)({
+			query: M_WarehouseGetDocument,
+			variables: { Filter: JSON.stringify({ m_warehouse_uu: warehouseUU }) },
+		})
+	).data.M_WarehouseGet.Results[0];
 }
 
 /**

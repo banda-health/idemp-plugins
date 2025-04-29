@@ -1,0 +1,58 @@
+# Generated Schema for BH_Product_Included - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Product_Included(UU: String!): BH_Product_Included
+	BH_Product_IncludedGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Product_IncludedConnection!
+}
+
+extend type Mutation {
+	BH_Product_IncludedSave(Entity: BH_Product_IncludedInput!): BH_Product_Included!
+	BH_Product_IncludedSaveMany(Entities: [BH_Product_IncludedInput!]!): [BH_Product_Included!]!
+	BH_Product_IncludedDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Product_IncludedConnection {
+	Results: [BH_Product_Included!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Product_Included {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	Included_Product: M_Product!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Quantity
+	Qty: BigDecimal!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Product_IncludedInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	Included_Product: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Quantity
+	Qty: BigDecimal
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}
