@@ -52,7 +52,7 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -89,7 +89,7 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {
@@ -148,7 +148,7 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSetInstance != null) {
@@ -203,7 +203,7 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	@JsonProperty("M_CostElement")
 	public void setM_CostElementInput(ForeignEntityInput M_CostElement) {
 		this.mM_CostElement = M_CostElement;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_CostElement != null) {
@@ -240,7 +240,7 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	@JsonProperty("M_CostType")
 	public void setM_CostTypeInput(ForeignEntityInput M_CostType) {
 		this.mM_CostType = M_CostType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_CostType != null) {
@@ -277,7 +277,7 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {

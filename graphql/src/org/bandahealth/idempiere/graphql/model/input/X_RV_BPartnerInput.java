@@ -122,7 +122,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_Language")
 	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Language != null) {
@@ -159,7 +159,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -196,7 +196,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_User_C_BPartner")
 	public void setAD_User_C_BPartnerInput(ForeignEntityInput AD_User_C_BPartner) {
 		this.mAD_User_C_BPartner = AD_User_C_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User_C_BPartner != null) {
@@ -233,7 +233,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_User_C_BPartner_Location")
 	public void setAD_User_C_BPartner_LocationInput(ForeignEntityInput AD_User_C_BPartner_Location) {
 		this.mAD_User_C_BPartner_Location = AD_User_C_BPartner_Location;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User_C_BPartner_Location != null) {
@@ -281,7 +281,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_User_Create")
 	public void setAD_User_CreateInput(ForeignEntityInput AD_User_Create) {
 		this.mAD_User_Create = AD_User_Create;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User_Create != null) {
@@ -318,7 +318,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {
@@ -377,7 +377,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_User_Update")
 	public void setAD_User_UpdateInput(ForeignEntityInput AD_User_Update) {
 		this.mAD_User_Update = AD_User_Update;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User_Update != null) {
@@ -480,7 +480,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("BPartner_Parent")
 	public void setBPartner_ParentInput(ForeignEntityInput BPartner_Parent) {
 		this.mBPartner_Parent = BPartner_Parent;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BPartner_Parent != null) {
@@ -517,7 +517,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("BPContactGreet")
 	public void setBPContactGreetInput(ForeignEntityInput BPContactGreet) {
 		this.mBPContactGreet = BPContactGreet;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BPContactGreet != null) {
@@ -554,7 +554,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_C_TaxGroup")
 	public void setC_BP_C_TaxGroupInput(ForeignEntityInput C_BP_C_TaxGroup) {
 		this.mC_BP_C_TaxGroup = C_BP_C_TaxGroup;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BP_C_TaxGroup != null) {
@@ -602,7 +602,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Group")
 	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BP_Group != null) {
@@ -661,7 +661,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Location_C_BPartner")
 	public void setC_BP_Location_C_BPartnerInput(ForeignEntityInput C_BP_Location_C_BPartner) {
 		this.mC_BP_Location_C_BPartner = C_BP_Location_C_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BP_Location_C_BPartner != null) {
@@ -698,7 +698,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Location_C_Location")
 	public void setC_BP_Location_C_LocationInput(ForeignEntityInput C_BP_Location_C_Location) {
 		this.mC_BP_Location_C_Location = C_BP_Location_C_Location;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BP_Location_C_Location != null) {
@@ -746,7 +746,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Location_Create")
 	public void setC_BP_Location_CreateInput(ForeignEntityInput C_BP_Location_Create) {
 		this.mC_BP_Location_Create = C_BP_Location_Create;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BP_Location_Create != null) {
@@ -893,7 +893,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Location_SalesRegion")
 	public void setC_BP_Location_SalesRegionInput(ForeignEntityInput C_BP_Location_SalesRegion) {
 		this.mC_BP_Location_SalesRegion = C_BP_Location_SalesRegion;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BP_Location_SalesRegion != null) {
@@ -941,7 +941,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Location_Update")
 	public void setC_BP_Location_UpdateInput(ForeignEntityInput C_BP_Location_Update) {
 		this.mC_BP_Location_Update = C_BP_Location_Update;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BP_Location_Update != null) {
@@ -989,7 +989,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BPartner_Location")
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BPartner_Location != null) {
@@ -1026,7 +1026,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_City")
 	public void setC_CityInput(ForeignEntityInput C_City) {
 		this.mC_City = C_City;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_City != null) {
@@ -1074,7 +1074,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Country_C_Currency")
 	public void setC_Country_C_CurrencyInput(ForeignEntityInput C_Country_C_Currency) {
 		this.mC_Country_C_Currency = C_Country_C_Currency;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Country_C_Currency != null) {
@@ -1122,7 +1122,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Country")
 	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Country != null) {
@@ -1170,7 +1170,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Dunning")
 	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Dunning != null) {
@@ -1207,7 +1207,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Greeting")
 	public void setC_GreetingInput(ForeignEntityInput C_Greeting) {
 		this.mC_Greeting = C_Greeting;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Greeting != null) {
@@ -1244,7 +1244,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_InvoiceSchedule")
 	public void setC_InvoiceScheduleInput(ForeignEntityInput C_InvoiceSchedule) {
 		this.mC_InvoiceSchedule = C_InvoiceSchedule;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_InvoiceSchedule != null) {
@@ -1292,7 +1292,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Location_Create")
 	public void setC_Location_CreateInput(ForeignEntityInput C_Location_Create) {
 		this.mC_Location_Create = C_Location_Create;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Location_Create != null) {
@@ -1329,7 +1329,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Location")
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Location != null) {
@@ -1388,7 +1388,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Location_Update")
 	public void setC_Location_UpdateInput(ForeignEntityInput C_Location_Update) {
 		this.mC_Location_Update = C_Location_Update;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Location_Update != null) {
@@ -1425,7 +1425,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_PaymentTerm")
 	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_PaymentTerm != null) {
@@ -1473,7 +1473,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Region")
 	public void setC_RegionInput(ForeignEntityInput C_Region) {
 		this.mC_Region = C_Region;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Region != null) {
@@ -1587,7 +1587,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("DeliveryRule")
 	public void setDeliveryRuleInput(ForeignEntityInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (DeliveryRule != null) {
@@ -1629,7 +1629,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("DeliveryViaRule")
 	public void setDeliveryViaRuleInput(ForeignEntityInput DeliveryViaRule) {
 		this.mDeliveryViaRule = DeliveryViaRule;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (DeliveryViaRule != null) {
@@ -1781,7 +1781,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("FreightCostRule")
 	public void setFreightCostRuleInput(ForeignEntityInput FreightCostRule) {
 		this.mFreightCostRule = FreightCostRule;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (FreightCostRule != null) {
@@ -1823,7 +1823,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("Invoice_PrintFormat")
 	public void setInvoice_PrintFormatInput(ForeignEntityInput Invoice_PrintFormat) {
 		this.mInvoice_PrintFormat = Invoice_PrintFormat;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Invoice_PrintFormat != null) {
@@ -1860,7 +1860,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("InvoiceRule")
 	public void setInvoiceRuleInput(ForeignEntityInput InvoiceRule) {
 		this.mInvoiceRule = InvoiceRule;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (InvoiceRule != null) {
@@ -2045,7 +2045,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("M_DiscountSchema")
 	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_DiscountSchema != null) {
@@ -2082,7 +2082,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("M_PriceList")
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_PriceList != null) {
@@ -2152,7 +2152,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("NotificationType")
 	public void setNotificationTypeInput(ForeignEntityInput NotificationType) {
 		this.mNotificationType = NotificationType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (NotificationType != null) {
@@ -2205,7 +2205,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("PaymentRule")
 	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PaymentRule != null) {
@@ -2247,7 +2247,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("PaymentRulePO")
 	public void setPaymentRulePOInput(ForeignEntityInput PaymentRulePO) {
 		this.mPaymentRulePO = PaymentRulePO;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PaymentRulePO != null) {
@@ -2311,7 +2311,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("PO_DiscountSchema")
 	public void setPO_DiscountSchemaInput(ForeignEntityInput PO_DiscountSchema) {
 		this.mPO_DiscountSchema = PO_DiscountSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PO_DiscountSchema != null) {
@@ -2348,7 +2348,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("PO_PaymentTerm")
 	public void setPO_PaymentTermInput(ForeignEntityInput PO_PaymentTerm) {
 		this.mPO_PaymentTerm = PO_PaymentTerm;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PO_PaymentTerm != null) {
@@ -2385,7 +2385,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("PO_PriceList")
 	public void setPO_PriceListInput(ForeignEntityInput PO_PriceList) {
 		this.mPO_PriceList = PO_PriceList;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PO_PriceList != null) {
@@ -2499,7 +2499,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("SalesRep")
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (SalesRep != null) {
@@ -2624,7 +2624,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("SOCreditStatus")
 	public void setSOCreditStatusInput(ForeignEntityInput SOCreditStatus) {
 		this.mSOCreditStatus = SOCreditStatus;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (SOCreditStatus != null) {
@@ -2666,7 +2666,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("Supervisor")
 	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Supervisor != null) {

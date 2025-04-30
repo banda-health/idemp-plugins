@@ -49,7 +49,7 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -198,7 +198,7 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 	@JsonProperty("QM_Specification")
 	public void setQM_SpecificationInput(ForeignEntityInput QM_Specification) {
 		this.mQM_Specification = QM_Specification;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (QM_Specification != null) {

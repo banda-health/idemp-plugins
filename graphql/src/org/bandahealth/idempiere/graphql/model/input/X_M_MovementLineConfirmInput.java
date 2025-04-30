@@ -47,7 +47,7 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -118,7 +118,7 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 	@JsonProperty("M_MovementConfirm")
 	public void setM_MovementConfirmInput(ForeignEntityInput M_MovementConfirm) {
 		this.mM_MovementConfirm = M_MovementConfirm;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_MovementConfirm != null) {

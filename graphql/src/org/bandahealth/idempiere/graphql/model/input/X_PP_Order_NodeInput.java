@@ -719,7 +719,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	@JsonProperty("PP_Order")
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Order != null) {
@@ -785,7 +785,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	@JsonProperty("PP_Order_Workflow")
 	public void setPP_Order_WorkflowInput(ForeignEntityInput PP_Order_Workflow) {
 		this.mPP_Order_Workflow = PP_Order_Workflow;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Order_Workflow != null) {

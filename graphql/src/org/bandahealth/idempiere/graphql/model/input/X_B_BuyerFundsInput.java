@@ -47,7 +47,7 @@ public class X_B_BuyerFundsInput extends X_B_BuyerFunds implements I_B_BuyerFund
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -147,7 +147,7 @@ public class X_B_BuyerFundsInput extends X_B_BuyerFunds implements I_B_BuyerFund
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {
@@ -184,7 +184,7 @@ public class X_B_BuyerFundsInput extends X_B_BuyerFunds implements I_B_BuyerFund
 	@JsonProperty("C_Payment")
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Payment != null) {

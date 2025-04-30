@@ -45,7 +45,7 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -111,7 +111,7 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	@JsonProperty("M_LotCtl")
 	public void setM_LotCtlInput(ForeignEntityInput M_LotCtl) {
 		this.mM_LotCtl = M_LotCtl;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_LotCtl != null) {
@@ -148,7 +148,7 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {

@@ -55,7 +55,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	@JsonProperty("AD_InfoWindow")
 	public void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow) {
 		this.mAD_InfoWindow = AD_InfoWindow;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_InfoWindow != null) {
@@ -126,7 +126,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

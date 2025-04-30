@@ -86,7 +86,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -220,7 +220,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	@JsonProperty("C_POSKeyLayout")
 	public void setC_POSKeyLayoutInput(ForeignEntityInput C_POSKeyLayout) {
 		this.mC_POSKeyLayout = C_POSKeyLayout;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_POSKeyLayout != null) {

@@ -52,7 +52,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -225,7 +225,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	@JsonProperty("M_RMA")
 	public void setM_RMAInput(ForeignEntityInput M_RMA) {
 		this.mM_RMA = M_RMA;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_RMA != null) {

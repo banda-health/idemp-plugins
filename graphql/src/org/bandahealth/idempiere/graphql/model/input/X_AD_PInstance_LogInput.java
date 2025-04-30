@@ -48,7 +48,7 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_PInstance != null) {

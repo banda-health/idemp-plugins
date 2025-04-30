@@ -161,7 +161,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	@JsonProperty("CostingMethod")
 	public void setCostingMethodInput(ForeignEntityInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (CostingMethod != null) {
@@ -303,7 +303,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	@JsonProperty("M_CostElement")
 	public void setM_CostElementInput(ForeignEntityInput M_CostElement) {
 		this.mM_CostElement = M_CostElement;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_CostElement != null) {
@@ -374,7 +374,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -440,7 +440,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	@JsonProperty("PP_Order")
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Order != null) {

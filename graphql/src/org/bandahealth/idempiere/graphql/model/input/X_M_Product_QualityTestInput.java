@@ -45,7 +45,7 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -148,7 +148,7 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 	@JsonProperty("M_QualityTest")
 	public void setM_QualityTestInput(ForeignEntityInput M_QualityTest) {
 		this.mM_QualityTest = M_QualityTest;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_QualityTest != null) {

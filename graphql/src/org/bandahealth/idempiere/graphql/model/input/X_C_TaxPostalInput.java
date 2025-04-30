@@ -43,7 +43,7 @@ public class X_C_TaxPostalInput extends MTaxPostal implements I_C_TaxPostalInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_C_TaxPostalInput extends MTaxPostal implements I_C_TaxPostalInput
 	@JsonProperty("C_Tax")
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Tax != null) {

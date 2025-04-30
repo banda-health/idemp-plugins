@@ -81,7 +81,7 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -181,7 +181,7 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	@JsonProperty("M_ProductOperation")
 	public void setM_ProductOperationInput(ForeignEntityInput M_ProductOperation) {
 		this.mM_ProductOperation = M_ProductOperation;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_ProductOperation != null) {

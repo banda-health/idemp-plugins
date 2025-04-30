@@ -45,7 +45,7 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -100,7 +100,7 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 	@JsonProperty("C_CycleStep")
 	public void setC_CycleStepInput(ForeignEntityInput C_CycleStep) {
 		this.mC_CycleStep = C_CycleStep;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_CycleStep != null) {
@@ -137,7 +137,7 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 	@JsonProperty("C_Phase")
 	public void setC_PhaseInput(ForeignEntityInput C_Phase) {
 		this.mC_Phase = C_Phase;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Phase != null) {

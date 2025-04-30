@@ -58,7 +58,7 @@ public class X_C_ProjectLineInput extends MProjectLine implements I_C_ProjectLin
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -95,7 +95,7 @@ public class X_C_ProjectLineInput extends MProjectLine implements I_C_ProjectLin
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {
@@ -132,7 +132,7 @@ public class X_C_ProjectLineInput extends MProjectLine implements I_C_ProjectLin
 	@JsonProperty("C_OrderPO")
 	public void setC_OrderPOInput(ForeignEntityInput C_OrderPO) {
 		this.mC_OrderPO = C_OrderPO;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_OrderPO != null) {
@@ -169,7 +169,7 @@ public class X_C_ProjectLineInput extends MProjectLine implements I_C_ProjectLin
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Project != null) {
@@ -206,7 +206,7 @@ public class X_C_ProjectLineInput extends MProjectLine implements I_C_ProjectLin
 	@JsonProperty("C_ProjectIssue")
 	public void setC_ProjectIssueInput(ForeignEntityInput C_ProjectIssue) {
 		this.mC_ProjectIssue = C_ProjectIssue;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectIssue != null) {
@@ -408,7 +408,7 @@ public class X_C_ProjectLineInput extends MProjectLine implements I_C_ProjectLin
 	@JsonProperty("M_Production")
 	public void setM_ProductionInput(ForeignEntityInput M_Production) {
 		this.mM_Production = M_Production;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Production != null) {

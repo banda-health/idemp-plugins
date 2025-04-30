@@ -336,7 +336,7 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t\tthis.").append(propertyName).append(" = ").append(entityName).append(";\n");
 			if (!isUpdateable) {
 				columnBuilder
-						.append("\t\tif (get_ID() != 0) {\n")
+						.append("\t\tif (!is_new()) {\n")
 						.append("\t\t\treturn;\n")
 						.append("\t\t}\n");
 			}
@@ -422,7 +422,7 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t\tthis.").append(propertyName).append(" = ").append(columnName).append(";\n");
 			if (!isUpdateable) {
 				columnBuilder
-						.append("\t\tif (get_ID() != 0) {\n")
+						.append("\t\tif (!is_new()) {\n")
 						.append("\t\t\treturn;\n")
 						.append("\t\t}\n");
 			}

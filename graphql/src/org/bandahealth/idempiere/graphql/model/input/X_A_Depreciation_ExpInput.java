@@ -342,7 +342,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {

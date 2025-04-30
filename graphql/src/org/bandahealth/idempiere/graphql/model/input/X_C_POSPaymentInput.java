@@ -52,7 +52,7 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -89,7 +89,7 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {

@@ -125,7 +125,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -162,7 +162,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Process != null) {

@@ -45,7 +45,7 @@ public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_C
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_C
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {
@@ -119,7 +119,7 @@ public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_C
 	@JsonProperty("CM_ChatType")
 	public void setCM_ChatTypeInput(ForeignEntityInput CM_ChatType) {
 		this.mCM_ChatType = CM_ChatType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (CM_ChatType != null) {

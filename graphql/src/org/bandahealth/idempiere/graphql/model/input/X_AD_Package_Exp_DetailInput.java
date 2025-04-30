@@ -318,7 +318,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -373,7 +373,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Package_Exp")
 	public void setAD_Package_ExpInput(ForeignEntityInput AD_Package_Exp) {
 		this.mAD_Package_Exp = AD_Package_Exp;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Package_Exp != null) {

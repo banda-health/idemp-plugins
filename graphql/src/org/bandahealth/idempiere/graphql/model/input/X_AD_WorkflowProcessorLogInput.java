@@ -43,7 +43,7 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 	@JsonProperty("AD_WorkflowProcessor")
 	public void setAD_WorkflowProcessorInput(ForeignEntityInput AD_WorkflowProcessor) {
 		this.mAD_WorkflowProcessor = AD_WorkflowProcessor;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_WorkflowProcessor != null) {

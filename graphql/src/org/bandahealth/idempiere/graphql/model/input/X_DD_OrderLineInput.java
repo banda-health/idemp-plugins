@@ -66,7 +66,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -239,7 +239,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_UOM != null) {
@@ -276,7 +276,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("DD_Order")
 	public void setDD_OrderInput(ForeignEntityInput DD_Order) {
 		this.mDD_Order = DD_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (DD_Order != null) {

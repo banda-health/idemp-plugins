@@ -45,7 +45,7 @@ public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements
 	@JsonProperty("A_Registration")
 	public void setA_RegistrationInput(ForeignEntityInput A_Registration) {
 		this.mA_Registration = A_Registration;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Registration != null) {
@@ -82,7 +82,7 @@ public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements
 	@JsonProperty("A_RegistrationAttribute")
 	public void setA_RegistrationAttributeInput(ForeignEntityInput A_RegistrationAttribute) {
 		this.mA_RegistrationAttribute = A_RegistrationAttribute;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_RegistrationAttribute != null) {
@@ -137,7 +137,7 @@ public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

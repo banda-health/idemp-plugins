@@ -47,7 +47,7 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -84,7 +84,7 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {
@@ -139,7 +139,7 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Warehouse != null) {

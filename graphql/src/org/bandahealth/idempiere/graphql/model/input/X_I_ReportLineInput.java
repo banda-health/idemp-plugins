@@ -56,7 +56,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

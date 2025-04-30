@@ -48,7 +48,7 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -158,7 +158,7 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	@JsonProperty("R_Request")
 	public void setR_RequestInput(ForeignEntityInput R_Request) {
 		this.mR_Request = R_Request;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_Request != null) {

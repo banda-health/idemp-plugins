@@ -45,7 +45,7 @@ public class X_M_LotCtlExcludeInput extends MLotCtlExclude implements I_M_LotCtl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -116,7 +116,7 @@ public class X_M_LotCtlExcludeInput extends MLotCtlExclude implements I_M_LotCtl
 	@JsonProperty("M_LotCtl")
 	public void setM_LotCtlInput(ForeignEntityInput M_LotCtl) {
 		this.mM_LotCtl = M_LotCtl;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_LotCtl != null) {

@@ -52,7 +52,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	@JsonProperty("AD_Field")
 	public void setAD_FieldInput(ForeignEntityInput AD_Field) {
 		this.mAD_Field = AD_Field;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Field != null) {
@@ -118,7 +118,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	@JsonProperty("AD_Language")
 	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Language != null) {
@@ -155,7 +155,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -192,7 +192,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {
@@ -229,7 +229,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	@JsonProperty("AD_UserClient")
 	public void setAD_UserClientInput(ForeignEntityInput AD_UserClient) {
 		this.mAD_UserClient = AD_UserClient;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_UserClient != null) {

@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import {
 	Bh_Product_IncludedDeleteDocument,
 	Bh_Product_IncludedSaveManyDocument,
@@ -491,7 +492,7 @@ test('can work with included products', async () => {
 		mutation: Bh_Product_IncludedSaveManyDocument,
 		variables: {
 			BH_Product_IncludedList: [
-				{ Included_Product: { UU: product2.UU }, M_Product: { UU: product1.UU }, Qty: 5, SeqNo: 10 },
+				{ Included_Product: { UU: product2.UU }, M_Product: { UU: product1.UU }, Qty: 5, SeqNo: 10, UU: v4() },
 				{ Included_Product: { UU: product3.UU }, M_Product: { UU: product1.UU }, Qty: 6, SeqNo: 20 },
 			],
 		},

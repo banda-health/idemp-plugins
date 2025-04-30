@@ -93,7 +93,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -368,7 +368,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_DocType != null) {
@@ -405,7 +405,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Invoice != null) {
@@ -442,7 +442,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {
@@ -1046,7 +1046,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Warehouse != null) {
@@ -1083,7 +1083,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	@JsonProperty("MovementType")
 	public void setMovementTypeInput(ForeignEntityInput MovementType) {
 		this.mMovementType = MovementType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (MovementType != null) {

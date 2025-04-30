@@ -81,7 +81,7 @@ public class X_AD_TableIndexInput extends MTableIndex implements I_AD_TableIndex
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -118,7 +118,7 @@ public class X_AD_TableIndexInput extends MTableIndex implements I_AD_TableIndex
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Table != null) {

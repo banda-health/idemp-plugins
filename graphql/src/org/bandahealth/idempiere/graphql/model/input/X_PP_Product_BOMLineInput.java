@@ -55,7 +55,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -306,7 +306,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("PP_Product_BOM")
 	public void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM) {
 		this.mPP_Product_BOM = PP_Product_BOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Product_BOM != null) {

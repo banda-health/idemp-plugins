@@ -43,7 +43,7 @@ public class X_BH_Payer_Info_Fld_Val_SugInput extends MBHPayerInfoFldValSug impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_BH_Payer_Info_Fld_Val_SugInput extends MBHPayerInfoFldValSug impl
 	@JsonProperty("BH_Payer_Info_Fld_Sug")
 	public void setBH_Payer_Info_Fld_SugInput(ForeignEntityInput BH_Payer_Info_Fld_Sug) {
 		this.mBH_Payer_Info_Fld_Sug = BH_Payer_Info_Fld_Sug;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_Payer_Info_Fld_Sug != null) {

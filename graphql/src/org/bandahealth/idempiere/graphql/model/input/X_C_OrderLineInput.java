@@ -153,7 +153,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BPartner != null) {
@@ -292,7 +292,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Currency != null) {
@@ -329,7 +329,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {
@@ -429,7 +429,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	@JsonProperty("C_ProjectPhase")
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectPhase != null) {
@@ -466,7 +466,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	@JsonProperty("C_ProjectTask")
 	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectTask != null) {
@@ -537,7 +537,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_UOM != null) {
@@ -641,7 +641,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	@JsonProperty("Link_OrderLine")
 	public void setLink_OrderLineInput(ForeignEntityInput Link_OrderLine) {
 		this.mLink_OrderLine = Link_OrderLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Link_OrderLine != null) {

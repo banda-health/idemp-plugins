@@ -184,7 +184,7 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Asset != null) {

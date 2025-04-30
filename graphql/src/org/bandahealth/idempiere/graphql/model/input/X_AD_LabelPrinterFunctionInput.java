@@ -43,7 +43,7 @@ public class X_AD_LabelPrinterFunctionInput extends X_AD_LabelPrinterFunction im
 	@JsonProperty("AD_LabelPrinter")
 	public void setAD_LabelPrinterInput(ForeignEntityInput AD_LabelPrinter) {
 		this.mAD_LabelPrinter = AD_LabelPrinter;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_LabelPrinter != null) {
@@ -109,7 +109,7 @@ public class X_AD_LabelPrinterFunctionInput extends X_AD_LabelPrinterFunction im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

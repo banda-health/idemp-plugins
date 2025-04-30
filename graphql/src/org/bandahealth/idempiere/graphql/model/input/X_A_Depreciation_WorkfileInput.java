@@ -52,7 +52,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Asset != null) {
@@ -247,7 +247,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {

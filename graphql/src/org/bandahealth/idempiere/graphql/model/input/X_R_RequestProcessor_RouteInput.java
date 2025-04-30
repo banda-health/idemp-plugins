@@ -47,7 +47,7 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -118,7 +118,7 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 	@JsonProperty("R_RequestProcessor")
 	public void setR_RequestProcessorInput(ForeignEntityInput R_RequestProcessor) {
 		this.mR_RequestProcessor = R_RequestProcessor;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_RequestProcessor != null) {

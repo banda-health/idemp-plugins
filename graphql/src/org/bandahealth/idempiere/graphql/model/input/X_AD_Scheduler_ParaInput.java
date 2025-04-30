@@ -45,7 +45,7 @@ public class X_AD_Scheduler_ParaInput extends MSchedulerPara implements I_AD_Sch
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_AD_Scheduler_ParaInput extends MSchedulerPara implements I_AD_Sch
 	@JsonProperty("AD_Process_Para")
 	public void setAD_Process_ParaInput(ForeignEntityInput AD_Process_Para) {
 		this.mAD_Process_Para = AD_Process_Para;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Process_Para != null) {
@@ -119,7 +119,7 @@ public class X_AD_Scheduler_ParaInput extends MSchedulerPara implements I_AD_Sch
 	@JsonProperty("AD_Scheduler")
 	public void setAD_SchedulerInput(ForeignEntityInput AD_Scheduler) {
 		this.mAD_Scheduler = AD_Scheduler;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Scheduler != null) {

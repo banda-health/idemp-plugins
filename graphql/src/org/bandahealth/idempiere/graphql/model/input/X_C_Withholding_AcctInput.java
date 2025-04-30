@@ -47,7 +47,7 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -84,7 +84,7 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {
@@ -139,7 +139,7 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 	@JsonProperty("C_Withholding")
 	public void setC_WithholdingInput(ForeignEntityInput C_Withholding) {
 		this.mC_Withholding = C_Withholding;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Withholding != null) {

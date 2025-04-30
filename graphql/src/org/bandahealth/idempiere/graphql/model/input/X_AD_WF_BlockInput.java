@@ -43,7 +43,7 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -109,7 +109,7 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	@JsonProperty("AD_Workflow")
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Workflow != null) {

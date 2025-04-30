@@ -64,7 +64,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -157,7 +157,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_UOM != null) {
@@ -294,7 +294,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSetInstance != null) {
@@ -399,7 +399,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -470,7 +470,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	@JsonProperty("PP_Order_BOM")
 	public void setPP_Order_BOMInput(ForeignEntityInput PP_Order_BOM) {
 		this.mPP_Order_BOM = PP_Order_BOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Order_BOM != null) {
@@ -536,7 +536,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	@JsonProperty("PP_Order")
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Order != null) {

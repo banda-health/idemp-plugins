@@ -46,7 +46,7 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_PInstance != null) {
@@ -435,7 +435,7 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	@JsonProperty("Fact_Acct")
 	public void setFact_AcctInput(ForeignEntityInput Fact_Acct) {
 		this.mFact_Acct = Fact_Acct;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Fact_Acct != null) {
@@ -494,7 +494,7 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	@JsonProperty("PA_ReportLine")
 	public void setPA_ReportLineInput(ForeignEntityInput PA_ReportLine) {
 		this.mPA_ReportLine = PA_ReportLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PA_ReportLine != null) {

@@ -52,7 +52,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -89,7 +89,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {
@@ -126,7 +126,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("C_Phase")
 	public void setC_PhaseInput(ForeignEntityInput C_Phase) {
 		this.mC_Phase = C_Phase;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Phase != null) {
@@ -163,7 +163,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Project != null) {

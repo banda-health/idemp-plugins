@@ -48,7 +48,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 	@JsonProperty("AD_Field")
 	public void setAD_FieldInput(ForeignEntityInput AD_Field) {
 		this.mAD_Field = AD_Field;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Field != null) {
@@ -85,7 +85,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -190,7 +190,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 	@JsonProperty("ASP_Tab")
 	public void setASP_TabInput(ForeignEntityInput ASP_Tab) {
 		this.mASP_Tab = ASP_Tab;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ASP_Tab != null) {

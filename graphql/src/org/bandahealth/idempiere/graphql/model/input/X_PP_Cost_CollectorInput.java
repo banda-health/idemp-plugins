@@ -250,7 +250,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	@JsonProperty("C_DocTypeTarget")
 	public void setC_DocTypeTargetInput(ForeignEntityInput C_DocTypeTarget) {
 		this.mC_DocTypeTarget = C_DocTypeTarget;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_DocTypeTarget != null) {

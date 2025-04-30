@@ -55,7 +55,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -160,7 +160,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("M_DistributionList")
 	public void setM_DistributionListInput(ForeignEntityInput M_DistributionList) {
 		this.mM_DistributionList = M_DistributionList;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_DistributionList != null) {
@@ -197,7 +197,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("M_DistributionListLine")
 	public void setM_DistributionListLineInput(ForeignEntityInput M_DistributionListLine) {
 		this.mM_DistributionListLine = M_DistributionListLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_DistributionListLine != null) {
@@ -234,7 +234,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("M_DistributionRun")
 	public void setM_DistributionRunInput(ForeignEntityInput M_DistributionRun) {
 		this.mM_DistributionRun = M_DistributionRun;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_DistributionRun != null) {
@@ -271,7 +271,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("M_DistributionRunLine")
 	public void setM_DistributionRunLineInput(ForeignEntityInput M_DistributionRunLine) {
 		this.mM_DistributionRunLine = M_DistributionRunLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_DistributionRunLine != null) {

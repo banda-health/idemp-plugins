@@ -45,7 +45,7 @@ public class X_AD_Task_AccessInput extends MTaskAccess implements I_AD_Task_Acce
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_AD_Task_AccessInput extends MTaskAccess implements I_AD_Task_Acce
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Role != null) {
@@ -137,7 +137,7 @@ public class X_AD_Task_AccessInput extends MTaskAccess implements I_AD_Task_Acce
 	@JsonProperty("AD_Task")
 	public void setAD_TaskInput(ForeignEntityInput AD_Task) {
 		this.mAD_Task = AD_Task;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Task != null) {

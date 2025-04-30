@@ -43,7 +43,7 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	@JsonProperty("PA_Benchmark")
 	public void setPA_BenchmarkInput(ForeignEntityInput PA_Benchmark) {
 		this.mPA_Benchmark = PA_Benchmark;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PA_Benchmark != null) {

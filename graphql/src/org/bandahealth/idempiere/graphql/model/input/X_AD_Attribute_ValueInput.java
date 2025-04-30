@@ -41,7 +41,7 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 	@JsonProperty("AD_Attribute")
 	public void setAD_AttributeInput(ForeignEntityInput AD_Attribute) {
 		this.mAD_Attribute = AD_Attribute;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Attribute != null) {

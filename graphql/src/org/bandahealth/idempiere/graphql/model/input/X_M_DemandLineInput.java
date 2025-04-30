@@ -47,7 +47,7 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -84,7 +84,7 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	@JsonProperty("C_Period")
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Period != null) {
@@ -121,7 +121,7 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	@JsonProperty("M_Demand")
 	public void setM_DemandInput(ForeignEntityInput M_Demand) {
 		this.mM_Demand = M_Demand;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Demand != null) {
@@ -187,7 +187,7 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {

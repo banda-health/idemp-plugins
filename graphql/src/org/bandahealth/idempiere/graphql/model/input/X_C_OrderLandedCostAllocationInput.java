@@ -45,7 +45,7 @@ public class X_C_OrderLandedCostAllocationInput extends MOrderLandedCostAllocati
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_C_OrderLandedCostAllocationInput extends MOrderLandedCostAllocati
 	@JsonProperty("C_OrderLandedCost")
 	public void setC_OrderLandedCostInput(ForeignEntityInput C_OrderLandedCost) {
 		this.mC_OrderLandedCost = C_OrderLandedCost;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_OrderLandedCost != null) {
@@ -148,7 +148,7 @@ public class X_C_OrderLandedCostAllocationInput extends MOrderLandedCostAllocati
 	@JsonProperty("C_OrderLine")
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_OrderLine != null) {

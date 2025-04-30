@@ -45,7 +45,7 @@ public class X_R_RequestTypeUpdatesInput extends X_R_RequestTypeUpdates implemen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_R_RequestTypeUpdatesInput extends X_R_RequestTypeUpdates implemen
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {
@@ -119,7 +119,7 @@ public class X_R_RequestTypeUpdatesInput extends X_R_RequestTypeUpdates implemen
 	@JsonProperty("R_RequestType")
 	public void setR_RequestTypeInput(ForeignEntityInput R_RequestType) {
 		this.mR_RequestType = R_RequestType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_RequestType != null) {

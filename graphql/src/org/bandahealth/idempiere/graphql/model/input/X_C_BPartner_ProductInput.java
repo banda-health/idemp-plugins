@@ -45,7 +45,7 @@ public class X_C_BPartner_ProductInput extends MBPartnerProduct implements I_C_B
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_C_BPartner_ProductInput extends MBPartnerProduct implements I_C_B
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BPartner != null) {
@@ -137,7 +137,7 @@ public class X_C_BPartner_ProductInput extends MBPartnerProduct implements I_C_B
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {

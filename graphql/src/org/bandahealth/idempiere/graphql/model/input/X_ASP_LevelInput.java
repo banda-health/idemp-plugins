@@ -43,7 +43,7 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -109,7 +109,7 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 	@JsonProperty("ASP_Module")
 	public void setASP_ModuleInput(ForeignEntityInput ASP_Module) {
 		this.mASP_Module = ASP_Module;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ASP_Module != null) {

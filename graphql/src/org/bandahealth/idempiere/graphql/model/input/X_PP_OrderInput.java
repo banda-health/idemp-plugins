@@ -78,7 +78,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -115,7 +115,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	@JsonProperty("AD_Workflow")
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Workflow != null) {
@@ -254,7 +254,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	@JsonProperty("C_DocTypeTarget")
 	public void setC_DocTypeTargetInput(ForeignEntityInput C_DocTypeTarget) {
 		this.mC_DocTypeTarget = C_DocTypeTarget;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_DocTypeTarget != null) {
@@ -359,7 +359,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_UOM != null) {
@@ -552,7 +552,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -589,7 +589,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Warehouse != null) {
@@ -689,7 +689,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	@JsonProperty("PP_Product_BOM")
 	public void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM) {
 		this.mPP_Product_BOM = PP_Product_BOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Product_BOM != null) {
@@ -798,7 +798,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	@JsonProperty("S_Resource")
 	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (S_Resource != null) {

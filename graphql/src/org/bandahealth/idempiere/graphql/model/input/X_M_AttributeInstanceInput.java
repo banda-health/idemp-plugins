@@ -47,7 +47,7 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -84,7 +84,7 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	@JsonProperty("M_Attribute")
 	public void setM_AttributeInput(ForeignEntityInput M_Attribute) {
 		this.mM_Attribute = M_Attribute;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Attribute != null) {
@@ -139,7 +139,7 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSetInstance != null) {

@@ -53,7 +53,7 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -260,7 +260,7 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	@JsonProperty("C_RfQ")
 	public void setC_RfQInput(ForeignEntityInput C_RfQ) {
 		this.mC_RfQ = C_RfQ;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_RfQ != null) {
