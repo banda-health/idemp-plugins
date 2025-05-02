@@ -234,7 +234,7 @@ public class ChuBoeCreateEntity {
 			product.setC_UOM_ID(MUOM.getDefault_UOM_ID(valueObject.getContext()));
 			product.setM_Product_Category_ID(getDefaultProductCategoryId(valueObject));
 			product.setC_TaxCategory_ID(getDefaultTaxCategoryId(valueObject));
-			product.setName(valueObject.getScenarioName());
+			product.setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
 			product.setProductType(X_M_Product.PRODUCTTYPE_Item);
 			product.saveEx();
 			valueObject.setProduct(product);

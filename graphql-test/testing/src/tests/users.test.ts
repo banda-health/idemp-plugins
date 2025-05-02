@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 import { initialLoginData, mutate, query } from '../api';
-import { createBusinessPartner } from '../utils';
+import { changeWarehouse, createBusinessPartner, createWarehouse } from '../utils';
 import {
 	Ad_ClientGetDocument,
 	Ad_RoleGetDocument,
@@ -11,6 +11,7 @@ import {
 	Ad_User_RolesDeleteDocument,
 	Ad_User_RolesSaveAndDeleteManyDocument,
 	Ad_User_RolesSaveManyDocument,
+	Bh_Warehouse_AccessSaveDocument,
 	ChangeAccessDocument,
 	ChangeAccessMutationVariables,
 	ChangePasswordDocument,
@@ -534,4 +535,144 @@ test('can change current system user after being signed in to a specific client'
 	})
 		.then((response) => expect(response.data?.AD_UserSave.UU).toBeTruthy())
 		.catch((error) => expect(error).toBeFalsy());
+});
+
+test(`user with limited warehouse access can't login to one they don't have access to`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create user indirectly';
+	await createBusinessPartner(valueObject);
+	let user = (
+		await query(valueObject)({
+			query: Ad_UserGetDocument,
+			variables: { Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }) },
+		})
+	).data.AD_UserGet.Results[0];
+	expect(user).toBeTruthy();
+
+	valueObject.stepName = 'Create warehouse';
+	const warehouseUURoleDoesntHaveAccessTo = valueObject.warehouse!.UU;
+	await createWarehouse(valueObject);
+	const warehouse = valueObject.warehouse!;
+
+	valueObject.stepName = 'Create role';
+	const masterRoles = (
+		await query(valueObject)({
+			query: Ad_RoleGetDocument,
+			variables: { Filter: JSON.stringify({ ismasterrole: true }) },
+		})
+	).data.AD_RoleGet.Results;
+	const mustHavesRole = masterRoles.filter((role) => role.UU === roleUuid.MUST_HAVES)[0];
+	const availableRoles = masterRoles.filter((role) => role.UU !== roleUuid.MUST_HAVES);
+	let roleUuidToUse = v4();
+	await mutate(valueObject)({
+		mutation: Ad_RoleWithIncludedSaveDocument,
+		variables: {
+			AD_Role: {
+				UU: roleUuidToUse,
+				IsMasterRole: false,
+				Name: valueObject.getDynamicStepMessage(),
+				Description: valueObject.getStepMessageLong(),
+				IsActive: true,
+			},
+			AD_Role_IncludedList: [
+				{
+					AD_Role: { UU: roleUuidToUse },
+					Included_Role: { UU: mustHavesRole.UU },
+					SeqNo: 10,
+				},
+				{
+					AD_Role: { UU: roleUuidToUse },
+					Included_Role: { UU: availableRoles[0].UU },
+					SeqNo: 20,
+				},
+				{
+					AD_Role: { UU: roleUuidToUse },
+					Included_Role: { UU: availableRoles[1].UU },
+					SeqNo: 30,
+				},
+			],
+		},
+	});
+	await mutate(valueObject)({
+		mutation: Bh_Warehouse_AccessSaveDocument,
+		variables: {
+			BH_Warehouse_Access: {
+				AD_Role: { UU: roleUuidToUse },
+				M_Warehouse: { UU: warehouse.UU },
+				IsReadWrite: true,
+			},
+		},
+	});
+	const role = (
+		await query(valueObject)({
+			query: Ad_RoleGetDocument,
+			variables: { Filter: JSON.stringify({ ad_role_uu: roleUuidToUse }) },
+		})
+	).data.AD_RoleGet.Results[0];
+	expect(role.UU).toBeTruthy();
+
+	valueObject.stepName = 'Assign role to user';
+	await mutate(valueObject)({
+		mutation: Ad_UserWithRoleSaveDocument,
+		variables: {
+			AD_User: { UU: user.UU, Password: '123' },
+			AD_User_Roles: { AD_User: { UU: user.UU }, AD_Role: { UU: role.UU } },
+		},
+	});
+	user = (
+		await query(valueObject)({
+			query: Ad_UserGetDocument,
+			variables: { Filter: JSON.stringify({ ad_user_uu: user.UU }) },
+		})
+	).data.AD_UserGet.Results[0];
+
+	valueObject.stepName = 'Log out';
+	valueObject.logout();
+
+	valueObject.stepName = 'Log in as user';
+	const loginData = (
+		await mutate(valueObject)({
+			mutation: SignInDocument,
+			variables: { Credentials: { ...initialLoginData, Username: user.Name, Password: '123' } },
+		})
+	).data?.SignIn;
+	expect(valueObject.sessionToken).toBeTruthy();
+	expect(loginData?.AD_User?.IsExpired).toBeFalsy();
+
+	const clients = (await query(valueObject)({ query: Ad_ClientGetDocument })).data.AD_ClientGet.Results;
+	expect(clients[0].AD_Orgs[0].AD_Roles).toHaveLength(1);
+	expect(clients[0].AD_Orgs[0].AD_Roles![0].BH_Warehouse_AccessList).toHaveLength(1);
+	expect(clients[0].AD_Orgs[0].AD_Roles![0].BH_Warehouse_AccessList![0].M_Warehouse?.UU).not.toBe(
+		warehouseUURoleDoesntHaveAccessTo,
+	);
+	expect(clients[0].AD_Orgs[0].AD_Roles![0].BH_Warehouse_AccessList![0].M_Warehouse?.UU).toBe(warehouse.UU);
+
+	await expect(
+		mutate(valueObject)({
+			mutation: ChangeAccessDocument,
+			variables: {
+				Access: {
+					AD_Client_UU: clients[0].UU,
+					AD_Org_UU: clients[0].AD_Orgs[0].UU,
+					AD_Role_UU: roleUuidToUse,
+					M_Warehouse_UU: warehouse.UU,
+				},
+			},
+		}),
+	).resolves.toBeTruthy();
+	await expect(
+		mutate(valueObject)({
+			mutation: ChangeAccessDocument,
+			variables: {
+				Access: {
+					AD_Client_UU: clients[0].UU,
+					AD_Org_UU: clients[0].AD_Orgs[0].UU,
+					AD_Role_UU: roleUuidToUse,
+					M_Warehouse_UU: warehouseUURoleDoesntHaveAccessTo,
+				},
+			},
+		}),
+	).rejects.toBeTruthy();
 });

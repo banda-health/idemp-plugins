@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MBHProductIncluded;
 import org.bandahealth.idempiere.base.model.MProductPO_BH;
 import org.bandahealth.idempiere.base.model.MProductPrice_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHProductIncludedDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInOutLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MLotDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MProductDataLoader;
@@ -29,6 +31,13 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MProductResolver extends X_M_ProductResolver {
+	public CompletableFuture<List<MBHProductIncluded>> BH_Product_IncludedList(MProduct_BH entity,
+			DataFetchingEnvironment environment) {
+		DataLoader<String, List<MBHProductIncluded>> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(MBHProductIncludedDataLoader.DATALOADER_BH_Product_Included_BY_M_Product_ID);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getM_Product_ID()));
+	}
+
 	public CompletableFuture<Boolean> HasBeenPurchased(MProduct_BH entity, DataFetchingEnvironment environment) {
 		DataLoader<Integer, Boolean> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(MProductDataLoader.DATALOADER_M_ProductHasBeenPurchased);

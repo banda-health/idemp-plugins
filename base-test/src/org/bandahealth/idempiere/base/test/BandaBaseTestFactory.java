@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.base.test.process.CleanExpiredStockProcessTest;
 import org.bandahealth.idempiere.base.test.process.ImportBusinessPartnersProcessTest;
 import org.bandahealth.idempiere.base.test.process.ImportProductsProcessTest;
 import org.bandahealth.idempiere.base.test.process.InitialBandaClientSetupTest;
+import org.bandahealth.idempiere.base.test.process.ResetStockProcessTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,11 @@ public class BandaBaseTestFactory implements IChuBoePopulateFactory {
 		tests.add(new UserModelEventTest());
 
 		// Processes
+		tests.add(new CleanExpiredStockProcessTest());
 		tests.add(new ImportBusinessPartnersProcessTest());
 		tests.add(new ImportProductsProcessTest());
 		tests.add(new InitialBandaClientSetupTest());
-		tests.add(new CleanExpiredStockProcessTest());
+		tests.add(new ResetStockProcessTest());
 
 		// Generic
 		tests.add(new OrderTest());

@@ -3,6 +3,7 @@ extend type Mutation {
 }
 
 extend type M_Product {
+	BH_Product_IncludedList: [BH_Product_Included!]
 	HasBeenPurchased: Boolean!
 	LastPurchaseDate: DateTime
 	LastPurchasePrice: BigDecimal

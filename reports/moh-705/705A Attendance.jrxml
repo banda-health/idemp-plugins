@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="705A Attendance" pageWidth="900" pageHeight="595" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6326f7bc-1e52-4fdf-b435-ec88b34b814e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#005FB3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="705A Attendance" uuid="b400fc7b-e610-4255-a60d-0acfc0edbea7">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+		<parameter name="Begin Date" class="java.sql.Timestamp"/>
+		<parameter name="End Date" class="java.sql.Timestamp"/>
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+		<queryString language="SQL">
+			<![CDATA[WITH date_limitter AS (
+	SELECT
+		GENERATE_SERIES(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
+),
+	attendance_count AS (
+		SELECT DISTINCT
+			c.bh_moh705a_lessthan5,
+			c.bh_newvisit                 AS attendance,
+			c.calendar,
+			COALESCE(c.noofattendance, 0) AS noofattendance
+		FROM
+			(
+				SELECT
+					ce.bh_value                AS bh_moh705a_lessthan5,
+					v.bh_newvisit,
+					CAST(bh_visitdate AS date) AS calendar,
+					COUNT(c.bh_concept_id)     AS noofattendance
+				FROM
+					bh_visit v
+						JOIN bh_encounter e
+						ON v.bh_visit_id = e.bh_visit_id
+						LEFT JOIN bh_encounter_diagnosis ed
+						ON e.bh_encounter_id = ed.bh_encounter_id
+						JOIN bh_concept c
+						ON ed.bh_concept_id = c.bh_concept_id
+						JOIN bh_concept_extra ce
+						ON c.bh_concept_id = ce.bh_concept_id AND LOWER(ce.bh_key) = 'moh-705a-lessthan5'
+						JOIN c_bpartner bp
+						ON v.patient_id = bp.c_bpartner_id
+				WHERE
+					bp.bh_birthday IS NOT NULL
+					AND DATE_PART('year', AGE(bp.bh_birthday)) < 5
+					AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+					AND v.bh_visit_id IN (
+						SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
+					)
+					AND COALESCE(v.bh_patienttype, '') != 'Im'
+				GROUP BY bh_newvisit, ce.bh_value, CAST(bh_visitdate AS date)
+			) c
+		ORDER BY c.bh_newvisit
+	)
+SELECT
+	dali.calendar,
+	bh_moh705a_lessthan5,
+	CASE
+		WHEN dl.Attendance = 'Y' THEN 'NO. OF FIRST ATTENDANCES'
+		ELSE 'RE-ATTENDANCES'
+		END                          AS Attendance,
+	COALESCE(dc.noofattendance, 0) AS noofreferral
+FROM
+	(
+		VALUES ('Y'), ('N')
+	) dl (Attendance)
+		CROSS JOIN date_limitter dali
+		LEFT JOIN attendance_count dc
+		ON dc.calendar = dali.calendar
+		AND dl.Attendance = dc.attendance
+ORDER BY
+	dali.calendar, dl.Attendance, dc.bh_moh705a_lessthan5;]]>
+		</queryString>
+		<field name="calendar" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.label" value="calendar"/>
+		</field>
+		<field name="attendance" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="attendance"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
+		</field>
+		<field name="noofreferral" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="noofreferral"/>
+		</field>
+		<group name="attendance">
+			<groupExpression><![CDATA[$F{attendance}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select 1;]]>
+	</queryString>
+	<summary>
+		<band height="3" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="-20" width="860" height="19" uuid="e341862b-6264-4c58-a87f-62212b7e0a63">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<crosstabDataset>
+					<dataset resetType="Report">
+						<datasetRun subDataset="705A Attendance" uuid="eeb9a50d-cec3-4629-a62e-b08833b2d82c">
+							<datasetParameter name="Begin Date">
+								<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="End Date">
+								<datasetParameterExpression><![CDATA[$P{End Date}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="AD_CLIENT_ID">
+								<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+				</crosstabDataset>
+				<rowGroup name="attendance" width="180" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{attendance}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<textField>
+								<reportElement mode="Opaque" x="21" y="0" width="159" height="20" backcolor="#F0F8FF" uuid="8ff89cc0-5d76-4da2-8017-fba8bff003cc">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<box leftPadding="4">
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{attendance}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="0" width="21" height="20" uuid="d980a353-4122-4406-b801-f79619443936">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA["7" + ($V{ROW_COUNT} + 1)]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT">
+							<box>
+								<pen lineColor="#FFFFFF"/>
+							</box>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="calendar" height="0" totalPosition="End">
+					<bucket class="java.sql.Timestamp">
+						<bucketExpression><![CDATA[$F{calendar}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH"/>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CT">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="noofreferral_MEASURE" class="java.lang.Long" calculation="Sum">
+					<measureExpression><![CDATA[$F{noofreferral}]]></measureExpression>
+				</measure>
+				<crosstabCell width="20" height="20">
+					<cellContents mode="Opaque" style="Crosstab_CD">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<textField>
+							<reportElement x="0" y="0" width="20" height="20" uuid="0288d176-72aa-4fae-ba35-68fd63a11807"/>
+							<box>
+								<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="calendar">
+					<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<textField>
+							<reportElement mode="Opaque" x="0" y="0" width="39" height="20" forecolor="#FFFFFF" backcolor="#005FB3" uuid="2274c9af-031c-4553-ba55-ca3aaeb2db90">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							</reportElement>
+							<box>
+								<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$V{noofreferral_MEASURE}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement mode="Opaque" x="40" y="2" width="19" height="17" uuid="833d8ee9-d3ef-4a88-a6c9-d05551b89e34">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							</reportElement>
+							<box>
+								<pen lineWidth="0.25"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA["7" + ($V{ROW_COUNT} + 1)]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="20" height="0" rowTotalGroup="attendance">
+					<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT">
+						<box>
+							<pen lineColor="#FFFFFF"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="0" rowTotalGroup="attendance" columnTotalGroup="calendar">
+					<cellContents backcolor="#FFFFFF" mode="Opaque" style="Crosstab_CT">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<box>
+							<pen lineColor="#FFFFFF"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

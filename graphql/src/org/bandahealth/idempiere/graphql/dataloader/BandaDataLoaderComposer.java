@@ -74,9 +74,10 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MBHPayerInfoFldValSugDa
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHPaymentRefBankAccountDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHPaymentRefDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHProductCategoryDefaultDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.MBHRoleWarehouseAccessDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHProductIncludedDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHVisitDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHVoidedReasonDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHWarehouseAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBPBankAccountDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBPGroupDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBPartnerDataLoader;
@@ -919,9 +920,10 @@ public class BandaDataLoaderComposer {
 				new MBHPaymentRefBankAccountDataLoader(),
 				new MBHPaymentRefDataLoader(),
 				new MBHProductCategoryDefaultDataLoader(),
-				new MBHRoleWarehouseAccessDataLoader(),
+				new MBHProductIncludedDataLoader(),
 				new MBHVisitDataLoader(),
 				new MBHVoidedReasonDataLoader(),
+				new MBHWarehouseAccessDataLoader(),
 				new MBPartnerDataLoader(),
 				new MBPartnerInfoDataLoader(),
 				new MBPartnerLocationDataLoader(),
