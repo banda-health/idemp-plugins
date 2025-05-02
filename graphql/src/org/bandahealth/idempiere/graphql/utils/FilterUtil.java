@@ -532,7 +532,9 @@ public class FilterUtil {
 
 		// If the foreign table equals the current table we're on and there was no special mapping, just remove it and
 		// start restart the construction
-		if (foreignTableName.equalsIgnoreCase(tableData.getTableOrFunctionName())) {
+		if (foreignTableName.equalsIgnoreCase(tableData.getTableOrFunctionName()) &&
+				StringUtil.isNullOrEmpty(specificSourceColumnToMapOn) &&
+				StringUtil.isNullOrEmpty(specificDestinationColumnToMapOn)) {
 			// Reconstruct the comparison using the new "key"
 			String finalRemainingDBColumnName = remainingDBColumnName;
 			Map<String, Object> adjustedComparisons = new HashMap<>() {

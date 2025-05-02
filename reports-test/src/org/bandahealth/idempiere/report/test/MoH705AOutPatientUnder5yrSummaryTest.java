@@ -617,4 +617,155 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 			return diagnosisRow.get().getCell(countCellIndex).getNumericCellValue();
 		}
 	}
+
+	@IPopulateAnnotation.CanRun
+	public void secondaryDiagnosesAreCounted() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		String firstDiagnosisName = "Asthma";
+		String secondDiagnosisName = "Suspected Malaria";
+
+		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
+		MBHConcept firstDiagnosis, secondDiagnosis;
+		try {
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
+			firstDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
+					.setParameters(firstDiagnosisName).first();
+			if (firstDiagnosis == null) {
+				valueObject.setStepName("Create coded diagnosis");
+				firstDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				firstDiagnosis.setBH_Display_Name(firstDiagnosisName);
+				firstDiagnosis.setOcl_Uuid(firstDiagnosisName);
+			}
+
+			firstDiagnosis.saveEx();
+			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(firstDiagnosisName, firstDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+			if (extra == null) {
+				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra.setBH_Key(MOH705ALESSTHAN5);
+				extra.setBH_Value(firstDiagnosisName);
+				extra.setBH_Concept_ID(firstDiagnosis.getBH_Concept_ID());
+				extra.saveEx();
+			}
+			commitEx();
+
+			secondDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
+					.setParameters(secondDiagnosisName).first();
+			if (secondDiagnosis == null) {
+				valueObject.setStepName("Create coded diagnosis");
+				secondDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				secondDiagnosis.setBH_Display_Name(secondDiagnosisName);
+				secondDiagnosis.setOcl_Uuid(secondDiagnosisName);
+			}
+
+			secondDiagnosis.saveEx();
+			extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(secondDiagnosisName, secondDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+			if (extra == null) {
+				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra.setBH_Key(MOH705ALESSTHAN5);
+				extra.setBH_Value(secondDiagnosisName);
+				extra.setBH_Concept_ID(secondDiagnosis.getBH_Concept_ID());
+				extra.saveEx();
+			}
+			commitEx();
+		} finally {
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
+		}
+
+		valueObject.setStepName("Generate the report to get initial data");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+
+		Timestamp threeYearsAgo = TimestampUtils.addToNow(Calendar.YEAR, -3);
+		Timestamp startOfMonth = TimestampUtils.startOfMonth();
+		Timestamp endOfMonth = TimestampUtils.endOfMonth();
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
+						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		double numberOfFirstDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), firstDiagnosisName);
+		double numberOfSecondDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), secondDiagnosisName);
+
+		valueObject.setStepName("Create a patient");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(threeYearsAgo);
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.setQuantity(null);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+		//
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Concept_ID(firstDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
+		//
+		encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Concept_ID(secondDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(20);
+		encounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
+						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		double newNumberOfFirstDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), firstDiagnosisName);
+		double newNumberOfSecondDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), secondDiagnosisName);
+
+		assertThat("Should pick 1 primary diagnosis", newNumberOfFirstDiagnoses, is(numberOfFirstDiagnoses + 1));
+		assertThat("Should pick 1 secondary diagnosis", newNumberOfSecondDiagnoses, is(numberOfSecondDiagnoses + 1));
+	}
 }

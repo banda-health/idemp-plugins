@@ -7,8 +7,13 @@ query AD_ClientGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 				UU
 				Name
 				AD_Roles {
-					UU
+					BH_Warehouse_AccessList {
+						M_Warehouse {
+							UU
+						}
+					}
 					Name
+					UU
 				}
 				M_Warehouses {
 					UU
@@ -40,6 +45,7 @@ query AD_MenuGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 		Results {
 			ChildrenTree_NodeMMList {
 				Node {
+					Description
 					Name
 					ChildrenTree_NodeMMList {
 						Node {
@@ -493,6 +499,26 @@ query C_OrderForSalesRep($UU: String!) {
 	C_Order(UU: $UU) {
 		UU
 		SalesRep {
+			UU
+		}
+	}
+}
+
+query C_OrderLine($UU: String!) {
+	C_OrderLine(UU: $UU) {
+		Included_OrderLineList {
+			UU
+		}
+		UU
+	}
+}
+
+query C_OrderLineGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_OrderLineGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			Included_OrderLine {
+				UU
+			}
 			UU
 		}
 	}

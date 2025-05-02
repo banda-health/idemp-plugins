@@ -1,8 +1,10 @@
 package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MBHWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHWarehouseAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MRoleIncludedDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MUserRolesDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MWindowAccessDataLoader;
@@ -36,6 +38,13 @@ public class MRoleResolver extends X_AD_RoleResolver {
 			DataFetchingEnvironment environment) {
 		final DataLoader<String, List<MWindowAccess_BH>> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MWindowAccessDataLoader.DATALOADER_AD_Window_Access_BY_AD_Role_ID);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getAD_Role_ID()));
+	}
+
+	public CompletableFuture<List<MBHWarehouseAccess>> BH_Warehouse_AccessList(X_AD_Role entity,
+			DataFetchingEnvironment environment) {
+		final DataLoader<String, List<MBHWarehouseAccess>> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(MBHWarehouseAccessDataLoader.DATALOADER_BH_Warehouse_Access_BY_AD_Role_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getAD_Role_ID()));
 	}
 

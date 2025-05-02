@@ -8,7 +8,7 @@ import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
-import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
+import org.bandahealth.idempiere.base.model.MBHWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
@@ -252,8 +252,9 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		}
 
 		// check warehouse access
-		List<MBHRoleWarehouseAccess> warehouseAccessList =
-				new Query(idempiereContext, MBHRoleWarehouseAccess.Table_Name, null, null).list();
+		List<MBHWarehouseAccess> warehouseAccessList =
+				new Query(idempiereContext, MBHWarehouseAccess.Table_Name, MBHWarehouseAccess.COLUMNNAME_AD_Role_ID + "=?",
+						null).setParameters(role.getAD_Role_ID()).list();
 		MWarehouse warehouse = Arrays.stream(MWarehouse.getForOrg(idempiereContext, organization.get_ID())).filter(
 						organizationWarehouse -> organizationWarehouse.getM_Warehouse_UU()
 								.equals(changeAccessInput.getM_Warehouse_UU()))
