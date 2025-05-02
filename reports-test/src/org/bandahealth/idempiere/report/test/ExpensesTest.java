@@ -9,7 +9,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
@@ -24,6 +26,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -101,9 +104,9 @@ public class ExpensesTest extends ChuBoePopulateFactoryVO {
 
 			List<Row> expenseRows = StreamSupport.stream(sheet.spliterator(), false)
 					.filter(row -> row.getCell(expenseCategoryColumnIndex) != null
-							&& row.getCell(5).getCellType().equals(CellType.STRING)
+							&& row.getCell(expenseCategoryColumnIndex).getCellType().equals(CellType.STRING)
 							&& row.getCell(expenseCategoryColumnIndex).getStringCellValue()
-									.contains(valueObject.getCharge().getName().substring(0, 30)))
+							.contains(valueObject.getCharge().getName().substring(0, 30)))
 					.collect(Collectors.toList());
 			assertEquals(1, expenseRows.size(), "Expense category only appears once");
 			assertTrue(expenseRows.get(0).getCell(supplierColumnIndex).getStringCellValue()
@@ -125,6 +128,7 @@ public class ExpensesTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createCharge(valueObject);
 		valueObject.getCharge().setC_ChargeType_ID(expenseCategoryChargeType.getC_ChargeType_ID());
 		valueObject.getCharge().saveEx();
+		MCharge_BH charge = valueObject.getCharge();
 		commitEx();
 
 		valueObject.setStepName("Create expense 1");
@@ -166,13 +170,18 @@ public class ExpensesTest extends ChuBoePopulateFactoryVO {
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
 			int expenseCategoryColumnIndex = TableUtils.getColumnIndex(headerRow, "Expense Category");
 
-			List<Row> expenseRows = StreamSupport.stream(sheet.spliterator(), false)
-					.filter(row -> row.getCell(expenseCategoryColumnIndex) != null
-							&& row.getCell(5).getCellType().equals(CellType.STRING)
-							&& row.getCell(expenseCategoryColumnIndex).getStringCellValue()
-									.contains(valueObject.getCharge().getName().substring(0, 30)))
-					.collect(Collectors.toList());
-			assertEquals(1, expenseRows.size(), "Only one expense appears");
+			Optional<Row> expense2Row = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(expenseCategoryColumnIndex) != null &&
+									row.getCell(5).getCellType().equals(CellType.STRING) &&
+									row.getCell(expenseCategoryColumnIndex).getStringCellValue().contains(valueObject.getCharge().getName()))
+					.findFirst();
+			assertTrue(expense2Row.isPresent(), "Searched expense appears");
+			Optional<Row> expense1Row = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(expenseCategoryColumnIndex) != null &&
+									row.getCell(expenseCategoryColumnIndex).getCellType().equals(CellType.STRING) &&
+									row.getCell(expenseCategoryColumnIndex).getStringCellValue().contains(charge.getName()))
+					.findFirst();
+			assertTrue(expense1Row.isEmpty(), "Filtered expense doesn't appear");
 		}
 	}
 
@@ -184,6 +193,7 @@ public class ExpensesTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create business partner 1");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		MBPartner_BH businessPartner = valueObject.getBusinessPartner();
 		commitEx();
 
 		valueObject.setStepName("Create expense category");
@@ -198,9 +208,9 @@ public class ExpensesTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
 		ChuBoeCreateEntity.createInvoice(valueObject);
 		commitEx();
-		
+
 		valueObject.clearBusinessPartner();
-		
+
 		valueObject.setStepName("Create business partner 2");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
@@ -229,17 +239,20 @@ public class ExpensesTest extends ChuBoePopulateFactoryVO {
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
-			int expenseCategoryColumnIndex = TableUtils.getColumnIndex(headerRow, "Expense Category");
 			int supplierColumnIndex = TableUtils.getColumnIndex(headerRow, "Supplier");
 
-			List<Row> expenseRows = StreamSupport.stream(sheet.spliterator(), false).filter(
-					row -> row.getCell(expenseCategoryColumnIndex) != null &&
-							row.getCell(5).getCellType().equals(CellType.STRING) &&
-							row.getCell(expenseCategoryColumnIndex).getStringCellValue()
-									.contains(valueObject.getCharge().getName().substring(0, 30))).collect(Collectors.toList());
-			assertEquals(1, expenseRows.size(), "Expense category only appears once");
-			assertTrue(expenseRows.get(0).getCell(supplierColumnIndex).getStringCellValue()
-					.contains(valueObject.getBusinessPartner().getName().substring(0, 30)), "Supplier is correct");
+			Optional<Row> businessPartner2Row = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(supplierColumnIndex) != null &&
+							row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(supplierColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName())).findFirst();
+			assertTrue(businessPartner2Row.isPresent(), "Searched business partner appears");
+			Optional<Row> businessPartner1Row = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(supplierColumnIndex) != null &&
+									row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+									row.getCell(supplierColumnIndex).getStringCellValue().contains(businessPartner.getName()))
+					.findFirst();
+			assertTrue(businessPartner1Row.isEmpty(), "Filtered business partner doesn't appear");
 		}
 	}
 }
