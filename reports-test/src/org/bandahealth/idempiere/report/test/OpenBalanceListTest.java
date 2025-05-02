@@ -28,7 +28,6 @@ import java.util.stream.StreamSupport;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
@@ -53,6 +52,7 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPatient(valueObject);
 		valueObject.getBusinessPartner().setName(String.valueOf(valueObject.getRandomNumber()));
 		valueObject.getBusinessPartner().saveEx();
+		MBPartner_BH businessPartner = valueObject.getBusinessPartner();
 		commitEx();
 
 		valueObject.setStepName("Create product");
@@ -68,8 +68,8 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -85,13 +85,27 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Optional<Row> patientRow =
-					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null &&
-									row.getCell(1).getStringCellValue().equalsIgnoreCase(valueObject.getBusinessPartner().getName()))
-							.findFirst();
-			assertTrue(patientRow.isPresent(), "Report contains patient");
-			assertThat("Patient's open balance is correct", patientRow.get().getCell(9).getNumericCellValue(),
-					is(valueObject.getOrder().getGrandTotal().doubleValue()));
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Patient Name");
+			int remainingOpenBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Remaining Open Balance");
+			int patientColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+
+			Optional<Row> openBalanceRow = StreamSupport.stream(sheet.spliterator(), false)
+					.filter(row -> row.getCell(remainingOpenBalanceColumnIndex) != null
+							&& row.getCell(remainingOpenBalanceColumnIndex).getCellType().equals(CellType.NUMERIC)
+							&& row.getCell(remainingOpenBalanceColumnIndex)
+									.getNumericCellValue() == (valueObject.getOrder().getGrandTotal().doubleValue()))
+					.findFirst();
+			assertTrue(openBalanceRow.isPresent(), "Open Balance is Present");
+
+			Optional<Row> patientRow = StreamSupport.stream(sheet.spliterator(), false)
+					.filter(row -> row.getCell(patientColumnIndex) != null
+							&& row.getCell(patientColumnIndex).getCellType().equals(CellType.STRING)
+							&& row.getCell(patientColumnIndex).getStringCellValue().contains(businessPartner.getName()))
+					.findFirst();
+			assertTrue(patientRow.isPresent(), "Patient is Present");
+			assertThat("Patient open balance is correct", patientRow.get().getCell(remainingOpenBalanceColumnIndex)
+					.getNumericCellValue() == valueObject.getOrder().getGrandTotal().doubleValue());
+			
 		}
 	}
 
@@ -122,8 +136,8 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -152,8 +166,8 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -169,15 +183,14 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Optional<Row> nonPatientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-							row -> row.getCell(0) != null &&
-									row.getCell(1).getStringCellValue().contains(nonPatientBusinessPartner.getName().substring(1, 10)))
+			Optional<Row> nonPatientRow = StreamSupport
+					.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null && row.getCell(1)
+							.getStringCellValue().contains(nonPatientBusinessPartner.getName().substring(1, 10)))
 					.findFirst();
 			assertTrue(nonPatientRow.isEmpty(), "Report does not contain the non-patient");
-			Optional<Row> patientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-							row -> row.getCell(0) != null &&
-									row.getCell(1).getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(1,
-											10)))
+			Optional<Row> patientRow = StreamSupport
+					.stream(sheet.spliterator(), false).filter(row -> row.getCell(0) != null && row.getCell(1)
+							.getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(1, 10)))
 					.findFirst();
 			assertTrue(patientRow.isPresent(), "Report contains patient");
 		}
@@ -194,7 +207,6 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		valueObject.getBusinessPartner()
 				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
 		valueObject.getBusinessPartner().saveEx();
-		MBPartner_BH nonPatientBusinessPartner = valueObject.getBusinessPartner();
 		commitEx();
 
 		valueObject.setStepName("Create product");
@@ -210,8 +222,8 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -240,8 +252,8 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -262,24 +274,28 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 			double runningTotal = 0;
 			Row tableRow;
 			for (int rowNumber = headerRow.getRowNum() + 1; rowNumber < sheet.getLastRowNum(); rowNumber++) {
-				if ((tableRow = sheet.getRow(rowNumber)).getCell(remainingOpenBalanceColumnIndex) != null &&
-						tableRow.getCell(remainingOpenBalanceColumnIndex).getCellType().equals(CellType.NUMERIC)) {
+				if ((tableRow = sheet.getRow(rowNumber)).getCell(remainingOpenBalanceColumnIndex) != null
+						&& tableRow.getCell(remainingOpenBalanceColumnIndex).getCellType().equals(CellType.NUMERIC)) {
 					runningTotal += tableRow.getCell(remainingOpenBalanceColumnIndex).getNumericCellValue();
 				}
 			}
 			assertTrue(runningTotal > 0, "There is an open balance");
 
-			Optional<Row> totalsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
-									cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-											cell.getStringCellValue().contains("Total Open Balance")))
+			Optional<Row> totalsRow = StreamSupport
+					.stream(sheet.spliterator(),
+							false)
+					.filter(row -> StreamSupport.stream(row.spliterator(), false)
+							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+									&& cell.getStringCellValue().contains("Total Open Balance")))
 					.findFirst();
 			assertTrue(totalsRow.isPresent(), "Total Open Balance row exists");
 
 			double finalRunningTotal = runningTotal;
-			assertTrue(StreamSupport.stream(totalsRow.get().spliterator(), false).anyMatch(
-					cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-							cell.getNumericCellValue() == finalRunningTotal), "Report displays the correct open balance");
+			assertTrue(
+					StreamSupport.stream(totalsRow.get().spliterator(), false)
+							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC)
+									&& cell.getNumericCellValue() == finalRunningTotal),
+					"Report displays the correct open balance");
 		}
 	}
 
@@ -307,8 +323,8 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		valueObject.setQuantity(new BigDecimal(100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -329,24 +345,28 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 			int remainingOpenBalanceColumnIndex = TableUtils.getColumnIndex(headerRow, "Remaining Open Balance");
 			Row tableRow;
 			for (int rowNumber = headerRow.getRowNum() + 1; rowNumber < sheet.getLastRowNum(); rowNumber++) {
-				if ((tableRow = sheet.getRow(rowNumber)).getCell(remainingOpenBalanceColumnIndex) != null &&
-						tableRow.getCell(remainingOpenBalanceColumnIndex).getCellType().equals(CellType.NUMERIC)) {
+				if ((tableRow = sheet.getRow(rowNumber)).getCell(remainingOpenBalanceColumnIndex) != null
+						&& tableRow.getCell(remainingOpenBalanceColumnIndex).getCellType().equals(CellType.NUMERIC)) {
 					runningTotal += tableRow.getCell(remainingOpenBalanceColumnIndex).getNumericCellValue();
 				}
 			}
 			assertTrue(runningTotal > 0, "There is an open balance");
 
-			Optional<Row> totalsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
-									cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-											cell.getStringCellValue().contains("Total Open Balance")))
+			Optional<Row> totalsRow = StreamSupport
+					.stream(sheet.spliterator(),
+							false)
+					.filter(row -> StreamSupport.stream(row.spliterator(), false)
+							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+									&& cell.getStringCellValue().contains("Total Open Balance")))
 					.findFirst();
 			assertTrue(totalsRow.isPresent(), "Total Open Balance row exists");
 
 			double finalRunningTotal = runningTotal;
-			assertTrue(StreamSupport.stream(totalsRow.get().spliterator(), false).anyMatch(
-					cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-							cell.getNumericCellValue() == finalRunningTotal), "Report displays the correct open balance");
+			assertTrue(
+					StreamSupport.stream(totalsRow.get().spliterator(), false)
+							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC)
+									&& cell.getNumericCellValue() == finalRunningTotal),
+					"Report displays the correct open balance");
 		}
 
 		valueObject.setStepName("Regenerate the report");
