@@ -6,6 +6,7 @@ services:
     volumes:
       - ./testing:${INSTALLATION_HOME}
       - ./idempiere-logs:/opt/idempiere/log
+    container_name: '${COMPOSE_PROJECT_NAME}_idempiere'
     environment:
       - DB_ADMIN_PASS=${POSTGRES_PASSWORD}
       - DB_HOST=${POSTGRES_HOST}
@@ -30,6 +31,7 @@ services:
     volumes:
       - ./external-mocks:/app
       - /app/node_modules
+    container_name: '${COMPOSE_PROJECT_NAME}_external_mocks'
     environment:
       - PORT=${EXTERNAL_MOCKS_PORT}
 
@@ -42,6 +44,7 @@ services:
         condition: service_started
     volumes:
       - ./db-output:/app/output
+    container_name: '${COMPOSE_PROJECT_NAME}_tests'
     environment:
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_GRAPHQL_TEST_CLIENT=${IDEMPIERE_GRAPHQL_TEST_CLIENT}
@@ -55,6 +58,7 @@ services:
 
   postgres:
     image: postgres:16
+    container_name: '${COMPOSE_PROJECT_NAME}_postgres'
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - PGPORT=${POSTGRES_PORT}
