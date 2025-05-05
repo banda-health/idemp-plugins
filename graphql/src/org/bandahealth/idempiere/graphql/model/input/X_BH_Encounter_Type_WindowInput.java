@@ -46,7 +46,7 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -117,7 +117,7 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 	@JsonProperty("BH_Encounter_Type")
 	public void setBH_Encounter_TypeInput(ForeignEntityInput BH_Encounter_Type) {
 		this.mBH_Encounter_Type = BH_Encounter_Type;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_Encounter_Type != null) {

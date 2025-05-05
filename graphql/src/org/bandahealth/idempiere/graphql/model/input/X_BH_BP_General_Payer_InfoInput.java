@@ -45,7 +45,7 @@ public class X_BH_BP_General_Payer_InfoInput extends MBHBPGeneralPayerInfo imple
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -111,7 +111,7 @@ public class X_BH_BP_General_Payer_InfoInput extends MBHBPGeneralPayerInfo imple
 	@JsonProperty("BH_BP_Payer_Info")
 	public void setBH_BP_Payer_InfoInput(ForeignEntityInput BH_BP_Payer_Info) {
 		this.mBH_BP_Payer_Info = BH_BP_Payer_Info;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_BP_Payer_Info != null) {
@@ -148,7 +148,7 @@ public class X_BH_BP_General_Payer_InfoInput extends MBHBPGeneralPayerInfo imple
 	@JsonProperty("BH_Payer_Info_Fld")
 	public void setBH_Payer_Info_FldInput(ForeignEntityInput BH_Payer_Info_Fld) {
 		this.mBH_Payer_Info_Fld = BH_Payer_Info_Fld;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_Payer_Info_Fld != null) {

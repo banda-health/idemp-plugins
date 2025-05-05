@@ -48,7 +48,7 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -119,7 +119,7 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	@JsonProperty("C_RevenueRecognition_Plan")
 	public void setC_RevenueRecognition_PlanInput(ForeignEntityInput C_RevenueRecognition_Plan) {
 		this.mC_RevenueRecognition_Plan = C_RevenueRecognition_Plan;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_RevenueRecognition_Plan != null) {
@@ -185,7 +185,7 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	@JsonProperty("GL_Journal")
 	public void setGL_JournalInput(ForeignEntityInput GL_Journal) {
 		this.mGL_Journal = GL_Journal;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (GL_Journal != null) {

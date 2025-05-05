@@ -45,7 +45,7 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 	@JsonProperty("AD_Field")
 	public void setAD_FieldInput(ForeignEntityInput AD_Field) {
 		this.mAD_Field = AD_Field;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Field != null) {
@@ -82,7 +82,7 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -119,7 +119,7 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 	@JsonProperty("BH_Encounter")
 	public void setBH_EncounterInput(ForeignEntityInput BH_Encounter) {
 		this.mBH_Encounter = BH_Encounter;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_Encounter != null) {

@@ -48,7 +48,7 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -85,7 +85,7 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {
@@ -140,7 +140,7 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 	@JsonProperty("C_Tax")
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Tax != null) {
@@ -177,7 +177,7 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 	@JsonProperty("C_TaxProvider")
 	public void setC_TaxProviderInput(ForeignEntityInput C_TaxProvider) {
 		this.mC_TaxProvider = C_TaxProvider;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_TaxProvider != null) {

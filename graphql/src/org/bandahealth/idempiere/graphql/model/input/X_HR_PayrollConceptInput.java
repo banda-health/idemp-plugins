@@ -47,7 +47,7 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -152,7 +152,7 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	@JsonProperty("HR_Payroll")
 	public void setHR_PayrollInput(ForeignEntityInput HR_Payroll) {
 		this.mHR_Payroll = HR_Payroll;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (HR_Payroll != null) {

@@ -45,7 +45,7 @@ public class X_C_JobAssignmentInput extends X_C_JobAssignment implements I_C_Job
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_C_JobAssignmentInput extends X_C_JobAssignment implements I_C_Job
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {
@@ -119,7 +119,7 @@ public class X_C_JobAssignmentInput extends X_C_JobAssignment implements I_C_Job
 	@JsonProperty("C_Job")
 	public void setC_JobInput(ForeignEntityInput C_Job) {
 		this.mC_Job = C_Job;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Job != null) {

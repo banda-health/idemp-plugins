@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_Concept_Name;
  * Generated Interface for BH_Concept_Name - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public interface I_BH_Concept_NameInput extends I_BH_Concept_Name {
 

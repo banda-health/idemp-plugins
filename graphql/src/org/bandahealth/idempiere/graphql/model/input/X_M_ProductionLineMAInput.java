@@ -46,7 +46,7 @@ public class X_M_ProductionLineMAInput extends MProductionLineMA implements I_M_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -94,7 +94,7 @@ public class X_M_ProductionLineMAInput extends MProductionLineMA implements I_M_
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSetInstance != null) {
@@ -131,7 +131,7 @@ public class X_M_ProductionLineMAInput extends MProductionLineMA implements I_M_
 	@JsonProperty("M_ProductionLine")
 	public void setM_ProductionLineInput(ForeignEntityInput M_ProductionLine) {
 		this.mM_ProductionLine = M_ProductionLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_ProductionLine != null) {

@@ -56,7 +56,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -195,7 +195,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 	@JsonProperty("M_AttributeSetInstanceTo")
 	public void setM_AttributeSetInstanceToInput(ForeignEntityInput M_AttributeSetInstanceTo) {
 		this.mM_AttributeSetInstanceTo = M_AttributeSetInstanceTo;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSetInstanceTo != null) {
@@ -300,7 +300,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 	@JsonProperty("M_Movement")
 	public void setM_MovementInput(ForeignEntityInput M_Movement) {
 		this.mM_Movement = M_Movement;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Movement != null) {

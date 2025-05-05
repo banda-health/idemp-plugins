@@ -51,7 +51,7 @@ public class X_M_ForecastLineInput extends MForecastLine implements I_M_Forecast
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -88,7 +88,7 @@ public class X_M_ForecastLineInput extends MForecastLine implements I_M_Forecast
 	@JsonProperty("C_Period")
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Period != null) {
@@ -125,7 +125,7 @@ public class X_M_ForecastLineInput extends MForecastLine implements I_M_Forecast
 	@JsonProperty("M_Forecast")
 	public void setM_ForecastInput(ForeignEntityInput M_Forecast) {
 		this.mM_Forecast = M_Forecast;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Forecast != null) {
@@ -191,7 +191,7 @@ public class X_M_ForecastLineInput extends MForecastLine implements I_M_Forecast
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {

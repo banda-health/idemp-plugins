@@ -171,7 +171,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Asset != null) {

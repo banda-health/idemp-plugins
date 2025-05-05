@@ -43,7 +43,7 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_UOM != null) {
@@ -128,7 +128,7 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	@JsonProperty("M_PriceList_Version")
 	public void setM_PriceList_VersionInput(ForeignEntityInput M_PriceList_Version) {
 		this.mM_PriceList_Version = M_PriceList_Version;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_PriceList_Version != null) {
@@ -165,7 +165,7 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -202,7 +202,7 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Warehouse != null) {

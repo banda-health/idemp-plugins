@@ -46,7 +46,7 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	@JsonProperty("AD_Menu")
 	public void setAD_MenuInput(ForeignEntityInput AD_Menu) {
 		this.mAD_Menu = AD_Menu;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Menu != null) {
@@ -83,7 +83,7 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -120,7 +120,7 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	@JsonProperty("AD_Tree_Favorite")
 	public void setAD_Tree_FavoriteInput(ForeignEntityInput AD_Tree_Favorite) {
 		this.mAD_Tree_Favorite = AD_Tree_Favorite;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tree_Favorite != null) {

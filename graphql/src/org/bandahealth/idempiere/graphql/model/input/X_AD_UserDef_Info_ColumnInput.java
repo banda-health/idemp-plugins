@@ -95,7 +95,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("AD_InfoColumn")
 	public void setAD_InfoColumnInput(ForeignEntityInput AD_InfoColumn) {
 		this.mAD_InfoColumn = AD_InfoColumn;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_InfoColumn != null) {
@@ -132,7 +132,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -266,7 +266,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("AD_UserDef_Info")
 	public void setAD_UserDef_InfoInput(ForeignEntityInput AD_UserDef_Info) {
 		this.mAD_UserDef_Info = AD_UserDef_Info;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_UserDef_Info != null) {

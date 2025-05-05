@@ -67,7 +67,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -493,7 +493,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("M_PerpetualInv")
 	public void setM_PerpetualInvInput(ForeignEntityInput M_PerpetualInv) {
 		this.mM_PerpetualInv = M_PerpetualInv;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_PerpetualInv != null) {

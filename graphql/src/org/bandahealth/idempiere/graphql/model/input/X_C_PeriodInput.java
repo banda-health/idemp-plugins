@@ -46,7 +46,7 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -112,7 +112,7 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	@JsonProperty("C_Year")
 	public void setC_YearInput(ForeignEntityInput C_Year) {
 		this.mC_Year = C_Year;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Year != null) {
@@ -149,7 +149,7 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	@JsonProperty("PeriodType")
 	public void setPeriodTypeInput(ForeignEntityInput PeriodType) {
 		this.mPeriodType = PeriodType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PeriodType != null) {

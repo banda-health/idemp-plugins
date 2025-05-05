@@ -72,7 +72,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -562,7 +562,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	@JsonProperty("S_ExpenseType")
 	public void setS_ExpenseTypeInput(ForeignEntityInput S_ExpenseType) {
 		this.mS_ExpenseType = S_ExpenseType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (S_ExpenseType != null) {
@@ -599,7 +599,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	@JsonProperty("S_Resource")
 	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (S_Resource != null) {

@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import {
 	Bh_Product_IncludedDeleteDocument,
 	Bh_Product_IncludedSaveManyDocument,
@@ -491,7 +492,7 @@ test('can work with included products', async () => {
 		mutation: Bh_Product_IncludedSaveManyDocument,
 		variables: {
 			BH_Product_IncludedList: [
-				{ Included_Product: { UU: product2.UU }, M_Product: { UU: product1.UU }, Qty: 5, SeqNo: 10 },
+				{ Included_Product: { UU: product2.UU }, M_Product: { UU: product1.UU }, Qty: 5, SeqNo: 10, UU: v4() },
 				{ Included_Product: { UU: product3.UU }, M_Product: { UU: product1.UU }, Qty: 6, SeqNo: 20 },
 			],
 		},
@@ -515,4 +516,33 @@ test('can work with included products', async () => {
 	productToCheck = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product1.UU } })).data
 		.M_Product!;
 	expect(productToCheck.BH_Product_IncludedList).toHaveLength(1);
+});
+
+test('unable to include the same product multiple times', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product 1';
+	await createProduct(valueObject);
+	const product1 = valueObject.product!;
+
+	valueObject.stepName = 'Create product 2';
+	valueObject.clearProduct();
+	await createProduct(valueObject);
+	const product2 = valueObject.product!;
+
+	await expect(
+		mutate(valueObject)({
+			mutation: Bh_Product_IncludedSaveManyDocument,
+			variables: {
+				BH_Product_IncludedList: [
+					{ Included_Product: { UU: product2.UU }, M_Product: { UU: product1.UU }, Qty: 5, SeqNo: 10, UU: v4() },
+					{ Included_Product: { UU: product2.UU }, M_Product: { UU: product1.UU }, Qty: 6, SeqNo: 20 },
+				],
+			},
+		}),
+	).rejects.toBeTruthy();
 });

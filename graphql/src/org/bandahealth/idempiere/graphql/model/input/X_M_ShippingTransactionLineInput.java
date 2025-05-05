@@ -48,7 +48,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -187,7 +187,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	@JsonProperty("M_ShippingTransaction")
 	public void setM_ShippingTransactionInput(ForeignEntityInput M_ShippingTransaction) {
 		this.mM_ShippingTransaction = M_ShippingTransaction;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_ShippingTransaction != null) {

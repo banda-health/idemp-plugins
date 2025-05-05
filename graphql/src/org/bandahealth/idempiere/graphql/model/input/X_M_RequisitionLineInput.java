@@ -55,7 +55,7 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -194,7 +194,7 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_UOM != null) {
@@ -299,7 +299,7 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("M_Requisition")
 	public void setM_RequisitionInput(ForeignEntityInput M_Requisition) {
 		this.mM_Requisition = M_Requisition;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Requisition != null) {

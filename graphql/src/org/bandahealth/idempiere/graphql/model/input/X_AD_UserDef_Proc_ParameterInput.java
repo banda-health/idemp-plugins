@@ -90,7 +90,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -229,7 +229,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	@JsonProperty("AD_UserDef_Proc")
 	public void setAD_UserDef_ProcInput(ForeignEntityInput AD_UserDef_Proc) {
 		this.mAD_UserDef_Proc = AD_UserDef_Proc;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_UserDef_Proc != null) {

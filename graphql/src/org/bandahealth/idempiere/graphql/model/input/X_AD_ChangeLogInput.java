@@ -51,7 +51,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("AD_ChangeLog")
 	public void setAD_ChangeLogInput(ForeignEntityInput AD_ChangeLog) {
 		this.mAD_ChangeLog = AD_ChangeLog;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_ChangeLog != null) {
@@ -106,7 +106,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("AD_Column")
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Column != null) {
@@ -143,7 +143,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -180,7 +180,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("AD_Session")
 	public void setAD_SessionInput(ForeignEntityInput AD_Session) {
 		this.mAD_Session = AD_Session;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Session != null) {
@@ -217,7 +217,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Table != null) {
@@ -254,7 +254,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("EventChangeLog")
 	public void setEventChangeLogInput(ForeignEntityInput EventChangeLog) {
 		this.mEventChangeLog = EventChangeLog;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (EventChangeLog != null) {

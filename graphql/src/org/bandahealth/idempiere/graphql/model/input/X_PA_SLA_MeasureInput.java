@@ -45,7 +45,7 @@ public class X_PA_SLA_MeasureInput extends X_PA_SLA_Measure implements I_PA_SLA_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -116,7 +116,7 @@ public class X_PA_SLA_MeasureInput extends X_PA_SLA_Measure implements I_PA_SLA_
 	@JsonProperty("PA_SLA_Goal")
 	public void setPA_SLA_GoalInput(ForeignEntityInput PA_SLA_Goal) {
 		this.mPA_SLA_Goal = PA_SLA_Goal;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PA_SLA_Goal != null) {

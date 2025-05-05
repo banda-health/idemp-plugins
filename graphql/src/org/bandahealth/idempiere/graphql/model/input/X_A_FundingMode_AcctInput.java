@@ -99,7 +99,7 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 	@JsonProperty("A_FundingMode")
 	public void setA_FundingModeInput(ForeignEntityInput A_FundingMode) {
 		this.mA_FundingMode = A_FundingMode;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_FundingMode != null) {
@@ -136,7 +136,7 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -173,7 +173,7 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {

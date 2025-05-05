@@ -46,7 +46,7 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -83,7 +83,7 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 	@JsonProperty("C_Commission")
 	public void setC_CommissionInput(ForeignEntityInput C_Commission) {
 		this.mC_Commission = C_Commission;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Commission != null) {
@@ -149,7 +149,7 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Invoice != null) {

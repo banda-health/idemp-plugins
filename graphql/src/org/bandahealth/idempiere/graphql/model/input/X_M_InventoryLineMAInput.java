@@ -46,7 +46,7 @@ public class X_M_InventoryLineMAInput extends MInventoryLineMA implements I_M_In
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -105,7 +105,7 @@ public class X_M_InventoryLineMAInput extends MInventoryLineMA implements I_M_In
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSetInstance != null) {
@@ -142,7 +142,7 @@ public class X_M_InventoryLineMAInput extends MInventoryLineMA implements I_M_In
 	@JsonProperty("M_InventoryLine")
 	public void setM_InventoryLineInput(ForeignEntityInput M_InventoryLine) {
 		this.mM_InventoryLine = M_InventoryLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_InventoryLine != null) {

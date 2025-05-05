@@ -79,7 +79,7 @@ public class X_PP_WF_Node_AssetInput extends X_PP_WF_Node_Asset implements I_PP_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -116,7 +116,7 @@ public class X_PP_WF_Node_AssetInput extends X_PP_WF_Node_Asset implements I_PP_
 	@JsonProperty("AD_WF_Node")
 	public void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node) {
 		this.mAD_WF_Node = AD_WF_Node;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_WF_Node != null) {

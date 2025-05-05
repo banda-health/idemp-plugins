@@ -45,7 +45,7 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 	@JsonProperty("A_RegistrationAttribute")
 	public void setA_RegistrationAttributeInput(ForeignEntityInput A_RegistrationAttribute) {
 		this.mA_RegistrationAttribute = A_RegistrationAttribute;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_RegistrationAttribute != null) {
@@ -100,7 +100,7 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -137,7 +137,7 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {

@@ -50,7 +50,7 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -121,7 +121,7 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	@JsonProperty("M_InOutConfirm")
 	public void setM_InOutConfirmInput(ForeignEntityInput M_InOutConfirm) {
 		this.mM_InOutConfirm = M_InOutConfirm;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_InOutConfirm != null) {
@@ -158,7 +158,7 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_InOutLine != null) {

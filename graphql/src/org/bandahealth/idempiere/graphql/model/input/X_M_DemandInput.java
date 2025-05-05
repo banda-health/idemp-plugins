@@ -45,7 +45,7 @@ public class X_M_DemandInput extends X_M_Demand implements I_M_DemandInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_M_DemandInput extends X_M_Demand implements I_M_DemandInput {
 	@JsonProperty("C_Calendar")
 	public void setC_CalendarInput(ForeignEntityInput C_Calendar) {
 		this.mC_Calendar = C_Calendar;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Calendar != null) {
@@ -119,7 +119,7 @@ public class X_M_DemandInput extends X_M_Demand implements I_M_DemandInput {
 	@JsonProperty("C_Year")
 	public void setC_YearInput(ForeignEntityInput C_Year) {
 		this.mC_Year = C_Year;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Year != null) {

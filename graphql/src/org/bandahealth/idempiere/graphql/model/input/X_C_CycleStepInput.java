@@ -43,7 +43,7 @@ public class X_C_CycleStepInput extends X_C_CycleStep implements I_C_CycleStepIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_C_CycleStepInput extends X_C_CycleStep implements I_C_CycleStepIn
 	@JsonProperty("C_Cycle")
 	public void setC_CycleInput(ForeignEntityInput C_Cycle) {
 		this.mC_Cycle = C_Cycle;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Cycle != null) {

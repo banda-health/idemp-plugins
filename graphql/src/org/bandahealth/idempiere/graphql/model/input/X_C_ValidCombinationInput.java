@@ -64,7 +64,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("Account")
 	public void setAccountInput(ForeignEntityInput Account) {
 		this.mAccount = Account;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Account != null) {
@@ -101,7 +101,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -138,7 +138,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {
@@ -175,7 +175,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Activity != null) {
@@ -212,7 +212,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BPartner != null) {
@@ -249,7 +249,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Campaign != null) {
@@ -286,7 +286,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("C_LocFrom")
 	public void setC_LocFromInput(ForeignEntityInput C_LocFrom) {
 		this.mC_LocFrom = C_LocFrom;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_LocFrom != null) {
@@ -323,7 +323,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("C_LocTo")
 	public void setC_LocToInput(ForeignEntityInput C_LocTo) {
 		this.mC_LocTo = C_LocTo;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_LocTo != null) {
@@ -360,7 +360,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Project != null) {
@@ -397,7 +397,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("C_SalesRegion")
 	public void setC_SalesRegionInput(ForeignEntityInput C_SalesRegion) {
 		this.mC_SalesRegion = C_SalesRegion;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_SalesRegion != null) {
@@ -434,7 +434,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("C_SubAcct")
 	public void setC_SubAcctInput(ForeignEntityInput C_SubAcct) {
 		this.mC_SubAcct = C_SubAcct;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_SubAcct != null) {
@@ -533,7 +533,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -570,7 +570,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("User1")
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (User1 != null) {
@@ -607,7 +607,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("User2")
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (User2 != null) {

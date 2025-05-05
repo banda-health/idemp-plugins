@@ -45,7 +45,7 @@ public class X_M_AttributeSetExcludeInput extends MAttributeSetExclude implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -116,7 +116,7 @@ public class X_M_AttributeSetExcludeInput extends MAttributeSetExclude implement
 	@JsonProperty("M_AttributeSet")
 	public void setM_AttributeSetInput(ForeignEntityInput M_AttributeSet) {
 		this.mM_AttributeSet = M_AttributeSet;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSet != null) {

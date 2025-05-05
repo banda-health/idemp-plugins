@@ -79,7 +79,7 @@ public class X_AD_ReportView_ColInput extends X_AD_ReportView_Col implements I_A
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -145,7 +145,7 @@ public class X_AD_ReportView_ColInput extends X_AD_ReportView_Col implements I_A
 	@JsonProperty("AD_ReportView")
 	public void setAD_ReportViewInput(ForeignEntityInput AD_ReportView) {
 		this.mAD_ReportView = AD_ReportView;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_ReportView != null) {

@@ -56,7 +56,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -341,7 +341,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	@JsonProperty("PA_ReportLineSet")
 	public void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet) {
 		this.mPA_ReportLineSet = PA_ReportLineSet;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PA_ReportLineSet != null) {

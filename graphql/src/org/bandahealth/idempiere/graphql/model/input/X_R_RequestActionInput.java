@@ -88,7 +88,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Asset != null) {
@@ -125,7 +125,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -162,7 +162,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Role != null) {
@@ -199,7 +199,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {
@@ -236,7 +236,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Activity != null) {
@@ -273,7 +273,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BPartner != null) {
@@ -310,7 +310,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Invoice != null) {
@@ -347,7 +347,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {
@@ -384,7 +384,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("C_Payment")
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Payment != null) {
@@ -421,7 +421,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Project != null) {
@@ -458,7 +458,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("ConfidentialType")
 	public void setConfidentialTypeInput(ForeignEntityInput ConfidentialType) {
 		this.mConfidentialType = ConfidentialType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ConfidentialType != null) {
@@ -511,7 +511,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("IsEscalated")
 	public void setIsEscalatedInput(ForeignEntityInput IsEscalated) {
 		this.mIsEscalated = IsEscalated;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (IsEscalated != null) {
@@ -564,7 +564,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("IsSelfService")
 	public void setIsSelfServiceInput(ForeignEntityInput IsSelfService) {
 		this.mIsSelfService = IsSelfService;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (IsSelfService != null) {
@@ -606,7 +606,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("M_InOut")
 	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_InOut != null) {
@@ -643,7 +643,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -714,7 +714,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("M_RMA")
 	public void setM_RMAInput(ForeignEntityInput M_RMA) {
 		this.mM_RMA = M_RMA;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_RMA != null) {
@@ -762,7 +762,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("Priority")
 	public void setPriorityInput(ForeignEntityInput Priority) {
 		this.mPriority = Priority;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Priority != null) {
@@ -804,7 +804,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("PriorityUser")
 	public void setPriorityUserInput(ForeignEntityInput PriorityUser) {
 		this.mPriorityUser = PriorityUser;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PriorityUser != null) {
@@ -846,7 +846,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("R_Category")
 	public void setR_CategoryInput(ForeignEntityInput R_Category) {
 		this.mR_Category = R_Category;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_Category != null) {
@@ -883,7 +883,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("R_Group")
 	public void setR_GroupInput(ForeignEntityInput R_Group) {
 		this.mR_Group = R_Group;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_Group != null) {
@@ -920,7 +920,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("R_Request")
 	public void setR_RequestInput(ForeignEntityInput R_Request) {
 		this.mR_Request = R_Request;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_Request != null) {
@@ -986,7 +986,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("R_RequestType")
 	public void setR_RequestTypeInput(ForeignEntityInput R_RequestType) {
 		this.mR_RequestType = R_RequestType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_RequestType != null) {
@@ -1023,7 +1023,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("R_Resolution")
 	public void setR_ResolutionInput(ForeignEntityInput R_Resolution) {
 		this.mR_Resolution = R_Resolution;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_Resolution != null) {
@@ -1060,7 +1060,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("R_Status")
 	public void setR_StatusInput(ForeignEntityInput R_Status) {
 		this.mR_Status = R_Status;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_Status != null) {
@@ -1097,7 +1097,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("SalesRep")
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (SalesRep != null) {

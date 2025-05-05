@@ -87,7 +87,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -124,7 +124,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	@JsonProperty("AD_StatusLine")
 	public void setAD_StatusLineInput(ForeignEntityInput AD_StatusLine) {
 		this.mAD_StatusLine = AD_StatusLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_StatusLine != null) {

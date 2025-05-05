@@ -45,7 +45,7 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 	@JsonProperty("AD_Column")
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Column != null) {
@@ -82,7 +82,7 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -137,7 +137,7 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 	@JsonProperty("AD_ReportView")
 	public void setAD_ReportViewInput(ForeignEntityInput AD_ReportView) {
 		this.mAD_ReportView = AD_ReportView;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_ReportView != null) {

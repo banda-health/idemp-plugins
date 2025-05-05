@@ -51,7 +51,7 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

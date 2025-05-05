@@ -67,7 +67,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -308,7 +308,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Invoice != null) {
@@ -345,7 +345,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 	@JsonProperty("C_InvoiceBatch")
 	public void setC_InvoiceBatchInput(ForeignEntityInput C_InvoiceBatch) {
 		this.mC_InvoiceBatch = C_InvoiceBatch;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_InvoiceBatch != null) {
@@ -411,7 +411,7 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_InvoiceLine != null) {

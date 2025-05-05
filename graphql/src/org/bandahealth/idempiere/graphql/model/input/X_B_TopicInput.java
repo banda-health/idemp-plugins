@@ -45,7 +45,7 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -111,7 +111,7 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 	@JsonProperty("B_TopicCategory")
 	public void setB_TopicCategoryInput(ForeignEntityInput B_TopicCategory) {
 		this.mB_TopicCategory = B_TopicCategory;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (B_TopicCategory != null) {
@@ -148,7 +148,7 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 	@JsonProperty("B_TopicType")
 	public void setB_TopicTypeInput(ForeignEntityInput B_TopicType) {
 		this.mB_TopicType = B_TopicType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (B_TopicType != null) {

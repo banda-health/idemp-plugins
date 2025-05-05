@@ -43,7 +43,7 @@ public class X_IMP_ProcessorLogInput extends MIMPProcessorLog implements I_IMP_P
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_IMP_ProcessorLogInput extends MIMPProcessorLog implements I_IMP_P
 	@JsonProperty("IMP_Processor")
 	public void setIMP_ProcessorInput(ForeignEntityInput IMP_Processor) {
 		this.mIMP_Processor = IMP_Processor;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (IMP_Processor != null) {

@@ -31,6 +31,8 @@
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="C_Charge_UU" class="java.lang.String"/>
+	<parameter name="C_BPartner_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
 	TO_CHAR(i.created::date, 'YYYY-MM-DD') AS expense_date,
@@ -60,7 +62,9 @@ WHERE
 	AND i.bh_visit_id IS NULL
 	AND i.docstatus IN ('CO', 'CL')
 	AND i.ad_client_id = $P{AD_CLIENT_ID}
-	AND i.created BETWEEN $P{Begin Date} AND $P{End Date}]]>
+	AND i.created BETWEEN $P{Begin Date} AND $P{End Date}
+	AND ($P{C_Charge_UU} IS NULL OR c.c_charge_uu = $P{C_Charge_UU})
+	AND ($P{C_BPartner_UU} IS NULL OR bp.c_bpartner_uu = $P{C_BPartner_UU})]]>
 	</queryString>
 	<field name="expense_date" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="expense_date"/>
