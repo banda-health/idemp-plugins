@@ -36,19 +36,19 @@ type C_Project {
 	C_Campaign: C_Campaign
 	# The Currency for this record
 	C_Currency: C_Currency!
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm
+	# Standard Phase of the Project Type
+	C_Phase: C_Phase
+	UU: ID!
+	# Type of the project
+	C_ProjectType_ID: Int
 	# The (legal) commitment amount
 	CommittedAmt: BigDecimal!
 	# The (legal) commitment Quantity
 	CommittedQty: BigDecimal!
 	# Copy From Record
 	CopyFrom: String
-	# The terms of Payment (timing, discount)
-	C_PaymentTerm: C_PaymentTerm
-	# Standard Phase of the Project Type
-	C_Phase: C_Phase
-	# Type of the project
-	C_ProjectType_ID: Int
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -127,19 +127,19 @@ input C_ProjectInput {
 	C_Campaign: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	# Standard Phase of the Project Type
+	C_Phase: ForeignEntityInput
+	UU: ID
+	# Type of the project
+	C_ProjectType_ID: Int
 	# The (legal) commitment amount
 	CommittedAmt: BigDecimal
 	# The (legal) commitment Quantity
 	CommittedQty: BigDecimal
 	# Copy From Record
 	CopyFrom: String
-	# The terms of Payment (timing, discount)
-	C_PaymentTerm: ForeignEntityInput
-	# Standard Phase of the Project Type
-	C_Phase: ForeignEntityInput
-	# Type of the project
-	C_ProjectType_ID: Int
-	UU: ID
 	# The (planned) effective date of this document.
 	DateContract: Date
 	# Finish or (planned) completion date

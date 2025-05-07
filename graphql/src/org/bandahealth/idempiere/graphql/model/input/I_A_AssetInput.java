@@ -95,6 +95,20 @@ public interface I_A_AssetInput extends I_A_Asset {
 	String getUU();
 
 	/**
+	 * Set A_Parent_Asset.
+	 *
+	 * @param A_Parent_Asset A_Parent_Asset
+	 */
+	void setA_Parent_AssetInput(ForeignEntityInput A_Parent_Asset);
+
+	/**
+	 * Get A_Parent_Asset.
+	 *
+	 * @return A_Parent_Asset
+	 */
+	ForeignEntityInput A_Parent_Asset();
+
+	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within tenant
@@ -121,20 +135,6 @@ public interface I_A_AssetInput extends I_A_Asset {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	ForeignEntityInput AD_User();
-
-	/**
-	 * Set A_Parent_Asset.
-	 *
-	 * @param A_Parent_Asset A_Parent_Asset
-	 */
-	void setA_Parent_AssetInput(ForeignEntityInput A_Parent_Asset);
-
-	/**
-	 * Get A_Parent_Asset.
-	 *
-	 * @return A_Parent_Asset
-	 */
-	ForeignEntityInput A_Parent_Asset();
 
 	/**
 	 * Set C_Activity.

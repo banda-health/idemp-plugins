@@ -32,17 +32,11 @@ type I_Asset {
 	A_Calc_Accumulated_Depr: BigDecimal
 	A_Curr_Dep_Exp: BigDecimal
 	A_Current_Period: Int
-	# Tenant for this installation.
-	AD_Client: AD_Client!
 	A_Depreciation_A: C_ValidCombination
 	A_Depreciation_Manual_Amount: BigDecimal
 	A_Depreciation_Manual_Period: AD_Ref_List
 	A_Depreciation_Table_Header: A_Depreciation_Table_Header
 	A_Depreciation_Variable_Perc: BigDecimal
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
-	# User within the system - Internal or Business Partner Contact
-	AD_User_ID: Int
 	A_Life_Period: Int
 	A_Parent_Asset_ID: Int
 	A_Period_End: Int
@@ -54,6 +48,12 @@ type I_Asset {
 	A_Reval_Cal_Method: AD_Ref_List
 	A_Salvage_Value: BigDecimal
 	A_Split_Percent: BigDecimal
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User_ID: Int
 	# Date of last depreciation
 	AssetDepreciationDate: Date
 	# Date when the asset is/was disposed
@@ -154,10 +154,6 @@ input I_AssetInput {
 	A_Depreciation_Manual_Period: ForeignEntityInput
 	A_Depreciation_Table_Header: ForeignEntityInput
 	A_Depreciation_Variable_Perc: BigDecimal
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
-	# User within the system - Internal or Business Partner Contact
-	AD_User_ID: Int
 	A_Life_Period: Int
 	A_Parent_Asset_ID: Int
 	A_Period_End: Int
@@ -169,6 +165,10 @@ input I_AssetInput {
 	A_Reval_Cal_Method: ForeignEntityInput
 	A_Salvage_Value: BigDecimal
 	A_Split_Percent: BigDecimal
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User_ID: Int
 	# Date of last depreciation
 	AssetDepreciationDate: Date
 	# Date when the asset is/was disposed

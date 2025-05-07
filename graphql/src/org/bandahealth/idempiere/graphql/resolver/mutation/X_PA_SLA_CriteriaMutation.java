@@ -4,7 +4,7 @@ import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.model.input.I_PA_SLA_CriteriaInput;
 import org.bandahealth.idempiere.graphql.model.input.X_PA_SLA_CriteriaInput;
-import org.compiere.model.MSLACriteria;
+import org.compiere.model.X_PA_SLA_Criteria;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,13 +21,13 @@ public class X_PA_SLA_CriteriaMutation extends POMutation implements GraphQLMuta
 		return X_PA_SLA_CriteriaInput.Table_Name;
 	}
 
-	public MSLACriteria PA_SLA_CriteriaSave(I_PA_SLA_CriteriaInput Entity, DataFetchingEnvironment environment) {
-		return (MSLACriteria) super.save((X_PA_SLA_CriteriaInput) Entity, environment);
+	public X_PA_SLA_Criteria PA_SLA_CriteriaSave(I_PA_SLA_CriteriaInput Entity, DataFetchingEnvironment environment) {
+		return (X_PA_SLA_Criteria) super.save((X_PA_SLA_CriteriaInput) Entity, environment);
 	}
 
-	public List<MSLACriteria> PA_SLA_CriteriaSaveMany(List<I_PA_SLA_CriteriaInput> Entities, DataFetchingEnvironment environment) {
+	public List<X_PA_SLA_Criteria> PA_SLA_CriteriaSaveMany(List<I_PA_SLA_CriteriaInput> Entities, DataFetchingEnvironment environment) {
 		return super.saveMany(Entities.stream().map(entity -> (X_PA_SLA_CriteriaInput) entity).collect(Collectors.toList()),
-				environment).stream().map(entity -> (MSLACriteria) entity).collect(Collectors.toList());
+				environment).stream().map(entity -> (X_PA_SLA_Criteria) entity).collect(Collectors.toList());
 	}
 
 	public boolean PA_SLA_CriteriaDelete(List<String> UUs, DataFetchingEnvironment environment) {

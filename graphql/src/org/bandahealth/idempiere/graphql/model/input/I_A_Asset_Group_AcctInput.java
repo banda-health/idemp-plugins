@@ -235,20 +235,6 @@ public interface I_A_Asset_Group_AcctInput extends I_A_Asset_Group_Acct {
 	ForeignEntityInput A_Disposal_Revenue_A();
 
 	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
-
-	/**
 	 * Set A_Reval_Adep_Offset_Cur_A.
 	 *
 	 * @param A_Reval_Adep_Offset_Cur_A A_Reval_Adep_Offset_Cur_A
@@ -331,6 +317,20 @@ public interface I_A_Asset_Group_AcctInput extends I_A_Asset_Group_Acct {
 	 * @return A_Reval_Depexp_Offset_A
 	 */
 	ForeignEntityInput A_Reval_Depexp_Offset_A();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_AcctSchema.

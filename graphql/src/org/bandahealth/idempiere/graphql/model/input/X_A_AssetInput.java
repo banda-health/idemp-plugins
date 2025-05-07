@@ -288,6 +288,40 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	}
 
 	/**
+	 * Set Parent Asset.
+	 *
+	 * @param A_Parent_Asset Parent Asset
+	 */
+	@JsonProperty("A_Parent_Asset")
+	public void setA_Parent_AssetInput(ForeignEntityInput A_Parent_Asset) {
+		this.mA_Parent_Asset = A_Parent_Asset;
+		if (A_Parent_Asset != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAsset foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
+							.setParameters(A_Parent_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setA_Parent_Asset_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table A_Asset with UU " + A_Parent_Asset.getUU());
+			}
+		} else {
+			this.setA_Parent_Asset_ID(0);
+		}
+	}
+
+	/**
+	 * Get Parent Asset.
+	 *
+	 * @return Parent Asset
+	 */
+	@JsonProperty("A_Parent_Asset")
+	public ForeignEntityInput A_Parent_Asset() {
+		return mA_Parent_Asset;
+	}
+
+	/**
 	 * Set Organization.
 	 *
 	 * @param AD_Org Organizational entity within tenant
@@ -356,40 +390,6 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
-	}
-
-	/**
-	 * Set Parent Asset.
-	 *
-	 * @param A_Parent_Asset Parent Asset
-	 */
-	@JsonProperty("A_Parent_Asset")
-	public void setA_Parent_AssetInput(ForeignEntityInput A_Parent_Asset) {
-		this.mA_Parent_Asset = A_Parent_Asset;
-		if (A_Parent_Asset != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MAsset foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Parent_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setA_Parent_Asset_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table A_Asset with UU " + A_Parent_Asset.getUU());
-			}
-		} else {
-			this.setA_Parent_Asset_ID(0);
-		}
-	}
-
-	/**
-	 * Get Parent Asset.
-	 *
-	 * @return Parent Asset
-	 */
-	@JsonProperty("A_Parent_Asset")
-	public ForeignEntityInput A_Parent_Asset() {
-		return mA_Parent_Asset;
 	}
 
 	/**

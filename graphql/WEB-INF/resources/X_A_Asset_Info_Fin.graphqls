@@ -22,10 +22,6 @@ type A_Asset_Info_Fin {
 	A_Asset: A_Asset!
 	UU: ID!
 	A_Contract_Date: Date
-	# Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	A_Due_On: AD_Ref_List
 	A_Expired_Date: Date
 	A_Finance_Meth: AD_Ref_List
@@ -34,6 +30,10 @@ type A_Asset_Info_Fin {
 	A_Purchase_Option_Credit: Int
 	A_Purchase_Option_Credit_Per: BigDecimal
 	A_Purchase_Price: BigDecimal
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Date this record was created
@@ -57,8 +57,6 @@ input A_Asset_Info_FinInput {
 	A_Asset: ForeignEntityInput
 	UU: ID
 	A_Contract_Date: Date
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	A_Due_On: ForeignEntityInput
 	A_Expired_Date: Date
 	A_Finance_Meth: ForeignEntityInput
@@ -67,6 +65,8 @@ input A_Asset_Info_FinInput {
 	A_Purchase_Option_Credit: Int
 	A_Purchase_Option_Credit_Per: BigDecimal
 	A_Purchase_Price: BigDecimal
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# The record is active in the system

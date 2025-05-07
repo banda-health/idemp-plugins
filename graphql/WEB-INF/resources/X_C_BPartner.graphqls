@@ -26,10 +26,10 @@ type C_BPartner {
 	AD_Client: AD_Client!
 	# Language for this entity
 	AD_Language: AD_Language
-	# The Business Partner is another Organization for explicit Inter-Org transactions
-	AD_OrgBP_ID: Int
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# The Business Partner is another Organization for explicit Inter-Org transactions
+	AD_OrgBP_ID: Int
 	# Birthday or Anniversary day
 	BH_Birthday: Date
 	# Electronic Mail Address
@@ -48,9 +48,9 @@ type C_BPartner {
 	BH_PatientID: String
 	# Identifies a telephone number
 	BH_Phone: String
-	UU: ID!
 	# Business Partner Group
 	C_BP_Group: C_BP_Group!
+	UU: ID!
 	# Dunning Rules for overdue invoices
 	C_Dunning: C_Dunning
 	# Greeting to print on correspondence
@@ -59,11 +59,11 @@ type C_BPartner {
 	C_InvoiceSchedule: C_InvoiceSchedule
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm
+	C_TaxGroup: C_TaxGroup
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	C_TaxGroup: C_TaxGroup
 	CustomerProfileID: String
 	Default1099Box: C_1099Box
 	# Defines the timing of Delivery
@@ -158,12 +158,12 @@ type C_BPartner {
 	ShelfLifeMinPct: Int
 	# Total outstanding invoice amounts allowed
 	SO_CreditLimit: BigDecimal!
-	# Business Partner Credit Status
-	SOCreditStatus: AD_Ref_List
 	# Current open balance
 	SO_CreditUsed: BigDecimal!
 	# Description to be used on orders
 	SO_Description: String
+	# Business Partner Credit Status
+	SOCreditStatus: AD_Ref_List
 	# Tax Identification
 	TaxID: String
 	# Total Open Balance Amount in primary Accounting Currency
@@ -185,10 +185,10 @@ input C_BPartnerInput {
 	ActualLifeTimeValue: BigDecimal
 	# Language for this entity
 	AD_Language: ForeignEntityInput
-	# The Business Partner is another Organization for explicit Inter-Org transactions
-	AD_OrgBP_ID: Int
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# The Business Partner is another Organization for explicit Inter-Org transactions
+	AD_OrgBP_ID: Int
 	# Birthday or Anniversary day
 	BH_Birthday: Date
 	# Electronic Mail Address
@@ -207,9 +207,9 @@ input C_BPartnerInput {
 	BH_PatientID: String
 	# Identifies a telephone number
 	BH_Phone: String
-	UU: ID
 	# Business Partner Group
 	C_BP_Group: ForeignEntityInput
+	UU: ID
 	# Dunning Rules for overdue invoices
 	C_Dunning: ForeignEntityInput
 	# Greeting to print on correspondence
@@ -313,12 +313,12 @@ input C_BPartnerInput {
 	ShelfLifeMinPct: Int
 	# Total outstanding invoice amounts allowed
 	SO_CreditLimit: BigDecimal
-	# Business Partner Credit Status
-	SOCreditStatus: ForeignEntityInput
 	# Current open balance
 	SO_CreditUsed: BigDecimal
 	# Description to be used on orders
 	SO_Description: String
+	# Business Partner Credit Status
+	SOCreditStatus: ForeignEntityInput
 	# Tax Identification
 	TaxID: String
 	# Total Open Balance Amount in primary Accounting Currency

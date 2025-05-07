@@ -32,8 +32,8 @@ type M_Shipper {
 	CreateFrom: String
 	# The record is active in the system
 	IsActive: Boolean!
-	M_ShipperCfg: M_ShipperCfg
 	UU: ID!
+	M_ShipperCfg: M_ShipperCfg
 	M_ShippingProcessor: M_ShippingProcessor
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -52,8 +52,8 @@ input M_ShipperInput {
 	CreateFrom: String
 	# The record is active in the system
 	IsActive: Boolean
-	M_ShipperCfg: ForeignEntityInput
 	UU: ID
+	M_ShipperCfg: ForeignEntityInput
 	M_ShippingProcessor: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

@@ -22,9 +22,9 @@ type C_DocTypeCounter {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# Document type or rules
 	C_DocType: C_DocType!
+	UU: ID!
 	# Generated Counter Document Type (To)
 	Counter_C_DocType: C_DocType!
 	# Date this record was created
@@ -53,9 +53,9 @@ type C_DocTypeCounter {
 input C_DocTypeCounterInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# Document type or rules
 	C_DocType: ForeignEntityInput
+	UU: ID
 	# Generated Counter Document Type (To)
 	Counter_C_DocType: ForeignEntityInput
 	# Optional short description of the record

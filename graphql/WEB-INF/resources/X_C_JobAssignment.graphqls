@@ -24,9 +24,9 @@ type C_JobAssignment {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	UU: ID!
 	# Job Position
 	C_Job: C_Job!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -50,9 +50,9 @@ input C_JobAssignmentInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	UU: ID
 	# Job Position
 	C_Job: ForeignEntityInput
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

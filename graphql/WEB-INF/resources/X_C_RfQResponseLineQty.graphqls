@@ -22,15 +22,15 @@ type C_RfQResponseLineQty {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Date this record was created
-	Created: DateTime!
-	# User who created this records
-	CreatedBy: AD_User!
 	# Request for Quotation Line Quantity
 	C_RfQLineQty: C_RfQLineQty!
 	# Request for Quotation Response Line
 	C_RfQResponseLine: C_RfQResponseLine!
 	UU: ID!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
 	# Discount in percent
 	Discount: BigDecimal
 	# The record is active in the system

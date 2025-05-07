@@ -55,13 +55,9 @@ type C_Order {
 	C_DocType: C_DocType!
 	# Target document type for conversing documents
 	C_DocTypeTarget: C_DocType!
-	# Charge Amount
-	ChargeAmt: BigDecimal
 	C_Opportunity: C_Opportunity
-	# Copy From Record
-	CopyFrom: String
-	C_OrderSource: C_OrderSource
 	UU: ID!
+	C_OrderSource: C_OrderSource
 	# Payment identifier
 	C_Payment: C_Payment
 	# The terms of Payment (timing, discount)
@@ -70,6 +66,10 @@ type C_Order {
 	C_POS: C_POS
 	# Financial Project
 	C_Project: C_Project
+	# Charge Amount
+	ChargeAmt: BigDecimal
+	# Copy From Record
+	CopyFrom: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -221,13 +221,9 @@ input C_OrderInput {
 	C_DocType: ForeignEntityInput
 	# Target document type for conversing documents
 	C_DocTypeTarget: ForeignEntityInput
-	# Charge Amount
-	ChargeAmt: BigDecimal
 	C_Opportunity: ForeignEntityInput
-	# Copy From Record
-	CopyFrom: String
-	C_OrderSource: ForeignEntityInput
 	UU: ID
+	C_OrderSource: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	# The terms of Payment (timing, discount)
@@ -236,6 +232,10 @@ input C_OrderInput {
 	C_POS: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: BigDecimal
+	# Copy From Record
+	CopyFrom: String
 	# Accounting Date
 	DateAcct: Date
 	# Date of Order

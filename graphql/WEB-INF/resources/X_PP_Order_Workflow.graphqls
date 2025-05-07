@@ -78,10 +78,10 @@ type PP_Order_Workflow {
 	QtyBatchSize: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
-	# Setup time before starting Production
-	SetupTime: Int
 	# Resource
 	S_Resource: S_Resource
+	# Setup time before starting Production
+	SetupTime: Int
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
 	UnitsCycles: BigDecimal
 	# Date this record was updated
@@ -162,10 +162,10 @@ input PP_Order_WorkflowInput {
 	QtyBatchSize: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
-	# Setup time before starting Production
-	SetupTime: Int
 	# Resource
 	S_Resource: ForeignEntityInput
+	# Setup time before starting Production
+	SetupTime: Int
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
 	UnitsCycles: BigDecimal
 	ValidateWorkflow: String

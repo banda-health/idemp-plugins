@@ -34,14 +34,14 @@ type R_RequestAction {
 	C_BPartner: C_BPartner
 	# Invoice Identifier
 	C_Invoice: C_Invoice
-	# Type of Confidentiality
-	ConfidentialType: AD_Ref_List
 	# Order
 	C_Order: C_Order
 	# Payment identifier
 	C_Payment: C_Payment
 	# Financial Project
 	C_Project: C_Project
+	# Type of Confidentiality
+	ConfidentialType: AD_Ref_List
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -86,9 +86,9 @@ type R_RequestAction {
 	R_Category: R_Category
 	# Request Group
 	R_Group: R_Group
-	UU: ID!
 	# Request from a Business Partner or Prospect
 	R_Request: R_Request!
+	UU: ID!
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType
 	# Request Resolution
@@ -124,14 +124,14 @@ input R_RequestActionInput {
 	C_BPartner: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
-	# Type of Confidentiality
-	ConfidentialType: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
+	# Type of Confidentiality
+	ConfidentialType: ForeignEntityInput
 	# Planned Completion Date
 	DateCompletePlan: Date
 	# Date that this request should be acted on
@@ -172,9 +172,9 @@ input R_RequestActionInput {
 	R_Category: ForeignEntityInput
 	# Request Group
 	R_Group: ForeignEntityInput
-	UU: ID
 	# Request from a Business Partner or Prospect
 	R_Request: ForeignEntityInput
+	UU: ID
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
 	# Request Resolution

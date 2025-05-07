@@ -347,20 +347,6 @@ public interface I_M_InOutInput extends I_M_InOut {
 	String getUU();
 
 	/**
-	 * Set MovementType.
-	 *
-	 * @param MovementType Method of moving the inventory
-	 */
-	void setMovementTypeInput(ForeignEntityInput MovementType);
-
-	/**
-	 * Get MovementType.
-	 *
-	 * @return Method of moving the inventory
-	 */
-	ForeignEntityInput MovementType();
-
-	/**
 	 * Set M_RMA.
 	 *
 	 * @param M_RMA Return Material Authorization
@@ -401,6 +387,20 @@ public interface I_M_InOutInput extends I_M_InOut {
 	 * @return Storage Warehouse and Service Point
 	 */
 	ForeignEntityInput M_Warehouse();
+
+	/**
+	 * Set MovementType.
+	 *
+	 * @param MovementType Method of moving the inventory
+	 */
+	void setMovementTypeInput(ForeignEntityInput MovementType);
+
+	/**
+	 * Get MovementType.
+	 *
+	 * @return Method of moving the inventory
+	 */
+	ForeignEntityInput MovementType();
 
 	/**
 	 * Set PriorityRule.

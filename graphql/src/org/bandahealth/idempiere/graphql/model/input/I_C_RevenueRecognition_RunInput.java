@@ -25,6 +25,20 @@ public interface I_C_RevenueRecognition_RunInput extends I_C_RevenueRecognition_
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Set C_RevenueRecog_Service.
+	 *
+	 * @param C_RevenueRecog_Service C_RevenueRecog_Service
+	 */
+	void setC_RevenueRecog_ServiceInput(ForeignEntityInput C_RevenueRecog_Service);
+
+	/**
+	 * Get C_RevenueRecog_Service.
+	 *
+	 * @return C_RevenueRecog_Service
+	 */
+	ForeignEntityInput C_RevenueRecog_Service();
+
+	/**
 	 * Set C_RevenueRecognition_Plan.
 	 *
 	 * @param C_RevenueRecognition_Plan Plan for recognizing or recording revenue
@@ -51,20 +65,6 @@ public interface I_C_RevenueRecognition_RunInput extends I_C_RevenueRecognition_
 	 * @return UU
 	 */
 	String getUU();
-
-	/**
-	 * Set C_RevenueRecog_Service.
-	 *
-	 * @param C_RevenueRecog_Service C_RevenueRecog_Service
-	 */
-	void setC_RevenueRecog_ServiceInput(ForeignEntityInput C_RevenueRecog_Service);
-
-	/**
-	 * Get C_RevenueRecog_Service.
-	 *
-	 * @return C_RevenueRecog_Service
-	 */
-	ForeignEntityInput C_RevenueRecog_Service();
 
 	/**
 	 * Set GL_Journal.

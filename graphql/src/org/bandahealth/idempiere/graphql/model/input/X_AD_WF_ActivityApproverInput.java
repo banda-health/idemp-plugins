@@ -107,35 +107,6 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
-	/**
-	 * Set Workflow Activity Approver.
-	 *
-	 * @param AD_WF_ActivityApprover_ID Workflow Activity Approver
-	 */
-	@JsonProperty("AD_WF_ActivityApprover_ID")
-	public void setAD_WF_ActivityApprover_IDFromJson(int AD_WF_ActivityApprover_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_ActivityApprover_ID(AD_WF_ActivityApprover_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_WF_ActivityApprover_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_WF_ActivityApprover_UU();
-	}
 
 	/**
 	 * Set Workflow Activity.
@@ -172,5 +143,34 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	@JsonProperty("AD_WF_Activity")
 	public ForeignEntityInput AD_WF_Activity() {
 		return mAD_WF_Activity;
+	}
+	/**
+	 * Set Workflow Activity Approver.
+	 *
+	 * @param AD_WF_ActivityApprover_ID Workflow Activity Approver
+	 */
+	@JsonProperty("AD_WF_ActivityApprover_ID")
+	public void setAD_WF_ActivityApprover_IDFromJson(int AD_WF_ActivityApprover_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_ActivityApprover_ID(AD_WF_ActivityApprover_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_WF_ActivityApprover_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_WF_ActivityApprover_UU();
 	}
 }

@@ -41,12 +41,12 @@ type C_AcctSchema_Element {
 	C_Location: C_Location
 	# Financial Project
 	C_Project: C_Project
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Sales coverage region
-	C_SalesRegion: C_SalesRegion
 	# Element Type (account or user defined)
 	ElementType: AD_Ref_List!
 	# The record is active in the system

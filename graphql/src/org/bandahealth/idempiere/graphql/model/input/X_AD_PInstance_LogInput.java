@@ -150,6 +150,28 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 			super.setP_Date(P_Date);
 		}
 	}
+	/**
+	 * Set Process Message.
+	 *
+	 * @param P_Msg Process Message
+	 */
+	@JsonProperty("P_Msg")
+	public void setP_MsgFromJson(String P_Msg) {
+		if (get_ID() == 0) {
+			super.setP_Msg(P_Msg);
+		}
+	}
+	/**
+	 * Set Process Number.
+	 *
+	 * @param P_Number Process Parameter
+	 */
+	@JsonProperty("P_Number")
+	public void setP_NumberFromJson(BigDecimal P_Number) {
+		if (get_ID() == 0) {
+			super.setP_Number(P_Number);
+		}
+	}
 
 	/**
 	 * Set Log Type.
@@ -188,27 +210,5 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	@JsonProperty("PInstanceLogType")
 	public ForeignEntityInput PInstanceLogType() {
 		return mPInstanceLogType;
-	}
-	/**
-	 * Set Process Message.
-	 *
-	 * @param P_Msg Process Message
-	 */
-	@JsonProperty("P_Msg")
-	public void setP_MsgFromJson(String P_Msg) {
-		if (get_ID() == 0) {
-			super.setP_Msg(P_Msg);
-		}
-	}
-	/**
-	 * Set Process Number.
-	 *
-	 * @param P_Number Process Parameter
-	 */
-	@JsonProperty("P_Number")
-	public void setP_NumberFromJson(BigDecimal P_Number) {
-		if (get_ID() == 0) {
-			super.setP_Number(P_Number);
-		}
 	}
 }

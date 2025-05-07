@@ -26,8 +26,8 @@ type C_OrderLandedCostAllocation {
 	Amt: BigDecimal!
 	# Calculation Base
 	Base: BigDecimal!
-	UU: ID!
 	C_OrderLandedCost: C_OrderLandedCost!
+	UU: ID!
 	# Sales Order Line
 	C_OrderLine: C_OrderLine!
 	# Date this record was created
@@ -53,8 +53,8 @@ input C_OrderLandedCostAllocationInput {
 	Amt: BigDecimal
 	# Calculation Base
 	Base: BigDecimal
-	UU: ID
 	C_OrderLandedCost: ForeignEntityInput
+	UU: ID
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# The record is active in the system

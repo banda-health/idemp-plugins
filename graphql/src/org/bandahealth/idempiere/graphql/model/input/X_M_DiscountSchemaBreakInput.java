@@ -75,35 +75,6 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-	/**
-	 * Set Discount Schema Break.
-	 *
-	 * @param M_DiscountSchemaBreak_ID Trade Discount Break
-	 */
-	@JsonProperty("M_DiscountSchemaBreak_ID")
-	public void setM_DiscountSchemaBreak_IDFromJson(int M_DiscountSchemaBreak_ID) {
-		if (get_ID() == 0) {
-			super.setM_DiscountSchemaBreak_ID(M_DiscountSchemaBreak_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_DiscountSchemaBreak_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_DiscountSchemaBreak_UU();
-	}
 
 	/**
 	 * Set Discount Schema.
@@ -140,6 +111,35 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 	@JsonProperty("M_DiscountSchema")
 	public ForeignEntityInput M_DiscountSchema() {
 		return mM_DiscountSchema;
+	}
+	/**
+	 * Set Discount Schema Break.
+	 *
+	 * @param M_DiscountSchemaBreak_ID Trade Discount Break
+	 */
+	@JsonProperty("M_DiscountSchemaBreak_ID")
+	public void setM_DiscountSchemaBreak_IDFromJson(int M_DiscountSchemaBreak_ID) {
+		if (get_ID() == 0) {
+			super.setM_DiscountSchemaBreak_ID(M_DiscountSchemaBreak_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_DiscountSchemaBreak_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_DiscountSchemaBreak_UU();
 	}
 
 	/**

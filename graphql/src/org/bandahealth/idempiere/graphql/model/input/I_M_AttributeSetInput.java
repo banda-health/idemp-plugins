@@ -44,20 +44,6 @@ public interface I_M_AttributeSetInput extends I_M_AttributeSet {
 	boolean isBH_Locked();
 
 	/**
-	 * Set MandatoryType.
-	 *
-	 * @param MandatoryType The specification of a Product Attribute Instance is mandatory
-	 */
-	void setMandatoryTypeInput(ForeignEntityInput MandatoryType);
-
-	/**
-	 * Get MandatoryType.
-	 *
-	 * @return The specification of a Product Attribute Instance is mandatory
-	 */
-	ForeignEntityInput MandatoryType();
-
-	/**
 	 * Set M_AttributeSet_Type.
 	 *
 	 * @param M_AttributeSet_Type M_AttributeSet_Type
@@ -112,4 +98,18 @@ public interface I_M_AttributeSetInput extends I_M_AttributeSet {
 	 * @return Product Serial Number Control
 	 */
 	ForeignEntityInput M_SerNoCtl();
+
+	/**
+	 * Set MandatoryType.
+	 *
+	 * @param MandatoryType The specification of a Product Attribute Instance is mandatory
+	 */
+	void setMandatoryTypeInput(ForeignEntityInput MandatoryType);
+
+	/**
+	 * Get MandatoryType.
+	 *
+	 * @return The specification of a Product Attribute Instance is mandatory
+	 */
+	ForeignEntityInput MandatoryType();
 }

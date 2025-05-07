@@ -82,45 +82,6 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	}
 
 	/**
-	 * Set Check Status.
-	 *
-	 * @param CheckStatus Check Status
-	 */
-	@JsonProperty("CheckStatus")
-	public void setCheckStatusInput(ForeignEntityInput CheckStatus) {
-		this.mCheckStatus = CheckStatus;
-		if (CheckStatus != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_C_POSPaymentResolver.CHECKSTATUS_UUIDS_BY_VALUE.containsValue(CheckStatus.getUU())) {
-				throw new AdempiereException("The reference list UU of " + CheckStatus.getUU() +
-						" is not in the list defined for the CheckStatus column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CheckStatus.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setCheckStatus(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CheckStatus.getUU());
-			}
-		} else {
-			this.setCheckStatus(null);
-		}
-	}
-
-	/**
-	 * Get Check Status.
-	 *
-	 * @return Check Status
-	 */
-	@JsonProperty("CheckStatus")
-	public ForeignEntityInput CheckStatus() {
-		return mCheckStatus;
-	}
-
-	/**
 	 * Set Order.
 	 *
 	 * @param C_Order Order
@@ -252,6 +213,45 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	@JsonProperty("C_POSTenderType")
 	public ForeignEntityInput C_POSTenderType() {
 		return mC_POSTenderType;
+	}
+
+	/**
+	 * Set Check Status.
+	 *
+	 * @param CheckStatus Check Status
+	 */
+	@JsonProperty("CheckStatus")
+	public void setCheckStatusInput(ForeignEntityInput CheckStatus) {
+		this.mCheckStatus = CheckStatus;
+		if (CheckStatus != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_POSPaymentResolver.CHECKSTATUS_UUIDS_BY_VALUE.containsValue(CheckStatus.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CheckStatus.getUU() +
+						" is not in the list defined for the CheckStatus column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CheckStatus.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setCheckStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CheckStatus.getUU());
+			}
+		} else {
+			this.setCheckStatus(null);
+		}
+	}
+
+	/**
+	 * Get Check Status.
+	 *
+	 * @return Check Status
+	 */
+	@JsonProperty("CheckStatus")
+	public ForeignEntityInput CheckStatus() {
+		return mCheckStatus;
 	}
 
 	/**

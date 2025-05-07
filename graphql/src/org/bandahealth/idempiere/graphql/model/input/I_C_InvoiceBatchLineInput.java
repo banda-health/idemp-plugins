@@ -109,6 +109,20 @@ public interface I_C_InvoiceBatchLineInput extends I_C_InvoiceBatchLine {
 	ForeignEntityInput C_DocType();
 
 	/**
+	 * Set C_Invoice.
+	 *
+	 * @param C_Invoice Invoice Identifier
+	 */
+	void setC_InvoiceInput(ForeignEntityInput C_Invoice);
+
+	/**
+	 * Get C_Invoice.
+	 *
+	 * @return Invoice Identifier
+	 */
+	ForeignEntityInput C_Invoice();
+
+	/**
 	 * Set C_InvoiceBatch.
 	 *
 	 * @param C_InvoiceBatch Expense Invoice Batch Header
@@ -135,20 +149,6 @@ public interface I_C_InvoiceBatchLineInput extends I_C_InvoiceBatchLine {
 	 * @return UU
 	 */
 	String getUU();
-
-	/**
-	 * Set C_Invoice.
-	 *
-	 * @param C_Invoice Invoice Identifier
-	 */
-	void setC_InvoiceInput(ForeignEntityInput C_Invoice);
-
-	/**
-	 * Get C_Invoice.
-	 *
-	 * @return Invoice Identifier
-	 */
-	ForeignEntityInput C_Invoice();
 
 	/**
 	 * Set C_InvoiceLine.

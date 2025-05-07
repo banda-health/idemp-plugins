@@ -95,20 +95,6 @@ public interface I_AD_SchedulerInput extends I_AD_Scheduler {
 	ForeignEntityInput AD_Table();
 
 	/**
-	 * Set ReportOutputType.
-	 *
-	 * @param ReportOutputType ReportOutputType
-	 */
-	void setReportOutputTypeInput(ForeignEntityInput ReportOutputType);
-
-	/**
-	 * Get ReportOutputType.
-	 *
-	 * @return ReportOutputType
-	 */
-	ForeignEntityInput ReportOutputType();
-
-	/**
 	 * Set R_MailText.
 	 *
 	 * @param R_MailText Text templates for mailings
@@ -121,6 +107,20 @@ public interface I_AD_SchedulerInput extends I_AD_Scheduler {
 	 * @return Text templates for mailings
 	 */
 	ForeignEntityInput R_MailText();
+
+	/**
+	 * Set ReportOutputType.
+	 *
+	 * @param ReportOutputType ReportOutputType
+	 */
+	void setReportOutputTypeInput(ForeignEntityInput ReportOutputType);
+
+	/**
+	 * Get ReportOutputType.
+	 *
+	 * @return ReportOutputType
+	 */
+	ForeignEntityInput ReportOutputType();
 
 	/**
 	 * Set Supervisor.

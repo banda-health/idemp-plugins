@@ -25,18 +25,18 @@ public interface I_C_CountryGroupCountryInput extends I_C_CountryGroupCountry {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
+	 * Set C_Country.
 	 *
-	 * @param UU UU
+	 * @param C_Country Country 
 	 */
-	void setUU(String UU);
+	void setC_CountryInput(ForeignEntityInput C_Country);
 
 	/**
-	 * Get UU.
+	 * Get C_Country.
 	 *
-	 * @return UU
+	 * @return Country 
 	 */
-	String getUU();
+	ForeignEntityInput C_Country();
 
 	/**
 	 * Set C_CountryGroup.
@@ -53,16 +53,16 @@ public interface I_C_CountryGroupCountryInput extends I_C_CountryGroupCountry {
 	ForeignEntityInput C_CountryGroup();
 
 	/**
-	 * Set C_Country.
+	 * Set UU.
 	 *
-	 * @param C_Country Country 
+	 * @param UU UU
 	 */
-	void setC_CountryInput(ForeignEntityInput C_Country);
+	void setUU(String UU);
 
 	/**
-	 * Get C_Country.
+	 * Get UU.
 	 *
-	 * @return Country 
+	 * @return UU
 	 */
-	ForeignEntityInput C_Country();
+	String getUU();
 }

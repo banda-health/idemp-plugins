@@ -39,6 +39,51 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 
 
 	/**
+	 * Get Cash Book.
+	 *
+	 * @return Cash Book for recording petty cash transactions
+	 */
+	public CompletableFuture<MCashBook> C_CashBook(MPOSTerminal entity, DataFetchingEnvironment environment) {
+		if (entity.getC_CashBook_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MCashBook> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.DATALOADER_C_CashBook_BY_ID);
+		return dataLoader.load(entity.getC_CashBook_ID());
+	}
+
+
+	/**
+	 * Get Cash BPartner.
+	 *
+	 * @return BPartner to be used for Cash transactions
+	 */
+	public CompletableFuture<MBPartner_BH> C_CashBPartner(MPOSTerminal entity, DataFetchingEnvironment environment) {
+		if (entity.getC_CashBPartner_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBPartner_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
+		return dataLoader.load(entity.getC_CashBPartner_ID());
+	}
+
+
+	/**
+	 * Get Template BPartner.
+	 *
+	 * @return BPartner that is to be used as template when new customers are created
+	 */
+	public CompletableFuture<MBPartner_BH> C_TemplateBPartner(MPOSTerminal entity, DataFetchingEnvironment environment) {
+		if (entity.getC_TemplateBPartner_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBPartner_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
+		return dataLoader.load(entity.getC_TemplateBPartner_ID());
+	}
+
+
+	/**
 	 * Get Card Bank Account.
 	 *
 	 * @return Bank Account on which card transactions will be processed
@@ -144,36 +189,6 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 
 
 	/**
-	 * Get Cash Book.
-	 *
-	 * @return Cash Book for recording petty cash transactions
-	 */
-	public CompletableFuture<MCashBook> C_CashBook(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashBook_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MCashBook> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.DATALOADER_C_CashBook_BY_ID);
-		return dataLoader.load(entity.getC_CashBook_ID());
-	}
-
-
-	/**
-	 * Get Cash BPartner.
-	 *
-	 * @return BPartner to be used for Cash transactions
-	 */
-	public CompletableFuture<MBPartner_BH> C_CashBPartner(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashBPartner_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
-		return dataLoader.load(entity.getC_CashBPartner_ID());
-	}
-
-
-	/**
 	 * Get Check Bank Account.
 	 *
 	 * @return Bank Account to be used for processing Check transactions
@@ -230,21 +245,6 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(CHECKTRANSFERTYPE_UUIDS_BY_VALUE.get(entity.getCheckTransferType()));
-	}
-
-
-	/**
-	 * Get Template BPartner.
-	 *
-	 * @return BPartner that is to be used as template when new customers are created
-	 */
-	public CompletableFuture<MBPartner_BH> C_TemplateBPartner(MPOSTerminal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TemplateBPartner_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
-		return dataLoader.load(entity.getC_TemplateBPartner_ID());
 	}
 
 	public Boolean Locked(MPOSTerminal entity, DataFetchingEnvironment environment) {

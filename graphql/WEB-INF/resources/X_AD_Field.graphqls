@@ -23,11 +23,11 @@ type AD_Field {
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column!
+	UU: ID!
 	# Logical grouping of fields
 	AD_FieldGroup: AD_FieldGroup
 	# Field CSS Style 
 	AD_FieldStyle: AD_Style
-	UU: ID!
 	# Label CSS Style
 	AD_LabelStyle: AD_Style
 	# Organizational entity within tenant
@@ -133,11 +133,11 @@ input AD_FieldInput {
 	AD_Chart: ForeignEntityInput
 	# Column in the table
 	AD_Column: ForeignEntityInput
+	UU: ID
 	# Logical grouping of fields
 	AD_FieldGroup: ForeignEntityInput
 	# Field CSS Style 
 	AD_FieldStyle: ForeignEntityInput
-	UU: ID
 	# Label CSS Style
 	AD_LabelStyle: ForeignEntityInput
 	# Organizational entity within tenant

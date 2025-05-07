@@ -53,20 +53,6 @@ public interface I_T_AgingInput extends I_T_Aging {
 	ForeignEntityInput C_Activity();
 
 	/**
-	 * Set C_BPartner.
-	 *
-	 * @param C_BPartner Identifies a Business Partner
-	 */
-	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
-
-	/**
-	 * Get C_BPartner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	ForeignEntityInput C_BPartner();
-
-	/**
 	 * Set C_BP_Group.
 	 *
 	 * @param C_BP_Group Business Partner Group
@@ -79,6 +65,20 @@ public interface I_T_AgingInput extends I_T_Aging {
 	 * @return Business Partner Group
 	 */
 	ForeignEntityInput C_BP_Group();
+
+	/**
+	 * Set C_BPartner.
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
+
+	/**
+	 * Get C_BPartner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set C_Campaign.
@@ -137,20 +137,6 @@ public interface I_T_AgingInput extends I_T_Aging {
 	ForeignEntityInput C_InvoicePaySchedule();
 
 	/**
-	 * Set ConvertAmountsInCurrency.
-	 *
-	 * @param ConvertAmountsInCurrency ConvertAmountsInCurrency
-	 */
-	void setConvertAmountsInCurrencyInput(ForeignEntityInput ConvertAmountsInCurrency);
-
-	/**
-	 * Get ConvertAmountsInCurrency.
-	 *
-	 * @return ConvertAmountsInCurrency
-	 */
-	ForeignEntityInput ConvertAmountsInCurrency();
-
-	/**
 	 * Set C_Project.
 	 *
 	 * @param C_Project Financial Project
@@ -163,6 +149,20 @@ public interface I_T_AgingInput extends I_T_Aging {
 	 * @return Financial Project
 	 */
 	ForeignEntityInput C_Project();
+
+	/**
+	 * Set ConvertAmountsInCurrency.
+	 *
+	 * @param ConvertAmountsInCurrency ConvertAmountsInCurrency
+	 */
+	void setConvertAmountsInCurrencyInput(ForeignEntityInput ConvertAmountsInCurrency);
+
+	/**
+	 * Get ConvertAmountsInCurrency.
+	 *
+	 * @return ConvertAmountsInCurrency
+	 */
+	ForeignEntityInput ConvertAmountsInCurrency();
 
 	/**
 	 * Set UU.

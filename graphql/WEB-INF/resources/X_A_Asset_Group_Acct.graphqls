@@ -23,8 +23,6 @@ type A_Asset_Group_Acct {
 	UU: ID!
 	# Group of Assets
 	A_Asset_Group: A_Asset_Group!
-	# Tenant for this installation.
-	AD_Client: AD_Client!
 	A_Depreciation_A: C_ValidCombination!
 	A_Depreciation_Conv_F: A_Depreciation_Convention
 	A_Depreciation_Conv: A_Depreciation_Convention
@@ -40,8 +38,6 @@ type A_Asset_Group_Acct {
 	A_Disposal_Gain_A: C_ValidCombination
 	A_Disposal_Loss_A: C_ValidCombination!
 	A_Disposal_Revenue_A: C_ValidCombination!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	A_Reval_Adep_Offset_Cur_A: C_ValidCombination
 	A_Reval_Adep_Offset_Prior_A: C_ValidCombination
 	A_Reval_Cal_Method: AD_Ref_List
@@ -49,6 +45,10 @@ type A_Asset_Group_Acct {
 	A_Reval_Cost_Offset_Prior_A: C_ValidCombination
 	A_Reval_Depexp_Offset_A: C_ValidCombination
 	A_Split_Percent: BigDecimal!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Date this record was created
@@ -93,8 +93,6 @@ input A_Asset_Group_AcctInput {
 	A_Disposal_Gain_A: ForeignEntityInput
 	A_Disposal_Loss_A: ForeignEntityInput
 	A_Disposal_Revenue_A: ForeignEntityInput
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	A_Reval_Adep_Offset_Cur_A: ForeignEntityInput
 	A_Reval_Adep_Offset_Prior_A: ForeignEntityInput
 	A_Reval_Cal_Method: ForeignEntityInput
@@ -102,6 +100,8 @@ input A_Asset_Group_AcctInput {
 	A_Reval_Cost_Offset_Prior_A: ForeignEntityInput
 	A_Reval_Depexp_Offset_A: ForeignEntityInput
 	A_Split_Percent: BigDecimal
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# The record is active in the system

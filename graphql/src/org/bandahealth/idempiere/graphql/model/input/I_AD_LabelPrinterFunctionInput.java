@@ -11,20 +11,6 @@ import org.compiere.model.I_AD_LabelPrinterFunction;
 public interface I_AD_LabelPrinterFunctionInput extends I_AD_LabelPrinterFunction {
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set AD_LabelPrinter.
 	 *
 	 * @param AD_LabelPrinter Label Printer Definition
@@ -37,6 +23,20 @@ public interface I_AD_LabelPrinterFunctionInput extends I_AD_LabelPrinterFunctio
 	 * @return Label Printer Definition
 	 */
 	ForeignEntityInput AD_LabelPrinter();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set AD_Org.

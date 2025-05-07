@@ -73,6 +73,35 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Topic.
+	 *
+	 * @param B_Topic_ID Auction Topic
+	 */
+	@JsonProperty("B_Topic_ID")
+	public void setB_Topic_IDFromJson(int B_Topic_ID) {
+		if (get_ID() == 0) {
+			super.setB_Topic_ID(B_Topic_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setB_Topic_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getB_Topic_UU();
+	}
 
 	/**
 	 * Set Topic Category.
@@ -110,17 +139,6 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 	public ForeignEntityInput B_TopicCategory() {
 		return mB_TopicCategory;
 	}
-	/**
-	 * Set Topic.
-	 *
-	 * @param B_Topic_ID Auction Topic
-	 */
-	@JsonProperty("B_Topic_ID")
-	public void setB_Topic_IDFromJson(int B_Topic_ID) {
-		if (get_ID() == 0) {
-			super.setB_Topic_ID(B_Topic_ID);
-		}
-	}
 
 	/**
 	 * Set Topic Type.
@@ -157,23 +175,5 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 	@JsonProperty("B_TopicType")
 	public ForeignEntityInput B_TopicType() {
 		return mB_TopicType;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setB_Topic_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getB_Topic_UU();
 	}
 }

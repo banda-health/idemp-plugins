@@ -95,20 +95,6 @@ public interface I_PP_Cost_CollectorInput extends I_PP_Cost_Collector {
 	ForeignEntityInput C_DocTypeTarget();
 
 	/**
-	 * Set CostCollectorType.
-	 *
-	 * @param CostCollectorType Transaction Type for Manufacturing Management
-	 */
-	void setCostCollectorTypeInput(ForeignEntityInput CostCollectorType);
-
-	/**
-	 * Get CostCollectorType.
-	 *
-	 * @return Transaction Type for Manufacturing Management
-	 */
-	ForeignEntityInput CostCollectorType();
-
-	/**
 	 * Set C_Project.
 	 *
 	 * @param C_Project Financial Project
@@ -135,6 +121,20 @@ public interface I_PP_Cost_CollectorInput extends I_PP_Cost_Collector {
 	 * @return Unit of Measure
 	 */
 	ForeignEntityInput C_UOM();
+
+	/**
+	 * Set CostCollectorType.
+	 *
+	 * @param CostCollectorType Transaction Type for Manufacturing Management
+	 */
+	void setCostCollectorTypeInput(ForeignEntityInput CostCollectorType);
+
+	/**
+	 * Get CostCollectorType.
+	 *
+	 * @return Transaction Type for Manufacturing Management
+	 */
+	ForeignEntityInput CostCollectorType();
 
 	/**
 	 * Set DocAction.

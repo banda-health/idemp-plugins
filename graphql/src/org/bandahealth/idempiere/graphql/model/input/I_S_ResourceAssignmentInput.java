@@ -25,20 +25,6 @@ public interface I_S_ResourceAssignmentInput extends I_S_ResourceAssignment {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set S_Resource.
 	 *
 	 * @param S_Resource Resource
@@ -51,4 +37,18 @@ public interface I_S_ResourceAssignmentInput extends I_S_ResourceAssignment {
 	 * @return Resource
 	 */
 	ForeignEntityInput S_Resource();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

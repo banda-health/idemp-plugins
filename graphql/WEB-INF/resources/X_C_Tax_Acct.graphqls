@@ -24,13 +24,13 @@ type C_Tax_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
+	UU: ID!
+	# Tax identifier
+	C_Tax: C_Tax!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	UU: ID!
-	# Tax identifier
-	C_Tax: C_Tax!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Account for Tax you can reclaim

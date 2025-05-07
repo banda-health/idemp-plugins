@@ -67,20 +67,6 @@ public interface I_C_POSKeyInput extends I_C_POSKey {
 	ForeignEntityInput AD_PrintFont();
 
 	/**
-	 * Set C_POSKeyLayout.
-	 *
-	 * @param C_POSKeyLayout POS Function Key Layout
-	 */
-	void setC_POSKeyLayoutInput(ForeignEntityInput C_POSKeyLayout);
-
-	/**
-	 * Get C_POSKeyLayout.
-	 *
-	 * @return POS Function Key Layout
-	 */
-	ForeignEntityInput C_POSKeyLayout();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -93,6 +79,20 @@ public interface I_C_POSKeyInput extends I_C_POSKey {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_POSKeyLayout.
+	 *
+	 * @param C_POSKeyLayout POS Function Key Layout
+	 */
+	void setC_POSKeyLayoutInput(ForeignEntityInput C_POSKeyLayout);
+
+	/**
+	 * Get C_POSKeyLayout.
+	 *
+	 * @return POS Function Key Layout
+	 */
+	ForeignEntityInput C_POSKeyLayout();
 
 	/**
 	 * Set M_Product.

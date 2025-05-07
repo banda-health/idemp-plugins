@@ -319,20 +319,6 @@ public interface I_AD_WF_NodeInput extends I_AD_WF_Node {
 	ForeignEntityInput R_MailText();
 
 	/**
-	 * Set SplitElement.
-	 *
-	 * @param SplitElement Semantics for multiple outgoing Transitions
-	 */
-	void setSplitElementInput(ForeignEntityInput SplitElement);
-
-	/**
-	 * Get SplitElement.
-	 *
-	 * @return Semantics for multiple outgoing Transitions
-	 */
-	ForeignEntityInput SplitElement();
-
-	/**
 	 * Set S_Resource.
 	 *
 	 * @param S_Resource Resource
@@ -345,6 +331,20 @@ public interface I_AD_WF_NodeInput extends I_AD_WF_Node {
 	 * @return Resource
 	 */
 	ForeignEntityInput S_Resource();
+
+	/**
+	 * Set SplitElement.
+	 *
+	 * @param SplitElement Semantics for multiple outgoing Transitions
+	 */
+	void setSplitElementInput(ForeignEntityInput SplitElement);
+
+	/**
+	 * Get SplitElement.
+	 *
+	 * @return Semantics for multiple outgoing Transitions
+	 */
+	ForeignEntityInput SplitElement();
 
 	/**
 	 * Set StartMode.

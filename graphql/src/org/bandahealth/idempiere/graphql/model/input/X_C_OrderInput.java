@@ -768,6 +768,24 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_Order_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_Order_UU();
+	}
+
+	/**
 	 * Set Order Source.
 	 *
 	 * @param C_OrderSource Order Source
@@ -799,24 +817,6 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_OrderSource")
 	public ForeignEntityInput C_OrderSource() {
 		return mC_OrderSource;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_Order_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_Order_UU();
 	}
 
 	/**

@@ -173,40 +173,6 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	}
 
 	/**
-	 * Set Organization.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
-		this.mAD_Org = AD_Org;
-		if (AD_Org != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MOrg foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setAD_Org_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
-			}
-		} else {
-			this.setAD_Org_ID(0);
-		}
-	}
-
-	/**
-	 * Get Organization.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	@JsonProperty("AD_Org")
-	public ForeignEntityInput AD_Org() {
-		return mAD_Org;
-	}
-
-	/**
 	 * Set Source Type.
 	 *
 	 * @param A_SourceType Source Type
@@ -243,6 +209,40 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	@JsonProperty("A_SourceType")
 	public ForeignEntityInput A_SourceType() {
 		return mA_SourceType;
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
+			}
+		} else {
+			this.setAD_Org_ID(0);
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**

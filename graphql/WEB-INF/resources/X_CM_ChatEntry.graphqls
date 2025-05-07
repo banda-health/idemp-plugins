@@ -28,13 +28,13 @@ type CM_ChatEntry {
 	CharacterData: String!
 	# Type of Chat/Forum Entry
 	ChatEntryType: AD_Ref_List!
+	# Chat or discussion thread
+	CM_Chat: CM_Chat!
+	UU: ID!
 	# Link to Grand Parent (root level)
 	CM_ChatEntryGrandParent: CM_ChatEntry
 	# Link to direct Parent
 	CM_ChatEntryParent: CM_ChatEntry
-	UU: ID!
-	# Chat or discussion thread
-	CM_Chat: CM_Chat!
 	# Type of Confidentiality
 	ConfidentialType: AD_Ref_List!
 	# Date this record was created
@@ -62,13 +62,13 @@ input CM_ChatEntryInput {
 	CharacterData: String
 	# Type of Chat/Forum Entry
 	ChatEntryType: ForeignEntityInput
+	# Chat or discussion thread
+	CM_Chat: ForeignEntityInput
+	UU: ID
 	# Link to Grand Parent (root level)
 	CM_ChatEntryGrandParent: ForeignEntityInput
 	# Link to direct Parent
 	CM_ChatEntryParent: ForeignEntityInput
-	UU: ID
-	# Chat or discussion thread
-	CM_Chat: ForeignEntityInput
 	# Type of Confidentiality
 	ConfidentialType: ForeignEntityInput
 	# The record is active in the system

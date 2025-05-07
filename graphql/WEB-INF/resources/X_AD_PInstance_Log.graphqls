@@ -28,11 +28,11 @@ type AD_PInstance_Log {
 	Log_ID: Int!
 	# Process Parameter
 	P_Date: Date
-	# Process Audit Log Type
-	PInstanceLogType: AD_Ref_List
 	P_Msg: String
 	# Process Parameter
 	P_Number: BigDecimal
+	# Process Audit Log Type
+	PInstanceLogType: AD_Ref_List
 }
 
 input AD_PInstance_LogInput {
@@ -46,9 +46,9 @@ input AD_PInstance_LogInput {
 	Log_ID: Int
 	# Process Parameter
 	P_Date: Date
-	# Process Audit Log Type
-	PInstanceLogType: ForeignEntityInput
 	P_Msg: String
 	# Process Parameter
 	P_Number: BigDecimal
+	# Process Audit Log Type
+	PInstanceLogType: ForeignEntityInput
 }

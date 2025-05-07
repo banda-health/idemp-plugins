@@ -151,34 +151,6 @@ public interface I_R_RequestInput extends I_R_Request {
 	ForeignEntityInput C_InvoiceRequest();
 
 	/**
-	 * Set ConfidentialType.
-	 *
-	 * @param ConfidentialType Type of Confidentiality
-	 */
-	void setConfidentialTypeInput(ForeignEntityInput ConfidentialType);
-
-	/**
-	 * Get ConfidentialType.
-	 *
-	 * @return Type of Confidentiality
-	 */
-	ForeignEntityInput ConfidentialType();
-
-	/**
-	 * Set ConfidentialTypeEntry.
-	 *
-	 * @param ConfidentialTypeEntry Confidentiality of the individual entry
-	 */
-	void setConfidentialTypeEntryInput(ForeignEntityInput ConfidentialTypeEntry);
-
-	/**
-	 * Get ConfidentialTypeEntry.
-	 *
-	 * @return Confidentiality of the individual entry
-	 */
-	ForeignEntityInput ConfidentialTypeEntry();
-
-	/**
 	 * Set C_Order.
 	 *
 	 * @param C_Order Order
@@ -219,6 +191,34 @@ public interface I_R_RequestInput extends I_R_Request {
 	 * @return Financial Project
 	 */
 	ForeignEntityInput C_Project();
+
+	/**
+	 * Set ConfidentialType.
+	 *
+	 * @param ConfidentialType Type of Confidentiality
+	 */
+	void setConfidentialTypeInput(ForeignEntityInput ConfidentialType);
+
+	/**
+	 * Get ConfidentialType.
+	 *
+	 * @return Type of Confidentiality
+	 */
+	ForeignEntityInput ConfidentialType();
+
+	/**
+	 * Set ConfidentialTypeEntry.
+	 *
+	 * @param ConfidentialTypeEntry Confidentiality of the individual entry
+	 */
+	void setConfidentialTypeEntryInput(ForeignEntityInput ConfidentialTypeEntry);
+
+	/**
+	 * Get ConfidentialTypeEntry.
+	 *
+	 * @return Confidentiality of the individual entry
+	 */
+	ForeignEntityInput ConfidentialTypeEntry();
 
 	/**
 	 * Set DueType.
@@ -403,6 +403,20 @@ public interface I_R_RequestInput extends I_R_Request {
 	ForeignEntityInput R_MailText();
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
+
+	/**
 	 * Set R_RequestRelated.
 	 *
 	 * @param R_RequestRelated Related Request (Master Issue, ..)
@@ -429,20 +443,6 @@ public interface I_R_RequestInput extends I_R_Request {
 	 * @return Type of request (e.g. Inquiry, Complaint, ..)
 	 */
 	ForeignEntityInput R_RequestType();
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
 
 	/**
 	 * Set R_Resolution.

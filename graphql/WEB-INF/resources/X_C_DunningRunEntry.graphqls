@@ -33,9 +33,9 @@ type C_DunningRunEntry {
 	# The Currency for this record
 	C_Currency: C_Currency!
 	C_DunningLevel: C_DunningLevel!
-	UU: ID!
 	# Dunning Run
 	C_DunningRun: C_DunningRun!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -70,9 +70,9 @@ input C_DunningRunEntryInput {
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	C_DunningLevel: ForeignEntityInput
-	UU: ID
 	# Dunning Run
 	C_DunningRun: ForeignEntityInput
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Optional additional user defined information

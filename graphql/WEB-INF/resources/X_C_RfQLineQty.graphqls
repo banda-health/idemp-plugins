@@ -26,15 +26,15 @@ type C_RfQLineQty {
 	BenchmarkPrice: BigDecimal!
 	# Best Response Amount
 	BestResponseAmt: BigDecimal
-	# Date this record was created
-	Created: DateTime!
-	# User who created this records
-	CreatedBy: AD_User!
 	# Request for Quotation Line
 	C_RfQLine: C_RfQLine!
 	UU: ID!
 	# Unit of Measure
 	C_UOM: C_UOM!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# This quantity is used in the Offer to the Customer

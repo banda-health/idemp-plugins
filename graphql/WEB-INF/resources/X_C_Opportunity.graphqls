@@ -30,21 +30,21 @@ type C_Opportunity {
 	C_Campaign: C_Campaign
 	# The Currency for this record
 	C_Currency: C_Currency!
+	UU: ID!
+	# Order
+	C_Order: C_Order
+	# Stages of the sales process
+	C_SalesStage: C_SalesStage!
 	# Close Date
 	CloseDate: Date
 	# Comments or additional information
 	Comments: String
-	UU: ID!
-	# Order
-	C_Order: C_Order
 	# Cost information
 	Cost: BigDecimal
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Stages of the sales process
-	C_SalesStage: C_SalesStage!
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document
@@ -77,17 +77,17 @@ input C_OpportunityInput {
 	C_Campaign: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
+	UU: ID
+	# Order
+	C_Order: ForeignEntityInput
+	# Stages of the sales process
+	C_SalesStage: ForeignEntityInput
 	# Close Date
 	CloseDate: Date
 	# Comments or additional information
 	Comments: String
-	UU: ID
-	# Order
-	C_Order: ForeignEntityInput
 	# Cost information
 	Cost: BigDecimal
-	# Stages of the sales process
-	C_SalesStage: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document

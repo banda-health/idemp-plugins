@@ -30,8 +30,8 @@ type BH_Visit {
 	BH_Process_Stage: AD_Ref_List
 	bh_referral: AD_Ref_List
 	BH_ReferredFromTo: String
-	BH_VisitDate: DateTime
 	UU: ID!
+	BH_VisitDate: DateTime
 	BH_Voided_Reason: BH_Voided_Reason
 	# The reason for changing this entity
 	Change_Reason: String
@@ -66,8 +66,8 @@ input BH_VisitInput {
 	BH_Process_Stage: ForeignEntityInput
 	bh_referral: ForeignEntityInput
 	BH_ReferredFromTo: String
-	BH_VisitDate: DateTime
 	UU: ID
+	BH_VisitDate: DateTime
 	BH_Voided_Reason: ForeignEntityInput
 	# The reason for changing this entity
 	Change_Reason: String

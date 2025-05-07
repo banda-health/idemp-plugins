@@ -64,23 +64,6 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
-	public static Map<String, String> CALCULATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("A", "f6ceb249-8184-4e03-869c-21a955349210"); // Add (Op1+Op2)
-			put("S", "19ad8071-37c2-4c30-86d2-01879fbccfaa"); // Subtract (Op1-Op2)
-			put("P", "1ee1c801-b264-42b5-b1f6-2ea14ab792da"); // Percentage (Op1 of Op2)
-			put("R", "1455fb91-3bd5-4f0f-b156-03bb03073ff9"); // Add Range (Op1 to Op2)
-		}
-	};
-	public CompletableFuture<MRefList_BH> CalculationType(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getCalculationType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(CALCULATIONTYPE_UUIDS_BY_VALUE.get(entity.getCalculationType()));
-	}
-
 
 	/**
 	 * Get Business Partner.
@@ -156,22 +139,6 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 
-	public static Map<String, String> COLUMNTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("R", "0b9bb902-06aa-469d-82a5-c76ca2931aa9"); // Relative Period
-			put("C", "86874133-72ba-4215-bf88-26f3d0cecd16"); // Calculation
-			put("S", "f2a870a8-c5c5-4e9a-afdf-e08770b9758f"); // Segment Value
-		}
-	};
-	public CompletableFuture<MRefList_BH> ColumnType(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getColumnType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(COLUMNTYPE_UUIDS_BY_VALUE.get(entity.getColumnType()));
-	}
-
 
 	/**
 	 * Get Project.
@@ -200,6 +167,39 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 		DataLoader<Integer, MSalesRegion> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.DATALOADER_C_SalesRegion_BY_ID);
 		return dataLoader.load(entity.getC_SalesRegion_ID());
+	}
+
+	public static Map<String, String> CALCULATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("A", "f6ceb249-8184-4e03-869c-21a955349210"); // Add (Op1+Op2)
+			put("S", "19ad8071-37c2-4c30-86d2-01879fbccfaa"); // Subtract (Op1-Op2)
+			put("P", "1ee1c801-b264-42b5-b1f6-2ea14ab792da"); // Percentage (Op1 of Op2)
+			put("R", "1455fb91-3bd5-4f0f-b156-03bb03073ff9"); // Add Range (Op1 to Op2)
+		}
+	};
+	public CompletableFuture<MRefList_BH> CalculationType(MReportColumn entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getCalculationType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(CALCULATIONTYPE_UUIDS_BY_VALUE.get(entity.getCalculationType()));
+	}
+
+	public static Map<String, String> COLUMNTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("R", "0b9bb902-06aa-469d-82a5-c76ca2931aa9"); // Relative Period
+			put("C", "86874133-72ba-4215-bf88-26f3d0cecd16"); // Calculation
+			put("S", "f2a870a8-c5c5-4e9a-afdf-e08770b9758f"); // Segment Value
+		}
+	};
+	public CompletableFuture<MRefList_BH> ColumnType(MReportColumn entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getColumnType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(COLUMNTYPE_UUIDS_BY_VALUE.get(entity.getColumnType()));
 	}
 
 	public static Map<String, String> CURRENCYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -414,6 +414,21 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 		return dataLoader.load(entity.getOper_2_ID());
 	}
 
+
+	/**
+	 * Get Report Column Set.
+	 *
+	 * @return Collection of Columns for Report
+	 */
+	public CompletableFuture<MReportColumnSet> PA_ReportColumnSet(MReportColumn entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_ReportColumnSet_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MReportColumnSet> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnSetDataLoader.DATALOADER_PA_ReportColumnSet_BY_ID);
+		return dataLoader.load(entity.getPA_ReportColumnSet_ID());
+	}
+
 	public static Map<String, String> PAAMOUNTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("B", "7c4060bf-60d8-433d-9536-68b24ac23482"); // Balance (expected sign)
@@ -448,21 +463,6 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(PAPERIODTYPE_UUIDS_BY_VALUE.get(entity.getPAPeriodType()));
-	}
-
-
-	/**
-	 * Get Report Column Set.
-	 *
-	 * @return Collection of Columns for Report
-	 */
-	public CompletableFuture<MReportColumnSet> PA_ReportColumnSet(MReportColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ReportColumnSet_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MReportColumnSet> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnSetDataLoader.DATALOADER_PA_ReportColumnSet_BY_ID);
-		return dataLoader.load(entity.getPA_ReportColumnSet_ID());
 	}
 
 	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {

@@ -146,35 +146,6 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 	public ForeignEntityInput M_MovementConfirm() {
 		return mM_MovementConfirm;
 	}
-	/**
-	 * Set Move Line Confirm.
-	 *
-	 * @param M_MovementLineConfirm_ID Inventory Move Line Confirmation
-	 */
-	@JsonProperty("M_MovementLineConfirm_ID")
-	public void setM_MovementLineConfirm_IDFromJson(int M_MovementLineConfirm_ID) {
-		if (get_ID() == 0) {
-			super.setM_MovementLineConfirm_ID(M_MovementLineConfirm_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_MovementLineConfirm_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_MovementLineConfirm_UU();
-	}
 
 	/**
 	 * Set Move Line.
@@ -208,5 +179,34 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 	@JsonProperty("M_MovementLine")
 	public ForeignEntityInput M_MovementLine() {
 		return mM_MovementLine;
+	}
+	/**
+	 * Set Move Line Confirm.
+	 *
+	 * @param M_MovementLineConfirm_ID Inventory Move Line Confirmation
+	 */
+	@JsonProperty("M_MovementLineConfirm_ID")
+	public void setM_MovementLineConfirm_IDFromJson(int M_MovementLineConfirm_ID) {
+		if (get_ID() == 0) {
+			super.setM_MovementLineConfirm_ID(M_MovementLineConfirm_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_MovementLineConfirm_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_MovementLineConfirm_UU();
 	}
 }

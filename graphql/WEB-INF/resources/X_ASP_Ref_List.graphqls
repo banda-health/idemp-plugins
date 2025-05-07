@@ -22,10 +22,10 @@ type ASP_Ref_List {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# System Reference and Validation
-	AD_Reference: AD_Reference!
 	# Reference List based on Table
 	AD_Ref_List: AD_Ref_List!
+	# System Reference and Validation
+	AD_Reference: AD_Reference!
 	ASP_Level: ASP_Level!
 	UU: ID!
 	ASP_Status: AD_Ref_List
@@ -44,10 +44,10 @@ type ASP_Ref_List {
 input ASP_Ref_ListInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	# System Reference and Validation
-	AD_Reference: ForeignEntityInput
 	# Reference List based on Table
 	AD_Ref_List: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
 	ASP_Level: ForeignEntityInput
 	UU: ID
 	ASP_Status: ForeignEntityInput

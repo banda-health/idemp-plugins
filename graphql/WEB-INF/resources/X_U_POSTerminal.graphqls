@@ -24,6 +24,12 @@ type U_POSTerminal {
 	AD_Org: AD_Org!
 	# Whether to automatically lock the terminal when till is closed
 	AutoLock: Boolean!
+	# Cash Book for recording petty cash transactions
+	C_CashBook: C_CashBook!
+	# BPartner to be used for Cash transactions
+	C_CashBPartner: C_BPartner!
+	# BPartner that is to be used as template when new customers are created
+	C_TemplateBPartner: C_BPartner
 	# Bank Account on which card transactions will be processed
 	Card_BankAccount: C_BankAccount
 	# Bank account on which to transfer Card transactions
@@ -37,10 +43,6 @@ type U_POSTerminal {
 	CashTransferBankAccount: C_BankAccount
 	# Cash Book on which to transfer all Cash transactions
 	CashTransferCashBook: C_CashBook
-	# Cash Book for recording petty cash transactions
-	C_CashBook: C_CashBook!
-	# BPartner to be used for Cash transactions
-	C_CashBPartner: C_BPartner!
 	# Bank Account to be used for processing Check transactions
 	Check_BankAccount: C_BankAccount
 	# Bank account on which to transfer Check transactions
@@ -52,8 +54,6 @@ type U_POSTerminal {
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# BPartner that is to be used as template when new customers are created
-	C_TemplateBPartner: C_BPartner
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint
@@ -77,13 +77,13 @@ type U_POSTerminal {
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
 	SO_PriceList: M_PriceList
+	UU: ID!
 	# Time at which the terminal should be unlocked
 	UnlockingTime: DateTime
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User
-	UU: ID!
 	# Search key for the record in the format required - must be unique
 	Value: String
 }
@@ -93,6 +93,12 @@ input U_POSTerminalInput {
 	AD_Org: ForeignEntityInput
 	# Whether to automatically lock the terminal when till is closed
 	AutoLock: Boolean
+	# Cash Book for recording petty cash transactions
+	C_CashBook: ForeignEntityInput
+	# BPartner to be used for Cash transactions
+	C_CashBPartner: ForeignEntityInput
+	# BPartner that is to be used as template when new customers are created
+	C_TemplateBPartner: ForeignEntityInput
 	# Bank Account on which card transactions will be processed
 	Card_BankAccount: ForeignEntityInput
 	# Bank account on which to transfer Card transactions
@@ -106,10 +112,6 @@ input U_POSTerminalInput {
 	CashTransferBankAccount: ForeignEntityInput
 	# Cash Book on which to transfer all Cash transactions
 	CashTransferCashBook: ForeignEntityInput
-	# Cash Book for recording petty cash transactions
-	C_CashBook: ForeignEntityInput
-	# BPartner to be used for Cash transactions
-	C_CashBPartner: ForeignEntityInput
 	# Bank Account to be used for processing Check transactions
 	Check_BankAccount: ForeignEntityInput
 	# Bank account on which to transfer Check transactions
@@ -117,8 +119,6 @@ input U_POSTerminalInput {
 	# Cash Book on which to transfer all Check transactions
 	CheckTransferCashBook: ForeignEntityInput
 	CheckTransferType: ForeignEntityInput
-	# BPartner that is to be used as template when new customers are created
-	C_TemplateBPartner: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint
@@ -142,9 +142,9 @@ input U_POSTerminalInput {
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 	SO_PriceList: ForeignEntityInput
+	UU: ID
 	# Time at which the terminal should be unlocked
 	UnlockingTime: DateTime
-	UU: ID
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

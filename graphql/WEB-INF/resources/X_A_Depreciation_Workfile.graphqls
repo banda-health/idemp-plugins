@@ -32,11 +32,7 @@ type A_Depreciation_Workfile {
 	A_Calc_Accumulated_Depr: BigDecimal
 	A_Curr_Dep_Exp: BigDecimal!
 	A_Current_Period: Int
-	# Tenant for this installation.
-	AD_Client: AD_Client!
 	UU: ID!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	A_Expense_SL: BigDecimal
 	A_Expense_SL_F: BigDecimal
 	A_FundingMode: A_FundingMode
@@ -49,12 +45,16 @@ type A_Depreciation_Workfile {
 	A_Prior_Year_Accumulated_Depr: BigDecimal
 	A_QTY_Current: BigDecimal!
 	A_Salvage_Value: BigDecimal!
-	# Date of last depreciation
-	AssetDepreciationDate: Date
 	# Financing Type
 	A_Tip_Finantare: AD_Ref_List!
 	A_Valoare_Cofinantare: BigDecimal
 	A_Valoare_Tert: BigDecimal
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date of last depreciation
+	AssetDepreciationDate: Date
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema
 	# Date this record was created
@@ -102,8 +102,6 @@ input A_Depreciation_WorkfileInput {
 	A_Curr_Dep_Exp: BigDecimal
 	A_Current_Period: Int
 	UU: ID
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	A_FundingMode: ForeignEntityInput
 	A_Life_Period: Int
 	A_Life_Period_F: Int
@@ -112,12 +110,14 @@ input A_Depreciation_WorkfileInput {
 	A_Prior_Year_Accumulated_Depr: BigDecimal
 	A_QTY_Current: BigDecimal
 	A_Salvage_Value: BigDecimal
-	# Date of last depreciation
-	AssetDepreciationDate: Date
 	# Financing Type
 	A_Tip_Finantare: ForeignEntityInput
 	A_Valoare_Cofinantare: BigDecimal
 	A_Valoare_Tert: BigDecimal
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Date of last depreciation
+	AssetDepreciationDate: Date
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Accounting Date

@@ -109,6 +109,35 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
+	/**
+	 * Set Shipper.
+	 *
+	 * @param M_Shipper_ID Method or manner of product delivery
+	 */
+	@JsonProperty("M_Shipper_ID")
+	public void setM_Shipper_IDFromJson(int M_Shipper_ID) {
+		if (get_ID() == 0) {
+			super.setM_Shipper_ID(M_Shipper_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_Shipper_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_Shipper_UU();
+	}
 
 	/**
 	 * Set Shipper Configuration.
@@ -142,35 +171,6 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	@JsonProperty("M_ShipperCfg")
 	public ForeignEntityInput M_ShipperCfg() {
 		return mM_ShipperCfg;
-	}
-	/**
-	 * Set Shipper.
-	 *
-	 * @param M_Shipper_ID Method or manner of product delivery
-	 */
-	@JsonProperty("M_Shipper_ID")
-	public void setM_Shipper_IDFromJson(int M_Shipper_ID) {
-		if (get_ID() == 0) {
-			super.setM_Shipper_ID(M_Shipper_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_Shipper_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_Shipper_UU();
 	}
 
 	/**

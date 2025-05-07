@@ -24,9 +24,9 @@ type CM_Chat {
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
+	UU: ID!
 	# Type of discussion / chat
 	CM_ChatType: CM_ChatType
-	UU: ID!
 	# Type of Confidentiality
 	ConfidentialType: AD_Ref_List!
 	# Date this record was created
@@ -50,9 +50,9 @@ input CM_ChatInput {
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
+	UU: ID
 	# Type of discussion / chat
 	CM_ChatType: ForeignEntityInput
-	UU: ID
 	# Type of Confidentiality
 	ConfidentialType: ForeignEntityInput
 	# Optional short description of the record

@@ -44,16 +44,16 @@ type C_OrderLine {
 	C_ProjectPhase: C_ProjectPhase
 	# Actual Project Task in a Phase
 	C_ProjectTask: C_ProjectTask
+	# Tax identifier
+	C_Tax: C_Tax!
+	# Unit of Measure
+	C_UOM: C_UOM!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	CreateProduction: String
 	CreateShipment: String
-	# Tax identifier
-	C_Tax: C_Tax!
-	# Unit of Measure
-	C_UOM: C_UOM!
 	# Date when the product was delivered
 	DateDelivered: Date
 	# Date printed on Invoice
@@ -157,12 +157,12 @@ input C_OrderLineInput {
 	C_ProjectPhase: ForeignEntityInput
 	# Actual Project Task in a Phase
 	C_ProjectTask: ForeignEntityInput
-	CreateProduction: String
-	CreateShipment: String
 	# Tax identifier
 	C_Tax: ForeignEntityInput
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
+	CreateProduction: String
+	CreateShipment: String
 	# Date when the product was delivered
 	DateDelivered: Date
 	# Date printed on Invoice

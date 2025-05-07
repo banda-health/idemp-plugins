@@ -22,8 +22,8 @@ type C_AddressValidation {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	C_AddressValidationCfg: C_AddressValidationCfg!
 	UU: ID!
+	C_AddressValidationCfg: C_AddressValidationCfg!
 	ConnectionKey: String
 	ConnectionPassword: String!
 	# Date this record was created
@@ -49,8 +49,8 @@ type C_AddressValidation {
 input C_AddressValidationInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	C_AddressValidationCfg: ForeignEntityInput
 	UU: ID
+	C_AddressValidationCfg: ForeignEntityInput
 	ConnectionKey: String
 	ConnectionPassword: String
 	# The record is active in the system

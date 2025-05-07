@@ -68,35 +68,6 @@ public class X_M_ProductDownloadInput extends MProductDownload implements I_M_Pr
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-	/**
-	 * Set Product Download.
-	 *
-	 * @param M_ProductDownload_ID Product downloads
-	 */
-	@JsonProperty("M_ProductDownload_ID")
-	public void setM_ProductDownload_IDFromJson(int M_ProductDownload_ID) {
-		if (get_ID() == 0) {
-			super.setM_ProductDownload_ID(M_ProductDownload_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_ProductDownload_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_ProductDownload_UU();
-	}
 
 	/**
 	 * Set Product/Service.
@@ -133,5 +104,34 @@ public class X_M_ProductDownloadInput extends MProductDownload implements I_M_Pr
 	@JsonProperty("M_Product")
 	public ForeignEntityInput M_Product() {
 		return mM_Product;
+	}
+	/**
+	 * Set Product Download.
+	 *
+	 * @param M_ProductDownload_ID Product downloads
+	 */
+	@JsonProperty("M_ProductDownload_ID")
+	public void setM_ProductDownload_IDFromJson(int M_ProductDownload_ID) {
+		if (get_ID() == 0) {
+			super.setM_ProductDownload_ID(M_ProductDownload_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_ProductDownload_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_ProductDownload_UU();
 	}
 }

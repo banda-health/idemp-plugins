@@ -288,6 +288,21 @@ public class X_I_FAJournalResolver extends POResolver<MXIFAJournal> implements G
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
+
+	/**
+	 * Get Combination.
+	 *
+	 * @return Valid Account Combination
+	 */
+	public CompletableFuture<MAccount> C_ValidCombination(MXIFAJournal entity, DataFetchingEnvironment environment) {
+		if (entity.getC_ValidCombination_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MAccount> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
+		return dataLoader.load(entity.getC_ValidCombination_ID());
+	}
+
 	public static Map<String, String> CURRENCYRATETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("S", "7e046d87-539f-4ff9-8de0-cbe0ca981405"); // Spot
@@ -307,21 +322,6 @@ public class X_I_FAJournalResolver extends POResolver<MXIFAJournal> implements G
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(CURRENCYRATETYPE_UUIDS_BY_VALUE.get(entity.getCurrencyRateType()));
-	}
-
-
-	/**
-	 * Get Combination.
-	 *
-	 * @return Valid Account Combination
-	 */
-	public CompletableFuture<MAccount> C_ValidCombination(MXIFAJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ValidCombination_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
-		return dataLoader.load(entity.getC_ValidCombination_ID());
 	}
 
 
@@ -356,21 +356,6 @@ public class X_I_FAJournalResolver extends POResolver<MXIFAJournal> implements G
 
 
 	/**
-	 * Get Journal Batch.
-	 *
-	 * @return General Ledger Journal Batch
-	 */
-	public CompletableFuture<MJournalBatch> GL_JournalBatch(MXIFAJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalBatch_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MJournalBatch> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalBatchDataLoader.DATALOADER_GL_JournalBatch_BY_ID);
-		return dataLoader.load(entity.getGL_JournalBatch_ID());
-	}
-
-
-	/**
 	 * Get Journal.
 	 *
 	 * @return General Ledger Journal
@@ -382,6 +367,21 @@ public class X_I_FAJournalResolver extends POResolver<MXIFAJournal> implements G
 		DataLoader<Integer, MJournal> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalDataLoader.DATALOADER_GL_Journal_BY_ID);
 		return dataLoader.load(entity.getGL_Journal_ID());
+	}
+
+
+	/**
+	 * Get Journal Batch.
+	 *
+	 * @return General Ledger Journal Batch
+	 */
+	public CompletableFuture<MJournalBatch> GL_JournalBatch(MXIFAJournal entity, DataFetchingEnvironment environment) {
+		if (entity.getGL_JournalBatch_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MJournalBatch> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalBatchDataLoader.DATALOADER_GL_JournalBatch_BY_ID);
+		return dataLoader.load(entity.getGL_JournalBatch_ID());
 	}
 
 

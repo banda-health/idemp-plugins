@@ -18,15 +18,15 @@ type A_Depreciation_Table_DetailConnection {
 }
 
 type A_Depreciation_Table_Detail {
-	# Tenant for this installation.
-	AD_Client: AD_Client!
 	A_Depreciation_Rate: BigDecimal!
 	A_Depreciation_Table_Code: String!
 	UU: ID!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	A_Period: Int!
 	A_Table_Rate_Type: AD_Ref_List
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -45,10 +45,10 @@ input A_Depreciation_Table_DetailInput {
 	A_Depreciation_Rate: BigDecimal
 	A_Depreciation_Table_Code: String
 	UU: ID
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	A_Period: Int
 	A_Table_Rate_Type: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# The document has been processed

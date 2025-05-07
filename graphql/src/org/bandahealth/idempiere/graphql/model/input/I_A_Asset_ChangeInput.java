@@ -165,34 +165,6 @@ public interface I_A_Asset_ChangeInput extends I_A_Asset_Change {
 	ForeignEntityInput A_Disposal_Revenue_A();
 
 	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
-
-	/**
-	 * Set AD_User.
-	 *
-	 * @param AD_User User within the system - Internal or Business Partner Contact
-	 */
-	void setAD_UserInput(ForeignEntityInput AD_User);
-
-	/**
-	 * Get AD_User.
-	 *
-	 * @return User within the system - Internal or Business Partner Contact
-	 */
-	ForeignEntityInput AD_User();
-
-	/**
 	 * Set A_Parent_Asset.
 	 *
 	 * @param A_Parent_Asset A_Parent_Asset
@@ -219,6 +191,34 @@ public interface I_A_Asset_ChangeInput extends I_A_Asset_Change {
 	 * @return A_Reval_Cal_Method
 	 */
 	ForeignEntityInput A_Reval_Cal_Method();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set AD_User.
+	 *
+	 * @param AD_User User within the system - Internal or Business Partner Contact
+	 */
+	void setAD_UserInput(ForeignEntityInput AD_User);
+
+	/**
+	 * Get AD_User.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	ForeignEntityInput AD_User();
 
 	/**
 	 * Set C_AcctSchema.
@@ -263,20 +263,6 @@ public interface I_A_Asset_ChangeInput extends I_A_Asset_Change {
 	ForeignEntityInput C_BPartner_Location();
 
 	/**
-	 * Set ChangeType.
-	 *
-	 * @param ChangeType ChangeType
-	 */
-	void setChangeTypeInput(ForeignEntityInput ChangeType);
-
-	/**
-	 * Get ChangeType.
-	 *
-	 * @return ChangeType
-	 */
-	ForeignEntityInput ChangeType();
-
-	/**
 	 * Set C_Location.
 	 *
 	 * @param C_Location Location or Address
@@ -303,6 +289,20 @@ public interface I_A_Asset_ChangeInput extends I_A_Asset_Change {
 	 * @return Valid Account Combination
 	 */
 	ForeignEntityInput C_ValidCombination();
+
+	/**
+	 * Set ChangeType.
+	 *
+	 * @param ChangeType ChangeType
+	 */
+	void setChangeTypeInput(ForeignEntityInput ChangeType);
+
+	/**
+	 * Get ChangeType.
+	 *
+	 * @return ChangeType
+	 */
+	ForeignEntityInput ChangeType();
 
 	/**
 	 * Set PostingType.

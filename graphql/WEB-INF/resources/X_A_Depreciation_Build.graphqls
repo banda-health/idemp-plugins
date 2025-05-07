@@ -18,13 +18,13 @@ type A_Depreciation_BuildConnection {
 }
 
 type A_Depreciation_Build {
-	# Tenant for this installation.
-	AD_Client: AD_Client
 	UU: ID!
-	# Organizational entity within tenant
-	AD_Org: AD_Org
 	A_End_Asset: A_Asset
 	A_Start_Asset: A_Asset
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
 	# Period of the Calendar
 	C_Period: C_Period
 	# Date this record was created
@@ -52,10 +52,10 @@ type A_Depreciation_Build {
 
 input A_Depreciation_BuildInput {
 	UU: ID
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	A_End_Asset: ForeignEntityInput
 	A_Start_Asset: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# Period of the Calendar
 	C_Period: ForeignEntityInput
 	# Accounting Date

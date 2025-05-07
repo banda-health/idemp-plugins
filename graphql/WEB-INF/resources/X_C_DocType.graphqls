@@ -24,6 +24,7 @@ type C_DocType {
 	AD_Org: AD_Org!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
+	UU: ID!
 	# Document type for generating in dispute Shipments
 	C_DocTypeDifference: C_DocType
 	# Document type used for invoices generated from this sales document
@@ -32,7 +33,6 @@ type C_DocType {
 	C_DocTypeProforma: C_DocType
 	# Document type used for shipments generated from this sales document
 	C_DocTypeShipment: C_DocType
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -105,6 +105,7 @@ input C_DocTypeInput {
 	AD_Org: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
+	UU: ID
 	# Document type for generating in dispute Shipments
 	C_DocTypeDifference: ForeignEntityInput
 	# Document type used for invoices generated from this sales document
@@ -113,7 +114,6 @@ input C_DocTypeInput {
 	C_DocTypeProforma: ForeignEntityInput
 	# Document type used for shipments generated from this sales document
 	C_DocTypeShipment: ForeignEntityInput
-	UU: ID
 	DefiniteSequence: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

@@ -82,40 +82,6 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	}
 
 	/**
-	 * Set Business Partner.
-	 *
-	 * @param C_BPartner Identifies a Business Partner
-	 */
-	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
-		this.mC_BPartner = C_BPartner;
-		if (C_BPartner != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPartner_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BPartner_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
-			}
-		} else {
-			this.setC_BPartner_ID(0);
-		}
-	}
-
-	/**
-	 * Get Business Partner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	@JsonProperty("C_BPartner")
-	public ForeignEntityInput C_BPartner() {
-		return mC_BPartner;
-	}
-
-	/**
 	 * Set Partner Bank Account.
 	 *
 	 * @param C_BP_BankAccount Bank Account of the Business Partner
@@ -150,6 +116,40 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	}
 
 	/**
+	 * Set Business Partner.
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
+		if (C_BPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
+			}
+		} else {
+			this.setC_BPartner_ID(0);
+		}
+	}
+
+	/**
+	 * Get Business Partner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public ForeignEntityInput C_BPartner() {
+		return mC_BPartner;
+	}
+
+	/**
 	 * Set Payment.
 	 *
 	 * @param C_Payment Payment identifier
@@ -181,35 +181,6 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	@JsonProperty("C_Payment")
 	public ForeignEntityInput C_Payment() {
 		return mC_Payment;
-	}
-	/**
-	 * Set Pay Selection Check.
-	 *
-	 * @param C_PaySelectionCheck_ID Payment Selection Check
-	 */
-	@JsonProperty("C_PaySelectionCheck_ID")
-	public void setC_PaySelectionCheck_IDFromJson(int C_PaySelectionCheck_ID) {
-		if (get_ID() == 0) {
-			super.setC_PaySelectionCheck_ID(C_PaySelectionCheck_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_PaySelectionCheck_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_PaySelectionCheck_UU();
 	}
 
 	/**
@@ -247,6 +218,35 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	@JsonProperty("C_PaySelection")
 	public ForeignEntityInput C_PaySelection() {
 		return mC_PaySelection;
+	}
+	/**
+	 * Set Pay Selection Check.
+	 *
+	 * @param C_PaySelectionCheck_ID Payment Selection Check
+	 */
+	@JsonProperty("C_PaySelectionCheck_ID")
+	public void setC_PaySelectionCheck_IDFromJson(int C_PaySelectionCheck_ID) {
+		if (get_ID() == 0) {
+			super.setC_PaySelectionCheck_ID(C_PaySelectionCheck_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_PaySelectionCheck_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_PaySelectionCheck_UU();
 	}
 
 	/**

@@ -22,15 +22,15 @@ type C_RfQResponseLine {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Date this record was created
-	Created: DateTime!
-	# User who created this records
-	CreatedBy: AD_User!
 	# Request for Quotation Line
 	C_RfQLine: C_RfQLine!
 	# Request for Quotation Response from a potential Vendor
 	C_RfQResponse: C_RfQResponse!
 	UU: ID!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
 	# Date when work is (planned to be) complete
 	DateWorkComplete: Date
 	# Date when work is (planned to be) started

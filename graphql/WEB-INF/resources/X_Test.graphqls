@@ -31,19 +31,19 @@ type Test {
 	C_BPartner: C_BPartner
 	# The Currency for this record
 	C_Currency: C_Currency
-	# Long Character Field
-	CharacterData: String
 	# Location or Address
 	C_Location: C_Location
-	Color: String
 	# Payment identifier
 	C_Payment: C_Payment
+	# Unit of Measure
+	C_UOM: C_UOM
+	# Long Character Field
+	CharacterData: String
+	Color: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Unit of Measure
-	C_UOM: C_UOM
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint
@@ -64,14 +64,14 @@ type Test {
 	T_Amount: BigDecimal
 	T_Date: Date
 	T_DateTime: DateTime
-	UU: ID!
-	# Used only for testing purposes
-	TestVirtualQty: BigDecimal
 	T_Integer: Int
 	T_Number: BigDecimal
 	T_Qty: BigDecimal
 	# Timestamp with time zone
 	T_Timestamp: DateTime
+	UU: ID!
+	# Used only for testing purposes
+	TestVirtualQty: BigDecimal
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -90,15 +90,15 @@ input TestInput {
 	C_BPartner: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
-	# Long Character Field
-	CharacterData: String
 	# Location or Address
 	C_Location: ForeignEntityInput
-	Color: String
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
+	# Long Character Field
+	CharacterData: String
+	Color: String
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint
@@ -119,10 +119,10 @@ input TestInput {
 	T_Amount: BigDecimal
 	T_Date: Date
 	T_DateTime: DateTime
-	UU: ID
 	T_Integer: Int
 	T_Number: BigDecimal
 	T_Qty: BigDecimal
 	# Timestamp with time zone
 	T_Timestamp: DateTime
+	UU: ID
 }

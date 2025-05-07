@@ -303,6 +303,72 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	public ForeignEntityInput OverlineStrokeType() {
 		return mOverlineStrokeType;
 	}
+	/**
+	 * Set Report Line.
+	 *
+	 * @param PA_ReportLine_ID Report Line
+	 */
+	@JsonProperty("PA_ReportLine_ID")
+	public void setPA_ReportLine_IDFromJson(int PA_ReportLine_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportLine_ID(PA_ReportLine_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setPA_ReportLine_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getPA_ReportLine_UU();
+	}
+
+	/**
+	 * Set Report Line Set.
+	 *
+	 * @param PA_ReportLineSet Report Line Set
+	 */
+	@JsonProperty("PA_ReportLineSet")
+	public void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet) {
+		this.mPA_ReportLineSet = PA_ReportLineSet;
+		if (!is_new()) {
+			return;
+		}
+		if (PA_ReportLineSet != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReportLineSet foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
+							.setParameters(PA_ReportLineSet.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setPA_ReportLineSet_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PA_ReportLineSet with UU " + PA_ReportLineSet.getUU());
+			}
+		} else {
+			this.setPA_ReportLineSet_ID(0);
+		}
+	}
+
+	/**
+	 * Get Report Line Set.
+	 *
+	 * @return Report Line Set
+	 */
+	@JsonProperty("PA_ReportLineSet")
+	public ForeignEntityInput PA_ReportLineSet() {
+		return mPA_ReportLineSet;
+	}
 
 	/**
 	 * Set Amount Type.
@@ -380,72 +446,6 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	@JsonProperty("PAPeriodType")
 	public ForeignEntityInput PAPeriodType() {
 		return mPAPeriodType;
-	}
-	/**
-	 * Set Report Line.
-	 *
-	 * @param PA_ReportLine_ID Report Line
-	 */
-	@JsonProperty("PA_ReportLine_ID")
-	public void setPA_ReportLine_IDFromJson(int PA_ReportLine_ID) {
-		if (get_ID() == 0) {
-			super.setPA_ReportLine_ID(PA_ReportLine_ID);
-		}
-	}
-
-	/**
-	 * Set Report Line Set.
-	 *
-	 * @param PA_ReportLineSet Report Line Set
-	 */
-	@JsonProperty("PA_ReportLineSet")
-	public void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet) {
-		this.mPA_ReportLineSet = PA_ReportLineSet;
-		if (!is_new()) {
-			return;
-		}
-		if (PA_ReportLineSet != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MReportLineSet foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
-							.setParameters(PA_ReportLineSet.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setPA_ReportLineSet_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table PA_ReportLineSet with UU " + PA_ReportLineSet.getUU());
-			}
-		} else {
-			this.setPA_ReportLineSet_ID(0);
-		}
-	}
-
-	/**
-	 * Get Report Line Set.
-	 *
-	 * @return Report Line Set
-	 */
-	@JsonProperty("PA_ReportLineSet")
-	public ForeignEntityInput PA_ReportLineSet() {
-		return mPA_ReportLineSet;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setPA_ReportLine_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getPA_ReportLine_UU();
 	}
 
 	/**

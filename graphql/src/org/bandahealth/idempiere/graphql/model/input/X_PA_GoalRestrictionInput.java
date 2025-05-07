@@ -84,40 +84,6 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	}
 
 	/**
-	 * Set Business Partner.
-	 *
-	 * @param C_BPartner Identifies a Business Partner
-	 */
-	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
-		this.mC_BPartner = C_BPartner;
-		if (C_BPartner != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPartner_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BPartner_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
-			}
-		} else {
-			this.setC_BPartner_ID(0);
-		}
-	}
-
-	/**
-	 * Get Business Partner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	@JsonProperty("C_BPartner")
-	public ForeignEntityInput C_BPartner() {
-		return mC_BPartner;
-	}
-
-	/**
 	 * Set Business Partner Group.
 	 *
 	 * @param C_BP_Group Business Partner Group
@@ -149,6 +115,40 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	@JsonProperty("C_BP_Group")
 	public ForeignEntityInput C_BP_Group() {
 		return mC_BP_Group;
+	}
+
+	/**
+	 * Set Business Partner.
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
+		if (C_BPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
+			}
+		} else {
+			this.setC_BPartner_ID(0);
+		}
+	}
+
+	/**
+	 * Get Business Partner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public ForeignEntityInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**

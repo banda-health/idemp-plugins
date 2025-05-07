@@ -34,11 +34,11 @@ type R_RequestProcessorLog {
 	IsActive: Boolean!
 	# An Error occurred in the execution
 	IsError: Boolean!
-	# Reference for this record
-	Reference: String
 	# Processor for Requests
 	R_RequestProcessor: R_RequestProcessor!
 	UU: ID!
+	# Reference for this record
+	Reference: String
 	# Textual summary of this request
 	Summary: String
 	# Text Message
@@ -60,11 +60,11 @@ input R_RequestProcessorLogInput {
 	IsActive: Boolean
 	# An Error occurred in the execution
 	IsError: Boolean
-	# Reference for this record
-	Reference: String
 	# Processor for Requests
 	R_RequestProcessor: ForeignEntityInput
 	UU: ID
+	# Reference for this record
+	Reference: String
 	# Textual summary of this request
 	Summary: String
 	# Text Message

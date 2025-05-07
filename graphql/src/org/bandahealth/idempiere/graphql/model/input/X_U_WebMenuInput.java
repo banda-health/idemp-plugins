@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
+import org.compiere.model.MWebMenu;
 import org.compiere.model.Query;
-import org.compiere.model.X_U_WebMenu;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_U_WebMenuInput extends X_U_WebMenu implements I_U_WebMenuInput {
+public class X_U_WebMenuInput extends MWebMenu implements I_U_WebMenuInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mParentMenu;
@@ -81,7 +81,7 @@ public class X_U_WebMenuInput extends X_U_WebMenu implements I_U_WebMenuInput {
 		this.mParentMenu = ParentMenu;
 		if (ParentMenu != null) {
 			// Since an entity was passed, make sure it's in the DB
-			X_U_WebMenu foreignEntity;
+			MWebMenu foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "U_WebMenu", "U_WebMenu_UU=?", get_TrxName())
 							.setParameters(ParentMenu.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {

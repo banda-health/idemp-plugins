@@ -188,35 +188,6 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	public ForeignEntityInput AD_Role() {
 		return mAD_Role;
 	}
-	/**
-	 * Set User defined Info Window.
-	 *
-	 * @param AD_UserDef_Info_ID User defined Info Window
-	 */
-	@JsonProperty("AD_UserDef_Info_ID")
-	public void setAD_UserDef_Info_IDFromJson(int AD_UserDef_Info_ID) {
-		if (get_ID() == 0) {
-			super.setAD_UserDef_Info_ID(AD_UserDef_Info_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_UserDef_Info_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_UserDef_Info_UU();
-	}
 
 	/**
 	 * Set User/Contact.
@@ -250,6 +221,35 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
+	}
+	/**
+	 * Set User defined Info Window.
+	 *
+	 * @param AD_UserDef_Info_ID User defined Info Window
+	 */
+	@JsonProperty("AD_UserDef_Info_ID")
+	public void setAD_UserDef_Info_IDFromJson(int AD_UserDef_Info_ID) {
+		if (get_ID() == 0) {
+			super.setAD_UserDef_Info_ID(AD_UserDef_Info_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_UserDef_Info_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_UserDef_Info_UU();
 	}
 
 	/**

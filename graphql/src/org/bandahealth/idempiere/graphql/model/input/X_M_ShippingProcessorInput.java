@@ -71,6 +71,35 @@ public class X_M_ShippingProcessorInput extends MShippingProcessor implements I_
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Shipping Processor.
+	 *
+	 * @param M_ShippingProcessor_ID Shipping Processor
+	 */
+	@JsonProperty("M_ShippingProcessor_ID")
+	public void setM_ShippingProcessor_IDFromJson(int M_ShippingProcessor_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShippingProcessor_ID(M_ShippingProcessor_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_ShippingProcessor_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_ShippingProcessor_UU();
+	}
 
 	/**
 	 * Set Shipping Processor Configuration.
@@ -104,34 +133,5 @@ public class X_M_ShippingProcessorInput extends MShippingProcessor implements I_
 	@JsonProperty("M_ShippingProcessorCfg")
 	public ForeignEntityInput M_ShippingProcessorCfg() {
 		return mM_ShippingProcessorCfg;
-	}
-	/**
-	 * Set Shipping Processor.
-	 *
-	 * @param M_ShippingProcessor_ID Shipping Processor
-	 */
-	@JsonProperty("M_ShippingProcessor_ID")
-	public void setM_ShippingProcessor_IDFromJson(int M_ShippingProcessor_ID) {
-		if (get_ID() == 0) {
-			super.setM_ShippingProcessor_ID(M_ShippingProcessor_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_ShippingProcessor_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_ShippingProcessor_UU();
 	}
 }

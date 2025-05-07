@@ -112,6 +112,35 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	public ForeignEntityInput AD_Sequence() {
 		return mAD_Sequence;
 	}
+	/**
+	 * Set EDI Definition.
+	 *
+	 * @param C_BP_EDI_ID Electronic Data Interchange
+	 */
+	@JsonProperty("C_BP_EDI_ID")
+	public void setC_BP_EDI_IDFromJson(int C_BP_EDI_ID) {
+		if (get_ID() == 0) {
+			super.setC_BP_EDI_ID(C_BP_EDI_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_BP_EDI_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_BP_EDI_UU();
+	}
 
 	/**
 	 * Set Business Partner.
@@ -145,35 +174,6 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
-	}
-	/**
-	 * Set EDI Definition.
-	 *
-	 * @param C_BP_EDI_ID Electronic Data Interchange
-	 */
-	@JsonProperty("C_BP_EDI_ID")
-	public void setC_BP_EDI_IDFromJson(int C_BP_EDI_ID) {
-		if (get_ID() == 0) {
-			super.setC_BP_EDI_ID(C_BP_EDI_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_BP_EDI_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_BP_EDI_UU();
 	}
 
 	/**

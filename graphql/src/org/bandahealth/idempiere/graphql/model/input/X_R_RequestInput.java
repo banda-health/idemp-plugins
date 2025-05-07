@@ -443,84 +443,6 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	}
 
 	/**
-	 * Set Confidentiality.
-	 *
-	 * @param ConfidentialType Type of Confidentiality
-	 */
-	@JsonProperty("ConfidentialType")
-	public void setConfidentialTypeInput(ForeignEntityInput ConfidentialType) {
-		this.mConfidentialType = ConfidentialType;
-		if (ConfidentialType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_R_RequestResolver.CONFIDENTIALTYPE_UUIDS_BY_VALUE.containsValue(ConfidentialType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + ConfidentialType.getUU() +
-						" is not in the list defined for the ConfidentialType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ConfidentialType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setConfidentialType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ConfidentialType.getUU());
-			}
-		} else {
-			this.setConfidentialType(null);
-		}
-	}
-
-	/**
-	 * Get Confidentiality.
-	 *
-	 * @return Type of Confidentiality
-	 */
-	@JsonProperty("ConfidentialType")
-	public ForeignEntityInput ConfidentialType() {
-		return mConfidentialType;
-	}
-
-	/**
-	 * Set Entry Confidentiality.
-	 *
-	 * @param ConfidentialTypeEntry Confidentiality of the individual entry
-	 */
-	@JsonProperty("ConfidentialTypeEntry")
-	public void setConfidentialTypeEntryInput(ForeignEntityInput ConfidentialTypeEntry) {
-		this.mConfidentialTypeEntry = ConfidentialTypeEntry;
-		if (ConfidentialTypeEntry != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_R_RequestResolver.CONFIDENTIALTYPEENTRY_UUIDS_BY_VALUE.containsValue(ConfidentialTypeEntry.getUU())) {
-				throw new AdempiereException("The reference list UU of " + ConfidentialTypeEntry.getUU() +
-						" is not in the list defined for the ConfidentialTypeEntry column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ConfidentialTypeEntry.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setConfidentialTypeEntry(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ConfidentialTypeEntry.getUU());
-			}
-		} else {
-			this.setConfidentialTypeEntry(null);
-		}
-	}
-
-	/**
-	 * Get Entry Confidentiality.
-	 *
-	 * @return Confidentiality of the individual entry
-	 */
-	@JsonProperty("ConfidentialTypeEntry")
-	public ForeignEntityInput ConfidentialTypeEntry() {
-		return mConfidentialTypeEntry;
-	}
-
-	/**
 	 * Set Order.
 	 *
 	 * @param C_Order Order
@@ -620,6 +542,84 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	@JsonProperty("C_Project")
 	public ForeignEntityInput C_Project() {
 		return mC_Project;
+	}
+
+	/**
+	 * Set Confidentiality.
+	 *
+	 * @param ConfidentialType Type of Confidentiality
+	 */
+	@JsonProperty("ConfidentialType")
+	public void setConfidentialTypeInput(ForeignEntityInput ConfidentialType) {
+		this.mConfidentialType = ConfidentialType;
+		if (ConfidentialType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestResolver.CONFIDENTIALTYPE_UUIDS_BY_VALUE.containsValue(ConfidentialType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ConfidentialType.getUU() +
+						" is not in the list defined for the ConfidentialType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ConfidentialType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setConfidentialType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ConfidentialType.getUU());
+			}
+		} else {
+			this.setConfidentialType(null);
+		}
+	}
+
+	/**
+	 * Get Confidentiality.
+	 *
+	 * @return Type of Confidentiality
+	 */
+	@JsonProperty("ConfidentialType")
+	public ForeignEntityInput ConfidentialType() {
+		return mConfidentialType;
+	}
+
+	/**
+	 * Set Entry Confidentiality.
+	 *
+	 * @param ConfidentialTypeEntry Confidentiality of the individual entry
+	 */
+	@JsonProperty("ConfidentialTypeEntry")
+	public void setConfidentialTypeEntryInput(ForeignEntityInput ConfidentialTypeEntry) {
+		this.mConfidentialTypeEntry = ConfidentialTypeEntry;
+		if (ConfidentialTypeEntry != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestResolver.CONFIDENTIALTYPEENTRY_UUIDS_BY_VALUE.containsValue(ConfidentialTypeEntry.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ConfidentialTypeEntry.getUU() +
+						" is not in the list defined for the ConfidentialTypeEntry column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ConfidentialTypeEntry.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setConfidentialTypeEntry(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ConfidentialTypeEntry.getUU());
+			}
+		} else {
+			this.setConfidentialTypeEntry(null);
+		}
+	}
+
+	/**
+	 * Get Entry Confidentiality.
+	 *
+	 * @return Confidentiality of the individual entry
+	 */
+	@JsonProperty("ConfidentialTypeEntry")
+	public ForeignEntityInput ConfidentialTypeEntry() {
+		return mConfidentialTypeEntry;
 	}
 	/**
 	 * Set Date Last Action.
@@ -1118,6 +1118,24 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setR_Request_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getR_Request_UU();
+	}
+
+	/**
 	 * Set Related Request.
 	 *
 	 * @param R_RequestRelated Related Request (Master Issue, ..)
@@ -1183,24 +1201,6 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	@JsonProperty("R_RequestType")
 	public ForeignEntityInput R_RequestType() {
 		return mR_RequestType;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setR_Request_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getR_Request_UU();
 	}
 
 	/**

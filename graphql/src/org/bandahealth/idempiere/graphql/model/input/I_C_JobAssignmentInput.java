@@ -39,20 +39,6 @@ public interface I_C_JobAssignmentInput extends I_C_JobAssignment {
 	ForeignEntityInput AD_User();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_Job.
 	 *
 	 * @param C_Job Job Position
@@ -65,4 +51,18 @@ public interface I_C_JobAssignmentInput extends I_C_JobAssignment {
 	 * @return Job Position
 	 */
 	ForeignEntityInput C_Job();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

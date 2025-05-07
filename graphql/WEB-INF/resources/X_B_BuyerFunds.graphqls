@@ -25,12 +25,12 @@ type B_BuyerFunds {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	UU: ID!
-	# The (legal) commitment amount
-	CommittedAmt: BigDecimal!
 	# Order
 	C_Order: C_Order
 	# Payment identifier
 	C_Payment: C_Payment
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -51,12 +51,12 @@ input B_BuyerFundsInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UU: ID
-	# The (legal) commitment amount
-	CommittedAmt: BigDecimal
 	# Order
 	C_Order: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Amount not committed yet

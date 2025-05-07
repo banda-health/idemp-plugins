@@ -75,35 +75,6 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-	/**
-	 * Set Counter Document.
-	 *
-	 * @param C_DocTypeCounter_ID Counter Document Relationship
-	 */
-	@JsonProperty("C_DocTypeCounter_ID")
-	public void setC_DocTypeCounter_IDFromJson(int C_DocTypeCounter_ID) {
-		if (get_ID() == 0) {
-			super.setC_DocTypeCounter_ID(C_DocTypeCounter_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_DocTypeCounter_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_DocTypeCounter_UU();
-	}
 
 	/**
 	 * Set Document Type.
@@ -137,6 +108,35 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	@JsonProperty("C_DocType")
 	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
+	}
+	/**
+	 * Set Counter Document.
+	 *
+	 * @param C_DocTypeCounter_ID Counter Document Relationship
+	 */
+	@JsonProperty("C_DocTypeCounter_ID")
+	public void setC_DocTypeCounter_IDFromJson(int C_DocTypeCounter_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocTypeCounter_ID(C_DocTypeCounter_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_DocTypeCounter_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_DocTypeCounter_UU();
 	}
 
 	/**

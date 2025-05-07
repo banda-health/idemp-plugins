@@ -109,20 +109,6 @@ public interface I_M_InventoryInput extends I_M_Inventory {
 	ForeignEntityInput C_DocType();
 
 	/**
-	 * Set CostingMethod.
-	 *
-	 * @param CostingMethod Indicates how Costs will be calculated
-	 */
-	void setCostingMethodInput(ForeignEntityInput CostingMethod);
-
-	/**
-	 * Get CostingMethod.
-	 *
-	 * @return Indicates how Costs will be calculated
-	 */
-	ForeignEntityInput CostingMethod();
-
-	/**
 	 * Set C_Project.
 	 *
 	 * @param C_Project Financial Project
@@ -135,6 +121,20 @@ public interface I_M_InventoryInput extends I_M_Inventory {
 	 * @return Financial Project
 	 */
 	ForeignEntityInput C_Project();
+
+	/**
+	 * Set CostingMethod.
+	 *
+	 * @param CostingMethod Indicates how Costs will be calculated
+	 */
+	void setCostingMethodInput(ForeignEntityInput CostingMethod);
+
+	/**
+	 * Get CostingMethod.
+	 *
+	 * @return Indicates how Costs will be calculated
+	 */
+	ForeignEntityInput CostingMethod();
 
 	/**
 	 * Set DocAction.

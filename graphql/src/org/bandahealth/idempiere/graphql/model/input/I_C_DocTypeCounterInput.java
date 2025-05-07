@@ -25,20 +25,6 @@ public interface I_C_DocTypeCounterInput extends I_C_DocTypeCounter {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
@@ -51,6 +37,20 @@ public interface I_C_DocTypeCounterInput extends I_C_DocTypeCounter {
 	 * @return Document type or rules
 	 */
 	ForeignEntityInput C_DocType();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set Counter_C_DocType.

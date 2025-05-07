@@ -29,6 +29,21 @@ import java.util.concurrent.CompletableFuture;
 public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implements GraphQLResolver<X_I_ReportLine> {
 
 
+
+	/**
+	 * Get Account Element.
+	 *
+	 * @return Account Element
+	 */
+	public CompletableFuture<MElementValue> C_ElementValue(X_I_ReportLine entity, DataFetchingEnvironment environment) {
+		if (entity.getC_ElementValue_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MElementValue> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
+		return dataLoader.load(entity.getC_ElementValue_ID());
+	}
+
 	public static Map<String, String> CALCULATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("A", "f6ceb249-8184-4e03-869c-21a955349210"); // Add (Op1+Op2)
@@ -44,21 +59,6 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(CALCULATIONTYPE_UUIDS_BY_VALUE.get(entity.getCalculationType()));
-	}
-
-
-	/**
-	 * Get Account Element.
-	 *
-	 * @return Account Element
-	 */
-	public CompletableFuture<MElementValue> C_ElementValue(X_I_ReportLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValue_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
-		return dataLoader.load(entity.getC_ElementValue_ID());
 	}
 
 	public Boolean I_IsImported(X_I_ReportLine entity, DataFetchingEnvironment environment) {
@@ -87,42 +87,6 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(LINETYPE_UUIDS_BY_VALUE.get(entity.getLineType()));
-	}
-
-	public static Map<String, String> PAAMOUNTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("B", "7c4060bf-60d8-433d-9536-68b24ac23482"); // Balance (expected sign)
-			put("C", "35749472-d741-46cc-bcfc-78e18981bdd1"); // Credit Only
-			put("D", "5cef5908-30a5-4bfa-be8c-863602c731cb"); // Debit Only
-			put("Q", "e940f395-f29e-42c0-860d-b4a6161525ad"); // Quantity (expected sign)
-			put("S", "275d41e4-b6d3-4b96-bee1-054b32174fce"); // Balance (accounted sign)
-			put("R", "f6d19951-ac66-4c69-8626-6252daff15ae"); // Quantity (accounted sign)
-		}
-	};
-	public CompletableFuture<MRefList_BH> PAAmountType(X_I_ReportLine entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getPAAmountType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(PAAMOUNTTYPE_UUIDS_BY_VALUE.get(entity.getPAAmountType()));
-	}
-
-	public static Map<String, String> PAPERIODTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("T", "c674c77f-9cb1-4442-8328-80b476c03aed"); // Total
-			put("Y", "e83324fd-88ac-4482-b0d6-27b734c0c2f2"); // Year
-			put("P", "a7860462-93bb-4a22-8c5f-25824c6528f7"); // Period
-			put("N", "aec483ce-9299-4786-a0cb-a1a851362950"); // Natural
-		}
-	};
-	public CompletableFuture<MRefList_BH> PAPeriodType(X_I_ReportLine entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getPAPeriodType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(PAPERIODTYPE_UUIDS_BY_VALUE.get(entity.getPAPeriodType()));
 	}
 
 
@@ -168,6 +132,42 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 		DataLoader<Integer, MReportSource> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportSourceDataLoader.DATALOADER_PA_ReportSource_BY_ID);
 		return dataLoader.load(entity.getPA_ReportSource_ID());
+	}
+
+	public static Map<String, String> PAAMOUNTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("B", "7c4060bf-60d8-433d-9536-68b24ac23482"); // Balance (expected sign)
+			put("C", "35749472-d741-46cc-bcfc-78e18981bdd1"); // Credit Only
+			put("D", "5cef5908-30a5-4bfa-be8c-863602c731cb"); // Debit Only
+			put("Q", "e940f395-f29e-42c0-860d-b4a6161525ad"); // Quantity (expected sign)
+			put("S", "275d41e4-b6d3-4b96-bee1-054b32174fce"); // Balance (accounted sign)
+			put("R", "f6d19951-ac66-4c69-8626-6252daff15ae"); // Quantity (accounted sign)
+		}
+	};
+	public CompletableFuture<MRefList_BH> PAAmountType(X_I_ReportLine entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getPAAmountType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(PAAMOUNTTYPE_UUIDS_BY_VALUE.get(entity.getPAAmountType()));
+	}
+
+	public static Map<String, String> PAPERIODTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("T", "c674c77f-9cb1-4442-8328-80b476c03aed"); // Total
+			put("Y", "e83324fd-88ac-4482-b0d6-27b734c0c2f2"); // Year
+			put("P", "a7860462-93bb-4a22-8c5f-25824c6528f7"); // Period
+			put("N", "aec483ce-9299-4786-a0cb-a1a851362950"); // Natural
+		}
+	};
+	public CompletableFuture<MRefList_BH> PAPeriodType(X_I_ReportLine entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getPAPeriodType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(PAPERIODTYPE_UUIDS_BY_VALUE.get(entity.getPAPeriodType()));
 	}
 
 	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {

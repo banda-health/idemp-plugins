@@ -39,20 +39,6 @@ public interface I_C_SubscriptionInput extends I_C_Subscription {
 	ForeignEntityInput C_BPartner();
 
 	/**
-	 * Set C_SubscriptionType.
-	 *
-	 * @param C_SubscriptionType Type of subscription
-	 */
-	void setC_SubscriptionTypeInput(ForeignEntityInput C_SubscriptionType);
-
-	/**
-	 * Get C_SubscriptionType.
-	 *
-	 * @return Type of subscription
-	 */
-	ForeignEntityInput C_SubscriptionType();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -65,6 +51,20 @@ public interface I_C_SubscriptionInput extends I_C_Subscription {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_SubscriptionType.
+	 *
+	 * @param C_SubscriptionType Type of subscription
+	 */
+	void setC_SubscriptionTypeInput(ForeignEntityInput C_SubscriptionType);
+
+	/**
+	 * Get C_SubscriptionType.
+	 *
+	 * @return Type of subscription
+	 */
+	ForeignEntityInput C_SubscriptionType();
 
 	/**
 	 * Set M_Product.

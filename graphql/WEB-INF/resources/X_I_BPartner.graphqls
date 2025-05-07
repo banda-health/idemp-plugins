@@ -20,28 +20,30 @@ type I_BPartnerConnection {
 type I_BPartner {
 	# Tenant for this installation.
 	AD_Client: AD_Client
-	# Address line 1 for this location
-	Address1: String
-	# Address line 2 for this location
-	Address2: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
 	# Birthday or Anniversary day
 	Birthday: Date
 	# Greeting for Business Partner Contact
 	BPContactGreeting: String
+	# Business Partner Group
+	C_BP_Group: C_BP_Group
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: C_BPartner_Location
-	# Business Partner Group
-	C_BP_Group: C_BP_Group
 	# Country 
 	C_Country: C_Country
 	# Greeting to print on correspondence
 	C_Greeting: C_Greeting
+	# Identifies a geographical Region
+	C_Region: C_Region
 	# Identifies a City
 	City: String
 	# Comments or additional information
@@ -56,8 +58,6 @@ type I_BPartner {
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
-	# Identifies a geographical Region
-	C_Region: C_Region
 	# Optional short description of the record
 	Description: String
 	# Dun & Bradstreet Number
@@ -102,10 +102,10 @@ type I_BPartner {
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
-	# Name of the Region
-	RegionName: String
 	# Interest Area or Topic
 	R_InterestArea: R_InterestArea
+	# Name of the Region
+	RegionName: String
 	# Tax Identification
 	TaxID: String
 	# Name this entity is referred to as
@@ -119,28 +119,30 @@ type I_BPartner {
 }
 
 input I_BPartnerInput {
-	# Address line 1 for this location
-	Address1: String
-	# Address line 2 for this location
-	Address2: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
 	# Birthday or Anniversary day
 	Birthday: Date
 	# Greeting for Business Partner Contact
 	BPContactGreeting: String
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: ForeignEntityInput
-	# Business Partner Group
-	C_BP_Group: ForeignEntityInput
 	# Country 
 	C_Country: ForeignEntityInput
 	# Greeting to print on correspondence
 	C_Greeting: ForeignEntityInput
+	# Identifies a geographical Region
+	C_Region: ForeignEntityInput
 	# Identifies a City
 	City: String
 	# Comments or additional information
@@ -151,8 +153,6 @@ input I_BPartnerInput {
 	ContactName: String
 	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
-	# Identifies a geographical Region
-	C_Region: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Dun & Bradstreet Number
@@ -197,10 +197,10 @@ input I_BPartnerInput {
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
-	# Name of the Region
-	RegionName: String
 	# Interest Area or Topic
 	R_InterestArea: ForeignEntityInput
+	# Name of the Region
+	RegionName: String
 	# Tax Identification
 	TaxID: String
 	# Name this entity is referred to as

@@ -164,6 +164,24 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_Charge_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_Charge_UU();
+	}
+
+	/**
 	 * Set Charge Type.
 	 *
 	 * @param C_ChargeType Charge Type
@@ -195,24 +213,6 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	@JsonProperty("C_ChargeType")
 	public ForeignEntityInput C_ChargeType() {
 		return mC_ChargeType;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_Charge_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_Charge_UU();
 	}
 
 	/**

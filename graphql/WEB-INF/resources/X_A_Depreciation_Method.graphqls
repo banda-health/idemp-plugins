@@ -18,9 +18,9 @@ type A_Depreciation_MethodConnection {
 }
 
 type A_Depreciation_Method {
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created

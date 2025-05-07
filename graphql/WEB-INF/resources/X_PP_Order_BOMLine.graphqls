@@ -28,6 +28,8 @@ type PP_Order_BOMLine {
 	Assay: BigDecimal
 	# The Grouping Components to the Backflush
 	BackflushGroup: String
+	# Unit of Measure
+	C_UOM: C_UOM!
 	# Component Type for a Bill of Material or Formula
 	ComponentType: AD_Ref_List
 	# Cost allocation percent in case of a co-product.
@@ -36,8 +38,6 @@ type PP_Order_BOMLine {
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Unit of Measure
-	C_UOM: C_UOM!
 	# Date when the product was delivered
 	DateDelivered: DateTime
 	# Optional short description of the record
@@ -110,12 +110,12 @@ input PP_Order_BOMLineInput {
 	Assay: BigDecimal
 	# The Grouping Components to the Backflush
 	BackflushGroup: String
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
 	# Component Type for a Bill of Material or Formula
 	ComponentType: ForeignEntityInput
 	# Cost allocation percent in case of a co-product.
 	CostAllocationPerc: BigDecimal
-	# Unit of Measure
-	C_UOM: ForeignEntityInput
 	# Date when the product was delivered
 	DateDelivered: DateTime
 	# Optional short description of the record

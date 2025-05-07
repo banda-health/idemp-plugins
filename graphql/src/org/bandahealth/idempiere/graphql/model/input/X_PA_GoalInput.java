@@ -350,6 +350,24 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setPA_Goal_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getPA_Goal_UU();
+	}
+
+	/**
 	 * Set Parent Goal.
 	 *
 	 * @param PA_GoalParent Parent Goal
@@ -381,24 +399,6 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("PA_GoalParent")
 	public ForeignEntityInput PA_GoalParent() {
 		return mPA_GoalParent;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setPA_Goal_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getPA_Goal_UU();
 	}
 
 	/**

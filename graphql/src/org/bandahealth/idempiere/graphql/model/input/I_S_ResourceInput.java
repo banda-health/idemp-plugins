@@ -39,20 +39,6 @@ public interface I_S_ResourceInput extends I_S_Resource {
 	ForeignEntityInput AD_User();
 
 	/**
-	 * Set ManufacturingResourceType.
-	 *
-	 * @param ManufacturingResourceType ManufacturingResourceType
-	 */
-	void setManufacturingResourceTypeInput(ForeignEntityInput ManufacturingResourceType);
-
-	/**
-	 * Get ManufacturingResourceType.
-	 *
-	 * @return ManufacturingResourceType
-	 */
-	ForeignEntityInput ManufacturingResourceType();
-
-	/**
 	 * Set M_Warehouse.
 	 *
 	 * @param M_Warehouse Storage Warehouse and Service Point
@@ -67,18 +53,18 @@ public interface I_S_ResourceInput extends I_S_Resource {
 	ForeignEntityInput M_Warehouse();
 
 	/**
-	 * Set S_ResourceType.
+	 * Set ManufacturingResourceType.
 	 *
-	 * @param S_ResourceType S_ResourceType
+	 * @param ManufacturingResourceType ManufacturingResourceType
 	 */
-	void setS_ResourceTypeInput(ForeignEntityInput S_ResourceType);
+	void setManufacturingResourceTypeInput(ForeignEntityInput ManufacturingResourceType);
 
 	/**
-	 * Get S_ResourceType.
+	 * Get ManufacturingResourceType.
 	 *
-	 * @return S_ResourceType
+	 * @return ManufacturingResourceType
 	 */
-	ForeignEntityInput S_ResourceType();
+	ForeignEntityInput ManufacturingResourceType();
 
 	/**
 	 * Set UU.
@@ -93,4 +79,18 @@ public interface I_S_ResourceInput extends I_S_Resource {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set S_ResourceType.
+	 *
+	 * @param S_ResourceType S_ResourceType
+	 */
+	void setS_ResourceTypeInput(ForeignEntityInput S_ResourceType);
+
+	/**
+	 * Get S_ResourceType.
+	 *
+	 * @return S_ResourceType
+	 */
+	ForeignEntityInput S_ResourceType();
 }

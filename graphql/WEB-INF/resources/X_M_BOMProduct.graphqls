@@ -44,10 +44,10 @@ type M_BOMProduct {
 	Line: Int!
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance
-	# Product BOM Alternative Group
-	M_BOMAlternative: M_BOMAlternative
 	# Bill of Material
 	M_BOM: M_BOM!
+	# Product BOM Alternative Group
+	M_BOMAlternative: M_BOMAlternative
 	UU: ID!
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: M_ChangeNotice
@@ -84,10 +84,10 @@ input M_BOMProductInput {
 	Line: Int
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
-	# Product BOM Alternative Group
-	M_BOMAlternative: ForeignEntityInput
 	# Bill of Material
 	M_BOM: ForeignEntityInput
+	# Product BOM Alternative Group
+	M_BOMAlternative: ForeignEntityInput
 	UU: ID
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: ForeignEntityInput

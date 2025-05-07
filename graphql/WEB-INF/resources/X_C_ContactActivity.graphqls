@@ -25,11 +25,11 @@ type C_ContactActivity {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	UU: ID!
+	C_Opportunity: C_Opportunity
 	# Comments or additional information
 	Comments: String
 	# Type of activity, e.g. task, email, phone call
 	ContactActivityType: AD_Ref_List!
-	C_Opportunity: C_Opportunity
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -58,11 +58,11 @@ input C_ContactActivityInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UU: ID
+	C_Opportunity: ForeignEntityInput
 	# Comments or additional information
 	Comments: String
 	# Type of activity, e.g. task, email, phone call
 	ContactActivityType: ForeignEntityInput
-	C_Opportunity: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Last effective date (inclusive)

@@ -22,13 +22,13 @@ type C_Subscription_Delivery {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	UU: ID!
+	# Subscription of a Business Partner of a Product to renew
+	C_Subscription: C_Subscription!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	UU: ID!
-	# Subscription of a Business Partner of a Product to renew
-	C_Subscription: C_Subscription!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated

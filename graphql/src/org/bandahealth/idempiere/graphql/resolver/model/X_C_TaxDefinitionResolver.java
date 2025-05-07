@@ -53,6 +53,21 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 
 
 	/**
+	 * Get Business Partner Group.
+	 *
+	 * @return Business Partner Group
+	 */
+	public CompletableFuture<MBPGroup_BH> C_BP_Group(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BP_Group_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBPGroup_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
+		return dataLoader.load(entity.getC_BP_Group_ID());
+	}
+
+
+	/**
 	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
@@ -68,17 +83,17 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 
 
 	/**
-	 * Get Business Partner Group.
+	 * Get Tax.
 	 *
-	 * @return Business Partner Group
+	 * @return Tax identifier
 	 */
-	public CompletableFuture<MBPGroup_BH> C_BP_Group(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() < 1) {
+	public CompletableFuture<MTax> C_Tax(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Tax_ID() < 1) {
 			return null;
 		}
-		DataLoader<Integer, MBPGroup_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
-		return dataLoader.load(entity.getC_BP_Group_ID());
+		DataLoader<Integer, MTax> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
+		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
 
@@ -124,21 +139,6 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 		DataLoader<Integer, X_C_TaxGroup> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxGroupDataLoader.DATALOADER_C_TaxGroup_BY_ID);
 		return dataLoader.load(entity.getC_TaxGroup_ID());
-	}
-
-
-	/**
-	 * Get Tax.
-	 *
-	 * @return Tax identifier
-	 */
-	public CompletableFuture<MTax> C_Tax(X_C_TaxDefinition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
-		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
 

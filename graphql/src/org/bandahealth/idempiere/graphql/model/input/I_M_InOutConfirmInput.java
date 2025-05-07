@@ -81,20 +81,6 @@ public interface I_M_InOutConfirmInput extends I_M_InOutConfirm {
 	ForeignEntityInput DocStatus();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_InOut.
 	 *
 	 * @param M_InOut Material Shipment Document
@@ -107,6 +93,20 @@ public interface I_M_InOutConfirmInput extends I_M_InOutConfirm {
 	 * @return Material Shipment Document
 	 */
 	ForeignEntityInput M_InOut();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set M_Inventory.

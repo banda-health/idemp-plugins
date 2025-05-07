@@ -24,9 +24,9 @@ type C_BP_EDI {
 	AD_Org: AD_Org!
 	# Document Sequence
 	AD_Sequence: AD_Sequence!
+	UU: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -74,9 +74,9 @@ input C_BP_EDIInput {
 	AD_Org: ForeignEntityInput
 	# Document Sequence
 	AD_Sequence: ForeignEntityInput
+	UU: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	UU: ID
 	# EDI Identification Number 
 	CustomerNo: String
 	# Optional short description of the record

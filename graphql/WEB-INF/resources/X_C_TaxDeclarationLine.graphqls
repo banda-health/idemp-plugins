@@ -32,15 +32,15 @@ type C_TaxDeclarationLine {
 	C_Invoice: C_Invoice
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine
+	# Tax identifier
+	C_Tax: C_Tax!
+	# Define the declaration to the tax authorities
+	C_TaxDeclaration: C_TaxDeclaration!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Define the declaration to the tax authorities
-	C_TaxDeclaration: C_TaxDeclaration!
-	UU: ID!
-	# Tax identifier
-	C_Tax: C_Tax!
 	# Accounting Date
 	DateAcct: Date!
 	# Optional short description of the record
@@ -74,11 +74,11 @@ input C_TaxDeclarationLineInput {
 	C_Invoice: ForeignEntityInput
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
+	# Tax identifier
+	C_Tax: ForeignEntityInput
 	# Define the declaration to the tax authorities
 	C_TaxDeclaration: ForeignEntityInput
 	UU: ID
-	# Tax identifier
-	C_Tax: ForeignEntityInput
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record

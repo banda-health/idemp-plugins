@@ -40,18 +40,18 @@ type R_Request {
 	C_Invoice: C_Invoice
 	# The generated invoice for this request
 	C_InvoiceRequest: C_Invoice
-	# Close Date
-	CloseDate: DateTime
-	# Type of Confidentiality
-	ConfidentialType: AD_Ref_List!
-	# Confidentiality of the individual entry
-	ConfidentialTypeEntry: AD_Ref_List!
 	# Order
 	C_Order: C_Order
 	# Payment identifier
 	C_Payment: C_Payment
 	# Financial Project
 	C_Project: C_Project
+	# Close Date
+	CloseDate: DateTime
+	# Type of Confidentiality
+	ConfidentialType: AD_Ref_List!
+	# Confidentiality of the individual entry
+	ConfidentialTypeEntry: AD_Ref_List!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -110,25 +110,25 @@ type R_Request {
 	QtySpent: BigDecimal
 	# Request Category
 	R_Category: R_Category
-	# Amount associated with this request
-	RequestAmt: BigDecimal!
-	# Result of the action taken
-	Result: String
 	# Request Group
 	R_Group: R_Group
 	# Text templates for mailings
 	R_MailText: R_MailText
+	UU: ID!
 	# Related Request (Master Issue, ..)
 	R_RequestRelated: R_Request
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType!
-	UU: ID!
 	# Request Resolution
 	R_Resolution: R_Resolution
 	# Request Standard Response 
 	R_StandardResponse: R_StandardResponse
 	# Request Status
 	R_Status: R_Status
+	# Amount associated with this request
+	RequestAmt: BigDecimal!
+	# Result of the action taken
+	Result: String
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
 	# First effective day (inclusive)
@@ -166,18 +166,18 @@ input R_RequestInput {
 	C_Invoice: ForeignEntityInput
 	# The generated invoice for this request
 	C_InvoiceRequest: ForeignEntityInput
-	# Close Date
-	CloseDate: DateTime
-	# Type of Confidentiality
-	ConfidentialType: ForeignEntityInput
-	# Confidentiality of the individual entry
-	ConfidentialTypeEntry: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
+	# Close Date
+	CloseDate: DateTime
+	# Type of Confidentiality
+	ConfidentialType: ForeignEntityInput
+	# Confidentiality of the individual entry
+	ConfidentialTypeEntry: ForeignEntityInput
 	# Planned Completion Date
 	DateCompletePlan: DateTime
 	# Date this request was last acted on
@@ -232,25 +232,25 @@ input R_RequestInput {
 	QtySpent: BigDecimal
 	# Request Category
 	R_Category: ForeignEntityInput
-	# Amount associated with this request
-	RequestAmt: BigDecimal
-	# Result of the action taken
-	Result: String
 	# Request Group
 	R_Group: ForeignEntityInput
 	# Text templates for mailings
 	R_MailText: ForeignEntityInput
+	UU: ID
 	# Related Request (Master Issue, ..)
 	R_RequestRelated: ForeignEntityInput
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
-	UU: ID
 	# Request Resolution
 	R_Resolution: ForeignEntityInput
 	# Request Standard Response 
 	R_StandardResponse: ForeignEntityInput
 	# Request Status
 	R_Status: ForeignEntityInput
+	# Amount associated with this request
+	RequestAmt: BigDecimal
+	# Result of the action taken
+	Result: String
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 	# First effective day (inclusive)

@@ -32,9 +32,9 @@ type M_SerNoCtlExclude {
 	IsActive: Boolean!
 	# This is a Sales Transaction
 	IsSOTrx: Boolean!
-	UU: ID!
 	# Product Serial Number Control
 	M_SerNoCtl: M_SerNoCtl!
+	UU: ID!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -50,7 +50,7 @@ input M_SerNoCtlExcludeInput {
 	IsActive: Boolean
 	# This is a Sales Transaction
 	IsSOTrx: Boolean
-	UU: ID
 	# Product Serial Number Control
 	M_SerNoCtl: ForeignEntityInput
+	UU: ID
 }

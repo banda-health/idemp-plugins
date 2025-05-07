@@ -24,13 +24,13 @@ type C_UserRemuneration {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
+	# Wage or Salary
+	C_Remuneration: C_Remuneration!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Wage or Salary
-	C_Remuneration: C_Remuneration!
-	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# Gross Remuneration Amount

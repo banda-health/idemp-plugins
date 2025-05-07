@@ -22,13 +22,13 @@ type M_RMATax {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# Tax identifier
+	C_Tax: C_Tax!
+	C_TaxProvider: C_TaxProvider
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Tax identifier
-	C_Tax: C_Tax!
-	C_TaxProvider: C_TaxProvider
 	# The record is active in the system
 	IsActive: Boolean!
 	# Tax is included in the price 

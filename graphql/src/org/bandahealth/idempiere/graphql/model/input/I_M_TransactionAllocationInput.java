@@ -109,20 +109,6 @@ public interface I_M_TransactionAllocationInput extends I_M_TransactionAllocatio
 	ForeignEntityInput M_ProductionLine();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_Transaction.
 	 *
 	 * @param M_Transaction M_Transaction
@@ -135,6 +121,20 @@ public interface I_M_TransactionAllocationInput extends I_M_TransactionAllocatio
 	 * @return M_Transaction
 	 */
 	ForeignEntityInput M_Transaction();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set Out_M_InOutLine.

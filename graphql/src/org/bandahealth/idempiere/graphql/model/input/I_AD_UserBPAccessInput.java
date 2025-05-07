@@ -25,20 +25,6 @@ public interface I_AD_UserBPAccessInput extends I_AD_UserBPAccess {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
@@ -51,6 +37,20 @@ public interface I_AD_UserBPAccessInput extends I_AD_UserBPAccess {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	ForeignEntityInput AD_User();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set BPAccessType.

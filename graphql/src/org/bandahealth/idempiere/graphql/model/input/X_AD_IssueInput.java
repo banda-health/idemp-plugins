@@ -10,14 +10,14 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MForm;
 import org.compiere.model.MIssue;
-import org.compiere.model.MIssueProject;
-import org.compiere.model.MIssueSystem;
-import org.compiere.model.MIssueUser;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRequest;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.model.X_R_IssueKnown;
+import org.compiere.model.X_R_IssueProject;
+import org.compiere.model.X_R_IssueSystem;
+import org.compiere.model.X_R_IssueUser;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -466,6 +466,179 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			super.setProfileInfo(ProfileInfo);
 		}
 	}
+
+	/**
+	 * Set Known Issue.
+	 *
+	 * @param R_IssueKnown Known Issue
+	 */
+	@JsonProperty("R_IssueKnown")
+	public void setR_IssueKnownInput(ForeignEntityInput R_IssueKnown) {
+		this.mR_IssueKnown = R_IssueKnown;
+		if (R_IssueKnown != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_R_IssueKnown foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "R_IssueKnown", "R_IssueKnown_UU=?", get_TrxName())
+							.setParameters(R_IssueKnown.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setR_IssueKnown_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_IssueKnown with UU " + R_IssueKnown.getUU());
+			}
+		} else {
+			this.setR_IssueKnown_ID(0);
+		}
+	}
+
+	/**
+	 * Get Known Issue.
+	 *
+	 * @return Known Issue
+	 */
+	@JsonProperty("R_IssueKnown")
+	public ForeignEntityInput R_IssueKnown() {
+		return mR_IssueKnown;
+	}
+
+	/**
+	 * Set Issue Project.
+	 *
+	 * @param R_IssueProject Implementation Projects
+	 */
+	@JsonProperty("R_IssueProject")
+	public void setR_IssueProjectInput(ForeignEntityInput R_IssueProject) {
+		this.mR_IssueProject = R_IssueProject;
+		if (R_IssueProject != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_R_IssueProject foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "R_IssueProject", "R_IssueProject_UU=?", get_TrxName())
+							.setParameters(R_IssueProject.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setR_IssueProject_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_IssueProject with UU " + R_IssueProject.getUU());
+			}
+		} else {
+			this.setR_IssueProject_ID(0);
+		}
+	}
+
+	/**
+	 * Get Issue Project.
+	 *
+	 * @return Implementation Projects
+	 */
+	@JsonProperty("R_IssueProject")
+	public ForeignEntityInput R_IssueProject() {
+		return mR_IssueProject;
+	}
+
+	/**
+	 * Set Issue System.
+	 *
+	 * @param R_IssueSystem System creating the issue
+	 */
+	@JsonProperty("R_IssueSystem")
+	public void setR_IssueSystemInput(ForeignEntityInput R_IssueSystem) {
+		this.mR_IssueSystem = R_IssueSystem;
+		if (R_IssueSystem != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_R_IssueSystem foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "R_IssueSystem", "R_IssueSystem_UU=?", get_TrxName())
+							.setParameters(R_IssueSystem.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setR_IssueSystem_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_IssueSystem with UU " + R_IssueSystem.getUU());
+			}
+		} else {
+			this.setR_IssueSystem_ID(0);
+		}
+	}
+
+	/**
+	 * Get Issue System.
+	 *
+	 * @return System creating the issue
+	 */
+	@JsonProperty("R_IssueSystem")
+	public ForeignEntityInput R_IssueSystem() {
+		return mR_IssueSystem;
+	}
+
+	/**
+	 * Set Issue User.
+	 *
+	 * @param R_IssueUser User who reported issues
+	 */
+	@JsonProperty("R_IssueUser")
+	public void setR_IssueUserInput(ForeignEntityInput R_IssueUser) {
+		this.mR_IssueUser = R_IssueUser;
+		if (R_IssueUser != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_R_IssueUser foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "R_IssueUser", "R_IssueUser_UU=?", get_TrxName())
+							.setParameters(R_IssueUser.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setR_IssueUser_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_IssueUser with UU " + R_IssueUser.getUU());
+			}
+		} else {
+			this.setR_IssueUser_ID(0);
+		}
+	}
+
+	/**
+	 * Get Issue User.
+	 *
+	 * @return User who reported issues
+	 */
+	@JsonProperty("R_IssueUser")
+	public ForeignEntityInput R_IssueUser() {
+		return mR_IssueUser;
+	}
+
+	/**
+	 * Set Request.
+	 *
+	 * @param R_Request Request from a Business Partner or Prospect
+	 */
+	@JsonProperty("R_Request")
+	public void setR_RequestInput(ForeignEntityInput R_Request) {
+		this.mR_Request = R_Request;
+		if (!is_new()) {
+			return;
+		}
+		if (R_Request != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRequest foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
+							.setParameters(R_Request.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setR_Request_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_Request with UU " + R_Request.getUU());
+			}
+		} else {
+			this.setR_Request_ID(0);
+		}
+	}
+
+	/**
+	 * Get Request.
+	 *
+	 * @return Request from a Business Partner or Prospect
+	 */
+	@JsonProperty("R_Request")
+	public ForeignEntityInput R_Request() {
+		return mR_Request;
+	}
 	/**
 	 * Set Record ID.
 	 *
@@ -531,179 +704,6 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 		if (get_ID() == 0) {
 			super.setResponseText(ResponseText);
 		}
-	}
-
-	/**
-	 * Set Known Issue.
-	 *
-	 * @param R_IssueKnown Known Issue
-	 */
-	@JsonProperty("R_IssueKnown")
-	public void setR_IssueKnownInput(ForeignEntityInput R_IssueKnown) {
-		this.mR_IssueKnown = R_IssueKnown;
-		if (R_IssueKnown != null) {
-			// Since an entity was passed, make sure it's in the DB
-			X_R_IssueKnown foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "R_IssueKnown", "R_IssueKnown_UU=?", get_TrxName())
-							.setParameters(R_IssueKnown.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setR_IssueKnown_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table R_IssueKnown with UU " + R_IssueKnown.getUU());
-			}
-		} else {
-			this.setR_IssueKnown_ID(0);
-		}
-	}
-
-	/**
-	 * Get Known Issue.
-	 *
-	 * @return Known Issue
-	 */
-	@JsonProperty("R_IssueKnown")
-	public ForeignEntityInput R_IssueKnown() {
-		return mR_IssueKnown;
-	}
-
-	/**
-	 * Set Issue Project.
-	 *
-	 * @param R_IssueProject Implementation Projects
-	 */
-	@JsonProperty("R_IssueProject")
-	public void setR_IssueProjectInput(ForeignEntityInput R_IssueProject) {
-		this.mR_IssueProject = R_IssueProject;
-		if (R_IssueProject != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MIssueProject foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "R_IssueProject", "R_IssueProject_UU=?", get_TrxName())
-							.setParameters(R_IssueProject.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setR_IssueProject_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table R_IssueProject with UU " + R_IssueProject.getUU());
-			}
-		} else {
-			this.setR_IssueProject_ID(0);
-		}
-	}
-
-	/**
-	 * Get Issue Project.
-	 *
-	 * @return Implementation Projects
-	 */
-	@JsonProperty("R_IssueProject")
-	public ForeignEntityInput R_IssueProject() {
-		return mR_IssueProject;
-	}
-
-	/**
-	 * Set Issue System.
-	 *
-	 * @param R_IssueSystem System creating the issue
-	 */
-	@JsonProperty("R_IssueSystem")
-	public void setR_IssueSystemInput(ForeignEntityInput R_IssueSystem) {
-		this.mR_IssueSystem = R_IssueSystem;
-		if (R_IssueSystem != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MIssueSystem foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "R_IssueSystem", "R_IssueSystem_UU=?", get_TrxName())
-							.setParameters(R_IssueSystem.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setR_IssueSystem_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table R_IssueSystem with UU " + R_IssueSystem.getUU());
-			}
-		} else {
-			this.setR_IssueSystem_ID(0);
-		}
-	}
-
-	/**
-	 * Get Issue System.
-	 *
-	 * @return System creating the issue
-	 */
-	@JsonProperty("R_IssueSystem")
-	public ForeignEntityInput R_IssueSystem() {
-		return mR_IssueSystem;
-	}
-
-	/**
-	 * Set Issue User.
-	 *
-	 * @param R_IssueUser User who reported issues
-	 */
-	@JsonProperty("R_IssueUser")
-	public void setR_IssueUserInput(ForeignEntityInput R_IssueUser) {
-		this.mR_IssueUser = R_IssueUser;
-		if (R_IssueUser != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MIssueUser foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "R_IssueUser", "R_IssueUser_UU=?", get_TrxName())
-							.setParameters(R_IssueUser.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setR_IssueUser_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table R_IssueUser with UU " + R_IssueUser.getUU());
-			}
-		} else {
-			this.setR_IssueUser_ID(0);
-		}
-	}
-
-	/**
-	 * Get Issue User.
-	 *
-	 * @return User who reported issues
-	 */
-	@JsonProperty("R_IssueUser")
-	public ForeignEntityInput R_IssueUser() {
-		return mR_IssueUser;
-	}
-
-	/**
-	 * Set Request.
-	 *
-	 * @param R_Request Request from a Business Partner or Prospect
-	 */
-	@JsonProperty("R_Request")
-	public void setR_RequestInput(ForeignEntityInput R_Request) {
-		this.mR_Request = R_Request;
-		if (!is_new()) {
-			return;
-		}
-		if (R_Request != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MRequest foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
-							.setParameters(R_Request.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setR_Request_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table R_Request with UU " + R_Request.getUU());
-			}
-		} else {
-			this.setR_Request_ID(0);
-		}
-	}
-
-	/**
-	 * Get Request.
-	 *
-	 * @return Request from a Business Partner or Prospect
-	 */
-	@JsonProperty("R_Request")
-	public ForeignEntityInput R_Request() {
-		return mR_Request;
 	}
 	/**
 	 * Set Statistics.

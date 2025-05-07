@@ -25,20 +25,6 @@ public interface I_C_AddressValidationInput extends I_C_AddressValidation {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set C_AddressValidationCfg.
-	 *
-	 * @param C_AddressValidationCfg C_AddressValidationCfg
-	 */
-	void setC_AddressValidationCfgInput(ForeignEntityInput C_AddressValidationCfg);
-
-	/**
-	 * Get C_AddressValidationCfg.
-	 *
-	 * @return C_AddressValidationCfg
-	 */
-	ForeignEntityInput C_AddressValidationCfg();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -51,4 +37,18 @@ public interface I_C_AddressValidationInput extends I_C_AddressValidation {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_AddressValidationCfg.
+	 *
+	 * @param C_AddressValidationCfg C_AddressValidationCfg
+	 */
+	void setC_AddressValidationCfgInput(ForeignEntityInput C_AddressValidationCfg);
+
+	/**
+	 * Get C_AddressValidationCfg.
+	 *
+	 * @return C_AddressValidationCfg
+	 */
+	ForeignEntityInput C_AddressValidationCfg();
 }

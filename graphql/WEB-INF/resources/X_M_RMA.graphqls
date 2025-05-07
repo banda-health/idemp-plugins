@@ -60,9 +60,9 @@ type M_RMA {
 	IsApproved: Boolean!
 	# This is a Sales Transaction
 	IsSOTrx: Boolean!
+	UU: ID!
 	# Return Material Authorization Type
 	M_RMAType: M_RMAType!
-	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# The document has been processed
@@ -114,9 +114,9 @@ input M_RMAInput {
 	IsApproved: Boolean
 	# This is a Sales Transaction
 	IsSOTrx: Boolean
+	UU: ID
 	# Return Material Authorization Type
 	M_RMAType: ForeignEntityInput
-	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# The document has been processed

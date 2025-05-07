@@ -100,21 +100,6 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 
 
 	/**
-	 * Get Included Print Format.
-	 *
-	 * @return Print format that is included here.
-	 */
-	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormatChild(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormatChild_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
-		return dataLoader.load(entity.getAD_PrintFormatChild_ID());
-	}
-
-
-	/**
 	 * Get Print Format.
 	 *
 	 * @return Data Print Format
@@ -126,6 +111,21 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFormat_ID());
+	}
+
+
+	/**
+	 * Get Included Print Format.
+	 *
+	 * @return Print format that is included here.
+	 */
+	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormatChild(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_PrintFormatChild_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
+		return dataLoader.load(entity.getAD_PrintFormatChild_ID());
 	}
 
 

@@ -182,6 +182,35 @@ public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 	public ForeignEntityInput C_Region() {
 		return mC_Region;
 	}
+	/**
+	 * Set Freight.
+	 *
+	 * @param M_Freight_ID Freight Rate
+	 */
+	@JsonProperty("M_Freight_ID")
+	public void setM_Freight_IDFromJson(int M_Freight_ID) {
+		if (get_ID() == 0) {
+			super.setM_Freight_ID(M_Freight_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_Freight_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_Freight_UU();
+	}
 
 	/**
 	 * Set Freight Category.
@@ -215,35 +244,6 @@ public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 	@JsonProperty("M_FreightCategory")
 	public ForeignEntityInput M_FreightCategory() {
 		return mM_FreightCategory;
-	}
-	/**
-	 * Set Freight.
-	 *
-	 * @param M_Freight_ID Freight Rate
-	 */
-	@JsonProperty("M_Freight_ID")
-	public void setM_Freight_IDFromJson(int M_Freight_ID) {
-		if (get_ID() == 0) {
-			super.setM_Freight_ID(M_Freight_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_Freight_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_Freight_UU();
 	}
 
 	/**

@@ -24,19 +24,19 @@ type C_BP_Customer_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
+	UU: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
-	UU: ID!
 	# Account for customer prepayments
 	C_Prepayment_A: C_ValidCombination!
-	# Date this record was created
-	Created: DateTime!
-	# User who created this records
-	CreatedBy: AD_User!
 	# Account for Customer Receivables
 	C_Receivable_A: C_ValidCombination!
 	# Customer Accounts Receivables Services Account
 	C_Receivable_Services_A: C_ValidCombination!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
@@ -50,9 +50,9 @@ input C_BP_Customer_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
+	UU: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	UU: ID
 	# Account for customer prepayments
 	C_Prepayment_A: ForeignEntityInput
 	# Account for Customer Receivables

@@ -23,12 +23,12 @@ type C_Period {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UU: ID!
+	# Calendar Year
+	C_Year: C_Year!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Calendar Year
-	C_Year: C_Year!
 	# Last effective date (inclusive)
 	EndDate: Date
 	# The record is active in the system

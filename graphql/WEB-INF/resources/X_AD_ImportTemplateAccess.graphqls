@@ -20,8 +20,8 @@ type AD_ImportTemplateAccessConnection {
 type AD_ImportTemplateAccess {
 	# Tenant for this installation.
 	AD_Client: AD_Client
-	UU: ID!
 	AD_ImportTemplate: AD_ImportTemplate
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# Responsibility Role
@@ -42,8 +42,8 @@ type AD_ImportTemplateAccess {
 }
 
 input AD_ImportTemplateAccessInput {
-	UU: ID
 	AD_ImportTemplate: ForeignEntityInput
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role

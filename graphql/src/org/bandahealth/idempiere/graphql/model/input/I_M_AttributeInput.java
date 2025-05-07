@@ -81,20 +81,6 @@ public interface I_M_AttributeInput extends I_M_Attribute {
 	ForeignEntityInput AttributeValueType();
 
 	/**
-	 * Set M_AttributeSearch.
-	 *
-	 * @param M_AttributeSearch Common Search Attribute 
-	 */
-	void setM_AttributeSearchInput(ForeignEntityInput M_AttributeSearch);
-
-	/**
-	 * Get M_AttributeSearch.
-	 *
-	 * @return Common Search Attribute 
-	 */
-	ForeignEntityInput M_AttributeSearch();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -107,4 +93,18 @@ public interface I_M_AttributeInput extends I_M_Attribute {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set M_AttributeSearch.
+	 *
+	 * @param M_AttributeSearch Common Search Attribute 
+	 */
+	void setM_AttributeSearchInput(ForeignEntityInput M_AttributeSearch);
+
+	/**
+	 * Get M_AttributeSearch.
+	 *
+	 * @return Common Search Attribute 
+	 */
+	ForeignEntityInput M_AttributeSearch();
 }

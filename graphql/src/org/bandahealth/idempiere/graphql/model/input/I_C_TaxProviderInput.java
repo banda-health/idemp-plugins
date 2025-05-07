@@ -25,20 +25,6 @@ public interface I_C_TaxProviderInput extends I_C_TaxProvider {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set C_TaxProviderCfg.
-	 *
-	 * @param C_TaxProviderCfg C_TaxProviderCfg
-	 */
-	void setC_TaxProviderCfgInput(ForeignEntityInput C_TaxProviderCfg);
-
-	/**
-	 * Get C_TaxProviderCfg.
-	 *
-	 * @return C_TaxProviderCfg
-	 */
-	ForeignEntityInput C_TaxProviderCfg();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -51,4 +37,18 @@ public interface I_C_TaxProviderInput extends I_C_TaxProvider {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_TaxProviderCfg.
+	 *
+	 * @param C_TaxProviderCfg C_TaxProviderCfg
+	 */
+	void setC_TaxProviderCfgInput(ForeignEntityInput C_TaxProviderCfg);
+
+	/**
+	 * Get C_TaxProviderCfg.
+	 *
+	 * @return C_TaxProviderCfg
+	 */
+	ForeignEntityInput C_TaxProviderCfg();
 }

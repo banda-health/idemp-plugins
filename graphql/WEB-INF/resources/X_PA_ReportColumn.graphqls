@@ -24,7 +24,6 @@ type PA_ReportColumn {
 	AD_Org: AD_Org!
 	# Business Activity
 	C_Activity: C_Activity
-	CalculationType: AD_Ref_List
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Marketing Campaign
@@ -35,15 +34,16 @@ type PA_ReportColumn {
 	C_ElementValue: C_ElementValue
 	# Location or Address
 	C_Location: C_Location
-	ColumnType: AD_Ref_List!
 	# Financial Project
 	C_Project: C_Project
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
+	CalculationType: AD_Ref_List
+	ColumnType: AD_Ref_List!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Sales coverage region
-	C_SalesRegion: C_SalesRegion
 	CurrencyType: AD_Ref_List
 	# Optional short description of the record
 	Description: String
@@ -99,13 +99,13 @@ type PA_ReportColumn {
 	Oper_2: PA_ReportColumn
 	# Name of the financial report line to take values from
 	Oper_2_LineName: String
+	UU: ID!
+	# Collection of Columns for Report
+	PA_ReportColumnSet: PA_ReportColumnSet!
 	# PA Amount Type for reporting
 	PAAmountType: AD_Ref_List
 	# PA Period Type
 	PAPeriodType: AD_Ref_List
-	# Collection of Columns for Report
-	PA_ReportColumnSet: PA_ReportColumnSet!
-	UU: ID!
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_List!
 	# Period offset (0 is current)
@@ -126,7 +126,6 @@ input PA_ReportColumnInput {
 	AD_Org: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
-	CalculationType: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Marketing Campaign
@@ -137,11 +136,12 @@ input PA_ReportColumnInput {
 	C_ElementValue: ForeignEntityInput
 	# Location or Address
 	C_Location: ForeignEntityInput
-	ColumnType: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Sales coverage region
 	C_SalesRegion: ForeignEntityInput
+	CalculationType: ForeignEntityInput
+	ColumnType: ForeignEntityInput
 	CurrencyType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
@@ -197,13 +197,13 @@ input PA_ReportColumnInput {
 	Oper_2: ForeignEntityInput
 	# Name of the financial report line to take values from
 	Oper_2_LineName: String
+	UU: ID
+	# Collection of Columns for Report
+	PA_ReportColumnSet: ForeignEntityInput
 	# PA Amount Type for reporting
 	PAAmountType: ForeignEntityInput
 	# PA Period Type
 	PAPeriodType: ForeignEntityInput
-	# Collection of Columns for Report
-	PA_ReportColumnSet: ForeignEntityInput
-	UU: ID
 	# The type of posted amount for the transaction
 	PostingType: ForeignEntityInput
 	# Period offset (0 is current)

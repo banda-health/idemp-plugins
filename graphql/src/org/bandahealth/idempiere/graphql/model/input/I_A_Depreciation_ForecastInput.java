@@ -25,20 +25,6 @@ public interface I_A_Depreciation_ForecastInput extends I_A_Depreciation_Forecas
 	String getUU();
 
 	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
-
-	/**
 	 * Set A_End_Asset.
 	 *
 	 * @param A_End_Asset A_End_Asset
@@ -65,6 +51,20 @@ public interface I_A_Depreciation_ForecastInput extends I_A_Depreciation_Forecas
 	 * @return A_Start_Asset
 	 */
 	ForeignEntityInput A_Start_Asset();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set PostingType.

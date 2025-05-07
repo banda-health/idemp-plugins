@@ -53,20 +53,6 @@ public interface I_HR_PayrollConceptInput extends I_HR_PayrollConcept {
 	ForeignEntityInput HR_Concept();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set HR_Payroll.
 	 *
 	 * @param HR_Payroll HR_Payroll
@@ -79,4 +65,18 @@ public interface I_HR_PayrollConceptInput extends I_HR_PayrollConcept {
 	 * @return HR_Payroll
 	 */
 	ForeignEntityInput HR_Payroll();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

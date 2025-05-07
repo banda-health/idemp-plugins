@@ -306,6 +306,40 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	}
 
 	/**
+	 * Set Project.
+	 *
+	 * @param C_Project Financial Project
+	 */
+	@JsonProperty("C_Project")
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
+		this.mC_Project = C_Project;
+		if (C_Project != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Project_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Project with UU " + C_Project.getUU());
+			}
+		} else {
+			this.setC_Project_ID(0);
+		}
+	}
+
+	/**
+	 * Get Project.
+	 *
+	 * @return Financial Project
+	 */
+	@JsonProperty("C_Project")
+	public ForeignEntityInput C_Project() {
+		return mC_Project;
+	}
+
+	/**
 	 * Set Costing Method.
 	 *
 	 * @param CostingMethod Indicates how Costs will be calculated
@@ -342,40 +376,6 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("CostingMethod")
 	public ForeignEntityInput CostingMethod() {
 		return mCostingMethod;
-	}
-
-	/**
-	 * Set Project.
-	 *
-	 * @param C_Project Financial Project
-	 */
-	@JsonProperty("C_Project")
-	public void setC_ProjectInput(ForeignEntityInput C_Project) {
-		this.mC_Project = C_Project;
-		if (C_Project != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MProject foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_Project_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_Project with UU " + C_Project.getUU());
-			}
-		} else {
-			this.setC_Project_ID(0);
-		}
-	}
-
-	/**
-	 * Get Project.
-	 *
-	 * @return Financial Project
-	 */
-	@JsonProperty("C_Project")
-	public ForeignEntityInput C_Project() {
-		return mC_Project;
 	}
 
 	/**

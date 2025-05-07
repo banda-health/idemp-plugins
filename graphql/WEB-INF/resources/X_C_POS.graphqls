@@ -24,7 +24,6 @@ type C_POS {
 	AD_Org: AD_Org!
 	# Automatically logout if terminal inactive for this period
 	AutoLogoutDelay: Int
-	CashDrawer: String
 	# Account at the Bank
 	C_BankAccount: C_BankAccount
 	# Business Partner used for creating new Business Partners on the fly
@@ -33,9 +32,10 @@ type C_POS {
 	C_CashBook: C_CashBook
 	# Document type or rules
 	C_DocType: C_DocType
+	UU: ID!
 	# POS Function Key Layout
 	C_POSKeyLayout: C_POSKeyLayout
-	UU: ID!
+	CashDrawer: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -73,7 +73,6 @@ input C_POSInput {
 	AD_Org: ForeignEntityInput
 	# Automatically logout if terminal inactive for this period
 	AutoLogoutDelay: Int
-	CashDrawer: String
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
 	# Business Partner used for creating new Business Partners on the fly
@@ -82,9 +81,10 @@ input C_POSInput {
 	C_CashBook: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
+	UU: ID
 	# POS Function Key Layout
 	C_POSKeyLayout: ForeignEntityInput
-	UU: ID
+	CashDrawer: String
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

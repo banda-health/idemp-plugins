@@ -166,103 +166,6 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	}
 
 	/**
-	 * Set Chat Entry Grandparent.
-	 *
-	 * @param CM_ChatEntryGrandParent Link to Grand Parent (root level)
-	 */
-	@JsonProperty("CM_ChatEntryGrandParent")
-	public void setCM_ChatEntryGrandParentInput(ForeignEntityInput CM_ChatEntryGrandParent) {
-		this.mCM_ChatEntryGrandParent = CM_ChatEntryGrandParent;
-		if (CM_ChatEntryGrandParent != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MChatEntry foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
-							.setParameters(CM_ChatEntryGrandParent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setCM_ChatEntryGrandParent_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table CM_ChatEntry with UU " + CM_ChatEntryGrandParent.getUU());
-			}
-		} else {
-			this.setCM_ChatEntryGrandParent_ID(0);
-		}
-	}
-
-	/**
-	 * Get Chat Entry Grandparent.
-	 *
-	 * @return Link to Grand Parent (root level)
-	 */
-	@JsonProperty("CM_ChatEntryGrandParent")
-	public ForeignEntityInput CM_ChatEntryGrandParent() {
-		return mCM_ChatEntryGrandParent;
-	}
-	/**
-	 * Set Chat Entry.
-	 *
-	 * @param CM_ChatEntry_ID Individual Chat / Discussion Entry
-	 */
-	@JsonProperty("CM_ChatEntry_ID")
-	public void setCM_ChatEntry_IDFromJson(int CM_ChatEntry_ID) {
-		if (get_ID() == 0) {
-			super.setCM_ChatEntry_ID(CM_ChatEntry_ID);
-		}
-	}
-
-	/**
-	 * Set Chat Entry Parent.
-	 *
-	 * @param CM_ChatEntryParent Link to direct Parent
-	 */
-	@JsonProperty("CM_ChatEntryParent")
-	public void setCM_ChatEntryParentInput(ForeignEntityInput CM_ChatEntryParent) {
-		this.mCM_ChatEntryParent = CM_ChatEntryParent;
-		if (CM_ChatEntryParent != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MChatEntry foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
-							.setParameters(CM_ChatEntryParent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setCM_ChatEntryParent_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table CM_ChatEntry with UU " + CM_ChatEntryParent.getUU());
-			}
-		} else {
-			this.setCM_ChatEntryParent_ID(0);
-		}
-	}
-
-	/**
-	 * Get Chat Entry Parent.
-	 *
-	 * @return Link to direct Parent
-	 */
-	@JsonProperty("CM_ChatEntryParent")
-	public ForeignEntityInput CM_ChatEntryParent() {
-		return mCM_ChatEntryParent;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setCM_ChatEntry_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getCM_ChatEntry_UU();
-	}
-
-	/**
 	 * Set Chat.
 	 *
 	 * @param CM_Chat Chat or discussion thread
@@ -297,6 +200,103 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("CM_Chat")
 	public ForeignEntityInput CM_Chat() {
 		return mCM_Chat;
+	}
+	/**
+	 * Set Chat Entry.
+	 *
+	 * @param CM_ChatEntry_ID Individual Chat / Discussion Entry
+	 */
+	@JsonProperty("CM_ChatEntry_ID")
+	public void setCM_ChatEntry_IDFromJson(int CM_ChatEntry_ID) {
+		if (get_ID() == 0) {
+			super.setCM_ChatEntry_ID(CM_ChatEntry_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setCM_ChatEntry_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getCM_ChatEntry_UU();
+	}
+
+	/**
+	 * Set Chat Entry Grandparent.
+	 *
+	 * @param CM_ChatEntryGrandParent Link to Grand Parent (root level)
+	 */
+	@JsonProperty("CM_ChatEntryGrandParent")
+	public void setCM_ChatEntryGrandParentInput(ForeignEntityInput CM_ChatEntryGrandParent) {
+		this.mCM_ChatEntryGrandParent = CM_ChatEntryGrandParent;
+		if (CM_ChatEntryGrandParent != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChatEntry foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
+							.setParameters(CM_ChatEntryGrandParent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setCM_ChatEntryGrandParent_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table CM_ChatEntry with UU " + CM_ChatEntryGrandParent.getUU());
+			}
+		} else {
+			this.setCM_ChatEntryGrandParent_ID(0);
+		}
+	}
+
+	/**
+	 * Get Chat Entry Grandparent.
+	 *
+	 * @return Link to Grand Parent (root level)
+	 */
+	@JsonProperty("CM_ChatEntryGrandParent")
+	public ForeignEntityInput CM_ChatEntryGrandParent() {
+		return mCM_ChatEntryGrandParent;
+	}
+
+	/**
+	 * Set Chat Entry Parent.
+	 *
+	 * @param CM_ChatEntryParent Link to direct Parent
+	 */
+	@JsonProperty("CM_ChatEntryParent")
+	public void setCM_ChatEntryParentInput(ForeignEntityInput CM_ChatEntryParent) {
+		this.mCM_ChatEntryParent = CM_ChatEntryParent;
+		if (CM_ChatEntryParent != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChatEntry foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
+							.setParameters(CM_ChatEntryParent.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setCM_ChatEntryParent_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table CM_ChatEntry with UU " + CM_ChatEntryParent.getUU());
+			}
+		} else {
+			this.setCM_ChatEntryParent_ID(0);
+		}
+	}
+
+	/**
+	 * Get Chat Entry Parent.
+	 *
+	 * @return Link to direct Parent
+	 */
+	@JsonProperty("CM_ChatEntryParent")
+	public ForeignEntityInput CM_ChatEntryParent() {
+		return mCM_ChatEntryParent;
 	}
 
 	/**

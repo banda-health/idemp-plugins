@@ -81,20 +81,6 @@ public interface I_C_BP_BankAccountInput extends I_C_BP_BankAccount {
 	ForeignEntityInput C_Bank();
 
 	/**
-	 * Set C_BPartner.
-	 *
-	 * @param C_BPartner Identifies a Business Partner
-	 */
-	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
-
-	/**
-	 * Get C_BPartner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	ForeignEntityInput C_BPartner();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -107,6 +93,20 @@ public interface I_C_BP_BankAccountInput extends I_C_BP_BankAccount {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_BPartner.
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
+
+	/**
+	 * Get C_BPartner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set C_PaymentProcessor.

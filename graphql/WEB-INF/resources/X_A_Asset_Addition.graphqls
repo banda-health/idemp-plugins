@@ -23,15 +23,15 @@ type A_Asset_Addition {
 	A_Asset: A_Asset!
 	A_CapvsExp: AD_Ref_List!
 	A_CreateAsset: Boolean!
-	# Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	A_Life_Period_Max: Int
 	A_Life_Period_Min: Int
 	A_QTY_Current: BigDecimal!
 	A_Salvage_Value: BigDecimal
 	A_SourceType: AD_Ref_List!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	AssetAmtEntered: BigDecimal!
 	AssetSourceAmt: BigDecimal
 	# Book Value of the asset
@@ -108,11 +108,11 @@ input A_Asset_AdditionInput {
 	A_Asset: ForeignEntityInput
 	A_CapvsExp: ForeignEntityInput
 	A_CreateAsset: Boolean
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	A_QTY_Current: BigDecimal
 	A_Salvage_Value: BigDecimal
 	A_SourceType: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	AssetAmtEntered: BigDecimal
 	AssetSourceAmt: BigDecimal
 	# Book Value of the asset

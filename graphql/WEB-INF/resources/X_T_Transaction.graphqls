@@ -50,12 +50,6 @@ type T_Transaction {
 	M_Movement: M_Movement
 	# Inventory Move document Line
 	M_MovementLine: M_MovementLine
-	# Date a product was moved in or out of inventory
-	MovementDate: DateTime!
-	# Quantity of a product moved.
-	MovementQty: BigDecimal!
-	# Method of moving the inventory
-	MovementType: AD_Ref_List!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Plan for producing a product
@@ -63,6 +57,12 @@ type T_Transaction {
 	# Document Line representing a production
 	M_ProductionLine: M_ProductionLine
 	M_Transaction: M_Transaction!
+	# Date a product was moved in or out of inventory
+	MovementDate: DateTime!
+	# Quantity of a product moved.
+	MovementQty: BigDecimal!
+	# Method of moving the inventory
+	MovementType: AD_Ref_List!
 	# Material Shipment Document
 	Search_InOut: M_InOutLine
 	# Search Invoice Identifier
@@ -103,12 +103,6 @@ input T_TransactionInput {
 	M_Movement: ForeignEntityInput
 	# Inventory Move document Line
 	M_MovementLine: ForeignEntityInput
-	# Date a product was moved in or out of inventory
-	MovementDate: DateTime
-	# Quantity of a product moved.
-	MovementQty: BigDecimal
-	# Method of moving the inventory
-	MovementType: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Plan for producing a product
@@ -116,6 +110,12 @@ input T_TransactionInput {
 	# Document Line representing a production
 	M_ProductionLine: ForeignEntityInput
 	M_Transaction: ForeignEntityInput
+	# Date a product was moved in or out of inventory
+	MovementDate: DateTime
+	# Quantity of a product moved.
+	MovementQty: BigDecimal
+	# Method of moving the inventory
+	MovementType: ForeignEntityInput
 	# Material Shipment Document
 	Search_InOut: ForeignEntityInput
 	# Search Invoice Identifier

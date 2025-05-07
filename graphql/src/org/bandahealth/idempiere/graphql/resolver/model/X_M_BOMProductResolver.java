@@ -72,21 +72,6 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 
 
 	/**
-	 * Get Alternative Group.
-	 *
-	 * @return Product BOM Alternative Group
-	 */
-	public CompletableFuture<X_M_BOMAlternative> M_BOMAlternative(MBOMProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_BOMAlternative_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, X_M_BOMAlternative> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_BOMAlternativeDataLoader.DATALOADER_M_BOMAlternative_BY_ID);
-		return dataLoader.load(entity.getM_BOMAlternative_ID());
-	}
-
-
-	/**
 	 * Get BOM.
 	 *
 	 * @return Bill of Material
@@ -98,6 +83,21 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 		DataLoader<Integer, MBOM> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_BOMDataLoader.DATALOADER_M_BOM_BY_ID);
 		return dataLoader.load(entity.getM_BOM_ID());
+	}
+
+
+	/**
+	 * Get Alternative Group.
+	 *
+	 * @return Product BOM Alternative Group
+	 */
+	public CompletableFuture<X_M_BOMAlternative> M_BOMAlternative(MBOMProduct entity, DataFetchingEnvironment environment) {
+		if (entity.getM_BOMAlternative_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, X_M_BOMAlternative> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_BOMAlternativeDataLoader.DATALOADER_M_BOMAlternative_BY_ID);
+		return dataLoader.load(entity.getM_BOMAlternative_ID());
 	}
 
 

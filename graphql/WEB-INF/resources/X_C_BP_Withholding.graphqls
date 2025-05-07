@@ -22,15 +22,15 @@ type C_BP_Withholding {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	UU: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
-	UU: ID!
+	# Withholding type defined
+	C_Withholding: C_Withholding!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Withholding type defined
-	C_Withholding: C_Withholding!
 	# Reason for not withholding
 	ExemptReason: String
 	# The record is active in the system
@@ -48,9 +48,9 @@ type C_BP_Withholding {
 input C_BP_WithholdingInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	UU: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	UU: ID
 	# Withholding type defined
 	C_Withholding: ForeignEntityInput
 	# Reason for not withholding

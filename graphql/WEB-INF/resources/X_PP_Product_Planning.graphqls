@@ -57,10 +57,10 @@ type PP_Product_Planning {
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOM
 	UU: ID!
-	# Safety stock is a term used to describe a level of stock that is maintained below the cycle stock to buffer against stock-outs
-	SafetyStock: BigDecimal
 	# Resource
 	S_Resource: S_Resource
+	# Safety stock is a term used to describe a level of stock that is maintained below the cycle stock to buffer against stock-outs
+	SafetyStock: BigDecimal
 	TimeFence: BigDecimal
 	TransfertTime: BigDecimal
 	# Date this record was updated
@@ -107,10 +107,10 @@ input PP_Product_PlanningInput {
 	# BOM & Formula
 	PP_Product_BOM: ForeignEntityInput
 	UU: ID
-	# Safety stock is a term used to describe a level of stock that is maintained below the cycle stock to buffer against stock-outs
-	SafetyStock: BigDecimal
 	# Resource
 	S_Resource: ForeignEntityInput
+	# Safety stock is a term used to describe a level of stock that is maintained below the cycle stock to buffer against stock-outs
+	SafetyStock: BigDecimal
 	TimeFence: BigDecimal
 	TransfertTime: BigDecimal
 	# Workflow Simulation Execution Time

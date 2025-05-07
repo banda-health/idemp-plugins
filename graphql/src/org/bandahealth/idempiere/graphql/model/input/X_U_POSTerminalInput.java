@@ -97,6 +97,108 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	}
 
 	/**
+	 * Set Cash Book.
+	 *
+	 * @param C_CashBook Cash Book for recording petty cash transactions
+	 */
+	@JsonProperty("C_CashBook")
+	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
+		this.mC_CashBook = C_CashBook;
+		if (C_CashBook != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCashBook foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+							.setParameters(C_CashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_CashBook_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CashBook with UU " + C_CashBook.getUU());
+			}
+		} else {
+			this.setC_CashBook_ID(0);
+		}
+	}
+
+	/**
+	 * Get Cash Book.
+	 *
+	 * @return Cash Book for recording petty cash transactions
+	 */
+	@JsonProperty("C_CashBook")
+	public ForeignEntityInput C_CashBook() {
+		return mC_CashBook;
+	}
+
+	/**
+	 * Set Cash BPartner.
+	 *
+	 * @param C_CashBPartner BPartner to be used for Cash transactions
+	 */
+	@JsonProperty("C_CashBPartner")
+	public void setC_CashBPartnerInput(ForeignEntityInput C_CashBPartner) {
+		this.mC_CashBPartner = C_CashBPartner;
+		if (C_CashBPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_CashBPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_CashBPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UU " + C_CashBPartner.getUU());
+			}
+		} else {
+			this.setC_CashBPartner_ID(0);
+		}
+	}
+
+	/**
+	 * Get Cash BPartner.
+	 *
+	 * @return BPartner to be used for Cash transactions
+	 */
+	@JsonProperty("C_CashBPartner")
+	public ForeignEntityInput C_CashBPartner() {
+		return mC_CashBPartner;
+	}
+
+	/**
+	 * Set Template BPartner.
+	 *
+	 * @param C_TemplateBPartner BPartner that is to be used as template when new customers are created
+	 */
+	@JsonProperty("C_TemplateBPartner")
+	public void setC_TemplateBPartnerInput(ForeignEntityInput C_TemplateBPartner) {
+		this.mC_TemplateBPartner = C_TemplateBPartner;
+		if (C_TemplateBPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_TemplateBPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_TemplateBPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UU " + C_TemplateBPartner.getUU());
+			}
+		} else {
+			this.setC_TemplateBPartner_ID(0);
+		}
+	}
+
+	/**
+	 * Get Template BPartner.
+	 *
+	 * @return BPartner that is to be used as template when new customers are created
+	 */
+	@JsonProperty("C_TemplateBPartner")
+	public ForeignEntityInput C_TemplateBPartner() {
+		return mC_TemplateBPartner;
+	}
+
+	/**
 	 * Set Card Bank Account.
 	 *
 	 * @param Card_BankAccount Bank Account on which card transactions will be processed
@@ -345,74 +447,6 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	}
 
 	/**
-	 * Set Cash Book.
-	 *
-	 * @param C_CashBook Cash Book for recording petty cash transactions
-	 */
-	@JsonProperty("C_CashBook")
-	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
-		this.mC_CashBook = C_CashBook;
-		if (C_CashBook != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MCashBook foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(C_CashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_CashBook_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_CashBook with UU " + C_CashBook.getUU());
-			}
-		} else {
-			this.setC_CashBook_ID(0);
-		}
-	}
-
-	/**
-	 * Get Cash Book.
-	 *
-	 * @return Cash Book for recording petty cash transactions
-	 */
-	@JsonProperty("C_CashBook")
-	public ForeignEntityInput C_CashBook() {
-		return mC_CashBook;
-	}
-
-	/**
-	 * Set Cash BPartner.
-	 *
-	 * @param C_CashBPartner BPartner to be used for Cash transactions
-	 */
-	@JsonProperty("C_CashBPartner")
-	public void setC_CashBPartnerInput(ForeignEntityInput C_CashBPartner) {
-		this.mC_CashBPartner = C_CashBPartner;
-		if (C_CashBPartner != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPartner_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_CashBPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_CashBPartner_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UU " + C_CashBPartner.getUU());
-			}
-		} else {
-			this.setC_CashBPartner_ID(0);
-		}
-	}
-
-	/**
-	 * Get Cash BPartner.
-	 *
-	 * @return BPartner to be used for Cash transactions
-	 */
-	@JsonProperty("C_CashBPartner")
-	public ForeignEntityInput C_CashBPartner() {
-		return mC_CashBPartner;
-	}
-
-	/**
 	 * Set Check Bank Account.
 	 *
 	 * @param Check_BankAccount Bank Account to be used for processing Check transactions
@@ -551,40 +585,6 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	@JsonProperty("CheckTransferType")
 	public ForeignEntityInput CheckTransferType() {
 		return mCheckTransferType;
-	}
-
-	/**
-	 * Set Template BPartner.
-	 *
-	 * @param C_TemplateBPartner BPartner that is to be used as template when new customers are created
-	 */
-	@JsonProperty("C_TemplateBPartner")
-	public void setC_TemplateBPartnerInput(ForeignEntityInput C_TemplateBPartner) {
-		this.mC_TemplateBPartner = C_TemplateBPartner;
-		if (C_TemplateBPartner != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPartner_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_TemplateBPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_TemplateBPartner_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UU " + C_TemplateBPartner.getUU());
-			}
-		} else {
-			this.setC_TemplateBPartner_ID(0);
-		}
-	}
-
-	/**
-	 * Get Template BPartner.
-	 *
-	 * @return BPartner that is to be used as template when new customers are created
-	 */
-	@JsonProperty("C_TemplateBPartner")
-	public ForeignEntityInput C_TemplateBPartner() {
-		return mC_TemplateBPartner;
 	}
 
 	/**

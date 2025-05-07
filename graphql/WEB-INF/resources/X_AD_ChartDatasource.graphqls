@@ -18,8 +18,8 @@ type AD_ChartDatasourceConnection {
 }
 
 type AD_ChartDatasource {
-	UU: ID!
 	AD_Chart: AD_Chart!
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -60,8 +60,8 @@ type AD_ChartDatasource {
 }
 
 input AD_ChartDatasourceInput {
-	UU: ID
 	AD_Chart: ForeignEntityInput
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information

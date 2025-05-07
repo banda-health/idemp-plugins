@@ -28,9 +28,9 @@ type AD_UserDef_Info {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role
-	UU: ID!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
+	UU: ID!
 	# Data entry or display window
 	AD_Window: AD_Window
 	# Date this record was created
@@ -68,9 +68,9 @@ input AD_UserDef_InfoInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	UU: ID
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
+	UU: ID
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	# Optional short description of the record

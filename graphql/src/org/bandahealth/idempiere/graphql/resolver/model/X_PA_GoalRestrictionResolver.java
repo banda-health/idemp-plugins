@@ -33,21 +33,6 @@ public class X_PA_GoalRestrictionResolver extends POResolver<MGoalRestriction> i
 
 
 	/**
-	 * Get Business Partner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	public CompletableFuture<MBPartner_BH> C_BPartner(MGoalRestriction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
-		return dataLoader.load(entity.getC_BPartner_ID());
-	}
-
-
-	/**
 	 * Get Business Partner Group.
 	 *
 	 * @return Business Partner Group
@@ -59,6 +44,21 @@ public class X_PA_GoalRestrictionResolver extends POResolver<MGoalRestriction> i
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
 		return dataLoader.load(entity.getC_BP_Group_ID());
+	}
+
+
+	/**
+	 * Get Business Partner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	public CompletableFuture<MBPartner_BH> C_BPartner(MGoalRestriction entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BPartner_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBPartner_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
+		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
 	public static Map<String, String> GOALRESTRICTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {

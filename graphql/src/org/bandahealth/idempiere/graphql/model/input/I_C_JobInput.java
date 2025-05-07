@@ -25,20 +25,6 @@ public interface I_C_JobInput extends I_C_Job {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set C_JobCategory.
-	 *
-	 * @param C_JobCategory Job Position Category
-	 */
-	void setC_JobCategoryInput(ForeignEntityInput C_JobCategory);
-
-	/**
-	 * Get C_JobCategory.
-	 *
-	 * @return Job Position Category
-	 */
-	ForeignEntityInput C_JobCategory();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -51,4 +37,18 @@ public interface I_C_JobInput extends I_C_Job {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_JobCategory.
+	 *
+	 * @param C_JobCategory Job Position Category
+	 */
+	void setC_JobCategoryInput(ForeignEntityInput C_JobCategory);
+
+	/**
+	 * Get C_JobCategory.
+	 *
+	 * @return Job Position Category
+	 */
+	ForeignEntityInput C_JobCategory();
 }

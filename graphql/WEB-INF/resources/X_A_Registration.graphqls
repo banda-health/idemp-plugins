@@ -20,13 +20,13 @@ type A_RegistrationConnection {
 type A_Registration {
 	# Asset used internally or by customers
 	A_Asset: A_Asset
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	UU: ID!
 	# Date when Asset was put into service
 	AssetServiceDate: Date!
 	# Identifies a Business Partner
@@ -67,11 +67,11 @@ type A_Registration {
 input A_RegistrationInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	UU: ID
 	# Date when Asset was put into service
 	AssetServiceDate: Date
 	# Identifies a Business Partner

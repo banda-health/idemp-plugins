@@ -222,6 +222,35 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
+	/**
+	 * Set Recurring.
+	 *
+	 * @param C_Recurring_ID Recurring Document
+	 */
+	@JsonProperty("C_Recurring_ID")
+	public void setC_Recurring_IDFromJson(int C_Recurring_ID) {
+		if (get_ID() == 0) {
+			super.setC_Recurring_ID(C_Recurring_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_Recurring_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_Recurring_UU();
+	}
 
 	/**
 	 * Set Recurring Group.
@@ -255,35 +284,6 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	@JsonProperty("C_RecurringGroup")
 	public ForeignEntityInput C_RecurringGroup() {
 		return mC_RecurringGroup;
-	}
-	/**
-	 * Set Recurring.
-	 *
-	 * @param C_Recurring_ID Recurring Document
-	 */
-	@JsonProperty("C_Recurring_ID")
-	public void setC_Recurring_IDFromJson(int C_Recurring_ID) {
-		if (get_ID() == 0) {
-			super.setC_Recurring_ID(C_Recurring_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_Recurring_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_Recurring_UU();
 	}
 	/**
 	 * Set Date Last Run.

@@ -24,12 +24,12 @@ type M_Demand {
 	AD_Org: AD_Org!
 	# Accounting Calendar Name
 	C_Calendar: C_Calendar!
+	# Calendar Year
+	C_Year: C_Year!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Calendar Year
-	C_Year: C_Year!
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

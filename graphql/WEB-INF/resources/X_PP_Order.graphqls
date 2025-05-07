@@ -34,18 +34,18 @@ type PP_Order {
 	C_DocType: C_DocType
 	# Target document type for conversing documents
 	C_DocTypeTarget: C_DocType!
-	# Copy From Record
-	CopyFrom: String
 	# Sales Order Line
 	C_OrderLine: C_OrderLine
 	# Financial Project
 	C_Project: C_Project
+	# Unit of Measure
+	C_UOM: C_UOM!
+	# Copy From Record
+	CopyFrom: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Unit of Measure
-	C_UOM: C_UOM!
 	# Date Confirm of this Order
 	DateConfirm: DateTime
 	# Date when the product was delivered
@@ -121,12 +121,12 @@ type PP_Order {
 	QtyReserved: BigDecimal
 	# Scrap % Quantity for this component
 	QtyScrap: BigDecimal!
+	# Resource
+	S_Resource: S_Resource!
 	# Type of schedule
 	ScheduleType: String
 	# Product Serial Number 
 	SerNo: String
-	# Resource
-	S_Resource: S_Resource!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -154,14 +154,14 @@ input PP_OrderInput {
 	C_DocType: ForeignEntityInput
 	# Target document type for conversing documents
 	C_DocTypeTarget: ForeignEntityInput
-	# Copy From Record
-	CopyFrom: String
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
+	# Copy From Record
+	CopyFrom: String
 	# Date Confirm of this Order
 	DateConfirm: DateTime
 	# Date when the product was delivered
@@ -237,12 +237,12 @@ input PP_OrderInput {
 	QtyReserved: BigDecimal
 	# Scrap % Quantity for this component
 	QtyScrap: BigDecimal
+	# Resource
+	S_Resource: ForeignEntityInput
 	# Type of schedule
 	ScheduleType: String
 	# Product Serial Number 
 	SerNo: String
-	# Resource
-	S_Resource: ForeignEntityInput
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

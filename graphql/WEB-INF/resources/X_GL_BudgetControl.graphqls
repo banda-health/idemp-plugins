@@ -34,9 +34,9 @@ type GL_BudgetControl {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	UU: ID!
 	# General Ledger Budget
 	GL_Budget: GL_Budget!
+	UU: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -62,9 +62,9 @@ input GL_BudgetControlInput {
 	CommitmentType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	UU: ID
 	# General Ledger Budget
 	GL_Budget: ForeignEntityInput
+	UU: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

@@ -20,9 +20,9 @@ type C_AddressValidationCfgConnection {
 type C_AddressValidationCfg {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	AddressValidationClass: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	AddressValidationClass: String
 	UU: ID!
 	# Date this record was created
 	Created: DateTime!
@@ -54,9 +54,9 @@ type C_AddressValidationCfg {
 }
 
 input C_AddressValidationCfgInput {
-	AddressValidationClass: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	AddressValidationClass: String
 	UU: ID
 	# Optional short description of the record
 	Description: String

@@ -18,13 +18,13 @@ type A_Depreciation_ForecastConnection {
 }
 
 type A_Depreciation_Forecast {
-	# Tenant for this installation.
-	AD_Client: AD_Client!
 	UU: ID!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	A_End_Asset: A_Asset!
 	A_Start_Asset: A_Asset!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -46,10 +46,10 @@ type A_Depreciation_Forecast {
 
 input A_Depreciation_ForecastInput {
 	UU: ID
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	A_End_Asset: ForeignEntityInput
 	A_Start_Asset: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# Date of the Document
 	DateDoc: Date
 	# The record is active in the system

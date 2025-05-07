@@ -36,35 +36,6 @@ public class X_AD_ImportTemplateAccessInput extends X_AD_ImportTemplateAccess im
 		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
 		setUU(UU);
 	}
-	/**
-	 * Set Import Template Access.
-	 *
-	 * @param AD_ImportTemplateAccess_ID Import Template Access
-	 */
-	@JsonProperty("AD_ImportTemplateAccess_ID")
-	public void setAD_ImportTemplateAccess_IDFromJson(int AD_ImportTemplateAccess_ID) {
-		if (get_ID() == 0) {
-			super.setAD_ImportTemplateAccess_ID(AD_ImportTemplateAccess_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_ImportTemplateAccess_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_ImportTemplateAccess_UU();
-	}
 
 	/**
 	 * Set Import Template.
@@ -101,6 +72,35 @@ public class X_AD_ImportTemplateAccessInput extends X_AD_ImportTemplateAccess im
 	@JsonProperty("AD_ImportTemplate")
 	public ForeignEntityInput AD_ImportTemplate() {
 		return mAD_ImportTemplate;
+	}
+	/**
+	 * Set Import Template Access.
+	 *
+	 * @param AD_ImportTemplateAccess_ID Import Template Access
+	 */
+	@JsonProperty("AD_ImportTemplateAccess_ID")
+	public void setAD_ImportTemplateAccess_IDFromJson(int AD_ImportTemplateAccess_ID) {
+		if (get_ID() == 0) {
+			super.setAD_ImportTemplateAccess_ID(AD_ImportTemplateAccess_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_ImportTemplateAccess_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_ImportTemplateAccess_UU();
 	}
 
 	/**

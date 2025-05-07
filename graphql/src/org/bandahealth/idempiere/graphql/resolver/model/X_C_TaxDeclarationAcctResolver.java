@@ -92,21 +92,6 @@ public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAc
 
 
 	/**
-	 * Get Tax Declaration.
-	 *
-	 * @return Define the declaration to the tax authorities
-	 */
-	public CompletableFuture<MTaxDeclaration> C_TaxDeclaration(MTaxDeclarationAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxDeclaration_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MTaxDeclaration> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDeclarationDataLoader.DATALOADER_C_TaxDeclaration_BY_ID);
-		return dataLoader.load(entity.getC_TaxDeclaration_ID());
-	}
-
-
-	/**
 	 * Get Tax.
 	 *
 	 * @return Tax identifier
@@ -118,6 +103,21 @@ public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAc
 		DataLoader<Integer, MTax> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
+	}
+
+
+	/**
+	 * Get Tax Declaration.
+	 *
+	 * @return Define the declaration to the tax authorities
+	 */
+	public CompletableFuture<MTaxDeclaration> C_TaxDeclaration(MTaxDeclarationAcct entity, DataFetchingEnvironment environment) {
+		if (entity.getC_TaxDeclaration_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MTaxDeclaration> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDeclarationDataLoader.DATALOADER_C_TaxDeclaration_BY_ID);
+		return dataLoader.load(entity.getC_TaxDeclaration_ID());
 	}
 
 

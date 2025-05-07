@@ -22,10 +22,6 @@ type A_Asset_Info_Oth {
 	A_Asset: A_Asset!
 	A_Asset_Info_Oth: A_Asset_Info_Oth!
 	UU: ID!
-	# Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	A_User1: String
 	A_User10: String
 	A_User11: String
@@ -41,6 +37,10 @@ type A_Asset_Info_Oth {
 	A_User7: String
 	A_User8: String
 	A_User9: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -59,8 +59,6 @@ input A_Asset_Info_OthInput {
 	A_Asset: ForeignEntityInput
 	A_Asset_Info_Oth: ForeignEntityInput
 	UU: ID
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	A_User1: String
 	A_User10: String
 	A_User11: String
@@ -76,6 +74,8 @@ input A_Asset_Info_OthInput {
 	A_User7: String
 	A_User8: String
 	A_User9: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	Text: String

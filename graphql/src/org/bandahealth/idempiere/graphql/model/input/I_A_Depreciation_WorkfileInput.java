@@ -39,20 +39,6 @@ public interface I_A_Depreciation_WorkfileInput extends I_A_Depreciation_Workfil
 	String getUU();
 
 	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
-
-	/**
 	 * Set A_FundingMode.
 	 *
 	 * @param A_FundingMode A_FundingMode
@@ -79,6 +65,20 @@ public interface I_A_Depreciation_WorkfileInput extends I_A_Depreciation_Workfil
 	 * @return Financing Type
 	 */
 	ForeignEntityInput A_Tip_Finantare();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_AcctSchema.

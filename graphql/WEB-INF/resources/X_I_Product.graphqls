@@ -28,6 +28,8 @@ type I_Product {
 	C_BPartner: C_BPartner
 	# The Currency for this record
 	C_Currency: C_Currency
+	# Unit of Measure
+	C_UOM: C_UOM
 	# Classification for grouping
 	Classification: String
 	# Fixed Cost Per Order
@@ -36,8 +38,6 @@ type I_Product {
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
-	# Unit of Measure
-	C_UOM: C_UOM
 	# Customs Tariff Number, usually the HS-Code
 	CustomsTariffNumber: String
 	# Promised days between order and delivery
@@ -60,21 +60,21 @@ type I_Product {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
+	UU: ID!
 	# URL of  image
 	ImageURL: String
-	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Three letter ISO 4217 Code of the Currency
 	ISO_Code: String
-	# Manufacturer of the Product
-	Manufacturer: String
 	# Product Attribute Set
 	M_AttributeSet: M_AttributeSet
 	# Category of a Product
 	M_Product_Category: M_Product_Category
 	# Product, Service, Item
 	M_Product: M_Product
+	# Manufacturer of the Product
+	Manufacturer: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Minimum order quantity in UOM
@@ -138,12 +138,12 @@ input I_ProductInput {
 	C_BPartner: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
 	# Classification for grouping
 	Classification: String
 	# Fixed Cost Per Order
 	CostPerOrder: BigDecimal
-	# Unit of Measure
-	C_UOM: ForeignEntityInput
 	# Customs Tariff Number, usually the HS-Code
 	CustomsTariffNumber: String
 	# Promised days between order and delivery
@@ -166,21 +166,21 @@ input I_ProductInput {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
+	UU: ID
 	# URL of  image
 	ImageURL: String
-	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Three letter ISO 4217 Code of the Currency
 	ISO_Code: String
-	# Manufacturer of the Product
-	Manufacturer: String
 	# Product Attribute Set
 	M_AttributeSet: ForeignEntityInput
 	# Category of a Product
 	M_Product_Category: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
+	# Manufacturer of the Product
+	Manufacturer: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Minimum order quantity in UOM

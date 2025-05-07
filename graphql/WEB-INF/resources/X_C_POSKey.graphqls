@@ -28,9 +28,9 @@ type C_POSKey {
 	AD_PrintColor: AD_PrintColor
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont
+	UU: ID!
 	# POS Function Key Layout
 	C_POSKeyLayout: C_POSKeyLayout!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -69,9 +69,9 @@ input C_POSKeyInput {
 	AD_PrintColor: ForeignEntityInput
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
+	UU: ID
 	# POS Function Key Layout
 	C_POSKeyLayout: ForeignEntityInput
-	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

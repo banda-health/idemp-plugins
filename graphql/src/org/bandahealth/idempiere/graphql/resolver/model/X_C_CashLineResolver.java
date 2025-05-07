@@ -33,25 +33,6 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_CashLineResolver extends POResolver<MCashLine> implements GraphQLResolver<MCashLine> {
 
 
-	public static Map<String, String> CASHTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("T", "bdc83ab7-2487-4c9c-8f11-642f84ad8a11"); // Bank Account Transfer
-			put("I", "8183e06f-d8e3-4fc5-a3fc-7419c1195e40"); // Invoice
-			put("E", "e628fa15-edf5-4eaa-b9db-75993c7f4c06"); // General Expense
-			put("R", "b0622456-7b1c-48e4-b314-c2cf674fa650"); // General Receipts
-			put("C", "f88991f2-5aa4-4b9b-9099-94b05afb28d9"); // Charge
-			put("D", "c4b005a2-2805-400b-a8d4-d9d4b2ab70ec"); // Difference
-		}
-	};
-	public CompletableFuture<MRefList_BH> CashType(MCashLine entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getCashType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(CASHTYPE_UUIDS_BY_VALUE.get(entity.getCashType()));
-	}
-
 
 	/**
 	 * Get Bank Account.
@@ -140,6 +121,25 @@ public class X_C_CashLineResolver extends POResolver<MCashLine> implements Graph
 		DataLoader<Integer, MPayment_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(entity.getC_Payment_ID());
+	}
+
+	public static Map<String, String> CASHTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("T", "bdc83ab7-2487-4c9c-8f11-642f84ad8a11"); // Bank Account Transfer
+			put("I", "8183e06f-d8e3-4fc5-a3fc-7419c1195e40"); // Invoice
+			put("E", "e628fa15-edf5-4eaa-b9db-75993c7f4c06"); // General Expense
+			put("R", "b0622456-7b1c-48e4-b314-c2cf674fa650"); // General Receipts
+			put("C", "f88991f2-5aa4-4b9b-9099-94b05afb28d9"); // Charge
+			put("D", "c4b005a2-2805-400b-a8d4-d9d4b2ab70ec"); // Difference
+		}
+	};
+	public CompletableFuture<MRefList_BH> CashType(MCashLine entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getCashType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(CASHTYPE_UUIDS_BY_VALUE.get(entity.getCashType()));
 	}
 
 	public Boolean IsGenerated(MCashLine entity, DataFetchingEnvironment environment) {

@@ -254,6 +254,43 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	}
 
 	/**
+	 * Set Mail Template.
+	 *
+	 * @param R_MailText Text templates for mailings
+	 */
+	@JsonProperty("R_MailText")
+	public void setR_MailTextInput(ForeignEntityInput R_MailText) {
+		this.mR_MailText = R_MailText;
+		if (!is_new()) {
+			return;
+		}
+		if (R_MailText != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MMailText foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
+							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setR_MailText_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_MailText with UU " + R_MailText.getUU());
+			}
+		} else {
+			this.setR_MailText_ID(0);
+		}
+	}
+
+	/**
+	 * Get Mail Template.
+	 *
+	 * @return Text templates for mailings
+	 */
+	@JsonProperty("R_MailText")
+	public ForeignEntityInput R_MailText() {
+		return mR_MailText;
+	}
+
+	/**
 	 * Set Report Output Type.
 	 *
 	 * @param ReportOutputType Report Output Type
@@ -290,43 +327,6 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	@JsonProperty("ReportOutputType")
 	public ForeignEntityInput ReportOutputType() {
 		return mReportOutputType;
-	}
-
-	/**
-	 * Set Mail Template.
-	 *
-	 * @param R_MailText Text templates for mailings
-	 */
-	@JsonProperty("R_MailText")
-	public void setR_MailTextInput(ForeignEntityInput R_MailText) {
-		this.mR_MailText = R_MailText;
-		if (!is_new()) {
-			return;
-		}
-		if (R_MailText != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MMailText foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setR_MailText_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table R_MailText with UU " + R_MailText.getUU());
-			}
-		} else {
-			this.setR_MailText_ID(0);
-		}
-	}
-
-	/**
-	 * Get Mail Template.
-	 *
-	 * @return Text templates for mailings
-	 */
-	@JsonProperty("R_MailText")
-	public ForeignEntityInput R_MailText() {
-		return mR_MailText;
 	}
 
 	/**

@@ -99,40 +99,6 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	}
 
 	/**
-	 * Set Field Group.
-	 *
-	 * @param AD_FieldGroup Logical grouping of fields
-	 */
-	@JsonProperty("AD_FieldGroup")
-	public void setAD_FieldGroupInput(ForeignEntityInput AD_FieldGroup) {
-		this.mAD_FieldGroup = AD_FieldGroup;
-		if (AD_FieldGroup != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MFieldGroup_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_FieldGroup", "AD_FieldGroup_UU=?", get_TrxName())
-							.setParameters(AD_FieldGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setAD_FieldGroup_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_FieldGroup with UU " + AD_FieldGroup.getUU());
-			}
-		} else {
-			this.setAD_FieldGroup_ID(0);
-		}
-	}
-
-	/**
-	 * Get Field Group.
-	 *
-	 * @return Logical grouping of fields
-	 */
-	@JsonProperty("AD_FieldGroup")
-	public ForeignEntityInput AD_FieldGroup() {
-		return mAD_FieldGroup;
-	}
-
-	/**
 	 * Set Field.
 	 *
 	 * @param AD_Field Field on a database table
@@ -164,6 +130,40 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	@JsonProperty("AD_Field")
 	public ForeignEntityInput AD_Field() {
 		return mAD_Field;
+	}
+
+	/**
+	 * Set Field Group.
+	 *
+	 * @param AD_FieldGroup Logical grouping of fields
+	 */
+	@JsonProperty("AD_FieldGroup")
+	public void setAD_FieldGroupInput(ForeignEntityInput AD_FieldGroup) {
+		this.mAD_FieldGroup = AD_FieldGroup;
+		if (AD_FieldGroup != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MFieldGroup_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_FieldGroup", "AD_FieldGroup_UU=?", get_TrxName())
+							.setParameters(AD_FieldGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setAD_FieldGroup_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_FieldGroup with UU " + AD_FieldGroup.getUU());
+			}
+		} else {
+			this.setAD_FieldGroup_ID(0);
+		}
+	}
+
+	/**
+	 * Get Field Group.
+	 *
+	 * @return Logical grouping of fields
+	 */
+	@JsonProperty("AD_FieldGroup")
+	public ForeignEntityInput AD_FieldGroup() {
+		return mAD_FieldGroup;
 	}
 
 	/**

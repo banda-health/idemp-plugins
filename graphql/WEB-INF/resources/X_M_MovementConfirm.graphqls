@@ -42,9 +42,9 @@ type M_MovementConfirm {
 	IsApproved: Boolean!
 	# Parameters for a Physical Inventory
 	M_Inventory: M_Inventory
-	UU: ID!
 	# Movement of Inventory
 	M_Movement: M_Movement!
+	UU: ID!
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -73,9 +73,9 @@ input M_MovementConfirmInput {
 	IsApproved: Boolean
 	# Parameters for a Physical Inventory
 	M_Inventory: ForeignEntityInput
-	UU: ID
 	# Movement of Inventory
 	M_Movement: ForeignEntityInput
+	UU: ID
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

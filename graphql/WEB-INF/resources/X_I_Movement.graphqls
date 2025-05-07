@@ -26,8 +26,6 @@ type I_Movement {
 	AD_User: AD_User
 	# Key of the Business Partner
 	BPartnerValue: String
-	# Text key of the Campaign
-	CampaignValue: String
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Marketing Campaign
@@ -36,6 +34,8 @@ type I_Movement {
 	C_DocType: C_DocType
 	# Financial Project
 	C_Project: C_Project
+	# Text key of the Campaign
+	CampaignValue: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -68,14 +68,14 @@ type I_Movement {
 	M_Movement: M_Movement
 	# Inventory Move document Line
 	M_MovementLine: M_MovementLine
-	# Date a product was moved in or out of inventory
-	MovementDate: Date
-	# Quantity of a product moved.
-	MovementQty: BigDecimal
 	# Product, Service, Item
 	M_Product: M_Product
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Quantity of a product moved.
+	MovementQty: BigDecimal
 	# Key of the Transaction Organization
 	OrgTrxValue: String
 	# Key of the Organization
@@ -107,8 +107,6 @@ input I_MovementInput {
 	AD_User: ForeignEntityInput
 	# Key of the Business Partner
 	BPartnerValue: String
-	# Text key of the Campaign
-	CampaignValue: String
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Marketing Campaign
@@ -117,6 +115,8 @@ input I_MovementInput {
 	C_DocType: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
+	# Text key of the Campaign
+	CampaignValue: String
 	# Defines the timing of Delivery
 	DeliveryRule: String
 	# How the order will be delivered
@@ -145,14 +145,14 @@ input I_MovementInput {
 	M_Movement: ForeignEntityInput
 	# Inventory Move document Line
 	M_MovementLine: ForeignEntityInput
-	# Date a product was moved in or out of inventory
-	MovementDate: Date
-	# Quantity of a product moved.
-	MovementQty: BigDecimal
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Quantity of a product moved.
+	MovementQty: BigDecimal
 	# Key of the Transaction Organization
 	OrgTrxValue: String
 	# Key of the Organization

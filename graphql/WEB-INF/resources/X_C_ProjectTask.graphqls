@@ -22,17 +22,17 @@ type C_ProjectTask {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# The (legal) commitment amount
-	CommittedAmt: BigDecimal!
 	# Phase of a Project
 	C_ProjectPhase: C_ProjectPhase!
 	UU: ID!
+	# Standard Project Type Task
+	C_Task: C_Task
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Standard Project Type Task
-	C_Task: C_Task
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint
@@ -60,13 +60,13 @@ type C_ProjectTask {
 input C_ProjectTaskInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	# The (legal) commitment amount
-	CommittedAmt: BigDecimal
 	# Phase of a Project
 	C_ProjectPhase: ForeignEntityInput
 	UU: ID
 	# Standard Project Type Task
 	C_Task: ForeignEntityInput
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

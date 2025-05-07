@@ -32,6 +32,35 @@ public class X_A_FundingModeInput extends X_A_FundingMode implements I_A_Funding
 		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
 		setUU(UU);
 	}
+	/**
+	 * Set Asset Funding Mode.
+	 *
+	 * @param A_FundingMode_ID Asset Funding Mode
+	 */
+	@JsonProperty("A_FundingMode_ID")
+	public void setA_FundingMode_IDFromJson(int A_FundingMode_ID) {
+		if (get_ID() == 0) {
+			super.setA_FundingMode_ID(A_FundingMode_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setA_FundingMode_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getA_FundingMode_UU();
+	}
 
 	/**
 	 * Set Organization.
@@ -68,34 +97,5 @@ public class X_A_FundingModeInput extends X_A_FundingMode implements I_A_Funding
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
-	}
-	/**
-	 * Set Asset Funding Mode.
-	 *
-	 * @param A_FundingMode_ID Asset Funding Mode
-	 */
-	@JsonProperty("A_FundingMode_ID")
-	public void setA_FundingMode_IDFromJson(int A_FundingMode_ID) {
-		if (get_ID() == 0) {
-			super.setA_FundingMode_ID(A_FundingMode_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setA_FundingMode_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getA_FundingMode_UU();
 	}
 }

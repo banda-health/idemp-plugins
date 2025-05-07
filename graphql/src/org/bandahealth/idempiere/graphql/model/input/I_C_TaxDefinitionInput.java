@@ -39,6 +39,20 @@ public interface I_C_TaxDefinitionInput extends I_C_TaxDefinition {
 	ForeignEntityInput AD_OrgType();
 
 	/**
+	 * Set C_BP_Group.
+	 *
+	 * @param C_BP_Group Business Partner Group
+	 */
+	void setC_BP_GroupInput(ForeignEntityInput C_BP_Group);
+
+	/**
+	 * Get C_BP_Group.
+	 *
+	 * @return Business Partner Group
+	 */
+	ForeignEntityInput C_BP_Group();
+
+	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -53,18 +67,18 @@ public interface I_C_TaxDefinitionInput extends I_C_TaxDefinition {
 	ForeignEntityInput C_BPartner();
 
 	/**
-	 * Set C_BP_Group.
+	 * Set C_Tax.
 	 *
-	 * @param C_BP_Group Business Partner Group
+	 * @param C_Tax Tax identifier
 	 */
-	void setC_BP_GroupInput(ForeignEntityInput C_BP_Group);
+	void setC_TaxInput(ForeignEntityInput C_Tax);
 
 	/**
-	 * Get C_BP_Group.
+	 * Get C_Tax.
 	 *
-	 * @return Business Partner Group
+	 * @return Tax identifier
 	 */
-	ForeignEntityInput C_BP_Group();
+	ForeignEntityInput C_Tax();
 
 	/**
 	 * Set C_TaxBase.
@@ -121,20 +135,6 @@ public interface I_C_TaxDefinitionInput extends I_C_TaxDefinition {
 	 * @return C_TaxGroup
 	 */
 	ForeignEntityInput C_TaxGroup();
-
-	/**
-	 * Set C_Tax.
-	 *
-	 * @param C_Tax Tax identifier
-	 */
-	void setC_TaxInput(ForeignEntityInput C_Tax);
-
-	/**
-	 * Get C_Tax.
-	 *
-	 * @return Tax identifier
-	 */
-	ForeignEntityInput C_Tax();
 
 	/**
 	 * Set C_TaxType.

@@ -44,9 +44,9 @@ type M_Attribute {
 	IsInstanceAttribute: Boolean!
 	# Data entry is required in this column
 	IsMandatory: Boolean!
+	UU: ID!
 	# Common Search Attribute 
 	M_AttributeSearch: M_AttributeSearch
-	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -76,9 +76,9 @@ input M_AttributeInput {
 	IsInstanceAttribute: Boolean
 	# Data entry is required in this column
 	IsMandatory: Boolean
+	UU: ID
 	# Common Search Attribute 
 	M_AttributeSearch: ForeignEntityInput
-	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

@@ -44,21 +44,6 @@ public class X_C_PaySelectionLineResolver extends POResolver<MPaySelectionLine> 
 
 
 	/**
-	 * Get Pay Selection Check.
-	 *
-	 * @return Payment Selection Check
-	 */
-	public CompletableFuture<MPaySelectionCheck> C_PaySelectionCheck(MPaySelectionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaySelectionCheck_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MPaySelectionCheck> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionCheckDataLoader.DATALOADER_C_PaySelectionCheck_BY_ID);
-		return dataLoader.load(entity.getC_PaySelectionCheck_ID());
-	}
-
-
-	/**
 	 * Get Payment Selection.
 	 *
 	 * @return Payment Selection
@@ -70,6 +55,21 @@ public class X_C_PaySelectionLineResolver extends POResolver<MPaySelectionLine> 
 		DataLoader<Integer, MPaySelection> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionDataLoader.DATALOADER_C_PaySelection_BY_ID);
 		return dataLoader.load(entity.getC_PaySelection_ID());
+	}
+
+
+	/**
+	 * Get Pay Selection Check.
+	 *
+	 * @return Payment Selection Check
+	 */
+	public CompletableFuture<MPaySelectionCheck> C_PaySelectionCheck(MPaySelectionLine entity, DataFetchingEnvironment environment) {
+		if (entity.getC_PaySelectionCheck_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MPaySelectionCheck> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionCheckDataLoader.DATALOADER_C_PaySelectionCheck_BY_ID);
+		return dataLoader.load(entity.getC_PaySelectionCheck_ID());
 	}
 
 	public Boolean IsManual(MPaySelectionLine entity, DataFetchingEnvironment environment) {

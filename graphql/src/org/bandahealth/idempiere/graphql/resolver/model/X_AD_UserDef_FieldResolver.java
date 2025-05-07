@@ -54,21 +54,6 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 
 
 	/**
-	 * Get Field Group.
-	 *
-	 * @return Logical grouping of fields
-	 */
-	public CompletableFuture<MFieldGroup_BH> AD_FieldGroup(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldGroup_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MFieldGroup_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldGroupDataLoader.DATALOADER_AD_FieldGroup_BY_ID);
-		return dataLoader.load(entity.getAD_FieldGroup_ID());
-	}
-
-
-	/**
 	 * Get Field.
 	 *
 	 * @return Field on a database table
@@ -80,6 +65,21 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		DataLoader<Integer, MField_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.DATALOADER_AD_Field_BY_ID);
 		return dataLoader.load(entity.getAD_Field_ID());
+	}
+
+
+	/**
+	 * Get Field Group.
+	 *
+	 * @return Logical grouping of fields
+	 */
+	public CompletableFuture<MFieldGroup_BH> AD_FieldGroup(MUserDefField entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_FieldGroup_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MFieldGroup_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldGroupDataLoader.DATALOADER_AD_FieldGroup_BY_ID);
+		return dataLoader.load(entity.getAD_FieldGroup_ID());
 	}
 
 

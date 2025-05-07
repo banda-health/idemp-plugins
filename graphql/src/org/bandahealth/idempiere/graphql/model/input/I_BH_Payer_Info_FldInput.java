@@ -39,20 +39,6 @@ public interface I_BH_Payer_Info_FldInput extends I_BH_Payer_Info_Fld {
 	ForeignEntityInput BH_Payer();
 
 	/**
-	 * Set BH_PayerInfoFieldDataType.
-	 *
-	 * @param BH_PayerInfoFieldDataType BH_PayerInfoFieldDataType
-	 */
-	void setBH_PayerInfoFieldDataTypeInput(ForeignEntityInput BH_PayerInfoFieldDataType);
-
-	/**
-	 * Get BH_PayerInfoFieldDataType.
-	 *
-	 * @return BH_PayerInfoFieldDataType
-	 */
-	ForeignEntityInput BH_PayerInfoFieldDataType();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -65,4 +51,18 @@ public interface I_BH_Payer_Info_FldInput extends I_BH_Payer_Info_Fld {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set BH_PayerInfoFieldDataType.
+	 *
+	 * @param BH_PayerInfoFieldDataType BH_PayerInfoFieldDataType
+	 */
+	void setBH_PayerInfoFieldDataTypeInput(ForeignEntityInput BH_PayerInfoFieldDataType);
+
+	/**
+	 * Get BH_PayerInfoFieldDataType.
+	 *
+	 * @return BH_PayerInfoFieldDataType
+	 */
+	ForeignEntityInput BH_PayerInfoFieldDataType();
 }

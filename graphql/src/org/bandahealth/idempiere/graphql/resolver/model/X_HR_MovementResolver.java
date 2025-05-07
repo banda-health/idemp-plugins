@@ -101,21 +101,6 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 
 
 	/**
-	 * Get Business Partner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	public CompletableFuture<MBPartner_BH> C_BPartner(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
-		return dataLoader.load(entity.getC_BPartner_ID());
-	}
-
-
-	/**
 	 * Get Partner Bank Account.
 	 *
 	 * @return Bank Account of the Business Partner
@@ -146,6 +131,21 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 
 
 	/**
+	 * Get Business Partner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	public CompletableFuture<MBPartner_BH> C_BPartner(X_HR_Movement entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BPartner_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBPartner_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
+		return dataLoader.load(entity.getC_BPartner_ID());
+	}
+
+
+	/**
 	 * Get Campaign.
 	 *
 	 * @return Marketing Campaign
@@ -157,23 +157,6 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 		DataLoader<Integer, MCampaign> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
-	}
-
-	public static Map<String, String> COLUMNTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("A", "46a2b315-1c28-4506-87ae-f00dd7b5f9f4"); // Amount
-			put("D", "9e57d0dd-3029-495c-8308-18c4057b54eb"); // Date
-			put("Q", "6e737d16-9389-46f0-a70e-29ed51b3262f"); // Quantity
-			put("T", "0f97b122-1a18-4aba-b069-11c0ac550e04"); // Text
-		}
-	};
-	public CompletableFuture<MRefList_BH> ColumnType(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getColumnType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(COLUMNTYPE_UUIDS_BY_VALUE.get(entity.getColumnType()));
 	}
 
 
@@ -219,6 +202,23 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 		DataLoader<Integer, MProjectTask> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTaskDataLoader.DATALOADER_C_ProjectTask_BY_ID);
 		return dataLoader.load(entity.getC_ProjectTask_ID());
+	}
+
+	public static Map<String, String> COLUMNTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("A", "46a2b315-1c28-4506-87ae-f00dd7b5f9f4"); // Amount
+			put("D", "9e57d0dd-3029-495c-8308-18c4057b54eb"); // Date
+			put("Q", "6e737d16-9389-46f0-a70e-29ed51b3262f"); // Quantity
+			put("T", "0f97b122-1a18-4aba-b069-11c0ac550e04"); // Text
+		}
+	};
+	public CompletableFuture<MRefList_BH> ColumnType(X_HR_Movement entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getColumnType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(COLUMNTYPE_UUIDS_BY_VALUE.get(entity.getColumnType()));
 	}
 
 

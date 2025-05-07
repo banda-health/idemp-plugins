@@ -23,13 +23,13 @@ type C_TaxProvider {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	UU: ID!
+	C_TaxProviderCfg: C_TaxProviderCfg!
 	CompanyCode: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	C_TaxProviderCfg: C_TaxProviderCfg!
-	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	License: String
@@ -48,9 +48,9 @@ input C_TaxProviderInput {
 	Account: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	CompanyCode: String
-	C_TaxProviderCfg: ForeignEntityInput
 	UU: ID
+	C_TaxProviderCfg: ForeignEntityInput
+	CompanyCode: String
 	# The record is active in the system
 	IsActive: Boolean
 	License: String

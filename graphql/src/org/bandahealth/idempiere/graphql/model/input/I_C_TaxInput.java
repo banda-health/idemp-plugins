@@ -39,6 +39,20 @@ public interface I_C_TaxInput extends I_C_Tax {
 	ForeignEntityInput AD_Rule();
 
 	/**
+	 * Set C_Country.
+	 *
+	 * @param C_Country Country 
+	 */
+	void setC_CountryInput(ForeignEntityInput C_Country);
+
+	/**
+	 * Get C_Country.
+	 *
+	 * @return Country 
+	 */
+	ForeignEntityInput C_Country();
+
+	/**
 	 * Set C_CountryGroupFrom.
 	 *
 	 * @param C_CountryGroupFrom C_CountryGroupFrom
@@ -67,20 +81,6 @@ public interface I_C_TaxInput extends I_C_Tax {
 	ForeignEntityInput C_CountryGroupTo();
 
 	/**
-	 * Set C_Country.
-	 *
-	 * @param C_Country Country 
-	 */
-	void setC_CountryInput(ForeignEntityInput C_Country);
-
-	/**
-	 * Get C_Country.
-	 *
-	 * @return Country 
-	 */
-	ForeignEntityInput C_Country();
-
-	/**
 	 * Set C_Region.
 	 *
 	 * @param C_Region Identifies a geographical Region
@@ -93,6 +93,20 @@ public interface I_C_TaxInput extends I_C_Tax {
 	 * @return Identifies a geographical Region
 	 */
 	ForeignEntityInput C_Region();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set C_TaxCategory.
@@ -121,20 +135,6 @@ public interface I_C_TaxInput extends I_C_Tax {
 	 * @return C_TaxProvider
 	 */
 	ForeignEntityInput C_TaxProvider();
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
 
 	/**
 	 * Set Parent_Tax.

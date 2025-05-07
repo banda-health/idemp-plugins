@@ -25,20 +25,6 @@ public interface I_C_OrderLandedCostAllocationInput extends I_C_OrderLandedCostA
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_OrderLandedCost.
 	 *
 	 * @param C_OrderLandedCost C_OrderLandedCost
@@ -51,6 +37,20 @@ public interface I_C_OrderLandedCostAllocationInput extends I_C_OrderLandedCostA
 	 * @return C_OrderLandedCost
 	 */
 	ForeignEntityInput C_OrderLandedCost();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set C_OrderLine.

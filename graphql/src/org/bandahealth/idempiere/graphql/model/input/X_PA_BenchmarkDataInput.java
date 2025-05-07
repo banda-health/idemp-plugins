@@ -71,35 +71,6 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-	/**
-	 * Set Benchmark Data.
-	 *
-	 * @param PA_BenchmarkData_ID Performance Benchmark Data Point
-	 */
-	@JsonProperty("PA_BenchmarkData_ID")
-	public void setPA_BenchmarkData_IDFromJson(int PA_BenchmarkData_ID) {
-		if (get_ID() == 0) {
-			super.setPA_BenchmarkData_ID(PA_BenchmarkData_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setPA_BenchmarkData_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getPA_BenchmarkData_UU();
-	}
 
 	/**
 	 * Set Benchmark.
@@ -136,5 +107,34 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	@JsonProperty("PA_Benchmark")
 	public ForeignEntityInput PA_Benchmark() {
 		return mPA_Benchmark;
+	}
+	/**
+	 * Set Benchmark Data.
+	 *
+	 * @param PA_BenchmarkData_ID Performance Benchmark Data Point
+	 */
+	@JsonProperty("PA_BenchmarkData_ID")
+	public void setPA_BenchmarkData_IDFromJson(int PA_BenchmarkData_ID) {
+		if (get_ID() == 0) {
+			super.setPA_BenchmarkData_ID(PA_BenchmarkData_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setPA_BenchmarkData_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getPA_BenchmarkData_UU();
 	}
 }

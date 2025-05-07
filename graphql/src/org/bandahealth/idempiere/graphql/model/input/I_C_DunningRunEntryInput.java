@@ -95,20 +95,6 @@ public interface I_C_DunningRunEntryInput extends I_C_DunningRunEntry {
 	ForeignEntityInput C_DunningLevel();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_DunningRun.
 	 *
 	 * @param C_DunningRun Dunning Run
@@ -121,6 +107,20 @@ public interface I_C_DunningRunEntryInput extends I_C_DunningRunEntry {
 	 * @return Dunning Run
 	 */
 	ForeignEntityInput C_DunningRun();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set SalesRep.

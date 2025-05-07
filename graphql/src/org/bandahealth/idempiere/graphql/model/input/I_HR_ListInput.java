@@ -53,20 +53,6 @@ public interface I_HR_ListInput extends I_HR_List {
 	ForeignEntityInput HR_Employee();
 
 	/**
-	 * Set HR_ListType.
-	 *
-	 * @param HR_ListType HR_ListType
-	 */
-	void setHR_ListTypeInput(ForeignEntityInput HR_ListType);
-
-	/**
-	 * Get HR_ListType.
-	 *
-	 * @return HR_ListType
-	 */
-	ForeignEntityInput HR_ListType();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -79,6 +65,20 @@ public interface I_HR_ListInput extends I_HR_List {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set HR_ListType.
+	 *
+	 * @param HR_ListType HR_ListType
+	 */
+	void setHR_ListTypeInput(ForeignEntityInput HR_ListType);
+
+	/**
+	 * Get HR_ListType.
+	 *
+	 * @return HR_ListType
+	 */
+	ForeignEntityInput HR_ListType();
 
 	/**
 	 * Set HR_Payroll.

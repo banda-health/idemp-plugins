@@ -28,9 +28,9 @@ type AD_Ref_Table {
 	AD_: AD_Column!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	UU: ID!
 	# System Reference and Validation
 	AD_Reference: AD_Reference!
-	UU: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Data entry or display window
@@ -64,9 +64,9 @@ input AD_Ref_TableInput {
 	AD_: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	UU: ID
 	# System Reference and Validation
 	AD_Reference: ForeignEntityInput
-	UU: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Data entry or display window

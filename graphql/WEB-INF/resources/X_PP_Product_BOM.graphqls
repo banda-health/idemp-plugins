@@ -26,14 +26,14 @@ type PP_Product_BOM {
 	BOMType: AD_Ref_List
 	# The use of the Bill of Material
 	BOMUse: AD_Ref_List
+	# Unit of Measure
+	C_UOM: C_UOM
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Unit of Measure
-	C_UOM: C_UOM
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint
@@ -70,10 +70,10 @@ input PP_Product_BOMInput {
 	BOMType: ForeignEntityInput
 	# The use of the Bill of Material
 	BOMUse: ForeignEntityInput
-	# Copy From Record
-	CopyFrom: String
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
+	# Copy From Record
+	CopyFrom: String
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

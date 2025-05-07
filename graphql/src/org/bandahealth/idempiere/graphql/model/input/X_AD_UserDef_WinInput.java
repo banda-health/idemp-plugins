@@ -145,35 +145,6 @@ public class X_AD_UserDef_WinInput extends MUserDefWin implements I_AD_UserDef_W
 	public ForeignEntityInput AD_Role() {
 		return mAD_Role;
 	}
-	/**
-	 * Set User defined Window.
-	 *
-	 * @param AD_UserDef_Win_ID User defined Window
-	 */
-	@JsonProperty("AD_UserDef_Win_ID")
-	public void setAD_UserDef_Win_IDFromJson(int AD_UserDef_Win_ID) {
-		if (get_ID() == 0) {
-			super.setAD_UserDef_Win_ID(AD_UserDef_Win_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_UserDef_Win_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_UserDef_Win_UU();
-	}
 
 	/**
 	 * Set User/Contact.
@@ -207,6 +178,35 @@ public class X_AD_UserDef_WinInput extends MUserDefWin implements I_AD_UserDef_W
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
+	}
+	/**
+	 * Set User defined Window.
+	 *
+	 * @param AD_UserDef_Win_ID User defined Window
+	 */
+	@JsonProperty("AD_UserDef_Win_ID")
+	public void setAD_UserDef_Win_IDFromJson(int AD_UserDef_Win_ID) {
+		if (get_ID() == 0) {
+			super.setAD_UserDef_Win_ID(AD_UserDef_Win_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_UserDef_Win_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_UserDef_Win_UU();
 	}
 
 	/**

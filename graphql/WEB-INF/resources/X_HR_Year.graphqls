@@ -22,12 +22,12 @@ type HR_Year {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# Calendar Year
+	C_Year: C_Year!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Calendar Year
-	C_Year: C_Year!
 	HR_Payroll: HR_Payroll!
 	UU: ID!
 	# The record is active in the system

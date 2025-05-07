@@ -309,6 +309,24 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_Tab_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_Tab_UU();
+	}
+
+	/**
 	 * Set Table.
 	 *
 	 * @param AD_Table Database Table information
@@ -379,24 +397,6 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_TabType")
 	public ForeignEntityInput AD_TabType() {
 		return mAD_TabType;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_Tab_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_Tab_UU();
 	}
 
 	/**

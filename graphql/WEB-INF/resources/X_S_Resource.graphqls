@@ -37,9 +37,9 @@ type S_Resource {
 	# Resource is available
 	IsAvailable: Boolean!
 	IsManufacturingResource: Boolean!
-	ManufacturingResourceType: AD_Ref_List
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
+	ManufacturingResourceType: AD_Ref_List
 	# Alphanumeric identifier of the entity
 	Name: String!
 	PercentUtilization: BigDecimal!
@@ -47,8 +47,8 @@ type S_Resource {
 	PlanningHorizon: Int
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: BigDecimal
-	S_ResourceType: S_ResourceType!
 	UU: ID!
+	S_ResourceType: S_ResourceType!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -73,9 +73,9 @@ input S_ResourceInput {
 	# Resource is available
 	IsAvailable: Boolean
 	IsManufacturingResource: Boolean
-	ManufacturingResourceType: ForeignEntityInput
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
+	ManufacturingResourceType: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	PercentUtilization: BigDecimal
@@ -83,8 +83,8 @@ input S_ResourceInput {
 	PlanningHorizon: Int
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: BigDecimal
-	S_ResourceType: ForeignEntityInput
 	UU: ID
+	S_ResourceType: ForeignEntityInput
 	# Search key for the record in the format required - must be unique
 	Value: String
 	# Workflow Simulation Waiting time

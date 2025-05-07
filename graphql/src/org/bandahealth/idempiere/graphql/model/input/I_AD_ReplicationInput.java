@@ -25,20 +25,6 @@ public interface I_AD_ReplicationInput extends I_AD_Replication {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set AD_ReplicationStrategy.
-	 *
-	 * @param AD_ReplicationStrategy Data Replication Strategy
-	 */
-	void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy);
-
-	/**
-	 * Get AD_ReplicationStrategy.
-	 *
-	 * @return Data Replication Strategy
-	 */
-	ForeignEntityInput AD_ReplicationStrategy();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -51,4 +37,18 @@ public interface I_AD_ReplicationInput extends I_AD_Replication {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set AD_ReplicationStrategy.
+	 *
+	 * @param AD_ReplicationStrategy Data Replication Strategy
+	 */
+	void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy);
+
+	/**
+	 * Get AD_ReplicationStrategy.
+	 *
+	 * @return Data Replication Strategy
+	 */
+	ForeignEntityInput AD_ReplicationStrategy();
 }

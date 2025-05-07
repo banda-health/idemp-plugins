@@ -33,10 +33,10 @@ type C_CommissionDetail {
 	C_Currency: C_Currency!
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine
-	# Converted Amount
-	ConvertedAmt: BigDecimal!
 	# Sales Order Line
 	C_OrderLine: C_OrderLine
+	# Converted Amount
+	ConvertedAmt: BigDecimal!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -67,10 +67,10 @@ input C_CommissionDetailInput {
 	C_Currency: ForeignEntityInput
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
-	# Converted Amount
-	ConvertedAmt: BigDecimal
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
+	# Converted Amount
+	ConvertedAmt: BigDecimal
 	# Information
 	Info: String
 	# The record is active in the system

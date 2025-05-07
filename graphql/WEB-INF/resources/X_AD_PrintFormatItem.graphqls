@@ -30,10 +30,10 @@ type AD_PrintFormatItem {
 	AD_PrintColor: AD_PrintColor
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont
-	# Print format that is included here.
-	AD_PrintFormatChild: AD_PrintFormat!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat!
+	# Print format that is included here.
+	AD_PrintFormatChild: AD_PrintFormat!
 	UU: ID!
 	# Graph included in Reports
 	AD_PrintGraph: AD_PrintGraph
@@ -164,10 +164,10 @@ input AD_PrintFormatItemInput {
 	AD_PrintColor: ForeignEntityInput
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
-	# Print format that is included here.
-	AD_PrintFormatChild: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
+	# Print format that is included here.
+	AD_PrintFormatChild: ForeignEntityInput
 	UU: ID
 	# Graph included in Reports
 	AD_PrintGraph: ForeignEntityInput

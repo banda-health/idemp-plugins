@@ -112,35 +112,6 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
-	/**
-	 * Set Tax Declaration Accounting.
-	 *
-	 * @param C_TaxDeclarationAcct_ID Tax Accounting Reconciliation 
-	 */
-	@JsonProperty("C_TaxDeclarationAcct_ID")
-	public void setC_TaxDeclarationAcct_IDFromJson(int C_TaxDeclarationAcct_ID) {
-		if (get_ID() == 0) {
-			super.setC_TaxDeclarationAcct_ID(C_TaxDeclarationAcct_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_TaxDeclarationAcct_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_TaxDeclarationAcct_UU();
-	}
 
 	/**
 	 * Set Tax Declaration.
@@ -177,6 +148,35 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 	@JsonProperty("C_TaxDeclaration")
 	public ForeignEntityInput C_TaxDeclaration() {
 		return mC_TaxDeclaration;
+	}
+	/**
+	 * Set Tax Declaration Accounting.
+	 *
+	 * @param C_TaxDeclarationAcct_ID Tax Accounting Reconciliation 
+	 */
+	@JsonProperty("C_TaxDeclarationAcct_ID")
+	public void setC_TaxDeclarationAcct_IDFromJson(int C_TaxDeclarationAcct_ID) {
+		if (get_ID() == 0) {
+			super.setC_TaxDeclarationAcct_ID(C_TaxDeclarationAcct_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_TaxDeclarationAcct_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_TaxDeclarationAcct_UU();
 	}
 
 	/**

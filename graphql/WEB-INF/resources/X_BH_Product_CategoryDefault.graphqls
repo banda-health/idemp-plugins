@@ -22,9 +22,9 @@ type BH_Product_CategoryDefault {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# Contains a character the is linked to a ref list to determine types of product categories
 	BH_Product_Category_Type: AD_Ref_List!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -46,9 +46,9 @@ type BH_Product_CategoryDefault {
 input BH_Product_CategoryDefaultInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# Contains a character the is linked to a ref list to determine types of product categories
 	BH_Product_Category_Type: ForeignEntityInput
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

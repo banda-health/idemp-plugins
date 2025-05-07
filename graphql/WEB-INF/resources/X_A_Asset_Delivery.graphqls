@@ -41,14 +41,14 @@ type A_Asset_Delivery {
 	IsActive: Boolean!
 	# Lot number (alphanumeric)
 	Lot: String
-	# EMail Message ID
-	MessageID: String
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine
-	# Date a product was moved in or out of inventory
-	MovementDate: DateTime!
 	# Product downloads
 	M_ProductDownload: M_ProductDownload
+	# EMail Message ID
+	MessageID: String
+	# Date a product was moved in or out of inventory
+	MovementDate: DateTime!
 	# Referring web address
 	Referrer: String
 	# Remote Address
@@ -85,14 +85,14 @@ input A_Asset_DeliveryInput {
 	IsActive: Boolean
 	# Lot number (alphanumeric)
 	Lot: String
-	# EMail Message ID
-	MessageID: String
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
-	# Date a product was moved in or out of inventory
-	MovementDate: DateTime
 	# Product downloads
 	M_ProductDownload: ForeignEntityInput
+	# EMail Message ID
+	MessageID: String
+	# Date a product was moved in or out of inventory
+	MovementDate: DateTime
 	# Referring web address
 	Referrer: String
 	# Remote Address

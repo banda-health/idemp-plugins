@@ -95,20 +95,6 @@ public interface I_AD_WorkflowInput extends I_AD_Workflow {
 	ForeignEntityInput AD_WF_Responsible();
 
 	/**
-	 * Set AD_WorkflowProcessor.
-	 *
-	 * @param AD_WorkflowProcessor Workflow Processor Server
-	 */
-	void setAD_WorkflowProcessorInput(ForeignEntityInput AD_WorkflowProcessor);
-
-	/**
-	 * Get AD_WorkflowProcessor.
-	 *
-	 * @return Workflow Processor Server
-	 */
-	ForeignEntityInput AD_WorkflowProcessor();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -121,6 +107,20 @@ public interface I_AD_WorkflowInput extends I_AD_Workflow {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set AD_WorkflowProcessor.
+	 *
+	 * @param AD_WorkflowProcessor Workflow Processor Server
+	 */
+	void setAD_WorkflowProcessorInput(ForeignEntityInput AD_WorkflowProcessor);
+
+	/**
+	 * Get AD_WorkflowProcessor.
+	 *
+	 * @return Workflow Processor Server
+	 */
+	ForeignEntityInput AD_WorkflowProcessor();
 
 	/**
 	 * Set DurationUnit.

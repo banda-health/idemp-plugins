@@ -25,20 +25,6 @@ public interface I_A_Depreciation_EntryInput extends I_A_Depreciation_Entry {
 	String getUU();
 
 	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
-
-	/**
 	 * Set A_Entry_Type.
 	 *
 	 * @param A_Entry_Type A_Entry_Type
@@ -51,6 +37,20 @@ public interface I_A_Depreciation_EntryInput extends I_A_Depreciation_Entry {
 	 * @return A_Entry_Type
 	 */
 	ForeignEntityInput A_Entry_Type();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_AcctSchema.

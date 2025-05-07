@@ -137,6 +137,48 @@ public interface I_C_AcctSchema_DefaultInput extends I_C_AcctSchema_Default {
 	ForeignEntityInput C_AcctSchema();
 
 	/**
+	 * Set C_Prepayment_A.
+	 *
+	 * @param C_Prepayment_A Account for customer prepayments
+	 */
+	void setC_Prepayment_AInput(ForeignEntityInput C_Prepayment_A);
+
+	/**
+	 * Get C_Prepayment_A.
+	 *
+	 * @return Account for customer prepayments
+	 */
+	ForeignEntityInput C_Prepayment_A();
+
+	/**
+	 * Set C_Receivable_A.
+	 *
+	 * @param C_Receivable_A Account for Customer Receivables
+	 */
+	void setC_Receivable_AInput(ForeignEntityInput C_Receivable_A);
+
+	/**
+	 * Get C_Receivable_A.
+	 *
+	 * @return Account for Customer Receivables
+	 */
+	ForeignEntityInput C_Receivable_A();
+
+	/**
+	 * Set C_Receivable_Services_A.
+	 *
+	 * @param C_Receivable_Services_A Customer Accounts Receivables Services Account
+	 */
+	void setC_Receivable_Services_AInput(ForeignEntityInput C_Receivable_Services_A);
+
+	/**
+	 * Get C_Receivable_Services_A.
+	 *
+	 * @return Customer Accounts Receivables Services Account
+	 */
+	ForeignEntityInput C_Receivable_Services_A();
+
+	/**
 	 * Set CB_Asset_A.
 	 *
 	 * @param CB_Asset_A Cash Book Asset Account
@@ -221,48 +263,6 @@ public interface I_C_AcctSchema_DefaultInput extends I_C_AcctSchema_Default {
 	ForeignEntityInput Ch_Expense_A();
 
 	/**
-	 * Set C_Prepayment_A.
-	 *
-	 * @param C_Prepayment_A Account for customer prepayments
-	 */
-	void setC_Prepayment_AInput(ForeignEntityInput C_Prepayment_A);
-
-	/**
-	 * Get C_Prepayment_A.
-	 *
-	 * @return Account for customer prepayments
-	 */
-	ForeignEntityInput C_Prepayment_A();
-
-	/**
-	 * Set C_Receivable_A.
-	 *
-	 * @param C_Receivable_A Account for Customer Receivables
-	 */
-	void setC_Receivable_AInput(ForeignEntityInput C_Receivable_A);
-
-	/**
-	 * Get C_Receivable_A.
-	 *
-	 * @return Account for Customer Receivables
-	 */
-	ForeignEntityInput C_Receivable_A();
-
-	/**
-	 * Set C_Receivable_Services_A.
-	 *
-	 * @param C_Receivable_Services_A Customer Accounts Receivables Services Account
-	 */
-	void setC_Receivable_Services_AInput(ForeignEntityInput C_Receivable_Services_A);
-
-	/**
-	 * Get C_Receivable_Services_A.
-	 *
-	 * @return Customer Accounts Receivables Services Account
-	 */
-	ForeignEntityInput C_Receivable_Services_A();
-
-	/**
 	 * Set NotInvoicedReceipts_A.
 	 *
 	 * @param NotInvoicedReceipts_A Account for not-invoiced Material Receipts
@@ -303,34 +303,6 @@ public interface I_C_AcctSchema_DefaultInput extends I_C_AcctSchema_Default {
 	 * @return Average Cost Variance
 	 */
 	ForeignEntityInput P_AverageCostVariance_A();
-
-	/**
-	 * Set PayDiscount_Exp_A.
-	 *
-	 * @param PayDiscount_Exp_A Payment Discount Expense Account
-	 */
-	void setPayDiscount_Exp_AInput(ForeignEntityInput PayDiscount_Exp_A);
-
-	/**
-	 * Get PayDiscount_Exp_A.
-	 *
-	 * @return Payment Discount Expense Account
-	 */
-	ForeignEntityInput PayDiscount_Exp_A();
-
-	/**
-	 * Set PayDiscount_Rev_A.
-	 *
-	 * @param PayDiscount_Rev_A Payment Discount Revenue Account
-	 */
-	void setPayDiscount_Rev_AInput(ForeignEntityInput PayDiscount_Rev_A);
-
-	/**
-	 * Get PayDiscount_Rev_A.
-	 *
-	 * @return Payment Discount Revenue Account
-	 */
-	ForeignEntityInput PayDiscount_Rev_A();
 
 	/**
 	 * Set P_COGS_A.
@@ -401,34 +373,6 @@ public interface I_C_AcctSchema_DefaultInput extends I_C_AcctSchema_Default {
 	 * @return Difference between Costs and Invoice Price (IPV)
 	 */
 	ForeignEntityInput P_InvoicePriceVariance_A();
-
-	/**
-	 * Set PJ_Asset_A.
-	 *
-	 * @param PJ_Asset_A Project Asset Account
-	 */
-	void setPJ_Asset_AInput(ForeignEntityInput PJ_Asset_A);
-
-	/**
-	 * Get PJ_Asset_A.
-	 *
-	 * @return Project Asset Account
-	 */
-	ForeignEntityInput PJ_Asset_A();
-
-	/**
-	 * Set PJ_WIP_A.
-	 *
-	 * @param PJ_WIP_A Account for Work in Progress
-	 */
-	void setPJ_WIP_AInput(ForeignEntityInput PJ_WIP_A);
-
-	/**
-	 * Get PJ_WIP_A.
-	 *
-	 * @return Account for Work in Progress
-	 */
-	ForeignEntityInput PJ_WIP_A();
 
 	/**
 	 * Set P_LandedCostClearing_A.
@@ -513,6 +457,62 @@ public interface I_C_AcctSchema_DefaultInput extends I_C_AcctSchema_Default {
 	 * @return Trade Discount Receivable Account
 	 */
 	ForeignEntityInput P_TradeDiscountRec_A();
+
+	/**
+	 * Set PayDiscount_Exp_A.
+	 *
+	 * @param PayDiscount_Exp_A Payment Discount Expense Account
+	 */
+	void setPayDiscount_Exp_AInput(ForeignEntityInput PayDiscount_Exp_A);
+
+	/**
+	 * Get PayDiscount_Exp_A.
+	 *
+	 * @return Payment Discount Expense Account
+	 */
+	ForeignEntityInput PayDiscount_Exp_A();
+
+	/**
+	 * Set PayDiscount_Rev_A.
+	 *
+	 * @param PayDiscount_Rev_A Payment Discount Revenue Account
+	 */
+	void setPayDiscount_Rev_AInput(ForeignEntityInput PayDiscount_Rev_A);
+
+	/**
+	 * Get PayDiscount_Rev_A.
+	 *
+	 * @return Payment Discount Revenue Account
+	 */
+	ForeignEntityInput PayDiscount_Rev_A();
+
+	/**
+	 * Set PJ_Asset_A.
+	 *
+	 * @param PJ_Asset_A Project Asset Account
+	 */
+	void setPJ_Asset_AInput(ForeignEntityInput PJ_Asset_A);
+
+	/**
+	 * Get PJ_Asset_A.
+	 *
+	 * @return Project Asset Account
+	 */
+	ForeignEntityInput PJ_Asset_A();
+
+	/**
+	 * Set PJ_WIP_A.
+	 *
+	 * @param PJ_WIP_A Account for Work in Progress
+	 */
+	void setPJ_WIP_AInput(ForeignEntityInput PJ_WIP_A);
+
+	/**
+	 * Get PJ_WIP_A.
+	 *
+	 * @return Account for Work in Progress
+	 */
+	ForeignEntityInput PJ_WIP_A();
 
 	/**
 	 * Set RealizedGain_A.

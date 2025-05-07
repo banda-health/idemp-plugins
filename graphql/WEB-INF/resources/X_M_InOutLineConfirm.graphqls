@@ -40,9 +40,9 @@ type M_InOutLineConfirm {
 	IsActive: Boolean!
 	# Material Shipment or Receipt Confirmation
 	M_InOutConfirm: M_InOutConfirm!
-	UU: ID!
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine!
+	UU: ID!
 	# Unique line in an Inventory document
 	M_InventoryLine: M_InventoryLine
 	# The document has been processed
@@ -74,9 +74,9 @@ input M_InOutLineConfirmInput {
 	IsActive: Boolean
 	# Material Shipment or Receipt Confirmation
 	M_InOutConfirm: ForeignEntityInput
-	UU: ID
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
+	UU: ID
 	# Unique line in an Inventory document
 	M_InventoryLine: ForeignEntityInput
 	# The document has been processed

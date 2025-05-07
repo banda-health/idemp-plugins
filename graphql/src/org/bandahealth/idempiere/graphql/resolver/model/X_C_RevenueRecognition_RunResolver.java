@@ -24,21 +24,6 @@ public class X_C_RevenueRecognition_RunResolver extends POResolver<MRevenueRecog
 
 
 	/**
-	 * Get Revenue Recognition Plan.
-	 *
-	 * @return Plan for recognizing or recording revenue
-	 */
-	public CompletableFuture<MRevenueRecognitionPlan> C_RevenueRecognition_Plan(MRevenueRecognitionRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RevenueRecognition_Plan_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MRevenueRecognitionPlan> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecognition_PlanDataLoader.DATALOADER_C_RevenueRecognition_Plan_BY_ID);
-		return dataLoader.load(entity.getC_RevenueRecognition_Plan_ID());
-	}
-
-
-	/**
 	 * Get Revenue Recognition Service.
 	 *
 	 * @return Revenue Recognition Service
@@ -50,6 +35,21 @@ public class X_C_RevenueRecognition_RunResolver extends POResolver<MRevenueRecog
 		DataLoader<Integer, MRevenueRecogService> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecog_ServiceDataLoader.DATALOADER_C_RevenueRecog_Service_BY_ID);
 		return dataLoader.load(entity.getC_RevenueRecog_Service_ID());
+	}
+
+
+	/**
+	 * Get Revenue Recognition Plan.
+	 *
+	 * @return Plan for recognizing or recording revenue
+	 */
+	public CompletableFuture<MRevenueRecognitionPlan> C_RevenueRecognition_Plan(MRevenueRecognitionRun entity, DataFetchingEnvironment environment) {
+		if (entity.getC_RevenueRecognition_Plan_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MRevenueRecognitionPlan> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecognition_PlanDataLoader.DATALOADER_C_RevenueRecognition_Plan_BY_ID);
+		return dataLoader.load(entity.getC_RevenueRecognition_Plan_ID());
 	}
 
 

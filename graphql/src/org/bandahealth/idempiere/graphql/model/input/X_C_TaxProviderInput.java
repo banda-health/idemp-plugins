@@ -71,6 +71,35 @@ public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProvide
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Tax Provider.
+	 *
+	 * @param C_TaxProvider_ID Tax Provider
+	 */
+	@JsonProperty("C_TaxProvider_ID")
+	public void setC_TaxProvider_IDFromJson(int C_TaxProvider_ID) {
+		if (get_ID() == 0) {
+			super.setC_TaxProvider_ID(C_TaxProvider_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_TaxProvider_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_TaxProvider_UU();
+	}
 
 	/**
 	 * Set Tax Provider Configuration.
@@ -104,34 +133,5 @@ public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProvide
 	@JsonProperty("C_TaxProviderCfg")
 	public ForeignEntityInput C_TaxProviderCfg() {
 		return mC_TaxProviderCfg;
-	}
-	/**
-	 * Set Tax Provider.
-	 *
-	 * @param C_TaxProvider_ID Tax Provider
-	 */
-	@JsonProperty("C_TaxProvider_ID")
-	public void setC_TaxProvider_IDFromJson(int C_TaxProvider_ID) {
-		if (get_ID() == 0) {
-			super.setC_TaxProvider_ID(C_TaxProvider_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_TaxProvider_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_TaxProvider_UU();
 	}
 }

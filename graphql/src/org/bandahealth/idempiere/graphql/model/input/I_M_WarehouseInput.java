@@ -72,20 +72,6 @@ public interface I_M_WarehouseInput extends I_M_Warehouse {
 	ForeignEntityInput M_ReserveLocator();
 
 	/**
-	 * Set M_WarehouseSource.
-	 *
-	 * @param M_WarehouseSource Optional Warehouse to replenish from
-	 */
-	void setM_WarehouseSourceInput(ForeignEntityInput M_WarehouseSource);
-
-	/**
-	 * Get M_WarehouseSource.
-	 *
-	 * @return Optional Warehouse to replenish from
-	 */
-	ForeignEntityInput M_WarehouseSource();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -98,4 +84,18 @@ public interface I_M_WarehouseInput extends I_M_Warehouse {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set M_WarehouseSource.
+	 *
+	 * @param M_WarehouseSource Optional Warehouse to replenish from
+	 */
+	void setM_WarehouseSourceInput(ForeignEntityInput M_WarehouseSource);
+
+	/**
+	 * Get M_WarehouseSource.
+	 *
+	 * @return Optional Warehouse to replenish from
+	 */
+	ForeignEntityInput M_WarehouseSource();
 }

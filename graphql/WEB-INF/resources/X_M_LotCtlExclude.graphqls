@@ -32,9 +32,9 @@ type M_LotCtlExclude {
 	IsActive: Boolean!
 	# This is a Sales Transaction
 	IsSOTrx: Boolean!
-	UU: ID!
 	# Product Lot Control
 	M_LotCtl: M_LotCtl!
+	UU: ID!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -50,7 +50,7 @@ input M_LotCtlExcludeInput {
 	IsActive: Boolean
 	# This is a Sales Transaction
 	IsSOTrx: Boolean
-	UU: ID
 	# Product Lot Control
 	M_LotCtl: ForeignEntityInput
+	UU: ID
 }

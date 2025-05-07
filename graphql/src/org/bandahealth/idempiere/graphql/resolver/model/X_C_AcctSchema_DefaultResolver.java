@@ -127,6 +127,51 @@ public class X_C_AcctSchema_DefaultResolver extends POResolver<MAcctSchemaDefaul
 
 
 	/**
+	 * Get Customer Prepayment.
+	 *
+	 * @return Account for customer prepayments
+	 */
+	public CompletableFuture<MAccount> C_Prepayment_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Prepayment_Acct() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MAccount> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
+		return dataLoader.load(entity.getC_Prepayment_Acct());
+	}
+
+
+	/**
+	 * Get Customer Receivables.
+	 *
+	 * @return Account for Customer Receivables
+	 */
+	public CompletableFuture<MAccount> C_Receivable_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Receivable_Acct() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MAccount> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
+		return dataLoader.load(entity.getC_Receivable_Acct());
+	}
+
+
+	/**
+	 * Get Receivable Services.
+	 *
+	 * @return Customer Accounts Receivables Services Account
+	 */
+	public CompletableFuture<MAccount> C_Receivable_Services_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Receivable_Services_Acct() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MAccount> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
+		return dataLoader.load(entity.getC_Receivable_Services_Acct());
+	}
+
+
+	/**
 	 * Get Cash Book Asset.
 	 *
 	 * @return Cash Book Asset Account
@@ -217,51 +262,6 @@ public class X_C_AcctSchema_DefaultResolver extends POResolver<MAcctSchemaDefaul
 
 
 	/**
-	 * Get Customer Prepayment.
-	 *
-	 * @return Account for customer prepayments
-	 */
-	public CompletableFuture<MAccount> C_Prepayment_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Prepayment_Acct() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
-		return dataLoader.load(entity.getC_Prepayment_Acct());
-	}
-
-
-	/**
-	 * Get Customer Receivables.
-	 *
-	 * @return Account for Customer Receivables
-	 */
-	public CompletableFuture<MAccount> C_Receivable_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Receivable_Acct() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
-		return dataLoader.load(entity.getC_Receivable_Acct());
-	}
-
-
-	/**
-	 * Get Receivable Services.
-	 *
-	 * @return Customer Accounts Receivables Services Account
-	 */
-	public CompletableFuture<MAccount> C_Receivable_Services_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Receivable_Services_Acct() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
-		return dataLoader.load(entity.getC_Receivable_Services_Acct());
-	}
-
-
-	/**
 	 * Get Not-invoiced Receipts.
 	 *
 	 * @return Account for not-invoiced Material Receipts
@@ -303,36 +303,6 @@ public class X_C_AcctSchema_DefaultResolver extends POResolver<MAcctSchemaDefaul
 		DataLoader<Integer, MAccount> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getP_AverageCostVariance_Acct());
-	}
-
-
-	/**
-	 * Get Payment Discount Expense.
-	 *
-	 * @return Payment Discount Expense Account
-	 */
-	public CompletableFuture<MAccount> PayDiscount_Exp_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
-		if (entity.getPayDiscount_Exp_Acct() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
-		return dataLoader.load(entity.getPayDiscount_Exp_Acct());
-	}
-
-
-	/**
-	 * Get Payment Discount Revenue.
-	 *
-	 * @return Payment Discount Revenue Account
-	 */
-	public CompletableFuture<MAccount> PayDiscount_Rev_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
-		if (entity.getPayDiscount_Rev_Acct() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
-		return dataLoader.load(entity.getPayDiscount_Rev_Acct());
 	}
 
 
@@ -412,36 +382,6 @@ public class X_C_AcctSchema_DefaultResolver extends POResolver<MAcctSchemaDefaul
 
 
 	/**
-	 * Get Project Asset.
-	 *
-	 * @return Project Asset Account
-	 */
-	public CompletableFuture<MAccount> PJ_Asset_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
-		if (entity.getPJ_Asset_Acct() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
-		return dataLoader.load(entity.getPJ_Asset_Acct());
-	}
-
-
-	/**
-	 * Get Work In Progress.
-	 *
-	 * @return Account for Work in Progress
-	 */
-	public CompletableFuture<MAccount> PJ_WIP_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
-		if (entity.getPJ_WIP_Acct() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
-		return dataLoader.load(entity.getPJ_WIP_Acct());
-	}
-
-
-	/**
 	 * Get Landed Cost Clearing.
 	 *
 	 * @return Product Landed Cost Clearing Account
@@ -500,10 +440,6 @@ public class X_C_AcctSchema_DefaultResolver extends POResolver<MAcctSchemaDefaul
 		return dataLoader.load(entity.getP_Revenue_Acct());
 	}
 
-	public Boolean Processing(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
-		return entity.isProcessing();
-	}
-
 
 	/**
 	 * Get Trade Discount Granted.
@@ -532,6 +468,70 @@ public class X_C_AcctSchema_DefaultResolver extends POResolver<MAcctSchemaDefaul
 		DataLoader<Integer, MAccount> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getP_TradeDiscountRec_Acct());
+	}
+
+
+	/**
+	 * Get Payment Discount Expense.
+	 *
+	 * @return Payment Discount Expense Account
+	 */
+	public CompletableFuture<MAccount> PayDiscount_Exp_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
+		if (entity.getPayDiscount_Exp_Acct() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MAccount> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
+		return dataLoader.load(entity.getPayDiscount_Exp_Acct());
+	}
+
+
+	/**
+	 * Get Payment Discount Revenue.
+	 *
+	 * @return Payment Discount Revenue Account
+	 */
+	public CompletableFuture<MAccount> PayDiscount_Rev_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
+		if (entity.getPayDiscount_Rev_Acct() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MAccount> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
+		return dataLoader.load(entity.getPayDiscount_Rev_Acct());
+	}
+
+
+	/**
+	 * Get Project Asset.
+	 *
+	 * @return Project Asset Account
+	 */
+	public CompletableFuture<MAccount> PJ_Asset_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
+		if (entity.getPJ_Asset_Acct() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MAccount> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
+		return dataLoader.load(entity.getPJ_Asset_Acct());
+	}
+
+
+	/**
+	 * Get Work In Progress.
+	 *
+	 * @return Account for Work in Progress
+	 */
+	public CompletableFuture<MAccount> PJ_WIP_A(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
+		if (entity.getPJ_WIP_Acct() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MAccount> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
+		return dataLoader.load(entity.getPJ_WIP_Acct());
+	}
+
+	public Boolean Processing(MAcctSchemaDefault entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 

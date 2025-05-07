@@ -53,20 +53,6 @@ public interface I_A_Asset_SplitInput extends I_A_Asset_Split {
 	String getUU();
 
 	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
-
-	/**
 	 * Set A_Split_Type.
 	 *
 	 * @param A_Split_Type A_Split_Type
@@ -79,6 +65,20 @@ public interface I_A_Asset_SplitInput extends I_A_Asset_Split {
 	 * @return A_Split_Type
 	 */
 	ForeignEntityInput A_Split_Type();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_Period.

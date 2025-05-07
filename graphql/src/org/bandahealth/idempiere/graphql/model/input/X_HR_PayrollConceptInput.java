@@ -143,35 +143,6 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	public ForeignEntityInput HR_Concept() {
 		return mHR_Concept;
 	}
-	/**
-	 * Set Payroll Concept.
-	 *
-	 * @param HR_PayrollConcept_ID Payroll Concept
-	 */
-	@JsonProperty("HR_PayrollConcept_ID")
-	public void setHR_PayrollConcept_IDFromJson(int HR_PayrollConcept_ID) {
-		if (get_ID() == 0) {
-			super.setHR_PayrollConcept_ID(HR_PayrollConcept_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setHR_PayrollConcept_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getHR_PayrollConcept_UU();
-	}
 
 	/**
 	 * Set Payroll.
@@ -208,5 +179,34 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	@JsonProperty("HR_Payroll")
 	public ForeignEntityInput HR_Payroll() {
 		return mHR_Payroll;
+	}
+	/**
+	 * Set Payroll Concept.
+	 *
+	 * @param HR_PayrollConcept_ID Payroll Concept
+	 */
+	@JsonProperty("HR_PayrollConcept_ID")
+	public void setHR_PayrollConcept_IDFromJson(int HR_PayrollConcept_ID) {
+		if (get_ID() == 0) {
+			super.setHR_PayrollConcept_ID(HR_PayrollConcept_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setHR_PayrollConcept_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getHR_PayrollConcept_UU();
 	}
 }

@@ -638,17 +638,6 @@ public class X_GL_JournalLineInput extends MJournalLine implements I_GL_JournalL
 	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
 	}
-	/**
-	 * Set Rate.
-	 *
-	 * @param CurrencyRate Currency Conversion Rate
-	 */
-	@JsonProperty("CurrencyRate")
-	public void setCurrencyRateFromJson(BigDecimal CurrencyRate) {
-		if (get_ID() == 0) {
-			super.setCurrencyRate(CurrencyRate);
-		}
-	}
 
 	/**
 	 * Set Combination.
@@ -682,6 +671,17 @@ public class X_GL_JournalLineInput extends MJournalLine implements I_GL_JournalL
 	@JsonProperty("C_ValidCombination")
 	public ForeignEntityInput C_ValidCombination() {
 		return mC_ValidCombination;
+	}
+	/**
+	 * Set Rate.
+	 *
+	 * @param CurrencyRate Currency Conversion Rate
+	 */
+	@JsonProperty("CurrencyRate")
+	public void setCurrencyRateFromJson(BigDecimal CurrencyRate) {
+		if (get_ID() == 0) {
+			super.setCurrencyRate(CurrencyRate);
+		}
 	}
 
 	/**

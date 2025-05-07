@@ -124,6 +124,40 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	}
 
 	/**
+	 * Set Country.
+	 *
+	 * @param C_Country Country 
+	 */
+	@JsonProperty("C_Country")
+	public void setC_CountryInput(ForeignEntityInput C_Country) {
+		this.mC_Country = C_Country;
+		if (C_Country != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCountry foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
+							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Country_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Country with UU " + C_Country.getUU());
+			}
+		} else {
+			this.setC_Country_ID(0);
+		}
+	}
+
+	/**
+	 * Get Country.
+	 *
+	 * @return Country 
+	 */
+	@JsonProperty("C_Country")
+	public ForeignEntityInput C_Country() {
+		return mC_Country;
+	}
+
+	/**
 	 * Set Country Group From.
 	 *
 	 * @param C_CountryGroupFrom Country Group From
@@ -192,40 +226,6 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	}
 
 	/**
-	 * Set Country.
-	 *
-	 * @param C_Country Country 
-	 */
-	@JsonProperty("C_Country")
-	public void setC_CountryInput(ForeignEntityInput C_Country) {
-		this.mC_Country = C_Country;
-		if (C_Country != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MCountry foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_Country_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_Country with UU " + C_Country.getUU());
-			}
-		} else {
-			this.setC_Country_ID(0);
-		}
-	}
-
-	/**
-	 * Get Country.
-	 *
-	 * @return Country 
-	 */
-	@JsonProperty("C_Country")
-	public ForeignEntityInput C_Country() {
-		return mC_Country;
-	}
-
-	/**
 	 * Set Region.
 	 *
 	 * @param C_Region Identifies a geographical Region
@@ -257,6 +257,35 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	@JsonProperty("C_Region")
 	public ForeignEntityInput C_Region() {
 		return mC_Region;
+	}
+	/**
+	 * Set Tax.
+	 *
+	 * @param C_Tax_ID Tax identifier
+	 */
+	@JsonProperty("C_Tax_ID")
+	public void setC_Tax_IDFromJson(int C_Tax_ID) {
+		if (get_ID() == 0) {
+			super.setC_Tax_ID(C_Tax_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_Tax_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_Tax_UU();
 	}
 
 	/**
@@ -292,17 +321,6 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public ForeignEntityInput C_TaxCategory() {
 		return mC_TaxCategory;
 	}
-	/**
-	 * Set Tax.
-	 *
-	 * @param C_Tax_ID Tax identifier
-	 */
-	@JsonProperty("C_Tax_ID")
-	public void setC_Tax_IDFromJson(int C_Tax_ID) {
-		if (get_ID() == 0) {
-			super.setC_Tax_ID(C_Tax_ID);
-		}
-	}
 
 	/**
 	 * Set Tax Provider.
@@ -336,24 +354,6 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	@JsonProperty("C_TaxProvider")
 	public ForeignEntityInput C_TaxProvider() {
 		return mC_TaxProvider;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_Tax_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_Tax_UU();
 	}
 
 	/**

@@ -25,6 +25,20 @@ public interface I_A_RegistrationInput extends I_A_Registration {
 	ForeignEntityInput A_Asset();
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
+
+	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within tenant
@@ -51,20 +65,6 @@ public interface I_A_RegistrationInput extends I_A_Registration {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	ForeignEntityInput AD_User();
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
 
 	/**
 	 * Set C_BPartner.

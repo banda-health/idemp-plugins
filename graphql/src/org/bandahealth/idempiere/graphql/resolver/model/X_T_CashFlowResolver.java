@@ -90,39 +90,6 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
-	public static Map<String, String> CASHFLOWSOURCE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("1", "3044d420-7c6b-45f0-a3ff-8922edb12d95"); // 1_Initial Balance
-			put("2", "71d468d0-f632-402a-9c6f-b6e2b13c8321"); // 2_Plan
-			put("3", "6141e6da-dd4a-4f1d-b46f-0a950380c2bf"); // 3_Commitments (Orders)
-			put("4", "59c5999a-ffe1-4bd5-9659-30e1a08bcde4"); // 4_Actual Debt (Invoices)
-		}
-	};
-	public CompletableFuture<MRefList_BH> CashFlowSource(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getCashFlowSource())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(CASHFLOWSOURCE_UUIDS_BY_VALUE.get(entity.getCashFlowSource()));
-	}
-
-	public static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926"); // Financing
-			put("I", "a98fda35-3822-42d3-8e4f-83880822e028"); // Investment
-			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190"); // Operational
-		}
-	};
-	public CompletableFuture<MRefList_BH> CashFlowType(X_T_CashFlow entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getCashFlowType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(CASHFLOWTYPE_UUIDS_BY_VALUE.get(entity.getCashFlowType()));
-	}
-
 
 	/**
 	 * Get Business Partner.
@@ -241,6 +208,39 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 		DataLoader<Integer, MProject> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
+	}
+
+	public static Map<String, String> CASHFLOWSOURCE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("1", "3044d420-7c6b-45f0-a3ff-8922edb12d95"); // 1_Initial Balance
+			put("2", "71d468d0-f632-402a-9c6f-b6e2b13c8321"); // 2_Plan
+			put("3", "6141e6da-dd4a-4f1d-b46f-0a950380c2bf"); // 3_Commitments (Orders)
+			put("4", "59c5999a-ffe1-4bd5-9659-30e1a08bcde4"); // 4_Actual Debt (Invoices)
+		}
+	};
+	public CompletableFuture<MRefList_BH> CashFlowSource(X_T_CashFlow entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getCashFlowSource())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(CASHFLOWSOURCE_UUIDS_BY_VALUE.get(entity.getCashFlowSource()));
+	}
+
+	public static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926"); // Financing
+			put("I", "a98fda35-3822-42d3-8e4f-83880822e028"); // Investment
+			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190"); // Operational
+		}
+	};
+	public CompletableFuture<MRefList_BH> CashFlowType(X_T_CashFlow entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getCashFlowType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(CASHFLOWTYPE_UUIDS_BY_VALUE.get(entity.getCashFlowType()));
 	}
 
 	public Boolean IsSOTrx(X_T_CashFlow entity, DataFetchingEnvironment environment) {

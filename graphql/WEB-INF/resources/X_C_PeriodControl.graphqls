@@ -22,9 +22,9 @@ type C_PeriodControl {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# Period of the Calendar
 	C_Period: C_Period!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -47,9 +47,9 @@ type C_PeriodControl {
 input C_PeriodControlInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# Period of the Calendar
 	C_Period: ForeignEntityInput
+	UU: ID
 	# Logical type of document
 	DocBaseType: ForeignEntityInput
 	# The record is active in the system

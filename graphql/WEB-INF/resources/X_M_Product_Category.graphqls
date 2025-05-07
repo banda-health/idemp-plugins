@@ -40,10 +40,10 @@ type M_Product_Category {
 	IsDefault: Boolean!
 	# This is a Self-Service entry or this entry can be changed via Self-Service
 	IsSelfService: Boolean!
-	# Material Movement Policy
-	MMPolicy: AD_Ref_List!
 	M_Product_Category_Parent: M_Product_Category
 	UU: ID!
+	# Material Movement Policy
+	MMPolicy: AD_Ref_List!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Project's planned margin as a percentage
@@ -73,10 +73,10 @@ input M_Product_CategoryInput {
 	IsDefault: Boolean
 	# This is a Self-Service entry or this entry can be changed via Self-Service
 	IsSelfService: Boolean
-	# Material Movement Policy
-	MMPolicy: ForeignEntityInput
 	M_Product_Category_Parent: ForeignEntityInput
 	UU: ID
+	# Material Movement Policy
+	MMPolicy: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Project's planned margin as a percentage

@@ -101,12 +101,12 @@ type AD_WF_Node {
 	QueuingTime: Int
 	# Text templates for mailings
 	R_MailText: R_MailText
+	# Resource
+	S_Resource: S_Resource
 	# Setup time before starting Production
 	SetupTime: Int
 	# Semantics for multiple outgoing Transitions
 	SplitElement: AD_Ref_List!
-	# Resource
-	S_Resource: S_Resource
 	# Workflow Activity Start Mode 
 	StartMode: AD_Ref_List
 	# Mode how the sub-workflow is executed
@@ -217,12 +217,12 @@ input AD_WF_NodeInput {
 	QueuingTime: Int
 	# Text templates for mailings
 	R_MailText: ForeignEntityInput
+	# Resource
+	S_Resource: ForeignEntityInput
 	# Setup time before starting Production
 	SetupTime: Int
 	# Semantics for multiple outgoing Transitions
 	SplitElement: ForeignEntityInput
-	# Resource
-	S_Resource: ForeignEntityInput
 	# Workflow Activity Start Mode 
 	StartMode: ForeignEntityInput
 	# Mode how the sub-workflow is executed

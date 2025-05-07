@@ -25,18 +25,18 @@ public interface I_A_Asset_Reval_EntryInput extends I_A_Asset_Reval_Entry {
 	String getUU();
 
 	/**
-	 * Set AD_Org.
+	 * Set A_Rev_Code.
 	 *
-	 * @param AD_Org Organizational entity within tenant
+	 * @param A_Rev_Code A_Rev_Code
 	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
+	void setA_Rev_CodeInput(ForeignEntityInput A_Rev_Code);
 
 	/**
-	 * Get AD_Org.
+	 * Get A_Rev_Code.
 	 *
-	 * @return Organizational entity within tenant
+	 * @return A_Rev_Code
 	 */
-	ForeignEntityInput AD_Org();
+	ForeignEntityInput A_Rev_Code();
 
 	/**
 	 * Set A_Reval_Cal_Method.
@@ -81,18 +81,18 @@ public interface I_A_Asset_Reval_EntryInput extends I_A_Asset_Reval_Entry {
 	ForeignEntityInput A_Reval_Multiplier();
 
 	/**
-	 * Set A_Rev_Code.
+	 * Set AD_Org.
 	 *
-	 * @param A_Rev_Code A_Rev_Code
+	 * @param AD_Org Organizational entity within tenant
 	 */
-	void setA_Rev_CodeInput(ForeignEntityInput A_Rev_Code);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
-	 * Get A_Rev_Code.
+	 * Get AD_Org.
 	 *
-	 * @return A_Rev_Code
+	 * @return Organizational entity within tenant
 	 */
-	ForeignEntityInput A_Rev_Code();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_AcctSchema.

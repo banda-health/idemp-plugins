@@ -95,20 +95,6 @@ public interface I_PA_MeasureInput extends I_PA_Measure {
 	ForeignEntityInput PA_Hierarchy();
 
 	/**
-	 * Set PA_MeasureCalc.
-	 *
-	 * @param PA_MeasureCalc Calculation method for measuring performance
-	 */
-	void setPA_MeasureCalcInput(ForeignEntityInput PA_MeasureCalc);
-
-	/**
-	 * Get PA_MeasureCalc.
-	 *
-	 * @return Calculation method for measuring performance
-	 */
-	ForeignEntityInput PA_MeasureCalc();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -121,6 +107,20 @@ public interface I_PA_MeasureInput extends I_PA_Measure {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set PA_MeasureCalc.
+	 *
+	 * @param PA_MeasureCalc Calculation method for measuring performance
+	 */
+	void setPA_MeasureCalcInput(ForeignEntityInput PA_MeasureCalc);
+
+	/**
+	 * Get PA_MeasureCalc.
+	 *
+	 * @return Calculation method for measuring performance
+	 */
+	ForeignEntityInput PA_MeasureCalc();
 
 	/**
 	 * Set PA_Ratio.

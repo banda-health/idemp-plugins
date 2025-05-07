@@ -204,84 +204,6 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	}
 
 	/**
-	 * Set Cash Flow Source.
-	 *
-	 * @param CashFlowSource Cash Flow Source
-	 */
-	@JsonProperty("CashFlowSource")
-	public void setCashFlowSourceInput(ForeignEntityInput CashFlowSource) {
-		this.mCashFlowSource = CashFlowSource;
-		if (CashFlowSource != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_T_CashFlowResolver.CASHFLOWSOURCE_UUIDS_BY_VALUE.containsValue(CashFlowSource.getUU())) {
-				throw new AdempiereException("The reference list UU of " + CashFlowSource.getUU() +
-						" is not in the list defined for the CashFlowSource column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CashFlowSource.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setCashFlowSource(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CashFlowSource.getUU());
-			}
-		} else {
-			this.setCashFlowSource(null);
-		}
-	}
-
-	/**
-	 * Get Cash Flow Source.
-	 *
-	 * @return Cash Flow Source
-	 */
-	@JsonProperty("CashFlowSource")
-	public ForeignEntityInput CashFlowSource() {
-		return mCashFlowSource;
-	}
-
-	/**
-	 * Set Cash Flow Type.
-	 *
-	 * @param CashFlowType Cash Flow Type
-	 */
-	@JsonProperty("CashFlowType")
-	public void setCashFlowTypeInput(ForeignEntityInput CashFlowType) {
-		this.mCashFlowType = CashFlowType;
-		if (CashFlowType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_T_CashFlowResolver.CASHFLOWTYPE_UUIDS_BY_VALUE.containsValue(CashFlowType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + CashFlowType.getUU() +
-						" is not in the list defined for the CashFlowType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CashFlowType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setCashFlowType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CashFlowType.getUU());
-			}
-		} else {
-			this.setCashFlowType(null);
-		}
-	}
-
-	/**
-	 * Get Cash Flow Type.
-	 *
-	 * @return Cash Flow Type
-	 */
-	@JsonProperty("CashFlowType")
-	public ForeignEntityInput CashFlowType() {
-		return mCashFlowType;
-	}
-
-	/**
 	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -551,6 +473,84 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_Project")
 	public ForeignEntityInput C_Project() {
 		return mC_Project;
+	}
+
+	/**
+	 * Set Cash Flow Source.
+	 *
+	 * @param CashFlowSource Cash Flow Source
+	 */
+	@JsonProperty("CashFlowSource")
+	public void setCashFlowSourceInput(ForeignEntityInput CashFlowSource) {
+		this.mCashFlowSource = CashFlowSource;
+		if (CashFlowSource != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_T_CashFlowResolver.CASHFLOWSOURCE_UUIDS_BY_VALUE.containsValue(CashFlowSource.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CashFlowSource.getUU() +
+						" is not in the list defined for the CashFlowSource column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CashFlowSource.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setCashFlowSource(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CashFlowSource.getUU());
+			}
+		} else {
+			this.setCashFlowSource(null);
+		}
+	}
+
+	/**
+	 * Get Cash Flow Source.
+	 *
+	 * @return Cash Flow Source
+	 */
+	@JsonProperty("CashFlowSource")
+	public ForeignEntityInput CashFlowSource() {
+		return mCashFlowSource;
+	}
+
+	/**
+	 * Set Cash Flow Type.
+	 *
+	 * @param CashFlowType Cash Flow Type
+	 */
+	@JsonProperty("CashFlowType")
+	public void setCashFlowTypeInput(ForeignEntityInput CashFlowType) {
+		this.mCashFlowType = CashFlowType;
+		if (CashFlowType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_T_CashFlowResolver.CASHFLOWTYPE_UUIDS_BY_VALUE.containsValue(CashFlowType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CashFlowType.getUU() +
+						" is not in the list defined for the CashFlowType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CashFlowType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setCashFlowType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CashFlowType.getUU());
+			}
+		} else {
+			this.setCashFlowType(null);
+		}
+	}
+
+	/**
+	 * Get Cash Flow Type.
+	 *
+	 * @return Cash Flow Type
+	 */
+	@JsonProperty("CashFlowType")
+	public ForeignEntityInput CashFlowType() {
+		return mCashFlowType;
 	}
 
 	/**

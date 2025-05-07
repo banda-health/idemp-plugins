@@ -41,8 +41,19 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQLResolver<MPackage> {
 
 
-	public Boolean CashOnDelivery(MPackage entity, DataFetchingEnvironment environment) {
-		return entity.isCashOnDelivery();
+
+	/**
+	 * Get Business Partner Shipping Account.
+	 *
+	 * @return Business Partner Shipping Account
+	 */
+	public CompletableFuture<X_C_BP_ShippingAcct> C_BP_ShippingAcct(MPackage entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BP_ShippingAcct_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, X_C_BP_ShippingAcct> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_ShippingAcctDataLoader.DATALOADER_C_BP_ShippingAcct_BY_ID);
+		return dataLoader.load(entity.getC_BP_ShippingAcct_ID());
 	}
 
 
@@ -58,21 +69,6 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_Location_ID());
-	}
-
-
-	/**
-	 * Get Business Partner Shipping Account.
-	 *
-	 * @return Business Partner Shipping Account
-	 */
-	public CompletableFuture<X_C_BP_ShippingAcct> C_BP_ShippingAcct(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_ShippingAcct_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, X_C_BP_ShippingAcct> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_ShippingAcctDataLoader.DATALOADER_C_BP_ShippingAcct_BY_ID);
-		return dataLoader.load(entity.getC_BP_ShippingAcct_ID());
 	}
 
 
@@ -118,6 +114,10 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 		DataLoader<Integer, MUOM> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_Weight_ID());
+	}
+
+	public Boolean CashOnDelivery(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isCashOnDelivery();
 	}
 
 	public Boolean DeliveryConfirmation(MPackage entity, DataFetchingEnvironment environment) {

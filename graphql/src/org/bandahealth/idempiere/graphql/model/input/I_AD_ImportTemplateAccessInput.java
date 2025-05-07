@@ -11,20 +11,6 @@ import org.compiere.model.I_AD_ImportTemplateAccess;
 public interface I_AD_ImportTemplateAccessInput extends I_AD_ImportTemplateAccess {
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set AD_ImportTemplate.
 	 *
 	 * @param AD_ImportTemplate AD_ImportTemplate
@@ -37,6 +23,20 @@ public interface I_AD_ImportTemplateAccessInput extends I_AD_ImportTemplateAcces
 	 * @return AD_ImportTemplate
 	 */
 	ForeignEntityInput AD_ImportTemplate();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set AD_Org.

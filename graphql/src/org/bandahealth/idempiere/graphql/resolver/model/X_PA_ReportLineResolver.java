@@ -172,6 +172,21 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine> implements 
 		return dataLoader.load(OVERLINESTROKETYPE_UUIDS_BY_VALUE.get(entity.getOverlineStrokeType()));
 	}
 
+
+	/**
+	 * Get Report Line Set.
+	 *
+	 * @return Report Line Set
+	 */
+	public CompletableFuture<MReportLineSet> PA_ReportLineSet(MReportLine entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_ReportLineSet_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MReportLineSet> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.DATALOADER_PA_ReportLineSet_BY_ID);
+		return dataLoader.load(entity.getPA_ReportLineSet_ID());
+	}
+
 	public static Map<String, String> PAAMOUNTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("B", "7c4060bf-60d8-433d-9536-68b24ac23482"); // Balance (expected sign)
@@ -206,21 +221,6 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine> implements 
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(PAPERIODTYPE_UUIDS_BY_VALUE.get(entity.getPAPeriodType()));
-	}
-
-
-	/**
-	 * Get Report Line Set.
-	 *
-	 * @return Report Line Set
-	 */
-	public CompletableFuture<MReportLineSet> PA_ReportLineSet(MReportLine entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ReportLineSet_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MReportLineSet> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.DATALOADER_PA_ReportLineSet_BY_ID);
-		return dataLoader.load(entity.getPA_ReportLineSet_ID());
 	}
 
 	public static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {

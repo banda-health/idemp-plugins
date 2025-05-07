@@ -161,6 +161,40 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	}
 
 	/**
+	 * Set Business Partner Group.
+	 *
+	 * @param C_BP_Group Business Partner Group
+	 */
+	@JsonProperty("C_BP_Group")
+	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
+		this.mC_BP_Group = C_BP_Group;
+		if (C_BP_Group != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPGroup_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
+							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BP_Group_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BP_Group with UU " + C_BP_Group.getUU());
+			}
+		} else {
+			this.setC_BP_Group_ID(0);
+		}
+	}
+
+	/**
+	 * Get Business Partner Group.
+	 *
+	 * @return Business Partner Group
+	 */
+	@JsonProperty("C_BP_Group")
+	public ForeignEntityInput C_BP_Group() {
+		return mC_BP_Group;
+	}
+
+	/**
 	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -195,40 +229,6 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
-	}
-
-	/**
-	 * Set Business Partner Group.
-	 *
-	 * @param C_BP_Group Business Partner Group
-	 */
-	@JsonProperty("C_BP_Group")
-	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
-		this.mC_BP_Group = C_BP_Group;
-		if (C_BP_Group != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPGroup_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BP_Group_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BP_Group with UU " + C_BP_Group.getUU());
-			}
-		} else {
-			this.setC_BP_Group_ID(0);
-		}
-	}
-
-	/**
-	 * Get Business Partner Group.
-	 *
-	 * @return Business Partner Group
-	 */
-	@JsonProperty("C_BP_Group")
-	public ForeignEntityInput C_BP_Group() {
-		return mC_BP_Group;
 	}
 
 	/**
@@ -374,40 +374,6 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	}
 
 	/**
-	 * Set Convert Amounts in Currency.
-	 *
-	 * @param ConvertAmountsInCurrency Convert Amounts in Currency
-	 */
-	@JsonProperty("ConvertAmountsInCurrency")
-	public void setConvertAmountsInCurrencyInput(ForeignEntityInput ConvertAmountsInCurrency) {
-		this.mConvertAmountsInCurrency = ConvertAmountsInCurrency;
-		if (ConvertAmountsInCurrency != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MCurrency_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(ConvertAmountsInCurrency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setConvertAmountsInCurrency_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UU " + ConvertAmountsInCurrency.getUU());
-			}
-		} else {
-			this.setConvertAmountsInCurrency_ID(0);
-		}
-	}
-
-	/**
-	 * Get Convert Amounts in Currency.
-	 *
-	 * @return Convert Amounts in Currency
-	 */
-	@JsonProperty("ConvertAmountsInCurrency")
-	public ForeignEntityInput ConvertAmountsInCurrency() {
-		return mConvertAmountsInCurrency;
-	}
-
-	/**
 	 * Set Project.
 	 *
 	 * @param C_Project Financial Project
@@ -439,6 +405,40 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_Project")
 	public ForeignEntityInput C_Project() {
 		return mC_Project;
+	}
+
+	/**
+	 * Set Convert Amounts in Currency.
+	 *
+	 * @param ConvertAmountsInCurrency Convert Amounts in Currency
+	 */
+	@JsonProperty("ConvertAmountsInCurrency")
+	public void setConvertAmountsInCurrencyInput(ForeignEntityInput ConvertAmountsInCurrency) {
+		this.mConvertAmountsInCurrency = ConvertAmountsInCurrency;
+		if (ConvertAmountsInCurrency != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
+							.setParameters(ConvertAmountsInCurrency.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setConvertAmountsInCurrency_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Currency with UU " + ConvertAmountsInCurrency.getUU());
+			}
+		} else {
+			this.setConvertAmountsInCurrency_ID(0);
+		}
+	}
+
+	/**
+	 * Get Convert Amounts in Currency.
+	 *
+	 * @return Convert Amounts in Currency
+	 */
+	@JsonProperty("ConvertAmountsInCurrency")
+	public ForeignEntityInput ConvertAmountsInCurrency() {
+		return mConvertAmountsInCurrency;
 	}
 
 	/**

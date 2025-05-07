@@ -47,9 +47,9 @@ type AD_Scheduler {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
-	ReportOutputType: AD_Ref_List
 	# Text templates for mailings
 	R_MailText: R_MailText
+	ReportOutputType: AD_Ref_List
 	# State of this scheduler record (not scheduled, started or stopped)
 	SchedulerState: Object
 	# Supervisor for this user/organization - used for escalation and approval
@@ -84,9 +84,9 @@ input AD_SchedulerInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean
-	ReportOutputType: ForeignEntityInput
 	# Text templates for mailings
 	R_MailText: ForeignEntityInput
+	ReportOutputType: ForeignEntityInput
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: ForeignEntityInput
 }

@@ -24,12 +24,12 @@ type HR_Period {
 	AD_Org: AD_Org!
 	# Period of the Calendar
 	C_Period: C_Period!
+	# Calendar Year
+	C_Year: C_Year!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Calendar Year
-	C_Year: C_Year!
 	# Accounting Date
 	DateAcct: Date!
 	# Optional short description of the record

@@ -26,9 +26,9 @@ type C_POSKeyLayout {
 	AD_PrintColor: AD_PrintColor
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont
+	UU: ID!
 	# Number of columns
 	Columns: Int
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -56,9 +56,9 @@ input C_POSKeyLayoutInput {
 	AD_PrintColor: ForeignEntityInput
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
+	UU: ID
 	# Number of columns
 	Columns: Int
-	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

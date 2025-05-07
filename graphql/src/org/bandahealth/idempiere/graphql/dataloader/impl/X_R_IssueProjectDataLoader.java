@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MIssueProject;
+import org.compiere.model.X_R_IssueProject;
 
 /**
  * Data Loader for R_IssueProject - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.MIssueProject;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_R_IssueProjectDataLoader extends PODataLoader<MIssueProject> {
+public class X_R_IssueProjectDataLoader extends PODataLoader<X_R_IssueProject> {
 	public static String DATALOADER_R_IssueProject_BY_ID = "R_IssueProjectByIdDataLoader";
 	public static String DATALOADER_R_IssueProject_BY_UUID = "R_IssueProjectByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MIssueProject.Table_Name;
+		return X_R_IssueProject.Table_Name;
 	}
 
 	@Override

@@ -24,11 +24,11 @@ type C_TaxBase {
 	AD_Org: AD_Org!
 	# Calculation Base
 	Base: AD_Ref_List
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

@@ -28,8 +28,6 @@ type T_CashFlow {
 	C_AcctSchema: C_AcctSchema
 	# Business Activity
 	C_Activity: C_Activity
-	CashFlowSource: AD_Ref_List
-	CashFlowType: AD_Ref_List
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Marketing Campaign
@@ -45,6 +43,8 @@ type T_CashFlow {
 	C_Order: C_Order
 	# Financial Project
 	C_Project: C_Project
+	CashFlowSource: AD_Ref_List
+	CashFlowType: AD_Ref_List
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -82,8 +82,6 @@ input T_CashFlowInput {
 	C_AcctSchema: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
-	CashFlowSource: ForeignEntityInput
-	CashFlowType: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Marketing Campaign
@@ -99,6 +97,8 @@ input T_CashFlowInput {
 	C_Order: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
+	CashFlowSource: ForeignEntityInput
+	CashFlowType: ForeignEntityInput
 	# End date of a date range
 	DateTo: Date
 	# Transaction Date

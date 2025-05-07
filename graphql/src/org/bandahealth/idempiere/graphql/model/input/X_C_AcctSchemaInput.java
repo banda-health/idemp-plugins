@@ -147,6 +147,43 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	}
 
 	/**
+	 * Set Period.
+	 *
+	 * @param C_Period Period of the Calendar
+	 */
+	@JsonProperty("C_Period")
+	public void setC_PeriodInput(ForeignEntityInput C_Period) {
+		this.mC_Period = C_Period;
+		if (!is_new()) {
+			return;
+		}
+		if (C_Period != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPeriod foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Period_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Period with UU " + C_Period.getUU());
+			}
+		} else {
+			this.setC_Period_ID(0);
+		}
+	}
+
+	/**
+	 * Get Period.
+	 *
+	 * @return Period of the Calendar
+	 */
+	@JsonProperty("C_Period")
+	public ForeignEntityInput C_Period() {
+		return mC_Period;
+	}
+
+	/**
 	 * Set Commitment Type.
 	 *
 	 * @param CommitmentType Create Commitment and/or Reservations for Budget Control
@@ -261,43 +298,6 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("CostingMethod")
 	public ForeignEntityInput CostingMethod() {
 		return mCostingMethod;
-	}
-
-	/**
-	 * Set Period.
-	 *
-	 * @param C_Period Period of the Calendar
-	 */
-	@JsonProperty("C_Period")
-	public void setC_PeriodInput(ForeignEntityInput C_Period) {
-		this.mC_Period = C_Period;
-		if (!is_new()) {
-			return;
-		}
-		if (C_Period != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MPeriod foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_Period_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_Period with UU " + C_Period.getUU());
-			}
-		} else {
-			this.setC_Period_ID(0);
-		}
-	}
-
-	/**
-	 * Get Period.
-	 *
-	 * @return Period of the Calendar
-	 */
-	@JsonProperty("C_Period")
-	public ForeignEntityInput C_Period() {
-		return mC_Period;
 	}
 
 	/**

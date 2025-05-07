@@ -30,8 +30,8 @@ type M_Locator {
 	IsActive: Boolean!
 	# Default value
 	IsDefault: Boolean!
-	M_LocatorType: M_LocatorType
 	UU: ID!
+	M_LocatorType: M_LocatorType
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Where inventory should be picked from first
@@ -57,8 +57,8 @@ input M_LocatorInput {
 	IsActive: Boolean
 	# Default value
 	IsDefault: Boolean
-	M_LocatorType: ForeignEntityInput
 	UU: ID
+	M_LocatorType: ForeignEntityInput
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Where inventory should be picked from first

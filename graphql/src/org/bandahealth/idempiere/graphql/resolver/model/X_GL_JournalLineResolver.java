@@ -78,6 +78,14 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
+	public Boolean A_CreateAsset(MJournalLine entity, DataFetchingEnvironment environment) {
+		return entity.isA_CreateAsset();
+	}
+
+	public Boolean A_Processed(MJournalLine entity, DataFetchingEnvironment environment) {
+		return entity.isA_Processed();
+	}
+
 
 	/**
 	 * Get Account.
@@ -93,10 +101,6 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 		return dataLoader.load(entity.getAccount_ID());
 	}
 
-	public Boolean A_CreateAsset(MJournalLine entity, DataFetchingEnvironment environment) {
-		return entity.isA_CreateAsset();
-	}
-
 
 	/**
 	 * Get Alias List.
@@ -110,10 +114,6 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 		DataLoader<Integer, MAccount> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getAlias_ValidCombination_ID());
-	}
-
-	public Boolean A_Processed(MJournalLine entity, DataFetchingEnvironment environment) {
-		return entity.isA_Processed();
 	}
 
 

@@ -112,6 +112,24 @@ public class X_C_BP_Employee_AcctInput extends X_C_BP_Employee_Acct implements I
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_BP_Employee_Acct_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_BP_Employee_Acct_UU();
+	}
+
+	/**
 	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -146,23 +164,5 @@ public class X_C_BP_Employee_AcctInput extends X_C_BP_Employee_Acct implements I
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_BP_Employee_Acct_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_BP_Employee_Acct_UU();
 	}
 }

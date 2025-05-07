@@ -25,20 +25,6 @@ public interface I_AD_Ref_ListInput extends I_AD_Ref_List {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set AD_Reference.
-	 *
-	 * @param AD_Reference System Reference and Validation
-	 */
-	void setAD_ReferenceInput(ForeignEntityInput AD_Reference);
-
-	/**
-	 * Get AD_Reference.
-	 *
-	 * @return System Reference and Validation
-	 */
-	ForeignEntityInput AD_Reference();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -51,6 +37,20 @@ public interface I_AD_Ref_ListInput extends I_AD_Ref_List {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set AD_Reference.
+	 *
+	 * @param AD_Reference System Reference and Validation
+	 */
+	void setAD_ReferenceInput(ForeignEntityInput AD_Reference);
+
+	/**
+	 * Get AD_Reference.
+	 *
+	 * @return System Reference and Validation
+	 */
+	ForeignEntityInput AD_Reference();
 
 	/**
 	 * Column name BH_Add_All

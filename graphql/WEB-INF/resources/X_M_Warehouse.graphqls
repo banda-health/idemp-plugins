@@ -40,9 +40,9 @@ type M_Warehouse {
 	IsInTransit: Boolean!
 	# Reservation Locator (just for reporting purposes)
 	M_ReserveLocator: M_Locator
+	UU: ID!
 	# Optional Warehouse to replenish from
 	M_WarehouseSource: M_Warehouse
-	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Custom class to calculate Quantity to Order
@@ -74,9 +74,9 @@ input M_WarehouseInput {
 	IsInTransit: Boolean
 	# Reservation Locator (just for reporting purposes)
 	M_ReserveLocator: ForeignEntityInput
+	UU: ID
 	# Optional Warehouse to replenish from
 	M_WarehouseSource: ForeignEntityInput
-	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Custom class to calculate Quantity to Order

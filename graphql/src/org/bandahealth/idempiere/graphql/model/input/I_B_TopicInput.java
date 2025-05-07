@@ -25,6 +25,20 @@ public interface I_B_TopicInput extends I_B_Topic {
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
+
+	/**
 	 * Set B_TopicCategory.
 	 *
 	 * @param B_TopicCategory Auction Topic Category
@@ -51,18 +65,4 @@ public interface I_B_TopicInput extends I_B_Topic {
 	 * @return Auction Topic Type
 	 */
 	ForeignEntityInput B_TopicType();
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
 }

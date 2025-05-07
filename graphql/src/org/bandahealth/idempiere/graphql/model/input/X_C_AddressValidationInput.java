@@ -71,6 +71,35 @@ public class X_C_AddressValidationInput extends MAddressValidation implements I_
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Address Validation.
+	 *
+	 * @param C_AddressValidation_ID Address Validation
+	 */
+	@JsonProperty("C_AddressValidation_ID")
+	public void setC_AddressValidation_IDFromJson(int C_AddressValidation_ID) {
+		if (get_ID() == 0) {
+			super.setC_AddressValidation_ID(C_AddressValidation_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_AddressValidation_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_AddressValidation_UU();
+	}
 
 	/**
 	 * Set Address Validation Configuration.
@@ -104,34 +133,5 @@ public class X_C_AddressValidationInput extends MAddressValidation implements I_
 	@JsonProperty("C_AddressValidationCfg")
 	public ForeignEntityInput C_AddressValidationCfg() {
 		return mC_AddressValidationCfg;
-	}
-	/**
-	 * Set Address Validation.
-	 *
-	 * @param C_AddressValidation_ID Address Validation
-	 */
-	@JsonProperty("C_AddressValidation_ID")
-	public void setC_AddressValidation_IDFromJson(int C_AddressValidation_ID) {
-		if (get_ID() == 0) {
-			super.setC_AddressValidation_ID(C_AddressValidation_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_AddressValidation_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_AddressValidation_UU();
 	}
 }

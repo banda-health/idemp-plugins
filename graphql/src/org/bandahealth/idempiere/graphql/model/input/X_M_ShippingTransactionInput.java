@@ -228,6 +228,40 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	}
 
 	/**
+	 * Set Business Partner Shipping Account.
+	 *
+	 * @param C_BP_ShippingAcct Business Partner Shipping Account
+	 */
+	@JsonProperty("C_BP_ShippingAcct")
+	public void setC_BP_ShippingAcctInput(ForeignEntityInput C_BP_ShippingAcct) {
+		this.mC_BP_ShippingAcct = C_BP_ShippingAcct;
+		if (C_BP_ShippingAcct != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_C_BP_ShippingAcct foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BP_ShippingAcct", "C_BP_ShippingAcct_UU=?", get_TrxName())
+							.setParameters(C_BP_ShippingAcct.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BP_ShippingAcct_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BP_ShippingAcct with UU " + C_BP_ShippingAcct.getUU());
+			}
+		} else {
+			this.setC_BP_ShippingAcct_ID(0);
+		}
+	}
+
+	/**
+	 * Get Business Partner Shipping Account.
+	 *
+	 * @return Business Partner Shipping Account
+	 */
+	@JsonProperty("C_BP_ShippingAcct")
+	public ForeignEntityInput C_BP_ShippingAcct() {
+		return mC_BP_ShippingAcct;
+	}
+
+	/**
 	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -293,40 +327,6 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("C_BPartner_Location")
 	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
-	}
-
-	/**
-	 * Set Business Partner Shipping Account.
-	 *
-	 * @param C_BP_ShippingAcct Business Partner Shipping Account
-	 */
-	@JsonProperty("C_BP_ShippingAcct")
-	public void setC_BP_ShippingAcctInput(ForeignEntityInput C_BP_ShippingAcct) {
-		this.mC_BP_ShippingAcct = C_BP_ShippingAcct;
-		if (C_BP_ShippingAcct != null) {
-			// Since an entity was passed, make sure it's in the DB
-			X_C_BP_ShippingAcct foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BP_ShippingAcct", "C_BP_ShippingAcct_UU=?", get_TrxName())
-							.setParameters(C_BP_ShippingAcct.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BP_ShippingAcct_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BP_ShippingAcct with UU " + C_BP_ShippingAcct.getUU());
-			}
-		} else {
-			this.setC_BP_ShippingAcct_ID(0);
-		}
-	}
-
-	/**
-	 * Get Business Partner Shipping Account.
-	 *
-	 * @return Business Partner Shipping Account
-	 */
-	@JsonProperty("C_BP_ShippingAcct")
-	public ForeignEntityInput C_BP_ShippingAcct() {
-		return mC_BP_ShippingAcct;
 	}
 
 	/**

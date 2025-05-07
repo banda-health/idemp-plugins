@@ -971,48 +971,6 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	}
 
 	/**
-	 * Set Movement Type.
-	 *
-	 * @param MovementType Method of moving the inventory
-	 */
-	@JsonProperty("MovementType")
-	public void setMovementTypeInput(ForeignEntityInput MovementType) {
-		this.mMovementType = MovementType;
-		if (!is_new()) {
-			return;
-		}
-		if (MovementType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_M_InOutResolver.MOVEMENTTYPE_UUIDS_BY_VALUE.containsValue(MovementType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + MovementType.getUU() +
-						" is not in the list defined for the MovementType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MovementType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setMovementType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MovementType.getUU());
-			}
-		} else {
-			this.setMovementType(null);
-		}
-	}
-
-	/**
-	 * Get Movement Type.
-	 *
-	 * @return Method of moving the inventory
-	 */
-	@JsonProperty("MovementType")
-	public ForeignEntityInput MovementType() {
-		return mMovementType;
-	}
-
-	/**
 	 * Set RMA.
 	 *
 	 * @param M_RMA Return Material Authorization
@@ -1115,6 +1073,48 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	@JsonProperty("M_Warehouse")
 	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
+	}
+
+	/**
+	 * Set Movement Type.
+	 *
+	 * @param MovementType Method of moving the inventory
+	 */
+	@JsonProperty("MovementType")
+	public void setMovementTypeInput(ForeignEntityInput MovementType) {
+		this.mMovementType = MovementType;
+		if (!is_new()) {
+			return;
+		}
+		if (MovementType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_InOutResolver.MOVEMENTTYPE_UUIDS_BY_VALUE.containsValue(MovementType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + MovementType.getUU() +
+						" is not in the list defined for the MovementType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(MovementType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setMovementType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MovementType.getUU());
+			}
+		} else {
+			this.setMovementType(null);
+		}
+	}
+
+	/**
+	 * Get Movement Type.
+	 *
+	 * @return Method of moving the inventory
+	 */
+	@JsonProperty("MovementType")
+	public ForeignEntityInput MovementType() {
+		return mMovementType;
 	}
 	/**
 	 * Set Posted.

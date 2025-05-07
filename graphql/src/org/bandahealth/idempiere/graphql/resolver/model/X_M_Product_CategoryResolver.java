@@ -100,21 +100,6 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 		return entity.isSelfService();
 	}
 
-	public static Map<String, String> MMPOLICY_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("L", "80bfacfa-9e34-4d5c-8388-5cb45e52447a"); // LiFo
-			put("F", "b1ed1550-7c2f-402b-b47a-b700929da0f6"); // FiFo
-		}
-	};
-	public CompletableFuture<MRefList_BH> MMPolicy(MProductCategory_BH entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getMMPolicy())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(MMPOLICY_UUIDS_BY_VALUE.get(entity.getMMPolicy()));
-	}
-
 
 	/**
 	 * Get Parent Product Category.
@@ -128,6 +113,21 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
 		return dataLoader.load(entity.getM_Product_Category_Parent_ID());
+	}
+
+	public static Map<String, String> MMPOLICY_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("L", "80bfacfa-9e34-4d5c-8388-5cb45e52447a"); // LiFo
+			put("F", "b1ed1550-7c2f-402b-b47a-b700929da0f6"); // FiFo
+		}
+	};
+	public CompletableFuture<MRefList_BH> MMPolicy(MProductCategory_BH entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getMMPolicy())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(MMPOLICY_UUIDS_BY_VALUE.get(entity.getMMPolicy()));
 	}
 
 	/**

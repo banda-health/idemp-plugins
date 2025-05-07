@@ -27,14 +27,14 @@ type C_City {
 	UU: ID!
 	# Country 
 	C_Country: C_Country
+	# Identifies a geographical Region
+	C_Region: C_Region
 	# Location coordinate
 	Coordinates: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Identifies a geographical Region
-	C_Region: C_Region
 	# The record is active in the system
 	IsActive: Boolean!
 	# Location code - UN/LOCODE 
@@ -57,10 +57,10 @@ input C_CityInput {
 	UU: ID
 	# Country 
 	C_Country: ForeignEntityInput
-	# Location coordinate
-	Coordinates: String
 	# Identifies a geographical Region
 	C_Region: ForeignEntityInput
+	# Location coordinate
+	Coordinates: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Location code - UN/LOCODE 

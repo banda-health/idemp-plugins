@@ -40,9 +40,9 @@ type S_ResourceAssignment {
 	Name: String!
 	# Quantity
 	Qty: BigDecimal
-	UU: ID!
 	# Resource
 	S_Resource: S_Resource!
+	UU: ID!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -66,7 +66,7 @@ input S_ResourceAssignmentInput {
 	Name: String
 	# Quantity
 	Qty: BigDecimal
-	UU: ID
 	# Resource
 	S_Resource: ForeignEntityInput
+	UU: ID
 }

@@ -124,21 +124,6 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 
 
 	/**
-	 * Get Business Partner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	public CompletableFuture<MBPartner_BH> C_BPartner(MPayment_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
-		return dataLoader.load(entity.getC_BPartner_ID());
-	}
-
-
-	/**
 	 * Get Partner Bank Account.
 	 *
 	 * @return Bank Account of the Business Partner
@@ -150,6 +135,21 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 		DataLoader<Integer, MBPBankAccount> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_BankAccountDataLoader.DATALOADER_C_BP_BankAccount_BY_ID);
 		return dataLoader.load(entity.getC_BP_BankAccount_ID());
+	}
+
+
+	/**
+	 * Get Business Partner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	public CompletableFuture<MBPartner_BH> C_BPartner(MPayment_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BPartner_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBPartner_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
+		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
 

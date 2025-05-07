@@ -80,37 +80,42 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	}
 
 	/**
-	 * Set Organization.
+	 * Set Rev. Code.
 	 *
-	 * @param AD_Org Organizational entity within tenant
+	 * @param A_Rev_Code Rev. Code
 	 */
-	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
-		this.mAD_Org = AD_Org;
-		if (AD_Org != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MOrg foreignEntity;
+	@JsonProperty("A_Rev_Code")
+	public void setA_Rev_CodeInput(ForeignEntityInput A_Rev_Code) {
+		this.mA_Rev_Code = A_Rev_Code;
+		if (A_Rev_Code != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_Reval_EntryResolver.A_REV_CODE_UUIDS_BY_VALUE.containsValue(A_Rev_Code.getUU())) {
+				throw new AdempiereException("The reference list UU of " + A_Rev_Code.getUU() +
+						" is not in the list defined for the A_Rev_Code column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
-					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setAD_Org_ID(foreignEntity.get_ID());
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(A_Rev_Code.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setA_Rev_Code(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + A_Rev_Code.getUU());
 			}
 		} else {
-			this.setAD_Org_ID(0);
+			this.setA_Rev_Code(null);
 		}
 	}
 
 	/**
-	 * Get Organization.
+	 * Get Rev. Code.
 	 *
-	 * @return Organizational entity within tenant
+	 * @return Rev. Code
 	 */
-	@JsonProperty("AD_Org")
-	public ForeignEntityInput AD_Org() {
-		return mAD_Org;
+	@JsonProperty("A_Rev_Code")
+	public ForeignEntityInput A_Rev_Code() {
+		return mA_Rev_Code;
 	}
 
 	/**
@@ -231,42 +236,37 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	}
 
 	/**
-	 * Set Rev. Code.
+	 * Set Organization.
 	 *
-	 * @param A_Rev_Code Rev. Code
+	 * @param AD_Org Organizational entity within tenant
 	 */
-	@JsonProperty("A_Rev_Code")
-	public void setA_Rev_CodeInput(ForeignEntityInput A_Rev_Code) {
-		this.mA_Rev_Code = A_Rev_Code;
-		if (A_Rev_Code != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_A_Asset_Reval_EntryResolver.A_REV_CODE_UUIDS_BY_VALUE.containsValue(A_Rev_Code.getUU())) {
-				throw new AdempiereException("The reference list UU of " + A_Rev_Code.getUU() +
-						" is not in the list defined for the A_Rev_Code column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Rev_Code.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setA_Rev_Code(foreignEntity.getValue());
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + A_Rev_Code.getUU());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
-			this.setA_Rev_Code(null);
+			this.setAD_Org_ID(0);
 		}
 	}
 
 	/**
-	 * Get Rev. Code.
+	 * Get Organization.
 	 *
-	 * @return Rev. Code
+	 * @return Organizational entity within tenant
 	 */
-	@JsonProperty("A_Rev_Code")
-	public ForeignEntityInput A_Rev_Code() {
-		return mA_Rev_Code;
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**

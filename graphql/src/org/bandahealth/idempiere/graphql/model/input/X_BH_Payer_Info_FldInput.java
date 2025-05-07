@@ -111,6 +111,35 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 	public ForeignEntityInput BH_Payer() {
 		return mBH_Payer;
 	}
+	/**
+	 * Set Payer Info Field.
+	 *
+	 * @param BH_Payer_Info_Fld_ID Payer Info Field
+	 */
+	@JsonProperty("BH_Payer_Info_Fld_ID")
+	public void setBH_Payer_Info_Fld_IDFromJson(int BH_Payer_Info_Fld_ID) {
+		if (get_ID() == 0) {
+			super.setBH_Payer_Info_Fld_ID(BH_Payer_Info_Fld_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setBH_Payer_Info_Fld_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getBH_Payer_Info_Fld_UU();
+	}
 
 	/**
 	 * Set Payer Info Field Data Type.
@@ -149,34 +178,5 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 	@JsonProperty("BH_PayerInfoFieldDataType")
 	public ForeignEntityInput BH_PayerInfoFieldDataType() {
 		return mBH_PayerInfoFieldDataType;
-	}
-	/**
-	 * Set Payer Info Field.
-	 *
-	 * @param BH_Payer_Info_Fld_ID Payer Info Field
-	 */
-	@JsonProperty("BH_Payer_Info_Fld_ID")
-	public void setBH_Payer_Info_Fld_IDFromJson(int BH_Payer_Info_Fld_ID) {
-		if (get_ID() == 0) {
-			super.setBH_Payer_Info_Fld_ID(BH_Payer_Info_Fld_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setBH_Payer_Info_Fld_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getBH_Payer_Info_Fld_UU();
 	}
 }

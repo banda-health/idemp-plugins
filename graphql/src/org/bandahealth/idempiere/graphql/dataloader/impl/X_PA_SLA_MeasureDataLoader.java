@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MSLAMeasure;
+import org.compiere.model.X_PA_SLA_Measure;
 
 /**
  * Data Loader for PA_SLA_Measure - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.MSLAMeasure;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_PA_SLA_MeasureDataLoader extends PODataLoader<MSLAMeasure> {
+public class X_PA_SLA_MeasureDataLoader extends PODataLoader<X_PA_SLA_Measure> {
 	public static String DATALOADER_PA_SLA_Measure_BY_ID = "PA_SLA_MeasureByIdDataLoader";
 	public static String DATALOADER_PA_SLA_Measure_BY_UUID = "PA_SLA_MeasureByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MSLAMeasure.Table_Name;
+		return X_PA_SLA_Measure.Table_Name;
 	}
 
 	@Override

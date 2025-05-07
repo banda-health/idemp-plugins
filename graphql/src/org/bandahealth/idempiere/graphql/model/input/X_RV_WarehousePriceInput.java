@@ -119,17 +119,6 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 			super.setIsInstanceAttribute(IsInstanceAttribute);
 		}
 	}
-	/**
-	 * Set Margin %.
-	 *
-	 * @param Margin Margin for a product as a percentage
-	 */
-	@JsonProperty("Margin")
-	public void setMarginFromJson(BigDecimal Margin) {
-		if (get_ID() == 0) {
-			super.setMargin(Margin);
-		}
-	}
 
 	/**
 	 * Set Price List Version.
@@ -240,6 +229,17 @@ public class X_RV_WarehousePriceInput extends MWarehousePrice implements I_RV_Wa
 	@JsonProperty("M_Warehouse")
 	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
+	}
+	/**
+	 * Set Margin %.
+	 *
+	 * @param Margin Margin for a product as a percentage
+	 */
+	@JsonProperty("Margin")
+	public void setMarginFromJson(BigDecimal Margin) {
+		if (get_ID() == 0) {
+			super.setMargin(Margin);
+		}
 	}
 	/**
 	 * Set Name.

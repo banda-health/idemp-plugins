@@ -34,21 +34,21 @@ type C_InvoiceBatchLine {
 	C_Charge: C_Charge!
 	# Document type or rules
 	C_DocType: C_DocType!
+	# Invoice Identifier
+	C_Invoice: C_Invoice
 	# Expense Invoice Batch Header
 	C_InvoiceBatch: C_InvoiceBatch!
 	UU: ID!
-	# Invoice Identifier
-	C_Invoice: C_Invoice
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine
 	# Financial Project
 	C_Project: C_Project
+	# Tax identifier
+	C_Tax: C_Tax!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Tax identifier
-	C_Tax: C_Tax!
 	# Accounting Date
 	DateAcct: Date!
 	# Date printed on Invoice
@@ -100,11 +100,11 @@ input C_InvoiceBatchLineInput {
 	C_Charge: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
 	# Expense Invoice Batch Header
 	C_InvoiceBatch: ForeignEntityInput
 	UU: ID
-	# Invoice Identifier
-	C_Invoice: ForeignEntityInput
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
 	# Financial Project

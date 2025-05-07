@@ -18,11 +18,11 @@ type A_FundingModeConnection {
 }
 
 type A_FundingMode {
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -42,9 +42,9 @@ type A_FundingMode {
 }
 
 input A_FundingModeInput {
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

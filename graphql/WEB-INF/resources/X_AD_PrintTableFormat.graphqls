@@ -37,16 +37,16 @@ type AD_PrintTableFormat {
 	FooterLeft: String
 	# Content of the right portion of the footer.
 	FooterRight: String
+	# Function row Font
+	Funct_PrintFont: AD_PrintFont
 	# Function Background Color
 	FunctBG_PrintColor: AD_PrintColor
 	# Function Foreground Color
 	FunctFG_PrintColor: AD_PrintColor
-	# Function row Font
-	Funct_PrintFont: AD_PrintFont
-	# Table header row line color
-	HdrLine_PrintColor: AD_PrintColor
 	# Header row Font
 	Hdr_PrintFont: AD_PrintFont
+	# Table header row line color
+	HdrLine_PrintColor: AD_PrintColor
 	# Width of the Header Line Stroke
 	HdrStroke: BigDecimal
 	# Type of the Header Line Stroke
@@ -109,16 +109,16 @@ input AD_PrintTableFormatInput {
 	FooterLeft: String
 	# Content of the right portion of the footer.
 	FooterRight: String
+	# Function row Font
+	Funct_PrintFont: ForeignEntityInput
 	# Function Background Color
 	FunctBG_PrintColor: ForeignEntityInput
 	# Function Foreground Color
 	FunctFG_PrintColor: ForeignEntityInput
-	# Function row Font
-	Funct_PrintFont: ForeignEntityInput
-	# Table header row line color
-	HdrLine_PrintColor: ForeignEntityInput
 	# Header row Font
 	Hdr_PrintFont: ForeignEntityInput
+	# Table header row line color
+	HdrLine_PrintColor: ForeignEntityInput
 	# Width of the Header Line Stroke
 	HdrStroke: BigDecimal
 	# Type of the Header Line Stroke

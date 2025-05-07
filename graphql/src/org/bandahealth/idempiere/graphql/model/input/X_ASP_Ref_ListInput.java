@@ -79,40 +79,6 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	}
 
 	/**
-	 * Set Reference.
-	 *
-	 * @param AD_Reference System Reference and Validation
-	 */
-	@JsonProperty("AD_Reference")
-	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
-		this.mAD_Reference = AD_Reference;
-		if (AD_Reference != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MReference_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setAD_Reference_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Reference with UU " + AD_Reference.getUU());
-			}
-		} else {
-			this.setAD_Reference_ID(0);
-		}
-	}
-
-	/**
-	 * Get Reference.
-	 *
-	 * @return System Reference and Validation
-	 */
-	@JsonProperty("AD_Reference")
-	public ForeignEntityInput AD_Reference() {
-		return mAD_Reference;
-	}
-
-	/**
 	 * Set Reference List.
 	 *
 	 * @param AD_Ref_List Reference List based on Table
@@ -144,6 +110,40 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	@JsonProperty("AD_Ref_List")
 	public ForeignEntityInput AD_Ref_List() {
 		return mAD_Ref_List;
+	}
+
+	/**
+	 * Set Reference.
+	 *
+	 * @param AD_Reference System Reference and Validation
+	 */
+	@JsonProperty("AD_Reference")
+	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
+		this.mAD_Reference = AD_Reference;
+		if (AD_Reference != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setAD_Reference_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Reference with UU " + AD_Reference.getUU());
+			}
+		} else {
+			this.setAD_Reference_ID(0);
+		}
+	}
+
+	/**
+	 * Get Reference.
+	 *
+	 * @return System Reference and Validation
+	 */
+	@JsonProperty("AD_Reference")
+	public ForeignEntityInput AD_Reference() {
+		return mAD_Reference;
 	}
 
 	/**

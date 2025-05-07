@@ -22,9 +22,9 @@ type AD_UserBPAccess {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
+	UU: ID!
 	# Type of Access of the user/contact to Business Partner information and resources
 	BPAccessType: AD_Ref_List!
 	# Date this record was created
@@ -46,9 +46,9 @@ type AD_UserBPAccess {
 input AD_UserBPAccessInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
+	UU: ID
 	# Type of Access of the user/contact to Business Partner information and resources
 	BPAccessType: ForeignEntityInput
 	# Logical type of document

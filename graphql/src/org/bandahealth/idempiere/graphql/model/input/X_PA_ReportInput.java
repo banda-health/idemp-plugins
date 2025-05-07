@@ -261,6 +261,35 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public ForeignEntityInput JasperProcess() {
 		return mJasperProcess;
 	}
+	/**
+	 * Set Financial Report.
+	 *
+	 * @param PA_Report_ID Financial Report
+	 */
+	@JsonProperty("PA_Report_ID")
+	public void setPA_Report_IDFromJson(int PA_Report_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Report_ID(PA_Report_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setPA_Report_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getPA_Report_UU();
+	}
 
 	/**
 	 * Set Report Column Set.
@@ -329,17 +358,6 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public ForeignEntityInput PA_ReportCube() {
 		return mPA_ReportCube;
 	}
-	/**
-	 * Set Financial Report.
-	 *
-	 * @param PA_Report_ID Financial Report
-	 */
-	@JsonProperty("PA_Report_ID")
-	public void setPA_Report_IDFromJson(int PA_Report_ID) {
-		if (get_ID() == 0) {
-			super.setPA_Report_ID(PA_Report_ID);
-		}
-	}
 
 	/**
 	 * Set Report Line Set.
@@ -373,23 +391,5 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	@JsonProperty("PA_ReportLineSet")
 	public ForeignEntityInput PA_ReportLineSet() {
 		return mPA_ReportLineSet;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setPA_Report_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getPA_Report_UU();
 	}
 }

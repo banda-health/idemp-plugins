@@ -25,20 +25,6 @@ public interface I_ASP_Ref_ListInput extends I_ASP_Ref_List {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set AD_Reference.
-	 *
-	 * @param AD_Reference System Reference and Validation
-	 */
-	void setAD_ReferenceInput(ForeignEntityInput AD_Reference);
-
-	/**
-	 * Get AD_Reference.
-	 *
-	 * @return System Reference and Validation
-	 */
-	ForeignEntityInput AD_Reference();
-
-	/**
 	 * Set AD_Ref_List.
 	 *
 	 * @param AD_Ref_List Reference List based on Table
@@ -51,6 +37,20 @@ public interface I_ASP_Ref_ListInput extends I_ASP_Ref_List {
 	 * @return Reference List based on Table
 	 */
 	ForeignEntityInput AD_Ref_List();
+
+	/**
+	 * Set AD_Reference.
+	 *
+	 * @param AD_Reference System Reference and Validation
+	 */
+	void setAD_ReferenceInput(ForeignEntityInput AD_Reference);
+
+	/**
+	 * Get AD_Reference.
+	 *
+	 * @return System Reference and Validation
+	 */
+	ForeignEntityInput AD_Reference();
 
 	/**
 	 * Set ASP_Level.

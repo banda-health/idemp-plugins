@@ -27,12 +27,12 @@ type C_BPartner_Location {
 	UU: ID!
 	# Location or Address
 	C_Location: C_Location!
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Sales coverage region
-	C_SalesRegion: C_SalesRegion
 	CustomerAddressID: String
 	# Facsimile number
 	Fax: String

@@ -40,6 +40,21 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
+
+	/**
+	 * Get Sales Opportunity.
+	 *
+	 * @return Sales Opportunity
+	 */
+	public CompletableFuture<MOpportunity> C_Opportunity(X_C_ContactActivity entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Opportunity_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MOpportunity> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OpportunityDataLoader.DATALOADER_C_Opportunity_BY_ID);
+		return dataLoader.load(entity.getC_Opportunity_ID());
+	}
+
 	public static Map<String, String> CONTACTACTIVITYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("EM", "7aaa10b7-533b-466b-af01-483a2a446410"); // Email
@@ -55,21 +70,6 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(CONTACTACTIVITYTYPE_UUIDS_BY_VALUE.get(entity.getContactActivityType()));
-	}
-
-
-	/**
-	 * Get Sales Opportunity.
-	 *
-	 * @return Sales Opportunity
-	 */
-	public CompletableFuture<MOpportunity> C_Opportunity(X_C_ContactActivity entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Opportunity_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MOpportunity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OpportunityDataLoader.DATALOADER_C_Opportunity_BY_ID);
-		return dataLoader.load(entity.getC_Opportunity_ID());
 	}
 
 	public Boolean IsComplete(X_C_ContactActivity entity, DataFetchingEnvironment environment) {

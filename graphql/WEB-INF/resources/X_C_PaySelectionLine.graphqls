@@ -24,10 +24,10 @@ type C_PaySelectionLine {
 	AD_Org: AD_Org!
 	# Invoice Identifier
 	C_Invoice: C_Invoice!
-	# Payment Selection Check
-	C_PaySelectionCheck: C_PaySelectionCheck
 	# Payment Selection
 	C_PaySelection: C_PaySelection!
+	# Payment Selection Check
+	C_PaySelectionCheck: C_PaySelectionCheck
 	UU: ID!
 	# Date this record was created
 	Created: DateTime!
@@ -68,10 +68,10 @@ input C_PaySelectionLineInput {
 	AD_Org: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
-	# Payment Selection Check
-	C_PaySelectionCheck: ForeignEntityInput
 	# Payment Selection
 	C_PaySelection: ForeignEntityInput
+	# Payment Selection Check
+	C_PaySelectionCheck: ForeignEntityInput
 	UU: ID
 	# Optional short description of the record
 	Description: String

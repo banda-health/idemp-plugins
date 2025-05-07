@@ -39,11 +39,11 @@ type AD_UserMail {
 	MailText: String
 	# EMail Message ID
 	MessageID: String
+	# Text templates for mailings
+	R_MailText: R_MailText
 	RecipientBcc: String
 	RecipientCc: String
 	RecipientTo: String
-	# Text templates for mailings
-	R_MailText: R_MailText
 	# Email Message Subject
 	Subject: String
 	# Date this record was updated
@@ -68,11 +68,11 @@ input AD_UserMailInput {
 	MailText: String
 	# EMail Message ID
 	MessageID: String
+	# Text templates for mailings
+	R_MailText: ForeignEntityInput
 	RecipientBcc: String
 	RecipientCc: String
 	RecipientTo: String
-	# Text templates for mailings
-	R_MailText: ForeignEntityInput
 	# Email Message Subject
 	Subject: String
 }

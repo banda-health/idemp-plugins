@@ -25,18 +25,18 @@ type A_Asset {
 	A_Asset_Group: A_Asset_Group!
 	A_Asset_RevalDate: Date
 	A_Asset_Status: AD_Ref_List!
-	A_AssetType: String
 	A_Asset_Type: A_Asset_Type
 	UU: ID!
+	A_AssetType: String
+	A_Parent_Asset: A_Asset
+	A_QTY_Current: BigDecimal
+	A_QTY_Original: BigDecimal
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	A_Parent_Asset: A_Asset
-	A_QTY_Current: BigDecimal
-	A_QTY_Original: BigDecimal
 	AssetActivationDate: Date
 	# Date of last depreciation
 	AssetDepreciationDate: Date
@@ -95,9 +95,6 @@ type A_Asset {
 	LocationComment: String
 	# Lot number (alphanumeric)
 	Lot: String
-	ManufacturedYear: Int
-	# Manufacturer of the Product
-	Manufacturer: String
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Line on Shipment or Receipt document
@@ -106,6 +103,9 @@ type A_Asset {
 	M_Locator: M_Locator
 	# Product, Service, Item
 	M_Product: M_Product!
+	ManufacturedYear: Int
+	# Manufacturer of the Product
+	Manufacturer: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Next Maintenance Date
@@ -143,16 +143,16 @@ input A_AssetInput {
 	A_Asset_Group: ForeignEntityInput
 	A_Asset_RevalDate: Date
 	A_Asset_Status: ForeignEntityInput
-	A_AssetType: String
 	A_Asset_Type: ForeignEntityInput
 	UU: ID
+	A_AssetType: String
+	A_Parent_Asset: ForeignEntityInput
+	A_QTY_Current: BigDecimal
+	A_QTY_Original: BigDecimal
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	A_Parent_Asset: ForeignEntityInput
-	A_QTY_Current: BigDecimal
-	A_QTY_Original: BigDecimal
 	AssetActivationDate: Date
 	# Date of last depreciation
 	AssetDepreciationDate: Date
@@ -207,9 +207,6 @@ input A_AssetInput {
 	LocationComment: String
 	# Lot number (alphanumeric)
 	Lot: String
-	ManufacturedYear: Int
-	# Manufacturer of the Product
-	Manufacturer: String
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	# Line on Shipment or Receipt document
@@ -218,6 +215,9 @@ input A_AssetInput {
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
+	ManufacturedYear: Int
+	# Manufacturer of the Product
+	Manufacturer: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Next Maintenance Date

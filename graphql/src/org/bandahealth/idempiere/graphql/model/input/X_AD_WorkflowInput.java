@@ -278,6 +278,24 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_Workflow_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_Workflow_UU();
+	}
+
+	/**
 	 * Set Workflow Processor.
 	 *
 	 * @param AD_WorkflowProcessor Workflow Processor Server
@@ -309,24 +327,6 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	@JsonProperty("AD_WorkflowProcessor")
 	public ForeignEntityInput AD_WorkflowProcessor() {
 		return mAD_WorkflowProcessor;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_Workflow_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_Workflow_UU();
 	}
 
 	/**

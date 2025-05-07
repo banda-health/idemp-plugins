@@ -53,20 +53,6 @@ public interface I_M_InOutLineConfirmInput extends I_M_InOutLineConfirm {
 	ForeignEntityInput M_InOutConfirm();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_InOutLine.
 	 *
 	 * @param M_InOutLine Line on Shipment or Receipt document
@@ -79,6 +65,20 @@ public interface I_M_InOutLineConfirmInput extends I_M_InOutLineConfirm {
 	 * @return Line on Shipment or Receipt document
 	 */
 	ForeignEntityInput M_InOutLine();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set M_InventoryLine.

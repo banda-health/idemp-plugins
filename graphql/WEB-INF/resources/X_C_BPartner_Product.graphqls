@@ -35,10 +35,10 @@ type C_BPartner_Product {
 	IsActive: Boolean!
 	# Indicate role of this Business partner as Manufacturer
 	IsManufacturer: Boolean!
-	# Manufacturer of the Product
-	Manufacturer: String
 	# Product, Service, Item
 	M_Product: M_Product!
+	# Manufacturer of the Product
+	Manufacturer: String
 	# Method for rating vendors
 	QualityRating: BigDecimal
 	# Minimum Shelf Life in days based on Product Instance Guarantee Date
@@ -67,10 +67,10 @@ input C_BPartner_ProductInput {
 	IsActive: Boolean
 	# Indicate role of this Business partner as Manufacturer
 	IsManufacturer: Boolean
-	# Manufacturer of the Product
-	Manufacturer: String
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
+	# Manufacturer of the Product
+	Manufacturer: String
 	# Method for rating vendors
 	QualityRating: BigDecimal
 	# Minimum Shelf Life in days based on Product Instance Guarantee Date

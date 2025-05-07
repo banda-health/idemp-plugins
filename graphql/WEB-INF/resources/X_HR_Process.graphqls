@@ -34,10 +34,10 @@ type HR_Process {
 	C_DocType: C_DocType
 	# Target document type for conversing documents
 	C_DocTypeTarget: C_DocType!
-	# Virtual Column (r/o)
-	ColumnSQL: String
 	# Payment Selection
 	C_PaySelection: C_PaySelection
+	# Virtual Column (r/o)
+	ColumnSQL: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -90,10 +90,10 @@ input HR_ProcessInput {
 	C_DocType: ForeignEntityInput
 	# Target document type for conversing documents
 	C_DocTypeTarget: ForeignEntityInput
-	# Virtual Column (r/o)
-	ColumnSQL: String
 	# Payment Selection
 	C_PaySelection: ForeignEntityInput
+	# Virtual Column (r/o)
+	ColumnSQL: String
 	# Accounting Date
 	DateAcct: Date
 	# The targeted status of the document

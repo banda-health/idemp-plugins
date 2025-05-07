@@ -25,20 +25,6 @@ public interface I_C_PeriodControlInput extends I_C_PeriodControl {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_Period.
 	 *
 	 * @param C_Period Period of the Calendar
@@ -51,6 +37,20 @@ public interface I_C_PeriodControlInput extends I_C_PeriodControl {
 	 * @return Period of the Calendar
 	 */
 	ForeignEntityInput C_Period();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set DocBaseType.

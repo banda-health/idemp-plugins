@@ -118,6 +118,61 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_CashBook_Acct_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_CashBook_Acct_UU();
+	}
+
+	/**
+	 * Set Cash Book.
+	 *
+	 * @param C_CashBook Cash Book for recording petty cash transactions
+	 */
+	@JsonProperty("C_CashBook")
+	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
+		this.mC_CashBook = C_CashBook;
+		if (!is_new()) {
+			return;
+		}
+		if (C_CashBook != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCashBook foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+							.setParameters(C_CashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_CashBook_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CashBook with UU " + C_CashBook.getUU());
+			}
+		} else {
+			this.setC_CashBook_ID(0);
+		}
+	}
+
+	/**
+	 * Get Cash Book.
+	 *
+	 * @return Cash Book for recording petty cash transactions
+	 */
+	@JsonProperty("C_CashBook")
+	public ForeignEntityInput C_CashBook() {
+		return mC_CashBook;
+	}
+
+	/**
 	 * Set Cash Book Asset.
 	 *
 	 * @param CB_Asset_A Cash Book Asset Account
@@ -285,60 +340,5 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	@JsonProperty("CB_Receipt_A")
 	public ForeignEntityInput CB_Receipt_A() {
 		return mCB_Receipt_A;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_CashBook_Acct_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_CashBook_Acct_UU();
-	}
-
-	/**
-	 * Set Cash Book.
-	 *
-	 * @param C_CashBook Cash Book for recording petty cash transactions
-	 */
-	@JsonProperty("C_CashBook")
-	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
-		this.mC_CashBook = C_CashBook;
-		if (!is_new()) {
-			return;
-		}
-		if (C_CashBook != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MCashBook foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(C_CashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_CashBook_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_CashBook with UU " + C_CashBook.getUU());
-			}
-		} else {
-			this.setC_CashBook_ID(0);
-		}
-	}
-
-	/**
-	 * Get Cash Book.
-	 *
-	 * @return Cash Book for recording petty cash transactions
-	 */
-	@JsonProperty("C_CashBook")
-	public ForeignEntityInput C_CashBook() {
-		return mC_CashBook;
 	}
 }

@@ -22,9 +22,9 @@ type AD_Replication {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	UU: ID!
 	# Data Replication Strategy
 	AD_ReplicationStrategy: AD_ReplicationStrategy!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -63,9 +63,9 @@ type AD_Replication {
 input AD_ReplicationInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	UU: ID
 	# Data Replication Strategy
 	AD_ReplicationStrategy: ForeignEntityInput
-	UU: ID
 	# Date the process was last run.
 	DateLastRun: DateTime
 	# Optional short description of the record

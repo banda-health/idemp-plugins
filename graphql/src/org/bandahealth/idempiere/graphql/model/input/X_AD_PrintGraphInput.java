@@ -146,6 +146,40 @@ public class X_AD_PrintGraphInput extends X_AD_PrintGraph implements I_AD_PrintG
 	}
 
 	/**
+	 * Set Data Column.
+	 *
+	 * @param Data_PrintFormatItem Data Column for Pie and Line Charts
+	 */
+	@JsonProperty("Data_PrintFormatItem")
+	public void setData_PrintFormatItemInput(ForeignEntityInput Data_PrintFormatItem) {
+		this.mData_PrintFormatItem = Data_PrintFormatItem;
+		if (Data_PrintFormatItem != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormatItem foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormatItem", "AD_PrintFormatItem_UU=?", get_TrxName())
+							.setParameters(Data_PrintFormatItem.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setData_PrintFormatItem_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormatItem with UU " + Data_PrintFormatItem.getUU());
+			}
+		} else {
+			this.setData_PrintFormatItem_ID(0);
+		}
+	}
+
+	/**
+	 * Get Data Column.
+	 *
+	 * @return Data Column for Pie and Line Charts
+	 */
+	@JsonProperty("Data_PrintFormatItem")
+	public ForeignEntityInput Data_PrintFormatItem() {
+		return mData_PrintFormatItem;
+	}
+
+	/**
 	 * Set Data Column 2.
 	 *
 	 * @param Data1_PrintFormatItem Data Column for Line Charts
@@ -279,40 +313,6 @@ public class X_AD_PrintGraphInput extends X_AD_PrintGraph implements I_AD_PrintG
 	@JsonProperty("Data4_PrintFormatItem")
 	public ForeignEntityInput Data4_PrintFormatItem() {
 		return mData4_PrintFormatItem;
-	}
-
-	/**
-	 * Set Data Column.
-	 *
-	 * @param Data_PrintFormatItem Data Column for Pie and Line Charts
-	 */
-	@JsonProperty("Data_PrintFormatItem")
-	public void setData_PrintFormatItemInput(ForeignEntityInput Data_PrintFormatItem) {
-		this.mData_PrintFormatItem = Data_PrintFormatItem;
-		if (Data_PrintFormatItem != null) {
-			// Since an entity was passed, make sure it's in the DB
-			X_AD_PrintFormatItem foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_PrintFormatItem", "AD_PrintFormatItem_UU=?", get_TrxName())
-							.setParameters(Data_PrintFormatItem.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setData_PrintFormatItem_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFormatItem with UU " + Data_PrintFormatItem.getUU());
-			}
-		} else {
-			this.setData_PrintFormatItem_ID(0);
-		}
-	}
-
-	/**
-	 * Get Data Column.
-	 *
-	 * @return Data Column for Pie and Line Charts
-	 */
-	@JsonProperty("Data_PrintFormatItem")
-	public ForeignEntityInput Data_PrintFormatItem() {
-		return mData_PrintFormatItem;
 	}
 
 	/**

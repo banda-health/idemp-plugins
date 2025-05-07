@@ -522,40 +522,6 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	}
 
 	/**
-	 * Set Sales Representative.
-	 *
-	 * @param SalesRep Sales Representative or Company Agent
-	 */
-	@JsonProperty("SalesRep")
-	public void setSalesRepInput(ForeignEntityInput SalesRep) {
-		this.mSalesRep = SalesRep;
-		if (SalesRep != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MUser_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setSalesRep_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_User with UU " + SalesRep.getUU());
-			}
-		} else {
-			this.setSalesRep_ID(0);
-		}
-	}
-
-	/**
-	 * Get Sales Representative.
-	 *
-	 * @return Sales Representative or Company Agent
-	 */
-	@JsonProperty("SalesRep")
-	public ForeignEntityInput SalesRep() {
-		return mSalesRep;
-	}
-
-	/**
 	 * Set Resource.
 	 *
 	 * @param S_Resource Resource
@@ -587,5 +553,39 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	@JsonProperty("S_Resource")
 	public ForeignEntityInput S_Resource() {
 		return mS_Resource;
+	}
+
+	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep Sales Representative or Company Agent
+	 */
+	@JsonProperty("SalesRep")
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
+		this.mSalesRep = SalesRep;
+		if (SalesRep != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setSalesRep_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UU " + SalesRep.getUU());
+			}
+		} else {
+			this.setSalesRep_ID(0);
+		}
+	}
+
+	/**
+	 * Get Sales Representative.
+	 *
+	 * @return Sales Representative or Company Agent
+	 */
+	@JsonProperty("SalesRep")
+	public ForeignEntityInput SalesRep() {
+		return mSalesRep;
 	}
 }

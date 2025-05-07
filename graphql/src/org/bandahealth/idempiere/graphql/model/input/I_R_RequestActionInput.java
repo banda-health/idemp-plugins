@@ -109,20 +109,6 @@ public interface I_R_RequestActionInput extends I_R_RequestAction {
 	ForeignEntityInput C_Invoice();
 
 	/**
-	 * Set ConfidentialType.
-	 *
-	 * @param ConfidentialType Type of Confidentiality
-	 */
-	void setConfidentialTypeInput(ForeignEntityInput ConfidentialType);
-
-	/**
-	 * Get ConfidentialType.
-	 *
-	 * @return Type of Confidentiality
-	 */
-	ForeignEntityInput ConfidentialType();
-
-	/**
 	 * Set C_Order.
 	 *
 	 * @param C_Order Order
@@ -163,6 +149,20 @@ public interface I_R_RequestActionInput extends I_R_RequestAction {
 	 * @return Financial Project
 	 */
 	ForeignEntityInput C_Project();
+
+	/**
+	 * Set ConfidentialType.
+	 *
+	 * @param ConfidentialType Type of Confidentiality
+	 */
+	void setConfidentialTypeInput(ForeignEntityInput ConfidentialType);
+
+	/**
+	 * Get ConfidentialType.
+	 *
+	 * @return Type of Confidentiality
+	 */
+	ForeignEntityInput ConfidentialType();
 
 	/**
 	 * Set IsEscalated.
@@ -305,20 +305,6 @@ public interface I_R_RequestActionInput extends I_R_RequestAction {
 	ForeignEntityInput R_Group();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set R_Request.
 	 *
 	 * @param R_Request Request from a Business Partner or Prospect
@@ -331,6 +317,20 @@ public interface I_R_RequestActionInput extends I_R_RequestAction {
 	 * @return Request from a Business Partner or Prospect
 	 */
 	ForeignEntityInput R_Request();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set R_RequestType.

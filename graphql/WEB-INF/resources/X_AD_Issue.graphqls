@@ -70,6 +70,16 @@ type AD_Issue {
 	Processing: Boolean!
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
+	# Known Issue
+	R_IssueKnown: R_IssueKnown
+	# Implementation Projects
+	R_IssueProject: R_IssueProject
+	# System creating the issue
+	R_IssueSystem: R_IssueSystem
+	# User who reported issues
+	R_IssueUser: R_IssueUser
+	# Request from a Business Partner or Prospect
+	R_Request: R_Request
 	# Direct internal record ID
 	Record_ID: Int
 	# Internal Release Number
@@ -84,16 +94,6 @@ type AD_Issue {
 	RequestDocumentNo: String
 	# Request Response Text
 	ResponseText: String
-	# Known Issue
-	R_IssueKnown: R_IssueKnown
-	# Implementation Projects
-	R_IssueProject: R_IssueProject
-	# System creating the issue
-	R_IssueSystem: R_IssueSystem
-	# User who reported issues
-	R_IssueUser: R_IssueUser
-	# Request from a Business Partner or Prospect
-	R_Request: R_Request
 	# Source Class Name
 	SourceClassName: String
 	# Source Method Name
@@ -162,6 +162,16 @@ input AD_IssueInput {
 	Processing: Boolean
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
+	# Known Issue
+	R_IssueKnown: ForeignEntityInput
+	# Implementation Projects
+	R_IssueProject: ForeignEntityInput
+	# System creating the issue
+	R_IssueSystem: ForeignEntityInput
+	# User who reported issues
+	R_IssueUser: ForeignEntityInput
+	# Request from a Business Partner or Prospect
+	R_Request: ForeignEntityInput
 	# Direct internal record ID
 	Record_ID: Int
 	# Internal Release Number
@@ -176,16 +186,6 @@ input AD_IssueInput {
 	RequestDocumentNo: String
 	# Request Response Text
 	ResponseText: String
-	# Known Issue
-	R_IssueKnown: ForeignEntityInput
-	# Implementation Projects
-	R_IssueProject: ForeignEntityInput
-	# System creating the issue
-	R_IssueSystem: ForeignEntityInput
-	# User who reported issues
-	R_IssueUser: ForeignEntityInput
-	# Request from a Business Partner or Prospect
-	R_Request: ForeignEntityInput
 	# Source Class Name
 	SourceClassName: String
 	# Source Method Name

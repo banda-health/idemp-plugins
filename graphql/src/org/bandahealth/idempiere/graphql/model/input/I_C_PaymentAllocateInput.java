@@ -53,20 +53,6 @@ public interface I_C_PaymentAllocateInput extends I_C_PaymentAllocate {
 	ForeignEntityInput C_Invoice();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_Payment.
 	 *
 	 * @param C_Payment Payment identifier
@@ -79,4 +65,18 @@ public interface I_C_PaymentAllocateInput extends I_C_PaymentAllocate {
 	 * @return Payment identifier
 	 */
 	ForeignEntityInput C_Payment();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

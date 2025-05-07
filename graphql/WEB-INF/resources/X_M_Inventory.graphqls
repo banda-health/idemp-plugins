@@ -35,10 +35,10 @@ type M_Inventory {
 	C_Currency: C_Currency
 	# Document type or rules
 	C_DocType: C_DocType!
-	# Indicates how Costs will be calculated
-	CostingMethod: AD_Ref_List
 	# Financial Project
 	C_Project: C_Project
+	# Indicates how Costs will be calculated
+	CostingMethod: AD_Ref_List
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -58,12 +58,12 @@ type M_Inventory {
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
 	UU: ID!
-	# Date a product was moved in or out of inventory
-	MovementDate: Date!
 	# Rules for generating physical inventory
 	M_PerpetualInv: M_PerpetualInv
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse
+	# Date a product was moved in or out of inventory
+	MovementDate: Date!
 	# Posting status
 	Posted: Boolean!
 	# The document has been processed
@@ -100,10 +100,10 @@ input M_InventoryInput {
 	C_Currency: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
-	# Indicates how Costs will be calculated
-	CostingMethod: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
+	# Indicates how Costs will be calculated
+	CostingMethod: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
@@ -119,12 +119,12 @@ input M_InventoryInput {
 	# Indicates if this document requires approval
 	IsApproved: Boolean
 	UU: ID
-	# Date a product was moved in or out of inventory
-	MovementDate: Date
 	# Rules for generating physical inventory
 	M_PerpetualInv: ForeignEntityInput
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
 	# Posting status
 	Posted: Boolean
 	# The document has been processed

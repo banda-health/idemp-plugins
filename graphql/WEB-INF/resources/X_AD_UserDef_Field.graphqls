@@ -21,10 +21,10 @@ type AD_UserDef_Field {
 	AD_Chart: AD_Chart
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Logical grouping of fields
-	AD_FieldGroup: AD_FieldGroup
 	# Field on a database table
 	AD_Field: AD_Field!
+	# Logical grouping of fields
+	AD_FieldGroup: AD_FieldGroup
 	# Field CSS Style 
 	AD_FieldStyle: AD_Style
 	# Label CSS Style
@@ -106,10 +106,10 @@ type AD_UserDef_Field {
 
 input AD_UserDef_FieldInput {
 	AD_Chart: ForeignEntityInput
-	# Logical grouping of fields
-	AD_FieldGroup: ForeignEntityInput
 	# Field on a database table
 	AD_Field: ForeignEntityInput
+	# Logical grouping of fields
+	AD_FieldGroup: ForeignEntityInput
 	# Field CSS Style 
 	AD_FieldStyle: ForeignEntityInput
 	# Label CSS Style

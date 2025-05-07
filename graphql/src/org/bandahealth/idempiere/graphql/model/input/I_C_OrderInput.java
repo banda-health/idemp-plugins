@@ -277,20 +277,6 @@ public interface I_C_OrderInput extends I_C_Order {
 	ForeignEntityInput C_Opportunity();
 
 	/**
-	 * Set C_OrderSource.
-	 *
-	 * @param C_OrderSource C_OrderSource
-	 */
-	void setC_OrderSourceInput(ForeignEntityInput C_OrderSource);
-
-	/**
-	 * Get C_OrderSource.
-	 *
-	 * @return C_OrderSource
-	 */
-	ForeignEntityInput C_OrderSource();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -303,6 +289,20 @@ public interface I_C_OrderInput extends I_C_Order {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_OrderSource.
+	 *
+	 * @param C_OrderSource C_OrderSource
+	 */
+	void setC_OrderSourceInput(ForeignEntityInput C_OrderSource);
+
+	/**
+	 * Get C_OrderSource.
+	 *
+	 * @return C_OrderSource
+	 */
+	ForeignEntityInput C_OrderSource();
 
 	/**
 	 * Set C_Payment.

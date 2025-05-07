@@ -107,35 +107,6 @@ public class X_M_LotCtlExcludeInput extends MLotCtlExclude implements I_M_LotCtl
 	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
-	/**
-	 * Set Exclude Lot.
-	 *
-	 * @param M_LotCtlExclude_ID Exclude the ability to create Lots in Attribute Sets
-	 */
-	@JsonProperty("M_LotCtlExclude_ID")
-	public void setM_LotCtlExclude_IDFromJson(int M_LotCtlExclude_ID) {
-		if (get_ID() == 0) {
-			super.setM_LotCtlExclude_ID(M_LotCtlExclude_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_LotCtlExclude_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_LotCtlExclude_UU();
-	}
 
 	/**
 	 * Set Lot Control.
@@ -172,5 +143,34 @@ public class X_M_LotCtlExcludeInput extends MLotCtlExclude implements I_M_LotCtl
 	@JsonProperty("M_LotCtl")
 	public ForeignEntityInput M_LotCtl() {
 		return mM_LotCtl;
+	}
+	/**
+	 * Set Exclude Lot.
+	 *
+	 * @param M_LotCtlExclude_ID Exclude the ability to create Lots in Attribute Sets
+	 */
+	@JsonProperty("M_LotCtlExclude_ID")
+	public void setM_LotCtlExclude_IDFromJson(int M_LotCtlExclude_ID) {
+		if (get_ID() == 0) {
+			super.setM_LotCtlExclude_ID(M_LotCtlExclude_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_LotCtlExclude_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_LotCtlExclude_UU();
 	}
 }

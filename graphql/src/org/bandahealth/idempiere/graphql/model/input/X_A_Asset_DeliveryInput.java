@@ -203,17 +203,6 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 			super.setLot(Lot);
 		}
 	}
-	/**
-	 * Set Message ID.
-	 *
-	 * @param MessageID EMail Message ID
-	 */
-	@JsonProperty("MessageID")
-	public void setMessageIDFromJson(String MessageID) {
-		if (get_ID() == 0) {
-			super.setMessageID(MessageID);
-		}
-	}
 
 	/**
 	 * Set Shipment/Receipt Line.
@@ -251,17 +240,6 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	public ForeignEntityInput M_InOutLine() {
 		return mM_InOutLine;
 	}
-	/**
-	 * Set Movement Date.
-	 *
-	 * @param MovementDate Date a product was moved in or out of inventory
-	 */
-	@JsonProperty("MovementDate")
-	public void setMovementDateFromJson(Timestamp MovementDate) {
-		if (get_ID() == 0) {
-			super.setMovementDate(MovementDate);
-		}
-	}
 
 	/**
 	 * Set Product Download.
@@ -295,6 +273,28 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	@JsonProperty("M_ProductDownload")
 	public ForeignEntityInput M_ProductDownload() {
 		return mM_ProductDownload;
+	}
+	/**
+	 * Set Message ID.
+	 *
+	 * @param MessageID EMail Message ID
+	 */
+	@JsonProperty("MessageID")
+	public void setMessageIDFromJson(String MessageID) {
+		if (get_ID() == 0) {
+			super.setMessageID(MessageID);
+		}
+	}
+	/**
+	 * Set Movement Date.
+	 *
+	 * @param MovementDate Date a product was moved in or out of inventory
+	 */
+	@JsonProperty("MovementDate")
+	public void setMovementDateFromJson(Timestamp MovementDate) {
+		if (get_ID() == 0) {
+			super.setMovementDate(MovementDate);
+		}
 	}
 	/**
 	 * Set Referrer.

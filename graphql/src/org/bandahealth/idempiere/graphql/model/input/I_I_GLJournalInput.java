@@ -263,20 +263,6 @@ public interface I_I_GLJournalInput extends I_I_GLJournal {
 	ForeignEntityInput GL_Category();
 
 	/**
-	 * Set GL_JournalBatch.
-	 *
-	 * @param GL_JournalBatch General Ledger Journal Batch
-	 */
-	void setGL_JournalBatchInput(ForeignEntityInput GL_JournalBatch);
-
-	/**
-	 * Get GL_JournalBatch.
-	 *
-	 * @return General Ledger Journal Batch
-	 */
-	ForeignEntityInput GL_JournalBatch();
-
-	/**
 	 * Set GL_Journal.
 	 *
 	 * @param GL_Journal General Ledger Journal
@@ -289,6 +275,20 @@ public interface I_I_GLJournalInput extends I_I_GLJournal {
 	 * @return General Ledger Journal
 	 */
 	ForeignEntityInput GL_Journal();
+
+	/**
+	 * Set GL_JournalBatch.
+	 *
+	 * @param GL_JournalBatch General Ledger Journal Batch
+	 */
+	void setGL_JournalBatchInput(ForeignEntityInput GL_JournalBatch);
+
+	/**
+	 * Get GL_JournalBatch.
+	 *
+	 * @return General Ledger Journal Batch
+	 */
+	ForeignEntityInput GL_JournalBatch();
 
 	/**
 	 * Set GL_JournalLine.

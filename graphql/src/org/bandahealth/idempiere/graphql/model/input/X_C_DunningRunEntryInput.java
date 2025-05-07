@@ -255,35 +255,6 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 	public ForeignEntityInput C_DunningLevel() {
 		return mC_DunningLevel;
 	}
-	/**
-	 * Set Dunning Run Entry.
-	 *
-	 * @param C_DunningRunEntry_ID Dunning Run Entry
-	 */
-	@JsonProperty("C_DunningRunEntry_ID")
-	public void setC_DunningRunEntry_IDFromJson(int C_DunningRunEntry_ID) {
-		if (get_ID() == 0) {
-			super.setC_DunningRunEntry_ID(C_DunningRunEntry_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_DunningRunEntry_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_DunningRunEntry_UU();
-	}
 
 	/**
 	 * Set Dunning Run.
@@ -320,6 +291,35 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 	@JsonProperty("C_DunningRun")
 	public ForeignEntityInput C_DunningRun() {
 		return mC_DunningRun;
+	}
+	/**
+	 * Set Dunning Run Entry.
+	 *
+	 * @param C_DunningRunEntry_ID Dunning Run Entry
+	 */
+	@JsonProperty("C_DunningRunEntry_ID")
+	public void setC_DunningRunEntry_IDFromJson(int C_DunningRunEntry_ID) {
+		if (get_ID() == 0) {
+			super.setC_DunningRunEntry_ID(C_DunningRunEntry_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_DunningRunEntry_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_DunningRunEntry_UU();
 	}
 
 	/**

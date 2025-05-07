@@ -22,13 +22,13 @@ type C_ServiceLevelLine {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# Product Revenue Recognition Service Level 
+	C_ServiceLevel: C_ServiceLevel!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Product Revenue Recognition Service Level 
-	C_ServiceLevel: C_ServiceLevel!
-	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

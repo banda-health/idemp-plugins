@@ -280,45 +280,6 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	}
 
 	/**
-	 * Set Cost Collector Type.
-	 *
-	 * @param CostCollectorType Transaction Type for Manufacturing Management
-	 */
-	@JsonProperty("CostCollectorType")
-	public void setCostCollectorTypeInput(ForeignEntityInput CostCollectorType) {
-		this.mCostCollectorType = CostCollectorType;
-		if (CostCollectorType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_PP_Cost_CollectorResolver.COSTCOLLECTORTYPE_UUIDS_BY_VALUE.containsValue(CostCollectorType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + CostCollectorType.getUU() +
-						" is not in the list defined for the CostCollectorType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CostCollectorType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setCostCollectorType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CostCollectorType.getUU());
-			}
-		} else {
-			this.setCostCollectorType(null);
-		}
-	}
-
-	/**
-	 * Get Cost Collector Type.
-	 *
-	 * @return Transaction Type for Manufacturing Management
-	 */
-	@JsonProperty("CostCollectorType")
-	public ForeignEntityInput CostCollectorType() {
-		return mCostCollectorType;
-	}
-
-	/**
 	 * Set Project.
 	 *
 	 * @param C_Project Financial Project
@@ -384,6 +345,45 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	@JsonProperty("C_UOM")
 	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
+	}
+
+	/**
+	 * Set Cost Collector Type.
+	 *
+	 * @param CostCollectorType Transaction Type for Manufacturing Management
+	 */
+	@JsonProperty("CostCollectorType")
+	public void setCostCollectorTypeInput(ForeignEntityInput CostCollectorType) {
+		this.mCostCollectorType = CostCollectorType;
+		if (CostCollectorType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PP_Cost_CollectorResolver.COSTCOLLECTORTYPE_UUIDS_BY_VALUE.containsValue(CostCollectorType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CostCollectorType.getUU() +
+						" is not in the list defined for the CostCollectorType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CostCollectorType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setCostCollectorType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CostCollectorType.getUU());
+			}
+		} else {
+			this.setCostCollectorType(null);
+		}
+	}
+
+	/**
+	 * Get Cost Collector Type.
+	 *
+	 * @return Transaction Type for Manufacturing Management
+	 */
+	@JsonProperty("CostCollectorType")
+	public ForeignEntityInput CostCollectorType() {
+		return mCostCollectorType;
 	}
 
 	/**

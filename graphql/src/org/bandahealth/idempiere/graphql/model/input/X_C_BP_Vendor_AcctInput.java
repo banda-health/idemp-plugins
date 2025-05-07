@@ -116,6 +116,24 @@ public class X_C_BP_Vendor_AcctInput extends X_C_BP_Vendor_Acct implements I_C_B
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_BP_Vendor_Acct_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_BP_Vendor_Acct_UU();
+	}
+
+	/**
 	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -150,24 +168,6 @@ public class X_C_BP_Vendor_AcctInput extends X_C_BP_Vendor_Acct implements I_C_B
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_BP_Vendor_Acct_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_BP_Vendor_Acct_UU();
 	}
 
 	/**

@@ -32,8 +32,8 @@ type M_ShipperPickupTypes {
 	IsDefault: Boolean!
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
-	M_ShipperPickupTypesCfg: M_ShipperPickupTypesCfg!
 	UU: ID!
+	M_ShipperPickupTypesCfg: M_ShipperPickupTypesCfg!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -51,8 +51,8 @@ input M_ShipperPickupTypesInput {
 	IsDefault: Boolean
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
-	M_ShipperPickupTypesCfg: ForeignEntityInput
 	UU: ID
+	M_ShipperPickupTypesCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 }

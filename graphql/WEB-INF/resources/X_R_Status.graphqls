@@ -46,19 +46,19 @@ type R_Status {
 	Name: String!
 	# Move to next status automatically after timeout
 	Next_Status: R_Status
+	UU: ID!
 	# Request Status Category
 	R_StatusCategory: R_StatusCategory!
-	UU: ID!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Timeout in Days to change Status automatically
 	TimeoutDays: Int
+	# Automatically change the status after entry from web
+	Update_Status: R_Status
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
-	# Automatically change the status after entry from web
-	Update_Status: R_Status
 	# Search key for the record in the format required - must be unique
 	Value: String!
 }
@@ -86,9 +86,9 @@ input R_StatusInput {
 	Name: String
 	# Move to next status automatically after timeout
 	Next_Status: ForeignEntityInput
+	UU: ID
 	# Request Status Category
 	R_StatusCategory: ForeignEntityInput
-	UU: ID
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Timeout in Days to change Status automatically

@@ -27,24 +27,6 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_POSPaymentResolver extends POResolver<MPOSPayment> implements GraphQLResolver<MPOSPayment> {
 
 
-	public static Map<String, String> CHECKSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("C", "a1add19e-164b-4e39-bda5-d1e46690dc73"); // Charged
-			put("D", "5b33e119-d7a5-4cea-bc93-08fbaf9e5598"); // Delayed
-			put("P", "d136c5ab-5469-4909-902b-b22f53cbefb2"); // Replaced
-			put("R", "f4234c44-1a21-4c11-b38f-db2afd89c0a2"); // Received
-			put("T", "8acc92df-e6ce-4522-a0e9-5a97919e87a1"); // Returned
-		}
-	};
-	public CompletableFuture<MRefList_BH> CheckStatus(MPOSPayment entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getCheckStatus())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(CHECKSTATUS_UUIDS_BY_VALUE.get(entity.getCheckStatus()));
-	}
-
 
 	/**
 	 * Get Order.
@@ -88,6 +70,24 @@ public class X_C_POSPaymentResolver extends POResolver<MPOSPayment> implements G
 		DataLoader<Integer, X_C_POSTenderType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_POSTenderTypeDataLoader.DATALOADER_C_POSTenderType_BY_ID);
 		return dataLoader.load(entity.getC_POSTenderType_ID());
+	}
+
+	public static Map<String, String> CHECKSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("C", "a1add19e-164b-4e39-bda5-d1e46690dc73"); // Charged
+			put("D", "5b33e119-d7a5-4cea-bc93-08fbaf9e5598"); // Delayed
+			put("P", "d136c5ab-5469-4909-902b-b22f53cbefb2"); // Replaced
+			put("R", "f4234c44-1a21-4c11-b38f-db2afd89c0a2"); // Received
+			put("T", "8acc92df-e6ce-4522-a0e9-5a97919e87a1"); // Returned
+		}
+	};
+	public CompletableFuture<MRefList_BH> CheckStatus(MPOSPayment entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getCheckStatus())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(CHECKSTATUS_UUIDS_BY_VALUE.get(entity.getCheckStatus()));
 	}
 
 	public static Map<String, String> CREDITCARDTYPE_UUIDS_BY_VALUE = new HashMap<>() {

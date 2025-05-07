@@ -107,35 +107,6 @@ public class X_M_SerNoCtlExcludeInput extends MSerNoCtlExclude implements I_M_Se
 	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
-	/**
-	 * Set Exclude Ser No.
-	 *
-	 * @param M_SerNoCtlExclude_ID Exclude the ability to create Serial Numbers in Attribute Sets
-	 */
-	@JsonProperty("M_SerNoCtlExclude_ID")
-	public void setM_SerNoCtlExclude_IDFromJson(int M_SerNoCtlExclude_ID) {
-		if (get_ID() == 0) {
-			super.setM_SerNoCtlExclude_ID(M_SerNoCtlExclude_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_SerNoCtlExclude_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_SerNoCtlExclude_UU();
-	}
 
 	/**
 	 * Set Serial No Control.
@@ -172,5 +143,34 @@ public class X_M_SerNoCtlExcludeInput extends MSerNoCtlExclude implements I_M_Se
 	@JsonProperty("M_SerNoCtl")
 	public ForeignEntityInput M_SerNoCtl() {
 		return mM_SerNoCtl;
+	}
+	/**
+	 * Set Exclude Ser No.
+	 *
+	 * @param M_SerNoCtlExclude_ID Exclude the ability to create Serial Numbers in Attribute Sets
+	 */
+	@JsonProperty("M_SerNoCtlExclude_ID")
+	public void setM_SerNoCtlExclude_IDFromJson(int M_SerNoCtlExclude_ID) {
+		if (get_ID() == 0) {
+			super.setM_SerNoCtlExclude_ID(M_SerNoCtlExclude_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_SerNoCtlExclude_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_SerNoCtlExclude_UU();
 	}
 }

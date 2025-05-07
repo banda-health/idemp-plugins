@@ -130,6 +130,35 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	public ForeignEntityInput AD_Column() {
 		return mAD_Column;
 	}
+	/**
+	 * Set Field.
+	 *
+	 * @param AD_Field_ID Field on a database table
+	 */
+	@JsonProperty("AD_Field_ID")
+	public void setAD_Field_IDFromJson(int AD_Field_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Field_ID(AD_Field_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_Field_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_Field_UU();
+	}
 
 	/**
 	 * Set Field Group.
@@ -164,17 +193,6 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	public ForeignEntityInput AD_FieldGroup() {
 		return mAD_FieldGroup;
 	}
-	/**
-	 * Set Field.
-	 *
-	 * @param AD_Field_ID Field on a database table
-	 */
-	@JsonProperty("AD_Field_ID")
-	public void setAD_Field_IDFromJson(int AD_Field_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Field_ID(AD_Field_ID);
-		}
-	}
 
 	/**
 	 * Set Field Style.
@@ -208,24 +226,6 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	@JsonProperty("AD_FieldStyle")
 	public ForeignEntityInput AD_FieldStyle() {
 		return mAD_FieldStyle;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_Field_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_Field_UU();
 	}
 
 	/**

@@ -39,20 +39,6 @@ public interface I_M_AttributeSetExcludeInput extends I_M_AttributeSetExclude {
 	ForeignEntityInput AD_Table();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_AttributeSet.
 	 *
 	 * @param M_AttributeSet Product Attribute Set
@@ -65,4 +51,18 @@ public interface I_M_AttributeSetExcludeInput extends I_M_AttributeSetExclude {
 	 * @return Product Attribute Set
 	 */
 	ForeignEntityInput M_AttributeSet();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

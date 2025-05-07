@@ -26,10 +26,10 @@ type C_Country {
 	AD_Org: AD_Org!
 	# A flag to allow cities, currently not in the list, to be entered
 	AllowCitiesOutOfList: Boolean!
-	CaptureSequence: String
 	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency
+	CaptureSequence: String
 	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String!
 	# Date this record was created
@@ -104,10 +104,10 @@ input C_CountryInput {
 	AD_Org: ForeignEntityInput
 	# A flag to allow cities, currently not in the list, to be entered
 	AllowCitiesOutOfList: Boolean
-	CaptureSequence: String
 	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
+	CaptureSequence: String
 	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: String
 	# Optional short description of the record

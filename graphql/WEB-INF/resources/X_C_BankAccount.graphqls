@@ -28,9 +28,9 @@ type C_BankAccount {
 	BankAccountType: AD_Ref_List!
 	# Basic Bank Account Number
 	BBAN: String
-	UU: ID!
 	# Bank
 	C_Bank: C_Bank!
+	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -69,9 +69,9 @@ input C_BankAccountInput {
 	BankAccountType: ForeignEntityInput
 	# Basic Bank Account Number
 	BBAN: String
-	UU: ID
 	# Bank
 	C_Bank: ForeignEntityInput
+	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Amount of Credit allowed

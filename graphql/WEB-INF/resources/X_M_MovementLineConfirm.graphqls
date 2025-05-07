@@ -38,9 +38,9 @@ type M_MovementLineConfirm {
 	M_InventoryLine: M_InventoryLine
 	# Inventory Move Confirmation
 	M_MovementConfirm: M_MovementConfirm!
-	UU: ID!
 	# Inventory Move document Line
 	M_MovementLine: M_MovementLine!
+	UU: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# The Quantity scrapped due to QA issues
@@ -68,9 +68,9 @@ input M_MovementLineConfirmInput {
 	M_InventoryLine: ForeignEntityInput
 	# Inventory Move Confirmation
 	M_MovementConfirm: ForeignEntityInput
-	UU: ID
 	# Inventory Move document Line
 	M_MovementLine: ForeignEntityInput
+	UU: ID
 	# The document has been processed
 	Processed: Boolean
 	# The Quantity scrapped due to QA issues

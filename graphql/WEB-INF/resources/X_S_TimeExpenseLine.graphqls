@@ -32,8 +32,6 @@ type S_TimeExpenseLine {
 	C_Currency: C_Currency
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine
-	# Converted Amount
-	ConvertedAmt: BigDecimal
 	# Sales Order Line
 	C_OrderLine: C_OrderLine
 	# Financial Project
@@ -42,12 +40,14 @@ type S_TimeExpenseLine {
 	C_ProjectPhase: C_ProjectPhase
 	# Actual Project Task in a Phase
 	C_ProjectTask: C_ProjectTask
+	# Unit of Measure
+	C_UOM: C_UOM
+	# Converted Amount
+	ConvertedAmt: BigDecimal
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Unit of Measure
-	C_UOM: C_UOM
 	# Date of expense
 	DateExpense: Date!
 	# Optional short description of the record
@@ -108,8 +108,6 @@ input S_TimeExpenseLineInput {
 	C_Currency: ForeignEntityInput
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
-	# Converted Amount
-	ConvertedAmt: BigDecimal
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# Financial Project
@@ -120,6 +118,8 @@ input S_TimeExpenseLineInput {
 	C_ProjectTask: ForeignEntityInput
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
+	# Converted Amount
+	ConvertedAmt: BigDecimal
 	# Date of expense
 	DateExpense: Date
 	# Optional short description of the record

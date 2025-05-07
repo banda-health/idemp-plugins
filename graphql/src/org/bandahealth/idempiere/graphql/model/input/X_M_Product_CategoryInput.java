@@ -185,45 +185,6 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	public ForeignEntityInput BH_Product_Category_Type() {
 		return mBH_Product_Category_Type;
 	}
-
-	/**
-	 * Set Material Policy.
-	 *
-	 * @param MMPolicy Material Movement Policy
-	 */
-	@JsonProperty("MMPolicy")
-	public void setMMPolicyInput(ForeignEntityInput MMPolicy) {
-		this.mMMPolicy = MMPolicy;
-		if (MMPolicy != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_M_Product_CategoryResolver.MMPOLICY_UUIDS_BY_VALUE.containsValue(MMPolicy.getUU())) {
-				throw new AdempiereException("The reference list UU of " + MMPolicy.getUU() +
-						" is not in the list defined for the MMPolicy column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MMPolicy.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setMMPolicy(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MMPolicy.getUU());
-			}
-		} else {
-			this.setMMPolicy(null);
-		}
-	}
-
-	/**
-	 * Get Material Policy.
-	 *
-	 * @return Material Movement Policy
-	 */
-	@JsonProperty("MMPolicy")
-	public ForeignEntityInput MMPolicy() {
-		return mMMPolicy;
-	}
 	/**
 	 * Set Product Category.
 	 *
@@ -286,5 +247,44 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 */
 	public String getUU() {
 		return getM_Product_Category_UU();
+	}
+
+	/**
+	 * Set Material Policy.
+	 *
+	 * @param MMPolicy Material Movement Policy
+	 */
+	@JsonProperty("MMPolicy")
+	public void setMMPolicyInput(ForeignEntityInput MMPolicy) {
+		this.mMMPolicy = MMPolicy;
+		if (MMPolicy != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_Product_CategoryResolver.MMPOLICY_UUIDS_BY_VALUE.containsValue(MMPolicy.getUU())) {
+				throw new AdempiereException("The reference list UU of " + MMPolicy.getUU() +
+						" is not in the list defined for the MMPolicy column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(MMPolicy.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setMMPolicy(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MMPolicy.getUU());
+			}
+		} else {
+			this.setMMPolicy(null);
+		}
+	}
+
+	/**
+	 * Get Material Policy.
+	 *
+	 * @return Material Movement Policy
+	 */
+	@JsonProperty("MMPolicy")
+	public ForeignEntityInput MMPolicy() {
+		return mMMPolicy;
 	}
 }

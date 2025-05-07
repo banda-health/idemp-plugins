@@ -37,10 +37,10 @@ type M_DistributionRunLine {
 	# Distribution Run create Orders to distribute products to a selected list of partners
 	M_DistributionRun: M_DistributionRun!
 	UU: ID!
-	# Minimum quantity for the business partner
-	MinQty: BigDecimal!
 	# Product, Service, Item
 	M_Product: M_Product!
+	# Minimum quantity for the business partner
+	MinQty: BigDecimal!
 	# Total Quantity
 	TotalQty: BigDecimal!
 	# Date this record was updated
@@ -63,10 +63,10 @@ input M_DistributionRunLineInput {
 	# Distribution Run create Orders to distribute products to a selected list of partners
 	M_DistributionRun: ForeignEntityInput
 	UU: ID
-	# Minimum quantity for the business partner
-	MinQty: BigDecimal
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
+	# Minimum quantity for the business partner
+	MinQty: BigDecimal
 	# Total Quantity
 	TotalQty: BigDecimal
 }

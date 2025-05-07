@@ -25,20 +25,6 @@ public interface I_M_PackageInput extends I_M_Package {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set C_BPartner_Location.
-	 *
-	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
-	 */
-	void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location);
-
-	/**
-	 * Get C_BPartner_Location.
-	 *
-	 * @return Identifies the (ship to) address for this Business Partner
-	 */
-	ForeignEntityInput C_BPartner_Location();
-
-	/**
 	 * Set C_BP_ShippingAcct.
 	 *
 	 * @param C_BP_ShippingAcct C_BP_ShippingAcct
@@ -51,6 +37,20 @@ public interface I_M_PackageInput extends I_M_Package {
 	 * @return C_BP_ShippingAcct
 	 */
 	ForeignEntityInput C_BP_ShippingAcct();
+
+	/**
+	 * Set C_BPartner_Location.
+	 *
+	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
+	 */
+	void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location);
+
+	/**
+	 * Get C_BPartner_Location.
+	 *
+	 * @return Identifies the (ship to) address for this Business Partner
+	 */
+	ForeignEntityInput C_BPartner_Location();
 
 	/**
 	 * Set C_Currency.

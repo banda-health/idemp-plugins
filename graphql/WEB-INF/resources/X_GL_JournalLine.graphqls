@@ -22,9 +22,10 @@ type GL_JournalLine {
 	A_Asset_Group: A_Asset_Group
 	# Asset used internally or by customers
 	A_Asset: A_Asset
+	A_CreateAsset: Boolean!
+	A_Processed: Boolean!
 	# Account used
 	Account: C_ElementValue
-	A_CreateAsset: Boolean!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -39,7 +40,6 @@ type GL_JournalLine {
 	AmtSourceCr: BigDecimal!
 	# Source Debit Amount
 	AmtSourceDr: BigDecimal!
-	A_Processed: Boolean!
 	# Business Activity
 	C_Activity: C_Activity
 	# Identifies a Business Partner
@@ -56,20 +56,20 @@ type GL_JournalLine {
 	C_LocTo: C_Location
 	# Financial Project
 	C_Project: C_Project
-	# Date this record was created
-	Created: DateTime!
-	# User who created this records
-	CreatedBy: AD_User!
 	# Sales coverage region
 	C_SalesRegion: C_SalesRegion
 	# Sub account for Element Value
 	C_SubAcct: C_SubAcct
 	# Unit of Measure
 	C_UOM: C_UOM
-	# Currency Conversion Rate
-	CurrencyRate: BigDecimal!
 	# Valid Account Combination
 	C_ValidCombination: C_ValidCombination
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Currency Conversion Rate
+	CurrencyRate: BigDecimal!
 	# Accounting Date
 	DateAcct: Date!
 	# Optional short description of the record
@@ -104,9 +104,10 @@ input GL_JournalLineInput {
 	A_Asset_Group: ForeignEntityInput
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
+	A_CreateAsset: Boolean
+	A_Processed: Boolean
 	# Account used
 	Account: ForeignEntityInput
-	A_CreateAsset: Boolean
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Valid Account Alias List
@@ -119,7 +120,6 @@ input GL_JournalLineInput {
 	AmtSourceCr: BigDecimal
 	# Source Debit Amount
 	AmtSourceDr: BigDecimal
-	A_Processed: Boolean
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Identifies a Business Partner
@@ -142,10 +142,10 @@ input GL_JournalLineInput {
 	C_SubAcct: ForeignEntityInput
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
-	# Currency Conversion Rate
-	CurrencyRate: BigDecimal
 	# Valid Account Combination
 	C_ValidCombination: ForeignEntityInput
+	# Currency Conversion Rate
+	CurrencyRate: BigDecimal
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record

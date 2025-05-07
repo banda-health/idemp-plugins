@@ -28,9 +28,9 @@ type AD_UserDef_Proc {
 	AD_Process: AD_Process!
 	# Responsibility Role
 	AD_Role: AD_Role
-	UU: ID!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -60,9 +60,9 @@ input AD_UserDef_ProcInput {
 	AD_Process: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	UU: ID
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

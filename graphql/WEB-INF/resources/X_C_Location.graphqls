@@ -20,6 +20,8 @@ type C_LocationConnection {
 type C_Location {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	# Address line 1 for this location
 	Address1: String
 	# Address line 2 for this location
@@ -30,24 +32,22 @@ type C_Location {
 	Address4: String
 	# Address Line 5 for the location
 	Address5: String
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	C_AddressValidation: C_AddressValidation
 	# City
 	C_City: C_City
 	# Country 
 	C_Country: C_Country!
+	UU: ID!
+	# Identifies a geographical Region
+	C_Region: C_Region
 	# Identifies a City
 	City: String
-	UU: ID!
 	# Comments or additional information
 	Comments: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Identifies a geographical Region
-	C_Region: C_Region
 	# The record is active in the system
 	IsActive: Boolean!
 	# Element is valid
@@ -68,6 +68,8 @@ type C_Location {
 }
 
 input C_LocationInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# Address line 1 for this location
 	Address1: String
 	# Address line 2 for this location
@@ -78,20 +80,18 @@ input C_LocationInput {
 	Address4: String
 	# Address Line 5 for the location
 	Address5: String
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	C_AddressValidation: ForeignEntityInput
 	# City
 	C_City: ForeignEntityInput
 	# Country 
 	C_Country: ForeignEntityInput
-	# Identifies a City
-	City: String
 	UU: ID
-	# Comments or additional information
-	Comments: String
 	# Identifies a geographical Region
 	C_Region: ForeignEntityInput
+	# Identifies a City
+	City: String
+	# Comments or additional information
+	Comments: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Element is valid

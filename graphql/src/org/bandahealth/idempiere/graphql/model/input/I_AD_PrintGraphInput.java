@@ -53,6 +53,20 @@ public interface I_AD_PrintGraphInput extends I_AD_PrintGraph {
 	String getUU();
 
 	/**
+	 * Set Data_PrintFormatItem.
+	 *
+	 * @param Data_PrintFormatItem Data Column for Pie and Line Charts
+	 */
+	void setData_PrintFormatItemInput(ForeignEntityInput Data_PrintFormatItem);
+
+	/**
+	 * Get Data_PrintFormatItem.
+	 *
+	 * @return Data Column for Pie and Line Charts
+	 */
+	ForeignEntityInput Data_PrintFormatItem();
+
+	/**
 	 * Set Data1_PrintFormatItem.
 	 *
 	 * @param Data1_PrintFormatItem Data Column for Line Charts
@@ -107,20 +121,6 @@ public interface I_AD_PrintGraphInput extends I_AD_PrintGraph {
 	 * @return Data Column for Line Charts
 	 */
 	ForeignEntityInput Data4_PrintFormatItem();
-
-	/**
-	 * Set Data_PrintFormatItem.
-	 *
-	 * @param Data_PrintFormatItem Data Column for Pie and Line Charts
-	 */
-	void setData_PrintFormatItemInput(ForeignEntityInput Data_PrintFormatItem);
-
-	/**
-	 * Get Data_PrintFormatItem.
-	 *
-	 * @return Data Column for Pie and Line Charts
-	 */
-	ForeignEntityInput Data_PrintFormatItem();
 
 	/**
 	 * Set Description_PrintFormatItem.

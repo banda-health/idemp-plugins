@@ -53,6 +53,20 @@ public interface I_C_AcctSchemaInput extends I_C_AcctSchema {
 	ForeignEntityInput C_Currency();
 
 	/**
+	 * Set C_Period.
+	 *
+	 * @param C_Period Period of the Calendar
+	 */
+	void setC_PeriodInput(ForeignEntityInput C_Period);
+
+	/**
+	 * Get C_Period.
+	 *
+	 * @return Period of the Calendar
+	 */
+	ForeignEntityInput C_Period();
+
+	/**
 	 * Set CommitmentType.
 	 *
 	 * @param CommitmentType Create Commitment and/or Reservations for Budget Control
@@ -93,20 +107,6 @@ public interface I_C_AcctSchemaInput extends I_C_AcctSchema {
 	 * @return Indicates how Costs will be calculated
 	 */
 	ForeignEntityInput CostingMethod();
-
-	/**
-	 * Set C_Period.
-	 *
-	 * @param C_Period Period of the Calendar
-	 */
-	void setC_PeriodInput(ForeignEntityInput C_Period);
-
-	/**
-	 * Get C_Period.
-	 *
-	 * @return Period of the Calendar
-	 */
-	ForeignEntityInput C_Period();
 
 	/**
 	 * Set GAAP.

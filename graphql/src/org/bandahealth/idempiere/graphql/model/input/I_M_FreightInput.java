@@ -67,20 +67,6 @@ public interface I_M_FreightInput extends I_M_Freight {
 	ForeignEntityInput C_Region();
 
 	/**
-	 * Set M_FreightCategory.
-	 *
-	 * @param M_FreightCategory Category of the Freight
-	 */
-	void setM_FreightCategoryInput(ForeignEntityInput M_FreightCategory);
-
-	/**
-	 * Get M_FreightCategory.
-	 *
-	 * @return Category of the Freight
-	 */
-	ForeignEntityInput M_FreightCategory();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -93,6 +79,20 @@ public interface I_M_FreightInput extends I_M_Freight {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set M_FreightCategory.
+	 *
+	 * @param M_FreightCategory Category of the Freight
+	 */
+	void setM_FreightCategoryInput(ForeignEntityInput M_FreightCategory);
+
+	/**
+	 * Get M_FreightCategory.
+	 *
+	 * @return Category of the Freight
+	 */
+	ForeignEntityInput M_FreightCategory();
 
 	/**
 	 * Set M_Shipper.

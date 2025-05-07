@@ -71,6 +71,35 @@ public class X_C_RevenueRecog_ServiceInput extends MRevenueRecogService implemen
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Revenue Recognition Service.
+	 *
+	 * @param C_RevenueRecog_Service_ID Revenue Recognition Service
+	 */
+	@JsonProperty("C_RevenueRecog_Service_ID")
+	public void setC_RevenueRecog_Service_IDFromJson(int C_RevenueRecog_Service_ID) {
+		if (get_ID() == 0) {
+			super.setC_RevenueRecog_Service_ID(C_RevenueRecog_Service_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_RevenueRecog_Service_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_RevenueRecog_Service_UU();
+	}
 
 	/**
 	 * Set Revenue Recognition.
@@ -107,34 +136,5 @@ public class X_C_RevenueRecog_ServiceInput extends MRevenueRecogService implemen
 	@JsonProperty("C_RevenueRecognition")
 	public ForeignEntityInput C_RevenueRecognition() {
 		return mC_RevenueRecognition;
-	}
-	/**
-	 * Set Revenue Recognition Service.
-	 *
-	 * @param C_RevenueRecog_Service_ID Revenue Recognition Service
-	 */
-	@JsonProperty("C_RevenueRecog_Service_ID")
-	public void setC_RevenueRecog_Service_IDFromJson(int C_RevenueRecog_Service_ID) {
-		if (get_ID() == 0) {
-			super.setC_RevenueRecog_Service_ID(C_RevenueRecog_Service_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_RevenueRecog_Service_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_RevenueRecog_Service_UU();
 	}
 }

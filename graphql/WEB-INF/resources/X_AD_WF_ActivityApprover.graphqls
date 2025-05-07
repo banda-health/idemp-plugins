@@ -24,9 +24,9 @@ type AD_WF_ActivityApprover {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	UU: ID!
 	# Workflow Activity
 	AD_WF_Activity: AD_WF_Activity!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -44,9 +44,9 @@ input AD_WF_ActivityApproverInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	UU: ID
 	# Workflow Activity
 	AD_WF_Activity: ForeignEntityInput
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 }

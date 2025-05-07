@@ -28,8 +28,8 @@ type HR_ListVersion {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	HR_ListBase: HR_List
 	HR_List: HR_List!
+	HR_ListBase: HR_List
 	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
@@ -50,8 +50,8 @@ input HR_ListVersionInput {
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	HR_ListBase: ForeignEntityInput
 	HR_List: ForeignEntityInput
+	HR_ListBase: ForeignEntityInput
 	UU: ID
 	# The record is active in the system
 	IsActive: Boolean

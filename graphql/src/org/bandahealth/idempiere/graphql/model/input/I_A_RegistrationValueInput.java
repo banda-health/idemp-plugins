@@ -11,18 +11,18 @@ import org.compiere.model.I_A_RegistrationValue;
 public interface I_A_RegistrationValueInput extends I_A_RegistrationValue {
 
 	/**
-	 * Set AD_Org.
+	 * Set A_Registration.
 	 *
-	 * @param AD_Org Organizational entity within tenant
+	 * @param A_Registration User Asset Registration
 	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
+	void setA_RegistrationInput(ForeignEntityInput A_Registration);
 
 	/**
-	 * Get AD_Org.
+	 * Get A_Registration.
 	 *
-	 * @return Organizational entity within tenant
+	 * @return User Asset Registration
 	 */
-	ForeignEntityInput AD_Org();
+	ForeignEntityInput A_Registration();
 
 	/**
 	 * Set A_RegistrationAttribute.
@@ -39,20 +39,6 @@ public interface I_A_RegistrationValueInput extends I_A_RegistrationValue {
 	ForeignEntityInput A_RegistrationAttribute();
 
 	/**
-	 * Set A_Registration.
-	 *
-	 * @param A_Registration User Asset Registration
-	 */
-	void setA_RegistrationInput(ForeignEntityInput A_Registration);
-
-	/**
-	 * Get A_Registration.
-	 *
-	 * @return User Asset Registration
-	 */
-	ForeignEntityInput A_Registration();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -65,4 +51,18 @@ public interface I_A_RegistrationValueInput extends I_A_RegistrationValue {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
 }

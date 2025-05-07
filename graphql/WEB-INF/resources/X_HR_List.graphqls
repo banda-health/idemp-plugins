@@ -30,8 +30,8 @@ type HR_List {
 	Description: String
 	HR_Department: HR_Department
 	HR_Employee: HR_Employee
-	HR_ListType: HR_ListType
 	UU: ID!
+	HR_ListType: HR_ListType
 	HR_Payroll: HR_Payroll
 	# The record is active in the system
 	IsActive: Boolean!
@@ -56,8 +56,8 @@ input HR_ListInput {
 	Description: String
 	HR_Department: ForeignEntityInput
 	HR_Employee: ForeignEntityInput
-	HR_ListType: ForeignEntityInput
 	UU: ID
+	HR_ListType: ForeignEntityInput
 	HR_Payroll: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

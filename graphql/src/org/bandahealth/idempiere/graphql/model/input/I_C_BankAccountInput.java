@@ -39,20 +39,6 @@ public interface I_C_BankAccountInput extends I_C_BankAccount {
 	ForeignEntityInput BankAccountType();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_Bank.
 	 *
 	 * @param C_Bank Bank
@@ -65,6 +51,20 @@ public interface I_C_BankAccountInput extends I_C_BankAccount {
 	 * @return Bank
 	 */
 	ForeignEntityInput C_Bank();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set C_Currency.

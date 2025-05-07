@@ -98,40 +98,6 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	}
 
 	/**
-	 * Set Partner Location.
-	 *
-	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
-	 */
-	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
-		this.mC_BPartner_Location = C_BPartner_Location;
-		if (C_BPartner_Location != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPartnerLocation foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BPartner_Location with UU " + C_BPartner_Location.getUU());
-			}
-		} else {
-			this.setC_BPartner_Location_ID(0);
-		}
-	}
-
-	/**
-	 * Get Partner Location.
-	 *
-	 * @return Identifies the (ship to) address for this Business Partner
-	 */
-	@JsonProperty("C_BPartner_Location")
-	public ForeignEntityInput C_BPartner_Location() {
-		return mC_BPartner_Location;
-	}
-
-	/**
 	 * Set Business Partner Shipping Account.
 	 *
 	 * @param C_BP_ShippingAcct Business Partner Shipping Account
@@ -163,6 +129,40 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	@JsonProperty("C_BP_ShippingAcct")
 	public ForeignEntityInput C_BP_ShippingAcct() {
 		return mC_BP_ShippingAcct;
+	}
+
+	/**
+	 * Set Partner Location.
+	 *
+	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
+	 */
+	@JsonProperty("C_BPartner_Location")
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
+		this.mC_BPartner_Location = C_BPartner_Location;
+		if (C_BPartner_Location != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner_Location with UU " + C_BPartner_Location.getUU());
+			}
+		} else {
+			this.setC_BPartner_Location_ID(0);
+		}
+	}
+
+	/**
+	 * Get Partner Location.
+	 *
+	 * @return Identifies the (ship to) address for this Business Partner
+	 */
+	@JsonProperty("C_BPartner_Location")
+	public ForeignEntityInput C_BPartner_Location() {
+		return mC_BPartner_Location;
 	}
 
 	/**

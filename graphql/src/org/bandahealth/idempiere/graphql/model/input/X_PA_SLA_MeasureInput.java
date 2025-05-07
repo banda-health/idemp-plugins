@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MSLAGoal;
-import org.compiere.model.MSLAMeasure;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_SLA_Goal;
+import org.compiere.model.X_PA_SLA_Measure;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_MeasureInput {
+public class X_PA_SLA_MeasureInput extends X_PA_SLA_Measure implements I_PA_SLA_MeasureInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Table;
@@ -121,7 +121,7 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 		}
 		if (PA_SLA_Goal != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MSLAGoal foreignEntity;
+			X_PA_SLA_Goal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_SLA_Goal", "PA_SLA_Goal_UU=?", get_TrxName())
 							.setParameters(PA_SLA_Goal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {

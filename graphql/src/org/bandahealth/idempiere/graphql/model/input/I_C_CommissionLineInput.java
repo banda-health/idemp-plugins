@@ -25,20 +25,6 @@ public interface I_C_CommissionLineInput extends I_C_CommissionLine {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set C_BPartner.
-	 *
-	 * @param C_BPartner Identifies a Business Partner
-	 */
-	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
-
-	/**
-	 * Get C_BPartner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	ForeignEntityInput C_BPartner();
-
-	/**
 	 * Set C_BP_Group.
 	 *
 	 * @param C_BP_Group Business Partner Group
@@ -51,6 +37,20 @@ public interface I_C_CommissionLineInput extends I_C_CommissionLine {
 	 * @return Business Partner Group
 	 */
 	ForeignEntityInput C_BP_Group();
+
+	/**
+	 * Set C_BPartner.
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
+
+	/**
+	 * Get C_BPartner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set C_Commission.

@@ -182,40 +182,6 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	}
 
 	/**
-	 * Set Business Partner.
-	 *
-	 * @param C_BPartner Identifies a Business Partner
-	 */
-	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
-		this.mC_BPartner = C_BPartner;
-		if (C_BPartner != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPartner_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BPartner_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
-			}
-		} else {
-			this.setC_BPartner_ID(0);
-		}
-	}
-
-	/**
-	 * Get Business Partner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	@JsonProperty("C_BPartner")
-	public ForeignEntityInput C_BPartner() {
-		return mC_BPartner;
-	}
-
-	/**
 	 * Set Partner Bank Account.
 	 *
 	 * @param C_BP_BankAccount Bank Account of the Business Partner
@@ -247,6 +213,40 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_BP_BankAccount")
 	public ForeignEntityInput C_BP_BankAccount() {
 		return mC_BP_BankAccount;
+	}
+
+	/**
+	 * Set Business Partner.
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
+		if (C_BPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
+			}
+		} else {
+			this.setC_BPartner_ID(0);
+		}
+	}
+
+	/**
+	 * Get Business Partner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public ForeignEntityInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**
@@ -488,40 +488,6 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	}
 
 	/**
-	 * Set Payment Batch.
-	 *
-	 * @param C_PaymentBatch Payment batch for EFT
-	 */
-	@JsonProperty("C_PaymentBatch")
-	public void setC_PaymentBatchInput(ForeignEntityInput C_PaymentBatch) {
-		this.mC_PaymentBatch = C_PaymentBatch;
-		if (C_PaymentBatch != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MPaymentBatch foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_PaymentBatch", "C_PaymentBatch_UU=?", get_TrxName())
-							.setParameters(C_PaymentBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_PaymentBatch_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_PaymentBatch with UU " + C_PaymentBatch.getUU());
-			}
-		} else {
-			this.setC_PaymentBatch_ID(0);
-		}
-	}
-
-	/**
-	 * Get Payment Batch.
-	 *
-	 * @return Payment batch for EFT
-	 */
-	@JsonProperty("C_PaymentBatch")
-	public ForeignEntityInput C_PaymentBatch() {
-		return mC_PaymentBatch;
-	}
-
-	/**
 	 * Set Payment.
 	 *
 	 * @param C_Payment Payment identifier
@@ -553,6 +519,40 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_Payment")
 	public ForeignEntityInput C_Payment() {
 		return mC_Payment;
+	}
+
+	/**
+	 * Set Payment Batch.
+	 *
+	 * @param C_PaymentBatch Payment batch for EFT
+	 */
+	@JsonProperty("C_PaymentBatch")
+	public void setC_PaymentBatchInput(ForeignEntityInput C_PaymentBatch) {
+		this.mC_PaymentBatch = C_PaymentBatch;
+		if (C_PaymentBatch != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentBatch foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_PaymentBatch", "C_PaymentBatch_UU=?", get_TrxName())
+							.setParameters(C_PaymentBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_PaymentBatch_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_PaymentBatch with UU " + C_PaymentBatch.getUU());
+			}
+		} else {
+			this.setC_PaymentBatch_ID(0);
+		}
+	}
+
+	/**
+	 * Get Payment Batch.
+	 *
+	 * @return Payment batch for EFT
+	 */
+	@JsonProperty("C_PaymentBatch")
+	public ForeignEntityInput C_PaymentBatch() {
+		return mC_PaymentBatch;
 	}
 
 	/**
@@ -841,40 +841,6 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 			super.setR_CVV2Match(R_CVV2Match);
 		}
 	}
-
-	/**
-	 * Set Referenced Payment Transaction.
-	 *
-	 * @param Ref_PaymentTransaction Referenced Payment Transaction
-	 */
-	@JsonProperty("Ref_PaymentTransaction")
-	public void setRef_PaymentTransactionInput(ForeignEntityInput Ref_PaymentTransaction) {
-		this.mRef_PaymentTransaction = Ref_PaymentTransaction;
-		if (Ref_PaymentTransaction != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MPaymentTransaction foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_PaymentTransaction", "C_PaymentTransaction_UU=?", get_TrxName())
-							.setParameters(Ref_PaymentTransaction.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setRef_PaymentTransaction_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_PaymentTransaction with UU " + Ref_PaymentTransaction.getUU());
-			}
-		} else {
-			this.setRef_PaymentTransaction_ID(0);
-		}
-	}
-
-	/**
-	 * Get Referenced Payment Transaction.
-	 *
-	 * @return Referenced Payment Transaction
-	 */
-	@JsonProperty("Ref_PaymentTransaction")
-	public ForeignEntityInput Ref_PaymentTransaction() {
-		return mRef_PaymentTransaction;
-	}
 	/**
 	 * Set Info.
 	 *
@@ -918,6 +884,40 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 		if (get_ID() == 0) {
 			super.setR_Result(R_Result);
 		}
+	}
+
+	/**
+	 * Set Referenced Payment Transaction.
+	 *
+	 * @param Ref_PaymentTransaction Referenced Payment Transaction
+	 */
+	@JsonProperty("Ref_PaymentTransaction")
+	public void setRef_PaymentTransactionInput(ForeignEntityInput Ref_PaymentTransaction) {
+		this.mRef_PaymentTransaction = Ref_PaymentTransaction;
+		if (Ref_PaymentTransaction != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentTransaction foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_PaymentTransaction", "C_PaymentTransaction_UU=?", get_TrxName())
+							.setParameters(Ref_PaymentTransaction.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setRef_PaymentTransaction_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_PaymentTransaction with UU " + Ref_PaymentTransaction.getUU());
+			}
+		} else {
+			this.setRef_PaymentTransaction_ID(0);
+		}
+	}
+
+	/**
+	 * Get Referenced Payment Transaction.
+	 *
+	 * @return Referenced Payment Transaction
+	 */
+	@JsonProperty("Ref_PaymentTransaction")
+	public ForeignEntityInput Ref_PaymentTransaction() {
+		return mRef_PaymentTransaction;
 	}
 
 	/**

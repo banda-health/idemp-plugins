@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MSLACriteria;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_SLA_Criteria;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_PA_SLA_CriteriaInput extends MSLACriteria implements I_PA_SLA_CriteriaInput {
+public class X_PA_SLA_CriteriaInput extends X_PA_SLA_Criteria implements I_PA_SLA_CriteriaInput {
 
 	private ForeignEntityInput mAD_Org;
 

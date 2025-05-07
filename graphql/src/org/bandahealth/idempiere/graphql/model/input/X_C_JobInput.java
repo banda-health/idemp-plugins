@@ -71,6 +71,35 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Position.
+	 *
+	 * @param C_Job_ID Job Position
+	 */
+	@JsonProperty("C_Job_ID")
+	public void setC_Job_IDFromJson(int C_Job_ID) {
+		if (get_ID() == 0) {
+			super.setC_Job_ID(C_Job_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_Job_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_Job_UU();
+	}
 
 	/**
 	 * Set Position Category.
@@ -104,34 +133,5 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	@JsonProperty("C_JobCategory")
 	public ForeignEntityInput C_JobCategory() {
 		return mC_JobCategory;
-	}
-	/**
-	 * Set Position.
-	 *
-	 * @param C_Job_ID Job Position
-	 */
-	@JsonProperty("C_Job_ID")
-	public void setC_Job_IDFromJson(int C_Job_ID) {
-		if (get_ID() == 0) {
-			super.setC_Job_ID(C_Job_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_Job_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_Job_UU();
 	}
 }

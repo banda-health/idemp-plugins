@@ -158,6 +158,24 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setHR_List_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getHR_List_UU();
+	}
+
+	/**
 	 * Set Payroll List Type.
 	 *
 	 * @param HR_ListType Payroll List Type
@@ -189,24 +207,6 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 	@JsonProperty("HR_ListType")
 	public ForeignEntityInput HR_ListType() {
 		return mHR_ListType;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setHR_List_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getHR_List_UU();
 	}
 
 	/**

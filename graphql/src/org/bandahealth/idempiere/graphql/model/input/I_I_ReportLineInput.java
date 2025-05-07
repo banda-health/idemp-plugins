@@ -25,20 +25,6 @@ public interface I_I_ReportLineInput extends I_I_ReportLine {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set CalculationType.
-	 *
-	 * @param CalculationType CalculationType
-	 */
-	void setCalculationTypeInput(ForeignEntityInput CalculationType);
-
-	/**
-	 * Get CalculationType.
-	 *
-	 * @return CalculationType
-	 */
-	ForeignEntityInput CalculationType();
-
-	/**
 	 * Set C_ElementValue.
 	 *
 	 * @param C_ElementValue Account Element
@@ -51,6 +37,20 @@ public interface I_I_ReportLineInput extends I_I_ReportLine {
 	 * @return Account Element
 	 */
 	ForeignEntityInput C_ElementValue();
+
+	/**
+	 * Set CalculationType.
+	 *
+	 * @param CalculationType CalculationType
+	 */
+	void setCalculationTypeInput(ForeignEntityInput CalculationType);
+
+	/**
+	 * Get CalculationType.
+	 *
+	 * @return CalculationType
+	 */
+	ForeignEntityInput CalculationType();
 
 	/**
 	 * Set UU.
@@ -79,34 +79,6 @@ public interface I_I_ReportLineInput extends I_I_ReportLine {
 	 * @return LineType
 	 */
 	ForeignEntityInput LineType();
-
-	/**
-	 * Set PAAmountType.
-	 *
-	 * @param PAAmountType PA Amount Type for reporting
-	 */
-	void setPAAmountTypeInput(ForeignEntityInput PAAmountType);
-
-	/**
-	 * Get PAAmountType.
-	 *
-	 * @return PA Amount Type for reporting
-	 */
-	ForeignEntityInput PAAmountType();
-
-	/**
-	 * Set PAPeriodType.
-	 *
-	 * @param PAPeriodType PA Period Type
-	 */
-	void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType);
-
-	/**
-	 * Get PAPeriodType.
-	 *
-	 * @return PA Period Type
-	 */
-	ForeignEntityInput PAPeriodType();
 
 	/**
 	 * Set PA_ReportLine.
@@ -149,6 +121,34 @@ public interface I_I_ReportLineInput extends I_I_ReportLine {
 	 * @return Restriction of what will be shown in Report Line
 	 */
 	ForeignEntityInput PA_ReportSource();
+
+	/**
+	 * Set PAAmountType.
+	 *
+	 * @param PAAmountType PA Amount Type for reporting
+	 */
+	void setPAAmountTypeInput(ForeignEntityInput PAAmountType);
+
+	/**
+	 * Get PAAmountType.
+	 *
+	 * @return PA Amount Type for reporting
+	 */
+	ForeignEntityInput PAAmountType();
+
+	/**
+	 * Set PAPeriodType.
+	 *
+	 * @param PAPeriodType PA Period Type
+	 */
+	void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType);
+
+	/**
+	 * Get PAPeriodType.
+	 *
+	 * @return PA Period Type
+	 */
+	ForeignEntityInput PAPeriodType();
 
 	/**
 	 * Set PostingType.

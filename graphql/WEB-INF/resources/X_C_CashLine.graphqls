@@ -24,8 +24,6 @@ type C_CashLine {
 	AD_Org: AD_Org!
 	# Amount in a defined currency
 	Amount: BigDecimal!
-	# Source of Cash
-	CashType: AD_Ref_List!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount
 	# Cash Journal
@@ -39,6 +37,8 @@ type C_CashLine {
 	C_Invoice: C_Invoice
 	# Payment identifier
 	C_Payment: C_Payment
+	# Source of Cash
+	CashType: AD_Ref_List!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -68,8 +68,6 @@ input C_CashLineInput {
 	AD_Org: ForeignEntityInput
 	# Amount in a defined currency
 	Amount: BigDecimal
-	# Source of Cash
-	CashType: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
 	# Cash Journal
@@ -83,6 +81,8 @@ input C_CashLineInput {
 	C_Invoice: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput
+	# Source of Cash
+	CashType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Calculated amount of discount

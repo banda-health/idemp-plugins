@@ -81,20 +81,6 @@ public interface I_C_RecurringInput extends I_C_Recurring {
 	ForeignEntityInput C_Project();
 
 	/**
-	 * Set C_RecurringGroup.
-	 *
-	 * @param C_RecurringGroup C_RecurringGroup
-	 */
-	void setC_RecurringGroupInput(ForeignEntityInput C_RecurringGroup);
-
-	/**
-	 * Get C_RecurringGroup.
-	 *
-	 * @return C_RecurringGroup
-	 */
-	ForeignEntityInput C_RecurringGroup();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -107,6 +93,20 @@ public interface I_C_RecurringInput extends I_C_Recurring {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_RecurringGroup.
+	 *
+	 * @param C_RecurringGroup C_RecurringGroup
+	 */
+	void setC_RecurringGroupInput(ForeignEntityInput C_RecurringGroup);
+
+	/**
+	 * Get C_RecurringGroup.
+	 *
+	 * @return C_RecurringGroup
+	 */
+	ForeignEntityInput C_RecurringGroup();
 
 	/**
 	 * Set FrequencyType.

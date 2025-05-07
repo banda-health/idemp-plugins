@@ -32,8 +32,8 @@ type M_ShipperPackaging {
 	IsDefault: Boolean!
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
-	M_ShipperPackagingCfg: M_ShipperPackagingCfg!
 	UU: ID!
+	M_ShipperPackagingCfg: M_ShipperPackagingCfg!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -53,8 +53,8 @@ input M_ShipperPackagingInput {
 	IsDefault: Boolean
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
-	M_ShipperPackagingCfg: ForeignEntityInput
 	UU: ID
+	M_ShipperPackagingCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Weight of a product

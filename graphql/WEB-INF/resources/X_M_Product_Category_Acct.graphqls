@@ -59,11 +59,11 @@ type M_Product_Category_Acct {
 	P_RateVariance_A: C_ValidCombination!
 	# Account for Product Revenue (Sales Account)
 	P_Revenue_A: C_ValidCombination!
-	Processing: Boolean!
 	# Trade Discount Granted Account
 	P_TradeDiscountGrant_A: C_ValidCombination!
 	# Trade Discount Receivable Account
 	P_TradeDiscountRec_A: C_ValidCombination!
+	Processing: Boolean!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -106,9 +106,9 @@ input M_Product_Category_AcctInput {
 	P_RateVariance_A: ForeignEntityInput
 	# Account for Product Revenue (Sales Account)
 	P_Revenue_A: ForeignEntityInput
-	Processing: Boolean
 	# Trade Discount Granted Account
 	P_TradeDiscountGrant_A: ForeignEntityInput
 	# Trade Discount Receivable Account
 	P_TradeDiscountRec_A: ForeignEntityInput
+	Processing: Boolean
 }

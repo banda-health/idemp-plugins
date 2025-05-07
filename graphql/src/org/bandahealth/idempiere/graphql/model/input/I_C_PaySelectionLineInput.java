@@ -39,20 +39,6 @@ public interface I_C_PaySelectionLineInput extends I_C_PaySelectionLine {
 	ForeignEntityInput C_Invoice();
 
 	/**
-	 * Set C_PaySelectionCheck.
-	 *
-	 * @param C_PaySelectionCheck Payment Selection Check
-	 */
-	void setC_PaySelectionCheckInput(ForeignEntityInput C_PaySelectionCheck);
-
-	/**
-	 * Get C_PaySelectionCheck.
-	 *
-	 * @return Payment Selection Check
-	 */
-	ForeignEntityInput C_PaySelectionCheck();
-
-	/**
 	 * Set C_PaySelection.
 	 *
 	 * @param C_PaySelection Payment Selection
@@ -65,6 +51,20 @@ public interface I_C_PaySelectionLineInput extends I_C_PaySelectionLine {
 	 * @return Payment Selection
 	 */
 	ForeignEntityInput C_PaySelection();
+
+	/**
+	 * Set C_PaySelectionCheck.
+	 *
+	 * @param C_PaySelectionCheck Payment Selection Check
+	 */
+	void setC_PaySelectionCheckInput(ForeignEntityInput C_PaySelectionCheck);
+
+	/**
+	 * Get C_PaySelectionCheck.
+	 *
+	 * @return Payment Selection Check
+	 */
+	ForeignEntityInput C_PaySelectionCheck();
 
 	/**
 	 * Set UU.

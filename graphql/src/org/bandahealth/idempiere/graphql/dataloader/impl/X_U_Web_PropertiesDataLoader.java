@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.X_U_Web_Properties;
+import org.compiere.model.MWebProperties;
 
 /**
  * Data Loader for U_Web_Properties - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.X_U_Web_Properties;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_U_Web_PropertiesDataLoader extends PODataLoader<X_U_Web_Properties> {
+public class X_U_Web_PropertiesDataLoader extends PODataLoader<MWebProperties> {
 	public static String DATALOADER_U_Web_Properties_BY_ID = "U_Web_PropertiesByIdDataLoader";
 	public static String DATALOADER_U_Web_Properties_BY_UUID = "U_Web_PropertiesByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_U_Web_Properties.Table_Name;
+		return MWebProperties.Table_Name;
 	}
 
 	@Override

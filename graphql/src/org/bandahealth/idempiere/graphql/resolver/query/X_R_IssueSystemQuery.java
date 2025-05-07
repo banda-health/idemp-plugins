@@ -4,7 +4,7 @@ import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_R_IssueSystemDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
-import org.compiere.model.MIssueSystem;
+import org.compiere.model.X_R_IssueSystem;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,19 +15,19 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_R_IssueSystemQuery extends POQuery<MIssueSystem> implements GraphQLQueryResolver {
+public class X_R_IssueSystemQuery extends POQuery<X_R_IssueSystem> implements GraphQLQueryResolver {
 	@Override
 	protected String getTableName() {
-		return MIssueSystem.Table_Name;
+		return X_R_IssueSystem.Table_Name;
 	}
 
-	public CompletableFuture<MIssueSystem> R_IssueSystem(String UU, DataFetchingEnvironment environment) {
-		DataLoader<String, MIssueSystem> dataLoader = environment.getDataLoaderRegistry()
+	public CompletableFuture<X_R_IssueSystem> R_IssueSystem(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_R_IssueSystem> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_R_IssueSystemDataLoader.DATALOADER_R_IssueSystem_BY_UUID);
 		return dataLoader.load(UU);
 	}
 
-	public Connection<MIssueSystem> R_IssueSystemGet(int Page, int PageSize, String Sort, String Filter,
+	public Connection<X_R_IssueSystem> R_IssueSystemGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
 		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}

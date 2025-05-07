@@ -108,43 +108,6 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	}
 
 	/**
-	 * Set Organization.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
-		this.mAD_Org = AD_Org;
-		if (!is_new()) {
-			return;
-		}
-		if (AD_Org != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MOrg foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setAD_Org_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
-			}
-		} else {
-			this.setAD_Org_ID(0);
-		}
-	}
-
-	/**
-	 * Get Organization.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	@JsonProperty("AD_Org")
-	public ForeignEntityInput AD_Org() {
-		return mAD_Org;
-	}
-
-	/**
 	 * Set Asset Due On.
 	 *
 	 * @param A_Due_On Asset Due On
@@ -220,6 +183,43 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	@JsonProperty("A_Finance_Meth")
 	public ForeignEntityInput A_Finance_Meth() {
 		return mA_Finance_Meth;
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		if (!is_new()) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
+			}
+		} else {
+			this.setAD_Org_ID(0);
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**

@@ -260,10 +260,6 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 		return dataLoader.load(entity.getP_Revenue_Acct());
 	}
 
-	public Boolean Processing(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		return entity.isProcessing();
-	}
-
 
 	/**
 	 * Get Trade Discount Granted.
@@ -292,6 +288,10 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 		DataLoader<Integer, MAccount> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getP_TradeDiscountRec_Acct());
+	}
+
+	public Boolean Processing(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

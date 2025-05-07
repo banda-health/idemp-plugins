@@ -135,6 +135,21 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 		return dataLoader.load(entity.getC_DocType_ID());
 	}
 
+
+	/**
+	 * Get Project.
+	 *
+	 * @return Financial Project
+	 */
+	public CompletableFuture<MProject> C_Project(MInventory_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Project_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MProject> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
+		return dataLoader.load(entity.getC_Project_ID());
+	}
+
 	public static Map<String, String> COSTINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("S", "d3ba6803-5479-4b30-ba20-6b40e658c5d8"); // Standard Costing
@@ -155,21 +170,6 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(COSTINGMETHOD_UUIDS_BY_VALUE.get(entity.getCostingMethod()));
-	}
-
-
-	/**
-	 * Get Project.
-	 *
-	 * @return Financial Project
-	 */
-	public CompletableFuture<MProject> C_Project(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
-		return dataLoader.load(entity.getC_Project_ID());
 	}
 
 	public static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {

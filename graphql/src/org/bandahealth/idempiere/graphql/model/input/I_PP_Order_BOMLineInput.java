@@ -39,20 +39,6 @@ public interface I_PP_Order_BOMLineInput extends I_PP_Order_BOMLine {
 	ForeignEntityInput AD_User();
 
 	/**
-	 * Set ComponentType.
-	 *
-	 * @param ComponentType Component Type for a Bill of Material or Formula
-	 */
-	void setComponentTypeInput(ForeignEntityInput ComponentType);
-
-	/**
-	 * Get ComponentType.
-	 *
-	 * @return Component Type for a Bill of Material or Formula
-	 */
-	ForeignEntityInput ComponentType();
-
-	/**
 	 * Set C_UOM.
 	 *
 	 * @param C_UOM Unit of Measure
@@ -65,6 +51,20 @@ public interface I_PP_Order_BOMLineInput extends I_PP_Order_BOMLine {
 	 * @return Unit of Measure
 	 */
 	ForeignEntityInput C_UOM();
+
+	/**
+	 * Set ComponentType.
+	 *
+	 * @param ComponentType Component Type for a Bill of Material or Formula
+	 */
+	void setComponentTypeInput(ForeignEntityInput ComponentType);
+
+	/**
+	 * Get ComponentType.
+	 *
+	 * @return Component Type for a Bill of Material or Formula
+	 */
+	ForeignEntityInput ComponentType();
 
 	/**
 	 * Set IssueMethod.

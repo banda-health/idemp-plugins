@@ -7,7 +7,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MIssueSystem;
+import org.compiere.model.X_R_IssueSystem;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_R_IssueSystemResolver extends POResolver<MIssueSystem> implements GraphQLResolver<MIssueSystem> {
+public class X_R_IssueSystemResolver extends POResolver<X_R_IssueSystem> implements GraphQLResolver<X_R_IssueSystem> {
 
 
 
@@ -29,7 +29,7 @@ public class X_R_IssueSystemResolver extends POResolver<MIssueSystem> implements
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public CompletableFuture<MAsset> A_Asset(MIssueSystem entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MAsset> A_Asset(X_R_IssueSystem entity, DataFetchingEnvironment environment) {
 		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
@@ -45,7 +45,7 @@ public class X_R_IssueSystemResolver extends POResolver<MIssueSystem> implements
 			put("P", "1b3201b9-d2a4-4101-a4a0-a53571550f32"); // Production
 		}
 	};
-	public CompletableFuture<MRefList_BH> SystemStatus(MIssueSystem entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> SystemStatus(X_R_IssueSystem entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getSystemStatus())) {
 			return null;
 		}

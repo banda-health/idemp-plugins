@@ -340,48 +340,6 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	}
 
 	/**
-	 * Set Confidentiality.
-	 *
-	 * @param ConfidentialType Type of Confidentiality
-	 */
-	@JsonProperty("ConfidentialType")
-	public void setConfidentialTypeInput(ForeignEntityInput ConfidentialType) {
-		this.mConfidentialType = ConfidentialType;
-		if (!is_new()) {
-			return;
-		}
-		if (ConfidentialType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_R_RequestActionResolver.CONFIDENTIALTYPE_UUIDS_BY_VALUE.containsValue(ConfidentialType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + ConfidentialType.getUU() +
-						" is not in the list defined for the ConfidentialType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ConfidentialType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setConfidentialType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ConfidentialType.getUU());
-			}
-		} else {
-			this.setConfidentialType(null);
-		}
-	}
-
-	/**
-	 * Get Confidentiality.
-	 *
-	 * @return Type of Confidentiality
-	 */
-	@JsonProperty("ConfidentialType")
-	public ForeignEntityInput ConfidentialType() {
-		return mConfidentialType;
-	}
-
-	/**
 	 * Set Order.
 	 *
 	 * @param C_Order Order
@@ -490,6 +448,48 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("C_Project")
 	public ForeignEntityInput C_Project() {
 		return mC_Project;
+	}
+
+	/**
+	 * Set Confidentiality.
+	 *
+	 * @param ConfidentialType Type of Confidentiality
+	 */
+	@JsonProperty("ConfidentialType")
+	public void setConfidentialTypeInput(ForeignEntityInput ConfidentialType) {
+		this.mConfidentialType = ConfidentialType;
+		if (!is_new()) {
+			return;
+		}
+		if (ConfidentialType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_R_RequestActionResolver.CONFIDENTIALTYPE_UUIDS_BY_VALUE.containsValue(ConfidentialType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ConfidentialType.getUU() +
+						" is not in the list defined for the ConfidentialType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ConfidentialType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setConfidentialType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ConfidentialType.getUU());
+			}
+		} else {
+			this.setConfidentialType(null);
+		}
+	}
+
+	/**
+	 * Get Confidentiality.
+	 *
+	 * @return Type of Confidentiality
+	 */
+	@JsonProperty("ConfidentialType")
+	public ForeignEntityInput ConfidentialType() {
+		return mConfidentialType;
 	}
 	/**
 	 * Set Date Next Action.
@@ -911,35 +911,6 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	public ForeignEntityInput R_Group() {
 		return mR_Group;
 	}
-	/**
-	 * Set Request History.
-	 *
-	 * @param R_RequestAction_ID Request has been changed
-	 */
-	@JsonProperty("R_RequestAction_ID")
-	public void setR_RequestAction_IDFromJson(int R_RequestAction_ID) {
-		if (get_ID() == 0) {
-			super.setR_RequestAction_ID(R_RequestAction_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setR_RequestAction_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getR_RequestAction_UU();
-	}
 
 	/**
 	 * Set Request.
@@ -976,6 +947,35 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	@JsonProperty("R_Request")
 	public ForeignEntityInput R_Request() {
 		return mR_Request;
+	}
+	/**
+	 * Set Request History.
+	 *
+	 * @param R_RequestAction_ID Request has been changed
+	 */
+	@JsonProperty("R_RequestAction_ID")
+	public void setR_RequestAction_IDFromJson(int R_RequestAction_ID) {
+		if (get_ID() == 0) {
+			super.setR_RequestAction_ID(R_RequestAction_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setR_RequestAction_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getR_RequestAction_UU();
 	}
 
 	/**

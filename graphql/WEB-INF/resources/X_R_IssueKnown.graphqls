@@ -39,8 +39,6 @@ type R_IssueKnown {
 	# Logger Name
 	LoggerName: String
 	Processing: Boolean!
-	# Internal Release Number
-	ReleaseNo: String!
 	UU: ID!
 	# Recommendations how to fix an Issue
 	R_IssueRecommendation: R_IssueRecommendation
@@ -48,6 +46,8 @@ type R_IssueKnown {
 	R_IssueStatus: R_IssueStatus
 	# Request from a Business Partner or Prospect
 	R_Request: R_Request
+	# Internal Release Number
+	ReleaseNo: String!
 	# Source Class Name
 	SourceClassName: String
 	# Source Method Name
@@ -74,8 +74,6 @@ input R_IssueKnownInput {
 	# Logger Name
 	LoggerName: String
 	Processing: Boolean
-	# Internal Release Number
-	ReleaseNo: String
 	UU: ID
 	# Recommendations how to fix an Issue
 	R_IssueRecommendation: ForeignEntityInput
@@ -83,6 +81,8 @@ input R_IssueKnownInput {
 	R_IssueStatus: ForeignEntityInput
 	# Request from a Business Partner or Prospect
 	R_Request: ForeignEntityInput
+	# Internal Release Number
+	ReleaseNo: String
 	# Source Class Name
 	SourceClassName: String
 	# Source Method Name

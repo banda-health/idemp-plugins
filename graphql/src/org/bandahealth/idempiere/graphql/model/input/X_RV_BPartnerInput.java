@@ -113,50 +113,6 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			super.setActualLifeTimeValue(ActualLifeTimeValue);
 		}
 	}
-	/**
-	 * Set Address 1.
-	 *
-	 * @param Address1 Address line 1 for this location
-	 */
-	@JsonProperty("Address1")
-	public void setAddress1FromJson(String Address1) {
-		if (get_ID() == 0) {
-			super.setAddress1(Address1);
-		}
-	}
-	/**
-	 * Set Address 2.
-	 *
-	 * @param Address2 Address line 2 for this location
-	 */
-	@JsonProperty("Address2")
-	public void setAddress2FromJson(String Address2) {
-		if (get_ID() == 0) {
-			super.setAddress2(Address2);
-		}
-	}
-	/**
-	 * Set Address 3.
-	 *
-	 * @param Address3 Address Line 3 for the location
-	 */
-	@JsonProperty("Address3")
-	public void setAddress3FromJson(String Address3) {
-		if (get_ID() == 0) {
-			super.setAddress3(Address3);
-		}
-	}
-	/**
-	 * Set Address 4.
-	 *
-	 * @param Address4 Address Line 4 for the location
-	 */
-	@JsonProperty("Address4")
-	public void setAddress4FromJson(String Address4) {
-		if (get_ID() == 0) {
-			super.setAddress4(Address4);
-		}
-	}
 
 	/**
 	 * Set Language.
@@ -461,6 +417,50 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 		}
 	}
 	/**
+	 * Set Address 1.
+	 *
+	 * @param Address1 Address line 1 for this location
+	 */
+	@JsonProperty("Address1")
+	public void setAddress1FromJson(String Address1) {
+		if (get_ID() == 0) {
+			super.setAddress1(Address1);
+		}
+	}
+	/**
+	 * Set Address 2.
+	 *
+	 * @param Address2 Address line 2 for this location
+	 */
+	@JsonProperty("Address2")
+	public void setAddress2FromJson(String Address2) {
+		if (get_ID() == 0) {
+			super.setAddress2(Address2);
+		}
+	}
+	/**
+	 * Set Address 3.
+	 *
+	 * @param Address3 Address Line 3 for the location
+	 */
+	@JsonProperty("Address3")
+	public void setAddress3FromJson(String Address3) {
+		if (get_ID() == 0) {
+			super.setAddress3(Address3);
+		}
+	}
+	/**
+	 * Set Address 4.
+	 *
+	 * @param Address4 Address Line 4 for the location
+	 */
+	@JsonProperty("Address4")
+	public void setAddress4FromJson(String Address4) {
+		if (get_ID() == 0) {
+			super.setAddress4(Address4);
+		}
+	}
+	/**
 	 * Set Birthday.
 	 *
 	 * @param Birthday Birthday or Anniversary day
@@ -544,54 +544,6 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("BPContactGreet")
 	public ForeignEntityInput BPContactGreet() {
 		return mBPContactGreet;
-	}
-	/**
-	 * Set Business Partner.
-	 *
-	 * @param C_BPartner_ID Identifies a Business Partner
-	 */
-	@JsonProperty("C_BPartner_ID")
-	public void setC_BPartner_IDFromJson(int C_BPartner_ID) {
-		if (get_ID() == 0) {
-			super.setC_BPartner_ID(C_BPartner_ID);
-		}
-	}
-
-	/**
-	 * Set Partner Location.
-	 *
-	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
-	 */
-	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
-		this.mC_BPartner_Location = C_BPartner_Location;
-		if (!is_new()) {
-			return;
-		}
-		if (C_BPartner_Location != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPartnerLocation foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BPartner_Location with UU " + C_BPartner_Location.getUU());
-			}
-		} else {
-			this.setC_BPartner_Location_ID(0);
-		}
-	}
-
-	/**
-	 * Get Partner Location.
-	 *
-	 * @return Identifies the (ship to) address for this Business Partner
-	 */
-	@JsonProperty("C_BPartner_Location")
-	public ForeignEntityInput C_BPartner_Location() {
-		return mC_BPartner_Location;
 	}
 
 	/**
@@ -1017,6 +969,54 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	public ForeignEntityInput C_BP_Location_Update() {
 		return mC_BP_Location_Update;
 	}
+	/**
+	 * Set Business Partner.
+	 *
+	 * @param C_BPartner_ID Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner_ID")
+	public void setC_BPartner_IDFromJson(int C_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_ID(C_BPartner_ID);
+		}
+	}
+
+	/**
+	 * Set Partner Location.
+	 *
+	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
+	 */
+	@JsonProperty("C_BPartner_Location")
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
+		this.mC_BPartner_Location = C_BPartner_Location;
+		if (!is_new()) {
+			return;
+		}
+		if (C_BPartner_Location != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner_Location with UU " + C_BPartner_Location.getUU());
+			}
+		} else {
+			this.setC_BPartner_Location_ID(0);
+		}
+	}
+
+	/**
+	 * Get Partner Location.
+	 *
+	 * @return Identifies the (ship to) address for this Business Partner
+	 */
+	@JsonProperty("C_BPartner_Location")
+	public ForeignEntityInput C_BPartner_Location() {
+		return mC_BPartner_Location;
+	}
 
 	/**
 	 * Set City.
@@ -1273,17 +1273,6 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 		return mC_InvoiceSchedule;
 	}
 	/**
-	 * Set City.
-	 *
-	 * @param City Identifies a City
-	 */
-	@JsonProperty("City")
-	public void setCityFromJson(String City) {
-		if (get_ID() == 0) {
-			super.setCity(City);
-		}
-	}
-	/**
 	 * Set c_location_created.
 	 *
 	 * @param c_location_created c_location_created
@@ -1427,61 +1416,6 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	public ForeignEntityInput C_Location_Update() {
 		return mC_Location_Update;
 	}
-	/**
-	 * Set Comments.
-	 *
-	 * @param Comments Comments or additional information
-	 */
-	@JsonProperty("Comments")
-	public void setCommentsFromJson(String Comments) {
-		if (get_ID() == 0) {
-			super.setComments(Comments);
-		}
-	}
-	/**
-	 * Set Contact Description.
-	 *
-	 * @param ContactDescription Description of Contact
-	 */
-	@JsonProperty("ContactDescription")
-	public void setContactDescriptionFromJson(String ContactDescription) {
-		if (get_ID() == 0) {
-			super.setContactDescription(ContactDescription);
-		}
-	}
-	/**
-	 * Set Contact Name.
-	 *
-	 * @param ContactName Business Partner Contact Name
-	 */
-	@JsonProperty("ContactName")
-	public void setContactNameFromJson(String ContactName) {
-		if (get_ID() == 0) {
-			super.setContactName(ContactName);
-		}
-	}
-	/**
-	 * Set ISO Country Code.
-	 *
-	 * @param CountryCode Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
-	 */
-	@JsonProperty("CountryCode")
-	public void setCountryCodeFromJson(String CountryCode) {
-		if (get_ID() == 0) {
-			super.setCountryCode(CountryCode);
-		}
-	}
-	/**
-	 * Set Country.
-	 *
-	 * @param CountryName Country Name
-	 */
-	@JsonProperty("CountryName")
-	public void setCountryNameFromJson(String CountryName) {
-		if (get_ID() == 0) {
-			super.setCountryName(CountryName);
-		}
-	}
 
 	/**
 	 * Set Payment Term.
@@ -1576,6 +1510,72 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	public void setc_region_isactiveFromJson(boolean c_region_isactive) {
 		if (get_ID() == 0) {
 			super.setc_region_isactive(c_region_isactive);
+		}
+	}
+	/**
+	 * Set City.
+	 *
+	 * @param City Identifies a City
+	 */
+	@JsonProperty("City")
+	public void setCityFromJson(String City) {
+		if (get_ID() == 0) {
+			super.setCity(City);
+		}
+	}
+	/**
+	 * Set Comments.
+	 *
+	 * @param Comments Comments or additional information
+	 */
+	@JsonProperty("Comments")
+	public void setCommentsFromJson(String Comments) {
+		if (get_ID() == 0) {
+			super.setComments(Comments);
+		}
+	}
+	/**
+	 * Set Contact Description.
+	 *
+	 * @param ContactDescription Description of Contact
+	 */
+	@JsonProperty("ContactDescription")
+	public void setContactDescriptionFromJson(String ContactDescription) {
+		if (get_ID() == 0) {
+			super.setContactDescription(ContactDescription);
+		}
+	}
+	/**
+	 * Set Contact Name.
+	 *
+	 * @param ContactName Business Partner Contact Name
+	 */
+	@JsonProperty("ContactName")
+	public void setContactNameFromJson(String ContactName) {
+		if (get_ID() == 0) {
+			super.setContactName(ContactName);
+		}
+	}
+	/**
+	 * Set ISO Country Code.
+	 *
+	 * @param CountryCode Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
+	 */
+	@JsonProperty("CountryCode")
+	public void setCountryCodeFromJson(String CountryCode) {
+		if (get_ID() == 0) {
+			super.setCountryCode(CountryCode);
+		}
+	}
+	/**
+	 * Set Country.
+	 *
+	 * @param CountryName Country Name
+	 */
+	@JsonProperty("CountryName")
+	public void setCountryNameFromJson(String CountryName) {
+		if (get_ID() == 0) {
+			super.setCountryName(CountryName);
 		}
 	}
 
@@ -2593,6 +2593,28 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			super.setSO_CreditLimit(SO_CreditLimit);
 		}
 	}
+	/**
+	 * Set Credit Used.
+	 *
+	 * @param SO_CreditUsed Current open balance
+	 */
+	@JsonProperty("SO_CreditUsed")
+	public void setSO_CreditUsedFromJson(BigDecimal SO_CreditUsed) {
+		if (get_ID() == 0) {
+			super.setSO_CreditUsed(SO_CreditUsed);
+		}
+	}
+	/**
+	 * Set Order Description.
+	 *
+	 * @param SO_Description Description to be used on orders
+	 */
+	@JsonProperty("SO_Description")
+	public void setSO_DescriptionFromJson(String SO_Description) {
+		if (get_ID() == 0) {
+			super.setSO_Description(SO_Description);
+		}
+	}
 
 	/**
 	 * Set Credit Status.
@@ -2634,28 +2656,6 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("SOCreditStatus")
 	public ForeignEntityInput SOCreditStatus() {
 		return mSOCreditStatus;
-	}
-	/**
-	 * Set Credit Used.
-	 *
-	 * @param SO_CreditUsed Current open balance
-	 */
-	@JsonProperty("SO_CreditUsed")
-	public void setSO_CreditUsedFromJson(BigDecimal SO_CreditUsed) {
-		if (get_ID() == 0) {
-			super.setSO_CreditUsed(SO_CreditUsed);
-		}
-	}
-	/**
-	 * Set Order Description.
-	 *
-	 * @param SO_Description Description to be used on orders
-	 */
-	@JsonProperty("SO_Description")
-	public void setSO_DescriptionFromJson(String SO_Description) {
-		if (get_ID() == 0) {
-			super.setSO_Description(SO_Description);
-		}
 	}
 
 	/**

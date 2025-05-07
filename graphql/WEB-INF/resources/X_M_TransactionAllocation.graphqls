@@ -44,8 +44,8 @@ type M_TransactionAllocation {
 	M_Product: M_Product!
 	# Document Line representing a production
 	M_ProductionLine: M_ProductionLine
-	UU: ID!
 	M_Transaction: M_Transaction!
+	UU: ID!
 	# Outgoing Shipment/Receipt
 	Out_M_InOutLine: M_InOutLine
 	# Outgoing Inventory Line
@@ -83,8 +83,8 @@ input M_TransactionAllocationInput {
 	M_Product: ForeignEntityInput
 	# Document Line representing a production
 	M_ProductionLine: ForeignEntityInput
-	UU: ID
 	M_Transaction: ForeignEntityInput
+	UU: ID
 	# Outgoing Shipment/Receipt
 	Out_M_InOutLine: ForeignEntityInput
 	# Outgoing Inventory Line

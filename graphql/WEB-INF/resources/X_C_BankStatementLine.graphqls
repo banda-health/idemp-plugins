@@ -32,12 +32,12 @@ type C_BankStatementLine {
 	# The Currency for this record
 	C_Currency: C_Currency!
 	C_DepositBatch: C_DepositBatch
-	# Charge Amount
-	ChargeAmt: BigDecimal!
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Payment identifier
 	C_Payment: C_Payment
+	# Charge Amount
+	ChargeAmt: BigDecimal!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -113,12 +113,12 @@ input C_BankStatementLineInput {
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	C_DepositBatch: ForeignEntityInput
-	# Charge Amount
-	ChargeAmt: BigDecimal
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: BigDecimal
 	CreatePayment: String
 	# Accounting Date
 	DateAcct: Date

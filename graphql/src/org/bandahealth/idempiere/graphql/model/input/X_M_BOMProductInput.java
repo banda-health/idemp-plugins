@@ -159,40 +159,6 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	}
 
 	/**
-	 * Set Alternative Group.
-	 *
-	 * @param M_BOMAlternative Product BOM Alternative Group
-	 */
-	@JsonProperty("M_BOMAlternative")
-	public void setM_BOMAlternativeInput(ForeignEntityInput M_BOMAlternative) {
-		this.mM_BOMAlternative = M_BOMAlternative;
-		if (M_BOMAlternative != null) {
-			// Since an entity was passed, make sure it's in the DB
-			X_M_BOMAlternative foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "M_BOMAlternative", "M_BOMAlternative_UU=?", get_TrxName())
-							.setParameters(M_BOMAlternative.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setM_BOMAlternative_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table M_BOMAlternative with UU " + M_BOMAlternative.getUU());
-			}
-		} else {
-			this.setM_BOMAlternative_ID(0);
-		}
-	}
-
-	/**
-	 * Get Alternative Group.
-	 *
-	 * @return Product BOM Alternative Group
-	 */
-	@JsonProperty("M_BOMAlternative")
-	public ForeignEntityInput M_BOMAlternative() {
-		return mM_BOMAlternative;
-	}
-
-	/**
 	 * Set BOM.
 	 *
 	 * @param M_BOM Bill of Material
@@ -227,6 +193,40 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	@JsonProperty("M_BOM")
 	public ForeignEntityInput M_BOM() {
 		return mM_BOM;
+	}
+
+	/**
+	 * Set Alternative Group.
+	 *
+	 * @param M_BOMAlternative Product BOM Alternative Group
+	 */
+	@JsonProperty("M_BOMAlternative")
+	public void setM_BOMAlternativeInput(ForeignEntityInput M_BOMAlternative) {
+		this.mM_BOMAlternative = M_BOMAlternative;
+		if (M_BOMAlternative != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_M_BOMAlternative foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "M_BOMAlternative", "M_BOMAlternative_UU=?", get_TrxName())
+							.setParameters(M_BOMAlternative.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setM_BOMAlternative_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_BOMAlternative with UU " + M_BOMAlternative.getUU());
+			}
+		} else {
+			this.setM_BOMAlternative_ID(0);
+		}
+	}
+
+	/**
+	 * Get Alternative Group.
+	 *
+	 * @return Product BOM Alternative Group
+	 */
+	@JsonProperty("M_BOMAlternative")
+	public ForeignEntityInput M_BOMAlternative() {
+		return mM_BOMAlternative;
 	}
 	/**
 	 * Set BOM Component.

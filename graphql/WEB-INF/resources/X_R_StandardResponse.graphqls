@@ -30,9 +30,9 @@ type R_StandardResponse {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
+	UU: ID!
 	# Request Response Text
 	ResponseText: String!
-	UU: ID!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -46,7 +46,7 @@ input R_StandardResponseInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
+	UU: ID
 	# Request Response Text
 	ResponseText: String
-	UU: ID
 }

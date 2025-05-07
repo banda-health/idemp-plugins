@@ -32,11 +32,11 @@ type S_Training_Class {
 	IsActive: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	# First effective day (inclusive)
-	StartDate: Date!
 	UU: ID!
 	# Repeated Training
 	S_Training: S_Training!
+	# First effective day (inclusive)
+	StartDate: Date!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -52,9 +52,9 @@ input S_Training_ClassInput {
 	IsActive: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	# First effective day (inclusive)
-	StartDate: Date
 	UU: ID
 	# Repeated Training
 	S_Training: ForeignEntityInput
+	# First effective day (inclusive)
+	StartDate: Date
 }

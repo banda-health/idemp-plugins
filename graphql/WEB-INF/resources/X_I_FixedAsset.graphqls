@@ -30,15 +30,15 @@ type I_FixedAsset {
 	A_Asset: A_Asset
 	A_Asset_Type: A_Asset_Type
 	A_Asset_Type_Value: String
+	A_Current_Period: Int
+	A_Remaining_Period: Int!
+	A_Salvage_Value: BigDecimal
 	# Name of the Accounting Schema
 	AcctSchemaName: String
-	A_Current_Period: Int
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	A_Remaining_Period: Int!
-	A_Salvage_Value: BigDecimal
 	AssetAmtEntered: BigDecimal!
 	# Date of last depreciation
 	AssetDepreciationDate: Date
@@ -58,12 +58,12 @@ type I_FixedAsset {
 	C_City_Value: String
 	# The Currency for this record
 	C_Currency: C_Currency
+	# Unit of Measure
+	C_UOM: C_UOM
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Unit of Measure
-	C_UOM: C_UOM
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
@@ -121,13 +121,13 @@ input I_FixedAssetInput {
 	A_Asset: ForeignEntityInput
 	A_Asset_Type: ForeignEntityInput
 	A_Asset_Type_Value: String
-	# Name of the Accounting Schema
-	AcctSchemaName: String
 	A_Current_Period: Int
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	A_Remaining_Period: Int
 	A_Salvage_Value: BigDecimal
+	# Name of the Accounting Schema
+	AcctSchemaName: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	AssetAmtEntered: BigDecimal
 	# Date of last depreciation
 	AssetDepreciationDate: Date

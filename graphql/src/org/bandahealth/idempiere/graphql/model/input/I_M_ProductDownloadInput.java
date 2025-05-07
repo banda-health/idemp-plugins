@@ -25,20 +25,6 @@ public interface I_M_ProductDownloadInput extends I_M_ProductDownload {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
@@ -51,4 +37,18 @@ public interface I_M_ProductDownloadInput extends I_M_ProductDownload {
 	 * @return Product, Service, Item
 	 */
 	ForeignEntityInput M_Product();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

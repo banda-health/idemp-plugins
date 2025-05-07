@@ -39,20 +39,6 @@ public interface I_C_TaxDeclarationAcctInput extends I_C_TaxDeclarationAcct {
 	ForeignEntityInput C_AcctSchema();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_TaxDeclaration.
 	 *
 	 * @param C_TaxDeclaration Define the declaration to the tax authorities
@@ -65,6 +51,20 @@ public interface I_C_TaxDeclarationAcctInput extends I_C_TaxDeclarationAcct {
 	 * @return Define the declaration to the tax authorities
 	 */
 	ForeignEntityInput C_TaxDeclaration();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set Fact_Acct.

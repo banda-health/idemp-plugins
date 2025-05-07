@@ -29,6 +29,8 @@ type AD_PrintGraph {
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Data Column for Pie and Line Charts
+	Data_PrintFormatItem: AD_PrintFormatItem!
 	# Data Column for Line Charts
 	Data1_PrintFormatItem: AD_PrintFormatItem
 	# Data Column for Line Charts
@@ -37,8 +39,6 @@ type AD_PrintGraph {
 	Data3_PrintFormatItem: AD_PrintFormatItem
 	# Data Column for Line Charts
 	Data4_PrintFormatItem: AD_PrintFormatItem
-	# Data Column for Pie and Line Charts
-	Data_PrintFormatItem: AD_PrintFormatItem!
 	# Optional short description of the record
 	Description: String
 	# Description Column for Pie/Line/Bar Charts
@@ -61,6 +61,8 @@ input AD_PrintGraphInput {
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
 	UU: ID
+	# Data Column for Pie and Line Charts
+	Data_PrintFormatItem: ForeignEntityInput
 	# Data Column for Line Charts
 	Data1_PrintFormatItem: ForeignEntityInput
 	# Data Column for Line Charts
@@ -69,8 +71,6 @@ input AD_PrintGraphInput {
 	Data3_PrintFormatItem: ForeignEntityInput
 	# Data Column for Line Charts
 	Data4_PrintFormatItem: ForeignEntityInput
-	# Data Column for Pie and Line Charts
-	Data_PrintFormatItem: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Description Column for Pie/Line/Bar Charts

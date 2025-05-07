@@ -36,6 +36,21 @@ import java.util.concurrent.CompletableFuture;
 public class X_PP_Product_BOMLineResolver extends POResolver<MPPProductBOMLine> implements GraphQLResolver<MPPProductBOMLine> {
 
 
+
+	/**
+	 * Get UOM.
+	 *
+	 * @return Unit of Measure
+	 */
+	public CompletableFuture<MUOM> C_UOM(MPPProductBOMLine entity, DataFetchingEnvironment environment) {
+		if (entity.getC_UOM_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MUOM> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
+		return dataLoader.load(entity.getC_UOM_ID());
+	}
+
 	public static Map<String, String> COMPONENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("BY", "b0f4f7d6-5db7-441c-babb-1e64d4155c84"); // By-Product
@@ -56,21 +71,6 @@ public class X_PP_Product_BOMLineResolver extends POResolver<MPPProductBOMLine> 
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(COMPONENTTYPE_UUIDS_BY_VALUE.get(entity.getComponentType()));
-	}
-
-
-	/**
-	 * Get UOM.
-	 *
-	 * @return Unit of Measure
-	 */
-	public CompletableFuture<MUOM> C_UOM(MPPProductBOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
-		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
 	/**

@@ -221,43 +221,6 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	}
 
 	/**
-	 * Set Tenant of User.
-	 *
-	 * @param AD_UserClient Tenant of User
-	 */
-	@JsonProperty("AD_UserClient")
-	public void setAD_UserClientInput(ForeignEntityInput AD_UserClient) {
-		this.mAD_UserClient = AD_UserClient;
-		if (!is_new()) {
-			return;
-		}
-		if (AD_UserClient != null) {
-			// Since an entity was passed, make sure it's in the DB
-			X_AD_AllClients_V foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_AllClients_V", "AD_AllClients_V_UU=?", get_TrxName())
-							.setParameters(AD_UserClient.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setAD_UserClient_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_AllClients_V with UU " + AD_UserClient.getUU());
-			}
-		} else {
-			this.setAD_UserClient_ID(0);
-		}
-	}
-
-	/**
-	 * Get Tenant of User.
-	 *
-	 * @return Tenant of User
-	 */
-	@JsonProperty("AD_UserClient")
-	public ForeignEntityInput AD_UserClient() {
-		return mAD_UserClient;
-	}
-
-	/**
 	 * Set User/Contact.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
@@ -292,5 +255,42 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
+	}
+
+	/**
+	 * Set Tenant of User.
+	 *
+	 * @param AD_UserClient Tenant of User
+	 */
+	@JsonProperty("AD_UserClient")
+	public void setAD_UserClientInput(ForeignEntityInput AD_UserClient) {
+		this.mAD_UserClient = AD_UserClient;
+		if (!is_new()) {
+			return;
+		}
+		if (AD_UserClient != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_AllClients_V foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_AllClients_V", "AD_AllClients_V_UU=?", get_TrxName())
+							.setParameters(AD_UserClient.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setAD_UserClient_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_AllClients_V with UU " + AD_UserClient.getUU());
+			}
+		} else {
+			this.setAD_UserClient_ID(0);
+		}
+	}
+
+	/**
+	 * Get Tenant of User.
+	 *
+	 * @return Tenant of User
+	 */
+	@JsonProperty("AD_UserClient")
+	public ForeignEntityInput AD_UserClient() {
+		return mAD_UserClient;
 	}
 }

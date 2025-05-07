@@ -39,20 +39,6 @@ public interface I_A_Asset_Info_TaxInput extends I_A_Asset_Info_Tax {
 	String getUU();
 
 	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
-
-	/**
 	 * Set A_Finance_Meth.
 	 *
 	 * @param A_Finance_Meth A_Finance_Meth
@@ -65,4 +51,18 @@ public interface I_A_Asset_Info_TaxInput extends I_A_Asset_Info_Tax {
 	 * @return A_Finance_Meth
 	 */
 	ForeignEntityInput A_Finance_Meth();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
 }
