@@ -1,6 +1,6 @@
 # Generated Schema for BH_Allergy - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	BH_Allergy(UU: String!): BH_Allergy
 	BH_AllergyGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_AllergyConnection!
