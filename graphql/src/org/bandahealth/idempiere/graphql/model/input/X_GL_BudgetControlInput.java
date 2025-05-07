@@ -186,6 +186,35 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	public ForeignEntityInput CommitmentType() {
 		return mCommitmentType;
 	}
+	/**
+	 * Set Budget Control.
+	 *
+	 * @param GL_BudgetControl_ID Budget Control
+	 */
+	@JsonProperty("GL_BudgetControl_ID")
+	public void setGL_BudgetControl_IDFromJson(int GL_BudgetControl_ID) {
+		if (get_ID() == 0) {
+			super.setGL_BudgetControl_ID(GL_BudgetControl_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setGL_BudgetControl_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getGL_BudgetControl_UU();
+	}
 
 	/**
 	 * Set Budget.
@@ -219,34 +248,5 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	@JsonProperty("GL_Budget")
 	public ForeignEntityInput GL_Budget() {
 		return mGL_Budget;
-	}
-	/**
-	 * Set Budget Control.
-	 *
-	 * @param GL_BudgetControl_ID Budget Control
-	 */
-	@JsonProperty("GL_BudgetControl_ID")
-	public void setGL_BudgetControl_IDFromJson(int GL_BudgetControl_ID) {
-		if (get_ID() == 0) {
-			super.setGL_BudgetControl_ID(GL_BudgetControl_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setGL_BudgetControl_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getGL_BudgetControl_UU();
 	}
 }

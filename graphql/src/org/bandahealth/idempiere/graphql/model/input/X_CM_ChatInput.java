@@ -127,24 +127,6 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setCM_Chat_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getCM_Chat_UU();
-	}
-
-	/**
 	 * Set Chat Type.
 	 *
 	 * @param CM_ChatType Type of discussion / chat
@@ -176,6 +158,24 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	@JsonProperty("CM_ChatType")
 	public ForeignEntityInput CM_ChatType() {
 		return mCM_ChatType;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setCM_Chat_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getCM_Chat_UU();
 	}
 
 	/**

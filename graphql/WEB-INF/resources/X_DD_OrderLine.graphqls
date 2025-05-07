@@ -28,16 +28,16 @@ type DD_OrderLine {
 	C_Campaign: C_Campaign
 	# Additional document charges
 	C_Charge: C_Charge
-	# Financial Project
-	C_Project: C_Project
-	# Unit of Measure
-	C_UOM: C_UOM!
 	# Confirmation of a received quantity
 	ConfirmedQty: BigDecimal
+	# Financial Project
+	C_Project: C_Project
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Unit of Measure
+	C_UOM: C_UOM!
 	# Date when the product was delivered
 	DateDelivered: Date
 	# Date of Order
@@ -107,12 +107,12 @@ input DD_OrderLineInput {
 	C_Campaign: ForeignEntityInput
 	# Additional document charges
 	C_Charge: ForeignEntityInput
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
-	# Confirmation of a received quantity
-	ConfirmedQty: BigDecimal
 	# Date when the product was delivered
 	DateDelivered: Date
 	# Date of Order

@@ -38,9 +38,9 @@ type PA_RatioElement {
 	Name: String!
 	# Calculation method for measuring performance
 	PA_MeasureCalc: PA_MeasureCalc
+	UU: ID!
 	# Performance Ratio
 	PA_Ratio: PA_Ratio!
-	UU: ID!
 	# Performance Ratio Used
 	PA_RatioUsed: PA_Ratio
 	# The type of posted amount for the transaction
@@ -72,9 +72,9 @@ input PA_RatioElementInput {
 	Name: String
 	# Calculation method for measuring performance
 	PA_MeasureCalc: ForeignEntityInput
+	UU: ID
 	# Performance Ratio
 	PA_Ratio: ForeignEntityInput
-	UU: ID
 	# Performance Ratio Used
 	PA_RatioUsed: ForeignEntityInput
 	# The type of posted amount for the transaction

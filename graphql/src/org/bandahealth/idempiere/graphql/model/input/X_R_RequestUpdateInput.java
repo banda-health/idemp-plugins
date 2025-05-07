@@ -149,6 +149,17 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	public ForeignEntityInput M_ProductSpent() {
 		return mM_ProductSpent;
 	}
+	/**
+	 * Set Result.
+	 *
+	 * @param Result Result of the action taken
+	 */
+	@JsonProperty("Result")
+	public void setResultFromJson(String Result) {
+		if (get_ID() == 0) {
+			super.setResult(Result);
+		}
+	}
 
 	/**
 	 * Set Request.
@@ -214,16 +225,5 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	 */
 	public String getUU() {
 		return getR_RequestUpdate_UU();
-	}
-	/**
-	 * Set Result.
-	 *
-	 * @param Result Result of the action taken
-	 */
-	@JsonProperty("Result")
-	public void setResultFromJson(String Result) {
-		if (get_ID() == 0) {
-			super.setResult(Result);
-		}
 	}
 }

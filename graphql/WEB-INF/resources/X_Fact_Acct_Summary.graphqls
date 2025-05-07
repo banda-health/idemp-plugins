@@ -48,14 +48,14 @@ type Fact_Acct_Summary {
 	C_ProjectPhase: C_ProjectPhase
 	# Actual Project Task in a Phase
 	C_ProjectTask: C_ProjectTask
-	# Sales coverage region
-	C_SalesRegion: C_SalesRegion
-	# Sub account for Element Value
-	C_SubAcct: C_SubAcct
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
+	# Sub account for Element Value
+	C_SubAcct: C_SubAcct
 	# Accounting Date
 	DateAcct: Date
 	UU: ID!

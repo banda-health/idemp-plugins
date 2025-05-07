@@ -56,21 +56,6 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 
 
 	/**
-	 * Get Country.
-	 *
-	 * @return Country 
-	 */
-	public CompletableFuture<MCountry> C_Country(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MCountry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
-		return dataLoader.load(entity.getC_Country_ID());
-	}
-
-
-	/**
 	 * Get Country Group From.
 	 *
 	 * @return Country Group From
@@ -97,6 +82,21 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 		DataLoader<Integer, MCountryGroup> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryGroupDataLoader.DATALOADER_C_CountryGroup_BY_ID);
 		return dataLoader.load(entity.getC_CountryGroupTo_ID());
+	}
+
+
+	/**
+	 * Get Country.
+	 *
+	 * @return Country 
+	 */
+	public CompletableFuture<MCountry> C_Country(MTax entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Country_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MCountry> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
+		return dataLoader.load(entity.getC_Country_ID());
 	}
 
 

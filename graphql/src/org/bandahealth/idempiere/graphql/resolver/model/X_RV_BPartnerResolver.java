@@ -312,6 +312,21 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 
 
 	/**
+	 * Get Partner Location.
+	 *
+	 * @return Identifies the (ship to) address for this Business Partner
+	 */
+	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MBPartnerInfo entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BPartner_Location_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBPartnerLocation> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
+		return dataLoader.load(entity.getC_BPartner_Location_ID());
+	}
+
+
+	/**
 	 * Get c_bp_c_taxgroup_id.
 	 *
 	 * @return c_bp_c_taxgroup_id
@@ -473,21 +488,6 @@ public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements 
 		DataLoader<Integer, MUser_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getC_BP_Location_UpdatedBy());
-	}
-
-
-	/**
-	 * Get Partner Location.
-	 *
-	 * @return Identifies the (ship to) address for this Business Partner
-	 */
-	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MBPartnerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MBPartnerLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
-		return dataLoader.load(entity.getC_BPartner_Location_ID());
 	}
 
 

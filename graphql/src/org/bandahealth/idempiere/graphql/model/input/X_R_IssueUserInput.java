@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MIssueUser;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_R_IssueUser;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_R_IssueUserInput extends X_R_IssueUser implements I_R_IssueUserInput {
+public class X_R_IssueUserInput extends MIssueUser implements I_R_IssueUserInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;

@@ -109,20 +109,6 @@ public interface I_PA_GoalInput extends I_PA_Goal {
 	ForeignEntityInput PA_ColorSchema();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set PA_GoalParent.
 	 *
 	 * @param PA_GoalParent Parent Goal
@@ -135,6 +121,20 @@ public interface I_PA_GoalInput extends I_PA_Goal {
 	 * @return Parent Goal
 	 */
 	ForeignEntityInput PA_GoalParent();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set PA_Measure.

@@ -522,40 +522,6 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	}
 
 	/**
-	 * Set Resource.
-	 *
-	 * @param S_Resource Resource
-	 */
-	@JsonProperty("S_Resource")
-	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
-		this.mS_Resource = S_Resource;
-		if (S_Resource != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MResource foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
-							.setParameters(S_Resource.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setS_Resource_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table S_Resource with UU " + S_Resource.getUU());
-			}
-		} else {
-			this.setS_Resource_ID(0);
-		}
-	}
-
-	/**
-	 * Get Resource.
-	 *
-	 * @return Resource
-	 */
-	@JsonProperty("S_Resource")
-	public ForeignEntityInput S_Resource() {
-		return mS_Resource;
-	}
-
-	/**
 	 * Set Sales Representative.
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
@@ -587,5 +553,39 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	@JsonProperty("SalesRep")
 	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
+	}
+
+	/**
+	 * Set Resource.
+	 *
+	 * @param S_Resource Resource
+	 */
+	@JsonProperty("S_Resource")
+	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
+		this.mS_Resource = S_Resource;
+		if (S_Resource != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MResource foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
+							.setParameters(S_Resource.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setS_Resource_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table S_Resource with UU " + S_Resource.getUU());
+			}
+		} else {
+			this.setS_Resource_ID(0);
+		}
+	}
+
+	/**
+	 * Get Resource.
+	 *
+	 * @return Resource
+	 */
+	@JsonProperty("S_Resource")
+	public ForeignEntityInput S_Resource() {
+		return mS_Resource;
 	}
 }

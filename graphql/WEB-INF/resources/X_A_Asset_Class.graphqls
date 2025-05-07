@@ -19,14 +19,14 @@ type A_Asset_ClassConnection {
 
 type A_Asset_Class {
 	UU: ID!
-	A_Life_Period_2004: Int
-	A_Life_Period_Max: Int!
-	A_Life_Period_Min: Int!
-	A_Value_2004: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org
+	A_Life_Period_2004: Int
+	A_Life_Period_Max: Int!
+	A_Life_Period_Min: Int!
+	A_Value_2004: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -51,12 +51,12 @@ type A_Asset_Class {
 
 input A_Asset_ClassInput {
 	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	A_Life_Period_2004: Int
 	A_Life_Period_Max: Int
 	A_Life_Period_Min: Int
 	A_Value_2004: String
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

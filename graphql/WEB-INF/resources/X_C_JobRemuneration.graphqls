@@ -25,12 +25,12 @@ type C_JobRemuneration {
 	# Job Position
 	C_Job: C_Job!
 	UU: ID!
-	# Wage or Salary
-	C_Remuneration: C_Remuneration!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Wage or Salary
+	C_Remuneration: C_Remuneration!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

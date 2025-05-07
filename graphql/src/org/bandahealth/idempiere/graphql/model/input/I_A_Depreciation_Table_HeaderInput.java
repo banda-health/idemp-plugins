@@ -25,6 +25,20 @@ public interface I_A_Depreciation_Table_HeaderInput extends I_A_Depreciation_Tab
 	String getUU();
 
 	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
 	 * Set A_Table_Rate_Type.
 	 *
 	 * @param A_Table_Rate_Type A_Table_Rate_Type
@@ -51,18 +65,4 @@ public interface I_A_Depreciation_Table_HeaderInput extends I_A_Depreciation_Tab
 	 * @return A_Term
 	 */
 	ForeignEntityInput A_Term();
-
-	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
 }

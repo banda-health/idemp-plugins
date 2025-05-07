@@ -18,13 +18,13 @@ type A_RegistrationProductConnection {
 }
 
 type A_RegistrationProduct {
-	# Asset Registration Attribute
-	A_RegistrationAttribute: A_RegistrationAttribute!
-	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# Asset Registration Attribute
+	A_RegistrationAttribute: A_RegistrationAttribute!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -42,11 +42,11 @@ type A_RegistrationProduct {
 }
 
 input A_RegistrationProductInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# Asset Registration Attribute
 	A_RegistrationAttribute: ForeignEntityInput
 	UU: ID
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

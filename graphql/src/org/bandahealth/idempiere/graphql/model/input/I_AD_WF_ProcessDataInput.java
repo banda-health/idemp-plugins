@@ -25,20 +25,6 @@ public interface I_AD_WF_ProcessDataInput extends I_AD_WF_ProcessData {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set AD_WF_Process.
-	 *
-	 * @param AD_WF_Process Actual Workflow Process Instance
-	 */
-	void setAD_WF_ProcessInput(ForeignEntityInput AD_WF_Process);
-
-	/**
-	 * Get AD_WF_Process.
-	 *
-	 * @return Actual Workflow Process Instance
-	 */
-	ForeignEntityInput AD_WF_Process();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -51,4 +37,18 @@ public interface I_AD_WF_ProcessDataInput extends I_AD_WF_ProcessData {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set AD_WF_Process.
+	 *
+	 * @param AD_WF_Process Actual Workflow Process Instance
+	 */
+	void setAD_WF_ProcessInput(ForeignEntityInput AD_WF_Process);
+
+	/**
+	 * Get AD_WF_Process.
+	 *
+	 * @return Actual Workflow Process Instance
+	 */
+	ForeignEntityInput AD_WF_Process();
 }

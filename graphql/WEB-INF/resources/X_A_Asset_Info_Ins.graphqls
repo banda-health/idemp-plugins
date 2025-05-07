@@ -21,16 +21,16 @@ type A_Asset_Info_Ins {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	UU: ID!
-	A_Ins_Premium: BigDecimal
-	A_Ins_Value: BigDecimal
-	A_Insurance_Co: String
-	A_Policy_No: String
-	A_Renewal_Date: Date
-	A_Replace_Cost: BigDecimal
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	A_Ins_Premium: BigDecimal
+	A_Insurance_Co: String
+	A_Ins_Value: BigDecimal
+	A_Policy_No: String
+	A_Renewal_Date: Date
+	A_Replace_Cost: BigDecimal
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -48,14 +48,14 @@ input A_Asset_Info_InsInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	A_Ins_Premium: BigDecimal
-	A_Ins_Value: BigDecimal
 	A_Insurance_Co: String
+	A_Ins_Value: BigDecimal
 	A_Policy_No: String
 	A_Renewal_Date: Date
 	A_Replace_Cost: BigDecimal
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	Text: String

@@ -39,6 +39,20 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	ForeignEntityInput C_Activity();
 
 	/**
+	 * Set CalculationType.
+	 *
+	 * @param CalculationType CalculationType
+	 */
+	void setCalculationTypeInput(ForeignEntityInput CalculationType);
+
+	/**
+	 * Get CalculationType.
+	 *
+	 * @return CalculationType
+	 */
+	ForeignEntityInput CalculationType();
+
+	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -109,6 +123,20 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	ForeignEntityInput C_Location();
 
 	/**
+	 * Set ColumnType.
+	 *
+	 * @param ColumnType ColumnType
+	 */
+	void setColumnTypeInput(ForeignEntityInput ColumnType);
+
+	/**
+	 * Get ColumnType.
+	 *
+	 * @return ColumnType
+	 */
+	ForeignEntityInput ColumnType();
+
+	/**
 	 * Set C_Project.
 	 *
 	 * @param C_Project Financial Project
@@ -135,34 +163,6 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	 * @return Sales coverage region
 	 */
 	ForeignEntityInput C_SalesRegion();
-
-	/**
-	 * Set CalculationType.
-	 *
-	 * @param CalculationType CalculationType
-	 */
-	void setCalculationTypeInput(ForeignEntityInput CalculationType);
-
-	/**
-	 * Get CalculationType.
-	 *
-	 * @return CalculationType
-	 */
-	ForeignEntityInput CalculationType();
-
-	/**
-	 * Set ColumnType.
-	 *
-	 * @param ColumnType ColumnType
-	 */
-	void setColumnTypeInput(ForeignEntityInput ColumnType);
-
-	/**
-	 * Get ColumnType.
-	 *
-	 * @return ColumnType
-	 */
-	ForeignEntityInput ColumnType();
 
 	/**
 	 * Set CurrencyType.
@@ -263,34 +263,6 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	ForeignEntityInput Oper_2();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
-	 * Set PA_ReportColumnSet.
-	 *
-	 * @param PA_ReportColumnSet Collection of Columns for Report
-	 */
-	void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet);
-
-	/**
-	 * Get PA_ReportColumnSet.
-	 *
-	 * @return Collection of Columns for Report
-	 */
-	ForeignEntityInput PA_ReportColumnSet();
-
-	/**
 	 * Set PAAmountType.
 	 *
 	 * @param PAAmountType PA Amount Type for reporting
@@ -317,6 +289,34 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	 * @return PA Period Type
 	 */
 	ForeignEntityInput PAPeriodType();
+
+	/**
+	 * Set PA_ReportColumnSet.
+	 *
+	 * @param PA_ReportColumnSet Collection of Columns for Report
+	 */
+	void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet);
+
+	/**
+	 * Get PA_ReportColumnSet.
+	 *
+	 * @return Collection of Columns for Report
+	 */
+	ForeignEntityInput PA_ReportColumnSet();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set PostingType.

@@ -73,35 +73,6 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-	/**
-	 * Set Lot.
-	 *
-	 * @param M_Lot_ID Product Lot Definition
-	 */
-	@JsonProperty("M_Lot_ID")
-	public void setM_Lot_IDFromJson(int M_Lot_ID) {
-		if (get_ID() == 0) {
-			super.setM_Lot_ID(M_Lot_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_Lot_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_Lot_UU();
-	}
 
 	/**
 	 * Set Lot Control.
@@ -138,6 +109,35 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	@JsonProperty("M_LotCtl")
 	public ForeignEntityInput M_LotCtl() {
 		return mM_LotCtl;
+	}
+	/**
+	 * Set Lot.
+	 *
+	 * @param M_Lot_ID Product Lot Definition
+	 */
+	@JsonProperty("M_Lot_ID")
+	public void setM_Lot_IDFromJson(int M_Lot_ID) {
+		if (get_ID() == 0) {
+			super.setM_Lot_ID(M_Lot_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_Lot_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_Lot_UU();
 	}
 
 	/**

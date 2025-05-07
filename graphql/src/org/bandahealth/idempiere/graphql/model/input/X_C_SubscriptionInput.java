@@ -122,24 +122,6 @@ public class X_C_SubscriptionInput extends X_C_Subscription implements I_C_Subsc
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_Subscription_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_Subscription_UU();
-	}
-
-	/**
 	 * Set Subscription Type.
 	 *
 	 * @param C_SubscriptionType Type of subscription
@@ -171,6 +153,24 @@ public class X_C_SubscriptionInput extends X_C_Subscription implements I_C_Subsc
 	@JsonProperty("C_SubscriptionType")
 	public ForeignEntityInput C_SubscriptionType() {
 		return mC_SubscriptionType;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_Subscription_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_Subscription_UU();
 	}
 
 	/**

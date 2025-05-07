@@ -53,20 +53,6 @@ public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 	ForeignEntityInput A_CapvsExp();
 
 	/**
-	 * Set A_SourceType.
-	 *
-	 * @param A_SourceType A_SourceType
-	 */
-	void setA_SourceTypeInput(ForeignEntityInput A_SourceType);
-
-	/**
-	 * Get A_SourceType.
-	 *
-	 * @return A_SourceType
-	 */
-	ForeignEntityInput A_SourceType();
-
-	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within tenant
@@ -79,6 +65,20 @@ public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set A_SourceType.
+	 *
+	 * @param A_SourceType A_SourceType
+	 */
+	void setA_SourceTypeInput(ForeignEntityInput A_SourceType);
+
+	/**
+	 * Get A_SourceType.
+	 *
+	 * @return A_SourceType
+	 */
+	ForeignEntityInput A_SourceType();
 
 	/**
 	 * Set C_Charge.

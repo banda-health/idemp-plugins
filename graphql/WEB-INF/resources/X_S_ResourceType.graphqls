@@ -24,15 +24,15 @@ type S_ResourceType {
 	AD_Org: AD_Org!
 	# Allow Unit of Measure Fractions
 	AllowUoMFractions: Boolean!
-	# Tax Category
-	C_TaxCategory: C_TaxCategory!
-	# Unit of Measure
-	C_UOM: C_UOM!
 	ChargeableQty: Int
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Tax Category
+	C_TaxCategory: C_TaxCategory!
+	# Unit of Measure
+	C_UOM: C_UOM!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -79,11 +79,11 @@ input S_ResourceTypeInput {
 	AD_Org: ForeignEntityInput
 	# Allow Unit of Measure Fractions
 	AllowUoMFractions: Boolean
+	ChargeableQty: Int
 	# Tax Category
 	C_TaxCategory: ForeignEntityInput
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
-	ChargeableQty: Int
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

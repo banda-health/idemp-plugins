@@ -142,40 +142,6 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	}
 
 	/**
-	 * Set Sales Opportunity.
-	 *
-	 * @param C_Opportunity Sales Opportunity
-	 */
-	@JsonProperty("C_Opportunity")
-	public void setC_OpportunityInput(ForeignEntityInput C_Opportunity) {
-		this.mC_Opportunity = C_Opportunity;
-		if (C_Opportunity != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MOpportunity foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_Opportunity", "C_Opportunity_UU=?", get_TrxName())
-							.setParameters(C_Opportunity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_Opportunity_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_Opportunity with UU " + C_Opportunity.getUU());
-			}
-		} else {
-			this.setC_Opportunity_ID(0);
-		}
-	}
-
-	/**
-	 * Get Sales Opportunity.
-	 *
-	 * @return Sales Opportunity
-	 */
-	@JsonProperty("C_Opportunity")
-	public ForeignEntityInput C_Opportunity() {
-		return mC_Opportunity;
-	}
-
-	/**
 	 * Set Activity Type.
 	 *
 	 * @param ContactActivityType Type of activity, e.g. task, email, phone call
@@ -215,6 +181,40 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	@JsonProperty("ContactActivityType")
 	public ForeignEntityInput ContactActivityType() {
 		return mContactActivityType;
+	}
+
+	/**
+	 * Set Sales Opportunity.
+	 *
+	 * @param C_Opportunity Sales Opportunity
+	 */
+	@JsonProperty("C_Opportunity")
+	public void setC_OpportunityInput(ForeignEntityInput C_Opportunity) {
+		this.mC_Opportunity = C_Opportunity;
+		if (C_Opportunity != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOpportunity foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Opportunity", "C_Opportunity_UU=?", get_TrxName())
+							.setParameters(C_Opportunity.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Opportunity_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Opportunity with UU " + C_Opportunity.getUU());
+			}
+		} else {
+			this.setC_Opportunity_ID(0);
+		}
+	}
+
+	/**
+	 * Get Sales Opportunity.
+	 *
+	 * @return Sales Opportunity
+	 */
+	@JsonProperty("C_Opportunity")
+	public ForeignEntityInput C_Opportunity() {
+		return mC_Opportunity;
 	}
 
 	/**

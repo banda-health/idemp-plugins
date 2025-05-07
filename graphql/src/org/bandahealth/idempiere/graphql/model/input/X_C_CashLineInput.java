@@ -86,6 +86,48 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	}
 
 	/**
+	 * Set Cash Type.
+	 *
+	 * @param CashType Source of Cash
+	 */
+	@JsonProperty("CashType")
+	public void setCashTypeInput(ForeignEntityInput CashType) {
+		this.mCashType = CashType;
+		if (!is_new()) {
+			return;
+		}
+		if (CashType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_C_CashLineResolver.CASHTYPE_UUIDS_BY_VALUE.containsValue(CashType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CashType.getUU() +
+						" is not in the list defined for the CashType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CashType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setCashType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CashType.getUU());
+			}
+		} else {
+			this.setCashType(null);
+		}
+	}
+
+	/**
+	 * Get Cash Type.
+	 *
+	 * @return Source of Cash
+	 */
+	@JsonProperty("CashType")
+	public ForeignEntityInput CashType() {
+		return mCashType;
+	}
+
+	/**
 	 * Set Bank Account.
 	 *
 	 * @param C_BankAccount Account at the Bank
@@ -325,48 +367,6 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_Payment")
 	public ForeignEntityInput C_Payment() {
 		return mC_Payment;
-	}
-
-	/**
-	 * Set Cash Type.
-	 *
-	 * @param CashType Source of Cash
-	 */
-	@JsonProperty("CashType")
-	public void setCashTypeInput(ForeignEntityInput CashType) {
-		this.mCashType = CashType;
-		if (!is_new()) {
-			return;
-		}
-		if (CashType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_C_CashLineResolver.CASHTYPE_UUIDS_BY_VALUE.containsValue(CashType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + CashType.getUU() +
-						" is not in the list defined for the CashType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CashType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setCashType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CashType.getUU());
-			}
-		} else {
-			this.setCashType(null);
-		}
-	}
-
-	/**
-	 * Get Cash Type.
-	 *
-	 * @return Source of Cash
-	 */
-	@JsonProperty("CashType")
-	public ForeignEntityInput CashType() {
-		return mCashType;
 	}
 	/**
 	 * Set Generated.

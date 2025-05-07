@@ -67,20 +67,6 @@ public interface I_M_MovementConfirmInput extends I_M_MovementConfirm {
 	ForeignEntityInput M_Inventory();
 
 	/**
-	 * Set M_Movement.
-	 *
-	 * @param M_Movement Movement of Inventory
-	 */
-	void setM_MovementInput(ForeignEntityInput M_Movement);
-
-	/**
-	 * Get M_Movement.
-	 *
-	 * @return Movement of Inventory
-	 */
-	ForeignEntityInput M_Movement();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -93,4 +79,18 @@ public interface I_M_MovementConfirmInput extends I_M_MovementConfirm {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set M_Movement.
+	 *
+	 * @param M_Movement Movement of Inventory
+	 */
+	void setM_MovementInput(ForeignEntityInput M_Movement);
+
+	/**
+	 * Get M_Movement.
+	 *
+	 * @return Movement of Inventory
+	 */
+	ForeignEntityInput M_Movement();
 }

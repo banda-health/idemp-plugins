@@ -81,20 +81,6 @@ public interface I_AD_PrintFormatItemInput extends I_AD_PrintFormatItem {
 	ForeignEntityInput AD_PrintFont();
 
 	/**
-	 * Set AD_PrintFormat.
-	 *
-	 * @param AD_PrintFormat Data Print Format
-	 */
-	void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat);
-
-	/**
-	 * Get AD_PrintFormat.
-	 *
-	 * @return Data Print Format
-	 */
-	ForeignEntityInput AD_PrintFormat();
-
-	/**
 	 * Set AD_PrintFormatChild.
 	 *
 	 * @param AD_PrintFormatChild Print format that is included here.
@@ -107,6 +93,20 @@ public interface I_AD_PrintFormatItemInput extends I_AD_PrintFormatItem {
 	 * @return Print format that is included here.
 	 */
 	ForeignEntityInput AD_PrintFormatChild();
+
+	/**
+	 * Set AD_PrintFormat.
+	 *
+	 * @param AD_PrintFormat Data Print Format
+	 */
+	void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat);
+
+	/**
+	 * Get AD_PrintFormat.
+	 *
+	 * @return Data Print Format
+	 */
+	ForeignEntityInput AD_PrintFormat();
 
 	/**
 	 * Set UU.

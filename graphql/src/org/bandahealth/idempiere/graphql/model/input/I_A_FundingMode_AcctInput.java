@@ -11,6 +11,20 @@ import org.compiere.model.I_A_FundingMode_Acct;
 public interface I_A_FundingMode_AcctInput extends I_A_FundingMode_Acct {
 
 	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
 	 * Set A_FundingMode_A.
 	 *
 	 * @param A_FundingMode_A A_FundingMode_A
@@ -51,20 +65,6 @@ public interface I_A_FundingMode_AcctInput extends I_A_FundingMode_Acct {
 	 * @return A_FundingMode
 	 */
 	ForeignEntityInput A_FundingMode();
-
-	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_AcctSchema.

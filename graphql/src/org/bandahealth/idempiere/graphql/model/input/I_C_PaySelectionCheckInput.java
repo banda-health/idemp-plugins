@@ -25,20 +25,6 @@ public interface I_C_PaySelectionCheckInput extends I_C_PaySelectionCheck {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set C_BP_BankAccount.
-	 *
-	 * @param C_BP_BankAccount Bank Account of the Business Partner
-	 */
-	void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount);
-
-	/**
-	 * Get C_BP_BankAccount.
-	 *
-	 * @return Bank Account of the Business Partner
-	 */
-	ForeignEntityInput C_BP_BankAccount();
-
-	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -51,6 +37,20 @@ public interface I_C_PaySelectionCheckInput extends I_C_PaySelectionCheck {
 	 * @return Identifies a Business Partner
 	 */
 	ForeignEntityInput C_BPartner();
+
+	/**
+	 * Set C_BP_BankAccount.
+	 *
+	 * @param C_BP_BankAccount Bank Account of the Business Partner
+	 */
+	void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount);
+
+	/**
+	 * Get C_BP_BankAccount.
+	 *
+	 * @return Bank Account of the Business Partner
+	 */
+	ForeignEntityInput C_BP_BankAccount();
 
 	/**
 	 * Set C_Payment.
@@ -67,20 +67,6 @@ public interface I_C_PaySelectionCheckInput extends I_C_PaySelectionCheck {
 	ForeignEntityInput C_Payment();
 
 	/**
-	 * Set C_PaySelection.
-	 *
-	 * @param C_PaySelection Payment Selection
-	 */
-	void setC_PaySelectionInput(ForeignEntityInput C_PaySelection);
-
-	/**
-	 * Get C_PaySelection.
-	 *
-	 * @return Payment Selection
-	 */
-	ForeignEntityInput C_PaySelection();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -93,6 +79,20 @@ public interface I_C_PaySelectionCheckInput extends I_C_PaySelectionCheck {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_PaySelection.
+	 *
+	 * @param C_PaySelection Payment Selection
+	 */
+	void setC_PaySelectionInput(ForeignEntityInput C_PaySelection);
+
+	/**
+	 * Get C_PaySelection.
+	 *
+	 * @return Payment Selection
+	 */
+	ForeignEntityInput C_PaySelection();
 
 	/**
 	 * Set PaymentRule.

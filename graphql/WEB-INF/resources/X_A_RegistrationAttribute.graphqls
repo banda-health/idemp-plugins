@@ -18,7 +18,6 @@ type A_RegistrationAttributeConnection {
 }
 
 type A_RegistrationAttribute {
-	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -27,6 +26,7 @@ type A_RegistrationAttribute {
 	AD_Reference: AD_Reference!
 	# Required to specify, if data type is Table or List
 	AD_Reference_Value: AD_Reference
+	UU: ID!
 	# Name of the column in the database
 	ColumnName: String
 	# Date this record was created
@@ -50,13 +50,13 @@ type A_RegistrationAttribute {
 }
 
 input A_RegistrationAttributeInput {
-	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# System Reference and Validation
 	AD_Reference: ForeignEntityInput
 	# Required to specify, if data type is Table or List
 	AD_Reference_Value: ForeignEntityInput
+	UU: ID
 	# Name of the column in the database
 	ColumnName: String
 	# Optional short description of the record

@@ -30,12 +30,9 @@ type C_RfQ {
 	C_BPartner_Location: C_BPartner_Location
 	# The Currency for this record
 	C_Currency: C_Currency!
+	CopyLines: String
 	# Order
 	C_Order: C_Order
-	# Topic for Request for Quotations
-	C_RfQ_Topic: C_RfQ_Topic!
-	UU: ID!
-	CopyLines: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -43,6 +40,9 @@ type C_RfQ {
 	# Create Purchase Order
 	CreatePO: String
 	CreateSO: String
+	# Topic for Request for Quotations
+	C_RfQ_Topic: C_RfQ_Topic!
+	UU: ID!
 	# Date of the Response
 	DateResponse: Date!
 	# Date when work is (planned to be) complete
@@ -99,15 +99,15 @@ input C_RfQInput {
 	C_BPartner_Location: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
+	CopyLines: String
 	# Order
 	C_Order: ForeignEntityInput
-	# Topic for Request for Quotations
-	C_RfQ_Topic: ForeignEntityInput
-	UU: ID
-	CopyLines: String
 	# Create Purchase Order
 	CreatePO: String
 	CreateSO: String
+	# Topic for Request for Quotations
+	C_RfQ_Topic: ForeignEntityInput
+	UU: ID
 	# Date of the Response
 	DateResponse: Date
 	# Date when work is (planned to be) complete

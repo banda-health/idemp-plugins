@@ -1,0 +1,50 @@
+# Generated Schema for BH_BPartner_Tags - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_BPartner_Tags(UU: String!): BH_BPartner_Tags
+	BH_BPartner_TagsGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_BPartner_TagsConnection!
+}
+
+extend type Mutation {
+	BH_BPartner_TagsSave(Entity: BH_BPartner_TagsInput!): BH_BPartner_Tags!
+	BH_BPartner_TagsSaveMany(Entities: [BH_BPartner_TagsInput!]!): [BH_BPartner_Tags!]!
+	BH_BPartner_TagsDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_BPartner_TagsConnection {
+	Results: [BH_BPartner_Tags!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_BPartner_Tags {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	BH_Tags: BH_Tags!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_BPartner_TagsInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	BH_Tags: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

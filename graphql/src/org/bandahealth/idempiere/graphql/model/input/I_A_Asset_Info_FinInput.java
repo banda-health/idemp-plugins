@@ -39,6 +39,20 @@ public interface I_A_Asset_Info_FinInput extends I_A_Asset_Info_Fin {
 	String getUU();
 
 	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
 	 * Set A_Due_On.
 	 *
 	 * @param A_Due_On A_Due_On
@@ -65,20 +79,6 @@ public interface I_A_Asset_Info_FinInput extends I_A_Asset_Info_Fin {
 	 * @return A_Finance_Meth
 	 */
 	ForeignEntityInput A_Finance_Meth();
-
-	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_BPartner.

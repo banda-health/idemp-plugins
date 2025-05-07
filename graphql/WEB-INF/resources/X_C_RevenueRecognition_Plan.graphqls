@@ -28,13 +28,13 @@ type C_RevenueRecognition_Plan {
 	C_Currency: C_Currency!
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine!
-	# Method for recording revenue
-	C_RevenueRecognition: C_RevenueRecognition!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Method for recording revenue
+	C_RevenueRecognition: C_RevenueRecognition!
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Account for Product Revenue (Sales Account)

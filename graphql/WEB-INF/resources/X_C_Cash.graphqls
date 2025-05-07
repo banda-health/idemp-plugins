@@ -28,9 +28,9 @@ type C_Cash {
 	C_Activity: C_Activity
 	# Marketing Campaign
 	C_Campaign: C_Campaign
-	UU: ID!
 	# Cash Book for recording petty cash transactions
 	C_CashBook: C_CashBook!
+	UU: ID!
 	# Financial Project
 	C_Project: C_Project
 	# Date this record was created
@@ -83,9 +83,9 @@ input C_CashInput {
 	C_Activity: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
-	UU: ID
 	# Cash Book for recording petty cash transactions
 	C_CashBook: ForeignEntityInput
+	UU: ID
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Accounting Date

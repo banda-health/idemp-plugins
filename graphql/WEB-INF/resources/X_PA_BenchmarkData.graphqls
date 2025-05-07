@@ -36,9 +36,9 @@ type PA_BenchmarkData {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
+	UU: ID!
 	# Performance Benchmark
 	PA_Benchmark: PA_Benchmark!
-	UU: ID!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -58,7 +58,7 @@ input PA_BenchmarkDataInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
+	UU: ID
 	# Performance Benchmark
 	PA_Benchmark: ForeignEntityInput
-	UU: ID
 }

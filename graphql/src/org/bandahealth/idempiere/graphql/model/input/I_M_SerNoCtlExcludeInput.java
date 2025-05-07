@@ -39,20 +39,6 @@ public interface I_M_SerNoCtlExcludeInput extends I_M_SerNoCtlExclude {
 	ForeignEntityInput AD_Table();
 
 	/**
-	 * Set M_SerNoCtl.
-	 *
-	 * @param M_SerNoCtl Product Serial Number Control
-	 */
-	void setM_SerNoCtlInput(ForeignEntityInput M_SerNoCtl);
-
-	/**
-	 * Get M_SerNoCtl.
-	 *
-	 * @return Product Serial Number Control
-	 */
-	ForeignEntityInput M_SerNoCtl();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -65,4 +51,18 @@ public interface I_M_SerNoCtlExcludeInput extends I_M_SerNoCtlExclude {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set M_SerNoCtl.
+	 *
+	 * @param M_SerNoCtl Product Serial Number Control
+	 */
+	void setM_SerNoCtlInput(ForeignEntityInput M_SerNoCtl);
+
+	/**
+	 * Get M_SerNoCtl.
+	 *
+	 * @return Product Serial Number Control
+	 */
+	ForeignEntityInput M_SerNoCtl();
 }

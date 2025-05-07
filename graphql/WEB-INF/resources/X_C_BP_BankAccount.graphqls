@@ -18,10 +18,18 @@ type C_BP_BankAccountConnection {
 }
 
 type C_BP_BankAccount {
+	# Account Number
+	AccountNo: String
 	# City or the Credit Card or Account Holder
 	A_City: String
 	# Country
 	A_Country: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
 	# Email Address
 	A_EMail: String
 	# Payment Identification - Driver License
@@ -36,23 +44,15 @@ type C_BP_BankAccount {
 	A_Street: String
 	# Zip Code of the Credit Card or Account Holder
 	A_Zip: String
-	# Account Number
-	AccountNo: String
-	# Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
-	# User within the system - Internal or Business Partner Contact
-	AD_User: AD_User
 	# Bank Account Type
 	BankAccountType: AD_Ref_List
 	# Business Partner Bank Account usage
 	BPBankAcctUse: AD_Ref_List
 	# Bank
 	C_Bank: C_Bank
-	UU: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
+	UU: ID!
 	# Payment processor for electronic payments
 	C_PaymentProcessor: C_PaymentProcessor
 	# Date this record was created
@@ -89,10 +89,16 @@ type C_BP_BankAccount {
 }
 
 input C_BP_BankAccountInput {
+	# Account Number
+	AccountNo: String
 	# City or the Credit Card or Account Holder
 	A_City: String
 	# Country
 	A_Country: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
 	# Email Address
 	A_EMail: String
 	# Payment Identification - Driver License
@@ -107,21 +113,15 @@ input C_BP_BankAccountInput {
 	A_Street: String
 	# Zip Code of the Credit Card or Account Holder
 	A_Zip: String
-	# Account Number
-	AccountNo: String
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
-	# User within the system - Internal or Business Partner Contact
-	AD_User: ForeignEntityInput
 	# Bank Account Type
 	BankAccountType: ForeignEntityInput
 	# Business Partner Bank Account usage
 	BPBankAcctUse: ForeignEntityInput
 	# Bank
 	C_Bank: ForeignEntityInput
-	UU: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
+	UU: ID
 	# Payment processor for electronic payments
 	C_PaymentProcessor: ForeignEntityInput
 	# Expiry Month

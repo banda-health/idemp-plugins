@@ -23,8 +23,8 @@ type BH_Payer_Info_Fld_Sug {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	BH_FillFromPatient: Boolean!
-	UU: ID!
 	BH_PayerInfoFieldDataType: AD_Ref_List!
+	UU: ID!
 	# Meant to be a sub-type of the charge type
 	BH_SubType: AD_Ref_List!
 	# Date this record was created
@@ -49,8 +49,8 @@ input BH_Payer_Info_Fld_SugInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BH_FillFromPatient: Boolean
-	UU: ID
 	BH_PayerInfoFieldDataType: ForeignEntityInput
+	UU: ID
 	# Meant to be a sub-type of the charge type
 	BH_SubType: ForeignEntityInput
 	# Optional short description of the record

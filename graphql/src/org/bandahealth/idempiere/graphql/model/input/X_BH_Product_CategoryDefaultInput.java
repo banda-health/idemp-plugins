@@ -72,6 +72,35 @@ public class X_BH_Product_CategoryDefaultInput extends MBHProductCategoryDefault
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set BH_Product_CategoryDefault.
+	 *
+	 * @param BH_Product_CategoryDefault_ID BH_Product_CategoryDefault
+	 */
+	@JsonProperty("BH_Product_CategoryDefault_ID")
+	public void setBH_Product_CategoryDefault_IDFromJson(int BH_Product_CategoryDefault_ID) {
+		if (get_ID() == 0) {
+			super.setBH_Product_CategoryDefault_ID(BH_Product_CategoryDefault_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setBH_Product_CategoryDefault_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getBH_Product_CategoryDefault_UU();
+	}
 
 	/**
 	 * Set BH Product Category Type.
@@ -110,34 +139,5 @@ public class X_BH_Product_CategoryDefaultInput extends MBHProductCategoryDefault
 	@JsonProperty("BH_Product_Category_Type")
 	public ForeignEntityInput BH_Product_Category_Type() {
 		return mBH_Product_Category_Type;
-	}
-	/**
-	 * Set BH_Product_CategoryDefault.
-	 *
-	 * @param BH_Product_CategoryDefault_ID BH_Product_CategoryDefault
-	 */
-	@JsonProperty("BH_Product_CategoryDefault_ID")
-	public void setBH_Product_CategoryDefault_IDFromJson(int BH_Product_CategoryDefault_ID) {
-		if (get_ID() == 0) {
-			super.setBH_Product_CategoryDefault_ID(BH_Product_CategoryDefault_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setBH_Product_CategoryDefault_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getBH_Product_CategoryDefault_UU();
 	}
 }

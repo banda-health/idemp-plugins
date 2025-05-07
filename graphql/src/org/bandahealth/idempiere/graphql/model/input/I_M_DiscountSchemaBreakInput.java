@@ -25,20 +25,6 @@ public interface I_M_DiscountSchemaBreakInput extends I_M_DiscountSchemaBreak {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set M_DiscountSchema.
-	 *
-	 * @param M_DiscountSchema Schema to calculate the trade discount percentage
-	 */
-	void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema);
-
-	/**
-	 * Get M_DiscountSchema.
-	 *
-	 * @return Schema to calculate the trade discount percentage
-	 */
-	ForeignEntityInput M_DiscountSchema();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -51,6 +37,20 @@ public interface I_M_DiscountSchemaBreakInput extends I_M_DiscountSchemaBreak {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set M_DiscountSchema.
+	 *
+	 * @param M_DiscountSchema Schema to calculate the trade discount percentage
+	 */
+	void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema);
+
+	/**
+	 * Get M_DiscountSchema.
+	 *
+	 * @return Schema to calculate the trade discount percentage
+	 */
+	ForeignEntityInput M_DiscountSchema();
 
 	/**
 	 * Set M_Product_Category.

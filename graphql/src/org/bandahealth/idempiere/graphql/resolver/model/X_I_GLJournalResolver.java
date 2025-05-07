@@ -318,21 +318,6 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 
 
 	/**
-	 * Get Journal.
-	 *
-	 * @return General Ledger Journal
-	 */
-	public CompletableFuture<MJournal> GL_Journal(X_I_GLJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Journal_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MJournal> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalDataLoader.DATALOADER_GL_Journal_BY_ID);
-		return dataLoader.load(entity.getGL_Journal_ID());
-	}
-
-
-	/**
 	 * Get Journal Batch.
 	 *
 	 * @return General Ledger Journal Batch
@@ -344,6 +329,21 @@ public class X_I_GLJournalResolver extends POResolver<X_I_GLJournal> implements 
 		DataLoader<Integer, MJournalBatch> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalBatchDataLoader.DATALOADER_GL_JournalBatch_BY_ID);
 		return dataLoader.load(entity.getGL_JournalBatch_ID());
+	}
+
+
+	/**
+	 * Get Journal.
+	 *
+	 * @return General Ledger Journal
+	 */
+	public CompletableFuture<MJournal> GL_Journal(X_I_GLJournal entity, DataFetchingEnvironment environment) {
+		if (entity.getGL_Journal_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MJournal> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalDataLoader.DATALOADER_GL_Journal_BY_ID);
+		return dataLoader.load(entity.getGL_Journal_ID());
 	}
 
 

@@ -22,10 +22,10 @@ type C_CountryGroupCountry {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	UU: ID!
+	C_CountryGroup: C_CountryGroup
 	# Country 
 	C_Country: C_Country
-	C_CountryGroup: C_CountryGroup
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -45,10 +45,10 @@ type C_CountryGroupCountry {
 input C_CountryGroupCountryInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	UU: ID
+	C_CountryGroup: ForeignEntityInput
 	# Country 
 	C_Country: ForeignEntityInput
-	C_CountryGroup: ForeignEntityInput
-	UU: ID
 	# Starting date for a range
 	DateFrom: Date
 	# End date of a date range

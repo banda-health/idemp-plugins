@@ -46,21 +46,6 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
-
-	/**
-	 * Get Period.
-	 *
-	 * @return Period of the Calendar
-	 */
-	public CompletableFuture<MPeriod> C_Period(MAcctSchema entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MPeriod> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.DATALOADER_C_Period_BY_ID);
-		return dataLoader.load(entity.getC_Period_ID());
-	}
-
 	public static Map<String, String> COMMITMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("C", "1be67031-d46a-4519-8888-d9c63e01d3dd"); // PO Commitment only
@@ -116,6 +101,21 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(COSTINGMETHOD_UUIDS_BY_VALUE.get(entity.getCostingMethod()));
+	}
+
+
+	/**
+	 * Get Period.
+	 *
+	 * @return Period of the Calendar
+	 */
+	public CompletableFuture<MPeriod> C_Period(MAcctSchema entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Period_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MPeriod> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.DATALOADER_C_Period_BY_ID);
+		return dataLoader.load(entity.getC_Period_ID());
 	}
 
 	public static Map<String, String> GAAP_UUIDS_BY_VALUE = new HashMap<>() {

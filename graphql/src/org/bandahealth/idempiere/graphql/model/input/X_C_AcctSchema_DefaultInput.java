@@ -379,108 +379,6 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 	}
 
 	/**
-	 * Set Customer Prepayment.
-	 *
-	 * @param C_Prepayment_A Account for customer prepayments
-	 */
-	@JsonProperty("C_Prepayment_A")
-	public void setC_Prepayment_AInput(ForeignEntityInput C_Prepayment_A) {
-		this.mC_Prepayment_A = C_Prepayment_A;
-		if (C_Prepayment_A != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MAccount foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Prepayment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_Prepayment_Acct(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UU " + C_Prepayment_A.getUU());
-			}
-		} else {
-			this.setC_Prepayment_Acct(0);
-		}
-	}
-
-	/**
-	 * Get Customer Prepayment.
-	 *
-	 * @return Account for customer prepayments
-	 */
-	@JsonProperty("C_Prepayment_A")
-	public ForeignEntityInput C_Prepayment_A() {
-		return mC_Prepayment_A;
-	}
-
-	/**
-	 * Set Customer Receivables.
-	 *
-	 * @param C_Receivable_A Account for Customer Receivables
-	 */
-	@JsonProperty("C_Receivable_A")
-	public void setC_Receivable_AInput(ForeignEntityInput C_Receivable_A) {
-		this.mC_Receivable_A = C_Receivable_A;
-		if (C_Receivable_A != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MAccount foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Receivable_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_Receivable_Acct(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UU " + C_Receivable_A.getUU());
-			}
-		} else {
-			this.setC_Receivable_Acct(0);
-		}
-	}
-
-	/**
-	 * Get Customer Receivables.
-	 *
-	 * @return Account for Customer Receivables
-	 */
-	@JsonProperty("C_Receivable_A")
-	public ForeignEntityInput C_Receivable_A() {
-		return mC_Receivable_A;
-	}
-
-	/**
-	 * Set Receivable Services.
-	 *
-	 * @param C_Receivable_Services_A Customer Accounts Receivables Services Account
-	 */
-	@JsonProperty("C_Receivable_Services_A")
-	public void setC_Receivable_Services_AInput(ForeignEntityInput C_Receivable_Services_A) {
-		this.mC_Receivable_Services_A = C_Receivable_Services_A;
-		if (C_Receivable_Services_A != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MAccount foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Receivable_Services_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_Receivable_Services_Acct(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UU " + C_Receivable_Services_A.getUU());
-			}
-		} else {
-			this.setC_Receivable_Services_Acct(0);
-		}
-	}
-
-	/**
-	 * Get Receivable Services.
-	 *
-	 * @return Customer Accounts Receivables Services Account
-	 */
-	@JsonProperty("C_Receivable_Services_A")
-	public ForeignEntityInput C_Receivable_Services_A() {
-		return mC_Receivable_Services_A;
-	}
-
-	/**
 	 * Set Cash Book Asset.
 	 *
 	 * @param CB_Asset_A Cash Book Asset Account
@@ -685,6 +583,108 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 	}
 
 	/**
+	 * Set Customer Prepayment.
+	 *
+	 * @param C_Prepayment_A Account for customer prepayments
+	 */
+	@JsonProperty("C_Prepayment_A")
+	public void setC_Prepayment_AInput(ForeignEntityInput C_Prepayment_A) {
+		this.mC_Prepayment_A = C_Prepayment_A;
+		if (C_Prepayment_A != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(C_Prepayment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Prepayment_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UU " + C_Prepayment_A.getUU());
+			}
+		} else {
+			this.setC_Prepayment_Acct(0);
+		}
+	}
+
+	/**
+	 * Get Customer Prepayment.
+	 *
+	 * @return Account for customer prepayments
+	 */
+	@JsonProperty("C_Prepayment_A")
+	public ForeignEntityInput C_Prepayment_A() {
+		return mC_Prepayment_A;
+	}
+
+	/**
+	 * Set Customer Receivables.
+	 *
+	 * @param C_Receivable_A Account for Customer Receivables
+	 */
+	@JsonProperty("C_Receivable_A")
+	public void setC_Receivable_AInput(ForeignEntityInput C_Receivable_A) {
+		this.mC_Receivable_A = C_Receivable_A;
+		if (C_Receivable_A != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(C_Receivable_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Receivable_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UU " + C_Receivable_A.getUU());
+			}
+		} else {
+			this.setC_Receivable_Acct(0);
+		}
+	}
+
+	/**
+	 * Get Customer Receivables.
+	 *
+	 * @return Account for Customer Receivables
+	 */
+	@JsonProperty("C_Receivable_A")
+	public ForeignEntityInput C_Receivable_A() {
+		return mC_Receivable_A;
+	}
+
+	/**
+	 * Set Receivable Services.
+	 *
+	 * @param C_Receivable_Services_A Customer Accounts Receivables Services Account
+	 */
+	@JsonProperty("C_Receivable_Services_A")
+	public void setC_Receivable_Services_AInput(ForeignEntityInput C_Receivable_Services_A) {
+		this.mC_Receivable_Services_A = C_Receivable_Services_A;
+		if (C_Receivable_Services_A != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(C_Receivable_Services_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Receivable_Services_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UU " + C_Receivable_Services_A.getUU());
+			}
+		} else {
+			this.setC_Receivable_Services_Acct(0);
+		}
+	}
+
+	/**
+	 * Get Receivable Services.
+	 *
+	 * @return Customer Accounts Receivables Services Account
+	 */
+	@JsonProperty("C_Receivable_Services_A")
+	public ForeignEntityInput C_Receivable_Services_A() {
+		return mC_Receivable_Services_A;
+	}
+
+	/**
 	 * Set Not-invoiced Receipts.
 	 *
 	 * @param NotInvoicedReceipts_A Account for not-invoiced Material Receipts
@@ -784,6 +784,74 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 	@JsonProperty("P_AverageCostVariance_A")
 	public ForeignEntityInput P_AverageCostVariance_A() {
 		return mP_AverageCostVariance_A;
+	}
+
+	/**
+	 * Set Payment Discount Expense.
+	 *
+	 * @param PayDiscount_Exp_A Payment Discount Expense Account
+	 */
+	@JsonProperty("PayDiscount_Exp_A")
+	public void setPayDiscount_Exp_AInput(ForeignEntityInput PayDiscount_Exp_A) {
+		this.mPayDiscount_Exp_A = PayDiscount_Exp_A;
+		if (PayDiscount_Exp_A != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(PayDiscount_Exp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setPayDiscount_Exp_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UU " + PayDiscount_Exp_A.getUU());
+			}
+		} else {
+			this.setPayDiscount_Exp_Acct(0);
+		}
+	}
+
+	/**
+	 * Get Payment Discount Expense.
+	 *
+	 * @return Payment Discount Expense Account
+	 */
+	@JsonProperty("PayDiscount_Exp_A")
+	public ForeignEntityInput PayDiscount_Exp_A() {
+		return mPayDiscount_Exp_A;
+	}
+
+	/**
+	 * Set Payment Discount Revenue.
+	 *
+	 * @param PayDiscount_Rev_A Payment Discount Revenue Account
+	 */
+	@JsonProperty("PayDiscount_Rev_A")
+	public void setPayDiscount_Rev_AInput(ForeignEntityInput PayDiscount_Rev_A) {
+		this.mPayDiscount_Rev_A = PayDiscount_Rev_A;
+		if (PayDiscount_Rev_A != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(PayDiscount_Rev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setPayDiscount_Rev_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UU " + PayDiscount_Rev_A.getUU());
+			}
+		} else {
+			this.setPayDiscount_Rev_Acct(0);
+		}
+	}
+
+	/**
+	 * Get Payment Discount Revenue.
+	 *
+	 * @return Payment Discount Revenue Account
+	 */
+	@JsonProperty("PayDiscount_Rev_A")
+	public ForeignEntityInput PayDiscount_Rev_A() {
+		return mPayDiscount_Rev_A;
 	}
 
 	/**
@@ -954,6 +1022,74 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 	@JsonProperty("P_InvoicePriceVariance_A")
 	public ForeignEntityInput P_InvoicePriceVariance_A() {
 		return mP_InvoicePriceVariance_A;
+	}
+
+	/**
+	 * Set Project Asset.
+	 *
+	 * @param PJ_Asset_A Project Asset Account
+	 */
+	@JsonProperty("PJ_Asset_A")
+	public void setPJ_Asset_AInput(ForeignEntityInput PJ_Asset_A) {
+		this.mPJ_Asset_A = PJ_Asset_A;
+		if (PJ_Asset_A != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(PJ_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setPJ_Asset_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UU " + PJ_Asset_A.getUU());
+			}
+		} else {
+			this.setPJ_Asset_Acct(0);
+		}
+	}
+
+	/**
+	 * Get Project Asset.
+	 *
+	 * @return Project Asset Account
+	 */
+	@JsonProperty("PJ_Asset_A")
+	public ForeignEntityInput PJ_Asset_A() {
+		return mPJ_Asset_A;
+	}
+
+	/**
+	 * Set Work In Progress.
+	 *
+	 * @param PJ_WIP_A Account for Work in Progress
+	 */
+	@JsonProperty("PJ_WIP_A")
+	public void setPJ_WIP_AInput(ForeignEntityInput PJ_WIP_A) {
+		this.mPJ_WIP_A = PJ_WIP_A;
+		if (PJ_WIP_A != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(PJ_WIP_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setPJ_WIP_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UU " + PJ_WIP_A.getUU());
+			}
+		} else {
+			this.setPJ_WIP_Acct(0);
+		}
+	}
+
+	/**
+	 * Get Work In Progress.
+	 *
+	 * @return Account for Work in Progress
+	 */
+	@JsonProperty("PJ_WIP_A")
+	public ForeignEntityInput PJ_WIP_A() {
+		return mPJ_WIP_A;
 	}
 
 	/**
@@ -1158,142 +1294,6 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 	@JsonProperty("P_TradeDiscountRec_A")
 	public ForeignEntityInput P_TradeDiscountRec_A() {
 		return mP_TradeDiscountRec_A;
-	}
-
-	/**
-	 * Set Payment Discount Expense.
-	 *
-	 * @param PayDiscount_Exp_A Payment Discount Expense Account
-	 */
-	@JsonProperty("PayDiscount_Exp_A")
-	public void setPayDiscount_Exp_AInput(ForeignEntityInput PayDiscount_Exp_A) {
-		this.mPayDiscount_Exp_A = PayDiscount_Exp_A;
-		if (PayDiscount_Exp_A != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MAccount foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PayDiscount_Exp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setPayDiscount_Exp_Acct(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UU " + PayDiscount_Exp_A.getUU());
-			}
-		} else {
-			this.setPayDiscount_Exp_Acct(0);
-		}
-	}
-
-	/**
-	 * Get Payment Discount Expense.
-	 *
-	 * @return Payment Discount Expense Account
-	 */
-	@JsonProperty("PayDiscount_Exp_A")
-	public ForeignEntityInput PayDiscount_Exp_A() {
-		return mPayDiscount_Exp_A;
-	}
-
-	/**
-	 * Set Payment Discount Revenue.
-	 *
-	 * @param PayDiscount_Rev_A Payment Discount Revenue Account
-	 */
-	@JsonProperty("PayDiscount_Rev_A")
-	public void setPayDiscount_Rev_AInput(ForeignEntityInput PayDiscount_Rev_A) {
-		this.mPayDiscount_Rev_A = PayDiscount_Rev_A;
-		if (PayDiscount_Rev_A != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MAccount foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PayDiscount_Rev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setPayDiscount_Rev_Acct(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UU " + PayDiscount_Rev_A.getUU());
-			}
-		} else {
-			this.setPayDiscount_Rev_Acct(0);
-		}
-	}
-
-	/**
-	 * Get Payment Discount Revenue.
-	 *
-	 * @return Payment Discount Revenue Account
-	 */
-	@JsonProperty("PayDiscount_Rev_A")
-	public ForeignEntityInput PayDiscount_Rev_A() {
-		return mPayDiscount_Rev_A;
-	}
-
-	/**
-	 * Set Project Asset.
-	 *
-	 * @param PJ_Asset_A Project Asset Account
-	 */
-	@JsonProperty("PJ_Asset_A")
-	public void setPJ_Asset_AInput(ForeignEntityInput PJ_Asset_A) {
-		this.mPJ_Asset_A = PJ_Asset_A;
-		if (PJ_Asset_A != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MAccount foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setPJ_Asset_Acct(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UU " + PJ_Asset_A.getUU());
-			}
-		} else {
-			this.setPJ_Asset_Acct(0);
-		}
-	}
-
-	/**
-	 * Get Project Asset.
-	 *
-	 * @return Project Asset Account
-	 */
-	@JsonProperty("PJ_Asset_A")
-	public ForeignEntityInput PJ_Asset_A() {
-		return mPJ_Asset_A;
-	}
-
-	/**
-	 * Set Work In Progress.
-	 *
-	 * @param PJ_WIP_A Account for Work in Progress
-	 */
-	@JsonProperty("PJ_WIP_A")
-	public void setPJ_WIP_AInput(ForeignEntityInput PJ_WIP_A) {
-		this.mPJ_WIP_A = PJ_WIP_A;
-		if (PJ_WIP_A != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MAccount foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_WIP_A.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setPJ_WIP_Acct(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UU " + PJ_WIP_A.getUU());
-			}
-		} else {
-			this.setPJ_WIP_Acct(0);
-		}
-	}
-
-	/**
-	 * Get Work In Progress.
-	 *
-	 * @return Account for Work in Progress
-	 */
-	@JsonProperty("PJ_WIP_A")
-	public ForeignEntityInput PJ_WIP_A() {
-		return mPJ_WIP_A;
 	}
 
 	/**

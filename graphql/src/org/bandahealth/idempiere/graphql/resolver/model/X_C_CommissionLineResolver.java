@@ -35,21 +35,6 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 
 
 	/**
-	 * Get Business Partner Group.
-	 *
-	 * @return Business Partner Group
-	 */
-	public CompletableFuture<MBPGroup_BH> C_BP_Group(MCommissionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MBPGroup_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
-		return dataLoader.load(entity.getC_BP_Group_ID());
-	}
-
-
-	/**
 	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
@@ -61,6 +46,21 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 		DataLoader<Integer, MBPartner_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
+	}
+
+
+	/**
+	 * Get Business Partner Group.
+	 *
+	 * @return Business Partner Group
+	 */
+	public CompletableFuture<MBPGroup_BH> C_BP_Group(MCommissionLine entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BP_Group_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBPGroup_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
+		return dataLoader.load(entity.getC_BP_Group_ID());
 	}
 
 
@@ -78,6 +78,10 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 		return dataLoader.load(entity.getC_Commission_ID());
 	}
 
+	public Boolean CommissionOrders(MCommissionLine entity, DataFetchingEnvironment environment) {
+		return entity.isCommissionOrders();
+	}
+
 
 	/**
 	 * Get Sales Region.
@@ -91,10 +95,6 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 		DataLoader<Integer, MSalesRegion> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.DATALOADER_C_SalesRegion_BY_ID);
 		return dataLoader.load(entity.getC_SalesRegion_ID());
-	}
-
-	public Boolean CommissionOrders(MCommissionLine entity, DataFetchingEnvironment environment) {
-		return entity.isCommissionOrders();
 	}
 
 	public Boolean IsPositiveOnly(MCommissionLine entity, DataFetchingEnvironment environment) {

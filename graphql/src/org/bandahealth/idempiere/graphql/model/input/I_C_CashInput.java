@@ -53,20 +53,6 @@ public interface I_C_CashInput extends I_C_Cash {
 	ForeignEntityInput C_Campaign();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_CashBook.
 	 *
 	 * @param C_CashBook Cash Book for recording petty cash transactions
@@ -79,6 +65,20 @@ public interface I_C_CashInput extends I_C_Cash {
 	 * @return Cash Book for recording petty cash transactions
 	 */
 	ForeignEntityInput C_CashBook();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set C_Project.

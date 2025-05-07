@@ -39,20 +39,6 @@ public interface I_C_BP_Customer_AcctInput extends I_C_BP_Customer_Acct {
 	ForeignEntityInput C_AcctSchema();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -65,6 +51,20 @@ public interface I_C_BP_Customer_AcctInput extends I_C_BP_Customer_Acct {
 	 * @return Identifies a Business Partner
 	 */
 	ForeignEntityInput C_BPartner();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set C_Prepayment_A.

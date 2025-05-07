@@ -127,6 +127,26 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 		return dataLoader.load(entity.getC_DocTypeTarget_ID());
 	}
 
+	public static Map<String, String> COSTCOLLECTORTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("100", "6fc51ee8-c1fc-491f-b255-bea65c67c90e"); // Material Receipt
+			put("110", "5eb1adfa-5acb-4f43-8b8f-6494858ca467"); // Component Issue
+			put("120", "b8083980-443f-4d35-bd14-37d73ac6aef0"); // Usage Variance
+			put("130", "9b05daf5-998c-4e51-b248-e338aa732455"); // Method Change Variance
+			put("140", "e8c88c2a-18e6-4056-a0a5-ececd2a24b73"); // Rate Variance
+			put("150", "458e1a27-ce3d-4707-bd78-d7143bbb0837"); // Mix Variance
+			put("160", "bf04263f-d2d6-4403-aa5f-3a7266f4ca11"); // Activity Control
+		}
+	};
+	public CompletableFuture<MRefList_BH> CostCollectorType(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getCostCollectorType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(COSTCOLLECTORTYPE_UUIDS_BY_VALUE.get(entity.getCostCollectorType()));
+	}
+
 
 	/**
 	 * Get Project.
@@ -155,26 +175,6 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 		DataLoader<Integer, MUOM> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
-	}
-
-	public static Map<String, String> COSTCOLLECTORTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("100", "6fc51ee8-c1fc-491f-b255-bea65c67c90e"); // Material Receipt
-			put("110", "5eb1adfa-5acb-4f43-8b8f-6494858ca467"); // Component Issue
-			put("120", "b8083980-443f-4d35-bd14-37d73ac6aef0"); // Usage Variance
-			put("130", "9b05daf5-998c-4e51-b248-e338aa732455"); // Method Change Variance
-			put("140", "e8c88c2a-18e6-4056-a0a5-ececd2a24b73"); // Rate Variance
-			put("150", "458e1a27-ce3d-4707-bd78-d7143bbb0837"); // Mix Variance
-			put("160", "bf04263f-d2d6-4403-aa5f-3a7266f4ca11"); // Activity Control
-		}
-	};
-	public CompletableFuture<MRefList_BH> CostCollectorType(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getCostCollectorType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(COSTCOLLECTORTYPE_UUIDS_BY_VALUE.get(entity.getCostCollectorType()));
 	}
 
 	public static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {

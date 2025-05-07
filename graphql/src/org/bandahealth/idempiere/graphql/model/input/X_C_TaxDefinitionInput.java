@@ -125,40 +125,6 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	}
 
 	/**
-	 * Set Business Partner Group.
-	 *
-	 * @param C_BP_Group Business Partner Group
-	 */
-	@JsonProperty("C_BP_Group")
-	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
-		this.mC_BP_Group = C_BP_Group;
-		if (C_BP_Group != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPGroup_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BP_Group_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BP_Group with UU " + C_BP_Group.getUU());
-			}
-		} else {
-			this.setC_BP_Group_ID(0);
-		}
-	}
-
-	/**
-	 * Get Business Partner Group.
-	 *
-	 * @return Business Partner Group
-	 */
-	@JsonProperty("C_BP_Group")
-	public ForeignEntityInput C_BP_Group() {
-		return mC_BP_Group;
-	}
-
-	/**
 	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -193,37 +159,37 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	}
 
 	/**
-	 * Set Tax.
+	 * Set Business Partner Group.
 	 *
-	 * @param C_Tax Tax identifier
+	 * @param C_BP_Group Business Partner Group
 	 */
-	@JsonProperty("C_Tax")
-	public void setC_TaxInput(ForeignEntityInput C_Tax) {
-		this.mC_Tax = C_Tax;
-		if (C_Tax != null) {
+	@JsonProperty("C_BP_Group")
+	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
+		this.mC_BP_Group = C_BP_Group;
+		if (C_BP_Group != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MTax foreignEntity;
+			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
-					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_Tax_ID(foreignEntity.get_ID());
+					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
+							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BP_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Tax with UU " + C_Tax.getUU());
+						"Could not find entity in table C_BP_Group with UU " + C_BP_Group.getUU());
 			}
 		} else {
-			this.setC_Tax_ID(0);
+			this.setC_BP_Group_ID(0);
 		}
 	}
 
 	/**
-	 * Get Tax.
+	 * Get Business Partner Group.
 	 *
-	 * @return Tax identifier
+	 * @return Business Partner Group
 	 */
-	@JsonProperty("C_Tax")
-	public ForeignEntityInput C_Tax() {
-		return mC_Tax;
+	@JsonProperty("C_BP_Group")
+	public ForeignEntityInput C_BP_Group() {
+		return mC_BP_Group;
 	}
 
 	/**
@@ -355,6 +321,40 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	@JsonProperty("C_TaxGroup")
 	public ForeignEntityInput C_TaxGroup() {
 		return mC_TaxGroup;
+	}
+
+	/**
+	 * Set Tax.
+	 *
+	 * @param C_Tax Tax identifier
+	 */
+	@JsonProperty("C_Tax")
+	public void setC_TaxInput(ForeignEntityInput C_Tax) {
+		this.mC_Tax = C_Tax;
+		if (C_Tax != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTax foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
+							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Tax_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Tax with UU " + C_Tax.getUU());
+			}
+		} else {
+			this.setC_Tax_ID(0);
+		}
+	}
+
+	/**
+	 * Get Tax.
+	 *
+	 * @return Tax identifier
+	 */
+	@JsonProperty("C_Tax")
+	public ForeignEntityInput C_Tax() {
+		return mC_Tax;
 	}
 
 	/**

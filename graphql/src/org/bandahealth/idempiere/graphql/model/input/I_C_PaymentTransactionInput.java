@@ -53,20 +53,6 @@ public interface I_C_PaymentTransactionInput extends I_C_PaymentTransaction {
 	ForeignEntityInput C_BankAccount();
 
 	/**
-	 * Set C_BP_BankAccount.
-	 *
-	 * @param C_BP_BankAccount Bank Account of the Business Partner
-	 */
-	void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount);
-
-	/**
-	 * Get C_BP_BankAccount.
-	 *
-	 * @return Bank Account of the Business Partner
-	 */
-	ForeignEntityInput C_BP_BankAccount();
-
-	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -79,6 +65,20 @@ public interface I_C_PaymentTransactionInput extends I_C_PaymentTransaction {
 	 * @return Identifies a Business Partner
 	 */
 	ForeignEntityInput C_BPartner();
+
+	/**
+	 * Set C_BP_BankAccount.
+	 *
+	 * @param C_BP_BankAccount Bank Account of the Business Partner
+	 */
+	void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount);
+
+	/**
+	 * Get C_BP_BankAccount.
+	 *
+	 * @return Bank Account of the Business Partner
+	 */
+	ForeignEntityInput C_BP_BankAccount();
 
 	/**
 	 * Set C_Campaign.
@@ -179,20 +179,6 @@ public interface I_C_PaymentTransactionInput extends I_C_PaymentTransaction {
 	ForeignEntityInput C_Order();
 
 	/**
-	 * Set C_Payment.
-	 *
-	 * @param C_Payment Payment identifier
-	 */
-	void setC_PaymentInput(ForeignEntityInput C_Payment);
-
-	/**
-	 * Get C_Payment.
-	 *
-	 * @return Payment identifier
-	 */
-	ForeignEntityInput C_Payment();
-
-	/**
 	 * Set C_PaymentBatch.
 	 *
 	 * @param C_PaymentBatch Payment batch for EFT
@@ -205,6 +191,20 @@ public interface I_C_PaymentTransactionInput extends I_C_PaymentTransaction {
 	 * @return Payment batch for EFT
 	 */
 	ForeignEntityInput C_PaymentBatch();
+
+	/**
+	 * Set C_Payment.
+	 *
+	 * @param C_Payment Payment identifier
+	 */
+	void setC_PaymentInput(ForeignEntityInput C_Payment);
+
+	/**
+	 * Get C_Payment.
+	 *
+	 * @return Payment identifier
+	 */
+	ForeignEntityInput C_Payment();
 
 	/**
 	 * Set C_PaymentProcessor.

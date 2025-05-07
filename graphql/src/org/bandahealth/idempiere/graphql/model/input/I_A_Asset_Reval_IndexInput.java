@@ -25,6 +25,20 @@ public interface I_A_Asset_Reval_IndexInput extends I_A_Asset_Reval_Index {
 	String getUU();
 
 	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
 	 * Set A_Reval_Code.
 	 *
 	 * @param A_Reval_Code A_Reval_Code
@@ -51,18 +65,4 @@ public interface I_A_Asset_Reval_IndexInput extends I_A_Asset_Reval_Index {
 	 * @return A_Reval_Multiplier
 	 */
 	ForeignEntityInput A_Reval_Multiplier();
-
-	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
 }

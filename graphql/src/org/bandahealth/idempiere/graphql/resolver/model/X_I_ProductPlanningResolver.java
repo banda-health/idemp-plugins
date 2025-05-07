@@ -235,21 +235,6 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 
 
 	/**
-	 * Get Resource.
-	 *
-	 * @return Resource
-	 */
-	public CompletableFuture<MResource> S_Resource(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MResource> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.DATALOADER_S_Resource_BY_ID);
-		return dataLoader.load(entity.getS_Resource_ID());
-	}
-
-
-	/**
 	 * Get Sales Representative.
 	 *
 	 * @return Sales Representative or Company Agent
@@ -261,6 +246,21 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 		DataLoader<Integer, MUser_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
+	}
+
+
+	/**
+	 * Get Resource.
+	 *
+	 * @return Resource
+	 */
+	public CompletableFuture<MResource> S_Resource(X_I_ProductPlanning entity, DataFetchingEnvironment environment) {
+		if (entity.getS_Resource_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MResource> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.DATALOADER_S_Resource_BY_ID);
+		return dataLoader.load(entity.getS_Resource_ID());
 	}
 
 }

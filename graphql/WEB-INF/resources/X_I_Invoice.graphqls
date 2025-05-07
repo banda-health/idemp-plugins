@@ -22,14 +22,14 @@ type I_Invoice {
 	ActivityValue: String
 	# Tenant for this installation.
 	AD_Client: AD_Client
-	# Organizational entity within tenant
-	AD_Org: AD_Org
-	# User within the system - Internal or Business Partner Contact
-	AD_User: AD_User
 	# Address line 1 for this location
 	Address1: String
 	# Address line 2 for this location
 	Address2: String
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
 	# Key of the Business Partner
 	BPartnerValue: String
 	C_1099Box: C_1099Box
@@ -50,32 +50,32 @@ type I_Invoice {
 	C_Currency: C_Currency
 	# Document type or rules
 	C_DocType: C_DocType
+	# Name of the Charge
+	ChargeName: String
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine
-	# Location or Address
-	C_Location: C_Location
-	# The terms of Payment (timing, discount)
-	C_PaymentTerm: C_PaymentTerm
-	# Financial Project
-	C_Project: C_Project
-	# Identifies a geographical Region
-	C_Region: C_Region
-	# Tax identifier
-	C_Tax: C_Tax
-	# Name of the Charge
-	ChargeName: String
 	# Identifies a City
 	City: String
+	# Location or Address
+	C_Location: C_Location
 	# Business Partner Contact Name
 	ContactName: String
 	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
 	CountryCode: Boolean!
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm
+	# Financial Project
+	C_Project: C_Project
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
+	# Identifies a geographical Region
+	C_Region: C_Region
+	# Tax identifier
+	C_Tax: C_Tax
 	# Accounting Date
 	DateAcct: Date
 	# Date printed on Invoice
@@ -143,14 +143,14 @@ type I_Invoice {
 input I_InvoiceInput {
 	# Text key for Activity
 	ActivityValue: String
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
-	# User within the system - Internal or Business Partner Contact
-	AD_User: ForeignEntityInput
 	# Address line 1 for this location
 	Address1: String
 	# Address line 2 for this location
 	Address2: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
 	# Key of the Business Partner
 	BPartnerValue: String
 	C_1099Box: ForeignEntityInput
@@ -171,12 +171,20 @@ input I_InvoiceInput {
 	C_Currency: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
+	# Name of the Charge
+	ChargeName: String
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
+	# Identifies a City
+	City: String
 	# Location or Address
 	C_Location: ForeignEntityInput
+	# Business Partner Contact Name
+	ContactName: String
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
+	CountryCode: Boolean
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: ForeignEntityInput
 	# Financial Project
@@ -185,14 +193,6 @@ input I_InvoiceInput {
 	C_Region: ForeignEntityInput
 	# Tax identifier
 	C_Tax: ForeignEntityInput
-	# Name of the Charge
-	ChargeName: String
-	# Identifies a City
-	City: String
-	# Business Partner Contact Name
-	ContactName: String
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
-	CountryCode: Boolean
 	# Accounting Date
 	DateAcct: Date
 	# Date printed on Invoice

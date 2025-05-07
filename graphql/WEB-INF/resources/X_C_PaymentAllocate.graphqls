@@ -28,9 +28,9 @@ type C_PaymentAllocate {
 	C_AllocationLine: C_AllocationLine
 	# Invoice Identifier
 	C_Invoice: C_Invoice!
+	UU: ID!
 	# Payment identifier
 	C_Payment: C_Payment!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -61,9 +61,9 @@ input C_PaymentAllocateInput {
 	C_AllocationLine: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
+	UU: ID
 	# Payment identifier
 	C_Payment: ForeignEntityInput
-	UU: ID
 	# Calculated amount of discount
 	DiscountAmt: BigDecimal
 	InvoiceAmt: BigDecimal

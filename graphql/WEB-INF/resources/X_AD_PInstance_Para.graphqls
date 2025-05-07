@@ -36,6 +36,7 @@ type AD_PInstance_Para {
 	IsActive: Boolean!
 	# Indicates if a chosen multiple component value must be negate
 	IsNotClause: Boolean!
+	ParameterName: String
 	# Process Parameter
 	P_Date: DateTime
 	# Process Parameter
@@ -48,7 +49,6 @@ type AD_PInstance_Para {
 	P_String: String
 	# Process Parameter
 	P_String_To: String
-	ParameterName: String
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
@@ -68,6 +68,7 @@ input AD_PInstance_ParaInput {
 	IsActive: Boolean
 	# Indicates if a chosen multiple component value must be negate
 	IsNotClause: Boolean
+	ParameterName: String
 	# Process Parameter
 	P_Date: DateTime
 	# Process Parameter
@@ -80,5 +81,4 @@ input AD_PInstance_ParaInput {
 	P_String: String
 	# Process Parameter
 	P_String_To: String
-	ParameterName: String
 }

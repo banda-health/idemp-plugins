@@ -305,20 +305,6 @@ public interface I_PP_Order_NodeInput extends I_PP_Order_Node {
 	ForeignEntityInput PP_Order_Workflow();
 
 	/**
-	 * Set S_Resource.
-	 *
-	 * @param S_Resource Resource
-	 */
-	void setS_ResourceInput(ForeignEntityInput S_Resource);
-
-	/**
-	 * Get S_Resource.
-	 *
-	 * @return Resource
-	 */
-	ForeignEntityInput S_Resource();
-
-	/**
 	 * Set SplitElement.
 	 *
 	 * @param SplitElement Semantics for multiple outgoing Transitions
@@ -331,6 +317,20 @@ public interface I_PP_Order_NodeInput extends I_PP_Order_Node {
 	 * @return Semantics for multiple outgoing Transitions
 	 */
 	ForeignEntityInput SplitElement();
+
+	/**
+	 * Set S_Resource.
+	 *
+	 * @param S_Resource Resource
+	 */
+	void setS_ResourceInput(ForeignEntityInput S_Resource);
+
+	/**
+	 * Get S_Resource.
+	 *
+	 * @return Resource
+	 */
+	ForeignEntityInput S_Resource();
 
 	/**
 	 * Set StartMode.

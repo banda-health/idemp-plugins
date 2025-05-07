@@ -53,34 +53,6 @@ public interface I_CM_ChatEntryInput extends I_CM_ChatEntry {
 	ForeignEntityInput ChatEntryType();
 
 	/**
-	 * Set CM_Chat.
-	 *
-	 * @param CM_Chat Chat or discussion thread
-	 */
-	void setCM_ChatInput(ForeignEntityInput CM_Chat);
-
-	/**
-	 * Get CM_Chat.
-	 *
-	 * @return Chat or discussion thread
-	 */
-	ForeignEntityInput CM_Chat();
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set CM_ChatEntryGrandParent.
 	 *
 	 * @param CM_ChatEntryGrandParent Link to Grand Parent (root level)
@@ -107,6 +79,34 @@ public interface I_CM_ChatEntryInput extends I_CM_ChatEntry {
 	 * @return Link to direct Parent
 	 */
 	ForeignEntityInput CM_ChatEntryParent();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
+
+	/**
+	 * Set CM_Chat.
+	 *
+	 * @param CM_Chat Chat or discussion thread
+	 */
+	void setCM_ChatInput(ForeignEntityInput CM_Chat);
+
+	/**
+	 * Get CM_Chat.
+	 *
+	 * @return Chat or discussion thread
+	 */
+	ForeignEntityInput CM_Chat();
 
 	/**
 	 * Set ConfidentialType.

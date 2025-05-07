@@ -79,40 +79,6 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	}
 
 	/**
-	 * Set Reference List.
-	 *
-	 * @param AD_Ref_List Reference List based on Table
-	 */
-	@JsonProperty("AD_Ref_List")
-	public void setAD_Ref_ListInput(ForeignEntityInput AD_Ref_List) {
-		this.mAD_Ref_List = AD_Ref_List;
-		if (AD_Ref_List != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Ref_List", "AD_Ref_List_UU=?", get_TrxName())
-							.setParameters(AD_Ref_List.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setAD_Ref_List_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Ref_List with UU " + AD_Ref_List.getUU());
-			}
-		} else {
-			this.setAD_Ref_List_ID(0);
-		}
-	}
-
-	/**
-	 * Get Reference List.
-	 *
-	 * @return Reference List based on Table
-	 */
-	@JsonProperty("AD_Ref_List")
-	public ForeignEntityInput AD_Ref_List() {
-		return mAD_Ref_List;
-	}
-
-	/**
 	 * Set Reference.
 	 *
 	 * @param AD_Reference System Reference and Validation
@@ -144,6 +110,40 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	@JsonProperty("AD_Reference")
 	public ForeignEntityInput AD_Reference() {
 		return mAD_Reference;
+	}
+
+	/**
+	 * Set Reference List.
+	 *
+	 * @param AD_Ref_List Reference List based on Table
+	 */
+	@JsonProperty("AD_Ref_List")
+	public void setAD_Ref_ListInput(ForeignEntityInput AD_Ref_List) {
+		this.mAD_Ref_List = AD_Ref_List;
+		if (AD_Ref_List != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Ref_List", "AD_Ref_List_UU=?", get_TrxName())
+							.setParameters(AD_Ref_List.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setAD_Ref_List_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Ref_List with UU " + AD_Ref_List.getUU());
+			}
+		} else {
+			this.setAD_Ref_List_ID(0);
+		}
+	}
+
+	/**
+	 * Get Reference List.
+	 *
+	 * @return Reference List based on Table
+	 */
+	@JsonProperty("AD_Ref_List")
+	public ForeignEntityInput AD_Ref_List() {
+		return mAD_Ref_List;
 	}
 
 	/**

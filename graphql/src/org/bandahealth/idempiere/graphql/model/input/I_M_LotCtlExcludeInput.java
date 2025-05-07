@@ -39,20 +39,6 @@ public interface I_M_LotCtlExcludeInput extends I_M_LotCtlExclude {
 	ForeignEntityInput AD_Table();
 
 	/**
-	 * Set M_LotCtl.
-	 *
-	 * @param M_LotCtl Product Lot Control
-	 */
-	void setM_LotCtlInput(ForeignEntityInput M_LotCtl);
-
-	/**
-	 * Get M_LotCtl.
-	 *
-	 * @return Product Lot Control
-	 */
-	ForeignEntityInput M_LotCtl();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -65,4 +51,18 @@ public interface I_M_LotCtlExcludeInput extends I_M_LotCtlExclude {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set M_LotCtl.
+	 *
+	 * @param M_LotCtl Product Lot Control
+	 */
+	void setM_LotCtlInput(ForeignEntityInput M_LotCtl);
+
+	/**
+	 * Get M_LotCtl.
+	 *
+	 * @return Product Lot Control
+	 */
+	ForeignEntityInput M_LotCtl();
 }

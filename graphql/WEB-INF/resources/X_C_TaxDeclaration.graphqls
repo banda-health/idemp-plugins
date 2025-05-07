@@ -22,11 +22,11 @@ type C_TaxDeclaration {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	UU: ID!
 	# Starting date for a range
 	DateFrom: Date!
 	# End date of a date range

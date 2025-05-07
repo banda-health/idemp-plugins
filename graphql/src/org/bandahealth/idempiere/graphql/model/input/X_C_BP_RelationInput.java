@@ -75,35 +75,6 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-	/**
-	 * Set Partner Relation.
-	 *
-	 * @param C_BP_Relation_ID Business Partner Relation
-	 */
-	@JsonProperty("C_BP_Relation_ID")
-	public void setC_BP_Relation_IDFromJson(int C_BP_Relation_ID) {
-		if (get_ID() == 0) {
-			super.setC_BP_Relation_ID(C_BP_Relation_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_BP_Relation_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_BP_Relation_UU();
-	}
 
 	/**
 	 * Set Business Partner.
@@ -239,6 +210,35 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 	@JsonProperty("C_BPartnerRelation_Location")
 	public ForeignEntityInput C_BPartnerRelation_Location() {
 		return mC_BPartnerRelation_Location;
+	}
+	/**
+	 * Set Partner Relation.
+	 *
+	 * @param C_BP_Relation_ID Business Partner Relation
+	 */
+	@JsonProperty("C_BP_Relation_ID")
+	public void setC_BP_Relation_IDFromJson(int C_BP_Relation_ID) {
+		if (get_ID() == 0) {
+			super.setC_BP_Relation_ID(C_BP_Relation_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_BP_Relation_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_BP_Relation_UU();
 	}
 	/**
 	 * Set Ship Address.

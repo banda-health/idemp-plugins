@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MWebProperties;
 import org.compiere.model.Query;
+import org.compiere.model.X_U_Web_Properties;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_U_Web_PropertiesInput extends MWebProperties implements I_U_Web_PropertiesInput {
+public class X_U_Web_PropertiesInput extends X_U_Web_Properties implements I_U_Web_PropertiesInput {
 
 	private ForeignEntityInput mAD_Org;
 

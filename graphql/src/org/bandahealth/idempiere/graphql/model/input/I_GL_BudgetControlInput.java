@@ -67,20 +67,6 @@ public interface I_GL_BudgetControlInput extends I_GL_BudgetControl {
 	ForeignEntityInput CommitmentType();
 
 	/**
-	 * Set GL_Budget.
-	 *
-	 * @param GL_Budget General Ledger Budget
-	 */
-	void setGL_BudgetInput(ForeignEntityInput GL_Budget);
-
-	/**
-	 * Get GL_Budget.
-	 *
-	 * @return General Ledger Budget
-	 */
-	ForeignEntityInput GL_Budget();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -93,4 +79,18 @@ public interface I_GL_BudgetControlInput extends I_GL_BudgetControl {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set GL_Budget.
+	 *
+	 * @param GL_Budget General Ledger Budget
+	 */
+	void setGL_BudgetInput(ForeignEntityInput GL_Budget);
+
+	/**
+	 * Get GL_Budget.
+	 *
+	 * @return General Ledger Budget
+	 */
+	ForeignEntityInput GL_Budget();
 }

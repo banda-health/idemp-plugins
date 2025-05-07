@@ -22,14 +22,14 @@ type M_MovementLine {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Unit of Measure
-	C_UOM: C_UOM!
 	# Confirmation of a received quantity
 	ConfirmedQty: BigDecimal
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Unit of Measure
+	C_UOM: C_UOM!
 	DD_OrderLine: DD_OrderLine
 	# Optional short description of the record
 	Description: String
@@ -48,10 +48,10 @@ type M_MovementLine {
 	# Movement of Inventory
 	M_Movement: M_Movement!
 	UU: ID!
-	# Product, Service, Item
-	M_Product: M_Product!
 	# Quantity of a product moved.
 	MovementQty: BigDecimal!
+	# Product, Service, Item
+	M_Product: M_Product!
 	# The document has been processed
 	Processed: Boolean!
 	# The Quantity Entered is based on the selected UoM
@@ -73,10 +73,10 @@ type M_MovementLine {
 input M_MovementLineInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	# Unit of Measure
-	C_UOM: ForeignEntityInput
 	# Confirmation of a received quantity
 	ConfirmedQty: BigDecimal
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
 	DD_OrderLine: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
@@ -95,10 +95,10 @@ input M_MovementLineInput {
 	# Movement of Inventory
 	M_Movement: ForeignEntityInput
 	UU: ID
-	# Product, Service, Item
-	M_Product: ForeignEntityInput
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# The Quantity Entered is based on the selected UoM

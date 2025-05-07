@@ -31,10 +31,10 @@ type C_DunningRunLine {
 	C_Invoice: C_Invoice
 	# Invoice Payment Schedule
 	C_InvoicePaySchedule: C_InvoicePaySchedule
-	# Payment identifier
-	C_Payment: C_Payment
 	# Converted Amount
 	ConvertedAmt: BigDecimal!
+	# Payment identifier
+	C_Payment: C_Payment
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -75,10 +75,10 @@ input C_DunningRunLineInput {
 	C_Invoice: ForeignEntityInput
 	# Invoice Payment Schedule
 	C_InvoicePaySchedule: ForeignEntityInput
-	# Payment identifier
-	C_Payment: ForeignEntityInput
 	# Converted Amount
 	ConvertedAmt: BigDecimal
+	# Payment identifier
+	C_Payment: ForeignEntityInput
 	# Number of days due (negative: due in number of days)
 	DaysDue: Int
 	# Fee amount in invoice currency

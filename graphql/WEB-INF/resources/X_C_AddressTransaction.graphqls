@@ -20,8 +20,6 @@ type C_AddressTransactionConnection {
 type C_AddressTransaction {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	# Address line 1 for this location
 	Address1: String
 	# Address line 2 for this location
@@ -32,12 +30,14 @@ type C_AddressTransaction {
 	Address4: String
 	# Address Line 5 for the location
 	Address5: String
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	UU: ID!
 	C_AddressValidation: C_AddressValidation!
-	# Location or Address
-	C_Location: C_Location
 	# Identifies a City
 	City: String
+	# Location or Address
+	C_Location: C_Location
 	# Comments or additional information
 	Comments: String
 	Country: String
@@ -63,8 +63,6 @@ type C_AddressTransaction {
 }
 
 input C_AddressTransactionInput {
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# Address line 1 for this location
 	Address1: String
 	# Address line 2 for this location
@@ -75,12 +73,14 @@ input C_AddressTransactionInput {
 	Address4: String
 	# Address Line 5 for the location
 	Address5: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	UU: ID
 	C_AddressValidation: ForeignEntityInput
-	# Location or Address
-	C_Location: ForeignEntityInput
 	# Identifies a City
 	City: String
+	# Location or Address
+	C_Location: ForeignEntityInput
 	# Comments or additional information
 	Comments: String
 	Country: String

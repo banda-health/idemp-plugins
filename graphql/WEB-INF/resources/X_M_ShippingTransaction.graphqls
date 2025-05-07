@@ -29,27 +29,27 @@ type M_ShippingTransaction {
 	# Business Partner Location for invoicing
 	Bill_Location: C_BPartner_Location
 	BoxCount: Int
-	C_BP_ShippingAcct: C_BP_ShippingAcct
+	CashOnDelivery: Boolean!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: C_BPartner_Location
+	C_BP_ShippingAcct: C_BP_ShippingAcct
 	# The Currency for this record
 	C_Currency: C_Currency
 	# Invoice Identifier
 	C_Invoice: C_Invoice
+	CODAmount: BigDecimal
 	# Order
 	C_Order: C_Order
-	# Standard Unit of Measure for Length
-	C_UOM_Length: C_UOM
-	# Standard Unit of Measure for Weight
-	C_UOM_Weight: C_UOM
-	CashOnDelivery: Boolean!
-	CODAmount: BigDecimal
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Standard Unit of Measure for Length
+	C_UOM_Length: C_UOM
+	# Standard Unit of Measure for Weight
+	C_UOM_Weight: C_UOM
 	CustomsValue: BigDecimal
 	# Date a product was received
 	DateReceived: Date
@@ -153,23 +153,23 @@ input M_ShippingTransactionInput {
 	# Business Partner Location for invoicing
 	Bill_Location: ForeignEntityInput
 	BoxCount: Int
-	C_BP_ShippingAcct: ForeignEntityInput
+	CashOnDelivery: Boolean
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: ForeignEntityInput
+	C_BP_ShippingAcct: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
+	CODAmount: BigDecimal
 	# Order
 	C_Order: ForeignEntityInput
 	# Standard Unit of Measure for Length
 	C_UOM_Length: ForeignEntityInput
 	# Standard Unit of Measure for Weight
 	C_UOM_Weight: ForeignEntityInput
-	CashOnDelivery: Boolean
-	CODAmount: BigDecimal
 	CustomsValue: BigDecimal
 	# Date a product was received
 	DateReceived: Date

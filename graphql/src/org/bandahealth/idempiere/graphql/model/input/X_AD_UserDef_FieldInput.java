@@ -99,40 +99,6 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	}
 
 	/**
-	 * Set Field.
-	 *
-	 * @param AD_Field Field on a database table
-	 */
-	@JsonProperty("AD_Field")
-	public void setAD_FieldInput(ForeignEntityInput AD_Field) {
-		this.mAD_Field = AD_Field;
-		if (AD_Field != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MField_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
-							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setAD_Field_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Field with UU " + AD_Field.getUU());
-			}
-		} else {
-			this.setAD_Field_ID(0);
-		}
-	}
-
-	/**
-	 * Get Field.
-	 *
-	 * @return Field on a database table
-	 */
-	@JsonProperty("AD_Field")
-	public ForeignEntityInput AD_Field() {
-		return mAD_Field;
-	}
-
-	/**
 	 * Set Field Group.
 	 *
 	 * @param AD_FieldGroup Logical grouping of fields
@@ -164,6 +130,40 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	@JsonProperty("AD_FieldGroup")
 	public ForeignEntityInput AD_FieldGroup() {
 		return mAD_FieldGroup;
+	}
+
+	/**
+	 * Set Field.
+	 *
+	 * @param AD_Field Field on a database table
+	 */
+	@JsonProperty("AD_Field")
+	public void setAD_FieldInput(ForeignEntityInput AD_Field) {
+		this.mAD_Field = AD_Field;
+		if (AD_Field != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MField_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
+							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setAD_Field_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Field with UU " + AD_Field.getUU());
+			}
+		} else {
+			this.setAD_Field_ID(0);
+		}
+	}
+
+	/**
+	 * Get Field.
+	 *
+	 * @return Field on a database table
+	 */
+	@JsonProperty("AD_Field")
+	public ForeignEntityInput AD_Field() {
+		return mAD_Field;
 	}
 
 	/**

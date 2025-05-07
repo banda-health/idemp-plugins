@@ -25,20 +25,6 @@ public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 	ForeignEntityInput AD_Chart();
 
 	/**
-	 * Set AD_Field.
-	 *
-	 * @param AD_Field Field on a database table
-	 */
-	void setAD_FieldInput(ForeignEntityInput AD_Field);
-
-	/**
-	 * Get AD_Field.
-	 *
-	 * @return Field on a database table
-	 */
-	ForeignEntityInput AD_Field();
-
-	/**
 	 * Set AD_FieldGroup.
 	 *
 	 * @param AD_FieldGroup Logical grouping of fields
@@ -51,6 +37,20 @@ public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 	 * @return Logical grouping of fields
 	 */
 	ForeignEntityInput AD_FieldGroup();
+
+	/**
+	 * Set AD_Field.
+	 *
+	 * @param AD_Field Field on a database table
+	 */
+	void setAD_FieldInput(ForeignEntityInput AD_Field);
+
+	/**
+	 * Get AD_Field.
+	 *
+	 * @return Field on a database table
+	 */
+	ForeignEntityInput AD_Field();
 
 	/**
 	 * Set AD_FieldStyle.

@@ -26,11 +26,11 @@ type C_Withholding {
 	Benefici: C_BPartner!
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# Fix amounted amount to be levied or paid

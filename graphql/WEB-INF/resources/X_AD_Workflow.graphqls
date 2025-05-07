@@ -31,9 +31,9 @@ type AD_Workflow {
 	AD_WF_Node: AD_WF_Node
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: AD_WF_Responsible
-	UU: ID!
 	# Workflow Processor Server
 	AD_WorkflowProcessor: AD_WorkflowProcessor
+	UU: ID!
 	# Author/Creator of the Entity
 	Author: String!
 	# Cost information
@@ -79,10 +79,10 @@ type AD_Workflow {
 	QtyBatchSize: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
-	# Resource
-	S_Resource: S_Resource
 	# Setup time before starting Production
 	SetupTime: Int
+	# Resource
+	S_Resource: S_Resource
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
 	UnitsCycles: BigDecimal
 	# Date this record was updated
@@ -120,9 +120,9 @@ input AD_WorkflowInput {
 	AD_WF_Node: ForeignEntityInput
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: ForeignEntityInput
-	UU: ID
 	# Workflow Processor Server
 	AD_WorkflowProcessor: ForeignEntityInput
+	UU: ID
 	# Author/Creator of the Entity
 	Author: String
 	# Cost information
@@ -164,10 +164,10 @@ input AD_WorkflowInput {
 	QtyBatchSize: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
-	# Resource
-	S_Resource: ForeignEntityInput
 	# Setup time before starting Production
 	SetupTime: Int
+	# Resource
+	S_Resource: ForeignEntityInput
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
 	UnitsCycles: BigDecimal
 	ValidateWorkflow: String

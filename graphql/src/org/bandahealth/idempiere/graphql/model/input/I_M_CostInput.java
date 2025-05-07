@@ -53,20 +53,6 @@ public interface I_M_CostInput extends I_M_Cost {
 	ForeignEntityInput M_AttributeSetInstance();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_CostElement.
 	 *
 	 * @param M_CostElement Product Cost Element
@@ -93,6 +79,20 @@ public interface I_M_CostInput extends I_M_Cost {
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
 	ForeignEntityInput M_CostType();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set M_Product.

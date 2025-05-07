@@ -25,20 +25,6 @@ public interface I_C_BankAccountDocInput extends I_C_BankAccountDoc {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set C_BankAccount.
-	 *
-	 * @param C_BankAccount Account at the Bank
-	 */
-	void setC_BankAccountInput(ForeignEntityInput C_BankAccount);
-
-	/**
-	 * Get C_BankAccount.
-	 *
-	 * @return Account at the Bank
-	 */
-	ForeignEntityInput C_BankAccount();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -51,6 +37,20 @@ public interface I_C_BankAccountDocInput extends I_C_BankAccountDoc {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_BankAccount.
+	 *
+	 * @param C_BankAccount Account at the Bank
+	 */
+	void setC_BankAccountInput(ForeignEntityInput C_BankAccount);
+
+	/**
+	 * Get C_BankAccount.
+	 *
+	 * @return Account at the Bank
+	 */
+	ForeignEntityInput C_BankAccount();
 
 	/**
 	 * Set Check_PrintFormat.

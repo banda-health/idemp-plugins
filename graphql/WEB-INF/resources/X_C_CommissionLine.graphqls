@@ -26,21 +26,21 @@ type C_CommissionLine {
 	AmtMultiplier: BigDecimal!
 	# Subtract Amount for generating commissions
 	AmtSubtract: BigDecimal!
-	# Business Partner Group
-	C_BP_Group: C_BP_Group
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
+	# Business Partner Group
+	C_BP_Group: C_BP_Group
 	# Commission
 	C_Commission: C_Commission!
 	UU: ID!
-	# Sales coverage region
-	C_SalesRegion: C_SalesRegion
 	# Commission only Orders or Invoices, where this Sales Rep is entered
 	CommissionOrders: Boolean!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -72,17 +72,17 @@ input C_CommissionLineInput {
 	AmtMultiplier: BigDecimal
 	# Subtract Amount for generating commissions
 	AmtSubtract: BigDecimal
-	# Business Partner Group
-	C_BP_Group: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
 	# Commission
 	C_Commission: ForeignEntityInput
 	UU: ID
-	# Sales coverage region
-	C_SalesRegion: ForeignEntityInput
 	# Commission only Orders or Invoices, where this Sales Rep is entered
 	CommissionOrders: Boolean
+	# Sales coverage region
+	C_SalesRegion: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

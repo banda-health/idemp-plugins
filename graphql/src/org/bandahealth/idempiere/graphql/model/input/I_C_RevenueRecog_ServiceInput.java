@@ -25,20 +25,6 @@ public interface I_C_RevenueRecog_ServiceInput extends I_C_RevenueRecog_Service 
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_RevenueRecognition.
 	 *
 	 * @param C_RevenueRecognition Method for recording revenue
@@ -51,4 +37,18 @@ public interface I_C_RevenueRecog_ServiceInput extends I_C_RevenueRecog_Service 
 	 * @return Method for recording revenue
 	 */
 	ForeignEntityInput C_RevenueRecognition();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

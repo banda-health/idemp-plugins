@@ -152,35 +152,6 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 	public ForeignEntityInput M_Shipper() {
 		return mM_Shipper;
 	}
-	/**
-	 * Set Shipper Labels.
-	 *
-	 * @param M_ShipperLabels_ID Shipper Labels
-	 */
-	@JsonProperty("M_ShipperLabels_ID")
-	public void setM_ShipperLabels_IDFromJson(int M_ShipperLabels_ID) {
-		if (get_ID() == 0) {
-			super.setM_ShipperLabels_ID(M_ShipperLabels_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_ShipperLabels_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_ShipperLabels_UU();
-	}
 
 	/**
 	 * Set Shipper Labels Configuration.
@@ -214,5 +185,34 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 	@JsonProperty("M_ShipperLabelsCfg")
 	public ForeignEntityInput M_ShipperLabelsCfg() {
 		return mM_ShipperLabelsCfg;
+	}
+	/**
+	 * Set Shipper Labels.
+	 *
+	 * @param M_ShipperLabels_ID Shipper Labels
+	 */
+	@JsonProperty("M_ShipperLabels_ID")
+	public void setM_ShipperLabels_IDFromJson(int M_ShipperLabels_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperLabels_ID(M_ShipperLabels_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_ShipperLabels_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_ShipperLabels_UU();
 	}
 }

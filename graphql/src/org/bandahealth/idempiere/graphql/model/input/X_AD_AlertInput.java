@@ -47,24 +47,6 @@ public class X_AD_AlertInput extends MAlert implements I_AD_AlertInput {
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_Alert_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_Alert_UU();
-	}
-
-	/**
 	 * Set Alert Processor.
 	 *
 	 * @param AD_AlertProcessor Alert Processor/Server Parameter
@@ -96,6 +78,24 @@ public class X_AD_AlertInput extends MAlert implements I_AD_AlertInput {
 	@JsonProperty("AD_AlertProcessor")
 	public ForeignEntityInput AD_AlertProcessor() {
 		return mAD_AlertProcessor;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_Alert_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_Alert_UU();
 	}
 
 	/**

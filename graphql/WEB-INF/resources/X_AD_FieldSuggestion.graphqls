@@ -31,9 +31,9 @@ type AD_FieldSuggestion {
 	AD_Org: AD_Org!
 	# Tab within a Window
 	AD_Tab: AD_Tab
+	AD_UserClient: AD_AllClients_V!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_AllUsers_V!
-	AD_UserClient: AD_AllClients_V!
 	# Data entry or display window
 	AD_Window: AD_Window
 	# Compare suggested text with original text
@@ -74,9 +74,9 @@ input AD_FieldSuggestionInput {
 	AD_Language: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	AD_UserClient: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	AD_UserClient: ForeignEntityInput
 	# Compare suggested text with original text
 	CompareSuggestion: String
 	# Optional short description of the record

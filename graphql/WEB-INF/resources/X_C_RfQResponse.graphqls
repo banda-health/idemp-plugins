@@ -30,16 +30,16 @@ type C_RfQResponse {
 	C_BPartner_Location: C_BPartner_Location!
 	# The Currency for this record
 	C_Currency: C_Currency!
+	CheckComplete: String
 	# Order
 	C_Order: C_Order
-	# Request for Quotation
-	C_RfQ: C_RfQ!
-	UU: ID!
-	CheckComplete: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Request for Quotation
+	C_RfQ: C_RfQ!
+	UU: ID!
 	# Date when (last) invitation was sent
 	DateInvited: Date
 	# Date of the Response
@@ -88,12 +88,12 @@ input C_RfQResponseInput {
 	C_BPartner_Location: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
+	CheckComplete: String
 	# Order
 	C_Order: ForeignEntityInput
 	# Request for Quotation
 	C_RfQ: ForeignEntityInput
 	UU: ID
-	CheckComplete: String
 	# Date when (last) invitation was sent
 	DateInvited: Date
 	# Date of the Response

@@ -29,14 +29,14 @@ type C_BP_Group_Acct {
 	C_BP_Group: C_BP_Group!
 	# Account for customer prepayments
 	C_Prepayment_A: C_ValidCombination!
-	# Account for Customer Receivables
-	C_Receivable_A: C_ValidCombination!
-	# Customer Accounts Receivables Services Account
-	C_Receivable_Services_A: C_ValidCombination!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Account for Customer Receivables
+	C_Receivable_A: C_ValidCombination!
+	# Customer Accounts Receivables Services Account
+	C_Receivable_Services_A: C_ValidCombination!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Account for not-invoiced Material Receipts

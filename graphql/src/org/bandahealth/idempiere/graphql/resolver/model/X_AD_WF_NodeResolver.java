@@ -461,21 +461,6 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 		return dataLoader.load(entity.getR_MailText_ID());
 	}
 
-
-	/**
-	 * Get Resource.
-	 *
-	 * @return Resource
-	 */
-	public CompletableFuture<MResource> S_Resource(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MResource> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.DATALOADER_S_Resource_BY_ID);
-		return dataLoader.load(entity.getS_Resource_ID());
-	}
-
 	public static Map<String, String> SPLITELEMENT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("A", "7d07cf62-b385-4d2d-a596-27ce10dd3726"); // AND
@@ -489,6 +474,21 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(SPLITELEMENT_UUIDS_BY_VALUE.get(entity.getSplitElement()));
+	}
+
+
+	/**
+	 * Get Resource.
+	 *
+	 * @return Resource
+	 */
+	public CompletableFuture<MResource> S_Resource(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+		if (entity.getS_Resource_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MResource> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.DATALOADER_S_Resource_BY_ID);
+		return dataLoader.load(entity.getS_Resource_ID());
 	}
 
 	public static Map<String, String> STARTMODE_UUIDS_BY_VALUE = new HashMap<>() {

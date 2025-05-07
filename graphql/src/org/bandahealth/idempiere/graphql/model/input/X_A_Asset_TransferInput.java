@@ -571,39 +571,6 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 			super.setA_Disposal_Revenue_Str(A_Disposal_Revenue_Str);
 		}
 	}
-	/**
-	 * Set A_Period_End.
-	 *
-	 * @param A_Period_End A_Period_End
-	 */
-	@JsonProperty("A_Period_End")
-	public void setA_Period_EndFromJson(int A_Period_End) {
-		if (get_ID() == 0) {
-			super.setA_Period_End(A_Period_End);
-		}
-	}
-	/**
-	 * Set A_Period_Start.
-	 *
-	 * @param A_Period_Start A_Period_Start
-	 */
-	@JsonProperty("A_Period_Start")
-	public void setA_Period_StartFromJson(int A_Period_Start) {
-		if (get_ID() == 0) {
-			super.setA_Period_Start(A_Period_Start);
-		}
-	}
-	/**
-	 * Set Split Percent.
-	 *
-	 * @param A_Split_Percent Split Percent
-	 */
-	@JsonProperty("A_Split_Percent")
-	public void setA_Split_PercentFromJson(BigDecimal A_Split_Percent) {
-		if (get_ID() == 0) {
-			super.setA_Split_Percent(A_Split_Percent);
-		}
-	}
 
 	/**
 	 * Set Organization.
@@ -640,6 +607,39 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set A_Period_End.
+	 *
+	 * @param A_Period_End A_Period_End
+	 */
+	@JsonProperty("A_Period_End")
+	public void setA_Period_EndFromJson(int A_Period_End) {
+		if (get_ID() == 0) {
+			super.setA_Period_End(A_Period_End);
+		}
+	}
+	/**
+	 * Set A_Period_Start.
+	 *
+	 * @param A_Period_Start A_Period_Start
+	 */
+	@JsonProperty("A_Period_Start")
+	public void setA_Period_StartFromJson(int A_Period_Start) {
+		if (get_ID() == 0) {
+			super.setA_Period_Start(A_Period_Start);
+		}
+	}
+	/**
+	 * Set Split Percent.
+	 *
+	 * @param A_Split_Percent Split Percent
+	 */
+	@JsonProperty("A_Split_Percent")
+	public void setA_Split_PercentFromJson(BigDecimal A_Split_Percent) {
+		if (get_ID() == 0) {
+			super.setA_Split_Percent(A_Split_Percent);
+		}
 	}
 
 	/**

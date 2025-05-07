@@ -50,11 +50,11 @@ type M_Cost {
 	IsCostFrozen: Boolean!
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
-	UU: ID!
 	# Product Cost Element
 	M_CostElement: M_CostElement!
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: M_CostType!
+	UU: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Percentage
@@ -92,11 +92,11 @@ input M_CostInput {
 	IsCostFrozen: Boolean
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
-	UU: ID
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: ForeignEntityInput
+	UU: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Percentage

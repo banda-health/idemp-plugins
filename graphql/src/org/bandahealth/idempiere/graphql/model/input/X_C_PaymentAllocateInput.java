@@ -140,6 +140,35 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 	public ForeignEntityInput C_Invoice() {
 		return mC_Invoice;
 	}
+	/**
+	 * Set Allocate Payment.
+	 *
+	 * @param C_PaymentAllocate_ID Allocate Payment to Invoices
+	 */
+	@JsonProperty("C_PaymentAllocate_ID")
+	public void setC_PaymentAllocate_IDFromJson(int C_PaymentAllocate_ID) {
+		if (get_ID() == 0) {
+			super.setC_PaymentAllocate_ID(C_PaymentAllocate_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_PaymentAllocate_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_PaymentAllocate_UU();
+	}
 
 	/**
 	 * Set Payment.
@@ -173,34 +202,5 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 	@JsonProperty("C_Payment")
 	public ForeignEntityInput C_Payment() {
 		return mC_Payment;
-	}
-	/**
-	 * Set Allocate Payment.
-	 *
-	 * @param C_PaymentAllocate_ID Allocate Payment to Invoices
-	 */
-	@JsonProperty("C_PaymentAllocate_ID")
-	public void setC_PaymentAllocate_IDFromJson(int C_PaymentAllocate_ID) {
-		if (get_ID() == 0) {
-			super.setC_PaymentAllocate_ID(C_PaymentAllocate_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_PaymentAllocate_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_PaymentAllocate_UU();
 	}
 }

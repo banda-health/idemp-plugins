@@ -36,9 +36,9 @@ type M_DiscountSchemaBreak {
 	IsActive: Boolean!
 	# Use flat discount defined on Business Partner Level
 	IsBPartnerFlatDiscount: Boolean!
+	UU: ID!
 	# Schema to calculate the trade discount percentage
 	M_DiscountSchema: M_DiscountSchema!
-	UU: ID!
 	# Category of a Product
 	M_Product_Category: M_Product_Category
 	# Product, Service, Item
@@ -64,9 +64,9 @@ input M_DiscountSchemaBreakInput {
 	IsActive: Boolean
 	# Use flat discount defined on Business Partner Level
 	IsBPartnerFlatDiscount: Boolean
+	UU: ID
 	# Schema to calculate the trade discount percentage
 	M_DiscountSchema: ForeignEntityInput
-	UU: ID
 	# Category of a Product
 	M_Product_Category: ForeignEntityInput
 	# Product, Service, Item

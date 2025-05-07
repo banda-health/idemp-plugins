@@ -182,6 +182,35 @@ public class X_AD_UserDef_ProcInput extends MUserDefProc implements I_AD_UserDef
 	public ForeignEntityInput AD_Role() {
 		return mAD_Role;
 	}
+	/**
+	 * Set User defined Process.
+	 *
+	 * @param AD_UserDef_Proc_ID Primary Key : User defined Process
+	 */
+	@JsonProperty("AD_UserDef_Proc_ID")
+	public void setAD_UserDef_Proc_IDFromJson(int AD_UserDef_Proc_ID) {
+		if (get_ID() == 0) {
+			super.setAD_UserDef_Proc_ID(AD_UserDef_Proc_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_UserDef_Proc_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_UserDef_Proc_UU();
+	}
 
 	/**
 	 * Set User/Contact.
@@ -215,34 +244,5 @@ public class X_AD_UserDef_ProcInput extends MUserDefProc implements I_AD_UserDef
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
-	}
-	/**
-	 * Set User defined Process.
-	 *
-	 * @param AD_UserDef_Proc_ID Primary Key : User defined Process
-	 */
-	@JsonProperty("AD_UserDef_Proc_ID")
-	public void setAD_UserDef_Proc_IDFromJson(int AD_UserDef_Proc_ID) {
-		if (get_ID() == 0) {
-			super.setAD_UserDef_Proc_ID(AD_UserDef_Proc_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_UserDef_Proc_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_UserDef_Proc_UU();
 	}
 }

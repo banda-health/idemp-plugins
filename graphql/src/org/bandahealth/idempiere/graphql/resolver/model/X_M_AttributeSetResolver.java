@@ -61,6 +61,22 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 		return entity.isSerNoMandatory();
 	}
 
+	public static Map<String, String> MANDATORYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("N", "4591d5a6-31a3-4b6e-bbf3-41946a2f891e"); // Not Mandatory
+			put("Y", "8e954367-a681-4bc5-b4f6-8ce3ac3bb746"); // Always Mandatory
+			put("S", "7744e8d4-5f72-49bb-a1fb-ded1e5ec5055"); // When Shipping
+		}
+	};
+	public CompletableFuture<MRefList_BH> MandatoryType(MAttributeSet_BH entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getMandatoryType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(MANDATORYTYPE_UUIDS_BY_VALUE.get(entity.getMandatoryType()));
+	}
+
 	public static Map<String, String> M_ATTRIBUTESET_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("MMS", "4455f892-2ea1-499d-a0b9-c01b3226f97d"); // Material Management System
@@ -103,22 +119,6 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 		DataLoader<Integer, MSerNoCtl_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_SerNoCtlDataLoader.DATALOADER_M_SerNoCtl_BY_ID);
 		return dataLoader.load(entity.getM_SerNoCtl_ID());
-	}
-
-	public static Map<String, String> MANDATORYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("N", "4591d5a6-31a3-4b6e-bbf3-41946a2f891e"); // Not Mandatory
-			put("Y", "8e954367-a681-4bc5-b4f6-8ce3ac3bb746"); // Always Mandatory
-			put("S", "7744e8d4-5f72-49bb-a1fb-ded1e5ec5055"); // When Shipping
-		}
-	};
-	public CompletableFuture<MRefList_BH> MandatoryType(MAttributeSet_BH entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getMandatoryType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(MANDATORYTYPE_UUIDS_BY_VALUE.get(entity.getMandatoryType()));
 	}
 
 	public Boolean UseGuaranteeDateForMPolicy(MAttributeSet_BH entity, DataFetchingEnvironment environment) {

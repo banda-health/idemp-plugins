@@ -38,14 +38,14 @@ type I_BankStatement {
 	C_Charge: C_Charge
 	# The Currency for this record
 	C_Currency: C_Currency
-	# Invoice Identifier
-	C_Invoice: C_Invoice
-	# Payment identifier
-	C_Payment: C_Payment
 	# Charge Amount
 	ChargeAmt: BigDecimal
 	# Name of the Charge
 	ChargeName: String
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Payment identifier
+	C_Payment: C_Payment
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -81,13 +81,13 @@ type I_BankStatement {
 	EftTrxType: String
 	# Electronic Funds Transfer Valuta (effective) Date
 	EftValutaDate: Date
+	# International Bank Account Number
+	IBAN: String
 	UU: ID!
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
-	# International Bank Account Number
-	IBAN: String
 	# Interest Amount
 	InterestAmt: BigDecimal
 	# Document Number of the Invoice
@@ -153,14 +153,14 @@ input I_BankStatementInput {
 	C_Charge: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
-	# Invoice Identifier
-	C_Invoice: ForeignEntityInput
-	# Payment identifier
-	C_Payment: ForeignEntityInput
 	# Charge Amount
 	ChargeAmt: BigDecimal
 	# Name of the Charge
 	ChargeName: String
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
 	CreatePayment: String
 	# Accounting Date
 	DateAcct: Date
@@ -192,13 +192,13 @@ input I_BankStatementInput {
 	EftTrxType: String
 	# Electronic Funds Transfer Valuta (effective) Date
 	EftValutaDate: Date
+	# International Bank Account Number
+	IBAN: String
 	UU: ID
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
-	# International Bank Account Number
-	IBAN: String
 	# Interest Amount
 	InterestAmt: BigDecimal
 	# Document Number of the Invoice

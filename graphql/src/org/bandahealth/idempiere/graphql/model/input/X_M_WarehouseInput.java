@@ -155,24 +155,6 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_Warehouse_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_Warehouse_UU();
-	}
-
-	/**
 	 * Set Source Warehouse.
 	 *
 	 * @param M_WarehouseSource Optional Warehouse to replenish from
@@ -204,5 +186,23 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	@JsonProperty("M_WarehouseSource")
 	public ForeignEntityInput M_WarehouseSource() {
 		return mM_WarehouseSource;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_Warehouse_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_Warehouse_UU();
 	}
 }

@@ -19,14 +19,14 @@ type A_Asset_Reval_IndexConnection {
 
 type A_Asset_Reval_Index {
 	UU: ID!
-	A_Effective_Date: Date!
-	A_Reval_Code: AD_Ref_List!
-	A_Reval_Multiplier: AD_Ref_List!
-	A_Reval_Rate: BigDecimal!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	A_Effective_Date: Date!
+	A_Reval_Code: AD_Ref_List!
+	A_Reval_Multiplier: AD_Ref_List!
+	A_Reval_Rate: BigDecimal!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -41,12 +41,12 @@ type A_Asset_Reval_Index {
 
 input A_Asset_Reval_IndexInput {
 	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	A_Effective_Date: Date
 	A_Reval_Code: ForeignEntityInput
 	A_Reval_Multiplier: ForeignEntityInput
 	A_Reval_Rate: BigDecimal
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 }

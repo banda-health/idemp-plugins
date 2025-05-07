@@ -6,8 +6,8 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
+import org.compiere.model.MRegistrationAttribute;
 import org.compiere.model.Query;
-import org.compiere.model.X_A_RegistrationAttribute;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_A_RegistrationAttributeInput extends X_A_RegistrationAttribute implements I_A_RegistrationAttributeInput {
+public class X_A_RegistrationAttributeInput extends MRegistrationAttribute implements I_A_RegistrationAttributeInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Reference;
@@ -34,35 +34,6 @@ public class X_A_RegistrationAttributeInput extends X_A_RegistrationAttribute im
 	public X_A_RegistrationAttributeInput(@JsonProperty("UU") String UU) {
 		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
 		setUU(UU);
-	}
-	/**
-	 * Set Registration Attribute.
-	 *
-	 * @param A_RegistrationAttribute_ID Asset Registration Attribute
-	 */
-	@JsonProperty("A_RegistrationAttribute_ID")
-	public void setA_RegistrationAttribute_IDFromJson(int A_RegistrationAttribute_ID) {
-		if (get_ID() == 0) {
-			super.setA_RegistrationAttribute_ID(A_RegistrationAttribute_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setA_RegistrationAttribute_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getA_RegistrationAttribute_UU();
 	}
 
 	/**
@@ -168,5 +139,34 @@ public class X_A_RegistrationAttributeInput extends X_A_RegistrationAttribute im
 	@JsonProperty("AD_Reference_Value")
 	public ForeignEntityInput AD_Reference_Value() {
 		return mAD_Reference_Value;
+	}
+	/**
+	 * Set Registration Attribute.
+	 *
+	 * @param A_RegistrationAttribute_ID Asset Registration Attribute
+	 */
+	@JsonProperty("A_RegistrationAttribute_ID")
+	public void setA_RegistrationAttribute_IDFromJson(int A_RegistrationAttribute_ID) {
+		if (get_ID() == 0) {
+			super.setA_RegistrationAttribute_ID(A_RegistrationAttribute_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setA_RegistrationAttribute_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getA_RegistrationAttribute_UU();
 	}
 }

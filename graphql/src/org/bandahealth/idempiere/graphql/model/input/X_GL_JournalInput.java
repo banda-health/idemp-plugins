@@ -422,35 +422,6 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 	public ForeignEntityInput GL_Category() {
 		return mGL_Category;
 	}
-	/**
-	 * Set Journal.
-	 *
-	 * @param GL_Journal_ID General Ledger Journal
-	 */
-	@JsonProperty("GL_Journal_ID")
-	public void setGL_Journal_IDFromJson(int GL_Journal_ID) {
-		if (get_ID() == 0) {
-			super.setGL_Journal_ID(GL_Journal_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setGL_Journal_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getGL_Journal_UU();
-	}
 
 	/**
 	 * Set Journal Batch.
@@ -487,6 +458,35 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 	@JsonProperty("GL_JournalBatch")
 	public ForeignEntityInput GL_JournalBatch() {
 		return mGL_JournalBatch;
+	}
+	/**
+	 * Set Journal.
+	 *
+	 * @param GL_Journal_ID General Ledger Journal
+	 */
+	@JsonProperty("GL_Journal_ID")
+	public void setGL_Journal_IDFromJson(int GL_Journal_ID) {
+		if (get_ID() == 0) {
+			super.setGL_Journal_ID(GL_Journal_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setGL_Journal_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getGL_Journal_UU();
 	}
 	/**
 	 * Set Approved.

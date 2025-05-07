@@ -95,20 +95,6 @@ public interface I_PA_ReportInput extends I_PA_Report {
 	ForeignEntityInput JasperProcess();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set PA_ReportColumnSet.
 	 *
 	 * @param PA_ReportColumnSet Collection of Columns for Report
@@ -149,4 +135,18 @@ public interface I_PA_ReportInput extends I_PA_Report {
 	 * @return PA_ReportLineSet
 	 */
 	ForeignEntityInput PA_ReportLineSet();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

@@ -39,20 +39,6 @@ public interface I_M_ShipperPickupTypesInput extends I_M_ShipperPickupTypes {
 	ForeignEntityInput M_Shipper();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_ShipperPickupTypesCfg.
 	 *
 	 * @param M_ShipperPickupTypesCfg M_ShipperPickupTypesCfg
@@ -65,4 +51,18 @@ public interface I_M_ShipperPickupTypesInput extends I_M_ShipperPickupTypes {
 	 * @return M_ShipperPickupTypesCfg
 	 */
 	ForeignEntityInput M_ShipperPickupTypesCfg();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

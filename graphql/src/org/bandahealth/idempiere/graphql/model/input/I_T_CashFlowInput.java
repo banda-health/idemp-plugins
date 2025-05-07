@@ -67,6 +67,34 @@ public interface I_T_CashFlowInput extends I_T_CashFlow {
 	ForeignEntityInput C_Activity();
 
 	/**
+	 * Set CashFlowSource.
+	 *
+	 * @param CashFlowSource CashFlowSource
+	 */
+	void setCashFlowSourceInput(ForeignEntityInput CashFlowSource);
+
+	/**
+	 * Get CashFlowSource.
+	 *
+	 * @return CashFlowSource
+	 */
+	ForeignEntityInput CashFlowSource();
+
+	/**
+	 * Set CashFlowType.
+	 *
+	 * @param CashFlowType CashFlowType
+	 */
+	void setCashFlowTypeInput(ForeignEntityInput CashFlowType);
+
+	/**
+	 * Get CashFlowType.
+	 *
+	 * @return CashFlowType
+	 */
+	ForeignEntityInput CashFlowType();
+
+	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -177,34 +205,6 @@ public interface I_T_CashFlowInput extends I_T_CashFlow {
 	 * @return Financial Project
 	 */
 	ForeignEntityInput C_Project();
-
-	/**
-	 * Set CashFlowSource.
-	 *
-	 * @param CashFlowSource CashFlowSource
-	 */
-	void setCashFlowSourceInput(ForeignEntityInput CashFlowSource);
-
-	/**
-	 * Get CashFlowSource.
-	 *
-	 * @return CashFlowSource
-	 */
-	ForeignEntityInput CashFlowSource();
-
-	/**
-	 * Set CashFlowType.
-	 *
-	 * @param CashFlowType CashFlowType
-	 */
-	void setCashFlowTypeInput(ForeignEntityInput CashFlowType);
-
-	/**
-	 * Get CashFlowType.
-	 *
-	 * @return CashFlowType
-	 */
-	ForeignEntityInput CashFlowType();
 
 	/**
 	 * Set M_Product.

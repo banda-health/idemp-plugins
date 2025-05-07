@@ -11,20 +11,6 @@ import org.compiere.model.I_AD_Alert;
 public interface I_AD_AlertInput extends I_AD_Alert {
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set AD_AlertProcessor.
 	 *
 	 * @param AD_AlertProcessor Alert Processor/Server Parameter
@@ -37,6 +23,20 @@ public interface I_AD_AlertInput extends I_AD_Alert {
 	 * @return Alert Processor/Server Parameter
 	 */
 	ForeignEntityInput AD_AlertProcessor();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set AD_Org.

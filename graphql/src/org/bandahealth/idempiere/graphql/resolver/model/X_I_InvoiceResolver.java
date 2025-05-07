@@ -249,6 +249,10 @@ public class X_I_InvoiceResolver extends POResolver<X_I_Invoice> implements Grap
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 
+	public Boolean CountryCode(X_I_Invoice entity, DataFetchingEnvironment environment) {
+		return entity.isCountryCode();
+	}
+
 
 	/**
 	 * Get Payment Term.
@@ -307,10 +311,6 @@ public class X_I_InvoiceResolver extends POResolver<X_I_Invoice> implements Grap
 		DataLoader<Integer, MTax> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
-	}
-
-	public Boolean CountryCode(X_I_Invoice entity, DataFetchingEnvironment environment) {
-		return entity.isCountryCode();
 	}
 
 	public Boolean I_IsImported(X_I_Invoice entity, DataFetchingEnvironment environment) {

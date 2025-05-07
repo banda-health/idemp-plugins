@@ -18,10 +18,16 @@ type C_PaymentTransactionConnection {
 }
 
 type C_PaymentTransaction {
+	# Account Number
+	AccountNo: String
 	# City or the Credit Card or Account Holder
 	A_City: String
 	# Country
 	A_Country: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	# Email Address
 	A_EMail: String
 	# Payment Identification - Driver License
@@ -36,20 +42,14 @@ type C_PaymentTransaction {
 	A_Street: String
 	# Zip Code of the Credit Card or Account Holder
 	A_Zip: String
-	# Account Number
-	AccountNo: String
-	# Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	# Business Activity
 	C_Activity: C_Activity
 	# Account at the Bank
 	C_BankAccount: C_BankAccount
-	# Bank Account of the Business Partner
-	C_BP_BankAccount: C_BP_BankAccount
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
+	# Bank Account of the Business Partner
+	C_BP_BankAccount: C_BP_BankAccount
 	# Marketing Campaign
 	C_Campaign: C_Campaign
 	# Cash Book for recording petty cash transactions
@@ -60,22 +60,22 @@ type C_PaymentTransaction {
 	C_ConversionType: C_ConversionType
 	# The Currency for this record
 	C_Currency: C_Currency!
+	# Check Number
+	CheckNo: String
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Order
 	C_Order: C_Order
-	# Payment identifier
-	C_Payment: C_Payment
 	# Payment batch for EFT
 	C_PaymentBatch: C_PaymentBatch
+	# Payment identifier
+	C_Payment: C_Payment
 	# Payment processor for electronic payments
 	C_PaymentProcessor: C_PaymentProcessor
 	UU: ID!
 	C_POSTenderType: C_POSTenderType
 	# Financial Project
 	C_Project: C_Project
-	# Check Number
-	CheckNo: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -130,8 +130,11 @@ type C_PaymentTransaction {
 	R_AvsZip: AD_Ref_List
 	# Credit Card Verification Code Match
 	R_CVV2Match: Boolean!
+	Ref_PaymentTransaction: C_PaymentTransaction
 	# Response info
 	R_Info: String
+	# Bank Routing Number
+	RoutingNo: String
 	# Payment reference
 	R_PnRef: String
 	# Response message
@@ -139,9 +142,6 @@ type C_PaymentTransaction {
 	# Result of transmission
 	R_Result: String
 	R_VoidMsg: String
-	Ref_PaymentTransaction: C_PaymentTransaction
-	# Bank Routing Number
-	RoutingNo: String
 	# Swift Code or BIC
 	SwiftCode: String
 	# Tax Amount for a document
@@ -164,10 +164,14 @@ type C_PaymentTransaction {
 }
 
 input C_PaymentTransactionInput {
+	# Account Number
+	AccountNo: String
 	# City or the Credit Card or Account Holder
 	A_City: String
 	# Country
 	A_Country: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# Email Address
 	A_EMail: String
 	# Payment Identification - Driver License
@@ -182,18 +186,14 @@ input C_PaymentTransactionInput {
 	A_Street: String
 	# Zip Code of the Credit Card or Account Holder
 	A_Zip: String
-	# Account Number
-	AccountNo: String
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	# Bank Account of the Business Partner
-	C_BP_BankAccount: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
+	# Bank Account of the Business Partner
+	C_BP_BankAccount: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
 	# Cash Book for recording petty cash transactions
@@ -204,22 +204,22 @@ input C_PaymentTransactionInput {
 	C_ConversionType: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
+	# Check Number
+	CheckNo: String
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput
-	# Payment identifier
-	C_Payment: ForeignEntityInput
 	# Payment batch for EFT
 	C_PaymentBatch: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
 	# Payment processor for electronic payments
 	C_PaymentProcessor: ForeignEntityInput
 	UU: ID
 	C_POSTenderType: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	# Check Number
-	CheckNo: String
 	# Expiry Month
 	CreditCardExpMM: Int
 	# Expiry Year
@@ -270,8 +270,11 @@ input C_PaymentTransactionInput {
 	R_AvsZip: ForeignEntityInput
 	# Credit Card Verification Code Match
 	R_CVV2Match: Boolean
+	Ref_PaymentTransaction: ForeignEntityInput
 	# Response info
 	R_Info: String
+	# Bank Routing Number
+	RoutingNo: String
 	# Payment reference
 	R_PnRef: String
 	# Response message
@@ -279,9 +282,6 @@ input C_PaymentTransactionInput {
 	# Result of transmission
 	R_Result: String
 	R_VoidMsg: String
-	Ref_PaymentTransaction: ForeignEntityInput
-	# Bank Routing Number
-	RoutingNo: String
 	# Swift Code or BIC
 	SwiftCode: String
 	# Tax Amount for a document

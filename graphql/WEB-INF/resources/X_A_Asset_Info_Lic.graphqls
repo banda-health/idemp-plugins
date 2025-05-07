@@ -21,16 +21,16 @@ type A_Asset_Info_Lic {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	A_Issuing_Agency: String
 	A_License_Fee: BigDecimal
 	A_License_No: String
 	A_Renewal_Date: Date
 	# State of the Credit Card or Account holder
 	A_State: String
-	# Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -50,14 +50,14 @@ input A_Asset_Info_LicInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	A_Issuing_Agency: String
 	A_License_Fee: BigDecimal
 	A_License_No: String
 	A_Renewal_Date: Date
 	# State of the Credit Card or Account holder
 	A_State: String
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# The document has been processed

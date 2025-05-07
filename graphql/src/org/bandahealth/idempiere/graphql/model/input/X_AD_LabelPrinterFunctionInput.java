@@ -34,6 +34,35 @@ public class X_AD_LabelPrinterFunctionInput extends X_AD_LabelPrinterFunction im
 		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
 		setUU(UU);
 	}
+	/**
+	 * Set Label printer Function.
+	 *
+	 * @param AD_LabelPrinterFunction_ID Function of Label Printer
+	 */
+	@JsonProperty("AD_LabelPrinterFunction_ID")
+	public void setAD_LabelPrinterFunction_IDFromJson(int AD_LabelPrinterFunction_ID) {
+		if (get_ID() == 0) {
+			super.setAD_LabelPrinterFunction_ID(AD_LabelPrinterFunction_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_LabelPrinterFunction_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_LabelPrinterFunction_UU();
+	}
 
 	/**
 	 * Set Label printer.
@@ -70,35 +99,6 @@ public class X_AD_LabelPrinterFunctionInput extends X_AD_LabelPrinterFunction im
 	@JsonProperty("AD_LabelPrinter")
 	public ForeignEntityInput AD_LabelPrinter() {
 		return mAD_LabelPrinter;
-	}
-	/**
-	 * Set Label printer Function.
-	 *
-	 * @param AD_LabelPrinterFunction_ID Function of Label Printer
-	 */
-	@JsonProperty("AD_LabelPrinterFunction_ID")
-	public void setAD_LabelPrinterFunction_IDFromJson(int AD_LabelPrinterFunction_ID) {
-		if (get_ID() == 0) {
-			super.setAD_LabelPrinterFunction_ID(AD_LabelPrinterFunction_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_LabelPrinterFunction_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_LabelPrinterFunction_UU();
 	}
 
 	/**

@@ -28,16 +28,16 @@ type C_Charge {
 	BH_SubType: AD_Ref_List
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
-	UU: ID!
 	C_ChargeType: C_ChargeType
-	# Tax Category
-	C_TaxCategory: C_TaxCategory!
+	UU: ID!
 	# Charge Amount
 	ChargeAmt: BigDecimal!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Tax Category
+	C_TaxCategory: C_TaxCategory!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -64,12 +64,12 @@ input C_ChargeInput {
 	BH_SubType: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	UU: ID
 	C_ChargeType: ForeignEntityInput
-	# Tax Category
-	C_TaxCategory: ForeignEntityInput
+	UU: ID
 	# Charge Amount
 	ChargeAmt: BigDecimal
+	# Tax Category
+	C_TaxCategory: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -22,21 +22,6 @@ public class X_C_CountryGroupCountryResolver extends POResolver<MCountryGroupCou
 
 
 	/**
-	 * Get Country.
-	 *
-	 * @return Country 
-	 */
-	public CompletableFuture<MCountry> C_Country(MCountryGroupCountry entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MCountry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
-		return dataLoader.load(entity.getC_Country_ID());
-	}
-
-
-	/**
 	 * Get Country Group.
 	 *
 	 * @return Country Group
@@ -48,6 +33,21 @@ public class X_C_CountryGroupCountryResolver extends POResolver<MCountryGroupCou
 		DataLoader<Integer, MCountryGroup> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryGroupDataLoader.DATALOADER_C_CountryGroup_BY_ID);
 		return dataLoader.load(entity.getC_CountryGroup_ID());
+	}
+
+
+	/**
+	 * Get Country.
+	 *
+	 * @return Country 
+	 */
+	public CompletableFuture<MCountry> C_Country(MCountryGroupCountry entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Country_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MCountry> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
+		return dataLoader.load(entity.getC_Country_ID());
 	}
 
 }

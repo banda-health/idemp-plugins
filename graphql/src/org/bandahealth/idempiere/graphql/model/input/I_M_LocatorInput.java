@@ -25,20 +25,6 @@ public interface I_M_LocatorInput extends I_M_Locator {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_LocatorType.
 	 *
 	 * @param M_LocatorType M_LocatorType
@@ -51,6 +37,20 @@ public interface I_M_LocatorInput extends I_M_Locator {
 	 * @return M_LocatorType
 	 */
 	ForeignEntityInput M_LocatorType();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set M_Warehouse.

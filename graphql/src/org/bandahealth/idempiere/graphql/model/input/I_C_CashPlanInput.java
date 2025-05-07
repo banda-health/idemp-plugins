@@ -39,6 +39,20 @@ public interface I_C_CashPlanInput extends I_C_CashPlan {
 	ForeignEntityInput C_Activity();
 
 	/**
+	 * Set CashFlowType.
+	 *
+	 * @param CashFlowType CashFlowType
+	 */
+	void setCashFlowTypeInput(ForeignEntityInput CashFlowType);
+
+	/**
+	 * Get CashFlowType.
+	 *
+	 * @return CashFlowType
+	 */
+	ForeignEntityInput CashFlowType();
+
+	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -93,20 +107,6 @@ public interface I_C_CashPlanInput extends I_C_CashPlan {
 	 * @return Financial Project
 	 */
 	ForeignEntityInput C_Project();
-
-	/**
-	 * Set CashFlowType.
-	 *
-	 * @param CashFlowType CashFlowType
-	 */
-	void setCashFlowTypeInput(ForeignEntityInput CashFlowType);
-
-	/**
-	 * Get CashFlowType.
-	 *
-	 * @return CashFlowType
-	 */
-	ForeignEntityInput CashFlowType();
 
 	/**
 	 * Set User1.

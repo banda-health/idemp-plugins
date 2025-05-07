@@ -27,21 +27,6 @@ public class X_ASP_Ref_ListResolver extends POResolver<X_ASP_Ref_List> implement
 
 
 	/**
-	 * Get Reference List.
-	 *
-	 * @return Reference List based on Table
-	 */
-	public CompletableFuture<MRefList_BH> AD_Ref_List(X_ASP_Ref_List entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Ref_List_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
-		return dataLoader.load(entity.getAD_Ref_List_ID());
-	}
-
-
-	/**
 	 * Get Reference.
 	 *
 	 * @return System Reference and Validation
@@ -53,6 +38,21 @@ public class X_ASP_Ref_ListResolver extends POResolver<X_ASP_Ref_List> implement
 		DataLoader<Integer, MReference_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_ID());
+	}
+
+
+	/**
+	 * Get Reference List.
+	 *
+	 * @return Reference List based on Table
+	 */
+	public CompletableFuture<MRefList_BH> AD_Ref_List(X_ASP_Ref_List entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Ref_List_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+		return dataLoader.load(entity.getAD_Ref_List_ID());
 	}
 
 

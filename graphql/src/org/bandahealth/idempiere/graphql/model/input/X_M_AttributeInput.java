@@ -233,24 +233,6 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_Attribute_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_Attribute_UU();
-	}
-
-	/**
 	 * Set Attribute Search.
 	 *
 	 * @param M_AttributeSearch Common Search Attribute 
@@ -282,5 +264,23 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	@JsonProperty("M_AttributeSearch")
 	public ForeignEntityInput M_AttributeSearch() {
 		return mM_AttributeSearch;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_Attribute_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_Attribute_UU();
 	}
 }

@@ -73,35 +73,6 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-	/**
-	 * Set Reference List.
-	 *
-	 * @param AD_Ref_List_ID Reference List based on Table
-	 */
-	@JsonProperty("AD_Ref_List_ID")
-	public void setAD_Ref_List_IDFromJson(int AD_Ref_List_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Ref_List_ID(AD_Ref_List_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_Ref_List_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_Ref_List_UU();
-	}
 
 	/**
 	 * Set Reference.
@@ -138,6 +109,35 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	@JsonProperty("AD_Reference")
 	public ForeignEntityInput AD_Reference() {
 		return mAD_Reference;
+	}
+	/**
+	 * Set Reference List.
+	 *
+	 * @param AD_Ref_List_ID Reference List based on Table
+	 */
+	@JsonProperty("AD_Ref_List_ID")
+	public void setAD_Ref_List_IDFromJson(int AD_Ref_List_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Ref_List_ID(AD_Ref_List_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_Ref_List_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_Ref_List_UU();
 	}
 
 	/**

@@ -39,20 +39,6 @@ public interface I_CM_ChatInput extends I_CM_Chat {
 	ForeignEntityInput AD_Table();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set CM_ChatType.
 	 *
 	 * @param CM_ChatType Type of discussion / chat
@@ -65,6 +51,20 @@ public interface I_CM_ChatInput extends I_CM_Chat {
 	 * @return Type of discussion / chat
 	 */
 	ForeignEntityInput CM_ChatType();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set ConfidentialType.

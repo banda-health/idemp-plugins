@@ -21,11 +21,11 @@ type A_Asset_Product {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	UU: ID!
-	A_QTY_Current: BigDecimal!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	A_QTY_Current: BigDecimal!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -50,9 +50,9 @@ input A_Asset_ProductInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UU: ID
-	A_QTY_Current: BigDecimal
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	A_QTY_Current: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

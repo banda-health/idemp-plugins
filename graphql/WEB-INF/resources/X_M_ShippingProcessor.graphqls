@@ -30,8 +30,8 @@ type M_ShippingProcessor {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	UU: ID!
 	M_ShippingProcessorCfg: M_ShippingProcessorCfg!
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -49,8 +49,8 @@ input M_ShippingProcessorInput {
 	ConnectionPassword: String
 	# The record is active in the system
 	IsActive: Boolean
-	UU: ID
 	M_ShippingProcessorCfg: ForeignEntityInput
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# User ID or account number

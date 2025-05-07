@@ -47,6 +47,10 @@ type AD_ClientInfo {
 	# Accounting Calendar Name
 	C_Calendar: C_Calendar
 	C_ChargeFreight: C_Charge
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
 	# Standard Unit of Measure for Length
 	C_UOM_Length: C_UOM
 	# Standard Unit of Measure for Time
@@ -55,10 +59,6 @@ type AD_ClientInfo {
 	C_UOM_Volume: C_UOM
 	# Standard Unit of Measure for Weight
 	C_UOM_Weight: C_UOM
-	# Date this record was created
-	Created: DateTime!
-	# User who created this records
-	CreatedBy: AD_User!
 	FY_StartDate: Date
 	# The record is active in the system
 	IsActive: Boolean!

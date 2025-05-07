@@ -132,21 +132,6 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 
 
 	/**
-	 * Get Invoice.
-	 *
-	 * @return Invoice Identifier
-	 */
-	public CompletableFuture<MInvoice_BH> C_Invoice(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
-		return dataLoader.load(entity.getC_Invoice_ID());
-	}
-
-
-	/**
 	 * Get Invoice Batch.
 	 *
 	 * @return Expense Invoice Batch Header
@@ -158,6 +143,21 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 		DataLoader<Integer, MInvoiceBatch> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceBatchDataLoader.DATALOADER_C_InvoiceBatch_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceBatch_ID());
+	}
+
+
+	/**
+	 * Get Invoice.
+	 *
+	 * @return Invoice Identifier
+	 */
+	public CompletableFuture<MInvoice_BH> C_Invoice(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Invoice_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MInvoice_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
+		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
 

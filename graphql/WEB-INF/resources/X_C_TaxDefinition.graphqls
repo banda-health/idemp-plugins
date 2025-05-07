@@ -24,22 +24,22 @@ type C_TaxDefinition {
 	AD_Org: AD_Org!
 	# Organization Type
 	AD_OrgType: AD_OrgType
-	# Business Partner Group
-	C_BP_Group: C_BP_Group
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
-	# Tax identifier
-	C_Tax: C_Tax
+	# Business Partner Group
+	C_BP_Group: C_BP_Group
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
 	C_TaxBase: C_TaxBase
 	# Tax Category
 	C_TaxCategory: C_TaxCategory
 	UU: ID!
 	C_TaxGroup: C_TaxGroup
+	# Tax identifier
+	C_Tax: C_Tax
 	C_TaxType: C_TaxType
-	# Date this record was created
-	Created: DateTime!
-	# User who created this records
-	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint
@@ -48,12 +48,12 @@ type C_TaxDefinition {
 	IsActive: Boolean!
 	# Is this invoiced?
 	IsInvoiced: Boolean!
+	MaxTaxable: Int
+	MinTaxable: Int
 	# Category of a Product
 	M_Product_Category: M_Product_Category
 	# Product, Service, Item
 	M_Product: M_Product
-	MaxTaxable: Int
-	MinTaxable: Int
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Method of ordering records; lowest number comes first
@@ -75,17 +75,17 @@ input C_TaxDefinitionInput {
 	AD_Org: ForeignEntityInput
 	# Organization Type
 	AD_OrgType: ForeignEntityInput
-	# Business Partner Group
-	C_BP_Group: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	# Tax identifier
-	C_Tax: ForeignEntityInput
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
 	C_TaxBase: ForeignEntityInput
 	# Tax Category
 	C_TaxCategory: ForeignEntityInput
 	UU: ID
 	C_TaxGroup: ForeignEntityInput
+	# Tax identifier
+	C_Tax: ForeignEntityInput
 	C_TaxType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
@@ -95,12 +95,12 @@ input C_TaxDefinitionInput {
 	IsActive: Boolean
 	# Is this invoiced?
 	IsInvoiced: Boolean
+	MaxTaxable: Int
+	MinTaxable: Int
 	# Category of a Product
 	M_Product_Category: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	MaxTaxable: Int
-	MinTaxable: Int
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Method of ordering records; lowest number comes first

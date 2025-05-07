@@ -30,12 +30,12 @@ type GL_Journal {
 	C_Currency: C_Currency!
 	# Document type or rules
 	C_DocType: C_DocType!
-	# Period of the Calendar
-	C_Period: C_Period!
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
+	# Period of the Calendar
+	C_Period: C_Period!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -58,9 +58,9 @@ type GL_Journal {
 	GL_Budget: GL_Budget
 	# General Ledger Category
 	GL_Category: GL_Category!
-	UU: ID!
 	# General Ledger Journal Batch
 	GL_JournalBatch: GL_JournalBatch
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document requires approval
@@ -99,12 +99,12 @@ input GL_JournalInput {
 	C_Currency: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
-	# Period of the Calendar
-	C_Period: ForeignEntityInput
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
 	# Currency Conversion Rate
 	CurrencyRate: BigDecimal
 	# Accounting Date
@@ -123,9 +123,9 @@ input GL_JournalInput {
 	GL_Budget: ForeignEntityInput
 	# General Ledger Category
 	GL_Category: ForeignEntityInput
-	UU: ID
 	# General Ledger Journal Batch
 	GL_JournalBatch: ForeignEntityInput
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document requires approval

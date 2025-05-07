@@ -151,20 +151,6 @@ public interface I_GL_JournalInput extends I_GL_Journal {
 	ForeignEntityInput GL_Category();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set GL_JournalBatch.
 	 *
 	 * @param GL_JournalBatch General Ledger Journal Batch
@@ -177,6 +163,20 @@ public interface I_GL_JournalInput extends I_GL_Journal {
 	 * @return General Ledger Journal Batch
 	 */
 	ForeignEntityInput GL_JournalBatch();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set PostingType.

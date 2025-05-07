@@ -483,6 +483,45 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	}
 
 	/**
+	 * Set Movement Type.
+	 *
+	 * @param MovementType Method of moving the inventory
+	 */
+	@JsonProperty("MovementType")
+	public void setMovementTypeInput(ForeignEntityInput MovementType) {
+		this.mMovementType = MovementType;
+		if (MovementType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_T_TransactionResolver.MOVEMENTTYPE_UUIDS_BY_VALUE.containsValue(MovementType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + MovementType.getUU() +
+						" is not in the list defined for the MovementType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(MovementType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setMovementType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MovementType.getUU());
+			}
+		} else {
+			this.setMovementType(null);
+		}
+	}
+
+	/**
+	 * Get Movement Type.
+	 *
+	 * @return Method of moving the inventory
+	 */
+	@JsonProperty("MovementType")
+	public ForeignEntityInput MovementType() {
+		return mMovementType;
+	}
+
+	/**
 	 * Set Product/Service.
 	 *
 	 * @param M_Product Product, Service, Item
@@ -616,45 +655,6 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_Transaction")
 	public ForeignEntityInput M_Transaction() {
 		return mM_Transaction;
-	}
-
-	/**
-	 * Set Movement Type.
-	 *
-	 * @param MovementType Method of moving the inventory
-	 */
-	@JsonProperty("MovementType")
-	public void setMovementTypeInput(ForeignEntityInput MovementType) {
-		this.mMovementType = MovementType;
-		if (MovementType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_T_TransactionResolver.MOVEMENTTYPE_UUIDS_BY_VALUE.containsValue(MovementType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + MovementType.getUU() +
-						" is not in the list defined for the MovementType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MovementType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setMovementType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MovementType.getUU());
-			}
-		} else {
-			this.setMovementType(null);
-		}
-	}
-
-	/**
-	 * Get Movement Type.
-	 *
-	 * @return Method of moving the inventory
-	 */
-	@JsonProperty("MovementType")
-	public ForeignEntityInput MovementType() {
-		return mMovementType;
 	}
 
 	/**

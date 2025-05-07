@@ -66,21 +66,6 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 
 
 	/**
-	 * Get Business Partner Group.
-	 *
-	 * @return Business Partner Group
-	 */
-	public CompletableFuture<MBPGroup_BH> C_BP_Group(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MBPGroup_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
-		return dataLoader.load(entity.getC_BP_Group_ID());
-	}
-
-
-	/**
 	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
@@ -92,6 +77,21 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 		DataLoader<Integer, MBPartner_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
+	}
+
+
+	/**
+	 * Get Business Partner Group.
+	 *
+	 * @return Business Partner Group
+	 */
+	public CompletableFuture<MBPGroup_BH> C_BP_Group(MAging entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BP_Group_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBPGroup_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
+		return dataLoader.load(entity.getC_BP_Group_ID());
 	}
 
 
@@ -156,21 +156,6 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 
 
 	/**
-	 * Get Project.
-	 *
-	 * @return Financial Project
-	 */
-	public CompletableFuture<MProject> C_Project(MAging entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
-		return dataLoader.load(entity.getC_Project_ID());
-	}
-
-
-	/**
 	 * Get Convert Amounts in Currency.
 	 *
 	 * @return Convert Amounts in Currency
@@ -182,6 +167,21 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getConvertAmountsInCurrency_ID());
+	}
+
+
+	/**
+	 * Get Project.
+	 *
+	 * @return Financial Project
+	 */
+	public CompletableFuture<MProject> C_Project(MAging entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Project_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MProject> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
+		return dataLoader.load(entity.getC_Project_ID());
 	}
 
 	public Boolean DateAcct(MAging entity, DataFetchingEnvironment environment) {

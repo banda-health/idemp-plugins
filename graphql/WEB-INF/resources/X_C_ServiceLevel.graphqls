@@ -22,13 +22,13 @@ type C_ServiceLevel {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Plan for recognizing or recording revenue
-	C_RevenueRecognition_Plan: C_RevenueRecognition_Plan!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Plan for recognizing or recording revenue
+	C_RevenueRecognition_Plan: C_RevenueRecognition_Plan!
+	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

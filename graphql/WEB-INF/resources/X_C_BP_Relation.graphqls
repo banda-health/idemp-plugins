@@ -22,7 +22,6 @@ type C_BP_Relation {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Identifies the (ship to) address for this Business Partner
@@ -31,6 +30,7 @@ type C_BP_Relation {
 	C_BPartnerRelation: C_BPartner!
 	# Location of the related Business Partner
 	C_BPartnerRelation_Location: C_BPartner_Location!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -58,7 +58,6 @@ type C_BP_Relation {
 input C_BP_RelationInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Identifies the (ship to) address for this Business Partner
@@ -67,6 +66,7 @@ input C_BP_RelationInput {
 	C_BPartnerRelation: ForeignEntityInput
 	# Location of the related Business Partner
 	C_BPartnerRelation_Location: ForeignEntityInput
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

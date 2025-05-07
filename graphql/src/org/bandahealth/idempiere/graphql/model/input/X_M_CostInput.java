@@ -178,24 +178,6 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_Cost_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_Cost_UU();
-	}
-
-	/**
 	 * Set Cost Element.
 	 *
 	 * @param M_CostElement Product Cost Element
@@ -267,6 +249,24 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	@JsonProperty("M_CostType")
 	public ForeignEntityInput M_CostType() {
 		return mM_CostType;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_Cost_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_Cost_UU();
 	}
 
 	/**

@@ -85,24 +85,6 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_Replication_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_Replication_UU();
-	}
-
-	/**
 	 * Set Replication Strategy.
 	 *
 	 * @param AD_ReplicationStrategy Data Replication Strategy
@@ -134,6 +116,24 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 	@JsonProperty("AD_ReplicationStrategy")
 	public ForeignEntityInput AD_ReplicationStrategy() {
 		return mAD_ReplicationStrategy;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_Replication_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_Replication_UU();
 	}
 	/**
 	 * Set Date Last Run.

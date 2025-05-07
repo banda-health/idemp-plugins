@@ -20,9 +20,9 @@ type AD_LabelPrinterFunctionConnection {
 type AD_LabelPrinterFunction {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
+	UU: ID!
 	# Label Printer Definition
 	AD_LabelPrinter: AD_LabelPrinter!
-	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -50,9 +50,9 @@ type AD_LabelPrinterFunction {
 }
 
 input AD_LabelPrinterFunctionInput {
+	UU: ID
 	# Label Printer Definition
 	AD_LabelPrinter: ForeignEntityInput
-	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

@@ -110,6 +110,35 @@ public class X_C_JobAssignmentInput extends X_C_JobAssignment implements I_C_Job
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
+	/**
+	 * Set Position Assignment.
+	 *
+	 * @param C_JobAssignment_ID Assignment of Employee (User) to Job Position
+	 */
+	@JsonProperty("C_JobAssignment_ID")
+	public void setC_JobAssignment_IDFromJson(int C_JobAssignment_ID) {
+		if (get_ID() == 0) {
+			super.setC_JobAssignment_ID(C_JobAssignment_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_JobAssignment_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_JobAssignment_UU();
+	}
 
 	/**
 	 * Set Position.
@@ -146,34 +175,5 @@ public class X_C_JobAssignmentInput extends X_C_JobAssignment implements I_C_Job
 	@JsonProperty("C_Job")
 	public ForeignEntityInput C_Job() {
 		return mC_Job;
-	}
-	/**
-	 * Set Position Assignment.
-	 *
-	 * @param C_JobAssignment_ID Assignment of Employee (User) to Job Position
-	 */
-	@JsonProperty("C_JobAssignment_ID")
-	public void setC_JobAssignment_IDFromJson(int C_JobAssignment_ID) {
-		if (get_ID() == 0) {
-			super.setC_JobAssignment_ID(C_JobAssignment_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_JobAssignment_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_JobAssignment_UU();
 	}
 }

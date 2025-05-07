@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_BOMProduct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements GraphQLResolver<MBOMProduct> {
 
@@ -72,21 +72,6 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 
 
 	/**
-	 * Get BOM.
-	 *
-	 * @return Bill of Material
-	 */
-	public CompletableFuture<MBOM> M_BOM(MBOMProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_BOM_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MBOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_BOMDataLoader.DATALOADER_M_BOM_BY_ID);
-		return dataLoader.load(entity.getM_BOM_ID());
-	}
-
-
-	/**
 	 * Get Alternative Group.
 	 *
 	 * @return Product BOM Alternative Group
@@ -98,6 +83,21 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 		DataLoader<Integer, X_M_BOMAlternative> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_BOMAlternativeDataLoader.DATALOADER_M_BOMAlternative_BY_ID);
 		return dataLoader.load(entity.getM_BOMAlternative_ID());
+	}
+
+
+	/**
+	 * Get BOM.
+	 *
+	 * @return Bill of Material
+	 */
+	public CompletableFuture<MBOM> M_BOM(MBOMProduct entity, DataFetchingEnvironment environment) {
+		if (entity.getM_BOM_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBOM> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_BOMDataLoader.DATALOADER_M_BOM_BY_ID);
+		return dataLoader.load(entity.getM_BOM_ID());
 	}
 
 

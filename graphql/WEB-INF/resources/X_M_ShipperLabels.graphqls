@@ -33,8 +33,8 @@ type M_ShipperLabels {
 	LabelPrintMethod: AD_Ref_List
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
-	UU: ID!
 	M_ShipperLabelsCfg: M_ShipperLabelsCfg!
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -53,8 +53,8 @@ input M_ShipperLabelsInput {
 	LabelPrintMethod: ForeignEntityInput
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
-	UU: ID
 	M_ShipperLabelsCfg: ForeignEntityInput
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

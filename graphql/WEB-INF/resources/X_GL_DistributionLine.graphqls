@@ -34,12 +34,12 @@ type GL_DistributionLine {
 	C_LocTo: C_Location
 	# Financial Project
 	C_Project: C_Project
-	# Sales coverage region
-	C_SalesRegion: C_SalesRegion
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
 	# Optional short description of the record
 	Description: String
 	# General Ledger Distribution

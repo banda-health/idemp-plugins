@@ -22,16 +22,16 @@ type M_PackageMPS {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Standard Unit of Measure for Length
-	C_UOM_Length: C_UOM
-	# Standard Unit of Measure for Weight
-	C_UOM_Weight: C_UOM
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
+	# Standard Unit of Measure for Length
+	C_UOM_Length: C_UOM
+	# Standard Unit of Measure for Weight
+	C_UOM_Weight: C_UOM
 	# Optional short description of the record
 	Description: String
 	EstimatedWeight: BigDecimal
@@ -39,10 +39,10 @@ type M_PackageMPS {
 	# The record is active in the system
 	IsActive: Boolean!
 	Length: BigDecimal
+	MasterTrackingNo: String
 	# Shipment Package
 	M_Package: M_Package!
 	UU: ID!
-	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal
 	# The document has been processed
@@ -63,22 +63,22 @@ type M_PackageMPS {
 input M_PackageMPSInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
 	# Standard Unit of Measure for Length
 	C_UOM_Length: ForeignEntityInput
 	# Standard Unit of Measure for Weight
 	C_UOM_Weight: ForeignEntityInput
-	# Process which will generate a new document lines based on an existing document
-	CreateFrom: String
 	# Optional short description of the record
 	Description: String
 	Height: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	Length: BigDecimal
+	MasterTrackingNo: String
 	# Shipment Package
 	M_Package: ForeignEntityInput
 	UU: ID
-	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal
 	# The document has been processed

@@ -53,20 +53,6 @@ public interface I_M_BOMProductInput extends I_M_BOMProduct {
 	ForeignEntityInput M_AttributeSetInstance();
 
 	/**
-	 * Set M_BOM.
-	 *
-	 * @param M_BOM Bill of Material
-	 */
-	void setM_BOMInput(ForeignEntityInput M_BOM);
-
-	/**
-	 * Get M_BOM.
-	 *
-	 * @return Bill of Material
-	 */
-	ForeignEntityInput M_BOM();
-
-	/**
 	 * Set M_BOMAlternative.
 	 *
 	 * @param M_BOMAlternative Product BOM Alternative Group
@@ -79,6 +65,20 @@ public interface I_M_BOMProductInput extends I_M_BOMProduct {
 	 * @return Product BOM Alternative Group
 	 */
 	ForeignEntityInput M_BOMAlternative();
+
+	/**
+	 * Set M_BOM.
+	 *
+	 * @param M_BOM Bill of Material
+	 */
+	void setM_BOMInput(ForeignEntityInput M_BOM);
+
+	/**
+	 * Get M_BOM.
+	 *
+	 * @return Bill of Material
+	 */
+	ForeignEntityInput M_BOM();
 
 	/**
 	 * Set UU.

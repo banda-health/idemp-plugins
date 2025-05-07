@@ -22,11 +22,11 @@ type C_Remuneration {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# Gross Remuneration Amount

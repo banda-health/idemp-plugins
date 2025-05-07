@@ -50,21 +50,6 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 		return entity.isManufacturingResource();
 	}
 
-
-	/**
-	 * Get Warehouse.
-	 *
-	 * @return Storage Warehouse and Service Point
-	 */
-	public CompletableFuture<MWarehouse_BH> M_Warehouse(MResource entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
-		return dataLoader.load(entity.getM_Warehouse_ID());
-	}
-
 	public static Map<String, String> MANUFACTURINGRESOURCETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("PL", "aa555fe3-54bb-4493-81b1-a7d01b4e5901"); // Production Line
@@ -80,6 +65,21 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(MANUFACTURINGRESOURCETYPE_UUIDS_BY_VALUE.get(entity.getManufacturingResourceType()));
+	}
+
+
+	/**
+	 * Get Warehouse.
+	 *
+	 * @return Storage Warehouse and Service Point
+	 */
+	public CompletableFuture<MWarehouse_BH> M_Warehouse(MResource entity, DataFetchingEnvironment environment) {
+		if (entity.getM_Warehouse_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MWarehouse_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
+		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
 

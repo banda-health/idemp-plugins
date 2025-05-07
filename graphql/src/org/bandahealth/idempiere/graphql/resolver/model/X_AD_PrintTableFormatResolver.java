@@ -44,21 +44,6 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 
 
 	/**
-	 * Get Function Font.
-	 *
-	 * @return Function row Font
-	 */
-	public CompletableFuture<X_AD_PrintFont> Funct_PrintFont(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getFunct_PrintFont_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, X_AD_PrintFont> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.DATALOADER_AD_PrintFont_BY_ID);
-		return dataLoader.load(entity.getFunct_PrintFont_ID());
-	}
-
-
-	/**
 	 * Get Function BG Color.
 	 *
 	 * @return Function Background Color
@@ -89,17 +74,17 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 
 
 	/**
-	 * Get Header Row Font.
+	 * Get Function Font.
 	 *
-	 * @return Header row Font
+	 * @return Function row Font
 	 */
-	public CompletableFuture<X_AD_PrintFont> Hdr_PrintFont(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getHdr_PrintFont_ID() < 1) {
+	public CompletableFuture<X_AD_PrintFont> Funct_PrintFont(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+		if (entity.getFunct_PrintFont_ID() < 1) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.DATALOADER_AD_PrintFont_BY_ID);
-		return dataLoader.load(entity.getHdr_PrintFont_ID());
+		return dataLoader.load(entity.getFunct_PrintFont_ID());
 	}
 
 
@@ -115,6 +100,21 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getHdrLine_PrintColor_ID());
+	}
+
+
+	/**
+	 * Get Header Row Font.
+	 *
+	 * @return Header row Font
+	 */
+	public CompletableFuture<X_AD_PrintFont> Hdr_PrintFont(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+		if (entity.getHdr_PrintFont_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, X_AD_PrintFont> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.DATALOADER_AD_PrintFont_BY_ID);
+		return dataLoader.load(entity.getHdr_PrintFont_ID());
 	}
 
 	public static Map<String, String> HDRSTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {

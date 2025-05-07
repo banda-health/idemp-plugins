@@ -77,6 +77,35 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set User BP Access.
+	 *
+	 * @param AD_UserBPAccess_ID User/contact access to Business Partner information and resources
+	 */
+	@JsonProperty("AD_UserBPAccess_ID")
+	public void setAD_UserBPAccess_IDFromJson(int AD_UserBPAccess_ID) {
+		if (get_ID() == 0) {
+			super.setAD_UserBPAccess_ID(AD_UserBPAccess_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_UserBPAccess_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_UserBPAccess_UU();
+	}
 
 	/**
 	 * Set User/Contact.
@@ -110,35 +139,6 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
-	}
-	/**
-	 * Set User BP Access.
-	 *
-	 * @param AD_UserBPAccess_ID User/contact access to Business Partner information and resources
-	 */
-	@JsonProperty("AD_UserBPAccess_ID")
-	public void setAD_UserBPAccess_IDFromJson(int AD_UserBPAccess_ID) {
-		if (get_ID() == 0) {
-			super.setAD_UserBPAccess_ID(AD_UserBPAccess_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_UserBPAccess_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_UserBPAccess_UU();
 	}
 
 	/**

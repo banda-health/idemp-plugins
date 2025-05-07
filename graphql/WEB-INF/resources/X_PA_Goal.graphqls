@@ -60,9 +60,9 @@ type PA_Goal {
 	Note: String
 	# Performance Color Schema
 	PA_ColorSchema: PA_ColorSchema!
-	UU: ID!
 	# Parent Goal
 	PA_GoalParent: PA_Goal
+	UU: ID!
 	# Concrete Performance Measurement
 	PA_Measure: PA_Measure
 	# Relative weight of this step (0 = ignored)
@@ -112,9 +112,9 @@ input PA_GoalInput {
 	Note: String
 	# Performance Color Schema
 	PA_ColorSchema: ForeignEntityInput
-	UU: ID
 	# Parent Goal
 	PA_GoalParent: ForeignEntityInput
+	UU: ID
 	# Concrete Performance Measurement
 	PA_Measure: ForeignEntityInput
 	# Relative weight of this step (0 = ignored)

@@ -26,10 +26,10 @@ type T_Aging {
 	AD_PInstance: AD_PInstance!
 	# Business Activity
 	C_Activity: C_Activity
-	# Business Partner Group
-	C_BP_Group: C_BP_Group!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
+	# Business Partner Group
+	C_BP_Group: C_BP_Group!
 	# Marketing Campaign
 	C_Campaign: C_Campaign
 	# The Currency for this record
@@ -38,9 +38,9 @@ type T_Aging {
 	C_Invoice: C_Invoice
 	# Invoice Payment Schedule
 	C_InvoicePaySchedule: C_InvoicePaySchedule
+	ConvertAmountsInCurrency: C_Currency
 	# Financial Project
 	C_Project: C_Project
-	ConvertAmountsInCurrency: C_Currency
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -98,10 +98,10 @@ input T_AgingInput {
 	AD_PInstance: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
-	# Business Partner Group
-	C_BP_Group: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
 	# The Currency for this record
@@ -110,9 +110,9 @@ input T_AgingInput {
 	C_Invoice: ForeignEntityInput
 	# Invoice Payment Schedule
 	C_InvoicePaySchedule: ForeignEntityInput
+	ConvertAmountsInCurrency: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	ConvertAmountsInCurrency: ForeignEntityInput
 	# Accounting Date
 	DateAcct: Boolean
 	# Number of days due (negative: due in number of days)

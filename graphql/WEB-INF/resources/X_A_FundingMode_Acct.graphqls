@@ -18,13 +18,13 @@ type A_FundingMode_AcctConnection {
 }
 
 type A_FundingMode_Acct {
-	A_FundingMode_A: C_ValidCombination!
-	UU: ID!
-	A_FundingMode: A_FundingMode!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	A_FundingMode_A: C_ValidCombination!
+	UU: ID!
+	A_FundingMode: A_FundingMode!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Date this record was created
@@ -40,11 +40,11 @@ type A_FundingMode_Acct {
 }
 
 input A_FundingMode_AcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	A_FundingMode_A: ForeignEntityInput
 	UU: ID
 	A_FundingMode: ForeignEntityInput
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# The record is active in the system

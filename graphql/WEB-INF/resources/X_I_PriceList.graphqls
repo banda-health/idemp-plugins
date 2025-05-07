@@ -30,12 +30,12 @@ type I_PriceList {
 	C_BPartner: C_BPartner
 	# The Currency for this record
 	C_Currency: C_Currency
-	# Unit of Measure
-	C_UOM: C_UOM
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User
+	# Unit of Measure
+	C_UOM: C_UOM
 	# Optional short description of the record
 	Description: String
 	# Do not allow prices below the limit price

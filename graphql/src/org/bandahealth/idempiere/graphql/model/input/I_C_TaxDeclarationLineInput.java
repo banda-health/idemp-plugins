@@ -95,20 +95,6 @@ public interface I_C_TaxDeclarationLineInput extends I_C_TaxDeclarationLine {
 	ForeignEntityInput C_InvoiceLine();
 
 	/**
-	 * Set C_Tax.
-	 *
-	 * @param C_Tax Tax identifier
-	 */
-	void setC_TaxInput(ForeignEntityInput C_Tax);
-
-	/**
-	 * Get C_Tax.
-	 *
-	 * @return Tax identifier
-	 */
-	ForeignEntityInput C_Tax();
-
-	/**
 	 * Set C_TaxDeclaration.
 	 *
 	 * @param C_TaxDeclaration Define the declaration to the tax authorities
@@ -135,4 +121,18 @@ public interface I_C_TaxDeclarationLineInput extends I_C_TaxDeclarationLine {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_Tax.
+	 *
+	 * @param C_Tax Tax identifier
+	 */
+	void setC_TaxInput(ForeignEntityInput C_Tax);
+
+	/**
+	 * Get C_Tax.
+	 *
+	 * @return Tax identifier
+	 */
+	ForeignEntityInput C_Tax();
 }

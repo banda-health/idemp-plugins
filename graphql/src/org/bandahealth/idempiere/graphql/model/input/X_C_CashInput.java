@@ -152,35 +152,6 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
-	/**
-	 * Set Cash Journal.
-	 *
-	 * @param C_Cash_ID Cash Journal
-	 */
-	@JsonProperty("C_Cash_ID")
-	public void setC_Cash_IDFromJson(int C_Cash_ID) {
-		if (get_ID() == 0) {
-			super.setC_Cash_ID(C_Cash_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_Cash_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_Cash_UU();
-	}
 
 	/**
 	 * Set Cash Book.
@@ -217,6 +188,35 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	@JsonProperty("C_CashBook")
 	public ForeignEntityInput C_CashBook() {
 		return mC_CashBook;
+	}
+	/**
+	 * Set Cash Journal.
+	 *
+	 * @param C_Cash_ID Cash Journal
+	 */
+	@JsonProperty("C_Cash_ID")
+	public void setC_Cash_IDFromJson(int C_Cash_ID) {
+		if (get_ID() == 0) {
+			super.setC_Cash_ID(C_Cash_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_Cash_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_Cash_UU();
 	}
 
 	/**

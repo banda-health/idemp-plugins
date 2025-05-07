@@ -193,6 +193,21 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 
 
 	/**
+	 * Get User/Contact.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	public CompletableFuture<MUser_BH> AD_User(MAssetChange entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_User_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MUser_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
+		return dataLoader.load(entity.getAD_User_ID());
+	}
+
+
+	/**
 	 * Get Parent Asset.
 	 *
 	 * @return Parent Asset
@@ -220,21 +235,6 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(A_REVAL_CAL_METHOD_UUIDS_BY_VALUE.get(entity.getA_Reval_Cal_Method()));
-	}
-
-
-	/**
-	 * Get User/Contact.
-	 *
-	 * @return User within the system - Internal or Business Partner Contact
-	 */
-	public CompletableFuture<MUser_BH> AD_User(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
-		return dataLoader.load(entity.getAD_User_ID());
 	}
 
 
@@ -282,6 +282,33 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 		return dataLoader.load(entity.getC_BPartner_Location_ID());
 	}
 
+	public static Map<String, String> CHANGETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("ADD", "9fc17658-0394-4c59-b877-c9bba645e713"); // Addition
+			put("BAL", "a2e3ca86-d4df-40bd-bf4c-3eb1487d2292"); // Balance
+			put("CRT", "ed3e9647-116f-4a6a-917d-2e203d078f03"); // Create
+			put("DEP", "f8c5a40a-e6e5-45b9-8728-ab40f0c9511d"); // Depreciation
+			put("DIS", "f0619bd1-c178-4e3d-8f7b-74afb768921d"); // Disposal
+			put("EXP", "b280f43c-b174-4d2e-9d7c-d9a4a243f9f2"); // Expense
+			put("FOR", "a8eab0c5-34e1-46c2-a104-69b0b5d38070"); // Forecast
+			put("IMP", "6c83bad3-42c1-4948-8258-407f98b8a2fe"); // Import
+			put("RVL", "5aedba15-9238-4c8a-9e33-6eb131ae027f"); // Revaluation
+			put("SET", "a8cc5d42-c2ad-4914-a386-1754d608e109"); // Setup
+			put("SPL", "b82f8e94-b5dd-4f1a-ab63-af2d92638ca3"); // Split
+			put("TRN", "3e9e8557-098a-40a9-8823-facae98db8dc"); // Transfer
+			put("UPD", "56d067a8-2414-4213-b5f9-02636051a723"); // Update
+			put("USE", "a50cdeeb-65f2-4d05-b43c-efd5a39d0cdb"); // Usage
+		}
+	};
+	public CompletableFuture<MRefList_BH> ChangeType(MAssetChange entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getChangeType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(CHANGETYPE_UUIDS_BY_VALUE.get(entity.getChangeType()));
+	}
+
 
 	/**
 	 * Get Address.
@@ -310,33 +337,6 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 		DataLoader<Integer, MAccount> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getC_ValidCombination_ID());
-	}
-
-	public static Map<String, String> CHANGETYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("ADD", "9fc17658-0394-4c59-b877-c9bba645e713"); // Addition
-			put("BAL", "a2e3ca86-d4df-40bd-bf4c-3eb1487d2292"); // Balance
-			put("CRT", "ed3e9647-116f-4a6a-917d-2e203d078f03"); // Create
-			put("DEP", "f8c5a40a-e6e5-45b9-8728-ab40f0c9511d"); // Depreciation
-			put("DIS", "f0619bd1-c178-4e3d-8f7b-74afb768921d"); // Disposal
-			put("EXP", "b280f43c-b174-4d2e-9d7c-d9a4a243f9f2"); // Expense
-			put("FOR", "a8eab0c5-34e1-46c2-a104-69b0b5d38070"); // Forecast
-			put("IMP", "6c83bad3-42c1-4948-8258-407f98b8a2fe"); // Import
-			put("RVL", "5aedba15-9238-4c8a-9e33-6eb131ae027f"); // Revaluation
-			put("SET", "a8cc5d42-c2ad-4914-a386-1754d608e109"); // Setup
-			put("SPL", "b82f8e94-b5dd-4f1a-ab63-af2d92638ca3"); // Split
-			put("TRN", "3e9e8557-098a-40a9-8823-facae98db8dc"); // Transfer
-			put("UPD", "56d067a8-2414-4213-b5f9-02636051a723"); // Update
-			put("USE", "a50cdeeb-65f2-4d05-b43c-efd5a39d0cdb"); // Usage
-		}
-	};
-	public CompletableFuture<MRefList_BH> ChangeType(MAssetChange entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getChangeType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(CHANGETYPE_UUIDS_BY_VALUE.get(entity.getChangeType()));
 	}
 
 	public Boolean IsDepreciated(MAssetChange entity, DataFetchingEnvironment environment) {

@@ -26,12 +26,12 @@ type GL_JournalBatch {
 	C_Currency: C_Currency
 	# Document type or rules
 	C_DocType: C_DocType!
-	# Period of the Calendar
-	C_Period: C_Period
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
+	# Period of the Calendar
+	C_Period: C_Period
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -79,12 +79,12 @@ input GL_JournalBatchInput {
 	C_Currency: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
-	# Period of the Calendar
-	C_Period: ForeignEntityInput
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
 	# Accounting Date
 	DateAcct: Date
 	# Date of the Document

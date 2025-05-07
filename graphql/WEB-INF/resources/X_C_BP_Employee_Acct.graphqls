@@ -24,9 +24,9 @@ type C_BP_Employee_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	UU: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -44,9 +44,9 @@ input C_BP_Employee_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	UU: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 }

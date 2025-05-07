@@ -86,40 +86,6 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	}
 
 	/**
-	 * Set Account Element.
-	 *
-	 * @param C_ElementValue Account Element
-	 */
-	@JsonProperty("C_ElementValue")
-	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
-		this.mC_ElementValue = C_ElementValue;
-		if (C_ElementValue != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MElementValue foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_ElementValue_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UU " + C_ElementValue.getUU());
-			}
-		} else {
-			this.setC_ElementValue_ID(0);
-		}
-	}
-
-	/**
-	 * Get Account Element.
-	 *
-	 * @return Account Element
-	 */
-	@JsonProperty("C_ElementValue")
-	public ForeignEntityInput C_ElementValue() {
-		return mC_ElementValue;
-	}
-
-	/**
 	 * Set Calculation.
 	 *
 	 * @param CalculationType Calculation
@@ -156,6 +122,40 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	@JsonProperty("CalculationType")
 	public ForeignEntityInput CalculationType() {
 		return mCalculationType;
+	}
+
+	/**
+	 * Set Account Element.
+	 *
+	 * @param C_ElementValue Account Element
+	 */
+	@JsonProperty("C_ElementValue")
+	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
+		this.mC_ElementValue = C_ElementValue;
+		if (C_ElementValue != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
+							.setParameters(C_ElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_ElementValue_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ElementValue with UU " + C_ElementValue.getUU());
+			}
+		} else {
+			this.setC_ElementValue_ID(0);
+		}
+	}
+
+	/**
+	 * Get Account Element.
+	 *
+	 * @return Account Element
+	 */
+	@JsonProperty("C_ElementValue")
+	public ForeignEntityInput C_ElementValue() {
+		return mC_ElementValue;
 	}
 	/**
 	 * Set Import Report Line Set.
@@ -224,6 +224,84 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	@JsonProperty("LineType")
 	public ForeignEntityInput LineType() {
 		return mLineType;
+	}
+
+	/**
+	 * Set Amount Type.
+	 *
+	 * @param PAAmountType PA Amount Type for reporting
+	 */
+	@JsonProperty("PAAmountType")
+	public void setPAAmountTypeInput(ForeignEntityInput PAAmountType) {
+		this.mPAAmountType = PAAmountType;
+		if (PAAmountType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_ReportLineResolver.PAAMOUNTTYPE_UUIDS_BY_VALUE.containsValue(PAAmountType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PAAmountType.getUU() +
+						" is not in the list defined for the PAAmountType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PAAmountType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setPAAmountType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PAAmountType.getUU());
+			}
+		} else {
+			this.setPAAmountType(null);
+		}
+	}
+
+	/**
+	 * Get Amount Type.
+	 *
+	 * @return PA Amount Type for reporting
+	 */
+	@JsonProperty("PAAmountType")
+	public ForeignEntityInput PAAmountType() {
+		return mPAAmountType;
+	}
+
+	/**
+	 * Set Period Type.
+	 *
+	 * @param PAPeriodType PA Period Type
+	 */
+	@JsonProperty("PAPeriodType")
+	public void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType) {
+		this.mPAPeriodType = PAPeriodType;
+		if (PAPeriodType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_I_ReportLineResolver.PAPERIODTYPE_UUIDS_BY_VALUE.containsValue(PAPeriodType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + PAPeriodType.getUU() +
+						" is not in the list defined for the PAPeriodType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PAPeriodType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setPAPeriodType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PAPeriodType.getUU());
+			}
+		} else {
+			this.setPAPeriodType(null);
+		}
+	}
+
+	/**
+	 * Get Period Type.
+	 *
+	 * @return PA Period Type
+	 */
+	@JsonProperty("PAPeriodType")
+	public ForeignEntityInput PAPeriodType() {
+		return mPAPeriodType;
 	}
 
 	/**
@@ -326,84 +404,6 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	@JsonProperty("PA_ReportSource")
 	public ForeignEntityInput PA_ReportSource() {
 		return mPA_ReportSource;
-	}
-
-	/**
-	 * Set Amount Type.
-	 *
-	 * @param PAAmountType PA Amount Type for reporting
-	 */
-	@JsonProperty("PAAmountType")
-	public void setPAAmountTypeInput(ForeignEntityInput PAAmountType) {
-		this.mPAAmountType = PAAmountType;
-		if (PAAmountType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_I_ReportLineResolver.PAAMOUNTTYPE_UUIDS_BY_VALUE.containsValue(PAAmountType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + PAAmountType.getUU() +
-						" is not in the list defined for the PAAmountType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PAAmountType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setPAAmountType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PAAmountType.getUU());
-			}
-		} else {
-			this.setPAAmountType(null);
-		}
-	}
-
-	/**
-	 * Get Amount Type.
-	 *
-	 * @return PA Amount Type for reporting
-	 */
-	@JsonProperty("PAAmountType")
-	public ForeignEntityInput PAAmountType() {
-		return mPAAmountType;
-	}
-
-	/**
-	 * Set Period Type.
-	 *
-	 * @param PAPeriodType PA Period Type
-	 */
-	@JsonProperty("PAPeriodType")
-	public void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType) {
-		this.mPAPeriodType = PAPeriodType;
-		if (PAPeriodType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_I_ReportLineResolver.PAPERIODTYPE_UUIDS_BY_VALUE.containsValue(PAPeriodType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + PAPeriodType.getUU() +
-						" is not in the list defined for the PAPeriodType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PAPeriodType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setPAPeriodType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PAPeriodType.getUU());
-			}
-		} else {
-			this.setPAPeriodType(null);
-		}
-	}
-
-	/**
-	 * Get Period Type.
-	 *
-	 * @return PA Period Type
-	 */
-	@JsonProperty("PAPeriodType")
-	public ForeignEntityInput PAPeriodType() {
-		return mPAPeriodType;
 	}
 
 	/**

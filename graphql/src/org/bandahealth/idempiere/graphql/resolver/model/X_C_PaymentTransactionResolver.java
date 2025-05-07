@@ -88,21 +88,6 @@ public class X_C_PaymentTransactionResolver extends POResolver<MPaymentTransacti
 
 
 	/**
-	 * Get Partner Bank Account.
-	 *
-	 * @return Bank Account of the Business Partner
-	 */
-	public CompletableFuture<MBPBankAccount> C_BP_BankAccount(MPaymentTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_BankAccount_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MBPBankAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_BankAccountDataLoader.DATALOADER_C_BP_BankAccount_BY_ID);
-		return dataLoader.load(entity.getC_BP_BankAccount_ID());
-	}
-
-
-	/**
 	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
@@ -114,6 +99,21 @@ public class X_C_PaymentTransactionResolver extends POResolver<MPaymentTransacti
 		DataLoader<Integer, MBPartner_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
+	}
+
+
+	/**
+	 * Get Partner Bank Account.
+	 *
+	 * @return Bank Account of the Business Partner
+	 */
+	public CompletableFuture<MBPBankAccount> C_BP_BankAccount(MPaymentTransaction entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BP_BankAccount_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBPBankAccount> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_BankAccountDataLoader.DATALOADER_C_BP_BankAccount_BY_ID);
+		return dataLoader.load(entity.getC_BP_BankAccount_ID());
 	}
 
 
@@ -223,21 +223,6 @@ public class X_C_PaymentTransactionResolver extends POResolver<MPaymentTransacti
 
 
 	/**
-	 * Get Payment.
-	 *
-	 * @return Payment identifier
-	 */
-	public CompletableFuture<MPayment_BH> C_Payment(MPaymentTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MPayment_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
-		return dataLoader.load(entity.getC_Payment_ID());
-	}
-
-
-	/**
 	 * Get Payment Batch.
 	 *
 	 * @return Payment batch for EFT
@@ -249,6 +234,21 @@ public class X_C_PaymentTransactionResolver extends POResolver<MPaymentTransacti
 		DataLoader<Integer, MPaymentBatch> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentBatchDataLoader.DATALOADER_C_PaymentBatch_BY_ID);
 		return dataLoader.load(entity.getC_PaymentBatch_ID());
+	}
+
+
+	/**
+	 * Get Payment.
+	 *
+	 * @return Payment identifier
+	 */
+	public CompletableFuture<MPayment_BH> C_Payment(MPaymentTransaction entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Payment_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MPayment_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
+		return dataLoader.load(entity.getC_Payment_ID());
 	}
 
 

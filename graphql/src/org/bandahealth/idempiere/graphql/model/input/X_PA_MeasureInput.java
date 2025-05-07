@@ -265,35 +265,6 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public ForeignEntityInput PA_Hierarchy() {
 		return mPA_Hierarchy;
 	}
-	/**
-	 * Set Measure.
-	 *
-	 * @param PA_Measure_ID Concrete Performance Measurement
-	 */
-	@JsonProperty("PA_Measure_ID")
-	public void setPA_Measure_IDFromJson(int PA_Measure_ID) {
-		if (get_ID() == 0) {
-			super.setPA_Measure_ID(PA_Measure_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setPA_Measure_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getPA_Measure_UU();
-	}
 
 	/**
 	 * Set Measure Calculation.
@@ -327,6 +298,35 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	@JsonProperty("PA_MeasureCalc")
 	public ForeignEntityInput PA_MeasureCalc() {
 		return mPA_MeasureCalc;
+	}
+	/**
+	 * Set Measure.
+	 *
+	 * @param PA_Measure_ID Concrete Performance Measurement
+	 */
+	@JsonProperty("PA_Measure_ID")
+	public void setPA_Measure_IDFromJson(int PA_Measure_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Measure_ID(PA_Measure_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setPA_Measure_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getPA_Measure_UU();
 	}
 
 	/**

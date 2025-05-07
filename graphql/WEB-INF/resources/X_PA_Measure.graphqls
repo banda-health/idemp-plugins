@@ -22,10 +22,10 @@ type PA_Measure {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Type of the project
-	C_ProjectType: C_ProjectType
 	# Java Class for calculation, implementing Interface Measure
 	CalculationClass: String
+	# Type of the project
+	C_ProjectType: C_ProjectType
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -48,9 +48,9 @@ type PA_Measure {
 	PA_Benchmark: PA_Benchmark
 	# Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	PA_Hierarchy: PA_Hierarchy
-	UU: ID!
 	# Calculation method for measuring performance
 	PA_MeasureCalc: PA_MeasureCalc
+	UU: ID!
 	# Performance Ratio
 	PA_Ratio: PA_Ratio
 	# Type of request (e.g. Inquiry, Complaint, ..)
@@ -64,10 +64,10 @@ type PA_Measure {
 input PA_MeasureInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	# Type of the project
-	C_ProjectType: ForeignEntityInput
 	# Java Class for calculation, implementing Interface Measure
 	CalculationClass: String
+	# Type of the project
+	C_ProjectType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -86,9 +86,9 @@ input PA_MeasureInput {
 	PA_Benchmark: ForeignEntityInput
 	# Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	PA_Hierarchy: ForeignEntityInput
-	UU: ID
 	# Calculation method for measuring performance
 	PA_MeasureCalc: ForeignEntityInput
+	UU: ID
 	# Performance Ratio
 	PA_Ratio: ForeignEntityInput
 	# Type of request (e.g. Inquiry, Complaint, ..)

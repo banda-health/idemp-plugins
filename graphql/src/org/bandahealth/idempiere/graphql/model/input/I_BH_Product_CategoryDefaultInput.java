@@ -25,20 +25,6 @@ public interface I_BH_Product_CategoryDefaultInput extends I_BH_Product_Category
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set BH_Product_Category_Type.
-	 *
-	 * @param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
-	 */
-	void setBH_Product_Category_TypeInput(ForeignEntityInput BH_Product_Category_Type);
-
-	/**
-	 * Get BH_Product_Category_Type.
-	 *
-	 * @return Contains a character the is linked to a ref list to determine types of product categories
-	 */
-	ForeignEntityInput BH_Product_Category_Type();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -51,4 +37,18 @@ public interface I_BH_Product_CategoryDefaultInput extends I_BH_Product_Category
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set BH_Product_Category_Type.
+	 *
+	 * @param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
+	 */
+	void setBH_Product_Category_TypeInput(ForeignEntityInput BH_Product_Category_Type);
+
+	/**
+	 * Get BH_Product_Category_Type.
+	 *
+	 * @return Contains a character the is linked to a ref list to determine types of product categories
+	 */
+	ForeignEntityInput BH_Product_Category_Type();
 }

@@ -39,20 +39,6 @@ public interface I_I_BPartnerInput extends I_I_BPartner {
 	ForeignEntityInput AD_User();
 
 	/**
-	 * Set C_BP_Group.
-	 *
-	 * @param C_BP_Group Business Partner Group
-	 */
-	void setC_BP_GroupInput(ForeignEntityInput C_BP_Group);
-
-	/**
-	 * Get C_BP_Group.
-	 *
-	 * @return Business Partner Group
-	 */
-	ForeignEntityInput C_BP_Group();
-
-	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -79,6 +65,20 @@ public interface I_I_BPartnerInput extends I_I_BPartner {
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	ForeignEntityInput C_BPartner_Location();
+
+	/**
+	 * Set C_BP_Group.
+	 *
+	 * @param C_BP_Group Business Partner Group
+	 */
+	void setC_BP_GroupInput(ForeignEntityInput C_BP_Group);
+
+	/**
+	 * Get C_BP_Group.
+	 *
+	 * @return Business Partner Group
+	 */
+	ForeignEntityInput C_BP_Group();
 
 	/**
 	 * Set C_Country.

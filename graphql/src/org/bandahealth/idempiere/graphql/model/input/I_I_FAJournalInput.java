@@ -235,20 +235,6 @@ public interface I_I_FAJournalInput extends I_I_FAJournal {
 	ForeignEntityInput C_UOM();
 
 	/**
-	 * Set C_ValidCombination.
-	 *
-	 * @param C_ValidCombination Valid Account Combination
-	 */
-	void setC_ValidCombinationInput(ForeignEntityInput C_ValidCombination);
-
-	/**
-	 * Get C_ValidCombination.
-	 *
-	 * @return Valid Account Combination
-	 */
-	ForeignEntityInput C_ValidCombination();
-
-	/**
 	 * Set CurrencyRateType.
 	 *
 	 * @param CurrencyRateType CurrencyRateType
@@ -261,6 +247,20 @@ public interface I_I_FAJournalInput extends I_I_FAJournal {
 	 * @return CurrencyRateType
 	 */
 	ForeignEntityInput CurrencyRateType();
+
+	/**
+	 * Set C_ValidCombination.
+	 *
+	 * @param C_ValidCombination Valid Account Combination
+	 */
+	void setC_ValidCombinationInput(ForeignEntityInput C_ValidCombination);
+
+	/**
+	 * Get C_ValidCombination.
+	 *
+	 * @return Valid Account Combination
+	 */
+	ForeignEntityInput C_ValidCombination();
 
 	/**
 	 * Set GL_Budget.
@@ -291,20 +291,6 @@ public interface I_I_FAJournalInput extends I_I_FAJournal {
 	ForeignEntityInput GL_Category();
 
 	/**
-	 * Set GL_Journal.
-	 *
-	 * @param GL_Journal General Ledger Journal
-	 */
-	void setGL_JournalInput(ForeignEntityInput GL_Journal);
-
-	/**
-	 * Get GL_Journal.
-	 *
-	 * @return General Ledger Journal
-	 */
-	ForeignEntityInput GL_Journal();
-
-	/**
 	 * Set GL_JournalBatch.
 	 *
 	 * @param GL_JournalBatch General Ledger Journal Batch
@@ -317,6 +303,20 @@ public interface I_I_FAJournalInput extends I_I_FAJournal {
 	 * @return General Ledger Journal Batch
 	 */
 	ForeignEntityInput GL_JournalBatch();
+
+	/**
+	 * Set GL_Journal.
+	 *
+	 * @param GL_Journal General Ledger Journal
+	 */
+	void setGL_JournalInput(ForeignEntityInput GL_Journal);
+
+	/**
+	 * Get GL_Journal.
+	 *
+	 * @return General Ledger Journal
+	 */
+	ForeignEntityInput GL_Journal();
 
 	/**
 	 * Set GL_JournalLine.

@@ -4,7 +4,7 @@ import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.model.input.I_U_WebMenuInput;
 import org.bandahealth.idempiere.graphql.model.input.X_U_WebMenuInput;
-import org.compiere.model.MWebMenu;
+import org.compiere.model.X_U_WebMenu;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,13 +21,13 @@ public class X_U_WebMenuMutation extends POMutation implements GraphQLMutationRe
 		return X_U_WebMenuInput.Table_Name;
 	}
 
-	public MWebMenu U_WebMenuSave(I_U_WebMenuInput Entity, DataFetchingEnvironment environment) {
-		return (MWebMenu) super.save((X_U_WebMenuInput) Entity, environment);
+	public X_U_WebMenu U_WebMenuSave(I_U_WebMenuInput Entity, DataFetchingEnvironment environment) {
+		return (X_U_WebMenu) super.save((X_U_WebMenuInput) Entity, environment);
 	}
 
-	public List<MWebMenu> U_WebMenuSaveMany(List<I_U_WebMenuInput> Entities, DataFetchingEnvironment environment) {
+	public List<X_U_WebMenu> U_WebMenuSaveMany(List<I_U_WebMenuInput> Entities, DataFetchingEnvironment environment) {
 		return super.saveMany(Entities.stream().map(entity -> (X_U_WebMenuInput) entity).collect(Collectors.toList()),
-				environment).stream().map(entity -> (MWebMenu) entity).collect(Collectors.toList());
+				environment).stream().map(entity -> (X_U_WebMenu) entity).collect(Collectors.toList());
 	}
 
 	public boolean U_WebMenuDelete(List<String> UUs, DataFetchingEnvironment environment) {

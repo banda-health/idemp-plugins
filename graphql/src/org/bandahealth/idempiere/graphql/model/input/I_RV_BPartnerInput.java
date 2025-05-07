@@ -137,6 +137,20 @@ public interface I_RV_BPartnerInput extends I_RV_BPartner {
 	ForeignEntityInput BPContactGreet();
 
 	/**
+	 * Set C_BPartner_Location.
+	 *
+	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
+	 */
+	void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location);
+
+	/**
+	 * Get C_BPartner_Location.
+	 *
+	 * @return Identifies the (ship to) address for this Business Partner
+	 */
+	ForeignEntityInput C_BPartner_Location();
+
+	/**
 	 * Set C_BP_C_TaxGroup.
 	 *
 	 * @param C_BP_C_TaxGroup C_BP_C_TaxGroup
@@ -233,20 +247,6 @@ public interface I_RV_BPartnerInput extends I_RV_BPartner {
 	 * @return C_BP_Location_Update
 	 */
 	ForeignEntityInput C_BP_Location_Update();
-
-	/**
-	 * Set C_BPartner_Location.
-	 *
-	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
-	 */
-	void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location);
-
-	/**
-	 * Get C_BPartner_Location.
-	 *
-	 * @return Identifies the (ship to) address for this Business Partner
-	 */
-	ForeignEntityInput C_BPartner_Location();
 
 	/**
 	 * Set C_City.

@@ -67,6 +67,20 @@ public interface I_HR_MovementInput extends I_HR_Movement {
 	ForeignEntityInput C_Activity();
 
 	/**
+	 * Set C_BPartner.
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
+
+	/**
+	 * Get C_BPartner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	ForeignEntityInput C_BPartner();
+
+	/**
 	 * Set C_BP_BankAccount.
 	 *
 	 * @param C_BP_BankAccount Bank Account of the Business Partner
@@ -95,20 +109,6 @@ public interface I_HR_MovementInput extends I_HR_Movement {
 	ForeignEntityInput C_BP_Group();
 
 	/**
-	 * Set C_BPartner.
-	 *
-	 * @param C_BPartner Identifies a Business Partner
-	 */
-	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
-
-	/**
-	 * Get C_BPartner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	ForeignEntityInput C_BPartner();
-
-	/**
 	 * Set C_Campaign.
 	 *
 	 * @param C_Campaign Marketing Campaign
@@ -121,6 +121,20 @@ public interface I_HR_MovementInput extends I_HR_Movement {
 	 * @return Marketing Campaign
 	 */
 	ForeignEntityInput C_Campaign();
+
+	/**
+	 * Set ColumnType.
+	 *
+	 * @param ColumnType ColumnType
+	 */
+	void setColumnTypeInput(ForeignEntityInput ColumnType);
+
+	/**
+	 * Get ColumnType.
+	 *
+	 * @return ColumnType
+	 */
+	ForeignEntityInput ColumnType();
 
 	/**
 	 * Set C_Project.
@@ -163,20 +177,6 @@ public interface I_HR_MovementInput extends I_HR_Movement {
 	 * @return Actual Project Task in a Phase
 	 */
 	ForeignEntityInput C_ProjectTask();
-
-	/**
-	 * Set ColumnType.
-	 *
-	 * @param ColumnType ColumnType
-	 */
-	void setColumnTypeInput(ForeignEntityInput ColumnType);
-
-	/**
-	 * Get ColumnType.
-	 *
-	 * @return ColumnType
-	 */
-	ForeignEntityInput ColumnType();
 
 	/**
 	 * Set HR_Concept_Category.

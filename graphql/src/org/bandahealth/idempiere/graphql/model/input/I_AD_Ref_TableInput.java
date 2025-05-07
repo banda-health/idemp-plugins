@@ -67,20 +67,6 @@ public interface I_AD_Ref_TableInput extends I_AD_Ref_Table {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set AD_Reference.
 	 *
 	 * @param AD_Reference System Reference and Validation
@@ -93,6 +79,20 @@ public interface I_AD_Ref_TableInput extends I_AD_Ref_Table {
 	 * @return System Reference and Validation
 	 */
 	ForeignEntityInput AD_Reference();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set AD_Table.

@@ -22,13 +22,13 @@ type C_RfQ_TopicSubscriberOnly {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Request for Quotation Topic Subscriber
-	C_RfQ_TopicSubscriber: C_RfQ_TopicSubscriber!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Request for Quotation Topic Subscriber
+	C_RfQ_TopicSubscriber: C_RfQ_TopicSubscriber!
+	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

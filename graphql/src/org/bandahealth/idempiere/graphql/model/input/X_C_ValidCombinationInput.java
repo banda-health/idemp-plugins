@@ -351,6 +351,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public ForeignEntityInput C_LocTo() {
 		return mC_LocTo;
 	}
+	/**
+	 * Set Combination.
+	 *
+	 * @param Combination Unique combination of account elements
+	 */
+	@JsonProperty("Combination")
+	public void setCombinationFromJson(String Combination) {
+		if (get_ID() == 0) {
+			super.setCombination(Combination);
+		}
+	}
 
 	/**
 	 * Set Project.
@@ -490,17 +501,6 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 */
 	public String getUU() {
 		return getC_ValidCombination_UU();
-	}
-	/**
-	 * Set Combination.
-	 *
-	 * @param Combination Unique combination of account elements
-	 */
-	@JsonProperty("Combination")
-	public void setCombinationFromJson(String Combination) {
-		if (get_ID() == 0) {
-			super.setCombination(Combination);
-		}
 	}
 	/**
 	 * Set Description.

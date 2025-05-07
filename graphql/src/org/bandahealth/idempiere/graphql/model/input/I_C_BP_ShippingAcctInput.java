@@ -25,20 +25,6 @@ public interface I_C_BP_ShippingAcctInput extends I_C_BP_ShippingAcct {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -65,6 +51,20 @@ public interface I_C_BP_ShippingAcctInput extends I_C_BP_ShippingAcct {
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	ForeignEntityInput C_BPartner_Location();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set M_ShippingProcessor.

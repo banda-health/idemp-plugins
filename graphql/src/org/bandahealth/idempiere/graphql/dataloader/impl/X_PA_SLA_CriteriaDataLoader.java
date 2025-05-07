@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.X_PA_SLA_Criteria;
+import org.compiere.model.MSLACriteria;
 
 /**
  * Data Loader for PA_SLA_Criteria - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.X_PA_SLA_Criteria;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_PA_SLA_CriteriaDataLoader extends PODataLoader<X_PA_SLA_Criteria> {
+public class X_PA_SLA_CriteriaDataLoader extends PODataLoader<MSLACriteria> {
 	public static String DATALOADER_PA_SLA_Criteria_BY_ID = "PA_SLA_CriteriaByIdDataLoader";
 	public static String DATALOADER_PA_SLA_Criteria_BY_UUID = "PA_SLA_CriteriaByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_PA_SLA_Criteria.Table_Name;
+		return MSLACriteria.Table_Name;
 	}
 
 	@Override

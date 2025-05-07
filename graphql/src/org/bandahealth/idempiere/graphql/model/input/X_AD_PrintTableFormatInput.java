@@ -150,40 +150,6 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	}
 
 	/**
-	 * Set Function Font.
-	 *
-	 * @param Funct_PrintFont Function row Font
-	 */
-	@JsonProperty("Funct_PrintFont")
-	public void setFunct_PrintFontInput(ForeignEntityInput Funct_PrintFont) {
-		this.mFunct_PrintFont = Funct_PrintFont;
-		if (Funct_PrintFont != null) {
-			// Since an entity was passed, make sure it's in the DB
-			X_AD_PrintFont foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(Funct_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setFunct_PrintFont_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFont with UU " + Funct_PrintFont.getUU());
-			}
-		} else {
-			this.setFunct_PrintFont_ID(0);
-		}
-	}
-
-	/**
-	 * Get Function Font.
-	 *
-	 * @return Function row Font
-	 */
-	@JsonProperty("Funct_PrintFont")
-	public ForeignEntityInput Funct_PrintFont() {
-		return mFunct_PrintFont;
-	}
-
-	/**
 	 * Set Function BG Color.
 	 *
 	 * @param FunctBG_PrintColor Function Background Color
@@ -252,37 +218,37 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	}
 
 	/**
-	 * Set Header Row Font.
+	 * Set Function Font.
 	 *
-	 * @param Hdr_PrintFont Header row Font
+	 * @param Funct_PrintFont Function row Font
 	 */
-	@JsonProperty("Hdr_PrintFont")
-	public void setHdr_PrintFontInput(ForeignEntityInput Hdr_PrintFont) {
-		this.mHdr_PrintFont = Hdr_PrintFont;
-		if (Hdr_PrintFont != null) {
+	@JsonProperty("Funct_PrintFont")
+	public void setFunct_PrintFontInput(ForeignEntityInput Funct_PrintFont) {
+		this.mFunct_PrintFont = Funct_PrintFont;
+		if (Funct_PrintFont != null) {
 			// Since an entity was passed, make sure it's in the DB
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(Hdr_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setHdr_PrintFont_ID(foreignEntity.get_ID());
+							.setParameters(Funct_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setFunct_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFont with UU " + Hdr_PrintFont.getUU());
+						"Could not find entity in table AD_PrintFont with UU " + Funct_PrintFont.getUU());
 			}
 		} else {
-			this.setHdr_PrintFont_ID(0);
+			this.setFunct_PrintFont_ID(0);
 		}
 	}
 
 	/**
-	 * Get Header Row Font.
+	 * Get Function Font.
 	 *
-	 * @return Header row Font
+	 * @return Function row Font
 	 */
-	@JsonProperty("Hdr_PrintFont")
-	public ForeignEntityInput Hdr_PrintFont() {
-		return mHdr_PrintFont;
+	@JsonProperty("Funct_PrintFont")
+	public ForeignEntityInput Funct_PrintFont() {
+		return mFunct_PrintFont;
 	}
 
 	/**
@@ -317,6 +283,40 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("HdrLine_PrintColor")
 	public ForeignEntityInput HdrLine_PrintColor() {
 		return mHdrLine_PrintColor;
+	}
+
+	/**
+	 * Set Header Row Font.
+	 *
+	 * @param Hdr_PrintFont Header row Font
+	 */
+	@JsonProperty("Hdr_PrintFont")
+	public void setHdr_PrintFontInput(ForeignEntityInput Hdr_PrintFont) {
+		this.mHdr_PrintFont = Hdr_PrintFont;
+		if (Hdr_PrintFont != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFont foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
+							.setParameters(Hdr_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setHdr_PrintFont_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFont with UU " + Hdr_PrintFont.getUU());
+			}
+		} else {
+			this.setHdr_PrintFont_ID(0);
+		}
+	}
+
+	/**
+	 * Get Header Row Font.
+	 *
+	 * @return Header row Font
+	 */
+	@JsonProperty("Hdr_PrintFont")
+	public ForeignEntityInput Hdr_PrintFont() {
+		return mHdr_PrintFont;
 	}
 
 	/**

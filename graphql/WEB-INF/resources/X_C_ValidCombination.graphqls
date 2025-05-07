@@ -38,19 +38,19 @@ type C_ValidCombination {
 	C_LocFrom: C_Location
 	# Location that inventory was moved to
 	C_LocTo: C_Location
+	# Unique combination of account elements
+	Combination: String
 	# Financial Project
 	C_Project: C_Project
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
 	# Sales coverage region
 	C_SalesRegion: C_SalesRegion
 	# Sub account for Element Value
 	C_SubAcct: C_SubAcct
 	UU: ID!
-	# Unique combination of account elements
-	Combination: String
-	# Date this record was created
-	Created: DateTime!
-	# User who created this records
-	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -88,6 +88,8 @@ input C_ValidCombinationInput {
 	C_LocFrom: ForeignEntityInput
 	# Location that inventory was moved to
 	C_LocTo: ForeignEntityInput
+	# Unique combination of account elements
+	Combination: String
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Sales coverage region
@@ -95,8 +97,6 @@ input C_ValidCombinationInput {
 	# Sub account for Element Value
 	C_SubAcct: ForeignEntityInput
 	UU: ID
-	# Unique combination of account elements
-	Combination: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

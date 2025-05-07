@@ -259,40 +259,6 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	}
 
 	/**
-	 * Set Partner Bank Account.
-	 *
-	 * @param C_BP_BankAccount Bank Account of the Business Partner
-	 */
-	@JsonProperty("C_BP_BankAccount")
-	public void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount) {
-		this.mC_BP_BankAccount = C_BP_BankAccount;
-		if (C_BP_BankAccount != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPBankAccount foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BP_BankAccount", "C_BP_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BP_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BP_BankAccount_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BP_BankAccount with UU " + C_BP_BankAccount.getUU());
-			}
-		} else {
-			this.setC_BP_BankAccount_ID(0);
-		}
-	}
-
-	/**
-	 * Get Partner Bank Account.
-	 *
-	 * @return Bank Account of the Business Partner
-	 */
-	@JsonProperty("C_BP_BankAccount")
-	public ForeignEntityInput C_BP_BankAccount() {
-		return mC_BP_BankAccount;
-	}
-
-	/**
 	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -324,6 +290,40 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
+	}
+
+	/**
+	 * Set Partner Bank Account.
+	 *
+	 * @param C_BP_BankAccount Bank Account of the Business Partner
+	 */
+	@JsonProperty("C_BP_BankAccount")
+	public void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount) {
+		this.mC_BP_BankAccount = C_BP_BankAccount;
+		if (C_BP_BankAccount != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPBankAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BP_BankAccount", "C_BP_BankAccount_UU=?", get_TrxName())
+							.setParameters(C_BP_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BP_BankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BP_BankAccount with UU " + C_BP_BankAccount.getUU());
+			}
+		} else {
+			this.setC_BP_BankAccount_ID(0);
+		}
+	}
+
+	/**
+	 * Get Partner Bank Account.
+	 *
+	 * @return Bank Account of the Business Partner
+	 */
+	@JsonProperty("C_BP_BankAccount")
+	public ForeignEntityInput C_BP_BankAccount() {
+		return mC_BP_BankAccount;
 	}
 
 	/**
@@ -634,35 +634,6 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public ForeignEntityInput C_Order() {
 		return mC_Order;
 	}
-	/**
-	 * Set Payment.
-	 *
-	 * @param C_Payment_ID Payment identifier
-	 */
-	@JsonProperty("C_Payment_ID")
-	public void setC_Payment_IDFromJson(int C_Payment_ID) {
-		if (get_ID() == 0) {
-			super.setC_Payment_ID(C_Payment_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_Payment_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_Payment_UU();
-	}
 
 	/**
 	 * Set Payment Batch.
@@ -697,6 +668,17 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public ForeignEntityInput C_PaymentBatch() {
 		return mC_PaymentBatch;
 	}
+	/**
+	 * Set Payment.
+	 *
+	 * @param C_Payment_ID Payment identifier
+	 */
+	@JsonProperty("C_Payment_ID")
+	public void setC_Payment_IDFromJson(int C_Payment_ID) {
+		if (get_ID() == 0) {
+			super.setC_Payment_ID(C_Payment_ID);
+		}
+	}
 
 	/**
 	 * Set Payment Processor.
@@ -730,6 +712,24 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	@JsonProperty("C_PaymentProcessor")
 	public ForeignEntityInput C_PaymentProcessor() {
 		return mC_PaymentProcessor;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_Payment_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_Payment_UU();
 	}
 
 	/**
@@ -1055,61 +1055,6 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 			super.setR_CVV2Match(R_CVV2Match);
 		}
 	}
-	/**
-	 * Set Info.
-	 *
-	 * @param R_Info Response info
-	 */
-	@JsonProperty("R_Info")
-	public void setR_InfoFromJson(String R_Info) {
-		if (get_ID() == 0) {
-			super.setR_Info(R_Info);
-		}
-	}
-	/**
-	 * Set Reference.
-	 *
-	 * @param R_PnRef Payment reference
-	 */
-	@JsonProperty("R_PnRef")
-	public void setR_PnRefFromJson(String R_PnRef) {
-		if (get_ID() == 0) {
-			super.setR_PnRef(R_PnRef);
-		}
-	}
-	/**
-	 * Set Reference (DC).
-	 *
-	 * @param R_PnRef_DC Payment Reference Delayed Capture
-	 */
-	@JsonProperty("R_PnRef_DC")
-	public void setR_PnRef_DCFromJson(String R_PnRef_DC) {
-		if (get_ID() == 0) {
-			super.setR_PnRef_DC(R_PnRef_DC);
-		}
-	}
-	/**
-	 * Set Response Message.
-	 *
-	 * @param R_RespMsg Response message
-	 */
-	@JsonProperty("R_RespMsg")
-	public void setR_RespMsgFromJson(String R_RespMsg) {
-		if (get_ID() == 0) {
-			super.setR_RespMsg(R_RespMsg);
-		}
-	}
-	/**
-	 * Set Result.
-	 *
-	 * @param R_Result Result of transmission
-	 */
-	@JsonProperty("R_Result")
-	public void setR_ResultFromJson(String R_Result) {
-		if (get_ID() == 0) {
-			super.setR_Result(R_Result);
-		}
-	}
 
 	/**
 	 * Set Referenced Payment.
@@ -1180,6 +1125,61 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	@JsonProperty("Reversal")
 	public ForeignEntityInput Reversal() {
 		return mReversal;
+	}
+	/**
+	 * Set Info.
+	 *
+	 * @param R_Info Response info
+	 */
+	@JsonProperty("R_Info")
+	public void setR_InfoFromJson(String R_Info) {
+		if (get_ID() == 0) {
+			super.setR_Info(R_Info);
+		}
+	}
+	/**
+	 * Set Reference.
+	 *
+	 * @param R_PnRef Payment reference
+	 */
+	@JsonProperty("R_PnRef")
+	public void setR_PnRefFromJson(String R_PnRef) {
+		if (get_ID() == 0) {
+			super.setR_PnRef(R_PnRef);
+		}
+	}
+	/**
+	 * Set Reference (DC).
+	 *
+	 * @param R_PnRef_DC Payment Reference Delayed Capture
+	 */
+	@JsonProperty("R_PnRef_DC")
+	public void setR_PnRef_DCFromJson(String R_PnRef_DC) {
+		if (get_ID() == 0) {
+			super.setR_PnRef_DC(R_PnRef_DC);
+		}
+	}
+	/**
+	 * Set Response Message.
+	 *
+	 * @param R_RespMsg Response message
+	 */
+	@JsonProperty("R_RespMsg")
+	public void setR_RespMsgFromJson(String R_RespMsg) {
+		if (get_ID() == 0) {
+			super.setR_RespMsg(R_RespMsg);
+		}
+	}
+	/**
+	 * Set Result.
+	 *
+	 * @param R_Result Result of transmission
+	 */
+	@JsonProperty("R_Result")
+	public void setR_ResultFromJson(String R_Result) {
+		if (get_ID() == 0) {
+			super.setR_Result(R_Result);
+		}
 	}
 	/**
 	 * Set Swipe.

@@ -39,21 +39,6 @@ public class X_C_CashBook_AcctResolver extends POResolver<X_C_CashBook_Acct> imp
 
 
 	/**
-	 * Get Cash Book.
-	 *
-	 * @return Cash Book for recording petty cash transactions
-	 */
-	public CompletableFuture<MCashBook> C_CashBook(X_C_CashBook_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashBook_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MCashBook> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.DATALOADER_C_CashBook_BY_ID);
-		return dataLoader.load(entity.getC_CashBook_ID());
-	}
-
-
-	/**
 	 * Get Cash Book Asset.
 	 *
 	 * @return Cash Book Asset Account
@@ -125,6 +110,21 @@ public class X_C_CashBook_AcctResolver extends POResolver<X_C_CashBook_Acct> imp
 		DataLoader<Integer, MAccount> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getCB_Receipt_Acct());
+	}
+
+
+	/**
+	 * Get Cash Book.
+	 *
+	 * @return Cash Book for recording petty cash transactions
+	 */
+	public CompletableFuture<MCashBook> C_CashBook(X_C_CashBook_Acct entity, DataFetchingEnvironment environment) {
+		if (entity.getC_CashBook_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MCashBook> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.DATALOADER_C_CashBook_BY_ID);
+		return dataLoader.load(entity.getC_CashBook_ID());
 	}
 
 }

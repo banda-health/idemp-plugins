@@ -77,6 +77,45 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+
+	/**
+	 * Set Mandatory Type.
+	 *
+	 * @param MandatoryType The specification of a Product Attribute Instance is mandatory
+	 */
+	@JsonProperty("MandatoryType")
+	public void setMandatoryTypeInput(ForeignEntityInput MandatoryType) {
+		this.mMandatoryType = MandatoryType;
+		if (MandatoryType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_AttributeSetResolver.MANDATORYTYPE_UUIDS_BY_VALUE.containsValue(MandatoryType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + MandatoryType.getUU() +
+						" is not in the list defined for the MandatoryType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(MandatoryType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setMandatoryType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MandatoryType.getUU());
+			}
+		} else {
+			this.setMandatoryType(null);
+		}
+	}
+
+	/**
+	 * Get Mandatory Type.
+	 *
+	 * @return The specification of a Product Attribute Instance is mandatory
+	 */
+	@JsonProperty("MandatoryType")
+	public ForeignEntityInput MandatoryType() {
+		return mMandatoryType;
+	}
 	/**
 	 * Set Attribute Set.
 	 *
@@ -212,44 +251,5 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	@JsonProperty("M_SerNoCtl")
 	public ForeignEntityInput M_SerNoCtl() {
 		return mM_SerNoCtl;
-	}
-
-	/**
-	 * Set Mandatory Type.
-	 *
-	 * @param MandatoryType The specification of a Product Attribute Instance is mandatory
-	 */
-	@JsonProperty("MandatoryType")
-	public void setMandatoryTypeInput(ForeignEntityInput MandatoryType) {
-		this.mMandatoryType = MandatoryType;
-		if (MandatoryType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_M_AttributeSetResolver.MANDATORYTYPE_UUIDS_BY_VALUE.containsValue(MandatoryType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + MandatoryType.getUU() +
-						" is not in the list defined for the MandatoryType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MandatoryType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setMandatoryType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MandatoryType.getUU());
-			}
-		} else {
-			this.setMandatoryType(null);
-		}
-	}
-
-	/**
-	 * Get Mandatory Type.
-	 *
-	 * @return The specification of a Product Attribute Instance is mandatory
-	 */
-	@JsonProperty("MandatoryType")
-	public ForeignEntityInput MandatoryType() {
-		return mMandatoryType;
 	}
 }

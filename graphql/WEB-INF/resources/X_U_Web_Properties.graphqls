@@ -29,12 +29,12 @@ type U_Web_Properties {
 	# The record is active in the system
 	IsActive: Boolean!
 	U_Key: String!
-	U_Value: String!
-	UU: ID!
 	# Date this record was updated
 	Updated: DateTime!
 	# User who updated this records
 	UpdatedBy: AD_User!
+	U_Value: String!
+	UU: ID!
 }
 
 input U_Web_PropertiesInput {

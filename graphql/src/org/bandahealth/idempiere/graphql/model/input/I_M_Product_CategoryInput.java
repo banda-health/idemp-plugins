@@ -67,6 +67,20 @@ public interface I_M_Product_CategoryInput extends I_M_Product_Category {
 	ForeignEntityInput BH_Product_Category_Type();
 
 	/**
+	 * Set MMPolicy.
+	 *
+	 * @param MMPolicy Material Movement Policy
+	 */
+	void setMMPolicyInput(ForeignEntityInput MMPolicy);
+
+	/**
+	 * Get MMPolicy.
+	 *
+	 * @return Material Movement Policy
+	 */
+	ForeignEntityInput MMPolicy();
+
+	/**
 	 * Set M_Product_Category_Parent.
 	 *
 	 * @param M_Product_Category_Parent M_Product_Category_Parent
@@ -93,18 +107,4 @@ public interface I_M_Product_CategoryInput extends I_M_Product_Category {
 	 * @return UU
 	 */
 	String getUU();
-
-	/**
-	 * Set MMPolicy.
-	 *
-	 * @param MMPolicy Material Movement Policy
-	 */
-	void setMMPolicyInput(ForeignEntityInput MMPolicy);
-
-	/**
-	 * Get MMPolicy.
-	 *
-	 * @return Material Movement Policy
-	 */
-	ForeignEntityInput MMPolicy();
 }

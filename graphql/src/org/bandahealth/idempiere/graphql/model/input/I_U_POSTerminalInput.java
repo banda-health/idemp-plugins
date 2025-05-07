@@ -25,48 +25,6 @@ public interface I_U_POSTerminalInput extends I_U_POSTerminal {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set C_CashBook.
-	 *
-	 * @param C_CashBook Cash Book for recording petty cash transactions
-	 */
-	void setC_CashBookInput(ForeignEntityInput C_CashBook);
-
-	/**
-	 * Get C_CashBook.
-	 *
-	 * @return Cash Book for recording petty cash transactions
-	 */
-	ForeignEntityInput C_CashBook();
-
-	/**
-	 * Set C_CashBPartner.
-	 *
-	 * @param C_CashBPartner BPartner to be used for Cash transactions
-	 */
-	void setC_CashBPartnerInput(ForeignEntityInput C_CashBPartner);
-
-	/**
-	 * Get C_CashBPartner.
-	 *
-	 * @return BPartner to be used for Cash transactions
-	 */
-	ForeignEntityInput C_CashBPartner();
-
-	/**
-	 * Set C_TemplateBPartner.
-	 *
-	 * @param C_TemplateBPartner BPartner that is to be used as template when new customers are created
-	 */
-	void setC_TemplateBPartnerInput(ForeignEntityInput C_TemplateBPartner);
-
-	/**
-	 * Get C_TemplateBPartner.
-	 *
-	 * @return BPartner that is to be used as template when new customers are created
-	 */
-	ForeignEntityInput C_TemplateBPartner();
-
-	/**
 	 * Set Card_BankAccount.
 	 *
 	 * @param Card_BankAccount Bank Account on which card transactions will be processed
@@ -165,6 +123,34 @@ public interface I_U_POSTerminalInput extends I_U_POSTerminal {
 	ForeignEntityInput CashTransferCashBook();
 
 	/**
+	 * Set C_CashBook.
+	 *
+	 * @param C_CashBook Cash Book for recording petty cash transactions
+	 */
+	void setC_CashBookInput(ForeignEntityInput C_CashBook);
+
+	/**
+	 * Get C_CashBook.
+	 *
+	 * @return Cash Book for recording petty cash transactions
+	 */
+	ForeignEntityInput C_CashBook();
+
+	/**
+	 * Set C_CashBPartner.
+	 *
+	 * @param C_CashBPartner BPartner to be used for Cash transactions
+	 */
+	void setC_CashBPartnerInput(ForeignEntityInput C_CashBPartner);
+
+	/**
+	 * Get C_CashBPartner.
+	 *
+	 * @return BPartner to be used for Cash transactions
+	 */
+	ForeignEntityInput C_CashBPartner();
+
+	/**
 	 * Set Check_BankAccount.
 	 *
 	 * @param Check_BankAccount Bank Account to be used for processing Check transactions
@@ -219,6 +205,20 @@ public interface I_U_POSTerminalInput extends I_U_POSTerminal {
 	 * @return CheckTransferType
 	 */
 	ForeignEntityInput CheckTransferType();
+
+	/**
+	 * Set C_TemplateBPartner.
+	 *
+	 * @param C_TemplateBPartner BPartner that is to be used as template when new customers are created
+	 */
+	void setC_TemplateBPartnerInput(ForeignEntityInput C_TemplateBPartner);
+
+	/**
+	 * Get C_TemplateBPartner.
+	 *
+	 * @return BPartner that is to be used as template when new customers are created
+	 */
+	ForeignEntityInput C_TemplateBPartner();
 
 	/**
 	 * Set M_Warehouse.

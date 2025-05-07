@@ -19,15 +19,15 @@ type A_Asset_Reval_EntryConnection {
 
 type A_Asset_Reval_Entry {
 	UU: ID!
-	A_Effective_Date: Date!
-	A_Rev_Code: AD_Ref_List!
-	A_Reval_Cal_Method: AD_Ref_List!
-	A_Reval_Effective_Date: AD_Ref_List!
-	A_Reval_Multiplier: AD_Ref_List!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	A_Effective_Date: Date!
+	A_Reval_Cal_Method: AD_Ref_List!
+	A_Reval_Effective_Date: AD_Ref_List!
+	A_Reval_Multiplier: AD_Ref_List!
+	A_Rev_Code: AD_Ref_List!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema
 	# The Currency for this record
@@ -65,13 +65,13 @@ type A_Asset_Reval_Entry {
 
 input A_Asset_Reval_EntryInput {
 	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	A_Effective_Date: Date
-	A_Rev_Code: ForeignEntityInput
 	A_Reval_Cal_Method: ForeignEntityInput
 	A_Reval_Effective_Date: ForeignEntityInput
 	A_Reval_Multiplier: ForeignEntityInput
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
+	A_Rev_Code: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# The Currency for this record

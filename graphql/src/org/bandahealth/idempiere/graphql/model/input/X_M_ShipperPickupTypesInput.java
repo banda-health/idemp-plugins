@@ -110,35 +110,6 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 	public ForeignEntityInput M_Shipper() {
 		return mM_Shipper;
 	}
-	/**
-	 * Set Shipper Pickup Types.
-	 *
-	 * @param M_ShipperPickupTypes_ID Shipper Pickup Types
-	 */
-	@JsonProperty("M_ShipperPickupTypes_ID")
-	public void setM_ShipperPickupTypes_IDFromJson(int M_ShipperPickupTypes_ID) {
-		if (get_ID() == 0) {
-			super.setM_ShipperPickupTypes_ID(M_ShipperPickupTypes_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_ShipperPickupTypes_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_ShipperPickupTypes_UU();
-	}
 
 	/**
 	 * Set Shipper Pickup Types Configuration.
@@ -172,5 +143,34 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 	@JsonProperty("M_ShipperPickupTypesCfg")
 	public ForeignEntityInput M_ShipperPickupTypesCfg() {
 		return mM_ShipperPickupTypesCfg;
+	}
+	/**
+	 * Set Shipper Pickup Types.
+	 *
+	 * @param M_ShipperPickupTypes_ID Shipper Pickup Types
+	 */
+	@JsonProperty("M_ShipperPickupTypes_ID")
+	public void setM_ShipperPickupTypes_IDFromJson(int M_ShipperPickupTypes_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperPickupTypes_ID(M_ShipperPickupTypes_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_ShipperPickupTypes_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_ShipperPickupTypes_UU();
 	}
 }

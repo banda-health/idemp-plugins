@@ -25,20 +25,6 @@ public interface I_PA_BenchmarkDataInput extends I_PA_BenchmarkData {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set PA_Benchmark.
-	 *
-	 * @param PA_Benchmark Performance Benchmark
-	 */
-	void setPA_BenchmarkInput(ForeignEntityInput PA_Benchmark);
-
-	/**
-	 * Get PA_Benchmark.
-	 *
-	 * @return Performance Benchmark
-	 */
-	ForeignEntityInput PA_Benchmark();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -51,4 +37,18 @@ public interface I_PA_BenchmarkDataInput extends I_PA_BenchmarkData {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set PA_Benchmark.
+	 *
+	 * @param PA_Benchmark Performance Benchmark
+	 */
+	void setPA_BenchmarkInput(ForeignEntityInput PA_Benchmark);
+
+	/**
+	 * Get PA_Benchmark.
+	 *
+	 * @return Performance Benchmark
+	 */
+	ForeignEntityInput PA_Benchmark();
 }

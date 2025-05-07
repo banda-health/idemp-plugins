@@ -48,11 +48,11 @@ type C_PaymentProcessor {
 	C_BankAccount: C_BankAccount
 	# The Currency for this record
 	C_Currency: C_Currency
-	UU: ID!
 	# Commission stated as a percentage
 	Commission: BigDecimal!
 	# Fixed cost per transaction
 	CostPerTrx: BigDecimal!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -118,11 +118,11 @@ input C_PaymentProcessorInput {
 	C_BankAccount: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
-	UU: ID
 	# Commission stated as a percentage
 	Commission: BigDecimal
 	# Fixed cost per transaction
 	CostPerTrx: BigDecimal
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Host Address URL or DNS

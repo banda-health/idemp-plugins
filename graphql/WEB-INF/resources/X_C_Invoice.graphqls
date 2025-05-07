@@ -48,7 +48,11 @@ type C_Invoice {
 	# Target document type for conversing documents
 	C_DocTypeTarget: C_DocType!
 	C_DunningLevel: C_DunningLevel
+	# Charge Amount
+	ChargeAmt: BigDecimal
 	UU: ID!
+	# Copy From Record
+	CopyFrom: String
 	# Order
 	C_Order: C_Order
 	# Payment identifier
@@ -57,10 +61,6 @@ type C_Invoice {
 	C_PaymentTerm: C_PaymentTerm!
 	# Financial Project
 	C_Project: C_Project
-	# Charge Amount
-	ChargeAmt: BigDecimal
-	# Copy From Record
-	CopyFrom: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -184,7 +184,11 @@ input C_InvoiceInput {
 	# Target document type for conversing documents
 	C_DocTypeTarget: ForeignEntityInput
 	C_DunningLevel: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: BigDecimal
 	UU: ID
+	# Copy From Record
+	CopyFrom: String
 	# Order
 	C_Order: ForeignEntityInput
 	# Payment identifier
@@ -193,10 +197,6 @@ input C_InvoiceInput {
 	C_PaymentTerm: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	# Charge Amount
-	ChargeAmt: BigDecimal
-	# Copy From Record
-	CopyFrom: String
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Process which will generate a new document lines based on an existing document

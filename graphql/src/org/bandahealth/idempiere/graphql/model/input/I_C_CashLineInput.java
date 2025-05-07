@@ -25,6 +25,20 @@ public interface I_C_CashLineInput extends I_C_CashLine {
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Set CashType.
+	 *
+	 * @param CashType Source of Cash
+	 */
+	void setCashTypeInput(ForeignEntityInput CashType);
+
+	/**
+	 * Get CashType.
+	 *
+	 * @return Source of Cash
+	 */
+	ForeignEntityInput CashType();
+
+	/**
 	 * Set C_BankAccount.
 	 *
 	 * @param C_BankAccount Account at the Bank
@@ -121,18 +135,4 @@ public interface I_C_CashLineInput extends I_C_CashLine {
 	 * @return Payment identifier
 	 */
 	ForeignEntityInput C_Payment();
-
-	/**
-	 * Set CashType.
-	 *
-	 * @param CashType Source of Cash
-	 */
-	void setCashTypeInput(ForeignEntityInput CashType);
-
-	/**
-	 * Get CashType.
-	 *
-	 * @return Source of Cash
-	 */
-	ForeignEntityInput CashType();
 }

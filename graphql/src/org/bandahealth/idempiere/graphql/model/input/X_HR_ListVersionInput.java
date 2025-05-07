@@ -74,6 +74,40 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	}
 
 	/**
+	 * Set Payroll List Base.
+	 *
+	 * @param HR_ListBase Payroll List Base
+	 */
+	@JsonProperty("HR_ListBase")
+	public void setHR_ListBaseInput(ForeignEntityInput HR_ListBase) {
+		this.mHR_ListBase = HR_ListBase;
+		if (HR_ListBase != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_List foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_List", "HR_List_UU=?", get_TrxName())
+							.setParameters(HR_ListBase.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setHR_ListBase_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_List with UU " + HR_ListBase.getUU());
+			}
+		} else {
+			this.setHR_ListBase_ID(0);
+		}
+	}
+
+	/**
+	 * Get Payroll List Base.
+	 *
+	 * @return Payroll List Base
+	 */
+	@JsonProperty("HR_ListBase")
+	public ForeignEntityInput HR_ListBase() {
+		return mHR_ListBase;
+	}
+
+	/**
 	 * Set Payroll List.
 	 *
 	 * @param HR_List Payroll List
@@ -108,40 +142,6 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	@JsonProperty("HR_List")
 	public ForeignEntityInput HR_List() {
 		return mHR_List;
-	}
-
-	/**
-	 * Set Payroll List Base.
-	 *
-	 * @param HR_ListBase Payroll List Base
-	 */
-	@JsonProperty("HR_ListBase")
-	public void setHR_ListBaseInput(ForeignEntityInput HR_ListBase) {
-		this.mHR_ListBase = HR_ListBase;
-		if (HR_ListBase != null) {
-			// Since an entity was passed, make sure it's in the DB
-			X_HR_List foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "HR_List", "HR_List_UU=?", get_TrxName())
-							.setParameters(HR_ListBase.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setHR_ListBase_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table HR_List with UU " + HR_ListBase.getUU());
-			}
-		} else {
-			this.setHR_ListBase_ID(0);
-		}
-	}
-
-	/**
-	 * Get Payroll List Base.
-	 *
-	 * @return Payroll List Base
-	 */
-	@JsonProperty("HR_ListBase")
-	public ForeignEntityInput HR_ListBase() {
-		return mHR_ListBase;
 	}
 	/**
 	 * Set Payroll List Version.

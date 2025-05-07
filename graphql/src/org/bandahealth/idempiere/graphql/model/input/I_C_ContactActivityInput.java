@@ -53,20 +53,6 @@ public interface I_C_ContactActivityInput extends I_C_ContactActivity {
 	String getUU();
 
 	/**
-	 * Set C_Opportunity.
-	 *
-	 * @param C_Opportunity C_Opportunity
-	 */
-	void setC_OpportunityInput(ForeignEntityInput C_Opportunity);
-
-	/**
-	 * Get C_Opportunity.
-	 *
-	 * @return C_Opportunity
-	 */
-	ForeignEntityInput C_Opportunity();
-
-	/**
 	 * Set ContactActivityType.
 	 *
 	 * @param ContactActivityType Type of activity, e.g. task, email, phone call
@@ -79,6 +65,20 @@ public interface I_C_ContactActivityInput extends I_C_ContactActivity {
 	 * @return Type of activity, e.g. task, email, phone call
 	 */
 	ForeignEntityInput ContactActivityType();
+
+	/**
+	 * Set C_Opportunity.
+	 *
+	 * @param C_Opportunity C_Opportunity
+	 */
+	void setC_OpportunityInput(ForeignEntityInput C_Opportunity);
+
+	/**
+	 * Get C_Opportunity.
+	 *
+	 * @return C_Opportunity
+	 */
+	ForeignEntityInput C_Opportunity();
 
 	/**
 	 * Set SalesRep.

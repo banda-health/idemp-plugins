@@ -24,9 +24,6 @@ type C_CashBook_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	UU: ID!
-	# Cash Book for recording petty cash transactions
-	C_CashBook: C_CashBook!
 	# Cash Book Asset Account
 	CB_Asset_A: C_ValidCombination
 	# Cash Transfer Clearing Account
@@ -37,6 +34,9 @@ type C_CashBook_Acct {
 	CB_Expense_A: C_ValidCombination
 	# Cash Book Receipts Account
 	CB_Receipt_A: C_ValidCombination
+	UU: ID!
+	# Cash Book for recording petty cash transactions
+	C_CashBook: C_CashBook!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -54,9 +54,6 @@ input C_CashBook_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	UU: ID
-	# Cash Book for recording petty cash transactions
-	C_CashBook: ForeignEntityInput
 	# Cash Book Asset Account
 	CB_Asset_A: ForeignEntityInput
 	# Cash Transfer Clearing Account
@@ -67,6 +64,9 @@ input C_CashBook_AcctInput {
 	CB_Expense_A: ForeignEntityInput
 	# Cash Book Receipts Account
 	CB_Receipt_A: ForeignEntityInput
+	UU: ID
+	# Cash Book for recording petty cash transactions
+	C_CashBook: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 }

@@ -22,11 +22,11 @@ type C_BP_ShippingAcct {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: C_BPartner_Location
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -46,11 +46,11 @@ type C_BP_ShippingAcct {
 input C_BP_ShippingAcctInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: ForeignEntityInput
+	UU: ID
 	DutiesShipperAccount: String
 	# The record is active in the system
 	IsActive: Boolean

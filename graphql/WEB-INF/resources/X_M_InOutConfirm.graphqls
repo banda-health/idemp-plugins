@@ -51,9 +51,9 @@ type M_InOutConfirm {
 	IsCancelled: Boolean!
 	# Document is in dispute
 	IsInDispute: Boolean!
+	UU: ID!
 	# Material Shipment Document
 	M_InOut: M_InOut!
-	UU: ID!
 	# Parameters for a Physical Inventory
 	M_Inventory: M_Inventory
 	# The document has been processed
@@ -93,9 +93,9 @@ input M_InOutConfirmInput {
 	IsCancelled: Boolean
 	# Document is in dispute
 	IsInDispute: Boolean
+	UU: ID
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
-	UU: ID
 	# Parameters for a Physical Inventory
 	M_Inventory: ForeignEntityInput
 	# The document has been processed

@@ -190,21 +190,6 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 
 
 	/**
-	 * Get User/Contact.
-	 *
-	 * @return User within the system - Internal or Business Partner Contact
-	 */
-	public CompletableFuture<X_AD_AllUsers_V> AD_User(MCtxHelpSuggestion entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, X_AD_AllUsers_V> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllUsers_VDataLoader.DATALOADER_AD_AllUsers_V_BY_ID);
-		return dataLoader.load(entity.getAD_User_ID());
-	}
-
-
-	/**
 	 * Get Tenant of User.
 	 *
 	 * @return Tenant of User
@@ -216,6 +201,21 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 		DataLoader<Integer, X_AD_AllClients_V> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllClients_VDataLoader.DATALOADER_AD_AllClients_V_BY_ID);
 		return dataLoader.load(entity.getAD_UserClient_ID());
+	}
+
+
+	/**
+	 * Get User/Contact.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	public CompletableFuture<X_AD_AllUsers_V> AD_User(MCtxHelpSuggestion entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_User_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, X_AD_AllUsers_V> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllUsers_VDataLoader.DATALOADER_AD_AllUsers_V_BY_ID);
+		return dataLoader.load(entity.getAD_User_ID());
 	}
 
 	public Boolean IsApproved(MCtxHelpSuggestion entity, DataFetchingEnvironment environment) {

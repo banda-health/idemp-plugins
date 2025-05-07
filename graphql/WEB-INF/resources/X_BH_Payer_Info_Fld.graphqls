@@ -24,8 +24,8 @@ type BH_Payer_Info_Fld {
 	AD_Org: AD_Org!
 	BH_FillFromPatient: Boolean!
 	BH_Payer: C_BPartner!
-	UU: ID!
 	BH_PayerInfoFieldDataType: AD_Ref_List!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -49,8 +49,8 @@ input BH_Payer_Info_FldInput {
 	AD_Org: ForeignEntityInput
 	BH_FillFromPatient: Boolean
 	BH_Payer: ForeignEntityInput
-	UU: ID
 	BH_PayerInfoFieldDataType: ForeignEntityInput
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

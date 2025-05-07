@@ -85,40 +85,6 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	}
 
 	/**
-	 * Set UOM.
-	 *
-	 * @param C_UOM Unit of Measure
-	 */
-	@JsonProperty("C_UOM")
-	public void setC_UOMInput(ForeignEntityInput C_UOM) {
-		this.mC_UOM = C_UOM;
-		if (C_UOM != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MUOM foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_UOM_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_UOM with UU " + C_UOM.getUU());
-			}
-		} else {
-			this.setC_UOM_ID(0);
-		}
-	}
-
-	/**
-	 * Get UOM.
-	 *
-	 * @return Unit of Measure
-	 */
-	@JsonProperty("C_UOM")
-	public ForeignEntityInput C_UOM() {
-		return mC_UOM;
-	}
-
-	/**
 	 * Set Component Type.
 	 *
 	 * @param ComponentType Component Type for a Bill of Material or Formula
@@ -155,6 +121,40 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("ComponentType")
 	public ForeignEntityInput ComponentType() {
 		return mComponentType;
+	}
+
+	/**
+	 * Set UOM.
+	 *
+	 * @param C_UOM Unit of Measure
+	 */
+	@JsonProperty("C_UOM")
+	public void setC_UOMInput(ForeignEntityInput C_UOM) {
+		this.mC_UOM = C_UOM;
+		if (C_UOM != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
+							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_UOM_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_UOM with UU " + C_UOM.getUU());
+			}
+		} else {
+			this.setC_UOM_ID(0);
+		}
+	}
+
+	/**
+	 * Get UOM.
+	 *
+	 * @return Unit of Measure
+	 */
+	@JsonProperty("C_UOM")
+	public ForeignEntityInput C_UOM() {
+		return mC_UOM;
 	}
 
 	/**

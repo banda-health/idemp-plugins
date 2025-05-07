@@ -36,14 +36,14 @@ type DD_Order {
 	C_Charge: C_Charge
 	# Document type or rules
 	C_DocType: C_DocType!
+	# Charge Amount
+	ChargeAmt: BigDecimal
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Order
 	C_Order: C_Order
 	# Financial Project
 	C_Project: C_Project
-	# Charge Amount
-	ChargeAmt: BigDecimal
 	CreateConfirm: String
 	# Date this record was created
 	Created: DateTime!
@@ -155,14 +155,14 @@ input DD_OrderInput {
 	C_Charge: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: BigDecimal
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	# Charge Amount
-	ChargeAmt: BigDecimal
 	CreateConfirm: String
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String

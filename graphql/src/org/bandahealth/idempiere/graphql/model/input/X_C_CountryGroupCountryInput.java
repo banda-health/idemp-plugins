@@ -73,42 +73,34 @@ public class X_C_CountryGroupCountryInput extends MCountryGroupCountry implement
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-
 	/**
-	 * Set Country.
+	 * Set Country on Country Group.
 	 *
-	 * @param C_Country Country 
+	 * @param C_CountryGroupCountry_ID Country on Country Group
 	 */
-	@JsonProperty("C_Country")
-	public void setC_CountryInput(ForeignEntityInput C_Country) {
-		this.mC_Country = C_Country;
-		if (!is_new()) {
-			return;
-		}
-		if (C_Country != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MCountry foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_Country_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_Country with UU " + C_Country.getUU());
-			}
-		} else {
-			this.setC_Country_ID(0);
+	@JsonProperty("C_CountryGroupCountry_ID")
+	public void setC_CountryGroupCountry_IDFromJson(int C_CountryGroupCountry_ID) {
+		if (get_ID() == 0) {
+			super.setC_CountryGroupCountry_ID(C_CountryGroupCountry_ID);
 		}
 	}
 
 	/**
-	 * Get Country.
+	 * Set UU.
 	 *
-	 * @return Country 
+	 * @param UU UU
 	 */
-	@JsonProperty("C_Country")
-	public ForeignEntityInput C_Country() {
-		return mC_Country;
+	public void setUU(String UU) {
+		setC_CountryGroupCountry_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_CountryGroupCountry_UU();
 	}
 
 	/**
@@ -147,33 +139,41 @@ public class X_C_CountryGroupCountryInput extends MCountryGroupCountry implement
 	public ForeignEntityInput C_CountryGroup() {
 		return mC_CountryGroup;
 	}
+
 	/**
-	 * Set Country on Country Group.
+	 * Set Country.
 	 *
-	 * @param C_CountryGroupCountry_ID Country on Country Group
+	 * @param C_Country Country 
 	 */
-	@JsonProperty("C_CountryGroupCountry_ID")
-	public void setC_CountryGroupCountry_IDFromJson(int C_CountryGroupCountry_ID) {
-		if (get_ID() == 0) {
-			super.setC_CountryGroupCountry_ID(C_CountryGroupCountry_ID);
+	@JsonProperty("C_Country")
+	public void setC_CountryInput(ForeignEntityInput C_Country) {
+		this.mC_Country = C_Country;
+		if (!is_new()) {
+			return;
+		}
+		if (C_Country != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCountry foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
+							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Country_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Country with UU " + C_Country.getUU());
+			}
+		} else {
+			this.setC_Country_ID(0);
 		}
 	}
 
 	/**
-	 * Set UU.
+	 * Get Country.
 	 *
-	 * @param UU UU
+	 * @return Country 
 	 */
-	public void setUU(String UU) {
-		setC_CountryGroupCountry_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_CountryGroupCountry_UU();
+	@JsonProperty("C_Country")
+	public ForeignEntityInput C_Country() {
+		return mC_Country;
 	}
 }

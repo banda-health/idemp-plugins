@@ -119,35 +119,6 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public ForeignEntityInput AD_PrintFormat() {
 		return mAD_PrintFormat;
 	}
-	/**
-	 * Set Document Type.
-	 *
-	 * @param C_DocType_ID Document type or rules
-	 */
-	@JsonProperty("C_DocType_ID")
-	public void setC_DocType_IDFromJson(int C_DocType_ID) {
-		if (get_ID() == 0) {
-			super.setC_DocType_ID(C_DocType_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_DocType_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_DocType_UU();
-	}
 
 	/**
 	 * Set Difference Document.
@@ -181,6 +152,17 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("C_DocTypeDifference")
 	public ForeignEntityInput C_DocTypeDifference() {
 		return mC_DocTypeDifference;
+	}
+	/**
+	 * Set Document Type.
+	 *
+	 * @param C_DocType_ID Document type or rules
+	 */
+	@JsonProperty("C_DocType_ID")
+	public void setC_DocType_IDFromJson(int C_DocType_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocType_ID(C_DocType_ID);
+		}
 	}
 
 	/**
@@ -283,6 +265,24 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("C_DocTypeShipment")
 	public ForeignEntityInput C_DocTypeShipment() {
 		return mC_DocTypeShipment;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_DocType_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_DocType_UU();
 	}
 
 	/**

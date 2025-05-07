@@ -815,40 +815,6 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	}
 
 	/**
-	 * Set Resource.
-	 *
-	 * @param S_Resource Resource
-	 */
-	@JsonProperty("S_Resource")
-	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
-		this.mS_Resource = S_Resource;
-		if (S_Resource != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MResource foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
-							.setParameters(S_Resource.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setS_Resource_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table S_Resource with UU " + S_Resource.getUU());
-			}
-		} else {
-			this.setS_Resource_ID(0);
-		}
-	}
-
-	/**
-	 * Get Resource.
-	 *
-	 * @return Resource
-	 */
-	@JsonProperty("S_Resource")
-	public ForeignEntityInput S_Resource() {
-		return mS_Resource;
-	}
-
-	/**
 	 * Set Split Element.
 	 *
 	 * @param SplitElement Semantics for multiple outgoing Transitions
@@ -885,6 +851,40 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	@JsonProperty("SplitElement")
 	public ForeignEntityInput SplitElement() {
 		return mSplitElement;
+	}
+
+	/**
+	 * Set Resource.
+	 *
+	 * @param S_Resource Resource
+	 */
+	@JsonProperty("S_Resource")
+	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
+		this.mS_Resource = S_Resource;
+		if (S_Resource != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MResource foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
+							.setParameters(S_Resource.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setS_Resource_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table S_Resource with UU " + S_Resource.getUU());
+			}
+		} else {
+			this.setS_Resource_ID(0);
+		}
+	}
+
+	/**
+	 * Get Resource.
+	 *
+	 * @return Resource
+	 */
+	@JsonProperty("S_Resource")
+	public ForeignEntityInput S_Resource() {
+		return mS_Resource;
 	}
 
 	/**

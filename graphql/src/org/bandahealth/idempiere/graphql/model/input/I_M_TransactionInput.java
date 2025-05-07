@@ -109,6 +109,20 @@ public interface I_M_TransactionInput extends I_M_Transaction {
 	ForeignEntityInput M_MovementLine();
 
 	/**
+	 * Set MovementType.
+	 *
+	 * @param MovementType Method of moving the inventory
+	 */
+	void setMovementTypeInput(ForeignEntityInput MovementType);
+
+	/**
+	 * Get MovementType.
+	 *
+	 * @return Method of moving the inventory
+	 */
+	ForeignEntityInput MovementType();
+
+	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
@@ -149,20 +163,6 @@ public interface I_M_TransactionInput extends I_M_Transaction {
 	 * @return UU
 	 */
 	String getUU();
-
-	/**
-	 * Set MovementType.
-	 *
-	 * @param MovementType Method of moving the inventory
-	 */
-	void setMovementTypeInput(ForeignEntityInput MovementType);
-
-	/**
-	 * Get MovementType.
-	 *
-	 * @return Method of moving the inventory
-	 */
-	ForeignEntityInput MovementType();
 
 	/**
 	 * Set PP_Cost_Collector.

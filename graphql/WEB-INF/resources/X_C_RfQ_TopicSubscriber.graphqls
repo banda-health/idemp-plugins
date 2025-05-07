@@ -28,13 +28,13 @@ type C_RfQ_TopicSubscriber {
 	C_BPartner: C_BPartner!
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: C_BPartner_Location!
-	# Topic for Request for Quotations
-	C_RfQ_Topic: C_RfQ_Topic!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Topic for Request for Quotations
+	C_RfQ_Topic: C_RfQ_Topic!
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date the contact opted out

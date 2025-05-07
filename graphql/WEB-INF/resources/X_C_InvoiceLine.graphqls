@@ -24,11 +24,11 @@ type C_InvoiceLine {
 	A_Asset: A_Asset
 	A_CapvsExp: AD_Ref_List
 	A_CreateAsset: Boolean!
-	A_Processed: Boolean!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	A_Processed: Boolean!
 	C_1099Box: C_1099Box
 	# Business Activity
 	C_Activity: C_Activity
@@ -47,14 +47,14 @@ type C_InvoiceLine {
 	C_ProjectPhase: C_ProjectPhase
 	# Actual Project Task in a Phase
 	C_ProjectTask: C_ProjectTask
-	# Tax identifier
-	C_Tax: C_Tax!
-	# Unit of Measure
-	C_UOM: C_UOM
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Tax identifier
+	C_Tax: C_Tax!
+	# Unit of Measure
+	C_UOM: C_UOM
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -117,9 +117,9 @@ input C_InvoiceLineInput {
 	A_Asset: ForeignEntityInput
 	A_CapvsExp: ForeignEntityInput
 	A_CreateAsset: Boolean
-	A_Processed: Boolean
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	A_Processed: Boolean
 	C_1099Box: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput

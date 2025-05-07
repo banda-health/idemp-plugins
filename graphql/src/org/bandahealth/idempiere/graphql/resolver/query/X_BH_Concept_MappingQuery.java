@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated Query Resolver for BH_Concept_Mapping - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Concept_MappingQuery extends POQuery<MBHConceptMapping> implements GraphQLQueryResolver {
 	@Override

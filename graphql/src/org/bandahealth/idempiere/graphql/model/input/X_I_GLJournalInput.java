@@ -692,40 +692,6 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	}
 
 	/**
-	 * Set Journal.
-	 *
-	 * @param GL_Journal General Ledger Journal
-	 */
-	@JsonProperty("GL_Journal")
-	public void setGL_JournalInput(ForeignEntityInput GL_Journal) {
-		this.mGL_Journal = GL_Journal;
-		if (GL_Journal != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MJournal foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "GL_Journal", "GL_Journal_UU=?", get_TrxName())
-							.setParameters(GL_Journal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setGL_Journal_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table GL_Journal with UU " + GL_Journal.getUU());
-			}
-		} else {
-			this.setGL_Journal_ID(0);
-		}
-	}
-
-	/**
-	 * Get Journal.
-	 *
-	 * @return General Ledger Journal
-	 */
-	@JsonProperty("GL_Journal")
-	public ForeignEntityInput GL_Journal() {
-		return mGL_Journal;
-	}
-
-	/**
 	 * Set Journal Batch.
 	 *
 	 * @param GL_JournalBatch General Ledger Journal Batch
@@ -757,6 +723,40 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	@JsonProperty("GL_JournalBatch")
 	public ForeignEntityInput GL_JournalBatch() {
 		return mGL_JournalBatch;
+	}
+
+	/**
+	 * Set Journal.
+	 *
+	 * @param GL_Journal General Ledger Journal
+	 */
+	@JsonProperty("GL_Journal")
+	public void setGL_JournalInput(ForeignEntityInput GL_Journal) {
+		this.mGL_Journal = GL_Journal;
+		if (GL_Journal != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MJournal foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "GL_Journal", "GL_Journal_UU=?", get_TrxName())
+							.setParameters(GL_Journal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setGL_Journal_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table GL_Journal with UU " + GL_Journal.getUU());
+			}
+		} else {
+			this.setGL_Journal_ID(0);
+		}
+	}
+
+	/**
+	 * Get Journal.
+	 *
+	 * @return General Ledger Journal
+	 */
+	@JsonProperty("GL_Journal")
+	public ForeignEntityInput GL_Journal() {
+		return mGL_Journal;
 	}
 
 	/**

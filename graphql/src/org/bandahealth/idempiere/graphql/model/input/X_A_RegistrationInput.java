@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
+import org.compiere.model.MRegistration;
 import org.compiere.model.Query;
-import org.compiere.model.X_A_Registration;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -22,7 +22,7 @@ import java.sql.Timestamp;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_A_RegistrationInput extends X_A_Registration implements I_A_RegistrationInput {
+public class X_A_RegistrationInput extends MRegistration implements I_A_RegistrationInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
@@ -74,35 +74,6 @@ public class X_A_RegistrationInput extends X_A_Registration implements I_A_Regis
 	@JsonProperty("A_Asset")
 	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
-	}
-	/**
-	 * Set Registration.
-	 *
-	 * @param A_Registration_ID User Asset Registration
-	 */
-	@JsonProperty("A_Registration_ID")
-	public void setA_Registration_IDFromJson(int A_Registration_ID) {
-		if (get_ID() == 0) {
-			super.setA_Registration_ID(A_Registration_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setA_Registration_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getA_Registration_UU();
 	}
 
 	/**
@@ -174,6 +145,35 @@ public class X_A_RegistrationInput extends X_A_Registration implements I_A_Regis
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
+	}
+	/**
+	 * Set Registration.
+	 *
+	 * @param A_Registration_ID User Asset Registration
+	 */
+	@JsonProperty("A_Registration_ID")
+	public void setA_Registration_IDFromJson(int A_Registration_ID) {
+		if (get_ID() == 0) {
+			super.setA_Registration_ID(A_Registration_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setA_Registration_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getA_Registration_UU();
 	}
 	/**
 	 * Set In Service Date.

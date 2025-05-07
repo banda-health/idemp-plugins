@@ -109,20 +109,6 @@ public interface I_AD_TabInput extends I_AD_Tab {
 	ForeignEntityInput AD_Process();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set AD_Table.
 	 *
 	 * @param AD_Table Database Table information
@@ -149,6 +135,20 @@ public interface I_AD_TabInput extends I_AD_Tab {
 	 * @return Defines Tab Type
 	 */
 	ForeignEntityInput AD_TabType();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set AD_Window.

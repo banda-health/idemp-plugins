@@ -107,35 +107,6 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 	public ForeignEntityInput Next_Status() {
 		return mNext_Status;
 	}
-	/**
-	 * Set Status.
-	 *
-	 * @param R_Status_ID Request Status
-	 */
-	@JsonProperty("R_Status_ID")
-	public void setR_Status_IDFromJson(int R_Status_ID) {
-		if (get_ID() == 0) {
-			super.setR_Status_ID(R_Status_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setR_Status_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getR_Status_UU();
-	}
 
 	/**
 	 * Set Status Category.
@@ -169,6 +140,35 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 	@JsonProperty("R_StatusCategory")
 	public ForeignEntityInput R_StatusCategory() {
 		return mR_StatusCategory;
+	}
+	/**
+	 * Set Status.
+	 *
+	 * @param R_Status_ID Request Status
+	 */
+	@JsonProperty("R_Status_ID")
+	public void setR_Status_IDFromJson(int R_Status_ID) {
+		if (get_ID() == 0) {
+			super.setR_Status_ID(R_Status_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setR_Status_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getR_Status_UU();
 	}
 
 	/**

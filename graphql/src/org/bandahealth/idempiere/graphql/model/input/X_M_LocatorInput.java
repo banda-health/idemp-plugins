@@ -86,24 +86,6 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_Locator_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_Locator_UU();
-	}
-
-	/**
 	 * Set Locator Type.
 	 *
 	 * @param M_LocatorType Locator Type
@@ -135,6 +117,24 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	@JsonProperty("M_LocatorType")
 	public ForeignEntityInput M_LocatorType() {
 		return mM_LocatorType;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_Locator_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_Locator_UU();
 	}
 
 	/**

@@ -22,13 +22,13 @@ type C_TaxCategory {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# Commodity code used for tax calculation
 	CommodityCode: String
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -46,9 +46,9 @@ type C_TaxCategory {
 input C_TaxCategoryInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# Commodity code used for tax calculation
 	CommodityCode: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

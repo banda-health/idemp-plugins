@@ -18,10 +18,16 @@ type I_PaymentConnection {
 }
 
 type I_Payment {
+	# Account Number
+	AccountNo: String
 	# City or the Credit Card or Account Holder
 	A_City: String
 	# Country
 	A_Country: String
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
 	# Email Address
 	A_EMail: String
 	# Payment Identification - Driver License
@@ -36,12 +42,6 @@ type I_Payment {
 	A_Street: String
 	# Zip Code of the Credit Card or Account Holder
 	A_Zip: String
-	# Account Number
-	AccountNo: String
-	# Tenant for this installation.
-	AD_Client: AD_Client
-	# Organizational entity within tenant
-	AD_Org: AD_Org
 	# Bank Account Number
 	BankAccountNo: String
 	# Key of the Business Partner
@@ -56,16 +56,16 @@ type I_Payment {
 	C_Currency: C_Currency
 	# Document type or rules
 	C_DocType: C_DocType
-	# Invoice Identifier
-	C_Invoice: C_Invoice
-	# Payment identifier
-	C_Payment: C_Payment
 	# Charge Amount
 	ChargeAmt: BigDecimal
 	# Name of the Charge
 	ChargeName: String
 	# Check Number
 	CheckNo: String
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Payment identifier
+	C_Payment: C_Payment
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -90,15 +90,15 @@ type I_Payment {
 	DocTypeName: String
 	# Document sequence number of the document
 	DocumentNo: String
+	# International Bank Account Number
+	IBAN: String
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
-	UU: ID!
-	# International Bank Account Number
-	IBAN: String
 	# Document Number of the Invoice
 	InvoiceDocumentNo: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document requires approval
@@ -130,14 +130,14 @@ type I_Payment {
 	R_AuthCode: String
 	# Response info
 	R_Info: String
+	# Bank Routing Number
+	RoutingNo: String
 	# Payment reference
 	R_PnRef: String
 	# Response message
 	R_RespMsg: String
 	# Result of transmission
 	R_Result: String
-	# Bank Routing Number
-	RoutingNo: String
 	# Swift Code or BIC
 	SwiftCode: String
 	# Track 1 and 2 of the Credit Card
@@ -159,10 +159,14 @@ type I_Payment {
 }
 
 input I_PaymentInput {
+	# Account Number
+	AccountNo: String
 	# City or the Credit Card or Account Holder
 	A_City: String
 	# Country
 	A_Country: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# Email Address
 	A_EMail: String
 	# Payment Identification - Driver License
@@ -177,10 +181,6 @@ input I_PaymentInput {
 	A_Street: String
 	# Zip Code of the Credit Card or Account Holder
 	A_Zip: String
-	# Account Number
-	AccountNo: String
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# Bank Account Number
 	BankAccountNo: String
 	# Key of the Business Partner
@@ -195,16 +195,16 @@ input I_PaymentInput {
 	C_Currency: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
-	# Invoice Identifier
-	C_Invoice: ForeignEntityInput
-	# Payment identifier
-	C_Payment: ForeignEntityInput
 	# Charge Amount
 	ChargeAmt: BigDecimal
 	# Name of the Charge
 	ChargeName: String
 	# Check Number
 	CheckNo: String
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
 	# Expiry Month
 	CreditCardExpMM: Int
 	# Expiry Year
@@ -225,15 +225,15 @@ input I_PaymentInput {
 	DocTypeName: String
 	# Document sequence number of the document
 	DocumentNo: String
+	# International Bank Account Number
+	IBAN: String
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
-	UU: ID
-	# International Bank Account Number
-	IBAN: String
 	# Document Number of the Invoice
 	InvoiceDocumentNo: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document requires approval
@@ -265,14 +265,14 @@ input I_PaymentInput {
 	R_AuthCode: String
 	# Response info
 	R_Info: String
+	# Bank Routing Number
+	RoutingNo: String
 	# Payment reference
 	R_PnRef: String
 	# Response message
 	R_RespMsg: String
 	# Result of transmission
 	R_Result: String
-	# Bank Routing Number
-	RoutingNo: String
 	# Swift Code or BIC
 	SwiftCode: String
 	# Track 1 and 2 of the Credit Card

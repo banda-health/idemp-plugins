@@ -97,21 +97,6 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 		return entity.isProcessing();
 	}
 
-
-	/**
-	 * Get Mail Template.
-	 *
-	 * @return Text templates for mailings
-	 */
-	public CompletableFuture<MMailText> R_MailText(MScheduler entity, DataFetchingEnvironment environment) {
-		if (entity.getR_MailText_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
-		return dataLoader.load(entity.getR_MailText_ID());
-	}
-
 	public static Map<String, String> REPORTOUTPUTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("PDF", "303c23cc-5dcf-4f5a-a105-8b62f856165a"); // PDF
@@ -128,6 +113,21 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(REPORTOUTPUTTYPE_UUIDS_BY_VALUE.get(entity.getReportOutputType()));
+	}
+
+
+	/**
+	 * Get Mail Template.
+	 *
+	 * @return Text templates for mailings
+	 */
+	public CompletableFuture<MMailText> R_MailText(MScheduler entity, DataFetchingEnvironment environment) {
+		if (entity.getR_MailText_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MMailText> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
+		return dataLoader.load(entity.getR_MailText_ID());
 	}
 
 

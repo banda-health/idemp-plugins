@@ -39,20 +39,6 @@ public interface I_AD_FieldInput extends I_AD_Field {
 	ForeignEntityInput AD_Column();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set AD_FieldGroup.
 	 *
 	 * @param AD_FieldGroup Logical grouping of fields
@@ -79,6 +65,20 @@ public interface I_AD_FieldInput extends I_AD_Field {
 	 * @return Field CSS Style 
 	 */
 	ForeignEntityInput AD_FieldStyle();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set AD_LabelStyle.

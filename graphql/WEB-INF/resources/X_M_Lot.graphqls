@@ -36,9 +36,9 @@ type M_Lot {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UU: ID!
 	# Product Lot Control
 	M_LotCtl: M_LotCtl
+	UU: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Alphanumeric identifier of the entity
@@ -62,9 +62,9 @@ input M_LotInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	UU: ID
 	# Product Lot Control
 	M_LotCtl: ForeignEntityInput
+	UU: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Alphanumeric identifier of the entity

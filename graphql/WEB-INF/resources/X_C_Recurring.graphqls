@@ -30,12 +30,12 @@ type C_Recurring {
 	C_Payment: C_Payment
 	# Financial Project
 	C_Project: C_Project
-	UU: ID!
-	C_RecurringGroup: C_RecurringGroup
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	C_RecurringGroup: C_RecurringGroup
+	UU: ID!
 	# Date the process was last run.
 	DateLastRun: DateTime
 	# Date the process will run next
@@ -78,8 +78,8 @@ input C_RecurringInput {
 	C_Payment: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	UU: ID
 	C_RecurringGroup: ForeignEntityInput
+	UU: ID
 	# Date the process was last run.
 	DateLastRun: DateTime
 	# Date the process will run next

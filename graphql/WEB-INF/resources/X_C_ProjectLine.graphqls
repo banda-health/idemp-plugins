@@ -22,6 +22,10 @@ type C_ProjectLine {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal
+	# The (legal) commitment Quantity
+	CommittedQty: BigDecimal
 	# Order
 	C_Order: C_Order
 	# Purchase Order
@@ -35,10 +39,6 @@ type C_ProjectLine {
 	C_ProjectPhase: C_ProjectPhase
 	# Actual Project Task in a Phase
 	C_ProjectTask: C_ProjectTask
-	# The (legal) commitment amount
-	CommittedAmt: BigDecimal
-	# The (legal) commitment Quantity
-	CommittedQty: BigDecimal
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -81,6 +81,10 @@ type C_ProjectLine {
 input C_ProjectLineInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal
+	# The (legal) commitment Quantity
+	CommittedQty: BigDecimal
 	# Order
 	C_Order: ForeignEntityInput
 	# Purchase Order
@@ -94,10 +98,6 @@ input C_ProjectLineInput {
 	C_ProjectPhase: ForeignEntityInput
 	# Actual Project Task in a Phase
 	C_ProjectTask: ForeignEntityInput
-	# The (legal) commitment amount
-	CommittedAmt: BigDecimal
-	# The (legal) commitment Quantity
-	CommittedQty: BigDecimal
 	# Optional short description of the record
 	Description: String
 	DoPricing: String

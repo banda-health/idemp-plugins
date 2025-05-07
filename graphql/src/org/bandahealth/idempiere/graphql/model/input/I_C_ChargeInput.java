@@ -72,20 +72,6 @@ public interface I_C_ChargeInput extends I_C_Charge {
 	ForeignEntityInput C_BPartner();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_ChargeType.
 	 *
 	 * @param C_ChargeType C_ChargeType
@@ -98,6 +84,20 @@ public interface I_C_ChargeInput extends I_C_Charge {
 	 * @return C_ChargeType
 	 */
 	ForeignEntityInput C_ChargeType();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set C_TaxCategory.

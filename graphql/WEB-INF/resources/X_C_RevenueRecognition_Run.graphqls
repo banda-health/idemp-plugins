@@ -22,14 +22,14 @@ type C_RevenueRecognition_Run {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	C_RevenueRecog_Service: C_RevenueRecog_Service
-	# Plan for recognizing or recording revenue
-	C_RevenueRecognition_Plan: C_RevenueRecognition_Plan!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Plan for recognizing or recording revenue
+	C_RevenueRecognition_Plan: C_RevenueRecognition_Plan!
+	UU: ID!
+	C_RevenueRecog_Service: C_RevenueRecog_Service
 	DateRecognized: Date
 	# General Ledger Journal
 	GL_Journal: GL_Journal
@@ -45,10 +45,10 @@ type C_RevenueRecognition_Run {
 input C_RevenueRecognition_RunInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	C_RevenueRecog_Service: ForeignEntityInput
 	# Plan for recognizing or recording revenue
 	C_RevenueRecognition_Plan: ForeignEntityInput
 	UU: ID
+	C_RevenueRecog_Service: ForeignEntityInput
 	DateRecognized: Date
 	# General Ledger Journal
 	GL_Journal: ForeignEntityInput

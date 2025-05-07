@@ -299,6 +299,24 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 	}
 
 	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_TransactionAllocation_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_TransactionAllocation_UU();
+	}
+
+	/**
 	 * Set Inventory Transaction.
 	 *
 	 * @param M_Transaction Inventory Transaction
@@ -333,24 +351,6 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 	@JsonProperty("M_Transaction")
 	public ForeignEntityInput M_Transaction() {
 		return mM_Transaction;
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_TransactionAllocation_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_TransactionAllocation_UU();
 	}
 
 	/**

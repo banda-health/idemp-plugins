@@ -22,9 +22,9 @@ type C_BankAccountDoc {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	UU: ID!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	UU: ID!
 	# Print Format for printing Checks
 	Check_PrintFormat: AD_PrintFormat
 	# Date this record was created
@@ -50,9 +50,9 @@ type C_BankAccountDoc {
 input C_BankAccountDocInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	UU: ID
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	UU: ID
 	# Print Format for printing Checks
 	Check_PrintFormat: ForeignEntityInput
 	# The next number to be used

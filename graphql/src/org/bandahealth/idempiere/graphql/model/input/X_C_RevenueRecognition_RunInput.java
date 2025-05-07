@@ -78,40 +78,6 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	}
 
 	/**
-	 * Set Revenue Recognition Service.
-	 *
-	 * @param C_RevenueRecog_Service Revenue Recognition Service
-	 */
-	@JsonProperty("C_RevenueRecog_Service")
-	public void setC_RevenueRecog_ServiceInput(ForeignEntityInput C_RevenueRecog_Service) {
-		this.mC_RevenueRecog_Service = C_RevenueRecog_Service;
-		if (C_RevenueRecog_Service != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MRevenueRecogService foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_RevenueRecog_Service", "C_RevenueRecog_Service_UU=?", get_TrxName())
-							.setParameters(C_RevenueRecog_Service.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_RevenueRecog_Service_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_RevenueRecog_Service with UU " + C_RevenueRecog_Service.getUU());
-			}
-		} else {
-			this.setC_RevenueRecog_Service_ID(0);
-		}
-	}
-
-	/**
-	 * Get Revenue Recognition Service.
-	 *
-	 * @return Revenue Recognition Service
-	 */
-	@JsonProperty("C_RevenueRecog_Service")
-	public ForeignEntityInput C_RevenueRecog_Service() {
-		return mC_RevenueRecog_Service;
-	}
-
-	/**
 	 * Set Revenue Recognition Plan.
 	 *
 	 * @param C_RevenueRecognition_Plan Plan for recognizing or recording revenue
@@ -175,6 +141,40 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	 */
 	public String getUU() {
 		return getC_RevenueRecognition_Run_UU();
+	}
+
+	/**
+	 * Set Revenue Recognition Service.
+	 *
+	 * @param C_RevenueRecog_Service Revenue Recognition Service
+	 */
+	@JsonProperty("C_RevenueRecog_Service")
+	public void setC_RevenueRecog_ServiceInput(ForeignEntityInput C_RevenueRecog_Service) {
+		this.mC_RevenueRecog_Service = C_RevenueRecog_Service;
+		if (C_RevenueRecog_Service != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRevenueRecogService foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_RevenueRecog_Service", "C_RevenueRecog_Service_UU=?", get_TrxName())
+							.setParameters(C_RevenueRecog_Service.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_RevenueRecog_Service_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_RevenueRecog_Service with UU " + C_RevenueRecog_Service.getUU());
+			}
+		} else {
+			this.setC_RevenueRecog_Service_ID(0);
+		}
+	}
+
+	/**
+	 * Get Revenue Recognition Service.
+	 *
+	 * @return Revenue Recognition Service
+	 */
+	@JsonProperty("C_RevenueRecog_Service")
+	public ForeignEntityInput C_RevenueRecog_Service() {
+		return mC_RevenueRecog_Service;
 	}
 
 	/**

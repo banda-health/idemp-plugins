@@ -25,20 +25,6 @@ public interface I_HR_ListVersionInput extends I_HR_ListVersion {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set HR_List.
-	 *
-	 * @param HR_List HR_List
-	 */
-	void setHR_ListInput(ForeignEntityInput HR_List);
-
-	/**
-	 * Get HR_List.
-	 *
-	 * @return HR_List
-	 */
-	ForeignEntityInput HR_List();
-
-	/**
 	 * Set HR_ListBase.
 	 *
 	 * @param HR_ListBase HR_ListBase
@@ -51,6 +37,20 @@ public interface I_HR_ListVersionInput extends I_HR_ListVersion {
 	 * @return HR_ListBase
 	 */
 	ForeignEntityInput HR_ListBase();
+
+	/**
+	 * Set HR_List.
+	 *
+	 * @param HR_List HR_List
+	 */
+	void setHR_ListInput(ForeignEntityInput HR_List);
+
+	/**
+	 * Get HR_List.
+	 *
+	 * @return HR_List
+	 */
+	ForeignEntityInput HR_List();
 
 	/**
 	 * Set UU.

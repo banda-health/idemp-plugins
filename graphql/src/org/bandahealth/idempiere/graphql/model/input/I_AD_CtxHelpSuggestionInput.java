@@ -81,20 +81,6 @@ public interface I_AD_CtxHelpSuggestionInput extends I_AD_CtxHelpSuggestion {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set AD_User.
-	 *
-	 * @param AD_User User within the system - Internal or Business Partner Contact
-	 */
-	void setAD_UserInput(ForeignEntityInput AD_User);
-
-	/**
-	 * Get AD_User.
-	 *
-	 * @return User within the system - Internal or Business Partner Contact
-	 */
-	ForeignEntityInput AD_User();
-
-	/**
 	 * Set AD_UserClient.
 	 *
 	 * @param AD_UserClient AD_UserClient
@@ -107,4 +93,18 @@ public interface I_AD_CtxHelpSuggestionInput extends I_AD_CtxHelpSuggestion {
 	 * @return AD_UserClient
 	 */
 	ForeignEntityInput AD_UserClient();
+
+	/**
+	 * Set AD_User.
+	 *
+	 * @param AD_User User within the system - Internal or Business Partner Contact
+	 */
+	void setAD_UserInput(ForeignEntityInput AD_User);
+
+	/**
+	 * Get AD_User.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	ForeignEntityInput AD_User();
 }

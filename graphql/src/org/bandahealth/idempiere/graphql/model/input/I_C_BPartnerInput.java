@@ -264,20 +264,6 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	String getBH_Phone();
 
 	/**
-	 * Set C_BP_Group.
-	 *
-	 * @param C_BP_Group Business Partner Group
-	 */
-	void setC_BP_GroupInput(ForeignEntityInput C_BP_Group);
-
-	/**
-	 * Get C_BP_Group.
-	 *
-	 * @return Business Partner Group
-	 */
-	ForeignEntityInput C_BP_Group();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -290,6 +276,20 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set C_BP_Group.
+	 *
+	 * @param C_BP_Group Business Partner Group
+	 */
+	void setC_BP_GroupInput(ForeignEntityInput C_BP_Group);
+
+	/**
+	 * Get C_BP_Group.
+	 *
+	 * @return Business Partner Group
+	 */
+	ForeignEntityInput C_BP_Group();
 
 	/**
 	 * Set C_Dunning.

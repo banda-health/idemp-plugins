@@ -25,20 +25,6 @@ public interface I_M_LotInput extends I_M_Lot {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_LotCtl.
 	 *
 	 * @param M_LotCtl Product Lot Control
@@ -51,6 +37,20 @@ public interface I_M_LotInput extends I_M_Lot {
 	 * @return Product Lot Control
 	 */
 	ForeignEntityInput M_LotCtl();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set M_Product.

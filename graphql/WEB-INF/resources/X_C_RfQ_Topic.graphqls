@@ -24,11 +24,11 @@ type C_RfQ_Topic {
 	AD_Org: AD_Org!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -89,12 +89,12 @@ type I_ProductPlanning {
 	Qty: BigDecimal!
 	# Key of the Resource
 	ResourceValue: String
-	# Resource
-	S_Resource: S_Resource
 	# Safety stock is a term used to describe a level of stock that is maintained below the cycle stock to buffer against stock-outs
 	SafetyStock: BigDecimal
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
+	# Resource
+	S_Resource: S_Resource
 	TimeFence: BigDecimal
 	TransfertTime: BigDecimal
 	# Date this record was updated
@@ -177,12 +177,12 @@ input I_ProductPlanningInput {
 	Qty: BigDecimal
 	# Key of the Resource
 	ResourceValue: String
-	# Resource
-	S_Resource: ForeignEntityInput
 	# Safety stock is a term used to describe a level of stock that is maintained below the cycle stock to buffer against stock-outs
 	SafetyStock: BigDecimal
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
+	# Resource
+	S_Resource: ForeignEntityInput
 	TimeFence: BigDecimal
 	TransfertTime: BigDecimal
 	# Product Key of the Business Partner

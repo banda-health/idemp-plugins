@@ -39,20 +39,6 @@ public interface I_AD_WF_ActivityApproverInput extends I_AD_WF_ActivityApprover 
 	ForeignEntityInput AD_User();
 
 	/**
-	 * Set AD_WF_Activity.
-	 *
-	 * @param AD_WF_Activity Workflow Activity
-	 */
-	void setAD_WF_ActivityInput(ForeignEntityInput AD_WF_Activity);
-
-	/**
-	 * Get AD_WF_Activity.
-	 *
-	 * @return Workflow Activity
-	 */
-	ForeignEntityInput AD_WF_Activity();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -65,4 +51,18 @@ public interface I_AD_WF_ActivityApproverInput extends I_AD_WF_ActivityApprover 
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set AD_WF_Activity.
+	 *
+	 * @param AD_WF_Activity Workflow Activity
+	 */
+	void setAD_WF_ActivityInput(ForeignEntityInput AD_WF_Activity);
+
+	/**
+	 * Get AD_WF_Activity.
+	 *
+	 * @return Workflow Activity
+	 */
+	ForeignEntityInput AD_WF_Activity();
 }

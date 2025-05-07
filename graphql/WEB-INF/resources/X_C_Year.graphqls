@@ -24,11 +24,11 @@ type C_Year {
 	AD_Org: AD_Org!
 	# Accounting Calendar Name
 	C_Calendar: C_Calendar!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# The Fiscal Year

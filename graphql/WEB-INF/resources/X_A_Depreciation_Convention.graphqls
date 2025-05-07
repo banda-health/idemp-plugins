@@ -18,9 +18,9 @@ type A_Depreciation_ConventionConnection {
 }
 
 type A_Depreciation_Convention {
-	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	ConventionType: String

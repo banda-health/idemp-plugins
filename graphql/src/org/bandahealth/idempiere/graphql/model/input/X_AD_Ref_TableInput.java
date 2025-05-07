@@ -186,24 +186,6 @@ public class X_AD_Ref_TableInput extends MRefTable implements I_AD_Ref_TableInpu
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_Ref_Table_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_Ref_Table_UU();
-	}
-
-	/**
 	 * Set Reference.
 	 *
 	 * @param AD_Reference System Reference and Validation
@@ -238,6 +220,24 @@ public class X_AD_Ref_TableInput extends MRefTable implements I_AD_Ref_TableInpu
 	@JsonProperty("AD_Reference")
 	public ForeignEntityInput AD_Reference() {
 		return mAD_Reference;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_Ref_Table_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_Ref_Table_UU();
 	}
 
 	/**

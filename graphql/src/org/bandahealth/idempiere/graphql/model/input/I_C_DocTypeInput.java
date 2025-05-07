@@ -39,20 +39,6 @@ public interface I_C_DocTypeInput extends I_C_DocType {
 	ForeignEntityInput AD_PrintFormat();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_DocTypeDifference.
 	 *
 	 * @param C_DocTypeDifference Document type for generating in dispute Shipments
@@ -107,6 +93,20 @@ public interface I_C_DocTypeInput extends I_C_DocType {
 	 * @return Document type used for shipments generated from this sales document
 	 */
 	ForeignEntityInput C_DocTypeShipment();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set DefiniteSequence.

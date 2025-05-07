@@ -39,20 +39,6 @@ public interface I_M_ShipperInput extends I_M_Shipper {
 	ForeignEntityInput C_BPartner();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_ShipperCfg.
 	 *
 	 * @param M_ShipperCfg M_ShipperCfg
@@ -65,6 +51,20 @@ public interface I_M_ShipperInput extends I_M_Shipper {
 	 * @return M_ShipperCfg
 	 */
 	ForeignEntityInput M_ShipperCfg();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set M_ShippingProcessor.

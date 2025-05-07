@@ -26,12 +26,12 @@ type M_RMALine {
 	Amt: BigDecimal
 	# Additional document charges
 	C_Charge: C_Charge
-	# Tax identifier
-	C_Tax: C_Tax!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Tax identifier
+	C_Tax: C_Tax!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

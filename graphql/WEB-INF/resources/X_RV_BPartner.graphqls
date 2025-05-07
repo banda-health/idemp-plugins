@@ -24,6 +24,14 @@ type RV_BPartner {
 	ActualLifeTimeValue: BigDecimal
 	# Tenant for this installation.
 	AD_Client: AD_Client!
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
+	# Address Line 3 for the location
+	Address3: String
+	# Address Line 4 for the location
+	Address4: String
 	# Language for this entity
 	AD_Language: AD_Language
 	# Organizational entity within tenant
@@ -38,20 +46,14 @@ type RV_BPartner {
 	ad_user_updated: DateTime
 	AD_User_Update: AD_User
 	ad_user_value: String
-	# Address line 1 for this location
-	Address1: String
-	# Address line 2 for this location
-	Address2: String
-	# Address Line 3 for the location
-	Address3: String
-	# Address Line 4 for the location
-	Address4: String
 	# Birthday or Anniversary day
 	Birthday: Date
 	# Business Partner Parent
 	BPartner_Parent: C_BPartner
 	# Greeting for Business Partner Contact
 	BPContactGreet: C_Greeting
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location!
 	C_BP_C_TaxGroup: C_TaxGroup
 	c_bp_dunninggrace: DateTime
 	# Business Partner Group
@@ -75,8 +77,6 @@ type RV_BPartner {
 	C_BP_Location_SalesRegion: C_SalesRegion
 	c_bp_location_updated: DateTime
 	C_BP_Location_Update: AD_User
-	# Identifies the (ship to) address for this Business Partner
-	C_BPartner_Location: C_BPartner_Location!
 	# City
 	C_City: C_City
 	c_country_ad_language: String
@@ -91,6 +91,8 @@ type RV_BPartner {
 	C_Greeting: C_Greeting
 	# Schedule for generating Invoices
 	C_InvoiceSchedule: C_InvoiceSchedule
+	# Identifies a City
+	City: String
 	c_location_created: DateTime
 	C_Location_Create: AD_User
 	# Location or Address
@@ -98,14 +100,6 @@ type RV_BPartner {
 	c_location_isactive: Boolean!
 	c_location_updated: DateTime
 	C_Location_Update: AD_User
-	# The terms of Payment (timing, discount)
-	C_PaymentTerm: C_PaymentTerm
-	c_region_description: String
-	# Identifies a geographical Region
-	C_Region: C_Region
-	c_region_isactive: Boolean!
-	# Identifies a City
-	City: String
 	# Comments or additional information
 	Comments: String
 	# Description of Contact
@@ -116,10 +110,16 @@ type RV_BPartner {
 	CountryCode: String
 	# Country Name
 	CountryName: String!
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	c_region_description: String
+	# Identifies a geographical Region
+	C_Region: C_Region
+	c_region_isactive: Boolean!
 	# Defines the timing of Delivery
 	DeliveryRule: AD_Ref_List
 	# How the order will be delivered
@@ -233,12 +233,12 @@ type RV_BPartner {
 	SO_CreditAvailable: BigDecimal
 	# Total outstanding invoice amounts allowed
 	SO_CreditLimit: BigDecimal
+	# Business Partner Credit Status
+	SOCreditStatus: AD_Ref_List
 	# Current open balance
 	SO_CreditUsed: BigDecimal
 	# Description to be used on orders
 	SO_Description: String
-	# Business Partner Credit Status
-	SOCreditStatus: AD_Ref_List
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: AD_User
 	# Tax Identification
@@ -262,6 +262,14 @@ input RV_BPartnerInput {
 	AcqusitionCost: BigDecimal
 	# Actual Life Time Revenue
 	ActualLifeTimeValue: BigDecimal
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
+	# Address Line 3 for the location
+	Address3: String
+	# Address Line 4 for the location
+	Address4: String
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within tenant
@@ -276,20 +284,14 @@ input RV_BPartnerInput {
 	ad_user_updated: DateTime
 	AD_User_Update: ForeignEntityInput
 	ad_user_value: String
-	# Address line 1 for this location
-	Address1: String
-	# Address line 2 for this location
-	Address2: String
-	# Address Line 3 for the location
-	Address3: String
-	# Address Line 4 for the location
-	Address4: String
 	# Birthday or Anniversary day
 	Birthday: Date
 	# Business Partner Parent
 	BPartner_Parent: ForeignEntityInput
 	# Greeting for Business Partner Contact
 	BPContactGreet: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
 	C_BP_C_TaxGroup: ForeignEntityInput
 	c_bp_dunninggrace: DateTime
 	# Business Partner Group
@@ -313,8 +315,6 @@ input RV_BPartnerInput {
 	C_BP_Location_SalesRegion: ForeignEntityInput
 	c_bp_location_updated: DateTime
 	C_BP_Location_Update: ForeignEntityInput
-	# Identifies the (ship to) address for this Business Partner
-	C_BPartner_Location: ForeignEntityInput
 	# City
 	C_City: ForeignEntityInput
 	c_country_ad_language: String
@@ -329,6 +329,8 @@ input RV_BPartnerInput {
 	C_Greeting: ForeignEntityInput
 	# Schedule for generating Invoices
 	C_InvoiceSchedule: ForeignEntityInput
+	# Identifies a City
+	City: String
 	c_location_created: DateTime
 	C_Location_Create: ForeignEntityInput
 	# Location or Address
@@ -336,14 +338,6 @@ input RV_BPartnerInput {
 	c_location_isactive: Boolean
 	c_location_updated: DateTime
 	C_Location_Update: ForeignEntityInput
-	# The terms of Payment (timing, discount)
-	C_PaymentTerm: ForeignEntityInput
-	c_region_description: String
-	# Identifies a geographical Region
-	C_Region: ForeignEntityInput
-	c_region_isactive: Boolean
-	# Identifies a City
-	City: String
 	# Comments or additional information
 	Comments: String
 	# Description of Contact
@@ -354,6 +348,12 @@ input RV_BPartnerInput {
 	CountryCode: String
 	# Country Name
 	CountryName: String
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	c_region_description: String
+	# Identifies a geographical Region
+	C_Region: ForeignEntityInput
+	c_region_isactive: Boolean
 	# Defines the timing of Delivery
 	DeliveryRule: ForeignEntityInput
 	# How the order will be delivered
@@ -467,12 +467,12 @@ input RV_BPartnerInput {
 	SO_CreditAvailable: BigDecimal
 	# Total outstanding invoice amounts allowed
 	SO_CreditLimit: BigDecimal
+	# Business Partner Credit Status
+	SOCreditStatus: ForeignEntityInput
 	# Current open balance
 	SO_CreditUsed: BigDecimal
 	# Description to be used on orders
 	SO_Description: String
-	# Business Partner Credit Status
-	SOCreditStatus: ForeignEntityInput
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: ForeignEntityInput
 	# Tax Identification

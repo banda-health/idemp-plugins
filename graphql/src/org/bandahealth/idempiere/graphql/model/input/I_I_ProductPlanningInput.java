@@ -193,20 +193,6 @@ public interface I_I_ProductPlanningInput extends I_I_ProductPlanning {
 	ForeignEntityInput PP_Product_Planning();
 
 	/**
-	 * Set S_Resource.
-	 *
-	 * @param S_Resource Resource
-	 */
-	void setS_ResourceInput(ForeignEntityInput S_Resource);
-
-	/**
-	 * Get S_Resource.
-	 *
-	 * @return Resource
-	 */
-	ForeignEntityInput S_Resource();
-
-	/**
 	 * Set SalesRep.
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
@@ -219,4 +205,18 @@ public interface I_I_ProductPlanningInput extends I_I_ProductPlanning {
 	 * @return Sales Representative or Company Agent
 	 */
 	ForeignEntityInput SalesRep();
+
+	/**
+	 * Set S_Resource.
+	 *
+	 * @param S_Resource Resource
+	 */
+	void setS_ResourceInput(ForeignEntityInput S_Resource);
+
+	/**
+	 * Get S_Resource.
+	 *
+	 * @return Resource
+	 */
+	ForeignEntityInput S_Resource();
 }

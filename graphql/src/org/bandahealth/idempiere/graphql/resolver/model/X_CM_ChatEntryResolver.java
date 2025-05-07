@@ -59,21 +59,6 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 
 
 	/**
-	 * Get Chat.
-	 *
-	 * @return Chat or discussion thread
-	 */
-	public CompletableFuture<MChat> CM_Chat(MChatEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getCM_Chat_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MChat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatDataLoader.DATALOADER_CM_Chat_BY_ID);
-		return dataLoader.load(entity.getCM_Chat_ID());
-	}
-
-
-	/**
 	 * Get Chat Entry Grandparent.
 	 *
 	 * @return Link to Grand Parent (root level)
@@ -100,6 +85,21 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 		DataLoader<Integer, MChatEntry> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatEntryDataLoader.DATALOADER_CM_ChatEntry_BY_ID);
 		return dataLoader.load(entity.getCM_ChatEntryParent_ID());
+	}
+
+
+	/**
+	 * Get Chat.
+	 *
+	 * @return Chat or discussion thread
+	 */
+	public CompletableFuture<MChat> CM_Chat(MChatEntry entity, DataFetchingEnvironment environment) {
+		if (entity.getCM_Chat_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MChat> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatDataLoader.DATALOADER_CM_Chat_BY_ID);
+		return dataLoader.load(entity.getCM_Chat_ID());
 	}
 
 	public static Map<String, String> CONFIDENTIALTYPE_UUIDS_BY_VALUE = new HashMap<>() {

@@ -18,12 +18,12 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MForm;
 import org.compiere.model.MIssue;
+import org.compiere.model.MIssueProject;
+import org.compiere.model.MIssueSystem;
+import org.compiere.model.MIssueUser;
 import org.compiere.model.MRequest;
 import org.compiere.model.MWindow;
 import org.compiere.model.X_R_IssueKnown;
-import org.compiere.model.X_R_IssueProject;
-import org.compiere.model.X_R_IssueSystem;
-import org.compiere.model.X_R_IssueUser;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -180,11 +180,11 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 *
 	 * @return Implementation Projects
 	 */
-	public CompletableFuture<X_R_IssueProject> R_IssueProject(MIssue entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MIssueProject> R_IssueProject(MIssue entity, DataFetchingEnvironment environment) {
 		if (entity.getR_IssueProject_ID() < 1) {
 			return null;
 		}
-		DataLoader<Integer, X_R_IssueProject> dataLoader =
+		DataLoader<Integer, MIssueProject> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_R_IssueProjectDataLoader.DATALOADER_R_IssueProject_BY_ID);
 		return dataLoader.load(entity.getR_IssueProject_ID());
 	}
@@ -195,11 +195,11 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 *
 	 * @return System creating the issue
 	 */
-	public CompletableFuture<X_R_IssueSystem> R_IssueSystem(MIssue entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MIssueSystem> R_IssueSystem(MIssue entity, DataFetchingEnvironment environment) {
 		if (entity.getR_IssueSystem_ID() < 1) {
 			return null;
 		}
-		DataLoader<Integer, X_R_IssueSystem> dataLoader =
+		DataLoader<Integer, MIssueSystem> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_R_IssueSystemDataLoader.DATALOADER_R_IssueSystem_BY_ID);
 		return dataLoader.load(entity.getR_IssueSystem_ID());
 	}
@@ -210,11 +210,11 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 *
 	 * @return User who reported issues
 	 */
-	public CompletableFuture<X_R_IssueUser> R_IssueUser(MIssue entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MIssueUser> R_IssueUser(MIssue entity, DataFetchingEnvironment environment) {
 		if (entity.getR_IssueUser_ID() < 1) {
 			return null;
 		}
-		DataLoader<Integer, X_R_IssueUser> dataLoader =
+		DataLoader<Integer, MIssueUser> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_R_IssueUserDataLoader.DATALOADER_R_IssueUser_BY_ID);
 		return dataLoader.load(entity.getR_IssueUser_ID());
 	}

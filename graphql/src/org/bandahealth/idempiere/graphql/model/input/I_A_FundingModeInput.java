@@ -11,20 +11,6 @@ import org.compiere.model.I_A_FundingMode;
 public interface I_A_FundingModeInput extends I_A_FundingMode {
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within tenant
@@ -37,4 +23,18 @@ public interface I_A_FundingModeInput extends I_A_FundingMode {
 	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

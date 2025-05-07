@@ -109,14 +109,14 @@ type PP_Order_Node {
 	QtyScrap: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
-	# Resource
-	S_Resource: S_Resource
 	# Setup time before starting Production
 	SetupTime: Int
 	SetupTimeReal: Int
 	SetupTimeRequiered: Int
 	# Semantics for multiple outgoing Transitions
 	SplitElement: AD_Ref_List!
+	# Resource
+	S_Resource: S_Resource
 	# Workflow Activity Start Mode 
 	StartMode: AD_Ref_List
 	# Mode how the sub-workflow is executed
@@ -233,14 +233,14 @@ input PP_Order_NodeInput {
 	QtyScrap: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
-	# Resource
-	S_Resource: ForeignEntityInput
 	# Setup time before starting Production
 	SetupTime: Int
 	SetupTimeReal: Int
 	SetupTimeRequiered: Int
 	# Semantics for multiple outgoing Transitions
 	SplitElement: ForeignEntityInput
+	# Resource
+	S_Resource: ForeignEntityInput
 	# Workflow Activity Start Mode 
 	StartMode: ForeignEntityInput
 	# Mode how the sub-workflow is executed

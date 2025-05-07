@@ -39,20 +39,6 @@ public interface I_R_StatusInput extends I_R_Status {
 	ForeignEntityInput Next_Status();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set R_StatusCategory.
 	 *
 	 * @param R_StatusCategory Request Status Category
@@ -65,6 +51,20 @@ public interface I_R_StatusInput extends I_R_Status {
 	 * @return Request Status Category
 	 */
 	ForeignEntityInput R_StatusCategory();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set Update_Status.

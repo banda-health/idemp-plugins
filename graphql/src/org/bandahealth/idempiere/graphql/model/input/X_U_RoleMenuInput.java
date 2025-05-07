@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRoleMenu;
-import org.compiere.model.MWebMenu;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
+import org.compiere.model.X_U_RoleMenu;
+import org.compiere.model.X_U_WebMenu;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
+public class X_U_RoleMenuInput extends X_U_RoleMenu implements I_U_RoleMenuInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Role;
@@ -147,7 +147,7 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 		this.mU_WebMenu = U_WebMenu;
 		if (U_WebMenu != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MWebMenu foreignEntity;
+			X_U_WebMenu foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "U_WebMenu", "U_WebMenu_UU=?", get_TrxName())
 							.setParameters(U_WebMenu.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {

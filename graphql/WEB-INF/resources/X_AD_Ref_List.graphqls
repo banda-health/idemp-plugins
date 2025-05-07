@@ -22,9 +22,9 @@ type AD_Ref_List {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# System Reference and Validation
 	AD_Reference: AD_Reference!
+	UU: ID!
 	BH_Add_All: String
 	BH_Update_Existing: String
 	# Date this record was created
@@ -54,9 +54,9 @@ type AD_Ref_List {
 input AD_Ref_ListInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# System Reference and Validation
 	AD_Reference: ForeignEntityInput
+	UU: ID
 	BH_Add_All: String
 	BH_Update_Existing: String
 	# Optional short description of the record

@@ -182,6 +182,35 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public ForeignEntityInput bh_gender() {
 		return mbh_gender;
 	}
+	/**
+	 * Set Business Partner.
+	 *
+	 * @param C_BPartner_ID Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner_ID")
+	public void setC_BPartner_IDFromJson(int C_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_ID(C_BPartner_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_BPartner_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_BPartner_UU();
+	}
 
 	/**
 	 * Set Business Partner Group.
@@ -215,35 +244,6 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("C_BP_Group")
 	public ForeignEntityInput C_BP_Group() {
 		return mC_BP_Group;
-	}
-	/**
-	 * Set Business Partner.
-	 *
-	 * @param C_BPartner_ID Identifies a Business Partner
-	 */
-	@JsonProperty("C_BPartner_ID")
-	public void setC_BPartner_IDFromJson(int C_BPartner_ID) {
-		if (get_ID() == 0) {
-			super.setC_BPartner_ID(C_BPartner_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_BPartner_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_BPartner_UU();
 	}
 
 	/**
@@ -955,17 +955,6 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
-	/**
-	 * Set Credit Used.
-	 *
-	 * @param SO_CreditUsed Current open balance
-	 */
-	@JsonProperty("SO_CreditUsed")
-	public void setSO_CreditUsedFromJson(BigDecimal SO_CreditUsed) {
-		if (get_ID() == 0) {
-			super.setSO_CreditUsed(SO_CreditUsed);
-		}
-	}
 
 	/**
 	 * Set Credit Status.
@@ -1004,5 +993,16 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("SOCreditStatus")
 	public ForeignEntityInput SOCreditStatus() {
 		return mSOCreditStatus;
+	}
+	/**
+	 * Set Credit Used.
+	 *
+	 * @param SO_CreditUsed Current open balance
+	 */
+	@JsonProperty("SO_CreditUsed")
+	public void setSO_CreditUsedFromJson(BigDecimal SO_CreditUsed) {
+		if (get_ID() == 0) {
+			super.setSO_CreditUsed(SO_CreditUsed);
+		}
 	}
 }

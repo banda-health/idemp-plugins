@@ -73,6 +73,35 @@ public class X_C_OrderLandedCostAllocationInput extends MOrderLandedCostAllocati
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Estimated Landed Cost Allocation.
+	 *
+	 * @param C_OrderLandedCostAllocation_ID Estimated Landed Cost Allocation
+	 */
+	@JsonProperty("C_OrderLandedCostAllocation_ID")
+	public void setC_OrderLandedCostAllocation_IDFromJson(int C_OrderLandedCostAllocation_ID) {
+		if (get_ID() == 0) {
+			super.setC_OrderLandedCostAllocation_ID(C_OrderLandedCostAllocation_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_OrderLandedCostAllocation_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_OrderLandedCostAllocation_UU();
+	}
 
 	/**
 	 * Set Estimated Landed Cost.
@@ -109,35 +138,6 @@ public class X_C_OrderLandedCostAllocationInput extends MOrderLandedCostAllocati
 	@JsonProperty("C_OrderLandedCost")
 	public ForeignEntityInput C_OrderLandedCost() {
 		return mC_OrderLandedCost;
-	}
-	/**
-	 * Set Estimated Landed Cost Allocation.
-	 *
-	 * @param C_OrderLandedCostAllocation_ID Estimated Landed Cost Allocation
-	 */
-	@JsonProperty("C_OrderLandedCostAllocation_ID")
-	public void setC_OrderLandedCostAllocation_IDFromJson(int C_OrderLandedCostAllocation_ID) {
-		if (get_ID() == 0) {
-			super.setC_OrderLandedCostAllocation_ID(C_OrderLandedCostAllocation_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_OrderLandedCostAllocation_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_OrderLandedCostAllocation_UU();
 	}
 
 	/**

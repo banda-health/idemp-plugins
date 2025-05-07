@@ -135,21 +135,6 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 
 
 	/**
-	 * Get Parent Asset.
-	 *
-	 * @return Parent Asset
-	 */
-	public CompletableFuture<MAsset> A_Parent_Asset(MAsset entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Parent_Asset_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
-		return dataLoader.load(entity.getA_Parent_Asset_ID());
-	}
-
-
-	/**
 	 * Get User/Contact.
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
@@ -161,6 +146,21 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 		DataLoader<Integer, MUser_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
+	}
+
+
+	/**
+	 * Get Parent Asset.
+	 *
+	 * @return Parent Asset
+	 */
+	public CompletableFuture<MAsset> A_Parent_Asset(MAsset entity, DataFetchingEnvironment environment) {
+		if (entity.getA_Parent_Asset_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MAsset> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
+		return dataLoader.load(entity.getA_Parent_Asset_ID());
 	}
 
 

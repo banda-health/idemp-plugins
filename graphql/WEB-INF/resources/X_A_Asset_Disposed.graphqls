@@ -27,15 +27,15 @@ type A_Asset_Disposed {
 	A_Asset: A_Asset!
 	A_Asset_Status: AD_Ref_List
 	A_Asset_Trade: A_Asset
+	# Tenant for this installation.
+	AD_Client: AD_Client!
 	A_Disposal_Amt: BigDecimal!
 	A_Disposed_Date: Date!
 	A_Disposed_Method: AD_Ref_List!
 	A_Disposed_Reason: AD_Ref_List
-	A_Proceeds: BigDecimal
-	# Tenant for this installation.
-	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	A_Proceeds: BigDecimal
 	# Document type or rules
 	C_DocType: C_DocType
 	# Invoice Identifier
@@ -96,9 +96,9 @@ input A_Asset_DisposedInput {
 	A_Disposed_Date: Date
 	A_Disposed_Method: ForeignEntityInput
 	A_Disposed_Reason: ForeignEntityInput
-	A_Proceeds: BigDecimal
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	A_Proceeds: BigDecimal
 	# Document type or rules
 	C_DocType: ForeignEntityInput
 	# Invoice Identifier

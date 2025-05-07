@@ -627,40 +627,6 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	}
 
 	/**
-	 * Set Combination.
-	 *
-	 * @param C_ValidCombination Valid Account Combination
-	 */
-	@JsonProperty("C_ValidCombination")
-	public void setC_ValidCombinationInput(ForeignEntityInput C_ValidCombination) {
-		this.mC_ValidCombination = C_ValidCombination;
-		if (C_ValidCombination != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MAccount foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_ValidCombination.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_ValidCombination_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UU " + C_ValidCombination.getUU());
-			}
-		} else {
-			this.setC_ValidCombination_ID(0);
-		}
-	}
-
-	/**
-	 * Get Combination.
-	 *
-	 * @return Valid Account Combination
-	 */
-	@JsonProperty("C_ValidCombination")
-	public ForeignEntityInput C_ValidCombination() {
-		return mC_ValidCombination;
-	}
-
-	/**
 	 * Set Currency Rate Type.
 	 *
 	 * @param CurrencyRateType Currency Rate Type
@@ -697,6 +663,40 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	@JsonProperty("CurrencyRateType")
 	public ForeignEntityInput CurrencyRateType() {
 		return mCurrencyRateType;
+	}
+
+	/**
+	 * Set Combination.
+	 *
+	 * @param C_ValidCombination Valid Account Combination
+	 */
+	@JsonProperty("C_ValidCombination")
+	public void setC_ValidCombinationInput(ForeignEntityInput C_ValidCombination) {
+		this.mC_ValidCombination = C_ValidCombination;
+		if (C_ValidCombination != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(C_ValidCombination.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_ValidCombination_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UU " + C_ValidCombination.getUU());
+			}
+		} else {
+			this.setC_ValidCombination_ID(0);
+		}
+	}
+
+	/**
+	 * Get Combination.
+	 *
+	 * @return Valid Account Combination
+	 */
+	@JsonProperty("C_ValidCombination")
+	public ForeignEntityInput C_ValidCombination() {
+		return mC_ValidCombination;
 	}
 
 	/**
@@ -768,40 +768,6 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	}
 
 	/**
-	 * Set Journal.
-	 *
-	 * @param GL_Journal General Ledger Journal
-	 */
-	@JsonProperty("GL_Journal")
-	public void setGL_JournalInput(ForeignEntityInput GL_Journal) {
-		this.mGL_Journal = GL_Journal;
-		if (GL_Journal != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MJournal foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "GL_Journal", "GL_Journal_UU=?", get_TrxName())
-							.setParameters(GL_Journal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setGL_Journal_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table GL_Journal with UU " + GL_Journal.getUU());
-			}
-		} else {
-			this.setGL_Journal_ID(0);
-		}
-	}
-
-	/**
-	 * Get Journal.
-	 *
-	 * @return General Ledger Journal
-	 */
-	@JsonProperty("GL_Journal")
-	public ForeignEntityInput GL_Journal() {
-		return mGL_Journal;
-	}
-
-	/**
 	 * Set Journal Batch.
 	 *
 	 * @param GL_JournalBatch General Ledger Journal Batch
@@ -833,6 +799,40 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	@JsonProperty("GL_JournalBatch")
 	public ForeignEntityInput GL_JournalBatch() {
 		return mGL_JournalBatch;
+	}
+
+	/**
+	 * Set Journal.
+	 *
+	 * @param GL_Journal General Ledger Journal
+	 */
+	@JsonProperty("GL_Journal")
+	public void setGL_JournalInput(ForeignEntityInput GL_Journal) {
+		this.mGL_Journal = GL_Journal;
+		if (GL_Journal != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MJournal foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "GL_Journal", "GL_Journal_UU=?", get_TrxName())
+							.setParameters(GL_Journal.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setGL_Journal_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table GL_Journal with UU " + GL_Journal.getUU());
+			}
+		} else {
+			this.setGL_Journal_ID(0);
+		}
+	}
+
+	/**
+	 * Get Journal.
+	 *
+	 * @return General Ledger Journal
+	 */
+	@JsonProperty("GL_Journal")
+	public ForeignEntityInput GL_Journal() {
+		return mGL_Journal;
 	}
 
 	/**

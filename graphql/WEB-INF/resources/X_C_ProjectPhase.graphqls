@@ -22,6 +22,8 @@ type C_ProjectPhase {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal!
 	# Order
 	C_Order: C_Order
 	# Standard Phase of the Project Type
@@ -29,8 +31,6 @@ type C_ProjectPhase {
 	# Financial Project
 	C_Project: C_Project!
 	UU: ID!
-	# The (legal) commitment amount
-	CommittedAmt: BigDecimal!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -74,6 +74,8 @@ type C_ProjectPhase {
 input C_ProjectPhaseInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal
 	# Order
 	C_Order: ForeignEntityInput
 	# Standard Phase of the Project Type
@@ -81,8 +83,6 @@ input C_ProjectPhaseInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	UU: ID
-	# The (legal) commitment amount
-	CommittedAmt: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Last effective date (inclusive)

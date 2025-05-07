@@ -355,24 +355,6 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_RMA_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_RMA_UU();
-	}
-
-	/**
 	 * Set RMA Type.
 	 *
 	 * @param M_RMAType Return Material Authorization Type
@@ -404,6 +386,24 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	@JsonProperty("M_RMAType")
 	public ForeignEntityInput M_RMAType() {
 		return mM_RMAType;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_RMA_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_RMA_UU();
 	}
 
 	/**

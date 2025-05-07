@@ -107,21 +107,6 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 
 
 	/**
-	 * Get Tax.
-	 *
-	 * @return Tax identifier
-	 */
-	public CompletableFuture<MTax> C_Tax(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
-		return dataLoader.load(entity.getC_Tax_ID());
-	}
-
-
-	/**
 	 * Get Tax Declaration.
 	 *
 	 * @return Define the declaration to the tax authorities
@@ -133,6 +118,21 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 		DataLoader<Integer, MTaxDeclaration> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDeclarationDataLoader.DATALOADER_C_TaxDeclaration_BY_ID);
 		return dataLoader.load(entity.getC_TaxDeclaration_ID());
+	}
+
+
+	/**
+	 * Get Tax.
+	 *
+	 * @return Tax identifier
+	 */
+	public CompletableFuture<MTax> C_Tax(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Tax_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MTax> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
+		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
 	public Boolean IsManual(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {

@@ -102,20 +102,6 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	ForeignEntityInput C_BankTransfer();
 
 	/**
-	 * Set C_BP_BankAccount.
-	 *
-	 * @param C_BP_BankAccount Bank Account of the Business Partner
-	 */
-	void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount);
-
-	/**
-	 * Get C_BP_BankAccount.
-	 *
-	 * @return Bank Account of the Business Partner
-	 */
-	ForeignEntityInput C_BP_BankAccount();
-
-	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -128,6 +114,20 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	 * @return Identifies a Business Partner
 	 */
 	ForeignEntityInput C_BPartner();
+
+	/**
+	 * Set C_BP_BankAccount.
+	 *
+	 * @param C_BP_BankAccount Bank Account of the Business Partner
+	 */
+	void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount);
+
+	/**
+	 * Get C_BP_BankAccount.
+	 *
+	 * @return Bank Account of the Business Partner
+	 */
+	ForeignEntityInput C_BP_BankAccount();
 
 	/**
 	 * Set C_Campaign.
@@ -256,20 +256,6 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	ForeignEntityInput C_Order();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_PaymentBatch.
 	 *
 	 * @param C_PaymentBatch Payment batch for EFT
@@ -296,6 +282,20 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	 * @return Payment processor for electronic payments
 	 */
 	ForeignEntityInput C_PaymentProcessor();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set C_POSTenderType.

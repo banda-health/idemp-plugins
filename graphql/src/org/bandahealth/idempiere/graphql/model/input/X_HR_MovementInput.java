@@ -218,6 +218,40 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	}
 
 	/**
+	 * Set Business Partner.
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
+		if (C_BPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
+			}
+		} else {
+			this.setC_BPartner_ID(0);
+		}
+	}
+
+	/**
+	 * Get Business Partner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public ForeignEntityInput C_BPartner() {
+		return mC_BPartner;
+	}
+
+	/**
 	 * Set Partner Bank Account.
 	 *
 	 * @param C_BP_BankAccount Bank Account of the Business Partner
@@ -292,40 +326,6 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	}
 
 	/**
-	 * Set Business Partner.
-	 *
-	 * @param C_BPartner Identifies a Business Partner
-	 */
-	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
-		this.mC_BPartner = C_BPartner;
-		if (C_BPartner != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPartner_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BPartner_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
-			}
-		} else {
-			this.setC_BPartner_ID(0);
-		}
-	}
-
-	/**
-	 * Get Business Partner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	@JsonProperty("C_BPartner")
-	public ForeignEntityInput C_BPartner() {
-		return mC_BPartner;
-	}
-
-	/**
 	 * Set Campaign.
 	 *
 	 * @param C_Campaign Marketing Campaign
@@ -357,6 +357,45 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	@JsonProperty("C_Campaign")
 	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
+	}
+
+	/**
+	 * Set Column Type.
+	 *
+	 * @param ColumnType Column Type
+	 */
+	@JsonProperty("ColumnType")
+	public void setColumnTypeInput(ForeignEntityInput ColumnType) {
+		this.mColumnType = ColumnType;
+		if (ColumnType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_HR_MovementResolver.COLUMNTYPE_UUIDS_BY_VALUE.containsValue(ColumnType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ColumnType.getUU() +
+						" is not in the list defined for the ColumnType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ColumnType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setColumnType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ColumnType.getUU());
+			}
+		} else {
+			this.setColumnType(null);
+		}
+	}
+
+	/**
+	 * Get Column Type.
+	 *
+	 * @return Column Type
+	 */
+	@JsonProperty("ColumnType")
+	public ForeignEntityInput ColumnType() {
+		return mColumnType;
 	}
 
 	/**
@@ -459,45 +498,6 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	@JsonProperty("C_ProjectTask")
 	public ForeignEntityInput C_ProjectTask() {
 		return mC_ProjectTask;
-	}
-
-	/**
-	 * Set Column Type.
-	 *
-	 * @param ColumnType Column Type
-	 */
-	@JsonProperty("ColumnType")
-	public void setColumnTypeInput(ForeignEntityInput ColumnType) {
-		this.mColumnType = ColumnType;
-		if (ColumnType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_HR_MovementResolver.COLUMNTYPE_UUIDS_BY_VALUE.containsValue(ColumnType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + ColumnType.getUU() +
-						" is not in the list defined for the ColumnType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ColumnType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setColumnType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ColumnType.getUU());
-			}
-		} else {
-			this.setColumnType(null);
-		}
-	}
-
-	/**
-	 * Get Column Type.
-	 *
-	 * @return Column Type
-	 */
-	@JsonProperty("ColumnType")
-	public ForeignEntityInput ColumnType() {
-		return mColumnType;
 	}
 
 	/**

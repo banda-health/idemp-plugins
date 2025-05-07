@@ -26,14 +26,14 @@ type M_Product_PO {
 	C_BPartner: C_BPartner!
 	# The Currency for this record
 	C_Currency: C_Currency
-	# Unit of Measure
-	C_UOM: C_UOM
 	# Fixed Cost Per Order
 	CostPerOrder: BigDecimal
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Unit of Measure
+	C_UOM: C_UOM
 	# Actual days between order and delivery
 	DeliveryTime_Actual: Int
 	# Promised days between order and delivery
@@ -48,11 +48,11 @@ type M_Product_PO {
 	IsActive: Boolean!
 	# Use this Vendor for pricing and stock replenishment
 	IsCurrentVendor: Boolean!
+	# Manufacturer of the Product
+	Manufacturer: String
 	# Product, Service, Item
 	M_Product: M_Product!
 	UU: ID!
-	# Manufacturer of the Product
-	Manufacturer: String
 	# Minimum order quantity in UOM
 	Order_Min: BigDecimal
 	# Package order size in UOM (e.g. order set of 5 units)
@@ -90,10 +90,10 @@ input M_Product_POInput {
 	C_BPartner: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
-	# Unit of Measure
-	C_UOM: ForeignEntityInput
 	# Fixed Cost Per Order
 	CostPerOrder: BigDecimal
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
 	# Actual days between order and delivery
 	DeliveryTime_Actual: Int
 	# Promised days between order and delivery
@@ -108,11 +108,11 @@ input M_Product_POInput {
 	IsActive: Boolean
 	# Use this Vendor for pricing and stock replenishment
 	IsCurrentVendor: Boolean
+	# Manufacturer of the Product
+	Manufacturer: String
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UU: ID
-	# Manufacturer of the Product
-	Manufacturer: String
 	# Minimum order quantity in UOM
 	Order_Min: BigDecimal
 	# Package order size in UOM (e.g. order set of 5 units)

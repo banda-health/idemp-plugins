@@ -18,12 +18,12 @@ type A_Depreciation_EntryConnection {
 }
 
 type A_Depreciation_Entry {
-	UU: ID!
-	A_Entry_Type: AD_Ref_List
 	# Tenant for this installation.
 	AD_Client: AD_Client!
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	A_Entry_Type: AD_Ref_List
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# The Currency for this record
@@ -69,9 +69,9 @@ type A_Depreciation_Entry {
 
 input A_Depreciation_EntryInput {
 	UU: ID
-	A_Entry_Type: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	A_Entry_Type: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# The Currency for this record

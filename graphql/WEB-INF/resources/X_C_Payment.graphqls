@@ -18,10 +18,16 @@ type C_PaymentConnection {
 }
 
 type C_Payment {
+	# Account Number
+	AccountNo: String
 	# City or the Credit Card or Account Holder
 	A_City: String
 	# Country
 	A_Country: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	# Email Address
 	A_EMail: String
 	# Payment Identification - Driver License
@@ -36,12 +42,6 @@ type C_Payment {
 	A_Street: String
 	# Zip Code of the Credit Card or Account Holder
 	A_Zip: String
-	# Account Number
-	AccountNo: String
-	# Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	BH_tender_amount: BigDecimal
 	BH_Visit: BH_Visit
 	# Business Activity
@@ -50,10 +50,10 @@ type C_Payment {
 	C_BankAccount: C_BankAccount
 	# Bank Transfer
 	C_BankTransfer: C_BankTransfer
-	# Bank Account of the Business Partner
-	C_BP_BankAccount: C_BP_BankAccount
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
+	# Bank Account of the Business Partner
+	C_BP_BankAccount: C_BP_BankAccount
 	# Marketing Campaign
 	C_Campaign: C_Campaign
 	# Cash Book for recording petty cash transactions
@@ -67,24 +67,24 @@ type C_Payment {
 	C_DepositBatch: C_DepositBatch
 	# Document type or rules
 	C_DocType: C_DocType!
-	# Invoice Identifier
-	C_Invoice: C_Invoice
-	# Order
-	C_Order: C_Order
-	UU: ID!
-	# Payment batch for EFT
-	C_PaymentBatch: C_PaymentBatch
-	# Payment processor for electronic payments
-	C_PaymentProcessor: C_PaymentProcessor
-	C_POSTenderType: C_POSTenderType
-	# Financial Project
-	C_Project: C_Project
 	# Charge Amount
 	ChargeAmt: BigDecimal
 	# Check Number
 	CheckNo: String
+	# Invoice Identifier
+	C_Invoice: C_Invoice
 	# Converted Amount
 	ConvertedAmt: BigDecimal
+	# Order
+	C_Order: C_Order
+	# Payment batch for EFT
+	C_PaymentBatch: C_PaymentBatch
+	# Payment processor for electronic payments
+	C_PaymentProcessor: C_PaymentProcessor
+	UU: ID!
+	C_POSTenderType: C_POSTenderType
+	# Financial Project
+	C_Project: C_Project
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -172,8 +172,13 @@ type C_Payment {
 	R_AvsZip: AD_Ref_List
 	# Credit Card Verification Code Match
 	R_CVV2Match: Boolean!
+	Ref_Payment: C_Payment
+	# ID of document reversal
+	Reversal: C_Payment
 	# Response info
 	R_Info: String
+	# Bank Routing Number
+	RoutingNo: String
 	# Payment reference
 	R_PnRef: String
 	# Payment Reference Delayed Capture
@@ -183,11 +188,6 @@ type C_Payment {
 	# Result of transmission
 	R_Result: String
 	R_VoidMsg: String
-	Ref_Payment: C_Payment
-	# ID of document reversal
-	Reversal: C_Payment
-	# Bank Routing Number
-	RoutingNo: String
 	# Whether the entity was scheduled or not
 	Scheduled: Boolean!
 	# Swift Code or BIC
@@ -215,10 +215,14 @@ type C_Payment {
 }
 
 input C_PaymentInput {
+	# Account Number
+	AccountNo: String
 	# City or the Credit Card or Account Holder
 	A_City: String
 	# Country
 	A_Country: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	# Email Address
 	A_EMail: String
 	# Payment Identification - Driver License
@@ -233,10 +237,6 @@ input C_PaymentInput {
 	A_Street: String
 	# Zip Code of the Credit Card or Account Holder
 	A_Zip: String
-	# Account Number
-	AccountNo: String
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	BH_tender_amount: BigDecimal
 	BH_Visit: ForeignEntityInput
 	# Business Activity
@@ -245,10 +245,10 @@ input C_PaymentInput {
 	C_BankAccount: ForeignEntityInput
 	# Bank Transfer
 	C_BankTransfer: ForeignEntityInput
-	# Bank Account of the Business Partner
-	C_BP_BankAccount: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
+	# Bank Account of the Business Partner
+	C_BP_BankAccount: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
 	# Cash Book for recording petty cash transactions
@@ -262,24 +262,24 @@ input C_PaymentInput {
 	C_DepositBatch: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
-	# Invoice Identifier
-	C_Invoice: ForeignEntityInput
-	# Order
-	C_Order: ForeignEntityInput
-	UU: ID
-	# Payment batch for EFT
-	C_PaymentBatch: ForeignEntityInput
-	# Payment processor for electronic payments
-	C_PaymentProcessor: ForeignEntityInput
-	C_POSTenderType: ForeignEntityInput
-	# Financial Project
-	C_Project: ForeignEntityInput
 	# Charge Amount
 	ChargeAmt: BigDecimal
 	# Check Number
 	CheckNo: String
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
 	# Converted Amount
 	ConvertedAmt: BigDecimal
+	# Order
+	C_Order: ForeignEntityInput
+	# Payment batch for EFT
+	C_PaymentBatch: ForeignEntityInput
+	# Payment processor for electronic payments
+	C_PaymentProcessor: ForeignEntityInput
+	UU: ID
+	C_POSTenderType: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
 	# Expiry Month
 	CreditCardExpMM: Int
 	# Expiry Year
@@ -363,8 +363,13 @@ input C_PaymentInput {
 	R_AvsZip: ForeignEntityInput
 	# Credit Card Verification Code Match
 	R_CVV2Match: Boolean
+	Ref_Payment: ForeignEntityInput
+	# ID of document reversal
+	Reversal: ForeignEntityInput
 	# Response info
 	R_Info: String
+	# Bank Routing Number
+	RoutingNo: String
 	# Payment reference
 	R_PnRef: String
 	# Payment Reference Delayed Capture
@@ -374,11 +379,6 @@ input C_PaymentInput {
 	# Result of transmission
 	R_Result: String
 	R_VoidMsg: String
-	Ref_Payment: ForeignEntityInput
-	# ID of document reversal
-	Reversal: ForeignEntityInput
-	# Bank Routing Number
-	RoutingNo: String
 	# Whether the entity was scheduled or not
 	Scheduled: Boolean
 	# Swift Code or BIC

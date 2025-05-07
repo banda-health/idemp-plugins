@@ -147,6 +147,23 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
+	public static Map<String, String> CONFIDENTIALTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("A", "1eb43dd1-53c0-4b5c-aae4-585c7d3fc9c2"); // Public Information
+			put("C", "0f1983c1-e543-4a8f-9b8a-4a00d2a111f4"); // Partner Confidential
+			put("I", "7c6def43-3d72-4c5b-93ce-dfbefd8545e4"); // Internal
+			put("P", "467c826c-2a44-4f65-8026-8dc6b1d7edec"); // Private Information
+		}
+	};
+	public CompletableFuture<MRefList_BH> ConfidentialType(MRequestAction entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getConfidentialType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(CONFIDENTIALTYPE_UUIDS_BY_VALUE.get(entity.getConfidentialType()));
+	}
+
 
 	/**
 	 * Get Order.
@@ -190,23 +207,6 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 		DataLoader<Integer, MProject> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
-	}
-
-	public static Map<String, String> CONFIDENTIALTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("A", "1eb43dd1-53c0-4b5c-aae4-585c7d3fc9c2"); // Public Information
-			put("C", "0f1983c1-e543-4a8f-9b8a-4a00d2a111f4"); // Partner Confidential
-			put("I", "7c6def43-3d72-4c5b-93ce-dfbefd8545e4"); // Internal
-			put("P", "467c826c-2a44-4f65-8026-8dc6b1d7edec"); // Private Information
-		}
-	};
-	public CompletableFuture<MRefList_BH> ConfidentialType(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getConfidentialType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(CONFIDENTIALTYPE_UUIDS_BY_VALUE.get(entity.getConfidentialType()));
 	}
 
 	public static Map<String, String> ISESCALATED_UUIDS_BY_VALUE = new HashMap<>() {

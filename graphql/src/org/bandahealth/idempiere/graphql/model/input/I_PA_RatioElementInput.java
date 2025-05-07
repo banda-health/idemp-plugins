@@ -53,20 +53,6 @@ public interface I_PA_RatioElementInput extends I_PA_RatioElement {
 	ForeignEntityInput PA_MeasureCalc();
 
 	/**
-	 * Set PA_Ratio.
-	 *
-	 * @param PA_Ratio Performance Ratio
-	 */
-	void setPA_RatioInput(ForeignEntityInput PA_Ratio);
-
-	/**
-	 * Get PA_Ratio.
-	 *
-	 * @return Performance Ratio
-	 */
-	ForeignEntityInput PA_Ratio();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -79,6 +65,20 @@ public interface I_PA_RatioElementInput extends I_PA_RatioElement {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set PA_Ratio.
+	 *
+	 * @param PA_Ratio Performance Ratio
+	 */
+	void setPA_RatioInput(ForeignEntityInput PA_Ratio);
+
+	/**
+	 * Get PA_Ratio.
+	 *
+	 * @return Performance Ratio
+	 */
+	ForeignEntityInput PA_Ratio();
 
 	/**
 	 * Set PA_RatioUsed.

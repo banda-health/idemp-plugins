@@ -76,6 +76,35 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Period Control.
+	 *
+	 * @param C_PeriodControl_ID Period Control
+	 */
+	@JsonProperty("C_PeriodControl_ID")
+	public void setC_PeriodControl_IDFromJson(int C_PeriodControl_ID) {
+		if (get_ID() == 0) {
+			super.setC_PeriodControl_ID(C_PeriodControl_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_PeriodControl_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_PeriodControl_UU();
+	}
 
 	/**
 	 * Set Period.
@@ -112,35 +141,6 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	@JsonProperty("C_Period")
 	public ForeignEntityInput C_Period() {
 		return mC_Period;
-	}
-	/**
-	 * Set Period Control.
-	 *
-	 * @param C_PeriodControl_ID Period Control
-	 */
-	@JsonProperty("C_PeriodControl_ID")
-	public void setC_PeriodControl_IDFromJson(int C_PeriodControl_ID) {
-		if (get_ID() == 0) {
-			super.setC_PeriodControl_ID(C_PeriodControl_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_PeriodControl_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_PeriodControl_UU();
 	}
 
 	/**

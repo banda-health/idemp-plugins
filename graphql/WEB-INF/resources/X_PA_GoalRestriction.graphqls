@@ -22,10 +22,10 @@ type PA_GoalRestriction {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Business Partner Group
-	C_BP_Group: C_BP_Group
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
+	# Business Partner Group
+	C_BP_Group: C_BP_Group
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -52,10 +52,10 @@ type PA_GoalRestriction {
 input PA_GoalRestrictionInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	# Business Partner Group
-	C_BP_Group: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
 	# Goal Restriction Type
 	GoalRestrictionType: ForeignEntityInput
 	# The record is active in the system

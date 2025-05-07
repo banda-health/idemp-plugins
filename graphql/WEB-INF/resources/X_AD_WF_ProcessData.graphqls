@@ -22,9 +22,9 @@ type AD_WF_ProcessData {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	UU: ID!
 	# Actual Workflow Process Instance
 	AD_WF_Process: AD_WF_Process!
-	UU: ID!
 	# Name of the Attribute
 	AttributeName: String!
 	# Value of the Attribute
@@ -44,9 +44,9 @@ type AD_WF_ProcessData {
 input AD_WF_ProcessDataInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	UU: ID
 	# Actual Workflow Process Instance
 	AD_WF_Process: ForeignEntityInput
-	UU: ID
 	# Name of the Attribute
 	AttributeName: String
 	# Value of the Attribute

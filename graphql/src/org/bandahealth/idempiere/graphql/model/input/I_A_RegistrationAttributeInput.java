@@ -11,20 +11,6 @@ import org.compiere.model.I_A_RegistrationAttribute;
 public interface I_A_RegistrationAttributeInput extends I_A_RegistrationAttribute {
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within tenant
@@ -65,4 +51,18 @@ public interface I_A_RegistrationAttributeInput extends I_A_RegistrationAttribut
 	 * @return Required to specify, if data type is Table or List
 	 */
 	ForeignEntityInput AD_Reference_Value();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

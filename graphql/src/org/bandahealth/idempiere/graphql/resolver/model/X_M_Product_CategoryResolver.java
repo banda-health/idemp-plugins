@@ -100,21 +100,6 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 		return entity.isSelfService();
 	}
 
-
-	/**
-	 * Get Parent Product Category.
-	 *
-	 * @return Parent Product Category
-	 */
-	public CompletableFuture<MProductCategory_BH> M_Product_Category_Parent(MProductCategory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_Parent_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MProductCategory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
-		return dataLoader.load(entity.getM_Product_Category_Parent_ID());
-	}
-
 	public static Map<String, String> MMPOLICY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("L", "80bfacfa-9e34-4d5c-8388-5cb45e52447a"); // LiFo
@@ -128,6 +113,21 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(MMPOLICY_UUIDS_BY_VALUE.get(entity.getMMPolicy()));
+	}
+
+
+	/**
+	 * Get Parent Product Category.
+	 *
+	 * @return Parent Product Category
+	 */
+	public CompletableFuture<MProductCategory_BH> M_Product_Category_Parent(MProductCategory_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getM_Product_Category_Parent_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MProductCategory_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
+		return dataLoader.load(entity.getM_Product_Category_Parent_ID());
 	}
 
 	/**

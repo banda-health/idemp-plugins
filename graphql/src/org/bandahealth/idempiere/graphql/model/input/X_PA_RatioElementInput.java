@@ -149,6 +149,35 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	public ForeignEntityInput PA_MeasureCalc() {
 		return mPA_MeasureCalc;
 	}
+	/**
+	 * Set Ratio Element.
+	 *
+	 * @param PA_RatioElement_ID Performance Ratio Element
+	 */
+	@JsonProperty("PA_RatioElement_ID")
+	public void setPA_RatioElement_IDFromJson(int PA_RatioElement_ID) {
+		if (get_ID() == 0) {
+			super.setPA_RatioElement_ID(PA_RatioElement_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setPA_RatioElement_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getPA_RatioElement_UU();
+	}
 
 	/**
 	 * Set Ratio.
@@ -185,35 +214,6 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("PA_Ratio")
 	public ForeignEntityInput PA_Ratio() {
 		return mPA_Ratio;
-	}
-	/**
-	 * Set Ratio Element.
-	 *
-	 * @param PA_RatioElement_ID Performance Ratio Element
-	 */
-	@JsonProperty("PA_RatioElement_ID")
-	public void setPA_RatioElement_IDFromJson(int PA_RatioElement_ID) {
-		if (get_ID() == 0) {
-			super.setPA_RatioElement_ID(PA_RatioElement_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setPA_RatioElement_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getPA_RatioElement_UU();
 	}
 
 	/**

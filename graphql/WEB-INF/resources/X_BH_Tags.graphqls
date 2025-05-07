@@ -1,0 +1,54 @@
+# Generated Schema for BH_Tags - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Tags(UU: String!): BH_Tags
+	BH_TagsGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_TagsConnection!
+}
+
+extend type Mutation {
+	BH_TagsSave(Entity: BH_TagsInput!): BH_Tags!
+	BH_TagsSaveMany(Entities: [BH_TagsInput!]!): [BH_Tags!]!
+	BH_TagsDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_TagsConnection {
+	Results: [BH_Tags!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Tags {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_ColourCode: String
+	UU: ID!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_TagsInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_ColourCode: String
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

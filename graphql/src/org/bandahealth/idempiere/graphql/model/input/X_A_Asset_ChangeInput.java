@@ -451,6 +451,77 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	}
 
 	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		if (!is_new()) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
+			}
+		} else {
+			this.setAD_Org_ID(0);
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set User/Contact.
+	 *
+	 * @param AD_User User within the system - Internal or Business Partner Contact
+	 */
+	@JsonProperty("AD_User")
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
+		this.mAD_User = AD_User;
+		if (AD_User != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setAD_User_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
+			}
+		} else {
+			this.setAD_User_ID(0);
+		}
+	}
+
+	/**
+	 * Get User/Contact.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	@JsonProperty("AD_User")
+	public ForeignEntityInput AD_User() {
+		return mAD_User;
+	}
+
+	/**
 	 * Set Parent Asset.
 	 *
 	 * @param A_Parent_Asset Parent Asset
@@ -521,77 +592,6 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	@JsonProperty("A_Reval_Cal_Method")
 	public ForeignEntityInput A_Reval_Cal_Method() {
 		return mA_Reval_Cal_Method;
-	}
-
-	/**
-	 * Set Organization.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
-		this.mAD_Org = AD_Org;
-		if (!is_new()) {
-			return;
-		}
-		if (AD_Org != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MOrg foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setAD_Org_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
-			}
-		} else {
-			this.setAD_Org_ID(0);
-		}
-	}
-
-	/**
-	 * Get Organization.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	@JsonProperty("AD_Org")
-	public ForeignEntityInput AD_Org() {
-		return mAD_Org;
-	}
-
-	/**
-	 * Set User/Contact.
-	 *
-	 * @param AD_User User within the system - Internal or Business Partner Contact
-	 */
-	@JsonProperty("AD_User")
-	public void setAD_UserInput(ForeignEntityInput AD_User) {
-		this.mAD_User = AD_User;
-		if (AD_User != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MUser_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setAD_User_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_User with UU " + AD_User.getUU());
-			}
-		} else {
-			this.setAD_User_ID(0);
-		}
-	}
-
-	/**
-	 * Get User/Contact.
-	 *
-	 * @return User within the system - Internal or Business Partner Contact
-	 */
-	@JsonProperty("AD_User")
-	public ForeignEntityInput AD_User() {
-		return mAD_User;
 	}
 	/**
 	 * Set Asset Accum Depreciation Amt.
@@ -761,6 +761,70 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
+	/**
+	 * Set Change Amt.
+	 *
+	 * @param ChangeAmt Change Amt
+	 */
+	@JsonProperty("ChangeAmt")
+	public void setChangeAmtFromJson(BigDecimal ChangeAmt) {
+		if (get_ID() == 0) {
+			super.setChangeAmt(ChangeAmt);
+		}
+	}
+	/**
+	 * Set Change Date.
+	 *
+	 * @param ChangeDate Change Date
+	 */
+	@JsonProperty("ChangeDate")
+	public void setChangeDateFromJson(Timestamp ChangeDate) {
+		if (get_ID() == 0) {
+			super.setChangeDate(ChangeDate);
+		}
+	}
+
+	/**
+	 * Set Change Type.
+	 *
+	 * @param ChangeType Change Type
+	 */
+	@JsonProperty("ChangeType")
+	public void setChangeTypeInput(ForeignEntityInput ChangeType) {
+		this.mChangeType = ChangeType;
+		if (!is_new()) {
+			return;
+		}
+		if (ChangeType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_A_Asset_ChangeResolver.CHANGETYPE_UUIDS_BY_VALUE.containsValue(ChangeType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ChangeType.getUU() +
+						" is not in the list defined for the ChangeType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ChangeType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setChangeType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ChangeType.getUU());
+			}
+		} else {
+			this.setChangeType(null);
+		}
+	}
+
+	/**
+	 * Get Change Type.
+	 *
+	 * @return Change Type
+	 */
+	@JsonProperty("ChangeType")
+	public ForeignEntityInput ChangeType() {
+		return mChangeType;
+	}
 
 	/**
 	 * Set Address.
@@ -828,70 +892,6 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	@JsonProperty("C_ValidCombination")
 	public ForeignEntityInput C_ValidCombination() {
 		return mC_ValidCombination;
-	}
-	/**
-	 * Set Change Amt.
-	 *
-	 * @param ChangeAmt Change Amt
-	 */
-	@JsonProperty("ChangeAmt")
-	public void setChangeAmtFromJson(BigDecimal ChangeAmt) {
-		if (get_ID() == 0) {
-			super.setChangeAmt(ChangeAmt);
-		}
-	}
-	/**
-	 * Set Change Date.
-	 *
-	 * @param ChangeDate Change Date
-	 */
-	@JsonProperty("ChangeDate")
-	public void setChangeDateFromJson(Timestamp ChangeDate) {
-		if (get_ID() == 0) {
-			super.setChangeDate(ChangeDate);
-		}
-	}
-
-	/**
-	 * Set Change Type.
-	 *
-	 * @param ChangeType Change Type
-	 */
-	@JsonProperty("ChangeType")
-	public void setChangeTypeInput(ForeignEntityInput ChangeType) {
-		this.mChangeType = ChangeType;
-		if (!is_new()) {
-			return;
-		}
-		if (ChangeType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_A_Asset_ChangeResolver.CHANGETYPE_UUIDS_BY_VALUE.containsValue(ChangeType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + ChangeType.getUU() +
-						" is not in the list defined for the ChangeType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ChangeType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setChangeType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ChangeType.getUU());
-			}
-		} else {
-			this.setChangeType(null);
-		}
-	}
-
-	/**
-	 * Get Change Type.
-	 *
-	 * @return Change Type
-	 */
-	@JsonProperty("ChangeType")
-	public ForeignEntityInput ChangeType() {
-		return mChangeType;
 	}
 	/**
 	 * Set Life use.

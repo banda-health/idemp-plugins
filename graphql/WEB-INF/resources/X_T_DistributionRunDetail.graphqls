@@ -40,10 +40,10 @@ type T_DistributionRunDetail {
 	M_DistributionRun: M_DistributionRun!
 	# Distribution Run Lines define Distribution List, the Product and Quantities
 	M_DistributionRunLine: M_DistributionRunLine!
-	# Product, Service, Item
-	M_Product: M_Product!
 	# Minimum quantity for the business partner
 	MinQty: BigDecimal!
+	# Product, Service, Item
+	M_Product: M_Product!
 	# Quantity
 	Qty: BigDecimal!
 	# Relative Ratio for Distributions
@@ -72,10 +72,10 @@ input T_DistributionRunDetailInput {
 	M_DistributionRun: ForeignEntityInput
 	# Distribution Run Lines define Distribution List, the Product and Quantities
 	M_DistributionRunLine: ForeignEntityInput
-	# Product, Service, Item
-	M_Product: ForeignEntityInput
 	# Minimum quantity for the business partner
 	MinQty: BigDecimal
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
 	# Quantity
 	Qty: BigDecimal
 	# Relative Ratio for Distributions

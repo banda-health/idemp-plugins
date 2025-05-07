@@ -64,11 +64,11 @@ type M_Production {
 	M_InOutLine: M_InOutLine
 	# Warehouse Locator
 	M_Locator: M_Locator
+	# Date a product was moved in or out of inventory
+	MovementDate: Date!
 	# Product, Service, Item
 	M_Product: M_Product
 	UU: ID!
-	# Date a product was moved in or out of inventory
-	MovementDate: Date!
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Posting status
@@ -135,11 +135,11 @@ input M_ProductionInput {
 	M_InOutLine: ForeignEntityInput
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UU: ID
-	# Date a product was moved in or out of inventory
-	MovementDate: Date
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Posting status

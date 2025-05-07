@@ -46,6 +46,22 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
+	public static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926"); // Financing
+			put("I", "a98fda35-3822-42d3-8e4f-83880822e028"); // Investment
+			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190"); // Operational
+		}
+	};
+	public CompletableFuture<MRefList_BH> CashFlowType(MCashPlan entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getCashFlowType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(CASHFLOWTYPE_UUIDS_BY_VALUE.get(entity.getCashFlowType()));
+	}
+
 
 	/**
 	 * Get Business Partner.
@@ -89,22 +105,6 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 		DataLoader<Integer, MProject> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
-	}
-
-	public static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926"); // Financing
-			put("I", "a98fda35-3822-42d3-8e4f-83880822e028"); // Investment
-			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190"); // Operational
-		}
-	};
-	public CompletableFuture<MRefList_BH> CashFlowType(MCashPlan entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getCashFlowType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(CASHFLOWTYPE_UUIDS_BY_VALUE.get(entity.getCashFlowType()));
 	}
 
 	public Boolean IsApproved(MCashPlan entity, DataFetchingEnvironment environment) {

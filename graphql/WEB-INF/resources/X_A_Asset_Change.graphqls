@@ -29,6 +29,8 @@ type A_Asset_Change {
 	# Internally used asset is not longer used.
 	A_Asset_Retirement: A_Asset_Retirement
 	A_Asset_RevalDate: Date
+	# Tenant for this installation.
+	AD_Client: AD_Client!
 	A_Depreciation_A: C_ValidCombination
 	A_Depreciation_Manual_Amount: BigDecimal
 	A_Depreciation_Manual_Period: AD_Ref_List
@@ -36,6 +38,10 @@ type A_Asset_Change {
 	A_Depreciation_Variable_Perc: BigDecimal
 	A_Disposal_Loss_A: C_ValidCombination
 	A_Disposal_Revenue_A: C_ValidCombination
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
 	A_Parent_Asset: A_Asset
 	A_Period_End: Int
 	A_Period_Start: Int
@@ -54,12 +60,6 @@ type A_Asset_Change {
 	A_Reval_Depexp_Offset_Acct: Int
 	A_Salvage_Value: BigDecimal
 	A_Split_Percent: BigDecimal
-	# Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
-	# User within the system - Internal or Business Partner Contact
-	AD_User: AD_User
 	AssetAccumDepreciationAmt: BigDecimal
 	AssetBookValueAmt: BigDecimal
 	# Date of last depreciation
@@ -78,17 +78,17 @@ type A_Asset_Change {
 	C_BPartner: C_BPartner
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: C_BPartner_Location
-	# Location or Address
-	C_Location: C_Location
-	# Valid Account Combination
-	C_ValidCombination: C_ValidCombination
 	ChangeAmt: BigDecimal
 	ChangeDate: DateTime
 	ChangeType: AD_Ref_List!
+	# Location or Address
+	C_Location: C_Location
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Valid Account Combination
+	C_ValidCombination: C_ValidCombination
 	# Accounting Date
 	DateAcct: Date
 	# The record is active in the system
@@ -145,6 +145,10 @@ input A_Asset_ChangeInput {
 	A_Depreciation_Variable_Perc: BigDecimal
 	A_Disposal_Loss_A: ForeignEntityInput
 	A_Disposal_Revenue_A: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
 	A_Parent_Asset: ForeignEntityInput
 	A_Period_End: Int
 	A_Period_Start: Int
@@ -163,10 +167,6 @@ input A_Asset_ChangeInput {
 	A_Reval_Depexp_Offset_Acct: Int
 	A_Salvage_Value: BigDecimal
 	A_Split_Percent: BigDecimal
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
-	# User within the system - Internal or Business Partner Contact
-	AD_User: ForeignEntityInput
 	AssetAccumDepreciationAmt: BigDecimal
 	AssetBookValueAmt: BigDecimal
 	# Date of last depreciation
@@ -185,13 +185,13 @@ input A_Asset_ChangeInput {
 	C_BPartner: ForeignEntityInput
 	# Identifies the (ship to) address for this Business Partner
 	C_BPartner_Location: ForeignEntityInput
+	ChangeAmt: BigDecimal
+	ChangeDate: DateTime
+	ChangeType: ForeignEntityInput
 	# Location or Address
 	C_Location: ForeignEntityInput
 	# Valid Account Combination
 	C_ValidCombination: ForeignEntityInput
-	ChangeAmt: BigDecimal
-	ChangeDate: DateTime
-	ChangeType: ForeignEntityInput
 	# Accounting Date
 	DateAcct: Date
 	# The record is active in the system

@@ -25,20 +25,6 @@ public interface I_M_ShippingProcessorInput extends I_M_ShippingProcessor {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_ShippingProcessorCfg.
 	 *
 	 * @param M_ShippingProcessorCfg M_ShippingProcessorCfg
@@ -51,4 +37,18 @@ public interface I_M_ShippingProcessorInput extends I_M_ShippingProcessor {
 	 * @return M_ShippingProcessorCfg
 	 */
 	ForeignEntityInput M_ShippingProcessorCfg();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

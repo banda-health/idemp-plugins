@@ -71,6 +71,35 @@ public class X_AD_WF_ProcessDataInput extends X_AD_WF_ProcessData implements I_A
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Workflow Process Data.
+	 *
+	 * @param AD_WF_ProcessData_ID Workflow Process Context
+	 */
+	@JsonProperty("AD_WF_ProcessData_ID")
+	public void setAD_WF_ProcessData_IDFromJson(int AD_WF_ProcessData_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_ProcessData_ID(AD_WF_ProcessData_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_WF_ProcessData_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_WF_ProcessData_UU();
+	}
 
 	/**
 	 * Set Workflow Process.
@@ -107,34 +136,5 @@ public class X_AD_WF_ProcessDataInput extends X_AD_WF_ProcessData implements I_A
 	@JsonProperty("AD_WF_Process")
 	public ForeignEntityInput AD_WF_Process() {
 		return mAD_WF_Process;
-	}
-	/**
-	 * Set Workflow Process Data.
-	 *
-	 * @param AD_WF_ProcessData_ID Workflow Process Context
-	 */
-	@JsonProperty("AD_WF_ProcessData_ID")
-	public void setAD_WF_ProcessData_IDFromJson(int AD_WF_ProcessData_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_ProcessData_ID(AD_WF_ProcessData_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_WF_ProcessData_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_WF_ProcessData_UU();
 	}
 }

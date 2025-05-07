@@ -22,15 +22,15 @@ type C_UOM_Conversion {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
 	UU: ID!
 	# Unit of Measure
 	C_UOM: C_UOM!
 	# Target or destination Unit of Measure
 	C_UOM_To: C_UOM!
-	# Date this record was created
-	Created: DateTime!
-	# User who created this records
-	CreatedBy: AD_User!
 	# To convert Source number to Target number, the Source is divided
 	DivideRate: BigDecimal!
 	# The record is active in the system

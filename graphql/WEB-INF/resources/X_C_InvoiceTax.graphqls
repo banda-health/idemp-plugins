@@ -25,13 +25,13 @@ type C_InvoiceTax {
 	# Invoice Identifier
 	C_Invoice: C_Invoice!
 	UU: ID!
-	# Tax identifier
-	C_Tax: C_Tax!
-	C_TaxProvider: C_TaxProvider
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Tax identifier
+	C_Tax: C_Tax!
+	C_TaxProvider: C_TaxProvider
 	# The record is active in the system
 	IsActive: Boolean!
 	# Tax is included in the price 

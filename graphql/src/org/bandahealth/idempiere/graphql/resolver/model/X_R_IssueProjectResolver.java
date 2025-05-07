@@ -8,8 +8,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAsset;
+import org.compiere.model.MIssueProject;
 import org.compiere.model.MProject;
-import org.compiere.model.X_R_IssueProject;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_R_IssueProjectResolver extends POResolver<X_R_IssueProject> implements GraphQLResolver<X_R_IssueProject> {
+public class X_R_IssueProjectResolver extends POResolver<MIssueProject> implements GraphQLResolver<MIssueProject> {
 
 
 
@@ -31,7 +31,7 @@ public class X_R_IssueProjectResolver extends POResolver<X_R_IssueProject> imple
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public CompletableFuture<MAsset> A_Asset(X_R_IssueProject entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MAsset> A_Asset(MIssueProject entity, DataFetchingEnvironment environment) {
 		if (entity.getA_Asset_ID() < 1) {
 			return null;
 		}
@@ -46,7 +46,7 @@ public class X_R_IssueProjectResolver extends POResolver<X_R_IssueProject> imple
 	 *
 	 * @return Financial Project
 	 */
-	public CompletableFuture<MProject> C_Project(X_R_IssueProject entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProject> C_Project(MIssueProject entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Project_ID() < 1) {
 			return null;
 		}
@@ -62,7 +62,7 @@ public class X_R_IssueProjectResolver extends POResolver<X_R_IssueProject> imple
 			put("P", "1b3201b9-d2a4-4101-a4a0-a53571550f32"); // Production
 		}
 	};
-	public CompletableFuture<MRefList_BH> SystemStatus(X_R_IssueProject entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> SystemStatus(MIssueProject entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getSystemStatus())) {
 			return null;
 		}

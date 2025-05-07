@@ -29,6 +29,8 @@ type A_Asset_Transfer {
 	A_Asset_New_A: C_ValidCombination!
 	UU: ID!
 	A_CapvsExp: AD_Ref_List!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
 	A_Depreciation_A: C_ValidCombination
 	A_Depreciation_Acct_Str: String
 	A_Depreciation_New_A: C_ValidCombination!
@@ -40,15 +42,13 @@ type A_Asset_Transfer {
 	A_Disposal_Revenue_A: C_ValidCombination
 	A_Disposal_Revenue_New_A: C_ValidCombination!
 	A_Disposal_Revenue_Str: String
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
 	A_Period_End: Int!
 	A_Period_Start: Int!
 	A_Split_Percent: BigDecimal!
 	A_Transfer_Balance: Boolean!
 	A_Transfer_Balance_IS: Boolean!
-	# Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within tenant
-	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Period of the Calendar
@@ -107,13 +107,13 @@ input A_Asset_TransferInput {
 	A_Disposal_Revenue_A: ForeignEntityInput
 	A_Disposal_Revenue_New_A: ForeignEntityInput
 	A_Disposal_Revenue_Str: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
 	A_Period_End: Int
 	A_Period_Start: Int
 	A_Split_Percent: BigDecimal
 	A_Transfer_Balance: Boolean
 	A_Transfer_Balance_IS: Boolean
-	# Organizational entity within tenant
-	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Period of the Calendar

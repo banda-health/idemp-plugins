@@ -38,11 +38,11 @@ type R_RequestUpdate {
 	QtyInvoiced: BigDecimal
 	# Quantity used for this event
 	QtySpent: BigDecimal
+	# Result of the action taken
+	Result: String
 	# Request from a Business Partner or Prospect
 	R_Request: R_Request!
 	UU: ID!
-	# Result of the action taken
-	Result: String
 	# Time started
 	StartTime: DateTime
 	# Date this record was updated
@@ -66,11 +66,11 @@ input R_RequestUpdateInput {
 	QtyInvoiced: BigDecimal
 	# Quantity used for this event
 	QtySpent: BigDecimal
+	# Result of the action taken
+	Result: String
 	# Request from a Business Partner or Prospect
 	R_Request: ForeignEntityInput
 	UU: ID
-	# Result of the action taken
-	Result: String
 	# Time started
 	StartTime: DateTime
 }

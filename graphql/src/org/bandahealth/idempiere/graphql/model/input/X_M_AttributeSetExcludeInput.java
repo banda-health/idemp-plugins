@@ -107,6 +107,35 @@ public class X_M_AttributeSetExcludeInput extends MAttributeSetExclude implement
 	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
+	/**
+	 * Set Exclude Attribute Set.
+	 *
+	 * @param M_AttributeSetExclude_ID Exclude the ability to enter Attribute Sets
+	 */
+	@JsonProperty("M_AttributeSetExclude_ID")
+	public void setM_AttributeSetExclude_IDFromJson(int M_AttributeSetExclude_ID) {
+		if (get_ID() == 0) {
+			super.setM_AttributeSetExclude_ID(M_AttributeSetExclude_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_AttributeSetExclude_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_AttributeSetExclude_UU();
+	}
 
 	/**
 	 * Set Attribute Set.
@@ -143,34 +172,5 @@ public class X_M_AttributeSetExcludeInput extends MAttributeSetExclude implement
 	@JsonProperty("M_AttributeSet")
 	public ForeignEntityInput M_AttributeSet() {
 		return mM_AttributeSet;
-	}
-	/**
-	 * Set Exclude Attribute Set.
-	 *
-	 * @param M_AttributeSetExclude_ID Exclude the ability to enter Attribute Sets
-	 */
-	@JsonProperty("M_AttributeSetExclude_ID")
-	public void setM_AttributeSetExclude_IDFromJson(int M_AttributeSetExclude_ID) {
-		if (get_ID() == 0) {
-			super.setM_AttributeSetExclude_ID(M_AttributeSetExclude_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_AttributeSetExclude_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_AttributeSetExclude_UU();
 	}
 }

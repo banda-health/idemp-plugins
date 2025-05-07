@@ -301,43 +301,6 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 	}
 
 	/**
-	 * Set Invoice.
-	 *
-	 * @param C_Invoice Invoice Identifier
-	 */
-	@JsonProperty("C_Invoice")
-	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
-		this.mC_Invoice = C_Invoice;
-		if (!is_new()) {
-			return;
-		}
-		if (C_Invoice != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MInvoice_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_Invoice_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_Invoice with UU " + C_Invoice.getUU());
-			}
-		} else {
-			this.setC_Invoice_ID(0);
-		}
-	}
-
-	/**
-	 * Get Invoice.
-	 *
-	 * @return Invoice Identifier
-	 */
-	@JsonProperty("C_Invoice")
-	public ForeignEntityInput C_Invoice() {
-		return mC_Invoice;
-	}
-
-	/**
 	 * Set Invoice Batch.
 	 *
 	 * @param C_InvoiceBatch Expense Invoice Batch Header
@@ -401,6 +364,43 @@ public class X_C_InvoiceBatchLineInput extends MInvoiceBatchLine implements I_C_
 	 */
 	public String getUU() {
 		return getC_InvoiceBatchLine_UU();
+	}
+
+	/**
+	 * Set Invoice.
+	 *
+	 * @param C_Invoice Invoice Identifier
+	 */
+	@JsonProperty("C_Invoice")
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
+		this.mC_Invoice = C_Invoice;
+		if (!is_new()) {
+			return;
+		}
+		if (C_Invoice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_Invoice_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Invoice with UU " + C_Invoice.getUU());
+			}
+		} else {
+			this.setC_Invoice_ID(0);
+		}
+	}
+
+	/**
+	 * Get Invoice.
+	 *
+	 * @return Invoice Identifier
+	 */
+	@JsonProperty("C_Invoice")
+	public ForeignEntityInput C_Invoice() {
+		return mC_Invoice;
 	}
 
 	/**

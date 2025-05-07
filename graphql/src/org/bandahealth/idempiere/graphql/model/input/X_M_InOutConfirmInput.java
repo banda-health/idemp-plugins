@@ -231,6 +231,35 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
+	/**
+	 * Set Ship/Receipt Confirmation.
+	 *
+	 * @param M_InOutConfirm_ID Material Shipment or Receipt Confirmation
+	 */
+	@JsonProperty("M_InOutConfirm_ID")
+	public void setM_InOutConfirm_IDFromJson(int M_InOutConfirm_ID) {
+		if (get_ID() == 0) {
+			super.setM_InOutConfirm_ID(M_InOutConfirm_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_InOutConfirm_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_InOutConfirm_UU();
+	}
 
 	/**
 	 * Set Shipment/Receipt.
@@ -267,35 +296,6 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 	@JsonProperty("M_InOut")
 	public ForeignEntityInput M_InOut() {
 		return mM_InOut;
-	}
-	/**
-	 * Set Ship/Receipt Confirmation.
-	 *
-	 * @param M_InOutConfirm_ID Material Shipment or Receipt Confirmation
-	 */
-	@JsonProperty("M_InOutConfirm_ID")
-	public void setM_InOutConfirm_IDFromJson(int M_InOutConfirm_ID) {
-		if (get_ID() == 0) {
-			super.setM_InOutConfirm_ID(M_InOutConfirm_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setM_InOutConfirm_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getM_InOutConfirm_UU();
 	}
 
 	/**

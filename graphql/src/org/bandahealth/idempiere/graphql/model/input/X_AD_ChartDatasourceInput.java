@@ -38,6 +38,35 @@ public class X_AD_ChartDatasourceInput extends MChartDatasource implements I_AD_
 		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
 		setUU(UU);
 	}
+	/**
+	 * Set Chart Datasource.
+	 *
+	 * @param AD_ChartDatasource_ID Chart Datasource
+	 */
+	@JsonProperty("AD_ChartDatasource_ID")
+	public void setAD_ChartDatasource_IDFromJson(int AD_ChartDatasource_ID) {
+		if (get_ID() == 0) {
+			super.setAD_ChartDatasource_ID(AD_ChartDatasource_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setAD_ChartDatasource_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getAD_ChartDatasource_UU();
+	}
 
 	/**
 	 * Set Chart.
@@ -74,35 +103,6 @@ public class X_AD_ChartDatasourceInput extends MChartDatasource implements I_AD_
 	@JsonProperty("AD_Chart")
 	public ForeignEntityInput AD_Chart() {
 		return mAD_Chart;
-	}
-	/**
-	 * Set Chart Datasource.
-	 *
-	 * @param AD_ChartDatasource_ID Chart Datasource
-	 */
-	@JsonProperty("AD_ChartDatasource_ID")
-	public void setAD_ChartDatasource_IDFromJson(int AD_ChartDatasource_ID) {
-		if (get_ID() == 0) {
-			super.setAD_ChartDatasource_ID(AD_ChartDatasource_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setAD_ChartDatasource_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getAD_ChartDatasource_UU();
 	}
 
 	/**

@@ -22,24 +22,24 @@ type RV_WarehousePrice {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Unit of Measure
-	C_UOM: C_UOM!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Unit of Measure
+	C_UOM: C_UOM!
 	# The record is active in the system
 	IsActive: Boolean!
 	# The product attribute is specific to the instance (like Serial No, Lot or Guarantee Date)
 	IsInstanceAttribute: Boolean!
+	# Margin for a product as a percentage
+	Margin: BigDecimal
 	# Identifies a unique instance of a Price List
 	M_PriceList_Version: M_PriceList_Version!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
-	# Margin for a product as a percentage
-	Margin: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Lowest price for a product
@@ -81,14 +81,14 @@ input RV_WarehousePriceInput {
 	IsActive: Boolean
 	# The product attribute is specific to the instance (like Serial No, Lot or Guarantee Date)
 	IsInstanceAttribute: Boolean
+	# Margin for a product as a percentage
+	Margin: BigDecimal
 	# Identifies a unique instance of a Price List
 	M_PriceList_Version: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
-	# Margin for a product as a percentage
-	Margin: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Lowest price for a product

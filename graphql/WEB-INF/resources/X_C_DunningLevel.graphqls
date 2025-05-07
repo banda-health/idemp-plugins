@@ -25,12 +25,12 @@ type C_DunningLevel {
 	# Dunning Rules for overdue invoices
 	C_Dunning: C_Dunning!
 	UU: ID!
-	# The terms of Payment (timing, discount)
-	C_PaymentTerm: C_PaymentTerm
 	# Indicates if fees will be charged for overdue invoices
 	ChargeFee: Boolean!
 	# Indicates if interest will be charged on overdue invoices
 	ChargeInterest: Boolean!
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -79,12 +79,12 @@ input C_DunningLevelInput {
 	# Dunning Rules for overdue invoices
 	C_Dunning: ForeignEntityInput
 	UU: ID
-	# The terms of Payment (timing, discount)
-	C_PaymentTerm: ForeignEntityInput
 	# Indicates if fees will be charged for overdue invoices
 	ChargeFee: Boolean
 	# Indicates if interest will be charged on overdue invoices
 	ChargeInterest: Boolean
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
 	# Days after due date to dun (if negative days until due)
 	DaysAfterDue: BigDecimal
 	# Days between sending dunning notices

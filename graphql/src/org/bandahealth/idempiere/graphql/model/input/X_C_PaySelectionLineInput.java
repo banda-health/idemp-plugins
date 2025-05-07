@@ -115,6 +115,40 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	}
 
 	/**
+	 * Set Pay Selection Check.
+	 *
+	 * @param C_PaySelectionCheck Payment Selection Check
+	 */
+	@JsonProperty("C_PaySelectionCheck")
+	public void setC_PaySelectionCheckInput(ForeignEntityInput C_PaySelectionCheck) {
+		this.mC_PaySelectionCheck = C_PaySelectionCheck;
+		if (C_PaySelectionCheck != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPaySelectionCheck foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_PaySelectionCheck", "C_PaySelectionCheck_UU=?", get_TrxName())
+							.setParameters(C_PaySelectionCheck.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_PaySelectionCheck_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_PaySelectionCheck with UU " + C_PaySelectionCheck.getUU());
+			}
+		} else {
+			this.setC_PaySelectionCheck_ID(0);
+		}
+	}
+
+	/**
+	 * Get Pay Selection Check.
+	 *
+	 * @return Payment Selection Check
+	 */
+	@JsonProperty("C_PaySelectionCheck")
+	public ForeignEntityInput C_PaySelectionCheck() {
+		return mC_PaySelectionCheck;
+	}
+
+	/**
 	 * Set Payment Selection.
 	 *
 	 * @param C_PaySelection Payment Selection
@@ -149,40 +183,6 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	@JsonProperty("C_PaySelection")
 	public ForeignEntityInput C_PaySelection() {
 		return mC_PaySelection;
-	}
-
-	/**
-	 * Set Pay Selection Check.
-	 *
-	 * @param C_PaySelectionCheck Payment Selection Check
-	 */
-	@JsonProperty("C_PaySelectionCheck")
-	public void setC_PaySelectionCheckInput(ForeignEntityInput C_PaySelectionCheck) {
-		this.mC_PaySelectionCheck = C_PaySelectionCheck;
-		if (C_PaySelectionCheck != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MPaySelectionCheck foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_PaySelectionCheck", "C_PaySelectionCheck_UU=?", get_TrxName())
-							.setParameters(C_PaySelectionCheck.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_PaySelectionCheck_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_PaySelectionCheck with UU " + C_PaySelectionCheck.getUU());
-			}
-		} else {
-			this.setC_PaySelectionCheck_ID(0);
-		}
-	}
-
-	/**
-	 * Get Pay Selection Check.
-	 *
-	 * @return Payment Selection Check
-	 */
-	@JsonProperty("C_PaySelectionCheck")
-	public ForeignEntityInput C_PaySelectionCheck() {
-		return mC_PaySelectionCheck;
 	}
 	/**
 	 * Set Payment Selection Line.

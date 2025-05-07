@@ -25,20 +25,6 @@ public interface I_C_BP_RelationInput extends I_C_BP_Relation {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -93,4 +79,18 @@ public interface I_C_BP_RelationInput extends I_C_BP_Relation {
 	 * @return Location of the related Business Partner
 	 */
 	ForeignEntityInput C_BPartnerRelation_Location();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 }

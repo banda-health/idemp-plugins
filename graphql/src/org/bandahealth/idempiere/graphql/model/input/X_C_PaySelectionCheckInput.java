@@ -82,40 +82,6 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	}
 
 	/**
-	 * Set Partner Bank Account.
-	 *
-	 * @param C_BP_BankAccount Bank Account of the Business Partner
-	 */
-	@JsonProperty("C_BP_BankAccount")
-	public void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount) {
-		this.mC_BP_BankAccount = C_BP_BankAccount;
-		if (C_BP_BankAccount != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBPBankAccount foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "C_BP_BankAccount", "C_BP_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BP_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setC_BP_BankAccount_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table C_BP_BankAccount with UU " + C_BP_BankAccount.getUU());
-			}
-		} else {
-			this.setC_BP_BankAccount_ID(0);
-		}
-	}
-
-	/**
-	 * Get Partner Bank Account.
-	 *
-	 * @return Bank Account of the Business Partner
-	 */
-	@JsonProperty("C_BP_BankAccount")
-	public ForeignEntityInput C_BP_BankAccount() {
-		return mC_BP_BankAccount;
-	}
-
-	/**
 	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -150,6 +116,40 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	}
 
 	/**
+	 * Set Partner Bank Account.
+	 *
+	 * @param C_BP_BankAccount Bank Account of the Business Partner
+	 */
+	@JsonProperty("C_BP_BankAccount")
+	public void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount) {
+		this.mC_BP_BankAccount = C_BP_BankAccount;
+		if (C_BP_BankAccount != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPBankAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BP_BankAccount", "C_BP_BankAccount_UU=?", get_TrxName())
+							.setParameters(C_BP_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setC_BP_BankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BP_BankAccount with UU " + C_BP_BankAccount.getUU());
+			}
+		} else {
+			this.setC_BP_BankAccount_ID(0);
+		}
+	}
+
+	/**
+	 * Get Partner Bank Account.
+	 *
+	 * @return Bank Account of the Business Partner
+	 */
+	@JsonProperty("C_BP_BankAccount")
+	public ForeignEntityInput C_BP_BankAccount() {
+		return mC_BP_BankAccount;
+	}
+
+	/**
 	 * Set Payment.
 	 *
 	 * @param C_Payment Payment identifier
@@ -181,6 +181,35 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	@JsonProperty("C_Payment")
 	public ForeignEntityInput C_Payment() {
 		return mC_Payment;
+	}
+	/**
+	 * Set Pay Selection Check.
+	 *
+	 * @param C_PaySelectionCheck_ID Payment Selection Check
+	 */
+	@JsonProperty("C_PaySelectionCheck_ID")
+	public void setC_PaySelectionCheck_IDFromJson(int C_PaySelectionCheck_ID) {
+		if (get_ID() == 0) {
+			super.setC_PaySelectionCheck_ID(C_PaySelectionCheck_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_PaySelectionCheck_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_PaySelectionCheck_UU();
 	}
 
 	/**
@@ -218,35 +247,6 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	@JsonProperty("C_PaySelection")
 	public ForeignEntityInput C_PaySelection() {
 		return mC_PaySelection;
-	}
-	/**
-	 * Set Pay Selection Check.
-	 *
-	 * @param C_PaySelectionCheck_ID Payment Selection Check
-	 */
-	@JsonProperty("C_PaySelectionCheck_ID")
-	public void setC_PaySelectionCheck_IDFromJson(int C_PaySelectionCheck_ID) {
-		if (get_ID() == 0) {
-			super.setC_PaySelectionCheck_ID(C_PaySelectionCheck_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_PaySelectionCheck_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_PaySelectionCheck_UU();
 	}
 
 	/**

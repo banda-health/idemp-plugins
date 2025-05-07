@@ -76,6 +76,35 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Bank Account Document.
+	 *
+	 * @param C_BankAccountDoc_ID Checks, Transfers, etc.
+	 */
+	@JsonProperty("C_BankAccountDoc_ID")
+	public void setC_BankAccountDoc_IDFromJson(int C_BankAccountDoc_ID) {
+		if (get_ID() == 0) {
+			super.setC_BankAccountDoc_ID(C_BankAccountDoc_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_BankAccountDoc_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_BankAccountDoc_UU();
+	}
 
 	/**
 	 * Set Bank Account.
@@ -112,35 +141,6 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	@JsonProperty("C_BankAccount")
 	public ForeignEntityInput C_BankAccount() {
 		return mC_BankAccount;
-	}
-	/**
-	 * Set Bank Account Document.
-	 *
-	 * @param C_BankAccountDoc_ID Checks, Transfers, etc.
-	 */
-	@JsonProperty("C_BankAccountDoc_ID")
-	public void setC_BankAccountDoc_IDFromJson(int C_BankAccountDoc_ID) {
-		if (get_ID() == 0) {
-			super.setC_BankAccountDoc_ID(C_BankAccountDoc_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_BankAccountDoc_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_BankAccountDoc_UU();
 	}
 
 	/**

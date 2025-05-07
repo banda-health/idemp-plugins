@@ -33,11 +33,11 @@ type AD_Tab {
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
-	UU: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Defines Tab Type
 	AD_TabType: AD_Ref_List
+	UU: ID!
 	# Data entry or display window
 	AD_Window: AD_Window!
 	# Warning displayed when saving
@@ -121,11 +121,11 @@ input AD_TabInput {
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
-	UU: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Defines Tab Type
 	AD_TabType: ForeignEntityInput
+	UU: ID
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	# Warning displayed when saving

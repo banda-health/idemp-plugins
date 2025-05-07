@@ -57,12 +57,12 @@ type I_Inventory {
 	M_InventoryLine: M_InventoryLine
 	# Warehouse Locator
 	M_Locator: M_Locator
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
 	# Product, Service, Item
 	M_Product: M_Product
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse
-	# Date a product was moved in or out of inventory
-	MovementDate: Date
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -126,12 +126,12 @@ input I_InventoryInput {
 	M_InventoryLine: ForeignEntityInput
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
-	# Date a product was moved in or out of inventory
-	MovementDate: Date
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

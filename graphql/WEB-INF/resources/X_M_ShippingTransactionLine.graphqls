@@ -22,24 +22,24 @@ type M_ShippingTransactionLine {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Standard Unit of Measure for Length
-	C_UOM_Length: C_UOM
-	# Standard Unit of Measure for Weight
-	C_UOM_Weight: C_UOM
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Standard Unit of Measure for Length
+	C_UOM_Length: C_UOM
+	# Standard Unit of Measure for Weight
+	C_UOM_Weight: C_UOM
 	# Optional short description of the record
 	Description: String
 	Height: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	Length: BigDecimal
+	MasterTrackingNo: String
 	M_PackageMPS: M_PackageMPS
 	M_ShippingTransaction: M_ShippingTransaction!
 	UU: ID!
-	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal
 	# The document has been processed
@@ -70,10 +70,10 @@ input M_ShippingTransactionLineInput {
 	# The record is active in the system
 	IsActive: Boolean
 	Length: BigDecimal
+	MasterTrackingNo: String
 	M_PackageMPS: ForeignEntityInput
 	M_ShippingTransaction: ForeignEntityInput
 	UU: ID
-	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal
 	# The document has been processed

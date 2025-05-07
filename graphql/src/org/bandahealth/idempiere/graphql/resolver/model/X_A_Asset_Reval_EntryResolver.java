@@ -31,22 +31,6 @@ import java.util.concurrent.CompletableFuture;
 public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_Entry> implements GraphQLResolver<X_A_Asset_Reval_Entry> {
 
 
-	public static Map<String, String> A_REV_CODE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("R01", "f9d5c700-9d0a-46c7-bf06-bf22a808b37d"); // Revaluation Code #1
-			put("R02", "678f01f7-e046-4f14-a64e-f8fd86e64ff4"); // Revaluation Code #2
-			put("R03", "374da497-243b-46a1-a10d-5690d37271c5"); // Revaluation Code #3
-		}
-	};
-	public CompletableFuture<MRefList_BH> A_Rev_Code(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getA_Rev_Code())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(A_REV_CODE_UUIDS_BY_VALUE.get(entity.getA_Rev_Code()));
-	}
-
 	public static Map<String, String> A_REVAL_CAL_METHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("DFT", "c11a5c1d-7b50-4462-92f3-5fd512c7c3f9"); // Default
@@ -92,6 +76,22 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(A_REVAL_MULTIPLIER_UUIDS_BY_VALUE.get(entity.getA_Reval_Multiplier()));
+	}
+
+	public static Map<String, String> A_REV_CODE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("R01", "f9d5c700-9d0a-46c7-bf06-bf22a808b37d"); // Revaluation Code #1
+			put("R02", "678f01f7-e046-4f14-a64e-f8fd86e64ff4"); // Revaluation Code #2
+			put("R03", "374da497-243b-46a1-a10d-5690d37271c5"); // Revaluation Code #3
+		}
+	};
+	public CompletableFuture<MRefList_BH> A_Rev_Code(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getA_Rev_Code())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(A_REV_CODE_UUIDS_BY_VALUE.get(entity.getA_Rev_Code()));
 	}
 
 

@@ -53,20 +53,6 @@ public interface I_M_MovementLineConfirmInput extends I_M_MovementLineConfirm {
 	ForeignEntityInput M_MovementConfirm();
 
 	/**
-	 * Set M_MovementLine.
-	 *
-	 * @param M_MovementLine Inventory Move document Line
-	 */
-	void setM_MovementLineInput(ForeignEntityInput M_MovementLine);
-
-	/**
-	 * Get M_MovementLine.
-	 *
-	 * @return Inventory Move document Line
-	 */
-	ForeignEntityInput M_MovementLine();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -79,4 +65,18 @@ public interface I_M_MovementLineConfirmInput extends I_M_MovementLineConfirm {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set M_MovementLine.
+	 *
+	 * @param M_MovementLine Inventory Move document Line
+	 */
+	void setM_MovementLineInput(ForeignEntityInput M_MovementLine);
+
+	/**
+	 * Get M_MovementLine.
+	 *
+	 * @return Inventory Move document Line
+	 */
+	ForeignEntityInput M_MovementLine();
 }

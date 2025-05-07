@@ -22,13 +22,13 @@ type C_RevenueRecog_Service {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
-	# Method for recording revenue
-	C_RevenueRecognition: C_RevenueRecognition!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Method for recording revenue
+	C_RevenueRecognition: C_RevenueRecognition!
+	UU: ID!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -46,9 +46,9 @@ type C_RevenueRecog_Service {
 input C_RevenueRecog_ServiceInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# Method for recording revenue
 	C_RevenueRecognition: ForeignEntityInput
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -22,11 +22,11 @@ type B_Topic {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UU: ID!
 	# Auction Topic Category
 	B_TopicCategory: B_TopicCategory!
 	# Auction Topic Type
 	B_TopicType: B_TopicType!
+	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -59,11 +59,11 @@ type B_Topic {
 input B_TopicInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UU: ID
 	# Auction Topic Category
 	B_TopicCategory: ForeignEntityInput
 	# Auction Topic Type
 	B_TopicType: ForeignEntityInput
+	UU: ID
 	DecisionDate: Date
 	# Optional short description of the record
 	Description: String

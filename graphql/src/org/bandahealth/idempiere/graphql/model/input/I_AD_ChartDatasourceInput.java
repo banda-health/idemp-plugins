@@ -11,20 +11,6 @@ import org.compiere.model.I_AD_ChartDatasource;
 public interface I_AD_ChartDatasourceInput extends I_AD_ChartDatasource {
 
 	/**
-	 * Set AD_Chart.
-	 *
-	 * @param AD_Chart AD_Chart
-	 */
-	void setAD_ChartInput(ForeignEntityInput AD_Chart);
-
-	/**
-	 * Get AD_Chart.
-	 *
-	 * @return AD_Chart
-	 */
-	ForeignEntityInput AD_Chart();
-
-	/**
 	 * Set UU.
 	 *
 	 * @param UU UU
@@ -37,6 +23,20 @@ public interface I_AD_ChartDatasourceInput extends I_AD_ChartDatasource {
 	 * @return UU
 	 */
 	String getUU();
+
+	/**
+	 * Set AD_Chart.
+	 *
+	 * @param AD_Chart AD_Chart
+	 */
+	void setAD_ChartInput(ForeignEntityInput AD_Chart);
+
+	/**
+	 * Get AD_Chart.
+	 *
+	 * @return AD_Chart
+	 */
+	ForeignEntityInput AD_Chart();
 
 	/**
 	 * Set AD_Org.

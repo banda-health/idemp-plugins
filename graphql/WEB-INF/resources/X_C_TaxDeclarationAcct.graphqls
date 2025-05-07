@@ -38,15 +38,15 @@ type C_TaxDeclarationAcct {
 	C_BPartner: C_BPartner
 	# The Currency for this record
 	C_Currency: C_Currency
-	# Tax identifier
-	C_Tax: C_Tax
-	# Define the declaration to the tax authorities
-	C_TaxDeclaration: C_TaxDeclaration!
-	UU: ID!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	UU: ID!
+	# Define the declaration to the tax authorities
+	C_TaxDeclaration: C_TaxDeclaration!
+	# Tax identifier
+	C_Tax: C_Tax
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
@@ -67,9 +67,9 @@ input C_TaxDeclarationAcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
+	UU: ID
 	# Define the declaration to the tax authorities
 	C_TaxDeclaration: ForeignEntityInput
-	UU: ID
 	# Optional short description of the record
 	Description: String
 	Fact_Acct: ForeignEntityInput

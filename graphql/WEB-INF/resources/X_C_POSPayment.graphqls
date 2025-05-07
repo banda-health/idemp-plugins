@@ -18,23 +18,23 @@ type C_POSPaymentConnection {
 }
 
 type C_POSPayment {
-	# Name on Credit Card or Account holder
-	A_Name: String
 	# Account Number
 	AccountNo: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# Name on Credit Card or Account holder
+	A_Name: String
+	# Check Number
+	CheckNo: String
+	CheckStatus: AD_Ref_List
 	# Order
 	C_Order: C_Order!
 	# Payment identifier
 	C_Payment: C_Payment
 	UU: ID!
 	C_POSTenderType: C_POSTenderType!
-	# Check Number
-	CheckNo: String
-	CheckStatus: AD_Ref_List
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -74,21 +74,21 @@ type C_POSPayment {
 }
 
 input C_POSPaymentInput {
-	# Name on Credit Card or Account holder
-	A_Name: String
 	# Account Number
 	AccountNo: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# Name on Credit Card or Account holder
+	A_Name: String
+	# Check Number
+	CheckNo: String
+	CheckStatus: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	UU: ID
 	C_POSTenderType: ForeignEntityInput
-	# Check Number
-	CheckNo: String
-	CheckStatus: ForeignEntityInput
 	# Credit Card Number 
 	CreditCardNumber: String
 	# Credit Card (Visa, MC, AmEx)

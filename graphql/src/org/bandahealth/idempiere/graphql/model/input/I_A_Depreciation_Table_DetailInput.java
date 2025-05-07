@@ -25,20 +25,6 @@ public interface I_A_Depreciation_Table_DetailInput extends I_A_Depreciation_Tab
 	String getUU();
 
 	/**
-	 * Set A_Table_Rate_Type.
-	 *
-	 * @param A_Table_Rate_Type A_Table_Rate_Type
-	 */
-	void setA_Table_Rate_TypeInput(ForeignEntityInput A_Table_Rate_Type);
-
-	/**
-	 * Get A_Table_Rate_Type.
-	 *
-	 * @return A_Table_Rate_Type
-	 */
-	ForeignEntityInput A_Table_Rate_Type();
-
-	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within tenant
@@ -51,4 +37,18 @@ public interface I_A_Depreciation_Table_DetailInput extends I_A_Depreciation_Tab
 	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set A_Table_Rate_Type.
+	 *
+	 * @param A_Table_Rate_Type A_Table_Rate_Type
+	 */
+	void setA_Table_Rate_TypeInput(ForeignEntityInput A_Table_Rate_Type);
+
+	/**
+	 * Get A_Table_Rate_Type.
+	 *
+	 * @return A_Table_Rate_Type
+	 */
+	ForeignEntityInput A_Table_Rate_Type();
 }

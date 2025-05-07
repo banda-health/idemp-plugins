@@ -49,12 +49,12 @@ type PA_ReportLine {
 	# Second operand for calculation
 	Oper_2: PA_ReportLine
 	OverlineStrokeType: AD_Ref_List
-	UU: ID!
-	PA_ReportLineSet: PA_ReportLineSet!
 	# PA Amount Type for reporting
 	PAAmountType: AD_Ref_List
 	# PA Period Type
 	PAPeriodType: AD_Ref_List
+	PA_ReportLineSet: PA_ReportLineSet!
+	UU: ID!
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_List
 	RoundFactor: Int
@@ -93,12 +93,12 @@ input PA_ReportLineInput {
 	# Second operand for calculation
 	Oper_2: ForeignEntityInput
 	OverlineStrokeType: ForeignEntityInput
-	UU: ID
-	PA_ReportLineSet: ForeignEntityInput
 	# PA Amount Type for reporting
 	PAAmountType: ForeignEntityInput
 	# PA Period Type
 	PAPeriodType: ForeignEntityInput
+	PA_ReportLineSet: ForeignEntityInput
+	UU: ID
 	# The type of posted amount for the transaction
 	PostingType: ForeignEntityInput
 	RoundFactor: Int

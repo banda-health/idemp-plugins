@@ -195,24 +195,6 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	}
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_POSKey_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_POSKey_UU();
-	}
-
-	/**
 	 * Set POS Key Layout.
 	 *
 	 * @param C_POSKeyLayout POS Function Key Layout
@@ -247,6 +229,24 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	@JsonProperty("C_POSKeyLayout")
 	public ForeignEntityInput C_POSKeyLayout() {
 		return mC_POSKeyLayout;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_POSKey_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_POSKey_UU();
 	}
 
 	/**

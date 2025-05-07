@@ -42,21 +42,6 @@ public class X_AD_PrintGraphResolver extends POResolver<X_AD_PrintGraph> impleme
 
 
 	/**
-	 * Get Data Column.
-	 *
-	 * @return Data Column for Pie and Line Charts
-	 */
-	public CompletableFuture<X_AD_PrintFormatItem> Data_PrintFormatItem(X_AD_PrintGraph entity, DataFetchingEnvironment environment) {
-		if (entity.getData_PrintFormatItem_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, X_AD_PrintFormatItem> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatItemDataLoader.DATALOADER_AD_PrintFormatItem_BY_ID);
-		return dataLoader.load(entity.getData_PrintFormatItem_ID());
-	}
-
-
-	/**
 	 * Get Data Column 2.
 	 *
 	 * @return Data Column for Line Charts
@@ -113,6 +98,21 @@ public class X_AD_PrintGraphResolver extends POResolver<X_AD_PrintGraph> impleme
 		DataLoader<Integer, X_AD_PrintFormatItem> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatItemDataLoader.DATALOADER_AD_PrintFormatItem_BY_ID);
 		return dataLoader.load(entity.getData4_PrintFormatItem_ID());
+	}
+
+
+	/**
+	 * Get Data Column.
+	 *
+	 * @return Data Column for Pie and Line Charts
+	 */
+	public CompletableFuture<X_AD_PrintFormatItem> Data_PrintFormatItem(X_AD_PrintGraph entity, DataFetchingEnvironment environment) {
+		if (entity.getData_PrintFormatItem_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, X_AD_PrintFormatItem> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatItemDataLoader.DATALOADER_AD_PrintFormatItem_BY_ID);
+		return dataLoader.load(entity.getData_PrintFormatItem_ID());
 	}
 
 

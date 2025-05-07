@@ -24,16 +24,16 @@ type C_CashPlan {
 	AD_Org: AD_Org!
 	# Business Activity
 	C_Activity: C_Activity
+	CashFlowType: AD_Ref_List
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Marketing Campaign
 	C_Campaign: C_Campaign
 	UU: ID!
-	# Financial Project
-	C_Project: C_Project
-	CashFlowType: AD_Ref_List
 	# Copy From Record
 	CopyFrom: String
+	# Financial Project
+	C_Project: C_Project
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -70,16 +70,16 @@ input C_CashPlanInput {
 	AD_Org: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
+	CashFlowType: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
 	UU: ID
-	# Financial Project
-	C_Project: ForeignEntityInput
-	CashFlowType: ForeignEntityInput
 	# Copy From Record
 	CopyFrom: String
+	# Financial Project
+	C_Project: ForeignEntityInput
 	# Date of the Document
 	DateDoc: Date
 	# Optional short description of the record

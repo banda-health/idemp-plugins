@@ -25,6 +25,20 @@ public interface I_C_POSPaymentInput extends I_C_POSPayment {
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Set CheckStatus.
+	 *
+	 * @param CheckStatus CheckStatus
+	 */
+	void setCheckStatusInput(ForeignEntityInput CheckStatus);
+
+	/**
+	 * Get CheckStatus.
+	 *
+	 * @return CheckStatus
+	 */
+	ForeignEntityInput CheckStatus();
+
+	/**
 	 * Set C_Order.
 	 *
 	 * @param C_Order Order
@@ -79,20 +93,6 @@ public interface I_C_POSPaymentInput extends I_C_POSPayment {
 	 * @return C_POSTenderType
 	 */
 	ForeignEntityInput C_POSTenderType();
-
-	/**
-	 * Set CheckStatus.
-	 *
-	 * @param CheckStatus CheckStatus
-	 */
-	void setCheckStatusInput(ForeignEntityInput CheckStatus);
-
-	/**
-	 * Get CheckStatus.
-	 *
-	 * @return CheckStatus
-	 */
-	ForeignEntityInput CheckStatus();
 
 	/**
 	 * Set CreditCardType.

@@ -39,34 +39,6 @@ public interface I_C_CashBook_AcctInput extends I_C_CashBook_Acct {
 	ForeignEntityInput C_AcctSchema();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
-	 * Set C_CashBook.
-	 *
-	 * @param C_CashBook Cash Book for recording petty cash transactions
-	 */
-	void setC_CashBookInput(ForeignEntityInput C_CashBook);
-
-	/**
-	 * Get C_CashBook.
-	 *
-	 * @return Cash Book for recording petty cash transactions
-	 */
-	ForeignEntityInput C_CashBook();
-
-	/**
 	 * Set CB_Asset_A.
 	 *
 	 * @param CB_Asset_A Cash Book Asset Account
@@ -135,4 +107,32 @@ public interface I_C_CashBook_AcctInput extends I_C_CashBook_Acct {
 	 * @return Cash Book Receipts Account
 	 */
 	ForeignEntityInput CB_Receipt_A();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
+
+	/**
+	 * Set C_CashBook.
+	 *
+	 * @param C_CashBook Cash Book for recording petty cash transactions
+	 */
+	void setC_CashBookInput(ForeignEntityInput C_CashBook);
+
+	/**
+	 * Get C_CashBook.
+	 *
+	 * @return Cash Book for recording petty cash transactions
+	 */
+	ForeignEntityInput C_CashBook();
 }

@@ -37,14 +37,14 @@ type M_InOut {
 	C_Charge: C_Charge
 	# Document type or rules
 	C_DocType: C_DocType!
+	# Charge Amount
+	ChargeAmt: BigDecimal
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Order
 	C_Order: C_Order
 	# Financial Project
 	C_Project: C_Project
-	# Charge Amount
-	ChargeAmt: BigDecimal
 	CreateConfirm: String
 	# Date this record was created
 	Created: DateTime!
@@ -106,16 +106,16 @@ type M_InOut {
 	# This is a Sales Transaction
 	IsSOTrx: Boolean!
 	UU: ID!
+	# Date a product was moved in or out of inventory
+	MovementDate: Date!
+	# Method of moving the inventory
+	MovementType: AD_Ref_List!
 	# Return Material Authorization
 	M_RMA: M_RMA
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
-	# Date a product was moved in or out of inventory
-	MovementDate: Date!
-	# Method of moving the inventory
-	MovementType: AD_Ref_List!
 	# Number of packages shipped
 	NoPackages: Int
 	# Date/Time when picked for Shipment
@@ -177,14 +177,14 @@ input M_InOutInput {
 	C_Charge: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: BigDecimal
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	# Charge Amount
-	ChargeAmt: BigDecimal
 	CreateConfirm: String
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
@@ -242,16 +242,16 @@ input M_InOutInput {
 	# This is a Sales Transaction
 	IsSOTrx: Boolean
 	UU: ID
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Method of moving the inventory
+	MovementType: ForeignEntityInput
 	# Return Material Authorization
 	M_RMA: ForeignEntityInput
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
-	# Date a product was moved in or out of inventory
-	MovementDate: Date
-	# Method of moving the inventory
-	MovementType: ForeignEntityInput
 	# Number of packages shipped
 	NoPackages: Int
 	# Date/Time when picked for Shipment

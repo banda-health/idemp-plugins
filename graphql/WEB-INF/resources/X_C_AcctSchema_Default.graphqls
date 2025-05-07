@@ -37,12 +37,6 @@ type C_AcctSchema_Default {
 	UU: ID!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	# Account for customer prepayments
-	C_Prepayment_A: C_ValidCombination!
-	# Account for Customer Receivables
-	C_Receivable_A: C_ValidCombination!
-	# Customer Accounts Receivables Services Account
-	C_Receivable_Services_A: C_ValidCombination
 	# Cash Book Asset Account
 	CB_Asset_A: C_ValidCombination
 	# Cash Transfer Clearing Account
@@ -55,10 +49,16 @@ type C_AcctSchema_Default {
 	CB_Receipt_A: C_ValidCombination
 	# Charge Account
 	Ch_Expense_A: C_ValidCombination!
+	# Account for customer prepayments
+	C_Prepayment_A: C_ValidCombination!
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Account for Customer Receivables
+	C_Receivable_A: C_ValidCombination!
+	# Customer Accounts Receivables Services Account
+	C_Receivable_Services_A: C_ValidCombination
 	# The record is active in the system
 	IsActive: Boolean!
 	# Account for not-invoiced Material Receipts
@@ -67,6 +67,10 @@ type C_AcctSchema_Default {
 	P_Asset_A: C_ValidCombination!
 	# Average Cost Variance
 	P_AverageCostVariance_A: C_ValidCombination
+	# Payment Discount Expense Account
+	PayDiscount_Exp_A: C_ValidCombination!
+	# Payment Discount Revenue Account
+	PayDiscount_Rev_A: C_ValidCombination!
 	# Account for Cost of Goods Sold
 	P_COGS_A: C_ValidCombination!
 	# Product Cost Adjustment Account
@@ -77,6 +81,10 @@ type C_AcctSchema_Default {
 	P_InventoryClearing_A: C_ValidCombination!
 	# Difference between Costs and Invoice Price (IPV)
 	P_InvoicePriceVariance_A: C_ValidCombination!
+	# Project Asset Account
+	PJ_Asset_A: C_ValidCombination!
+	# Account for Work in Progress
+	PJ_WIP_A: C_ValidCombination!
 	# Product Landed Cost Clearing Account
 	P_LandedCostClearing_A: C_ValidCombination
 	# Difference between Standard Cost and Purchase Price (PPV)
@@ -85,19 +93,11 @@ type C_AcctSchema_Default {
 	P_RateVariance_A: C_ValidCombination!
 	# Account for Product Revenue (Sales Account)
 	P_Revenue_A: C_ValidCombination!
+	Processing: Boolean!
 	# Trade Discount Granted Account
 	P_TradeDiscountGrant_A: C_ValidCombination!
 	# Trade Discount Receivable Account
 	P_TradeDiscountRec_A: C_ValidCombination!
-	# Payment Discount Expense Account
-	PayDiscount_Exp_A: C_ValidCombination!
-	# Payment Discount Revenue Account
-	PayDiscount_Rev_A: C_ValidCombination!
-	# Project Asset Account
-	PJ_Asset_A: C_ValidCombination!
-	# Account for Work in Progress
-	PJ_WIP_A: C_ValidCombination!
-	Processing: Boolean!
 	# Realized Gain Account
 	RealizedGain_A: C_ValidCombination!
 	# Realized Loss Account
@@ -148,12 +148,6 @@ input C_AcctSchema_DefaultInput {
 	UU: ID
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	# Account for customer prepayments
-	C_Prepayment_A: ForeignEntityInput
-	# Account for Customer Receivables
-	C_Receivable_A: ForeignEntityInput
-	# Customer Accounts Receivables Services Account
-	C_Receivable_Services_A: ForeignEntityInput
 	# Cash Book Asset Account
 	CB_Asset_A: ForeignEntityInput
 	# Cash Transfer Clearing Account
@@ -166,6 +160,12 @@ input C_AcctSchema_DefaultInput {
 	CB_Receipt_A: ForeignEntityInput
 	# Charge Account
 	Ch_Expense_A: ForeignEntityInput
+	# Account for customer prepayments
+	C_Prepayment_A: ForeignEntityInput
+	# Account for Customer Receivables
+	C_Receivable_A: ForeignEntityInput
+	# Customer Accounts Receivables Services Account
+	C_Receivable_Services_A: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Account for not-invoiced Material Receipts
@@ -174,6 +174,10 @@ input C_AcctSchema_DefaultInput {
 	P_Asset_A: ForeignEntityInput
 	# Average Cost Variance
 	P_AverageCostVariance_A: ForeignEntityInput
+	# Payment Discount Expense Account
+	PayDiscount_Exp_A: ForeignEntityInput
+	# Payment Discount Revenue Account
+	PayDiscount_Rev_A: ForeignEntityInput
 	# Account for Cost of Goods Sold
 	P_COGS_A: ForeignEntityInput
 	# Product Cost Adjustment Account
@@ -184,6 +188,10 @@ input C_AcctSchema_DefaultInput {
 	P_InventoryClearing_A: ForeignEntityInput
 	# Difference between Costs and Invoice Price (IPV)
 	P_InvoicePriceVariance_A: ForeignEntityInput
+	# Project Asset Account
+	PJ_Asset_A: ForeignEntityInput
+	# Account for Work in Progress
+	PJ_WIP_A: ForeignEntityInput
 	# Product Landed Cost Clearing Account
 	P_LandedCostClearing_A: ForeignEntityInput
 	# Difference between Standard Cost and Purchase Price (PPV)
@@ -192,19 +200,11 @@ input C_AcctSchema_DefaultInput {
 	P_RateVariance_A: ForeignEntityInput
 	# Account for Product Revenue (Sales Account)
 	P_Revenue_A: ForeignEntityInput
+	Processing: Boolean
 	# Trade Discount Granted Account
 	P_TradeDiscountGrant_A: ForeignEntityInput
 	# Trade Discount Receivable Account
 	P_TradeDiscountRec_A: ForeignEntityInput
-	# Payment Discount Expense Account
-	PayDiscount_Exp_A: ForeignEntityInput
-	# Payment Discount Revenue Account
-	PayDiscount_Rev_A: ForeignEntityInput
-	# Project Asset Account
-	PJ_Asset_A: ForeignEntityInput
-	# Account for Work in Progress
-	PJ_WIP_A: ForeignEntityInput
-	Processing: Boolean
 	# Realized Gain Account
 	RealizedGain_A: ForeignEntityInput
 	# Realized Loss Account

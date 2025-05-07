@@ -28,8 +28,8 @@ type HR_PayrollConcept {
 	# User who created this records
 	CreatedBy: AD_User!
 	HR_Concept: HR_Concept!
-	HR_Payroll: HR_Payroll!
 	UU: ID!
+	HR_Payroll: HR_Payroll!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Determines, if this field is displayed
@@ -53,8 +53,8 @@ input HR_PayrollConceptInput {
 	AD_Org: ForeignEntityInput
 	AD_Rule: ForeignEntityInput
 	HR_Concept: ForeignEntityInput
-	HR_Payroll: ForeignEntityInput
 	UU: ID
+	HR_Payroll: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Determines, if this field is displayed

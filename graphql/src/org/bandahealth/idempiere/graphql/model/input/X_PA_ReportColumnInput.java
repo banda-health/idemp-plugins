@@ -139,6 +139,45 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	}
 
 	/**
+	 * Set Calculation.
+	 *
+	 * @param CalculationType Calculation
+	 */
+	@JsonProperty("CalculationType")
+	public void setCalculationTypeInput(ForeignEntityInput CalculationType) {
+		this.mCalculationType = CalculationType;
+		if (CalculationType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_ReportColumnResolver.CALCULATIONTYPE_UUIDS_BY_VALUE.containsValue(CalculationType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + CalculationType.getUU() +
+						" is not in the list defined for the CalculationType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CalculationType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setCalculationType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CalculationType.getUU());
+			}
+		} else {
+			this.setCalculationType(null);
+		}
+	}
+
+	/**
+	 * Get Calculation.
+	 *
+	 * @return Calculation
+	 */
+	@JsonProperty("CalculationType")
+	public ForeignEntityInput CalculationType() {
+		return mCalculationType;
+	}
+
+	/**
 	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
@@ -309,6 +348,45 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	}
 
 	/**
+	 * Set Column Type.
+	 *
+	 * @param ColumnType Column Type
+	 */
+	@JsonProperty("ColumnType")
+	public void setColumnTypeInput(ForeignEntityInput ColumnType) {
+		this.mColumnType = ColumnType;
+		if (ColumnType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_PA_ReportColumnResolver.COLUMNTYPE_UUIDS_BY_VALUE.containsValue(ColumnType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + ColumnType.getUU() +
+						" is not in the list defined for the ColumnType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ColumnType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setColumnType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ColumnType.getUU());
+			}
+		} else {
+			this.setColumnType(null);
+		}
+	}
+
+	/**
+	 * Get Column Type.
+	 *
+	 * @return Column Type
+	 */
+	@JsonProperty("ColumnType")
+	public ForeignEntityInput ColumnType() {
+		return mColumnType;
+	}
+
+	/**
 	 * Set Project.
 	 *
 	 * @param C_Project Financial Project
@@ -374,84 +452,6 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	@JsonProperty("C_SalesRegion")
 	public ForeignEntityInput C_SalesRegion() {
 		return mC_SalesRegion;
-	}
-
-	/**
-	 * Set Calculation.
-	 *
-	 * @param CalculationType Calculation
-	 */
-	@JsonProperty("CalculationType")
-	public void setCalculationTypeInput(ForeignEntityInput CalculationType) {
-		this.mCalculationType = CalculationType;
-		if (CalculationType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_PA_ReportColumnResolver.CALCULATIONTYPE_UUIDS_BY_VALUE.containsValue(CalculationType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + CalculationType.getUU() +
-						" is not in the list defined for the CalculationType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CalculationType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setCalculationType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CalculationType.getUU());
-			}
-		} else {
-			this.setCalculationType(null);
-		}
-	}
-
-	/**
-	 * Get Calculation.
-	 *
-	 * @return Calculation
-	 */
-	@JsonProperty("CalculationType")
-	public ForeignEntityInput CalculationType() {
-		return mCalculationType;
-	}
-
-	/**
-	 * Set Column Type.
-	 *
-	 * @param ColumnType Column Type
-	 */
-	@JsonProperty("ColumnType")
-	public void setColumnTypeInput(ForeignEntityInput ColumnType) {
-		this.mColumnType = ColumnType;
-		if (ColumnType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_PA_ReportColumnResolver.COLUMNTYPE_UUIDS_BY_VALUE.containsValue(ColumnType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + ColumnType.getUU() +
-						" is not in the list defined for the ColumnType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ColumnType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setColumnType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ColumnType.getUU());
-			}
-		} else {
-			this.setColumnType(null);
-		}
-	}
-
-	/**
-	 * Get Column Type.
-	 *
-	 * @return Column Type
-	 */
-	@JsonProperty("ColumnType")
-	public ForeignEntityInput ColumnType() {
-		return mColumnType;
 	}
 
 	/**
@@ -706,72 +706,6 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	public ForeignEntityInput Oper_2() {
 		return mOper_2;
 	}
-	/**
-	 * Set Report Column.
-	 *
-	 * @param PA_ReportColumn_ID Column in Report
-	 */
-	@JsonProperty("PA_ReportColumn_ID")
-	public void setPA_ReportColumn_IDFromJson(int PA_ReportColumn_ID) {
-		if (get_ID() == 0) {
-			super.setPA_ReportColumn_ID(PA_ReportColumn_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setPA_ReportColumn_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getPA_ReportColumn_UU();
-	}
-
-	/**
-	 * Set Report Column Set.
-	 *
-	 * @param PA_ReportColumnSet Collection of Columns for Report
-	 */
-	@JsonProperty("PA_ReportColumnSet")
-	public void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet) {
-		this.mPA_ReportColumnSet = PA_ReportColumnSet;
-		if (!is_new()) {
-			return;
-		}
-		if (PA_ReportColumnSet != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MReportColumnSet foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "PA_ReportColumnSet", "PA_ReportColumnSet_UU=?", get_TrxName())
-							.setParameters(PA_ReportColumnSet.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setPA_ReportColumnSet_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table PA_ReportColumnSet with UU " + PA_ReportColumnSet.getUU());
-			}
-		} else {
-			this.setPA_ReportColumnSet_ID(0);
-		}
-	}
-
-	/**
-	 * Get Report Column Set.
-	 *
-	 * @return Collection of Columns for Report
-	 */
-	@JsonProperty("PA_ReportColumnSet")
-	public ForeignEntityInput PA_ReportColumnSet() {
-		return mPA_ReportColumnSet;
-	}
 
 	/**
 	 * Set Amount Type.
@@ -849,6 +783,72 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	@JsonProperty("PAPeriodType")
 	public ForeignEntityInput PAPeriodType() {
 		return mPAPeriodType;
+	}
+	/**
+	 * Set Report Column.
+	 *
+	 * @param PA_ReportColumn_ID Column in Report
+	 */
+	@JsonProperty("PA_ReportColumn_ID")
+	public void setPA_ReportColumn_IDFromJson(int PA_ReportColumn_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportColumn_ID(PA_ReportColumn_ID);
+		}
+	}
+
+	/**
+	 * Set Report Column Set.
+	 *
+	 * @param PA_ReportColumnSet Collection of Columns for Report
+	 */
+	@JsonProperty("PA_ReportColumnSet")
+	public void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet) {
+		this.mPA_ReportColumnSet = PA_ReportColumnSet;
+		if (!is_new()) {
+			return;
+		}
+		if (PA_ReportColumnSet != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReportColumnSet foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "PA_ReportColumnSet", "PA_ReportColumnSet_UU=?", get_TrxName())
+							.setParameters(PA_ReportColumnSet.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setPA_ReportColumnSet_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PA_ReportColumnSet with UU " + PA_ReportColumnSet.getUU());
+			}
+		} else {
+			this.setPA_ReportColumnSet_ID(0);
+		}
+	}
+
+	/**
+	 * Get Report Column Set.
+	 *
+	 * @return Collection of Columns for Report
+	 */
+	@JsonProperty("PA_ReportColumnSet")
+	public ForeignEntityInput PA_ReportColumnSet() {
+		return mPA_ReportColumnSet;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setPA_ReportColumn_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getPA_ReportColumn_UU();
 	}
 
 	/**

@@ -18,9 +18,9 @@ type AD_AlertConnection {
 }
 
 type AD_Alert {
-	UU: ID!
 	# Alert Processor/Server Parameter
 	AD_AlertProcessor: AD_AlertProcessor!
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -54,9 +54,9 @@ type AD_Alert {
 }
 
 input AD_AlertInput {
-	UU: ID
 	# Alert Processor/Server Parameter
 	AD_AlertProcessor: ForeignEntityInput
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Message of the Alert

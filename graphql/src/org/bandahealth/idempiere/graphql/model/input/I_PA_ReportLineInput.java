@@ -109,34 +109,6 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	ForeignEntityInput OverlineStrokeType();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
-	 * Set PA_ReportLineSet.
-	 *
-	 * @param PA_ReportLineSet PA_ReportLineSet
-	 */
-	void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet);
-
-	/**
-	 * Get PA_ReportLineSet.
-	 *
-	 * @return PA_ReportLineSet
-	 */
-	ForeignEntityInput PA_ReportLineSet();
-
-	/**
 	 * Set PAAmountType.
 	 *
 	 * @param PAAmountType PA Amount Type for reporting
@@ -163,6 +135,34 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 * @return PA Period Type
 	 */
 	ForeignEntityInput PAPeriodType();
+
+	/**
+	 * Set PA_ReportLineSet.
+	 *
+	 * @param PA_ReportLineSet PA_ReportLineSet
+	 */
+	void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet);
+
+	/**
+	 * Get PA_ReportLineSet.
+	 *
+	 * @return PA_ReportLineSet
+	 */
+	ForeignEntityInput PA_ReportLineSet();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set PostingType.

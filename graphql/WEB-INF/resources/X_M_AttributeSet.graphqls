@@ -53,14 +53,14 @@ type M_AttributeSet {
 	LotCharEOverwrite: String
 	# Lot/Batch Start Indicator overwrite - default «
 	LotCharSOverwrite: String
+	# The specification of a Product Attribute Instance is mandatory
+	MandatoryType: AD_Ref_List!
 	M_AttributeSet_Type: AD_Ref_List!
 	UU: ID!
 	# Product Lot Control
 	M_LotCtl: M_LotCtl
 	# Product Serial Number Control
 	M_SerNoCtl: M_SerNoCtl
-	# The specification of a Product Attribute Instance is mandatory
-	MandatoryType: AD_Ref_List!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Serial Number End Indicator overwrite - default empty
@@ -104,14 +104,14 @@ input M_AttributeSetInput {
 	LotCharEOverwrite: String
 	# Lot/Batch Start Indicator overwrite - default «
 	LotCharSOverwrite: String
+	# The specification of a Product Attribute Instance is mandatory
+	MandatoryType: ForeignEntityInput
 	M_AttributeSet_Type: ForeignEntityInput
 	UU: ID
 	# Product Lot Control
 	M_LotCtl: ForeignEntityInput
 	# Product Serial Number Control
 	M_SerNoCtl: ForeignEntityInput
-	# The specification of a Product Attribute Instance is mandatory
-	MandatoryType: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Serial Number End Indicator overwrite - default empty

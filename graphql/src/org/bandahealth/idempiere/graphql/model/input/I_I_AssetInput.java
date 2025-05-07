@@ -109,20 +109,6 @@ public interface I_I_AssetInput extends I_I_Asset {
 	ForeignEntityInput A_Depreciation_Table_Header();
 
 	/**
-	 * Set A_Reval_Cal_Method.
-	 *
-	 * @param A_Reval_Cal_Method A_Reval_Cal_Method
-	 */
-	void setA_Reval_Cal_MethodInput(ForeignEntityInput A_Reval_Cal_Method);
-
-	/**
-	 * Get A_Reval_Cal_Method.
-	 *
-	 * @return A_Reval_Cal_Method
-	 */
-	ForeignEntityInput A_Reval_Cal_Method();
-
-	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within tenant
@@ -135,6 +121,20 @@ public interface I_I_AssetInput extends I_I_Asset {
 	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set A_Reval_Cal_Method.
+	 *
+	 * @param A_Reval_Cal_Method A_Reval_Cal_Method
+	 */
+	void setA_Reval_Cal_MethodInput(ForeignEntityInput A_Reval_Cal_Method);
+
+	/**
+	 * Get A_Reval_Cal_Method.
+	 *
+	 * @return A_Reval_Cal_Method
+	 */
+	ForeignEntityInput A_Reval_Cal_Method();
 
 	/**
 	 * Set C_AcctSchema.

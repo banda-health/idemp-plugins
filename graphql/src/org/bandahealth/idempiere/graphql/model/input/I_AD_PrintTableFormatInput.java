@@ -53,20 +53,6 @@ public interface I_AD_PrintTableFormatInput extends I_AD_PrintTableFormat {
 	String getUU();
 
 	/**
-	 * Set Funct_PrintFont.
-	 *
-	 * @param Funct_PrintFont Function row Font
-	 */
-	void setFunct_PrintFontInput(ForeignEntityInput Funct_PrintFont);
-
-	/**
-	 * Get Funct_PrintFont.
-	 *
-	 * @return Function row Font
-	 */
-	ForeignEntityInput Funct_PrintFont();
-
-	/**
 	 * Set FunctBG_PrintColor.
 	 *
 	 * @param FunctBG_PrintColor Function Background Color
@@ -95,18 +81,18 @@ public interface I_AD_PrintTableFormatInput extends I_AD_PrintTableFormat {
 	ForeignEntityInput FunctFG_PrintColor();
 
 	/**
-	 * Set Hdr_PrintFont.
+	 * Set Funct_PrintFont.
 	 *
-	 * @param Hdr_PrintFont Header row Font
+	 * @param Funct_PrintFont Function row Font
 	 */
-	void setHdr_PrintFontInput(ForeignEntityInput Hdr_PrintFont);
+	void setFunct_PrintFontInput(ForeignEntityInput Funct_PrintFont);
 
 	/**
-	 * Get Hdr_PrintFont.
+	 * Get Funct_PrintFont.
 	 *
-	 * @return Header row Font
+	 * @return Function row Font
 	 */
-	ForeignEntityInput Hdr_PrintFont();
+	ForeignEntityInput Funct_PrintFont();
 
 	/**
 	 * Set HdrLine_PrintColor.
@@ -121,6 +107,20 @@ public interface I_AD_PrintTableFormatInput extends I_AD_PrintTableFormat {
 	 * @return Table header row line color
 	 */
 	ForeignEntityInput HdrLine_PrintColor();
+
+	/**
+	 * Set Hdr_PrintFont.
+	 *
+	 * @param Hdr_PrintFont Header row Font
+	 */
+	void setHdr_PrintFontInput(ForeignEntityInput Hdr_PrintFont);
+
+	/**
+	 * Get Hdr_PrintFont.
+	 *
+	 * @return Header row Font
+	 */
+	ForeignEntityInput Hdr_PrintFont();
 
 	/**
 	 * Set HdrStrokeType.

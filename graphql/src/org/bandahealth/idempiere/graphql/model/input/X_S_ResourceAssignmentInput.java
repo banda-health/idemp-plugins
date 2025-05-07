@@ -117,6 +117,35 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 			super.setQty(Qty);
 		}
 	}
+	/**
+	 * Set Resource Assignment.
+	 *
+	 * @param S_ResourceAssignment_ID Resource Assignment
+	 */
+	@JsonProperty("S_ResourceAssignment_ID")
+	public void setS_ResourceAssignment_IDFromJson(int S_ResourceAssignment_ID) {
+		if (get_ID() == 0) {
+			super.setS_ResourceAssignment_ID(S_ResourceAssignment_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setS_ResourceAssignment_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getS_ResourceAssignment_UU();
+	}
 
 	/**
 	 * Set Resource.
@@ -153,34 +182,5 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	@JsonProperty("S_Resource")
 	public ForeignEntityInput S_Resource() {
 		return mS_Resource;
-	}
-	/**
-	 * Set Resource Assignment.
-	 *
-	 * @param S_ResourceAssignment_ID Resource Assignment
-	 */
-	@JsonProperty("S_ResourceAssignment_ID")
-	public void setS_ResourceAssignment_IDFromJson(int S_ResourceAssignment_ID) {
-		if (get_ID() == 0) {
-			super.setS_ResourceAssignment_ID(S_ResourceAssignment_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setS_ResourceAssignment_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getS_ResourceAssignment_UU();
 	}
 }

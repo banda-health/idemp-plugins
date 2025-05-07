@@ -11,6 +11,20 @@ import org.compiere.model.I_A_RegistrationProduct;
 public interface I_A_RegistrationProductInput extends I_A_RegistrationProduct {
 
 	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
 	 * Set A_RegistrationAttribute.
 	 *
 	 * @param A_RegistrationAttribute Asset Registration Attribute
@@ -37,20 +51,6 @@ public interface I_A_RegistrationProductInput extends I_A_RegistrationProduct {
 	 * @return UU
 	 */
 	String getUU();
-
-	/**
-	 * Set AD_Org.
-	 *
-	 * @param AD_Org Organizational entity within tenant
-	 */
-	void setAD_OrgInput(ForeignEntityInput AD_Org);
-
-	/**
-	 * Get AD_Org.
-	 *
-	 * @return Organizational entity within tenant
-	 */
-	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set M_Product.

@@ -29,21 +29,21 @@ type HR_Movement {
 	Amount: BigDecimal
 	# Business Activity
 	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
 	# Bank Account of the Business Partner
 	C_BP_BankAccount: C_BP_BankAccount
 	# Business Partner Group
 	C_BP_Group: C_BP_Group
-	# Identifies a Business Partner
-	C_BPartner: C_BPartner
 	# Marketing Campaign
 	C_Campaign: C_Campaign
+	ColumnType: AD_Ref_List
 	# Financial Project
 	C_Project: C_Project
 	# Phase of a Project
 	C_ProjectPhase: C_ProjectPhase
 	# Actual Project Task in a Phase
 	C_ProjectTask: C_ProjectTask
-	ColumnType: AD_Ref_List
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -95,21 +95,21 @@ input HR_MovementInput {
 	Amount: BigDecimal
 	# Business Activity
 	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
 	# Bank Account of the Business Partner
 	C_BP_BankAccount: ForeignEntityInput
 	# Business Partner Group
 	C_BP_Group: ForeignEntityInput
-	# Identifies a Business Partner
-	C_BPartner: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
+	ColumnType: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Phase of a Project
 	C_ProjectPhase: ForeignEntityInput
 	# Actual Project Task in a Phase
 	C_ProjectTask: ForeignEntityInput
-	ColumnType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	HR_Concept_Category: ForeignEntityInput

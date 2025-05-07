@@ -47,6 +47,14 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 		return dataLoader.load(entity.getC_Dunning_ID());
 	}
 
+	public Boolean ChargeFee(MDunningLevel entity, DataFetchingEnvironment environment) {
+		return entity.isChargeFee();
+	}
+
+	public Boolean ChargeInterest(MDunningLevel entity, DataFetchingEnvironment environment) {
+		return entity.isChargeInterest();
+	}
+
 
 	/**
 	 * Get Payment Term.
@@ -60,14 +68,6 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 		DataLoader<Integer, MPaymentTerm> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentTermDataLoader.DATALOADER_C_PaymentTerm_BY_ID);
 		return dataLoader.load(entity.getC_PaymentTerm_ID());
-	}
-
-	public Boolean ChargeFee(MDunningLevel entity, DataFetchingEnvironment environment) {
-		return entity.isChargeFee();
-	}
-
-	public Boolean ChargeInterest(MDunningLevel entity, DataFetchingEnvironment environment) {
-		return entity.isChargeInterest();
 	}
 
 

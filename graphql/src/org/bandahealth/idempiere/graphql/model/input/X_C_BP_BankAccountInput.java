@@ -230,35 +230,6 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	public ForeignEntityInput C_Bank() {
 		return mC_Bank;
 	}
-	/**
-	 * Set Partner Bank Account.
-	 *
-	 * @param C_BP_BankAccount_ID Bank Account of the Business Partner
-	 */
-	@JsonProperty("C_BP_BankAccount_ID")
-	public void setC_BP_BankAccount_IDFromJson(int C_BP_BankAccount_ID) {
-		if (get_ID() == 0) {
-			super.setC_BP_BankAccount_ID(C_BP_BankAccount_ID);
-		}
-	}
-
-	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	public void setUU(String UU) {
-		setC_BP_BankAccount_UU(UU);
-	}
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	public String getUU() {
-		return getC_BP_BankAccount_UU();
-	}
 
 	/**
 	 * Set Business Partner.
@@ -295,6 +266,35 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
+	}
+	/**
+	 * Set Partner Bank Account.
+	 *
+	 * @param C_BP_BankAccount_ID Bank Account of the Business Partner
+	 */
+	@JsonProperty("C_BP_BankAccount_ID")
+	public void setC_BP_BankAccount_IDFromJson(int C_BP_BankAccount_ID) {
+		if (get_ID() == 0) {
+			super.setC_BP_BankAccount_ID(C_BP_BankAccount_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setC_BP_BankAccount_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getC_BP_BankAccount_UU();
 	}
 
 	/**

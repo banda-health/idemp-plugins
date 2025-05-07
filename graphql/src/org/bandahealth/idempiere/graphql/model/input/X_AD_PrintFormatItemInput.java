@@ -228,6 +228,40 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	}
 
 	/**
+	 * Set Included Print Format.
+	 *
+	 * @param AD_PrintFormatChild Print format that is included here.
+	 */
+	@JsonProperty("AD_PrintFormatChild")
+	public void setAD_PrintFormatChildInput(ForeignEntityInput AD_PrintFormatChild) {
+		this.mAD_PrintFormatChild = AD_PrintFormatChild;
+		if (AD_PrintFormatChild != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(AD_PrintFormatChild.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setAD_PrintFormatChild_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UU " + AD_PrintFormatChild.getUU());
+			}
+		} else {
+			this.setAD_PrintFormatChild_ID(0);
+		}
+	}
+
+	/**
+	 * Get Included Print Format.
+	 *
+	 * @return Print format that is included here.
+	 */
+	@JsonProperty("AD_PrintFormatChild")
+	public ForeignEntityInput AD_PrintFormatChild() {
+		return mAD_PrintFormatChild;
+	}
+
+	/**
 	 * Set Print Format.
 	 *
 	 * @param AD_PrintFormat Data Print Format
@@ -262,40 +296,6 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("AD_PrintFormat")
 	public ForeignEntityInput AD_PrintFormat() {
 		return mAD_PrintFormat;
-	}
-
-	/**
-	 * Set Included Print Format.
-	 *
-	 * @param AD_PrintFormatChild Print format that is included here.
-	 */
-	@JsonProperty("AD_PrintFormatChild")
-	public void setAD_PrintFormatChildInput(ForeignEntityInput AD_PrintFormatChild) {
-		this.mAD_PrintFormatChild = AD_PrintFormatChild;
-		if (AD_PrintFormatChild != null) {
-			// Since an entity was passed, make sure it's in the DB
-			X_AD_PrintFormat foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormatChild.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setAD_PrintFormatChild_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFormat with UU " + AD_PrintFormatChild.getUU());
-			}
-		} else {
-			this.setAD_PrintFormatChild_ID(0);
-		}
-	}
-
-	/**
-	 * Get Included Print Format.
-	 *
-	 * @return Print format that is included here.
-	 */
-	@JsonProperty("AD_PrintFormatChild")
-	public ForeignEntityInput AD_PrintFormatChild() {
-		return mAD_PrintFormatChild;
 	}
 	/**
 	 * Set Print Format Item.

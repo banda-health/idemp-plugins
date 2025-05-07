@@ -123,20 +123,6 @@ public interface I_M_RMAInput extends I_M_RMA {
 	ForeignEntityInput InOut();
 
 	/**
-	 * Set UU.
-	 *
-	 * @param UU UU
-	 */
-	void setUU(String UU);
-
-	/**
-	 * Get UU.
-	 *
-	 * @return UU
-	 */
-	String getUU();
-
-	/**
 	 * Set M_RMAType.
 	 *
 	 * @param M_RMAType Return Material Authorization Type
@@ -149,6 +135,20 @@ public interface I_M_RMAInput extends I_M_RMA {
 	 * @return Return Material Authorization Type
 	 */
 	ForeignEntityInput M_RMAType();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
 
 	/**
 	 * Set Ref_RMA.

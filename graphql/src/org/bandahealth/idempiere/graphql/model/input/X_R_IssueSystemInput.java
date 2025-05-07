@@ -7,9 +7,9 @@ import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.resolver.model.X_R_IssueSystemResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
+import org.compiere.model.MIssueSystem;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_R_IssueSystem;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_R_IssueSystemInput extends X_R_IssueSystem implements I_R_IssueSystemInput {
+public class X_R_IssueSystemInput extends MIssueSystem implements I_R_IssueSystemInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mA_Asset;
