@@ -23,7 +23,7 @@ type BH_BPartner_Tags {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UU: ID!
-	BH_Tags: BH_Tags!
+	BH_Tag: BH_Tag!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Date this record was created
@@ -42,7 +42,7 @@ input BH_BPartner_TagsInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UU: ID
-	BH_Tags: ForeignEntityInput
+	BH_Tag: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# The record is active in the system

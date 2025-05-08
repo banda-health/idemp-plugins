@@ -1,5 +1,5 @@
 package org.bandahealth.idempiere.graphql.resolver.query;
 
-public class MBHTagsQuery extends X_BH_TagsQuery {
+public class MBHTagQuery extends X_BH_TagQuery {
     
 }

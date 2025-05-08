@@ -3,8 +3,6 @@ import {
 	Ad_OrgInfoGetDocument,
 	Ad_ProcessRunAndExportDocument,
 	Ad_Ref_ListGetDocument,
-	Bh_TagsGetDocument,
-	Bh_TagsSaveDocument,
 	Bh_VisitGetDocument,
 	Bh_VisitSaveDocument,
 	C_BankAccountGetDocument,
@@ -906,36 +904,4 @@ export async function getBankAccountOfOrganization(valueObject: ValueObject) {
 			},
 		})
 	).data.C_BankAccountGet.Results[0];
-}
-
-/**
- * Create a tag
- *
- * @param valueObject The value object used to store all information
- */
-export async function createTag(valueObject: ValueObject) {
-	valueObject.validate();
-	if (valueObject.isError) {
-		return null;
-	}
-	const tagUU = v4();
-	await mutate(valueObject)({
-		mutation: Bh_TagsSaveDocument,
-		variables: {
-			Entity: {
-				AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
-				BH_ColourCode: '#aaaaa',
-				Description: valueObject.getStepMessageLong(),
-				IsActive: true,
-				Name: valueObject.random + valueObject.getStepMessageLong(),
-				UU: tagUU,
-			},
-		},
-	});
-	valueObject.patientTag = (
-		await query(valueObject)({
-			query: Bh_TagsGetDocument,
-			variables: { Filter: JSON.stringify({ bh_tags_uu: tagUU }) },
-		})
-	).data.BH_TagsGet.Results[0];
 }

@@ -21,16 +21,16 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Tags
+/** Generated Interface for BH_Tag
  *  @author iDempiere (generated) 
  *  @version Release 12
  */
 @SuppressWarnings("all")
-public interface I_BH_Tags 
+public interface I_BH_Tag 
 {
 
-    /** TableName=BH_Tags */
-    public static final String Table_Name = "BH_Tags";
+    /** TableName=BH_Tag */
+    public static final String Table_Name = "BH_Tag";
 
     /** AD_Table_ID=1000068 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
@@ -73,23 +73,23 @@ public interface I_BH_Tags
 	/** Get ColourCode	  */
 	public String getBH_ColourCode();
 
-    /** Column name BH_Tags_ID */
-    public static final String COLUMNNAME_BH_Tags_ID = "BH_Tags_ID";
+    /** Column name BH_Tag_ID */
+    public static final String COLUMNNAME_BH_Tag_ID = "BH_Tag_ID";
 
-	/** Set BH Tags	  */
-	public void setBH_Tags_ID (int BH_Tags_ID);
+	/** Set BH Tag	  */
+	public void setBH_Tag_ID (int BH_Tag_ID);
 
-	/** Get BH Tags	  */
-	public int getBH_Tags_ID();
+	/** Get BH Tag	  */
+	public int getBH_Tag_ID();
 
-    /** Column name BH_Tags_UU */
-    public static final String COLUMNNAME_BH_Tags_UU = "BH_Tags_UU";
+    /** Column name BH_Tag_UU */
+    public static final String COLUMNNAME_BH_Tag_UU = "BH_Tag_UU";
 
-	/** Set BH_Tags_UU	  */
-	public void setBH_Tags_UU (String BH_Tags_UU);
+	/** Set BH_Tag_UU	  */
+	public void setBH_Tag_UU (String BH_Tag_UU);
 
-	/** Get BH_Tags_UU	  */
-	public String getBH_Tags_UU();
+	/** Get BH_Tag_UU	  */
+	public String getBH_Tag_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

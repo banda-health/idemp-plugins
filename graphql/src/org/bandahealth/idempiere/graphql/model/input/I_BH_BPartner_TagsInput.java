@@ -39,18 +39,18 @@ public interface I_BH_BPartner_TagsInput extends I_BH_BPartner_Tags {
 	String getUU();
 
 	/**
-	 * Set BH_Tags.
+	 * Set BH_Tag.
 	 *
-	 * @param BH_Tags BH_Tags
+	 * @param BH_Tag BH_Tag
 	 */
-	void setBH_TagsInput(ForeignEntityInput BH_Tags);
+	void setBH_TagInput(ForeignEntityInput BH_Tag);
 
 	/**
-	 * Get BH_Tags.
+	 * Get BH_Tag.
 	 *
-	 * @return BH_Tags
+	 * @return BH_Tag
 	 */
-	ForeignEntityInput BH_Tags();
+	ForeignEntityInput BH_Tag();
 
 	/**
 	 * Set C_BPartner.

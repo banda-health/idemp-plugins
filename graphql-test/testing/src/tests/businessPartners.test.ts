@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 import {
 	Bh_BPartner_TagsSaveDocument,
+	Bh_TagSaveDocument,
 	Bh_VisitProcessDocument,
 	C_BPartnerDocument,
 	C_BPartnerGetDocument,
@@ -21,7 +22,6 @@ import {
 	createOrder,
 	createPayment,
 	createProduct,
-	createTag,
 	createVisit,
 	formatApiDate,
 } from '../utils';
@@ -553,28 +553,43 @@ test('business partner be assigned a tag', async () => {
 	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create a tag';
-	await createTag(valueObject);
+	const tagUU = v4();
+	await mutate(valueObject)({
+		mutation: Bh_TagSaveDocument,
+		variables: {
+			Entity: {
+				AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
+				BH_ColourCode: '#aaaaa',
+				Description: valueObject.getStepMessageLong(),
+				IsActive: true,
+				Name: valueObject.random + valueObject.getStepMessageLong(),
+				UU: tagUU,
+			},
+		},
+	});
 
 	valueObject.stepName = 'Assign BP Tag';
-	let businessPartner = valueObject.businessPartner;
-	const bpartnerTagUU = v4();
+	const businessPartnerTagUU = v4();
 	await mutate(valueObject)({
 		mutation: Bh_BPartner_TagsSaveDocument,
 		variables: {
 			Entity: {
 				AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
-				BH_Tags: valueObject.patientTag ? { UU: valueObject.patientTag.UU } : undefined,
+				BH_Tag: { UU: tagUU },
 				C_BPartner: valueObject.businessPartner ? { UU: valueObject.businessPartner.UU } : undefined,
 				IsActive: true,
-				UU: bpartnerTagUU,
+				UU: businessPartnerTagUU,
 			},
 		},
 	});
 
-	businessPartner = (await query(valueObject)({ query: C_BPartnerDocument, variables: { UU: businessPartner?.UU! } }))
-		.data.C_BPartner!;
+	const businessPartner = (
+		await query(valueObject)({ query: C_BPartnerDocument, variables: { UU: valueObject.businessPartner!.UU! } })
+	).data.C_BPartner!;
 
 	expect(businessPartner).toBeTruthy();
 	expect(businessPartner.BH_BPartner_Tags).toBeTruthy();
 	expect(businessPartner.BH_BPartner_Tags).toHaveLength(1);
+	expect(businessPartner.BH_BPartner_Tags![0].UU).toBe(businessPartnerTagUU);
+	expect(businessPartner.BH_BPartner_Tags![0].BH_Tag.UU).toBe(tagUU);
 });

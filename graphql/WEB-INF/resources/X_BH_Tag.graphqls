@@ -1,23 +1,23 @@
-# Generated Schema for BH_Tags - DO NOT CHANGE
+# Generated Schema for BH_Tag - DO NOT CHANGE
 #		@author Banda Health (generated) 
 #		@version Release 12 - $Id$
 extend type Query {
-	BH_Tags(UU: String!): BH_Tags
-	BH_TagsGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_TagsConnection!
+	BH_Tag(UU: String!): BH_Tag
+	BH_TagGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_TagConnection!
 }
 
 extend type Mutation {
-	BH_TagsSave(Entity: BH_TagsInput!): BH_Tags!
-	BH_TagsSaveMany(Entities: [BH_TagsInput!]!): [BH_Tags!]!
-	BH_TagsDelete(UUs: [String!]!): Boolean!
+	BH_TagSave(Entity: BH_TagInput!): BH_Tag!
+	BH_TagSaveMany(Entities: [BH_TagInput!]!): [BH_Tag!]!
+	BH_TagDelete(UUs: [String!]!): Boolean!
 }
 
-type BH_TagsConnection {
-	Results: [BH_Tags!]!
+type BH_TagConnection {
+	Results: [BH_Tag!]!
 	PagingInfo: PagingInfo!
 }
 
-type BH_Tags {
+type BH_Tag {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -40,7 +40,7 @@ type BH_Tags {
 	UpdatedBy: AD_User!
 }
 
-input BH_TagsInput {
+input BH_TagInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BH_ColourCode: String

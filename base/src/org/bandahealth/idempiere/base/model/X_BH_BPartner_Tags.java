@@ -31,7 +31,7 @@ public class X_BH_BPartner_Tags extends PO implements I_BH_BPartner_Tags, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20250507L;
+	private static final long serialVersionUID = 20250508L;
 
     /** Standard Constructor */
     public X_BH_BPartner_Tags (Properties ctx, int BH_BPartner_Tags_ID, String trxName)
@@ -39,7 +39,7 @@ public class X_BH_BPartner_Tags extends PO implements I_BH_BPartner_Tags, I_Pers
       super (ctx, BH_BPartner_Tags_ID, trxName);
       /** if (BH_BPartner_Tags_ID == 0)
         {
-			setBH_Tags_ID (0);
+			setBH_Tag_ID (0);
 			setC_BPartner_ID (0);
         } */
     }
@@ -50,7 +50,7 @@ public class X_BH_BPartner_Tags extends PO implements I_BH_BPartner_Tags, I_Pers
       super (ctx, BH_BPartner_Tags_ID, trxName, virtualColumns);
       /** if (BH_BPartner_Tags_ID == 0)
         {
-			setBH_Tags_ID (0);
+			setBH_Tag_ID (0);
 			setC_BPartner_ID (0);
         } */
     }
@@ -61,7 +61,7 @@ public class X_BH_BPartner_Tags extends PO implements I_BH_BPartner_Tags, I_Pers
       super (ctx, BH_BPartner_Tags_UU, trxName);
       /** if (BH_BPartner_Tags_UU == null)
         {
-			setBH_Tags_ID (0);
+			setBH_Tag_ID (0);
 			setC_BPartner_ID (0);
         } */
     }
@@ -72,7 +72,7 @@ public class X_BH_BPartner_Tags extends PO implements I_BH_BPartner_Tags, I_Pers
       super (ctx, BH_BPartner_Tags_UU, trxName, virtualColumns);
       /** if (BH_BPartner_Tags_UU == null)
         {
-			setBH_Tags_ID (0);
+			setBH_Tag_ID (0);
 			setC_BPartner_ID (0);
         } */
     }
@@ -120,28 +120,28 @@ public class X_BH_BPartner_Tags extends PO implements I_BH_BPartner_Tags, I_Pers
 		return (String)get_Value(COLUMNNAME_BH_BPartner_Tags_UU);
 	}
 
-	public I_BH_Tags getBH_Tags() throws RuntimeException
+	public I_BH_Tag getBH_Tag() throws RuntimeException
 	{
-		return (I_BH_Tags)MTable.get(getCtx(), I_BH_Tags.Table_ID)
-			.getPO(getBH_Tags_ID(), get_TrxName());
+		return (I_BH_Tag)MTable.get(getCtx(), I_BH_Tag.Table_ID)
+			.getPO(getBH_Tag_ID(), get_TrxName());
 	}
 
-	/** Set BH Tags.
-		@param BH_Tags_ID BH Tags
+	/** Set BH Tag.
+		@param BH_Tag_ID BH Tag
 	*/
-	public void setBH_Tags_ID (int BH_Tags_ID)
+	public void setBH_Tag_ID (int BH_Tag_ID)
 	{
-		if (BH_Tags_ID < 1)
-			set_ValueNoCheck (COLUMNNAME_BH_Tags_ID, null);
+		if (BH_Tag_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_BH_Tag_ID, null);
 		else
-			set_ValueNoCheck (COLUMNNAME_BH_Tags_ID, Integer.valueOf(BH_Tags_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Tag_ID, Integer.valueOf(BH_Tag_ID));
 	}
 
-	/** Get BH Tags.
-		@return BH Tags	  */
-	public int getBH_Tags_ID()
+	/** Get BH Tag.
+		@return BH Tag	  */
+	public int getBH_Tag_ID()
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Tags_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Tag_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

@@ -1,14 +1,14 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.I_BH_Tags;
+import org.bandahealth.idempiere.base.model.I_BH_Tag;
 
 /**
- * Generated Interface for BH_Tags - DO NOT CHANGE
+ * Generated Interface for BH_Tag - DO NOT CHANGE
  *
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public interface I_BH_TagsInput extends I_BH_Tags {
+public interface I_BH_TagInput extends I_BH_Tag {
 
 	/**
 	 * Set AD_Org.

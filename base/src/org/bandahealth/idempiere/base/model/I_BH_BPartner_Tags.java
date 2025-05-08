@@ -32,7 +32,7 @@ public interface I_BH_BPartner_Tags
     /** TableName=BH_BPartner_Tags */
     public static final String Table_Name = "BH_BPartner_Tags";
 
-    /** AD_Table_ID=1000069 */
+    /** AD_Table_ID=1000067 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -73,16 +73,16 @@ public interface I_BH_BPartner_Tags
 	/** Get BH_BPartner_Tags_UU	  */
 	public String getBH_BPartner_Tags_UU();
 
-    /** Column name BH_Tags_ID */
-    public static final String COLUMNNAME_BH_Tags_ID = "BH_Tags_ID";
+    /** Column name BH_Tag_ID */
+    public static final String COLUMNNAME_BH_Tag_ID = "BH_Tag_ID";
 
-	/** Set BH Tags	  */
-	public void setBH_Tags_ID (int BH_Tags_ID);
+	/** Set BH Tag	  */
+	public void setBH_Tag_ID (int BH_Tag_ID);
 
-	/** Get BH Tags	  */
-	public int getBH_Tags_ID();
+	/** Get BH Tag	  */
+	public int getBH_Tag_ID();
 
-	public I_BH_Tags getBH_Tags() throws RuntimeException;
+	public I_BH_Tag getBH_Tag() throws RuntimeException;
 
     /** Column name C_BPartner_ID */
     public static final String COLUMNNAME_C_BPartner_ID = "C_BPartner_ID";

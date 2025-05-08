@@ -220,14 +220,14 @@ mutation BH_ObservationsDeleteAndSaveManyAndEncounterDiagnosesSaveMany(
 	}
 }
 
-mutation BH_TagsSave($Entity: BH_TagsInput!){
-	BH_TagsSave(Entity: $Entity) {
+mutation BH_TagSave($Entity: BH_TagInput!){
+	BH_TagSave(Entity: $Entity) {
 		UU
 	}
 }
 
-mutation BH_TagsDelete($UUs: [String!]!){
-	BH_TagsDelete(UUs: $UUs)
+mutation BH_TagDelete($UUs: [String!]!){
+	BH_TagDelete(UUs: $UUs)
 }
 
 mutation BH_VisitDeleteAll(

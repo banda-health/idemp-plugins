@@ -1,13 +1,7 @@
-import { mutate, query } from '../api';
-import { LoginInfo } from '../types/global';
-import { RoleName } from '../types/roleName';
-import { getDateOffset } from '../utils';
 import {
 	Ad_Ref_ListGetQuery,
 	Ad_RoleGetWindowAccessDocument,
 	Bh_VisitGetQuery,
-	ChangeAccessDocument,
-	ChangeAccessMutationVariables,
 	C_AcctSchemaGetQuery,
 	C_BankAccountGetQuery,
 	C_BPartnerGetQuery,
@@ -21,14 +15,19 @@ import {
 	C_OrderGetQuery,
 	C_OrderSaveWithOrderLinesMutation,
 	C_PaymentSaveMutation,
+	ChangeAccessDocument,
+	ChangeAccessMutationVariables,
 	M_AttributeSetInstanceSaveMutation,
 	M_InventorySaveWithInventoryLinesMutation,
 	M_PriceListSaveMutation,
 	M_ProductSaveMutation,
 	ProcessInfoParameterInput,
 	ReportOutput,
-	Bh_TagsGetQuery,
 } from '../__generated__/graphql';
+import { mutate, query } from '../api';
+import { LoginInfo } from '../types/global';
+import { RoleName } from '../types/roleName';
+import { getDateOffset } from '../utils';
 import { documentAction } from './documentEngine';
 
 export class ValueObject {
@@ -78,7 +77,6 @@ export class ValueObject {
 	tenderType?: Ad_Ref_ListGetQuery['AD_Ref_ListGet']['Results'][0];
 	paymentAmount?: number;
 	bankAccount?: C_BankAccountGetQuery['C_BankAccountGet']['Results'][0];
-	patientTag?: Bh_TagsGetQuery['BH_TagsGet']['Results']['0']
 	// MBankStatement m_bs = null;
 	// MBankStatementLine m_bsLine = null;
 	random: number = 0;

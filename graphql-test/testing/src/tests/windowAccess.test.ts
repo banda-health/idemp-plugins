@@ -166,7 +166,7 @@ test('admin role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeDefined();
 	expect(windowAccess?.[windowUuid.allergies]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 });
 
@@ -297,7 +297,7 @@ test('clinic admin role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeDefined();
 	expect(windowAccess?.[windowUuid.allergies]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 });
 
@@ -428,8 +428,8 @@ test('cashier/registration basic role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.allergies]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
+	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 });
 
 test('cashier/registration basic plus role has correct access', async () => {
@@ -559,8 +559,8 @@ test('cashier/registration basic plus role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.allergies]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
+	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 });
 
 test('cashier/registration advanced role has correct access', async () => {
@@ -690,8 +690,8 @@ test('cashier/registration advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.allergies]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
+	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 });
 
 test('inventory/pharmacy advanced role has correct access', async () => {
@@ -821,7 +821,7 @@ test('inventory/pharmacy advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.allergies]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 });
 
@@ -951,7 +951,7 @@ test('inventory/pharmacy basic role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.allergies]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
 });
@@ -1083,8 +1083,8 @@ test('clinician/nurse basic role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeDefined();
 	expect(windowAccess?.[windowUuid.allergies]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
+	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 });
 
 test('clinician/nurse advanced role has correct access', async () => {
@@ -1214,8 +1214,8 @@ test('clinician/nurse advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeDefined();
 	expect(windowAccess?.[windowUuid.allergies]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
+	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
 });
 
@@ -1477,7 +1477,7 @@ test('lab/radiology advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeDefined();
 	expect(windowAccess?.[windowUuid.allergies]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 });
 
@@ -1608,7 +1608,7 @@ test('lab/radiology basic role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeDefined();
 	expect(windowAccess?.[windowUuid.allergies]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 });
 
@@ -1870,6 +1870,6 @@ test('clinic user role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeDefined();
 	expect(windowAccess?.[windowUuid.allergies]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
+	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 });

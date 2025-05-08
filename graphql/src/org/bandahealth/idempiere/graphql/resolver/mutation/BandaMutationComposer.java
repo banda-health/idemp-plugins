@@ -100,7 +100,7 @@ public class BandaMutationComposer {
 				new MBHPaymentRefMutation(),
 				new MBHProductCategoryDefaultMutation(),
 				new MBHProductIncludedMutation(),
-				new MBHTagsMutation(),
+				new MBHTagMutation(),
 				new MBHVisitMutation(),
 				new MBHVoidedReasonMutation(),
 				new MBHWarehouseAccessMutation(),

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHBPartnerTags;
-import org.bandahealth.idempiere.base.model.MBHTags;
+import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
@@ -22,7 +22,7 @@ import java.sql.ResultSet;
 public class X_BH_BPartner_TagsInput extends MBHBPartnerTags implements I_BH_BPartner_TagsInput {
 
 	private ForeignEntityInput mAD_Org;
-	private ForeignEntityInput mBH_Tags;
+	private ForeignEntityInput mBH_Tag;
 	private ForeignEntityInput mC_BPartner;
 
 	/**
@@ -93,40 +93,40 @@ public class X_BH_BPartner_TagsInput extends MBHBPartnerTags implements I_BH_BPa
 	}
 
 	/**
-	 * Set BH Tags.
+	 * Set BH Tag.
 	 *
-	 * @param BH_Tags BH Tags
+	 * @param BH_Tag BH Tag
 	 */
-	@JsonProperty("BH_Tags")
-	public void setBH_TagsInput(ForeignEntityInput BH_Tags) {
-		this.mBH_Tags = BH_Tags;
+	@JsonProperty("BH_Tag")
+	public void setBH_TagInput(ForeignEntityInput BH_Tag) {
+		this.mBH_Tag = BH_Tag;
 		if (!is_new()) {
 			return;
 		}
-		if (BH_Tags != null) {
+		if (BH_Tag != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MBHTags foreignEntity;
+			MBHTag foreignEntity;
 			if ((foreignEntity =
-					new Query(getCtx(), "BH_Tags", "BH_Tags_UU=?", get_TrxName())
-							.setParameters(BH_Tags.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setBH_Tags_ID(foreignEntity.get_ID());
+					new Query(getCtx(), "BH_Tag", "BH_Tag_UU=?", get_TrxName())
+							.setParameters(BH_Tag.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setBH_Tag_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table BH_Tags with UU " + BH_Tags.getUU());
+						"Could not find entity in table BH_Tag with UU " + BH_Tag.getUU());
 			}
 		} else {
-			this.setBH_Tags_ID(0);
+			this.setBH_Tag_ID(0);
 		}
 	}
 
 	/**
-	 * Get BH Tags.
+	 * Get BH Tag.
 	 *
-	 * @return BH Tags
+	 * @return BH Tag
 	 */
-	@JsonProperty("BH_Tags")
-	public ForeignEntityInput BH_Tags() {
-		return mBH_Tags;
+	@JsonProperty("BH_Tag")
+	public ForeignEntityInput BH_Tag() {
+		return mBH_Tag;
 	}
 
 	/**

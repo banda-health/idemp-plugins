@@ -3,9 +3,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBHBPartnerTags;
-import org.bandahealth.idempiere.base.model.MBHTags;
+import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_TagsDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_TagDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.dataloader.DataLoader;
 
@@ -22,17 +22,17 @@ public class X_BH_BPartner_TagsResolver extends POResolver<MBHBPartnerTags> impl
 
 
 	/**
-	 * Get BH Tags.
+	 * Get BH Tag.
 	 *
-	 * @return BH Tags
+	 * @return BH Tag
 	 */
-	public CompletableFuture<MBHTags> BH_Tags(MBHBPartnerTags entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Tags_ID() < 1) {
+	public CompletableFuture<MBHTag> BH_Tag(MBHBPartnerTags entity, DataFetchingEnvironment environment) {
+		if (entity.getBH_Tag_ID() < 1) {
 			return null;
 		}
-		DataLoader<Integer, MBHTags> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_TagsDataLoader.DATALOADER_BH_Tags_BY_ID);
-		return dataLoader.load(entity.getBH_Tags_ID());
+		DataLoader<Integer, MBHTag> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_TagDataLoader.DATALOADER_BH_Tag_BY_ID);
+		return dataLoader.load(entity.getBH_Tag_ID());
 	}
 
 

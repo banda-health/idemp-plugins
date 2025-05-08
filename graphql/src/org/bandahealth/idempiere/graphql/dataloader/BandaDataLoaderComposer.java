@@ -109,7 +109,7 @@ public class BandaDataLoaderComposer {
 				new MBHPaymentRefDataLoader(),
 				new MBHProductCategoryDefaultDataLoader(),
 				new MBHProductIncludedDataLoader(),
-				new MBHTagsDataLoader(),
+				new MBHTagDataLoader(),
 				new MBHVisitDataLoader(),
 				new MBHVoidedReasonDataLoader(),
 				new MBHWarehouseAccessDataLoader(),

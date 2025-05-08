@@ -3,7 +3,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MBHTags;
+import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -12,12 +12,12 @@ import org.compiere.util.Env;
 import java.sql.ResultSet;
 
 /**
- * Generated Model for BH_Tags - DO NOT CHANGE
+ * Generated Model for BH_Tag - DO NOT CHANGE
  *
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_BH_TagsInput extends MBHTags implements I_BH_TagsInput {
+public class X_BH_TagInput extends MBHTag implements I_BH_TagInput {
 
 	private ForeignEntityInput mAD_Org;
 
@@ -25,10 +25,10 @@ public class X_BH_TagsInput extends MBHTags implements I_BH_TagsInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UU The BH_Tags_UU to fetch this entity from the DB
+	 * @param UU The BH_Tag_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_TagsInput(@JsonProperty("UU") String UU) {
+	public X_BH_TagInput(@JsonProperty("UU") String UU) {
 		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
 		setUU(UU);
 	}
@@ -70,14 +70,14 @@ public class X_BH_TagsInput extends MBHTags implements I_BH_TagsInput {
 		return mAD_Org;
 	}
 	/**
-	 * Set BH Tags.
+	 * Set BH Tag.
 	 *
-	 * @param BH_Tags_ID BH Tags
+	 * @param BH_Tag_ID BH Tag
 	 */
-	@JsonProperty("BH_Tags_ID")
-	public void setBH_Tags_IDFromJson(int BH_Tags_ID) {
+	@JsonProperty("BH_Tag_ID")
+	public void setBH_Tag_IDFromJson(int BH_Tag_ID) {
 		if (get_ID() == 0) {
-			super.setBH_Tags_ID(BH_Tags_ID);
+			super.setBH_Tag_ID(BH_Tag_ID);
 		}
 	}
 
@@ -87,7 +87,7 @@ public class X_BH_TagsInput extends MBHTags implements I_BH_TagsInput {
 	 * @param UU UU
 	 */
 	public void setUU(String UU) {
-		setBH_Tags_UU(UU);
+		setBH_Tag_UU(UU);
 	}
 
 	/**
@@ -96,6 +96,6 @@ public class X_BH_TagsInput extends MBHTags implements I_BH_TagsInput {
 	 * @return UU
 	 */
 	public String getUU() {
-		return getBH_Tags_UU();
+		return getBH_Tag_UU();
 	}
 }

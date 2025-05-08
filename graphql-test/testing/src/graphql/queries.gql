@@ -340,15 +340,15 @@ query BH_Payer_Info_Fld_SugGet($Page: Int, $Size: Int, $Sort: String, $Filter: S
 }
 
 
-query BH_Tags($UU: String!) {
-	BH_Tags(UU: $UU){
+query BH_Tag($UU: String!) {
+	BH_Tag(UU: $UU){
 		UU
 	}
 	
 }
 
-query BH_TagsGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
-	BH_TagsGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+query BH_TagGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_TagGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			UU
 		}
@@ -425,6 +425,9 @@ query C_BPartner($UU: String!) {
 			UU
 		}
 		BH_BPartner_Tags {
+			BH_Tag {
+				UU
+			}
 			UU
 		}
 		Contacts {

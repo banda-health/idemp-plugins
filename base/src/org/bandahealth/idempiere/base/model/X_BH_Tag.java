@@ -22,64 +22,64 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for BH_Tags
+/** Generated Model for BH_Tag
  *  @author iDempiere (generated)
  *  @version Release 12 - $Id$ */
-@org.adempiere.base.Model(table="BH_Tags")
-public class X_BH_Tags extends PO implements I_BH_Tags, I_Persistent
+@org.adempiere.base.Model(table="BH_Tag")
+public class X_BH_Tag extends PO implements I_BH_Tag, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20250507L;
+	private static final long serialVersionUID = 20250508L;
 
     /** Standard Constructor */
-    public X_BH_Tags (Properties ctx, int BH_Tags_ID, String trxName)
+    public X_BH_Tag (Properties ctx, int BH_Tag_ID, String trxName)
     {
-      super (ctx, BH_Tags_ID, trxName);
-      /** if (BH_Tags_ID == 0)
+      super (ctx, BH_Tag_ID, trxName);
+      /** if (BH_Tag_ID == 0)
         {
-			setBH_Tags_ID (0);
+			setBH_Tag_ID (0);
 			setName (null);
         } */
     }
 
     /** Standard Constructor */
-    public X_BH_Tags (Properties ctx, int BH_Tags_ID, String trxName, String ... virtualColumns)
+    public X_BH_Tag (Properties ctx, int BH_Tag_ID, String trxName, String ... virtualColumns)
     {
-      super (ctx, BH_Tags_ID, trxName, virtualColumns);
-      /** if (BH_Tags_ID == 0)
+      super (ctx, BH_Tag_ID, trxName, virtualColumns);
+      /** if (BH_Tag_ID == 0)
         {
-			setBH_Tags_ID (0);
+			setBH_Tag_ID (0);
 			setName (null);
         } */
     }
 
     /** Standard Constructor */
-    public X_BH_Tags (Properties ctx, String BH_Tags_UU, String trxName)
+    public X_BH_Tag (Properties ctx, String BH_Tag_UU, String trxName)
     {
-      super (ctx, BH_Tags_UU, trxName);
-      /** if (BH_Tags_UU == null)
+      super (ctx, BH_Tag_UU, trxName);
+      /** if (BH_Tag_UU == null)
         {
-			setBH_Tags_ID (0);
+			setBH_Tag_ID (0);
 			setName (null);
         } */
     }
 
     /** Standard Constructor */
-    public X_BH_Tags (Properties ctx, String BH_Tags_UU, String trxName, String ... virtualColumns)
+    public X_BH_Tag (Properties ctx, String BH_Tag_UU, String trxName, String ... virtualColumns)
     {
-      super (ctx, BH_Tags_UU, trxName, virtualColumns);
-      /** if (BH_Tags_UU == null)
+      super (ctx, BH_Tag_UU, trxName, virtualColumns);
+      /** if (BH_Tag_UU == null)
         {
-			setBH_Tags_ID (0);
+			setBH_Tag_ID (0);
 			setName (null);
         } */
     }
 
     /** Load Constructor */
-    public X_BH_Tags (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_Tag (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -101,7 +101,7 @@ public class X_BH_Tags extends PO implements I_BH_Tags, I_Persistent
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_Tags[")
+      StringBuilder sb = new StringBuilder ("X_BH_Tag[")
         .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
@@ -121,40 +121,40 @@ public class X_BH_Tags extends PO implements I_BH_Tags, I_Persistent
 		return (String)get_Value(COLUMNNAME_BH_ColourCode);
 	}
 
-	/** Set BH Tags.
-		@param BH_Tags_ID BH Tags
+	/** Set BH Tag.
+		@param BH_Tag_ID BH Tag
 	*/
-	public void setBH_Tags_ID (int BH_Tags_ID)
+	public void setBH_Tag_ID (int BH_Tag_ID)
 	{
-		if (BH_Tags_ID < 1)
-			set_ValueNoCheck (COLUMNNAME_BH_Tags_ID, null);
+		if (BH_Tag_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_BH_Tag_ID, null);
 		else
-			set_ValueNoCheck (COLUMNNAME_BH_Tags_ID, Integer.valueOf(BH_Tags_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Tag_ID, Integer.valueOf(BH_Tag_ID));
 	}
 
-	/** Get BH Tags.
-		@return BH Tags	  */
-	public int getBH_Tags_ID()
+	/** Get BH Tag.
+		@return BH Tag	  */
+	public int getBH_Tag_ID()
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Tags_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Tag_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_Tags_UU.
-		@param BH_Tags_UU BH_Tags_UU
+	/** Set BH_Tag_UU.
+		@param BH_Tag_UU BH_Tag_UU
 	*/
-	public void setBH_Tags_UU (String BH_Tags_UU)
+	public void setBH_Tag_UU (String BH_Tag_UU)
 	{
-		set_Value (COLUMNNAME_BH_Tags_UU, BH_Tags_UU);
+		set_Value (COLUMNNAME_BH_Tag_UU, BH_Tag_UU);
 	}
 
-	/** Get BH_Tags_UU.
-		@return BH_Tags_UU	  */
-	public String getBH_Tags_UU()
+	/** Get BH_Tag_UU.
+		@return BH_Tag_UU	  */
+	public String getBH_Tag_UU()
 	{
-		return (String)get_Value(COLUMNNAME_BH_Tags_UU);
+		return (String)get_Value(COLUMNNAME_BH_Tag_UU);
 	}
 
 	/** Set Description.
