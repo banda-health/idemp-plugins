@@ -1,0 +1,3 @@
+extend type BH_Tags {
+    BH_BPartner_Tags: [BH_BPartner_Tags!]
+}
