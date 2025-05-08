@@ -27,6 +27,7 @@ import {
 	M_ProductSaveMutation,
 	ProcessInfoParameterInput,
 	ReportOutput,
+	Bh_TagsGetQuery,
 } from '../__generated__/graphql';
 import { documentAction } from './documentEngine';
 
@@ -77,6 +78,7 @@ export class ValueObject {
 	tenderType?: Ad_Ref_ListGetQuery['AD_Ref_ListGet']['Results'][0];
 	paymentAmount?: number;
 	bankAccount?: C_BankAccountGetQuery['C_BankAccountGet']['Results'][0];
+	patientTag?: Bh_TagsGetQuery['BH_TagsGet']['Results']['0']
 	// MBankStatement m_bs = null;
 	// MBankStatementLine m_bsLine = null;
 	random: number = 0;

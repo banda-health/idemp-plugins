@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import {
+	Bh_BPartner_TagsSaveDocument,
 	Bh_VisitProcessDocument,
 	C_BPartnerDocument,
 	C_BPartnerGetDocument,
@@ -20,6 +21,7 @@ import {
 	createOrder,
 	createPayment,
 	createProduct,
+	createTag,
 	createVisit,
 	formatApiDate,
 } from '../utils';
@@ -541,4 +543,38 @@ test('merging patients', async () => {
 	expect(businessPartner.TotalOpenBalance).toBe(109);
 	expect(businessPartner.Contacts).toHaveLength(1);
 	expect(businessPartner.C_BPartner_Locations).toHaveLength(1);
+});
+
+test('business partner be assigned a tag', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create a tag';
+	await createTag(valueObject);
+
+	valueObject.stepName = 'Assign BP Tag';
+	let businessPartner = valueObject.businessPartner;
+	const bpartnerTagUU = v4();
+	await mutate(valueObject)({
+		mutation: Bh_BPartner_TagsSaveDocument,
+		variables: {
+			Entity: {
+				AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
+				BH_Tags: valueObject.patientTag ? { UU: valueObject.patientTag.UU } : undefined,
+				C_BPartner: valueObject.businessPartner ? { UU: valueObject.businessPartner.UU } : undefined,
+				IsActive: true,
+				UU: bpartnerTagUU,
+			},
+		},
+	});
+
+	businessPartner = (await query(valueObject)({ query: C_BPartnerDocument, variables: { UU: businessPartner?.UU! } }))
+		.data.C_BPartner!;
+
+	expect(businessPartner).toBeTruthy();
+	expect(businessPartner.BH_BPartner_Tags).toBeTruthy();
+	expect(businessPartner.BH_BPartner_Tags).toHaveLength(1);
 });

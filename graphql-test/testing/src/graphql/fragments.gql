@@ -88,6 +88,9 @@ fragment C_BPartnerFields on C_BPartner {
 			Value
 		}
 	}
+	BH_BPartner_Tags {
+			UU
+		}
 	C_BP_Group {
 		Name
 		UU
