@@ -13,9 +13,11 @@ import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.report.test.utils.EntityUtils;
+import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.Env;
@@ -36,6 +38,7 @@ import java.util.stream.StreamSupport;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
@@ -591,5 +594,71 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 									cell.getStringCellValue().contains(product1.getName()))).findFirst();
 			assertTrue(includedProductRow.isEmpty(), "Included product is not on the report");
 		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void longHeaderInformationAllVisible() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setName(valueObject.getBusinessPartner().getName().substring(0, 19));
+		valueObject.getBusinessPartner().saveEx();
+		valueObject.setRandom();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		Timestamp date = Timestamp.valueOf(LocalDateTime.of(2024, 11, 30, 0, 0));
+		valueObject.setDate(date);
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(50));
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(50));
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate long header information");
+		MOrgInfo_BH organizationInformation = new MOrgInfo_BH(valueObject.getContext(), valueObject.getOrg().get_ID(), valueObject.getTransactionName());
+		organizationInformation.setBH_Header("this\nis\nsuper\nlong\nI\nwonder\nif\nit\nwill\nshow\nup\nHUZZAH!");
+		organizationInformation.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Generate the invoice report");
+		valueObject.setProcessUuid("477cdda4-82ff-4bac-834f-08de384df412");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null),
+				new ProcessInfoParameter("ShowInsuranceInfo", false, null, null, null)));
+		valueObject.setReportType("pdf");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
+		assertTrue(reportContent.contains("HUZZAH!"), "Long header information appears on the report");
 	}
 }

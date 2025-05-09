@@ -83,10 +83,12 @@ query AD_OrgGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 			UU
 			Name
 			AD_OrgInfo {
-				UU
+				BH_ExtraInfo
 				BH_FacilityNumber
 				BH_Header
+				BH_PaymentInformation
 				ReceiptFooterMsg
+				UU
 			}
 			M_Warehouses {
 				UU
