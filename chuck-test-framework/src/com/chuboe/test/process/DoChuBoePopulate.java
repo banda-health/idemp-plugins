@@ -151,6 +151,13 @@ public class DoChuBoePopulate extends SvrProcess {
 				long testStartTime = System.currentTimeMillis();
 				boolean didErrorOccurForThisTest = false;
 
+				// Make sure there's a method we can run in here...
+				Method[] methods = pop.getClass().getMethods();
+				if (Arrays.stream(methods).noneMatch(method -> method.getAnnotation(CanRun.class) != null &&
+						(!doesTestFilterExist || method.getName().toLowerCase().contains(testNameFilter.toLowerCase())))) {
+					continue;
+				}
+
 				//create a new transaction for each class.
 				Trx pop_trx = Trx.get(Trx.createTrxName(pop.getClass().getSimpleName()), true);
 				String pop_trxName = pop_trx.getTrxName();
@@ -171,10 +178,8 @@ public class DoChuBoePopulate extends SvrProcess {
 				pop.setResponse(pop_response);
 				pop.setTrx(pop_trx);
 
-				Method[] methods = pop.getClass().getMethods();
-
 				// If this class doesn't have a test matching the filter, skip it
-				if (doesTestFilterExist && Arrays.stream(methods)
+				if (classBreak || doesTestFilterExist && Arrays.stream(methods)
 						.noneMatch(method -> method.getName().toLowerCase().contains(testNameFilter.toLowerCase()))) {
 					continue;
 				}
@@ -182,7 +187,7 @@ public class DoChuBoePopulate extends SvrProcess {
 				//Look for and document skipped methods
 				for (Method method : methods) {
 					Skip annos = method.getAnnotation(Skip.class);
-					if (!classBreak && annos != null) {
+					if (annos != null) {
 						try {
 							pop.setScenarioName(pop.getClass().getSimpleName() + "_" + method.getName());
 							pop_response.appendNote("Skipping... " + pop.getScenarioName());
@@ -199,7 +204,7 @@ public class DoChuBoePopulate extends SvrProcess {
 				//Look for and execute BeforeClass annotated methods
 				for (Method method : methods) {
 					CanRunBeforeClass annos = method.getAnnotation(CanRunBeforeClass.class);
-					if (!classBreak && annos != null) {
+					if (annos != null) {
 						try {
 							processMonitor.statusUpdate(pop.getClass().getSimpleName() + " - " + method.getName());
 							pop.setScenarioName(pop.getClass().getSimpleName() + "_" + method.getName());
