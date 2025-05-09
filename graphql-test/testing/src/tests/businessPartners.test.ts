@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import {
+	Bh_BPartner_TagsDeleteDocument,
 	Bh_BPartner_TagsSaveDocument,
 	Bh_TagSaveDocument,
 	Bh_VisitProcessDocument,
@@ -552,44 +553,77 @@ test('business partner be assigned a tag', async () => {
 	valueObject.stepName = 'Create business partner';
 	await createBusinessPartner(valueObject);
 
-	valueObject.stepName = 'Create a tag';
-	const tagUU = v4();
+	valueObject.stepName = 'Create tag 1';
+	const tag1UU = v4();
 	await mutate(valueObject)({
 		mutation: Bh_TagSaveDocument,
 		variables: {
 			Entity: {
-				AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
 				BH_ColourCode: '#aaaaa',
 				Description: valueObject.getStepMessageLong(),
 				IsActive: true,
 				Name: valueObject.random + valueObject.getStepMessageLong(),
-				UU: tagUU,
+				UU: tag1UU,
 			},
 		},
 	});
 
+	valueObject.stepName = 'Create tag 2';
+	const tag2UU = (
+		await mutate(valueObject)({
+			mutation: Bh_TagSaveDocument,
+			variables: {
+				Entity: {
+					Description: valueObject.getStepMessageLong(),
+					IsActive: true,
+					Name: valueObject.random + valueObject.getStepMessageLong(),
+				},
+			},
+		})
+	).data!.BH_TagSave.UU;
+
 	valueObject.stepName = 'Assign BP Tag';
-	const businessPartnerTagUU = v4();
 	await mutate(valueObject)({
 		mutation: Bh_BPartner_TagsSaveDocument,
 		variables: {
 			Entity: {
-				AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
-				BH_Tag: { UU: tagUU },
-				C_BPartner: valueObject.businessPartner ? { UU: valueObject.businessPartner.UU } : undefined,
-				IsActive: true,
-				UU: businessPartnerTagUU,
+				BH_Tag: { UU: tag1UU },
+				C_BPartner: { UU: valueObject.businessPartner!.UU },
+			},
+		},
+	});
+	await mutate(valueObject)({
+		mutation: Bh_BPartner_TagsSaveDocument,
+		variables: {
+			Entity: {
+				BH_Tag: { UU: tag2UU },
+				C_BPartner: { UU: valueObject.businessPartner!.UU },
 			},
 		},
 	});
 
-	const businessPartner = (
+	let businessPartner = (
+		await query(valueObject)({ query: C_BPartnerDocument, variables: { UU: valueObject.businessPartner!.UU! } })
+	).data.C_BPartner!;
+
+	expect(businessPartner).toBeTruthy();
+	expect(businessPartner.BH_BPartner_Tags).toBeTruthy();
+	expect(businessPartner.BH_BPartner_Tags).toHaveLength(2);
+	expect(businessPartner.BH_BPartner_Tags![0].BH_Tag.UU).toBe(tag1UU);
+	expect(businessPartner.BH_BPartner_Tags![1].BH_Tag.UU).toBe(tag2UU);
+
+	await mutate(valueObject)({
+		mutation: Bh_BPartner_TagsDeleteDocument,
+		variables: {
+			UUs: [businessPartner.BH_BPartner_Tags![1].UU],
+		},
+	});
+	businessPartner = (
 		await query(valueObject)({ query: C_BPartnerDocument, variables: { UU: valueObject.businessPartner!.UU! } })
 	).data.C_BPartner!;
 
 	expect(businessPartner).toBeTruthy();
 	expect(businessPartner.BH_BPartner_Tags).toBeTruthy();
 	expect(businessPartner.BH_BPartner_Tags).toHaveLength(1);
-	expect(businessPartner.BH_BPartner_Tags![0].UU).toBe(businessPartnerTagUU);
-	expect(businessPartner.BH_BPartner_Tags![0].BH_Tag.UU).toBe(tagUU);
+	expect(businessPartner.BH_BPartner_Tags![0].BH_Tag.UU).toBe(tag1UU);
 });
