@@ -260,6 +260,21 @@ query BH_AllergyGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	}
 }
 
+query BH_BPartner_Tags($UU: String!){
+	BH_BPartner_Tags(UU: $UU){
+		UU
+	}
+}
+
+query BH_BPartner_TagsGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_BPartner_TagsGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+
 query BH_ConceptGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_ConceptGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
@@ -320,6 +335,22 @@ query BH_Payer_Info_Fld_SugGet($Page: Int, $Size: Int, $Sort: String, $Filter: S
 				UU
 				Value
 			}
+		}
+	}
+}
+
+
+query BH_Tag($UU: String!) {
+	BH_Tag(UU: $UU){
+		UU
+	}
+	
+}
+
+query BH_TagGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_TagGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 		}
 	}
 }
@@ -391,6 +422,12 @@ query C_BPartner($UU: String!) {
 	C_BPartner(UU: $UU) {
 		...C_BPartnerFields
 		BH_Allergies {
+			UU
+		}
+		BH_BPartner_Tags {
+			BH_Tag {
+				UU
+			}
 			UU
 		}
 		Contacts {

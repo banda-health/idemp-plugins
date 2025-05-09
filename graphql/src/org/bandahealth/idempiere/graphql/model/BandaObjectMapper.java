@@ -301,6 +301,7 @@ public class BandaObjectMapper {
 							addMapping(I_BH_BP_General_Payer_InfoInput.class, MBHBPGeneralPayerInfoInput.class);
 							addMapping(I_BH_BP_Payer_InfoInput.class, MBHBPPayerInfoInput.class);
 							addMapping(I_BH_BP_Specific_Payer_InfoInput.class, MBHBPSpecificPayerInfoInput.class);
+							addMapping(I_BH_BPartner_TagsInput.class, MBHBPartnerTagsInput.class);
 							addMapping(I_BH_Client_Concept_ExtraInput.class, MBHClientConceptExtraInput.class);
 							addMapping(I_BH_Client_ConceptInput.class, MBHClientConceptInput.class);
 							addMapping(I_BH_Concept_DescriptionInput.class, MBHConceptDescriptionInput.class);
@@ -325,6 +326,7 @@ public class BandaObjectMapper {
 							addMapping(I_BH_PaymentRef_BankAcctInput.class, MBHPaymentRefBankAccountInput.class);
 							addMapping(I_BH_Product_CategoryDefaultInput.class, MBHProductCategoryDefaultInput.class);
 							addMapping(I_BH_Product_IncludedInput.class, MBHProductIncludedInput.class);
+							addMapping(I_BH_TagInput.class, MBHTagInput.class);
 							addMapping(I_BH_VisitInput.class, MBHVisitInput.class);
 							addMapping(I_BH_Voided_ReasonInput.class, MBHVoidedReasonInput.class);
 							addMapping(I_BH_Warehouse_AccessInput.class, MBHWarehouseAccessInput.class);
