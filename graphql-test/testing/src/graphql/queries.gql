@@ -342,6 +342,7 @@ query BH_Payer_Info_Fld_SugGet($Page: Int, $Size: Int, $Sort: String, $Filter: S
 
 query BH_Tag($UU: String!) {
 	BH_Tag(UU: $UU){
+		BH_ColourCode
 		UU
 	}
 	
