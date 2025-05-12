@@ -24,7 +24,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -253,6 +255,88 @@ public class ExpensesTest extends ChuBoePopulateFactoryVO {
 									row.getCell(supplierColumnIndex).getStringCellValue().contains(businessPartner.getName()))
 					.findFirst();
 			assertTrue(businessPartner1Row.isEmpty(), "Filtered business partner doesn't appear");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void dateInvoicedAppearsInsteadOfCreatedDate() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner 1");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create expense category");
+		ChuBoeCreateEntity.createCharge(valueObject);
+		valueObject.getCharge().setC_ChargeType_ID(expenseCategoryChargeType.getC_ChargeType_ID());
+		valueObject.getCharge().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create expense");
+		valueObject.setSalesPrice(new BigDecimal(100));
+		valueObject.setDateOffset(-3);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
+			int supplierColumnIndex = TableUtils.getColumnIndex(headerRow, "Supplier");
+
+			Optional<Row> businessPartnerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(supplierColumnIndex) != null &&
+							row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(supplierColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName())).findFirst();
+			assertTrue(businessPartnerRow.isEmpty(), "Business partner doesn't appear");
+		}
+
+		valueObject.setStepName("Generate another report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date",
+						TimestampUtils.add(TimestampUtils.startOfYesterday(), Calendar.DAY_OF_MONTH, -3), null, null,
+						null),
+				new ProcessInfoParameter("End Date",
+						TimestampUtils.add(TimestampUtils.endOfTomorrow(), Calendar.DAY_OF_MONTH, -3), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
+			int supplierColumnIndex = TableUtils.getColumnIndex(headerRow, "Supplier");
+			int dateColumnIndex = TableUtils.getColumnIndex(headerRow, "Date");
+
+			Optional<Row> businessPartnerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(supplierColumnIndex) != null &&
+							row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(supplierColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName())).findFirst();
+			assertTrue(businessPartnerRow.isPresent(), "Business partner appears");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			assertEquals(businessPartnerRow.get().getCell(dateColumnIndex).getStringCellValue(),
+					dateFormat.format(valueObject.getDate()), "Expense date is correct");
 		}
 	}
 }

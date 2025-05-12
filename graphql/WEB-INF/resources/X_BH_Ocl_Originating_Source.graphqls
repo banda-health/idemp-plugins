@@ -1,6 +1,6 @@
 # Generated Schema for BH_Ocl_Originating_Source - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 13 - $Id$
+#		@version Release 12 - $Id$
 extend type Query {
 	BH_Ocl_Originating_Source(UU: String!): BH_Ocl_Originating_Source
 	BH_Ocl_Originating_SourceGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Ocl_Originating_SourceConnection!

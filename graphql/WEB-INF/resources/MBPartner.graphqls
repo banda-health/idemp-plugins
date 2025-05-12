@@ -4,6 +4,7 @@ extend type Mutation {
 
 extend type C_BPartner {
 	BH_Allergies: [BH_Allergy!]
+	BH_BPartner_Tags: [BH_BPartner_Tags!]
 	BH_BP_Payer_Info_BPList: [BH_BP_Payer_Info!]
 	BH_BP_Payer_Info_PayerList: [BH_BP_Payer_Info!]
 	BH_Payer_Info_FldList: [BH_Payer_Info_Fld!]

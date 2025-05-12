@@ -35,12 +35,12 @@
 	<parameter name="C_BPartner_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-	TO_CHAR(i.created::date, 'YYYY-MM-DD') AS expense_date,
-	c.name                                 AS expense_category,
-	bp.name                                AS supplier_name,
-	u.name                                 AS tracked_by,
-	rl.name                                AS payment_method,
-	il.linenetamt                          AS amount
+	TO_CHAR(i.dateinvoiced::date, 'YYYY-MM-DD') AS expense_date,
+	c.name                                      AS expense_category,
+	bp.name                                     AS supplier_name,
+	u.name                                      AS tracked_by,
+	rl.name                                     AS payment_method,
+	il.linenetamt                               AS amount
 FROM
 	c_invoice i
 		JOIN c_invoiceline il
@@ -62,7 +62,7 @@ WHERE
 	AND i.bh_visit_id IS NULL
 	AND i.docstatus IN ('CO', 'CL')
 	AND i.ad_client_id = $P{AD_CLIENT_ID}
-	AND i.created BETWEEN $P{Begin Date} AND $P{End Date}
+	AND i.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
 	AND ($P{C_Charge_UU} IS NULL OR c.c_charge_uu = $P{C_Charge_UU})
 	AND ($P{C_BPartner_UU} IS NULL OR bp.c_bpartner_uu = $P{C_BPartner_UU})]]>
 	</queryString>
