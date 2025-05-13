@@ -58,7 +58,7 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -185,7 +185,7 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -392,7 +392,7 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("S_Resource")
 	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (S_Resource != null) {

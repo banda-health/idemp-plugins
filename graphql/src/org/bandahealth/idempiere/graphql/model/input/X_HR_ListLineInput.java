@@ -43,7 +43,7 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -109,7 +109,7 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 	@JsonProperty("HR_ListVersion")
 	public void setHR_ListVersionInput(ForeignEntityInput HR_ListVersion) {
 		this.mHR_ListVersion = HR_ListVersion;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (HR_ListVersion != null) {

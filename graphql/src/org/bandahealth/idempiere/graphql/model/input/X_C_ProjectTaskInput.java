@@ -50,7 +50,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -87,7 +87,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	@JsonProperty("C_ProjectPhase")
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectPhase != null) {
@@ -153,7 +153,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	@JsonProperty("C_Task")
 	public void setC_TaskInput(ForeignEntityInput C_Task) {
 		this.mC_Task = C_Task;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Task != null) {

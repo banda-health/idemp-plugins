@@ -46,7 +46,7 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -83,7 +83,7 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 	@JsonProperty("BH_Payer")
 	public void setBH_PayerInput(ForeignEntityInput BH_Payer) {
 		this.mBH_Payer = BH_Payer;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_Payer != null) {

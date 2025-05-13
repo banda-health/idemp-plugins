@@ -55,7 +55,7 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -92,7 +92,7 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_InvoiceLine != null) {
@@ -129,7 +129,7 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	@JsonProperty("C_OrderLine")
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_OrderLine != null) {
@@ -177,7 +177,7 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSetInstance != null) {
@@ -214,7 +214,7 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_InOutLine != null) {
@@ -280,7 +280,7 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {

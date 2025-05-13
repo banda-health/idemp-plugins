@@ -48,7 +48,7 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -85,7 +85,7 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	@JsonProperty("DD_NetworkDistribution")
 	public void setDD_NetworkDistributionInput(ForeignEntityInput DD_NetworkDistribution) {
 		this.mDD_NetworkDistribution = DD_NetworkDistribution;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (DD_NetworkDistribution != null) {

@@ -56,7 +56,7 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -190,7 +190,7 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	@JsonProperty("C_CashBook")
 	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
 		this.mC_CashBook = C_CashBook;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_CashBook != null) {

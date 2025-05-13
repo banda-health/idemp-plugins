@@ -60,7 +60,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -199,7 +199,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {
@@ -314,7 +314,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	@JsonProperty("InOut")
 	public void setInOutInput(ForeignEntityInput InOut) {
 		this.mInOut = InOut;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (InOut != null) {

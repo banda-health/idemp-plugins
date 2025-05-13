@@ -72,7 +72,7 @@ public class X_AD_ModificationInput extends X_AD_Modification implements I_AD_Mo
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -109,7 +109,7 @@ public class X_AD_ModificationInput extends X_AD_Modification implements I_AD_Mo
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_EntityType != null) {

@@ -53,7 +53,7 @@ public class X_C_Recurring_RunInput extends MRecurringRun implements I_C_Recurri
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -90,7 +90,7 @@ public class X_C_Recurring_RunInput extends MRecurringRun implements I_C_Recurri
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Invoice != null) {
@@ -127,7 +127,7 @@ public class X_C_Recurring_RunInput extends MRecurringRun implements I_C_Recurri
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {
@@ -164,7 +164,7 @@ public class X_C_Recurring_RunInput extends MRecurringRun implements I_C_Recurri
 	@JsonProperty("C_Payment")
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Payment != null) {
@@ -201,7 +201,7 @@ public class X_C_Recurring_RunInput extends MRecurringRun implements I_C_Recurri
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Project != null) {
@@ -238,7 +238,7 @@ public class X_C_Recurring_RunInput extends MRecurringRun implements I_C_Recurri
 	@JsonProperty("C_Recurring")
 	public void setC_RecurringInput(ForeignEntityInput C_Recurring) {
 		this.mC_Recurring = C_Recurring;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Recurring != null) {
@@ -304,7 +304,7 @@ public class X_C_Recurring_RunInput extends MRecurringRun implements I_C_Recurri
 	@JsonProperty("GL_JournalBatch")
 	public void setGL_JournalBatchInput(ForeignEntityInput GL_JournalBatch) {
 		this.mGL_JournalBatch = GL_JournalBatch;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (GL_JournalBatch != null) {

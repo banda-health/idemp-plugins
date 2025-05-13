@@ -47,7 +47,7 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -118,7 +118,7 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 	@JsonProperty("M_DistributionRun")
 	public void setM_DistributionRunInput(ForeignEntityInput M_DistributionRun) {
 		this.mM_DistributionRun = M_DistributionRun;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_DistributionRun != null) {

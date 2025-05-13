@@ -54,7 +54,7 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -227,7 +227,7 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 	@JsonProperty("C_DunningLevel")
 	public void setC_DunningLevelInput(ForeignEntityInput C_DunningLevel) {
 		this.mC_DunningLevel = C_DunningLevel;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_DunningLevel != null) {
@@ -264,7 +264,7 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 	@JsonProperty("C_DunningRun")
 	public void setC_DunningRunInput(ForeignEntityInput C_DunningRun) {
 		this.mC_DunningRun = C_DunningRun;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_DunningRun != null) {

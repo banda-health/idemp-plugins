@@ -43,7 +43,7 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	@JsonProperty("C_ElementValue")
 	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
 		this.mC_ElementValue = C_ElementValue;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ElementValue != null) {

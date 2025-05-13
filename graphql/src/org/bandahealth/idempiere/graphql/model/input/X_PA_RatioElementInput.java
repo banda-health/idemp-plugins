@@ -87,7 +87,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -158,7 +158,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("PA_Ratio")
 	public void setPA_RatioInput(ForeignEntityInput PA_Ratio) {
 		this.mPA_Ratio = PA_Ratio;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PA_Ratio != null) {

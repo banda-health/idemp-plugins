@@ -45,7 +45,7 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Invoice != null) {
@@ -148,7 +148,7 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 	@JsonProperty("C_PaySchedule")
 	public void setC_PayScheduleInput(ForeignEntityInput C_PaySchedule) {
 		this.mC_PaySchedule = C_PaySchedule;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_PaySchedule != null) {

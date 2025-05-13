@@ -45,7 +45,7 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 	@JsonProperty("BH_Concept")
 	public void setBH_ConceptInput(ForeignEntityInput BH_Concept) {
 		this.mBH_Concept = BH_Concept;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_Concept != null) {

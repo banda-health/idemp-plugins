@@ -47,7 +47,7 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -152,7 +152,7 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 	@JsonProperty("GL_JournalGeneratorLine")
 	public void setGL_JournalGeneratorLineInput(ForeignEntityInput GL_JournalGeneratorLine) {
 		this.mGL_JournalGeneratorLine = GL_JournalGeneratorLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (GL_JournalGeneratorLine != null) {

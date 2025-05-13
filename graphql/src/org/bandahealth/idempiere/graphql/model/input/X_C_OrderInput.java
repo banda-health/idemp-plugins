@@ -622,7 +622,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Currency != null) {
@@ -659,7 +659,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_DocType != null) {
@@ -1387,7 +1387,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("Link_Order")
 	public void setLink_OrderInput(ForeignEntityInput Link_Order) {
 		this.mLink_Order = Link_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Link_Order != null) {

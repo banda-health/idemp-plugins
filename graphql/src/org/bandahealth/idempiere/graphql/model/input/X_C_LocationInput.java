@@ -49,7 +49,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -86,7 +86,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	@JsonProperty("C_AddressValidation")
 	public void setC_AddressValidationInput(ForeignEntityInput C_AddressValidation) {
 		this.mC_AddressValidation = C_AddressValidation;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AddressValidation != null) {

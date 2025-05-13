@@ -62,7 +62,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -410,7 +410,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("PA_ReportLine")
 	public void setPA_ReportLineInput(ForeignEntityInput PA_ReportLine) {
 		this.mPA_ReportLine = PA_ReportLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PA_ReportLine != null) {

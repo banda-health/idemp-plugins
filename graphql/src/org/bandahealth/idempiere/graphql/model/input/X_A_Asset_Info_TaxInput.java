@@ -46,7 +46,7 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Asset != null) {
@@ -151,7 +151,7 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

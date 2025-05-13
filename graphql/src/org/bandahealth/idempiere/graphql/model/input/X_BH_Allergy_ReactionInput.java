@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_Allergy_Reaction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Allergy_ReactionInput extends MBHAllergyReaction implements I_BH_Allergy_ReactionInput {
 
@@ -45,7 +45,7 @@ public class X_BH_Allergy_ReactionInput extends MBHAllergyReaction implements I_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_BH_Allergy_ReactionInput extends MBHAllergyReaction implements I_
 	@JsonProperty("BH_Allergy")
 	public void setBH_AllergyInput(ForeignEntityInput BH_Allergy) {
 		this.mBH_Allergy = BH_Allergy;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_Allergy != null) {
@@ -148,7 +148,7 @@ public class X_BH_Allergy_ReactionInput extends MBHAllergyReaction implements I_
 	@JsonProperty("BH_Concept")
 	public void setBH_ConceptInput(ForeignEntityInput BH_Concept) {
 		this.mBH_Concept = BH_Concept;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_Concept != null) {

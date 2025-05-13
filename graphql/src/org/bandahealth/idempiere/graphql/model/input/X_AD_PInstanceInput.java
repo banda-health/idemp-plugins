@@ -90,7 +90,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -224,7 +224,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	@JsonProperty("AD_Session")
 	public void setAD_SessionInput(ForeignEntityInput AD_Session) {
 		this.mAD_Session = AD_Session;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Session != null) {
@@ -261,7 +261,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Table != null) {

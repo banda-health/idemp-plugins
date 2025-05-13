@@ -65,7 +65,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	@JsonProperty("A_Accumdepreciation_A")
 	public void setA_Accumdepreciation_AInput(ForeignEntityInput A_Accumdepreciation_A) {
 		this.mA_Accumdepreciation_A = A_Accumdepreciation_A;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Accumdepreciation_A != null) {
@@ -147,7 +147,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	@JsonProperty("A_Asset_A")
 	public void setA_Asset_AInput(ForeignEntityInput A_Asset_A) {
 		this.mA_Asset_A = A_Asset_A;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Asset_A != null) {
@@ -195,7 +195,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Asset != null) {
@@ -334,7 +334,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	@JsonProperty("A_Depreciation_A")
 	public void setA_Depreciation_AInput(ForeignEntityInput A_Depreciation_A) {
 		this.mA_Depreciation_A = A_Depreciation_A;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Depreciation_A != null) {
@@ -416,7 +416,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	@JsonProperty("A_Disposal_Loss_A")
 	public void setA_Disposal_Loss_AInput(ForeignEntityInput A_Disposal_Loss_A) {
 		this.mA_Disposal_Loss_A = A_Disposal_Loss_A;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Disposal_Loss_A != null) {
@@ -498,7 +498,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	@JsonProperty("A_Disposal_Revenue_A")
 	public void setA_Disposal_Revenue_AInput(ForeignEntityInput A_Disposal_Revenue_A) {
 		this.mA_Disposal_Revenue_A = A_Disposal_Revenue_A;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Disposal_Revenue_A != null) {
@@ -613,7 +613,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -650,7 +650,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {

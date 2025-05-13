@@ -48,7 +48,7 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -85,7 +85,7 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 	@JsonProperty("AD_Workflow")
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Workflow != null) {
@@ -122,7 +122,7 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 	@JsonProperty("ASP_Level")
 	public void setASP_LevelInput(ForeignEntityInput ASP_Level) {
 		this.mASP_Level = ASP_Level;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ASP_Level != null) {

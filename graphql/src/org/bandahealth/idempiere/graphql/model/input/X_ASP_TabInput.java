@@ -48,7 +48,7 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -85,7 +85,7 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 	@JsonProperty("AD_Tab")
 	public void setAD_TabInput(ForeignEntityInput AD_Tab) {
 		this.mAD_Tab = AD_Tab;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tab != null) {
@@ -190,7 +190,7 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 	@JsonProperty("ASP_Window")
 	public void setASP_WindowInput(ForeignEntityInput ASP_Window) {
 		this.mASP_Window = ASP_Window;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ASP_Window != null) {

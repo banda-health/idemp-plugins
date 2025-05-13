@@ -47,7 +47,7 @@ public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Con
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -113,7 +113,7 @@ public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Con
 	@JsonProperty("C_ConversionType")
 	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ConversionType != null) {
@@ -150,7 +150,7 @@ public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Con
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Currency != null) {
@@ -187,7 +187,7 @@ public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Con
 	@JsonProperty("C_Currency_To")
 	public void setC_Currency_ToInput(ForeignEntityInput C_Currency_To) {
 		this.mC_Currency_To = C_Currency_To;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Currency_To != null) {

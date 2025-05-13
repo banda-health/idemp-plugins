@@ -124,7 +124,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -161,7 +161,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Table != null) {
@@ -242,7 +242,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {
@@ -279,7 +279,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Activity != null) {
@@ -316,7 +316,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BPartner != null) {
@@ -353,7 +353,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Campaign != null) {
@@ -390,7 +390,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Currency != null) {
@@ -427,7 +427,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_LocFrom")
 	public void setC_LocFromInput(ForeignEntityInput C_LocFrom) {
 		this.mC_LocFrom = C_LocFrom;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_LocFrom != null) {
@@ -464,7 +464,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_LocTo")
 	public void setC_LocToInput(ForeignEntityInput C_LocTo) {
 		this.mC_LocTo = C_LocTo;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_LocTo != null) {
@@ -501,7 +501,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_Period")
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Period != null) {
@@ -538,7 +538,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Project != null) {
@@ -575,7 +575,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_ProjectPhase")
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectPhase != null) {
@@ -612,7 +612,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_ProjectTask")
 	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectTask != null) {
@@ -649,7 +649,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_SalesRegion")
 	public void setC_SalesRegionInput(ForeignEntityInput C_SalesRegion) {
 		this.mC_SalesRegion = C_SalesRegion;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_SalesRegion != null) {
@@ -720,7 +720,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_Tax")
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Tax != null) {
@@ -757,7 +757,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_UOM != null) {
@@ -845,7 +845,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("GL_Budget")
 	public void setGL_BudgetInput(ForeignEntityInput GL_Budget) {
 		this.mGL_Budget = GL_Budget;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (GL_Budget != null) {
@@ -882,7 +882,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("GL_Category")
 	public void setGL_CategoryInput(ForeignEntityInput GL_Category) {
 		this.mGL_Category = GL_Category;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (GL_Category != null) {
@@ -919,7 +919,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("M_Locator")
 	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Locator != null) {
@@ -956,7 +956,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -993,7 +993,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("PostingType")
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PostingType != null) {
@@ -1046,7 +1046,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("User1")
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (User1 != null) {
@@ -1083,7 +1083,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	@JsonProperty("User2")
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (User2 != null) {

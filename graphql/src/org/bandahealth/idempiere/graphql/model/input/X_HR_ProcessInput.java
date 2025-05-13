@@ -70,7 +70,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -243,7 +243,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_DocType != null) {
@@ -550,7 +550,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	@JsonProperty("HR_Payroll")
 	public void setHR_PayrollInput(ForeignEntityInput HR_Payroll) {
 		this.mHR_Payroll = HR_Payroll;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (HR_Payroll != null) {
@@ -587,7 +587,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	@JsonProperty("HR_Period")
 	public void setHR_PeriodInput(ForeignEntityInput HR_Period) {
 		this.mHR_Period = HR_Period;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (HR_Period != null) {

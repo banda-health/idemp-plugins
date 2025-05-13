@@ -361,7 +361,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Invoice != null) {
@@ -427,7 +427,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	@JsonProperty("C_OrderLine")
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_OrderLine != null) {
@@ -498,7 +498,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	@JsonProperty("C_ProjectPhase")
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectPhase != null) {
@@ -535,7 +535,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	@JsonProperty("C_ProjectTask")
 	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectTask != null) {
@@ -606,7 +606,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_UOM != null) {
@@ -688,7 +688,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_InOutLine != null) {
@@ -804,7 +804,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	@JsonProperty("S_ResourceAssignment")
 	public void setS_ResourceAssignmentInput(ForeignEntityInput S_ResourceAssignment) {
 		this.mS_ResourceAssignment = S_ResourceAssignment;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (S_ResourceAssignment != null) {

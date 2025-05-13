@@ -52,7 +52,7 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -191,7 +191,7 @@ public class X_C_PaySelectionCheckInput extends MPaySelectionCheck implements I_
 	@JsonProperty("C_PaySelection")
 	public void setC_PaySelectionInput(ForeignEntityInput C_PaySelection) {
 		this.mC_PaySelection = C_PaySelection;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_PaySelection != null) {

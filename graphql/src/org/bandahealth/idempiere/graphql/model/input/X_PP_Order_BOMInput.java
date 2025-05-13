@@ -332,7 +332,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	@JsonProperty("PP_Order")
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Order != null) {

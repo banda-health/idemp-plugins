@@ -84,7 +84,7 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	@JsonProperty("AD_WF_Node")
 	public void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node) {
 		this.mAD_WF_Node = AD_WF_Node;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_WF_Node != null) {

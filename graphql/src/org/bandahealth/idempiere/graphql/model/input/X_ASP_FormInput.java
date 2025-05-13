@@ -48,7 +48,7 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	@JsonProperty("AD_Form")
 	public void setAD_FormInput(ForeignEntityInput AD_Form) {
 		this.mAD_Form = AD_Form;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Form != null) {
@@ -85,7 +85,7 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -151,7 +151,7 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	@JsonProperty("ASP_Level")
 	public void setASP_LevelInput(ForeignEntityInput ASP_Level) {
 		this.mASP_Level = ASP_Level;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ASP_Level != null) {

@@ -43,7 +43,7 @@ public class X_AD_WF_ActivityResultInput extends X_AD_WF_ActivityResult implemen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_AD_WF_ActivityResultInput extends X_AD_WF_ActivityResult implemen
 	@JsonProperty("AD_WF_Activity")
 	public void setAD_WF_ActivityInput(ForeignEntityInput AD_WF_Activity) {
 		this.mAD_WF_Activity = AD_WF_Activity;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_WF_Activity != null) {

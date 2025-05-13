@@ -75,7 +75,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -744,7 +744,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	@JsonProperty("PA_ReportColumnSet")
 	public void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet) {
 		this.mPA_ReportColumnSet = PA_ReportColumnSet;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PA_ReportColumnSet != null) {

@@ -45,7 +45,7 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSetInstance != null) {
@@ -119,7 +119,7 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	@JsonProperty("M_QualityTest")
 	public void setM_QualityTestInput(ForeignEntityInput M_QualityTest) {
 		this.mM_QualityTest = M_QualityTest;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_QualityTest != null) {

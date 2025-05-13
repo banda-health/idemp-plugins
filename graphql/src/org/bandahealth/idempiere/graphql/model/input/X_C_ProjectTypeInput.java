@@ -44,7 +44,7 @@ public class X_C_ProjectTypeInput extends MProjectType implements I_C_ProjectTyp
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -110,7 +110,7 @@ public class X_C_ProjectTypeInput extends MProjectType implements I_C_ProjectTyp
 	@JsonProperty("ProjectCategory")
 	public void setProjectCategoryInput(ForeignEntityInput ProjectCategory) {
 		this.mProjectCategory = ProjectCategory;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ProjectCategory != null) {

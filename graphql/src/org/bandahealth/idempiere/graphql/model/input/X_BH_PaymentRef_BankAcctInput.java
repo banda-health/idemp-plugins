@@ -47,7 +47,7 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -84,7 +84,7 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	@JsonProperty("AD_Ref_List")
 	public void setAD_Ref_ListInput(ForeignEntityInput AD_Ref_List) {
 		this.mAD_Ref_List = AD_Ref_List;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Ref_List != null) {
@@ -150,7 +150,7 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	@JsonProperty("BH_PaymentRef")
 	public void setBH_PaymentRefInput(ForeignEntityInput BH_PaymentRef) {
 		this.mBH_PaymentRef = BH_PaymentRef;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_PaymentRef != null) {

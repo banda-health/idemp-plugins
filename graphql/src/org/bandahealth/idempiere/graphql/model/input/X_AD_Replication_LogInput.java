@@ -45,7 +45,7 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -111,7 +111,7 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	@JsonProperty("AD_Replication_Run")
 	public void setAD_Replication_RunInput(ForeignEntityInput AD_Replication_Run) {
 		this.mAD_Replication_Run = AD_Replication_Run;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Replication_Run != null) {

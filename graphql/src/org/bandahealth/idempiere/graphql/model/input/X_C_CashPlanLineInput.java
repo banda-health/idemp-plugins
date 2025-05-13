@@ -198,7 +198,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_CashPlan")
 	public void setC_CashPlanInput(ForeignEntityInput C_CashPlan) {
 		this.mC_CashPlan = C_CashPlan;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_CashPlan != null) {
@@ -332,7 +332,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_ProjectPhase")
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectPhase != null) {
@@ -369,7 +369,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_ProjectTask")
 	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectTask != null) {

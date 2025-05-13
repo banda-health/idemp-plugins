@@ -82,7 +82,7 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	@JsonProperty("AD_ImpFormat")
 	public void setAD_ImpFormatInput(ForeignEntityInput AD_ImpFormat) {
 		this.mAD_ImpFormat = AD_ImpFormat;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_ImpFormat != null) {
@@ -148,7 +148,7 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

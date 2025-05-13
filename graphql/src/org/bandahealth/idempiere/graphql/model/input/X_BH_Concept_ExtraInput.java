@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_Concept_Extra - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Concept_ExtraInput extends MBHConceptExtra implements I_BH_Concept_ExtraInput {
 
@@ -45,7 +45,7 @@ public class X_BH_Concept_ExtraInput extends MBHConceptExtra implements I_BH_Con
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -111,7 +111,7 @@ public class X_BH_Concept_ExtraInput extends MBHConceptExtra implements I_BH_Con
 	@JsonProperty("BH_Concept")
 	public void setBH_ConceptInput(ForeignEntityInput BH_Concept) {
 		this.mBH_Concept = BH_Concept;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_Concept != null) {
@@ -148,7 +148,7 @@ public class X_BH_Concept_ExtraInput extends MBHConceptExtra implements I_BH_Con
 	@JsonProperty("BH_Concept_Mapping")
 	public void setBH_Concept_MappingInput(ForeignEntityInput BH_Concept_Mapping) {
 		this.mBH_Concept_Mapping = BH_Concept_Mapping;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (BH_Concept_Mapping != null) {

@@ -52,7 +52,7 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -173,7 +173,7 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("CM_Chat")
 	public void setCM_ChatInput(ForeignEntityInput CM_Chat) {
 		this.mCM_Chat = CM_Chat;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (CM_Chat != null) {

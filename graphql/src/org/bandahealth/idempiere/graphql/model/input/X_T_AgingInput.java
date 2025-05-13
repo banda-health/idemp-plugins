@@ -60,7 +60,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -97,7 +97,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_PInstance != null) {
@@ -202,7 +202,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BPartner != null) {
@@ -273,7 +273,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Currency != null) {
@@ -310,7 +310,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Invoice != null) {

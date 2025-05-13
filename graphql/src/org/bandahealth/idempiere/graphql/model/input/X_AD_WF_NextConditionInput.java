@@ -85,7 +85,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -151,7 +151,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	@JsonProperty("AD_WF_NodeNext")
 	public void setAD_WF_NodeNextInput(ForeignEntityInput AD_WF_NodeNext) {
 		this.mAD_WF_NodeNext = AD_WF_NodeNext;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_WF_NodeNext != null) {

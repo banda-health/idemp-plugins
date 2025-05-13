@@ -48,7 +48,7 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -85,7 +85,7 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 	@JsonProperty("AD_Task")
 	public void setAD_TaskInput(ForeignEntityInput AD_Task) {
 		this.mAD_Task = AD_Task;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Task != null) {
@@ -122,7 +122,7 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 	@JsonProperty("ASP_Level")
 	public void setASP_LevelInput(ForeignEntityInput ASP_Level) {
 		this.mASP_Level = ASP_Level;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ASP_Level != null) {

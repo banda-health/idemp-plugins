@@ -44,7 +44,7 @@ public class X_AD_Role_IncludedInput extends MRoleIncluded implements I_AD_Role_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -81,7 +81,7 @@ public class X_AD_Role_IncludedInput extends MRoleIncluded implements I_AD_Role_
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Role != null) {
@@ -136,7 +136,7 @@ public class X_AD_Role_IncludedInput extends MRoleIncluded implements I_AD_Role_
 	@JsonProperty("Included_Role")
 	public void setIncluded_RoleInput(ForeignEntityInput Included_Role) {
 		this.mIncluded_Role = Included_Role;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Included_Role != null) {

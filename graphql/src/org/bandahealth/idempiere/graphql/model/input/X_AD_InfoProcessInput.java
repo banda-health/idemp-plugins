@@ -115,7 +115,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	@JsonProperty("AD_InfoWindow")
 	public void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow) {
 		this.mAD_InfoWindow = AD_InfoWindow;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_InfoWindow != null) {
@@ -152,7 +152,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

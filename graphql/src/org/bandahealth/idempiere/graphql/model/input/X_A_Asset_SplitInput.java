@@ -197,7 +197,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -268,7 +268,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	@JsonProperty("PostingType")
 	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PostingType != null) {

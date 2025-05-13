@@ -45,7 +45,7 @@ public class X_C_CountryGroupCountryInput extends MCountryGroupCountry implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_C_CountryGroupCountryInput extends MCountryGroupCountry implement
 	@JsonProperty("C_Country")
 	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Country != null) {
@@ -119,7 +119,7 @@ public class X_C_CountryGroupCountryInput extends MCountryGroupCountry implement
 	@JsonProperty("C_CountryGroup")
 	public void setC_CountryGroupInput(ForeignEntityInput C_CountryGroup) {
 		this.mC_CountryGroup = C_CountryGroup;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_CountryGroup != null) {

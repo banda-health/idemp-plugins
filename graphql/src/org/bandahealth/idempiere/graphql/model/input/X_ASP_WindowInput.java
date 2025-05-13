@@ -48,7 +48,7 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -85,7 +85,7 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 	@JsonProperty("AD_Window")
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Window != null) {
@@ -122,7 +122,7 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 	@JsonProperty("ASP_Level")
 	public void setASP_LevelInput(ForeignEntityInput ASP_Level) {
 		this.mASP_Level = ASP_Level;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ASP_Level != null) {

@@ -53,7 +53,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -187,7 +187,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	@JsonProperty("HR_Concept")
 	public void setHR_ConceptInput(ForeignEntityInput HR_Concept) {
 		this.mHR_Concept = HR_Concept;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (HR_Concept != null) {

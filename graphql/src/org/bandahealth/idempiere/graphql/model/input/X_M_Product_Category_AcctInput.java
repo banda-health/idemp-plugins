@@ -63,7 +63,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -100,7 +100,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {
@@ -233,7 +233,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	@JsonProperty("M_Product_Category")
 	public void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category) {
 		this.mM_Product_Category = M_Product_Category;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product_Category != null) {

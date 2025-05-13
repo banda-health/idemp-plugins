@@ -110,7 +110,7 @@ public class X_AD_IndexColumnInput extends MIndexColumn implements I_AD_IndexCol
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -147,7 +147,7 @@ public class X_AD_IndexColumnInput extends MIndexColumn implements I_AD_IndexCol
 	@JsonProperty("AD_TableIndex")
 	public void setAD_TableIndexInput(ForeignEntityInput AD_TableIndex) {
 		this.mAD_TableIndex = AD_TableIndex;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_TableIndex != null) {

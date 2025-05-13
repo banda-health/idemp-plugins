@@ -41,7 +41,7 @@ public class X_M_PartTypeInput extends X_M_PartType implements I_M_PartTypeInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

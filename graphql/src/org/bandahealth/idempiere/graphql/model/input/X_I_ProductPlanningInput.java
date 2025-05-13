@@ -67,7 +67,7 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -269,7 +269,7 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	@JsonProperty("M_ForecastLine")
 	public void setM_ForecastLineInput(ForeignEntityInput M_ForecastLine) {
 		this.mM_ForecastLine = M_ForecastLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_ForecastLine != null) {
@@ -481,7 +481,7 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	@JsonProperty("PP_Product_Planning")
 	public void setPP_Product_PlanningInput(ForeignEntityInput PP_Product_Planning) {
 		this.mPP_Product_Planning = PP_Product_Planning;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Product_Planning != null) {

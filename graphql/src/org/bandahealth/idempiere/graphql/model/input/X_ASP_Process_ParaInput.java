@@ -48,7 +48,7 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -85,7 +85,7 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	@JsonProperty("AD_Process_Para")
 	public void setAD_Process_ParaInput(ForeignEntityInput AD_Process_Para) {
 		this.mAD_Process_Para = AD_Process_Para;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Process_Para != null) {
@@ -122,7 +122,7 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	@JsonProperty("ASP_Process")
 	public void setASP_ProcessInput(ForeignEntityInput ASP_Process) {
 		this.mASP_Process = ASP_Process;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ASP_Process != null) {

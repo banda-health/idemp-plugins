@@ -108,6 +108,16 @@ mutation BH_AllergySave($BH_Allergy: BH_AllergyInput!) {
 	}
 }
 
+mutation BH_BPartner_TagsSave($Entity: BH_BPartner_TagsInput!) {
+	BH_BPartner_TagsSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation BH_BPartner_TagsDelete($UUs: [String!]!){
+	BH_BPartner_TagsDelete(UUs: $UUs)
+}
+
 mutation BH_Client_Concept_ExtraDelete($UUs: [String!]!) {
 	BH_Client_Concept_ExtraDelete(UUs: $UUs)
 }
@@ -208,6 +218,16 @@ mutation BH_ObservationsDeleteAndSaveManyAndEncounterDiagnosesSaveMany(
 	BH_Encounter_DiagnosisSaveMany(Entities: $BH_EncounterDiagnoses) {
 		UU
 	}
+}
+
+mutation BH_TagSave($Entity: BH_TagInput!){
+	BH_TagSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation BH_TagDelete($UUs: [String!]!){
+	BH_TagDelete(UUs: $UUs)
 }
 
 mutation BH_VisitDeleteAll(
