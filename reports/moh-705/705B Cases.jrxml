@@ -262,7 +262,7 @@ WHERE cl.ad_client_id = $P{AD_CLIENT_ID}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Facility Name:]]></text>
 			</staticText>
@@ -321,7 +321,7 @@ WHERE cl.ad_client_id = $P{AD_CLIENT_ID}]]>
 				</reportElement>
 				<box rightPadding="0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Ward:]]></text>
 			</staticText>
@@ -330,7 +330,7 @@ WHERE cl.ad_client_id = $P{AD_CLIENT_ID}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sub-County:]]></text>
 			</staticText>
@@ -339,7 +339,7 @@ WHERE cl.ad_client_id = $P{AD_CLIENT_ID}]]>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[County:]]></text>
 			</staticText>
@@ -403,7 +403,7 @@ WHERE cl.ad_client_id = $P{AD_CLIENT_ID}]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MFL No:]]></text>
 			</staticText>
@@ -422,7 +422,6 @@ WHERE cl.ad_client_id = $P{AD_CLIENT_ID}]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{county}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
