@@ -77,7 +77,7 @@ public class X_AD_AuthorizationAccountInput extends MAuthorizationAccount implem
 	@JsonProperty("AD_AuthorizationCredential")
 	public void setAD_AuthorizationCredentialInput(ForeignEntityInput AD_AuthorizationCredential) {
 		this.mAD_AuthorizationCredential = AD_AuthorizationCredential;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_AuthorizationCredential != null) {
@@ -153,7 +153,7 @@ public class X_AD_AuthorizationAccountInput extends MAuthorizationAccount implem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -190,7 +190,7 @@ public class X_AD_AuthorizationAccountInput extends MAuthorizationAccount implem
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {

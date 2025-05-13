@@ -43,7 +43,7 @@ public class X_AD_TreeNodeU1Input extends X_AD_TreeNodeU1 implements I_AD_TreeNo
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_AD_TreeNodeU1Input extends X_AD_TreeNodeU1 implements I_AD_TreeNo
 	@JsonProperty("AD_Tree")
 	public void setAD_TreeInput(ForeignEntityInput AD_Tree) {
 		this.mAD_Tree = AD_Tree;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tree != null) {

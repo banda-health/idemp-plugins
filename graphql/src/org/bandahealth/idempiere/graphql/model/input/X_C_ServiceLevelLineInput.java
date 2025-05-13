@@ -45,7 +45,7 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 	@JsonProperty("C_ServiceLevel")
 	public void setC_ServiceLevelInput(ForeignEntityInput C_ServiceLevel) {
 		this.mC_ServiceLevel = C_ServiceLevel;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ServiceLevel != null) {

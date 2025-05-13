@@ -45,7 +45,7 @@ public class X_AD_Sequence_AuditInput extends X_AD_Sequence_Audit implements I_A
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -100,7 +100,7 @@ public class X_AD_Sequence_AuditInput extends X_AD_Sequence_Audit implements I_A
 	@JsonProperty("AD_Sequence")
 	public void setAD_SequenceInput(ForeignEntityInput AD_Sequence) {
 		this.mAD_Sequence = AD_Sequence;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Sequence != null) {
@@ -137,7 +137,7 @@ public class X_AD_Sequence_AuditInput extends X_AD_Sequence_Audit implements I_A
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Table != null) {

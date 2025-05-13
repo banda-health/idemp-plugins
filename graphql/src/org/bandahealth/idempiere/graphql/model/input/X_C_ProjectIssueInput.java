@@ -58,7 +58,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -95,7 +95,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Project != null) {
@@ -386,7 +386,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 	@JsonProperty("Reversal")
 	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Reversal != null) {

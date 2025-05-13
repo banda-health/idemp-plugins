@@ -47,7 +47,7 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -84,7 +84,7 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 	@JsonProperty("C_BankAccount")
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BankAccount != null) {
@@ -173,7 +173,7 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 	@JsonProperty("C_PaymentProcessor")
 	public void setC_PaymentProcessorInput(ForeignEntityInput C_PaymentProcessor) {
 		this.mC_PaymentProcessor = C_PaymentProcessor;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_PaymentProcessor != null) {

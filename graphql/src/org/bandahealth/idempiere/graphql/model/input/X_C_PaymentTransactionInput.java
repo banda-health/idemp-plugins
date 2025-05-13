@@ -84,7 +84,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -755,7 +755,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("R_AvsAddr")
 	public void setR_AvsAddrInput(ForeignEntityInput R_AvsAddr) {
 		this.mR_AvsAddr = R_AvsAddr;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_AvsAddr != null) {
@@ -797,7 +797,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("R_AvsZip")
 	public void setR_AvsZipInput(ForeignEntityInput R_AvsZip) {
 		this.mR_AvsZip = R_AvsZip;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_AvsZip != null) {

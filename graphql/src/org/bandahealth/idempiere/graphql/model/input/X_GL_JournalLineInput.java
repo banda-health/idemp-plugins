@@ -180,7 +180,7 @@ public class X_GL_JournalLineInput extends MJournalLine implements I_GL_JournalL
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -692,7 +692,7 @@ public class X_GL_JournalLineInput extends MJournalLine implements I_GL_JournalL
 	@JsonProperty("GL_Journal")
 	public void setGL_JournalInput(ForeignEntityInput GL_Journal) {
 		this.mGL_Journal = GL_Journal;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (GL_Journal != null) {

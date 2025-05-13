@@ -44,7 +44,7 @@ public class X_BH_Product_IncludedInput extends MBHProductIncluded implements I_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -99,7 +99,7 @@ public class X_BH_Product_IncludedInput extends MBHProductIncluded implements I_
 	@JsonProperty("Included_Product")
 	public void setIncluded_ProductInput(ForeignEntityInput Included_Product) {
 		this.mIncluded_Product = Included_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Included_Product != null) {
@@ -136,7 +136,7 @@ public class X_BH_Product_IncludedInput extends MBHProductIncluded implements I_
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {

@@ -45,7 +45,7 @@ public class X_AD_Process_AccessInput extends MProcessAccess implements I_AD_Pro
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -100,7 +100,7 @@ public class X_AD_Process_AccessInput extends MProcessAccess implements I_AD_Pro
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Process != null) {
@@ -137,7 +137,7 @@ public class X_AD_Process_AccessInput extends MProcessAccess implements I_AD_Pro
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Role != null) {

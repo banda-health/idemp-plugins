@@ -49,7 +49,7 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -149,7 +149,7 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 	@JsonProperty("M_DemandLine")
 	public void setM_DemandLineInput(ForeignEntityInput M_DemandLine) {
 		this.mM_DemandLine = M_DemandLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_DemandLine != null) {

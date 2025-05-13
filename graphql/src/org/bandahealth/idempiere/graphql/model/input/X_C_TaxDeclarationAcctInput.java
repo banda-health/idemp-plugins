@@ -47,7 +47,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -84,7 +84,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {
@@ -121,7 +121,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 	@JsonProperty("C_TaxDeclaration")
 	public void setC_TaxDeclarationInput(ForeignEntityInput C_TaxDeclaration) {
 		this.mC_TaxDeclaration = C_TaxDeclaration;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_TaxDeclaration != null) {
@@ -187,7 +187,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 	@JsonProperty("Fact_Acct")
 	public void setFact_AcctInput(ForeignEntityInput Fact_Acct) {
 		this.mFact_Acct = Fact_Acct;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Fact_Acct != null) {

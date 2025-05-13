@@ -106,7 +106,7 @@ public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Table != null) {

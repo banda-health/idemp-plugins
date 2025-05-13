@@ -92,7 +92,7 @@ public class X_AD_WF_ActivityInput extends X_AD_WF_Activity implements I_AD_WF_A
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -260,7 +260,7 @@ public class X_AD_WF_ActivityInput extends X_AD_WF_Activity implements I_AD_WF_A
 	@JsonProperty("AD_WF_Process")
 	public void setAD_WF_ProcessInput(ForeignEntityInput AD_WF_Process) {
 		this.mAD_WF_Process = AD_WF_Process;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_WF_Process != null) {

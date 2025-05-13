@@ -77,7 +77,7 @@ public class X_AD_AttributeInput extends X_AD_Attribute implements I_AD_Attribut
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

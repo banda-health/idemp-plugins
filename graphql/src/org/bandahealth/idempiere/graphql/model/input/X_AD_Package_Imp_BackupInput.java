@@ -85,7 +85,7 @@ public class X_AD_Package_Imp_BackupInput extends X_AD_Package_Imp_Backup implem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -151,7 +151,7 @@ public class X_AD_Package_Imp_BackupInput extends X_AD_Package_Imp_Backup implem
 	@JsonProperty("AD_Package_Imp_Detail")
 	public void setAD_Package_Imp_DetailInput(ForeignEntityInput AD_Package_Imp_Detail) {
 		this.mAD_Package_Imp_Detail = AD_Package_Imp_Detail;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Package_Imp_Detail != null) {
@@ -188,7 +188,7 @@ public class X_AD_Package_Imp_BackupInput extends X_AD_Package_Imp_Backup implem
 	@JsonProperty("AD_Package_Imp")
 	public void setAD_Package_ImpInput(ForeignEntityInput AD_Package_Imp) {
 		this.mAD_Package_Imp = AD_Package_Imp;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Package_Imp != null) {

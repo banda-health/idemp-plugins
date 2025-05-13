@@ -64,7 +64,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -101,7 +101,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	@JsonProperty("C_ProjectIssue")
 	public void setC_ProjectIssueInput(ForeignEntityInput C_ProjectIssue) {
 		this.mC_ProjectIssue = C_ProjectIssue;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_ProjectIssue != null) {
@@ -138,7 +138,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSetInstance != null) {
@@ -175,7 +175,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_InOutLine != null) {
@@ -212,7 +212,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	@JsonProperty("M_InventoryLine")
 	public void setM_InventoryLineInput(ForeignEntityInput M_InventoryLine) {
 		this.mM_InventoryLine = M_InventoryLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_InventoryLine != null) {
@@ -249,7 +249,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	@JsonProperty("M_Locator")
 	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Locator != null) {
@@ -286,7 +286,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	@JsonProperty("M_MovementLine")
 	public void setM_MovementLineInput(ForeignEntityInput M_MovementLine) {
 		this.mM_MovementLine = M_MovementLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_MovementLine != null) {
@@ -323,7 +323,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -360,7 +360,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	@JsonProperty("M_ProductionLine")
 	public void setM_ProductionLineInput(ForeignEntityInput M_ProductionLine) {
 		this.mM_ProductionLine = M_ProductionLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_ProductionLine != null) {
@@ -448,7 +448,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	@JsonProperty("MovementType")
 	public void setMovementTypeInput(ForeignEntityInput MovementType) {
 		this.mMovementType = MovementType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (MovementType != null) {

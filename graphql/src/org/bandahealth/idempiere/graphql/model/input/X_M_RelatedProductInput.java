@@ -47,7 +47,7 @@ public class X_M_RelatedProductInput extends X_M_RelatedProduct implements I_M_R
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -84,7 +84,7 @@ public class X_M_RelatedProductInput extends X_M_RelatedProduct implements I_M_R
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -139,7 +139,7 @@ public class X_M_RelatedProductInput extends X_M_RelatedProduct implements I_M_R
 	@JsonProperty("RelatedProduct")
 	public void setRelatedProductInput(ForeignEntityInput RelatedProduct) {
 		this.mRelatedProduct = RelatedProduct;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (RelatedProduct != null) {
@@ -176,7 +176,7 @@ public class X_M_RelatedProductInput extends X_M_RelatedProduct implements I_M_R
 	@JsonProperty("RelatedProductType")
 	public void setRelatedProductTypeInput(ForeignEntityInput RelatedProductType) {
 		this.mRelatedProductType = RelatedProductType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (RelatedProductType != null) {

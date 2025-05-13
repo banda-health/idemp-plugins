@@ -56,7 +56,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -127,7 +127,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_Cash")
 	public void setC_CashInput(ForeignEntityInput C_Cash) {
 		this.mC_Cash = C_Cash;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Cash != null) {
@@ -227,7 +227,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Currency != null) {
@@ -264,7 +264,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Invoice != null) {
@@ -335,7 +335,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("CashType")
 	public void setCashTypeInput(ForeignEntityInput CashType) {
 		this.mCashType = CashType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (CashType != null) {

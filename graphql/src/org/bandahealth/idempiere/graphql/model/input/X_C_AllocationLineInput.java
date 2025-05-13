@@ -59,7 +59,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -107,7 +107,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_AllocationHdr")
 	public void setC_AllocationHdrInput(ForeignEntityInput C_AllocationHdr) {
 		this.mC_AllocationHdr = C_AllocationHdr;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AllocationHdr != null) {
@@ -207,7 +207,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BPartner != null) {
@@ -244,7 +244,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_CashLine")
 	public void setC_CashLineInput(ForeignEntityInput C_CashLine) {
 		this.mC_CashLine = C_CashLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_CashLine != null) {
@@ -281,7 +281,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Charge != null) {
@@ -318,7 +318,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Invoice != null) {
@@ -355,7 +355,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Order != null) {
@@ -392,7 +392,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_Payment")
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Payment != null) {

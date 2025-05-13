@@ -40,3 +40,43 @@ test('save organization information', async () => {
 	expect(savedOrganization.AD_OrgInfo!.BH_Header).toBe('header');
 	expect(savedOrganization.AD_OrgInfo!.ReceiptFooterMsg).toBe('footer message');
 });
+
+test('long information can be saved', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const organization = (
+		await query(valueObject)({
+			query: Ad_OrgGetDocument,
+			variables: { Size: 1, Filter: JSON.stringify({ ad_org_uu: valueObject.organization?.UU! }) },
+		})
+	).data.AD_OrgGet.Results[0]!;
+	expect(organization).toBeTruthy();
+	expect(organization.AD_OrgInfo).toBeTruthy();
+
+	await mutate(valueObject)({
+		mutation: Ad_OrgInfoSaveDocument,
+		variables: {
+			AD_OrgInfo: {
+				UU: organization.AD_OrgInfo!.UU,
+				BH_ExtraInfo: 'extra info'.repeat(1000),
+				BH_Header: 'header'.repeat(1000),
+				BH_PaymentInformation: 'payment info'.repeat(1000),
+			},
+		},
+	});
+
+	const savedOrganization = (
+		await query(valueObject)({
+			query: Ad_OrgGetDocument,
+			variables: { Size: 1, Filter: JSON.stringify({ ad_org_uu: valueObject.organization?.UU! }) },
+		})
+	).data.AD_OrgGet.Results[0]!;
+	expect(savedOrganization).toBeTruthy();
+	expect(savedOrganization.AD_OrgInfo).toBeTruthy();
+
+	expect(savedOrganization.Name).toBe(organization.Name);
+	expect(savedOrganization.AD_OrgInfo!.BH_ExtraInfo).toBe('extra info'.repeat(1000));
+	expect(savedOrganization.AD_OrgInfo!.BH_Header).toBe('header'.repeat(1000));
+	expect(savedOrganization.AD_OrgInfo!.BH_PaymentInformation).toBe('payment info'.repeat(1000));
+});

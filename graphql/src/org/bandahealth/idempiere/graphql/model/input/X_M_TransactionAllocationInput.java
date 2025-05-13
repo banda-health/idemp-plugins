@@ -60,7 +60,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -306,7 +306,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 	@JsonProperty("M_Transaction")
 	public void setM_TransactionInput(ForeignEntityInput M_Transaction) {
 		this.mM_Transaction = M_Transaction;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Transaction != null) {

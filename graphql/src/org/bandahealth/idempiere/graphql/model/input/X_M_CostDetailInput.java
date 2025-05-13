@@ -67,7 +67,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -104,7 +104,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {
@@ -141,7 +141,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_InvoiceLine != null) {
@@ -178,7 +178,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("C_OrderLine")
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_OrderLine != null) {
@@ -249,7 +249,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_AttributeSetInstance != null) {
@@ -315,7 +315,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_CostElement")
 	public void setM_CostElementInput(ForeignEntityInput M_CostElement) {
 		this.mM_CostElement = M_CostElement;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_CostElement != null) {
@@ -352,7 +352,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_InOutLine != null) {
@@ -423,7 +423,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_MatchInv")
 	public void setM_MatchInvInput(ForeignEntityInput M_MatchInv) {
 		this.mM_MatchInv = M_MatchInv;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_MatchInv != null) {
@@ -494,7 +494,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {
@@ -565,7 +565,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("PP_Cost_Collector")
 	public void setPP_Cost_CollectorInput(ForeignEntityInput PP_Cost_Collector) {
 		this.mPP_Cost_Collector = PP_Cost_Collector;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Cost_Collector != null) {

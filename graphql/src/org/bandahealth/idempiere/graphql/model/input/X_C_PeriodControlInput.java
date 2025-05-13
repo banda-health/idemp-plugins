@@ -48,7 +48,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -85,7 +85,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	@JsonProperty("C_Period")
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Period != null) {
@@ -151,7 +151,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	@JsonProperty("DocBaseType")
 	public void setDocBaseTypeInput(ForeignEntityInput DocBaseType) {
 		this.mDocBaseType = DocBaseType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (DocBaseType != null) {
@@ -232,7 +232,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	@JsonProperty("PeriodStatus")
 	public void setPeriodStatusInput(ForeignEntityInput PeriodStatus) {
 		this.mPeriodStatus = PeriodStatus;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PeriodStatus != null) {

@@ -44,7 +44,7 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	@JsonProperty("AD_AllClients_V")
 	public void setAD_AllClients_VInput(ForeignEntityInput AD_AllClients_V) {
 		this.mAD_AllClients_V = AD_AllClients_V;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_AllClients_V != null) {
@@ -110,7 +110,7 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

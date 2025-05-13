@@ -76,7 +76,7 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 	@JsonProperty("AD_LdapProcessor")
 	public void setAD_LdapProcessorInput(ForeignEntityInput AD_LdapProcessor) {
 		this.mAD_LdapProcessor = AD_LdapProcessor;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_LdapProcessor != null) {
@@ -113,7 +113,7 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -150,7 +150,7 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {
@@ -198,7 +198,7 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 	@JsonProperty("R_InterestArea")
 	public void setR_InterestAreaInput(ForeignEntityInput R_InterestArea) {
 		this.mR_InterestArea = R_InterestArea;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_InterestArea != null) {

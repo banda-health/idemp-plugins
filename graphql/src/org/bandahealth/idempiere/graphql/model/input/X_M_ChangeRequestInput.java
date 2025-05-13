@@ -46,7 +46,7 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -83,7 +83,7 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 	@JsonProperty("M_ChangeNotice")
 	public void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice) {
 		this.mM_ChangeNotice = M_ChangeNotice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_ChangeNotice != null) {
@@ -149,7 +149,7 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 	@JsonProperty("M_FixChangeNotice")
 	public void setM_FixChangeNoticeInput(ForeignEntityInput M_FixChangeNotice) {
 		this.mM_FixChangeNotice = M_FixChangeNotice;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_FixChangeNotice != null) {
@@ -186,7 +186,7 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 	@JsonProperty("PP_Product_BOM")
 	public void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM) {
 		this.mPP_Product_BOM = PP_Product_BOM;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PP_Product_BOM != null) {

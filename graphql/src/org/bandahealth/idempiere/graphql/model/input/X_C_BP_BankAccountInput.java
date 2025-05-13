@@ -56,7 +56,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -268,7 +268,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_BPartner != null) {
@@ -378,7 +378,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	@JsonProperty("R_AvsAddr")
 	public void setR_AvsAddrInput(ForeignEntityInput R_AvsAddr) {
 		this.mR_AvsAddr = R_AvsAddr;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_AvsAddr != null) {
@@ -420,7 +420,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	@JsonProperty("R_AvsZip")
 	public void setR_AvsZipInput(ForeignEntityInput R_AvsZip) {
 		this.mR_AvsZip = R_AvsZip;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_AvsZip != null) {

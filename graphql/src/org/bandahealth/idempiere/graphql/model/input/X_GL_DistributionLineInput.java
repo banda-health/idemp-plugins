@@ -61,7 +61,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -336,7 +336,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("GL_Distribution")
 	public void setGL_DistributionInput(ForeignEntityInput GL_Distribution) {
 		this.mGL_Distribution = GL_Distribution;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (GL_Distribution != null) {

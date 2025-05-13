@@ -53,7 +53,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -90,7 +90,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {
@@ -127,7 +127,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Currency != null) {
@@ -164,7 +164,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_InvoiceLine != null) {
@@ -201,7 +201,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("C_RevenueRecognition")
 	public void setC_RevenueRecognitionInput(ForeignEntityInput C_RevenueRecognition) {
 		this.mC_RevenueRecognition = C_RevenueRecognition;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_RevenueRecognition != null) {
@@ -267,7 +267,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("P_Revenue_A")
 	public void setP_Revenue_AInput(ForeignEntityInput P_Revenue_A) {
 		this.mP_Revenue_A = P_Revenue_A;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (P_Revenue_A != null) {
@@ -326,7 +326,7 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("UnEarnedRevenue_A")
 	public void setUnEarnedRevenue_AInput(ForeignEntityInput UnEarnedRevenue_A) {
 		this.mUnEarnedRevenue_A = UnEarnedRevenue_A;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (UnEarnedRevenue_A != null) {

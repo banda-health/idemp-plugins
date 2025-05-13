@@ -49,7 +49,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -86,7 +86,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema != null) {
@@ -141,7 +141,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 	@JsonProperty("C_Tax")
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Tax != null) {

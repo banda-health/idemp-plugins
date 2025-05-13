@@ -45,7 +45,7 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	@JsonProperty("AD_InfoRelated")
 	public void setAD_InfoRelatedInput(ForeignEntityInput AD_InfoRelated) {
 		this.mAD_InfoRelated = AD_InfoRelated;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_InfoRelated != null) {
@@ -82,7 +82,7 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -119,7 +119,7 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	@JsonProperty("AD_UserDef_Info")
 	public void setAD_UserDef_InfoInput(ForeignEntityInput AD_UserDef_Info) {
 		this.mAD_UserDef_Info = AD_UserDef_Info;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_UserDef_Info != null) {

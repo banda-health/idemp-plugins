@@ -89,7 +89,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -160,7 +160,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	@JsonProperty("AD_Tree_Activity")
 	public void setAD_Tree_ActivityInput(ForeignEntityInput AD_Tree_Activity) {
 		this.mAD_Tree_Activity = AD_Tree_Activity;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tree_Activity != null) {
@@ -197,7 +197,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	@JsonProperty("AD_Tree_BPartner")
 	public void setAD_Tree_BPartnerInput(ForeignEntityInput AD_Tree_BPartner) {
 		this.mAD_Tree_BPartner = AD_Tree_BPartner;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tree_BPartner != null) {
@@ -234,7 +234,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	@JsonProperty("AD_Tree_Campaign")
 	public void setAD_Tree_CampaignInput(ForeignEntityInput AD_Tree_Campaign) {
 		this.mAD_Tree_Campaign = AD_Tree_Campaign;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tree_Campaign != null) {
@@ -271,7 +271,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	@JsonProperty("AD_Tree_Menu")
 	public void setAD_Tree_MenuInput(ForeignEntityInput AD_Tree_Menu) {
 		this.mAD_Tree_Menu = AD_Tree_Menu;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tree_Menu != null) {
@@ -308,7 +308,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	@JsonProperty("AD_Tree_Org")
 	public void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org) {
 		this.mAD_Tree_Org = AD_Tree_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tree_Org != null) {
@@ -345,7 +345,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	@JsonProperty("AD_Tree_Product")
 	public void setAD_Tree_ProductInput(ForeignEntityInput AD_Tree_Product) {
 		this.mAD_Tree_Product = AD_Tree_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tree_Product != null) {
@@ -382,7 +382,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	@JsonProperty("AD_Tree_Project")
 	public void setAD_Tree_ProjectInput(ForeignEntityInput AD_Tree_Project) {
 		this.mAD_Tree_Project = AD_Tree_Project;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tree_Project != null) {
@@ -419,7 +419,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	@JsonProperty("AD_Tree_SalesRegion")
 	public void setAD_Tree_SalesRegionInput(ForeignEntityInput AD_Tree_SalesRegion) {
 		this.mAD_Tree_SalesRegion = AD_Tree_SalesRegion;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Tree_SalesRegion != null) {
@@ -456,7 +456,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	@JsonProperty("C_AcctSchema1")
 	public void setC_AcctSchema1Input(ForeignEntityInput C_AcctSchema1) {
 		this.mC_AcctSchema1 = C_AcctSchema1;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctSchema1 != null) {

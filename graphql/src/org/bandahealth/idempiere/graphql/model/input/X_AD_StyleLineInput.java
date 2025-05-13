@@ -45,7 +45,7 @@ public class X_AD_StyleLineInput extends MStyleLine implements I_AD_StyleLineInp
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_AD_StyleLineInput extends MStyleLine implements I_AD_StyleLineInp
 	@JsonProperty("AD_Style")
 	public void setAD_StyleInput(ForeignEntityInput AD_Style) {
 		this.mAD_Style = AD_Style;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Style != null) {

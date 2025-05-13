@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHConceptExtra;
  * Data Loader for BH_Concept_Extra - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_Concept_ExtraDataLoader extends PODataLoader<MBHConceptExtra> {
 	public static String DATALOADER_BH_Concept_Extra_BY_ID = "BH_Concept_ExtraByIdDataLoader";

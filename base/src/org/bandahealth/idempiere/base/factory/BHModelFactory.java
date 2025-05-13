@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MBHAllergyReaction;
 import org.bandahealth.idempiere.base.model.MBHBPGeneralPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHBPPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
+import org.bandahealth.idempiere.base.model.MBHBPartnerTags;
 import org.bandahealth.idempiere.base.model.MBHClientConcept;
 import org.bandahealth.idempiere.base.model.MBHClientConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConcept;
@@ -32,6 +33,7 @@ import org.bandahealth.idempiere.base.model.MBHPaymentRef;
 import org.bandahealth.idempiere.base.model.MBHPaymentRefBankAccount;
 import org.bandahealth.idempiere.base.model.MBHProductCategoryDefault;
 import org.bandahealth.idempiere.base.model.MBHProductIncluded;
+import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBHWarehouseAccess;
@@ -216,6 +218,10 @@ public class BHModelFactory implements IModelFactory {
 			return MBHClientConceptExtra.class;
 		} else if (tableName.equalsIgnoreCase(MBHProductIncluded.Table_Name)) {
 			return MBHProductIncluded.class;
+		} else if (tableName.equalsIgnoreCase(MBHTag.Table_Name)) {
+			return MBHTag.class;
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
+			return MBHBPartnerTags.class;
 		}
 
 		return null;
@@ -357,6 +363,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHClientConceptExtra(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHProductIncluded.Table_Name)) {
 			return new MBHProductIncluded(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHTag.Table_Name)) {
+			return new MBHTag(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
+			return new MBHBPartnerTags(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -502,6 +512,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHClientConceptExtra(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHProductIncluded.Table_Name)) {
 			return new MBHProductIncluded(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHTag.Table_Name)) {
+			return new MBHTag(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
+			return new MBHBPartnerTags(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
@@ -629,6 +643,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHClientConceptExtra(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHProductIncluded.Table_Name)) {
 			return new MBHProductIncluded(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHTag.Table_Name)) {
+			return new MBHTag(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
+			return new MBHBPartnerTags(Env.getCtx(), Record_UU, trxName);
 		}
 
 		return null;

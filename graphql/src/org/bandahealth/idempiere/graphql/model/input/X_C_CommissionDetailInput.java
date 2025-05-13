@@ -49,7 +49,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -86,7 +86,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	@JsonProperty("C_CommissionAmt")
 	public void setC_CommissionAmtInput(ForeignEntityInput C_CommissionAmt) {
 		this.mC_CommissionAmt = C_CommissionAmt;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_CommissionAmt != null) {
@@ -186,7 +186,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_InvoiceLine != null) {
@@ -223,7 +223,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	@JsonProperty("C_OrderLine")
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_OrderLine != null) {

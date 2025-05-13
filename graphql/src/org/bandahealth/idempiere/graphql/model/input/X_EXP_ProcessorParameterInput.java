@@ -43,7 +43,7 @@ public class X_EXP_ProcessorParameterInput extends MEXPProcessorParameter implem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_EXP_ProcessorParameterInput extends MEXPProcessorParameter implem
 	@JsonProperty("EXP_Processor")
 	public void setEXP_ProcessorInput(ForeignEntityInput EXP_Processor) {
 		this.mEXP_Processor = EXP_Processor;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (EXP_Processor != null) {

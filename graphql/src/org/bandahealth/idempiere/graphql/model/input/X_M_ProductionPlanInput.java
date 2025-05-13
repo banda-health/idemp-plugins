@@ -47,7 +47,7 @@ public class X_M_ProductionPlanInput extends MProductionPlan implements I_M_Prod
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -152,7 +152,7 @@ public class X_M_ProductionPlanInput extends MProductionPlan implements I_M_Prod
 	@JsonProperty("M_Production")
 	public void setM_ProductionInput(ForeignEntityInput M_Production) {
 		this.mM_Production = M_Production;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Production != null) {

@@ -43,7 +43,7 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	@JsonProperty("Fact_Acct")
 	public void setFact_AcctInput(ForeignEntityInput Fact_Acct) {
 		this.mFact_Acct = Fact_Acct;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Fact_Acct != null) {

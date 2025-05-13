@@ -47,7 +47,7 @@ public class X_C_RfQ_TopicSubscriberOnlyInput extends MRfQTopicSubscriberOnly im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -84,7 +84,7 @@ public class X_C_RfQ_TopicSubscriberOnlyInput extends MRfQTopicSubscriberOnly im
 	@JsonProperty("C_RfQ_TopicSubscriber")
 	public void setC_RfQ_TopicSubscriberInput(ForeignEntityInput C_RfQ_TopicSubscriber) {
 		this.mC_RfQ_TopicSubscriber = C_RfQ_TopicSubscriber;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_RfQ_TopicSubscriber != null) {

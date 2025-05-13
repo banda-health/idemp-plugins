@@ -49,7 +49,7 @@ public class X_BH_Encounter_DiagnosticInput extends MBHEncounterDiagnostic imple
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -233,7 +233,7 @@ public class X_BH_Encounter_DiagnosticInput extends MBHEncounterDiagnostic imple
 	@JsonProperty("Selected_Panel")
 	public void setSelected_PanelInput(ForeignEntityInput Selected_Panel) {
 		this.mSelected_Panel = Selected_Panel;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Selected_Panel != null) {

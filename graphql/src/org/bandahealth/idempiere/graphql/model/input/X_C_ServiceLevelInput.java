@@ -46,7 +46,7 @@ public class X_C_ServiceLevelInput extends X_C_ServiceLevel implements I_C_Servi
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -83,7 +83,7 @@ public class X_C_ServiceLevelInput extends X_C_ServiceLevel implements I_C_Servi
 	@JsonProperty("C_RevenueRecognition_Plan")
 	public void setC_RevenueRecognition_PlanInput(ForeignEntityInput C_RevenueRecognition_Plan) {
 		this.mC_RevenueRecognition_Plan = C_RevenueRecognition_Plan;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_RevenueRecognition_Plan != null) {
@@ -149,7 +149,7 @@ public class X_C_ServiceLevelInput extends X_C_ServiceLevel implements I_C_Servi
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_Product != null) {

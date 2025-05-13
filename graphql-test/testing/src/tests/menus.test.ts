@@ -118,4 +118,8 @@ test('correct menu names are returned', async () => {
 	expect(menu).not.toBeUndefined();
 	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
 	expect(menu?.SeqNo).toBe(5);
+	menu = backEndMenu?.Node?.ChildrenTree_NodeMMList?.find((menu) => menu.Node?.Name === 'Patient Tags');
+	expect(menu).not.toBeUndefined();
+	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
+	expect(menu?.SeqNo).toBe(6);
 });

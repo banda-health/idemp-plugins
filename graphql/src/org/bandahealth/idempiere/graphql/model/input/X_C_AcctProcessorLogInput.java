@@ -43,7 +43,7 @@ public class X_C_AcctProcessorLogInput extends MAcctProcessorLog implements I_C_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -80,7 +80,7 @@ public class X_C_AcctProcessorLogInput extends MAcctProcessorLog implements I_C_
 	@JsonProperty("C_AcctProcessor")
 	public void setC_AcctProcessorInput(ForeignEntityInput C_AcctProcessor) {
 		this.mC_AcctProcessor = C_AcctProcessor;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_AcctProcessor != null) {

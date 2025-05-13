@@ -130,7 +130,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -585,7 +585,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("FOB")
 	public void setFOBInput(ForeignEntityInput FOB) {
 		this.mFOB = FOB;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (FOB != null) {
@@ -627,7 +627,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("FreightCharges")
 	public void setFreightChargesInput(ForeignEntityInput FreightCharges) {
 		this.mFreightCharges = FreightCharges;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (FreightCharges != null) {
@@ -742,7 +742,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("Insurance")
 	public void setInsuranceInput(ForeignEntityInput Insurance) {
 		this.mInsurance = Insurance;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (Insurance != null) {
@@ -784,7 +784,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_InOut")
 	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_InOut != null) {
@@ -991,7 +991,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_ShippingProcessor")
 	public void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor) {
 		this.mM_ShippingProcessor = M_ShippingProcessor;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_ShippingProcessor != null) {

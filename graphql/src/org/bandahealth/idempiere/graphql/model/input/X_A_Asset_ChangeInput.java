@@ -143,7 +143,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	@JsonProperty("A_Asset_Addition")
 	public void setA_Asset_AdditionInput(ForeignEntityInput A_Asset_Addition) {
 		this.mA_Asset_Addition = A_Asset_Addition;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Asset_Addition != null) {
@@ -209,7 +209,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Asset != null) {
@@ -246,7 +246,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	@JsonProperty("A_Asset_Retirement")
 	public void setA_Asset_RetirementInput(ForeignEntityInput A_Asset_Retirement) {
 		this.mA_Asset_Retirement = A_Asset_Retirement;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (A_Asset_Retirement != null) {
@@ -531,7 +531,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -860,7 +860,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	@JsonProperty("ChangeType")
 	public void setChangeTypeInput(ForeignEntityInput ChangeType) {
 		this.mChangeType = ChangeType;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (ChangeType != null) {

@@ -48,7 +48,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -124,7 +124,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 	@JsonProperty("C_Bank")
 	public void setC_BankInput(ForeignEntityInput C_Bank) {
 		this.mC_Bank = C_Bank;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_Bank != null) {

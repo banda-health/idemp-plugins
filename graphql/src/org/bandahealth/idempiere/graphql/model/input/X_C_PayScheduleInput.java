@@ -46,7 +46,7 @@ public class X_C_PayScheduleInput extends MPaySchedule implements I_C_PaySchedul
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -83,7 +83,7 @@ public class X_C_PayScheduleInput extends MPaySchedule implements I_C_PaySchedul
 	@JsonProperty("C_PaymentTerm")
 	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_PaymentTerm != null) {

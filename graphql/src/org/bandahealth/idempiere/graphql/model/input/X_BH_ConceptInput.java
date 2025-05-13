@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_Concept - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 13 - $Id$
+ * @version Release 12 - $Id$
  */
 public class X_BH_ConceptInput extends MBHConcept implements I_BH_ConceptInput {
 
@@ -41,7 +41,7 @@ public class X_BH_ConceptInput extends MBHConcept implements I_BH_ConceptInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {

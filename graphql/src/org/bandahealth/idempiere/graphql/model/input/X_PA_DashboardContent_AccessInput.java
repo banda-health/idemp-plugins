@@ -47,7 +47,7 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -84,7 +84,7 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Role != null) {
@@ -121,7 +121,7 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {
@@ -187,7 +187,7 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	@JsonProperty("PA_DashboardContent")
 	public void setPA_DashboardContentInput(ForeignEntityInput PA_DashboardContent) {
 		this.mPA_DashboardContent = PA_DashboardContent;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (PA_DashboardContent != null) {

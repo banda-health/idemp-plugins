@@ -47,7 +47,7 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -152,7 +152,7 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 	@JsonProperty("M_DistributionList")
 	public void setM_DistributionListInput(ForeignEntityInput M_DistributionList) {
 		this.mM_DistributionList = M_DistributionList;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (M_DistributionList != null) {

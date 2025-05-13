@@ -267,8 +267,6 @@ public class ConceptSyncProcess extends SvrProcess {
 		conceptFromOcl.getMappings().stream()
 				// We'll skip the broader-than map types, retired mappings, and times where the mapping is to the own concept
 				.filter(conceptMappingFromOcl ->
-						!MBHConceptMapping.BROADER_THAN1_MAP_TYPE.equalsIgnoreCase(conceptMappingFromOcl.getMapType()) &&
-								!MBHConceptMapping.BROADER_THAN2_MAP_TYPE.equalsIgnoreCase(conceptMappingFromOcl.getMapType()) &&
 								!StringUtil.isNullOrEmpty(conceptMappingFromOcl.getToConceptUrl()) &&
 								!conceptMappingFromOcl.getToConceptUrl().equalsIgnoreCase(conceptFromOcl.getUrl()) &&
 								!conceptMappingFromOcl.isRetired())
@@ -659,10 +657,6 @@ public class ConceptSyncProcess extends SvrProcess {
 				.collect(Collectors.toMap(MBHConceptMapping::getOcl_Uuid, conceptMapping -> conceptMapping));
 
 		List<OCLConceptMapping> oclConceptMappingsToWorkWith = oclConcept.getActiveMappingsByMapType().keySet().stream()
-				.filter(
-						conceptMappingMapType ->
-								!MBHConceptMapping.BROADER_THAN1_MAP_TYPE.equalsIgnoreCase(conceptMappingMapType) &&
-										!MBHConceptMapping.BROADER_THAN2_MAP_TYPE.equalsIgnoreCase(conceptMappingMapType))
 				.flatMap(conceptMappingMapType -> oclConcept.getActiveMappingsByMapType().get(conceptMappingMapType).stream())
 				.toList();
 

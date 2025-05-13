@@ -45,7 +45,7 @@ public class X_R_CategoryUpdatesInput extends X_R_CategoryUpdates implements I_R
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_R_CategoryUpdatesInput extends X_R_CategoryUpdates implements I_R
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {
@@ -119,7 +119,7 @@ public class X_R_CategoryUpdatesInput extends X_R_CategoryUpdates implements I_R
 	@JsonProperty("R_Category")
 	public void setR_CategoryInput(ForeignEntityInput R_Category) {
 		this.mR_Category = R_Category;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_Category != null) {

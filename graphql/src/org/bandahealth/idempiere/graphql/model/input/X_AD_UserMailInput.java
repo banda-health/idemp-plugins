@@ -48,7 +48,7 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -85,7 +85,7 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_User != null) {
@@ -162,7 +162,7 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	@JsonProperty("IsDelivered")
 	public void setIsDeliveredInput(ForeignEntityInput IsDelivered) {
 		this.mIsDelivered = IsDelivered;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (IsDelivered != null) {
@@ -215,7 +215,7 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	@JsonProperty("R_MailText")
 	public void setR_MailTextInput(ForeignEntityInput R_MailText) {
 		this.mR_MailText = R_MailText;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (R_MailText != null) {

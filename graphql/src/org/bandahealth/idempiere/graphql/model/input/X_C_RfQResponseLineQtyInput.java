@@ -45,7 +45,7 @@ public class X_C_RfQResponseLineQtyInput extends MRfQResponseLineQty implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (AD_Org != null) {
@@ -82,7 +82,7 @@ public class X_C_RfQResponseLineQtyInput extends MRfQResponseLineQty implements 
 	@JsonProperty("C_RfQLineQty")
 	public void setC_RfQLineQtyInput(ForeignEntityInput C_RfQLineQty) {
 		this.mC_RfQLineQty = C_RfQLineQty;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_RfQLineQty != null) {
@@ -119,7 +119,7 @@ public class X_C_RfQResponseLineQtyInput extends MRfQResponseLineQty implements 
 	@JsonProperty("C_RfQResponseLine")
 	public void setC_RfQResponseLineInput(ForeignEntityInput C_RfQResponseLine) {
 		this.mC_RfQResponseLine = C_RfQResponseLine;
-		if (get_ID() != 0) {
+		if (!is_new()) {
 			return;
 		}
 		if (C_RfQResponseLine != null) {
