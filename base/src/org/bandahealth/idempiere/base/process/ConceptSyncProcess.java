@@ -228,17 +228,19 @@ public class ConceptSyncProcess extends SvrProcess {
 		}
 
 		// Delete all OCL originating source records for concepts that weren't saved
-		processMonitor.statusUpdate("Cleaning up...");
-		parameters = new ArrayList<>();
-		parameters.add(source);
-		String whereClause = MBHOclOriginatingSource.COLUMNNAME_BH_Ocl_Source + "=?";
-		if (!savedSourceConcepts.isEmpty() && !areFilteringByID) {
-			inClause = QueryUtil.getWhereClauseAndSetParametersForSet(savedSourceConcepts, parameters);
-			whereClause += " AND " + MBHOclOriginatingSource.COLUMNNAME_BH_Concept_ID + " NOT IN (" + inClause + ")";
+		if (!areFilteringByID) {
+			processMonitor.statusUpdate("Cleaning up...");
+			parameters = new ArrayList<>();
+			parameters.add(source);
+			String whereClause = MBHOclOriginatingSource.COLUMNNAME_BH_Ocl_Source + "=?";
+			if (!savedSourceConcepts.isEmpty()) {
+				inClause = QueryUtil.getWhereClauseAndSetParametersForSet(savedSourceConcepts, parameters);
+				whereClause += " AND " + MBHOclOriginatingSource.COLUMNNAME_BH_Concept_ID + " NOT IN (" + inClause + ")";
+			}
+			List<MBHOclOriginatingSource> oclOriginatingSourceList = new Query(getCtx(), MBHOclOriginatingSource.Table_Name,
+					whereClause, get_TrxName()).setParameters(parameters).list();
+			oclOriginatingSourceList.forEach(oclOriginatingSource -> oclOriginatingSource.deleteEx(false));
 		}
-		List<MBHOclOriginatingSource> oclOriginatingSourceList = new Query(getCtx(), MBHOclOriginatingSource.Table_Name,
-				whereClause, get_TrxName()).setParameters(parameters).list();
-		oclOriginatingSourceList.forEach(oclOriginatingSource -> oclOriginatingSource.deleteEx(false));
 
 		String successMessage = "SUCCESSFULLY created " + newRecords.get() + ", updated " + updatedRecords.get()
 				+ ", deactivated " + deactivatedRecords.get() + " records in " + (System.currentTimeMillis() - start) / 1000 +
