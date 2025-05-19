@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Diagnosis Report" pageWidth="1365" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1365" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -52,6 +52,7 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
 		<parameter name="Diagnosis" class="java.lang.String"/>
 		<parameter name="BH_Concept_UU" class="java.lang.String"/>
+		<parameter name="Tags" class="java.util.List"/>
 		<queryString>
 			<![CDATA[WITH visit_diagnoses AS (
 	SELECT
@@ -96,20 +97,35 @@ FROM
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 	AND (
-			pd.bh_uncoded_diagnosis IS NOT NULL OR
-			sd.bh_uncoded_diagnosis IS NOT NULL OR
-			pd.bh_concept_id IS NOT NULL OR
-			sd.bh_concept_id IS NOT NULL
+		pd.bh_uncoded_diagnosis IS NOT NULL OR
+		sd.bh_uncoded_diagnosis IS NOT NULL OR
+		pd.bh_concept_id IS NOT NULL OR
+		sd.bh_concept_id IS NOT NULL
 		)
 	AND (
-			$P{Diagnosis} IS NULL OR
-			LOWER(pd.bh_uncoded_diagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%') OR
-			LOWER(sd.bh_uncoded_diagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%')
+		$P{Diagnosis} IS NULL OR
+		LOWER(pd.bh_uncoded_diagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%') OR
+		LOWER(sd.bh_uncoded_diagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%')
 		)
 	AND (
-			$P{BH_Concept_UU} IS NULL OR
-			primary_cd.bh_concept_uu = $P{BH_Concept_UU} OR
-			secondary_cd.bh_concept_uu = $P{BH_Concept_UU}
+		$P{BH_Concept_UU} IS NULL OR
+		primary_cd.bh_concept_uu = $P{BH_Concept_UU} OR
+		secondary_cd.bh_concept_uu = $P{BH_Concept_UU}
+		)
+	AND (
+		$X{IN, bp.c_bpartner_uu, Tags} OR
+		bp.c_bpartner_id IN (
+			SELECT
+				c_bpartner_id
+			FROM
+				bh_bpartner_tags
+			WHERE
+				bh_tag_id IN (
+					SELECT bh_tag_id
+					FROM bh_tag
+					WHERE $X{IN, bh_tag_uu, Tags}
+				)
+		)
 		)
 	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 ORDER BY
@@ -138,6 +154,7 @@ ORDER BY
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Diagnosis" class="java.lang.String"/>
 	<parameter name="BH_Concept_UU" class="java.lang.String"/>
+	<parameter name="Tags" class="java.util.List"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
@@ -193,6 +210,9 @@ ORDER BY
 						</datasetParameter>
 						<datasetParameter name="BH_Concept_UU">
 							<datasetParameterExpression><![CDATA[$P{BH_Concept_UU}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="Tags">
+							<datasetParameterExpression><![CDATA[$P{Tags}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
