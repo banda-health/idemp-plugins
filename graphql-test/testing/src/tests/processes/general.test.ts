@@ -75,7 +75,7 @@ test('report names are correct', async () => {
 	expect(financialReports![1].AD_Process?.UU).toBe(processUuid.dailyCashierCollections);
 	expect(financialReports![2].Name).toBe('Cashier Patient Transactions');
 	expect(financialReports![2].AD_Process?.UU).toBe(processUuid.cashierPatientTransactions);
-	expect(financialReports![3].Name).toBe('Income & Expenses');
+	expect(financialReports![3].Name).toBe('Income/Expense Overview');
 	expect(financialReports![3].AD_Process?.UU).toBe(processUuid.incomeAndExpense);
 	expect(financialReports![4].Name).toBe('Services Charged Report');
 	expect(financialReports![4].AD_Process?.UU).toBe(processUuid.servicesChargedReport);

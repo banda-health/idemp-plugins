@@ -5,7 +5,7 @@ import { Ad_ProcessGetDocument } from '../../__generated__/graphql';
 
 const reportUuid = 'f777f042-3907-4293-94c4-49fe6eb58780';
 
-test('income and expense report is runnable', async () => {
+test('income expense overview report is runnable', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
