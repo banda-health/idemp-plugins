@@ -9,6 +9,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bandahealth.idempiere.base.model.MBHBPartnerTags;
+import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.utils.StringUtil;
@@ -24,11 +26,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.StreamSupport;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -351,6 +349,105 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 			assertTrue(totalsRow.isPresent(), "Service row exists");
 			assertEquals(totalServicesCharged, totalsRow.get().getCell(amountColumnIndex).getNumericCellValue(),
 					"Services total is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void canFilterByPatientTag() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner 1");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product first product");
+		valueObject.setSalesStandardPrice(new BigDecimal(50));
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setProductType(MProduct_BH.PRODUCTTYPE_Service);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create first visit");
+		valueObject.setDate(TimestampUtils.today());
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+		valueObject.clearBusinessPartner();
+
+		valueObject.setStepName("create second business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create business partner tag");
+		MBHTag tag = new MBHTag(valueObject.getContext(), 0, valueObject.getTransactionName());
+		tag.setName(String.valueOf(valueObject.getRandomNumber()));
+		tag.saveEx();
+		MBHBPartnerTags businessPartnerTag =
+				new MBHBPartnerTags(valueObject.getContext(), 0, valueObject.getTransactionName());
+		businessPartnerTag.setC_BPartner_ID(valueObject.getBusinessPartner().get_ID());
+		businessPartnerTag.setBH_Tag_ID(tag.get_ID());
+		businessPartnerTag.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second product");
+		valueObject.setSalesStandardPrice(new BigDecimal(150));
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setProductType(MProduct_BH.PRODUCTTYPE_Service);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second visit");
+		valueObject.setDate(TimestampUtils.today());
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+						new ProcessInfoParameter("Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Service Name");
+			int serviceColumnIndex = TableUtils.getColumnIndex(headerRow, "Service Name");
+			int quantityChargedColumnIndex = TableUtils.getColumnIndexContaining(headerRow, "Quantity");
+			int chargePriceColumnIndex = TableUtils.getColumnIndex(headerRow, "Unit Charge Price");
+			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
+
+			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(serviceColumnIndex) != null &&
+							row.getCell(serviceColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(serviceColumnIndex).getStringCellValue()
+									.contains(valueObject.getProduct().getName().substring(0, 30))).findFirst();
+
+			assertTrue(productRow.isPresent(), "Service row exists");
+			assertThat("Selling price is correct", productRow.get().getCell(chargePriceColumnIndex).getNumericCellValue(),
+					is(150D));
+			assertThat("Income is correct", productRow.get().getCell(amountColumnIndex).getNumericCellValue(), is(150D));
 		}
 	}
 }
