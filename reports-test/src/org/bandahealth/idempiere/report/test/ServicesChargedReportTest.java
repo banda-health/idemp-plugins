@@ -71,8 +71,8 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
@@ -80,10 +80,9 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessUuid("9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2");
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -96,18 +95,20 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 			int chargePriceColumnIndex = TableUtils.getColumnIndex(headerRow, "Unit Charge Price");
 			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
 
-			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-					row -> row.getCell(serviceColumnIndex) != null &&
-							row.getCell(serviceColumnIndex).getCellType().equals(CellType.STRING) &&
-							row.getCell(serviceColumnIndex).getStringCellValue()
-									.contains(valueObject.getProduct().getName().substring(0, 30))).findFirst();
+			Optional<Row> productRow = StreamSupport
+					.stream(sheet.spliterator(),
+							false)
+					.filter(row -> row.getCell(serviceColumnIndex) != null
+							&& row.getCell(serviceColumnIndex).getCellType().equals(CellType.STRING)
+							&& row.getCell(serviceColumnIndex).getStringCellValue()
+									.contains(valueObject.getProduct().getName().substring(0, 30)))
+					.findFirst();
 
 			assertTrue(productRow.isPresent(), "Service row exists");
 			assertThat("Times charged is correct",
-					productRow.get().getCell(quantityChargedColumnIndex).getNumericCellValue(),
-					is(1D));
-			assertThat("Selling price is correct", productRow.get().getCell(chargePriceColumnIndex).getNumericCellValue(),
-					is(50D));
+					productRow.get().getCell(quantityChargedColumnIndex).getNumericCellValue(), is(1D));
+			assertThat("Selling price is correct",
+					productRow.get().getCell(chargePriceColumnIndex).getNumericCellValue(), is(50D));
 			assertThat("Income is correct", productRow.get().getCell(amountColumnIndex).getNumericCellValue(), is(50D));
 		}
 	}
@@ -136,8 +137,8 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
@@ -145,19 +146,21 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessUuid("9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2");
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-							row -> row.getCell(0) != null && row.getCell(0).getCellType().equals(CellType.STRING) &&
-									row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 30)))
+			Optional<Row> productRow = StreamSupport
+					.stream(sheet.spliterator(),
+							false)
+					.filter(row -> row.getCell(0) != null && row.getCell(0).getCellType().equals(CellType.STRING)
+							&& row.getCell(0).getStringCellValue()
+									.contains(valueObject.getProduct().getName().substring(0, 30)))
 					.findFirst();
 
 			assertTrue(productRow.isPresent(), "Service row exists");
@@ -194,8 +197,8 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create first sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
@@ -206,8 +209,8 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create second sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
@@ -218,8 +221,8 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create third sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
@@ -227,10 +230,9 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessUuid("9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2");
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
-				new ProcessInfoParameter("End Date", endDate, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+						new ProcessInfoParameter("End Date", endDate, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -243,17 +245,20 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 			int chargePriceColumnIndex = TableUtils.getColumnIndex(headerRow, "Unit Charge Price");
 			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
 
-			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-					row -> row.getCell(serviceColumnIndex) != null &&
-							row.getCell(serviceColumnIndex).getCellType().equals(CellType.STRING) &&
-							row.getCell(serviceColumnIndex).getStringCellValue()
-									.contains(valueObject.getProduct().getName().substring(0, 30))).findFirst();
+			Optional<Row> productRow = StreamSupport
+					.stream(sheet.spliterator(),
+							false)
+					.filter(row -> row.getCell(serviceColumnIndex) != null
+							&& row.getCell(serviceColumnIndex).getCellType().equals(CellType.STRING)
+							&& row.getCell(serviceColumnIndex).getStringCellValue()
+									.contains(valueObject.getProduct().getName().substring(0, 30)))
+					.findFirst();
 
 			assertTrue(productRow.isPresent(), "Service row exists");
 			assertThat("Times charged is correct",
 					productRow.get().getCell(quantityChargedColumnIndex).getNumericCellValue(), is(1D));
-			assertThat("Selling price is correct", productRow.get().getCell(chargePriceColumnIndex).getNumericCellValue(),
-					is(50D));
+			assertThat("Selling price is correct",
+					productRow.get().getCell(chargePriceColumnIndex).getNumericCellValue(), is(50D));
 			assertThat("Income is correct", productRow.get().getCell(amountColumnIndex).getNumericCellValue(), is(50D));
 		}
 	}
@@ -288,8 +293,8 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
@@ -297,10 +302,9 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessUuid("9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2");
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
-				new ProcessInfoParameter("End Date", endDate, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", beginDate, null, null, null),
+						new ProcessInfoParameter("End Date", endDate, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -318,34 +322,37 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 			String currentCategory = null;
 			for (Row row : sheet) {
 				// If this is the header row, be done
-				if (StreamSupport.stream(row.spliterator(), false).anyMatch(
-						cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-								cell.getStringCellValue().equals("Service Name"))) {
+				if (StreamSupport.stream(row.spliterator(), false)
+						.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+								&& cell.getStringCellValue().equals("Service Name"))) {
 					currentServiceCharged = 0;
 					continue;
 				}
 				// If this is a table row
-				if (row.getCell(categoryColumnIndex) != null &&
-						row.getCell(categoryColumnIndex).getCellType().equals(CellType.STRING) &&
-						!StringUtil.isNullOrEmpty(row.getCell(categoryColumnIndex).getStringCellValue())) {
+				if (row.getCell(categoryColumnIndex) != null
+						&& row.getCell(categoryColumnIndex).getCellType().equals(CellType.STRING)
+						&& !StringUtil.isNullOrEmpty(row.getCell(categoryColumnIndex).getStringCellValue())) {
 					currentCategory = row.getCell(categoryColumnIndex).getStringCellValue();
 					currentServiceCharged += row.getCell(amountColumnIndex).getNumericCellValue();
 					totalServicesCharged += row.getCell(amountColumnIndex).getNumericCellValue();
 					continue;
 				}
 				String finalCurrentCategory = currentCategory;
-				if (!StringUtil.isNullOrEmpty(currentCategory) && StreamSupport.stream(row.spliterator(), false).anyMatch(
-						cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-								cell.getStringCellValue().equals(finalCurrentCategory + " Total"))) {
+				if (!StringUtil.isNullOrEmpty(currentCategory) && StreamSupport.stream(row.spliterator(), false)
+						.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+								&& cell.getStringCellValue().equals(finalCurrentCategory + " Total"))) {
 					assertEquals(row.getCell(amountColumnIndex).getNumericCellValue(), currentServiceCharged,
 							finalCurrentCategory + " total is correct");
 				}
 			}
 
-			Optional<Row> totalsRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
-							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().equals("Services Total:"))).findFirst();
+			Optional<Row> totalsRow = StreamSupport
+					.stream(sheet.spliterator(),
+							false)
+					.filter(row -> StreamSupport.stream(row.spliterator(), false)
+							.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+									&& cell.getStringCellValue().equals("Services Total:")))
+					.findFirst();
 			assertTrue(totalsRow.isPresent(), "Service row exists");
 			assertEquals(totalServicesCharged, totalsRow.get().getCell(amountColumnIndex).getNumericCellValue(),
 					"Services total is correct");
@@ -362,7 +369,7 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create product first product");
+		valueObject.setStepName("Create first product");
 		valueObject.setSalesStandardPrice(new BigDecimal(50));
 		ChuBoeCreateEntity.createProduct(valueObject);
 		valueObject.getProduct().setProductType(MProduct_BH.PRODUCTTYPE_Service);
@@ -371,17 +378,19 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create first visit");
-		valueObject.setDate(TimestampUtils.today());
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create first sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
+
 		valueObject.clearBusinessPartner();
+		valueObject.clearProduct();
+		valueObject.setVisit(null);
 
 		valueObject.setStepName("create second business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -391,8 +400,8 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		MBHTag tag = new MBHTag(valueObject.getContext(), 0, valueObject.getTransactionName());
 		tag.setName(String.valueOf(valueObject.getRandomNumber()));
 		tag.saveEx();
-		MBHBPartnerTags businessPartnerTag =
-				new MBHBPartnerTags(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHBPartnerTags businessPartnerTag = new MBHBPartnerTags(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
 		businessPartnerTag.setC_BPartner_ID(valueObject.getBusinessPartner().get_ID());
 		businessPartnerTag.setBH_Tag_ID(tag.get_ID());
 		businessPartnerTag.saveEx();
@@ -413,8 +422,8 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create second sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
@@ -422,10 +431,10 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessUuid("9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2");
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(
-				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
-						new ProcessInfoParameter("Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)));
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+				new ProcessInfoParameter("Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -438,16 +447,20 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 			int chargePriceColumnIndex = TableUtils.getColumnIndex(headerRow, "Unit Charge Price");
 			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
 
-			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
-					row -> row.getCell(serviceColumnIndex) != null &&
-							row.getCell(serviceColumnIndex).getCellType().equals(CellType.STRING) &&
-							row.getCell(serviceColumnIndex).getStringCellValue()
-									.contains(valueObject.getProduct().getName().substring(0, 30))).findFirst();
+			Optional<Row> productRow = StreamSupport
+					.stream(sheet.spliterator(),
+							false)
+					.filter(row -> row.getCell(serviceColumnIndex) != null
+							&& row.getCell(serviceColumnIndex).getCellType().equals(CellType.STRING)
+							&& row.getCell(serviceColumnIndex).getStringCellValue()
+									.contains(valueObject.getProduct().getName().substring(0, 30)))
+					.findFirst();
 
 			assertTrue(productRow.isPresent(), "Service row exists");
-			assertThat("Selling price is correct", productRow.get().getCell(chargePriceColumnIndex).getNumericCellValue(),
+			assertThat("Selling price is correct",
+					productRow.get().getCell(chargePriceColumnIndex).getNumericCellValue(), is(150D));
+			assertThat("Income is correct", productRow.get().getCell(amountColumnIndex).getNumericCellValue(),
 					is(150D));
-			assertThat("Income is correct", productRow.get().getCell(amountColumnIndex).getNumericCellValue(), is(150D));
 		}
 	}
 }
