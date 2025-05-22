@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Report" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter1.jrdax"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
 		<box>
@@ -49,6 +49,7 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="Tags" class="java.util.List"/>
 		<queryString>
 			<![CDATA[SELECT
 	bp.name                                AS patient_name,
@@ -64,6 +65,21 @@ FROM
 WHERE
 	bp.ad_client_id = $P{AD_CLIENT_ID}
 	AND bp.isactive = 'Y'
+		AND (
+		$X{IN, bp.c_bpartner_uu, Tags} OR
+		bp.c_bpartner_id IN (
+			SELECT
+				c_bpartner_id
+			FROM
+				bh_bpartner_tags
+			WHERE
+				bh_tag_id IN (
+					SELECT bh_tag_id
+					FROM bh_tag
+					WHERE $X{IN, bh_tag_uu, Tags}
+				)
+		)
+		)
 ORDER BY
 	bp.name;]]>
 		</queryString>
@@ -75,6 +91,7 @@ ORDER BY
 		<field name="openbalance" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="Tags" class="java.util.List"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
@@ -113,6 +130,9 @@ ORDER BY
 					<datasetRun subDataset="tableDataset" uuid="9f15718c-42a1-422d-9a41-12e1de583a84">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="Tags">
+							<datasetParameterExpression><![CDATA[$P{Tags}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>

@@ -9,13 +9,20 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bandahealth.idempiere.base.model.MBHBPartnerTags;
+import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
+import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
+import org.compiere.process.ProcessInfoParameter;
 import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -117,6 +124,68 @@ public class PatientsTest extends ChuBoePopulateFactoryVO {
 					.findFirst();
 			assertTrue(patientRow.isPresent(), "Patient is present");
 			assertTrue(patientRow2.isEmpty(), "Business partner is not a patient");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void canFilterPatientsByTags() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner 1");
+		ChuBoeCreateEntity.createPatient(valueObject);
+		valueObject.getBusinessPartner().setTotalOpenBalance(new BigDecimal(1000));
+		valueObject.getBusinessPartner().saveEx();
+		String businessPartner1Name = valueObject.getBusinessPartner().getName();
+		commitEx();
+
+		valueObject.clearBusinessPartner();
+
+		valueObject.setStepName("Create business partner 2");
+		ChuBoeCreateEntity.createPatient(valueObject);
+		valueObject.getBusinessPartner().setTotalOpenBalance(new BigDecimal(1200));
+		valueObject.getBusinessPartner().saveEx();
+		String businessPartner2Name = valueObject.getBusinessPartner().getName();
+		commitEx();
+
+		valueObject.setStepName("Create business partner tag");
+		MBHTag tag = new MBHTag(valueObject.getContext(), 0, valueObject.getTransactionName());
+		tag.setName(String.valueOf(valueObject.getRandomNumber()));
+		tag.saveEx();
+		MBHBPartnerTags businessPartnerTag =
+				new MBHBPartnerTags(valueObject.getContext(), 0, valueObject.getTransactionName());
+		businessPartnerTag.setC_BPartner_ID(valueObject.getBusinessPartner().get_ID());
+		businessPartnerTag.setBH_Tag_ID(tag.get_ID());
+		businessPartnerTag.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Generate the report to get initial data");
+		valueObject.setProcessUuid(patientsReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setReportType("xlsx");
+		valueObject.setProcessInformationParameters(
+                List.of(new ProcessInfoParameter("Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)));
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Optional<Row> patientRow = StreamSupport
+					.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false)
+									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+											&& cell.getStringCellValue().contains(businessPartner1Name)))
+					.findFirst();
+			Optional<Row> patientRow2 = StreamSupport
+					.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false)
+									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+											&& cell.getStringCellValue().contains(businessPartner2Name)))
+					.findFirst();
+			assertTrue(patientRow.isEmpty(), "Patient is present");
+			assertTrue(patientRow2.isPresent(), "Business partner is present");
 		}
 	}
 }
