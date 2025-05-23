@@ -15,9 +15,11 @@ import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
+import org.compiere.model.MInvoice;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
+import org.compiere.util.DB;
 import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
@@ -337,6 +339,157 @@ public class ExpensesTest extends ChuBoePopulateFactoryVO {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			assertEquals(businessPartnerRow.get().getCell(dateColumnIndex).getStringCellValue(),
 					dateFormat.format(valueObject.getDate()), "Expense date is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void canFilterByPaymentMethod() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner 1");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		MBPartner_BH businessPartner = valueObject.getBusinessPartner();
+		commitEx();
+
+		valueObject.setStepName("Create expense category");
+		ChuBoeCreateEntity.createCharge(valueObject);
+		valueObject.getCharge().setC_ChargeType_ID(expenseCategoryChargeType.getC_ChargeType_ID());
+		valueObject.getCharge().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create expense");
+		valueObject.setSalesPrice(new BigDecimal(100));
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		valueObject.getInvoice().setPaymentRule(MInvoice.PAYMENTRULE_DirectDeposit);
+		valueObject.getInvoice().saveEx();
+		commitEx();
+
+		valueObject.getInvoice().setDocAction(DocumentEngine.ACTION_Complete);
+		valueObject.getInvoice().processIt(DocumentEngine.ACTION_Complete);
+		valueObject.getInvoice().saveEx();
+		commitEx();
+
+		valueObject.clearBusinessPartner();
+
+		valueObject.setStepName("Create business partner 2");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create expense");
+		valueObject.setSalesPrice(new BigDecimal(400));
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null),
+				new ProcessInfoParameter("Payment Method", MInvoice.PAYMENTRULE_DirectDeposit, null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
+			int supplierColumnIndex = TableUtils.getColumnIndex(headerRow, "Supplier");
+
+			Optional<Row> businessPartnerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(supplierColumnIndex) != null &&
+									row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+									row.getCell(supplierColumnIndex).getStringCellValue().contains(businessPartner.getName()))
+					.findFirst();
+			assertTrue(businessPartnerRow.isPresent(), "Direct deposit business partner appears");
+			businessPartnerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(supplierColumnIndex) != null &&
+							row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(supplierColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName())).findFirst();
+			assertTrue(businessPartnerRow.isEmpty(), "On-credit business partner");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void canFilterByUserWhoCreated() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner 1");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		MBPartner_BH businessPartner = valueObject.getBusinessPartner();
+		commitEx();
+
+		valueObject.setStepName("Create expense category");
+		ChuBoeCreateEntity.createCharge(valueObject);
+		valueObject.getCharge().setC_ChargeType_ID(expenseCategoryChargeType.getC_ChargeType_ID());
+		valueObject.getCharge().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create expense");
+		valueObject.setSalesPrice(new BigDecimal(100));
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.clearBusinessPartner();
+
+		valueObject.setStepName("Create business partner 2");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create expense");
+		valueObject.setSalesPrice(new BigDecimal(400));
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		DB.executeUpdate("UPDATE c_invoice SET createdby = 103 WHERE c_invoice_id = " + valueObject.getInvoice().get_ID(),
+				valueObject.getTransactionName());
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null),
+				// System User UU
+				new ProcessInfoParameter("Created By", "986cb4dc-7161-4d77-a7c7-3832d24b19de", null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
+			int supplierColumnIndex = TableUtils.getColumnIndex(headerRow, "Supplier");
+
+			Optional<Row> businessPartnerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(supplierColumnIndex) != null &&
+							row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(supplierColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName())).findFirst();
+			assertTrue(businessPartnerRow.isEmpty(), "Joe Sales's expense business partner doesn't appear");
+			businessPartnerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(supplierColumnIndex) != null &&
+							row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(supplierColumnIndex).getStringCellValue().contains(businessPartner.getName())).findFirst();
+			assertTrue(businessPartnerRow.isPresent(), "System's expense business partner appears");
 		}
 	}
 }
