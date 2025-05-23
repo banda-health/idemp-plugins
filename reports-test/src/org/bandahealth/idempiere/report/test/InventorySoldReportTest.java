@@ -11,6 +11,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MBHBPartnerTags;
+import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -30,6 +32,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -74,6 +77,10 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(30));
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
@@ -144,6 +151,11 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		valueObject.setDateOffset(1);
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -154,7 +166,6 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create second sales order");
-		valueObject.setDateOffset(1);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);
@@ -249,6 +260,11 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createInventory(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		valueObject.setDateOffset(5);
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first sales order");
 		valueObject.setAttributeSetInstance(null);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
@@ -272,7 +288,7 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create purchase order");
 		valueObject.setAttributeSetInstance(secondAttributeSetInstance);
-		valueObject.setDateOffset(4);
+		valueObject.setDateOffset(-1);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(10));
@@ -376,6 +392,11 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createInventory(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		valueObject.setDateOffset(5);
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -398,7 +419,7 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create purchase order");
 		valueObject.setAttributeSetInstance(secondAttributeSetInstance);
-		valueObject.setDateOffset(4);
+		valueObject.setDateOffset(-1);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(10));
@@ -609,6 +630,10 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -656,6 +681,117 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 					row -> row.getCell(productColumnIndex) != null && row.getCell(productColumnIndex).getStringCellValue()
 							.contains(valueObject.getProduct().getName().substring(0, 20))).findFirst();
 			assertTrue(serviceRow.isEmpty(), "Report does not contain service");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void patientsCanBeFilteredByTags() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create first business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		String firstProductName =  valueObject.getProduct().getName();
+		commitEx();
+
+		valueObject.setStepName("Create first purchase order");
+		valueObject.setQuantity(BigDecimal.TEN);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first sales order");
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second business partner");
+		valueObject.clearBusinessPartner();
+		valueObject.setRandom();
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create business partner tag");
+		MBHTag tag = new MBHTag(valueObject.getContext(), 0, valueObject.getTransactionName());
+		tag.setName(String.valueOf(valueObject.getRandomNumber()));
+		tag.saveEx();
+		MBHBPartnerTags businessPartnerTag =
+				new MBHBPartnerTags(valueObject.getContext(), 0, valueObject.getTransactionName());
+		businessPartnerTag.setC_BPartner_ID(valueObject.getBusinessPartner().get_ID());
+		businessPartnerTag.setBH_Tag_ID(tag.get_ID());
+		businessPartnerTag.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second product");
+		valueObject.clearProduct();
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second purchase order");
+		valueObject.setQuantity(BigDecimal.TEN);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second sales order");
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.lastMonth(), null, null, null),
+				new ProcessInfoParameter("End Date", new Timestamp(System.currentTimeMillis()), null, null, null),
+				new ProcessInfoParameter("Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Product Name");
+			int productNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Product Name");
+
+			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(productNameColumnIndex) != null &&
+							row.getCell(productNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(productNameColumnIndex).getStringCellValue()
+									.contains(firstProductName)).findFirst();
+			assertTrue(productRow.isEmpty(), "First product isn't on the report");
+
+			productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(productNameColumnIndex) != null &&
+							row.getCell(productNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(productNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getProduct().getName())).findFirst();
+			assertTrue(productRow.isPresent(), "Second product is on the report");
 		}
 	}
 }
