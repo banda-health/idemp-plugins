@@ -75,7 +75,7 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<parameter name="Begin Date" class="java.sql.Timestamp"/>
 		<parameter name="End Date" class="java.sql.Timestamp"/>
-		<parameter name="Tags" class="java.util.List"/>
+		<parameter name="Patient Tags" class="java.util.List"/>
 		<queryString>
 			<![CDATA[SELECT
 	p.name                                                      AS item_name,
@@ -109,7 +109,7 @@ WHERE
 	AND ol.processed = 'Y'
 	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 	AND (
-		$X{IN, bp.c_bpartner_uu, Tags} OR
+		$X{IN, bp.c_bpartner_uu, Patient Tags} OR
 		bp.c_bpartner_id IN (
 			SELECT
 				c_bpartner_id
@@ -122,7 +122,7 @@ WHERE
 					FROM
 						bh_tag
 					WHERE
-						$X{IN, bh_tag_uu, Tags}
+						$X{IN, bh_tag_uu, Patient Tags}
 				)
 		)
 		)
@@ -172,7 +172,7 @@ ORDER BY
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-	<parameter name="Tags" class="java.util.List"/>
+	<parameter name="Patient Tags" class="java.util.List" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select 1;]]>
 	</queryString>
@@ -211,7 +211,7 @@ ORDER BY
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="inventory sold" uuid="0be2ece5-824a-4126-825d-d301c12ecba6">
+					<datasetRun subDataset="inventory sold" uuid="3522bf96-5fbe-4ea3-81bc-96802674bd9d">
 						<datasetParameter name="Begin Date">
 							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -221,8 +221,8 @@ ORDER BY
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 						</datasetParameter>
-						<datasetParameter name="Tags">
-							<datasetParameterExpression><![CDATA[$P{Tags}]]></datasetParameterExpression>
+						<datasetParameter name="Patient Tags">
+							<datasetParameterExpression><![CDATA[$P{Patient Tags}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>

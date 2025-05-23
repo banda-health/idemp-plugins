@@ -31,7 +31,7 @@
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
-	<parameter name="Tags" class="java.util.List"/>
+	<parameter name="Patient Tags" class="java.util.List"/>
 	<queryString>
 		<![CDATA[SELECT
 	p.item_name               AS item_name,
@@ -76,7 +76,7 @@ FROM
 			AND ol.processed = 'Y'
 			AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 			AND (
-				$X{IN, bp.c_bpartner_uu, Tags} OR
+				$X{IN, bp.c_bpartner_uu, Patient Tags} OR
 				bp.c_bpartner_id IN (
 					SELECT
 						c_bpartner_id
@@ -89,7 +89,7 @@ FROM
 							FROM
 								bh_tag
 							WHERE
-								$X{IN, bh_tag_uu, Tags}
+								$X{IN, bh_tag_uu, Patient Tags}
 						)
 				)
 				)

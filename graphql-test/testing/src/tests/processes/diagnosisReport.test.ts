@@ -230,7 +230,7 @@ test('can filter by tags', async () => {
 	).data.AD_ProcessGet.Results[0];
 	const beginDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Begin Date');
 	const endDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'End Date');
-	const tagsParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Tags');
+	const tagsParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Patient Tags');
 
 	expect(beginDateParameter).toBeTruthy();
 	expect(endDateParameter).toBeTruthy();

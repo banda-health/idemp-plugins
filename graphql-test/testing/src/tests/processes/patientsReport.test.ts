@@ -15,7 +15,9 @@ test('patients report is runnable', async () => {
 			variables: { Size: 1, Filter: JSON.stringify({ ad_process_uu: reportUuid }) },
 		})
 	).data.AD_ProcessGet.Results[0];
-	expect(process.AD_Process_ParaList?.find((processParameter) => processParameter.Name === 'Tags')).toBeTruthy();
+	expect(
+		process.AD_Process_ParaList?.find((processParameter) => processParameter.Name === 'Patient Tags'),
+	).toBeTruthy();
 
 	valueObject.stepName = 'Run report';
 	valueObject.processUuid = process.UU;

@@ -428,7 +428,8 @@ public class ServicesChargedReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessInformationParameters(
 				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
 						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
-						new ProcessInfoParameter("Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)));
+						new ProcessInfoParameter("Patient Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null,
+								null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 

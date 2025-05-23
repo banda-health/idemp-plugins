@@ -14,7 +14,6 @@ import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBHBPartnerTags;
 import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
@@ -696,7 +695,7 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create first product");
 		ChuBoeCreateEntity.createProduct(valueObject);
-		String firstProductName =  valueObject.getProduct().getName();
+		String firstProductName = valueObject.getProduct().getName();
 		commitEx();
 
 		valueObject.setStepName("Create first purchase order");
@@ -768,7 +767,7 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessInformationParameters(Arrays.asList(
 				new ProcessInfoParameter("Begin Date", TimestampUtils.lastMonth(), null, null, null),
 				new ProcessInfoParameter("End Date", new Timestamp(System.currentTimeMillis()), null, null, null),
-				new ProcessInfoParameter("Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)
+				new ProcessInfoParameter("Patient Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
