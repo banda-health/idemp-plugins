@@ -17,6 +17,7 @@ test('services charged report is runnable', async () => {
 	).data.AD_ProcessGet.Results[0];
 	const beginDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Begin Date');
 	const endDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'End Date');
+	expect(process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Patient Tags')).toBeTruthy();
 
 	expect(beginDateParameter).toBeTruthy();
 	expect(endDateParameter).toBeTruthy();

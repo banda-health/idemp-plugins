@@ -12,7 +12,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MBHBPartnerTags;
 import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
-import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.process.ProcessInfoParameter;
 import org.hamcrest.Matchers;
 
@@ -20,7 +19,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -165,8 +163,8 @@ public class PatientsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setReportType("xlsx");
-		valueObject.setProcessInformationParameters(
-                List.of(new ProcessInfoParameter("Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)));
+		valueObject.setProcessInformationParameters(List.of(
+				new ProcessInfoParameter("Patient Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)));
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());

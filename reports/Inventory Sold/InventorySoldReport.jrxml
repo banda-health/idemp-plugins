@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Inventory Sold" pageWidth="930" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="930" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
@@ -75,35 +75,61 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<parameter name="Begin Date" class="java.sql.Timestamp"/>
 		<parameter name="End Date" class="java.sql.Timestamp"/>
+		<parameter name="Patient Tags" class="java.util.List"/>
 		<queryString>
-			<![CDATA[WITH inventory_changes AS (
-	SELECT
-		m_product_id,
-		sell_price,
-		purchase_price,
-		SUM(sold_stock) AS sold_stock,
-		SUM(cost_of_goods_sold) AS cost_of_goods_sold,
-		SUM(gross_profit) AS gross_profit
-	FROM
-		get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
-	GROUP BY m_product_id, sell_price, purchase_price
-)
-SELECT
-	p.name                        AS item_name,
-	ic.sold_stock                 AS quantity,
-	ic.sell_price                 AS sellingprice,
-	ic.sold_stock * ic.sell_price AS amount,
-	ic.purchase_price             AS PurchasePrice,
-	ic.cost_of_goods_sold         AS costgoodssold,
-	ic.gross_profit               AS gross_profit
+			<![CDATA[SELECT
+	p.name                                                      AS item_name,
+	SUM(ol.qtyordered)                                          AS quantity,
+	ol.priceentered                                             AS sellingprice,
+	SUM(ol.linenetamt)                                          AS amount,
+	pc.purchase_price                                           AS PurchasePrice,
+	pc.purchase_price * SUM(ol.qtyordered)                      AS costgoodssold,
+	SUM(ol.linenetamt) - pc.purchase_price * SUM(ol.qtyordered) AS gross_profit
 FROM
-	m_product p
-		JOIN inventory_changes ic
-			ON p.m_product_id = ic.m_product_id
+	c_orderline ol
+		JOIN c_order o
+		ON ol.c_order_id = o.c_order_id
+		JOIN bh_visit v
+		ON o.bh_visit_id = v.bh_visit_id
+		JOIN c_bpartner bp
+		ON o.c_bpartner_id = bp.c_bpartner_id
+		JOIN m_product p
+		ON ol.m_product_id = p.m_product_id AND p.producttype = 'I'
+		JOIN m_inout io
+		ON o.c_order_id = io.c_order_id AND io.docstatus = 'CO'
+		JOIN m_inoutline iol
+		ON ol.c_orderline_id = iol.c_orderline_id AND io.m_inout_id = iol.m_inout_id
+		LEFT JOIN m_inoutlinema iolma
+		ON iol.m_inoutline_id = iolma.m_inoutline_id
+		JOIN get_product_costs($P{AD_CLIENT_ID}) pc
+		ON pc.m_product_id = iol.m_product_id AND (pc.m_attributesetinstance_id = iolma.m_attributesetinstance_id OR
+		                                           pc.m_attributesetinstance_id = iol.m_attributesetinstance_id)
 WHERE
-	ic.sold_stock > 0
+	ol.ad_client_id = $P{AD_CLIENT_ID}
+	AND ol.processed = 'Y'
+	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+	AND (
+		$X{IN, bp.c_bpartner_uu, Patient Tags} OR
+		bp.c_bpartner_id IN (
+			SELECT
+				c_bpartner_id
+			FROM
+				bh_bpartner_tags
+			WHERE
+				bh_tag_id IN (
+					SELECT
+						bh_tag_id
+					FROM
+						bh_tag
+					WHERE
+						$X{IN, bh_tag_uu, Patient Tags}
+				)
+		)
+		)
+GROUP BY
+	p.name, ol.priceentered, pc.purchase_price
 ORDER BY
-	item_name;]]>
+	p.name]]>
 		</queryString>
 		<field name="item_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="item_name"/>
@@ -146,6 +172,7 @@ ORDER BY
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="Patient Tags" class="java.util.List" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select 1;]]>
 	</queryString>
@@ -184,7 +211,7 @@ ORDER BY
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
-					<datasetRun subDataset="inventory sold" uuid="470437e0-d550-4565-acd0-679f0fb714dd">
+					<datasetRun subDataset="inventory sold" uuid="3522bf96-5fbe-4ea3-81bc-96802674bd9d">
 						<datasetParameter name="Begin Date">
 							<datasetParameterExpression><![CDATA[$P{Begin Date}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -193,6 +220,9 @@ ORDER BY
 						</datasetParameter>
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="Patient Tags">
+							<datasetParameterExpression><![CDATA[$P{Patient Tags}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
