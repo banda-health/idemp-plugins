@@ -1,34 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatementProfitAndLoss" pageWidth="800" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="093e33fd-6ca1-46bd-93fb-3f1a8bb1e4d5">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter1.jrdax"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT
-	COALESCE(l.address1, '') AS county,
-	COALESCE(l.address2, '') AS subcounty,
-	COALESCE(l.address3, '') AS ward,
-	cl.name                  AS org_name
+		<![CDATA[WITH 
+			header AS (
+				SELECT
+					COALESCE(l.address1, '') 											AS county,
+					COALESCE(l.address2, '') 											AS subcounty,
+					COALESCE(l.address3, '') 											AS ward,
+					cl.name                  											AS org_name,
+					cl.ad_client_id
+				FROM
+					ad_client cl
+						JOIN (
+						SELECT *
+						FROM
+							ad_orginfo
+						WHERE
+							ad_client_id = $P{AD_CLIENT_ID}
+						ORDER BY ad_org_id
+						LIMIT 1
+					) oi
+						ON cl.ad_client_id = oi.ad_client_id
+						LEFT JOIN c_location l
+						ON oi.c_location_id = l.c_location_id
+				WHERE
+					cl.ad_client_id = $P{AD_CLIENT_ID}
+			), costs AS (
+			SELECT
+				SUM(cost_of_goods_sold) * -1 													AS product_purchases
+		    FROM
+		        get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
+)
+SELECT
+	header.org_name																								AS org_name,
+	COALESCE(SUM(ps.payamt), 0)             																	AS product_sales,
+	COALESCE(SUM(ss.payamt), 0)			   																		AS service_revenue,
+	COALESCE(SUM(ps.payamt), 0) + COALESCE(SUM(ss.payamt), 0)													AS total_revenue,
+	COALESCE(costs.product_purchases, 0)																		AS product_purchases,
+	COALESCE(SUM(ps.payamt), 0) + COALESCE(SUM(ss.payamt), 0) + COALESCE(costs.product_purchases, 0)			AS gross_profit	
 FROM
-	ad_client cl
-		JOIN (
-		SELECT *
-		FROM
-			ad_orginfo
-		WHERE
-			ad_client_id = $P{AD_CLIENT_ID}
-		ORDER BY ad_org_id
-		LIMIT 1
-	) oi
-		ON cl.ad_client_id = oi.ad_client_id
-		LEFT JOIN c_location l
-		ON oi.c_location_id = l.c_location_id
-WHERE
-	cl.ad_client_id = $P{AD_CLIENT_ID}]]>
+	bh_visit v
+	JOIN header ON header.ad_client_id = v.ad_client_id
+	LEFT JOIN bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) ps
+		ON ps.bh_visit_id = v.bh_visit_id
+		       AND ps.bh_visit_id IN (
+                    SELECT bh_visit_id FROM c_order WHERE c_order_id IN (
+                        SELECT c_order_id FROM c_orderline WHERE m_product_id IN (
+                            SELECT m_product_id FROM m_product WHERE producttype = 'I'
+                            )
+                        )
+                    )
+   LEFT JOIN bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) ss
+		ON ss.bh_visit_id = v.bh_visit_id
+		       AND ss.bh_visit_id IN (
+                    SELECT bh_visit_id FROM c_order WHERE c_order_id IN (
+                        SELECT c_order_id FROM c_orderline WHERE m_product_id IN (
+                            SELECT m_product_id FROM m_product WHERE producttype = 'S'
+                            )
+                        )
+                    )   
+   CROSS JOIN costs     
+   GROUP BY costs.product_purchases, header.org_name]]>
 	</queryString>
 	<field name="org_name" class="java.lang.String"/>
+	<field name="product_sales" class="java.lang.Integer"/>
+	<field name="service_revenue" class="java.lang.Integer"/>
+	<field name="total_revenue" class="java.lang.Integer"/>
+	<field name="product_purchases" class="java.lang.Integer"/>
+	<field name="gross_profit" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -124,6 +168,7 @@ WHERE
 					<font size="11"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{product_sales}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="107" y="44" width="358" height="16" uuid="f159194c-1a81-4e44-9588-f63e0f073108">
@@ -179,6 +224,7 @@ WHERE
 					<font size="11"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{service_revenue}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement stretchType="ContainerBottom" x="465" y="61" width="82" height="16" uuid="f3617184-9b5b-4324-a6df-9ca587848497">
@@ -196,6 +242,7 @@ WHERE
 					<font size="11"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{total_revenue}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" mode="Opaque" x="107" y="95" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="7e64e6bf-d5f6-4fd8-881a-cfffbf0ef838">
@@ -250,6 +297,7 @@ WHERE
 					<font size="11" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{product_purchases}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="107" y="129" width="358" height="16" uuid="a2582416-10a4-4e57-820b-42fb5c705f33">
@@ -286,6 +334,7 @@ WHERE
 					<font size="11"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{gross_profit}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" mode="Opaque" x="107" y="162" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="9ec382b5-0f10-43ee-8b41-928e3af71d1c">
