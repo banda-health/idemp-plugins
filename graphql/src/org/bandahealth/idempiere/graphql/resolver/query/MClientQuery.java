@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MClient_BH;
-import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.bandahealth.idempiere.graphql.model.PagingInfo;
@@ -21,18 +20,14 @@ import java.util.Properties;
 import java.util.Set;
 
 public class MClientQuery extends X_AD_ClientQuery {
-	@Override
-	public Connection<MClient_BH> AD_ClientGet(int page, int pageSize, String sort, String filter,
-			DataFetchingEnvironment environment) {
+	public String getClientLimitingWhereClause(List<Object> parameters, DataFetchingEnvironment environment) {
 		Properties iDempiereContext = BandaGraphQLContext.getCtx(environment);
-		try {
-			List<Object> parameters = new ArrayList<>();
-			String clientLimitingWhereClause = "";
-			// If the user is currently the system client, we can get everything
-			if (Env.getAD_Client_ID(iDempiereContext) == 0) {
-				Repository.setApplyAccessFilterNotNeeded();
-				// Copied from org.compiere.util.Login#getClients
-				String sql = """
+		String clientLimitingWhereClause = "";
+		// If the user is currently the system client, we can get everything
+		if (Env.getAD_Client_ID(iDempiereContext) == 0) {
+			Repository.setApplyAccessFilterNotNeeded();
+			// Copied from org.compiere.util.Login#getClients
+			String sql = """
 						SELECT DISTINCT cli.AD_Client_ID
 						FROM AD_User_Roles ur
 							INNER JOIN AD_Role r on (ur.AD_Role_ID=r.AD_Role_ID)
@@ -44,20 +39,30 @@ public class MClientQuery extends X_AD_ClientQuery {
 							AND cli.AuthenticationType IN ('APO', 'AAS')
 							AND ur.AD_User_ID=?
 						ORDER BY cli.AD_Client_ID""";
-				Set<Integer> clientIdsForUser = new HashSet<>();
-				try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
-					preparedStatement.setInt(1, Env.getAD_User_ID(iDempiereContext));
-					try (ResultSet resultSet = preparedStatement.executeQuery()) {
-						while (resultSet.next()) {
-							clientIdsForUser.add(resultSet.getInt("AD_Client_ID"));
-						}
+			Set<Integer> clientIdsForUser = new HashSet<>();
+			try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+				preparedStatement.setInt(1, Env.getAD_User_ID(iDempiereContext));
+				try (ResultSet resultSet = preparedStatement.executeQuery()) {
+					while (resultSet.next()) {
+						clientIdsForUser.add(resultSet.getInt("AD_Client_ID"));
 					}
-				} catch (SQLException e) {
-					throw new RuntimeException(e);
 				}
-				clientLimitingWhereClause = "AD_Client.AD_Client_ID IN (" +
-						QueryUtil.getWhereClauseAndSetParametersForSet(clientIdsForUser, parameters) + ")";
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
 			}
+			clientLimitingWhereClause = "AD_Client.AD_Client_ID IN (" +
+					QueryUtil.getWhereClauseAndSetParametersForSet(clientIdsForUser, parameters) + ")";
+		}
+		return clientLimitingWhereClause;
+	}
+
+	@Override
+	public Connection<MClient_BH> AD_ClientGet(int page, int pageSize, String sort, String filter,
+			DataFetchingEnvironment environment) {
+		Properties iDempiereContext = BandaGraphQLContext.getCtx(environment);
+		try {
+			List<Object> parameters = new ArrayList<>();
+			String clientLimitingWhereClause = getClientLimitingWhereClause(parameters, environment);
 			return Repository.get(getTableName(), null, new PagingInfo(page, pageSize), sort, filter,
 					clientLimitingWhereClause, parameters, null, environment);
 		} finally {

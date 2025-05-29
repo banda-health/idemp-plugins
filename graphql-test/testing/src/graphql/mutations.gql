@@ -895,3 +895,15 @@ mutation SignIn($Credentials: AuthenticationInput!) {
 		}
 	}
 }
+
+mutation SignInWithClients($Credentials: AuthenticationInput!) {
+	SignIn(Credentials: $Credentials) {
+		AD_Clients {
+			UU
+		}
+		AD_User {
+			UU
+			IsExpired
+		}
+	}
+}

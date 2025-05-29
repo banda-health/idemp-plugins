@@ -7,6 +7,7 @@ extend type Mutation {
 }
 
 type AuthenticationResponse {
+	AD_Clients: [AD_Client!]
 	AD_User: AD_User
 	SecurityQuestions: [String!]
 }
