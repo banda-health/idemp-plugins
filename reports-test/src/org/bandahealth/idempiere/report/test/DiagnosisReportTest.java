@@ -9,9 +9,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bandahealth.idempiere.base.model.MBHBPartnerTags;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
@@ -27,7 +29,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -420,11 +424,155 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 			assertEquals(1, visitRows.size(), "Only the completed visit shows on the report");
 
 			Row visitRow = visitRows.get(0);
-			assertEquals(codedDiagnosis.getBH_Display_Name(), visitRow.getCell(primaryCodedDiagnosisIndex).getStringCellValue(),
+			assertEquals(codedDiagnosis.getBH_Display_Name(),
+					visitRow.getCell(primaryCodedDiagnosisIndex).getStringCellValue(),
 					"Primary coded diagnosis is correct");
 			assertEquals(thirdEncounterDiagnosis.getBH_Uncoded_Diagnosis(),
 					visitRow.getCell(primaryNonCodedDiagnosisIndex).getStringCellValue(),
 					"Primary non-coded diagnosis is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void patientsCanBeFilteredByTags() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create first business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		String firstBusinessPartnerName = valueObject.getBusinessPartner().getName();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setQuantity(BigDecimal.TEN);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first coded diagnosis");
+		valueObject.setRandom();
+		MBHConcept codedDiagnosis =
+				new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create first visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first visit diagnoses");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+		MBHEncounterDiagnosis firstEncounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		firstEncounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		firstEncounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
+		firstEncounterDiagnosis.setLineNo(10);
+		firstEncounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create first sales order");
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second business partner");
+		valueObject.clearBusinessPartner();
+		valueObject.setRandom();
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create business partner tag");
+		MBHTag tag = new MBHTag(valueObject.getContext(), 0, valueObject.getTransactionName());
+		tag.setName(String.valueOf(valueObject.getRandomNumber()));
+		tag.saveEx();
+		MBHBPartnerTags businessPartnerTag =
+				new MBHBPartnerTags(valueObject.getContext(), 0, valueObject.getTransactionName());
+		businessPartnerTag.setC_BPartner_ID(valueObject.getBusinessPartner().get_ID());
+		businessPartnerTag.setBH_Tag_ID(tag.get_ID());
+		businessPartnerTag.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second coded diagnosis");
+		codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second visit diagnosis");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+		MBHEncounterDiagnosis secondEncounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		secondEncounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		secondEncounterDiagnosis.setBH_Uncoded_Diagnosis("The Diagnosis of the Century");
+		secondEncounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
+		secondEncounterDiagnosis.setLineNo(10);
+		secondEncounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create second sales order");
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("7c29028a-8dd3-4025-a5af-87701748d81f");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+						new ProcessInfoParameter("Patient Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null,
+								null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		commitEx();
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Visit Date");
+			int nameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+
+			Optional<Row> businessPartnerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue()
+									.contains(firstBusinessPartnerName)).findFirst();
+			assertTrue(businessPartnerRow.isEmpty(), "First business partner isn't on the report");
+
+			businessPartnerRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName())).findFirst();
+			assertTrue(businessPartnerRow.isPresent(), "Second business partner is on the report");
 		}
 	}
 }

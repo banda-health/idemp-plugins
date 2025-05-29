@@ -212,3 +212,8 @@ BEGIN
 END
 $$
 	LANGUAGE plpgsql;
+
+SELECT
+	register_migration_script('202505201615_GO-3247.sql')
+FROM
+	dual;
