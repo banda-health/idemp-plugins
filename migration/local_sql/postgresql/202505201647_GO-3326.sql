@@ -250,6 +250,6 @@ WHERE
 	                 '1ff826b1-47e3-4101-b2a3-75ed84aafbbd');$$, 'ad_window_id');
 
 SELECT
-	register_migration_script('202505201648_GO-3326.sql')
+	register_migration_script('202505201647_GO-3326.sql')
 FROM
 	dual;
