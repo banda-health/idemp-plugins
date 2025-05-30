@@ -1,9 +1,9 @@
 extend type Query {
 	DashboardFinancialGeneralMetricsGet(BeginDate: DateTime!, EndDate: DateTime!): DashboardFinancialGeneralMetric!
 	DashboardFinancialHistoricalGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialHistorical]!
-	DashboardFinancialOpenBalancesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialOpenBalance]!
+	DashboardFinancialOpenBalancesGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialOpenBalance]!
 	DashboardFinancialSourcesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialSource]!
-	DashboardFinancialTypesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialType]!
+	DashboardFinancialTypesGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialType]!
 	DashboardFinancialVisitChargesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialVisitCharge]!
 }
 
