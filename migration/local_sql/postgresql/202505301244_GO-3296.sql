@@ -156,8 +156,8 @@ GROUP BY
 	bm.bucket_value;
 $$;
 
-DROP FUNCTION IF EXISTS bh_dashboard_get_financial_patient_open_balances(_ad_client_id numeric,  _begin_date timestamp, _end_date timestamp);
-CREATE OR REPLACE FUNCTION bh_dashboard_get_financial_patient_open_balances(_ad_client_id numeric,  _begin_date timestamp, _end_date timestamp)
+DROP FUNCTION IF EXISTS bh_dashboard_get_financial_open_balances(_ad_client_id numeric,  _begin_date timestamp, _end_date timestamp);
+CREATE OR REPLACE FUNCTION bh_dashboard_get_financial_open_balances(_ad_client_id numeric,  _begin_date timestamp, _end_date timestamp)
 	RETURNS table
 	        (
 		        name						character varying,
