@@ -299,7 +299,7 @@ public class IncomeStatementProfitAndLossTest extends ChuBoePopulateFactoryVO {
 			assertTrue(grossProfitRow.isPresent(), "Gross Profit is present");
 			assertEquals(totalRevenueRow.get().getCell(amountColumnIndex).getNumericCellValue() +
 							productPurchasesRow.get().getCell(amountColumnIndex).getNumericCellValue(),
-					grossProfitRow.get().getCell(amountColumnIndex).getNumericCellValue() - costOfGoodsSold,
+					grossProfitRow.get().getCell(amountColumnIndex).getNumericCellValue(),
 					"Gross Profit amount is correct");
 		}
 	}

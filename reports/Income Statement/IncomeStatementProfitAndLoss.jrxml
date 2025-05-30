@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatementProfitAndLoss" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="093e33fd-6ca1-46bd-93fb-3f1a8bb1e4d5">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatementProfitAndLoss" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="093e33fd-6ca1-46bd-93fb-3f1a8bb1e4d5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDatabase"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<subDataset name="Dataset1" uuid="1249eb05-7d8a-44b8-b5d9-d03f7babd9eb">
@@ -18,27 +18,26 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-	c.name                                                               AS client_name,
-	COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'I' ), 0) AS product_sales,
-	COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'S' ), 0) AS service_revenue,
-	COALESCE(SUM(il.linenetamt), 0)                                      AS total_revenue,
-	COALESCE(SUM(pc.purchase_price), 0) * -1                             AS product_purchases,
-	COALESCE(SUM(il.linenetamt - pc.purchase_price), 0)                  AS gross_profit
+    c.name                                                               AS client_name,
+    COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'I' ), 0) AS product_sales,
+    COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'S' ), 0) AS service_revenue,
+    COALESCE(SUM(il.linenetamt), 0)                                      AS total_revenue,
+    COALESCE(SUM(pc.purchase_price * il.qtyentered), 0) * -1             AS product_purchases,
+    COALESCE(SUM(il.linenetamt - (pc.purchase_price * il.qtyentered)), 0) AS gross_profit
 FROM
-	ad_client c
-		LEFT JOIN c_invoice i
-		ON c.ad_client_id = i.ad_client_id AND i.docstatus IN ('CO', 'CL') AND i.issotrx = 'Y'
-		LEFT JOIN c_invoiceline il
-		ON i.c_invoice_id = il.c_invoice_id
-		LEFT JOIN m_product p
-		ON il.m_product_id = p.m_product_id
-		LEFT JOIN get_product_costs(11) pc
-		ON pc.m_attributesetinstance_id = il.m_attributesetinstance_id AND pc.m_product_id = il.m_product_id
+    ad_client c
+        LEFT JOIN c_invoice i
+        ON c.ad_client_id = i.ad_client_id AND i.docstatus IN ('CO', 'CL') AND i.issotrx = 'Y' AND i.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
+        LEFT JOIN c_invoiceline il
+        ON i.c_invoice_id = il.c_invoice_id
+        LEFT JOIN m_product p
+        ON il.m_product_id = p.m_product_id
+        LEFT JOIN get_product_costs(11) pc
+        ON pc.m_attributesetinstance_id = il.m_attributesetinstance_id AND pc.m_product_id = il.m_product_id
 WHERE
-	c.ad_client_id = $P{AD_CLIENT_ID}
-	AND i.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
+    c.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY
-	c.name]]>
+    c.name]]>
 	</queryString>
 	<field name="client_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="client_name"/>
