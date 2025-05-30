@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatementProfitAndLoss" pageWidth="800" pageHeight="1000" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="093e33fd-6ca1-46bd-93fb-3f1a8bb1e4d5">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter1.jrdax"/>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatementProfitAndLoss" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="093e33fd-6ca1-46bd-93fb-3f1a8bb1e4d5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<subDataset name="Dataset1" uuid="1249eb05-7d8a-44b8-b5d9-d03f7babd9eb">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 		<queryString>
@@ -15,100 +17,73 @@
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[WITH 
-			header AS (
-				SELECT
-					COALESCE(l.address1, '') 											AS county,
-					COALESCE(l.address2, '') 											AS subcounty,
-					COALESCE(l.address3, '') 											AS ward,
-					cl.name                  											AS org_name,
-					cl.ad_client_id
-				FROM
-					ad_client cl
-						JOIN (
-						SELECT *
-						FROM
-							ad_orginfo
-						WHERE
-							ad_client_id = $P{AD_CLIENT_ID}
-						ORDER BY ad_org_id
-						LIMIT 1
-					) oi
-						ON cl.ad_client_id = oi.ad_client_id
-						LEFT JOIN c_location l
-						ON oi.c_location_id = l.c_location_id
-				WHERE
-					cl.ad_client_id = $P{AD_CLIENT_ID}
-			), costs AS (
-			SELECT
-				SUM(cost_of_goods_sold) * -1 													AS product_purchases
-		    FROM
-		        get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
-)
-SELECT
-	header.org_name																								AS org_name,
-	COALESCE(SUM(ps.payamt), 0)             																	AS product_sales,
-	COALESCE(SUM(ss.payamt), 0)			   																		AS service_revenue,
-	COALESCE(SUM(ps.payamt), 0) + COALESCE(SUM(ss.payamt), 0)													AS total_revenue,
-	COALESCE(costs.product_purchases, 0)																		AS product_purchases,
-	COALESCE(SUM(ps.payamt), 0) + COALESCE(SUM(ss.payamt), 0) + COALESCE(costs.product_purchases, 0)			AS gross_profit	
+		<![CDATA[SELECT
+	c.name                                                               AS client_name,
+	COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'I' ), 0) AS product_sales,
+	COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'S' ), 0) AS service_revenue,
+	COALESCE(SUM(il.linenetamt), 0)                                      AS total_revenue,
+	COALESCE(SUM(pc.purchase_price), 0) * -1                             AS product_purchases,
+	COALESCE(SUM(il.linenetamt - pc.purchase_price), 0)                  AS gross_profit
 FROM
-	bh_visit v
-	JOIN header ON header.ad_client_id = v.ad_client_id
-	LEFT JOIN bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) ps
-		ON ps.bh_visit_id = v.bh_visit_id
-		       AND ps.bh_visit_id IN (
-                    SELECT bh_visit_id FROM c_order WHERE c_order_id IN (
-                        SELECT c_order_id FROM c_orderline WHERE m_product_id IN (
-                            SELECT m_product_id FROM m_product WHERE producttype = 'I'
-                            )
-                        )
-                    )
-   LEFT JOIN bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) ss
-		ON ss.bh_visit_id = v.bh_visit_id
-		       AND ss.bh_visit_id IN (
-                    SELECT bh_visit_id FROM c_order WHERE c_order_id IN (
-                        SELECT c_order_id FROM c_orderline WHERE m_product_id IN (
-                            SELECT m_product_id FROM m_product WHERE producttype = 'S'
-                            )
-                        )
-                    )   
-   CROSS JOIN costs     
-   GROUP BY costs.product_purchases, header.org_name]]>
+	ad_client c
+		LEFT JOIN c_invoice i
+		ON c.ad_client_id = i.ad_client_id AND i.docstatus IN ('CO', 'CL') AND i.issotrx = 'Y'
+		LEFT JOIN c_invoiceline il
+		ON i.c_invoice_id = il.c_invoice_id
+		LEFT JOIN m_product p
+		ON il.m_product_id = p.m_product_id
+		LEFT JOIN get_product_costs(11) pc
+		ON pc.m_attributesetinstance_id = il.m_attributesetinstance_id AND pc.m_product_id = il.m_product_id
+WHERE
+	c.ad_client_id = $P{AD_CLIENT_ID}
+	AND i.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
+GROUP BY
+	c.name]]>
 	</queryString>
-	<field name="org_name" class="java.lang.String"/>
-	<field name="product_sales" class="java.lang.Integer"/>
-	<field name="service_revenue" class="java.lang.Integer"/>
-	<field name="total_revenue" class="java.lang.Integer"/>
-	<field name="product_purchases" class="java.lang.Integer"/>
-	<field name="gross_profit" class="java.lang.Integer"/>
+	<field name="client_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="client_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="client_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_client"/>
+	</field>
+	<field name="product_sales" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="product_sales"/>
+		<property name="com.jaspersoft.studio.field.label" value="product_sales"/>
+	</field>
+	<field name="service_revenue" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="service_revenue"/>
+		<property name="com.jaspersoft.studio.field.label" value="service_revenue"/>
+	</field>
+	<field name="total_revenue" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total_revenue"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_revenue"/>
+	</field>
+	<field name="product_purchases" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="product_purchases"/>
+		<property name="com.jaspersoft.studio.field.label" value="product_purchases"/>
+	</field>
+	<field name="gross_profit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="gross_profit"/>
+		<property name="com.jaspersoft.studio.field.label" value="gross_profit"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="90" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="23" width="730" height="30" uuid="865ed601-9d7d-4b3b-a165-2e6d0ce9c4b5"/>
-				<box leftPadding="2">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="18" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[UPPER("Income statement (Profit & Loss)")]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="160" y="55" width="400" height="20" isPrintWhenDetailOverflows="true" uuid="5a832029-047a-4dc2-9e98-df41fc85d329"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="60" width="555" height="20" isPrintWhenDetailOverflows="true" uuid="5a832029-047a-4dc2-9e98-df41fc85d329">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["For period: " + DATEFORMAT($P{Begin Date}, "dd MMMM YYYY") + " to " + DATEFORMAT($P{End Date}, "dd MMMM YYYY")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement x="0" y="-10" width="730" height="30" uuid="08ec1d56-412f-4791-b0a3-6cd5b9812a64"/>
+				<reportElement x="0" y="0" width="555" height="30" uuid="08ec1d56-412f-4791-b0a3-6cd5b9812a64">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -118,235 +93,234 @@ FROM
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[UPPER($F{org_name})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[UPPER($F{client_name})]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="555" height="30" uuid="0bc1b09d-5196-4ff1-9a28-ad471e3a2fb4">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INCOME STATEMENT (PROFIT & LOSS)]]></text>
+			</staticText>
 		</band>
 	</title>
 	<detail>
-		<band height="200" splitType="Stretch">
+		<band height="176" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="107" y="17" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="6dd4e26b-5ec1-4b3b-9875-8d06fcbb8e61">
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				<reportElement positionType="Float" mode="Opaque" x="57" y="16" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="6dd4e26b-5ec1-4b3b-9875-8d06fcbb8e61">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="3">
 					<pen lineColor="#000000"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
-					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Revenue]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="107" y="33" width="358" height="16" uuid="724036b4-0d11-43cc-a8d5-d34835c04542">
+				<reportElement x="57" y="32" width="358" height="16" uuid="724036b4-0d11-43cc-a8d5-d34835c04542">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="3">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="false"/>
-					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Product Sales]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" x="465" y="33" width="82" height="16" uuid="dc79bb7b-08c3-4c6d-9788-32a847b847ee">
+				<reportElement stretchType="ContainerBottom" x="415" y="32" width="82" height="16" uuid="dc79bb7b-08c3-4c6d-9788-32a847b847ee">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box rightPadding="3">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11"/>
-					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{product_sales}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="107" y="49" width="358" height="16" uuid="f159194c-1a81-4e44-9588-f63e0f073108">
+				<reportElement x="57" y="48" width="358" height="16" uuid="f159194c-1a81-4e44-9588-f63e0f073108">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="3">
 					<pen lineWidth="1.0"/>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="false"/>
-					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Service Revenue]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="107" y="66" width="358" height="16" uuid="dea510e4-2423-47d2-b858-5cec97d1c027">
+				<reportElement x="57" y="64" width="358" height="16" uuid="dea510e4-2423-47d2-b858-5cec97d1c027">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="3">
 					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
-					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Total Revenue]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" x="465" y="50" width="82" height="16" uuid="c9c8889a-7bce-4cc6-945f-3126b905ca84">
+				<reportElement stretchType="ContainerBottom" x="415" y="48" width="82" height="16" uuid="c9c8889a-7bce-4cc6-945f-3126b905ca84">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11"/>
-					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{service_revenue}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" x="465" y="66" width="82" height="16" uuid="f3617184-9b5b-4324-a6df-9ca587848497">
+				<reportElement stretchType="ContainerBottom" x="415" y="64" width="82" height="16" uuid="f3617184-9b5b-4324-a6df-9ca587848497">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
-					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total_revenue}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="107" y="100" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="7e64e6bf-d5f6-4fd8-881a-cfffbf0ef838">
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				<reportElement positionType="Float" mode="Opaque" x="57" y="96" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="7e64e6bf-d5f6-4fd8-881a-cfffbf0ef838">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="3">
 					<pen lineColor="#000000"/>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
-					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Cost of Goods Sold (COGS)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" mode="Transparent" x="107" y="117" width="358" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="78602fa4-e496-4355-8fdf-0480e746fbc4">
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				<reportElement positionType="Float" mode="Transparent" x="57" y="112" width="358" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="78602fa4-e496-4355-8fdf-0480e746fbc4">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="3">
 					<pen lineColor="#000000"/>
-					<topPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
+					<topPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="11" isBold="false"/>
-					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Product Purchases]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="465" y="117" width="82" height="16" forecolor="#000000" backcolor="#305496" uuid="56eb0175-530d-4c2a-9573-d70ae1769463">
+				<reportElement mode="Transparent" x="415" y="112" width="82" height="16" forecolor="#000000" backcolor="#305496" uuid="56eb0175-530d-4c2a-9573-d70ae1769463">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box rightPadding="3">
 					<pen lineColor="#000000"/>
-					<topPen lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11" isBold="false"/>
-					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{product_purchases}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="107" y="134" width="358" height="16" uuid="a2582416-10a4-4e57-820b-42fb5c705f33">
+				<reportElement x="57" y="128" width="358" height="16" uuid="a2582416-10a4-4e57-820b-42fb5c705f33">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="3">
 					<pen lineWidth="1.0"/>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
-					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Gross Profit]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" x="465" y="134" width="82" height="16" uuid="4fb28b84-333f-4417-a5de-5a3820acf82b">
+				<reportElement stretchType="ContainerBottom" x="415" y="128" width="82" height="16" uuid="4fb28b84-333f-4417-a5de-5a3820acf82b">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
 					<font size="11" isBold="true"/>
-					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gross_profit}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Transparent" x="107" y="83" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="3a88ef87-4740-486c-9c97-bb21ba49d746">
+				<reportElement positionType="Float" mode="Transparent" x="57" y="80" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="3a88ef87-4740-486c-9c97-bb21ba49d746">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -364,7 +338,7 @@ FROM
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" mode="Transparent" x="107" y="151" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="ab270f5f-37e8-42a2-abe0-fde0eaca256f">
+				<reportElement positionType="Float" mode="Transparent" x="57" y="144" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="ab270f5f-37e8-42a2-abe0-fde0eaca256f">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -372,7 +346,7 @@ FROM
 					<pen lineColor="#000000"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -382,101 +356,62 @@ FROM
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="107" y="168" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="782cc858-19e6-4179-ac13-a66560c27687">
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				<reportElement positionType="Float" mode="Opaque" x="57" y="160" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="782cc858-19e6-4179-ac13-a66560c27687">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="3">
 					<pen lineColor="#000000"/>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
-					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Operating Expenses]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="107" y="227" width="358" height="16" uuid="2c3baefa-8e0a-4f9b-ba36-64f601e958db">
+				<reportElement x="57" y="0" width="358" height="16" uuid="847f7434-2e0f-46a6-9963-eeea107d972a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="3">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<text><![CDATA[Total Operating Expenses]]></text>
-			</staticText>
-			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" x="465" y="227" width="82" height="16" uuid="8b802551-a197-401b-bfe6-f63715d43ae5">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Dotted" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-					<paragraph rightIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{total_revenue}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="107" y="0" width="358" height="16" uuid="847f7434-2e0f-46a6-9963-eeea107d972a">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Item]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ContainerBottom" x="465" y="0" width="82" height="16" uuid="bbef0221-dc3e-4b55-9e13-5a9f2ae899f8">
+				<reportElement stretchType="ContainerBottom" x="415" y="0" width="82" height="16" uuid="bbef0221-dc3e-4b55-9e13-5a9f2ae899f8">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box rightPadding="3">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
-					<paragraph leftIndent="5" rightIndent="0"/>
 				</textElement>
 				<text><![CDATA[Amount]]></text>
 			</staticText>
 		</band>
-		<band height="20" splitType="Stretch">
+		<band height="16" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<subreport>
-				<reportElement x="107" y="3" width="440" height="16" uuid="b6c60668-5c7e-4767-a303-1092b4928026">
+				<reportElement x="57" y="0" width="440" height="16" isRemoveLineWhenBlank="true" uuid="b6c60668-5c7e-4767-a303-1092b4928026">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -494,29 +429,29 @@ FROM
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "OperatingExpenses.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="70">
+		<band height="48">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement mode="Transparent" x="107" y="41" width="358" height="16" backcolor="#D9D9D9" uuid="4a893045-5316-4c14-9f50-cb92cbe82838">
+				<reportElement mode="Transparent" x="57" y="32" width="358" height="16" backcolor="#D9D9D9" uuid="4a893045-5316-4c14-9f50-cb92cbe82838">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box leftPadding="3">
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
-					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Net Income / Profit (Loss)]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement stretchType="ContainerBottom" x="465" y="41" width="82" height="16" uuid="832e1411-ea9d-432b-b4d4-afd6bb9f0b3e">
+				<reportElement stretchType="ContainerBottom" x="415" y="32" width="82" height="16" uuid="832e1411-ea9d-432b-b4d4-afd6bb9f0b3e">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -524,7 +459,7 @@ FROM
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
@@ -534,7 +469,7 @@ FROM
 				</textElement>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Transparent" x="107" y="24" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="d9c80e1e-5b69-457d-aefe-4bcb75953bed">
+				<reportElement positionType="Float" mode="Transparent" x="57" y="16" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="d9c80e1e-5b69-457d-aefe-4bcb75953bed">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -542,7 +477,7 @@ FROM
 					<pen lineColor="#000000"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -551,6 +486,42 @@ FROM
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="57" y="0" width="358" height="16" uuid="2c3baefa-8e0a-4f9b-ba36-64f601e958db">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box leftPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Operating Expenses]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement stretchType="ContainerBottom" x="415" y="0" width="82" height="16" uuid="8b802551-a197-401b-bfe6-f63715d43ae5">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<box rightPadding="3">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_revenue}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
