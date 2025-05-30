@@ -14,7 +14,7 @@ $$
 WITH expenses AS (
 SELECT
     COALESCE(SUM(i.grandtotal), 0)      AS total_expenses,
-    i.dateinvoiced                      AS date
+    date(i.dateinvoiced)                AS date
 FROM
     c_invoice i
 WHERE
@@ -23,22 +23,22 @@ WHERE
     AND i.issotrx = 'N'
     AND i.bh_visit_id IS NULL
     AND i.dateinvoiced BETWEEN _begin_date AND _end_date
-    GROUP BY i.dateinvoiced
+    GROUP BY date(i.dateinvoiced)
 ),
 payments AS (
 	SELECT
 		COALESCE(SUM(p.payamt), 0)                  AS total_income,
-		p.datetrx                                   AS date
+		date(p.datetrx)                             AS date
 	FROM
 		bh_get_visit_payments(_ad_client_id, _begin_date, _end_date) p
-	GROUP BY p.datetrx
+	GROUP BY date(p.datetrx)
 ),
 payments_expenses AS (
 	SELECT
 		COALESCE(p.date, e.date)                        AS date,
-		COALESCE(p.total_income, 0)                     AS total_income,
-		COALESCE(e.total_expenses, 0)                   AS total_expenses,
-		COALESCE(p.total_income - e.total_expenses, 0)  AS net_profit
+		p.total_income				                    AS total_income,
+		e.total_expenses                   				AS total_expenses,
+		p.total_income - e.total_expenses  				AS net_profit
 	FROM
 		payments p
 	FULL OUTER JOIN expenses e ON p.date = e.date
@@ -64,13 +64,13 @@ bucket_mapping (bucket_number, bucket_value) AS (
 )
 SELECT
 	bm.bucket_value,
-	total_income,
-	total_expenses,
-	net_profit
+	COALESCE(SUM(total_income), 0) 				AS total_income,
+	COALESCE(SUM(total_expenses), 0)			AS total_expenses,
+	COALESCE(SUM(net_profit), 0)				AS net_profit
 FROM
 	bucket_mapping bm
 LEFT JOIN buckets_cte bcte
 ON bcte.bucket_number = bm.bucket_number
 GROUP BY
-	bm.bucket_value, total_income, total_expenses, net_profit;
+	bm.bucket_value;
 $$;
