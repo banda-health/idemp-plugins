@@ -558,6 +558,14 @@ public class IncomeStatementProfitAndLossTest extends ChuBoePopulateFactoryVO {
 					.stream(sheet.spliterator(), false).filter(
 							row -> StreamSupport.stream(row.spliterator(), false)
 									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+											&& cell.getStringCellValue().contains("Finances")))
+					.findFirst();
+			double financeExpenses = itemRow.map(row -> row.getCell(amountColumnIndex).getNumericCellValue()).orElse(0.0);
+			//
+			itemRow = StreamSupport
+					.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false)
+									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
 											&& cell.getStringCellValue().contains("Personnel")))
 					.findFirst();
 			double personnelExpenses = itemRow.map(row -> row.getCell(amountColumnIndex).getNumericCellValue()).orElse(0.0);
@@ -597,7 +605,8 @@ public class IncomeStatementProfitAndLossTest extends ChuBoePopulateFactoryVO {
 			assertEquals(totalOperatingExpenses,
 					totalOperatingExpensesRow.get().getCell(amountColumnIndex).getNumericCellValue(),
 					"Total operating expenses didn't change");
-			assertEquals(facilitiesExpenses + personnelExpenses + vehicleExpenses + serviceExpenses + otherExpenses,
+			assertEquals(
+					facilitiesExpenses + financeExpenses + personnelExpenses + vehicleExpenses + serviceExpenses + otherExpenses,
 					totalOperatingExpensesRow.get().getCell(amountColumnIndex).getNumericCellValue(),
 					"Total operating amount is correct");
 		}

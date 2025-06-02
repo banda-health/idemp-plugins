@@ -21,9 +21,7 @@
 	c.name                                                                AS client_name,
 	COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'I' ), 0)  AS product_sales,
 	COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'S' ), 0)  AS service_revenue,
-	COALESCE(SUM(il.linenetamt), 0)                                       AS total_revenue,
-	COALESCE(SUM(pc.purchase_price * il.qtyentered), 0) * -1              AS product_purchases,
-	COALESCE(SUM(il.linenetamt - (pc.purchase_price * il.qtyentered)), 0) AS gross_profit
+	COALESCE(SUM(pc.purchase_price * il.qtyentered), 0) * -1              AS product_purchases
 FROM
 	ad_client c
 		LEFT JOIN c_invoice i
@@ -53,17 +51,9 @@ GROUP BY
 		<property name="com.jaspersoft.studio.field.name" value="service_revenue"/>
 		<property name="com.jaspersoft.studio.field.label" value="service_revenue"/>
 	</field>
-	<field name="total_revenue" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="total_revenue"/>
-		<property name="com.jaspersoft.studio.field.label" value="total_revenue"/>
-	</field>
 	<field name="product_purchases" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="product_purchases"/>
 		<property name="com.jaspersoft.studio.field.label" value="product_purchases"/>
-	</field>
-	<field name="gross_profit" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="gross_profit"/>
-		<property name="com.jaspersoft.studio.field.label" value="gross_profit"/>
 	</field>
 	<variable name="expenseTotal" class="java.math.BigDecimal">
 		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
@@ -234,7 +224,7 @@ GROUP BY
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{total_revenue}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{product_sales}.add( $F{service_revenue} )]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" mode="Opaque" x="57" y="96" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="7e64e6bf-d5f6-4fd8-881a-cfffbf0ef838">
@@ -320,7 +310,7 @@ GROUP BY
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{gross_profit}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{product_sales}.add( $F{service_revenue} ).add($F{product_purchases})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="57" y="80" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="3a88ef87-4740-486c-9c97-bb21ba49d746">
@@ -470,7 +460,7 @@ GROUP BY
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{gross_profit}.add($V{expenseTotal})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{product_sales}.add($F{service_revenue}).add($F{product_purchases}).add($V{expenseTotal})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="57" y="16" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="d9c80e1e-5b69-457d-aefe-4bcb75953bed">
