@@ -37,29 +37,29 @@ expenses AS (
     JOIN c_charge c
     ON c.c_charge_id = cil.c_charge_id
     WHERE
-	i.ad_client_id = _ad_client_id
-	AND i.docstatus = 'CO'
-    AND i.issotrx = 'N'
-    AND i.bh_visit_id IS NULL
-    AND i.dateinvoiced BETWEEN _begin_date AND _end_date
+		i.ad_client_id = _ad_client_id
+		AND i.docstatus = 'CO'
+	    AND i.issotrx = 'N'
+	    AND i.bh_visit_id IS NULL
+	    AND i.dateinvoiced BETWEEN _begin_date AND _end_date
     GROUP BY c.Name    
 )
 
 SELECT 
 	name,
 	frequency,
-	'income' 							AS type
+	'Income' 							AS type
 FROM nonpatientpayments npp
 UNION ALL
 SELECT 
 	name,
 	frequency,
-	'income'							AS type
+	'Income'							AS type
 FROM patientpayments
 UNION ALL
 SELECT
 	name,
 	frequency,
-	'expense'
+	'Expense'
 FROM expenses
 $$;

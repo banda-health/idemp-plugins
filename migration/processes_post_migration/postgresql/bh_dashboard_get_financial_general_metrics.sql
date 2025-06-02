@@ -16,21 +16,28 @@ CREATE OR REPLACE FUNCTION bh_dashboard_get_financial_general_metrics(_ad_client
 	STABLE
 AS
 $$
+WITH payments AS (
+	SELECT
+		COALESCE(SUM(payamt), 0)      											AS revenuesales
+	FROM
+		bh_get_visit_payments(_ad_client_id, _begin_date, _end_date)
+)
+
 SELECT
-	COALESCE(SUM(payments.payamt), 0)      												AS revenuesales,
-	COALESCE(SUM(expenses.totalexpenses), 0)										    AS totalexpenses,
-	COALESCE(SUM(payments.payamt) - SUM(expenses.totalexpenses), 0)						AS netprofit,
-	COALESCE(SUM(billdetails.saleslineitemtotals) - SUM(payments.payamt), 0) 			AS totalowed,
-	COALESCE(SUM(inventory.inventoryvalue), 0)     										AS inventoryvalue,
-	COALESCE(SUM(charges.totalcharges), 0)         										AS totalcharges,
-    COALESCE(SUM(inventory.costofgoodssold), 0)           								AS costofgoodssold,
-    COALESCE(SUM(inventory.grossprofit), 0)              								AS grossprofit,
-    COALESCE(ROUND(SUM(inventory.grossprofit) / SUM(payments.payamt) * 100), 0)			AS grossprofitmargin
+	payments.revenuesales      														AS revenuesales,
+	expenses.totalexpenses										    				AS totalexpenses,
+	payments.revenuesales - expenses.totalexpenses									AS netprofit,
+	billdetails.saleslineitemtotals - payments.revenuesales 						AS totalowed,
+	inventory.inventoryvalue     													AS inventoryvalue,
+	charges.totalcharges         													AS totalcharges,
+    inventory.costofgoodssold           											AS costofgoodssold,
+    inventory.grossprofit              												AS grossprofit,
+    COALESCE(ROUND(inventory.grossprofit / payments.revenuesales * 100), 0)			AS grossprofitmargin
 FROM
-	bh_get_visit_payments(_ad_client_id, _begin_date, _end_date) payments
+	payments
     CROSS JOIN (
     SELECT
-		COALESCE(SUM(i.grandtotal), 0) AS totalexpenses
+		COALESCE(SUM(i.grandtotal), 0) 												AS totalexpenses
     FROM
         c_invoice i
     WHERE
@@ -42,8 +49,8 @@ FROM
     ) AS expenses
     CROSS JOIN (
     SELECT
-		saleslineitemtotals AS saleslineitemtotals,
-		salestotals        AS salestotals
+		COALESCE(SUM(saleslineitemtotals),0) AS saleslineitemtotals,
+		COALESCE(SUM(salestotals),0)        AS salestotals
 	FROM
 		bh_get_visit_details(_ad_client_id, _begin_date, _end_date)
 	WHERE
@@ -51,25 +58,23 @@ FROM
     ) billdetails
     CROSS JOIN (
 	SELECT
-	    COALESCE(balanced_stock * purchase_price, 0)                                AS inventoryvalue,
-	    COALESCE(SUM(cost_of_goods_sold), 0)           								AS costofgoodssold,
-        COALESCE(SUM(gross_profit), 0)              								AS grossprofit
+	    COALESCE(SUM(balanced_stock * purchase_price),0)                                AS inventoryvalue,
+	    COALESCE(SUM(cost_of_goods_sold), 0)           									AS costofgoodssold,
+        COALESCE(SUM(gross_profit), 0)              									AS grossprofit
 	FROM
 		get_inventory_changes(_ad_client_id, _begin_date, _end_date)
 	WHERE
 		opening_stock >= 0
-	GROUP BY purchase_price, balanced_stock
 	) AS inventory
     CROSS JOIN (
     SELECT
-		COALESCE(SUM(i.grandtotal), 0) AS totalcharges
-    FROM
-        c_invoice i
-    WHERE
-    	i.ad_client_id = _ad_client_id
-        AND i.docstatus = 'CO'
-        AND i.issotrx = 'Y'
-        AND i.bh_visit_id IS NULL
-        AND i.dateinvoiced BETWEEN _begin_date AND _end_date
+		COALESCE(SUM(o.grandtotal),0)													AS totalcharges
+	FROM
+		bh_visit v
+			JOIN c_order o
+			ON v.bh_visit_id = o.bh_visit_id AND o.docstatus IN ('CO', 'CL')
+	WHERE
+		v.ad_client_id = _ad_client_id
+		AND v.bh_visitdate BETWEEN _begin_date AND _end_date
     ) AS charges
 $$;
