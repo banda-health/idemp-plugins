@@ -41,7 +41,7 @@ public class TableUtils {
 				return row;
 			}
 		}
-		fail("Header row exists");
+		fail("Header row containing " + headerRowStartingColumnText + " exists");
 		return null;
 	}
 

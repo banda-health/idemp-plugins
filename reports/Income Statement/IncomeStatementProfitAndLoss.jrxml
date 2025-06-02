@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IncomeStatementProfitAndLoss" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="093e33fd-6ca1-46bd-93fb-3f1a8bb1e4d5">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDatabase"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<subDataset name="Dataset1" uuid="1249eb05-7d8a-44b8-b5d9-d03f7babd9eb">
@@ -18,26 +18,27 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-    c.name                                                               AS client_name,
-    COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'I' ), 0) AS product_sales,
-    COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'S' ), 0) AS service_revenue,
-    COALESCE(SUM(il.linenetamt), 0)                                      AS total_revenue,
-    COALESCE(SUM(pc.purchase_price * il.qtyentered), 0) * -1             AS product_purchases,
-    COALESCE(SUM(il.linenetamt - (pc.purchase_price * il.qtyentered)), 0) AS gross_profit
+	c.name                                                                AS client_name,
+	COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'I' ), 0)  AS product_sales,
+	COALESCE(SUM(il.linenetamt) FILTER ( WHERE p.producttype = 'S' ), 0)  AS service_revenue,
+	COALESCE(SUM(il.linenetamt), 0)                                       AS total_revenue,
+	COALESCE(SUM(pc.purchase_price * il.qtyentered), 0) * -1              AS product_purchases,
+	COALESCE(SUM(il.linenetamt - (pc.purchase_price * il.qtyentered)), 0) AS gross_profit
 FROM
-    ad_client c
-        LEFT JOIN c_invoice i
-        ON c.ad_client_id = i.ad_client_id AND i.docstatus IN ('CO', 'CL') AND i.issotrx = 'Y' AND i.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
-        LEFT JOIN c_invoiceline il
-        ON i.c_invoice_id = il.c_invoice_id
-        LEFT JOIN m_product p
-        ON il.m_product_id = p.m_product_id
-        LEFT JOIN get_product_costs(11) pc
-        ON pc.m_attributesetinstance_id = il.m_attributesetinstance_id AND pc.m_product_id = il.m_product_id
+	ad_client c
+		LEFT JOIN c_invoice i
+		ON c.ad_client_id = i.ad_client_id AND i.docstatus IN ('CO', 'CL') AND i.issotrx = 'Y' AND
+		   i.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
+		LEFT JOIN c_invoiceline il
+		ON i.c_invoice_id = il.c_invoice_id
+		LEFT JOIN m_product p
+		ON il.m_product_id = p.m_product_id
+		LEFT JOIN get_product_costs($P{AD_CLIENT_ID}) pc
+		ON pc.m_attributesetinstance_id = il.m_attributesetinstance_id AND pc.m_product_id = il.m_product_id
 WHERE
-    c.ad_client_id = $P{AD_CLIENT_ID}
+	c.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY
-    c.name]]>
+	c.name]]>
 	</queryString>
 	<field name="client_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="client_name"/>
@@ -64,6 +65,9 @@ GROUP BY
 		<property name="com.jaspersoft.studio.field.name" value="gross_profit"/>
 		<property name="com.jaspersoft.studio.field.label" value="gross_profit"/>
 	</field>
+	<variable name="expenseTotal" class="java.math.BigDecimal">
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -143,7 +147,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Product Sales]]></text>
 			</staticText>
-			<textField pattern="#,##0" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="#,##0;(#,##0)" isBlankWhenNull="true">
 				<reportElement stretchType="ContainerBottom" x="415" y="32" width="82" height="16" uuid="dc79bb7b-08c3-4c6d-9788-32a847b847ee">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -197,7 +201,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Total Revenue]]></text>
 			</staticText>
-			<textField pattern="#,##0" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="#,##0;(#,##0)" isBlankWhenNull="true">
 				<reportElement stretchType="ContainerBottom" x="415" y="48" width="82" height="16" uuid="c9c8889a-7bce-4cc6-945f-3126b905ca84">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -215,7 +219,7 @@ GROUP BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{service_revenue}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="#,##0;(#,##0)" isBlankWhenNull="true">
 				<reportElement stretchType="ContainerBottom" x="415" y="64" width="82" height="16" uuid="f3617184-9b5b-4324-a6df-9ca587848497">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -266,7 +270,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Product Purchases]]></text>
 			</staticText>
-			<textField pattern="#,##0" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="#,##0;(#,##0)" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="415" y="112" width="82" height="16" forecolor="#000000" backcolor="#305496" uuid="56eb0175-530d-4c2a-9573-d70ae1769463">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -302,7 +306,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Gross Profit]]></text>
 			</staticText>
-			<textField pattern="#,##0" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="#,##0;(#,##0)" isBlankWhenNull="true">
 				<reportElement stretchType="ContainerBottom" x="415" y="128" width="82" height="16" uuid="4fb28b84-333f-4417-a5de-5a3820acf82b">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -425,6 +429,7 @@ GROUP BY
 					<subreportParameterExpression><![CDATA[$P{End Date}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="expenseTotal" toVariable="expenseTotal"/>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "OperatingExpenses.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
@@ -449,23 +454,23 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Net Income / Profit (Loss)]]></text>
 			</staticText>
-			<textField pattern="#,##0" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="#,##0;(#,##0)" isBlankWhenNull="true">
 				<reportElement stretchType="ContainerBottom" x="415" y="32" width="82" height="16" uuid="832e1411-ea9d-432b-b4d4-afd6bb9f0b3e">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
-				<box>
+				<box rightPadding="3">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="11"/>
-					<paragraph rightIndent="5"/>
+					<font size="11" isBold="true"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{gross_profit}.add($V{expenseTotal})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="57" y="16" width="440" height="16" forecolor="#000000" backcolor="#D9D9D9" uuid="d9c80e1e-5b69-457d-aefe-4bcb75953bed">
@@ -503,7 +508,7 @@ GROUP BY
 				</textElement>
 				<text><![CDATA[Total Operating Expenses]]></text>
 			</staticText>
-			<textField pattern="#,##0" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="#,##0;(#,##0)" isBlankWhenNull="false">
 				<reportElement stretchType="ContainerBottom" x="415" y="0" width="82" height="16" uuid="8b802551-a197-401b-bfe6-f63715d43ae5">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -519,7 +524,7 @@ GROUP BY
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{total_revenue}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{expenseTotal} == null ? 0 : $V{expenseTotal}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
