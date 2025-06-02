@@ -1,5 +1,10 @@
+import {
+	Ad_ClientGetDocument,
+	ChangeAccessDocument,
+	SignInDocument,
+	SignInWithClientsDocument,
+} from '../__generated__/graphql';
 import { initialLoginData, mutate, query } from '../api';
-import { Ad_ClientGetDocument, ChangeAccessDocument, SignInDocument } from '../__generated__/graphql';
 
 test('can login', async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -8,6 +13,17 @@ test('can login', async () => {
 	expect(globalThis.__VALUE_OBJECT__.organization).not.toBeFalsy();
 	expect(globalThis.__VALUE_OBJECT__.role).not.toBeFalsy();
 	expect(globalThis.__VALUE_OBJECT__.warehouse).not.toBeFalsy();
+});
+
+test('clients can be returned on initial login object', async () => {
+	expect(
+		(
+			await mutate(globalThis.__VALUE_OBJECT__)({
+				mutation: SignInWithClientsDocument,
+				variables: { Credentials: initialLoginData },
+			})
+		).data?.SignIn.AD_Clients?.length,
+	).toBeGreaterThanOrEqual(1);
 });
 
 test('error returned if wrong username/password', async () => {
