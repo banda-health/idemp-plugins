@@ -137,7 +137,7 @@ public class DashboardFinancialQuery implements GraphQLQueryResolver {
 	}
 
 	public List<DashboardFinancialVisitCharge> DashboardFinancialVisitChargesGet(Timestamp BeginDate, Timestamp EndDate,
-			String type, DataFetchingEnvironment environment) {
+			DataFetchingEnvironment environment) {
 		String query = "SELECT * FROM bh_dashboard_get_financial_visit_charges(?, ?::timestamp, ?::timestamp)";
 		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
 				EndDate);

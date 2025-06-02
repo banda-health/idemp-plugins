@@ -18,6 +18,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class MClientQuery extends X_AD_ClientQuery {
 	public String getClientLimitingWhereClause(List<Object> parameters, DataFetchingEnvironment environment) {
@@ -28,17 +30,17 @@ public class MClientQuery extends X_AD_ClientQuery {
 			Repository.setApplyAccessFilterNotNeeded();
 			// Copied from org.compiere.util.Login#getClients
 			String sql = """
-						SELECT DISTINCT cli.AD_Client_ID
-						FROM AD_User_Roles ur
-							INNER JOIN AD_Role r on (ur.AD_Role_ID=r.AD_Role_ID)
-							INNER JOIN AD_User u on (ur.AD_User_ID=u.AD_User_ID)
-							INNER JOIN AD_Client cli on (ur.AD_Client_ID=cli.AD_Client_ID)
-						WHERE ur.IsActive='Y'
-							AND u.IsActive='Y'
-							AND cli.IsActive='Y'
-							AND cli.AuthenticationType IN ('APO', 'AAS')
-							AND ur.AD_User_ID=?
-						ORDER BY cli.AD_Client_ID""";
+					SELECT DISTINCT cli.AD_Client_ID
+					FROM AD_User_Roles ur
+						INNER JOIN AD_Role r on (ur.AD_Role_ID=r.AD_Role_ID)
+						INNER JOIN AD_User u on (ur.AD_User_ID=u.AD_User_ID)
+						INNER JOIN AD_Client cli on (ur.AD_Client_ID=cli.AD_Client_ID)
+					WHERE ur.IsActive='Y'
+						AND u.IsActive='Y'
+						AND cli.IsActive='Y'
+						AND cli.AuthenticationType IN ('APO', 'AAS')
+						AND ur.AD_User_ID=?
+					ORDER BY cli.AD_Client_ID""";
 			Set<Integer> clientIdsForUser = new HashSet<>();
 			try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 				preparedStatement.setInt(1, Env.getAD_User_ID(iDempiereContext));
@@ -70,5 +72,26 @@ public class MClientQuery extends X_AD_ClientQuery {
 				Repository.clearApplyAccessFilterNotNeeded();
 			}
 		}
+	}
+
+	@Override
+	public CompletableFuture<MClient_BH> AD_Client(String UU, DataFetchingEnvironment environment) {
+		return CompletableFuture.supplyAsync(() -> {
+			Properties iDempiereContext = BandaGraphQLContext.getCtx(environment);
+			try {
+				List<Object> parameters = new ArrayList<>();
+				parameters.add(UU);
+				getClientLimitingWhereClause(parameters, environment);
+				return Repository.getByIds(iDempiereContext, MClient_BH.Table_Name, null,
+								parameters.stream().filter(parameter -> parameter instanceof Integer).map(parameter -> (Integer) parameter)
+										.collect(Collectors.toSet())).values().stream()
+						.filter(client -> ((MClient_BH) client).getAD_Client_UU().equals(UU)).map(client -> (MClient_BH) client)
+						.findFirst().orElse(null);
+			} finally {
+				if (Env.getAD_Client_ID(iDempiereContext) == 0) {
+					Repository.clearApplyAccessFilterNotNeeded();
+				}
+			}
+		});
 	}
 }
