@@ -12,6 +12,7 @@ public class BandaSchemaFileComposer {
 						"WEB-INF/resources/ForeignEntity.graphqls",
 						"WEB-INF/resources/IncludedRoleWindowAccess.graphqls",
 						"WEB-INF/resources/InventoryTransaction.graphqls",
+						"WEB-INF/resources/Logging.graphqls",
 //						"WEB-INF/resources/MAccessLog.graphqls",
 						"WEB-INF/resources/MAccount.graphqls",
 						"WEB-INF/resources/MAcctProcessor.graphqls",
