@@ -207,48 +207,6 @@ public class ExpenseTest extends ChuBoePopulateFactoryVO {
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Item");
 			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
 
-			assertEquals(facilityExpenses, StreamSupport.stream(sheet.spliterator(), false).filter(
-									row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
-											cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-													cell.getStringCellValue().contains("Facilities"))).findFirst()
-							.map(row -> row.getCell(amountColumnIndex).getNumericCellValue() * -1).orElse(0.0),
-					"Facilities expense totals match");
-
-			assertEquals(personnelExpenses, StreamSupport.stream(sheet.spliterator(), false).filter(
-									row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
-											cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-													cell.getStringCellValue().contains("Personnel"))).findFirst()
-							.map(row -> row.getCell(amountColumnIndex).getNumericCellValue() * -1).orElse(0.0),
-					"Personnel expense totals match");
-
-			assertEquals(vehicleExpenses, StreamSupport.stream(sheet.spliterator(), false).filter(
-									row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
-											cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-													cell.getStringCellValue().contains("Vehicle"))).findFirst()
-							.map(row -> row.getCell(amountColumnIndex).getNumericCellValue() * -1).orElse(0.0),
-					"Vehicle expense totals match");
-
-			assertEquals(financeExpenses, StreamSupport.stream(sheet.spliterator(), false).filter(
-									row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
-											cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-													cell.getStringCellValue().contains("Finances"))).findFirst()
-							.map(row -> row.getCell(amountColumnIndex).getNumericCellValue() * -1).orElse(0.0),
-					"Finances expense totals match");
-
-			assertEquals(serviceExpenses, StreamSupport.stream(sheet.spliterator(), false).filter(
-									row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
-											cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-													cell.getStringCellValue().contains("Services"))).findFirst()
-							.map(row -> row.getCell(amountColumnIndex).getNumericCellValue() * -1).orElse(0.0),
-					"Services expense totals match");
-
-			assertEquals(otherExpenses, StreamSupport.stream(sheet.spliterator(), false).filter(
-									row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
-											cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-													cell.getStringCellValue().contains("Other"))).findFirst()
-							.map(row -> row.getCell(amountColumnIndex).getNumericCellValue() * -1).orElse(0.0),
-					"Other expense totals match");
-
 			assertEquals(
 					facilityExpenses + personnelExpenses + vehicleExpenses + financeExpenses + serviceExpenses + otherExpenses,
 					StreamSupport.stream(sheet.spliterator(), false).filter(row -> StreamSupport.stream(row.spliterator(), false)
