@@ -16,6 +16,7 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 		builder.resolvers(
 				new DashboardQuery(),
 				new DashboardFinancialQuery(),
+				new DashboardInventoryQuery(),
 				new InventoryTransactionQuery(),
 				new M_ElementQuery(),
 				new M_RegistrationQuery(),
