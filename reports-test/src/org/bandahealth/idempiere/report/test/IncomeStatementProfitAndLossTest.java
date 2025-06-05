@@ -9,6 +9,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
@@ -25,7 +27,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -121,9 +122,7 @@ public class IncomeStatementProfitAndLossTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create first visit");
-		Timestamp valueObjectDate = valueObject.getDate();
-		valueObject.setDate(valueObjectDate);
+		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
@@ -262,7 +261,11 @@ public class IncomeStatementProfitAndLossTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create first sales order");
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
 				false, false);
@@ -303,7 +306,7 @@ public class IncomeStatementProfitAndLossTest extends ChuBoePopulateFactoryVO {
 					.findFirst();
 			assertTrue(productPurchasesRow.isPresent(), "Product purchases is present");
 			assertEquals(-900, productPurchasesRow.get().getCell(amountColumnIndex).getNumericCellValue() - costOfGoodsSold,
-					"Service revenue amount is correct");
+					"Cost of goods sold amount is correct");
 
 			Optional<Row> grossProfitRow = StreamSupport
 					.stream(sheet.spliterator(), false).filter(
@@ -337,31 +340,14 @@ public class IncomeStatementProfitAndLossTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
-		double facilitiesExpenses;
-		double otherExpenses;
 		double totalOperatingExpenses;
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Item");
 			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
 
-			Optional<Row> itemRow = StreamSupport
-					.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false)
-									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Facilities")))
-					.findFirst();
-			facilitiesExpenses = itemRow.map(row -> row.getCell(amountColumnIndex).getNumericCellValue()).orElse(0.0);
-			//
-			itemRow = StreamSupport
-					.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false)
-									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Other")))
-					.findFirst();
-			otherExpenses = itemRow.map(row -> row.getCell(amountColumnIndex).getNumericCellValue()).orElse(0.0);
-			//
-			itemRow = StreamSupport
+			Optional<Row>
+					itemRow = StreamSupport
 					.stream(sheet.spliterator(), false).filter(
 							row -> StreamSupport.stream(row.spliterator(), false)
 									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
@@ -418,27 +404,6 @@ public class IncomeStatementProfitAndLossTest extends ChuBoePopulateFactoryVO {
 			Sheet sheet = workbook.getSheetAt(0);
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Item");
 			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
-
-			Optional<Row> facilitiesExpenseRow = StreamSupport
-					.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false)
-									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Facilities")))
-					.findFirst();
-			assertTrue(facilitiesExpenseRow.isPresent(), "Facility expenses are present");
-			assertEquals(-100,
-					facilitiesExpenseRow.get().getCell(amountColumnIndex).getNumericCellValue() - facilitiesExpenses,
-					"Facilities expense amount is correct");
-
-			Optional<Row> otherExpensesRow = StreamSupport
-					.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false)
-									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Other")))
-					.findFirst();
-			assertTrue(otherExpensesRow.isPresent(), "Other expenses are present");
-			assertEquals(-200, otherExpensesRow.get().getCell(amountColumnIndex).getNumericCellValue() - otherExpenses,
-					"Other expenses amount is correct");
 
 			Optional<Row> totalOperatingExpensesRow = StreamSupport
 					.stream(sheet.spliterator(), false).filter(
@@ -546,55 +511,6 @@ public class IncomeStatementProfitAndLossTest extends ChuBoePopulateFactoryVO {
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Item");
 			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
 
-			Optional<Row> itemRow = StreamSupport
-					.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false)
-									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Facilities")))
-					.findFirst();
-			double facilitiesExpenses = itemRow.map(row -> row.getCell(amountColumnIndex).getNumericCellValue()).orElse(0.0);
-			//
-			itemRow = StreamSupport
-					.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false)
-									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Finances")))
-					.findFirst();
-			double financeExpenses = itemRow.map(row -> row.getCell(amountColumnIndex).getNumericCellValue()).orElse(0.0);
-			//
-			itemRow = StreamSupport
-					.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false)
-									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Personnel")))
-					.findFirst();
-			double personnelExpenses = itemRow.map(row -> row.getCell(amountColumnIndex).getNumericCellValue()).orElse(0.0);
-			//
-			itemRow = StreamSupport
-					.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false)
-									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Vehicle")))
-					.findFirst();
-			double vehicleExpenses = itemRow.map(row -> row.getCell(amountColumnIndex).getNumericCellValue()).orElse(0.0);
-			//
-			itemRow = StreamSupport
-					.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false)
-									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Services")))
-					.findFirst();
-			double serviceExpenses = itemRow.map(row -> row.getCell(amountColumnIndex).getNumericCellValue()).orElse(0.0);
-			//
-			itemRow = StreamSupport
-					.stream(sheet.spliterator(), false).filter(
-							row -> StreamSupport.stream(row.spliterator(), false)
-									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
-											&& cell.getStringCellValue().contains("Other")))
-					.findFirst();
-			double otherExpenses = itemRow.map(row -> row.getCell(amountColumnIndex).getNumericCellValue()).orElse(0.0);
-
-
 			Optional<Row> totalOperatingExpensesRow = StreamSupport
 					.stream(sheet.spliterator(), false).filter(
 							row -> StreamSupport.stream(row.spliterator(), false)
@@ -605,10 +521,120 @@ public class IncomeStatementProfitAndLossTest extends ChuBoePopulateFactoryVO {
 			assertEquals(totalOperatingExpenses,
 					totalOperatingExpensesRow.get().getCell(amountColumnIndex).getNumericCellValue(),
 					"Total operating expenses didn't change");
-			assertEquals(
-					facilitiesExpenses + financeExpenses + personnelExpenses + vehicleExpenses + serviceExpenses + otherExpenses,
-					totalOperatingExpensesRow.get().getCell(amountColumnIndex).getNumericCellValue(),
-					"Total operating amount is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void costOfGoodsSoldIsCorrectWhenShipmentHandlesTheAttributeSetInstance() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(incomeStatementProfitAndLossReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		double costOfGoodsSold = 0;
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Item");
+			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
+
+			Optional<Row> itemRow = StreamSupport
+					.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false)
+									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+											&& cell.getStringCellValue().contains("Product Purchases")))
+					.findFirst();
+			assertTrue(itemRow.isPresent(), "Product purchases is present");
+			costOfGoodsSold = itemRow.get().getCell(amountColumnIndex).getNumericCellValue();
+		}
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createPatient(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create attribute set to track expirations");
+		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
+		attributeSet.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSet.setIsGuaranteeDate(true);
+		attributeSet.setIsGuaranteeDateMandatory(true);
+		attributeSet.setName(valueObject.getScenarioName());
+		attributeSet.setDescription(valueObject.getScenarioName());
+		attributeSet.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create attribute set instance");
+		valueObject.setRandom();
+		MAttributeSetInstance_BH attributeSetInstance =
+				new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		attributeSetInstance.setGuaranteeDate(TimestampUtils.tomorrow());
+		attributeSetInstance.setM_AttributeSet_ID(attributeSet.get_ID());
+		attributeSetInstance.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSetInstance.setDescription(valueObject.getScenarioName());
+		attributeSetInstance.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setAttributeSetInstance(attributeSetInstance);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(50000));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setAttributeSetInstance(null);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
+		valueObject.setQuantity(new BigDecimal(900));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(incomeStatementProfitAndLossReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Item");
+			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
+
+			Optional<Row> productPurchasesRow = StreamSupport
+					.stream(sheet.spliterator(), false).filter(
+							row -> StreamSupport.stream(row.spliterator(), false)
+									.anyMatch(cell -> cell != null && cell.getCellType().equals(CellType.STRING)
+											&& cell.getStringCellValue().contains("Product Purchases")))
+					.findFirst();
+			assertTrue(productPurchasesRow.isPresent(), "Product purchases is present");
+			assertEquals(-900, productPurchasesRow.get().getCell(amountColumnIndex).getNumericCellValue() - costOfGoodsSold,
+					"Cost of goods sold amount is correct");
 		}
 	}
 }

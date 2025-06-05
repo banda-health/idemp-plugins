@@ -8,10 +8,10 @@ public class BandaSchemaFileComposer {
 				.files(
 						"WEB-INF/resources/Authentication.graphqls",
 						"WEB-INF/resources/Dashboard.graphqls",
-						"WEB-INF/resources/DashboardFinancial.graphqls",
 						"WEB-INF/resources/ForeignEntity.graphqls",
 						"WEB-INF/resources/IncludedRoleWindowAccess.graphqls",
 						"WEB-INF/resources/InventoryTransaction.graphqls",
+						"WEB-INF/resources/Logging.graphqls",
 //						"WEB-INF/resources/MAccessLog.graphqls",
 						"WEB-INF/resources/MAccount.graphqls",
 						"WEB-INF/resources/MAcctProcessor.graphqls",

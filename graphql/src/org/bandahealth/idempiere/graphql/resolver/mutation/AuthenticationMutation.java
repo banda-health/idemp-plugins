@@ -97,12 +97,9 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		// Only fetch the clients if they were requested
 		if (environment.getSelectionSet().contains("AD_Clients")) {
 			List<Object> parameters = new ArrayList<>();
-			// Leverage the client query to get available clients
-			new MClientQuery().getClientLimitingWhereClause(parameters, environment);
-			response.setAD_Clients(Repository.getByIds(idempiereContext, MClient_BH.Table_Name, null,
-							parameters.stream().filter(parameter -> parameter instanceof Integer).map(parameter -> (Integer) parameter)
-									.collect(Collectors.toSet())).values().stream().map(client -> (MClient_BH) client)
-					.collect(Collectors.toList()));
+			String whereClause = new MClientQuery().getClientLimitingWhereClause(parameters, environment);
+			response.setAD_Clients(
+					new Query(idempiereContext, MClient_BH.Table_Name, whereClause, null).setParameters(parameters).list());
 		}
 
 		try {

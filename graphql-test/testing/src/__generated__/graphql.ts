@@ -35792,6 +35792,52 @@ export type DashboardDiagnosisUsage = {
   Previous?: Maybe<Scalars['BigDecimal']['output']>;
 };
 
+export type DashboardFinancialGeneralMetric = {
+  __typename?: 'DashboardFinancialGeneralMetric';
+  CostOfGoodsSold: Scalars['BigDecimal']['output'];
+  GrossProfit: Scalars['BigDecimal']['output'];
+  GrossProfitMargin: Scalars['BigDecimal']['output'];
+  InventoryValue: Scalars['BigDecimal']['output'];
+  NetProfit: Scalars['BigDecimal']['output'];
+  RevenueSales: Scalars['BigDecimal']['output'];
+  TotalCharges: Scalars['BigDecimal']['output'];
+  TotalExpenses: Scalars['BigDecimal']['output'];
+  TotalOwed: Scalars['BigDecimal']['output'];
+};
+
+export type DashboardFinancialHistorical = {
+  __typename?: 'DashboardFinancialHistorical';
+  BucketValue: Scalars['DateTime']['output'];
+  NetProfit: Scalars['BigDecimal']['output'];
+  TotalExpenses: Scalars['BigDecimal']['output'];
+  TotalIncome: Scalars['BigDecimal']['output'];
+};
+
+export type DashboardFinancialOpenBalance = {
+  __typename?: 'DashboardFinancialOpenBalance';
+  Name: Scalars['String']['output'];
+  TotalOpenBalance: Scalars['BigDecimal']['output'];
+};
+
+export type DashboardFinancialSource = {
+  __typename?: 'DashboardFinancialSource';
+  Frequency: Scalars['Int']['output'];
+  Source: Scalars['String']['output'];
+};
+
+export type DashboardFinancialType = {
+  __typename?: 'DashboardFinancialType';
+  Frequency: Scalars['Int']['output'];
+  Name: Scalars['String']['output'];
+};
+
+export type DashboardFinancialVisitCharge = {
+  __typename?: 'DashboardFinancialVisitCharge';
+  AvgChargePatient: Scalars['Int']['output'];
+  BucketValue: Scalars['DateTime']['output'];
+  PatientVisits: Scalars['Int']['output'];
+};
+
 export type DashboardGeneralData = {
   __typename?: 'DashboardGeneralData';
   AverageChargePerPatient: Scalars['BigDecimal']['output'];
@@ -35804,6 +35850,38 @@ export type DashboardGeneralData = {
   PercentVisitsCompleted: Scalars['BigDecimal']['output'];
   PercentVitalsTracked: Scalars['BigDecimal']['output'];
   TotalPatientsServed: Scalars['Int']['output'];
+};
+
+export type DashboardInventoryGeneralMetrics = {
+  __typename?: 'DashboardInventoryGeneralMetrics';
+  DaysOnHand: Scalars['BigDecimal']['output'];
+  GrossMargin: Scalars['BigDecimal']['output'];
+  InventoryTurnoverRate: Scalars['BigDecimal']['output'];
+  ReturnOnInvestment: Scalars['BigDecimal']['output'];
+  SalesToStockRatio: Scalars['BigDecimal']['output'];
+};
+
+export type DashboardInventoryHistoricalChargeEarning = {
+  __typename?: 'DashboardInventoryHistoricalChargeEarning';
+  BucketValue: Scalars['DateTime']['output'];
+  Charges: Scalars['BigDecimal']['output'];
+  Margins: Scalars['BigDecimal']['output'];
+};
+
+export type DashboardInventoryHistoricalValue = {
+  __typename?: 'DashboardInventoryHistoricalValue';
+  BucketValue: Scalars['DateTime']['output'];
+  InventoryReceived: Scalars['BigDecimal']['output'];
+  InventoryValue: Scalars['BigDecimal']['output'];
+};
+
+export type DashboardInventoryTopSellerEarner = {
+  __typename?: 'DashboardInventoryTopSellerEarner';
+  IncomeGenerated: Scalars['BigDecimal']['output'];
+  MarginEarned: Scalars['BigDecimal']['output'];
+  Name: Scalars['String']['output'];
+  QuantitySold: Scalars['BigDecimal']['output'];
+  ValueGoodsSold: Scalars['BigDecimal']['output'];
 };
 
 export type DashboardLabUsage = {
@@ -52578,6 +52656,7 @@ export type Mutation = {
   I_ReportLineDelete: Scalars['Boolean']['output'];
   I_ReportLineSave: I_ReportLine;
   I_ReportLineSaveMany: Array<I_ReportLine>;
+  Log: Scalars['Boolean']['output'];
   LoginCheckOtherClients: Scalars['Boolean']['output'];
   Logout: Scalars['Boolean']['output'];
   M_AttributeDelete: Scalars['Boolean']['output'];
@@ -63081,6 +63160,12 @@ export type MutationI_ReportLineSaveManyArgs = {
 
 
 /** Define the root mutation type that can be extended in any files that want to add a mutation */
+export type MutationLogArgs = {
+  LogObject: Scalars['String']['input'];
+};
+
+
+/** Define the root mutation type that can be extended in any files that want to add a mutation */
 export type MutationLoginCheckOtherClientsArgs = {
   Credentials: AuthenticationInput;
 };
@@ -71968,7 +72053,17 @@ export type Query = {
   DD_OrderLineGet: Dd_OrderLineConnection;
   DashboardData?: Maybe<Scalars['String']['output']>;
   DashboardDiagnosisUsageGet: Array<Maybe<DashboardDiagnosisUsage>>;
+  DashboardFinancialGeneralMetricsGet: DashboardFinancialGeneralMetric;
+  DashboardFinancialHistoricalGet: Array<Maybe<DashboardFinancialHistorical>>;
+  DashboardFinancialOpenBalancesGet: Array<Maybe<DashboardFinancialOpenBalance>>;
+  DashboardFinancialSourcesGet: Array<Maybe<DashboardFinancialSource>>;
+  DashboardFinancialTypesGet: Array<Maybe<DashboardFinancialType>>;
+  DashboardFinancialVisitChargesGet: Array<Maybe<DashboardFinancialVisitCharge>>;
   DashboardGeneralDataGet: DashboardGeneralData;
+  DashboardInventoryGeneralMetricsGet: DashboardInventoryGeneralMetrics;
+  DashboardInventoryHistoricalChargeEarningGet: Array<Maybe<DashboardInventoryHistoricalChargeEarning>>;
+  DashboardInventoryHistoricalValueGet: Array<Maybe<DashboardInventoryHistoricalValue>>;
+  DashboardInventoryTopSellerEarnerGet: Array<Maybe<DashboardInventoryTopSellerEarner>>;
   DashboardLabUsageGet: Array<Maybe<DashboardLabUsage>>;
   DashboardProductUsageGet: Array<Maybe<DashboardProductUsage>>;
   DashboardVisitHistoryStatGet: Array<Maybe<DashboardVisitHistoryStat>>;
@@ -79748,7 +79843,79 @@ export type QueryDashboardDiagnosisUsageGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardFinancialGeneralMetricsGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardFinancialHistoricalGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardFinancialOpenBalancesGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+  Type: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardFinancialSourcesGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardFinancialTypesGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+  Type: Scalars['String']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardFinancialVisitChargesGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryDashboardGeneralDataGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardInventoryGeneralMetricsGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardInventoryHistoricalChargeEarningGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardInventoryHistoricalValueGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardInventoryTopSellerEarnerGetArgs = {
   BeginDate: Scalars['DateTime']['input'];
   EndDate: Scalars['DateTime']['input'];
 };

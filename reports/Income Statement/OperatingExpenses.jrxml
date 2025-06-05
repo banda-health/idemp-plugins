@@ -14,38 +14,25 @@
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
-	expense          AS expense,
-	SUM(amount) * -1 AS amount
+	c.name                  AS expense,
+	SUM(il.linenetamt) * -1 AS amount
 FROM
-	(
-		SELECT
-			CASE
-				WHEN c.name ILIKE 'Facilities -%' THEN 'Facilities'
-				WHEN c.name ILIKE 'Personnel -%' THEN 'Personnel'
-				WHEN c.name ILIKE 'Vehicle -%' THEN 'Vehicle'
-				WHEN c.name ILIKE 'Finances -%' THEN 'Finances'
-				WHEN c.name ILIKE 'Services -%' THEN 'Services'
-				ELSE 'Other'
-				END         AS expense,
-			il.linenetamt AS amount
-		FROM
-			c_invoice i
-				JOIN c_invoiceline il
-				ON i.c_invoice_id = il.c_invoice_id
-				JOIN c_charge c
-				ON il.c_charge_id = c.c_charge_id
-		WHERE
-			i.ad_client_id = $P{AD_CLIENT_ID}
-			AND i.docstatus = 'CO'
-			AND i.issotrx = 'N'
-			AND i.bh_visit_id IS NULL
-			AND i.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
-			AND c.name != 'Medications & Supplies'
-	) p
+	c_invoice i
+		JOIN c_invoiceline il
+		ON i.c_invoice_id = il.c_invoice_id
+		JOIN c_charge c
+		ON il.c_charge_id = c.c_charge_id
+WHERE
+	i.ad_client_id = $P{AD_CLIENT_ID}
+	AND i.docstatus = 'CO'
+	AND i.issotrx = 'N'
+	AND i.bh_visit_id IS NULL
+	AND i.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
+	AND c.name != 'Medications & Supplies'
 GROUP BY
-	expense
+	c.name
 ORDER BY
-	expense;]]>
+	c.name;]]>
 	</queryString>
 	<field name="expense" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="expense"/>
@@ -64,7 +51,7 @@ ORDER BY
 	</background>
 	<detail>
 		<band height="16">
-			<textField pattern="#,##0;(#,##0)" isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" pattern="#,##0;(#,##0)" isBlankWhenNull="true">
 				<reportElement stretchType="ContainerBottom" x="358" y="0" width="82" height="16" uuid="82cb374a-e573-42da-a01c-74d1b7ce0f53">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -82,7 +69,7 @@ ORDER BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField textAdjust="ScaleFont">
 				<reportElement x="0" y="0" width="358" height="16" uuid="7bab8365-2c49-4490-a1f0-98f857628830">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>

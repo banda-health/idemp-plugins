@@ -48,6 +48,7 @@ public class BandaReportTestFactory implements IChuBoePopulateFactory {
 		tests.add(new LaboratoryReportTest());
 
 		// Report cross-checking
+		tests.add(new CostOfGoodsSoldTest());
 		tests.add(new ExpenseTest());
 		tests.add(new IncomeTest());
 

@@ -14,6 +14,7 @@ public class BandaMutationComposer {
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.resolvers(
 				new AuthenticationMutation(),
+				new LoggingMutation(),
 				new M_ElementMutation(),
 				new M_RegistrationMutation(),
 				new MAccessLogMutation(),
