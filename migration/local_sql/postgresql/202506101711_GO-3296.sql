@@ -40,3 +40,7 @@ JOIN ad_reference ar
 ON ar.ad_reference_id = arl.ad_reference_id AND ar.ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
 GROUP BY arl.name
 $$;
+
+SELECT 
+	register_migration_script('202506101711_GO-3296.sql')
+FROM dual;
