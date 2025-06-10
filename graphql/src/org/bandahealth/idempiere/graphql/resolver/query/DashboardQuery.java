@@ -7,6 +7,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.model.DashboardDiagnosisUsage;
+import org.bandahealth.idempiere.graphql.model.DashboardFinancialChargeType;
 import org.bandahealth.idempiere.graphql.model.DashboardFinancialGeneralMetric;
 import org.bandahealth.idempiere.graphql.model.DashboardFinancialHistorical;
 import org.bandahealth.idempiere.graphql.model.DashboardFinancialOpenBalance;
@@ -386,9 +387,31 @@ public class DashboardQuery implements GraphQLQueryResolver {
 			try {
 				entity.setName(resultSet.getString(1));
 				entity.setQuantitySold(resultSet.getBigDecimal(2));
-				entity.setValueGoodsSold(resultSet.getBigDecimal(2));
-				entity.setIncomeGenerated(resultSet.getBigDecimal(2));
-				entity.setMarginEarned(resultSet.getBigDecimal(2));
+				entity.setValueGoodsSold(resultSet.getBigDecimal(3));
+				entity.setIncomeGenerated(resultSet.getBigDecimal(4));
+				entity.setMarginEarned(resultSet.getBigDecimal(5));
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			//
+			results.add(entity);
+		});
+		return results;
+	}
+	
+	public List<DashboardFinancialChargeType> DashboardFinancialChargeTypeGet(Timestamp BeginDate,
+			Timestamp EndDate, String type, DataFetchingEnvironment environment) {
+		String query = "SELECT * FROM bh_dashboard_get_financial_charge_type(?, ?::timestamp, ?::timestamp) WHERE type = ?";
+		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
+				EndDate, type);
+		List<DashboardFinancialChargeType> results = new ArrayList<>();
+		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
+			DashboardFinancialChargeType entity = new DashboardFinancialChargeType();
+			//
+			try {
+				entity.setName(resultSet.getString(1));
+				entity.setFrequency(resultSet.getBigDecimal(2));
+				entity.setType(resultSet.getString(3));
 			} catch (SQLException e) {
 				throw new RuntimeException(e);
 			}
