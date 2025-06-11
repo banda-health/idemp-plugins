@@ -16,7 +16,6 @@ WITH nonpatientpayments AS (
 		COUNT(*)								AS frequency
 	FROM
 		bh_get_visit_non_patient_payments(_ad_client_id, _begin_date, _end_date) npp
-	GROUP BY charge_subtype_name
 ),
 patientpayments AS (
 	SELECT 
