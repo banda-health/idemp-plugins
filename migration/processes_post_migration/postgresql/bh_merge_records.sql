@@ -21,13 +21,18 @@ BEGIN
 
 	RAISE NOTICE 'clearing specific tables...';
 	IF LOWER(_tableName) = 'c_bpartner' THEN
+		EXECUTE 'DELETE FROM c_bp_employee_acct WHERE c_bpartner_id = ' || id_old || ';';
 		EXECUTE 'DELETE FROM c_bp_customer_acct WHERE c_bpartner_id = ' || id_old || ';';
 		EXECUTE 'DELETE FROM c_bp_vendor_acct WHERE c_bpartner_id = ' || id_old || ';';
+		EXECUTE 'DELETE FROM t_aging WHERE c_bpartner_id = ' || id_old || ';';
 		EXECUTE 'DELETE FROM c_bpartner_location WHERE c_bpartner_id = ' || id_old || ';';
 	ELSEIF LOWER(_tableName) = 'm_product' THEN
 		EXECUTE 'DELETE FROM m_product_trl WHERE m_product_id = ' || id_old || ';';
 		EXECUTE 'DELETE FROM m_product_acct WHERE m_product_id = ' || id_old || ';';
 		EXECUTE 'DELETE FROM m_productprice WHERE m_product_id = ' || id_old || ';';
+		EXECUTE 'DELETE FROM m_replenish WHERE m_product_id = ' || id_old || ';';
+		EXECUTE 'DELETE FROM t_replenish WHERE m_product_id = ' || id_old || ';';
+		EXECUTE 'DELETE FROM m_product_po WHERE m_product_id = ' || id_old || ';';
 		EXECUTE 'DELETE FROM m_cost WHERE m_product_id = ' || id_old || ';';
 		-- Update reservations correctly
 		EXECUTE '
@@ -64,12 +69,17 @@ BEGIN
 						AND soh1.m_product_id = soh2.m_product_id
 				)';
 		EXECUTE 'DELETE FROM m_storagereservation WHERE m_product_id = ' || id_old || ';';
+	ELSEIF LOWER(_tableName) = 'ad_user' THEN
+		EXECUTE 'DELETE FROM ad_user_roles WHERE ad_user_id = ' || id_old || ';';
+	ELSEIF LOWER(_tableName) = 'ad_org' THEN
+		EXECUTE 'DELETE FROM ad_orginfo WHERE ad_org_id = ' || id_old || ';';
+		EXECUTE 'DELETE FROM ad_role_orgaccess WHERE ad_org_id = ' || id_old || ';';
 	END IF;
 
 	INSERT INTO tmp_update_statements
 	SELECT
-		'UPDATE ' || la.attrelid::regclass || ' SET ' || la.attname || ' = ' || id_new || ' WHERE ' ||
-		la.attname || ' = ' || id_old || ';' AS statement
+		LOWER('UPDATE ' || la.attrelid::regclass || ' SET ' || la.attname || ' = ' || id_new || ' WHERE ' ||
+		      la.attname || ' = ' || id_old || ';') AS statement
 	FROM
 		pg_constraint AS c
 			JOIN pg_index AS i
@@ -84,7 +94,35 @@ BEGIN
 		c.confrelid = LOWER(_tableName)::regclass
 		AND c.contype = 'f'
 		AND ra.attname = LOWER(_tablename) || '_id'
-		AND CARDINALITY(c.confkey) = 1;
+		AND CARDINALITY(c.confkey) = 1
+	UNION
+	SELECT
+		LOWER('UPDATE ' || t.TableName || ' SET ' || c.ColumnName || ' = ' || id_new || ' WHERE ' ||
+		      c.ColumnName || ' = ' || id_old || ';')
+	FROM
+		AD_Table t
+			INNER JOIN AD_Column c
+			ON t.AD_Table_ID = c.AD_Table_ID
+	WHERE
+		t.IsView = 'N'
+		AND t.TableName NOT IN ('C_TaxDeclarationAcct')
+		AND (
+			(LOWER(c.ColumnName) = LOWER(_tablename) || '_id' AND c.IsKey = 'N')
+				OR
+			c.AD_Reference_Value_ID IN
+			(
+				SELECT
+					rt.AD_Reference_ID
+				FROM
+					AD_Ref_Table rt
+						INNER JOIN AD_Column cc
+						ON rt.AD_Table_ID = cc.AD_Table_ID AND rt.AD_Key = cc.AD_Column_ID
+				WHERE
+					cc.IsKey = 'Y'
+					AND LOWER(cc.ColumnName) = LOWER(_tablename) || '_id'
+			)
+			)
+		AND c.ColumnSQL IS NULL;
 
 	RAISE NOTICE 'executing FK updates...';
 	FOR statement IN SELECT * FROM tmp_update_statements
@@ -112,7 +150,8 @@ BEGIN
 					                   WHEN bp.socreditstatus IN (''X'', ''S'') OR bp.so_creditlimit = 0 THEN bp.socreditstatus
 					                   WHEN bp.so_creditlimit < COALESCE(calc.totalopenbalance, bp.totalopenbalance) THEN ''H''
 					                   WHEN bp.so_creditlimit * 0.9 < COALESCE(calc.totalopenbalance, bp.totalopenbalance) THEN ''W''
-					                   ELSE ''O'' END
+					                   ELSE ''O'' END,
+				actuallifetimevalue = COALESCE(calc.actuallifetimevalue, bp.actuallifetimevalue)
 			FROM
 				(
 					SELECT
@@ -151,6 +190,16 @@ BEGIN
 								                          AND p.C_Charge_ID IS NULL
 								                          AND p.DocStatus IN (''CO'', ''CL'')
 						                          ), 0) AS totalopenbalance,
+						COALESCE((
+											SELECT
+												SUM(currencyBase(i.GrandTotal, i.C_Currency_ID, i.DateInvoiced, i.AD_Client_ID, i.AD_Org_ID))
+											FROM
+												C_Invoice_v i
+											WHERE
+												i.C_BPartner_ID = bp.C_BPartner_ID
+												AND i.IsSOTrx = ''Y''
+												AND i.DocStatus IN (''CO'', ''CL'')
+										), 0)                  AS actualLifetimeValue,
 						bp.c_bpartner_id
 					FROM
 						C_BPartner bp

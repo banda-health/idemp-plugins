@@ -15,8 +15,10 @@ import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
+import org.compiere.model.MLocation;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -699,7 +702,8 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		double numberOfFirstDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), firstDiagnosisName);
-		double numberOfSecondDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), secondDiagnosisName);
+		double numberOfSecondDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(),
+				secondDiagnosisName);
 
 		valueObject.setStepName("Create a patient");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
@@ -762,10 +766,80 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
-		double newNumberOfFirstDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), firstDiagnosisName);
-		double newNumberOfSecondDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), secondDiagnosisName);
+		double newNumberOfFirstDiagnoses =
+				getDiagnosesCountForDate(valueObject, TimestampUtils.today(), firstDiagnosisName);
+		double newNumberOfSecondDiagnoses =
+				getDiagnosesCountForDate(valueObject, TimestampUtils.today(), secondDiagnosisName);
 
 		assertThat("Should pick 1 primary diagnosis", newNumberOfFirstDiagnoses, is(numberOfFirstDiagnoses + 1));
 		assertThat("Should pick 1 secondary diagnosis", newNumberOfSecondDiagnoses, is(numberOfSecondDiagnoses + 1));
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void facilityInformationAppearsOnTheReport() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		MOrgInfo_BH organizationInformation =
+				new MOrgInfo_BH(valueObject.getContext(), valueObject.getOrg().get_ID(), valueObject.getTransactionName());
+		MLocation location = (MLocation) organizationInformation.getC_Location();
+		location.setAddress1("Nairobi");
+		location.setAddress2("Kileleshwa");
+		location.setAddress3("Male");
+		location.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+
+			Optional<Row> rowToFind = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equals(valueObject.getClient().getName()))).findFirst();
+			assertTrue(rowToFind.isPresent(), "Facility name is on the report");
+
+			rowToFind = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equals(location.getAddress3()))).findFirst();
+			assertTrue(rowToFind.isPresent(), "Ward is on the report");
+
+			rowToFind = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equals(location.getAddress1()))).findFirst();
+			assertTrue(rowToFind.isPresent(), "County is on the report");
+
+			rowToFind = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equals(location.getAddress2()))).findFirst();
+			assertTrue(rowToFind.isPresent(), "Sub-County is on the report");
+
+			String month = new SimpleDateFormat("MMMM").format(TimestampUtils.startOfMonth());
+			rowToFind = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equals(month))).findFirst();
+			assertTrue(rowToFind.isPresent(), "Month is on the report");
+
+			String year = new SimpleDateFormat("yyyy").format(TimestampUtils.startOfMonth());
+			rowToFind = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equals(year))).findFirst();
+			assertTrue(rowToFind.isPresent(), "Year is on the report");
+		}
 	}
 }

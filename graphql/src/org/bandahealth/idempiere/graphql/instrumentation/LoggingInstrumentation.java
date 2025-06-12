@@ -26,6 +26,10 @@ public class LoggingInstrumentation extends SimpleInstrumentation {
 		return new SimpleInstrumentationContext<>() {
 			@Override
 			public void onCompleted(ExecutionResult result, Throwable t) {
+				// We'll handle this endpoint in the LoggingMutation itself
+				if (parameters.getQuery().contains(" Log(")) {
+					return;
+				}
 				String logMessage = StringUtil.stripNewLines(parameters.getQuery());
 				if (!parameters.getVariables().isEmpty() && !parameters.getQuery().contains("AuthenticationInput")) {
 					String variablesString;

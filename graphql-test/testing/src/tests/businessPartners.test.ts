@@ -17,6 +17,7 @@ import {
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
+import { RoleName } from '../types/roleName';
 import {
 	createBusinessPartner,
 	createInvoice,
@@ -548,7 +549,7 @@ test('merging patients', async () => {
 
 test('business partner be assigned a tag', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
-	await valueObject.login();
+	await valueObject.login(RoleName.ClinicAdmin);
 
 	valueObject.stepName = 'Create business partner';
 	await createBusinessPartner(valueObject);

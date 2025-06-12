@@ -49,6 +49,7 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres UAT2 "/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer" isForPrompting="false"/>
+		<parameter name="Patient Tags" class="java.util.List"/>
 		<queryString>
 			<![CDATA[SELECT
 	bp.name                                AS patient_name,
@@ -64,6 +65,21 @@ FROM
 WHERE
 	bp.ad_client_id = $P{AD_CLIENT_ID}
 	AND bp.isactive = 'Y'
+		AND (
+		$X{IN, bp.c_bpartner_uu, Patient Tags} OR
+		bp.c_bpartner_id IN (
+			SELECT
+				c_bpartner_id
+			FROM
+				bh_bpartner_tags
+			WHERE
+				bh_tag_id IN (
+					SELECT bh_tag_id
+					FROM bh_tag
+					WHERE $X{IN, bh_tag_uu, Patient Tags}
+				)
+		)
+		)
 ORDER BY
 	bp.name;]]>
 		</queryString>
@@ -75,6 +91,7 @@ ORDER BY
 		<field name="openbalance" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="Patient Tags" class="java.util.List"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
@@ -110,9 +127,12 @@ ORDER BY
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="tableDataset" uuid="9f15718c-42a1-422d-9a41-12e1de583a84">
+					<datasetRun subDataset="tableDataset" uuid="e8d4ea9b-cb5b-463d-ab37-dc67d471f578">
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="Patient Tags">
+							<datasetParameterExpression><![CDATA[$P{Patient Tags}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>

@@ -13,7 +13,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.report.test.utils.EntityUtils;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
@@ -24,21 +23,15 @@ import org.compiere.model.X_M_Product;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -49,7 +42,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class IncomeAndExpensesTest extends ChuBoePopulateFactoryVO {
+public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 	private MProductCategory_BH getProductCategory(ChuBoePopulateVO valueObject, String productCategoryName,
 			String productCategoryType)
 			throws SQLException {
