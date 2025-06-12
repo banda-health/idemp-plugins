@@ -29,11 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MProcessMutation extends X_AD_ProcessMutation {
@@ -217,6 +213,10 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 							.setParameters(parameter.toString()).first();
 					parameter = BigDecimal.valueOf(payment.get_ID());
 				}
+			}
+			if(processParameter.getName().equals(MReference_BH.TAGS_PARAMETER)) {
+				log.info(parameter.toString());
+				parameter = Collections.singletonList(parameter);
 			}
 
 			// Create a new process info parameter with the name fetched from MProcessParam

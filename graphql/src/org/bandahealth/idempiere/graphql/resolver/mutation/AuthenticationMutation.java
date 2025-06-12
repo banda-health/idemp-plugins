@@ -9,6 +9,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
 import org.bandahealth.idempiere.base.model.MBHWarehouseAccess;
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
@@ -18,6 +19,7 @@ import org.bandahealth.idempiere.graphql.model.input.AuthenticationInput;
 import org.bandahealth.idempiere.graphql.model.input.ChangeAccessInput;
 import org.bandahealth.idempiere.graphql.model.input.ChangePasswordInput;
 import org.bandahealth.idempiere.graphql.repository.Repository;
+import org.bandahealth.idempiere.graphql.resolver.query.MClientQuery;
 import org.bandahealth.idempiere.graphql.utils.LoginClaims;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.bandahealth.idempiere.graphql.utils.TokenUtils;
@@ -44,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 /**
  * Handle all mutations relating to authentication
@@ -78,15 +81,26 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			throw new AdempiereException("Forbidden");
 		}
 
+		AuthenticationResponse response = new AuthenticationResponse();
+		response.setAD_User(new MUser_BH(idempiereContext, user.getAD_User_ID(), null));
 		if (user.isExpired()) {
-			return handleUserNeedsToChangePassword(new MUser_BH(idempiereContext, user.getAD_User_ID(), null),
-					idempiereContext);
+			List<String> securityQuestions = new ArrayList<>();
+			for (int i = 1; i <= MMessage_BH.NO_OF_SECURITY_QUESTION; i++) {
+				securityQuestions.add(Msg.getMsg(idempiereContext, MMessage_BH.SECURITY_QUESTION_PREFIX + i));
+			}
+			response.setSecurityQuestions(securityQuestions);
+			return response;
 		}
 
 		JWTCreator.Builder builder = JWT.create();
 		handleAccessChange(credentials, user, builder, idempiereContext);
-		AuthenticationResponse response = new AuthenticationResponse();
-		response.setAD_User(new MUser_BH(idempiereContext, user.getAD_User_ID(), null));
+		// Only fetch the clients if they were requested
+		if (environment.getSelectionSet().contains("AD_Clients")) {
+			List<Object> parameters = new ArrayList<>();
+			String whereClause = new MClientQuery().getClientLimitingWhereClause(parameters, environment);
+			response.setAD_Clients(
+					new Query(idempiereContext, MClient_BH.Table_Name, whereClause, null).setParameters(parameters).list());
+		}
 
 		try {
 			// generate session cookie

@@ -14,6 +14,7 @@ public class MReference_BH extends MReference {
 	public static final String REPORT_TENDER_TYPE_AD_REFERENCE_UU = "7eca6283-86b9-4dff-9c40-786162a8be7a";
 	public static final String STOCK_UPDATE_REASONS_AD_REFERENCE_UU = "dcdc79d7-8e55-428f-a8a5-e7a6f562404f";
 	public static final String ENCOUNTER_TYPES = "ced05cde-f4e6-4d72-9134-c16e27eb963f";
+	public static final String TAGS_PARAMETER = "Tags";
 	/**
 	 * Reference suffix for IDs
 	 * TODO: Remove this when all reports use UUIDs instead of IDs
