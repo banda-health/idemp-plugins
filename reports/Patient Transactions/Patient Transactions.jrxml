@@ -108,7 +108,7 @@ SELECT
 	billdetails.cashier_name                          AS cashier,
 	billdetails.patient_name                          AS patientname,
 	v.documentno                                      AS visit_num,
-	i.documentno                                      AS invoice_num,
+	i.invoice_num                                     AS invoice_num,
 	insurance_info.member_id,
 	COALESCE(billdetails.lineitemtotals, 0)           AS billtotal,
 	COALESCE(patient_payment_sums.cash, 0)            AS cash,
@@ -124,8 +124,17 @@ SELECT
 	cb.totalopenbalance
 FROM
 	bh_visit v
-		JOIN c_invoice i
-		ON v.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL') AND v.patient_id = i.c_bpartner_id
+		LEFT JOIN LATERAL (SELECT
+			                   i.bh_visit_id,
+			                   STRING_AGG(i.documentno, ', ') AS invoice_num
+		                   FROM
+			                   c_invoice i
+		                   WHERE
+			                   i.bh_visit_id = v.bh_visit_id
+			                   AND i.docstatus IN ('CO', 'CL')
+			                   AND v.patient_id = i.c_bpartner_id
+		                   GROUP BY i.bh_visit_id) i
+		ON i.bh_visit_id = v.bh_visit_id
 		JOIN billdetails
 		ON v.bh_visit_id = billdetails.bh_visit_id
 		LEFT JOIN (
