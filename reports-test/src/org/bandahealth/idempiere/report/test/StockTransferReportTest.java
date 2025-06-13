@@ -93,8 +93,8 @@ public class StockTransferReportTest extends ChuBoePopulateFactoryVO {
 		movementLine.setM_AttributeSetInstance_ID(
 				valueObject.getAttributeSetInstance() == null ? 0 : valueObject.getAttributeSetInstance().get_ID());
 		movementLine.setQtyEntered(Env.ONE);
-		movementLine.setM_Locator_ID(fromWarehouse.getLocators(false)[0].get_ID());
-		movementLine.setM_LocatorTo_ID(toWarehouse.getLocators(false)[0].get_ID());
+		movementLine.setM_Locator_ID(fromWarehouse.getLocators(true)[0].get_ID());
+		movementLine.setM_LocatorTo_ID(toWarehouse.getLocators(true)[0].get_ID());
 		movementLine.saveEx();
 
 		movement.setDocAction(valueObject.getDocumentAction());
