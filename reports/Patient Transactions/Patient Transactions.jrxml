@@ -42,7 +42,7 @@
 		</box>
 	</style>
 	<subDataset name="PtrListDataset" uuid="f2a999e7-0087-49f1-b912-1c591a8d1c00">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UATDB"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="Begin Date" class="java.lang.String"/>
 		<parameter name="End Date" class="java.lang.String"/>
@@ -105,8 +105,10 @@
 SELECT
 	billdetails.bh_visit_id,
 	billdetails.bill_date                             AS billdate,
-	billdetails.cashier_name                          AS Cashier,
+	billdetails.cashier_name                          AS cashier,
 	billdetails.patient_name                          AS patientname,
+	v.documentno                                      AS visit_num,
+	i.documentno                                      AS invoice_num,
 	insurance_info.member_id,
 	COALESCE(billdetails.lineitemtotals, 0)           AS billtotal,
 	COALESCE(patient_payment_sums.cash, 0)            AS cash,
@@ -121,7 +123,11 @@ SELECT
 	COALESCE(non_patient_payment_totals.donation, 0)  AS donation,
 	cb.totalopenbalance
 FROM
-	billdetails
+	bh_visit v
+		JOIN c_invoice i
+		ON v.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL') AND v.patient_id = i.c_bpartner_id
+		JOIN billdetails
+		ON v.bh_visit_id = billdetails.bh_visit_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
@@ -135,8 +141,9 @@ FROM
 			patient_payments
 		GROUP BY bh_visit_id
 	) patient_payment_sums
-		ON billdetails.bh_visit_id = patient_payment_sums.bh_visit_id
-		JOIN c_bpartner cb ON billdetails.c_bpartner_id = cb.c_bpartner_id
+		ON v.bh_visit_id = patient_payment_sums.bh_visit_id
+		JOIN c_bpartner cb
+		ON v.patient_id = cb.c_bpartner_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
@@ -147,7 +154,7 @@ FROM
 			non_patient_payments
 		GROUP BY bh_visit_id
 	) non_patient_payment_totals
-		ON billdetails.bh_visit_id = non_patient_payment_totals.bh_visit_id
+		ON v.bh_visit_id = non_patient_payment_totals.bh_visit_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
@@ -159,7 +166,7 @@ FROM
 			bh_subtype = 'I'
 		GROUP BY bh_visit_id
 	) insurance_info
-		ON insurance_info.bh_visit_id = billdetails.bh_visit_id
+		ON insurance_info.bh_visit_id = v.bh_visit_id
 		CROSS JOIN params p
 WHERE
 	EXISTS (
@@ -188,48 +195,94 @@ WHERE
 							AND p.payment_mode IN ('I', 'W', 'T')))
 			) f
 		WHERE
-			f.bh_visit_id = billdetails.bh_visit_id
+			f.bh_visit_id = v.bh_visit_id
 	)
 ORDER BY
 	DATE(billdetails.bill_date), billdetails.patient_name;]]>
 		</queryString>
 		<field name="bh_visit_id" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="bh_visit_id"/>
 			<property name="com.jaspersoft.studio.field.label" value="bh_visit_id"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 		</field>
-		<field name="billdate" class="java.sql.Date">
+		<field name="billdate" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.name" value="billdate"/>
 			<property name="com.jaspersoft.studio.field.label" value="billdate"/>
 		</field>
-		<field name="Cashier" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="Cashier"/>
+		<field name="cashier" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="cashier"/>
+			<property name="com.jaspersoft.studio.field.label" value="cashier"/>
 		</field>
 		<field name="patientname" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="patientname"/>
 			<property name="com.jaspersoft.studio.field.label" value="patientname"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
+		<field name="visit_num" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="visit_num"/>
+			<property name="com.jaspersoft.studio.field.label" value="visit_num"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_visit"/>
+		</field>
+		<field name="invoice_num" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="invoice_num"/>
+			<property name="com.jaspersoft.studio.field.label" value="invoice_num"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_invoice"/>
+		</field>
 		<field name="member_id" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="member_id"/>
 			<property name="com.jaspersoft.studio.field.label" value="member_id"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="member_id"/>
 		</field>
 		<field name="billtotal" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="billtotal"/>
 			<property name="com.jaspersoft.studio.field.label" value="billtotal"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
 		</field>
 		<field name="cash" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value=""/>
+			<property name="com.jaspersoft.studio.field.name" value="cash"/>
+			<property name="com.jaspersoft.studio.field.label" value="cash"/>
 		</field>
 		<field name="mobile" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value=""/>
+			<property name="com.jaspersoft.studio.field.name" value="mobile"/>
+			<property name="com.jaspersoft.studio.field.label" value="mobile"/>
 		</field>
-		<field name="credit_debit" class="java.math.BigDecimal"/>
-		<field name="bank" class="java.math.BigDecimal"/>
-		<field name="check" class="java.math.BigDecimal"/>
-		<field name="other" class="java.math.BigDecimal"/>
-		<field name="insurance_type" class="java.lang.String"/>
-		<field name="insurance" class="java.math.BigDecimal"/>
-		<field name="waiver" class="java.math.BigDecimal"/>
-		<field name="donation" class="java.math.BigDecimal"/>
-		<field name="totalopenbalance" class="java.math.BigDecimal"/>
+		<field name="credit_debit" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="credit_debit"/>
+			<property name="com.jaspersoft.studio.field.label" value="credit_debit"/>
+		</field>
+		<field name="bank" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="bank"/>
+			<property name="com.jaspersoft.studio.field.label" value="bank"/>
+		</field>
+		<field name="check" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="check"/>
+			<property name="com.jaspersoft.studio.field.label" value="check"/>
+		</field>
+		<field name="other" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="other"/>
+			<property name="com.jaspersoft.studio.field.label" value="other"/>
+		</field>
+		<field name="insurance_type" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="insurance_type"/>
+			<property name="com.jaspersoft.studio.field.label" value="insurance_type"/>
+		</field>
+		<field name="insurance" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="insurance"/>
+			<property name="com.jaspersoft.studio.field.label" value="insurance"/>
+		</field>
+		<field name="waiver" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="waiver"/>
+			<property name="com.jaspersoft.studio.field.label" value="waiver"/>
+		</field>
+		<field name="donation" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="donation"/>
+			<property name="com.jaspersoft.studio.field.label" value="donation"/>
+		</field>
+		<field name="totalopenbalance" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="totalopenbalance"/>
+			<property name="com.jaspersoft.studio.field.label" value="totalopenbalance"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+		</field>
 		<variable name="totalPaymentsV" class="java.math.BigDecimal">
 			<variableExpression><![CDATA[$F{cash}.add($F{mobile}).add($F{credit_debit}).add($F{bank}).add($F{check}).add($F{other}).add($F{insurance}).add($F{waiver}).add($F{donation})]]></variableExpression>
 		</variable>
@@ -415,7 +468,7 @@ WHERE
 								<textElement verticalAlignment="Bottom">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{Cashier}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{cashier}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -442,8 +495,55 @@ WHERE
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="120" uuid="52d7c9a8-f500-45cb-be91-344e742f1ccd">
+					<jr:column width="90" uuid="a6c53a04-6a08-4dd3-828e-0f017c28bc2d">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="cbdef30c-ac71-456b-9015-b8fd7a8f3e52"/>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Visit #]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField textAdjust="StretchHeight">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="90" height="17" uuid="07269222-0bf0-406d-bd6c-5e43d31e8f55"/>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Bottom">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{visit_num}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="21b64c05-4c4d-4cd2-8b3f-5acc32bd8b01">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="0bb0e347-5435-40c0-9bef-f54f802c4307"/>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Invoice #]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="17">
+							<textField textAdjust="StretchHeight">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="90" height="17" uuid="542971f7-dfa0-4f52-801a-e00ae3bbd3c0"/>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Bottom">
+									<font fontName="DejaVu Sans" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{invoice_num}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="52d7c9a8-f500-45cb-be91-344e742f1ccd">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="120" height="30" uuid="6f467e2a-385d-4e89-b06d-f4039b341ba8"/>
@@ -466,7 +566,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="110" uuid="c9c26fea-99b4-4160-9684-a512dcd7c90b">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="110" height="30" uuid="1318c3d7-641a-40b4-b549-73131c7ae389"/>
@@ -499,7 +599,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="d2b95bb2-1455-4ab1-96cd-24ecb596504a">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -533,7 +633,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="10f87e2b-2fd9-4748-b8d7-b2254c610af5">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="a6a066a9-c2c2-4217-8073-6c179330b609"/>
@@ -566,7 +666,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="35840953-604e-423a-8c68-6f434091d264">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="072fe257-32eb-4e66-a899-f2ae682562ea"/>
@@ -599,7 +699,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="70" uuid="4ea94fb7-ca39-41f6-9455-474cb4576cb5">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="70" height="30" uuid="744c1733-9acd-458a-a612-87096acc7e89"/>
@@ -633,7 +733,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="100" uuid="5498d08a-8754-49ca-ba1d-7fb053b76921">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="100" height="30" uuid="83160f88-5d17-4cfa-b8f2-34bc8bb402ca"/>
@@ -667,7 +767,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="dc464594-e017-4b67-a7d8-9575d2f07d71">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="90" height="30" uuid="c0ba67ba-93ae-4e83-a4fa-d3feeb457b2a"/>
@@ -700,7 +800,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="130" uuid="e47c3531-1fcd-478e-85f7-3544a272934a">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="130" height="30" uuid="f989ca57-62c6-4728-b05c-43de0235cae8"/>
@@ -724,7 +824,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="faaa3a91-076c-4e36-8f29-bf253792419e">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -758,7 +858,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="60" uuid="ad81451b-9702-4997-a2a2-ab022c647a4c">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -794,7 +894,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="80" uuid="82ce5ba6-2abb-4543-8a7f-d5830da1c70d">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column17"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -828,7 +928,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="80" uuid="82e18f0c-d999-4e88-b6dc-7bf3d45852a9">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column18"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -862,7 +962,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="85" uuid="a8436288-8d7b-4d8b-adb9-2d1276bce2e1">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column17"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column19"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
@@ -902,7 +1002,7 @@ WHERE
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="95" uuid="4cf12512-f2a2-4f48-9fc2-28cad12f84d8">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column18"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column20"/>
 						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
