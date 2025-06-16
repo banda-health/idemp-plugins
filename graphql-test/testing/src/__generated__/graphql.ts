@@ -35792,6 +35792,12 @@ export type DashboardDiagnosisUsage = {
   Previous?: Maybe<Scalars['BigDecimal']['output']>;
 };
 
+export type DashboardFinancialChargeType = {
+  __typename?: 'DashboardFinancialChargeType';
+  Frequency: Scalars['BigDecimal']['output'];
+  Name: Scalars['String']['output'];
+};
+
 export type DashboardFinancialGeneralMetric = {
   __typename?: 'DashboardFinancialGeneralMetric';
   CostOfGoodsSold: Scalars['BigDecimal']['output'];
@@ -72053,6 +72059,7 @@ export type Query = {
   DD_OrderLineGet: Dd_OrderLineConnection;
   DashboardData?: Maybe<Scalars['String']['output']>;
   DashboardDiagnosisUsageGet: Array<Maybe<DashboardDiagnosisUsage>>;
+  DashboardFinancialChargeTypeGet: Array<Maybe<DashboardFinancialChargeType>>;
   DashboardFinancialGeneralMetricsGet: DashboardFinancialGeneralMetric;
   DashboardFinancialHistoricalGet: Array<Maybe<DashboardFinancialHistorical>>;
   DashboardFinancialOpenBalancesGet: Array<Maybe<DashboardFinancialOpenBalance>>;
@@ -79839,6 +79846,14 @@ export type QueryDashboardDataArgs = {
 export type QueryDashboardDiagnosisUsageGetArgs = {
   BeginDate: Scalars['DateTime']['input'];
   EndDate: Scalars['DateTime']['input'];
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryDashboardFinancialChargeTypeGetArgs = {
+  BeginDate: Scalars['DateTime']['input'];
+  EndDate: Scalars['DateTime']['input'];
+  Type: Scalars['String']['input'];
 };
 
 

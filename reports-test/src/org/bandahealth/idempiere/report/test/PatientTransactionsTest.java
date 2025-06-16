@@ -1295,8 +1295,88 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			assertTrue(TableUtils.getHeaderRow(sheet, "Balance Due") != null, "Balance due column exists");
-			assertTrue(TableUtils.getHeaderRow(sheet, "Current Open Balance") != null, "Current open balance column exists");
+			assertNotNull(TableUtils.getHeaderRow(sheet, "Balance Due"), "Balance due column exists");
+			assertNotNull(TableUtils.getHeaderRow(sheet, "Current Open Balance"), "Current open balance column exists");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void visitAndInvoiceDocumentNumbersArePresent() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		valueObject.setSalesPrice(BigDecimal.TEN);
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+		MProduct_BH product = valueObject.getProduct();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(10));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setProduct(product);
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create payment");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setPaymentAmount(new BigDecimal(10));
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		MInvoice_BH visitInvoice =
+				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_BH_Visit_ID + "=?",
+						valueObject.getTransactionName()).setParameters(valueObject.getVisit().get_ID()).first();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Bill Date");
+			int patientNameColumnIndex = TableUtils.getColumnIndex(headerRow, "Patient Name");
+			int visitNumberColumnIndex = TableUtils.getColumnIndex(headerRow, "Visit #");
+			int invoiceNumberColumnIndex = TableUtils.getColumnIndex(headerRow, "Invoice #");
+
+			Optional<Row> patientRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(patientNameColumnIndex) != null &&
+							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(patientNameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).findFirst();
+
+			assertTrue(patientRows.isPresent(), "Patient appears only once");
+			assertEquals(valueObject.getVisit().getDocumentNo(),
+					patientRows.get().getCell(visitNumberColumnIndex).getStringCellValue(), "Visit number is correct");
+			assertEquals(visitInvoice.getDocumentNo(),
+					patientRows.get().getCell(invoiceNumberColumnIndex).getStringCellValue(), "Invoice number is correct");
 		}
 	}
 }

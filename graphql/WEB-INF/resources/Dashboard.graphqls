@@ -17,6 +17,7 @@ extend type Query {
 	DashboardFinancialSourcesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialSource]!
 	DashboardFinancialTypesGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialType]!
 	DashboardFinancialVisitChargesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialVisitCharge]!
+	DashboardFinancialChargeTypeGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialChargeType]!
 }
 
 type DashboardGeneralData {
@@ -127,4 +128,9 @@ type DashboardVisitHistoryStat {
 	BH_PatientType: AD_Ref_List
 	AlternateVisitType: String
 	Frequency: Int!
+}
+
+type DashboardFinancialChargeType {
+	Name: String!
+	Frequency: BigDecimal!
 }

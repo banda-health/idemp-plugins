@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="voided transactions" pageWidth="940" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="940" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -54,30 +54,30 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
-	o.updated          AS voiddate,
-	bp.name            AS patientname,
-	cashier.name       AS cashiername,
-	p.payamt           AS paymentamount,
-	p.bh_tender_amount AS tenderamount,
-	vr.name            AS voidedreason
+	o.updated                            AS voiddate,
+	bp.name                              AS patientname,
+	COALESCE(cashier.name, '')           AS cashiername,
+	COALESCE(SUM(p.payamt), 0)           AS paymentamount,
+	COALESCE(SUM(p.bh_tender_amount), 0) AS tenderamount,
+	vr.name                              AS voidedreason
 FROM
 	bh_visit v
 		JOIN c_order o
-			ON v.bh_visit_id = o.bh_visit_id
-		JOIN c_payment p
-			ON v.bh_visit_id = p.bh_visit_id
-		JOIN c_payment rev_p
-			ON p.reversal_id = rev_p.c_payment_id AND p.created < rev_p.created
-		JOIN ad_user cashier
-			ON o.updatedby = cashier.ad_user_id
+		ON v.bh_visit_id = o.bh_visit_id
+		LEFT JOIN c_payment p
+		ON v.bh_visit_id = p.bh_visit_id AND p.documentno NOT LIKE '%^'
+		LEFT JOIN ad_user cashier
+		ON p.updatedby = cashier.ad_user_id
 		JOIN c_bpartner bp
-			ON v.patient_id = bp.c_bpartner_id
+		ON v.patient_id = bp.c_bpartner_id
 		LEFT JOIN bh_voided_reason vr
-			ON o.bh_voided_reason_id = vr.bh_voided_reason_id
+		ON o.bh_voided_reason_id = vr.bh_voided_reason_id OR v.bh_voided_reason_id = vr.bh_voided_reason_id
 WHERE
 	o.docstatus = 'VO'
 	AND o.ad_client_id = $P{AD_CLIENT_ID}
 	AND o.updated BETWEEN $P{Begin Date} AND $P{End Date}
+GROUP BY
+	o.updated, bp.name, cashier.name, vr.name
 ORDER BY
 	1;]]>
 		</queryString>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Service List" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9b3a3c42-c9c2-41cb-a92e-19c4779fa507">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF" isBold="true">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF" isBold="true">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+	p.name      AS product,
+	pc.name     AS category,
+	pp.pricestd AS charge
+FROM
+	m_product p
+		JOIN m_product_category pc
+		ON p.m_product_category_id = pc.m_product_category_id
+		JOIN m_productprice pp
+		ON p.m_product_id = pp.m_product_id
+		JOIN m_pricelist_version plv
+		ON pp.m_pricelist_version_id = plv.m_pricelist_version_id
+		JOIN m_pricelist pl
+		ON plv.m_pricelist_id = pl.m_pricelist_id AND pl.issopricelist = 'Y'
+WHERE
+	(pl.isdefault = 'Y' OR NOT EXISTS (
+		SELECT 1 FROM m_pricelist pl2 WHERE plv.m_pricelist_id = pl2.m_pricelist_id AND pl2.isdefault = 'Y'
+	))
+	AND NOT EXISTS (
+		SELECT
+			1
+		FROM
+			m_pricelist_version plv2
+		WHERE
+			plv.m_pricelist_id = plv2.m_pricelist_id
+			AND plv2.validfrom > plv.validfrom
+	)
+	AND p.ad_client_id = $P{AD_CLIENT_ID}
+	AND p.producttype = 'S'
+	AND p.isactive = 'Y'
+ORDER BY
+	p.name, pc.name, pp.pricestd;]]>
+	</queryString>
+	<field name="product" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="product"/>
+		<property name="com.jaspersoft.studio.field.label" value="product"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+	</field>
+	<field name="category" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="category"/>
+		<property name="com.jaspersoft.studio.field.label" value="category"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_product_category"/>
+	</field>
+	<field name="charge" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="charge"/>
+		<property name="com.jaspersoft.studio.field.label" value="charge"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="m_productprice"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="22" y="0" width="510" height="30" uuid="a4a50f80-1125-4d12-8beb-b9ee62c9b923"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Service List]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="table_CH" x="0" y="0" width="260" height="15" uuid="b2e51ff9-d3f5-40c2-8e4f-52009bb0ebb4"/>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_CH" x="260" y="0" width="175" height="15" uuid="e6171be7-74ef-4359-b46f-9e46c36433e8"/>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Category]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_CH" x="435" y="0" width="120" height="15" uuid="6f4430de-49f8-4c78-8988-962895400917">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Charge]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight">
+				<reportElement style="table_TD" stretchType="ContainerHeight" x="0" y="0" width="260" height="15" uuid="b948fc20-6d2a-4782-9afb-d36a41ecb272">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{product}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement style="table_TD" stretchType="ContainerHeight" x="260" y="0" width="175" height="15" uuid="2d239240-f444-41f2-9fca-67c1a6eaad09">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="#,##0.00">
+				<reportElement style="table_TD" stretchType="ContainerHeight" x="435" y="0" width="120" height="15" uuid="6e53d14c-2980-4bdb-abf0-cb5f7d92a6c4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{charge}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="26">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="10" width="259" height="16" uuid="100583cc-7601-4208-a680-08edef9f0927">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
