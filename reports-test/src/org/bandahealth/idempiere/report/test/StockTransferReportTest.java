@@ -72,6 +72,7 @@ public class StockTransferReportTest extends ChuBoePopulateFactoryVO {
 		var fromWarehouse = valueObject.getWarehouse();
 		ChuBoeCreateEntity.changeWarehouse(valueObject);
 		var toWarehouse = valueObject.getWarehouse();
+		commitEx();
 
 		// create movement header
 		MMovement_BH movement = new MMovement_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
@@ -93,8 +94,8 @@ public class StockTransferReportTest extends ChuBoePopulateFactoryVO {
 		movementLine.setM_AttributeSetInstance_ID(
 				valueObject.getAttributeSetInstance() == null ? 0 : valueObject.getAttributeSetInstance().get_ID());
 		movementLine.setQtyEntered(Env.ONE);
-		movementLine.setM_Locator_ID(fromWarehouse.getLocators(true)[0].get_ID());
-		movementLine.setM_LocatorTo_ID(toWarehouse.getLocators(true)[0].get_ID());
+		movementLine.setM_Locator_ID(fromWarehouse.getLocators(false)[0].get_ID());
+		movementLine.setM_LocatorTo_ID(toWarehouse.getLocators(false)[0].get_ID());
 		movementLine.saveEx();
 
 		movement.setDocAction(valueObject.getDocumentAction());
