@@ -376,10 +376,10 @@ public class DashboardQuery implements GraphQLQueryResolver {
 	}
 
 	public List<DashboardInventoryTopSellerEarner> DashboardInventoryTopSellerEarnerGet(Timestamp BeginDate,
-			Timestamp EndDate, DataFetchingEnvironment environment) {
-		String query = "SELECT * FROM bh_dashboard_get_inventory_top_sellers_earners(?, ?::timestamp, ?::timestamp)";
+			Timestamp EndDate, String SortBy, DataFetchingEnvironment environment) {
+		String query = "SELECT * FROM bh_dashboard_get_inventory_top_sellers_earners(?, ?::timestamp, ?::timestamp, ?::text)";
 		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
-				EndDate);
+				EndDate, SortBy);
 		List<DashboardInventoryTopSellerEarner> results = new ArrayList<>();
 		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 			DashboardInventoryTopSellerEarner entity = new DashboardInventoryTopSellerEarner();
