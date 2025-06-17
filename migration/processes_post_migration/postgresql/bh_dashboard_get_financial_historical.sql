@@ -30,7 +30,7 @@ WITH expenses AS (
 			COALESCE(SUM(p.payamt), 0) AS total_income,
 			date(p.datetrx)            AS date
 		FROM
-			bh_get_visit_payments(_ad_client_id, DATE_TRUNC('month', NOW() - '5 months'::interval), NOW()) p
+			bh_get_visit_payments(_ad_client_id, DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp, NOW()::timestamp) p
 		GROUP BY date(p.datetrx)
 	)
 SELECT
