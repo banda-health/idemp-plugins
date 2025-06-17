@@ -9,7 +9,7 @@ extend type Query {
 	DashboardInventoryGeneralMetricsGet(BeginDate: DateTime!, EndDate: DateTime!): DashboardInventoryGeneralMetrics!
 	DashboardInventoryHistoricalChargeEarningGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardInventoryHistoricalChargeEarning]!
 	DashboardInventoryHistoricalValueGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardInventoryHistoricalValue]!
-	DashboardInventoryTopSellerEarnerGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardInventoryTopSellerEarner]!
+	DashboardInventoryTopSellerEarnerGet(BeginDate: DateTime!, EndDate: DateTime!, SortBy: String!): [DashboardInventoryTopSellerEarner]!
 
 	DashboardFinancialGeneralMetricsGet(BeginDate: DateTime!, EndDate: DateTime!): DashboardFinancialGeneralMetric!
 	DashboardFinancialHistoricalGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialHistorical]!

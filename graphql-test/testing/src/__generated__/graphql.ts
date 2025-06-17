@@ -79933,6 +79933,7 @@ export type QueryDashboardInventoryHistoricalValueGetArgs = {
 export type QueryDashboardInventoryTopSellerEarnerGetArgs = {
   BeginDate: Scalars['DateTime']['input'];
   EndDate: Scalars['DateTime']['input'];
+  SortBy: Scalars['String']['input'];
 };
 
 
