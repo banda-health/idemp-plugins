@@ -307,10 +307,10 @@ test('clinic admin role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
-		IsReadWrite: true,
-		BH_CanDeactivate: true,
+		IsReadWrite: false,
+		BH_CanDeactivate: false,
 	});
 });
 
@@ -444,7 +444,7 @@ test('cashier/registration basic role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
 		IsReadWrite: false,
 		BH_CanDeactivate: false,
@@ -581,7 +581,7 @@ test('cashier/registration basic plus role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
 		IsReadWrite: false,
 		BH_CanDeactivate: false,
@@ -718,10 +718,10 @@ test('cashier/registration advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
-		IsReadWrite: true,
-		BH_CanDeactivate: true,
+		IsReadWrite: false,
+		BH_CanDeactivate: false,
 	});
 });
 
@@ -855,10 +855,10 @@ test('inventory/pharmacy advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
-		IsReadWrite: true,
-		BH_CanDeactivate: true,
+		IsReadWrite: false,
+		BH_CanDeactivate: false,
 	});
 });
 
@@ -991,10 +991,10 @@ test('inventory/pharmacy basic role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
-		IsReadWrite: true,
-		BH_CanDeactivate: true,
+		IsReadWrite: false,
+		BH_CanDeactivate: false,
 	});
 });
 
@@ -1128,7 +1128,7 @@ test('clinician/nurse basic role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
 		IsReadWrite: false,
 		BH_CanDeactivate: false,
@@ -1265,10 +1265,10 @@ test('clinician/nurse advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
-		IsReadWrite: true,
-		BH_CanDeactivate: true,
+		IsReadWrite: false,
+		BH_CanDeactivate: false,
 	});
 });
 
@@ -1536,7 +1536,7 @@ test('lab/radiology advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
 		IsReadWrite: true,
 		BH_CanDeactivate: false,
@@ -1673,7 +1673,7 @@ test('lab/radiology basic role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
 		IsReadWrite: true,
 		BH_CanDeactivate: false,
@@ -1810,7 +1810,7 @@ test('accounting role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
 		IsReadWrite: false,
 		BH_CanDeactivate: false,
@@ -1947,9 +1947,9 @@ test('clinic user role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
-		IsReadWrite: true,
-		BH_CanDeactivate: true,
+		IsReadWrite: false,
+		BH_CanDeactivate: false,
 	});
 });
