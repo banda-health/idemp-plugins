@@ -55,6 +55,9 @@ public class ServiceListReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		ChuBoeCreateEntity.createDefaultPriceLists(valueObject);
+		valueObject.getBusinessPartner().setPO_PriceList_ID(valueObject.getPurchasePriceList().get_ID());
+		valueObject.getBusinessPartner().setM_PriceList_ID(valueObject.getSalesPriceList().get_ID());
+		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create product category 1");

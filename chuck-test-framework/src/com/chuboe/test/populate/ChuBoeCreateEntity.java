@@ -254,20 +254,20 @@ public class ChuBoeCreateEntity {
 				}
 
 				//see if price list version already exists
-				String sqlWhere = "M_PriceList_ID = ? and ValidFrom = ?";
+				String sqlWhere = "M_PriceList_ID = ? and ValidFrom >= ?";
 
 				MPriceListVersion salesPriceListVersion =
 						new Query(valueObject.getContext(), MPriceListVersion.Table_Name, sqlWhere,
 								valueObject.getTransactionName())
 								.setClient_ID()
-								.setParameters(salesPriceList.get_ID(), datePriceList)
+								.setParameters(salesPriceList.get_ID(), datePriceList).setOrderBy("ValidFrom DESC")
 								.first();
 
 				MPriceListVersion purchasePriceListVersion =
 						new Query(valueObject.getContext(), MPriceListVersion.Table_Name, sqlWhere,
 								valueObject.getTransactionName())
 								.setClient_ID()
-								.setParameters(purchasePriceList.get_ID(), datePriceList)
+								.setParameters(purchasePriceList.get_ID(), datePriceList).setOrderBy("ValidFrom DESC")
 								.first();
 
 				if (purchasePriceListVersion == null) {
@@ -1215,7 +1215,8 @@ public class ChuBoeCreateEntity {
 		}
 
 		// Create process instance (mainly for logging/sync purpose)
-		MPInstance mpi = new MPInstance(valueObject.getContext(), process.get_ID(), -1, valueObject.getProcessRecordId(), null);
+		MPInstance mpi =
+				new MPInstance(valueObject.getContext(), process.get_ID(), -1, valueObject.getProcessRecordId(), null);
 		mpi.saveEx();
 
 		// Connect the process to the process instance.

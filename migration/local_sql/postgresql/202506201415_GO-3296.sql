@@ -62,3 +62,8 @@ SELECT
 	'Expense'
 FROM expenses
 $$;
+
+SELECT
+	register_migration_script('202506201415_GO-3296.sql')
+FROM
+	dual;
