@@ -104,3 +104,8 @@ WHERE
 	OR soldstock > 0
 	OR balancestock > 0
 $$;
+
+SELECT
+	register_migration_script('202506201251_GO-3296.sql')
+FROM
+	dual;
