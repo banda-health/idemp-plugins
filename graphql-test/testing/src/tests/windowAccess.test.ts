@@ -24,10 +24,12 @@ const windowUuid = {
 	manageInventory: '8f744d1c-427a-4b85-ab98-38e50258e86d',
 	manageUsers: '6b934ec2-7f45-4104-ba10-08e3ce54de7e',
 	nonPatientPayments: 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d',
+	otcPharmacySales: '3a4ac3cd-9e1b-4a2c-82d3-78f698ec9e1f',
 	patients: 'ba697729-5ec8-44f7-b534-446310bb5782',
 	patientTags: '3c865615-4f7e-4b19-a64b-740485d99e83',
 	priceLists: 'e1ba0b91-cb26-4ab0-bcc6-2ee762ad1a84',
 	products: 'c63b9972-1b23-4140-8bbb-0ea2b0b81024',
+	productsAndServicesCatalogue: 'd4d1767a-1a6f-45ef-8b72-48ff004f1b4e',
 	receiveProducts: '78dd6f39-84f9-4e19-b08e-7a3441af15e5',
 	suppliers: '565af89e-8f10-4469-84f5-6cca8d7fae27',
 	services: 'fd93da00-871d-4996-a3f7-4528bed8b758',
@@ -36,7 +38,6 @@ const windowUuid = {
 	transferInventory: 'd3c84cad-7306-464d-85da-7e629846f8c0',
 	visitsBills: 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77',
 	vitals: '53b4d743-c311-40e5-aa8e-c0880c42c1b1',
-	otcPharmacySales: '3a4ac3cd-9e1b-4a2c-82d3-78f698ec9e1f',
 } as const;
 
 test('admin role has correct access', async () => {
@@ -168,6 +169,12 @@ test('admin role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
+		IsReadWrite: true,
+		BH_CanDeactivate: true,
+	});
 });
 
 test('clinic admin role has correct access', async () => {
@@ -299,6 +306,9 @@ test('clinic admin role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('cashier/registration basic role has correct access', async () => {
@@ -430,6 +440,9 @@ test('cashier/registration basic role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('cashier/registration basic plus role has correct access', async () => {
@@ -561,6 +574,9 @@ test('cashier/registration basic plus role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('cashier/registration advanced role has correct access', async () => {
@@ -692,6 +708,9 @@ test('cashier/registration advanced role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('inventory/pharmacy advanced role has correct access', async () => {
@@ -823,6 +842,9 @@ test('inventory/pharmacy advanced role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('inventory/pharmacy basic role has correct access', async () => {
@@ -954,6 +976,8 @@ test('inventory/pharmacy basic role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('clinician/nurse basic role has correct access', async () => {
@@ -1085,6 +1109,9 @@ test('clinician/nurse basic role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('clinician/nurse advanced role has correct access', async () => {
@@ -1217,6 +1244,8 @@ test('clinician/nurse advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('triage role has correct access', async () => {
@@ -1348,6 +1377,9 @@ test('triage role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toBeUndefined();
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('lab/radiology advanced role has correct access', async () => {
@@ -1479,6 +1511,9 @@ test('lab/radiology advanced role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('lab/radiology basic role has correct access', async () => {
@@ -1610,6 +1645,9 @@ test('lab/radiology basic role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('accounting role has correct access', async () => {
@@ -1741,6 +1779,9 @@ test('accounting role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toBeUndefined();
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });
 
 test('clinic user role has correct access', async () => {
@@ -1872,4 +1913,7 @@ test('clinic user role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
 });

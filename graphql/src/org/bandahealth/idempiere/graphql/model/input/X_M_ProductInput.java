@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -36,6 +37,7 @@ import java.sql.ResultSet;
 public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_Concept;
 	private ForeignEntityInput mC_RevenueRecognition;
 	private ForeignEntityInput mC_SubscriptionType;
 	private ForeignEntityInput mC_TaxCategory;
@@ -99,6 +101,43 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+
+	/**
+	 * Set Concept.
+	 *
+	 * @param BH_Concept Concept
+	 */
+	@JsonProperty("BH_Concept")
+	public void setBH_ConceptInput(ForeignEntityInput BH_Concept) {
+		this.mBH_Concept = BH_Concept;
+		if (!is_new()) {
+			return;
+		}
+		if (BH_Concept != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHConcept foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "BH_Concept", "BH_Concept_UU=?", get_TrxName())
+							.setParameters(BH_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setBH_Concept_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table BH_Concept with UU " + BH_Concept.getUU());
+			}
+		} else {
+			this.setBH_Concept_ID(0);
+		}
+	}
+
+	/**
+	 * Get Concept.
+	 *
+	 * @return Concept
+	 */
+	@JsonProperty("BH_Concept")
+	public ForeignEntityInput BH_Concept() {
+		return mBH_Concept;
 	}
 
 	/**
@@ -555,6 +594,40 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	}
 
 	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep Sales Representative or Company Agent
+	 */
+	@JsonProperty("SalesRep")
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
+		this.mSalesRep = SalesRep;
+		if (SalesRep != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setSalesRep_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UU " + SalesRep.getUU());
+			}
+		} else {
+			this.setSalesRep_ID(0);
+		}
+	}
+
+	/**
+	 * Get Sales Representative.
+	 *
+	 * @return Sales Representative or Company Agent
+	 */
+	@JsonProperty("SalesRep")
+	public ForeignEntityInput SalesRep() {
+		return mSalesRep;
+	}
+
+	/**
 	 * Set Expense Type.
 	 *
 	 * @param S_ExpenseType Expense report type
@@ -626,39 +699,5 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	@JsonProperty("S_Resource")
 	public ForeignEntityInput S_Resource() {
 		return mS_Resource;
-	}
-
-	/**
-	 * Set Sales Representative.
-	 *
-	 * @param SalesRep Sales Representative or Company Agent
-	 */
-	@JsonProperty("SalesRep")
-	public void setSalesRepInput(ForeignEntityInput SalesRep) {
-		this.mSalesRep = SalesRep;
-		if (SalesRep != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MUser_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setSalesRep_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_User with UU " + SalesRep.getUU());
-			}
-		} else {
-			this.setSalesRep_ID(0);
-		}
-	}
-
-	/**
-	 * Get Sales Representative.
-	 *
-	 * @return Sales Representative or Company Agent
-	 */
-	@JsonProperty("SalesRep")
-	public ForeignEntityInput SalesRep() {
-		return mSalesRep;
 	}
 }

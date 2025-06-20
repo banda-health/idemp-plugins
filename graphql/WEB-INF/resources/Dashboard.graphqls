@@ -9,14 +9,14 @@ extend type Query {
 	DashboardInventoryGeneralMetricsGet(BeginDate: DateTime!, EndDate: DateTime!): DashboardInventoryGeneralMetrics!
 	DashboardInventoryHistoricalChargeEarningGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardInventoryHistoricalChargeEarning]!
 	DashboardInventoryHistoricalValueGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardInventoryHistoricalValue]!
-	DashboardInventoryTopSellerEarnerGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardInventoryTopSellerEarner]!
+	DashboardInventoryTopSellerEarnerGet(BeginDate: DateTime!, EndDate: DateTime!, SortBy: String!): [DashboardInventoryTopSellerEarner]!
 
 	DashboardFinancialGeneralMetricsGet(BeginDate: DateTime!, EndDate: DateTime!): DashboardFinancialGeneralMetric!
-	DashboardFinancialHistoricalGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialHistorical]!
+	DashboardFinancialHistoricalGet: [DashboardFinancialHistorical]!
 	DashboardFinancialOpenBalancesGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialOpenBalance]!
 	DashboardFinancialSourcesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialSource]!
 	DashboardFinancialTypesGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialType]!
-	DashboardFinancialVisitChargesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialVisitCharge]!
+	DashboardFinancialVisitChargesGet: [DashboardFinancialVisitCharge]!
 	DashboardFinancialChargeTypeGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialChargeType]!
 }
 
@@ -82,7 +82,7 @@ type DashboardFinancialGeneralMetric {
 }
 
 type DashboardFinancialHistorical {
-	BucketValue: DateTime!
+	BucketValue: Date
 	TotalIncome: BigDecimal!
 	TotalExpenses: BigDecimal!
 	NetProfit: BigDecimal!
@@ -104,7 +104,7 @@ type DashboardFinancialType {
 }
 
 type DashboardFinancialVisitCharge {
-	BucketValue: DateTime!
+	BucketValue: Date!
 	PatientVisits: Int!
 	AvgChargePatient: Int!
 }
