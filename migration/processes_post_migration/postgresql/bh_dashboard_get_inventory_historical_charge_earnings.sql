@@ -1,43 +1,49 @@
-DROP FUNCTION IF EXISTS bh_dashboard_get_inventory_historical_charge_earnings(_ad_client_id numeric, _begin_date timestamp, _end_date timestamp);
-CREATE OR REPLACE FUNCTION bh_dashboard_get_inventory_historical_charge_earnings(_ad_client_id numeric, _begin_date timestamp, _end_date timestamp)
+DROP FUNCTION IF EXISTS bh_dashboard_get_inventory_historical_charge_earnings(numeric);
+CREATE OR REPLACE FUNCTION bh_dashboard_get_inventory_historical_charge_earnings(_ad_client_id numeric)
 	RETURNS table
 	        (
-		        bucket_value         	timestamp,
-		        charges         		numeric,
-		        margins					numeric
+		        bucket_value timestamp,
+		        charges      numeric,
+		        margins      numeric
 	        )
 	LANGUAGE sql
 	STABLE
 AS
 $$
-WITH buckets_cte AS (
-	SELECT
-		COALESCE(sell_price * sold_stock, 0)											   AS charges,
-		COALESCE((sell_price - purchase_price) * sold_stock, 0)							   AS margins,
-		WIDTH_BUCKET(EXTRACT(EPOCH FROM purchase_date), EXTRACT(EPOCH FROM _begin_date),
-		             EXTRACT(EPOCH FROM _end_date), 6)                  				   AS bucket_number
+WITH months AS (
+	SELECT *
 	FROM
-		get_inventory_changes(_ad_client_id, _begin_date, _end_date)
-	WHERE
-        sold_stock > 0
+		GENERATE_SERIES(DATE_TRUNC('month', NOW() - '5 months'::interval), DATE_TRUNC('month', NOW()), '1 month'::interval)
 ),
-bucket_mapping (bucket_number, bucket_value) AS (
-	VALUES
-		(1, _begin_date),
-		(2, _end_date - (_end_date - _begin_date) * 5 / 6),
-		(3, _end_date - (_end_date - _begin_date) * 4 / 6),
-		(4, _end_date - (_end_date - _begin_date) * 3 / 6),
-		(5, _end_date - (_end_date - _begin_date) * 2 / 6),
-		(6, _end_date - (_end_date - _begin_date) / 6)
-)
+	data AS (
+		SELECT
+			ol.priceactual * t.movementqty * -1                                    AS charges,
+			COALESCE((ol.priceactual - pc.purchase_price) * t.movementqty * -1, 0) AS margins,
+			DATE_TRUNC('month', t.updated)                                         AS bucket_number
+		FROM
+			m_transaction t
+				JOIN m_inoutline iol
+				ON t.m_inoutline_id = iol.m_inoutline_id
+				JOIN c_orderline ol
+				ON iol.c_orderline_id = ol.c_orderline_id
+				JOIN get_product_costs(_ad_client_id) pc
+				ON t.m_product_id = pc.m_product_id AND t.m_attributesetinstance_id = pc.m_attributesetinstance_id
+		WHERE
+			t.movementtype IN ('C+', 'C-')
+			AND t.updated BETWEEN
+				DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp AND
+				NOW()::timestamp
+	)
 SELECT
-	bm.bucket_value,
-	COALESCE(SUM(charges), 0) 				AS charges,
-	COALESCE(SUM(margins), 0)				AS margins
+	months.GENERATE_SERIES    AS bucket_value,
+	COALESCE(SUM(charges), 0) AS charges,
+	COALESCE(SUM(margins), 0) AS margins
 FROM
-	bucket_mapping bm
-LEFT JOIN buckets_cte bcte
-ON bcte.bucket_number = bm.bucket_number
+	months
+		LEFT JOIN data
+		ON months.GENERATE_SERIES = DATA.bucket_number
 GROUP BY
-	bm.bucket_value;
+	months.GENERATE_SERIES
+ORDER BY
+	months.GENERATE_SERIES;
 $$;

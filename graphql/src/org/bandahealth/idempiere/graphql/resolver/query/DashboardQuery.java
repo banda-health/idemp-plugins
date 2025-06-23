@@ -329,11 +329,9 @@ public class DashboardQuery implements GraphQLQueryResolver {
 	}
 
 	public List<DashboardInventoryHistoricalChargeEarning> DashboardInventoryHistoricalChargeEarningGet(
-			Timestamp BeginDate, Timestamp EndDate, DataFetchingEnvironment environment) {
-		String query = "SELECT * FROM bh_dashboard_get_inventory_historical_charge_earnings(?, ?::timestamp, " +
-				"?::timestamp)";
-		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
-				EndDate);
+			DataFetchingEnvironment environment) {
+		String query = "SELECT * FROM bh_dashboard_get_inventory_historical_charge_earnings(?)";
+		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)));
 		List<DashboardInventoryHistoricalChargeEarning> results = new ArrayList<>();
 		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 			DashboardInventoryHistoricalChargeEarning entity = new DashboardInventoryHistoricalChargeEarning();
@@ -351,11 +349,10 @@ public class DashboardQuery implements GraphQLQueryResolver {
 		return results;
 	}
 
-	public List<DashboardInventoryHistoricalValue> DashboardInventoryHistoricalValueGet(Timestamp BeginDate,
-			Timestamp EndDate, DataFetchingEnvironment environment) {
-		String query = "SELECT * FROM bh_dashboard_get_inventory_historical_value(?, ?::timestamp, ?::timestamp)";
-		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
-				EndDate);
+	public List<DashboardInventoryHistoricalValue> DashboardInventoryHistoricalValueGet(
+			DataFetchingEnvironment environment) {
+		String query = "SELECT * FROM bh_dashboard_get_inventory_historical_value(?)";
+		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)));
 		List<DashboardInventoryHistoricalValue> results = new ArrayList<>();
 		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 			DashboardInventoryHistoricalValue entity = new DashboardInventoryHistoricalValue();
@@ -375,7 +372,8 @@ public class DashboardQuery implements GraphQLQueryResolver {
 
 	public List<DashboardInventoryTopSellerEarner> DashboardInventoryTopSellerEarnerGet(Timestamp BeginDate,
 			Timestamp EndDate, String SortBy, DataFetchingEnvironment environment) {
-		String query = "SELECT * FROM bh_dashboard_get_inventory_top_sellers_earners(?, ?::timestamp, ?::timestamp, ?::text)";
+		String query =
+				"SELECT * FROM bh_dashboard_get_inventory_top_sellers_earners(?, ?::timestamp, ?::timestamp, ?::text)";
 		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
 				EndDate, SortBy);
 		List<DashboardInventoryTopSellerEarner> results = new ArrayList<>();
