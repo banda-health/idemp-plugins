@@ -24,7 +24,8 @@ WITH months AS (
 				JOIN get_product_costs(_ad_client_id) pc
 				ON t.m_product_id = pc.m_product_id AND t.m_attributesetinstance_id = pc.m_attributesetinstance_id
 		WHERE
-			t.movementtype IN ('C+', 'C-')
+			t.ad_client_id = _ad_client_id
+			AND t.movementtype IN ('C+', 'C-')
 			AND t.updated BETWEEN
 				DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp AND
 				NOW()::timestamp
@@ -37,7 +38,8 @@ WITH months AS (
 		FROM
 			m_transaction t
 		WHERE
-			t.movementtype IN ('V+', 'V-')
+			t.ad_client_id = _ad_client_id
+			AND t.movementtype IN ('V+', 'V-')
 			AND t.updated BETWEEN
 				DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp AND
 				NOW()::timestamp
