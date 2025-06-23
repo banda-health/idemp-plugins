@@ -594,6 +594,39 @@ query C_UOMGetDefault {
 	}
 }
 
+query DashboardFinancialHistoricalGet {
+	DashboardFinancialHistoricalGet {
+		BucketValue
+		NetProfit
+		TotalExpenses
+		TotalIncome
+	}
+}
+
+query DashboardFinancialVisitChargesGet {
+	DashboardFinancialVisitChargesGet {
+		AvgChargePatient
+		BucketValue
+		PatientVisits
+	}
+}
+
+query DashboardInventoryHistoricalChargeEarningGet {
+	DashboardInventoryHistoricalChargeEarningGet {
+		BucketValue
+		Charges
+		Margins
+	}
+}
+
+query DashboardInventoryHistoricalValueGet {
+	DashboardInventoryHistoricalValueGet {
+		BucketValue
+		InventoryReceived
+		InventoryValue
+	}
+}
+
 query DocumentStatusActionMap {
 	DocumentStatusActionMap
 }

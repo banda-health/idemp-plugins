@@ -47,6 +47,20 @@ public interface I_M_ProductInput extends I_M_Product {
 	BigDecimal getBH_BuyPrice();
 
 	/**
+	 * Set BH_Concept.
+	 *
+	 * @param BH_Concept BH_Concept
+	 */
+	void setBH_ConceptInput(ForeignEntityInput BH_Concept);
+
+	/**
+	 * Get BH_Concept.
+	 *
+	 * @return BH_Concept
+	 */
+	ForeignEntityInput BH_Concept();
+
+	/**
 	 * Column name BH_PriceMargin
 	 */
 	static final String COLUMNNAME_BH_PriceMargin = "BH_PriceMargin";
@@ -362,6 +376,20 @@ public interface I_M_ProductInput extends I_M_Product {
 	ForeignEntityInput R_MailText();
 
 	/**
+	 * Set SalesRep.
+	 *
+	 * @param SalesRep Sales Representative or Company Agent
+	 */
+	void setSalesRepInput(ForeignEntityInput SalesRep);
+
+	/**
+	 * Get SalesRep.
+	 *
+	 * @return Sales Representative or Company Agent
+	 */
+	ForeignEntityInput SalesRep();
+
+	/**
 	 * Set S_ExpenseType.
 	 *
 	 * @param S_ExpenseType Expense report type
@@ -388,18 +416,4 @@ public interface I_M_ProductInput extends I_M_Product {
 	 * @return Resource
 	 */
 	ForeignEntityInput S_Resource();
-
-	/**
-	 * Set SalesRep.
-	 *
-	 * @param SalesRep Sales Representative or Company Agent
-	 */
-	void setSalesRepInput(ForeignEntityInput SalesRep);
-
-	/**
-	 * Get SalesRep.
-	 *
-	 * @return Sales Representative or Company Agent
-	 */
-	ForeignEntityInput SalesRep();
 }

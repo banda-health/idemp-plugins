@@ -35813,7 +35813,7 @@ export type DashboardFinancialGeneralMetric = {
 
 export type DashboardFinancialHistorical = {
   __typename?: 'DashboardFinancialHistorical';
-  BucketValue: Scalars['DateTime']['output'];
+  BucketValue?: Maybe<Scalars['Date']['output']>;
   NetProfit: Scalars['BigDecimal']['output'];
   TotalExpenses: Scalars['BigDecimal']['output'];
   TotalIncome: Scalars['BigDecimal']['output'];
@@ -35840,7 +35840,7 @@ export type DashboardFinancialType = {
 export type DashboardFinancialVisitCharge = {
   __typename?: 'DashboardFinancialVisitCharge';
   AvgChargePatient: Scalars['Int']['output'];
-  BucketValue: Scalars['DateTime']['output'];
+  BucketValue: Scalars['Date']['output'];
   PatientVisits: Scalars['Int']['output'];
 };
 
@@ -47580,6 +47580,7 @@ export type M_Product = {
   AD_Org: Ad_Org;
   /** Purchase price of product */
   BH_BuyPrice?: Maybe<Scalars['BigDecimal']['output']>;
+  BH_Concept?: Maybe<Bh_Concept>;
   BH_PriceMargin?: Maybe<Scalars['BigDecimal']['output']>;
   BH_Product_IncludedList?: Maybe<Array<Bh_Product_Included>>;
   /** Selling price of BandaGo product */
@@ -47789,6 +47790,7 @@ export type M_ProductInput = {
   AD_Org?: InputMaybe<ForeignEntityInput>;
   /** Purchase price of product */
   BH_BuyPrice?: InputMaybe<Scalars['BigDecimal']['input']>;
+  BH_Concept?: InputMaybe<ForeignEntityInput>;
   BH_PriceMargin?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Selling price of BandaGo product */
   BH_SellPrice?: InputMaybe<Scalars['BigDecimal']['input']>;
@@ -79865,13 +79867,6 @@ export type QueryDashboardFinancialGeneralMetricsGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
-export type QueryDashboardFinancialHistoricalGetArgs = {
-  BeginDate: Scalars['DateTime']['input'];
-  EndDate: Scalars['DateTime']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryDashboardFinancialOpenBalancesGetArgs = {
   BeginDate: Scalars['DateTime']['input'];
   EndDate: Scalars['DateTime']['input'];
@@ -79895,13 +79890,6 @@ export type QueryDashboardFinancialTypesGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
-export type QueryDashboardFinancialVisitChargesGetArgs = {
-  BeginDate: Scalars['DateTime']['input'];
-  EndDate: Scalars['DateTime']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryDashboardGeneralDataGetArgs = {
   BeginDate: Scalars['DateTime']['input'];
   EndDate: Scalars['DateTime']['input'];
@@ -79916,23 +79904,10 @@ export type QueryDashboardInventoryGeneralMetricsGetArgs = {
 
 
 /** Define the root query type that can be extended in any files that want to add a query */
-export type QueryDashboardInventoryHistoricalChargeEarningGetArgs = {
-  BeginDate: Scalars['DateTime']['input'];
-  EndDate: Scalars['DateTime']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
-export type QueryDashboardInventoryHistoricalValueGetArgs = {
-  BeginDate: Scalars['DateTime']['input'];
-  EndDate: Scalars['DateTime']['input'];
-};
-
-
-/** Define the root query type that can be extended in any files that want to add a query */
 export type QueryDashboardInventoryTopSellerEarnerGetArgs = {
   BeginDate: Scalars['DateTime']['input'];
   EndDate: Scalars['DateTime']['input'];
+  SortBy: Scalars['String']['input'];
 };
 
 
@@ -90060,6 +90035,26 @@ export type C_UomGetDefaultQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type C_UomGetDefaultQuery = { __typename?: 'Query', C_UOMGetDefault: { __typename?: 'C_UOM', UU: string } };
 
+export type DashboardFinancialHistoricalGetQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DashboardFinancialHistoricalGetQuery = { __typename?: 'Query', DashboardFinancialHistoricalGet: Array<{ __typename?: 'DashboardFinancialHistorical', BucketValue?: string | null, NetProfit: number, TotalExpenses: number, TotalIncome: number } | null> };
+
+export type DashboardFinancialVisitChargesGetQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DashboardFinancialVisitChargesGetQuery = { __typename?: 'Query', DashboardFinancialVisitChargesGet: Array<{ __typename?: 'DashboardFinancialVisitCharge', AvgChargePatient: number, BucketValue: string, PatientVisits: number } | null> };
+
+export type DashboardInventoryHistoricalChargeEarningGetQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DashboardInventoryHistoricalChargeEarningGetQuery = { __typename?: 'Query', DashboardInventoryHistoricalChargeEarningGet: Array<{ __typename?: 'DashboardInventoryHistoricalChargeEarning', BucketValue: number, Charges: number, Margins: number } | null> };
+
+export type DashboardInventoryHistoricalValueGetQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DashboardInventoryHistoricalValueGetQuery = { __typename?: 'Query', DashboardInventoryHistoricalValueGet: Array<{ __typename?: 'DashboardInventoryHistoricalValue', BucketValue: number, InventoryReceived: number, InventoryValue: number } | null> };
+
 export type DocumentStatusActionMapQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -90322,6 +90317,10 @@ export const C_PaymentDocument = {"kind":"Document","definitions":[{"kind":"Oper
 export const C_PaymentGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_PaymentGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_PaymentGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_PaymentFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_PaymentFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Payment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}},{"kind":"Field","name":{"kind":"Name","value":"TenderType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_PaymentGetQuery, C_PaymentGetQueryVariables>;
 export const C_TaxCategoryGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_TaxCategoryGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_TaxCategoryGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<C_TaxCategoryGetQuery, C_TaxCategoryGetQueryVariables>;
 export const C_UomGetDefaultDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_UOMGetDefault"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_UOMGetDefault"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]} as unknown as DocumentNode<C_UomGetDefaultQuery, C_UomGetDefaultQueryVariables>;
+export const DashboardFinancialHistoricalGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DashboardFinancialHistoricalGet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DashboardFinancialHistoricalGet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BucketValue"}},{"kind":"Field","name":{"kind":"Name","value":"NetProfit"}},{"kind":"Field","name":{"kind":"Name","value":"TotalExpenses"}},{"kind":"Field","name":{"kind":"Name","value":"TotalIncome"}}]}}]}}]} as unknown as DocumentNode<DashboardFinancialHistoricalGetQuery, DashboardFinancialHistoricalGetQueryVariables>;
+export const DashboardFinancialVisitChargesGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DashboardFinancialVisitChargesGet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DashboardFinancialVisitChargesGet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AvgChargePatient"}},{"kind":"Field","name":{"kind":"Name","value":"BucketValue"}},{"kind":"Field","name":{"kind":"Name","value":"PatientVisits"}}]}}]}}]} as unknown as DocumentNode<DashboardFinancialVisitChargesGetQuery, DashboardFinancialVisitChargesGetQueryVariables>;
+export const DashboardInventoryHistoricalChargeEarningGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DashboardInventoryHistoricalChargeEarningGet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DashboardInventoryHistoricalChargeEarningGet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BucketValue"}},{"kind":"Field","name":{"kind":"Name","value":"Charges"}},{"kind":"Field","name":{"kind":"Name","value":"Margins"}}]}}]}}]} as unknown as DocumentNode<DashboardInventoryHistoricalChargeEarningGetQuery, DashboardInventoryHistoricalChargeEarningGetQueryVariables>;
+export const DashboardInventoryHistoricalValueGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DashboardInventoryHistoricalValueGet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DashboardInventoryHistoricalValueGet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BucketValue"}},{"kind":"Field","name":{"kind":"Name","value":"InventoryReceived"}},{"kind":"Field","name":{"kind":"Name","value":"InventoryValue"}}]}}]}}]} as unknown as DocumentNode<DashboardInventoryHistoricalValueGetQuery, DashboardInventoryHistoricalValueGetQueryVariables>;
 export const DocumentStatusActionMapDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DocumentStatusActionMap"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocumentStatusActionMap"}}]}}]} as unknown as DocumentNode<DocumentStatusActionMapQuery, DocumentStatusActionMapQueryVariables>;
 export const InventoryTransactionGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InventoryTransactionGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"InventoryTransactionGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Order"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"MovementQty"}}]}}]}}]}}]} as unknown as DocumentNode<InventoryTransactionGetQuery, InventoryTransactionGetQueryVariables>;
 export const M_AttributeSetInstanceGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_AttributeSetInstanceGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_AttributeSetInstanceGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"GuaranteeDate"}}]}}]}}]}}]} as unknown as DocumentNode<M_AttributeSetInstanceGetQuery, M_AttributeSetInstanceGetQueryVariables>;
