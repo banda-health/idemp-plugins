@@ -11,9 +11,9 @@ CREATE OR REPLACE FUNCTION bh_dashboard_get_financial_types(_ad_client_id numeri
 AS
 $$
 SELECT
-	chargetype_name AS name,
-	COUNT(*)        AS frequency,
-	'Income'        AS type
+	chargetype_name      AS name,
+	SUM(linenetamt) * -1 AS frequency,
+	'Income'             AS type
 FROM
 	bh_get_visit_non_patient_payments(_ad_client_id, _begin_date, _end_date)
 GROUP BY
@@ -21,7 +21,7 @@ GROUP BY
 UNION ALL
 SELECT
 	payment_mode_name AS name,
-	COUNT(*)          AS frequency,
+	SUM(payamt)       AS frequency,
 	'Income'          AS type
 FROM
 	bh_get_visit_payments(_ad_client_id, _begin_date, _end_date)
@@ -29,8 +29,8 @@ GROUP BY
 	payment_mode_name
 UNION ALL
 SELECT
-	c.Name   AS name,
-	COUNT(*) AS frequency,
+	c.Name              AS name,
+	SUM(cil.linenetamt) AS frequency,
 	'Expense'
 FROM
 	c_invoice i

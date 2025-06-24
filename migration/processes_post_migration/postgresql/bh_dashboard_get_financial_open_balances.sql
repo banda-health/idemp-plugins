@@ -1,10 +1,10 @@
-DROP FUNCTION IF EXISTS bh_dashboard_get_financial_open_balances(_ad_client_id numeric,  _begin_date timestamp, _end_date timestamp);
-CREATE OR REPLACE FUNCTION bh_dashboard_get_financial_open_balances(_ad_client_id numeric,  _begin_date timestamp, _end_date timestamp)
+DROP FUNCTION IF EXISTS bh_dashboard_get_financial_open_balances(numeric);
+CREATE OR REPLACE FUNCTION bh_dashboard_get_financial_open_balances(_ad_client_id numeric)
 	RETURNS table
 	        (
-		        name						character varying,
-	        	totalopenbalance        	numeric,
-	        	type						character varying
+		        name             character varying,
+		        totalopenbalance numeric,
+		        type             character varying
 	        )
 	LANGUAGE sql
 	STABLE
@@ -15,56 +15,55 @@ SELECT
 	totalopenbalance,
 	type
 FROM
-(
-	SELECT
-		bp.name 					AS name,
-		bp.totalopenbalance			AS totalopenbalance,
-		'Patient'					AS type
-	FROM 
-		c_bpartner bp
-	LEFT JOIN c_payment p
-	ON bp.c_bpartner_id = p.c_bpartner_id
-	JOIN c_bp_group bpg
-	ON bp.c_bp_group_id = bpg.c_bp_group_id
-	WHERE
-		iscustomer = 'Y'
-		AND bp.ad_client_id = _ad_client_id
-		AND bp.totalopenbalance > 0
-		AND bpg.name = 'Patients - DO NOT CHANGE'
-	GROUP BY
-		bp.name, bp.totalopenbalance
-	ORDER BY bp.totalopenbalance desc
-	LIMIT 10	
-) AS summary1
+	(
+		SELECT
+			bp.name             AS name,
+			bp.totalopenbalance AS totalopenbalance,
+			'Patient'           AS type
+		FROM
+			c_bpartner bp
+				LEFT JOIN c_payment p
+				ON bp.c_bpartner_id = p.c_bpartner_id
+				JOIN c_bp_group bpg
+				ON bp.c_bp_group_id = bpg.c_bp_group_id
+		WHERE
+			bp.ad_client_id = _ad_client_id
+			AND bp.totalopenbalance != 0
+			AND bpg.name = 'Patients - DO NOT CHANGE'
+		GROUP BY
+			bp.name, bp.totalopenbalance
+		ORDER BY bp.totalopenbalance DESC
+		LIMIT 10
+	) AS summary1
 
 UNION ALL
 
 SELECT
-	name,		
-	SUM(totalopenbalance) 			AS totalopenbalance,
+	name,
+	SUM(totalopenbalance) AS totalopenbalance,
 	type
 FROM
-(
-	SELECT
-		'Other' 					AS name,
-		SUM(bp.totalopenbalance)	AS totalopenbalance,
-		'Patient'					AS type
-	FROM 
-		c_bpartner bp
-	LEFT JOIN c_payment p
-	ON bp.c_bpartner_id = p.c_bpartner_id
-	JOIN c_bp_group bpg
-	ON bp.c_bp_group_id = bpg.c_bp_group_id
-	WHERE
-		iscustomer = 'Y'
-		AND bp.ad_client_id = _ad_client_id
-		AND bp.totalopenbalance > 0
-		AND bpg.name = 'Patients - DO NOT CHANGE'
-	GROUP BY bp.totalopenbalance 
-	ORDER BY bp.totalopenbalance desc
-	OFFSET 10
-) AS summary2
-GROUP BY name, type
+	(
+		SELECT
+			'Other'                  AS name,
+			SUM(bp.totalopenbalance) AS totalopenbalance,
+			'Patient'                AS type
+		FROM
+			c_bpartner bp
+				LEFT JOIN c_payment p
+				ON bp.c_bpartner_id = p.c_bpartner_id
+				JOIN c_bp_group bpg
+				ON bp.c_bp_group_id = bpg.c_bp_group_id
+		WHERE
+			bp.ad_client_id = _ad_client_id
+			AND bp.totalopenbalance != 0
+			AND bpg.name = 'Patients - DO NOT CHANGE'
+		GROUP BY bp.totalopenbalance
+		ORDER BY bp.totalopenbalance DESC
+		OFFSET 10
+	) AS summary2
+GROUP BY
+	name, type
 
 UNION ALL
 
@@ -73,49 +72,51 @@ SELECT
 	totalopenbalance,
 	type
 FROM
-(
-	SELECT
-		bp.name							AS name,
-		bp.totalopenbalance				AS totalopenbalance,
-		'Provider'						AS type
-	FROM
-		bh_get_visit_non_patient_payments(_ad_client_id, _begin_date, _end_date) npp
-	JOIN c_invoice i ON npp.c_invoice_id = i.c_invoice_id
-	JOIN c_bpartner bp ON i.c_bpartner_id = bp.c_bpartner_id
-	WHERE 
-		bp.totalopenbalance > 0
-	AND
-		bp.ad_client_id = _ad_client_id
-	GROUP BY
-		bp.name, bp.totalopenbalance
-	ORDER BY bp.totalopenbalance desc
-	LIMIT 10	
-) AS summary3
+	(
+		SELECT
+			bp.name             AS name,
+			bp.totalopenbalance AS totalopenbalance,
+			'Provider'          AS type
+		FROM
+			c_bpartner bp
+				LEFT JOIN c_payment p
+				ON bp.c_bpartner_id = p.c_bpartner_id
+				JOIN c_bp_group bpg
+				ON bp.c_bp_group_id = bpg.c_bp_group_id
+		WHERE
+			bp.ad_client_id = _ad_client_id
+			AND bp.totalopenbalance != 0
+			AND
+			bpg.name IN ('Capitation Insurance - DO NOT CHANGE', 'Donors - DO NOT CHANGE', 'FFS Insurance - DO NOT CHANGE')
+		ORDER BY bp.totalopenbalance DESC
+		LIMIT 10
+	) AS summary3
 
 UNION ALL
 
 SELECT
-	name,		
-	SUM(totalopenbalance) 			AS totalopenbalance,
+	name,
+	totalopenbalance,
 	type
 FROM
-(
-	SELECT
-		'Other' 					AS name,
-		SUM(bp.totalopenbalance)	AS totalopenbalance,
-		'Provider'					AS type
-	FROM
-		bh_get_visit_non_patient_payments(_ad_client_id, _begin_date, _end_date) npp
-	JOIN c_invoice i ON npp.c_invoice_id = i.c_invoice_id
-	JOIN c_bpartner bp ON i.c_bpartner_id = bp.c_bpartner_id
-	WHERE 
-		bp.totalopenbalance > 0
-	AND
-		bp.ad_client_id = _ad_client_id
-	GROUP BY
-		bp.name, bp.totalopenbalance
-	ORDER BY bp.totalopenbalance desc
-	OFFSET 10
-) AS summary2
-GROUP BY name, type
+	(
+		SELECT
+			'Other'                  AS name,
+			SUM(bp.totalopenbalance) AS totalopenbalance,
+			'Provider'               AS type
+		FROM
+			c_bpartner bp
+				LEFT JOIN c_payment p
+				ON bp.c_bpartner_id = p.c_bpartner_id
+				JOIN c_bp_group bpg
+				ON bp.c_bp_group_id = bpg.c_bp_group_id
+		WHERE
+			bp.ad_client_id = _ad_client_id
+			AND bp.totalopenbalance != 0
+			AND
+			bpg.name IN ('Capitation Insurance - DO NOT CHANGE', 'Donors - DO NOT CHANGE', 'FFS Insurance - DO NOT CHANGE')
+		GROUP BY bp.totalopenbalance
+		ORDER BY bp.totalopenbalance DESC
+		OFFSET 10
+	) AS summary2;
 $$;
