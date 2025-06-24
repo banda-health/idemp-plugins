@@ -13,7 +13,7 @@ extend type Query {
 
 	DashboardFinancialGeneralMetricsGet(BeginDate: DateTime!, EndDate: DateTime!): DashboardFinancialGeneralMetric!
 	DashboardFinancialHistoricalGet: [DashboardFinancialHistorical]!
-	DashboardFinancialOpenBalancesGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialOpenBalance]!
+	DashboardFinancialOpenBalancesGet(Type: String!): [DashboardFinancialOpenBalance]!
 	DashboardFinancialSourcesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialSource]!
 	DashboardFinancialTypesGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialType]!
 	DashboardFinancialVisitChargesGet: [DashboardFinancialVisitCharge]!

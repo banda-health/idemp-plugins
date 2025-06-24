@@ -218,12 +218,11 @@ public class DashboardQuery implements GraphQLQueryResolver {
 		return results;
 	}
 
-	public List<DashboardFinancialOpenBalance> DashboardFinancialOpenBalancesGet(Timestamp BeginDate, Timestamp EndDate,
-			String type, DataFetchingEnvironment environment) {
+	public List<DashboardFinancialOpenBalance> DashboardFinancialOpenBalancesGet(String type,
+			DataFetchingEnvironment environment) {
 		String query =
-				"SELECT * FROM bh_dashboard_get_financial_open_balances(?, ?::timestamp, ?::timestamp) WHERE type = ?";
-		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
-				EndDate, type);
+				"SELECT * FROM bh_dashboard_get_financial_open_balances(?) WHERE type = ?";
+		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), type);
 		List<DashboardFinancialOpenBalance> results = new ArrayList<>();
 		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 			DashboardFinancialOpenBalance entity = new DashboardFinancialOpenBalance();
