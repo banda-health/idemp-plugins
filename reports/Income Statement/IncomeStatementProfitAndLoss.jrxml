@@ -19,29 +19,47 @@
 	<queryString>
 		<![CDATA[SELECT
 	c.name                                                            AS client_name,
-	COALESCE(SUM(linenetamt) FILTER ( WHERE p.producttype = 'I' ), 0) AS product_sales,
-	COALESCE(SUM(linenetamt) FILTER ( WHERE p.producttype = 'S' ), 0) AS service_revenue,
+	COALESCE(SUM(linenetamt) FILTER ( WHERE producttype = 'I' ), 0) AS product_sales,
+	COALESCE(SUM(linenetamt) FILTER ( WHERE producttype = 'S' ), 0) AS service_revenue,
 	cogs.cogs * -1                                                    AS product_purchases
 FROM
 	ad_client c
 		CROSS JOIN (
 		SELECT
-			ol.m_product_id,
-			ol.linenetamt
+			p.producttype,
+			t.movementqty * -1 * ol.priceentered AS linenetamt
 		FROM
-			c_order o
-				LEFT JOIN c_orderline ol
-				ON o.c_order_id = ol.c_order_id
-				LEFT JOIN bh_visit v
-				ON o.bh_visit_id = v.bh_visit_id
+			m_transaction t
+				JOIN m_product p
+				ON t.m_product_id = p.m_product_id
+				JOIN m_inoutline iol
+				ON t.m_inoutline_id = iol.m_inoutline_id
+				JOIN m_inout io
+				ON iol.m_inout_id = io.m_inout_id
+				JOIN c_orderline ol
+				ON iol.c_orderline_id = ol.c_orderline_id
 		WHERE
-			o.ad_client_id = $P{AD_CLIENT_ID}
-			AND o.docstatus IN ('CO', 'CL')
+			t.ad_client_id = $P{AD_CLIENT_ID}
+			AND t.updated BETWEEN $P{Begin Date} AND $P{End Date}
+			AND t.movementtype IN ('C+', 'C-')
+			AND io.docstatus IN ('CO', 'CL')
+		UNION ALL
+		SELECT
+			p.producttype,
+			linenetamt
+		FROM
+			c_orderline ol
+				JOIN c_order o
+				ON ol.c_order_id = o.c_order_id
+				JOIN m_product p
+				ON ol.m_product_id = p.m_product_id
+		WHERE
+			p.producttype = 'S'
+			AND o.ad_client_id = $P{AD_CLIENT_ID}
+			AND o.updated BETWEEN $P{Begin Date} AND $P{End Date}
 			AND o.issotrx = 'Y'
-			AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+			AND o.docstatus IN ('CO', 'CL')
 	) il
-		LEFT JOIN m_product p
-		ON il.m_product_id = p.m_product_id
 		CROSS JOIN (
 		SELECT
 			COALESCE(SUM(cost_of_goods_sold), 0) AS cogs

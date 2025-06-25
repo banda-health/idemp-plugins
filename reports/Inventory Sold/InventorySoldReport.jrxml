@@ -81,13 +81,13 @@
 	p.name                                                          AS item_name,
 	SUM(t.movementqty * -1)                                         AS quantity,
 	ol.priceentered                                                 AS sellingprice,
-	SUM(ol.linenetamt)                                              AS amount,
+	SUM(t.movementqty * ol.priceentered * -1)                       AS amount,
 	pc.purchase_price                                               AS PurchasePrice,
 	pc.purchase_price * SUM(t.movementqty * -1)                     AS costgoodssold,
 	(ol.priceentered - pc.purchase_price) * SUM(t.movementqty * -1) AS gross_profit
 FROM
 	m_transaction t
-		JOIN get_product_costs( $P{AD_CLIENT_ID}) pc
+		JOIN get_product_costs($P{AD_CLIENT_ID}) pc
 		ON t.m_product_id = pc.m_product_id AND t.m_attributesetinstance_id = pc.m_attributesetinstance_id
 		JOIN m_product p
 		ON t.m_product_id = p.m_product_id
@@ -100,9 +100,10 @@ FROM
 		JOIN c_bpartner bp
 		ON io.c_bpartner_id = bp.c_bpartner_id
 WHERE
-	t.ad_client_id =  $P{AD_CLIENT_ID}
+	t.ad_client_id = $P{AD_CLIENT_ID}
 	AND t.updated BETWEEN $P{Begin Date} AND $P{End Date}
 	AND t.movementtype IN ('C+', 'C-')
+	AND io.docstatus IN ('CO', 'CL')
 	AND (
 		$X{IN, bp.c_bpartner_uu, Patient Tags} OR
 		bp.c_bpartner_id IN (
