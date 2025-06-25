@@ -21,7 +21,7 @@
 	c.name                                                            AS client_name,
 	COALESCE(SUM(linenetamt) FILTER ( WHERE p.producttype = 'I' ), 0) AS product_sales,
 	COALESCE(SUM(linenetamt) FILTER ( WHERE p.producttype = 'S' ), 0) AS service_revenue,
-	cogs.cogs                                                         AS product_purchases
+	cogs.cogs * -1                                                    AS product_purchases
 FROM
 	ad_client c
 		CROSS JOIN (
