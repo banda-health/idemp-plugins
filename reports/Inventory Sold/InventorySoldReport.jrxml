@@ -78,36 +78,31 @@
 		<parameter name="Patient Tags" class="java.util.List"/>
 		<queryString>
 			<![CDATA[SELECT
-	p.name                                                      AS item_name,
-	SUM(ol.qtyordered)                                          AS quantity,
-	ol.priceentered                                             AS sellingprice,
-	SUM(ol.linenetamt)                                          AS amount,
-	pc.purchase_price                                           AS PurchasePrice,
-	pc.purchase_price * SUM(ol.qtyordered)                      AS costgoodssold,
-	SUM(ol.linenetamt) - pc.purchase_price * SUM(ol.qtyordered) AS gross_profit
+	p.name                                                          AS item_name,
+	SUM(t.movementqty * -1)                                         AS quantity,
+	ol.priceentered                                                 AS sellingprice,
+	SUM(ol.linenetamt)                                              AS amount,
+	pc.purchase_price                                               AS PurchasePrice,
+	pc.purchase_price * SUM(t.movementqty * -1)                     AS costgoodssold,
+	(ol.priceentered - pc.purchase_price) * SUM(t.movementqty * -1) AS gross_profit
 FROM
-	c_orderline ol
-		JOIN c_order o
-		ON ol.c_order_id = o.c_order_id
-		JOIN bh_visit v
-		ON o.bh_visit_id = v.bh_visit_id
-		JOIN c_bpartner bp
-		ON o.c_bpartner_id = bp.c_bpartner_id
+	m_transaction t
+		JOIN get_product_costs( $P{AD_CLIENT_ID}) pc
+		ON t.m_product_id = pc.m_product_id AND t.m_attributesetinstance_id = pc.m_attributesetinstance_id
 		JOIN m_product p
-		ON ol.m_product_id = p.m_product_id AND p.producttype = 'I'
-		JOIN m_inout io
-		ON o.c_order_id = io.c_order_id AND io.docstatus = 'CO'
+		ON t.m_product_id = p.m_product_id
 		JOIN m_inoutline iol
-		ON ol.c_orderline_id = iol.c_orderline_id AND io.m_inout_id = iol.m_inout_id
-		LEFT JOIN m_inoutlinema iolma
-		ON iol.m_inoutline_id = iolma.m_inoutline_id
-		JOIN get_product_costs($P{AD_CLIENT_ID}) pc
-		ON pc.m_product_id = iol.m_product_id AND (pc.m_attributesetinstance_id = iolma.m_attributesetinstance_id OR
-		                                           pc.m_attributesetinstance_id = iol.m_attributesetinstance_id)
+		ON t.m_inoutline_id = iol.m_inoutline_id
+		JOIN m_inout io
+		ON iol.m_inout_id = io.m_inout_id
+		JOIN c_orderline ol
+		ON iol.c_orderline_id = ol.c_orderline_id
+		JOIN c_bpartner bp
+		ON io.c_bpartner_id = bp.c_bpartner_id
 WHERE
-	ol.ad_client_id = $P{AD_CLIENT_ID}
-	AND o.docstatus IN ('CO', 'CL')
-	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+	t.ad_client_id =  $P{AD_CLIENT_ID}
+	AND t.updated BETWEEN $P{Begin Date} AND $P{End Date}
+	AND t.movementtype IN ('C+', 'C-')
 	AND (
 		$X{IN, bp.c_bpartner_uu, Patient Tags} OR
 		bp.c_bpartner_id IN (
