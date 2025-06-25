@@ -21,45 +21,37 @@
 	c.name                                                            AS client_name,
 	COALESCE(SUM(linenetamt) FILTER ( WHERE p.producttype = 'I' ), 0) AS product_sales,
 	COALESCE(SUM(linenetamt) FILTER ( WHERE p.producttype = 'S' ), 0) AS service_revenue,
-	COALESCE(SUM(purchase_price * qtyentered), 0) * -1                AS product_purchases
+	cogs.cogs                                                         AS product_purchases
 FROM
 	ad_client c
-		LEFT JOIN (
+		CROSS JOIN (
 		SELECT
-			o.ad_client_id,
 			ol.m_product_id,
-			ol.linenetamt,
-			ol.qtyentered,
-			pc.purchase_price
+			ol.linenetamt
 		FROM
 			c_order o
 				LEFT JOIN c_orderline ol
 				ON o.c_order_id = ol.c_order_id
-				JOIN m_inout io
-				ON o.c_order_id = io.c_order_id AND io.docstatus = 'CO'
-				LEFT JOIN m_inoutline iol
-				ON ol.c_orderline_id = iol.c_orderline_id AND io.m_inout_id = iol.m_inout_id
-				LEFT JOIN m_inoutlinema iolma
-				ON iol.m_inoutline_id = iolma.m_inoutline_id
-				LEFT JOIN get_product_costs($P{AD_CLIENT_ID}) pc
-				ON pc.m_product_id = ol.m_product_id AND
-				   ((pc.m_attributesetinstance_id = iol.m_attributesetinstance_id AND
-				     iolma.m_attributesetinstance_id IS NULL) OR
-				    pc.m_attributesetinstance_id = iolma.m_attributesetinstance_id)
 				LEFT JOIN bh_visit v
 				ON o.bh_visit_id = v.bh_visit_id
 		WHERE
-			o.docstatus IN ('CO', 'CL')
+			o.ad_client_id = $P{AD_CLIENT_ID}
+			AND o.docstatus IN ('CO', 'CL')
 			AND o.issotrx = 'Y'
 			AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 	) il
-		ON c.ad_client_id = il.ad_client_id
 		LEFT JOIN m_product p
 		ON il.m_product_id = p.m_product_id
+		CROSS JOIN (
+		SELECT
+			COALESCE(SUM(cost_of_goods_sold), 0) AS cogs
+		FROM
+			get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
+	) cogs
 WHERE
 	c.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY
-	c.name]]>
+	c.name, cogs.cogs]]>
 	</queryString>
 	<field name="client_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="client_name"/>

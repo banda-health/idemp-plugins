@@ -17,44 +17,41 @@ WITH months AS (
 ),
 	inventory_value AS (
 		SELECT
-			DATE_TRUNC('month', t.updated)              AS bucket_value,
-			SUM(pc.purchase_price * t.movementqty) * -1 AS inventory_value
+			DATE_TRUNC('month', t.updated) AS bucket_value,
+			(SUM(pc.purchase_price * t.movementqty) FILTER ( WHERE t.updated BETWEEN
+				DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp AND
+				NOW()::timestamp ))          AS inventory_value,
+			(SUM(pc.purchase_price * t.movementqty) FILTER ( WHERE t.movementtype IN ('V+', 'V-') AND t.updated BETWEEN
+				DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp AND
+				NOW()::timestamp ))          AS received_value
 		FROM
 			m_transaction t
 				JOIN get_product_costs(_ad_client_id) pc
 				ON t.m_product_id = pc.m_product_id AND t.m_attributesetinstance_id = pc.m_attributesetinstance_id
 		WHERE
 			t.ad_client_id = _ad_client_id
-			AND t.movementtype IN ('C+', 'C-')
-			AND t.updated BETWEEN
-				DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp AND
-				NOW()::timestamp
 		GROUP BY DATE_TRUNC('month', t.updated)
 	),
-	stock_value AS (
+	initial_value AS (
 		SELECT
-			DATE_TRUNC('month', t.updated) AS bucket_value,
-			SUM(t.movementqty)             AS stock_value
+			SUM(pc.purchase_price * t.movementqty) AS start
 		FROM
 			m_transaction t
+				JOIN get_product_costs(_ad_client_id) pc
+				ON t.m_product_id = pc.m_product_id AND t.m_attributesetinstance_id = pc.m_attributesetinstance_id
 		WHERE
 			t.ad_client_id = _ad_client_id
-			AND t.movementtype IN ('V+', 'V-')
-			AND t.updated BETWEEN
-				DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp AND
-				NOW()::timestamp
-		GROUP BY DATE_TRUNC('month', t.updated)
+			AND t.updated < DATE_TRUNC('month', NOW() - '5 months'::interval)
 	)
 SELECT
-	months.GENERATE_SERIES       AS bucket_value,
-	COALESCE(inventory_value, 0) AS inventory_value,
-	COALESCE(stock_value, 0)     AS inventory_received
+	months.GENERATE_SERIES                                          AS bucket_value,
+	COALESCE(initial_value.start, 0) + COALESCE(inventory_value, 0) AS inventory_value,
+	COALESCE(received_value, 0)                                     AS inventory_received
 FROM
 	months
 		LEFT JOIN inventory_value
 		ON months.GENERATE_SERIES = inventory_value.bucket_value
-		LEFT JOIN stock_value
-		ON months.GENERATE_SERIES = stock_value.bucket_value
+		CROSS JOIN initial_value
 ORDER BY
 	months.GENERATE_SERIES;
 $$;
