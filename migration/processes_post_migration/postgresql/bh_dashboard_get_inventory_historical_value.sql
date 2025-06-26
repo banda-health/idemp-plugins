@@ -17,7 +17,7 @@ WITH months AS (
 ),
 	inventory_value AS (
 		SELECT
-			DATE_TRUNC('month', t.updated) AS bucket_value,
+			DATE_TRUNC('month', t.movementdate) AS bucket_value,
 			(SUM(pc.purchase_price * t.movementqty) FILTER ( WHERE t.updated BETWEEN
 				DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp AND
 				NOW()::timestamp ))          AS inventory_value,
@@ -30,7 +30,7 @@ WITH months AS (
 				ON t.m_product_id = pc.m_product_id AND t.m_attributesetinstance_id = pc.m_attributesetinstance_id
 		WHERE
 			t.ad_client_id = _ad_client_id
-		GROUP BY DATE_TRUNC('month', t.updated)
+		GROUP BY DATE_TRUNC('month', t.movementdate)
 	),
 	initial_value AS (
 		SELECT
@@ -41,7 +41,7 @@ WITH months AS (
 				ON t.m_product_id = pc.m_product_id AND t.m_attributesetinstance_id = pc.m_attributesetinstance_id
 		WHERE
 			t.ad_client_id = _ad_client_id
-			AND t.updated < DATE_TRUNC('month', NOW() - '5 months'::interval)
+			AND t.movementdate < DATE_TRUNC('month', NOW() - '5 months'::interval)
 	)
 SELECT
 	months.GENERATE_SERIES                                          AS bucket_value,

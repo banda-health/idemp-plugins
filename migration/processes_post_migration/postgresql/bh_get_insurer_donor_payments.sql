@@ -52,7 +52,7 @@ WHERE
 	p.ad_client_id = _ad_client_id
 	AND p.bh_visit_id IS NULL
 	AND bpg.bh_subtype IN ('I', 'D')
-	AND p.datetrx BETWEEN _begin_date::date AND _end_date::date
+	AND p.datetrx::date + p.updated::time BETWEEN _begin_date AND _end_date
 	AND p.bh_visit_id IS NULL
 	AND p.reversal_id IS NULL
 	AND p.docstatus NOT IN ('RE', 'VO')

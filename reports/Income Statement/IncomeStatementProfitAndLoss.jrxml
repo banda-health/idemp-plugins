@@ -18,32 +18,13 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-	c.name                                                            AS client_name,
+	c.name                                                          AS client_name,
 	COALESCE(SUM(linenetamt) FILTER ( WHERE producttype = 'I' ), 0) AS product_sales,
 	COALESCE(SUM(linenetamt) FILTER ( WHERE producttype = 'S' ), 0) AS service_revenue,
-	cogs.cogs * -1                                                    AS product_purchases
+	cogs.cogs * -1                                                  AS product_purchases
 FROM
 	ad_client c
-		CROSS JOIN (
-		SELECT
-			p.producttype,
-			t.movementqty * -1 * ol.priceentered AS linenetamt
-		FROM
-			m_transaction t
-				JOIN m_product p
-				ON t.m_product_id = p.m_product_id
-				JOIN m_inoutline iol
-				ON t.m_inoutline_id = iol.m_inoutline_id
-				JOIN m_inout io
-				ON iol.m_inout_id = io.m_inout_id
-				JOIN c_orderline ol
-				ON iol.c_orderline_id = ol.c_orderline_id
-		WHERE
-			t.ad_client_id = $P{AD_CLIENT_ID}
-			AND t.updated BETWEEN $P{Begin Date} AND $P{End Date}
-			AND t.movementtype IN ('C+', 'C-')
-			AND io.docstatus IN ('CO', 'CL')
-		UNION ALL
+		LEFT JOIN (
 		SELECT
 			p.producttype,
 			linenetamt
@@ -54,18 +35,19 @@ FROM
 				JOIN m_product p
 				ON ol.m_product_id = p.m_product_id
 		WHERE
-			p.producttype = 'S'
-			AND o.ad_client_id = $P{AD_CLIENT_ID}
-			AND o.updated BETWEEN $P{Begin Date} AND $P{End Date}
+			o.ad_client_id = $P{AD_CLIENT_ID}
+			AND o.dateordered:date + o.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
 			AND o.issotrx = 'Y'
 			AND o.docstatus IN ('CO', 'CL')
 	) il
-		CROSS JOIN (
+		ON 1 = 1
+		LEFT JOIN (
 		SELECT
 			COALESCE(SUM(cost_of_goods_sold), 0) AS cogs
 		FROM
 			get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 	) cogs
+		ON 1 = 1
 WHERE
 	c.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY

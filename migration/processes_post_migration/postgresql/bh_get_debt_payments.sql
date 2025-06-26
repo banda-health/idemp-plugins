@@ -54,7 +54,7 @@ WHERE
 	p.ad_client_id = $1
 	AND p.bh_visit_id IS NULL
 	AND bpg.name = 'Patients - DO NOT CHANGE'
-	AND date(p.datetrx) BETWEEN date($2) AND date($3)
+	AND p.datetrx::date + p.updated::time BETWEEN $2 AND $3
 	AND p.bh_visit_id IS NULL
 	AND p.reversal_id IS NULL
 	AND p.docstatus NOT IN ('RE', 'VO')

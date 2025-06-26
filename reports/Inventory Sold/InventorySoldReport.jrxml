@@ -101,7 +101,7 @@ FROM
 		ON io.c_bpartner_id = bp.c_bpartner_id
 WHERE
 	t.ad_client_id = $P{AD_CLIENT_ID}
-	AND t.updated BETWEEN $P{Begin Date} AND $P{End Date}
+	AND t.movementdate::date + t.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
 	AND t.movementtype IN ('C+', 'C-')
 	AND io.docstatus IN ('CO', 'CL')
 	AND (

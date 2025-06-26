@@ -63,23 +63,30 @@ FROM
 				SELECT
 					p.m_product_id,
 					pc.m_attributesetinstance_id,
-					COALESCE(SUM(t.movementqty) FILTER ( WHERE t.updated < _start_date ), 0)   AS openingstock,
-					COALESCE(SUM(t.movementqty) FILTER ( WHERE t.updated <= _end_date ), 0)    AS endingstock,
+					COALESCE(SUM(t.movementqty) FILTER ( WHERE t.movementdate::date + t.updated::time < _start_date ),
+					         0)                                                                                          AS openingstock,
+					COALESCE(SUM(t.movementqty) FILTER ( WHERE t.movementdate::date + t.updated::time <= _end_date ),
+					         0)                                                                                          AS endingstock,
 					COALESCE(
-							SUM(t.movementqty) FILTER ( WHERE t.updated BETWEEN _start_date AND _end_date AND
-							                                  t.movementtype IN ('V+', 'V-') ), 0) AS receivedstock,
+							SUM(t.movementqty)
+							FILTER ( WHERE t.movementdate::date + t.updated::time BETWEEN _start_date AND _end_date AND
+							               t.movementtype IN ('V+', 'V-') ),
+							0)                                                                                               AS receivedstock,
 					COALESCE(
-							SUM(t.movementqty) FILTER ( WHERE t.updated BETWEEN _start_date AND _end_date AND
-							                                  t.movementtype IN ('I+', 'I-') ), 0) AS balancestock,
-					pc.purchase_price                                                          AS PurchasePrice,
-					pc.purchase_date                                                           AS PurchaseDate,
+							SUM(t.movementqty)
+							FILTER ( WHERE t.movementdate::date + t.updated::time BETWEEN _start_date AND _end_date AND
+							               t.movementtype IN ('I+', 'I-') ),
+							0)                                                                                               AS balancestock,
+					pc.purchase_price                                                                                    AS PurchasePrice,
+					pc.purchase_date                                                                                     AS PurchaseDate,
 					UNNEST(CASE
 						       WHEN ARRAY_AGG(t.movementqty * -1 || ',' || COALESCE(ol.priceactual, 0))
-						            FILTER ( WHERE t.updated BETWEEN _start_date AND _end_date AND
+						            FILTER ( WHERE t.movementdate::date + t.updated::time BETWEEN _start_date AND _end_date AND
 						                           t.movementtype IN ('C+', 'C-') ) IS NULL THEN '{null}'
 						       ELSE ARRAY_AGG(t.movementqty * -1 || ',' || COALESCE(ol.priceactual, 0))
-						            FILTER ( WHERE t.updated BETWEEN _start_date AND _end_date AND
-						                           t.movementtype IN ('C+', 'C-') ) END)         AS sell_information
+						            FILTER ( WHERE t.movementdate::date + t.updated::time BETWEEN _start_date AND _end_date AND
+						                           t.movementtype IN ('C+',
+						                                              'C-') ) END)                                         AS sell_information
 				FROM
 					m_product p
 						LEFT JOIN product_costs pc
