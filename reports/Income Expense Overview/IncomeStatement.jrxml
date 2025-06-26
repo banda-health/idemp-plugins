@@ -108,7 +108,7 @@ FROM
 		WHERE
 			o.issotrx = 'N'
 			AND o.docstatus = 'CO'
-			AND o.dateordered::date o.updated::time BETWEEN params.begin_date AND params.end_date
+			AND o.dateordered::date + o.updated::time BETWEEN params.begin_date AND params.end_date
 	) received_products
 		CROSS JOIN (
 		SELECT

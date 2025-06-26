@@ -36,7 +36,7 @@ FROM
 				ON ol.m_product_id = p.m_product_id
 		WHERE
 			o.ad_client_id = $P{AD_CLIENT_ID}
-			AND o.dateordered:date + o.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
+			AND o.dateordered::date + o.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
 			AND o.issotrx = 'Y'
 			AND o.docstatus IN ('CO', 'CL')
 	) il
