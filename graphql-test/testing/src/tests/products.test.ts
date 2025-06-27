@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import {
+	Bh_ConceptGetForProductCatalogueDocument,
 	Bh_Product_IncludedDeleteDocument,
 	Bh_Product_IncludedSaveManyDocument,
 	Bh_VisitProcessDocument,
@@ -545,4 +546,62 @@ test('unable to include the same product multiple times', async () => {
 			},
 		}),
 	).rejects.toBeTruthy();
+});
+
+test('product concept can be updated', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const concepts = (
+		await query(valueObject)({
+			query: Bh_ConceptGetForProductCatalogueDocument,
+		})
+	).data.BH_ConceptGet.Results;
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product with concept 1';
+	await createProduct(valueObject);
+	const product = valueObject.product!;
+
+	await createProduct(valueObject);
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.product!.UU,
+					Name: 'p1' + product.Name,
+					BH_Concept: {
+						UU: concepts[0].UU,
+					},
+				},
+			},
+		})
+	).data?.M_ProductSave;
+	let savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
+		.M_Product!;
+
+	expect(savedProduct.BH_Concept?.UU).toBe(concepts[0].UU);
+
+	valueObject.stepName = 'Change product concept to concept 2';
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.product!.UU,
+					BH_Concept: {
+						UU: concepts[1].UU,
+					},
+				},
+			},
+		})
+	).data?.M_ProductSave;
+
+	savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
+		.M_Product!;
+
+	expect(savedProduct.BH_Concept?.UU).toBe(concepts[1].UU);
 });
