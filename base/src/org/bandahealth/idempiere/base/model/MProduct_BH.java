@@ -4,6 +4,7 @@ import org.compiere.model.MExpenseType;
 import org.compiere.model.MProduct;
 import org.compiere.model.MResource;
 import org.compiere.model.MResourceType;
+import org.compiere.model.MTable;
 import org.compiere.model.X_I_Product;
 
 import java.math.BigDecimal;
@@ -24,6 +25,8 @@ public class MProduct_BH extends MProduct {
 	public static String COLUMNNAME_BH_BuyPrice = "BH_BuyPrice";
 	public static String COLUMNNAME_BH_SellPrice = "BH_SellPrice";
 	public static String COLUMNNAME_BH_PriceMargin = "BH_PriceMargin";
+	/** Column name BH_Concept_ID */
+	public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
 
 	/**
 	 * Column name BH_NavButtons
@@ -107,7 +110,8 @@ public class MProduct_BH extends MProduct {
 		}
 		setbh_reorder_level(importProductQuantity.getbh_reorder_level());
 
-		// Set the buy price based on the buying price of the lot with the expiration date farthest from today
+		// Set the buy price based on the buying price of the lot with the expiration
+		// date farthest from today
 		if (importProductQuantity.isBH_HasExpiration()) {
 			if (importProductQuantity.getBH_BuyPrice() != null) {
 				setBH_BuyPrice(importProductQuantity.getBH_BuyPrice());
@@ -120,8 +124,8 @@ public class MProduct_BH extends MProduct {
 				buyPrice = importProductQuantity.getBH_BuyPrice_Lot3();
 				expirationDate = importProductQuantity.getBH_GuaranteeDate_Lot3();
 			}
-			if (importProductQuantity.isBH_HasLot2() && (expirationDate == null ||
-					importProductQuantity.getBH_GuaranteeDate_Lot2().compareTo(expirationDate) > 0)) {
+			if (importProductQuantity.isBH_HasLot2() && (expirationDate == null
+					|| importProductQuantity.getBH_GuaranteeDate_Lot2().compareTo(expirationDate) > 0)) {
 				buyPrice = importProductQuantity.getBH_BuyPrice_Lot2();
 				expirationDate = importProductQuantity.getBH_GuaranteeDate_Lot2();
 			}
@@ -132,7 +136,7 @@ public class MProduct_BH extends MProduct {
 				setBH_BuyPrice(buyPrice);
 			}
 		}
-	}  //	set
+	} // set
 
 	public BigDecimal getBH_BuyPrice() {
 		BigDecimal value = (BigDecimal) get_Value(COLUMNNAME_BH_BuyPrice);
@@ -242,7 +246,8 @@ public class MProduct_BH extends MProduct {
 	/**
 	 * Set BH_NavButtons.
 	 *
-	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger
+	 *                      tab navigation
 	 */
 	public void setBH_NavButtons(Object BH_NavButtons) {
 		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
@@ -313,4 +318,32 @@ public class MProduct_BH extends MProduct {
 			return 0;
 		return ii.intValue();
 	}
+
+	public I_BH_Concept getBH_Concept() throws RuntimeException
+	{
+		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_ID)
+			.getPO(getBH_Concept_ID(), get_TrxName());
+	}
+
+	/** Set Concept.
+		@param BH_Concept_ID Concept
+	*/
+	public void setBH_Concept_ID (int BH_Concept_ID)
+	{
+		if (BH_Concept_ID < 1)
+			set_Value (COLUMNNAME_BH_Concept_ID, null);
+		else
+			set_Value (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
+	}
+
+	/** Get Concept.
+		@return Concept	  */
+	public int getBH_Concept_ID()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 }

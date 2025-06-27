@@ -262,8 +262,8 @@ query BH_AllergyGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	}
 }
 
-query BH_BPartner_Tags($UU: String!){
-	BH_BPartner_Tags(UU: $UU){
+query BH_BPartner_Tags($UU: String!) {
+	BH_BPartner_Tags(UU: $UU) {
 		UU
 	}
 }
@@ -275,7 +275,6 @@ query BH_BPartner_TagsGet($Page: Int, $Size: Int, $Sort: String, $Filter: String
 		}
 	}
 }
-
 
 query BH_ConceptGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_ConceptGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
@@ -293,6 +292,40 @@ query BH_ConceptGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 				BH_Value
 				UU
 			}
+		}
+	}
+}
+query BH_ConceptGetForProductCatalogue($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_ConceptGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			bh_concept_class
+			BH_Concept_Extras {
+				BH_Key
+				BH_Value
+				IsActive
+				UU
+			}
+			BH_Concept_Type
+			BH_Data_Type
+			BH_Display_Name
+			BH_OclID
+			Description
+			IsActive
+			ToBH_Concept_Mappings {
+				BH_Concept_Extras {
+					BH_Key
+					BH_Value
+					IsActive
+				}
+				BH_Map_Type
+				BH_To_Concept_Code
+				BH_To_Concept_Name
+				BH_To_Concept_Name_Resolved
+				BH_To_Source_Name
+				IsActive
+				UU
+			}
+			UU
 		}
 	}
 }
@@ -341,13 +374,11 @@ query BH_Payer_Info_Fld_SugGet($Page: Int, $Size: Int, $Sort: String, $Filter: S
 	}
 }
 
-
 query BH_Tag($UU: String!) {
-	BH_Tag(UU: $UU){
+	BH_Tag(UU: $UU) {
 		BH_ColourCode
 		UU
 	}
-	
 }
 
 query BH_TagGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
@@ -591,6 +622,39 @@ query C_TaxCategoryGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 query C_UOMGetDefault {
 	C_UOMGetDefault {
 		UU
+	}
+}
+
+query DashboardFinancialHistoricalGet {
+	DashboardFinancialHistoricalGet {
+		BucketValue
+		NetProfit
+		TotalExpenses
+		TotalIncome
+	}
+}
+
+query DashboardFinancialVisitChargesGet {
+	DashboardFinancialVisitChargesGet {
+		AvgChargePatient
+		BucketValue
+		PatientVisits
+	}
+}
+
+query DashboardInventoryHistoricalChargeEarningGet {
+	DashboardInventoryHistoricalChargeEarningGet {
+		BucketValue
+		Charges
+		Margins
+	}
+}
+
+query DashboardInventoryHistoricalValueGet {
+	DashboardInventoryHistoricalValueGet {
+		BucketValue
+		InventoryReceived
+		InventoryValue
 	}
 }
 
