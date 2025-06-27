@@ -547,6 +547,7 @@ test('unable to include the same product multiple times', async () => {
 		}),
 	).rejects.toBeTruthy();
 });
+
 test('product concept can be updated', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
@@ -554,7 +555,6 @@ test('product concept can be updated', async () => {
 	const concepts = (
 		await query(valueObject)({
 			query: Bh_ConceptGetForProductCatalogueDocument,
-			variables: { Filter: JSON.stringify({ BH_Source: { $in: ['BHPharmacy'] } }) },
 		})
 	).data.BH_ConceptGet.Results;
 
