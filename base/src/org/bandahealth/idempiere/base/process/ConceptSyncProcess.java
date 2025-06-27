@@ -692,10 +692,6 @@ public class ConceptSyncProcess extends SvrProcess {
 		oclConceptMappingsToWorkWith.forEach((conceptMappingFromOcl) -> {
 			MBHConceptMapping foundConceptMapping = conceptMappingsByOclUU.get(conceptMappingFromOcl.getUuid());
 
-			if (conceptMappingFromOcl.getUuid().contains("12462")) {
-				log.info("found it");
-			}
-
 			if (foundConceptMapping == null &&
 					newlySavedConceptMappingsByOclUuid.containsKey(conceptMappingFromOcl.getUuid())) {
 				foundConceptMapping = newlySavedConceptMappingsByOclUuid.get(conceptMappingFromOcl.getUuid());
@@ -778,6 +774,10 @@ public class ConceptSyncProcess extends SvrProcess {
 			if (!StringUtil.isNullOrEmpty(mappingUrl)) {
 				if (!oclConcept.getUrl().equals(mappingUrl)) {
 					if (followMappings) {
+						// Child concepts may need to be compressed, too, so check it
+						if (!compressedConceptsFromOclByUrl.containsKey(mappingUrl)) {
+							compressConceptSameAsTree(conceptsFromOclByUrl.get(mappingUrl));
+						}
 						// get the child concept
 						OCLConcept childOclConcept =
 								compressedConceptsFromOclByUrl.getOrDefault(mappingUrl, conceptsFromOclByUrl.get(mappingUrl));
