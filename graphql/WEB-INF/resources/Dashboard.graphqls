@@ -70,22 +70,22 @@ type DashboardDiagnosisUsage {
 }
 
 type DashboardFinancialGeneralMetric {
-	RevenueSales: BigDecimal!
-	TotalExpenses: BigDecimal!
-	NetProfit: BigDecimal!
-	TotalOwed: BigDecimal!
-	InventoryValue: BigDecimal!
-	TotalCharges: BigDecimal!
 	CostOfGoodsSold: BigDecimal!
 	GrossProfit: BigDecimal!
 	GrossProfitMargin: BigDecimal!
+	InventoryValue: BigDecimal!
+	ProfitLoss: BigDecimal!
+	TotalExpenses: BigDecimal!
+	TotalIncome: BigDecimal!
+	TotalRevenue: BigDecimal!
+	UnpaidAmount: BigDecimal!
 }
 
 type DashboardFinancialHistorical {
 	BucketValue: Date
+	ProfitLoss: BigDecimal!
 	TotalIncome: BigDecimal!
 	TotalExpenses: BigDecimal!
-	NetProfit: BigDecimal!
 }
 
 type DashboardFinancialOpenBalance {

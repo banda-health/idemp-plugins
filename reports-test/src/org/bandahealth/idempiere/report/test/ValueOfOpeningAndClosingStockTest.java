@@ -362,7 +362,7 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
 				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
@@ -536,7 +536,6 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		valueObject.setQuantity(firstEndingInventory);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
 		valueObject.setProduct(product);
-		valueObject.setDateOffset(1);
 		ChuBoeCreateEntity.createInventory(valueObject);
 		commitEx();
 
@@ -600,7 +599,6 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(currentInventory);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
-		valueObject.setDate(TimestampUtils.today());
 		ChuBoeCreateEntity.createInventory(valueObject);
 		commitEx();
 

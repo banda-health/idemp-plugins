@@ -54,12 +54,12 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
-	o.updated                            AS voiddate,
-	bp.name                              AS patientname,
-	COALESCE(cashier.name, '')           AS cashiername,
-	COALESCE(SUM(p.payamt), 0)           AS paymentamount,
-	COALESCE(SUM(p.bh_tender_amount), 0) AS tenderamount,
-	vr.name                              AS voidedreason
+	o.dateordered::date + o.updated::time AS voiddate,
+	bp.name                               AS patientname,
+	COALESCE(cashier.name, '')            AS cashiername,
+	COALESCE(SUM(p.payamt), 0)            AS paymentamount,
+	COALESCE(SUM(p.bh_tender_amount), 0)  AS tenderamount,
+	vr.name                               AS voidedreason
 FROM
 	bh_visit v
 		JOIN c_order o
@@ -75,9 +75,9 @@ FROM
 WHERE
 	o.docstatus = 'VO'
 	AND o.ad_client_id = $P{AD_CLIENT_ID}
-	AND o.updated BETWEEN $P{Begin Date} AND $P{End Date}
+	AND o.dateordered::date + o.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
 GROUP BY
-	o.updated, bp.name, cashier.name, vr.name
+	o.dateordered::date + o.updated::time, bp.name, cashier.name, vr.name
 ORDER BY
 	1;]]>
 		</queryString>

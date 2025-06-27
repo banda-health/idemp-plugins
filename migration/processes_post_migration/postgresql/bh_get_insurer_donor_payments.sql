@@ -1,16 +1,15 @@
-DROP FUNCTION IF EXISTS bh_get_debt_payments(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
-CREATE FUNCTION bh_get_debt_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
-                                     end_date timestamp WITHOUT TIME ZONE)
+DROP FUNCTION IF EXISTS bh_get_insurer_donor_payments(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
+CREATE FUNCTION bh_get_insurer_donor_payments(_ad_client_id numeric, _begin_date timestamp WITHOUT TIME ZONE,
+                                              _end_date timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
-		        bh_visit_id         numeric,
 		        c_payment_id        numeric,
 		        cashier_id          numeric,
 		        cashier_uu          character varying,
 		        cashier             character varying,
 		        payment_date        timestamp,
-		        patient_id          numeric,
-		        patient_uu          character varying,
+		        c_bpartner_id       numeric,
+		        c_bpartner_uu       character varying,
 		        patient_name        character varying,
 		        payment_mode_letter character varying,
 		        payment_mode_name   character varying,
@@ -23,14 +22,13 @@ CREATE FUNCTION bh_get_debt_payments(ad_client_id numeric, begin_date timestamp 
 AS
 $$
 SELECT
-	p.bh_visit_id,
 	p.c_payment_id,
 	cashier.ad_user_id    AS cashier_id,
 	cashier.ad_user_uu    AS cashier_uu,
 	cashier.name          AS cashier,
 	p.datetrx             AS payment_date,
-	bp.c_bpartner_id      AS patient_id,
-	bp.c_bpartner_uu      AS patient_uu,
+	bp.c_bpartner_id      AS c_bpartner_id,
+	bp.c_bpartner_uu      AS c_bpartner_uu,
 	bp.name               AS patient_name,
 	p.tendertype::varchar AS payment_mode_letter,
 	rl.name               AS payment_mode_name,
@@ -51,10 +49,10 @@ FROM
 		LEFT JOIN c_payment p2
 		ON p.c_payment_id = p2.reversal_id
 WHERE
-	p.ad_client_id = $1
+	p.ad_client_id = _ad_client_id
 	AND p.bh_visit_id IS NULL
-	AND bpg.name = 'Patients - DO NOT CHANGE'
-	AND p.datetrx::date + p.updated::time BETWEEN $2 AND $3
+	AND bpg.bh_subtype IN ('I', 'D')
+	AND p.datetrx::date + p.updated::time BETWEEN _begin_date AND _end_date
 	AND p.bh_visit_id IS NULL
 	AND p.reversal_id IS NULL
 	AND p.docstatus NOT IN ('RE', 'VO')

@@ -18,48 +18,51 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-	c.name                                                            AS client_name,
-	COALESCE(SUM(linenetamt) FILTER ( WHERE p.producttype = 'I' ), 0) AS product_sales,
-	COALESCE(SUM(linenetamt) FILTER ( WHERE p.producttype = 'S' ), 0) AS service_revenue,
-	COALESCE(SUM(purchase_price * qtyentered), 0) * -1                AS product_purchases
+	c.name                                                          AS client_name,
+	COALESCE(SUM(linenetamt) FILTER ( WHERE producttype = 'I' ), 0) AS product_sales,
+	COALESCE(SUM(linenetamt) FILTER ( WHERE producttype = 'S' ), 0) AS service_revenue,
+	cogs.cogs * -1                                                  AS product_purchases
 FROM
 	ad_client c
 		LEFT JOIN (
 		SELECT
-			o.ad_client_id,
-			ol.m_product_id,
-			ol.linenetamt,
-			ol.qtyentered,
-			pc.purchase_price
+			p.producttype,
+			linenetamt
 		FROM
-			c_order o
-				LEFT JOIN c_orderline ol
-				ON o.c_order_id = ol.c_order_id
-				JOIN m_inout io
-				ON o.c_order_id = io.c_order_id AND io.docstatus = 'CO'
-				LEFT JOIN m_inoutline iol
-				ON ol.c_orderline_id = iol.c_orderline_id AND io.m_inout_id = iol.m_inout_id
-				LEFT JOIN m_inoutlinema iolma
-				ON iol.m_inoutline_id = iolma.m_inoutline_id
-				LEFT JOIN get_product_costs($P{AD_CLIENT_ID}) pc
-				ON pc.m_product_id = ol.m_product_id AND
-				   ((pc.m_attributesetinstance_id = iol.m_attributesetinstance_id AND
-				     iolma.m_attributesetinstance_id IS NULL) OR
-				    pc.m_attributesetinstance_id = iolma.m_attributesetinstance_id)
-				LEFT JOIN bh_visit v
-				ON o.bh_visit_id = v.bh_visit_id
+			c_orderline ol
+				JOIN c_order o
+				ON ol.c_order_id = o.c_order_id
+				JOIN m_product p
+				ON ol.m_product_id = p.m_product_id
 		WHERE
-			o.docstatus IN ('CO', 'CL')
+			o.ad_client_id = $P{AD_CLIENT_ID}
+			AND o.dateordered::date + o.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
 			AND o.issotrx = 'Y'
-			AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+			AND o.docstatus IN ('CO', 'CL')
+			AND (EXISTS (
+				SELECT
+					1
+				FROM
+					m_inoutline iol
+						JOIN m_inout io
+						ON iol.m_inout_id = io.m_inout_id
+				WHERE
+					c_orderline_id = ol.c_orderline_id
+					AND io.docstatus IN ('CO', 'CL')
+			) OR p.producttype = 'S')
 	) il
-		ON c.ad_client_id = il.ad_client_id
-		LEFT JOIN m_product p
-		ON il.m_product_id = p.m_product_id
+		ON 1 = 1
+		LEFT JOIN (
+		SELECT
+			COALESCE(SUM(cost_of_goods_sold), 0) AS cogs
+		FROM
+			get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
+	) cogs
+		ON 1 = 1
 WHERE
 	c.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY
-	c.name]]>
+	c.name, cogs.cogs]]>
 	</queryString>
 	<field name="client_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="client_name"/>
