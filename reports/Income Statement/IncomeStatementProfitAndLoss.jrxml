@@ -39,6 +39,17 @@ FROM
 			AND o.dateordered::date + o.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
 			AND o.issotrx = 'Y'
 			AND o.docstatus IN ('CO', 'CL')
+			AND (EXISTS (
+				SELECT
+					1
+				FROM
+					m_inoutline iol
+						JOIN m_inout io
+						ON iol.m_inout_id = io.m_inout_id
+				WHERE
+					c_orderline_id = ol.c_orderline_id
+					AND io.docstatus IN ('CO', 'CL')
+			) OR p.producttype = 'S')
 	) il
 		ON 1 = 1
 		LEFT JOIN (
