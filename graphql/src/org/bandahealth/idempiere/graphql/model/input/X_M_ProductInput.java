@@ -111,9 +111,6 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	@JsonProperty("BH_Concept")
 	public void setBH_ConceptInput(ForeignEntityInput BH_Concept) {
 		this.mBH_Concept = BH_Concept;
-		if (!is_new()) {
-			return;
-		}
 		if (BH_Concept != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MBHConcept foreignEntity;
