@@ -8,7 +8,7 @@ public class DashboardFinancialHistorical {
 	private Timestamp bucketValue;
 	private BigDecimal totalIncome;
 	private BigDecimal totalExpenses;
-	private BigDecimal netProfit;
+	private BigDecimal profitLoss;
 
 	public Timestamp getBucketValue() {
 		return bucketValue;
@@ -34,11 +34,11 @@ public class DashboardFinancialHistorical {
 		this.totalExpenses = totalExpenses;
 	}
 
-	public BigDecimal getNetProfit() {
-		return netProfit;
+	public BigDecimal getProfitLoss() {
+		return profitLoss;
 	}
 
-	public void setNetProfit(BigDecimal netProfit) {
-		this.netProfit = netProfit;
+	public void setProfitLoss(BigDecimal profitLoss) {
+		this.profitLoss = profitLoss;
 	}
 }

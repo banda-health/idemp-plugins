@@ -19,7 +19,7 @@ WITH months AS (
 		SELECT
 			ol.priceactual * t.movementqty * -1                                    AS charges,
 			COALESCE((ol.priceactual - pc.purchase_price) * t.movementqty * -1, 0) AS margins,
-			DATE_TRUNC('month', t.updated)                                         AS bucket_number
+			DATE_TRUNC('month', t.movementdate)                                    AS bucket_number
 		FROM
 			m_transaction t
 				JOIN m_inoutline iol
@@ -31,7 +31,7 @@ WITH months AS (
 		WHERE
 			t.ad_client_id = _ad_client_id
 			AND t.movementtype IN ('C+', 'C-')
-			AND t.updated BETWEEN
+			AND t.movementdate BETWEEN
 				DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp AND
 				NOW()::timestamp
 	)

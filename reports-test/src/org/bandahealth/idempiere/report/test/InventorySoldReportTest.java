@@ -520,12 +520,10 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 		valueObject.setStepName("Create visit");
-		valueObject.setDate(earlyDate);
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create SO");
-		valueObject.setDate(TimestampUtils.today());
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
 				false);

@@ -95,7 +95,7 @@ test('correct menu names are returned', async () => {
 	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
 	expect(menu?.SeqNo).toBe(5);
 
-	const backEndMenu = menus.find((menu) => menu.Node?.Name === 'Back-End');
+	const backEndMenu = menus.find((menu) => menu.Node?.Name === 'System Settings');
 	expect(backEndMenu).not.toBeUndefined();
 	expect(backEndMenu?.SeqNo).toBe(7);
 	menu = backEndMenu?.Node?.ChildrenTree_NodeMMList?.find((menu) => menu.Node?.Name === 'Diagnoses');

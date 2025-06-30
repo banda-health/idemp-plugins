@@ -628,7 +628,7 @@ query C_UOMGetDefault {
 query DashboardFinancialHistoricalGet {
 	DashboardFinancialHistoricalGet {
 		BucketValue
-		NetProfit
+		ProfitLoss
 		TotalExpenses
 		TotalIncome
 	}

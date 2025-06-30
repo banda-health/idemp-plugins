@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION bh_dashboard_get_financial_historical(_ad_client_id n
 		        bucket_value   timestamp,
 		        total_income   numeric,
 		        total_expenses numeric,
-		        net_profit     numeric
+		        profit_loss    numeric
 	        )
 	LANGUAGE sql
 	STABLE
@@ -39,6 +39,15 @@ WITH months AS (
 			                      NOW()::timestamp) p
 		GROUP BY DATE_TRUNC('month', p.datetrx)
 	),
+	other_payments AS (
+		SELECT
+			DATE_TRUNC('month', payment_date) AS date,
+			COALESCE(SUM(payment_amount), 0)  AS income
+		FROM
+			bh_get_insurer_donor_payments(_ad_client_id, DATE_TRUNC('month', NOW() - '5 months'::interval)::timestamp,
+			                              NOW()::timestamp)
+		GROUP BY DATE_TRUNC('month', payment_date)
+	),
 	debtPayments AS (
 		SELECT
 			DATE_TRUNC('month', payment_date) AS date,
@@ -70,10 +79,11 @@ WITH months AS (
 		GROUP BY DATE_TRUNC('month', o.dateordered)
 	)
 SELECT
-	months.GENERATE_SERIES                                                           AS bucket_value,
-	COALESCE(p.total_income + dp.debtpaymentamount, 0)                               AS total_income,
-	COALESCE(e.total_expenses + rp.total, 0)                                         AS total_expenses,
-	COALESCE(p.total_income + dp.debtpaymentamount - e.total_expenses - rp.total, 0) AS net_profit
+	months.GENERATE_SERIES                                                                   AS bucket_value,
+	COALESCE(p.total_income, 0) + COALESCE(dp.debtpaymentamount, 0) + COALESCE(op.income, 0) AS total_income,
+	COALESCE(e.total_expenses, 0) + COALESCE(rp.total, 0)                                    AS total_expenses,
+	COALESCE(p.total_income, 0) + COALESCE(dp.debtpaymentamount, 0) + COALESCE(op.income, 0) -
+	COALESCE(e.total_expenses, 0) - COALESCE(rp.total, 0)                                    AS profit_loss
 FROM
 	months
 		LEFT JOIN payments p
@@ -84,6 +94,8 @@ FROM
 		ON months.GENERATE_SERIES = dp.date
 		LEFT JOIN received_products rp
 		ON months.GENERATE_SERIES = rp.date
+		LEFT JOIN other_payments op
+		ON months.GENERATE_SERIES = op.date
 ORDER BY
 	months.GENERATE_SERIES;
 $$;

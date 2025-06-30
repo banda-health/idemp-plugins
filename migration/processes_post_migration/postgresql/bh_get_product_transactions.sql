@@ -20,7 +20,7 @@ CREATE OR REPLACE FUNCTION bh_get_product_transactions(_ad_client_id numeric)
 AS
 $$
 SELECT
-	created,
+	date,
 	m_transaction_id,
 	c_order_id,
 	m_movement_id,
@@ -53,7 +53,7 @@ SELECT
 FROM
 	(
 		SELECT
-			t.created,
+			t.date,
 			t.m_transaction_id,
 			t.c_order_id,
 			t.c_order_docstatus,
@@ -65,16 +65,16 @@ FROM
 			t.movementtype,
 			t.movementqty,
 			t.m_product_id,
-			ROW_NUMBER() OVER (PARTITION BY m_product_id ORDER BY t.created) AS row_num
+				ROW_NUMBER() OVER (PARTITION BY m_product_id ORDER BY t.date, COALESCE(c_order_id, m_movement_id)) AS row_num
 		FROM
 			(
 				-- Get completed transactions
 				SELECT
-					t.created,
+					t.movementdate::date + t.updated::time AS date,
 					t.m_transaction_id,
 					o.c_order_id,
-					o.docstatus   AS c_order_docstatus,
-					NULL::numeric AS m_movement_id,
+					o.docstatus                            AS c_order_docstatus,
+					NULL::numeric                          AS m_movement_id,
 					o.bh_visit_id,
 					t.m_locator_id,
 					t.m_attributesetinstance_id,
@@ -95,7 +95,7 @@ FROM
 				UNION ALL
 				-- Get drafted orders
 				SELECT
-					o.created,
+					o.dateordered::date + o.updated::time,
 					NULL,
 					o.c_order_id,
 					o.docstatus,
@@ -118,7 +118,7 @@ FROM
 				UNION ALL
 				-- Get drafted movements (for the source locator/warehouse)
 				SELECT
-					m.created,
+					m.movementdate::date + m.updated::time,
 					NULL,
 					NULL,
 					NULL,
@@ -140,7 +140,7 @@ FROM
 				UNION ALL
 				-- Get drafted movements (for the destination locator/warehouse)
 				SELECT
-					m.created + '1 microsecond',
+					m.movementdate::date + m.updated::time + '1 microsecond',
 					NULL,
 					NULL,
 					NULL,

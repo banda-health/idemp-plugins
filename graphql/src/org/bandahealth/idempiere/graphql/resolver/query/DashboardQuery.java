@@ -179,12 +179,12 @@ public class DashboardQuery implements GraphQLQueryResolver {
 			DashboardFinancialGeneralMetric dashboardFinancialGeneralMetrics = new DashboardFinancialGeneralMetric();
 			//
 			try {
-				dashboardFinancialGeneralMetrics.setRevenueSales(resultSet.getBigDecimal(1));
+				dashboardFinancialGeneralMetrics.setTotalIncome(resultSet.getBigDecimal(1));
 				dashboardFinancialGeneralMetrics.setTotalExpenses(resultSet.getBigDecimal(2));
-				dashboardFinancialGeneralMetrics.setNetProfit(resultSet.getBigDecimal(3));
-				dashboardFinancialGeneralMetrics.setTotalOwed(resultSet.getBigDecimal(4));
+				dashboardFinancialGeneralMetrics.setProfitLoss(resultSet.getBigDecimal(3));
+				dashboardFinancialGeneralMetrics.setUnpaidAmount(resultSet.getBigDecimal(4));
 				dashboardFinancialGeneralMetrics.setInventoryValue(resultSet.getBigDecimal(5));
-				dashboardFinancialGeneralMetrics.setTotalCharges(resultSet.getBigDecimal(6));
+				dashboardFinancialGeneralMetrics.setTotalRevenue(resultSet.getBigDecimal(6));
 				dashboardFinancialGeneralMetrics.setCostOfGoodsSold(resultSet.getBigDecimal(7));
 				dashboardFinancialGeneralMetrics.setGrossProfit(resultSet.getBigDecimal(8));
 				dashboardFinancialGeneralMetrics.setGrossProfitMargin(resultSet.getBigDecimal(9));
@@ -208,7 +208,7 @@ public class DashboardQuery implements GraphQLQueryResolver {
 				dashboardHistorical.setBucketValue(resultSet.getTimestamp(1));
 				dashboardHistorical.setTotalIncome(resultSet.getBigDecimal(2));
 				dashboardHistorical.setTotalExpenses(resultSet.getBigDecimal(3));
-				dashboardHistorical.setNetProfit(resultSet.getBigDecimal(4));
+				dashboardHistorical.setProfitLoss(resultSet.getBigDecimal(4));
 			} catch (SQLException e) {
 				throw new RuntimeException(e);
 			}

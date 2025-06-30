@@ -554,7 +554,6 @@ test('product concept can be updated', async () => {
 	const concepts = (
 		await query(valueObject)({
 			query: Bh_ConceptGetForProductCatalogueDocument,
-			variables: { Filter: JSON.stringify({ BH_Source: { $in: ['BHPharmacy'] } }) },
 		})
 	).data.BH_ConceptGet.Results;
 
