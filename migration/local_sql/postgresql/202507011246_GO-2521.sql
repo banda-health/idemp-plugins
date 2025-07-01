@@ -6,7 +6,7 @@ INSERT INTO ad_process (ad_process_id, ad_client_id, ad_org_id, isactive, create
                         allowmultipleexecution, filenamepattern)
 VALUES ((select max(ad_client_id) + 1 from ad_process), 0, 0, 'Y', '2025-07-01 12:28:53.022000', 100,
         '2025-07-01 12:28:53.022000', 100, '10000000',
-        'MoH747A Facility Contraceptives Consumption Data Report ', 'MoH Report for contraceptives consumption', null,
+        'MoH747A Facility Contraceptives Consumption Data Report', 'MoH Report for contraceptives consumption', null,
         '3', 'U', null, 'Y', 'N', null, null, 0, 0, null, null, null, 'N', null, 'Y', 'moh-747/moh747A.jasper', null,
         'N', 'd5d7582e-8364-429c-a7e8-a11f2fcd3401', null, null, 'P', null);
 
@@ -50,7 +50,7 @@ INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, cre
                      predefinedcontextvariables)
 VALUES ((select max(ad_menu_id) + 1 from ad_menu), 0, 0, 'Y', '2025-07-01 12:42:23.299000', 100,
         '2025-07-01 12:42:23.299000',
-        'MoH747A Facility Contraceptives Consumption Data Report ', 100, 'MoH Report for contraceptives consumption',
+        'MoH747A Facility Contraceptives Consumption Data Report', 100, 'MoH Report for contraceptives consumption',
         'N', 'Y', 'N', 'R', null, null, null,
         (select ad_process_id from ad_process where ad_process_uu = 'd5d7582e-8364-429c-a7e8-a11f2fcd3401'), null, null,
         'U', 'Y', 'f24a9401-fc48-4c7e-8822-da5a70966e70',
@@ -59,9 +59,11 @@ VALUES ((select max(ad_menu_id) + 1 from ad_menu), 0, 0, 'Y', '2025-07-01 12:42:
 INSERT INTO ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby,
                            updated, updatedby, parent_id, seqno, ad_treenodemm_uu)
 VALUES (10, (select ad_menu_id from ad_menu where ad_menu_uu = 'f24a9401-fc48-4c7e-8822-da5a70966e70'), 0, 0, 'Y',
-        '2025-07-01 12:42:23.340498', 100, '2025-07-01 12:45:48.980000', 100,
-        (select ad_menu_id from ad_menu where ad_menu_uu = '90d2983e-64b0-4b5f-86ee-4512c45bf893'), 4,
+        '2025-07-01 12:42:23.340498', 100, '2025-07-01 18:09:42.611000', 100,
+        (select ad_menu_id from ad_menu where ad_menu_uu = '90d2983e-64b0-4b5f-86ee-4512c45bf893'), 8,
         '8103a889-7a65-4690-9c33-b8403b74faff');
+
+SELECT update_sequences();        
 
 SELECT register_migration_script('202507011246_GO-2521.sql')
 FROM dual;
