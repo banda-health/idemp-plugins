@@ -7,16 +7,17 @@ extend type Query {
 	DashboardVisitHistoryStatGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardVisitHistoryStat]!
 
 	DashboardInventoryGeneralMetricsGet(BeginDate: DateTime!, EndDate: DateTime!): DashboardInventoryGeneralMetrics!
-	DashboardInventoryHistoricalChargeEarningGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardInventoryHistoricalChargeEarning]!
-	DashboardInventoryHistoricalValueGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardInventoryHistoricalValue]!
-	DashboardInventoryTopSellerEarnerGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardInventoryTopSellerEarner]!
+	DashboardInventoryHistoricalChargeEarningGet: [DashboardInventoryHistoricalChargeEarning]!
+	DashboardInventoryHistoricalValueGet: [DashboardInventoryHistoricalValue]!
+	DashboardInventoryTopSellerEarnerGet(BeginDate: DateTime!, EndDate: DateTime!, SortBy: String!): [DashboardInventoryTopSellerEarner]!
 
 	DashboardFinancialGeneralMetricsGet(BeginDate: DateTime!, EndDate: DateTime!): DashboardFinancialGeneralMetric!
-	DashboardFinancialHistoricalGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialHistorical]!
-	DashboardFinancialOpenBalancesGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialOpenBalance]!
+	DashboardFinancialHistoricalGet: [DashboardFinancialHistorical]!
+	DashboardFinancialOpenBalancesGet(Type: String!): [DashboardFinancialOpenBalance]!
 	DashboardFinancialSourcesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialSource]!
 	DashboardFinancialTypesGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialType]!
-	DashboardFinancialVisitChargesGet(BeginDate: DateTime!, EndDate: DateTime!): [DashboardFinancialVisitCharge]!
+	DashboardFinancialVisitChargesGet: [DashboardFinancialVisitCharge]!
+	DashboardFinancialChargeTypeGet(BeginDate: DateTime!, EndDate: DateTime!, Type: String!): [DashboardFinancialChargeType]!
 }
 
 type DashboardGeneralData {
@@ -41,13 +42,13 @@ type DashboardInventoryGeneralMetrics {
 }
 
 type DashboardInventoryHistoricalChargeEarning {
-	BucketValue: DateTime!
+	BucketValue: Date!
 	Charges: BigDecimal!
 	Margins: BigDecimal!
 }
 
 type DashboardInventoryHistoricalValue {
-	BucketValue: DateTime!
+	BucketValue: Date!
 	InventoryValue: BigDecimal!
 	InventoryReceived: BigDecimal!
 }
@@ -69,22 +70,22 @@ type DashboardDiagnosisUsage {
 }
 
 type DashboardFinancialGeneralMetric {
-	RevenueSales: BigDecimal!
-	TotalExpenses: BigDecimal!
-	NetProfit: BigDecimal!
-	TotalOwed: BigDecimal!
-	InventoryValue: BigDecimal!
-	TotalCharges: BigDecimal!
 	CostOfGoodsSold: BigDecimal!
 	GrossProfit: BigDecimal!
 	GrossProfitMargin: BigDecimal!
+	InventoryValue: BigDecimal!
+	ProfitLoss: BigDecimal!
+	TotalExpenses: BigDecimal!
+	TotalIncome: BigDecimal!
+	TotalRevenue: BigDecimal!
+	UnpaidAmount: BigDecimal!
 }
 
 type DashboardFinancialHistorical {
-	BucketValue: DateTime!
+	BucketValue: Date
+	ProfitLoss: BigDecimal!
 	TotalIncome: BigDecimal!
 	TotalExpenses: BigDecimal!
-	NetProfit: BigDecimal!
 }
 
 type DashboardFinancialOpenBalance {
@@ -103,7 +104,7 @@ type DashboardFinancialType {
 }
 
 type DashboardFinancialVisitCharge {
-	BucketValue: DateTime!
+	BucketValue: Date!
 	PatientVisits: Int!
 	AvgChargePatient: Int!
 }
@@ -127,4 +128,9 @@ type DashboardVisitHistoryStat {
 	BH_PatientType: AD_Ref_List
 	AlternateVisitType: String
 	Frequency: Int!
+}
+
+type DashboardFinancialChargeType {
+	Name: String!
+	Frequency: BigDecimal!
 }

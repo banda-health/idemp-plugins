@@ -7,6 +7,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.model.DashboardDiagnosisUsage;
+import org.bandahealth.idempiere.graphql.model.DashboardFinancialChargeType;
 import org.bandahealth.idempiere.graphql.model.DashboardFinancialGeneralMetric;
 import org.bandahealth.idempiere.graphql.model.DashboardFinancialHistorical;
 import org.bandahealth.idempiere.graphql.model.DashboardFinancialOpenBalance;
@@ -178,12 +179,12 @@ public class DashboardQuery implements GraphQLQueryResolver {
 			DashboardFinancialGeneralMetric dashboardFinancialGeneralMetrics = new DashboardFinancialGeneralMetric();
 			//
 			try {
-				dashboardFinancialGeneralMetrics.setRevenueSales(resultSet.getBigDecimal(1));
+				dashboardFinancialGeneralMetrics.setTotalIncome(resultSet.getBigDecimal(1));
 				dashboardFinancialGeneralMetrics.setTotalExpenses(resultSet.getBigDecimal(2));
-				dashboardFinancialGeneralMetrics.setNetProfit(resultSet.getBigDecimal(3));
-				dashboardFinancialGeneralMetrics.setTotalOwed(resultSet.getBigDecimal(4));
+				dashboardFinancialGeneralMetrics.setProfitLoss(resultSet.getBigDecimal(3));
+				dashboardFinancialGeneralMetrics.setUnpaidAmount(resultSet.getBigDecimal(4));
 				dashboardFinancialGeneralMetrics.setInventoryValue(resultSet.getBigDecimal(5));
-				dashboardFinancialGeneralMetrics.setTotalCharges(resultSet.getBigDecimal(6));
+				dashboardFinancialGeneralMetrics.setTotalRevenue(resultSet.getBigDecimal(6));
 				dashboardFinancialGeneralMetrics.setCostOfGoodsSold(resultSet.getBigDecimal(7));
 				dashboardFinancialGeneralMetrics.setGrossProfit(resultSet.getBigDecimal(8));
 				dashboardFinancialGeneralMetrics.setGrossProfitMargin(resultSet.getBigDecimal(9));
@@ -196,11 +197,9 @@ public class DashboardQuery implements GraphQLQueryResolver {
 		return results.get(0);
 	}
 
-	public List<DashboardFinancialHistorical> DashboardFinancialHistoricalGet(Timestamp BeginDate, Timestamp EndDate,
-			DataFetchingEnvironment environment) {
-		String query = "SELECT * FROM bh_dashboard_get_financial_historical(?, ?::timestamp, ?::timestamp)";
-		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
-				EndDate);
+	public List<DashboardFinancialHistorical> DashboardFinancialHistoricalGet(DataFetchingEnvironment environment) {
+		String query = "SELECT * FROM bh_dashboard_get_financial_historical(?)";
+		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)));
 		List<DashboardFinancialHistorical> results = new ArrayList<>();
 		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 			DashboardFinancialHistorical dashboardHistorical = new DashboardFinancialHistorical();
@@ -209,7 +208,7 @@ public class DashboardQuery implements GraphQLQueryResolver {
 				dashboardHistorical.setBucketValue(resultSet.getTimestamp(1));
 				dashboardHistorical.setTotalIncome(resultSet.getBigDecimal(2));
 				dashboardHistorical.setTotalExpenses(resultSet.getBigDecimal(3));
-				dashboardHistorical.setNetProfit(resultSet.getBigDecimal(4));
+				dashboardHistorical.setProfitLoss(resultSet.getBigDecimal(4));
 			} catch (SQLException e) {
 				throw new RuntimeException(e);
 			}
@@ -219,11 +218,11 @@ public class DashboardQuery implements GraphQLQueryResolver {
 		return results;
 	}
 
-	public List<DashboardFinancialOpenBalance> DashboardFinancialOpenBalancesGet(Timestamp BeginDate, Timestamp EndDate,
-			String type, DataFetchingEnvironment environment) {
-		String query = "SELECT * FROM bh_dashboard_get_financial_open_balances(?, ?::timestamp, ?::timestamp) WHERE type = ?";
-		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
-				EndDate, type);
+	public List<DashboardFinancialOpenBalance> DashboardFinancialOpenBalancesGet(String type,
+			DataFetchingEnvironment environment) {
+		String query =
+				"SELECT * FROM bh_dashboard_get_financial_open_balances(?) WHERE type = ?";
+		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), type);
 		List<DashboardFinancialOpenBalance> results = new ArrayList<>();
 		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 			DashboardFinancialOpenBalance entity = new DashboardFinancialOpenBalance();
@@ -284,11 +283,9 @@ public class DashboardQuery implements GraphQLQueryResolver {
 		return results;
 	}
 
-	public List<DashboardFinancialVisitCharge> DashboardFinancialVisitChargesGet(Timestamp BeginDate, Timestamp EndDate,
-			DataFetchingEnvironment environment) {
-		String query = "SELECT * FROM bh_dashboard_get_financial_visit_charges(?, ?::timestamp, ?::timestamp)";
-		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
-				EndDate);
+	public List<DashboardFinancialVisitCharge> DashboardFinancialVisitChargesGet(DataFetchingEnvironment environment) {
+		String query = "SELECT * FROM bh_dashboard_get_financial_visit_charges(?)";
+		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)));
 		List<DashboardFinancialVisitCharge> results = new ArrayList<>();
 		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 			DashboardFinancialVisitCharge entity = new DashboardFinancialVisitCharge();
@@ -331,10 +328,9 @@ public class DashboardQuery implements GraphQLQueryResolver {
 	}
 
 	public List<DashboardInventoryHistoricalChargeEarning> DashboardInventoryHistoricalChargeEarningGet(
-			Timestamp BeginDate, Timestamp EndDate, DataFetchingEnvironment environment) {
-		String query = "SELECT * FROM bh_dashboard_get_inventory_historical_charge_earnings(?, ?::timestamp, ?::timestamp)";
-		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
-				EndDate);
+			DataFetchingEnvironment environment) {
+		String query = "SELECT * FROM bh_dashboard_get_inventory_historical_charge_earnings(?)";
+		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)));
 		List<DashboardInventoryHistoricalChargeEarning> results = new ArrayList<>();
 		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 			DashboardInventoryHistoricalChargeEarning entity = new DashboardInventoryHistoricalChargeEarning();
@@ -352,11 +348,10 @@ public class DashboardQuery implements GraphQLQueryResolver {
 		return results;
 	}
 
-	public List<DashboardInventoryHistoricalValue> DashboardInventoryHistoricalValueGet(Timestamp BeginDate,
-			Timestamp EndDate, DataFetchingEnvironment environment) {
-		String query = "SELECT * FROM bh_dashboard_get_inventory_historical_value(?, ?::timestamp, ?::timestamp)";
-		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
-				EndDate);
+	public List<DashboardInventoryHistoricalValue> DashboardInventoryHistoricalValueGet(
+			DataFetchingEnvironment environment) {
+		String query = "SELECT * FROM bh_dashboard_get_inventory_historical_value(?)";
+		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)));
 		List<DashboardInventoryHistoricalValue> results = new ArrayList<>();
 		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 			DashboardInventoryHistoricalValue entity = new DashboardInventoryHistoricalValue();
@@ -375,10 +370,11 @@ public class DashboardQuery implements GraphQLQueryResolver {
 	}
 
 	public List<DashboardInventoryTopSellerEarner> DashboardInventoryTopSellerEarnerGet(Timestamp BeginDate,
-			Timestamp EndDate, DataFetchingEnvironment environment) {
-		String query = "SELECT * FROM bh_dashboard_get_inventory_top_sellers_earners(?, ?::timestamp, ?::timestamp)";
+			Timestamp EndDate, String SortBy, DataFetchingEnvironment environment) {
+		String query =
+				"SELECT * FROM bh_dashboard_get_inventory_top_sellers_earners(?, ?::timestamp, ?::timestamp, ?::text)";
 		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
-				EndDate);
+				EndDate, SortBy);
 		List<DashboardInventoryTopSellerEarner> results = new ArrayList<>();
 		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 			DashboardInventoryTopSellerEarner entity = new DashboardInventoryTopSellerEarner();
@@ -386,9 +382,32 @@ public class DashboardQuery implements GraphQLQueryResolver {
 			try {
 				entity.setName(resultSet.getString(1));
 				entity.setQuantitySold(resultSet.getBigDecimal(2));
-				entity.setValueGoodsSold(resultSet.getBigDecimal(2));
-				entity.setIncomeGenerated(resultSet.getBigDecimal(2));
-				entity.setMarginEarned(resultSet.getBigDecimal(2));
+				entity.setValueGoodsSold(resultSet.getBigDecimal(3));
+				entity.setIncomeGenerated(resultSet.getBigDecimal(4));
+				entity.setMarginEarned(resultSet.getBigDecimal(5));
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			//
+			results.add(entity);
+		});
+		return results;
+	}
+
+	public List<DashboardFinancialChargeType> DashboardFinancialChargeTypeGet(Timestamp BeginDate,
+			Timestamp EndDate, String type, DataFetchingEnvironment environment) {
+		String query = "SELECT * FROM bh_dashboard_get_financial_charge_type(?, ?::timestamp, ?::timestamp) WHERE type =" +
+				" ?";
+		List<Object> parameters = List.of(Env.getAD_Client_ID(BandaGraphQLContext.getCtx(environment)), BeginDate,
+				EndDate, type);
+		List<DashboardFinancialChargeType> results = new ArrayList<>();
+		SqlUtil.executeQuery(query, parameters, null, resultSet -> {
+			DashboardFinancialChargeType entity = new DashboardFinancialChargeType();
+			//
+			try {
+				entity.setName(resultSet.getString(1));
+				entity.setFrequency(resultSet.getBigDecimal(2));
+				entity.setType(resultSet.getString(3));
 			} catch (SQLException e) {
 				throw new RuntimeException(e);
 			}

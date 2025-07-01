@@ -4,6 +4,7 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -11,6 +12,7 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_ConceptDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_RevenueRecognitionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_SubscriptionTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxCategoryDataLoader;
@@ -53,6 +55,21 @@ import java.util.concurrent.CompletableFuture;
  */
 public class X_M_ProductResolver extends POResolver<MProduct_BH> implements GraphQLResolver<MProduct_BH> {
 
+
+
+	/**
+	 * Get Concept.
+	 *
+	 * @return Concept
+	 */
+	public CompletableFuture<MBHConcept> BH_Concept(MProduct_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getBH_Concept_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBHConcept> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_ConceptDataLoader.DATALOADER_BH_Concept_BY_ID);
+		return dataLoader.load(entity.getBH_Concept_ID());
+	}
 
 	public int bh_reorder_level(MProduct_BH entity, DataFetchingEnvironment environment) {
 		return entity.getbh_reorder_level();
@@ -376,6 +393,21 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 
 
 	/**
+	 * Get Sales Representative.
+	 *
+	 * @return Sales Representative or Company Agent
+	 */
+	public CompletableFuture<MUser_BH> SalesRep(MProduct_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getSalesRep_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MUser_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
+		return dataLoader.load(entity.getSalesRep_ID());
+	}
+
+
+	/**
 	 * Get Expense Type.
 	 *
 	 * @return Expense report type
@@ -402,21 +434,6 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		DataLoader<Integer, MResource> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.DATALOADER_S_Resource_BY_ID);
 		return dataLoader.load(entity.getS_Resource_ID());
-	}
-
-
-	/**
-	 * Get Sales Representative.
-	 *
-	 * @return Sales Representative or Company Agent
-	 */
-	public CompletableFuture<MUser_BH> SalesRep(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() < 1) {
-			return null;
-		}
-		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
-		return dataLoader.load(entity.getSalesRep_ID());
 	}
 
 }

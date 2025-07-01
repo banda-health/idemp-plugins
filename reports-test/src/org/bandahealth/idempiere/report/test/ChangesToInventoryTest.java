@@ -254,7 +254,6 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		BigDecimal firstEndingInventory = NumberUtils.randomBigDecimal(1, 250);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(firstEndingInventory);
-		valueObject.setDateOffset(1);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
 		valueObject.setProduct(product);
 		ChuBoeCreateEntity.createInventory(valueObject);
@@ -291,7 +290,8 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Uncoded_Diagnosis("pain");
 		encounterDiagnosis.setLineNo(10);
@@ -320,7 +320,7 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(currentInventory);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
-		valueObject.setDate(TimestampUtils.today());
+		valueObject.setDate(lateDate);
 		ChuBoeCreateEntity.createInventory(valueObject);
 		commitEx();
 

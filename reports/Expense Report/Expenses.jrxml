@@ -64,7 +64,7 @@ WHERE
 	AND i.bh_visit_id IS NULL
 	AND i.docstatus IN ('CO', 'CL')
 	AND i.ad_client_id = $P{AD_CLIENT_ID}
-	AND i.dateinvoiced BETWEEN $P{Begin Date} AND $P{End Date}
+	AND i.dateinvoiced::date + i.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
 	AND ($P{C_Charge_UU} IS NULL OR c.c_charge_uu = $P{C_Charge_UU})
 	AND ($P{C_BPartner_UU} IS NULL OR bp.c_bpartner_uu = $P{C_BPartner_UU})
 	AND (COALESCE($P{Payment Method}, '') = '' OR $P{Payment Method} = i.paymentrule)

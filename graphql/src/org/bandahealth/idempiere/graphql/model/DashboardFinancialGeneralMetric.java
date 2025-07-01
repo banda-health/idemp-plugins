@@ -4,21 +4,21 @@ import java.math.BigDecimal;
 
 public class DashboardFinancialGeneralMetric {
 
-	private BigDecimal revenueSales;
+	private BigDecimal totalIncome;
 	private BigDecimal totalExpenses;
-	private BigDecimal netProfit;
-	private BigDecimal totalOwed;
+	private BigDecimal profitLoss;
+	private BigDecimal unpaidAmount;
 	private BigDecimal inventoryValue;
-	private BigDecimal totalCharges;
+	private BigDecimal totalRevenue;
 	private BigDecimal costOfGoodsSold;
 	private BigDecimal grossProfit;
 	private BigDecimal grossProfitMargin;
 	
-	public BigDecimal getRevenueSales() {
-		return revenueSales;
+	public BigDecimal getTotalIncome() {
+		return totalIncome;
 	}
-	public void setRevenueSales(BigDecimal revenueSales) {
-		this.revenueSales = revenueSales;
+	public void setTotalIncome(BigDecimal totalIncome) {
+		this.totalIncome = totalIncome;
 	}
 	public BigDecimal getTotalExpenses() {
 		return totalExpenses;
@@ -26,17 +26,17 @@ public class DashboardFinancialGeneralMetric {
 	public void setTotalExpenses(BigDecimal totalExpenses) {
 		this.totalExpenses = totalExpenses;
 	}
-	public BigDecimal getNetProfit() {
-		return netProfit;
+	public BigDecimal getProfitLoss() {
+		return profitLoss;
 	}
-	public void setNetProfit(BigDecimal netProfit) {
-		this.netProfit = netProfit;
+	public void setProfitLoss(BigDecimal profitLoss) {
+		this.profitLoss = profitLoss;
 	}
-	public BigDecimal getTotalOwed() {
-		return totalOwed;
+	public BigDecimal getUnpaidAmount() {
+		return unpaidAmount;
 	}
-	public void setTotalOwed(BigDecimal totalOwed) {
-		this.totalOwed = totalOwed;
+	public void setUnpaidAmount(BigDecimal unpaidAmount) {
+		this.unpaidAmount = unpaidAmount;
 	}
 	public BigDecimal getInventoryValue() {
 		return inventoryValue;
@@ -44,11 +44,11 @@ public class DashboardFinancialGeneralMetric {
 	public void setInventoryValue(BigDecimal inventoryValue) {
 		this.inventoryValue = inventoryValue;
 	}
-	public BigDecimal getTotalCharges() {
-		return totalCharges;
+	public BigDecimal getTotalRevenue() {
+		return totalRevenue;
 	}
-	public void setTotalCharges(BigDecimal totalCharges) {
-		this.totalCharges = totalCharges;
+	public void setTotalRevenue(BigDecimal totalRevenue) {
+		this.totalRevenue = totalRevenue;
 	}
 	public BigDecimal getCostOfGoodsSold() {
 		return costOfGoodsSold;
