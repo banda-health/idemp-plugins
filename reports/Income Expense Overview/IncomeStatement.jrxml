@@ -88,7 +88,7 @@ FROM
 			i.docstatus = 'CO'
 			AND i.issotrx = 'N'
 			AND i.bh_visit_id IS NULL
-			AND i.dateinvoiced BETWEEN date(params.begin_date) AND date(params.end_date)
+			AND i.dateinvoiced::date + i.updated::time BETWEEN params.begin_date AND params.end_date
 	) AS expenses
 		CROSS JOIN (
 		SELECT
@@ -108,7 +108,7 @@ FROM
 		WHERE
 			o.issotrx = 'N'
 			AND o.docstatus = 'CO'
-			AND o.dateordered BETWEEN date(params.begin_date) AND date(params.end_date)
+			AND o.dateordered::date + o.updated::time BETWEEN params.begin_date AND params.end_date
 	) received_products
 		CROSS JOIN (
 		SELECT

@@ -268,7 +268,6 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setQuantity(firstEndingInventory);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
 		valueObject.setProduct(product);
-		valueObject.setDateOffset(1);
 		ChuBoeCreateEntity.createInventory(valueObject);
 		commitEx();
 
@@ -332,7 +331,6 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setQuantity(currentInventory);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
-		valueObject.setDate(TimestampUtils.today());
 		ChuBoeCreateEntity.createInventory(valueObject);
 		commitEx();
 
