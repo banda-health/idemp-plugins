@@ -4,6 +4,7 @@ import org.compiere.model.MExpenseType;
 import org.compiere.model.MProduct;
 import org.compiere.model.MResource;
 import org.compiere.model.MResourceType;
+import org.compiere.model.MTable;
 import org.compiere.model.X_I_Product;
 
 import java.math.BigDecimal;
@@ -318,27 +319,31 @@ public class MProduct_BH extends MProduct {
 		return ii.intValue();
 	}
 
-	/**
-	 * Set Concept.
-	 * 
-	 * @param BH_Concept_ID Concept
-	 */
-	public void setBH_Concept_ID(int BH_Concept_ID) {
-		if (BH_Concept_ID < 1)
-			set_ValueNoCheck(COLUMNNAME_BH_Concept_ID, null);
-		else
-			set_ValueNoCheck(COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
+	public I_BH_Concept getBH_Concept() throws RuntimeException
+	{
+		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_ID)
+			.getPO(getBH_Concept_ID(), get_TrxName());
 	}
 
-	/**
-	 * Get Concept.
-	 * 
-	 * @return Concept
-	 */
-	public int getBH_Concept_ID() {
-		Integer ii = (Integer) get_Value(COLUMNNAME_BH_Concept_ID);
+	/** Set Concept.
+		@param BH_Concept_ID Concept
+	*/
+	public void setBH_Concept_ID (int BH_Concept_ID)
+	{
+		if (BH_Concept_ID < 1)
+			set_Value (COLUMNNAME_BH_Concept_ID, null);
+		else
+			set_Value (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
+	}
+
+	/** Get Concept.
+		@return Concept	  */
+	public int getBH_Concept_ID()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_ID);
 		if (ii == null)
-			return 0;
+			 return 0;
 		return ii.intValue();
 	}
+
 }
