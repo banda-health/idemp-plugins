@@ -60,13 +60,6 @@ VALUES ((SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '808a1aaa-f3
         
 INSERT INTO ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
                                updated, updatedby, isreadwrite, ad_process_access_uu)
-VALUES ((SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '477cdda4-82ff-4bac-834f-08de384df412'), 
-		(SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'b986f846-09bc-461e-956a-e524fd75aa8a'), 0, 0, 'Y', 
-		'2025-07-02 14:55:31.531000', 100, '2025-07-02 14:55:31.531000', 100, 'Y',
-        'd2ff7c44-08dd-455f-8d07-209bb4fe641e');     
-        
-INSERT INTO ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
-                               updated, updatedby, isreadwrite, ad_process_access_uu)
 VALUES ((SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '30dd7243-11c1-4584-af26-5d977d117c84'), 
 		(SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'b986f846-09bc-461e-956a-e524fd75aa8a'), 0, 0, 'Y', 
 		'2025-07-02 14:59:15.519000', 100, '2025-07-02 14:59:15.519000', 100, 'Y',
