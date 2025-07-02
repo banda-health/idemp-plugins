@@ -70,7 +70,15 @@ INSERT INTO ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_i
 VALUES ((SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '30dd7243-11c1-4584-af26-5d977d117c84'), 
 		(SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'b986f846-09bc-461e-956a-e524fd75aa8a'), 0, 0, 'Y', 
 		'2025-07-02 14:59:15.519000', 100, '2025-07-02 14:59:15.519000', 100, 'Y',
-        '9706fa01-af8c-4d1e-b05f-66fe88eed962');        
+        '9706fa01-af8c-4d1e-b05f-66fe88eed962');    
+        
+-- Add window access
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+                              updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate)
+VALUES ((SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '3a4ac3cd-9e1b-4a2c-82d3-78f698ec9e1f'), 
+		(SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'b986f846-09bc-461e-956a-e524fd75aa8a'), 0, 0, 'Y', 
+		'2025-07-02 12:18:58.850000', 100, '2025-07-02 12:18:58.850000', 100, 'Y',
+        '11d9645c-1dd0-463f-b557-cdfa17dcf928', 'Y');        
         
 -- Add it to existing clients
 SELECT

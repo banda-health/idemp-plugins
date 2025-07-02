@@ -2764,8 +2764,8 @@ test(`OTC only role has correct access`, async () => {
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.patients)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.patients)).toBeUndefined();
 
-	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.otcSales)).toBeDefined();
-	expect(processes.find((process) => process.UU === processUuid.otcSales)).toBeDefined();
+	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.otcSales)).toBeUndefined();
+	expect(processes.find((process) => process.UU === processUuid.otcSales)).toBeUndefined();
 
 	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.expenses)).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.expenses)).toBeUndefined();
