@@ -144,6 +144,11 @@
 					<artifactId>maven-dependency-plugin</artifactId>
 					<version>${maven.dependency.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>com.rudikershaw.gitbuildhook</groupId>
+					<artifactId>git-build-hook-maven-plugin</artifactId>
+					<version>3.5.0</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -268,6 +273,20 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.rudikershaw.gitbuildhook</groupId>
+				<artifactId>git-build-hook-maven-plugin</artifactId>
+				<version>3.5.0</version>
+				<configuration>
+					<installHooks>
+						<pre-commit>pre-commit-hooks/pre-commit.sh</pre-commit>
+					</installHooks>
+				</configuration>
+				<goals>
+					<goal>install</goal>
+				</goals>
 			</plugin>
 		</plugins>
 	</build>
