@@ -46,6 +46,7 @@ public class X_BH_Ocl_Originating_SourceResolver extends POResolver<MBHOclOrigin
 			put("BHAllergyReactions", "b9f21bfc-d7c9-4b07-a628-93086ce650a8"); // BHAllergyReactions - Allergy reaqctions
 			put("BHAllergySeverities", "06b7f750-4a16-43e8-ab66-32e8496ed15e"); // BHAllergySeverities - Allergy severities
 			put("BHDrugs", "be0c7cb3-baf7-47fa-b420-80e99b8e0382"); // BHDrugs - Drug list
+			put("BHPharmacy", "e3770de6-7586-4bda-8689-98a5c63fde76"); // BHPharmacy - Product Catalog
 		}
 	};
 	public CompletableFuture<MRefList_BH> BH_Ocl_Source(MBHOclOriginatingSource entity, DataFetchingEnvironment environment) {

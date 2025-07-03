@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh747A" pageWidth="595" pageHeight="900" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="8a129c7f-60fd-4f00-8070-32efed54dce5">
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="moh747A" pageWidth="595" pageHeight="900" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="8a129c7f-60fd-4f00-8070-32efed54dce5">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="IdempiereLocalhost"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -15,10 +15,786 @@
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_USER_ID" class="java.lang.Integer"/>
 	<queryString language="SQL">
-		<![CDATA[select * from get_inventory_changes_by_concept_extra($P{AD_CLIENT_ID}::numeric, $P{Begin Date}::timestamp, $P{End Date}::timestamp) AS combined_oral_contraceptives_begin]]>
+		<![CDATA[WITH product_inventory_data AS (
+	SELECT
+		ce.bh_value,
+		SUM(gic.opening_stock)                                                        AS opening_stock,
+		SUM(gic.received_stock)                                                       AS received_stock,
+		SUM(gic.sold_stock)                                                           AS sold_stock,
+			SUM(gic.balanced_stock)
+			FILTER ( WHERE asi.bh_update_reason = 'p_los' )                             AS losses,
+			SUM(gic.balanced_stock)
+			FILTER ( WHERE gic.balanced_stock < 0 AND asi.bh_update_reason != 'p_los' ) AS balance_negative,
+			SUM(gic.balanced_stock)
+			FILTER ( WHERE gic.balanced_stock > 0 AND asi.bh_update_reason != 'p_los' ) AS balance_positive,
+		SUM(gic.ending_stock)                                                         AS ending_stock
+	FROM
+		get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) AS gic
+			JOIN m_product p
+			ON gic.m_product_id = p.m_product_id
+			JOIN bh_concept_extra ce
+			ON ce.bh_concept_id = p.bh_concept_id AND ce.bh_key = 'moh_747_711_grouping'
+			JOIN m_attributesetinstance asi
+			ON gic.m_attributesetinstance_id = asi.m_attributesetinstance_id
+	GROUP BY ce.bh_value
+),
+	visit_types AS (
+		SELECT
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '01 - Combined Oral Contraceptive Pills' AND bh_newvisit = 'Y' ) AS oral_pills_new,
+				COUNT(1) FILTER ( WHERE ce.bh_value = '01 - Combined Oral Contraceptive Pills' AND bh_newvisit =
+				                                                                                   'N' )      AS oral_pills_returning,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '02 - Progestin Only Pills' AND bh_newvisit = 'Y' )              AS progestine_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '02 - Progestin Only Pills' AND bh_newvisit = 'N' )              AS progestine_returning,
+				COUNT(1) FILTER ( WHERE ce.bh_value = '03 - DMPA-IM' AND bh_newvisit = 'Y' )                  AS dmpa_im_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '03 - DMPA-IM' AND bh_newvisit = 'N' )                           AS dmpa_im_returning,
+				COUNT(1) FILTER ( WHERE ce.bh_value = '04 - DMPA-SC' AND bh_newvisit = 'Y' )                  AS dmpa_sc_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '04 - DMPA-SC' AND bh_newvisit = 'N' )                           AS dmpa_sc_returning,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '05 - Implants (1-Rod) - ENG' AND bh_newvisit = 'Y' )            AS implant_1rod_eng_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '05 - Implants (1-Rod) - ENG' AND bh_newvisit = 'N' )            AS implant_1rod_eng_returning,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '07 - Implant (2-Rod) - LNG 75mg (5 years)' AND bh_newvisit =
+				                                                                             'Y' )            AS implant_2rod_lng_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '07 - Implant (2-Rod) - LNG 75mg (5 years)' AND bh_newvisit =
+				                                                                             'N' )            AS implant_2rod_lng_returning,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '08 - Non-Hormonal IUD' AND bh_newvisit = 'Y' )                  AS non_hormonal_iud_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '08 - Non-Hormonal IUD' AND bh_newvisit = 'N' )                  AS non_hormonal_iud_returning,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '09 - Hormonal IUD' AND bh_newvisit = 'Y' )                      AS hormonal_iud_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '09 - Hormonal IUD' AND bh_newvisit = 'N' )                      AS hormonal_iud_returning,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '10 - Emergency Contraceptive Pills' AND bh_newvisit = 'Y' )     AS emergency_pills_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '10 - Emergency Contraceptive Pills' AND bh_newvisit = 'N' )     AS emergency_pills_returning,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '11 - Male Condoms' AND bh_newvisit = 'Y' )                      AS male_condoms_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '11 - Male Condoms' AND bh_newvisit = 'N' )                      AS male_condoms_returning,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '12 - Female Condoms' AND bh_newvisit = 'Y' )                    AS female_condoms_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '12 - Female Condoms' AND bh_newvisit = 'N' )                    AS female_condoms_returning,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '13 - Cycle Beads' AND bh_newvisit = 'Y' )                       AS cycle_beads_new,
+				COUNT(1)
+				FILTER ( WHERE ce.bh_value = '13 - Cycle Beads' AND bh_newvisit = 'N' )                       AS cycle_beads_returning
+		FROM
+			bh_concept_extra ce
+				JOIN m_product p
+				ON ce.bh_concept_id = p.bh_concept_id AND p.ad_client_id = $P{AD_CLIENT_ID}
+				JOIN c_orderline ol
+				ON p.m_product_id = ol.m_product_id
+				JOIN c_order o
+				ON ol.c_order_id = o.c_order_id AND issotrx = 'Y' AND docstatus IN ('CO', 'CL')
+				JOIN bh_visit v
+				ON o.bh_visit_id = v.bh_visit_id AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+	)
+SELECT
+	cl.name                                         AS facility_name,
+	COALESCE(l.address1, '')                        AS county,
+	COALESCE(l.address2, '')                        AS sub_county,
+	u.name                                          AS compiled_by,
+
+	COALESCE(oral_pills_counts.opening_stock, 0)    AS oral_pills_opening_stock,
+	COALESCE(oral_pills_counts.received_stock, 0)   AS oral_pills_received_stock,
+	COALESCE(oral_pills_counts.sold_stock, 0)       AS oral_pills_sold_stock,
+	COALESCE(oral_pills_counts.losses, 0)           AS oral_pills_losses,
+	COALESCE(oral_pills_counts.balance_positive, 0) AS oral_pills_balance_positive,
+	COALESCE(oral_pills_counts.balance_negative, 0) AS oral_pills_balance_negative,
+	COALESCE(oral_pills_counts.ending_stock, 0)     AS oral_pills_ending_stock,
+	COALESCE(oral_pills_new, 0)                     AS oral_pills_new,
+	COALESCE(oral_pills_returning, 0)               AS oral_pills_returning,
+
+	COALESCE(progestine.opening_stock, 0)           AS progestine_opening_stock,
+	COALESCE(progestine.received_stock, 0)          AS progestine_received_stock,
+	COALESCE(progestine.sold_stock, 0)              AS progestine_sold_stock,
+	COALESCE(progestine.losses, 0)                  AS progestine_losses,
+	COALESCE(progestine.balance_positive, 0)        AS progestine_balance_positive,
+	COALESCE(progestine.balance_negative, 0)        AS progestine_balance_negative,
+	COALESCE(progestine.ending_stock, 0)            AS progestine_ending_stock,
+	COALESCE(progestine_new, 0)                     AS progestine_new,
+	COALESCE(progestine_returning, 0)               AS progestine_returning,
+
+	COALESCE(dmpa_im.opening_stock, 0)              AS dmpa_im_opening_stock,
+	COALESCE(dmpa_im.received_stock, 0)             AS dmpa_im_received_stock,
+	COALESCE(dmpa_im.sold_stock, 0)                 AS dmpa_im_sold_stock,
+	COALESCE(dmpa_im.losses, 0)                     AS dmpa_im_losses,
+	COALESCE(dmpa_im.balance_positive, 0)           AS dmpa_im_balance_positive,
+	COALESCE(dmpa_im.balance_negative, 0)           AS dmpa_im_balance_negative,
+	COALESCE(dmpa_im.ending_stock, 0)               AS dmpa_im_ending_stock,
+	COALESCE(dmpa_im_new, 0)                        AS dmpa_im_new,
+	COALESCE(dmpa_im_returning, 0)                  AS dmpa_im_returning,
+
+	COALESCE(dmpa_sc.opening_stock, 0)              AS dmpa_sc_opening_stock,
+	COALESCE(dmpa_sc.received_stock, 0)             AS dmpa_sc_received_stock,
+	COALESCE(dmpa_sc.sold_stock, 0)                 AS dmpa_sc_sold_stock,
+	COALESCE(dmpa_sc.losses, 0)                     AS dmpa_sc_losses,
+	COALESCE(dmpa_sc.balance_positive, 0)           AS dmpa_sc_balance_positive,
+	COALESCE(dmpa_sc.balance_negative, 0)           AS dmpa_sc_balance_negative,
+	COALESCE(dmpa_sc.ending_stock, 0)               AS dmpa_sc_ending_stock,
+	COALESCE(dmpa_sc_new, 0)                        AS dmpa_sc_new,
+	COALESCE(dmpa_sc_returning, 0)                  AS dmpa_sc_returning,
+
+	COALESCE(implant_1rod_eng.opening_stock, 0)     AS implant_1rod_eng_opening_stock,
+	COALESCE(implant_1rod_eng.received_stock, 0)    AS implant_1rod_eng_received_stock,
+	COALESCE(implant_1rod_eng.sold_stock, 0)        AS implant_1rod_eng_sold_stock,
+	COALESCE(implant_1rod_eng.losses, 0)            AS implant_1rod_eng_losses,
+	COALESCE(implant_1rod_eng.balance_positive, 0)  AS implant_1rod_eng_balance_positive,
+	COALESCE(implant_1rod_eng.balance_negative, 0)  AS implant_1rod_eng_balance_negative,
+	COALESCE(implant_1rod_eng.ending_stock, 0)      AS implant_1rod_eng_ending_stock,
+	COALESCE(implant_1rod_eng_new, 0)               AS implant_1rod_eng_new,
+	COALESCE(implant_1rod_eng_returning, 0)         AS implant_1rod_eng_returning,
+
+	COALESCE(implant_2rod_lng.opening_stock, 0)     AS implant_2rod_lng_opening_stock,
+	COALESCE(implant_2rod_lng.received_stock, 0)    AS implant_2rod_lng_received_stock,
+	COALESCE(implant_2rod_lng.sold_stock, 0)        AS implant_2rod_lng_sold_stock,
+	COALESCE(implant_2rod_lng.losses, 0)            AS implant_2rod_lng_losses,
+	COALESCE(implant_2rod_lng.balance_positive, 0)  AS implant_2rod_lng_balance_positive,
+	COALESCE(implant_2rod_lng.balance_negative, 0)  AS implant_2rod_lng_balance_negative,
+	COALESCE(implant_2rod_lng.ending_stock, 0)      AS implant_2rod_lng_ending_stock,
+	COALESCE(implant_2rod_lng_new, 0)               AS implant_2rod_lng_new,
+	COALESCE(implant_2rod_lng_returning, 0)         AS implant_2rod_lng_returning,
+
+	COALESCE(non_hormonal_iud.opening_stock, 0)     AS non_hormonal_iud_opening_stock,
+	COALESCE(non_hormonal_iud.received_stock, 0)    AS non_hormonal_iud_received_stock,
+	COALESCE(non_hormonal_iud.sold_stock, 0)        AS non_hormonal_iud_sold_stock,
+	COALESCE(non_hormonal_iud.losses, 0)            AS non_hormonal_iud_losses,
+	COALESCE(non_hormonal_iud.balance_positive, 0)  AS non_hormonal_iud_balance_positive,
+	COALESCE(non_hormonal_iud.balance_negative, 0)  AS non_hormonal_iud_balance_negative,
+	COALESCE(non_hormonal_iud.ending_stock, 0)      AS non_hormonal_iud_ending_stock,
+	COALESCE(non_hormonal_iud_new, 0)               AS non_hormonal_iud_new,
+	COALESCE(non_hormonal_iud_returning, 0)         AS non_hormonal_iud_returning,
+
+	COALESCE(hormonal_iud.opening_stock, 0)         AS hormonal_iud_opening_stock,
+	COALESCE(hormonal_iud.received_stock, 0)        AS hormonal_iud_received_stock,
+	COALESCE(hormonal_iud.sold_stock, 0)            AS hormonal_iud_sold_stock,
+	COALESCE(hormonal_iud.losses, 0)                AS hormonal_iud_losses,
+	COALESCE(hormonal_iud.balance_positive, 0)      AS hormonal_iud_balance_positive,
+	COALESCE(hormonal_iud.balance_negative, 0)      AS hormonal_iud_balance_negative,
+	COALESCE(hormonal_iud.ending_stock, 0)          AS hormonal_iud_ending_stock,
+	COALESCE(hormonal_iud_new, 0)                   AS hormonal_iud_new,
+	COALESCE(hormonal_iud_returning, 0)             AS hormonal_iud_returning,
+
+	COALESCE(emergency_pills.opening_stock, 0)      AS emergency_pills_opening_stock,
+	COALESCE(emergency_pills.received_stock, 0)     AS emergency_pills_received_stock,
+	COALESCE(emergency_pills.sold_stock, 0)         AS emergency_pills_sold_stock,
+	COALESCE(emergency_pills.losses, 0)             AS emergency_pills_losses,
+	COALESCE(emergency_pills.balance_positive, 0)   AS emergency_pills_balance_positive,
+	COALESCE(emergency_pills.balance_negative, 0)   AS emergency_pills_balance_negative,
+	COALESCE(emergency_pills.ending_stock, 0)       AS emergency_pills_ending_stock,
+	COALESCE(emergency_pills_new, 0)                AS emergency_pills_new,
+	COALESCE(emergency_pills_returning, 0)          AS emergency_pills_returning,
+
+	COALESCE(male_condoms.opening_stock, 0)         AS male_condoms_opening_stock,
+	COALESCE(male_condoms.received_stock, 0)        AS male_condoms_received_stock,
+	COALESCE(male_condoms.sold_stock, 0)            AS male_condoms_sold_stock,
+	COALESCE(male_condoms.losses, 0)                AS male_condoms_losses,
+	COALESCE(male_condoms.balance_positive, 0)      AS male_condoms_balance_positive,
+	COALESCE(male_condoms.balance_negative, 0)      AS male_condoms_balance_negative,
+	COALESCE(male_condoms.ending_stock, 0)          AS male_condoms_ending_stock,
+	COALESCE(male_condoms_new, 0)                   AS male_condoms_new,
+	COALESCE(male_condoms_returning, 0)             AS male_condoms_returning,
+
+	COALESCE(female_condoms.opening_stock, 0)       AS female_condoms_opening_stock,
+	COALESCE(female_condoms.received_stock, 0)      AS female_condoms_received_stock,
+	COALESCE(female_condoms.sold_stock, 0)          AS female_condoms_sold_stock,
+	COALESCE(female_condoms.losses, 0)              AS female_condoms_losses,
+	COALESCE(female_condoms.balance_positive, 0)    AS female_condoms_balance_positive,
+	COALESCE(female_condoms.balance_negative, 0)    AS female_condoms_balance_negative,
+	COALESCE(female_condoms.ending_stock, 0)        AS female_condoms_ending_stock,
+	COALESCE(female_condoms_new, 0)                 AS female_condoms_new,
+	COALESCE(female_condoms_returning, 0)           AS female_condoms_returning,
+
+	COALESCE(cycle_beads.opening_stock, 0)          AS cycle_beads_opening_stock,
+	COALESCE(cycle_beads.received_stock, 0)         AS cycle_beads_received_stock,
+	COALESCE(cycle_beads.sold_stock, 0)             AS cycle_beads_sold_stock,
+	COALESCE(cycle_beads.losses, 0)                 AS cycle_beads_losses,
+	COALESCE(cycle_beads.balance_positive, 0)       AS cycle_beads_balance_positive,
+	COALESCE(cycle_beads.balance_negative, 0)       AS cycle_beads_balance_negative,
+	COALESCE(cycle_beads.ending_stock, 0)           AS cycle_beads_ending_stock,
+	COALESCE(cycle_beads_new, 0)                    AS cycle_beads_new,
+	COALESCE(cycle_beads_returning, 0)              AS cycle_beads_returning
+FROM
+	ad_client cl
+		LEFT JOIN (
+		SELECT * FROM product_inventory_data WHERE bh_value = '01 - Combined Oral Contraceptive Pills'
+	) oral_pills_counts
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '02 - Progestin Only Pills'
+	) progestine
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '03 - DMPA-IM'
+	) dmpa_im
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '04 - DMPA-SC'
+	) dmpa_sc
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '05 - Implants (1-Rod) - ENG'
+	) implant_1rod_eng
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '07 - Implant (2-Rod) - LNG 75mg (5 years)'
+	) implant_2rod_lng
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '08 - Non-Hormonal IUD'
+	) non_hormonal_iud
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '09 - Hormonal IUD'
+	) hormonal_iud
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '10 - Emergency Contraceptive Pills'
+	) emergency_pills
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '11 - Male Condoms'
+	) male_condoms
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '12 - Female Condoms'
+	) female_condoms
+		ON TRUE
+		LEFT JOIN (
+		SELECT *
+		FROM
+			product_inventory_data
+		WHERE
+			bh_value = '13 - Cycle Beads'
+	) cycle_beads
+		ON TRUE
+		LEFT JOIN visit_types
+		ON TRUE
+		CROSS JOIN ad_user u
+		JOIN (
+		SELECT *
+		FROM
+			ad_orginfo
+		WHERE
+			ad_client_id = $P{AD_CLIENT_ID}
+		LIMIT 1
+	) oi
+		ON cl.ad_client_id = oi.ad_client_id
+		LEFT JOIN (
+		SELECT *
+		FROM
+			c_location
+		WHERE
+			ad_client_id = $P{AD_CLIENT_ID}
+		LIMIT 1
+	) l
+		ON oi.c_location_id = l.c_location_id
+WHERE
+	cl.ad_client_id = $P{AD_CLIENT_ID}
+	AND u.ad_user_id = $P{AD_USER_ID}]]>
 	</queryString>
-	<field name="combined_oral_contraceptives_begin" class="java.lang.Integer"/>
+	<field name="facility_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="facility_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="facility_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_client"/>
+	</field>
+	<field name="county" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="county"/>
+		<property name="com.jaspersoft.studio.field.label" value="county"/>
+	</field>
+	<field name="sub_county" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sub_county"/>
+		<property name="com.jaspersoft.studio.field.label" value="sub_county"/>
+	</field>
+	<field name="compiled_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="compiled_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="compiled_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
+	<field name="oral_pills_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="oral_pills_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="oral_pills_opening_stock"/>
+	</field>
+	<field name="oral_pills_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="oral_pills_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="oral_pills_received_stock"/>
+	</field>
+	<field name="oral_pills_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="oral_pills_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="oral_pills_sold_stock"/>
+	</field>
+	<field name="oral_pills_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="oral_pills_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="oral_pills_losses"/>
+	</field>
+	<field name="oral_pills_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="oral_pills_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="oral_pills_balance_positive"/>
+	</field>
+	<field name="oral_pills_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="oral_pills_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="oral_pills_balance_negative"/>
+	</field>
+	<field name="oral_pills_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="oral_pills_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="oral_pills_ending_stock"/>
+	</field>
+	<field name="oral_pills_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="oral_pills_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="oral_pills_new"/>
+	</field>
+	<field name="oral_pills_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="oral_pills_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="oral_pills_returning"/>
+	</field>
+	<field name="progestine_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="progestine_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="progestine_opening_stock"/>
+	</field>
+	<field name="progestine_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="progestine_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="progestine_received_stock"/>
+	</field>
+	<field name="progestine_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="progestine_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="progestine_sold_stock"/>
+	</field>
+	<field name="progestine_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="progestine_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="progestine_losses"/>
+	</field>
+	<field name="progestine_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="progestine_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="progestine_balance_positive"/>
+	</field>
+	<field name="progestine_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="progestine_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="progestine_balance_negative"/>
+	</field>
+	<field name="progestine_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="progestine_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="progestine_ending_stock"/>
+	</field>
+	<field name="progestine_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="progestine_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="progestine_new"/>
+	</field>
+	<field name="progestine_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="progestine_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="progestine_returning"/>
+	</field>
+	<field name="dmpa_im_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_im_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_im_opening_stock"/>
+	</field>
+	<field name="dmpa_im_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_im_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_im_received_stock"/>
+	</field>
+	<field name="dmpa_im_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_im_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_im_sold_stock"/>
+	</field>
+	<field name="dmpa_im_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_im_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_im_losses"/>
+	</field>
+	<field name="dmpa_im_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_im_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_im_balance_positive"/>
+	</field>
+	<field name="dmpa_im_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_im_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_im_balance_negative"/>
+	</field>
+	<field name="dmpa_im_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_im_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_im_ending_stock"/>
+	</field>
+	<field name="dmpa_im_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_im_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_im_new"/>
+	</field>
+	<field name="dmpa_im_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_im_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_im_returning"/>
+	</field>
+	<field name="dmpa_sc_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_sc_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_sc_opening_stock"/>
+	</field>
+	<field name="dmpa_sc_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_sc_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_sc_received_stock"/>
+	</field>
+	<field name="dmpa_sc_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_sc_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_sc_sold_stock"/>
+	</field>
+	<field name="dmpa_sc_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_sc_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_sc_losses"/>
+	</field>
+	<field name="dmpa_sc_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_sc_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_sc_balance_positive"/>
+	</field>
+	<field name="dmpa_sc_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_sc_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_sc_balance_negative"/>
+	</field>
+	<field name="dmpa_sc_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_sc_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_sc_ending_stock"/>
+	</field>
+	<field name="dmpa_sc_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_sc_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_sc_new"/>
+	</field>
+	<field name="dmpa_sc_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="dmpa_sc_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="dmpa_sc_returning"/>
+	</field>
+	<field name="implant_1rod_eng_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_1rod_eng_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_1rod_eng_opening_stock"/>
+	</field>
+	<field name="implant_1rod_eng_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_1rod_eng_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_1rod_eng_received_stock"/>
+	</field>
+	<field name="implant_1rod_eng_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_1rod_eng_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_1rod_eng_sold_stock"/>
+	</field>
+	<field name="implant_1rod_eng_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_1rod_eng_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_1rod_eng_losses"/>
+	</field>
+	<field name="implant_1rod_eng_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_1rod_eng_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_1rod_eng_balance_positive"/>
+	</field>
+	<field name="implant_1rod_eng_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_1rod_eng_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_1rod_eng_balance_negative"/>
+	</field>
+	<field name="implant_1rod_eng_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_1rod_eng_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_1rod_eng_ending_stock"/>
+	</field>
+	<field name="implant_1rod_eng_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="implant_1rod_eng_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_1rod_eng_new"/>
+	</field>
+	<field name="implant_1rod_eng_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="implant_1rod_eng_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_1rod_eng_returning"/>
+	</field>
+	<field name="implant_2rod_lng_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_2rod_lng_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_2rod_lng_opening_stock"/>
+	</field>
+	<field name="implant_2rod_lng_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_2rod_lng_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_2rod_lng_received_stock"/>
+	</field>
+	<field name="implant_2rod_lng_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_2rod_lng_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_2rod_lng_sold_stock"/>
+	</field>
+	<field name="implant_2rod_lng_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_2rod_lng_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_2rod_lng_losses"/>
+	</field>
+	<field name="implant_2rod_lng_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_2rod_lng_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_2rod_lng_balance_positive"/>
+	</field>
+	<field name="implant_2rod_lng_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_2rod_lng_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_2rod_lng_balance_negative"/>
+	</field>
+	<field name="implant_2rod_lng_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="implant_2rod_lng_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_2rod_lng_ending_stock"/>
+	</field>
+	<field name="implant_2rod_lng_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="implant_2rod_lng_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_2rod_lng_new"/>
+	</field>
+	<field name="implant_2rod_lng_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="implant_2rod_lng_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="implant_2rod_lng_returning"/>
+	</field>
+	<field name="non_hormonal_iud_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="non_hormonal_iud_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_hormonal_iud_opening_stock"/>
+	</field>
+	<field name="non_hormonal_iud_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="non_hormonal_iud_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_hormonal_iud_received_stock"/>
+	</field>
+	<field name="non_hormonal_iud_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="non_hormonal_iud_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_hormonal_iud_sold_stock"/>
+	</field>
+	<field name="non_hormonal_iud_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="non_hormonal_iud_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_hormonal_iud_losses"/>
+	</field>
+	<field name="non_hormonal_iud_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="non_hormonal_iud_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_hormonal_iud_balance_positive"/>
+	</field>
+	<field name="non_hormonal_iud_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="non_hormonal_iud_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_hormonal_iud_balance_negative"/>
+	</field>
+	<field name="non_hormonal_iud_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="non_hormonal_iud_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_hormonal_iud_ending_stock"/>
+	</field>
+	<field name="non_hormonal_iud_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="non_hormonal_iud_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_hormonal_iud_new"/>
+	</field>
+	<field name="non_hormonal_iud_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="non_hormonal_iud_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_hormonal_iud_returning"/>
+	</field>
+	<field name="hormonal_iud_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="hormonal_iud_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="hormonal_iud_opening_stock"/>
+	</field>
+	<field name="hormonal_iud_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="hormonal_iud_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="hormonal_iud_received_stock"/>
+	</field>
+	<field name="hormonal_iud_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="hormonal_iud_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="hormonal_iud_sold_stock"/>
+	</field>
+	<field name="hormonal_iud_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="hormonal_iud_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="hormonal_iud_losses"/>
+	</field>
+	<field name="hormonal_iud_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="hormonal_iud_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="hormonal_iud_balance_positive"/>
+	</field>
+	<field name="hormonal_iud_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="hormonal_iud_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="hormonal_iud_balance_negative"/>
+	</field>
+	<field name="hormonal_iud_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="hormonal_iud_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="hormonal_iud_ending_stock"/>
+	</field>
+	<field name="hormonal_iud_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hormonal_iud_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="hormonal_iud_new"/>
+	</field>
+	<field name="hormonal_iud_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hormonal_iud_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="hormonal_iud_returning"/>
+	</field>
+	<field name="emergency_pills_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="emergency_pills_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="emergency_pills_opening_stock"/>
+	</field>
+	<field name="emergency_pills_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="emergency_pills_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="emergency_pills_received_stock"/>
+	</field>
+	<field name="emergency_pills_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="emergency_pills_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="emergency_pills_sold_stock"/>
+	</field>
+	<field name="emergency_pills_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="emergency_pills_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="emergency_pills_losses"/>
+	</field>
+	<field name="emergency_pills_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="emergency_pills_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="emergency_pills_balance_positive"/>
+	</field>
+	<field name="emergency_pills_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="emergency_pills_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="emergency_pills_balance_negative"/>
+	</field>
+	<field name="emergency_pills_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="emergency_pills_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="emergency_pills_ending_stock"/>
+	</field>
+	<field name="emergency_pills_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="emergency_pills_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="emergency_pills_new"/>
+	</field>
+	<field name="emergency_pills_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="emergency_pills_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="emergency_pills_returning"/>
+	</field>
+	<field name="male_condoms_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="male_condoms_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="male_condoms_opening_stock"/>
+	</field>
+	<field name="male_condoms_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="male_condoms_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="male_condoms_received_stock"/>
+	</field>
+	<field name="male_condoms_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="male_condoms_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="male_condoms_sold_stock"/>
+	</field>
+	<field name="male_condoms_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="male_condoms_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="male_condoms_losses"/>
+	</field>
+	<field name="male_condoms_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="male_condoms_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="male_condoms_balance_positive"/>
+	</field>
+	<field name="male_condoms_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="male_condoms_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="male_condoms_balance_negative"/>
+	</field>
+	<field name="male_condoms_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="male_condoms_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="male_condoms_ending_stock"/>
+	</field>
+	<field name="male_condoms_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="male_condoms_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="male_condoms_new"/>
+	</field>
+	<field name="male_condoms_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="male_condoms_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="male_condoms_returning"/>
+	</field>
+	<field name="female_condoms_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="female_condoms_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="female_condoms_opening_stock"/>
+	</field>
+	<field name="female_condoms_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="female_condoms_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="female_condoms_received_stock"/>
+	</field>
+	<field name="female_condoms_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="female_condoms_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="female_condoms_sold_stock"/>
+	</field>
+	<field name="female_condoms_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="female_condoms_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="female_condoms_losses"/>
+	</field>
+	<field name="female_condoms_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="female_condoms_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="female_condoms_balance_positive"/>
+	</field>
+	<field name="female_condoms_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="female_condoms_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="female_condoms_balance_negative"/>
+	</field>
+	<field name="female_condoms_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="female_condoms_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="female_condoms_ending_stock"/>
+	</field>
+	<field name="female_condoms_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="female_condoms_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="female_condoms_new"/>
+	</field>
+	<field name="female_condoms_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="female_condoms_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="female_condoms_returning"/>
+	</field>
+	<field name="cycle_beads_opening_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cycle_beads_opening_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="cycle_beads_opening_stock"/>
+	</field>
+	<field name="cycle_beads_received_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cycle_beads_received_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="cycle_beads_received_stock"/>
+	</field>
+	<field name="cycle_beads_sold_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cycle_beads_sold_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="cycle_beads_sold_stock"/>
+	</field>
+	<field name="cycle_beads_losses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cycle_beads_losses"/>
+		<property name="com.jaspersoft.studio.field.label" value="cycle_beads_losses"/>
+	</field>
+	<field name="cycle_beads_balance_positive" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cycle_beads_balance_positive"/>
+		<property name="com.jaspersoft.studio.field.label" value="cycle_beads_balance_positive"/>
+	</field>
+	<field name="cycle_beads_balance_negative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cycle_beads_balance_negative"/>
+		<property name="com.jaspersoft.studio.field.label" value="cycle_beads_balance_negative"/>
+	</field>
+	<field name="cycle_beads_ending_stock" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cycle_beads_ending_stock"/>
+		<property name="com.jaspersoft.studio.field.label" value="cycle_beads_ending_stock"/>
+	</field>
+	<field name="cycle_beads_new" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="cycle_beads_new"/>
+		<property name="com.jaspersoft.studio.field.label" value="cycle_beads_new"/>
+	</field>
+	<field name="cycle_beads_returning" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="cycle_beads_returning"/>
+		<property name="com.jaspersoft.studio.field.label" value="cycle_beads_returning"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
