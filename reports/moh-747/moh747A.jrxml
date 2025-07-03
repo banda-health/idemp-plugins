@@ -16,8 +16,9 @@
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<queryString language="SQL">
-		<![CDATA[select 1;]]>
+		<![CDATA[select * from get_inventory_changes_by_concept_extra($P{AD_CLIENT_ID}::numeric, $P{Begin Date}::timestamp, $P{End Date}::timestamp) AS combined_oral_contraceptives_begin]]>
 	</queryString>
+	<field name="combined_oral_contraceptives_begin" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -2294,7 +2295,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Positive(F)]]></text>
+				<text><![CDATA[Positive(E)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="416" y="30" width="44" height="27" uuid="89d14e48-73fc-4a4b-a6e5-9dcee4665c06">
@@ -2307,7 +2308,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Negative(G)]]></text>
+				<text><![CDATA[Negative(F)]]></text>
 			</staticText>
 		</band>
 		<band height="384">
