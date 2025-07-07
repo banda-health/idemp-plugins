@@ -4,7 +4,6 @@ import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.process.InitialClientSetup;
 import org.bandahealth.idempiere.base.model.MBandaSetup;
 import org.bandahealth.idempiere.base.model.MClient_BH;
-import org.bandahealth.idempiere.base.model.MRole_BH;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
@@ -18,7 +17,6 @@ import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
-import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.model.SystemIDs;
 import org.compiere.process.ImportAccount;
@@ -124,8 +122,6 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		}
 		addAutomatedParameters();
 		super.prepare();
-
-
 	}
 
 	/**
@@ -480,10 +476,12 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_USER_NAME, prefix + "Admin", null, null, null));
 		addParameter(new ProcessInfoParameter(PARAMETERNAME_NORMAL_USER_NAME, prefix + "User", null, null, null));
 		addParameter(
-				new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL, "admin@" + prefix.toLowerCase() + ".org", null, null,
+				new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL,
+						"admin@" + prefix.toLowerCase().replaceAll("[^A-Za-z0-9\\s]", "") + ".org", null, null,
 						null));
 		addParameter(
-				new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL, "user@" + prefix.toLowerCase() + ".org", null, null, null));
+				new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL,
+						"user@" + prefix.toLowerCase().replaceAll("[^A-Za-z0-9\\s]", "") + ".org", null, null, null));
 	}
 
 	private void addParameter(ProcessInfoParameter parameter) {
