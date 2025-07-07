@@ -118,6 +118,8 @@ test('report names are correct', async () => {
 	expect(clinicalReports![4].AD_Process?.UU).toBe(processUuid.moh706LaboratoryTestSummary);
 	expect(clinicalReports![5].Name).toBe('Patients Report');
 	expect(clinicalReports![5].AD_Process?.UU).toBe(processUuid.patients);
+	expect(clinicalReports![6].Name).toBe('MoH747A Facility Contraceptives Consumption Data Report');
+	expect(clinicalReports![6].AD_Process?.UU).toBe(processUuid.moh747FamilyPlanning);
 
 	const inventoryReports = sortBy(reportMenuList[2].ChildrenTree_NodeMMList || [], 'SeqNo').flatMap((node) =>
 		node.Node ? [node.Node] : [],
@@ -139,8 +141,6 @@ test('report names are correct', async () => {
 	expect(inventoryReports![6].AD_Process?.UU).toBe(processUuid.expiredProductsList);
 	expect(inventoryReports![7].Name).toBe('Stock Transfers');
 	expect(inventoryReports![7].AD_Process?.UU).toBe(processUuid.stockTransfers);
-	expect(inventoryReports![8].Name).toBe('MoH747A Facility Contraceptives Consumption Data Report');
-	expect(inventoryReports![8].AD_Process?.UU).toBe(processUuid.moh747FamilyPlanning);
 
 	expect(reportMenuList.find((menu) => menu.Name === 'Patient Visits and Referrals')).toBeUndefined();
 });

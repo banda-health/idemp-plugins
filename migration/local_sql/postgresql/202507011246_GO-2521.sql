@@ -4,7 +4,7 @@ INSERT INTO ad_process (ad_process_id, ad_client_id, ad_org_id, isactive, create
                         workflowvalue, ad_workflow_id, isbetafunctionality, isserverprocess, showhelp, jasperreport,
                         ad_form_id, copyfromprocess, ad_process_uu, ad_ctxhelp_id, executiontype,
                         allowmultipleexecution, filenamepattern)
-VALUES ((select max(ad_client_id) + 1 from ad_process), 0, 0, 'Y', '2025-07-01 12:28:53.022000', 100,
+VALUES ((select max(ad_process_id) + 1 from ad_process), 0, 0, 'Y', '2025-07-01 12:28:53.022000', 100,
         '2025-07-01 12:28:53.022000', 100, '10000000',
         'MoH747A Facility Contraceptives Consumption Data Report', 'MoH Report for contraceptives consumption', null,
         '3', 'U', null, 'Y', 'N', null, null, 0, 0, null, null, null, 'N', null, 'Y', 'moh-747/moh747A.jasper', null,
