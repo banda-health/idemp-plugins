@@ -9,8 +9,8 @@ INSERT INTO ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, cre
                      allow_info_schedule, userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice,
                      isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu, ismenuautoexpand,
                      ismasterrole, isaccessadvanced, roletype, isclientadministrator, predefinedcontextvariables)
-VALUES ((SELECT MAX(ad_role_id)+1 FROM ad_role), 0, 0, 'Y', '2025-07-02 12:15:59.872000', 100, '2025-07-02 12:15:59.872000', 'OTC only', 100,
-        'OTC only role', 'S  ', null, 0, null, 'Y', 'N', 'N', 'N', 'Y', 'Y', null, 'N', 'N', 'N', 'O', 'N', 'N', null,
+VALUES ((SELECT MAX(ad_role_id)+1 FROM ad_role), 0, 0, 'Y', '2025-07-02 12:15:59.872000', 100, '2025-07-02 12:15:59.872000', 'OTC Only', 100,
+        'OTC Only role', 'S  ', null, 0, null, 'Y', 'N', 'N', 'N', 'Y', 'Y', null, 'N', 'N', 'N', 'O', 'N', 'N', null,
         0, 0, null, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', null, 'N', 'N', 'N', 'N', 0, 0,
         'b986f846-09bc-461e-956a-e524fd75aa8a', 'N', 'Y', 'Y', null, 'N', null);  
         
@@ -70,5 +70,5 @@ SELECT
 	add_roles_to_clients('b986f846-09bc-461e-956a-e524fd75aa8a', 'O');        
 
 SELECT 
-	register_migration_script('202508021146_GO-3343.sql')
+	register_migration_script('202507021146_GO-3343.sql')
 FROM dual;
