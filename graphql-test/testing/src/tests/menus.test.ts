@@ -66,6 +66,12 @@ test('correct menu names are returned', async () => {
 	expect(menu).toBeDefined();
 	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
 	expect(menu?.SeqNo).toBe(6);
+	menu = inventoryMenu?.Node?.ChildrenTree_NodeMMList?.find(
+		(menu) => menu.Node?.Name === 'Product & Service Catalogue - BETA',
+	);
+	expect(menu).toBeDefined();
+	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
+	expect(menu?.SeqNo).toBe(7);
 
 	const accountingMenu = menus.find((menu) => menu.Node?.Name === 'Accounting');
 	expect(accountingMenu).not.toBeUndefined();
@@ -122,4 +128,10 @@ test('correct menu names are returned', async () => {
 	expect(menu).not.toBeUndefined();
 	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
 	expect(menu?.SeqNo).toBe(6);
+	menu = inventoryMenu?.Node?.ChildrenTree_NodeMMList?.find(
+		(menu) => menu.Node?.Name === 'Product & Service Catalogue - BETA',
+	);
+	expect(menu).toBeDefined();
+	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
+	expect(menu?.SeqNo).toBe(7);
 });
