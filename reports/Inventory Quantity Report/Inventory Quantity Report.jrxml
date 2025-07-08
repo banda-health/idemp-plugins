@@ -186,6 +186,9 @@ ORDER BY
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
 						</datasetParameter>
+						<datasetParameter name="M_Warehouse_UU">
+							<datasetParameterExpression><![CDATA[$P{M_Warehouse_UU}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="360" uuid="b58cb061-182d-4902-848e-c1f76933c76c">
