@@ -532,13 +532,13 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 					is(2D));
 			assertThat("Balanced stock for this product is correct", productRow.get().getCell(4).getNumericCellValue(),
 					is(0D));
-			assertThat("Balanced stock for this product is correct", productRow.get().getCell(5).getNumericCellValue(),
+			assertThat("Closing stock for this product is correct", productRow.get().getCell(5).getNumericCellValue(),
 					is(8D));
 		}
 	}
 
 	@IPopulateAnnotation.CanRun
-	public void canFilterByWarehouse() throws SQLException, IOException{
+	public void canFilterByWarehouse() throws SQLException, IOException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
@@ -590,9 +590,7 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Change warehouse");
-		valueObject.setWarehouse(null);
 		ChuBoeCreateEntity.createWarehouse(valueObject);
-		var warehouseToCheck = valueObject.getWarehouse();
 		commitEx();
 
 		valueObject.setStepName("Adjust inventory 2");
@@ -608,8 +606,8 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
 				new ProcessInfoParameter("Begin Date", TimestampUtils.lastMonth(), null, null, null),
-				new ProcessInfoParameter("End Date", new Timestamp(System.currentTimeMillis()), null, null, null),
-				new ProcessInfoParameter("Storeroom", warehouseToCheck.getM_Warehouse_UU(), null, null, null  )
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null),
+				new ProcessInfoParameter("M_Warehouse_UU", valueObject.getWarehouse().getM_Warehouse_UU(), null, null, null)
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -623,17 +621,15 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 					.findFirst();
 			assertTrue(productRow.isPresent(), "Report contains product");
 			assertThat("Opening stock for this product is correct", productRow.get().getCell(1).getNumericCellValue(),
-					is(0.0D));
+					is(0D));
 			assertThat("Received stock for this product is correct", productRow.get().getCell(2).getNumericCellValue(),
-					is(40.0D));
+					is(0D));
 			assertThat("Sold stock for this product is correct", productRow.get().getCell(3).getNumericCellValue(),
-					is(0.0D));
+					is(0D));
 			assertThat("Balanced stock for this product is correct", productRow.get().getCell(4).getNumericCellValue(),
-					is(110.0D));
-			assertThat("Balanced stock for this product is correct", productRow.get().getCell(5).getNumericCellValue(),
-					is(30.0D));
+					is(150D));
+			assertThat("Closing stock for this product is correct", productRow.get().getCell(5).getNumericCellValue(),
+					is(150D));
 		}
-
 	}
-
 }

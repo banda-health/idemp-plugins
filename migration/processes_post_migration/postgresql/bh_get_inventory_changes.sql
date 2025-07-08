@@ -16,7 +16,8 @@ CREATE FUNCTION bh_get_inventory_changes(_ad_client_id numeric,
 		        ending_stock              numeric,
 		        received_stock            numeric,
 		        sold_stock                numeric,
-		        balanced_stock            numeric
+		        balanced_stock            numeric,
+		        m_locator_id              numeric
 	        )
 	LANGUAGE sql
 	STABLE
@@ -44,7 +45,8 @@ SELECT
 	p.endingstock                                  AS ending_stock,
 	p.receivedstock                                AS received_stock,
 	p.soldstock                                    AS sold_stock,
-	p.balancestock                                 AS balanced_stock
+	p.balancestock                                 AS balanced_stock,
+	m_locator_id
 FROM
 	(
 		SELECT
@@ -57,28 +59,29 @@ FROM
 			PurchaseDate,
 			PurchasePrice,
 			COALESCE(SUM((STRING_TO_ARRAY(sell_information, ',', 'null'))[1]::numeric), 0) AS soldstock,
-			(STRING_TO_ARRAY(sell_information, ',', 'null'))[2]::numeric                   AS sell_price
+			(STRING_TO_ARRAY(sell_information, ',', 'null'))[2]::numeric                   AS sell_price,
+			m_locator_id
 		FROM
 			(
 				SELECT
 					p.m_product_id,
 					pc.m_attributesetinstance_id,
 					COALESCE(SUM(t.movementqty) FILTER ( WHERE t.movementdate::date + t.updated::time < _start_date ),
-					         0)                                                                                          AS openingstock,
+					         0)                                                  AS openingstock,
 					COALESCE(SUM(t.movementqty) FILTER ( WHERE t.movementdate::date + t.updated::time <= _end_date ),
-					         0)                                                                                          AS endingstock,
+					         0)                                                  AS endingstock,
 					COALESCE(
 							SUM(t.movementqty)
 							FILTER ( WHERE t.movementdate::date + t.updated::time BETWEEN _start_date AND _end_date AND
 							               t.movementtype IN ('V+', 'V-') ),
-							0)                                                                                               AS receivedstock,
+							0)                                                       AS receivedstock,
 					COALESCE(
 							SUM(t.movementqty)
 							FILTER ( WHERE t.movementdate::date + t.updated::time BETWEEN _start_date AND _end_date AND
 							               t.movementtype IN ('I+', 'I-') ),
-							0)                                                                                               AS balancestock,
-					pc.purchase_price                                                                                    AS PurchasePrice,
-					pc.purchase_date                                                                                     AS PurchaseDate,
+							0)                                                       AS balancestock,
+					pc.purchase_price                                            AS PurchasePrice,
+					pc.purchase_date                                             AS PurchaseDate,
 					UNNEST(CASE
 						       WHEN ARRAY_AGG(t.movementqty * -1 || ',' || COALESCE(ol.priceactual, 0))
 						            FILTER ( WHERE t.movementdate::date + t.updated::time BETWEEN _start_date AND _end_date AND
@@ -86,7 +89,8 @@ FROM
 						       ELSE ARRAY_AGG(t.movementqty * -1 || ',' || COALESCE(ol.priceactual, 0))
 						            FILTER ( WHERE t.movementdate::date + t.updated::time BETWEEN _start_date AND _end_date AND
 						                           t.movementtype IN ('C+',
-						                                              'C-') ) END)                                         AS sell_information
+						                                              'C-') ) END) AS sell_information,
+					t.m_locator_id
 				FROM
 					m_product p
 						LEFT JOIN product_costs pc
@@ -100,11 +104,11 @@ FROM
 				WHERE
 					p.ad_client_id = _ad_client_id
 				GROUP BY
-					p.m_product_id, pc.m_attributesetinstance_id, pc.purchase_price, pc.purchase_date
+					p.m_product_id, pc.m_attributesetinstance_id, pc.purchase_price, pc.purchase_date, t.m_locator_id
 			) AS p
 		GROUP BY
 			m_product_id, m_attributesetinstance_id, openingstock, endingstock, receivedstock, balancestock, PurchaseDate,
-			PurchasePrice, (STRING_TO_ARRAY(sell_information, ',', 'null'))[2]::numeric
+			PurchasePrice, (STRING_TO_ARRAY(sell_information, ',', 'null'))[2]::numeric, m_locator_id
 	) AS p
 WHERE
 	endingstock > 0
