@@ -55,65 +55,65 @@
 		<parameter name="Begin Date" class="java.sql.Timestamp"/>
 		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
-			<![CDATA[WITH table_column_names AS (
-						SELECT 
-							MAX(CASE WHEN t.tablename = 'BH_Visit' THEN t.ad_table_id END)           AS table_bh_visit_id,
-                            MAX(CASE WHEN t.tablename = 'C_Payment' THEN t.ad_table_id END)          AS table_c_payment_id,
-                            MAX(CASE WHEN c.columnname = 'BH_VisitDate' THEN c.ad_column_id END)     AS column_bh_visitdate_id,
-                            MAX(CASE
-                                   WHEN c.columnname = 'BH_Visit_ID' AND
-                                        t.ad_table_uu = 'd2c9b934-ef14-483f-ac29-6a68611b0552'
-                                       THEN c.ad_column_id END)                                      AS column_visit_bh_visit_id,
-                            MAX(CASE
-                                   WHEN c.columnname = 'BH_Visit_ID' AND
-                                        t.ad_table_uu = 'f140f2e8-89de-4896-8019-416b9a45c7d6'
-                                       THEN c.ad_column_id END)                                      AS column_payment_bh_visit_id,
-                            MAX(CASE WHEN c.columnname = 'Patient_ID' THEN c.ad_column_id END)       AS column_patient_id,
-
-                            MAX(CASE WHEN c.columnname = 'BH_tender_amount' THEN c.ad_column_id END) AS column_bh_tender_amount_id,
-                            $P{AD_CLIENT_ID}                                                         AS ad_client_id
-                            FROM ad_table t
-                                     JOIN ad_column c ON t.ad_table_id = c.ad_table_id AND c.columnname IN
-                                                                                           ('BH_VisitDate',
-                                                                                            'Patient_ID', 'BH_Visit_ID',
-                                                                                            'BH_tender_amount')
-                            WHERE t.ad_table_uu IN
-                                  ('d2c9b934-ef14-483f-ac29-6a68611b0552', 'f140f2e8-89de-4896-8019-416b9a45c7d6')),
-					     params AS (SELECT * FROM table_column_names)
-					SELECT u.name         									AS deleted_by,
-					       bp.name        									AS patient_name,
-					       cl_v.oldvalue  									AS visit_date,
-					       coalesce(cl_pt.oldvalue, '0') 						AS bill_amount,
-					       coalesce(bp.bh_phone, '')    					AS phone
-					FROM ad_user u
-					         JOIN ad_changelog cl on cl.createdby = u.ad_user_id
-					         JOIN params p ON cl.ad_client_id = p.ad_client_id
-					         JOIN ad_changelog cl_v
-					              on cl.record_id = cl_v.record_id and
-					                 cl_v.ad_table_id = p.table_bh_visit_id and
-					                 cl_v.ad_column_id = p.column_bh_visitdate_id and
-					                 cl_v.newvalue = 'NULL'
-					         JOIN ad_changelog cl_bp
-					              on cl.record_id = cl_bp.record_id and
-					                 cl_bp.ad_table_id = p.table_bh_visit_id and
-					                 cl_bp.ad_column_id = p.column_patient_id and
-					                 cl_bp.newvalue = 'NULL'
-					         JOIN c_bpartner bp on cl_bp.oldvalue::numeric = bp.c_bpartner_id
-					         LEFT JOIN ad_changelog cl_p
-					                   on cl_p.ad_table_id = p.table_c_payment_id and
-					                      cl_p.ad_column_id = p.column_payment_bh_visit_id and
-					                      cl_p.oldvalue = cl.oldvalue and
-					                      cl_p.newvalue = 'NULL'
-					         LEFT JOIN ad_changelog cl_pt
-					                   on cl_p.record_id = cl_pt.record_id and
-					                      cl_pt.ad_table_id = p.table_c_payment_id and
-					                      cl_pt.ad_column_id = p.column_bh_tender_amount_id and
-					                      cl_pt.newvalue = 'NULL'
-					
-					WHERE cl.ad_table_id = p.table_bh_visit_id
-					  AND cl.ad_column_id = p.column_visit_bh_visit_id
-					  AND cl.newvalue = 'NULL'
-					ORDER BY cl.created desc;]]>
+			<![CDATA[WITH table_ids AS (
+SELECT ad_table_id AS visit FROM ad_table WHERE ad_table_uu = 'd2c9b934-ef14-483f-ac29-6a68611b0552'
+),
+column_ids AS (
+SELECT
+(
+SELECT ad_column_id FROM ad_column WHERE ad_column_uu = 'ef5e312d-e5c6-45b0-a074-4c70edef02ca'
+) AS visit_visit_id,
+(
+SELECT ad_column_id FROM ad_column WHERE ad_column_uu = 'ee4a2d92-b848-414a-b272-881f3df597c6'
+) AS visit_date,
+(
+SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '948a726d-0219-4051-a7e0-a04441e17cf9'
+) AS patient_id,
+(
+SELECT ad_column_id FROM ad_column WHERE ad_column_uu = 'ae09c94f-ec03-4809-9544-1aefb4075799'
+) AS payment_visit_id,
+(
+SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '995dda29-0bb0-4e54-bc40-a5689ce5d9ab'
+) AS tender_amount
+)
+SELECT
+u.name                    AS deleted_by,
+bp.name                   AS patient_name,
+cl_v.oldvalue             AS visit_date,
+cl_pt.oldvalue            AS bill_amount,
+COALESCE(bp.bh_phone, '') AS phone
+FROM
+ad_user u
+CROSS JOIN table_ids
+CROSS JOIN column_ids
+JOIN ad_changelog cl
+ON cl.createdby = u.ad_user_id AND cl.ad_client_id = $P{AD_CLIENT_ID} AND cl.ad_table_id = table_ids.visit AND
+   cl.ad_column_id = column_ids.visit_visit_id AND cl.newvalue = 'NULL' AND
+   cl.created BETWEEN $P{Begin Date} AND $P{End Date}
+JOIN ad_changelog cl_v
+ON cl.record_id = cl_v.record_id AND
+   cl_v.ad_table_id = table_ids.visit AND
+   cl_v.ad_column_id = column_ids.visit_date AND
+   cl_v.newvalue = 'NULL'
+JOIN ad_changelog cl_bp
+ON cl.record_id = cl_bp.record_id AND
+   cl_bp.ad_table_id = table_ids.visit AND
+   cl_bp.ad_column_id = column_ids.patient_id AND
+   cl_bp.newvalue = 'NULL'
+JOIN c_bpartner bp
+ON cl_bp.oldvalue::numeric = bp.c_bpartner_id
+LEFT JOIN ad_changelog cl_p
+ON cl_p.ad_table_id = 335 AND
+   cl_p.ad_column_id = column_ids.payment_visit_id AND
+   cl_p.oldvalue = cl.oldvalue AND
+   cl_p.newvalue = 'NULL'
+LEFT JOIN ad_changelog cl_pt
+ON cl_p.record_id = cl_pt.record_id AND
+   cl_pt.ad_table_id = 335 AND
+   cl_pt.ad_column_id = column_ids.tender_amount AND
+   cl_pt.newvalue = 'NULL'
+ORDER BY
+cl.created DESC;]]>
 		</queryString>
 		<field name="deleted_by" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="deleted_by"/>
