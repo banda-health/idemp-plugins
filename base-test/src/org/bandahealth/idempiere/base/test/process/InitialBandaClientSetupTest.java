@@ -86,9 +86,11 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 		// So, limit the client name to 40 characters (and replace any underscores from the scenario name with dashes)
 		String[] scenarioParts = valueObject.getScenarioName().split("_");
 		String clientName = Arrays.stream(scenarioParts).skip(1).collect(Collectors.joining("-"));
-		if (clientName.length() > 40) {
-			clientName = clientName.substring(0, 40);
+		if (clientName.length() > 38) {
+			clientName = clientName.substring(0, 38);
 		}
+		// Add an apostrophe just to make sure we can handle special characters
+		clientName += "'a";
 		valueObject.setProcessInformationParameters(List.of(
 				new ProcessInfoParameter("ClientName", clientName, null, null, null),
 				new ProcessInfoParameter("C_Currency_ID", 266, null, null, null), // KES

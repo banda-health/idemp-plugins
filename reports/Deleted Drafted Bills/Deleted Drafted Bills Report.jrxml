@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Deleted Drafted Bills report" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="Begin Date" class="java.sql.Timestamp"/>
+	<parameter name="End Date" class="java.sql.Timestamp"/>
+	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[WITH table_ids AS (
+	SELECT ad_table_id AS visit FROM ad_table WHERE ad_table_uu = 'd2c9b934-ef14-483f-ac29-6a68611b0552'
+),
+	column_ids AS (
+		SELECT
+			(
+				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = 'ef5e312d-e5c6-45b0-a074-4c70edef02ca'
+			) AS visit_visit_id,
+			(
+				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '948a726d-0219-4051-a7e0-a04441e17cf9'
+			) AS patient_id,
+			(
+				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '8d840880-1948-44d5-b160-c309c8b49716'
+			) AS order_visit_id,
+			(
+				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = 'ca406cda-d315-4db1-9cbb-6a2305bb3d29'
+			) AS grandtotal
+	)
+SELECT
+	u.name                    AS deleted_by,
+	bp.name                   AS patient_name,
+	cl.created                AS deleted_at,
+	cl_gt.oldvalue::numeric   AS bill_amount,
+	COALESCE(bp.bh_phone, '') AS phone
+FROM
+	ad_user u
+		CROSS JOIN table_ids
+		CROSS JOIN column_ids
+		JOIN ad_changelog cl
+		ON cl.createdby = u.ad_user_id AND cl.ad_client_id = $P{AD_CLIENT_ID} AND cl.ad_table_id = table_ids.visit AND
+		   cl.ad_column_id = column_ids.visit_visit_id AND cl.newvalue = 'NULL' AND
+		   cl.created BETWEEN $P{Begin Date} AND $P{End Date}
+		JOIN ad_changelog cl_bp
+		ON cl.record_id = cl_bp.record_id AND
+		   cl_bp.ad_table_id = table_ids.visit AND
+		   cl_bp.ad_column_id = column_ids.patient_id AND
+		   cl_bp.newvalue = 'NULL'
+		JOIN c_bpartner bp
+		ON cl_bp.oldvalue::numeric = bp.c_bpartner_id
+		LEFT JOIN ad_changelog cl_o
+		ON cl_o.ad_table_id = 259 AND
+		   cl_o.ad_column_id = column_ids.order_visit_id AND
+		   cl_o.oldvalue = cl.oldvalue AND
+		   cl_o.newvalue = 'NULL'
+		LEFT JOIN ad_changelog cl_gt
+		ON cl_o.record_id = cl_gt.record_id AND
+		   cl_gt.ad_table_id = 259 AND
+		   cl_gt.ad_column_id = column_ids.grandtotal AND
+		   cl_gt.newvalue = 'NULL'
+ORDER BY
+	cl.created DESC;]]>
+	</queryString>
+	<field name="deleted_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="deleted_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="deleted_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
+	<field name="patient_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patient_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="patient_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="deleted_at" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="deleted_at"/>
+		<property name="com.jaspersoft.studio.field.label" value="deleted_at"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_changelog"/>
+	</field>
+	<field name="bill_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="bill_amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="bill_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_changelog"/>
+	</field>
+	<field name="phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="phone"/>
+		<property name="com.jaspersoft.studio.field.label" value="phone"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="860" height="20" uuid="833f8d94-32f0-4b30-9c56-995682b3e0bf">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Deleted Drafted Bills Report Between " + new SimpleDateFormat("dd MMM yyyy").format($P{Begin Date}) + " and " + new SimpleDateFormat("dd MMM yyyy").format($P{End Date})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement style="table_CH" x="0" y="0" width="130" height="15" uuid="8e6f5fba-df8a-4358-afc9-a65a44c3165c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Deleted At"]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement style="table_CH" x="130" y="0" width="210" height="15" uuid="73f30d7b-6f0b-47f9-8023-2d6cfbcdb7a0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Patient Name"]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement style="table_CH" x="340" y="0" width="150" height="15" uuid="93110ed7-75b0-48c0-8844-87ca60b3c6c9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Patient Phone Number"]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement style="table_CH" x="490" y="0" width="100" height="15" uuid="fe401cfc-f936-499f-a8fd-1af3b93165fc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bill Amount"]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement style="table_CH" x="590" y="0" width="130" height="15" uuid="72d01099-c55e-4ca0-a799-8bd33caa04d3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Deleted By"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement style="table_TD" x="0" y="0" width="130" height="15" uuid="289cccf2-9d87-4ff0-bfc0-7c38a07eae29">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMM yyyy hh:mm").format($F{deleted_at})]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement style="table_TD" x="130" y="0" width="210" height="15" uuid="fc1ee5d9-7eb7-47b8-b998-3cc7493a4e4b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{patient_name}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement style="table_TD" x="340" y="0" width="150" height="15" uuid="96a50ed1-d3f1-42fd-8738-7f48266af54e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="table_TD" x="490" y="0" width="100" height="15" uuid="5396c5b8-6889-4a36-834b-444a8cd513fd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bill_amount}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement style="table_TD" x="590" y="0" width="130" height="15" uuid="3af6114f-b734-4a5b-9e02-738a85e96ff2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deleted_by}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="40">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="12" width="259" height="20" uuid="aeaff573-6358-49fa-b4a9-488f6709976d">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

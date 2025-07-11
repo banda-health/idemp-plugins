@@ -12,5 +12,6 @@ export enum RoleName {
 	InventoryPharmacyBasic = 'Inventory/Pharmacy Basic',
 	LabRadiologyAdvanced = 'Lab/Radiology Advanced',
 	LabRadiologyBasic = 'Lab/Radiology Basic',
+	OtcOnly = 'OTC Only',
 	Triage = 'Triage',
 }

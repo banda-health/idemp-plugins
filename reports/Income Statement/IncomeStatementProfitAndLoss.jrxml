@@ -56,7 +56,7 @@ FROM
 		SELECT
 			COALESCE(SUM(cost_of_goods_sold), 0) AS cogs
 		FROM
-			get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
+			bh_get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 	) cogs
 		ON 1 = 1
 WHERE

@@ -532,8 +532,104 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 					is(2D));
 			assertThat("Balanced stock for this product is correct", productRow.get().getCell(4).getNumericCellValue(),
 					is(0D));
-			assertThat("Balanced stock for this product is correct", productRow.get().getCell(5).getNumericCellValue(),
+			assertThat("Closing stock for this product is correct", productRow.get().getCell(5).getNumericCellValue(),
 					is(8D));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void canFilterByWarehouse() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product 1");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create purchase order 1");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(10));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Adjust inventory 1");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(50));
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
+		ChuBoeCreateEntity.createInventory(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(20));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product 2");
+		valueObject.clearProduct();
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setName(valueObject.getRandomNumber() + valueObject.getProduct().getName());
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create purchase order 2");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(40));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Change warehouse");
+		ChuBoeCreateEntity.createWarehouse(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Adjust inventory 2");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(150));
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
+		ChuBoeCreateEntity.createInventory(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.lastMonth(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null),
+				new ProcessInfoParameter("M_Warehouse_UU", valueObject.getWarehouse().getM_Warehouse_UU(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(0) != null &&
+									row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName().substring(0, 30)))
+					.findFirst();
+			assertTrue(productRow.isPresent(), "Report contains product");
+			assertThat("Opening stock for this product is correct", productRow.get().getCell(1).getNumericCellValue(),
+					is(0D));
+			assertThat("Received stock for this product is correct", productRow.get().getCell(2).getNumericCellValue(),
+					is(0D));
+			assertThat("Sold stock for this product is correct", productRow.get().getCell(3).getNumericCellValue(),
+					is(0D));
+			assertThat("Balanced stock for this product is correct", productRow.get().getCell(4).getNumericCellValue(),
+					is(150D));
+			assertThat("Closing stock for this product is correct", productRow.get().getCell(5).getNumericCellValue(),
+					is(150D));
 		}
 	}
 }
