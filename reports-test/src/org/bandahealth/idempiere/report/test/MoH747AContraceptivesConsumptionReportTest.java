@@ -1364,7 +1364,7 @@ public class MoH747AContraceptivesConsumptionReportTest extends ChuBoePopulateFa
 		commitEx();
 
 		valueObject.setStepName("Set beginning balance - " + conceptExtraValue);
-		valueObject.setDateOffset(-10);
+		valueObject.setDateOffset(-60);
 		valueObject.setQuantity(BigDecimal.valueOf(conceptCounts.getBeginning()));
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialMovement, null, false, false, false);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
@@ -1372,7 +1372,7 @@ public class MoH747AContraceptivesConsumptionReportTest extends ChuBoePopulateFa
 		commitEx();
 
 		valueObject.setStepName("Receive stock - " + conceptExtraValue);
-		valueObject.setDateOffset(10);
+		valueObject.setDateOffset(60);
 		valueObject.setQuantity(BigDecimal.valueOf(conceptCounts.getReceived()));
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);

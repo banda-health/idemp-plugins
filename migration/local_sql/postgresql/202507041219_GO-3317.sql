@@ -140,6 +140,6 @@ WHERE
 $$;
 
 SELECT
-	register_migration_script('202508041219_GO-3317.sql')
+	register_migration_script('202507041219_GO-3317.sql')
 FROM
 	dual;

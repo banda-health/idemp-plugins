@@ -113,6 +113,8 @@ VALUES ((SELECT MAX(ad_user_id) + 1 FROM ad_user),
         '2b9bce81-8cad-48db-96ab-0b005b7b6c0c', null, null, 'N', null, 0, null, null, 'N', 'N', null, null, 'N', null,
         null, null, null, null, null, null, null, null, 'N', null, null, 'N', 'N', null, 'N', 'N', 'N', 'N', null);
 
+SELECT update_sequences();
+
 -- Add to existing clients
 DROP TABLE IF EXISTS tmp_c_bp_group;
 
