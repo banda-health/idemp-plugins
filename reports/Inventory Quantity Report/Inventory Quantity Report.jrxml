@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="End Stock value report" pageWidth="860" pageHeight="585" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="860" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="IdempiereLocalhost"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -54,6 +54,7 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<parameter name="Begin Date" class="java.sql.Timestamp"/>
 		<parameter name="End Date" class="java.sql.Timestamp"/>
+		<parameter name="M_Warehouse_UU" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[WITH all_inventory_changes AS (
 	SELECT *
@@ -61,6 +62,18 @@
 		bh_get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 	WHERE
 		opening_stock >= 0
+		AND (COALESCE($P{M_Warehouse_UU}, '') = '' OR m_locator_id IN (
+			SELECT
+				m_locator_id
+			FROM
+				m_locator
+			WHERE
+				m_warehouse_id IN (
+					SELECT m_warehouse_id
+					FROM m_warehouse
+					WHERE m_warehouse_uu = $P{M_Warehouse_UU}
+				)
+		))
 ),
 	non_selling_inventory_changes AS (
 		SELECT DISTINCT
@@ -140,6 +153,7 @@ ORDER BY
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+	<parameter name="M_Warehouse_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select 1;]]>
 	</queryString>
@@ -183,6 +197,9 @@ ORDER BY
 						</datasetParameter>
 						<datasetParameter name="AD_CLIENT_ID">
 							<datasetParameterExpression><![CDATA[$P{AD_CLIENT_ID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="M_Warehouse_UU">
+							<datasetParameterExpression><![CDATA[$P{M_Warehouse_UU}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
