@@ -487,6 +487,7 @@ public class BandaResolverComposer {
 				new MXIFAJournalResolver(),
 				new MYearResolver(),
 				new MZoomConditionResolver(),
+				new OpenBalanceTransactionResolver(),
 				new X_A_Asset_Info_FinResolver(),
 				new X_A_Asset_Info_InsResolver(),
 				new X_A_Asset_Info_LicResolver(),

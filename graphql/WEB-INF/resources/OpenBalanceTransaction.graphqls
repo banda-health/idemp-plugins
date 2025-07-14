@@ -1,0 +1,21 @@
+extend type Query {
+	OpenBalanceTransactionGet(Page: Int, Size: Int, Sort: String, Filter: String): OpenBalanceTransactionConnection!
+}
+
+type OpenBalanceTransactionConnection {
+	Results: [OpenBalanceTransaction!]!
+	PagingInfo: PagingInfo!
+}
+
+type OpenBalanceTransaction {
+	Amount: BigDecimal!
+	BH_Visit: BH_Visit
+	C_BPartner: C_BPartner!
+	C_Invoice: C_Invoice
+	C_Payment: C_Payment
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date this record happened
+	Date: DateTime!
+	OpenBalance: BigDecimal!
+}
