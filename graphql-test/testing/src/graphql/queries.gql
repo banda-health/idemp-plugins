@@ -773,3 +773,27 @@ query M_WarehouseGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 		}
 	}
 }
+
+query OpenBalanceTransactionGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	OpenBalanceTransactionGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			Amount
+			BH_Visit {
+				UU
+			}
+			C_Invoice {
+				DocStatus {
+					Value
+				}
+				UU
+			}
+			C_Payment {
+				DocStatus {
+					Value
+				}
+				UU
+			}
+			OpenBalance
+		}
+	}
+}
