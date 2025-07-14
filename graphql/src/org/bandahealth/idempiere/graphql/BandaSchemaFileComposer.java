@@ -479,6 +479,7 @@ public class BandaSchemaFileComposer {
 //						"WEB-INF/resources/MZoomCondition.graphqls",
 //						"WEB-INF/resources/M_Element.graphqls",
 //						"WEB-INF/resources/M_Registration.graphqls",
+						"WEB-INF/resources/OpenBalanceTransaction.graphqls",
 						"WEB-INF/resources/PagingInfo.graphqls",
 						"WEB-INF/resources/ProcessInfoParameter.graphqls",
 						"WEB-INF/resources/ReportOutput.graphqls",
