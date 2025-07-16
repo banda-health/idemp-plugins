@@ -1,7 +1,7 @@
 ALTER TABLE M_Movement
     ADD COLUMN BH_Voided_Reason_ID NUMERIC(10) DEFAULT NULL;
 ALTER TABLE M_Movement
-    ADD CONSTRAINT BHVoidedReason_MMovement FOREIGN KEY (BH_Voided_Reason_ID) REFERENCES bh_voided_reason (bh_voided_reason_id) DEFERRABLE INITIALLY DEFERRED
+    ADD CONSTRAINT BHVoidedReason_MMovement FOREIGN KEY (BH_Voided_Reason_ID) REFERENCES bh_voided_reason (bh_voided_reason_id) DEFERRABLE INITIALLY DEFERRED;
 
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby,
                        updatedby, name, description, help, version, entitytype, columnname, ad_table_id,
