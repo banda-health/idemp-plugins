@@ -67,6 +67,20 @@ public interface I_M_MovementInput extends I_M_Movement {
 	ForeignEntityInput BH_To_Warehouse();
 
 	/**
+	 * Set BH_Voided_Reason.
+	 *
+	 * @param BH_Voided_Reason BH_Voided_Reason
+	 */
+	void setBH_Voided_ReasonInput(ForeignEntityInput BH_Voided_Reason);
+
+	/**
+	 * Get BH_Voided_Reason.
+	 *
+	 * @return BH_Voided_Reason
+	 */
+	ForeignEntityInput BH_Voided_Reason();
+
+	/**
 	 * Set C_Activity.
 	 *
 	 * @param C_Activity Business Activity
