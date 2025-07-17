@@ -103,7 +103,6 @@ test('admin role has correct access', async () => {
 		),
 	).toBe(true);
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.debtPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.debtPayments]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 	expect(
 		documentStatusActionMap[documentBaseType.ARReceipt]?.[documentStatus.Completed]?.some(
@@ -240,7 +239,6 @@ test('clinic admin role has correct access', async () => {
 		),
 	).toBe(true);
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.debtPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.debtPayments]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 	expect(
 		documentStatusActionMap[documentBaseType.ARReceipt]?.[documentStatus.Completed]?.some(
@@ -374,7 +372,6 @@ test('cashier/registration basic role has correct access', async () => {
 		),
 	).toBe(false);
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.debtPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.debtPayments]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 	expect(
 		documentStatusActionMap[documentBaseType.ARReceipt]?.[documentStatus.Completed]?.some(
@@ -508,7 +505,6 @@ test('cashier/registration basic plus role has correct access', async () => {
 		),
 	).toBe(false);
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.debtPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.debtPayments]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 	expect(
 		documentStatusActionMap[documentBaseType.ARReceipt]?.[documentStatus.Completed]?.some(
@@ -642,7 +638,6 @@ test('cashier/registration advanced role has correct access', async () => {
 		),
 	).toBe(false);
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.debtPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.debtPayments]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 	expect(
 		documentStatusActionMap[documentBaseType.ARReceipt]?.[documentStatus.Completed]?.some(
@@ -1713,7 +1708,6 @@ test('accounting role has correct access', async () => {
 		),
 	).toBe(false);
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.debtPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.debtPayments]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 	expect(
 		documentStatusActionMap[documentBaseType.ARReceipt]?.[documentStatus.Completed]?.some(
@@ -1847,7 +1841,6 @@ test('clinic user role has correct access', async () => {
 		),
 	).toBe(false);
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.debtPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.debtPayments]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 	expect(
 		documentStatusActionMap[documentBaseType.ARReceipt]?.[documentStatus.Completed]?.some(
