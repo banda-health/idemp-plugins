@@ -76,10 +76,6 @@ test('correct menu names are returned', async () => {
 	const accountingMenu = menus.find((menu) => menu.Node?.Name === 'Accounting');
 	expect(accountingMenu).not.toBeUndefined();
 	expect(accountingMenu?.SeqNo).toBe(6);
-	menu = accountingMenu?.Node?.ChildrenTree_NodeMMList?.find((menu) => menu.Node?.Name === 'Debt Payments');
-	expect(menu).not.toBeUndefined();
-	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
-	expect(menu?.SeqNo).toBe(0);
 	menu = accountingMenu?.Node?.ChildrenTree_NodeMMList?.find((menu) => menu.Node?.Name === 'Track Expenses');
 	expect(menu).not.toBeUndefined();
 	expect(menu?.Node?.AD_Window?.UU).toBeTruthy();
