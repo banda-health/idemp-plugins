@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
@@ -37,6 +38,7 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mBH_From_Warehouse;
 	private ForeignEntityInput mBH_To_Warehouse;
+	private ForeignEntityInput mBH_Voided_Reason;
 	private ForeignEntityInput mC_Activity;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_BPartner_Location;
@@ -208,6 +210,40 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	@JsonProperty("BH_To_Warehouse")
 	public ForeignEntityInput BH_To_Warehouse() {
 		return mBH_To_Warehouse;
+	}
+
+	/**
+	 * Set BH_Voided_Reason_ID.
+	 *
+	 * @param BH_Voided_Reason BH_Voided_Reason_ID
+	 */
+	@JsonProperty("BH_Voided_Reason")
+	public void setBH_Voided_ReasonInput(ForeignEntityInput BH_Voided_Reason) {
+		this.mBH_Voided_Reason = BH_Voided_Reason;
+		if (BH_Voided_Reason != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHVoidedReason foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "BH_Voided_Reason", "BH_Voided_Reason_UU=?", get_TrxName())
+							.setParameters(BH_Voided_Reason.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setBH_Voided_Reason_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table BH_Voided_Reason with UU " + BH_Voided_Reason.getUU());
+			}
+		} else {
+			this.setBH_Voided_Reason_ID(0);
+		}
+	}
+
+	/**
+	 * Get BH_Voided_Reason_ID.
+	 *
+	 * @return BH_Voided_Reason_ID
+	 */
+	@JsonProperty("BH_Voided_Reason")
+	public ForeignEntityInput BH_Voided_Reason() {
+		return mBH_Voided_Reason;
 	}
 
 	/**
