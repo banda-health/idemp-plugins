@@ -17,7 +17,6 @@ import org.bandahealth.idempiere.graphql.utils.SqlUtil;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.SystemIDs;
 import org.compiere.util.DB;
-import org.compiere.util.Env;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
@@ -29,20 +28,13 @@ public class PaymentTrailQuery implements GraphQLQueryResolver {
 		PagingInfo pagingInfo = new PagingInfo(Page, PageSize);
 		String functionName = "bh_get_payment_trail";
 		List<Object> parameters = new ArrayList<>();
-		String whereClause =
-				FilterUtil.getWhereClauseFromFilter(new FilterTableData(BandaGraphQLContext.getCtx(environment),
+		
+		// validate filter
+		FilterUtil.getWhereClauseFromFilter(new FilterTableData(BandaGraphQLContext.getCtx(environment),
 						functionName,
 						Map.ofEntries(
-								Map.entry("c_bpartner_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
-								Map.entry("patient_name", SystemIDs.REFERENCE_DATATYPE_STRING),
-								Map.entry("transaction_date", SystemIDs.REFERENCE_DATATYPE_DATETIME),
-								Map.entry("item", SystemIDs.REFERENCE_DATATYPE_STRING),
-								Map.entry("debits", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
-								Map.entry("credits", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
-								Map.entry("patient_open_balance", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
-								Map.entry("visit_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
-								Map.entry("c_payment_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
-								Map.entry("createdby", SystemIDs.REFERENCE_DATATYPE_INTEGER)
+								// parameter name that goes into the function
+								Map.entry("c_bpartner_uu", SystemIDs.REFERENCE_DATATYPE_STRING)
 						)
 				), Filter, parameters);
 
@@ -55,8 +47,7 @@ public class PaymentTrailQuery implements GraphQLQueryResolver {
 		// If the paging info wasn't requested in the payload, don't do an extra DB call to get it
 		if (QueryUtil.isTotalCountRequested(environment)) {
 			pagingInfo.setTotalCount(
-					SqlUtil.getCount(functionName + "(" + Env.getAD_Client_ID(Env.getCtx()) + ") WHERE ", whereClause,
-							parameters));
+					SqlUtil.getCount("FROM " + functionName + "(?)", parameters));
 		}
 
 		List<PaymentTrail> results = new ArrayList<>();
@@ -79,8 +70,7 @@ public class PaymentTrailQuery implements GraphQLQueryResolver {
 			int recordsToSkip = pagingInfo.getPage() * pageSize;
 			String query = "SELECT c_bpartner_id, patient_name, transaction_date, item, debits, credits, " +
 					"patient_open_balance, visit_id, c_payment_id, createdby " +
-					"FROM " + functionName + "(" + Env.getAD_Client_ID(Env.getCtx()) + ") WHERE " +
-					whereClause + orderByClause;
+					"FROM " + functionName + "(?)" + orderByClause;
 			query = DB.getDatabase().addPagingSQL(query, recordsToSkip + 1, pageSize <= 0 ? 0 : recordsToSkip + pageSize);
 			SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 				PaymentTrail result = new PaymentTrail();
