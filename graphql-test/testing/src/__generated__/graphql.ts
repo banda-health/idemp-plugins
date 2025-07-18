@@ -70972,6 +70972,26 @@ export type PagingInfo = {
   TotalPages: Scalars['Int']['output'];
 };
 
+export type PaymentTrail = {
+  __typename?: 'PaymentTrail';
+  BH_Visit?: Maybe<Bh_Visit>;
+  C_BPartner?: Maybe<C_BPartner>;
+  C_Payment?: Maybe<C_Payment>;
+  CreatedBy: Ad_User;
+  Credits?: Maybe<Scalars['BigDecimal']['output']>;
+  Debits?: Maybe<Scalars['BigDecimal']['output']>;
+  Item: Scalars['String']['output'];
+  OpenBalance?: Maybe<Scalars['BigDecimal']['output']>;
+  PatientName?: Maybe<Scalars['String']['output']>;
+  TransactionDate: Scalars['Date']['output'];
+};
+
+export type PaymentTrailConnection = {
+  __typename?: 'PaymentTrailConnection';
+  PagingInfo: PagingInfo;
+  Results: Array<PaymentTrail>;
+};
+
 export type ProcessInfoParameterInput = {
   AD_Process?: InputMaybe<ForeignEntityInput>;
   Info?: InputMaybe<Scalars['String']['input']>;
@@ -72520,6 +72540,7 @@ export type Query = {
   PP_WF_Node_AssetGet: Pp_Wf_Node_AssetConnection;
   PP_WF_Node_Product?: Maybe<Pp_Wf_Node_Product>;
   PP_WF_Node_ProductGet: Pp_Wf_Node_ProductConnection;
+  PaymentTrailGet: PaymentTrailConnection;
   QM_Specification?: Maybe<Qm_Specification>;
   QM_SpecificationGet: Qm_SpecificationConnection;
   QM_SpecificationLine?: Maybe<Qm_SpecificationLine>;
@@ -83112,6 +83133,15 @@ export type QueryPp_Wf_Node_ProductArgs = {
 
 /** Define the root query type that can be extended in any files that want to add a query */
 export type QueryPp_Wf_Node_ProductGetArgs = {
+  Filter?: InputMaybe<Scalars['String']['input']>;
+  Page?: InputMaybe<Scalars['Int']['input']>;
+  Size?: InputMaybe<Scalars['Int']['input']>;
+  Sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Define the root query type that can be extended in any files that want to add a query */
+export type QueryPaymentTrailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;

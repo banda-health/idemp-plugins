@@ -1,0 +1,21 @@
+extend type Query {
+	PaymentTrailGet(Page: Int, Size: Int, Sort: String, Filter: String): PaymentTrailConnection!
+}
+
+type PaymentTrailConnection {
+	Results: [PaymentTrail!]!
+	PagingInfo: PagingInfo!
+}
+
+type PaymentTrail {
+	C_BPartner: C_BPartner
+	C_Payment: C_Payment
+	Debits: BigDecimal
+	Credits: BigDecimal
+	BH_Visit: BH_Visit
+	TransactionDate: Date!
+	PatientName: String
+	CreatedBy: AD_User!
+	OpenBalance: BigDecimal
+	Item: String!
+}
