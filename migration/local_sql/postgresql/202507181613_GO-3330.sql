@@ -214,3 +214,8 @@ FROM
 ORDER BY
 	row;
 $$;
+
+SELECT
+	register_migration_script('202507181613_GO-3330.sql')
+FROM
+	dual;

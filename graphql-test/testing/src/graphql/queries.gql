@@ -797,3 +797,22 @@ query OpenBalanceTransactionGet($Page: Int, $Size: Int, $Sort: String, $Filter: 
 		}
 	}
 }
+
+query PaymentTrailGet($C_BPartner_UU: String!, $Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	PaymentTrailGet(C_BPartner_UU: $C_BPartner_UU Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			BH_Visit {
+				UU
+			}
+			C_Payment {
+				DocStatus {
+					Value
+				}
+				UU
+			}
+			Credits
+			Debits
+			OpenBalance
+		}
+	}
+}

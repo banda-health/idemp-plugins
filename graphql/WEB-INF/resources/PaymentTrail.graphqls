@@ -1,5 +1,5 @@
 extend type Query {
-	PaymentTrailGet(Page: Int, Size: Int, Sort: String, Filter: String): PaymentTrailConnection!
+	PaymentTrailGet(C_BPartner_UU: String!, Page: Int, Size: Int, Sort: String, Filter: String): PaymentTrailConnection!
 }
 
 type PaymentTrailConnection {

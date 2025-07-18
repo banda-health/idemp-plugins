@@ -22,19 +22,29 @@ import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 
 public class PaymentTrailQuery implements GraphQLQueryResolver {
-	
-	public Connection<PaymentTrail> PaymentTrailGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
+
+	public Connection<PaymentTrail> PaymentTrailGet(String C_BPartner_UU, int Page, int PageSize, String Sort,
+			String Filter, DataFetchingEnvironment environment) {
 		PagingInfo pagingInfo = new PagingInfo(Page, PageSize);
 		String functionName = "bh_get_payment_trail";
 		List<Object> parameters = new ArrayList<>();
-		
+		parameters.add(C_BPartner_UU);
+
 		// validate filter
-		FilterUtil.getWhereClauseFromFilter(new FilterTableData(BandaGraphQLContext.getCtx(environment),
+		String whereClause =
+				FilterUtil.getWhereClauseFromFilter(new FilterTableData(BandaGraphQLContext.getCtx(environment),
 						functionName,
 						Map.ofEntries(
-								// parameter name that goes into the function
-								Map.entry("c_bpartner_uu", SystemIDs.REFERENCE_DATATYPE_STRING)
+								Map.entry("c_bpartner_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("patient_name", SystemIDs.REFERENCE_DATATYPE_STRING),
+								Map.entry("transaction_date", SystemIDs.REFERENCE_DATATYPE_DATETIME),
+								Map.entry("item", SystemIDs.REFERENCE_DATATYPE_STRING),
+								Map.entry("debits", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
+								Map.entry("credits", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
+								Map.entry("patient_open_balance", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
+								Map.entry("bh_visit_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("c_payment_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("createdby", SystemIDs.REFERENCE_DATATYPE_INTEGER)
 						)
 				), Filter, parameters);
 
@@ -68,9 +78,10 @@ public class PaymentTrailQuery implements GraphQLQueryResolver {
 			// set pagination params
 			int pageSize = pagingInfo.getPageSize();
 			int recordsToSkip = pagingInfo.getPage() * pageSize;
-			String query = "SELECT c_bpartner_id, patient_name, transaction_date, item, debits, credits, " +
-					"patient_open_balance, visit_id, c_payment_id, createdby " +
-					"FROM " + functionName + "(?)" + orderByClause;
+			String query =
+					"SELECT c_bpartner_id, patient_name, transaction_date, item, debits, credits, patient_open_balance, " +
+							"bh_visit_id, c_payment_id, createdby  FROM " +
+							functionName + "(?) WHERE " + whereClause + orderByClause;
 			query = DB.getDatabase().addPagingSQL(query, recordsToSkip + 1, pageSize <= 0 ? 0 : recordsToSkip + pageSize);
 			SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 				PaymentTrail result = new PaymentTrail();
