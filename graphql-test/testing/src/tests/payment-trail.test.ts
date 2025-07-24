@@ -67,7 +67,10 @@ test('everything is shown', async () => {
 			variables: {
 				C_BPartner_UU: valueObject.businessPartner!.UU,
 				Size: 1,
-				Sort: JSON.stringify([['transaction_date', 'desc']]),
+				Sort: JSON.stringify([
+					['transaction_date', 'desc'],
+					['updated', 'desc'],
+				]),
 			},
 		})
 	).data.PaymentTrailGet.Results;
