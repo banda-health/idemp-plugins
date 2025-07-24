@@ -70978,7 +70978,9 @@ export type PaymentTrail = {
   __typename?: 'PaymentTrail';
   BH_Visit?: Maybe<Bh_Visit>;
   C_BPartner?: Maybe<C_BPartner>;
+  C_Invoice?: Maybe<C_Invoice>;
   C_Payment?: Maybe<C_Payment>;
+  Created: Scalars['DateTime']['output'];
   CreatedBy: Ad_User;
   Credits?: Maybe<Scalars['BigDecimal']['output']>;
   Debits?: Maybe<Scalars['BigDecimal']['output']>;
@@ -70986,6 +70988,7 @@ export type PaymentTrail = {
   OpenBalance?: Maybe<Scalars['BigDecimal']['output']>;
   PatientName?: Maybe<Scalars['String']['output']>;
   TransactionDate: Scalars['Date']['output'];
+  Updated: Scalars['DateTime']['output'];
 };
 
 export type PaymentTrailConnection = {

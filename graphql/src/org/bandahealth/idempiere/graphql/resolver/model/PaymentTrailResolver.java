@@ -4,10 +4,12 @@ import java.util.concurrent.CompletableFuture;
 
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHVisitDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBPartnerDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MInvoiceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MPaymentDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.model.PaymentTrail;
@@ -42,6 +44,12 @@ public class PaymentTrailResolver implements GraphQLResolver<PaymentTrail> {
 		final DataLoader<Integer, MPayment_BH> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MPaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(Entity.getPaymentId());
+	}
+
+	public CompletableFuture<MInvoice_BH> C_Invoice(PaymentTrail Entity, DataFetchingEnvironment environment) {
+		final DataLoader<Integer, MInvoice_BH> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(MInvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
+		return dataLoader.load(Entity.getInvoiceId());
 	}
 	
 	public CompletableFuture<MBHVisit> BH_Visit(PaymentTrail Entity, DataFetchingEnvironment environment) {

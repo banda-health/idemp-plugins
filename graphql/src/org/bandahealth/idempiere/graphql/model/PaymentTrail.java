@@ -7,11 +7,14 @@ public class PaymentTrail {
 
 	private Integer clientId;
 	private Integer businessPartnerId;
+	private Integer invoiceId;
 	private Integer paymentId;
 	private BigDecimal debits;
 	private BigDecimal credits;
 	private Integer visitId;
 	private Timestamp transactionDate;
+	private Timestamp created;
+	private Timestamp updated;
 	private String patientName;
 	private Integer createdBy;
 	private BigDecimal openBalance;
@@ -103,5 +106,29 @@ public class PaymentTrail {
 
 	public void setItem(String item) {
 		this.item = item;
+	}
+
+	public Timestamp getCreated() {
+		return created;
+	}
+
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
+
+	public Timestamp getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Timestamp updated) {
+		this.updated = updated;
+	}
+
+	public Integer getInvoiceId() {
+		return invoiceId;
+	}
+
+	public void setInvoiceId(Integer invoiceId) {
+		this.invoiceId = invoiceId;
 	}
 }

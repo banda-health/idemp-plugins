@@ -9,7 +9,9 @@ type PaymentTrailConnection {
 
 type PaymentTrail {
 	C_BPartner: C_BPartner
+	C_Invoice: C_Invoice
 	C_Payment: C_Payment
+	Created: DateTime!
 	Debits: BigDecimal
 	Credits: BigDecimal
 	BH_Visit: BH_Visit
@@ -18,4 +20,5 @@ type PaymentTrail {
 	CreatedBy: AD_User!
 	OpenBalance: BigDecimal
 	Item: String!
+	Updated: DateTime!
 }

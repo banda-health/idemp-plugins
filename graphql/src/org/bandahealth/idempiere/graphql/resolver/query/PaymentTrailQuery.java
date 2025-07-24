@@ -38,11 +38,14 @@ public class PaymentTrailQuery implements GraphQLQueryResolver {
 								Map.entry("c_bpartner_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("patient_name", SystemIDs.REFERENCE_DATATYPE_STRING),
 								Map.entry("transaction_date", SystemIDs.REFERENCE_DATATYPE_DATETIME),
+								Map.entry("created", SystemIDs.REFERENCE_DATATYPE_DATETIME),
+								Map.entry("updated", SystemIDs.REFERENCE_DATATYPE_DATETIME),
 								Map.entry("item", SystemIDs.REFERENCE_DATATYPE_STRING),
 								Map.entry("debits", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
 								Map.entry("credits", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
 								Map.entry("patient_open_balance", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
 								Map.entry("bh_visit_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("c_invoice_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("c_payment_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("createdby", SystemIDs.REFERENCE_DATATYPE_INTEGER)
 						)
@@ -80,7 +83,7 @@ public class PaymentTrailQuery implements GraphQLQueryResolver {
 			int recordsToSkip = pagingInfo.getPage() * pageSize;
 			String query =
 					"SELECT c_bpartner_id, patient_name, transaction_date, item, debits, credits, patient_open_balance, " +
-							"bh_visit_id, c_payment_id, createdby  FROM " +
+							"bh_visit_id, c_payment_id, createdby, created, updated, c_invoice_id FROM " +
 							functionName + "(?) WHERE " + whereClause + orderByClause;
 			query = DB.getDatabase().addPagingSQL(query, recordsToSkip + 1, pageSize <= 0 ? 0 : recordsToSkip + pageSize);
 			SqlUtil.executeQuery(query, parameters, null, resultSet -> {
@@ -97,6 +100,9 @@ public class PaymentTrailQuery implements GraphQLQueryResolver {
 					result.setVisitId(resultSet.getInt(8));
 					result.setPaymentId(resultSet.getInt(9));
 					result.setCreatedBy(resultSet.getInt(10));
+					result.setCreated(resultSet.getTimestamp(11));
+					result.setUpdated(resultSet.getTimestamp(12));
+					result.setInvoiceId(resultSet.getInt(13));
 				} catch (SQLException e) {
 					throw new RuntimeException(e);
 				}
