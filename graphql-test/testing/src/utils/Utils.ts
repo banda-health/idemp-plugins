@@ -6,7 +6,9 @@ import {
 	Bh_VisitGetDocument,
 	Bh_VisitSaveDocument,
 	C_BankAccountGetDocument,
+	C_Bp_GroupGetDocument,
 	C_BPartnerGetDocument,
+	C_BPartnerSaveDocument,
 	C_BPartnerSaveWithLocationAndContactDocument,
 	C_ChargeSaveDocument,
 	C_InvoiceGetDocument,
@@ -160,6 +162,24 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 			throw new Error('Business partner not created');
 		}
 	}
+}
+
+// Our reports require specific BP groups assigned to patients, so we'll create a special method to handle this
+export async function createPatient(valueObject: ValueObject) {
+	await createBusinessPartner(valueObject);
+	const patientBusinessPartnerGroup = (
+		await query(valueObject)({
+			query: C_Bp_GroupGetDocument,
+			variables: { Filter: JSON.stringify({ Name: 'Patients - DO NOT CHANGE' }) },
+		})
+	).data.C_BP_GroupGet.Results[0];
+	if (patientBusinessPartnerGroup == null) {
+		throw new Error('Patient BP Group is not present');
+	}
+	await mutate(valueObject)({
+		mutation: C_BPartnerSaveDocument,
+		variables: { Entity: { C_BP_Group: { UU: patientBusinessPartnerGroup.UU }, UU: valueObject.businessPartner!.UU } },
+	});
 }
 
 /**
