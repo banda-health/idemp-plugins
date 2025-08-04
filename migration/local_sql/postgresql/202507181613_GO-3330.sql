@@ -5,14 +5,11 @@ CREATE FUNCTION bh_get_payment_trail(_c_bpartner_uu character varying)
 		        c_bpartner_id        numeric,
 		        patient_name         character varying,
 		        transaction_date     timestamp WITHOUT TIME ZONE,
-		        created              timestamp WITHOUT TIME ZONE,
-		        updated              timestamp WITHOUT TIME ZONE,
 		        item                 text,
 		        debits               numeric,
 		        credits              numeric,
 		        patient_open_balance numeric,
 		        bh_visit_id          numeric,
-		        c_invoice_id         numeric,
 		        c_payment_id         numeric,
 		        createdby            numeric
 	        )
@@ -35,37 +32,31 @@ WITH visit_payments AS (
 	transactions AS (
 		-- Sum all the payments and group them by date
 		SELECT
-			bh_visit_id,
-			c_invoice_id,
-			c_payment_id,
-			c_payment_docstatus,
-			createdby,
-			c_bpartner_id,
-			date,
-			created,
-			updated,
-			"type"                                               AS item,
-			COALESCE(SUM(debits), 0)                             AS debits,
-			COALESCE(SUM(credits), 0)                            AS credits,
-			COALESCE(SUM(debits), 0) - COALESCE(SUM(credits), 0) AS net
+			transactions.bh_visit_id,
+			transactions.c_payment_id,
+			transactions.createdby,
+			transactions.c_bpartner_id,
+			transactions.date,
+			transactions."type"                                                            AS item,
+			COALESCE(SUM(transactions.debits), 0)                                          AS debits,
+			COALESCE(SUM(transactions.credits), 0)                                         AS credits,
+			COALESCE(SUM(transactions.debits), 0) - COALESCE(SUM(transactions.credits), 0) AS net,
+			transactions.sort
 		FROM
 			(
 				-- Bills
 				SELECT
 					v.bh_visit_id,
-					NULL::numeric                                        AS c_invoice_id,
-					NULL::numeric                                        AS c_payment_id,
-					NULL                                                 AS c_payment_docstatus,
+					NULL                                                 AS c_payment_id,
 					v.createdby,
 					o.c_bpartner_id,
-					v.bh_visitdate::date                                 AS date,
-					v.created,
-					v.updated,
+					v.bh_visitdate                                       AS date,
 					CASE
 						WHEN COALESCE(SUM(vp.payamt), 0) - COALESCE(i.charges, 0) = 0 THEN 'Visit'
 						ELSE 'Visit charges and payments' END              AS "type",
 					i.non_charges                                        AS debits,
-					COALESCE(SUM(vp.payamt), 0) - COALESCE(i.charges, 0) AS credits
+					COALESCE(SUM(vp.payamt), 0) - COALESCE(i.charges, 0) AS credits,
+					10                                                   AS sort
 				FROM
 					bh_visit v
 						JOIN c_order o
@@ -94,25 +85,19 @@ WITH visit_payments AS (
 				WHERE
 					o.docstatus = 'CO'
 					AND bp.c_bpartner_uu = _c_bpartner_uu
-				GROUP BY
-					o.c_order_id, o.c_bpartner_id, date, non_charges, charges, v.bh_visit_id, v.createdby, v.created, v.updated
+				GROUP BY o.c_order_id, o.c_bpartner_id, date, non_charges, charges, v.bh_visit_id, v.createdby
 				UNION ALL
 				-- Outstanding Balance Payments
 				SELECT
 					NULL                                     AS bh_visit_id,
-					NULL                                     AS c_invoice_id,
 					gdp.c_payment_id                         AS c_payment_id,
-					p.docstatus                              AS c_payment_docstatus,
 					p.createdby,
 					bp.c_bpartner_id,
-					gdp.payment_date                         AS date,
-					p.created,
-					p.updated,
-					CASE
-						WHEN p.scheduled = 'Y' AND p.docstatus NOT IN ('CO', 'CL') THEN 'Scheduled Payment'
-						ELSE 'Outstanding Balance Payment' END AS "type",
+					gdp.payment_date::date + p.created::time AS date,
+					'Outstanding Balance Payment'            AS "type",
 					NULL                                     AS debits,
-					SUM(payment_amount)                      AS credits
+					SUM(payment_amount)                      AS credits,
+					20                                       AS sort
 				FROM
 					c_bpartner bp
 						JOIN bh_get_debt_payments(bp.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) gdp
@@ -122,22 +107,22 @@ WITH visit_payments AS (
 				WHERE
 					bp.c_bpartner_uu = _c_bpartner_uu
 				GROUP BY
-					bp.c_bpartner_id, date, gdp.c_payment_id, p.createdby, p.scheduled, p.docstatus, p.created, p.updated
+					bp.c_bpartner_id,
+					date,
+					gdp.c_payment_id,
+					p.createdby
 				UNION ALL
 				-- Waived open balance
 				SELECT
-					NULL                    AS bh_visit_id,
-					i.c_invoice_id,
-					NULL                    AS c_payment_id,
-					NULL                    AS c_payment_docstatus,
+					NULL                                   AS bh_visit_id,
+					NULL                                   AS c_payment_id,
 					i.createdby,
 					i.c_bpartner_id,
-					i.dateinvoiced          AS date,
-					i.created,
-					i.updated,
-					'Waived Open Balance'   AS "type",
-					NULL                    AS debits,
-					SUM(il.linenetamt) * -1 AS credits
+					i.dateinvoiced::date + i.created::time AS date,
+					'Waived Open Balance'                  AS "type",
+					NULL                                   AS debits,
+					SUM(il.linenetamt) * -1                AS credits,
+					30                                     AS sort
 				FROM
 					c_invoice i
 						JOIN c_bpartner bp
@@ -153,37 +138,38 @@ WITH visit_payments AS (
 					AND c.name = 'Bad debt write-off - DO NOT CHANGE'
 					AND ct.name = 'One-offs - DO NOT CHANGE'
 				GROUP BY
-					i.c_invoice_id, bp.c_bpartner_id, i.dateinvoiced::date, i.createdby, i.created, i.updated
+					i.c_invoice_id, bp.c_bpartner_id, i.dateinvoiced::date + i.created::time, i.createdby
 			) AS transactions
 		GROUP BY
-			bh_visit_id, c_payment_id, createdby, c_bpartner_id, date, "type", created, updated, c_invoice_id,
-			c_payment_docstatus
+			transactions.bh_visit_id,
+			transactions.c_payment_id,
+			transactions.createdby,
+			transactions.c_bpartner_id,
+			transactions.date,
+			transactions."type",
+			transactions.sort
 	),
 	orderings AS (
 -- This categorizes the payments
 		SELECT
 			orderings.*,
-			ROW_NUMBER() OVER (ORDER BY secondary_sort, date, updated) AS row
+			ROW_NUMBER() OVER (ORDER BY secondary_sort, date, sort) AS row
 		FROM
 			(
 				SELECT
-					bh_visit_id,
-					c_invoice_id,
-					c_payment_id,
-					createdby,
-					c_bpartner_id,
-					date,
-					created,
-					updated,
-					item,
-					debits,
-					credits,
-					net,
-							SUM(net) FILTER ( WHERE c_payment_docstatus IS NULL OR c_payment_docstatus IN ('CO', 'CL') )
-						OVER (PARTITION BY c_bpartner_id ORDER BY CASE
-							                                          WHEN c_payment_docstatus NOT IN ('CO', 'CL') THEN '-infinity'::timestamp
-							                                          ELSE date END, updated ROWS UNBOUNDED PRECEDING) AS open_balance,
-					2                                                                                              AS secondary_sort
+					transactions.bh_visit_id,
+					transactions.c_payment_id,
+					transactions.createdby,
+					transactions.c_bpartner_id,
+					transactions.date,
+					transactions.item,
+					transactions.debits,
+					transactions.credits,
+					transactions.net,
+							SUM(transactions.net)
+							OVER (PARTITION BY transactions.c_bpartner_id ORDER BY transactions.date, transactions.sort ROWS UNBOUNDED PRECEDING) AS open_balance,
+					transactions.sort,
+					2                                                                                                                         AS secondary_sort
 				FROM
 					transactions
 				UNION ALL
@@ -191,13 +177,11 @@ WITH visit_payments AS (
 				SELECT
 					NULL,
 					NULL,
-					NULL,
 					bp.createdby,
 					bp.c_bpartner_id,
-					CASE WHEN MIN(t.date) < bp.created THEN MIN(t.date) ELSE bp.created END,
-					CASE WHEN MIN(t.date) < bp.created THEN MIN(t.date) ELSE bp.created END,
-					CASE WHEN MIN(t.date) < bp.created THEN MIN(t.date) ELSE bp.created END,
+					CASE WHEN MIN(t.date) < bp.created THEN MIN(t.date) ELSE bp.created END - '1 ms'::interval,
 					'Starting balance',
+					0,
 					0,
 					0,
 					0,
@@ -216,14 +200,11 @@ SELECT
 	bp.c_bpartner_id,
 	bp.name      AS patient_name,
 	date         AS transaction_date,
-	o.created,
-	o.updated,
 	item         AS item,
 	debits,
 	credits,
 	open_balance AS patient_open_balance,
 	bh_visit_id,
-	c_invoice_id,
 	c_payment_id,
 	o.createdby
 FROM
@@ -233,3 +214,8 @@ FROM
 ORDER BY
 	row;
 $$;
+
+SELECT
+	register_migration_script('202507181613_GO-3330.sql')
+FROM
+	dual;

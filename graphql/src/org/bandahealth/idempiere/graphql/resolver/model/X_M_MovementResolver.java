@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
@@ -11,6 +12,7 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Voided_ReasonDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartner_LocationDataLoader;
@@ -89,6 +91,21 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getBH_To_Warehouse_ID());
+	}
+
+
+	/**
+	 * Get BH_Voided_Reason_ID.
+	 *
+	 * @return BH_Voided_Reason_ID
+	 */
+	public CompletableFuture<MBHVoidedReason> BH_Voided_Reason(MMovement_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getBH_Voided_Reason_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBHVoidedReason> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_Voided_ReasonDataLoader.DATALOADER_BH_Voided_Reason_BY_ID);
+		return dataLoader.load(entity.getBH_Voided_Reason_ID());
 	}
 
 

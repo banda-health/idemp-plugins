@@ -30,6 +30,7 @@ type M_Movement {
 	BH_From_Warehouse: M_Warehouse
 	# BH_To_Warehouse_ID
 	BH_To_Warehouse: M_Warehouse
+	BH_Voided_Reason: BH_Voided_Reason
 	# Business Activity
 	C_Activity: C_Activity
 	# Identifies a Business Partner
@@ -42,10 +43,10 @@ type M_Movement {
 	C_Charge: C_Charge
 	# Document type or rules
 	C_DocType: C_DocType!
-	# Financial Project
-	C_Project: C_Project
 	# Charge Amount
 	ChargeAmt: BigDecimal
+	# Financial Project
+	C_Project: C_Project
 	# Date this record was created
 	Created: DateTime!
 	# User who created this records
@@ -78,14 +79,14 @@ type M_Movement {
 	# Movement is in transit
 	IsInTransit: Boolean!
 	UU: ID!
+	# Date a product was moved in or out of inventory
+	MovementDate: Date!
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse
 	# To Storage Warehouse and Service Point
 	M_WarehouseTo: M_Warehouse
-	# Date a product was moved in or out of inventory
-	MovementDate: Date!
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status
@@ -122,6 +123,7 @@ input M_MovementInput {
 	BH_From_Warehouse: ForeignEntityInput
 	# BH_To_Warehouse_ID
 	BH_To_Warehouse: ForeignEntityInput
+	BH_Voided_Reason: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Identifies a Business Partner
@@ -134,10 +136,10 @@ input M_MovementInput {
 	C_Charge: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
-	# Financial Project
-	C_Project: ForeignEntityInput
 	# Charge Amount
 	ChargeAmt: BigDecimal
+	# Financial Project
+	C_Project: ForeignEntityInput
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Date a product was received
@@ -166,14 +168,14 @@ input M_MovementInput {
 	# Movement is in transit
 	IsInTransit: Boolean
 	UU: ID
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# To Storage Warehouse and Service Point
 	M_WarehouseTo: ForeignEntityInput
-	# Date a product was moved in or out of inventory
-	MovementDate: Date
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status
