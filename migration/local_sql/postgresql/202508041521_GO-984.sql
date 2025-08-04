@@ -65,3 +65,9 @@ FROM
 			AND docstatus IN ('CO', 'CL', 'VO', 'RE', 'RA')
 	) b
 $$;
+
+-- Register the script
+SELECT
+	register_migration_script('202508041521_GO-984.sql')
+FROM
+	dual;

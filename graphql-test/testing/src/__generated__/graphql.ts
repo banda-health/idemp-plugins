@@ -66964,11 +66964,15 @@ export type OpenBalanceTransaction = {
   C_BPartner: C_BPartner;
   C_Invoice?: Maybe<C_Invoice>;
   C_Payment?: Maybe<C_Payment>;
+  /** Date this record was created */
+  Created: Scalars['DateTime']['output'];
   /** User who created this records */
   CreatedBy: Ad_User;
   /** Date this record happened */
   Date: Scalars['DateTime']['output'];
-  OpenBalance: Scalars['BigDecimal']['output'];
+  OpenBalance?: Maybe<Scalars['BigDecimal']['output']>;
+  /** Date this record was updated */
+  Updated: Scalars['DateTime']['output'];
 };
 
 export type OpenBalanceTransactionConnection = {
@@ -90249,7 +90253,7 @@ export type OpenBalanceTransactionGetQueryVariables = Exact<{
 }>;
 
 
-export type OpenBalanceTransactionGetQuery = { __typename?: 'Query', OpenBalanceTransactionGet: { __typename?: 'OpenBalanceTransactionConnection', Results: Array<{ __typename?: 'OpenBalanceTransaction', Amount: number, OpenBalance: number, BH_Visit?: { __typename?: 'BH_Visit', UU: string } | null, C_Invoice?: { __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string } } | null, C_Payment?: { __typename?: 'C_Payment', UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string } } | null }> } };
+export type OpenBalanceTransactionGetQuery = { __typename?: 'Query', OpenBalanceTransactionGet: { __typename?: 'OpenBalanceTransactionConnection', Results: Array<{ __typename?: 'OpenBalanceTransaction', Amount: number, OpenBalance?: number | null, BH_Visit?: { __typename?: 'BH_Visit', UU: string } | null, C_Invoice?: { __typename?: 'C_Invoice', UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string } } | null, C_Payment?: { __typename?: 'C_Payment', UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string } } | null }> } };
 
 export type PaymentTrailGetQueryVariables = Exact<{
   C_BPartner_UU: Scalars['String']['input'];
