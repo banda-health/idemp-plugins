@@ -38,7 +38,6 @@ public class OpenBalanceTransactionQuery implements GraphQLQueryResolver {
 								Map.entry("c_invoice_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("c_bpartner_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("c_payment_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
-								Map.entry("amount", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
 								Map.entry("bh_visit_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("date", SystemIDs.REFERENCE_DATATYPE_DATETIME),
 								Map.entry("created", SystemIDs.REFERENCE_DATATYPE_DATETIME),
