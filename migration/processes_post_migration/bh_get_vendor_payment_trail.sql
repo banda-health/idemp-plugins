@@ -87,4 +87,3 @@ FROM
 			AND c_invoice_id IS NULL
 	) b
 $$;
-
