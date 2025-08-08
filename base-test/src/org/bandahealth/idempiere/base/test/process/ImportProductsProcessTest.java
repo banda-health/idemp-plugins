@@ -36,6 +36,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
@@ -490,5 +491,62 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		int numberOfProductsAfterImport = new Query(valueObject.getContext(), MProduct_BH.Table_Name, null,
 				valueObject.getTransactionName()).count();
 		assertEquals(numberOfProducts, numberOfProductsAfterImport, "No new products were imported");
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void bothSalesAndPurchasePricesAreEntered() throws SQLException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create product that expires with an expiration date too far into the future");
+		valueObject.setRandom();
+		X_BH_I_Product_Quantity tooFarExpirationProduct = new X_BH_I_Product_Quantity(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
+		tooFarExpirationProduct.setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
+		tooFarExpirationProduct.setCategoryName("Standard");
+		tooFarExpirationProduct.setBH_HasExpiration(false);
+		tooFarExpirationProduct.setBH_BuyPrice(new BigDecimal(1000));
+		tooFarExpirationProduct.setBH_SellPrice(new BigDecimal(2000));
+		tooFarExpirationProduct.setBH_InitialQuantity(new BigDecimal(10));
+		tooFarExpirationProduct.setbh_reorder_level(2);
+		tooFarExpirationProduct.saveEx();
+
+		commitEx();
+
+		int numberOfProducts = new Query(valueObject.getContext(), MProduct_BH.Table_Name, null,
+				valueObject.getTransactionName()).count();
+		valueObject.setStepName("Run the product import process");
+		valueObject.setProcessUuid(processUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter(ImportProductsProcess.PARAMETERNAME_AD_CLIENT_ID,
+						new BigDecimal(valueObject.getClient().getAD_Client_ID()), null, null, null),
+				new ProcessInfoParameter(ImportProductsProcess.PARAMETERNAME_HANDLE_EXISTING_PRODUCTS,
+						ImportProductsProcess.HANDLE_EXISTING_PRODUCTS_ERROR, null, null, null),
+				new ProcessInfoParameter(ImportProductsProcess.PARAMETERNAME_DELETE_OLD_IMPORTED, "Y", null, null,
+						null)));
+		ChuBoeCreateEntity.runProcess(valueObject);
+		assertThat("Process ran successfully", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
+		commitEx();
+
+		int numberOfProductsAfterImport = new Query(valueObject.getContext(), MProduct_BH.Table_Name, null,
+				valueObject.getTransactionName()).count();
+		assertEquals(numberOfProducts + 1, numberOfProductsAfterImport, "Product was imported");
+
+		MProduct_BH newestInsertedProduct =
+				new Query(valueObject.getContext(), MProduct_BH.Table_Name, null, valueObject.getTransactionName()).setOrderBy(
+						"Created DESC").first();
+		List<MProductPrice> productPrices =
+				new Query(valueObject.getContext(), MProductPrice.Table_Name, MProductPrice.COLUMNNAME_M_Product_ID + "=?",
+						valueObject.getTransactionName()).setParameters(newestInsertedProduct.getM_Product_ID()).list();
+		assertEquals(2, productPrices.size(), "Product added to sales and purchase price list");
+		assertTrue(productPrices.stream()
+						.anyMatch(productPrice -> productPrice.getPriceLimit().compareTo(new BigDecimal(1000)) == 0),
+				"Purchase price is correct");
+		assertTrue(productPrices.stream()
+						.anyMatch(productPrice -> productPrice.getPriceLimit().compareTo(new BigDecimal(2000)) == 0),
+				"Sales price is correct");
 	}
 }
