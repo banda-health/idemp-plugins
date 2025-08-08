@@ -819,26 +819,24 @@ query PaymentTrailGet($C_BPartner_UU: String!, $Page: Int, $Size: Int, $Sort: St
 query VendorPaymentTrailGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	VendorPaymentTrailGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
-			Credits
-			Debits
-			BH_Visit {
-				UU
-			}
 			C_Invoice {
 				DocStatus {
 					Value
 				}
+				IsPaid
 				UU
 			}
 			C_Order {
-				UU
-			}
-			C_Payment {
 				DocStatus {
 					Value
 				}
 				UU
 			}
+			C_Payment {
+				...C_PaymentFields
+			}
+			Credits
+			Debits
 			OpenBalance
 		}
 	}

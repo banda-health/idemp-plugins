@@ -158,10 +158,18 @@ fragment C_PaymentFields on C_Payment {
 	DocStatus {
 		Value
 	}
+	IsAllocated
 	PayAmt
 	TenderType {
 		UU
 		Name
+		Value
+	}
+	UU
+}
+
+fragment M_InOutFields on M_InOut {
+	DocStatus {
 		Value
 	}
 	UU

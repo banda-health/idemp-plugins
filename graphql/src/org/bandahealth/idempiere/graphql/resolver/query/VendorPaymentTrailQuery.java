@@ -47,7 +47,6 @@ public class VendorPaymentTrailQuery implements GraphQLQueryResolver {
 								Map.entry("debits", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
 								Map.entry("credits", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
 								Map.entry("item", SystemIDs.REFERENCE_DATATYPE_STRING)
-								
 						)
 				), Filter, parameters);
 

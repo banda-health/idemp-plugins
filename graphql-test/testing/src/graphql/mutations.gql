@@ -784,6 +784,24 @@ mutation M_AttributeSetInstanceSave($Entity: M_AttributeSetInstanceInput!) {
 	}
 }
 
+mutation M_InOutProcess($UU: ID!, $DocumentAction: String!) {
+	M_InOutProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		...M_InOutFields
+	}
+}
+
+mutation M_InOutSave($M_InOut: M_InOutInput!) {
+	M_InOutSave(Entity: $M_InOut) {
+		...M_InOutFields
+	}
+}
+
+mutation M_InOutLineSave($M_InOutLine: M_InOutLineInput!) {
+	M_InOutLineSave(Entity: $M_InOutLine) {
+		UU
+	}
+}
+
 mutation M_InventoryProcess($UU: ID!, $DocumentAction: String!) {
 	M_InventoryProcess(UU: $UU, DocumentAction: $DocumentAction) {
 		...M_InventoryFields
