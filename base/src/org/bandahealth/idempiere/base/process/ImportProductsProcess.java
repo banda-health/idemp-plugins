@@ -401,6 +401,11 @@ public class ImportProductsProcess extends SvrProcess {
 		List<MPriceList> salesPriceLists =
 				new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_IsSOPriceList + "=?",
 						get_TrxName()).setParameters(true).setClient_ID().setOnlyActiveRecords(true).list();
+		// Get the purchase PriceList
+		MPriceList purchasePriceList =
+				new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_IsSOPriceList + "=?",
+						get_TrxName()).setParameters(false).setClient_ID().setOnlyActiveRecords(true)
+						.setOrderBy(MPriceList.COLUMNNAME_IsDefault + " DESC, " + MPriceList.COLUMNNAME_Created + " DESC").first();
 
 		Map<String, MPriceList> salesPriceListByName = salesPriceLists.stream()
 				.collect(Collectors.toMap(MPriceList::getName, priceList -> priceList));
@@ -536,17 +541,28 @@ public class ImportProductsProcess extends SvrProcess {
 						BigDecimal defaultSellPrice = importedProductQuantity.getBH_SellPrice();
 
 						// Default price list (this will be true based on the check above
-						MPriceList defaultPriceList = salesPriceLists.stream().filter(MPriceList::isDefault).findFirst().get();
+						MPriceList defaultSalesPriceList =
+								salesPriceLists.stream().filter(MPriceList::isDefault).findFirst().get();
 
-						// Save the default price
-						if (!saveProductPrice(product, defaultPriceList, defaultSellPrice)) {
+						// Save the default sales price
+						if (!saveProductPrice(product, defaultSalesPriceList, defaultSellPrice)) {
 							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
-									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'Could not save default price'")
+									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'Could not save default sales price'")
 									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
 									.append(importProductQuantityId);
 							DB.executeUpdate(sql.toString(), get_TrxName());
 						}
 						product.setBH_SellPrice(defaultSellPrice); // Set the default sell price
+						BigDecimal defaultPurchasePrice = importedProductQuantity.getBH_BuyPrice();
+						// Save the default purchase price
+						if (!saveProductPrice(product, purchasePriceList, defaultPurchasePrice)) {
+							sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
+									.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'Could not save default purchase price'")
+									.append("WHERE " + X_BH_I_Product_Quantity.COLUMNNAME_BH_I_Product_Quantity_ID + "=")
+									.append(importProductQuantityId);
+							DB.executeUpdate(sql.toString(), get_TrxName());
+						}
+						product.setBH_BuyPrice(defaultPurchasePrice); // Set the default purchase price
 						product.saveEx();
 
 						// Check if PriceList2 or PriceList3 is present
