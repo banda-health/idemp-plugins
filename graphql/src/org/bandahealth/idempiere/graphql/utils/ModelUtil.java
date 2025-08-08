@@ -2,9 +2,12 @@ package org.bandahealth.idempiere.graphql.utils;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.function.VoidFunction;
+import org.compiere.model.MCountry;
+import org.compiere.model.MLocation;
 import org.compiere.model.MRole;
 import org.compiere.model.MTable;
 import org.compiere.model.PO;
+import org.compiere.model.SystemIDs;
 import org.compiere.model.X_AD_Table;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
@@ -110,6 +113,11 @@ public class ModelUtil {
 		}
 		String uuidToReturn = "";
 		if (StringUtil.isNullOrEmpty(uuid)) {
+			// We have some random cases where we lose countries (or they're null), so make sure some are loaded
+			// (this is duplicated below to minimize additional checks on every request)
+			if (tableName.equals(MLocation.Table_Name)) {
+				MCountry.get(idempiereContext, SystemIDs.COUNTRY_US);
+			}
 			return uuidToReturn;
 		}
 		String keyColumn = tableName + "_UU";
@@ -123,6 +131,11 @@ public class ModelUtil {
 			}
 		} catch (SQLException e) {
 			log.log(Level.INFO, "NO data found for " + tableName + " with UUID " + uuid, new Exception());
+		}
+		// We have some random cases where we lose countries (or they're null), so make sure some are loaded
+		// (this is duplicated above to minimize additional checks on every request)
+		if (tableName.equals(MLocation.Table_Name)) {
+			MCountry.get(idempiereContext, SystemIDs.COUNTRY_US);
 		}
 		return uuidToReturn;
 	}
