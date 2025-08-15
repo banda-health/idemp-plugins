@@ -8,16 +8,14 @@ public class VendorPaymentTrail {
 	private Integer invoiceId;
 	private Integer businessPartnerId;
 	private Integer paymentId;
-	private Integer visitId;
 	private Timestamp date;
 	private Timestamp created;
 	private Timestamp updated;
 	private Integer createdBy;
-	private BigDecimal openBalance;
 	private Integer orderId;
-	private BigDecimal debits;
-	private BigDecimal credits;
-	private String item;
+	private BigDecimal charged;
+	private BigDecimal paid;
+	private BigDecimal openBalance;
 
 	public Integer getClientId() {
 		return clientId;
@@ -49,15 +47,6 @@ public class VendorPaymentTrail {
 
 	public void setPaymentId(Integer paymentId) {
 		this.paymentId = paymentId;
-	}
-
-
-	public Integer getVisitId() {
-		return visitId;
-	}
-
-	public void setVisitId(Integer visitId) {
-		this.visitId = visitId;
 	}
 
 	public Timestamp getDate() {
@@ -99,7 +88,7 @@ public class VendorPaymentTrail {
 	public void setUpdated(Timestamp updated) {
 		this.updated = updated;
 	}
-	
+
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -107,28 +96,20 @@ public class VendorPaymentTrail {
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
-	
-	public BigDecimal getDebits() {
-		return debits;
+
+	public BigDecimal getCharged() {
+		return charged;
 	}
 
-	public void setDebits(BigDecimal debits) {
-		this.debits = debits;
+	public void setCharged(BigDecimal charged) {
+		this.charged = charged;
 	}
 
-	public BigDecimal getCredits() {
-		return credits;
+	public BigDecimal getPaid() {
+		return paid;
 	}
 
-	public void setCredits(BigDecimal credits) {
-		this.credits = credits;
-	}
-
-	public String getItem() {
-		return item;
-	}
-
-	public void setItem(String item) {
-		this.item = item;
+	public void setPaid(BigDecimal paid) {
+		this.paid = paid;
 	}
 }

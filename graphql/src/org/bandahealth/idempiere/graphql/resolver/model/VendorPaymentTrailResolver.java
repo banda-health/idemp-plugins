@@ -21,15 +21,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class VendorPaymentTrailResolver implements GraphQLResolver<VendorPaymentTrail> {
 
-	public CompletableFuture<MBHVisit> BH_Visit(VendorPaymentTrail entity, DataFetchingEnvironment environment) {
-		if (entity.getVisitId() == null || entity.getVisitId() < 1) {
-			return null;
-		}
-		final DataLoader<Integer, MBHVisit> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(MBHVisitDataLoader.DATALOADER_BH_Visit_BY_ID);
-		return dataLoader.load(entity.getVisitId());
-	}
-
 	/**
 	 * Get Business Partner.
 	 *
@@ -68,7 +59,7 @@ public class VendorPaymentTrailResolver implements GraphQLResolver<VendorPayment
 		}
 		DataLoader<Integer,MOrder_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(MOrderDataLoader.DATALOADER_C_Order_BY_ID);
-		return dataLoader.load(entity.getInvoiceId());
+		return dataLoader.load(entity.getOrderId());
 	}
 
 	/**

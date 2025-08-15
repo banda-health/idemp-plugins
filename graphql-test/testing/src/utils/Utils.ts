@@ -23,6 +23,9 @@ import {
 	C_UomGetDefaultDocument,
 	M_AttributeSetInstanceGetDocument,
 	M_DiscountSchemaGetDocument,
+	M_InOutLineSaveDocument,
+	M_InOutProcessDocument,
+	M_InOutSaveDocument,
 	M_InventoryProcessDocument,
 	M_InventorySaveWithInventoryLinesDocument,
 	M_LocatorSaveDocument,
@@ -416,11 +419,9 @@ export async function createOrder(valueObject: ValueObject) {
 					Description: valueObject.getStepMessageLong(),
 					M_Product: { UU: valueObject.product!.UU },
 					Qty: valueObject.quantity || 1,
-					Price:
-						(valueObject.documentType.IsSOTrx
-							? valueObject.salesStandardPrice || valueObject.product?.BH_SellPrice || 0
-							: valueObject.purchaseStandardPrice || valueObject.product?.BH_BuyPrice || 0) *
-						(valueObject.quantity || 1),
+					Price: valueObject.documentType.IsSOTrx
+						? valueObject.salesStandardPrice || valueObject.product?.BH_SellPrice || 0
+						: valueObject.purchaseStandardPrice || valueObject.product?.BH_BuyPrice || 0,
 					M_AttributeSetInstance: valueObject.attributeSetInstance
 						? { UU: valueObject.attributeSetInstance.UU }
 						: undefined,
@@ -451,6 +452,81 @@ export async function createOrder(valueObject: ValueObject) {
 	}
 }
 
+export async function createInOut(valueObject: ValueObject) {
+	valueObject.validate();
+
+	//perform further validation if needed based on business logic
+	if (!valueObject.documentType) {
+		throw new Error('DocType is Null');
+	} else if (!valueObject.businessPartner) {
+		throw new Error('BP is Null');
+	} else if (!valueObject.warehouse) {
+		throw new Error('Warehouse is Null');
+	} else if (valueObject.order?.DocStatus.Value !== documentStatus.Completed) {
+		throw new Error('Order Not Completed');
+	}
+
+	//create inout header
+	valueObject.inOut = (
+		await mutate(valueObject)({
+			mutation: M_InOutSaveDocument,
+			variables: {
+				M_InOut: {
+					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
+					AD_User: { UU: valueObject.user!.UU },
+					BH_Visit:
+						valueObject.documentType.IsSOTrx && valueObject.visit?.UU ? { UU: valueObject.visit.UU } : undefined,
+					C_BPartner: { UU: valueObject.businessPartner.UU },
+					C_DocType: { UU: valueObject.documentType.UU },
+					C_Order: { UU: valueObject.order.UU },
+					DateAcct: formatApiDate(valueObject.date),
+					Description: valueObject.getStepMessageLong(),
+					IsSOTrx: valueObject.documentType.IsSOTrx,
+					M_Warehouse: { UU: valueObject.warehouse.UU },
+					MovementDate: formatApiDate(valueObject.date),
+					MovementType: { UU: '' },
+				},
+			},
+		})
+	).data?.M_InOutSave;
+
+	//create inout line
+	const locatorToUse = valueObject.warehouse.M_Locators?.[0];
+	valueObject.inOutLine = (
+		await mutate(valueObject)({
+			mutation: M_InOutLineSaveDocument,
+			variables: {
+				M_InOutLine: {
+					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
+					C_OrderLine: { UU: valueObject.orderLine!.UU },
+					C_UOM: { UU: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UU },
+					Description: valueObject.getStepMessageLong(),
+					M_AttributeSetInstance: valueObject.attributeSetInstance?.UU
+						? { UU: valueObject.attributeSetInstance.UU }
+						: undefined,
+					M_InOut: { UU: valueObject.inOut!.UU },
+					M_Locator: locatorToUse?.UU ? { UU: locatorToUse.UU } : undefined,
+					M_Product: { UU: valueObject.product!.UU },
+					Qty: valueObject.quantity || 1,
+				},
+			},
+		})
+	).data?.M_InOutLineSave;
+
+	if (valueObject.documentAction) {
+		valueObject.inOut =
+			(
+				await mutate(valueObject)({
+					mutation: M_InOutProcessDocument,
+					variables: { UU: valueObject.inOut!.UU, DocumentAction: valueObject.documentAction },
+				})
+			).data?.M_InOutProcess || undefined;
+		if (!valueObject.inOut) {
+			throw new Error('InOut not processed');
+		}
+	}
+} //create inout
+
 /**
  * Create an invoice. This requires a document type, a business partner, and either no order or a completed order
  * be selected on the value object.
@@ -478,26 +554,25 @@ export async function createInvoice(valueObject: ValueObject) {
 			mutation: C_InvoiceSaveWithInvoiceLinesDocument,
 			variables: {
 				C_Invoice: {
-					UU: invoiceUuid,
 					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
-					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UU: valueObject.businessPartner.UU },
-					DateInvoiced: formatApiDate(valueObject.date),
-					C_DocTypeTarget: { UU: valueObject.documentType.UU },
-					IsSOTrx: valueObject.documentType!.IsSOTrx,
-					C_Order: valueObject.order ? { UU: valueObject.order.UU } : undefined,
 					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
+					C_BPartner: { UU: valueObject.businessPartner.UU },
+					C_DocTypeTarget: { UU: valueObject.documentType.UU },
+					C_Order: valueObject.order ? { UU: valueObject.order.UU } : undefined,
+					DateInvoiced: formatApiDate(valueObject.date),
+					Description: valueObject.getStepMessageLong(),
+					IsSOTrx: valueObject.documentType!.IsSOTrx,
+					UU: invoiceUuid,
 				},
 				C_InvoiceLine: {
-					C_Invoice: { UU: invoiceUuid },
 					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
+					C_Charge: !valueObject.product && valueObject.charge ? { UU: valueObject.charge.UU } : undefined,
+					C_Invoice: { UU: invoiceUuid },
+					C_OrderLine: valueObject.orderLine ? { UU: valueObject.orderLine.UU } : undefined,
 					Description: valueObject.getStepMessageLong(),
 					M_Product: valueObject.product ? { UU: valueObject.product.UU } : undefined,
-					C_Charge: !valueObject.product && valueObject.charge ? { UU: valueObject.charge.UU } : undefined,
 					Qty: valueObject.quantity || 1,
-					Price:
-						valueObject.salesStandardPrice || (valueObject.quantity || 1) * (valueObject.product?.BH_SellPrice || 0),
-					C_OrderLine: valueObject.orderLine ? { UU: valueObject.orderLine.UU } : undefined,
+					Price: valueObject.salesStandardPrice || valueObject.product?.BH_SellPrice || 0,
 				},
 			},
 		})

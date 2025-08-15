@@ -8,8 +8,6 @@ type VendorPaymentTrailConnection {
 }
 
 type VendorPaymentTrail {
-	BH_Visit: BH_Visit
-	Credits: BigDecimal
 	C_BPartner: C_BPartner!
 	C_Invoice: C_Invoice
 	C_Order: C_Order
@@ -20,9 +18,9 @@ type VendorPaymentTrail {
 	CreatedBy: AD_User!
 	# Date this record happened
 	Date: DateTime!
-	Debits: BigDecimal
-	Item: String
+	Charged: BigDecimal
 	OpenBalance: BigDecimal
+	Paid: BigDecimal
 	# Date this record was updated
 	Updated: DateTime!
 }
