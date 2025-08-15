@@ -835,8 +835,8 @@ query VendorPaymentTrailGet($Page: Int, $Size: Int, $Sort: String, $Filter: Stri
 			C_Payment {
 				...C_PaymentFields
 			}
-			Credits
-			Debits
+			Charged
+			Paid
 			OpenBalance
 		}
 	}

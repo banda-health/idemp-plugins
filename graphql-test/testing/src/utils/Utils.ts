@@ -419,11 +419,9 @@ export async function createOrder(valueObject: ValueObject) {
 					Description: valueObject.getStepMessageLong(),
 					M_Product: { UU: valueObject.product!.UU },
 					Qty: valueObject.quantity || 1,
-					Price:
-						(valueObject.documentType.IsSOTrx
-							? valueObject.salesStandardPrice || valueObject.product?.BH_SellPrice || 0
-							: valueObject.purchaseStandardPrice || valueObject.product?.BH_BuyPrice || 0) *
-						(valueObject.quantity || 1),
+					Price: valueObject.documentType.IsSOTrx
+						? valueObject.salesStandardPrice || valueObject.product?.BH_SellPrice || 0
+						: valueObject.purchaseStandardPrice || valueObject.product?.BH_BuyPrice || 0,
 					M_AttributeSetInstance: valueObject.attributeSetInstance
 						? { UU: valueObject.attributeSetInstance.UU }
 						: undefined,
@@ -491,8 +489,6 @@ export async function createInOut(valueObject: ValueObject) {
 			},
 		})
 	).data?.M_InOutSave;
-	// inOut.setMovementType(valueObject.getDocumentType().isSOTrx() ? X_M_InOut.MOVEMENTTYPE_CustomerShipment :
-	// 		X_M_InOut.MOVEMENTTYPE_VendorReceipts);
 
 	//create inout line
 	const locatorToUse = valueObject.warehouse.M_Locators?.[0];
@@ -511,7 +507,6 @@ export async function createInOut(valueObject: ValueObject) {
 					M_InOut: { UU: valueObject.inOut!.UU },
 					M_Locator: locatorToUse?.UU ? { UU: locatorToUse.UU } : undefined,
 					M_Product: { UU: valueObject.product!.UU },
-					M_Warehouse: { UU: valueObject.warehouse.UU },
 					Qty: valueObject.quantity || 1,
 				},
 			},
@@ -577,8 +572,7 @@ export async function createInvoice(valueObject: ValueObject) {
 					Description: valueObject.getStepMessageLong(),
 					M_Product: valueObject.product ? { UU: valueObject.product.UU } : undefined,
 					Qty: valueObject.quantity || 1,
-					Price:
-						valueObject.salesStandardPrice || (valueObject.quantity || 1) * (valueObject.product?.BH_SellPrice || 0),
+					Price: valueObject.salesStandardPrice || valueObject.product?.BH_SellPrice || 0,
 				},
 			},
 		})

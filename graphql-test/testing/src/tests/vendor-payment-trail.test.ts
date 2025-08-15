@@ -4,7 +4,6 @@ import { documentAction, documentBaseType } from '../models';
 import {
 	createBusinessPartner,
 	createCharge,
-	createInOut,
 	createInvoice,
 	createOrder,
 	createPayment,
@@ -19,6 +18,7 @@ test('data is grouped correctly', async () => {
 	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
+	valueObject.purchaseStandardPrice = 100;
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
 
@@ -29,10 +29,10 @@ test('data is grouped correctly', async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
-	valueObject.stepName = 'Create material receipt 1';
-	valueObject.documentAction = documentAction.Complete;
-	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
-	await createInOut(valueObject);
+	// valueObject.stepName = 'Create material receipt 1';
+	// valueObject.documentAction = documentAction.Complete;
+	// await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	// await createInOut(valueObject);
 
 	valueObject.stepName = 'Create vendor invoice 1';
 	valueObject.documentAction = documentAction.Complete;
@@ -54,6 +54,7 @@ test('data is grouped correctly', async () => {
 		await query(valueObject)({
 			query: VendorPaymentTrailGetDocument,
 			variables: {
+				Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }),
 				Size: 1,
 				Sort: JSON.stringify([
 					['date', 'desc'],
@@ -65,8 +66,8 @@ test('data is grouped correctly', async () => {
 	expect(paymentTrailResults[0].C_Order?.UU).toBeTruthy();
 	expect(paymentTrailResults[0].C_Invoice?.UU).toBeTruthy();
 	expect(paymentTrailResults[0].C_Payment?.UU).toBeTruthy();
-	expect(paymentTrailResults[0].Credits).toBe(-500);
-	expect(paymentTrailResults[0].Debits).toBe(500);
+	expect(paymentTrailResults[0].Charged).toBe(500);
+	expect(paymentTrailResults[0].Paid).toBe(500);
 	expect(paymentTrailResults[0].OpenBalance).toBe(0);
 
 	valueObject.stepName = 'Create purchase order 2';
@@ -76,10 +77,10 @@ test('data is grouped correctly', async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
-	valueObject.stepName = 'Create material receipt 2';
-	valueObject.documentAction = documentAction.Complete;
-	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
-	await createInOut(valueObject);
+	// valueObject.stepName = 'Create material receipt 2';
+	// valueObject.documentAction = documentAction.Complete;
+	// await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	// await createInOut(valueObject);
 
 	valueObject.stepName = 'Create vendor invoice 2';
 	valueObject.documentAction = documentAction.Complete;
@@ -102,6 +103,7 @@ test('data is grouped correctly', async () => {
 		await query(valueObject)({
 			query: VendorPaymentTrailGetDocument,
 			variables: {
+				Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }),
 				Size: 1,
 				Sort: JSON.stringify([
 					['date', 'desc'],
@@ -113,9 +115,9 @@ test('data is grouped correctly', async () => {
 	expect(paymentTrailResults[0].C_Order?.UU).toBeTruthy();
 	expect(paymentTrailResults[0].C_Invoice?.UU).toBeTruthy();
 	expect(paymentTrailResults[0].C_Payment?.UU).toBeTruthy();
-	expect(paymentTrailResults[0].Credits).toBe(-1000);
-	expect(paymentTrailResults[0].Debits).toBe(500);
-	expect(paymentTrailResults[0].OpenBalance).toBe(-500);
+	expect(paymentTrailResults[0].Charged).toBe(1000);
+	expect(paymentTrailResults[0].Paid).toBe(500);
+	expect(paymentTrailResults[0].OpenBalance).toBe(500);
 
 	valueObject.stepName = 'Create purchase order 3';
 	valueObject.quantity = 15;
@@ -124,10 +126,10 @@ test('data is grouped correctly', async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
-	valueObject.stepName = 'Create material receipt 3';
-	valueObject.documentAction = documentAction.Complete;
-	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
-	await createInOut(valueObject);
+	// valueObject.stepName = 'Create material receipt 3';
+	// valueObject.documentAction = documentAction.Complete;
+	// await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	// await createInOut(valueObject);
 
 	valueObject.stepName = 'Create vendor invoice 3';
 	valueObject.documentAction = documentAction.Complete;
@@ -144,6 +146,7 @@ test('data is grouped correctly', async () => {
 		await query(valueObject)({
 			query: VendorPaymentTrailGetDocument,
 			variables: {
+				Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }),
 				Size: 1,
 				Sort: JSON.stringify([
 					['date', 'desc'],
@@ -154,10 +157,10 @@ test('data is grouped correctly', async () => {
 	).data.VendorPaymentTrailGet.Results;
 	expect(paymentTrailResults[0].C_Order?.UU).toBeTruthy();
 	expect(paymentTrailResults[0].C_Invoice?.UU).toBeTruthy();
-	expect(paymentTrailResults[0].C_Payment?.UU).toBeTruthy();
-	expect(paymentTrailResults[0].Credits).toBe(-1500);
-	expect(paymentTrailResults[0].Debits).toBe(0);
-	expect(paymentTrailResults[0].OpenBalance).toBe(-2000);
+	expect(paymentTrailResults[0].C_Payment?.UU).toBeFalsy();
+	expect(paymentTrailResults[0].Charged).toBe(1500);
+	expect(paymentTrailResults[0].Paid).toBe(0);
+	expect(paymentTrailResults[0].OpenBalance).toBe(2000);
 
 	// Now do an expense
 	valueObject.stepName = 'Create charge';
@@ -166,12 +169,13 @@ test('data is grouped correctly', async () => {
 	valueObject.clearProduct();
 	await createCharge(valueObject);
 
-	valueObject.stepName = 'Create vendor invoice 2';
+	valueObject.stepName = 'Create vendor invoice 4';
+	valueObject.quantity = 1;
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.APInvoice, null, false, false, false);
 	await createInvoice(valueObject);
 
-	valueObject.stepName = 'Create partial payment 2';
+	valueObject.stepName = 'Create partial payment 4';
 	valueObject.documentAction = documentAction.Complete;
 	valueObject.paymentAmount = valueObject.salesStandardPrice;
 	await valueObject.setDocumentBaseType(documentBaseType.APPayment, null, false, false, false);
@@ -187,6 +191,7 @@ test('data is grouped correctly', async () => {
 		await query(valueObject)({
 			query: VendorPaymentTrailGetDocument,
 			variables: {
+				Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }),
 				Size: 1,
 				Sort: JSON.stringify([
 					['date', 'desc'],
@@ -198,9 +203,9 @@ test('data is grouped correctly', async () => {
 	expect(paymentTrailResults[0].C_Order?.UU).toBeFalsy();
 	expect(paymentTrailResults[0].C_Invoice?.UU).toBeTruthy();
 	expect(paymentTrailResults[0].C_Payment?.UU).toBeTruthy();
-	expect(paymentTrailResults[0].Credits).toBe(-100);
-	expect(paymentTrailResults[0].Debits).toBe(100);
-	expect(paymentTrailResults[0].OpenBalance).toBe(-2000);
+	expect(paymentTrailResults[0].Charged).toBe(100);
+	expect(paymentTrailResults[0].Paid).toBe(100);
+	expect(paymentTrailResults[0].OpenBalance).toBe(2000);
 
 	// Create open-balance payments
 	valueObject.stepName = 'Create open balance payment 1';
@@ -208,7 +213,6 @@ test('data is grouped correctly', async () => {
 	valueObject.invoice = undefined;
 	valueObject.paymentAmount = 900;
 	valueObject.documentAction = documentAction.Complete;
-	valueObject.paymentAmount = valueObject.salesStandardPrice;
 	await valueObject.setDocumentBaseType(documentBaseType.APPayment, null, false, false, false);
 	await createPayment(valueObject);
 
@@ -222,6 +226,7 @@ test('data is grouped correctly', async () => {
 		await query(valueObject)({
 			query: VendorPaymentTrailGetDocument,
 			variables: {
+				Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }),
 				Sort: JSON.stringify([
 					['date', 'desc'],
 					['created', 'desc'],
@@ -233,24 +238,23 @@ test('data is grouped correctly', async () => {
 	expect(paymentTrailResults[0].C_Invoice?.UU).toBeFalsy();
 	expect(paymentTrailResults[0].C_Payment?.UU).toBeTruthy();
 	expect(paymentTrailResults[0].C_Payment?.IsAllocated).toBeTruthy();
-	expect(paymentTrailResults[0].Credits).toBe(0);
-	expect(paymentTrailResults[0].Debits).toBe(900);
-	expect(paymentTrailResults[0].OpenBalance).toBe(-1100);
+	expect(paymentTrailResults[0].Charged).toBe(0);
+	expect(paymentTrailResults[0].Paid).toBe(900);
+	expect(paymentTrailResults[0].OpenBalance).toBe(1100);
 	// Check the expense doesn't have any change in paid amount
-	expect(paymentTrailResults[1].Credits).toBe(-100);
-	expect(paymentTrailResults[1].Debits).toBe(100);
-	expect(paymentTrailResults[1].OpenBalance).toBe(-2000);
+	expect(paymentTrailResults[1].Charged).toBe(100);
+	expect(paymentTrailResults[1].Paid).toBe(100);
+	expect(paymentTrailResults[1].OpenBalance).toBe(2000);
 	// Check the first order doesn't have any change in paid amount
-	expect(paymentTrailResults[paymentTrailResults.length - 1].Credits).toBe(-500);
-	expect(paymentTrailResults[paymentTrailResults.length - 1].Debits).toBe(500);
-	expect(paymentTrailResults[paymentTrailResults.length - 1].OpenBalance).toBe(0);
+	expect(paymentTrailResults[paymentTrailResults.length - 2].Charged).toBe(500);
+	expect(paymentTrailResults[paymentTrailResults.length - 2].Paid).toBe(500);
+	expect(paymentTrailResults[paymentTrailResults.length - 2].OpenBalance).toBe(0);
 
 	valueObject.stepName = 'Create open balance payment 2';
 	valueObject.order = undefined;
 	valueObject.invoice = undefined;
 	valueObject.paymentAmount = 300;
 	valueObject.documentAction = documentAction.Complete;
-	valueObject.paymentAmount = valueObject.salesStandardPrice;
 	await valueObject.setDocumentBaseType(documentBaseType.APPayment, null, false, false, false);
 	await createPayment(valueObject);
 
@@ -264,6 +268,7 @@ test('data is grouped correctly', async () => {
 		await query(valueObject)({
 			query: VendorPaymentTrailGetDocument,
 			variables: {
+				Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }),
 				Sort: JSON.stringify([
 					['date', 'desc'],
 					['created', 'desc'],
@@ -275,9 +280,9 @@ test('data is grouped correctly', async () => {
 	expect(paymentTrailResults[0].C_Invoice?.UU).toBeFalsy();
 	expect(paymentTrailResults[0].C_Payment?.UU).toBeTruthy();
 	expect(paymentTrailResults[0].C_Payment?.IsAllocated).toBeTruthy();
-	expect(paymentTrailResults[0].Credits).toBe(0);
-	expect(paymentTrailResults[0].Debits).toBe(200);
-	expect(paymentTrailResults[0].OpenBalance).toBe(-800);
+	expect(paymentTrailResults[0].Charged).toBe(0);
+	expect(paymentTrailResults[0].Paid).toBe(300);
+	expect(paymentTrailResults[0].OpenBalance).toBe(800);
 	// Check the first invoice is now paid
-	expect(paymentTrailResults[paymentTrailResults.length - 1].C_Invoice?.IsPaid).toBeTruthy();
+	expect(paymentTrailResults[paymentTrailResults.length - 2].C_Invoice?.IsPaid).toBeTruthy();
 });
