@@ -668,6 +668,7 @@ mutation C_OrderLineSave($Entity: C_OrderLineInput!) {
 
 mutation C_OrderLineSaveMany($Entities: [C_OrderLineInput!]!) {
 	C_OrderLineSaveMany(Entities: $Entities) {
+		PriceEntered
 		UU
 	}
 }
