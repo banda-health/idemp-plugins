@@ -1,6 +1,6 @@
 -- Get the invoices with duplicate invoice lines
 SELECT
-	il1.c_invoice_id
+	DISTINCT il1.c_invoice_id
 INTO TEMP TABLE
 	tmp_c_invoice_ids_to_update
 FROM
@@ -135,6 +135,6 @@ WHERE
 
 -- Wrap up
 SELECT
-	register_migration_script('202507311735_GO-984.sql')
+	register_migration_script('202508181606_GO-3396.sql')
 FROM
 	dual;
