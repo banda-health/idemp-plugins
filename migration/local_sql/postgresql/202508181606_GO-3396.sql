@@ -1,6 +1,6 @@
 -- Get the invoices with duplicate invoice lines
-SELECT
-	DISTINCT il1.c_invoice_id
+SELECT DISTINCT
+	il1.c_invoice_id
 INTO TEMP TABLE
 	tmp_c_invoice_ids_to_update
 FROM
@@ -9,7 +9,7 @@ FROM
 			ON il1.c_invoice_id = il2.c_invoice_id AND il1.c_orderline_id = il2.c_orderline_id AND
 			   il1.c_invoiceline_id != il2.c_invoiceline_id;
 
--- Delete the duplicate invoice lines
+-- Get the duplicate invoice lines to delete
 SELECT
 	il2.c_invoice_id,
 	il2.c_invoiceline_id
@@ -24,11 +24,14 @@ FROM
 		AND il1.c_invoiceline_id < il2.c_invoiceline_id
 		AND il1.c_orderline_id = il2.c_orderline_id;
 
+-- Delete the duplicate invoice lines
+SELECT
+	bh_execute_statement_without_indexes($$
 DELETE
 FROM
 	c_invoiceline il USING tmp_c_invoiceline_to_delete til
 WHERE
-	il.c_invoiceline_id = til.c_invoiceline_id;
+	il.c_invoiceline_id = til.c_invoiceline_id;$$, 'c_invoiceline_id');
 
 -- Update the invoice grand total
 UPDATE c_invoice i
@@ -67,7 +70,8 @@ FROM
 			ON al.c_invoice_id = ti.c_invoice_id
 WHERE
 	i.c_invoice_id = al.c_invoice_id
-	AND al.amount = i.grandtotal;
+	AND al.amount = i.grandtotal
+	AND ispaid = 'N';
 
 -- Update the BP open balances
 UPDATE c_bpartner bp
