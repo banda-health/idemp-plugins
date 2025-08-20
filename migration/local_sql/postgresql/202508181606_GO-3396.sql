@@ -71,8 +71,7 @@ FROM
 			ON al.c_invoice_id = ti.c_invoice_id
 WHERE
 	i.c_invoice_id = al.c_invoice_id
-	AND al.amount = i.grandtotal
-	AND ispaid = 'N';
+	AND al.amount = i.grandtotal;
 
 -- Update the BP open balances
 UPDATE c_bpartner bp
