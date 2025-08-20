@@ -36,6 +36,7 @@ WHERE
 -- Update the invoice grand total
 UPDATE c_invoice i
 SET
+	totallines = il.grandtotal,
 	grandtotal = il.grandtotal
 FROM
 	(
