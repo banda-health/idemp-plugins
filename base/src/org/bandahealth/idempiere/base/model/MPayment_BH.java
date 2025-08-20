@@ -139,11 +139,12 @@ public class MPayment_BH extends MPayment {
 			return true;
 		}
 		// If this is a receipt and the invoice is empty, start allocating against the oldest, unpaid invoice
-		if (getC_Invoice_ID() == 0 && isReceipt()) {
+		if (getC_Invoice_ID() == 0) {
 			List<MInvoice_BH> unpaidInvoices = new Query(getCtx(), MInvoice_BH.Table_Name,
 					MInvoice_BH.COLUMNNAME_C_BPartner_ID + "=? AND " + MInvoice_BH.COLUMNNAME_DocStatus + "=? AND " +
-							MInvoice_BH.COLUMNNAME_IsPaid + "=?", get_TrxName()).setParameters(getC_BPartner_ID(),
-					MInvoice_BH.DOCSTATUS_Completed, "N").setOrderBy(MInvoice_BH.COLUMNNAME_Created + " ASC").list();
+							MInvoice_BH.COLUMNNAME_IsPaid + "=? AND " + MInvoice_BH.COLUMNNAME_IsSOTrx + "=?",
+					get_TrxName()).setParameters(getC_BPartner_ID(), MInvoice_BH.DOCSTATUS_Completed, "N", isReceipt())
+					.setOrderBy(MInvoice_BH.COLUMNNAME_Created + " ASC").list();
 			if (!unpaidInvoices.isEmpty()) {
 				allocationHeader.saveEx();
 				BigDecimal remainingPayment = getPayAmt();
@@ -162,8 +163,10 @@ public class MPayment_BH extends MPayment {
 					if (payAmount.compareTo(remainingPayment) > 0) {
 						payAmount = remainingPayment;
 					}
-					MAllocationLine allocationLine = new MAllocationLine(allocationHeader, payAmount, Env.ZERO, Env.ZERO,
-							Env.ZERO);
+					// Negate it if this is AP
+					MAllocationLine allocationLine =
+							new MAllocationLine(allocationHeader, isReceipt() ? payAmount : payAmount.negate(), Env.ZERO, Env.ZERO,
+									Env.ZERO);
 					allocationLine.setDocInfo(getC_BPartner_ID(), 0, getC_Invoice_ID());
 					allocationLine.setC_Payment_ID(getC_Payment_ID());
 					allocationLine.setC_Invoice_ID(unpaidInvoice.get_ID());
@@ -182,7 +185,7 @@ public class MPayment_BH extends MPayment {
 				if (newBalance == null) {
 					newBalance = Env.ZERO;
 				}
-				newBalance = newBalance.subtract(remainingPayment);
+				newBalance = isReceipt() ? newBalance.subtract(remainingPayment) : newBalance.add(remainingPayment);
 
 				businessPartner.setTotalOpenBalance(newBalance);
 				businessPartner.setSOCreditStatus();

@@ -38,9 +38,10 @@ public class OpenBalanceTransactionQuery implements GraphQLQueryResolver {
 								Map.entry("c_invoice_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("c_bpartner_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("c_payment_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
-								Map.entry("amount", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
 								Map.entry("bh_visit_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("date", SystemIDs.REFERENCE_DATATYPE_DATETIME),
+								Map.entry("created", SystemIDs.REFERENCE_DATATYPE_DATETIME),
+								Map.entry("updated", SystemIDs.REFERENCE_DATATYPE_DATETIME),
 								Map.entry("createdby", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("open_balance", SystemIDs.REFERENCE_DATATYPE_AMOUNT)
 						)
@@ -78,9 +79,9 @@ public class OpenBalanceTransactionQuery implements GraphQLQueryResolver {
 			int pageSize = pagingInfo.getPageSize();
 			int recordsToSkip = pagingInfo.getPage() * pageSize;
 			String query =
-					"SELECT ad_client_id, c_invoice_id, c_bpartner_id, c_payment_id, amount, bh_visit_id, date, createdby, " +
-							"open_balance FROM " + functionName + "(" + Env.getAD_Client_ID(Env.getCtx()) + ") WHERE " + whereClause +
-							orderByClause;
+					"SELECT ad_client_id, c_invoice_id, c_bpartner_id, c_payment_id, amount, bh_visit_id, date, created, " +
+							"updated, createdby, open_balance FROM " + functionName + "(" + Env.getAD_Client_ID(Env.getCtx()) +
+							") WHERE " + whereClause + orderByClause;
 			query = DB.getDatabase().addPagingSQL(query, recordsToSkip + 1, pageSize <= 0 ? 0 : recordsToSkip + pageSize);
 			SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 				OpenBalanceTransaction openBalanceTransaction = new OpenBalanceTransaction();
@@ -93,8 +94,10 @@ public class OpenBalanceTransactionQuery implements GraphQLQueryResolver {
 					openBalanceTransaction.setAmount(resultSet.getBigDecimal(5));
 					openBalanceTransaction.setVisitId(resultSet.getInt(6));
 					openBalanceTransaction.setDate(resultSet.getTimestamp(7));
-					openBalanceTransaction.setCreatedBy(resultSet.getInt(8));
-					openBalanceTransaction.setOpenBalance(resultSet.getBigDecimal(9));
+					openBalanceTransaction.setCreated(resultSet.getTimestamp(8));
+					openBalanceTransaction.setUpdated(resultSet.getTimestamp(9));
+					openBalanceTransaction.setCreatedBy(resultSet.getInt(10));
+					openBalanceTransaction.setOpenBalance(resultSet.getBigDecimal(11));
 				} catch (SQLException e) {
 					throw new RuntimeException(e);
 				}

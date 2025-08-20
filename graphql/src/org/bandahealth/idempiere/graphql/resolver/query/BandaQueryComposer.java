@@ -486,6 +486,7 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 				new MZoomConditionQuery(),
 				new OpenBalanceTransactionQuery(),
 				new PaymentTrailQuery(),
+				new VendorPaymentTrailQuery(),
 				new X_A_Asset_Info_FinQuery(),
 				new X_A_Asset_Info_InsQuery(),
 				new X_A_Asset_Info_LicQuery(),

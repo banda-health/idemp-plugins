@@ -1,7 +1,19 @@
-import { Bh_VisitProcessDocument, OpenBalanceTransactionGetDocument } from '../__generated__/graphql';
+import {
+	Bh_VisitProcessDocument,
+	C_PaymentProcessDocument,
+	OpenBalanceTransactionGetDocument,
+} from '../__generated__/graphql';
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
-import { createBusinessPartner, createInvoice, createOrder, createPayment, createProduct, createVisit } from '../utils';
+import {
+	createBusinessPartner,
+	createCharge,
+	createInvoice,
+	createOrder,
+	createPayment,
+	createProduct,
+	createVisit,
+} from '../utils';
 
 test('everything is shown', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -59,7 +71,10 @@ test('everything is shown', async () => {
 			variables: {
 				Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }),
 				Size: 2,
-				Sort: JSON.stringify([['date', 'desc']]),
+				Sort: JSON.stringify([
+					['date', 'desc'],
+					['created', 'desc'],
+				]),
 			},
 		})
 	).data.OpenBalanceTransactionGet.Results;
@@ -85,4 +100,53 @@ test('everything is shown', async () => {
 			})
 		).data.OpenBalanceTransactionGet.Results,
 	).toHaveLength(4);
+});
+
+test('voided transactions are not included in the open balance calculation', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.quantity = 5;
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create charge';
+	await createCharge(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	await createPayment(valueObject);
+
+	valueObject.stepName = 'Void payment';
+	await mutate(valueObject)({
+		mutation: C_PaymentProcessDocument,
+		variables: { UU: valueObject.payment!.UU, DocumentAction: documentAction.ReverseAccrual },
+	});
+
+	const transactions = (
+		await query(valueObject)({
+			fetchPolicy: 'network-only',
+			query: OpenBalanceTransactionGetDocument,
+			variables: {
+				Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }),
+				Sort: JSON.stringify([['date', 'desc']]),
+			},
+		})
+	).data.OpenBalanceTransactionGet.Results;
+	expect(transactions.some((transaction) => transaction.OpenBalance === null)).toBeTruthy();
 });
