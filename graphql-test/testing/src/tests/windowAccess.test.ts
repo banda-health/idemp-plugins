@@ -2310,8 +2310,8 @@ test('registration role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
 	// OTC Pharmacy Sales - readonly permission
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.otcPharmacySales)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.otcPharmacySales)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
 
 	// Should not have access to clinical features
 	expect(windowAccess?.[windowUuid.vitals]).toBeUndefined();
