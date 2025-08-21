@@ -1,3 +1,7 @@
 extend type M_InOutLine {
 	M_InOutLineMAList: [M_InOutLineMA!]
 }
+
+extend input M_InOutLineInput {
+	Qty: BigDecimal
+}

@@ -816,3 +816,28 @@ query PaymentTrailGet($C_BPartner_UU: String!, $Page: Int, $Size: Int, $Sort: St
 		}
 	}
 }
+query VendorPaymentTrailGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	VendorPaymentTrailGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			C_Invoice {
+				DocStatus {
+					Value
+				}
+				IsPaid
+				UU
+			}
+			C_Order {
+				DocStatus {
+					Value
+				}
+				UU
+			}
+			C_Payment {
+				...C_PaymentFields
+			}
+			Charged
+			Paid
+			OpenBalance
+		}
+	}
+}
