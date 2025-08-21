@@ -489,6 +489,7 @@ public class BandaResolverComposer {
 				new MZoomConditionResolver(),
 				new OpenBalanceTransactionResolver(),
 				new PaymentTrailResolver(),
+				new VendorPaymentTrailResolver(),
 				new X_A_Asset_Info_FinResolver(),
 				new X_A_Asset_Info_InsResolver(),
 				new X_A_Asset_Info_LicResolver(),

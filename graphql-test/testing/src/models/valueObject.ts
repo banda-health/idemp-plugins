@@ -18,6 +18,8 @@ import {
 	ChangeAccessDocument,
 	ChangeAccessMutationVariables,
 	M_AttributeSetInstanceSaveMutation,
+	M_InOutLineSaveMutation,
+	M_InOutSaveMutation,
 	M_InventorySaveWithInventoryLinesMutation,
 	M_PriceListSaveMutation,
 	M_ProductSaveMutation,
@@ -67,8 +69,8 @@ export class ValueObject {
 	visit?: Bh_VisitGetQuery['BH_VisitGet']['Results'][0];
 	order?: C_OrderGetQuery['C_OrderGet']['Results'][0];
 	orderLine?: C_OrderSaveWithOrderLinesMutation['C_OrderLineSave'];
-	// MInOut m_inOut = null;
-	// MInOutLine m_inOutLine = null;
+	inOut?: M_InOutSaveMutation['M_InOutSave'];
+	inOutLine?: M_InOutLineSaveMutation['M_InOutLineSave'];
 	invoice?: C_InvoiceGetQuery['C_InvoiceGet']['Results'][0];
 	invoiceLine?: C_InvoiceSaveWithInvoiceLinesMutation['C_InvoiceLineSave'];
 	inventory?: M_InventorySaveWithInventoryLinesMutation['M_InventorySave'];

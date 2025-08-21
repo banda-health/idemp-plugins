@@ -11,6 +11,8 @@ public class OpenBalanceTransaction {
 	private BigDecimal amount;
 	private Integer visitId;
 	private Timestamp date;
+	private Timestamp created;
+	private Timestamp updated;
 	private Integer createdBy;
 	private BigDecimal openBalance;
 
@@ -84,5 +86,21 @@ public class OpenBalanceTransaction {
 
 	public void setOpenBalance(BigDecimal openBalance) {
 		this.openBalance = openBalance;
+	}
+
+	public Timestamp getCreated() {
+		return created;
+	}
+
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
+
+	public Timestamp getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Timestamp updated) {
+		this.updated = updated;
 	}
 }
