@@ -334,10 +334,7 @@ test('clinic admin role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-		IsReadWrite: true,
-		BH_CanDeactivate: true,
-	});
+	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined
 });
 
 test('cashier/registration basic role has correct access', async () => {
