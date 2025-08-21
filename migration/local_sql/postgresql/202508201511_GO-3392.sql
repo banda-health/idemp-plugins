@@ -72,7 +72,7 @@ VALUES ((SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '477cdda4-82
 
 -- Add it to existing clients
 SELECT
-	add_roles_to_clients('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'O');
+	add_roles_to_clients('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'W');
 
 SELECT 
 	register_migration_script('202508201511_GO-3392.sql')
