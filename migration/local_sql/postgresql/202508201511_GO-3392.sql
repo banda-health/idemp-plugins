@@ -74,10 +74,6 @@ VALUES ((SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '477cdda4-82
 SELECT
 	add_roles_to_clients('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'O');
 
--- Add Registration role to BH_DefaultIncludedRole table for new clients
-INSERT INTO bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu, created, createdby, updated, updatedby, db_usertype, description, isactive, name, included_role_id)
-VALUES (0, 0, (SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole), 'c1d2e3f4-a5b6-7890-cdef-123456789012', '2025-08-20 15:11:00.000000', 100, '2025-08-20 15:11:00.000000', 100, 'O', null, 'Y', null, (SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'));
-
 SELECT 
 	register_migration_script('202508201511_GO-3392.sql')
 FROM dual;
