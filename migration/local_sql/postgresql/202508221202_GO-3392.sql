@@ -366,8 +366,10 @@ INSERT INTO
 	         ismasterrole, isaccessadvanced, roletype, isclientadministrator, predefinedcontextvariables)
 VALUES
 	((
-		 SELECT MAX(ad_role_id) + 1
-		 FROM ad_role
+		 SELECT
+			 MAX(ad_role_id) + 1
+		 FROM
+			 ad_role
 	 ), 0, 0, 'Y', '2025-08-20 15:11:00.000000', 100, '2025-08-20 15:11:00.000000', 'Registration', 100,
 	 'Registration role for patient registration and management', 'S  ', NULL, 0, NULL, 'Y', 'N', 'N', 'N', 'Y', 'Y',
 	 NULL, 'N', 'N', 'N', 'O', 'N', 'N', NULL,
@@ -477,6 +479,6 @@ SELECT
 	bh_add_roles_to_clients('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'W');
 
 SELECT
-	register_migration_script('202508201511_GO-3392.sql')
+	register_migration_script('202508221202_GO-3392.sql')
 FROM
 	dual;
