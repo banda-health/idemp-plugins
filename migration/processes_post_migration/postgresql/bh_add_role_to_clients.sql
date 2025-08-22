@@ -1,3 +1,7 @@
+-- Util function that adds the new role to all existing clients and includes it as a default role for
+-- new clients.
+-- Params: ad_role_to_add_uu : Role uuid of the new master role.
+--         db_user_type: user_type key to be used in ad_reflist for association with the role
 DROP FUNCTION IF EXISTS bh_add_roles_to_clients(_ad_role_to_add_uu uuid, _user_type character varying);
 CREATE OR REPLACE FUNCTION bh_add_roles_to_clients(_ad_role_to_add_uu uuid, _user_type character varying) RETURNS void
 	LANGUAGE plpgsql
@@ -69,7 +73,7 @@ BEGIN
 	);
 
 	PERFORM SETVAL('tmp_ad_role_ad_role_id_seq', (
-		SELECT currentnext FROM adempiere.ad_sequence WHERE name = 'AD_Role' LIMIT 1
+		SELECT currentnext FROM ad_sequence WHERE name = 'AD_Role' LIMIT 1
 	)::INT, FALSE);
 
 	-- Extract into a temp table all non-system clients and create responsibility role for each client in
@@ -138,9 +142,9 @@ BEGIN
 		'N',
 		NULL
 	FROM
-		adempiere.ad_client c
-			JOIN adempiere.ad_role r
-				ON r.ad_role_uu = _ad_role_to_add_uu :: TEXT
+		ad_client c
+			JOIN ad_role r
+				ON r.ad_role_uu = _ad_role_to_add_uu::TEXT
 	WHERE
 		c.ad_client_id NOT IN (0, 11);
 
@@ -212,13 +216,12 @@ BEGIN
 		isaccessadvanced,
 		roletype
 	FROM
-		tmp_ad_role
-	ON CONFLICT DO NOTHING;
+		tmp_ad_role;
 
 	-- Update the new role to have the same access to org as other responsibility roles have.
 	INSERT INTO
-		adempiere.ad_role_orgaccess (ad_role_id, ad_client_id, ad_org_id, isactive, createdby, updatedby, isreadonly,
-		                             ad_role_orgaccess_uu)
+		ad_role_orgaccess (ad_role_id, ad_client_id, ad_org_id, isactive, createdby, updatedby, isreadonly,
+		                   ad_role_orgaccess_uu)
 	SELECT
 		tar.ad_role_id,
 		tar.ad_client_id,
@@ -230,7 +233,7 @@ BEGIN
 		uuid_generate_v4()
 	FROM
 		tmp_ad_role tar
-			JOIN adempiere.ad_org ao
+			JOIN ad_org ao
 				ON ao.ad_client_id = tar.ad_client_id;
 
 	-- Add the "Must Haves" and "New_Master_Role" to the role
@@ -254,65 +257,64 @@ BEGIN
 					ad_role_id,
 					10 AS seqno
 				FROM
-					adempiere.ad_role
+					ad_role
 				WHERE
-					ad_role_uu = _ad_role_to_add_uu :: TEXT
+					ad_role_uu = _ad_role_to_add_uu::TEXT
 				UNION
 				SELECT
 					ad_role_id,
 					20 AS seqno
 				FROM
-					adempiere.ad_role
+					ad_role
 				WHERE
 					ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'
 			) ir;
 
 	-- Add a user-type ref-list item for the new role to the AD_Role_User_Type table
 	INSERT INTO
-		adempiere.ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, createdby, updatedby,
-		                       value, name, description, ad_reference_id, validfrom, validto,
-		                       entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all)
+		ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, createdby, updatedby,
+		             value, name, description, ad_reference_id, validfrom, validto,
+		             entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all)
 	VALUES
 		((
 			 SELECT
 				 MAX(ad_ref_list_id) + 1
 			 FROM
-				 adempiere.ad_ref_list
+				 ad_ref_list
 		 ), 0, 0, 'Y', 100, 100,
 		 _user_type,
 		 (
-			 SELECT name FROM adempiere.ad_role WHERE ad_role_uu = _ad_role_to_add_uu :: TEXT
+			 SELECT name FROM ad_role WHERE ad_role_uu = _ad_role_to_add_uu::TEXT
 		 ),
 		 (
-			 SELECT description FROM adempiere.ad_role WHERE ad_role_uu = _ad_role_to_add_uu :: TEXT
+			 SELECT description FROM ad_role WHERE ad_role_uu = _ad_role_to_add_uu::TEXT
 		 ),
 		 (
-			 SELECT ad_reference_id FROM adempiere.ad_reference WHERE ad_reference_uu = '5b41f508-5ce5-4b42-80de-713e10580d51'
+			 SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '5b41f508-5ce5-4b42-80de-713e10580d51'
 		 ),
 		 NULL, NULL, 'U', uuid_generate_v4(), 'N', 'N');
 
 	-- When new BH clients are set up, they should include a role with this new role, as well as the must haves role
 	INSERT INTO
-		adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu,
-		                                  createdby, db_usertype, description, isactive, name, updatedby, included_role_id)
+		bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu,
+		                        createdby, db_usertype, description, isactive, name, updatedby, included_role_id)
 	VALUES
 		(0, 0, (
-			SELECT MAX(bh_defaultincludedrole_id) + 1 FROM adempiere.bh_defaultincludedrole
+			SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole
 		), uuid_generate_v4(), 100, _user_type, NULL, 'Y', NULL, 100, (
-			 SELECT ad_role_id FROM adempiere.ad_role WHERE ad_role_uu = _ad_role_to_add_uu :: TEXT
-		 ))
-	ON CONFLICT DO NOTHING;
+			 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = _ad_role_to_add_uu::TEXT
+		 ));
 	INSERT INTO
-		adempiere.bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu,
-		                                  createdby, db_usertype, description, isactive, name, updatedby, included_role_id)
+		bh_defaultincludedrole (ad_client_id, ad_org_id, bh_defaultincludedrole_id, bh_defaultincludedrole_uu,
+		                        createdby, db_usertype, description, isactive, name, updatedby, included_role_id)
 	VALUES
 		(0, 0, (
-			SELECT MAX(bh_defaultincludedrole_id) + 1 FROM adempiere.bh_defaultincludedrole
+			SELECT MAX(bh_defaultincludedrole_id) + 1 FROM bh_defaultincludedrole
 		), uuid_generate_v4(), 100, _user_type, NULL, 'Y', NULL, 100, (
-			 SELECT ad_role_id FROM adempiere.ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'
-		 ))
-	ON CONFLICT DO NOTHING;
--- Add role to other non manual roles i.e admin
+			 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'baec9412-d994-4313-815c-31332357863a'
+		 ));
+
+	-- Add role to other non-manual roles i.e. admin
 	INSERT INTO
 		ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
 		               ad_user_roles_uu)
@@ -342,7 +344,7 @@ BEGIN
 			FROM
 				ad_role
 			WHERE
-				ad_role_uu = _ad_role_to_add_uu :: TEXT
+				ad_role_uu = _ad_role_to_add_uu::TEXT
 		);
 
 	-- Update all ID sequences after all the inserts we've done
