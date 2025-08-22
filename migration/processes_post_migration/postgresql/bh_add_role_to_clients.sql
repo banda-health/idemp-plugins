@@ -342,7 +342,7 @@ BEGIN
 			FROM
 				ad_role
 			WHERE
-				ad_role_uu = _ad_role_to_add_uu
+				ad_role_uu = _ad_role_to_add_uu :: TEXT
 		);
 
 	-- Update all ID sequences after all the inserts we've done
