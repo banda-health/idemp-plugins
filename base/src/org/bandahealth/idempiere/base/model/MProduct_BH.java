@@ -25,6 +25,8 @@ public class MProduct_BH extends MProduct {
 	public static String COLUMNNAME_BH_BuyPrice = "BH_BuyPrice";
 	public static String COLUMNNAME_BH_SellPrice = "BH_SellPrice";
 	public static String COLUMNNAME_BH_PriceMargin = "BH_PriceMargin";
+	/** Column name BH_SoonToExpireDays */
+	public static final String COLUMNNAME_BH_SoonToExpireDays = "BH_SoonToExpireDays";
 	/** Column name BH_Concept_ID */
 	public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
 

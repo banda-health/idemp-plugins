@@ -604,3 +604,95 @@ test('product concept can be updated', async () => {
 
 	expect(savedProduct.BH_Concept?.UU).toBe(concepts[1].UU);
 });
+
+test('BH_SoonToExpireDays field can be set and updated', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product with 30 days soon to expire';
+	await createProduct(valueObject);
+	const product = valueObject.product!;
+
+	// Set BH_SoonToExpireDays to 30
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.product!.UU,
+					BH_SoonToExpireDays: 30,
+				},
+			},
+		})
+	).data?.M_ProductSave;
+
+	expect(valueObject.product!.BH_SoonToExpireDays).toBe(30);
+
+	// Verify the value is persisted
+	let savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
+		.M_Product!;
+	expect(savedProduct.BH_SoonToExpireDays).toBe(30);
+
+	valueObject.stepName = 'Update BH_SoonToExpireDays to 60';
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.product!.UU,
+					BH_SoonToExpireDays: 60,
+				},
+			},
+		})
+	).data?.M_ProductSave;
+
+	expect(valueObject.product!.BH_SoonToExpireDays).toBe(60);
+
+	// Verify the updated value is persisted
+	savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
+		.M_Product!;
+	expect(savedProduct.BH_SoonToExpireDays).toBe(60);
+
+	valueObject.stepName = 'Update BH_SoonToExpireDays to 90';
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.product!.UU,
+					BH_SoonToExpireDays: 90,
+				},
+			},
+		})
+	).data?.M_ProductSave;
+
+	expect(valueObject.product!.BH_SoonToExpireDays).toBe(90);
+
+	// Verify the updated value is persisted
+	savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
+		.M_Product!;
+	expect(savedProduct.BH_SoonToExpireDays).toBe(90);
+
+	valueObject.stepName = 'Clear BH_SoonToExpireDays (set to null)';
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.product!.UU,
+					BH_SoonToExpireDays: null,
+				},
+			},
+		})
+	).data?.M_ProductSave;
+
+	expect(valueObject.product!.BH_SoonToExpireDays).toBeNull();
+
+	// Verify the cleared value is persisted
+	savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
+		.M_Product!;
+	expect(savedProduct.BH_SoonToExpireDays).toBeNull();
+});

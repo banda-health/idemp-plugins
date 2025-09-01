@@ -26,6 +26,8 @@ type M_Product {
 	BH_BuyPrice: BigDecimal
 	BH_Concept: BH_Concept
 	BH_PriceMargin: BigDecimal
+	# Number of days before expiration to consider product as "soon to expire"
+	BH_SoonToExpireDays: Int
 	bh_reorder_level: Int
 	# How much quantity you want to re-order
 	bh_reorder_quantity: Int
@@ -173,6 +175,8 @@ input M_ProductInput {
 	BH_BuyPrice: BigDecimal
 	BH_Concept: ForeignEntityInput
 	BH_PriceMargin: BigDecimal
+	# Number of days before expiration to consider product as "soon to expire"
+	BH_SoonToExpireDays: Int
 	bh_reorder_level: Int
 	# How much quantity you want to re-order
 	bh_reorder_quantity: Int
