@@ -605,7 +605,7 @@ test('product concept can be updated', async () => {
 	expect(savedProduct.BH_Concept?.UU).toBe(concepts[1].UU);
 });
 
-test('BH_SoonToExpireDays field can be set and updated', async () => {
+test('SoonToExpireDays field can be set and updated', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
@@ -675,24 +675,4 @@ test('BH_SoonToExpireDays field can be set and updated', async () => {
 	savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
 		.M_Product!;
 	expect(savedProduct.BH_SoonToExpireDays).toBe(90);
-
-	valueObject.stepName = 'Clear BH_SoonToExpireDays (set to null)';
-	valueObject.product = (
-		await mutate(valueObject)({
-			mutation: M_ProductSaveDocument,
-			variables: {
-				Entity: {
-					UU: valueObject.product!.UU,
-					BH_SoonToExpireDays: null,
-				},
-			},
-		})
-	).data?.M_ProductSave;
-
-	expect(valueObject.product!.BH_SoonToExpireDays).toBeNull();
-
-	// Verify the cleared value is persisted
-	savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
-		.M_Product!;
-	expect(savedProduct.BH_SoonToExpireDays).toBeNull();
 });

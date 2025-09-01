@@ -199,6 +199,28 @@ public class MProduct_BH extends MProduct {
 			return 0;
 		return ii.intValue();
 	}
+	
+	/**
+	 * Set BH_SoonToExpireDays.
+	 *
+	 * @param BH_SoonToExpireDays
+	 */
+	public void setBH_SoonToExpireDays(int BH_SoonToExpireDays) {
+		set_Value(COLUMNNAME_BH_SoonToExpireDays, Integer.valueOf(BH_SoonToExpireDays));
+	}
+
+	/**
+	 * Get BH_SoonToExpireDays.
+	 *
+	 * @return BH_SoonToExpireDays
+	 */
+	public int getBH_SoonToExpireDays() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_SoonToExpireDays);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
+	}
+
 
 	/**
 	 * Set Re-order Quantity.
