@@ -52,6 +52,9 @@ public class MProduct_BH extends MProduct {
 	 * Column name QtyInStore
 	 */
 	public static final String COLUMNNAME_QtyInStore = "QtyInStore";
+	
+	/** Column name BH_SoonToExpireDays */
+    public static final String COLUMNNAME_BH_SoonToExpireDays = "BH_SoonToExpireDays";
 
 	public MProduct_BH(Properties ctx, String M_Product_UU, String trxName) {
 		super(ctx, M_Product_UU, trxName);
@@ -345,5 +348,27 @@ public class MProduct_BH extends MProduct {
 			 return 0;
 		return ii.intValue();
 	}
+	
+	/** 30 Days = 30 */
+	public static final String BH_SOONTOEXPIREDAYS_30Days = "30";
+	/** 60 Days = 60 */
+	public static final String BH_SOONTOEXPIREDAYS_60Days = "60";
+	/** 90 Days = 90 */
+	public static final String BH_SOONTOEXPIREDAYS_90Days = "90";
+	/** Set BH_SoonToExpireDays.
+		@param BH_SoonToExpireDays Number of days before expiration to consider product as &quot;soon to expire&quot;. Leave blank to exclude from calculations.
+	*/
+	public void setBH_SoonToExpireDays (String BH_SoonToExpireDays)
+	{
 
+		set_Value (COLUMNNAME_BH_SoonToExpireDays, BH_SoonToExpireDays);
+	}
+
+	/** Get BH_SoonToExpireDays.
+		@return Number of days before expiration to consider product as &quot;soon to expire&quot;. Leave blank to exclude from calculations.
+	  */
+	public String getBH_SoonToExpireDays()
+	{
+		return (String)get_Value(COLUMNNAME_BH_SoonToExpireDays);
+	}
 }
