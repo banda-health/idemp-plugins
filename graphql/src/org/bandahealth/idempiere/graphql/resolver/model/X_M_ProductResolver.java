@@ -79,6 +79,21 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		return entity.getbh_reorder_quantity();
 	}
 
+	public static Map<String, String> BH_SOONTOEXPIREDAYS_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("30", "d3e4f5a6-b7c8-9012-def3-456789012345"); // 30 Days
+			put("60", "e4f5a6b7-c8d9-0123-ef45-678901234567"); // 60 Days
+			put("90", "f5a6b7c8-d9e0-1234-f567-890123456789"); // 90 Days
+		}
+	};
+	public CompletableFuture<MRefList_BH> BH_SoonToExpireDays(MProduct_BH entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getBH_SoonToExpireDays())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(BH_SOONTOEXPIREDAYS_UUIDS_BY_VALUE.get(entity.getBH_SoonToExpireDays()));
+	}
 
 	/**
 	 * Get Revenue Recognition.

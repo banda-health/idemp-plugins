@@ -137,6 +137,20 @@ public interface I_M_ProductInput extends I_M_Product {
 	BigDecimal getBH_SellPrice();
 
 	/**
+	 * Set BH_SoonToExpireDays.
+	 *
+	 * @param BH_SoonToExpireDays Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
+	 */
+	void setBH_SoonToExpireDaysInput(ForeignEntityInput BH_SoonToExpireDays);
+
+	/**
+	 * Get BH_SoonToExpireDays.
+	 *
+	 * @return Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
+	 */
+	ForeignEntityInput BH_SoonToExpireDays();
+
+	/**
 	 * Set C_RevenueRecognition.
 	 *
 	 * @param C_RevenueRecognition Method for recording revenue
@@ -376,6 +390,20 @@ public interface I_M_ProductInput extends I_M_Product {
 	ForeignEntityInput R_MailText();
 
 	/**
+	 * Set SalesRep.
+	 *
+	 * @param SalesRep Sales Representative or Company Agent
+	 */
+	void setSalesRepInput(ForeignEntityInput SalesRep);
+
+	/**
+	 * Get SalesRep.
+	 *
+	 * @return Sales Representative or Company Agent
+	 */
+	ForeignEntityInput SalesRep();
+
+	/**
 	 * Set S_ExpenseType.
 	 *
 	 * @param S_ExpenseType Expense report type
@@ -402,18 +430,4 @@ public interface I_M_ProductInput extends I_M_Product {
 	 * @return Resource
 	 */
 	ForeignEntityInput S_Resource();
-
-	/**
-	 * Set SalesRep.
-	 *
-	 * @param SalesRep Sales Representative or Company Agent
-	 */
-	void setSalesRepInput(ForeignEntityInput SalesRep);
-
-	/**
-	 * Get SalesRep.
-	 *
-	 * @return Sales Representative or Company Agent
-	 */
-	ForeignEntityInput SalesRep();
 }

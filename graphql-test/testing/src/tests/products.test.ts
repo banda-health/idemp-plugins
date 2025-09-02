@@ -1,5 +1,7 @@
 import { v4 } from 'uuid';
 import {
+	Ad_Ref_List,
+	Ad_Ref_ListGetDocument,
 	Bh_ConceptGetForProductCatalogueDocument,
 	Bh_Product_IncludedDeleteDocument,
 	Bh_Product_IncludedSaveManyDocument,
@@ -13,7 +15,7 @@ import {
 	M_ProductSaveManyDocument,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
+import { documentAction, documentBaseType, documentSubTypeSalesOrder, referenceUuid } from '../models';
 import {
 	createBusinessPartner,
 	createInvoice,
@@ -603,4 +605,67 @@ test('product concept can be updated', async () => {
 		.M_Product!;
 
 	expect(savedProduct.BH_Concept?.UU).toBe(concepts[1].UU);
+});
+
+test('soon to expire days field can be set and updated', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product with 30 days soon to expire';
+	await createProduct(valueObject);
+	const product = valueObject.product!;
+
+	const soonToExpireList = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: {
+				Size: 3,
+				Filter: JSON.stringify({
+					ad_reference: { ad_reference_uu: referenceUuid.SOON_TO_EXPIRE_TYPES },
+				}),
+			},
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	const ref30Days = soonToExpireList.filter((ref) => ref.Value === '30')[0];
+
+	// Set BH_SoonToExpireDays to 30
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.product!.UU,
+					BH_SoonToExpireDays: {
+						UU: ref30Days.UU
+					},
+				},
+			},
+		})
+	).data?.M_ProductSave;
+
+	expect(valueObject.product!.BH_SoonToExpireDays?.Value).toBe('30');
+
+	// // Verify the value is persisted
+	let savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
+		.M_Product!;
+	expect(savedProduct.BH_SoonToExpireDays?.Value).toBe('30');
+
+	valueObject.stepName = 'Update BH_SoonToExpireDays to null';
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.product!.UU,
+					BH_SoonToExpireDays: null,
+				},
+			},
+		})
+	).data?.M_ProductSave;
+
+	expect(valueObject.product!.BH_SoonToExpireDays).toBeNull();
 });
