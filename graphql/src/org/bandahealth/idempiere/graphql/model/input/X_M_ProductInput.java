@@ -38,6 +38,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mBH_Concept;
+	private ForeignEntityInput mBH_SoonToExpireDays;
 	private ForeignEntityInput mC_RevenueRecognition;
 	private ForeignEntityInput mC_SubscriptionType;
 	private ForeignEntityInput mC_TaxCategory;
@@ -135,6 +136,45 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	@JsonProperty("BH_Concept")
 	public ForeignEntityInput BH_Concept() {
 		return mBH_Concept;
+	}
+	
+	/**
+	 * Set BH_SoonToExpireDays.
+	 *
+	 * @param BH_SoonToExpireDays Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
+	 */
+	@JsonProperty("BH_SoonToExpireDays")
+	public void setBH_SoonToExpireDaysInput(ForeignEntityInput BH_SoonToExpireDays) {
+		this.mBH_SoonToExpireDays = BH_SoonToExpireDays;
+		if (BH_SoonToExpireDays != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_M_ProductResolver.BH_SOONTOEXPIREDAYS_UUIDS_BY_VALUE.containsValue(BH_SoonToExpireDays.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_SoonToExpireDays.getUU() +
+						" is not in the list defined for the BH_SoonToExpireDays column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BH_SoonToExpireDays.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setBH_SoonToExpireDays(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BH_SoonToExpireDays.getUU());
+			}
+		} else {
+			this.setBH_SoonToExpireDays(null);
+		}
+	}
+
+	/**
+	 * Get BH_SoonToExpireDays.
+	 *
+	 * @return Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
+	 */
+	@JsonProperty("BH_SoonToExpireDays")
+	public ForeignEntityInput BH_SoonToExpireDays() {
+		return mBH_SoonToExpireDays;
 	}
 
 	/**

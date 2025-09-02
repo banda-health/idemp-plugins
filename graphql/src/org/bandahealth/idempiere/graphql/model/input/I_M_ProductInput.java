@@ -137,23 +137,18 @@ public interface I_M_ProductInput extends I_M_Product {
 	BigDecimal getBH_SellPrice();
 
 	/**
-	 * Column name BH_SoonToExpireDays
-	 */
-	static final String COLUMNNAME_BH_SoonToExpireDays = "BH_SoonToExpireDays";
-
-	/**
-	 * Set Soon To Expire Days.
+	 * Set BH_SoonToExpireDays.
 	 *
 	 * @param BH_SoonToExpireDays Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
 	 */
-	void setBH_SoonToExpireDays(int BH_SoonToExpireDays);
+	void setBH_SoonToExpireDaysInput(ForeignEntityInput BH_SoonToExpireDays);
 
 	/**
-	 * Get Soon To Expire Days.
+	 * Get BH_SoonToExpireDays.
 	 *
 	 * @return Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
 	 */
-	int getBH_SoonToExpireDays();
+	ForeignEntityInput BH_SoonToExpireDays();
 
 	/**
 	 * Set C_RevenueRecognition.

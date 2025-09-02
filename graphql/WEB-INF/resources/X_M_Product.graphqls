@@ -32,7 +32,7 @@ type M_Product {
 	# Selling price of BandaGo product
 	BH_SellPrice: BigDecimal
 	# Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
-	BH_SoonToExpireDays: Int
+	BH_SoonToExpireDays: AD_Ref_List
 	# Classification for grouping
 	Classification: String
 	# Copy From Record
@@ -181,7 +181,7 @@ input M_ProductInput {
 	# Selling price of BandaGo product
 	BH_SellPrice: BigDecimal
 	# Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
-	BH_SoonToExpireDays: Int
+	BH_SoonToExpireDays: ForeignEntityInput
 	# Classification for grouping
 	Classification: String
 	# Copy From Record
