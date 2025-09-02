@@ -25,8 +25,6 @@ public class MProduct_BH extends MProduct {
 	public static String COLUMNNAME_BH_BuyPrice = "BH_BuyPrice";
 	public static String COLUMNNAME_BH_SellPrice = "BH_SellPrice";
 	public static String COLUMNNAME_BH_PriceMargin = "BH_PriceMargin";
-	/** Column name BH_SoonToExpireDays */
-	public static final String COLUMNNAME_BH_SoonToExpireDays = "BH_SoonToExpireDays";
 	/** Column name BH_Concept_ID */
 	public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
 
@@ -200,28 +198,6 @@ public class MProduct_BH extends MProduct {
 		return ii.intValue();
 	}
 	
-	/**
-	 * Set BH_SoonToExpireDays.
-	 *
-	 * @param BH_SoonToExpireDays
-	 */
-	public void setBH_SoonToExpireDays(int BH_SoonToExpireDays) {
-		set_Value(COLUMNNAME_BH_SoonToExpireDays, Integer.valueOf(BH_SoonToExpireDays));
-	}
-
-	/**
-	 * Get BH_SoonToExpireDays.
-	 *
-	 * @return BH_SoonToExpireDays
-	 */
-	public int getBH_SoonToExpireDays() {
-		Integer ii = (Integer) get_Value(COLUMNNAME_BH_SoonToExpireDays);
-		if (ii == null)
-			return 0;
-		return ii.intValue();
-	}
-
-
 	/**
 	 * Set Re-order Quantity.
 	 *

@@ -204,7 +204,10 @@ fragment M_ProductFields on M_Product {
 		UU
 	}
 	BH_SellPrice
-	BH_SoonToExpireDays
+	BH_SoonToExpireDays {
+		UU
+		Value
+	}
 	Description
 	HasBeenPurchased
 	LastPurchasePrice

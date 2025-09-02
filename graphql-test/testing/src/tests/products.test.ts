@@ -623,18 +623,18 @@ test('SoonToExpireDays field can be set and updated', async () => {
 			variables: {
 				Entity: {
 					UU: valueObject.product!.UU,
-					BH_SoonToExpireDays: 30,
+					BH_SoonToExpireDays: '30',
 				},
 			},
 		})
 	).data?.M_ProductSave;
 
-	expect(valueObject.product!.BH_SoonToExpireDays).toBe(30);
+	expect(valueObject.product!.BH_SoonToExpireDays).toBe('30');
 
 	// Verify the value is persisted
 	let savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
 		.M_Product!;
-	expect(savedProduct.BH_SoonToExpireDays).toBe(30);
+	expect(savedProduct.BH_SoonToExpireDays).toBe('30');
 
 	valueObject.stepName = 'Update BH_SoonToExpireDays to 60';
 	valueObject.product = (
@@ -643,18 +643,18 @@ test('SoonToExpireDays field can be set and updated', async () => {
 			variables: {
 				Entity: {
 					UU: valueObject.product!.UU,
-					BH_SoonToExpireDays: 60,
+					BH_SoonToExpireDays: '60',
 				},
 			},
 		})
 	).data?.M_ProductSave;
 
-	expect(valueObject.product!.BH_SoonToExpireDays).toBe(60);
+	expect(valueObject.product!.BH_SoonToExpireDays).toBe('60');
 
 	// Verify the updated value is persisted
 	savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
 		.M_Product!;
-	expect(savedProduct.BH_SoonToExpireDays).toBe(60);
+	expect(savedProduct.BH_SoonToExpireDays).toBe('60');
 
 	valueObject.stepName = 'Update BH_SoonToExpireDays to 90';
 	valueObject.product = (
@@ -663,16 +663,16 @@ test('SoonToExpireDays field can be set and updated', async () => {
 			variables: {
 				Entity: {
 					UU: valueObject.product!.UU,
-					BH_SoonToExpireDays: 90,
+					BH_SoonToExpireDays: '90',
 				},
 			},
 		})
 	).data?.M_ProductSave;
 
-	expect(valueObject.product!.BH_SoonToExpireDays).toBe(90);
+	expect(valueObject.product!.BH_SoonToExpireDays).toBe('90');
 
 	// Verify the updated value is persisted
 	savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
 		.M_Product!;
-	expect(savedProduct.BH_SoonToExpireDays).toBe(90);
+	expect(savedProduct.BH_SoonToExpireDays).toBe('90');
 });
