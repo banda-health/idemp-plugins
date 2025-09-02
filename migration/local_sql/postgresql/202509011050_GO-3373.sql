@@ -1,5 +1,5 @@
 -- Add BH_SoonToExpireDays column to M_Product table
-ALTER TABLE m_product ADD COLUMN IF NOT EXISTS bh_soon_to_expire_days varchar(10);
+ALTER TABLE m_product ADD COLUMN IF NOT EXISTS BH_SoonToExpireDays varchar(10);
 
 -- Create reference for BH_SoonToExpireDays
 INSERT INTO
