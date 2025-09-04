@@ -2881,7 +2881,7 @@ test(`clinic user role has correct access`, async () => {
 	expect(processes.find((process) => process.UU === processUuid.deletedDraftedVisits)).toBeUndefined();
 });
 
-test('Registration role has correct access', async () => {
+test('registration role has correct access', async () => {
 	await globalThis.__VALUE_OBJECT__.login(RoleName.Registration);
 	const reportMenuList = (
 		await query(globalThis.__VALUE_OBJECT__)({

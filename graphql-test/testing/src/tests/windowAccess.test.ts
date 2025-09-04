@@ -334,7 +334,7 @@ test('clinic admin role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined
+	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined;
 });
 
 test('cashier/registration basic role has correct access', async () => {
@@ -2280,14 +2280,9 @@ test('registration role has correct access', async () => {
 			...(menuNode.Node?.ChildrenTree_NodeMMList?.map((childNode) => childNode.Node) || []),
 		])
 		.filter((item) => !!item);
-	const documentStatusActionMap = JSON.parse(
-		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
-	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
 
 	// Patient page - deactivate permission
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patients)).not.toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patients)).toBeDefined();
 	expect(windowAccess?.[windowUuid.patients]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 
 	// Products & Prices - readonly permission
