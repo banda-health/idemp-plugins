@@ -334,11 +334,7 @@ test('clinic admin role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: true,
-	// 	BH_CanDeactivate: true,
-	// });
+	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined;
 });
 
 test('cashier/registration basic role has correct access', async () => {
@@ -1377,8 +1373,8 @@ test('clinician/nurse advanced role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
 	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: false,
-	// 	BH_CanDeactivate: false,
+	// 	IsReadWrite: true,
+	// 	BH_CanDeactivate: true,
 	// });
 });
 
@@ -2268,4 +2264,91 @@ test('clinic user role has correct access', async () => {
 	// 	IsReadWrite: true,
 	// 	BH_CanDeactivate: true,
 	// });
+});
+
+test('registration role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login(RoleName.Registration);
+	const windowAccess = globalThis.__VALUE_OBJECT__.AD_Window_AccessMap;
+	const menus = (
+		await query(globalThis.__VALUE_OBJECT__)({
+			query: Ad_MenuGetDocument,
+			variables: { Size: 1, Filter: JSON.stringify({ ad_menu_uu: mainMenuRootUuid }) },
+		})
+	).data.AD_MenuGet.Results[0]
+		.ChildrenTree_NodeMMList!.flatMap((menuNode) => [
+			menuNode.Node,
+			...(menuNode.Node?.ChildrenTree_NodeMMList?.map((childNode) => childNode.Node) || []),
+		])
+		.filter((item) => !!item);
+
+	// Patient page - deactivate permission
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patients)).toBeDefined();
+	expect(windowAccess?.[windowUuid.patients]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+
+	// Products & Prices - readonly permission
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.products)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.products]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	// Services & Prices - readonly permission
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.services)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.services]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	// Visits/Bills - create/edit permission
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.visitsBills)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.visitsBills]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
+
+	// Patient Tags - readonly permission
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
+	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	// OTC Pharmacy Sales - readonly permission
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.otcPharmacySales)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
+
+	// Should not have access to clinical features
+	expect(windowAccess?.[windowUuid.vitals]).toBeUndefined();
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
+	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
+
+	// Should not have access to inventory management
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.receiveProducts)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.receiveProducts]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.manageInventory)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.manageInventory]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.transferInventory)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.transferInventory]).toBeUndefined();
+
+	// Should not have access to financial management
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.debtPayments)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.debtPayments]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.expenseCategories)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.expenseCategories]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.trackExpenses)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackExpenses]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.trackIncome)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.nonPatientPayments)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
+
+	// Should not have access to administrative features
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.manageUsers)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.facilityInformation)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.facilityInformation]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.priceLists)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.priceLists]).toBeUndefined();
+
+	// Should not have access to other features
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.suppliers)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.suppliers]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.allergies]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.billingHistoryManageDebt)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.billingHistoryManageDebt]).toBeUndefined();
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
 });
