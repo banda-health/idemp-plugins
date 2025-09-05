@@ -11,8 +11,10 @@ import java.util.Set;
  */
 public class QueryUtil {
 	private static final List<String> DISALLOWED_COLUMN_CHARACTERS =
-			Arrays.asList("\\", "--", ";", "'", "\"", "?", "=", "!", "^", "&", "$", "#", "@", "`", "~", "DROP", "DELETE",
+			List.of("\\", "--", ";", "'", "\"", "?", "=", "!", "^", "&", "$", "#", "@", "`", "~", "DROP", "DELETE",
 					"UPDATE", "SELECT", "FROM", "WHERE");
+	public static final List<String> DISALLOWED_WHERE_CLAUSE_TOKENS =
+			List.of("\\", "--", ";", "'", "DROP ", "DELETE ", "UPDATE ", "CREATE ", "INDEX ");
 
 	/**
 	 * This generates a parameter list based on a number of items (i.e. for items [1,2,3], this generates a where clause
