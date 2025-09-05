@@ -432,20 +432,23 @@ public class Repository {
 	}
 
 	public static String parseApiWhereClauseAndParameters(String where, List<Object> parameters) {
-		// Sanitize the WHERE clause to ensure people aren't doing anything nefarious
-		String finalWhere = where.replaceAll("[\\r\\n\\t]", " ");
-		if (!StringUtil.isNullOrEmpty(where) && DISALLOWED_WHERE_CLAUSE_TOKENS.stream()
-				.anyMatch(token -> finalWhere.toLowerCase().contains(token.toLowerCase()))) {
-			where = null;
+		if (parameters == null || parameters.isEmpty()) {
+			parameters = new ArrayList<>();
 		}
-		// If there's no WHERE clause, disallow any parameters
+		// If the where is empty, clear parameters and return
 		if (StringUtil.isNullOrEmpty(where)) {
 			parameters.clear();
-		} else {
-			// iDempiere has a requirement that sub-selects not have a space between the leading parenthesis
-			// See AccessSqlParser.getSubSQL line 165
-			where = where.toLowerCase().replaceAll("\\(.*select ", "(select ");
+			return null;
 		}
-		return where;
+		// Sanitize the WHERE clause to ensure people aren't doing anything nefarious
+		String finalWhere = where.replaceAll("[\\r\\n\\t]", " ");
+		if (DISALLOWED_WHERE_CLAUSE_TOKENS.stream()
+				.anyMatch(token -> finalWhere.toLowerCase().contains(token.toLowerCase()))) {
+			parameters.clear();
+			return null;
+		}
+		// iDempiere has a requirement that sub-selects not have a space between the leading parenthesis
+		// See AccessSqlParser.getSubSQL line 165
+		return finalWhere.toLowerCase().replaceAll("\\(\\s*select ", "(select ");
 	}
 }

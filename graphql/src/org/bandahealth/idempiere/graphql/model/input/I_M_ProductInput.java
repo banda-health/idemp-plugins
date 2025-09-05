@@ -390,20 +390,6 @@ public interface I_M_ProductInput extends I_M_Product {
 	ForeignEntityInput R_MailText();
 
 	/**
-	 * Set SalesRep.
-	 *
-	 * @param SalesRep Sales Representative or Company Agent
-	 */
-	void setSalesRepInput(ForeignEntityInput SalesRep);
-
-	/**
-	 * Get SalesRep.
-	 *
-	 * @return Sales Representative or Company Agent
-	 */
-	ForeignEntityInput SalesRep();
-
-	/**
 	 * Set S_ExpenseType.
 	 *
 	 * @param S_ExpenseType Expense report type
@@ -430,4 +416,18 @@ public interface I_M_ProductInput extends I_M_Product {
 	 * @return Resource
 	 */
 	ForeignEntityInput S_Resource();
+
+	/**
+	 * Set SalesRep.
+	 *
+	 * @param SalesRep Sales Representative or Company Agent
+	 */
+	void setSalesRepInput(ForeignEntityInput SalesRep);
+
+	/**
+	 * Get SalesRep.
+	 *
+	 * @return Sales Representative or Company Agent
+	 */
+	ForeignEntityInput SalesRep();
 }

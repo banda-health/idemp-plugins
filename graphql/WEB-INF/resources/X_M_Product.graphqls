@@ -31,6 +31,8 @@ type M_Product {
 	bh_reorder_quantity: Int
 	# Selling price of BandaGo product
 	BH_SellPrice: BigDecimal
+	# Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
+	BH_SoonToExpireDays: AD_Ref_List
 	# Method for recording revenue
 	C_RevenueRecognition: C_RevenueRecognition
 	# Type of subscription
@@ -178,6 +180,8 @@ input M_ProductInput {
 	bh_reorder_quantity: Int
 	# Selling price of BandaGo product
 	BH_SellPrice: BigDecimal
+	# Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
+	BH_SoonToExpireDays: ForeignEntityInput
 	# Method for recording revenue
 	C_RevenueRecognition: ForeignEntityInput
 	# Type of subscription
