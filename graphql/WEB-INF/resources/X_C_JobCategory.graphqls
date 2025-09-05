@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_JobCategory(UU: String!): C_JobCategory
-	C_JobCategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_JobCategoryConnection!
+	C_JobCategoryGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_JobCategoryConnection!
 }
 
 extend type Mutation {

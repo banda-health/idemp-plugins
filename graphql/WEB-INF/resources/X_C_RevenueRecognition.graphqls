@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_RevenueRecognition(UU: String!): C_RevenueRecognition
-	C_RevenueRecognitionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RevenueRecognitionConnection!
+	C_RevenueRecognitionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_RevenueRecognitionConnection!
 }
 
 extend type Mutation {

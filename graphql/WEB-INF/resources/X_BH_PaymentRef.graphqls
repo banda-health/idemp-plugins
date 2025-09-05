@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	BH_PaymentRef(UU: String!): BH_PaymentRef
-	BH_PaymentRefGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_PaymentRefConnection!
+	BH_PaymentRefGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_PaymentRefConnection!
 }
 
 extend type Mutation {

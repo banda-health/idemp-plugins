@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	R_StandardResponse(UU: String!): R_StandardResponse
-	R_StandardResponseGet(Page: Int, Size: Int, Sort: String, Filter: String): R_StandardResponseConnection!
+	R_StandardResponseGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): R_StandardResponseConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	EXP_FormatLine(UU: String!): EXP_FormatLine
-	EXP_FormatLineGet(Page: Int, Size: Int, Sort: String, Filter: String): EXP_FormatLineConnection!
+	EXP_FormatLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): EXP_FormatLineConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	Test(UU: String!): Test
-	TestGet(Page: Int, Size: Int, Sort: String, Filter: String): TestConnection!
+	TestGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): TestConnection!
 }
 
 extend type Mutation {

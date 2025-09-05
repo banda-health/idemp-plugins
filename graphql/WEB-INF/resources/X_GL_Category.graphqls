@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	GL_Category(UU: String!): GL_Category
-	GL_CategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_CategoryConnection!
+	GL_CategoryGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): GL_CategoryConnection!
 }
 
 extend type Mutation {

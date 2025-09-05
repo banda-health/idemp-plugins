@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_LocatorType(UU: String!): M_LocatorType
-	M_LocatorTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_LocatorTypeConnection!
+	M_LocatorTypeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_LocatorTypeConnection!
 }
 
 extend type Mutation {

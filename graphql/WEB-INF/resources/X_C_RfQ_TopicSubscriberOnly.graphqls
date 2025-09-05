@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_RfQ_TopicSubscriberOnly(UU: String!): C_RfQ_TopicSubscriberOnly
-	C_RfQ_TopicSubscriberOnlyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQ_TopicSubscriberOnlyConnection!
+	C_RfQ_TopicSubscriberOnlyGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_RfQ_TopicSubscriberOnlyConnection!
 }
 
 extend type Mutation {

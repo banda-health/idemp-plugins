@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	ASP_ClientLevel(UU: String!): ASP_ClientLevel
-	ASP_ClientLevelGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ClientLevelConnection!
+	ASP_ClientLevelGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): ASP_ClientLevelConnection!
 }
 
 extend type Mutation {

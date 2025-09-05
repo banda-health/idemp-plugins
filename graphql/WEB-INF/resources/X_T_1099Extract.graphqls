@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	T_1099Extract(UU: String!): T_1099Extract
-	T_1099ExtractGet(Page: Int, Size: Int, Sort: String, Filter: String): T_1099ExtractConnection!
+	T_1099ExtractGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): T_1099ExtractConnection!
 }
 
 extend type Mutation {

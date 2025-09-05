@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	S_ResourceAssignment(UU: String!): S_ResourceAssignment
-	S_ResourceAssignmentGet(Page: Int, Size: Int, Sort: String, Filter: String): S_ResourceAssignmentConnection!
+	S_ResourceAssignmentGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): S_ResourceAssignmentConnection!
 }
 
 extend type Mutation {

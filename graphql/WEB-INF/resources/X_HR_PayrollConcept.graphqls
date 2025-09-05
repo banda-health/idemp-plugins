@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	HR_PayrollConcept(UU: String!): HR_PayrollConcept
-	HR_PayrollConceptGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_PayrollConceptConnection!
+	HR_PayrollConceptGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): HR_PayrollConceptConnection!
 }
 
 extend type Mutation {

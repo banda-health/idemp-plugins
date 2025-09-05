@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	HR_Concept_Acct(UU: String!): HR_Concept_Acct
-	HR_Concept_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_Concept_AcctConnection!
+	HR_Concept_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): HR_Concept_AcctConnection!
 }
 
 extend type Mutation {

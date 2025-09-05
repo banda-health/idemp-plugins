@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_User_OrgAccess(UU: String!): AD_User_OrgAccess
-	AD_User_OrgAccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_User_OrgAccessConnection!
+	AD_User_OrgAccessGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_User_OrgAccessConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_RevenueRecognition_Plan(UU: String!): C_RevenueRecognition_Plan
-	C_RevenueRecognition_PlanGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RevenueRecognition_PlanConnection!
+	C_RevenueRecognition_PlanGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_RevenueRecognition_PlanConnection!
 }
 
 extend type Mutation {

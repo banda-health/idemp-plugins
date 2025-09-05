@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_DistributionRunLine(UU: String!): M_DistributionRunLine
-	M_DistributionRunLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DistributionRunLineConnection!
+	M_DistributionRunLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_DistributionRunLineConnection!
 }
 
 extend type Mutation {

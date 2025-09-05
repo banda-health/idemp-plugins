@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_PrintHeaderFooter(UU: String!): AD_PrintHeaderFooter
-	AD_PrintHeaderFooterGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintHeaderFooterConnection!
+	AD_PrintHeaderFooterGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_PrintHeaderFooterConnection!
 }
 
 extend type Mutation {

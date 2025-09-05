@@ -7,13 +7,14 @@ import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MRole;
 import org.compiere.util.Env;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MProcessQuery extends X_AD_ProcessQuery {
 	@Override
-	public Connection<MProcess_BH> AD_ProcessGet(int page, int pageSize, String sort, String filter,
-			DataFetchingEnvironment environment) {
-		Connection<MProcess_BH> processes = super.Get(page, pageSize, sort, filter, environment);
+	public Connection<MProcess_BH> AD_ProcessGet(int page, int pageSize, String sort, String filter, String Where,
+			List<Object> Parameters, DataFetchingEnvironment environment) {
+		Connection<MProcess_BH> processes = super.Get(page, pageSize, sort, filter, Where, Parameters, environment);
 		// TODO: Update the below to leverage already-existing logic that handles this
 		// Only return what the user can see
 		MRole usersRole =

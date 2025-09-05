@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	BH_BPartner_Tags(UU: String!): BH_BPartner_Tags
-	BH_BPartner_TagsGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_BPartner_TagsConnection!
+	BH_BPartner_TagsGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_BPartner_TagsConnection!
 }
 
 extend type Mutation {

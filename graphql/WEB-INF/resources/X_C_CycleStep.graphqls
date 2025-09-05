@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_CycleStep(UU: String!): C_CycleStep
-	C_CycleStepGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CycleStepConnection!
+	C_CycleStepGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_CycleStepConnection!
 }
 
 extend type Mutation {

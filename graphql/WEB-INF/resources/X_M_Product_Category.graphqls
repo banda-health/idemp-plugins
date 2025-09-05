@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_Product_Category(UU: String!): M_Product_Category
-	M_Product_CategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Product_CategoryConnection!
+	M_Product_CategoryGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_Product_CategoryConnection!
 }
 
 extend type Mutation {

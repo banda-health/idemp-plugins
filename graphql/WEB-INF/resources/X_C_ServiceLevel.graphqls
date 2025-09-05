@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_ServiceLevel(UU: String!): C_ServiceLevel
-	C_ServiceLevelGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ServiceLevelConnection!
+	C_ServiceLevelGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_ServiceLevelConnection!
 }
 
 extend type Mutation {

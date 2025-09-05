@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PA_Ratio(UU: String!): PA_Ratio
-	PA_RatioGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_RatioConnection!
+	PA_RatioGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PA_RatioConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	S_TimeType(UU: String!): S_TimeType
-	S_TimeTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): S_TimeTypeConnection!
+	S_TimeTypeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): S_TimeTypeConnection!
 }
 
 extend type Mutation {

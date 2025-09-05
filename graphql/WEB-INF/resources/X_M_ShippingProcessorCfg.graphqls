@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_ShippingProcessorCfg(UU: String!): M_ShippingProcessorCfg
-	M_ShippingProcessorCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShippingProcessorCfgConnection!
+	M_ShippingProcessorCfgGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_ShippingProcessorCfgConnection!
 }
 
 extend type Mutation {

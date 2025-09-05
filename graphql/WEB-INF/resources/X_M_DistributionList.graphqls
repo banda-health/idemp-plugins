@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_DistributionList(UU: String!): M_DistributionList
-	M_DistributionListGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DistributionListConnection!
+	M_DistributionListGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_DistributionListConnection!
 }
 
 extend type Mutation {

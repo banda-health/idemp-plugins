@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_RfQResponse(UU: String!): C_RfQResponse
-	C_RfQResponseGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQResponseConnection!
+	C_RfQResponseGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_RfQResponseConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_UOM_Conversion(UU: String!): C_UOM_Conversion
-	C_UOM_ConversionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_UOM_ConversionConnection!
+	C_UOM_ConversionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_UOM_ConversionConnection!
 }
 
 extend type Mutation {

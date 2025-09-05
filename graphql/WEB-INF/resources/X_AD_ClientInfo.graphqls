@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_ClientInfo(UU: String!): AD_ClientInfo
-	AD_ClientInfoGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ClientInfoConnection!
+	AD_ClientInfoGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_ClientInfoConnection!
 }
 
 extend type Mutation {

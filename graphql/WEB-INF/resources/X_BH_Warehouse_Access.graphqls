@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	BH_Warehouse_Access(UU: String!): BH_Warehouse_Access
-	BH_Warehouse_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Warehouse_AccessConnection!
+	BH_Warehouse_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Warehouse_AccessConnection!
 }
 
 extend type Mutation {

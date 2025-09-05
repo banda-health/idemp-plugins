@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Charge_Acct(UU: String!): C_Charge_Acct
-	C_Charge_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Charge_AcctConnection!
+	C_Charge_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_Charge_AcctConnection!
 }
 
 extend type Mutation {

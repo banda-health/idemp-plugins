@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	U_BlackListCheque(UU: String!): U_BlackListCheque
-	U_BlackListChequeGet(Page: Int, Size: Int, Sort: String, Filter: String): U_BlackListChequeConnection!
+	U_BlackListChequeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): U_BlackListChequeConnection!
 }
 
 extend type Mutation {

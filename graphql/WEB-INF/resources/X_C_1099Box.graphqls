@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_1099Box(UU: String!): C_1099Box
-	C_1099BoxGet(Page: Int, Size: Int, Sort: String, Filter: String): C_1099BoxConnection!
+	C_1099BoxGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_1099BoxConnection!
 }
 
 extend type Mutation {

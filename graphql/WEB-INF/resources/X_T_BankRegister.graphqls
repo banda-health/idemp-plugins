@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	T_BankRegister(UU: String!): T_BankRegister
-	T_BankRegisterGet(Page: Int, Size: Int, Sort: String, Filter: String): T_BankRegisterConnection!
+	T_BankRegisterGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): T_BankRegisterConnection!
 }
 
 extend type Mutation {

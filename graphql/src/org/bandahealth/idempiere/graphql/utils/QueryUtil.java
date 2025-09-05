@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.utils;
 
 import graphql.schema.DataFetchingEnvironment;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 

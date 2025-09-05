@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_ChangeNotice(UU: String!): M_ChangeNotice
-	M_ChangeNoticeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ChangeNoticeConnection!
+	M_ChangeNoticeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_ChangeNoticeConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_ChargeType_DocType(UU: String!): C_ChargeType_DocType
-	C_ChargeType_DocTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ChargeType_DocTypeConnection!
+	C_ChargeType_DocTypeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_ChargeType_DocTypeConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_DiscountSchemaLine(UU: String!): M_DiscountSchemaLine
-	M_DiscountSchemaLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DiscountSchemaLineConnection!
+	M_DiscountSchemaLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_DiscountSchemaLineConnection!
 }
 
 extend type Mutation {
