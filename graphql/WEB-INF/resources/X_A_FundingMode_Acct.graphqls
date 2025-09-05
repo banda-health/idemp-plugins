@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	A_FundingMode_Acct(UU: String!): A_FundingMode_Acct
-	A_FundingMode_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): A_FundingMode_AcctConnection!
+	A_FundingMode_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): A_FundingMode_AcctConnection!
 }
 
 extend type Mutation {

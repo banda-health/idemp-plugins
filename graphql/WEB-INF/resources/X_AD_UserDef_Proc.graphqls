@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_UserDef_Proc(UU: String!): AD_UserDef_Proc
-	AD_UserDef_ProcGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_ProcConnection!
+	AD_UserDef_ProcGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_UserDef_ProcConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_OperationResource(UU: String!): M_OperationResource
-	M_OperationResourceGet(Page: Int, Size: Int, Sort: String, Filter: String): M_OperationResourceConnection!
+	M_OperationResourceGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_OperationResourceConnection!
 }
 
 extend type Mutation {

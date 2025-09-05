@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_SalesRegion(UU: String!): C_SalesRegion
-	C_SalesRegionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_SalesRegionConnection!
+	C_SalesRegionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_SalesRegionConnection!
 }
 
 extend type Mutation {

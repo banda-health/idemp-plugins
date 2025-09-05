@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.repository;
 import graphql.schema.DataFetchingEnvironment;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.util.ServerContext;
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.bandahealth.idempiere.graphql.model.PagingInfo;
@@ -27,6 +28,8 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static org.bandahealth.idempiere.graphql.utils.QueryUtil.DISALLOWED_WHERE_CLAUSE_TOKENS;
 
 public class Repository {
 	private static final ThreadLocal<Boolean> isApplyAccessFilterNeeded = ThreadLocal.withInitial(() -> Boolean.TRUE);
@@ -142,6 +145,12 @@ public class Repository {
 				whereClause = filterWhereClause;
 			} else {
 				whereClause += " AND " + filterWhereClause;
+				// Since the WHERE clause was passed in, we're going to make sure that we have client access added
+				if (isApplyAccessFilterNeeded.get()) {
+					whereClause += " AND " + tableName + ".ad_client_id IN (?,?)";
+					parameters.add(MClient_BH.CLIENTID_SYSTEM);
+					parameters.add(Env.getAD_Client_ID(idempiereContext));
+				}
 			}
 			setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 
@@ -165,7 +174,8 @@ public class Repository {
 			// Append our own fully-qualified where clause
 			if (!StringUtil.isNullOrEmpty(dynamicJoinBuilder.toString())) {
 				MRole role = MRole.getDefault(idempiereContext, false);
-				String generatedSql = role.addAccessSQL("SELECT * FROM " + tableName + " WHERE " + whereClause, tableName, true, false);
+				String generatedSql =
+						role.addAccessSQL("SELECT * FROM " + tableName + " WHERE " + whereClause, tableName, true, false);
 				whereClause = generatedSql.substring(generatedSql.indexOf(whereClause));
 				isApplyAccessFilterNeeded.set(Boolean.FALSE);
 			}
@@ -419,5 +429,26 @@ public class Repository {
 		copyOfIdempiereContextForTheThread.putAll(idempiereContext);
 		ServerContext.setCurrentInstance(copyOfIdempiereContextForTheThread);
 		Env.setCtx(copyOfIdempiereContextForTheThread);
+	}
+
+	public static String parseApiWhereClauseAndParameters(String where, List<Object> parameters) {
+		if (parameters == null || parameters.isEmpty()) {
+			parameters = new ArrayList<>();
+		}
+		// If the where is empty, clear parameters and return
+		if (StringUtil.isNullOrEmpty(where)) {
+			parameters.clear();
+			return null;
+		}
+		// Sanitize the WHERE clause to ensure people aren't doing anything nefarious
+		String finalWhere = where.replaceAll("[\\r\\n\\t]", " ");
+		if (DISALLOWED_WHERE_CLAUSE_TOKENS.stream()
+				.anyMatch(token -> finalWhere.toLowerCase().contains(token.toLowerCase()))) {
+			parameters.clear();
+			return null;
+		}
+		// iDempiere has a requirement that sub-selects not have a space between the leading parenthesis
+		// See AccessSqlParser.getSubSQL line 165
+		return finalWhere.toLowerCase().replaceAll("\\(\\s*select ", "(select ");
 	}
 }

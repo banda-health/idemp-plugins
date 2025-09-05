@@ -736,13 +736,15 @@ query M_Product($UU: String!) {
 	}
 }
 
-query M_ProductGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
-	M_ProductGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+query M_ProductGet($Page: Int, $Size: Int, $Sort: String, $Filter: String, $Where: String, $Parameters: [Object!]) {
+	M_ProductGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter, Where: $Where, Parameters: $Parameters) {
 		Results {
 			...M_ProductFields
+			TotalQuantity
 		}
 		PagingInfo {
 			Page
+			TotalCount
 			TotalPages
 		}
 	}

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_ConversionType(UU: String!): C_ConversionType
-	C_ConversionTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ConversionTypeConnection!
+	C_ConversionTypeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_ConversionTypeConnection!
 }
 
 extend type Mutation {

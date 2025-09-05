@@ -71,7 +71,8 @@ public class X_BH_Default_DocAction_AccessResolver extends POResolver<MBHDefault
 			put("J", "11673e50-c7c9-420f-9b87-a092db56af8c"); // Inventory/Pharmacy Basic
 			put("S", "f7c6117b-69df-4a56-93cc-5f8ab92c74ea"); // Cashier/Registration Basic+
 			put("K", "a21e1ce0-6a4f-4ac4-b175-1d1ef0ffda44"); // Lab/Radiology Basic
-			put("O", "6db4f852-d983-4467-9e46-6fffd994fe55"); // OTC Only
+			put("O", "6db4f852-d983-4467-9e46-6fffd994fe55"); // OTC only
+			put("W", "7608bd54-caf5-4a98-97a2-9912d2fe058f"); // Registration
 		}
 	};
 	public CompletableFuture<MRefList_BH> DB_UserType(MBHDefaultDocActionAccess entity, DataFetchingEnvironment environment) {

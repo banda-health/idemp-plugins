@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_PaySelectionCheck(UU: String!): C_PaySelectionCheck
-	C_PaySelectionCheckGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaySelectionCheckConnection!
+	C_PaySelectionCheckGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_PaySelectionCheckConnection!
 }
 
 extend type Mutation {

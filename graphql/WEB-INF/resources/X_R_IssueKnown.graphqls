@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	R_IssueKnown(UU: String!): R_IssueKnown
-	R_IssueKnownGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueKnownConnection!
+	R_IssueKnownGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): R_IssueKnownConnection!
 }
 
 extend type Mutation {

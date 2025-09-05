@@ -15,9 +15,16 @@ import {
 	M_ProductSaveManyDocument,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentSubTypeSalesOrder, referenceUuid } from '../models';
+import {
+	documentAction,
+	documentBaseType,
+	documentSubTypeInventory,
+	documentSubTypeSalesOrder,
+	referenceUuid,
+} from '../models';
 import {
 	createBusinessPartner,
+	createInventory,
 	createInvoice,
 	createOrder,
 	createPayment,
@@ -640,7 +647,7 @@ test('soon to expire days field can be set and updated', async () => {
 				Entity: {
 					UU: valueObject.product!.UU,
 					BH_SoonToExpireDays: {
-						UU: ref30Days.UU
+						UU: ref30Days.UU,
 					},
 				},
 			},
@@ -668,4 +675,105 @@ test('soon to expire days field can be set and updated', async () => {
 	).data?.M_ProductSave;
 
 	expect(valueObject.product!.BH_SoonToExpireDays).toBeNull();
+});
+
+test('filtering to products with less than quantity in stock', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const firstResults = (
+		await query(valueObject)({
+			query: M_ProductGetDocument,
+			variables: {
+				Page: 0,
+				Size: 1,
+				// The \n\t to ensure the where checks are correct
+				Where:
+					'bh_reorder_level IS NOT NULL AND m_product_id IN (\n\t SELECT m_product_id FROM m_storageonhand WHERE m_storageonhand.m_product_id = m_product.m_product_id GROUP BY m_product_id, bh_reorder_level HAVING SUM(qtyonhand) <= bh_reorder_level )',
+			},
+		})
+	).data.M_ProductGet.PagingInfo.TotalCount;
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product above reorder level';
+	await createProduct(valueObject);
+	const firstProduct = valueObject.product!;
+	await mutate(valueObject)({
+		mutation: M_ProductSaveDocument,
+		variables: { Entity: { UU: valueObject.product!.UU, bh_reorder_level: 10 } },
+	});
+
+	valueObject.stepName = 'Create inventory 1';
+	valueObject.quantity = 20;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.MaterialPhysicalInventory,
+		{ inventory: documentSubTypeInventory.PhysicalInventory },
+		false,
+		false,
+		false,
+	);
+	await createInventory(valueObject);
+
+	valueObject.stepName = 'Create product below reorder level';
+	valueObject.clearProduct();
+	await createProduct(valueObject);
+	await mutate(valueObject)({
+		mutation: M_ProductSaveDocument,
+		variables: { Entity: { UU: valueObject.product!.UU, bh_reorder_level: 10 } },
+	});
+
+	valueObject.stepName = 'Create inventory 1';
+	valueObject.quantity = 5;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.MaterialPhysicalInventory,
+		{ inventory: documentSubTypeInventory.PhysicalInventory },
+		false,
+		false,
+		false,
+	);
+	await createInventory(valueObject);
+
+	expect(
+		(
+			await query(valueObject)({
+				query: M_ProductGetDocument,
+				variables: {
+					Page: 0,
+					Size: 1,
+					Where:
+						'bh_reorder_level IS NOT NULL AND m_product_id IN (SELECT m_product_id FROM m_storageonhand WHERE m_storageonhand.m_product_id = m_product.m_product_id GROUP BY m_product_id, bh_reorder_level HAVING SUM(qtyonhand) <= bh_reorder_level )',
+				},
+			})
+		).data.M_ProductGet.PagingInfo.TotalCount,
+	).toBe(firstResults + 1);
+	expect(
+		(
+			await query(valueObject)({
+				query: M_ProductGetDocument,
+				variables: {
+					Page: 0,
+					Size: 1,
+					Filter: JSON.stringify({ m_product_uu: firstProduct.UU }),
+					Where:
+						'bh_reorder_level IS NOT NULL AND m_product_id IN (SELECT m_product_id FROM m_storageonhand WHERE m_storageonhand.m_product_id = m_product.m_product_id GROUP BY m_product_id, bh_reorder_level HAVING SUM(qtyonhand) <= bh_reorder_level )',
+				},
+			})
+		).data.M_ProductGet.Results,
+	).toHaveLength(0);
+	expect(
+		(
+			await query(valueObject)({
+				query: M_ProductGetDocument,
+				variables: {
+					Page: 0,
+					Size: 1,
+					Filter: JSON.stringify({ m_product_uu: valueObject.product!.UU }),
+					Where:
+						'bh_reorder_level IS NOT NULL AND m_product_id IN (SELECT m_product_id FROM m_storageonhand WHERE m_storageonhand.m_product_id = m_product.m_product_id GROUP BY m_product_id, bh_reorder_level HAVING SUM(qtyonhand) <= bh_reorder_level )',
+				},
+			})
+		).data.M_ProductGet.Results,
+	).toHaveLength(1);
 });

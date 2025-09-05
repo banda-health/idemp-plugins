@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	U_WebMenu(UU: String!): U_WebMenu
-	U_WebMenuGet(Page: Int, Size: Int, Sort: String, Filter: String): U_WebMenuConnection!
+	U_WebMenuGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): U_WebMenuConnection!
 }
 
 extend type Mutation {

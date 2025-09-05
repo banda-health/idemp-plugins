@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_SerNoCtl(UU: String!): M_SerNoCtl
-	M_SerNoCtlGet(Page: Int, Size: Int, Sort: String, Filter: String): M_SerNoCtlConnection!
+	M_SerNoCtlGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_SerNoCtlConnection!
 }
 
 extend type Mutation {

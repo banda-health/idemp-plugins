@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_StorageReservation(UU: String!): M_StorageReservation
-	M_StorageReservationGet(Page: Int, Size: Int, Sort: String, Filter: String): M_StorageReservationConnection!
+	M_StorageReservationGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_StorageReservationConnection!
 }
 
 extend type Mutation {

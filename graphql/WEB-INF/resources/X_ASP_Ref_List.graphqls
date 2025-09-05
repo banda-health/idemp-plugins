@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	ASP_Ref_List(UU: String!): ASP_Ref_List
-	ASP_Ref_ListGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_Ref_ListConnection!
+	ASP_Ref_ListGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): ASP_Ref_ListConnection!
 }
 
 extend type Mutation {

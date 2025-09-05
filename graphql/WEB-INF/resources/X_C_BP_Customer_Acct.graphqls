@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_BP_Customer_Acct(UU: String!): C_BP_Customer_Acct
-	C_BP_Customer_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_Customer_AcctConnection!
+	C_BP_Customer_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_BP_Customer_AcctConnection!
 }
 
 extend type Mutation {

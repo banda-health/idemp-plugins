@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Channel(UU: String!): C_Channel
-	C_ChannelGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ChannelConnection!
+	C_ChannelGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_ChannelConnection!
 }
 
 extend type Mutation {

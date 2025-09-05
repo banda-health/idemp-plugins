@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_MovementLineConfirm(UU: String!): M_MovementLineConfirm
-	M_MovementLineConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementLineConfirmConnection!
+	M_MovementLineConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_MovementLineConfirmConnection!
 }
 
 extend type Mutation {

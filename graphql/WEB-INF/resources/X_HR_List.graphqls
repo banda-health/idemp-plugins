@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	HR_List(UU: String!): HR_List
-	HR_ListGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_ListConnection!
+	HR_ListGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): HR_ListConnection!
 }
 
 extend type Mutation {

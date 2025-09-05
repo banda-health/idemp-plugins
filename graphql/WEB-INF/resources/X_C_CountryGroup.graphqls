@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_CountryGroup(UU: String!): C_CountryGroup
-	C_CountryGroupGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CountryGroupConnection!
+	C_CountryGroupGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_CountryGroupConnection!
 }
 
 extend type Mutation {

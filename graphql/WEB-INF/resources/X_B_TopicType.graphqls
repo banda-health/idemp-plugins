@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	B_TopicType(UU: String!): B_TopicType
-	B_TopicTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): B_TopicTypeConnection!
+	B_TopicTypeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): B_TopicTypeConnection!
 }
 
 extend type Mutation {

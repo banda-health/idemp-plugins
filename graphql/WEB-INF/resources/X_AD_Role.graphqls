@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_Role(UU: String!): AD_Role
-	AD_RoleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_RoleConnection!
+	AD_RoleGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_RoleConnection!
 }
 
 extend type Mutation {

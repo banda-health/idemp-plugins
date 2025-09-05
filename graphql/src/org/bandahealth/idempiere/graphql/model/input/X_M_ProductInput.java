@@ -137,9 +137,9 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	public ForeignEntityInput BH_Concept() {
 		return mBH_Concept;
 	}
-	
+
 	/**
-	 * Set BH_SoonToExpireDays.
+	 * Set Soon To Expire Days.
 	 *
 	 * @param BH_SoonToExpireDays Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
 	 */
@@ -168,7 +168,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	}
 
 	/**
-	 * Get BH_SoonToExpireDays.
+	 * Get Soon To Expire Days.
 	 *
 	 * @return Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
 	 */

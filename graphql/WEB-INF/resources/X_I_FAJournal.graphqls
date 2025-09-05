@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	I_FAJournal(UU: String!): I_FAJournal
-	I_FAJournalGet(Page: Int, Size: Int, Sort: String, Filter: String): I_FAJournalConnection!
+	I_FAJournalGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): I_FAJournalConnection!
 }
 
 extend type Mutation {

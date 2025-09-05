@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	A_Depreciation(UU: String!): A_Depreciation
-	A_DepreciationGet(Page: Int, Size: Int, Sort: String, Filter: String): A_DepreciationConnection!
+	A_DepreciationGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): A_DepreciationConnection!
 }
 
 extend type Mutation {

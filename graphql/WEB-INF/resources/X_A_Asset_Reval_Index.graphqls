@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	A_Asset_Reval_Index(UU: String!): A_Asset_Reval_Index
-	A_Asset_Reval_IndexGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Reval_IndexConnection!
+	A_Asset_Reval_IndexGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): A_Asset_Reval_IndexConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PA_DashboardContent_Access(UU: String!): PA_DashboardContent_Access
-	PA_DashboardContent_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_DashboardContent_AccessConnection!
+	PA_DashboardContent_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PA_DashboardContent_AccessConnection!
 }
 
 extend type Mutation {

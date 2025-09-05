@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Campaign(UU: String!): C_Campaign
-	C_CampaignGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CampaignConnection!
+	C_CampaignGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_CampaignConnection!
 }
 
 extend type Mutation {

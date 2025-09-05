@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_MovementLine(UU: String!): M_MovementLine
-	M_MovementLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementLineConnection!
+	M_MovementLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_MovementLineConnection!
 }
 
 extend type Mutation {

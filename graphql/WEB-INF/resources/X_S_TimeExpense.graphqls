@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	S_TimeExpense(UU: String!): S_TimeExpense
-	S_TimeExpenseGet(Page: Int, Size: Int, Sort: String, Filter: String): S_TimeExpenseConnection!
+	S_TimeExpenseGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): S_TimeExpenseConnection!
 }
 
 extend type Mutation {

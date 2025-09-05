@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	Fact_Acct_Summary(UU: String!): Fact_Acct_Summary
-	Fact_Acct_SummaryGet(Page: Int, Size: Int, Sort: String, Filter: String): Fact_Acct_SummaryConnection!
+	Fact_Acct_SummaryGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): Fact_Acct_SummaryConnection!
 }
 
 extend type Mutation {

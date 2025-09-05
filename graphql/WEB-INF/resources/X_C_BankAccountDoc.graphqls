@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_BankAccountDoc(UU: String!): C_BankAccountDoc
-	C_BankAccountDocGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankAccountDocConnection!
+	C_BankAccountDocGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_BankAccountDocConnection!
 }
 
 extend type Mutation {

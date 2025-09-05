@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_UserPreference(UU: String!): AD_UserPreference
-	AD_UserPreferenceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserPreferenceConnection!
+	AD_UserPreferenceGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_UserPreferenceConnection!
 }
 
 extend type Mutation {

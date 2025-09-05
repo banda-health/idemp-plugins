@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_Product(UU: String!): M_Product
-	M_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductConnection!
+	M_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_ProductConnection!
 }
 
 extend type Mutation {
@@ -33,14 +33,6 @@ type M_Product {
 	BH_SellPrice: BigDecimal
 	# Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
 	BH_SoonToExpireDays: AD_Ref_List
-	# Classification for grouping
-	Classification: String
-	# Copy From Record
-	CopyFrom: String
-	# Date this record was created
-	Created: DateTime!
-	# User who created this records
-	CreatedBy: AD_User!
 	# Method for recording revenue
 	C_RevenueRecognition: C_RevenueRecognition
 	# Type of subscription
@@ -49,6 +41,14 @@ type M_Product {
 	C_TaxCategory: C_TaxCategory!
 	# Unit of Measure
 	C_UOM: C_UOM!
+	# Classification for grouping
+	Classification: String
+	# Copy From Record
+	CopyFrom: String
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
 	# Customs Tariff Number, usually the HS-Code
 	CustomsTariffNumber: String
 	# Optional short description of the record
@@ -134,10 +134,12 @@ type M_Product {
 	QtyInStore: Int
 	# Text templates for mailings
 	R_MailText: R_MailText
-	# Sales Representative or Company Agent
-	SalesRep: AD_User
 	# Expense report type
 	S_ExpenseType: S_ExpenseType
+	# Resource
+	S_Resource: S_Resource
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
 	# Shelf depth required
 	ShelfDepth: Int
 	# Shelf height required
@@ -146,8 +148,6 @@ type M_Product {
 	ShelfWidth: Int
 	# Stock Keeping Unit
 	SKU: String
-	# Resource
-	S_Resource: S_Resource
 	# The Units Per Pack indicates the no of units of a product packed together.
 	UnitsPerPack: Int
 	# Units Per Pallet
@@ -182,10 +182,6 @@ input M_ProductInput {
 	BH_SellPrice: BigDecimal
 	# Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
 	BH_SoonToExpireDays: ForeignEntityInput
-	# Classification for grouping
-	Classification: String
-	# Copy From Record
-	CopyFrom: String
 	# Method for recording revenue
 	C_RevenueRecognition: ForeignEntityInput
 	# Type of subscription
@@ -194,6 +190,10 @@ input M_ProductInput {
 	C_TaxCategory: ForeignEntityInput
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
+	# Classification for grouping
+	Classification: String
+	# Copy From Record
+	CopyFrom: String
 	# Customs Tariff Number, usually the HS-Code
 	CustomsTariffNumber: String
 	# Optional short description of the record
@@ -277,10 +277,12 @@ input M_ProductInput {
 	ProductType: ForeignEntityInput
 	# Text templates for mailings
 	R_MailText: ForeignEntityInput
-	# Sales Representative or Company Agent
-	SalesRep: ForeignEntityInput
 	# Expense report type
 	S_ExpenseType: ForeignEntityInput
+	# Resource
+	S_Resource: ForeignEntityInput
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
 	# Shelf depth required
 	ShelfDepth: Int
 	# Shelf height required
@@ -289,8 +291,6 @@ input M_ProductInput {
 	ShelfWidth: Int
 	# Stock Keeping Unit
 	SKU: String
-	# Resource
-	S_Resource: ForeignEntityInput
 	# The Units Per Pack indicates the no of units of a product packed together.
 	UnitsPerPack: Int
 	# Units Per Pallet

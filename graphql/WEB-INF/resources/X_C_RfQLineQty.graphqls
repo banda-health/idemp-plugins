@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_RfQLineQty(UU: String!): C_RfQLineQty
-	C_RfQLineQtyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQLineQtyConnection!
+	C_RfQLineQtyGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_RfQLineQtyConnection!
 }
 
 extend type Mutation {

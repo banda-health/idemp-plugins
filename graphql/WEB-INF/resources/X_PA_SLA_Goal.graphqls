@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PA_SLA_Goal(UU: String!): PA_SLA_Goal
-	PA_SLA_GoalGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_SLA_GoalConnection!
+	PA_SLA_GoalGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PA_SLA_GoalConnection!
 }
 
 extend type Mutation {

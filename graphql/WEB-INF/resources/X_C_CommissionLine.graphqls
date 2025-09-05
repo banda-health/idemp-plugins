@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_CommissionLine(UU: String!): C_CommissionLine
-	C_CommissionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CommissionLineConnection!
+	C_CommissionLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_CommissionLineConnection!
 }
 
 extend type Mutation {

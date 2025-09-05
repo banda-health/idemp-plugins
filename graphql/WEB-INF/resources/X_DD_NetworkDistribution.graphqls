@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	DD_NetworkDistribution(UU: String!): DD_NetworkDistribution
-	DD_NetworkDistributionGet(Page: Int, Size: Int, Sort: String, Filter: String): DD_NetworkDistributionConnection!
+	DD_NetworkDistributionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): DD_NetworkDistributionConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Job(UU: String!): C_Job
-	C_JobGet(Page: Int, Size: Int, Sort: String, Filter: String): C_JobConnection!
+	C_JobGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_JobConnection!
 }
 
 extend type Mutation {

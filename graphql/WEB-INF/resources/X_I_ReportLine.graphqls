@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	I_ReportLine(UU: String!): I_ReportLine
-	I_ReportLineGet(Page: Int, Size: Int, Sort: String, Filter: String): I_ReportLineConnection!
+	I_ReportLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): I_ReportLineConnection!
 }
 
 extend type Mutation {

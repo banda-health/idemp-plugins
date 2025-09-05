@@ -95,6 +95,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		return dataLoader.load(BH_SOONTOEXPIREDAYS_UUIDS_BY_VALUE.get(entity.getBH_SoonToExpireDays()));
 	}
 
+
 	/**
 	 * Get Revenue Recognition.
 	 *
