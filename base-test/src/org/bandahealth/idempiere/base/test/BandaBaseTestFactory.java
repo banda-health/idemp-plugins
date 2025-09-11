@@ -5,7 +5,6 @@ import com.chuboe.test.populate.IChuBoePopulateFactory;
 import org.bandahealth.idempiere.base.test.modelevent.BusinessPartnerModelEventTest;
 import org.bandahealth.idempiere.base.test.modelevent.InOutModelEventTest;
 import org.bandahealth.idempiere.base.test.modelevent.InvoiceModelEventTest;
-import org.bandahealth.idempiere.base.test.modelevent.OrderModelEventTest;
 import org.bandahealth.idempiere.base.test.modelevent.UserModelEventTest;
 import org.bandahealth.idempiere.base.test.process.CleanExpiredStockProcessTest;
 import org.bandahealth.idempiere.base.test.process.ImportBusinessPartnersProcessTest;
@@ -25,7 +24,6 @@ public class BandaBaseTestFactory implements IChuBoePopulateFactory {
 		tests.add(new BusinessPartnerModelEventTest());
 		tests.add(new InOutModelEventTest());
 		tests.add(new InvoiceModelEventTest());
-		tests.add(new OrderModelEventTest());
 		tests.add(new UserModelEventTest());
 
 		// Processes

@@ -1,8 +1,4 @@
 import { isApolloError } from '@apollo/client/core';
-import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentStatus, documentSubTypeSalesOrder } from '../models';
-import { RoleName } from '../types/roleName';
-import { createBusinessPartner, createOrder, createProduct, createVisit, formatApiDate, getDateOffset } from '../utils';
 import {
 	Bh_VisitProcessDocument,
 	C_BPartnerGetDocument,
@@ -12,14 +8,23 @@ import {
 	C_OrderSaveDocument,
 	M_AttributeSetGetDocument,
 	M_AttributeSetInstanceSaveDocument,
+	M_InOutProcessDocument,
 	M_ProductGetDocument,
 	M_ProductSaveDocument,
 	M_StorageOnHandGetDocument,
 } from '../__generated__/graphql';
-
-xtest(`information saved correctly after completing a purchase order`, async () => {
-	await globalThis.__VALUE_OBJECT__.login();
-});
+import { mutate, query } from '../api';
+import { documentAction, documentBaseType, documentStatus, documentSubTypeSalesOrder } from '../models';
+import { RoleName } from '../types/roleName';
+import {
+	createBusinessPartner,
+	createInOutFromOrder,
+	createOrder,
+	createProduct,
+	createVisit,
+	formatApiDate,
+	getDateOffset,
+} from '../utils';
 
 test(`vendor open balance is 0 after purchase order completed`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -36,6 +41,11 @@ test(`vendor open balance is 0 after purchase order completed`, async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	expect(
 		(
@@ -129,6 +139,12 @@ test(`completed order can't be closed`, async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 	expect(valueObject.order?.DocStatus.Value).toBe(documentStatus.Completed);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	await expect(
 		mutate(valueObject)({
 			mutation: C_OrderProcessDocument,
@@ -153,6 +169,12 @@ test(`can't void an order after product has been sold`, async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 	expect(valueObject.order?.DocStatus.Value).toBe(documentStatus.Completed);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	const purchaseOrder = valueObject.order!;
 
 	// Confirm quantity was received
@@ -194,8 +216,8 @@ test(`can't void an order after product has been sold`, async () => {
 
 	await expect(
 		mutate(valueObject)({
-			mutation: C_OrderProcessDocument,
-			variables: { UU: purchaseOrder.UU, DocumentAction: documentAction.Void },
+			mutation: M_InOutProcessDocument,
+			variables: { UU: valueObject.inOut!.UU, DocumentAction: documentAction.Void },
 		}),
 	).rejects.toBeTruthy();
 	expect(
@@ -268,6 +290,12 @@ test(`changing a price on an old PO does not change last buying price for produc
 	let firstPO = valueObject.order!;
 	let firstPOLine = valueObject.orderLine!;
 
+	valueObject.stepName = 'Create first material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+	let firstInOut = valueObject.inOut!;
+
 	expect(
 		(
 			await query(valueObject)({
@@ -285,6 +313,11 @@ test(`changing a price on an old PO does not change last buying price for produc
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create second material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	expect(
 		(
 			await query(valueObject)({
@@ -293,6 +326,12 @@ test(`changing a price on an old PO does not change last buying price for produc
 			})
 		).data.M_ProductGet.Results[0].LastPurchasePrice,
 	).toBe(120);
+
+	valueObject.stepName = 'Re-open first material receipt';
+	await mutate(valueObject)({
+		mutation: M_InOutProcessDocument,
+		variables: { UU: firstInOut.UU, DocumentAction: documentAction.ReverseAccrual },
+	});
 
 	valueObject.stepName = 'Re-open first PO';
 	firstPO = (
@@ -321,6 +360,10 @@ test(`changing a price on an old PO does not change last buying price for produc
 		mutation: C_OrderProcessDocument,
 		variables: { UU: firstPO.UU, DocumentAction: documentAction.Complete },
 	});
+	valueObject.stepName = 'Create third material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	expect(
 		(
@@ -376,6 +419,11 @@ test(`reactivating a PO resets the quantity correctly`, async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	expect(
 		(
 			await query(valueObject)({
@@ -385,8 +433,13 @@ test(`reactivating a PO resets the quantity correctly`, async () => {
 		).data.M_ProductGet.Results[0].TotalQuantity,
 	).toBe(1);
 
-	valueObject.stepName = 'Re-open first PO';
+	valueObject.stepName = 'Re-open first material receipt';
+	await mutate(valueObject)({
+		mutation: M_InOutProcessDocument,
+		variables: { UU: valueObject.inOut!.UU, DocumentAction: documentAction.ReverseAccrual },
+	});
 
+	valueObject.stepName = 'Re-open first PO';
 	await mutate(valueObject)({
 		mutation: C_OrderProcessDocument,
 		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.ReActivate },
@@ -452,7 +505,11 @@ test('reactivating an order that would case inventory to go negative message cor
 	valueObject.quantity = 1;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
-	let purchaseOrderUU = valueObject.order!.UU;
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
@@ -478,8 +535,8 @@ test('reactivating an order that would case inventory to go negative message cor
 	let errorMessage = '';
 	try {
 		await mutate(valueObject)({
-			mutation: C_OrderProcessDocument,
-			variables: { UU: purchaseOrderUU, DocumentAction: documentAction.ReActivate },
+			mutation: M_InOutProcessDocument,
+			variables: { UU: valueObject.inOut!.UU, DocumentAction: documentAction.ReverseAccrual },
 		});
 		expect(false).toBe(true);
 	} catch (error) {
@@ -489,7 +546,7 @@ test('reactivating an order that would case inventory to go negative message cor
 				.join(', ');
 		}
 	}
-	
+
 	// Since we'll be using this message in the front-end, it needs to be this exact value
 	const disallowNegativeInventoryMessage =
 		/The .+ warehouse does not allow negative inventory for Product = (.+), ASI = .+, Locator = .+ \(Shortage of (\d+)\)/;

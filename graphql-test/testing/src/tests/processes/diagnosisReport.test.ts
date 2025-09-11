@@ -13,6 +13,7 @@ import { mutate, query } from '../../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../../models';
 import {
 	createBusinessPartner,
+	createInOutFromOrder,
 	createOrder,
 	createProduct,
 	createVisit,
@@ -77,13 +78,17 @@ test('can filter by tags', async () => {
 
 	valueObject.stepName = 'Create product';
 	await createProduct(valueObject);
-	const firstBusinessPartnerName = valueObject.businessPartner!.Name;
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.quantity = 10;
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create first coded diagnosis';
 	let conceptUU = (

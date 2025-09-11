@@ -135,6 +135,12 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setQuantity(null);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
@@ -306,6 +312,12 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setQuantity(new BigDecimal(100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		valueObject.setQuantity(null);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create visit");
@@ -482,6 +494,12 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setQuantity(new BigDecimal(100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		valueObject.setQuantity(null);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create visit");
@@ -721,6 +739,12 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setQuantity(new BigDecimal(100));
 		ChuBoeCreateEntity.createOrder(valueObject);
 		valueObject.setQuantity(null);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create visit");

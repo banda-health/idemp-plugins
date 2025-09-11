@@ -1,14 +1,21 @@
 import { PdfData } from 'pdfdataextract';
-import { mutate, query } from '../../api';
-import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../../models';
-import { RoleName } from '../../types/roleName';
-import { createBusinessPartner, createOrder, createProduct, createVisit, runReport } from '../../utils';
 import {
 	Ad_ProcessGetDocument,
 	Ad_ProcessGetQuery,
 	Bh_VisitProcessDocument,
 	ProcessInfoParameterInput,
 } from '../../__generated__/graphql';
+import { mutate, query } from '../../api';
+import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../../models';
+import { RoleName } from '../../types/roleName';
+import {
+	createBusinessPartner,
+	createInOutFromOrder,
+	createOrder,
+	createProduct,
+	createVisit,
+	runReport,
+} from '../../utils';
 
 const reportUuid = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505';
 let process: Ad_ProcessGetQuery['AD_ProcessGet']['Results'][0];
@@ -30,6 +37,11 @@ beforeAll(async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;

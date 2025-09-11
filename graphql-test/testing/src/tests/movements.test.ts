@@ -6,7 +6,7 @@ import {
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType, documentStatus } from '../models';
-import { createBusinessPartner, createOrder, createProduct, formatApiDate } from '../utils';
+import { createBusinessPartner, createInOutFromOrder, createOrder, createProduct, formatApiDate } from '../utils';
 
 test('can move inventory between warehouses', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -23,6 +23,11 @@ test('can move inventory between warehouses', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create movement';
 	const differentWarehouse = (

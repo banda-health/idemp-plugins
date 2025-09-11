@@ -1,6 +1,3 @@
-import { mutate, query } from '../api';
-import { documentAction, documentBaseType } from '../models';
-import { createBusinessPartner, createOrder, createProduct, formatApiDate, getDateOffset } from '../utils';
 import {
 	C_OrderLineSaveDocument,
 	C_OrderProcessDocument,
@@ -9,6 +6,16 @@ import {
 	M_ProductSaveDocument,
 	M_StorageOnHandGetDocument,
 } from '../__generated__/graphql';
+import { mutate, query } from '../api';
+import { documentAction, documentBaseType } from '../models';
+import {
+	createBusinessPartner,
+	createInOutFromOrder,
+	createOrder,
+	createProduct,
+	formatApiDate,
+	getDateOffset,
+} from '../utils';
 
 test('can sort by ASI guarantee date', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -67,6 +74,12 @@ test('can sort by ASI guarantee date', async () => {
 			variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.Complete },
 		})
 	).data?.C_OrderProcess;
+	await valueObject.refreshOrder();
+
+	valueObject.stepName = 'Create first material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create second expiring attribute set instance';
 	const earlyExpiringAttributeSetInstance = (
@@ -102,6 +115,12 @@ test('can sort by ASI guarantee date', async () => {
 			variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.Complete },
 		})
 	).data?.C_OrderProcess;
+	await valueObject.refreshOrder();
+
+	valueObject.stepName = 'Create second material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	let sortedStorageOnHand = (
 		await query(valueObject)({

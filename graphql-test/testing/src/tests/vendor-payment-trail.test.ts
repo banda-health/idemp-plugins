@@ -4,6 +4,7 @@ import { documentAction, documentBaseType } from '../models';
 import {
 	createBusinessPartner,
 	createCharge,
+	createInOutFromOrder,
 	createInvoice,
 	createOrder,
 	createPayment,
@@ -29,10 +30,10 @@ test('data is grouped correctly', async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
-	// valueObject.stepName = 'Create material receipt 1';
-	// valueObject.documentAction = documentAction.Complete;
-	// await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
-	// await createInOut(valueObject);
+	valueObject.stepName = 'Create material receipt 1';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create vendor invoice 1';
 	valueObject.documentAction = documentAction.Complete;
@@ -77,10 +78,10 @@ test('data is grouped correctly', async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
-	// valueObject.stepName = 'Create material receipt 2';
-	// valueObject.documentAction = documentAction.Complete;
-	// await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
-	// await createInOut(valueObject);
+	valueObject.stepName = 'Create material receipt 2';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create vendor invoice 2';
 	valueObject.documentAction = documentAction.Complete;
@@ -126,10 +127,10 @@ test('data is grouped correctly', async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
-	// valueObject.stepName = 'Create material receipt 3';
-	// valueObject.documentAction = documentAction.Complete;
-	// await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
-	// await createInOut(valueObject);
+	valueObject.stepName = 'Create material receipt 3';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create vendor invoice 3';
 	valueObject.documentAction = documentAction.Complete;

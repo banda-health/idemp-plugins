@@ -1,6 +1,5 @@
 import { v4 } from 'uuid';
 import {
-	Ad_Ref_List,
 	Ad_Ref_ListGetDocument,
 	Bh_ConceptGetForProductCatalogueDocument,
 	Bh_Product_IncludedDeleteDocument,
@@ -8,6 +7,7 @@ import {
 	Bh_VisitProcessDocument,
 	C_OrderProcessDocument,
 	C_UomGetDefaultDocument,
+	M_InOutProcessDocument,
 	M_ProductDocument,
 	M_ProductGetDocument,
 	M_ProductMergeDocument,
@@ -24,6 +24,7 @@ import {
 } from '../models';
 import {
 	createBusinessPartner,
+	createInOutFromOrder,
 	createInventory,
 	createInvoice,
 	createOrder,
@@ -50,6 +51,11 @@ test('inactive products and services not returned from the search method', async
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.stepName = 'Create product 2';
 	valueObject.product = undefined;
 	const oldRandom = valueObject.random;
@@ -73,6 +79,11 @@ test('inactive products and services not returned from the search method', async
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create service 1';
 	let service1 = (
@@ -245,6 +256,13 @@ test('buying price can only be updated on new items or items without completed P
 		mutation: C_OrderProcessDocument,
 		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.Complete },
 	});
+	await valueObject.refreshOrder();
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.product = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
@@ -265,11 +283,18 @@ test('buying price can only be updated on new items or items without completed P
 	expect(valueObject.product!.HasBeenPurchased).toBeTruthy();
 	expect(valueObject.product!.LastPurchasePrice).toBe(120);
 
+	valueObject.stepName = 'Reactivate the material receipt';
+	await mutate(valueObject)({
+		mutation: M_InOutProcessDocument,
+		variables: { UU: valueObject.inOut!.UU, DocumentAction: documentAction.ReverseAccrual },
+	});
+
 	valueObject.stepName = 'Reactivate the PO';
 	await mutate(valueObject)({
 		mutation: C_OrderProcessDocument,
 		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.ReActivate },
 	});
+
 	valueObject.product = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
@@ -294,6 +319,13 @@ test('buying price can only be updated on new items or items without completed P
 		mutation: C_OrderProcessDocument,
 		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.Complete },
 	});
+	await valueObject.refreshOrder();
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.product = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
@@ -322,6 +354,11 @@ test('can sort by last purchase price', async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create material receipt for first product';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.stepName = 'Create second product';
 	valueObject.product = undefined;
 	valueObject.setRandom();
@@ -333,6 +370,11 @@ test('can sort by last purchase price', async () => {
 	valueObject.setPurchasePrice(140);
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt for second product';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	const secondProduct = valueObject.product!;
 	let productSorts = (
@@ -377,6 +419,11 @@ test('merging patients', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt 1';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit 1';
 	valueObject.documentAction = undefined;
@@ -427,6 +474,11 @@ test('merging patients', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt 2';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit 2';
 	valueObject.documentAction = undefined;

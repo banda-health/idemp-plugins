@@ -79,6 +79,12 @@ public class CleanExpiredStockProcessTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		MStorageOnHand productStorage =
 				MStorageOnHand.get(valueObject.getContext(), valueObject.getWarehouse().getDefaultLocator().get_ID(),
 						valueObject.getProduct().get_ID(), valueObject.getAttributeSetInstance().get_ID(), null,

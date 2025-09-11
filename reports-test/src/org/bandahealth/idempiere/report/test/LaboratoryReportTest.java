@@ -102,6 +102,12 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrderLine().saveEx();
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create diagnostic concept");
 		valueObject.setRandom();
 		MBHConcept diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
@@ -181,6 +187,12 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrderLine().setPrice(new BigDecimal(20));
 		valueObject.getOrderLine().setQty(new BigDecimal(10));
 		valueObject.getOrderLine().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create diagnostic concept");
@@ -276,6 +288,12 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrderLine().setPrice(new BigDecimal(20));
 		valueObject.getOrderLine().setQty(new BigDecimal(10));
 		valueObject.getOrderLine().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create diagnostic concept");
@@ -432,6 +450,12 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrderLine().setPrice(new BigDecimal(20));
 		valueObject.getOrderLine().setQty(new BigDecimal(10));
 		valueObject.getOrderLine().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create diagnostic concept");

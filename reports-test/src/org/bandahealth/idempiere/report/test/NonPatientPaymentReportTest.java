@@ -17,6 +17,7 @@ import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.process.DocAction;
+import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.Env;
 import org.hamcrest.Matchers;
@@ -70,6 +71,13 @@ public class NonPatientPaymentReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
 
 		valueObject.setStepName("Create SO");
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
@@ -168,6 +176,13 @@ public class NonPatientPaymentReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(BigDecimal.TEN);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
 
 		valueObject.setStepName("Create first visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
