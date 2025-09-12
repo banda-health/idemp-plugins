@@ -45,16 +45,33 @@ WHERE
 		</queryString>
 		<field name="mode" class="java.lang.String"/>
 	</subDataset>
+	<subDataset name="insurance_fetch" uuid="a1b2c3d4-e5f6-7890-1234-567890abcdef">
+		<parameter name="C_BPartner_UU" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[WITH params AS (
+	SELECT COALESCE($P{C_BPartner_UU}, '') AS c_bpartner_uu
+)
+SELECT
+	CASE WHEN p.c_bpartner_uu = '' THEN 'All' ELSE bp.name END AS insurance_name
+FROM
+	c_bpartner bp
+		RIGHT JOIN params p
+		ON bp.c_bpartner_uu = p.c_bpartner_uu
+WHERE
+	p.c_bpartner_uu = '' OR bp.c_bpartner_uu = p.c_bpartner_uu;]]>
+		</queryString>
+		<field name="insurance_name" class="java.lang.String"/>
+	</subDataset>
 	<parameter name="Begin Date" class="java.sql.Timestamp"/>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="Mode" class="java.lang.String"/>
-	<parameter name="Insurance Type" class="java.lang.String"/>
+	<parameter name="C_BPartner_UU" class="java.lang.String"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[WITH params AS (
 	SELECT
-		COALESCE($P{Insurance Type},'') AS insurance_type,
-		COALESCE($P{Mode},'')           AS payment_mode
+		COALESCE($P{Mode},'')           AS payment_mode,
+		COALESCE($P{C_BPartner_UU},'')  AS c_bpartner_uu
 ),
 	Visit_info AS (
 		SELECT
@@ -152,8 +169,12 @@ FROM
 			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1                                                  AS insurance,
 			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1                                                  AS waiver,
 			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1                                                  AS donation,
-				SUM(linenetamt) FILTER (WHERE bh_subtype = p.payment_mode OR chargetype_name = p.insurance_type) *
-				-1                                                                                                    AS NonPaySelectedtotal,
+				SUM(linenetamt) FILTER (WHERE bh_subtype = p.payment_mode OR 
+				                              (p.c_bpartner_uu <> '' AND EXISTS (
+				                                  SELECT 1 FROM c_bpartner bp3 
+				                                  WHERE bp3.c_bpartner_uu = p.c_bpartner_uu 
+				                                  AND bp3.name = npp.chargetype_name
+				                              ))) * -1                                                               AS NonPaySelectedtotal,
 			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('I', 'W', 'D') ) * -1                                     AS NonPaytotal
 		FROM
 			non_patient_payments npp
@@ -183,15 +204,20 @@ FROM
 WHERE
 	Visit_info.bh_visit_id IN (
 		SELECT
-			bh_visit_id
+			npp.bh_visit_id
 		FROM
-			non_patient_payments
+			non_patient_payments npp
+			LEFT JOIN c_bpartner bp ON bp.name = npp.ChargeType_name
 		WHERE
-			(p.payment_mode = '' OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END AND
+			(p.payment_mode = '' OR (npp.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END AND
 			                         p.payment_mode IN ('I', 'W', 'T')))
-			AND (p.insurance_type = '' OR ChargeType_name = p.insurance_type)
+			AND (p.c_bpartner_uu = '' OR bp.c_bpartner_uu = p.c_bpartner_uu)
 	)
-	AND (p.insurance_type = '' OR ChargeType_name = p.insurance_type)
+	AND (p.c_bpartner_uu = '' OR EXISTS (
+	         SELECT 1 FROM c_bpartner bp2 
+	         WHERE bp2.c_bpartner_uu = p.c_bpartner_uu 
+	         AND bp2.name = ChargeType_name
+	     ))
 ORDER BY
 	date(Visit_info.bill_date), Visit_info.patient_name;]]>
 	</queryString>
@@ -270,22 +296,35 @@ ORDER BY
 				<text><![CDATA[Mode:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="155" y="50" width="35" height="18" uuid="f947a028-c117-435a-b9d7-b25472022662"/>
+				<reportElement x="155" y="50" width="44" height="18" uuid="f947a028-c117-435a-b9d7-b25472022662"/>
 				<box leftPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Type:]]></text>
+				<text><![CDATA[Insurance:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<componentElement>
 				<reportElement x="199" y="50" width="340" height="18" uuid="2a34fd38-0138-4632-89cb-f0cd96eaa4cb">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle">
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[T($P{Insurance Type}).equalsIgnoreCase("") ? "All" : T($P{Insurance Type})]]></textFieldExpression>
-			</textField>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="insurance_fetch" uuid="b2c3d4e5-f6g7-h890-i123-j456k789l012">
+						<datasetParameter name="C_BPartner_UU">
+							<datasetParameterExpression><![CDATA[$P{C_BPartner_UU}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="18" width="340">
+						<textField>
+							<reportElement x="0" y="0" width="340" height="18" uuid="c3d4e5f6-g7h8-i901-j234-k567l890m123"/>
+							<textElement verticalAlignment="Middle">
+								<font size="11"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{insurance_name}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
 			<textField>
 				<reportElement x="199" y="30" width="111" height="18" uuid="0ade0d97-7f8a-4c64-8033-4d250b38f941">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
