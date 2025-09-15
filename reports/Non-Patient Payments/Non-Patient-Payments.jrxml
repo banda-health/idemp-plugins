@@ -308,7 +308,7 @@ ORDER BY
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
-					<datasetRun subDataset="insurance_fetch" uuid="b2c3d4e5-f6g7-h890-i123-j456k789l012">
+					<datasetRun subDataset="insurance_fetch" uuid="b2c3d4e5-f6a7-4890-a123-456789abcdef">
 						<datasetParameter name="C_BPartner_UU">
 							<datasetParameterExpression><![CDATA[$P{C_BPartner_UU}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -316,7 +316,7 @@ ORDER BY
 					</datasetRun>
 					<jr:listContents height="18" width="340">
 						<textField>
-							<reportElement x="0" y="0" width="340" height="18" uuid="c3d4e5f6-g7h8-i901-j234-k567l890m123"/>
+							<reportElement x="0" y="0" width="340" height="18" uuid="3e72994a-bd1a-4112-8b1f-bb1025595fa9"/>
 							<textElement verticalAlignment="Middle">
 								<font size="11"/>
 							</textElement>
