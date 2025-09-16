@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Non-Patient Payment Report" pageWidth="1130" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="1090" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="10" isIgnorePagination="true" uuid="119c2304-e36c-455c-b968-eaaad289bbac">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 11"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Table_TH" mode="Transparent" backcolor="#BFE1FF">
 		<box>
@@ -86,13 +86,26 @@ WHERE
 		FROM
 			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) gvd
 				JOIN c_order o
-				ON gvd.bh_visit_id = o.bh_visit_id
+					ON gvd.bh_visit_id = o.bh_visit_id
 				JOIN c_orderline ol
-				ON o.c_order_id = ol.c_order_id
+					ON o.c_order_id = ol.c_order_id
+				CROSS JOIN params
 		WHERE
 			gvd.docstatus <> 'VO'
 			AND gvd.docstatus <> 'DR'
 			AND ol.c_charge_id IS NULL
+			AND (params.c_bpartner_uu = '' OR EXISTS (
+				SELECT
+					1
+				FROM
+					c_invoice i
+						JOIN c_bpartner bp
+							ON i.c_bpartner_id = bp.c_bpartner_id
+				WHERE
+					i.bh_visit_id = gvd.bh_visit_id
+					AND bp.c_bpartner_uu = params.c_bpartner_uu
+					AND i.docstatus IN ('CO', 'CL')
+			))
 		GROUP BY
 			gvd.bh_visit_id, gvd.c_bpartner_id, gvd.bh_visitdate, gvd.patient_name, gvd.bh_patientid, gvd.bh_patienttype,
 			gvd.bh_patienttype_name
@@ -162,29 +175,24 @@ FROM
 			DirectPayments
 		GROUP BY bh_visit_id
 	) patient_payment_sums
-		ON Visit_info.bh_visit_id = patient_payment_sums.bh_visit_id
+			ON Visit_info.bh_visit_id = patient_payment_sums.bh_visit_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1                                                  AS insurance,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1                                                  AS waiver,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1                                                  AS donation,
-				SUM(linenetamt) FILTER (WHERE bh_subtype = p.payment_mode OR 
-				                              (p.c_bpartner_uu <> '' AND EXISTS (
-				                                  SELECT 1 FROM c_bpartner bp3 
-				                                  WHERE bp3.c_bpartner_uu = p.c_bpartner_uu 
-				                                  AND bp3.name = npp.chargetype_name
-				                              ))) * -1                                                               AS NonPaySelectedtotal,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('I', 'W', 'D') ) * -1                                     AS NonPaytotal
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1              AS insurance,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1              AS waiver,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1              AS donation,
+			SUM(linenetamt) FILTER (WHERE bh_subtype = p.payment_mode ) * -1    AS NonPaySelectedtotal,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype IN ('I', 'W', 'D') ) * -1 AS NonPaytotal
 		FROM
 			non_patient_payments npp
 				CROSS JOIN params p
 		GROUP BY
 			bh_visit_id
 	) non_patient_payment_totals
-		ON Visit_info.bh_visit_id = non_patient_payment_totals.bh_visit_id
+			ON Visit_info.bh_visit_id = non_patient_payment_totals.bh_visit_id
 		LEFT JOIN BillTotal
-		ON Visit_info.bh_visit_id = BillTotal.bh_visit_id
+			ON Visit_info.bh_visit_id = BillTotal.bh_visit_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
@@ -199,7 +207,7 @@ FROM
 			bh_subtype = 'I'
 		GROUP BY bh_visit_id, chargetype_name, member_id, MemberName, ClaimNo, Relationship
 	) insurance_info
-		ON insurance_info.bh_visit_id = Visit_info.bh_visit_id
+			ON insurance_info.bh_visit_id = Visit_info.bh_visit_id
 		CROSS JOIN params p
 WHERE
 	Visit_info.bh_visit_id IN (
@@ -207,17 +215,12 @@ WHERE
 			npp.bh_visit_id
 		FROM
 			non_patient_payments npp
-			LEFT JOIN c_bpartner bp ON bp.name = npp.ChargeType_name
+				LEFT JOIN c_bpartner bp
+					ON bp.name = npp.ChargeType_name
 		WHERE
 			(p.payment_mode = '' OR (npp.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END AND
 			                         p.payment_mode IN ('I', 'W', 'T')))
-			AND (p.c_bpartner_uu = '' OR bp.c_bpartner_uu = p.c_bpartner_uu)
 	)
-	AND (p.c_bpartner_uu = '' OR EXISTS (
-	         SELECT 1 FROM c_bpartner bp2 
-	         WHERE bp2.c_bpartner_uu = p.c_bpartner_uu 
-	         AND bp2.name = ChargeType_name
-	     ))
 ORDER BY
 	date(Visit_info.bill_date), Visit_info.patient_name;]]>
 	</queryString>
@@ -295,16 +298,8 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Mode:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="155" y="50" width="44" height="18" uuid="f947a028-c117-435a-b9d7-b25472022662"/>
-				<box leftPadding="2"/>
-				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Insurance:]]></text>
-			</staticText>
 			<componentElement>
-				<reportElement x="199" y="50" width="340" height="18" uuid="2a34fd38-0138-4632-89cb-f0cd96eaa4cb">
+				<reportElement x="245" y="50" width="340" height="18" uuid="2a34fd38-0138-4632-89cb-f0cd96eaa4cb">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
@@ -326,7 +321,7 @@ ORDER BY
 				</jr:list>
 			</componentElement>
 			<textField>
-				<reportElement x="199" y="30" width="111" height="18" uuid="0ade0d97-7f8a-4c64-8033-4d250b38f941">
+				<reportElement x="245" y="30" width="111" height="18" uuid="0ade0d97-7f8a-4c64-8033-4d250b38f941">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -381,6 +376,15 @@ ORDER BY
 					</jr:listContents>
 				</jr:list>
 			</componentElement>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="155" y="50" width="90" height="18" uuid="2a46a711-2861-477d-9acc-2ddccc235194">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Insurer/Donor:"]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>
@@ -539,7 +543,7 @@ ORDER BY
 		<band height="15">
 			<frame>
 				<reportElement style="Table_TD" mode="Opaque" x="0" y="0" width="1090" height="15" uuid="bb547c52-2483-45db-852d-4399b8e55727"/>
-				<textField pattern="yyyy-MM-dd">
+				<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
 					<reportElement style="Table_TD" mode="Opaque" x="0" y="0" width="65" height="15" uuid="33183ddf-8351-4a18-9b63-8e49623dd5a4">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
@@ -547,7 +551,7 @@ ORDER BY
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{billdate}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,###.###;(#,###.###-)">
+				<textField pattern="#,###.###;(#,###.###-)" isBlankWhenNull="true">
 					<reportElement style="Table_TD" mode="Opaque" x="65" y="0" width="130" height="15" uuid="545d235f-4908-47a0-8f4b-91795dcc7982">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -556,7 +560,7 @@ ORDER BY
 					<textElement textAlignment="Left" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{patient_name}]]></textFieldExpression>
 				</textField>
-				<textField pattern="M/d/yyyy">
+				<textField pattern="M/d/yyyy" isBlankWhenNull="true">
 					<reportElement style="Table_TD" mode="Opaque" x="195" y="0" width="74" height="15" uuid="a53c6dc9-2707-4dff-bacd-b9e3b544f8ff">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
@@ -564,7 +568,7 @@ ORDER BY
 					<textElement textAlignment="Left" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{PatientNo}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement style="Table_TD" mode="Opaque" x="269" y="0" width="92" height="15" uuid="cec266f3-d3ca-4454-b63c-f9ab666e0b2e">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
@@ -604,7 +608,7 @@ ORDER BY
 					<textElement textAlignment="Left" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{ClaimNo}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.###;(#,##0.###-)">
+				<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
 					<reportElement style="Table_TD" mode="Opaque" x="690" y="0" width="115" height="15" uuid="1bc1f660-120a-4978-9039-c9d8fb07a101">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -614,7 +618,7 @@ ORDER BY
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{billtotal}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.###;(#,##0.###-)">
+				<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
 					<reportElement x="805" y="0" width="184" height="15" uuid="f140c67f-cbb8-4ed4-98d5-275147f3c2e3">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
@@ -627,7 +631,7 @@ ORDER BY
 					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$F{NonPaytotal}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.###;(#,##0.###-)">
+				<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
 					<reportElement x="989" y="0" width="101" height="15" uuid="882a6a94-bcae-465d-ad80-0a11d3274adf">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>

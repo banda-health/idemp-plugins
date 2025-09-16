@@ -89,7 +89,7 @@ test('admin role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('clinic admin role can run report', async () => {
@@ -101,7 +101,7 @@ test('clinic admin role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('cashier/registration basic role can run report', async () => {
@@ -113,7 +113,7 @@ test('cashier/registration basic role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('cashier/registration basic plus role can run report', async () => {
@@ -125,7 +125,7 @@ test('cashier/registration basic plus role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('cashier/registration advanced role can run report', async () => {
@@ -137,7 +137,7 @@ test('cashier/registration advanced role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('inventory/pharmacy role can run report', async () => {
@@ -149,7 +149,7 @@ test('inventory/pharmacy role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('clinician/nurse basic role can run report', async () => {
@@ -161,7 +161,7 @@ test('clinician/nurse basic role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('clinician/nurse advanced role can run report', async () => {
@@ -173,7 +173,7 @@ test('clinician/nurse advanced role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('triage role cannot run report', async () => {
@@ -195,7 +195,7 @@ test('lab/radiology advanced role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('lab/radiology basic role can run report', async () => {
@@ -207,7 +207,7 @@ test('lab/radiology basic role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('accounting role can run report', async () => {
@@ -219,7 +219,7 @@ test('accounting role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('clinic user role can run report', async () => {
@@ -231,5 +231,5 @@ test('clinic user role can run report', async () => {
 	valueObject.processInformationParameters = [processInformationParameter!];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });

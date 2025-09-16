@@ -22,21 +22,21 @@ test('otc sales report is runnable', async () => {
 
 	valueObject.stepName = 'Run report';
 	valueObject.processUuid = process.UU;
-		valueObject.processInformationParameters = [
-			{
-				AD_Process: { UU: process.UU },
-				ParameterName: beginDateParameter!.Name,
-				Parameter: yesterday().getTime(),
-			},
-			{
-				AD_Process: { UU: process.UU },
-				ParameterName: endDateParameter!.Name,
-				Parameter: tomorrow().toISOString(),
-			},
-		];
+	valueObject.processInformationParameters = [
+		{
+			AD_Process: { UU: process.UU },
+			ParameterName: beginDateParameter!.Name,
+			Parameter: yesterday().getTime(),
+		},
+		{
+			AD_Process: { UU: process.UU },
+			ParameterName: endDateParameter!.Name,
+			Parameter: tomorrow().toISOString(),
+		},
+	];
 	await runReport(valueObject);
 
-	const text = (await PdfData.extract(valueObject.report!)).text;
+	const text = (await PdfData.extract(new Uint8Array(valueObject.report!))).text;
 	expect(text).toBeTruthy();
 	expect(text?.join('')).toContain('Over-the-Counter (OTC) Sales');
 });

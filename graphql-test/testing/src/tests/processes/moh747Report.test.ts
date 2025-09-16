@@ -37,5 +37,7 @@ test('MoH 747 report is runnable', async () => {
 	];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text?.join(' ')).toContain('Facility Contraceptives');
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text?.join(' ')).toContain(
+		'Facility Contraceptives',
+	);
 });

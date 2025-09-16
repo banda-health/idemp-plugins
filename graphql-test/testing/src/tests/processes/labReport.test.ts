@@ -2,7 +2,14 @@ import { PdfData } from 'pdfdataextract';
 import { v4 } from 'uuid';
 import { mutate, query } from '../../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../../models';
-import { createBusinessPartner, createInOutFromOrder, createOrder, createProduct, createVisit, runReport } from '../../utils';
+import {
+	createBusinessPartner,
+	createInOutFromOrder,
+	createOrder,
+	createProduct,
+	createVisit,
+	runReport,
+} from '../../utils';
 import {
 	Ad_ProcessGetDocument,
 	Bh_ConceptGetDocument,
@@ -127,5 +134,5 @@ test('lab report is runnable', async () => {
 	];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });

@@ -65,7 +65,7 @@ test('diagnosis report is runnable', async () => {
 	];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('can filter by tags', async () => {
@@ -262,7 +262,7 @@ test('can filter by tags', async () => {
 	];
 	await runReport(valueObject);
 
-	const reportText = (await PdfData.extract(valueObject.report!)).text?.[0].replaceAll(' ', '');
+	const reportText = (await PdfData.extract(new Uint8Array(valueObject.report!))).text?.[0].replaceAll(' ', '');
 	expect(reportText).toBeTruthy();
 	expect(reportText?.includes(businessPartner1.Name.replaceAll(' ', ''))).toBeFalsy();
 	expect(reportText?.includes(valueObject.businessPartner!.Name.replaceAll(' ', ''))).toBeTruthy();

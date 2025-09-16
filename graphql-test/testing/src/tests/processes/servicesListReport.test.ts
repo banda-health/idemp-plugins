@@ -21,5 +21,5 @@ test('services charged report is runnable', async () => {
 	valueObject.processUuid = process.UU;
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text?.join('')).toContain('Service List');
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text?.join('')).toContain('Service List');
 });
