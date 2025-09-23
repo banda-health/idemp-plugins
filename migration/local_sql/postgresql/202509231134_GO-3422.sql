@@ -754,7 +754,7 @@ VALUES
 	 '05fdd74c-6eaa-44c2-9a8a-ff201c2d7bfc');
 --- Add roles to client
 SELECT
-	bh_add_roles_to_clients('d162fcdb-22ff-4004-8685-f9ebef1aa273', 'IR');
+	bh_add_roles_to_clients('d162fcdb-22ff-4004-8685-f9ebef1aa273', 'Z');
 
 SELECT
 	register_migration_script('202509231134_GO-3422.sql')
