@@ -60,6 +60,27 @@ VALUES
 	 ), 0, 0, 'Y', '2025-09-23 16:28:09.767000', 100, '2025-09-23 16:28:09.767000', 100,
 	 '9c262a59-a62c-4f11-94e3-d7bccd374275');
 
+INSERT INTO
+	ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
+	                         updatedby, ad_user_roles_uu)
+VALUES
+	((
+		 SELECT
+			 ad_user_id
+		 FROM
+			 ad_user
+		 WHERE
+			 ad_user_uu = '7f805ff3-65ce-4283-838b-154def453c98'
+	 ), (
+		 SELECT
+			 ad_role_id
+		 FROM
+			 ad_role
+		 WHERE
+			 ad_role_uu = 'd162fcdb-22ff-4004-8685-f9ebef1aa273'
+	 ), 0, 0, 'Y', '2025-09-23 16:28:09.767000', 100, '2025-09-23 16:28:09.767000', 100,
+	 'c3b2275f-7499-4c81-aead-57841c02fe06');	 
+
 SELECT
 	register_migration_script('202509231134_GO-3422.sql')
 FROM
