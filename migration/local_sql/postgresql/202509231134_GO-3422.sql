@@ -711,7 +711,7 @@ VALUES
 	 ), (
 		 SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'd162fcdb-22ff-4004-8685-f9ebef1aa273'
 	 ), 0, 0, 'Y', '2025-09-23 11:52:37.200000', 100, '2025-09-23 11:52:37.200000', 100, 'Y',
-	 'c6d7e8f9-a0b1-c2d3-e4f5-a6b7c8d9eafb');
+	 '78451654-6f37-459b-8401-ea6644e9c5f0');
 INSERT INTO
 	ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby,
 	                   updated, updatedby, isreadwrite, ad_process_access_uu)
