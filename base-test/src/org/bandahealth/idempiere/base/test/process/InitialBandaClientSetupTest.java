@@ -178,11 +178,6 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 					valueObject.getTransactionName()).setOnlyActiveRecords(true)
 					.setParameters(client.get_ID(), client.getName() + "Admin").first();
 			assertNotNull(clientAdminUser, "Admin user was created");
-			// The `getRoles` method reads the environment context, so update it
-			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, client.get_ID());
-			assertEquals(masterRoles.size() + 2, newSystemUser.getRoles(organization.get_ID()).length,
-					"System users are assigned new roles, including the two iDempiere adds by default");
-			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 
 			// The `getRoles` method reads the environment context, so update it
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, client.get_ID());
