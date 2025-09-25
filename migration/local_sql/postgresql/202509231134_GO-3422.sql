@@ -22,7 +22,7 @@ VALUES
 
 
 INSERT INTO
-	ad_user_roles (ad_user_id, ad_role_id, createdby, updatedby, ad_user_role_uu)
+	ad_user_roles (ad_user_id, ad_role_id, createdby, updatedby, ad_user_roles_uu)
 SELECT
 	u.ad_user_id,
 	r.ad_role_id,
