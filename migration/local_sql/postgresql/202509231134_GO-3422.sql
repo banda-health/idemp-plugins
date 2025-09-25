@@ -22,8 +22,10 @@ VALUES
 
 
 INSERT INTO
-	ad_user_roles (ad_user_id, ad_role_id, createdby, updatedby, ad_user_roles_uu)
+	ad_user_roles (ad_client_id, ad_org_id, ad_user_id, ad_role_id, createdby, updatedby, ad_user_roles_uu)
 SELECT
+	0,
+	0,
 	u.ad_user_id,
 	r.ad_role_id,
 	100,
@@ -36,7 +38,6 @@ FROM
 WHERE
 	u.ad_user_uu IN ('775cf2b6-988f-46bc-a7d0-47721a9ffd97', '7f805ff3-65ce-4283-838b-154def453c98',
 	                 '7f805ff3-65ce-4283-838b-154def453c98');
-
 
 SELECT
 	register_migration_script('202509231134_GO-3422.sql')
