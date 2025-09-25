@@ -3021,7 +3021,9 @@ test('registration role has correct access', async () => {
 	).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.valueOfOpeningAndClosingStock)).toBeUndefined();
 
-	expect(reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.stockToBeOrdered)).toBeUndefined();
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.stockToBeOrdered),
+	).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.stockToBeOrdered)).toBeUndefined();
 
 	expect(
@@ -3130,3 +3132,4 @@ test('registration role has correct access', async () => {
 	).toBeUndefined();
 	expect(processes.find((process) => process.UU === processUuid.deletedDraftedVisits)).toBeUndefined();
 });
+
