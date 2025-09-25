@@ -39,7 +39,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-
 /**
  * Process to extend the Initial iDempiere client setup with Banda stuff
  */
@@ -69,11 +68,9 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	private final String PREFIX_PROCESS_TRANSACTION_NAME = "Setup_accountImport";
 	// [$IDEMPIERE-HOME]/data/import/
 	private final String coaInitialAccountsFile = Adempiere.getAdempiereHome() + File.separator + "data"
-			+ File.separator + "import"
-			+ File.separator + "Accounting_COA_Temp_99999 - Accounting_All_Same.csv";
-	private final String coaBandaFile = Adempiere.getAdempiereHome() + File.separator + "data"
-			+ File.separator + "import"
-			+ File.separator + "BandaGoChartofAccounts-Basic.csv";
+			+ File.separator + "import" + File.separator + "Accounting_COA_Temp_99999 - Accounting_All_Same.csv";
+	private final String coaBandaFile = Adempiere.getAdempiereHome() + File.separator + "data" + File.separator
+			+ "import" + File.separator + "BandaGoChartofAccounts-Basic.csv";
 	private final String SALES_PRICE_LIST_NAME = "Default Price List";
 	private final String SALES_PRICE_LIST_VERSION_NAME = "Default Price List";
 	private final String PURCHASES_PRICE_LIST_NAME = "Default Purchase Price List";
@@ -101,23 +98,23 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				continue;
 			}
 			switch (name) {
-				case PARAMETERNAME_IS_USING_CASH_BOX:
-					wantsCashBoxAccount = processInfoParameter.getParameterAsBoolean();
-					break;
-				case PARAMETERNAME_IS_USING_MOBILE:
-					wantsMobileAccount = processInfoParameter.getParameterAsBoolean();
-					break;
-				case PARAMETERNAME_IS_USING_SAVINGS:
-					wantsSavingsAccount = processInfoParameter.getParameterAsBoolean();
-					break;
-				case PARAMETERNAME_CLIENT_NAME:
-					//org name is same as client name
-					clientName = processInfoParameter.getParameterAsString();
-					orgName = processInfoParameter.getParameterAsString();
-					break;
-				case PARAMETERNAME_CLIENT_LEVEL:
-					clientLevel = processInfoParameter.getParameterAsString();
-					break;
+			case PARAMETERNAME_IS_USING_CASH_BOX:
+				wantsCashBoxAccount = processInfoParameter.getParameterAsBoolean();
+				break;
+			case PARAMETERNAME_IS_USING_MOBILE:
+				wantsMobileAccount = processInfoParameter.getParameterAsBoolean();
+				break;
+			case PARAMETERNAME_IS_USING_SAVINGS:
+				wantsSavingsAccount = processInfoParameter.getParameterAsBoolean();
+				break;
+			case PARAMETERNAME_CLIENT_NAME:
+				// org name is same as client name
+				clientName = processInfoParameter.getParameterAsString();
+				orgName = processInfoParameter.getParameterAsString();
+				break;
+			case PARAMETERNAME_CLIENT_LEVEL:
+				clientLevel = processInfoParameter.getParameterAsString();
+				break;
 			}
 		}
 		addAutomatedParameters();
@@ -125,19 +122,16 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	}
 
 	/**
-	 * Process to automate the work done previously:
-	 * 1. Create a client with the account "DO NOT USE" assigned to every default in the accounting schema
-	 * 2. Import the desired CoA (Basic, Intermediate, Advanced)
-	 * 3. Update default account mapping (i.e. set B_Asset = B_InTransit, etc.)
-	 * 4. Create bank accounts for the client
-	 * 5. Create and map Payment Types to the default Bank Account
-	 * 6. Insert default Expense Categories (charges) for the client
-	 * 7. Create default product categories for products so they hit the correct revenue accounts
-	 * 8. Update the organization name and key
-	 * 9. Add custom warehouse and address
-	 * 10. Create default sales and purchases price-lists
-	 * 11. Update calendar control
-	 * 12. Update users setup
+	 * Process to automate the work done previously: 1. Create a client with the
+	 * account "DO NOT USE" assigned to every default in the accounting schema 2.
+	 * Import the desired CoA (Basic, Intermediate, Advanced) 3. Update default
+	 * account mapping (i.e. set B_Asset = B_InTransit, etc.) 4. Create bank
+	 * accounts for the client 5. Create and map Payment Types to the default Bank
+	 * Account 6. Insert default Expense Categories (charges) for the client 7.
+	 * Create default product categories for products so they hit the correct
+	 * revenue accounts 8. Update the organization name and key 9. Add custom
+	 * warehouse and address 10. Create default sales and purchases price-lists 11.
+	 * Update calendar control 12. Update users setup
 	 *
 	 * @return info
 	 * @throws Exception
@@ -150,20 +144,21 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 
 		MClient client = new Query(getCtx(), MClient.Table_Name, MClient.COLUMNNAME_Name + "=?", get_TrxName())
 				.setParameters(clientName).first();
-		MOrg organization =
-				new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_Name + "=? AND " + MOrg.COLUMNNAME_AD_Client_ID + "=?",
-						get_TrxName()).setParameters(orgName, client.getAD_Client_ID()).first();
+		MOrg organization = new Query(getCtx(), MOrg.Table_Name,
+				MOrg.COLUMNNAME_Name + "=? AND " + MOrg.COLUMNNAME_AD_Client_ID + "=?", get_TrxName())
+				.setParameters(orgName, client.getAD_Client_ID()).first();
 
 		MBandaSetup bandaSetup = new MBandaSetup(getCtx(), client, organization);
-		// If AD_Client_ID or AD_Org_ID are -1, something went wrong in setup, but no error was generated
+		// If AD_Client_ID or AD_Org_ID are -1, something went wrong in setup, but no
+		// error was generated
 		// If this happens, we want to throw an error
-		if (bandaSetup.getAccountSchema() == null ||
-				bandaSetup.getAD_Client_ID() == -1 || bandaSetup.getAD_Org_ID() == -1
-		) {
+		if (bandaSetup.getAccountSchema() == null || bandaSetup.getAD_Client_ID() == -1
+				|| bandaSetup.getAD_Org_ID() == -1) {
 			throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Initial client setup incomplete"));
 		}
 
-		// Set the client ID for this process so everyone gets the same ID from here, ctx, or wherever
+		// Set the client ID for this process so everyone gets the same ID from here,
+		// ctx, or wherever
 		getProcessInfo().setAD_Client_ID(bandaSetup.getAD_Client_ID());
 		Env.setContext(getCtx(), Env.AD_CLIENT_ID, bandaSetup.getAD_Client_ID());
 		try {
@@ -174,10 +169,12 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			addImportAccountParameters(bandaSetup);
 			// Kick off the account import process
 			ImportAccount importAccountProcess = new ImportAccount();
-			// The import accounts process pulls PInstance info down inside it, so make sure it gets a new set of data
+			// The import accounts process pulls PInstance info down inside it, so make sure
+			// it gets a new set of data
 			int processInstanceId = getProcessInfo().getAD_PInstance_ID();
 			getProcessInfo().setAD_PInstance_ID(0);
-			// Leave the transaction null so it will create a local one, save it, and commit it after all work is done
+			// Leave the transaction null so it will create a local one, save it, and commit
+			// it after all work is done
 			importAccountProcess.startProcess(Env.getCtx(), getProcessInfo(), null);
 			getProcessInfo().setAD_PInstance_ID(processInstanceId);
 
@@ -282,10 +279,11 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		addCreatedUserRolesToLoggedInUser(bandaSetup.getAD_Client_ID(), bandaSetup.getAD_Org_ID());
 
 		/**
-		 * The context has it's AD_Client_ID replaced with the generated one. If the user continues using iDempiere,
-		 * they're AD_Client_ID will be wrong (since they should be "System") and they'll have to log out and log
-		 * back in to fix it. Instead, just reset the client ID in the context to what it was before the process
-		 * started.
+		 * The context has it's AD_Client_ID replaced with the generated one. If the
+		 * user continues using iDempiere, they're AD_Client_ID will be wrong (since
+		 * they should be "System") and they'll have to log out and log back in to fix
+		 * it. Instead, just reset the client ID in the context to what it was before
+		 * the process started.
 		 */
 		resetClientId();
 
@@ -293,23 +291,29 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	}
 
 	/**
-	 * Roles are currently added to the SuperUser user, which the logged-in user may not be. So, add them to the
-	 * logged-in user
+	 * Roles are currently added to the SuperUser user, which the logged-in user may
+	 * not be. So, add them to the logged-in user
 	 */
 	private void addCreatedUserRolesToLoggedInUser(int clientId, int orgId) {
 		List<MRole> clientRoles = new Query(getCtx(), MRole.Table_Name, MRole.COLUMNNAME_AD_Client_ID + "=?",
 				get_TrxName()).setParameters(clientId).list();
 
+		MRole implementerRole = new Query(getCtx(), MRole.Table_Name,
+				MRole.COLUMNNAME_Name + "=?" + " AND " + MRole.COLUMNNAME_AD_Client_ID + "=?" + " AND "
+						+ MRole.COLUMNNAME_IsMasterRole + "=?",
+				get_TrxName()).setParameters("Implementer", clientId, "N").first();
+
 		List<Object> parameters = clientRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
 
 		List<MUser_BH> systemAdministrators = new Query(getCtx(), MUser_BH.Table_Name,
 				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " >= ? AND " + MUserRoles.Table_Name + "."
-						+ MUserRoles.COLUMNNAME_AD_Role_ID + "=? ",
+						+ MUserRoles.COLUMNNAME_AD_Role_ID + " IN ( ?, ? )",
 				get_TrxName())
 				.addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "."
 						+ MUser_BH.COLUMNNAME_AD_User_ID + " = " + MUserRoles.Table_Name + "."
 						+ MUserRoles.COLUMNNAME_AD_User_ID)
-				.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, SystemIDs.ROLE_SYSTEM).list();
+				.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, SystemIDs.ROLE_SYSTEM, implementerRole.getAD_Role_ID())
+				.list();
 		Set<Integer> systemUsersToAdd = systemAdministrators.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
 
 		String whereClause = "?,".repeat(clientRoles.size());
@@ -317,15 +321,14 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 
 		String sysAdminCountWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(systemUsersToAdd, parameters);
 
-		StringBuilder usersAssignedClientRolesWhereClause =
-				new StringBuilder(MUserRoles.COLUMNNAME_AD_Role_ID).append(" IN (").append(whereClause).append(")");
+		StringBuilder usersAssignedClientRolesWhereClause = new StringBuilder(MUserRoles.COLUMNNAME_AD_Role_ID)
+				.append(" IN (").append(whereClause).append(")");
 		if (!systemUsersToAdd.isEmpty()) {
 			usersAssignedClientRolesWhereClause.append(" AND ").append(MUserRoles.COLUMNNAME_AD_User_ID).append(" IN (")
 					.append(sysAdminCountWhereClause).append(")");
 		}
-		List<MUserRoles> usersAssignedClientRoles =
-				new Query(getCtx(), MUserRoles.Table_Name, usersAssignedClientRolesWhereClause.toString(),
-						get_TrxName()).setParameters(parameters).list();
+		List<MUserRoles> usersAssignedClientRoles = new Query(getCtx(), MUserRoles.Table_Name,
+				usersAssignedClientRolesWhereClause.toString(), get_TrxName()).setParameters(parameters).list();
 		// If any roles have already been assigned for this user and client, we don't
 		// need to do anything
 		if (usersAssignedClientRoles.size() > 0) {
@@ -352,8 +355,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	}
 
 	/**
-	 * This emulates the process found in WFileImport.java and the screen "Import File Loader" to upload
-	 * an account file into the system
+	 * This emulates the process found in WFileImport.java and the screen "Import
+	 * File Loader" to upload an account file into the system
 	 *
 	 * @param coaFileToImport The URI of the file to upload
 	 * @return True if the import succeeds
@@ -365,14 +368,9 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		Trx localTransaction = Trx.get(Trx.createTrxName(PREFIX_PROCESS_TRANSACTION_NAME), true);
 		localTransaction.start();
 
-		MImpFormat accountingFormat = new Query(
-				getCtx(),
-				MImpFormat.Table_Name,
-				MImpFormat.COLUMNNAME_AD_ImpFormat_UU + "=?",
-				localTransaction.getTrxName()
-		)
-				.setParameters(MBandaSetup.IMPORTFORMAT_ACCOUNTING_ACCOUNTS_UU)
-				.first();
+		MImpFormat accountingFormat = new Query(getCtx(), MImpFormat.Table_Name,
+				MImpFormat.COLUMNNAME_AD_ImpFormat_UU + "=?", localTransaction.getTrxName())
+				.setParameters(MBandaSetup.IMPORTFORMAT_ACCOUNTING_ACCOUNTS_UU).first();
 
 		if (accountingFormat == null) {
 			String err = "Accounting Format do not exist";
@@ -382,7 +380,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			return false;
 		}
 
-		// First, we need to use the "Import File Loader" process to pull in our mappings
+		// First, we need to use the "Import File Loader" process to pull in our
+		// mappings
 		ImpFormat coaFormat = ImpFormat.load(accountingFormat.getAD_ImpFormat_ID());
 		File coaFile = new File(coaFileToImport);
 		BufferedReader reader = new BufferedReader(new FileReader(coaFile));
@@ -411,14 +410,8 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 * Adds the fields ImportAccount.java needs to import the accounts uploaded
 	 */
 	private void addImportAccountParameters(MBandaSetup bandaSetup) {
-		int elementId = new Query(
-				getCtx(),
-				MElement.Table_Name,
-				MElement.COLUMNNAME_AD_Client_ID + "=?",
-				null
-		)
-				.setParameters(bandaSetup.getAD_Client_ID())
-				.firstId();
+		int elementId = new Query(getCtx(), MElement.Table_Name, MElement.COLUMNNAME_AD_Client_ID + "=?", null)
+				.setParameters(bandaSetup.getAD_Client_ID()).firstId();
 
 		if (elementId == -1) {
 			throw new AdempiereException(Msg.getMsg(Env.getCtx(), "C_Element doesn't exist for client"));
@@ -427,61 +420,43 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		addParameter(new ProcessInfoParameter(PARAMETERNAME_AD_CLIENT_ID, new BigDecimal(bandaSetup.getAD_Client_ID()),
 				null, null, null));
 		// The process likes it's C_Element_ID as a BigDecimal for some reason
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_C_ELEMENT_ID, new BigDecimal(elementId),
-				null, null, null));
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_UPDATE_DEFAULT_ACCOUNTS, "Y",
-				null, null, null));
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_CREATE_NEW_COMBINATION, "Y",
-				null, null, null));
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_DELETE_OLD_IMPORTED, "Y",
-				null, null, null));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_C_ELEMENT_ID, new BigDecimal(elementId), null, null, null));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_UPDATE_DEFAULT_ACCOUNTS, "Y", null, null, null));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_CREATE_NEW_COMBINATION, "Y", null, null, null));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_DELETE_OLD_IMPORTED, "Y", null, null, null));
 	}
 
 	/**
 	 * Adds the fields InitialClientSetup.java needs to read the initial CoA file
 	 */
 	private void addCoAFileValueToParametersBasedOnClientType() {
-		addParameter(new ProcessInfoParameter(
-				PARAMETERNAME_COA_FILE,
-				MSysConfig.getValue(MSysConfig_BH.DEFAULT_INITIAL_COA_PATH, coaInitialAccountsFile),
-				null,
-				null,
-				null
-		));
-		addParameter(new ProcessInfoParameter(PARAMETERNAME_USE_DEFAULT_COA, "N",
-				null, null, null));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_COA_FILE,
+				MSysConfig.getValue(MSysConfig_BH.DEFAULT_INITIAL_COA_PATH, coaInitialAccountsFile), null, null, null));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_USE_DEFAULT_COA, "N", null, null, null));
 	}
 
 	private String getCoAFileToImport() {
-		String coaImportFile = MSysConfig.getValue(MSysConfig_BH.DEFAULT_BASIC_COA_PATH,
-				coaBandaFile);
+		String coaImportFile = MSysConfig.getValue(MSysConfig_BH.DEFAULT_BASIC_COA_PATH, coaBandaFile);
 		if (CLIENTLEVEL_INTERMEDIATE.equalsIgnoreCase(clientLevel)) {
-			coaImportFile = MSysConfig.getValue(MSysConfig_BH.DEFAULT_INTERMEDIATE_COA_PATH,
-					coaBandaFile);
+			coaImportFile = MSysConfig.getValue(MSysConfig_BH.DEFAULT_INTERMEDIATE_COA_PATH, coaBandaFile);
 		} else if (CLIENTLEVEL_ADVANCED.equalsIgnoreCase(clientLevel)) {
-			coaImportFile = MSysConfig.getValue(MSysConfig_BH.DEFAULT_ADVANCED_COA_PATH,
-					coaBandaFile);
+			coaImportFile = MSysConfig.getValue(MSysConfig_BH.DEFAULT_ADVANCED_COA_PATH, coaBandaFile);
 		}
 		return coaImportFile;
 	}
 
-
 	/**
-	 * Add to parameters dynamically:
-	 * admin/user names and email
+	 * Add to parameters dynamically: admin/user names and email
 	 */
 	private void addAutomatedParameters() {
 		addParameter(new ProcessInfoParameter(PARAMETERNAME_ORG_NAME, clientName, null, null, null));
 		String prefix = clientName.replaceAll("\\s", "");
 		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_USER_NAME, prefix + "Admin", null, null, null));
 		addParameter(new ProcessInfoParameter(PARAMETERNAME_NORMAL_USER_NAME, prefix + "User", null, null, null));
-		addParameter(
-				new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL,
-						"admin@" + prefix.toLowerCase().replaceAll("[^A-Za-z0-9\\s]", "") + ".org", null, null,
-						null));
-		addParameter(
-				new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL,
-						"user@" + prefix.toLowerCase().replaceAll("[^A-Za-z0-9\\s]", "") + ".org", null, null, null));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_ADMIN_EMAIL,
+				"admin@" + prefix.toLowerCase().replaceAll("[^A-Za-z0-9\\s]", "") + ".org", null, null, null));
+		addParameter(new ProcessInfoParameter(PARAMETERNAME_USER_EMAIL,
+				"user@" + prefix.toLowerCase().replaceAll("[^A-Za-z0-9\\s]", "") + ".org", null, null, null));
 	}
 
 	private void addParameter(ProcessInfoParameter parameter) {
