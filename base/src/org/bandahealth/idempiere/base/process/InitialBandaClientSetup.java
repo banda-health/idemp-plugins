@@ -301,8 +301,9 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		MRole implementerRole = new Query(getCtx(), MRole.Table_Name,
 				MRole.COLUMNNAME_Name + "=?" + " AND " + MRole.COLUMNNAME_AD_Client_ID + "=?" + " AND "
 						+ MRole.COLUMNNAME_IsMasterRole + "=?",
-				get_TrxName()).setParameters("Implementer", clientId, "N").first();
+				get_TrxName()).setParameters("Implementer", MClient_BH.CLIENTID_SYSTEM, "N").first();
 
+		// Create parameters list for client roles (still needed for later logic)
 		List<Object> parameters = clientRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
 
 		List<MUser_BH> systemAdministrators = new Query(getCtx(), MUser_BH.Table_Name,
