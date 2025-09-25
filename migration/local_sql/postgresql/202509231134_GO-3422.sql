@@ -34,7 +34,7 @@ FROM
 		JOIN ad_role r
 			ON r.ad_role_uu = 'd162fcdb-22ff-4004-8685-f9ebef1aa273'
 WHERE
-	u.ad_uswe_uu IN ('775cf2b6-988f-46bc-a7d0-47721a9ffd97', '7f805ff3-65ce-4283-838b-154def453c98',
+	u.ad_user_uu IN ('775cf2b6-988f-46bc-a7d0-47721a9ffd97', '7f805ff3-65ce-4283-838b-154def453c98',
 	                 '7f805ff3-65ce-4283-838b-154def453c98');
 
 
