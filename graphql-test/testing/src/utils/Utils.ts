@@ -771,10 +771,19 @@ export async function createPayment(valueObject: ValueObject) {
 			variables: {
 				Entity: {
 					AD_Org: { UU: valueObject.organization!.UU },
+					BH_Original_C_Invoice: valueObject.invoice?.UU ? { UU: valueObject.invoice.UU } : undefined,
+					BH_tender_amount: tenderAmount || 1,
+					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
+					C_BankAccount: { UU: valueObject.bankAccount.UU },
 					C_BPartner: { UU: valueObject.businessPartner.UU },
+					C_DocType: valueObject.documentType ? { UU: valueObject.documentType.UU } : undefined,
+					C_Invoice: valueObject.invoice ? { UU: valueObject.invoice.UU } : undefined,
+					C_Order: !valueObject.invoice && valueObject.order ? { UU: valueObject.order.UU } : undefined,
+					C_Currency: {
+						UU: valueObject.invoice?.C_Currency.UU || valueObject.order?.C_Currency.UU || valueObject.currency.UU,
+					},
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: paymentTotal || 1,
-					BH_tender_amount: tenderAmount || 1,
 					TenderType: {
 						UU: (
 							valueObject.tenderType ||
@@ -791,14 +800,6 @@ export async function createPayment(valueObject: ValueObject) {
 								})
 							).data.AD_Ref_ListGet.Results[0]
 						)?.UU,
-					},
-					C_DocType: valueObject.documentType ? { UU: valueObject.documentType.UU } : undefined,
-					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
-					C_BankAccount: { UU: valueObject.bankAccount.UU },
-					C_Invoice: valueObject.invoice ? { UU: valueObject.invoice.UU } : undefined,
-					C_Order: !valueObject.invoice && valueObject.order ? { UU: valueObject.order.UU } : undefined,
-					C_Currency: {
-						UU: valueObject.invoice?.C_Currency.UU || valueObject.order?.C_Currency.UU || valueObject.currency.UU,
 					},
 				},
 			},

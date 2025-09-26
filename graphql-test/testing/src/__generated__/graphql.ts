@@ -27145,6 +27145,7 @@ export type C_Invoice = {
   AD_Org: Ad_Org;
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
+  BH_Original_C_Payments?: Maybe<Array<C_Payment>>;
   BH_Visit?: Maybe<Bh_Visit>;
   BH_Voided_Reason?: Maybe<Bh_Voided_Reason>;
   /** Business Activity */
@@ -30284,6 +30285,7 @@ export type C_Payment = {
   A_Zip?: Maybe<Scalars['String']['output']>;
   /** Account Number */
   AccountNo?: Maybe<Scalars['String']['output']>;
+  BH_Original_C_Invoice?: Maybe<C_Invoice>;
   BH_Visit?: Maybe<Bh_Visit>;
   BH_tender_amount?: Maybe<Scalars['BigDecimal']['output']>;
   /** Business Activity */
@@ -30605,6 +30607,7 @@ export type C_PaymentInput = {
   A_Zip?: InputMaybe<Scalars['String']['input']>;
   /** Account Number */
   AccountNo?: InputMaybe<Scalars['String']['input']>;
+  BH_Original_C_Invoice?: InputMaybe<ForeignEntityInput>;
   BH_Visit?: InputMaybe<ForeignEntityInput>;
   BH_tender_amount?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Business Activity */

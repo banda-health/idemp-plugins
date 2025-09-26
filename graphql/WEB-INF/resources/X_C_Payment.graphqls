@@ -42,6 +42,7 @@ type C_Payment {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	BH_Original_C_Invoice: C_Invoice
 	BH_tender_amount: BigDecimal
 	BH_Visit: BH_Visit
 	# Business Activity
@@ -237,6 +238,7 @@ input C_PaymentInput {
 	AccountNo: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	BH_Original_C_Invoice: ForeignEntityInput
 	BH_tender_amount: BigDecimal
 	BH_Visit: ForeignEntityInput
 	# Business Activity
