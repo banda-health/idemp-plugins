@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	T_ReportStatement(UU: String!): T_ReportStatement
-	T_ReportStatementGet(Page: Int, Size: Int, Sort: String, Filter: String): T_ReportStatementConnection!
+	T_ReportStatementGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): T_ReportStatementConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	RV_BPartner(UU: String!): RV_BPartner
-	RV_BPartnerGet(Page: Int, Size: Int, Sort: String, Filter: String): RV_BPartnerConnection!
+	RV_BPartnerGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): RV_BPartnerConnection!
 }
 
 extend type Mutation {

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_PP_Order_BOM;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,7 +29,7 @@ public class X_PP_Order_BOMQuery extends POQuery<X_PP_Order_BOM> implements Grap
 	}
 
 	public Connection<X_PP_Order_BOM> PP_Order_BOMGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return super.Get(Page, PageSize, Sort, Filter, environment);
+			String Where, List<Object> Parameters, DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);
 	}
 }

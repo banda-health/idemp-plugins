@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_AlertRule(UU: String!): AD_AlertRule
-	AD_AlertRuleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AlertRuleConnection!
+	AD_AlertRuleGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_AlertRuleConnection!
 }
 
 extend type Mutation {

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MBPBankAccount;
 import org.dataloader.DataLoader;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,7 +29,7 @@ public class X_C_BP_BankAccountQuery extends POQuery<MBPBankAccount> implements 
 	}
 
 	public Connection<MBPBankAccount> C_BP_BankAccountGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return super.Get(Page, PageSize, Sort, Filter, environment);
+			String Where, List<Object> Parameters, DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);
 	}
 }

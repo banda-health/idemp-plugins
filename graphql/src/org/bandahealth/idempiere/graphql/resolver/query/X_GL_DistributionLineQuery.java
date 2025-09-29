@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MDistributionLine;
 import org.dataloader.DataLoader;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,7 +29,7 @@ public class X_GL_DistributionLineQuery extends POQuery<MDistributionLine> imple
 	}
 
 	public Connection<MDistributionLine> GL_DistributionLineGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return super.Get(Page, PageSize, Sort, Filter, environment);
+			String Where, List<Object> Parameters, DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);
 	}
 }

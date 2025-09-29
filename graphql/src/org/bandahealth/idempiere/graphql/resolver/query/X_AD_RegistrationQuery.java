@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.M_Registration;
 import org.dataloader.DataLoader;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,7 +29,7 @@ public class X_AD_RegistrationQuery extends POQuery<M_Registration> implements G
 	}
 
 	public Connection<M_Registration> AD_RegistrationGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return super.Get(Page, PageSize, Sort, Filter, environment);
+			String Where, List<Object> Parameters, DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);
 	}
 }

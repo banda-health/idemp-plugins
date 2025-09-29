@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_A_Depreciation_Table_Header;
 import org.dataloader.DataLoader;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,7 +29,7 @@ public class X_A_Depreciation_Table_HeaderQuery extends POQuery<X_A_Depreciation
 	}
 
 	public Connection<X_A_Depreciation_Table_Header> A_Depreciation_Table_HeaderGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return super.Get(Page, PageSize, Sort, Filter, environment);
+			String Where, List<Object> Parameters, DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);
 	}
 }

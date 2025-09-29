@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	A_RegistrationValue(UU: String!): A_RegistrationValue
-	A_RegistrationValueGet(Page: Int, Size: Int, Sort: String, Filter: String): A_RegistrationValueConnection!
+	A_RegistrationValueGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): A_RegistrationValueConnection!
 }
 
 extend type Mutation {

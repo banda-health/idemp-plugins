@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_Inventory(UU: String!): M_Inventory
-	M_InventoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InventoryConnection!
+	M_InventoryGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_InventoryConnection!
 }
 
 extend type Mutation {

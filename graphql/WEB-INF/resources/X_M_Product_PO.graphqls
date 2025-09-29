@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_Product_PO(UU: String!): M_Product_PO
-	M_Product_POGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Product_POConnection!
+	M_Product_POGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_Product_POConnection!
 }
 
 extend type Mutation {

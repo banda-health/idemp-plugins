@@ -6,6 +6,7 @@ import { mutate, query } from '../../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../../models';
 import {
 	createBusinessPartner,
+	createInOutFromOrder,
 	createInvoice,
 	createOrder,
 	createPayment,
@@ -64,6 +65,11 @@ test('visit invoice report is runnable', async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
 	await createVisit(valueObject);
@@ -113,7 +119,7 @@ test('visit invoice report is runnable', async () => {
 	];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test(`uploaded PDFs don't stop the report from running`, async () => {
@@ -158,6 +164,11 @@ test(`uploaded PDFs don't stop the report from running`, async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
 	await createVisit(valueObject);
@@ -207,5 +218,5 @@ test(`uploaded PDFs don't stop the report from running`, async () => {
 	];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });

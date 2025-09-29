@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	ASP_Process(UU: String!): ASP_Process
-	ASP_ProcessGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ProcessConnection!
+	ASP_ProcessGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): ASP_ProcessConnection!
 }
 
 extend type Mutation {

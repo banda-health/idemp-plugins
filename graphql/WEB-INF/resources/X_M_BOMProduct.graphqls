@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_BOMProduct(UU: String!): M_BOMProduct
-	M_BOMProductGet(Page: Int, Size: Int, Sort: String, Filter: String): M_BOMProductConnection!
+	M_BOMProductGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_BOMProductConnection!
 }
 
 extend type Mutation {

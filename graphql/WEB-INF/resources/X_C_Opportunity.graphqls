@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Opportunity(UU: String!): C_Opportunity
-	C_OpportunityGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OpportunityConnection!
+	C_OpportunityGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_OpportunityConnection!
 }
 
 extend type Mutation {

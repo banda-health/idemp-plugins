@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_AttributeInstance(UU: String!): M_AttributeInstance
-	M_AttributeInstanceGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeInstanceConnection!
+	M_AttributeInstanceGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_AttributeInstanceConnection!
 }
 
 extend type Mutation {

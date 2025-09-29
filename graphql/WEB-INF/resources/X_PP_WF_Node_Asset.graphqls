@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PP_WF_Node_Asset(UU: String!): PP_WF_Node_Asset
-	PP_WF_Node_AssetGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_WF_Node_AssetConnection!
+	PP_WF_Node_AssetGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PP_WF_Node_AssetConnection!
 }
 
 extend type Mutation {

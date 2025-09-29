@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_Package_UUID_Map(UU: String!): AD_Package_UUID_Map
-	AD_Package_UUID_MapGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Package_UUID_MapConnection!
+	AD_Package_UUID_MapGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_Package_UUID_MapConnection!
 }
 
 extend type Mutation {

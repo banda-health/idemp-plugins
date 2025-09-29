@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_AuthorizationProvider(UU: String!): AD_AuthorizationProvider
-	AD_AuthorizationProviderGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AuthorizationProviderConnection!
+	AD_AuthorizationProviderGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_AuthorizationProviderConnection!
 }
 
 extend type Mutation {

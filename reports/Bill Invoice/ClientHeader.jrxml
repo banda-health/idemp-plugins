@@ -32,7 +32,10 @@ FROM
 		LEFT JOIN ad_image logo
 		ON oi.logo_id = logo.ad_image_id
 WHERE
-	v.bh_visit_uu = $P{BH_Visit_UU}]]>
+	v.bh_visit_uu = $P{BH_Visit_UU}
+ORDER BY
+	header NULLS LAST, oi.updated DESC
+LIMIT 1]]>
 	</queryString>
 	<field name="ad_org_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="ad_org_id"/>

@@ -302,15 +302,22 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 
 		List<Object> parameters = clientRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
 
-		List<MUser_BH> systemAdministrators = new Query(getCtx(), MUser_BH.Table_Name,
+		// Get the System implementer role so we can also check these users to give access
+		MRole implementerRole = new Query(getCtx(), MRole.Table_Name,
+				MRole.COLUMNNAME_Name + "=? AND " + MRole.COLUMNNAME_AD_Client_ID + "=? AND " + MRole.COLUMNNAME_IsMasterRole +
+						"=?", get_TrxName()).setParameters("Implementer", MClient_BH.CLIENTID_SYSTEM, false).first();
+
+		List<MUser_BH> systemAdministratorsAndImplementers = new Query(getCtx(), MUser_BH.Table_Name,
 				MUser_BH.Table_Name + "." + MUser_BH.COLUMNNAME_AD_User_ID + " >= ? AND " + MUserRoles.Table_Name + "."
-						+ MUserRoles.COLUMNNAME_AD_Role_ID + "=? ",
+						+ MUserRoles.COLUMNNAME_AD_Role_ID + " IN (?,?) ",
 				get_TrxName())
 				.addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "."
 						+ MUser_BH.COLUMNNAME_AD_User_ID + " = " + MUserRoles.Table_Name + "."
 						+ MUserRoles.COLUMNNAME_AD_User_ID)
-				.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, SystemIDs.ROLE_SYSTEM).list();
-		Set<Integer> systemUsersToAdd = systemAdministrators.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
+				.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, SystemIDs.ROLE_SYSTEM,
+						implementerRole == null ? SystemIDs.ROLE_SYSTEM : implementerRole.getAD_Role_ID()).list();
+		Set<Integer> systemUsersToAdd =
+				systemAdministratorsAndImplementers.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
 
 		String whereClause = "?,".repeat(clientRoles.size());
 		whereClause = whereClause.substring(0, whereClause.length() - 1);
@@ -331,7 +338,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 		if (usersAssignedClientRoles.size() > 0) {
 			return;
 		}
-		for (MUser_BH user : systemAdministrators) {
+		for (MUser_BH user : systemAdministratorsAndImplementers) {
 			clientRoles.forEach(clientRole -> {
 				MUserRoles roleToAssign = new MUserRoles(getCtx(), user.get_ID(), clientRole.getAD_Role_ID(),
 						get_TrxName());

@@ -4,6 +4,7 @@ import { Ad_ProcessGetDocument, Bh_VisitProcessDocument } from '../../__generate
 import { mutate, query } from '../../api';
 import {
 	createBusinessPartner,
+	createInOutFromOrder,
 	createInvoice,
 	createOrder,
 	createPayment,
@@ -54,7 +55,7 @@ test('report is runnable', async () => {
 	];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('data visible on report', async () => {
@@ -72,6 +73,11 @@ test('data visible on report', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -139,6 +145,9 @@ test('data visible on report', async () => {
 	await runReport(valueObject);
 
 	expect(
-		(await PdfData.extract(valueObject.report!)).text?.join('').replaceAll('\n', '').replaceAll(' ', ''),
+		(await PdfData.extract(new Uint8Array(valueObject.report!))).text
+			?.join('')
+			.replaceAll('\n', '')
+			.replaceAll(' ', ''),
 	).toContain(valueObject.businessPartner!.Name.replaceAll(' ', ''));
 });

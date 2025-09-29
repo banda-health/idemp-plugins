@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_NonBusinessDay(UU: String!): C_NonBusinessDay
-	C_NonBusinessDayGet(Page: Int, Size: Int, Sort: String, Filter: String): C_NonBusinessDayConnection!
+	C_NonBusinessDayGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_NonBusinessDayConnection!
 }
 
 extend type Mutation {

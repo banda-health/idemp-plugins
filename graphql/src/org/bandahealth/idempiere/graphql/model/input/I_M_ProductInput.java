@@ -137,6 +137,20 @@ public interface I_M_ProductInput extends I_M_Product {
 	BigDecimal getBH_SellPrice();
 
 	/**
+	 * Set BH_SoonToExpireDays.
+	 *
+	 * @param BH_SoonToExpireDays Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
+	 */
+	void setBH_SoonToExpireDaysInput(ForeignEntityInput BH_SoonToExpireDays);
+
+	/**
+	 * Get BH_SoonToExpireDays.
+	 *
+	 * @return Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations.
+	 */
+	ForeignEntityInput BH_SoonToExpireDays();
+
+	/**
 	 * Set C_RevenueRecognition.
 	 *
 	 * @param C_RevenueRecognition Method for recording revenue

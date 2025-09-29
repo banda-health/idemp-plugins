@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_OrderPaySchedule(UU: String!): C_OrderPaySchedule
-	C_OrderPayScheduleGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrderPayScheduleConnection!
+	C_OrderPayScheduleGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_OrderPayScheduleConnection!
 }
 
 extend type Mutation {

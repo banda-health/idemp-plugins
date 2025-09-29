@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_InOutLineMA(UU: String!): M_InOutLineMA
-	M_InOutLineMAGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InOutLineMAConnection!
+	M_InOutLineMAGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_InOutLineMAConnection!
 }
 
 extend type Mutation {

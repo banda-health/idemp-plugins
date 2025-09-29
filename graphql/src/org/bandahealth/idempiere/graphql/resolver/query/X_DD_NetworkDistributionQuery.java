@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_DD_NetworkDistribution;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,7 +29,7 @@ public class X_DD_NetworkDistributionQuery extends POQuery<X_DD_NetworkDistribut
 	}
 
 	public Connection<X_DD_NetworkDistribution> DD_NetworkDistributionGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return super.Get(Page, PageSize, Sort, Filter, environment);
+			String Where, List<Object> Parameters, DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);
 	}
 }

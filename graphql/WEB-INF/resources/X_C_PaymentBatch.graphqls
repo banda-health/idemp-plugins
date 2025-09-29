@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_PaymentBatch(UU: String!): C_PaymentBatch
-	C_PaymentBatchGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaymentBatchConnection!
+	C_PaymentBatchGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_PaymentBatchConnection!
 }
 
 extend type Mutation {

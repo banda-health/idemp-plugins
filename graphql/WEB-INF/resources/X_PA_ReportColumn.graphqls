@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PA_ReportColumn(UU: String!): PA_ReportColumn
-	PA_ReportColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_ReportColumnConnection!
+	PA_ReportColumnGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PA_ReportColumnConnection!
 }
 
 extend type Mutation {

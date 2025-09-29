@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	ASP_Task(UU: String!): ASP_Task
-	ASP_TaskGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_TaskConnection!
+	ASP_TaskGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): ASP_TaskConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PP_Product_Planning(UU: String!): PP_Product_Planning
-	PP_Product_PlanningGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Product_PlanningConnection!
+	PP_Product_PlanningGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PP_Product_PlanningConnection!
 }
 
 extend type Mutation {

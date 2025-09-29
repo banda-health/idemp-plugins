@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	EXP_Processor(UU: String!): EXP_Processor
-	EXP_ProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): EXP_ProcessorConnection!
+	EXP_ProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): EXP_ProcessorConnection!
 }
 
 extend type Mutation {

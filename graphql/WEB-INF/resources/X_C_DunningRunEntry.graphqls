@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_DunningRunEntry(UU: String!): C_DunningRunEntry
-	C_DunningRunEntryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DunningRunEntryConnection!
+	C_DunningRunEntryGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_DunningRunEntryConnection!
 }
 
 extend type Mutation {

@@ -62,21 +62,52 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 
 		Level originalLogLevel = CLogMgt.getLevel();
 
-		valueObject.setStepName("Create a system user");
+		// Perform this in a try statement to ensure context gets reset accordingly
 		int currentClientId = Env.getAD_Client_ID(valueObject.getContext());
-		Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
-		MUser_BH newSystemUser = new MUser_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
-		newSystemUser.setName(valueObject.getScenarioName());
-		newSystemUser.setDescription(valueObject.getStepMessageLong());
-		newSystemUser.saveEx();
-		commitEx();
+		MUser_BH newSystemAdminUser, newImplementerUser, newSystemUser;
+		try {
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
 
-		MUserRoles userRole = new MUserRoles(valueObject.getContext(), 0, valueObject.getTransactionName());
-		userRole.setAD_Role_ID(0);
-		userRole.setAD_User_ID(newSystemUser.get_ID());
-		userRole.saveEx();
-		commitEx();
-		Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
+			valueObject.setStepName("Create a system admin user");
+			newSystemAdminUser = new MUser_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+			newSystemAdminUser.setName(valueObject.getScenarioName());
+			newSystemAdminUser.setDescription(valueObject.getStepMessageLong());
+			newSystemAdminUser.saveEx();
+			commitEx();
+
+			MUserRoles userRole = new MUserRoles(valueObject.getContext(), 0, valueObject.getTransactionName());
+			userRole.setAD_Role_ID(0);
+			userRole.setAD_User_ID(newSystemAdminUser.get_ID());
+			userRole.saveEx();
+			commitEx();
+
+			valueObject.setStepName("Create an implementer user");
+			newImplementerUser = new MUser_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+			newImplementerUser.setName(valueObject.getScenarioName());
+			newImplementerUser.setDescription(valueObject.getStepMessageLong());
+			newImplementerUser.saveEx();
+			commitEx();
+
+			userRole = new MUserRoles(valueObject.getContext(), 0, valueObject.getTransactionName());
+			MRole implementerRole = new Query(valueObject.getContext(), MRole.Table_Name,
+					MRole.COLUMNNAME_Name + "=? AND " + MRole.COLUMNNAME_AD_Client_ID + "=? AND " +
+							MRole.COLUMNNAME_IsMasterRole + "=?", valueObject.getTransactionName()).setParameters("Implementer",
+					MClient_BH.CLIENTID_SYSTEM, false).first();
+			assertNotNull(implementerRole, "Implementer role exists");
+			userRole.setAD_Role_ID(implementerRole.getAD_Role_ID());
+			userRole.setAD_User_ID(newImplementerUser.get_ID());
+			userRole.saveEx();
+			commitEx();
+
+			valueObject.setStepName("Create a system user");
+			newSystemUser = new MUser_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+			newSystemUser.setName(valueObject.getScenarioName());
+			newSystemUser.setDescription(valueObject.getStepMessageLong());
+			newSystemUser.saveEx();
+			commitEx();
+		} finally {
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
+		}
 
 		valueObject.setStepName("Create Client");
 		valueObject.setProcessUuid("b6ad401a-b8e0-465e-8ffb-1d5485b96efd");
@@ -145,8 +176,11 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			assertNotNull(clientAdminUser, "Admin user was created");
 			// The `getRoles` method reads the environment context, so update it
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, client.get_ID());
-			assertEquals(masterRoles.size() + 2, newSystemUser.getRoles(organization.get_ID()).length,
-					"System users are assigned new roles, including the two iDempiere adds by default");
+			assertEquals(masterRoles.size() + 2, newSystemAdminUser.getRoles(organization.get_ID()).length,
+					"System admin users are assigned new roles, including the two iDempiere adds by default");
+			assertEquals(masterRoles.size() + 2, newImplementerUser.getRoles(organization.get_ID()).length,
+					"Implementer users are assigned new roles, including the two iDempiere adds by default");
+			assertEquals(0, newSystemUser.getRoles(organization.get_ID()).length, "System users are assigned no roles");
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 
 			// Assert default warehouse & locators created

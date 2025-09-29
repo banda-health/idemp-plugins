@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	B_Offer(UU: String!): B_Offer
-	B_OfferGet(Page: Int, Size: Int, Sort: String, Filter: String): B_OfferConnection!
+	B_OfferGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): B_OfferConnection!
 }
 
 extend type Mutation {

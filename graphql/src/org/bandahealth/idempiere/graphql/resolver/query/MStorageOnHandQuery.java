@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.graphql.model.PagingInfo;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.compiere.model.MStorageOnHand;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -33,8 +34,10 @@ public class MStorageOnHandQuery extends X_M_StorageOnHandQuery {
 
 	@Override
 	public Connection<MStorageOnHand> M_StorageOnHandGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return Repository.get(getTableName(), null, new PagingInfo(Page, PageSize), Sort, Filter, null, null, dynamicJoins,
+			String Where,
+			List<Object> Parameters, DataFetchingEnvironment environment) {
+		return Repository.get(getTableName(), null, new PagingInfo(Page, PageSize), Sort, Filter,
+				Repository.parseApiWhereClauseAndParameters(Where, Parameters), Parameters, dynamicJoins,
 				environment);
 	}
 }

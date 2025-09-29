@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_ProductionLine(UU: String!): M_ProductionLine
-	M_ProductionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductionLineConnection!
+	M_ProductionLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_ProductionLineConnection!
 }
 
 extend type Mutation {

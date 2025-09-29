@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_PackageLine(UU: String!): M_PackageLine
-	M_PackageLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PackageLineConnection!
+	M_PackageLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_PackageLineConnection!
 }
 
 extend type Mutation {

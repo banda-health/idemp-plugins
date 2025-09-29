@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Phase(UU: String!): C_Phase
-	C_PhaseGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PhaseConnection!
+	C_PhaseGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_PhaseConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_Record_Access(UU: String!): AD_Record_Access
-	AD_Record_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Record_AccessConnection!
+	AD_Record_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_Record_AccessConnection!
 }
 
 extend type Mutation {

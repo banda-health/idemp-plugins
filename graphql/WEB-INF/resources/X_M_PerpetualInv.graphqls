@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_PerpetualInv(UU: String!): M_PerpetualInv
-	M_PerpetualInvGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PerpetualInvConnection!
+	M_PerpetualInvGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_PerpetualInvConnection!
 }
 
 extend type Mutation {

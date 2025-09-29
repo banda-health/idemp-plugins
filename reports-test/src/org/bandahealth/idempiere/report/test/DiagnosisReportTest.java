@@ -75,6 +75,12 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create coded diagnosis");
 		valueObject.setRandom();
 		MBHConcept codedDiagnosis =
@@ -149,6 +155,12 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create coded diagnosis");
@@ -284,6 +296,12 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create first coded diagnosis");
@@ -453,6 +471,12 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create first coded diagnosis");

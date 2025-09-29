@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_BankStatement(UU: String!): C_BankStatement
-	C_BankStatementGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankStatementConnection!
+	C_BankStatementGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_BankStatementConnection!
 }
 
 extend type Mutation {

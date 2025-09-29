@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	BH_Voided_Reason(UU: String!): BH_Voided_Reason
-	BH_Voided_ReasonGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Voided_ReasonConnection!
+	BH_Voided_ReasonGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Voided_ReasonConnection!
 }
 
 extend type Mutation {

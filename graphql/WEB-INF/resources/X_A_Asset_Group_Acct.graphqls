@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	A_Asset_Group_Acct(UU: String!): A_Asset_Group_Acct
-	A_Asset_Group_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Group_AcctConnection!
+	A_Asset_Group_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): A_Asset_Group_AcctConnection!
 }
 
 extend type Mutation {

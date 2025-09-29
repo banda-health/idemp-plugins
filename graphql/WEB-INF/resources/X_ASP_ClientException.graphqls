@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	ASP_ClientException(UU: String!): ASP_ClientException
-	ASP_ClientExceptionGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ClientExceptionConnection!
+	ASP_ClientExceptionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): ASP_ClientExceptionConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_RMAType(UU: String!): M_RMAType
-	M_RMATypeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_RMATypeConnection!
+	M_RMATypeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_RMATypeConnection!
 }
 
 extend type Mutation {

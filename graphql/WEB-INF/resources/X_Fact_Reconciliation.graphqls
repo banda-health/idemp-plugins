@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	Fact_Reconciliation(UU: String!): Fact_Reconciliation
-	Fact_ReconciliationGet(Page: Int, Size: Int, Sort: String, Filter: String): Fact_ReconciliationConnection!
+	Fact_ReconciliationGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): Fact_ReconciliationConnection!
 }
 
 extend type Mutation {

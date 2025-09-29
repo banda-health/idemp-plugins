@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_City(UU: String!): C_City
-	C_CityGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CityConnection!
+	C_CityGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_CityConnection!
 }
 
 extend type Mutation {

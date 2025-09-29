@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	S_ResourceType(UU: String!): S_ResourceType
-	S_ResourceTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): S_ResourceTypeConnection!
+	S_ResourceTypeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): S_ResourceTypeConnection!
 }
 
 extend type Mutation {

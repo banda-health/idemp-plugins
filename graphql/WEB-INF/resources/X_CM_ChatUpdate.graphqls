@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	CM_ChatUpdate(UU: String!): CM_ChatUpdate
-	CM_ChatUpdateGet(Page: Int, Size: Int, Sort: String, Filter: String): CM_ChatUpdateConnection!
+	CM_ChatUpdateGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): CM_ChatUpdateConnection!
 }
 
 extend type Mutation {

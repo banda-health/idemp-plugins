@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_ShipperPickupTypesCfg(UU: String!): M_ShipperPickupTypesCfg
-	M_ShipperPickupTypesCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperPickupTypesCfgConnection!
+	M_ShipperPickupTypesCfgGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_ShipperPickupTypesCfgConnection!
 }
 
 extend type Mutation {

@@ -18,8 +18,8 @@ import java.util.Set;
 
 public class MLanguageQuery extends X_AD_LanguageQuery {
 	@Override
-	public Connection<MLanguage> AD_LanguageGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
+	public Connection<MLanguage> AD_LanguageGet(int Page, int PageSize, String Sort, String Filter, String Where,
+			List<Object> Parameters, DataFetchingEnvironment environment) {
 		ServerContext.setCurrentInstance(BandaGraphQLContext.getCtx(environment));
 		Env.setCtx(BandaGraphQLContext.getCtx(environment));
 		List<String> supportedLoginLanguages = Env.getLoginLanguages();

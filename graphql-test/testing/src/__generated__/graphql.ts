@@ -27145,6 +27145,7 @@ export type C_Invoice = {
   AD_Org: Ad_Org;
   /** User within the system - Internal or Business Partner Contact */
   AD_User?: Maybe<Ad_User>;
+  BH_Original_C_Payments?: Maybe<Array<C_Payment>>;
   BH_Visit?: Maybe<Bh_Visit>;
   BH_Voided_Reason?: Maybe<Bh_Voided_Reason>;
   /** Business Activity */
@@ -30284,6 +30285,7 @@ export type C_Payment = {
   A_Zip?: Maybe<Scalars['String']['output']>;
   /** Account Number */
   AccountNo?: Maybe<Scalars['String']['output']>;
+  BH_Original_C_Invoice?: Maybe<C_Invoice>;
   BH_Visit?: Maybe<Bh_Visit>;
   BH_tender_amount?: Maybe<Scalars['BigDecimal']['output']>;
   /** Business Activity */
@@ -30605,6 +30607,7 @@ export type C_PaymentInput = {
   A_Zip?: InputMaybe<Scalars['String']['input']>;
   /** Account Number */
   AccountNo?: InputMaybe<Scalars['String']['input']>;
+  BH_Original_C_Invoice?: InputMaybe<ForeignEntityInput>;
   BH_Visit?: InputMaybe<ForeignEntityInput>;
   BH_tender_amount?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Business Activity */
@@ -47588,6 +47591,8 @@ export type M_Product = {
   BH_Product_IncludedList?: Maybe<Array<Bh_Product_Included>>;
   /** Selling price of BandaGo product */
   BH_SellPrice?: Maybe<Scalars['BigDecimal']['output']>;
+  /** Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations. */
+  BH_SoonToExpireDays?: Maybe<Ad_Ref_List>;
   /** Method for recording revenue */
   C_RevenueRecognition?: Maybe<C_RevenueRecognition>;
   /** Type of subscription */
@@ -47797,6 +47802,8 @@ export type M_ProductInput = {
   BH_PriceMargin?: InputMaybe<Scalars['BigDecimal']['input']>;
   /** Selling price of BandaGo product */
   BH_SellPrice?: InputMaybe<Scalars['BigDecimal']['input']>;
+  /** Number of days before expiration to consider product as "soon to expire". Leave blank to exclude from calculations. */
+  BH_SoonToExpireDays?: InputMaybe<ForeignEntityInput>;
   /** Method for recording revenue */
   C_RevenueRecognition?: InputMaybe<ForeignEntityInput>;
   /** Type of subscription */
@@ -72693,8 +72700,10 @@ export type QueryAd_AccessLogArgs = {
 export type QueryAd_AccessLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72708,8 +72717,10 @@ export type QueryAd_AlertArgs = {
 export type QueryAd_AlertGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72723,8 +72734,10 @@ export type QueryAd_AlertProcessorArgs = {
 export type QueryAd_AlertProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72738,8 +72751,10 @@ export type QueryAd_AlertProcessorLogArgs = {
 export type QueryAd_AlertProcessorLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72753,8 +72768,10 @@ export type QueryAd_AlertRecipientArgs = {
 export type QueryAd_AlertRecipientGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72768,8 +72785,10 @@ export type QueryAd_AlertRuleArgs = {
 export type QueryAd_AlertRuleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72783,8 +72802,10 @@ export type QueryAd_AllClients_VArgs = {
 export type QueryAd_AllClients_VGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72798,8 +72819,10 @@ export type QueryAd_AllUsers_VArgs = {
 export type QueryAd_AllUsers_VGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72813,8 +72836,10 @@ export type QueryAd_ArchiveArgs = {
 export type QueryAd_ArchiveGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72828,8 +72853,10 @@ export type QueryAd_AttachmentArgs = {
 export type QueryAd_AttachmentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72843,8 +72870,10 @@ export type QueryAd_AttachmentNoteArgs = {
 export type QueryAd_AttachmentNoteGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72858,8 +72887,10 @@ export type QueryAd_AttributeArgs = {
 export type QueryAd_AttributeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72873,8 +72904,10 @@ export type QueryAd_Attribute_ValueArgs = {
 export type QueryAd_Attribute_ValueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72888,8 +72921,10 @@ export type QueryAd_AuthorizationAccountArgs = {
 export type QueryAd_AuthorizationAccountGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72903,8 +72938,10 @@ export type QueryAd_AuthorizationCredentialArgs = {
 export type QueryAd_AuthorizationCredentialGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72918,8 +72955,10 @@ export type QueryAd_AuthorizationProviderArgs = {
 export type QueryAd_AuthorizationProviderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72933,8 +72972,10 @@ export type QueryAd_BroadcastMessageArgs = {
 export type QueryAd_BroadcastMessageGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72948,8 +72989,10 @@ export type QueryAd_ChangeLogArgs = {
 export type QueryAd_ChangeLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72969,8 +73012,10 @@ export type QueryAd_ChartDatasourceArgs = {
 export type QueryAd_ChartDatasourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72978,8 +73023,10 @@ export type QueryAd_ChartDatasourceGetArgs = {
 export type QueryAd_ChartGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -72993,8 +73040,10 @@ export type QueryAd_ClientArgs = {
 export type QueryAd_ClientGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73008,8 +73057,10 @@ export type QueryAd_ClientInfoArgs = {
 export type QueryAd_ClientInfoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73023,8 +73074,10 @@ export type QueryAd_ClientShareArgs = {
 export type QueryAd_ClientShareGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73038,8 +73091,10 @@ export type QueryAd_ColorArgs = {
 export type QueryAd_ColorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73053,8 +73108,10 @@ export type QueryAd_ColumnArgs = {
 export type QueryAd_ColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73068,8 +73125,10 @@ export type QueryAd_Column_AccessArgs = {
 export type QueryAd_Column_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73083,8 +73142,10 @@ export type QueryAd_CtxHelpArgs = {
 export type QueryAd_CtxHelpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73098,8 +73159,10 @@ export type QueryAd_CtxHelpMsgArgs = {
 export type QueryAd_CtxHelpMsgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73113,8 +73176,10 @@ export type QueryAd_CtxHelpSuggestionArgs = {
 export type QueryAd_CtxHelpSuggestionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73128,8 +73193,10 @@ export type QueryAd_Document_Action_AccessArgs = {
 export type QueryAd_Document_Action_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73143,8 +73210,10 @@ export type QueryAd_ElementArgs = {
 export type QueryAd_ElementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73158,8 +73227,10 @@ export type QueryAd_EntityTypeArgs = {
 export type QueryAd_EntityTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73173,8 +73244,10 @@ export type QueryAd_ErrorArgs = {
 export type QueryAd_ErrorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73188,8 +73261,10 @@ export type QueryAd_FieldArgs = {
 export type QueryAd_FieldGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73203,8 +73278,10 @@ export type QueryAd_FieldGroupArgs = {
 export type QueryAd_FieldGroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73218,8 +73295,10 @@ export type QueryAd_FieldSuggestionArgs = {
 export type QueryAd_FieldSuggestionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73233,8 +73312,10 @@ export type QueryAd_FindArgs = {
 export type QueryAd_FindGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73248,8 +73329,10 @@ export type QueryAd_FormArgs = {
 export type QueryAd_FormGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73263,8 +73346,10 @@ export type QueryAd_Form_AccessArgs = {
 export type QueryAd_Form_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73278,8 +73363,10 @@ export type QueryAd_HouseKeepingArgs = {
 export type QueryAd_HouseKeepingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73293,8 +73380,10 @@ export type QueryAd_ImageArgs = {
 export type QueryAd_ImageGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73308,8 +73397,10 @@ export type QueryAd_ImpFormatArgs = {
 export type QueryAd_ImpFormatGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73323,8 +73414,10 @@ export type QueryAd_ImpFormat_RowArgs = {
 export type QueryAd_ImpFormat_RowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73344,8 +73437,10 @@ export type QueryAd_ImportTemplateAccessArgs = {
 export type QueryAd_ImportTemplateAccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73353,8 +73448,10 @@ export type QueryAd_ImportTemplateAccessGetArgs = {
 export type QueryAd_ImportTemplateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73368,8 +73465,10 @@ export type QueryAd_IndexColumnArgs = {
 export type QueryAd_IndexColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73383,8 +73482,10 @@ export type QueryAd_InfoColumnArgs = {
 export type QueryAd_InfoColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73398,8 +73499,10 @@ export type QueryAd_InfoProcessArgs = {
 export type QueryAd_InfoProcessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73413,8 +73516,10 @@ export type QueryAd_InfoRelatedArgs = {
 export type QueryAd_InfoRelatedGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73428,8 +73533,10 @@ export type QueryAd_InfoWindowArgs = {
 export type QueryAd_InfoWindowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73443,8 +73550,10 @@ export type QueryAd_InfoWindow_AccessArgs = {
 export type QueryAd_InfoWindow_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73458,8 +73567,10 @@ export type QueryAd_IssueArgs = {
 export type QueryAd_IssueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73479,8 +73590,10 @@ export type QueryAd_LabelPrinterFunctionArgs = {
 export type QueryAd_LabelPrinterFunctionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73488,8 +73601,10 @@ export type QueryAd_LabelPrinterFunctionGetArgs = {
 export type QueryAd_LabelPrinterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73503,8 +73618,10 @@ export type QueryAd_LanguageArgs = {
 export type QueryAd_LanguageGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73518,8 +73635,10 @@ export type QueryAd_LdapAccessArgs = {
 export type QueryAd_LdapAccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73533,8 +73652,10 @@ export type QueryAd_LdapProcessorArgs = {
 export type QueryAd_LdapProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73548,8 +73669,10 @@ export type QueryAd_LdapProcessorLogArgs = {
 export type QueryAd_LdapProcessorLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73563,8 +73686,10 @@ export type QueryAd_MenuArgs = {
 export type QueryAd_MenuGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73578,8 +73703,10 @@ export type QueryAd_MessageArgs = {
 export type QueryAd_MessageGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73593,8 +73720,10 @@ export type QueryAd_MigrationScriptArgs = {
 export type QueryAd_MigrationScriptGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73608,8 +73737,10 @@ export type QueryAd_ModelValidatorArgs = {
 export type QueryAd_ModelValidatorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73623,8 +73754,10 @@ export type QueryAd_ModificationArgs = {
 export type QueryAd_ModificationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73638,8 +73771,10 @@ export type QueryAd_NoteArgs = {
 export type QueryAd_NoteGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73653,8 +73788,10 @@ export type QueryAd_OrgArgs = {
 export type QueryAd_OrgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73668,8 +73805,10 @@ export type QueryAd_OrgInfoArgs = {
 export type QueryAd_OrgInfoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73683,8 +73822,10 @@ export type QueryAd_OrgTypeArgs = {
 export type QueryAd_OrgTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73698,8 +73839,10 @@ export type QueryAd_PInstanceArgs = {
 export type QueryAd_PInstanceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73713,8 +73856,10 @@ export type QueryAd_PInstance_LogArgs = {
 export type QueryAd_PInstance_LogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73728,8 +73873,10 @@ export type QueryAd_PInstance_ParaArgs = {
 export type QueryAd_PInstance_ParaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73743,8 +73890,10 @@ export type QueryAd_Package_ExpArgs = {
 export type QueryAd_Package_ExpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73758,8 +73907,10 @@ export type QueryAd_Package_Exp_DetailArgs = {
 export type QueryAd_Package_Exp_DetailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73773,8 +73924,10 @@ export type QueryAd_Package_ImpArgs = {
 export type QueryAd_Package_ImpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73788,8 +73941,10 @@ export type QueryAd_Package_Imp_BackupArgs = {
 export type QueryAd_Package_Imp_BackupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73803,8 +73958,10 @@ export type QueryAd_Package_Imp_DetailArgs = {
 export type QueryAd_Package_Imp_DetailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73818,8 +73975,10 @@ export type QueryAd_Package_Imp_InstArgs = {
 export type QueryAd_Package_Imp_InstGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73833,8 +73992,10 @@ export type QueryAd_Package_Imp_ProcArgs = {
 export type QueryAd_Package_Imp_ProcGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73848,8 +74009,10 @@ export type QueryAd_Package_Uuid_MapArgs = {
 export type QueryAd_Package_Uuid_MapGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73863,8 +74026,10 @@ export type QueryAd_PasswordRuleArgs = {
 export type QueryAd_PasswordRuleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73878,8 +74043,10 @@ export type QueryAd_Password_HistoryArgs = {
 export type QueryAd_Password_HistoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73893,8 +74060,10 @@ export type QueryAd_PostItArgs = {
 export type QueryAd_PostItGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73908,8 +74077,10 @@ export type QueryAd_PreferenceArgs = {
 export type QueryAd_PreferenceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73923,8 +74094,10 @@ export type QueryAd_PrintColorArgs = {
 export type QueryAd_PrintColorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73938,8 +74111,10 @@ export type QueryAd_PrintFontArgs = {
 export type QueryAd_PrintFontGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73953,8 +74128,10 @@ export type QueryAd_PrintFormArgs = {
 export type QueryAd_PrintFormGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73968,8 +74145,10 @@ export type QueryAd_PrintFormatArgs = {
 export type QueryAd_PrintFormatGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73983,8 +74162,10 @@ export type QueryAd_PrintFormatItemArgs = {
 export type QueryAd_PrintFormatItemGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -73998,8 +74179,10 @@ export type QueryAd_PrintGraphArgs = {
 export type QueryAd_PrintGraphGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74013,8 +74196,10 @@ export type QueryAd_PrintHeaderFooterArgs = {
 export type QueryAd_PrintHeaderFooterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74028,8 +74213,10 @@ export type QueryAd_PrintLabelArgs = {
 export type QueryAd_PrintLabelGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74043,8 +74230,10 @@ export type QueryAd_PrintLabelLineArgs = {
 export type QueryAd_PrintLabelLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74058,8 +74247,10 @@ export type QueryAd_PrintPaperArgs = {
 export type QueryAd_PrintPaperGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74073,8 +74264,10 @@ export type QueryAd_PrintTableFormatArgs = {
 export type QueryAd_PrintTableFormatGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74088,8 +74281,10 @@ export type QueryAd_Private_AccessArgs = {
 export type QueryAd_Private_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74103,8 +74298,10 @@ export type QueryAd_ProcessArgs = {
 export type QueryAd_ProcessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74118,8 +74315,10 @@ export type QueryAd_Process_AccessArgs = {
 export type QueryAd_Process_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74133,8 +74332,10 @@ export type QueryAd_Process_ParaArgs = {
 export type QueryAd_Process_ParaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74148,8 +74349,10 @@ export type QueryAd_RecentItemArgs = {
 export type QueryAd_RecentItemGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74163,8 +74366,10 @@ export type QueryAd_Record_AccessArgs = {
 export type QueryAd_Record_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74178,8 +74383,10 @@ export type QueryAd_Ref_ListArgs = {
 export type QueryAd_Ref_ListGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74193,8 +74400,10 @@ export type QueryAd_Ref_TableArgs = {
 export type QueryAd_Ref_TableGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74208,8 +74417,10 @@ export type QueryAd_ReferenceArgs = {
 export type QueryAd_ReferenceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74223,8 +74434,10 @@ export type QueryAd_RegistrationArgs = {
 export type QueryAd_RegistrationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74238,8 +74451,10 @@ export type QueryAd_RelationTypeArgs = {
 export type QueryAd_RelationTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74259,8 +74474,10 @@ export type QueryAd_ReplicationDocumentArgs = {
 export type QueryAd_ReplicationDocumentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74268,8 +74485,10 @@ export type QueryAd_ReplicationDocumentGetArgs = {
 export type QueryAd_ReplicationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74283,8 +74502,10 @@ export type QueryAd_ReplicationStrategyArgs = {
 export type QueryAd_ReplicationStrategyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74298,8 +74519,10 @@ export type QueryAd_ReplicationTableArgs = {
 export type QueryAd_ReplicationTableGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74313,8 +74536,10 @@ export type QueryAd_Replication_LogArgs = {
 export type QueryAd_Replication_LogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74328,8 +74553,10 @@ export type QueryAd_Replication_RunArgs = {
 export type QueryAd_Replication_RunGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74343,8 +74570,10 @@ export type QueryAd_ReportViewArgs = {
 export type QueryAd_ReportViewGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74358,8 +74587,10 @@ export type QueryAd_ReportView_ColArgs = {
 export type QueryAd_ReportView_ColGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74373,8 +74604,10 @@ export type QueryAd_ReportView_ColumnArgs = {
 export type QueryAd_ReportView_ColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74388,8 +74621,10 @@ export type QueryAd_RoleArgs = {
 export type QueryAd_RoleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74403,8 +74638,10 @@ export type QueryAd_Role_IncludedArgs = {
 export type QueryAd_Role_IncludedGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74418,8 +74655,10 @@ export type QueryAd_Role_OrgAccessArgs = {
 export type QueryAd_Role_OrgAccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74433,8 +74672,10 @@ export type QueryAd_RuleArgs = {
 export type QueryAd_RuleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74448,8 +74689,10 @@ export type QueryAd_ScheduleArgs = {
 export type QueryAd_ScheduleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74463,8 +74706,10 @@ export type QueryAd_SchedulerArgs = {
 export type QueryAd_SchedulerGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74478,8 +74723,10 @@ export type QueryAd_SchedulerLogArgs = {
 export type QueryAd_SchedulerLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74493,8 +74740,10 @@ export type QueryAd_SchedulerRecipientArgs = {
 export type QueryAd_SchedulerRecipientGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74508,8 +74757,10 @@ export type QueryAd_Scheduler_ParaArgs = {
 export type QueryAd_Scheduler_ParaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74523,8 +74774,10 @@ export type QueryAd_SearchDefinitionArgs = {
 export type QueryAd_SearchDefinitionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74538,8 +74791,10 @@ export type QueryAd_SequenceArgs = {
 export type QueryAd_SequenceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74553,8 +74808,10 @@ export type QueryAd_Sequence_AuditArgs = {
 export type QueryAd_Sequence_AuditGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74568,8 +74825,10 @@ export type QueryAd_Sequence_NoArgs = {
 export type QueryAd_Sequence_NoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74583,8 +74842,10 @@ export type QueryAd_SessionArgs = {
 export type QueryAd_SessionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74598,8 +74859,10 @@ export type QueryAd_StatusLineArgs = {
 export type QueryAd_StatusLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74613,8 +74876,10 @@ export type QueryAd_StatusLineUsedInArgs = {
 export type QueryAd_StatusLineUsedInGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74628,8 +74893,10 @@ export type QueryAd_StorageProviderArgs = {
 export type QueryAd_StorageProviderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74643,8 +74910,10 @@ export type QueryAd_StyleArgs = {
 export type QueryAd_StyleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74658,8 +74927,10 @@ export type QueryAd_StyleLineArgs = {
 export type QueryAd_StyleLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74673,8 +74944,10 @@ export type QueryAd_SysConfigArgs = {
 export type QueryAd_SysConfigGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74688,8 +74961,10 @@ export type QueryAd_SystemArgs = {
 export type QueryAd_SystemGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74703,8 +74978,10 @@ export type QueryAd_TabArgs = {
 export type QueryAd_TabGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74718,8 +74995,10 @@ export type QueryAd_Tab_CustomizationArgs = {
 export type QueryAd_Tab_CustomizationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74733,8 +75012,10 @@ export type QueryAd_TableArgs = {
 export type QueryAd_TableGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74748,8 +75029,10 @@ export type QueryAd_TableIndexArgs = {
 export type QueryAd_TableIndexGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74763,8 +75046,10 @@ export type QueryAd_Table_AccessArgs = {
 export type QueryAd_Table_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74778,8 +75063,10 @@ export type QueryAd_Table_ScriptValidatorArgs = {
 export type QueryAd_Table_ScriptValidatorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74793,8 +75080,10 @@ export type QueryAd_TaskArgs = {
 export type QueryAd_TaskGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74808,8 +75097,10 @@ export type QueryAd_TaskInstanceArgs = {
 export type QueryAd_TaskInstanceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74823,8 +75114,10 @@ export type QueryAd_Task_AccessArgs = {
 export type QueryAd_Task_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74838,8 +75131,10 @@ export type QueryAd_ToolBarButtonArgs = {
 export type QueryAd_ToolBarButtonGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74853,8 +75148,10 @@ export type QueryAd_ToolBarButtonRestrictArgs = {
 export type QueryAd_ToolBarButtonRestrictGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74868,8 +75165,10 @@ export type QueryAd_TreeArgs = {
 export type QueryAd_TreeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74889,8 +75188,10 @@ export type QueryAd_TreeNodeBpArgs = {
 export type QueryAd_TreeNodeBpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74904,8 +75205,10 @@ export type QueryAd_TreeNodeCmcArgs = {
 export type QueryAd_TreeNodeCmcGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74919,8 +75222,10 @@ export type QueryAd_TreeNodeCmmArgs = {
 export type QueryAd_TreeNodeCmmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74934,8 +75239,10 @@ export type QueryAd_TreeNodeCmsArgs = {
 export type QueryAd_TreeNodeCmsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74949,8 +75256,10 @@ export type QueryAd_TreeNodeCmtArgs = {
 export type QueryAd_TreeNodeCmtGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74958,8 +75267,10 @@ export type QueryAd_TreeNodeCmtGetArgs = {
 export type QueryAd_TreeNodeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74973,8 +75284,10 @@ export type QueryAd_TreeNodeMmArgs = {
 export type QueryAd_TreeNodeMmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -74988,8 +75301,10 @@ export type QueryAd_TreeNodePrArgs = {
 export type QueryAd_TreeNodePrGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75003,8 +75318,10 @@ export type QueryAd_TreeNodeU1Args = {
 export type QueryAd_TreeNodeU1GetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75018,8 +75335,10 @@ export type QueryAd_TreeNodeU2Args = {
 export type QueryAd_TreeNodeU2GetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75033,8 +75352,10 @@ export type QueryAd_TreeNodeU3Args = {
 export type QueryAd_TreeNodeU3GetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75048,8 +75369,10 @@ export type QueryAd_TreeNodeU4Args = {
 export type QueryAd_TreeNodeU4GetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75063,8 +75386,10 @@ export type QueryAd_Tree_FavoriteArgs = {
 export type QueryAd_Tree_FavoriteGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75078,8 +75403,10 @@ export type QueryAd_Tree_Favorite_NodeArgs = {
 export type QueryAd_Tree_Favorite_NodeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75099,8 +75426,10 @@ export type QueryAd_UserBpAccessArgs = {
 export type QueryAd_UserBpAccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75114,8 +75443,10 @@ export type QueryAd_UserDef_FieldArgs = {
 export type QueryAd_UserDef_FieldGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75129,8 +75460,10 @@ export type QueryAd_UserDef_InfoArgs = {
 export type QueryAd_UserDef_InfoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75144,8 +75477,10 @@ export type QueryAd_UserDef_Info_ColumnArgs = {
 export type QueryAd_UserDef_Info_ColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75159,8 +75494,10 @@ export type QueryAd_UserDef_Info_RelatedArgs = {
 export type QueryAd_UserDef_Info_RelatedGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75174,8 +75511,10 @@ export type QueryAd_UserDef_ProcArgs = {
 export type QueryAd_UserDef_ProcGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75189,8 +75528,10 @@ export type QueryAd_UserDef_Proc_ParameterArgs = {
 export type QueryAd_UserDef_Proc_ParameterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75204,8 +75545,10 @@ export type QueryAd_UserDef_TabArgs = {
 export type QueryAd_UserDef_TabGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75219,8 +75562,10 @@ export type QueryAd_UserDef_WinArgs = {
 export type QueryAd_UserDef_WinGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75228,8 +75573,10 @@ export type QueryAd_UserDef_WinGetArgs = {
 export type QueryAd_UserGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75243,8 +75590,10 @@ export type QueryAd_UserMailArgs = {
 export type QueryAd_UserMailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75258,8 +75607,10 @@ export type QueryAd_UserPreferenceArgs = {
 export type QueryAd_UserPreferenceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75273,8 +75624,10 @@ export type QueryAd_UserQueryArgs = {
 export type QueryAd_UserQueryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75288,8 +75641,10 @@ export type QueryAd_User_OrgAccessArgs = {
 export type QueryAd_User_OrgAccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75303,8 +75658,10 @@ export type QueryAd_User_RolesArgs = {
 export type QueryAd_User_RolesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75318,8 +75675,10 @@ export type QueryAd_User_SubstituteArgs = {
 export type QueryAd_User_SubstituteGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75333,8 +75692,10 @@ export type QueryAd_Val_RuleArgs = {
 export type QueryAd_Val_RuleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75348,8 +75709,10 @@ export type QueryAd_ViewColumnArgs = {
 export type QueryAd_ViewColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75363,8 +75726,10 @@ export type QueryAd_ViewComponentArgs = {
 export type QueryAd_ViewComponentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75384,8 +75749,10 @@ export type QueryAd_Wf_ActivityApproverArgs = {
 export type QueryAd_Wf_ActivityApproverGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75393,8 +75760,10 @@ export type QueryAd_Wf_ActivityApproverGetArgs = {
 export type QueryAd_Wf_ActivityGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75408,8 +75777,10 @@ export type QueryAd_Wf_ActivityResultArgs = {
 export type QueryAd_Wf_ActivityResultGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75423,8 +75794,10 @@ export type QueryAd_Wf_BlockArgs = {
 export type QueryAd_Wf_BlockGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75438,8 +75811,10 @@ export type QueryAd_Wf_EventAuditArgs = {
 export type QueryAd_Wf_EventAuditGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75453,8 +75828,10 @@ export type QueryAd_Wf_NextConditionArgs = {
 export type QueryAd_Wf_NextConditionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75468,8 +75845,10 @@ export type QueryAd_Wf_NodeArgs = {
 export type QueryAd_Wf_NodeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75483,8 +75862,10 @@ export type QueryAd_Wf_NodeNextArgs = {
 export type QueryAd_Wf_NodeNextGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75498,8 +75879,10 @@ export type QueryAd_Wf_Node_ParaArgs = {
 export type QueryAd_Wf_Node_ParaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75519,8 +75902,10 @@ export type QueryAd_Wf_ProcessDataArgs = {
 export type QueryAd_Wf_ProcessDataGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75528,8 +75913,10 @@ export type QueryAd_Wf_ProcessDataGetArgs = {
 export type QueryAd_Wf_ProcessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75543,8 +75930,10 @@ export type QueryAd_Wf_ResponsibleArgs = {
 export type QueryAd_Wf_ResponsibleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75558,8 +75947,10 @@ export type QueryAd_WindowArgs = {
 export type QueryAd_WindowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75573,8 +75964,10 @@ export type QueryAd_Window_AccessArgs = {
 export type QueryAd_Window_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75588,8 +75981,10 @@ export type QueryAd_WizardProcessArgs = {
 export type QueryAd_WizardProcessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75603,8 +75998,10 @@ export type QueryAd_WorkflowArgs = {
 export type QueryAd_WorkflowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75618,8 +76015,10 @@ export type QueryAd_WorkflowProcessorArgs = {
 export type QueryAd_WorkflowProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75633,8 +76032,10 @@ export type QueryAd_WorkflowProcessorLogArgs = {
 export type QueryAd_WorkflowProcessorLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75648,8 +76049,10 @@ export type QueryAd_Workflow_AccessArgs = {
 export type QueryAd_Workflow_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75663,8 +76066,10 @@ export type QueryAd_ZoomConditionArgs = {
 export type QueryAd_ZoomConditionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75678,8 +76083,10 @@ export type QueryAsp_ClientExceptionArgs = {
 export type QueryAsp_ClientExceptionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75693,8 +76100,10 @@ export type QueryAsp_ClientLevelArgs = {
 export type QueryAsp_ClientLevelGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75708,8 +76117,10 @@ export type QueryAsp_FieldArgs = {
 export type QueryAsp_FieldGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75723,8 +76134,10 @@ export type QueryAsp_FormArgs = {
 export type QueryAsp_FormGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75738,8 +76151,10 @@ export type QueryAsp_LevelArgs = {
 export type QueryAsp_LevelGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75753,8 +76168,10 @@ export type QueryAsp_ModuleArgs = {
 export type QueryAsp_ModuleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75768,8 +76185,10 @@ export type QueryAsp_ProcessArgs = {
 export type QueryAsp_ProcessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75783,8 +76202,10 @@ export type QueryAsp_Process_ParaArgs = {
 export type QueryAsp_Process_ParaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75798,8 +76219,10 @@ export type QueryAsp_Ref_ListArgs = {
 export type QueryAsp_Ref_ListGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75813,8 +76236,10 @@ export type QueryAsp_TabArgs = {
 export type QueryAsp_TabGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75828,8 +76253,10 @@ export type QueryAsp_TaskArgs = {
 export type QueryAsp_TaskGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75843,8 +76270,10 @@ export type QueryAsp_WindowArgs = {
 export type QueryAsp_WindowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75858,8 +76287,10 @@ export type QueryAsp_WorkflowArgs = {
 export type QueryAsp_WorkflowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75873,8 +76304,10 @@ export type QueryA_AssetArgs = {
 export type QueryA_AssetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75888,8 +76321,10 @@ export type QueryA_Asset_AcctArgs = {
 export type QueryA_Asset_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75903,8 +76338,10 @@ export type QueryA_Asset_AdditionArgs = {
 export type QueryA_Asset_AdditionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75918,8 +76355,10 @@ export type QueryA_Asset_ChangeArgs = {
 export type QueryA_Asset_ChangeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75933,8 +76372,10 @@ export type QueryA_Asset_ClassArgs = {
 export type QueryA_Asset_ClassGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75948,8 +76389,10 @@ export type QueryA_Asset_DeliveryArgs = {
 export type QueryA_Asset_DeliveryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75963,8 +76406,10 @@ export type QueryA_Asset_DisposedArgs = {
 export type QueryA_Asset_DisposedGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75978,8 +76423,10 @@ export type QueryA_Asset_GroupArgs = {
 export type QueryA_Asset_GroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -75993,8 +76440,10 @@ export type QueryA_Asset_Group_AcctArgs = {
 export type QueryA_Asset_Group_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76008,8 +76457,10 @@ export type QueryA_Asset_Info_FinArgs = {
 export type QueryA_Asset_Info_FinGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76023,8 +76474,10 @@ export type QueryA_Asset_Info_InsArgs = {
 export type QueryA_Asset_Info_InsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76038,8 +76491,10 @@ export type QueryA_Asset_Info_LicArgs = {
 export type QueryA_Asset_Info_LicGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76053,8 +76508,10 @@ export type QueryA_Asset_Info_OthArgs = {
 export type QueryA_Asset_Info_OthGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76068,8 +76525,10 @@ export type QueryA_Asset_Info_TaxArgs = {
 export type QueryA_Asset_Info_TaxGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76083,8 +76542,10 @@ export type QueryA_Asset_ProductArgs = {
 export type QueryA_Asset_ProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76098,8 +76559,10 @@ export type QueryA_Asset_RetirementArgs = {
 export type QueryA_Asset_RetirementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76113,8 +76576,10 @@ export type QueryA_Asset_RevalArgs = {
 export type QueryA_Asset_RevalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76128,8 +76593,10 @@ export type QueryA_Asset_Reval_EntryArgs = {
 export type QueryA_Asset_Reval_EntryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76143,8 +76610,10 @@ export type QueryA_Asset_Reval_IndexArgs = {
 export type QueryA_Asset_Reval_IndexGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76158,8 +76627,10 @@ export type QueryA_Asset_SplitArgs = {
 export type QueryA_Asset_SplitGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76173,8 +76644,10 @@ export type QueryA_Asset_TransferArgs = {
 export type QueryA_Asset_TransferGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76188,8 +76661,10 @@ export type QueryA_Asset_TypeArgs = {
 export type QueryA_Asset_TypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76203,8 +76678,10 @@ export type QueryA_Asset_UseArgs = {
 export type QueryA_Asset_UseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76218,8 +76695,10 @@ export type QueryA_DepreciationArgs = {
 export type QueryA_DepreciationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76233,8 +76712,10 @@ export type QueryA_Depreciation_BuildArgs = {
 export type QueryA_Depreciation_BuildGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76248,8 +76729,10 @@ export type QueryA_Depreciation_ConventionArgs = {
 export type QueryA_Depreciation_ConventionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76263,8 +76746,10 @@ export type QueryA_Depreciation_EntryArgs = {
 export type QueryA_Depreciation_EntryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76278,8 +76763,10 @@ export type QueryA_Depreciation_ExpArgs = {
 export type QueryA_Depreciation_ExpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76293,8 +76780,10 @@ export type QueryA_Depreciation_ForecastArgs = {
 export type QueryA_Depreciation_ForecastGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76308,8 +76797,10 @@ export type QueryA_Depreciation_MethodArgs = {
 export type QueryA_Depreciation_MethodGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76323,8 +76814,10 @@ export type QueryA_Depreciation_Table_DetailArgs = {
 export type QueryA_Depreciation_Table_DetailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76338,8 +76831,10 @@ export type QueryA_Depreciation_Table_HeaderArgs = {
 export type QueryA_Depreciation_Table_HeaderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76353,8 +76848,10 @@ export type QueryA_Depreciation_WorkfileArgs = {
 export type QueryA_Depreciation_WorkfileGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76368,8 +76865,10 @@ export type QueryA_FundingModeArgs = {
 export type QueryA_FundingModeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76383,8 +76882,10 @@ export type QueryA_FundingMode_AcctArgs = {
 export type QueryA_FundingMode_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76404,8 +76905,10 @@ export type QueryA_RegistrationAttributeArgs = {
 export type QueryA_RegistrationAttributeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76413,8 +76916,10 @@ export type QueryA_RegistrationAttributeGetArgs = {
 export type QueryA_RegistrationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76428,8 +76933,10 @@ export type QueryA_RegistrationProductArgs = {
 export type QueryA_RegistrationProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76443,8 +76950,10 @@ export type QueryA_RegistrationValueArgs = {
 export type QueryA_RegistrationValueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76458,8 +76967,10 @@ export type QueryBh_AllergyArgs = {
 export type QueryBh_AllergyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76473,8 +76984,10 @@ export type QueryBh_Allergy_ReactionArgs = {
 export type QueryBh_Allergy_ReactionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76488,8 +77001,10 @@ export type QueryBh_Bp_General_Payer_InfoArgs = {
 export type QueryBh_Bp_General_Payer_InfoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76503,8 +77018,10 @@ export type QueryBh_Bp_Payer_InfoArgs = {
 export type QueryBh_Bp_Payer_InfoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76518,8 +77035,10 @@ export type QueryBh_Bp_Specific_Payer_InfoArgs = {
 export type QueryBh_Bp_Specific_Payer_InfoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76533,8 +77052,10 @@ export type QueryBh_BPartner_TagsArgs = {
 export type QueryBh_BPartner_TagsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76548,8 +77069,10 @@ export type QueryBh_Client_ConceptArgs = {
 export type QueryBh_Client_ConceptGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76563,8 +77086,10 @@ export type QueryBh_Client_Concept_ExtraArgs = {
 export type QueryBh_Client_Concept_ExtraGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76578,8 +77103,10 @@ export type QueryBh_ConceptArgs = {
 export type QueryBh_ConceptGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76593,8 +77120,10 @@ export type QueryBh_Concept_DescriptionArgs = {
 export type QueryBh_Concept_DescriptionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76608,8 +77137,10 @@ export type QueryBh_Concept_ExtraArgs = {
 export type QueryBh_Concept_ExtraGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76623,8 +77154,10 @@ export type QueryBh_Concept_MappingArgs = {
 export type QueryBh_Concept_MappingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76638,8 +77171,10 @@ export type QueryBh_Concept_NameArgs = {
 export type QueryBh_Concept_NameGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76653,8 +77188,10 @@ export type QueryBh_DefaultIncludedRoleArgs = {
 export type QueryBh_DefaultIncludedRoleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76668,8 +77205,10 @@ export type QueryBh_Default_DocAction_AccessArgs = {
 export type QueryBh_Default_DocAction_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76683,8 +77222,10 @@ export type QueryBh_EncounterArgs = {
 export type QueryBh_EncounterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76698,8 +77239,10 @@ export type QueryBh_Encounter_DiagnosisArgs = {
 export type QueryBh_Encounter_DiagnosisGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76713,8 +77256,10 @@ export type QueryBh_Encounter_DiagnosticArgs = {
 export type QueryBh_Encounter_DiagnosticGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76728,8 +77273,10 @@ export type QueryBh_Encounter_Type_WindowArgs = {
 export type QueryBh_Encounter_Type_WindowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76743,8 +77290,10 @@ export type QueryBh_I_Product_QuantityArgs = {
 export type QueryBh_I_Product_QuantityGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76758,8 +77307,10 @@ export type QueryBh_ObservationArgs = {
 export type QueryBh_ObservationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76773,8 +77324,10 @@ export type QueryBh_Ocl_Originating_SourceArgs = {
 export type QueryBh_Ocl_Originating_SourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76788,8 +77341,10 @@ export type QueryBh_Payer_Info_FldArgs = {
 export type QueryBh_Payer_Info_FldGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76803,8 +77358,10 @@ export type QueryBh_Payer_Info_Fld_SugArgs = {
 export type QueryBh_Payer_Info_Fld_SugGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76818,8 +77375,10 @@ export type QueryBh_Payer_Info_Fld_ValArgs = {
 export type QueryBh_Payer_Info_Fld_ValGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76833,8 +77392,10 @@ export type QueryBh_Payer_Info_Fld_Val_SugArgs = {
 export type QueryBh_Payer_Info_Fld_Val_SugGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76848,8 +77409,10 @@ export type QueryBh_PaymentRefArgs = {
 export type QueryBh_PaymentRefGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76863,8 +77426,10 @@ export type QueryBh_PaymentRef_BankAcctArgs = {
 export type QueryBh_PaymentRef_BankAcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76878,8 +77443,10 @@ export type QueryBh_Product_CategoryDefaultArgs = {
 export type QueryBh_Product_CategoryDefaultGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76893,8 +77460,10 @@ export type QueryBh_Product_IncludedArgs = {
 export type QueryBh_Product_IncludedGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76908,8 +77477,10 @@ export type QueryBh_TagArgs = {
 export type QueryBh_TagGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76923,8 +77494,10 @@ export type QueryBh_VisitArgs = {
 export type QueryBh_VisitGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76938,8 +77511,10 @@ export type QueryBh_Voided_ReasonArgs = {
 export type QueryBh_Voided_ReasonGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76953,8 +77528,10 @@ export type QueryBh_Warehouse_AccessArgs = {
 export type QueryBh_Warehouse_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76974,8 +77551,10 @@ export type QueryB_BidCommentArgs = {
 export type QueryB_BidCommentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -76983,8 +77562,10 @@ export type QueryB_BidCommentGetArgs = {
 export type QueryB_BidGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77004,8 +77585,10 @@ export type QueryB_BuyerFundsArgs = {
 export type QueryB_BuyerFundsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77013,8 +77596,10 @@ export type QueryB_BuyerFundsGetArgs = {
 export type QueryB_BuyerGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77028,8 +77613,10 @@ export type QueryB_OfferArgs = {
 export type QueryB_OfferGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77049,8 +77636,10 @@ export type QueryB_SellerFundsArgs = {
 export type QueryB_SellerFundsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77058,8 +77647,10 @@ export type QueryB_SellerFundsGetArgs = {
 export type QueryB_SellerGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77079,8 +77670,10 @@ export type QueryB_TopicCategoryArgs = {
 export type QueryB_TopicCategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77088,8 +77681,10 @@ export type QueryB_TopicCategoryGetArgs = {
 export type QueryB_TopicGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77103,8 +77698,10 @@ export type QueryB_TopicTypeArgs = {
 export type QueryB_TopicTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77124,8 +77721,10 @@ export type QueryCm_ChatEntryArgs = {
 export type QueryCm_ChatEntryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77133,8 +77732,10 @@ export type QueryCm_ChatEntryGetArgs = {
 export type QueryCm_ChatGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77148,8 +77749,10 @@ export type QueryCm_ChatTypeArgs = {
 export type QueryCm_ChatTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77163,8 +77766,10 @@ export type QueryCm_ChatTypeUpdateArgs = {
 export type QueryCm_ChatTypeUpdateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77178,8 +77783,10 @@ export type QueryCm_ChatUpdateArgs = {
 export type QueryCm_ChatUpdateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77193,8 +77800,10 @@ export type QueryC_1099BoxArgs = {
 export type QueryC_1099BoxGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77208,8 +77817,10 @@ export type QueryC_AcctProcessorArgs = {
 export type QueryC_AcctProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77223,8 +77834,10 @@ export type QueryC_AcctProcessorLogArgs = {
 export type QueryC_AcctProcessorLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77238,8 +77851,10 @@ export type QueryC_AcctSchemaArgs = {
 export type QueryC_AcctSchemaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77253,8 +77868,10 @@ export type QueryC_AcctSchema_DefaultArgs = {
 export type QueryC_AcctSchema_DefaultGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77268,8 +77885,10 @@ export type QueryC_AcctSchema_ElementArgs = {
 export type QueryC_AcctSchema_ElementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77283,8 +77902,10 @@ export type QueryC_AcctSchema_GlArgs = {
 export type QueryC_AcctSchema_GlGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77298,8 +77919,10 @@ export type QueryC_ActivityArgs = {
 export type QueryC_ActivityGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77313,8 +77936,10 @@ export type QueryC_AddressTransactionArgs = {
 export type QueryC_AddressTransactionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77334,8 +77959,10 @@ export type QueryC_AddressValidationCfgArgs = {
 export type QueryC_AddressValidationCfgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77343,8 +77970,10 @@ export type QueryC_AddressValidationCfgGetArgs = {
 export type QueryC_AddressValidationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77358,8 +77987,10 @@ export type QueryC_AllocationHdrArgs = {
 export type QueryC_AllocationHdrGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77373,8 +78004,10 @@ export type QueryC_AllocationLineArgs = {
 export type QueryC_AllocationLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77388,8 +78021,10 @@ export type QueryC_Bp_BankAccountArgs = {
 export type QueryC_Bp_BankAccountGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77403,8 +78038,10 @@ export type QueryC_Bp_Customer_AcctArgs = {
 export type QueryC_Bp_Customer_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77418,8 +78055,10 @@ export type QueryC_Bp_EdiArgs = {
 export type QueryC_Bp_EdiGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77433,8 +78072,10 @@ export type QueryC_Bp_Employee_AcctArgs = {
 export type QueryC_Bp_Employee_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77448,8 +78089,10 @@ export type QueryC_Bp_GroupArgs = {
 export type QueryC_Bp_GroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77463,8 +78106,10 @@ export type QueryC_Bp_Group_AcctArgs = {
 export type QueryC_Bp_Group_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77478,8 +78123,10 @@ export type QueryC_Bp_RelationArgs = {
 export type QueryC_Bp_RelationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77493,8 +78140,10 @@ export type QueryC_Bp_ShippingAcctArgs = {
 export type QueryC_Bp_ShippingAcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77508,8 +78157,10 @@ export type QueryC_Bp_Vendor_AcctArgs = {
 export type QueryC_Bp_Vendor_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77523,8 +78174,10 @@ export type QueryC_Bp_WithholdingArgs = {
 export type QueryC_Bp_WithholdingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77538,8 +78191,10 @@ export type QueryC_BPartnerArgs = {
 export type QueryC_BPartnerGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77553,8 +78208,10 @@ export type QueryC_BPartner_LocationArgs = {
 export type QueryC_BPartner_LocationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77568,8 +78225,10 @@ export type QueryC_BPartner_ProductArgs = {
 export type QueryC_BPartner_ProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77595,8 +78254,10 @@ export type QueryC_BankAccountDocArgs = {
 export type QueryC_BankAccountDocGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77604,8 +78265,10 @@ export type QueryC_BankAccountDocGetArgs = {
 export type QueryC_BankAccountGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77619,8 +78282,10 @@ export type QueryC_BankAccount_AcctArgs = {
 export type QueryC_BankAccount_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77634,8 +78299,10 @@ export type QueryC_BankAccount_ProcessorArgs = {
 export type QueryC_BankAccount_ProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77643,8 +78310,10 @@ export type QueryC_BankAccount_ProcessorGetArgs = {
 export type QueryC_BankGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77658,8 +78327,10 @@ export type QueryC_BankStatementArgs = {
 export type QueryC_BankStatementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77673,8 +78344,10 @@ export type QueryC_BankStatementLineArgs = {
 export type QueryC_BankStatementLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77688,8 +78361,10 @@ export type QueryC_BankStatementLoaderArgs = {
 export type QueryC_BankStatementLoaderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77703,8 +78378,10 @@ export type QueryC_BankStatementMatcherArgs = {
 export type QueryC_BankStatementMatcherGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77718,8 +78395,10 @@ export type QueryC_BankTransferArgs = {
 export type QueryC_BankTransferGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77733,8 +78412,10 @@ export type QueryC_CalendarArgs = {
 export type QueryC_CalendarGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77748,8 +78429,10 @@ export type QueryC_CampaignArgs = {
 export type QueryC_CampaignGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77769,8 +78452,10 @@ export type QueryC_CashBookArgs = {
 export type QueryC_CashBookGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77784,8 +78469,10 @@ export type QueryC_CashBook_AcctArgs = {
 export type QueryC_CashBook_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77793,8 +78480,10 @@ export type QueryC_CashBook_AcctGetArgs = {
 export type QueryC_CashGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77808,8 +78497,10 @@ export type QueryC_CashLineArgs = {
 export type QueryC_CashLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77823,8 +78514,10 @@ export type QueryC_CashPlanArgs = {
 export type QueryC_CashPlanGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77838,8 +78531,10 @@ export type QueryC_CashPlanLineArgs = {
 export type QueryC_CashPlanLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77853,8 +78548,10 @@ export type QueryC_ChannelArgs = {
 export type QueryC_ChannelGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77868,8 +78565,10 @@ export type QueryC_ChargeArgs = {
 export type QueryC_ChargeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77883,8 +78582,10 @@ export type QueryC_ChargeTypeArgs = {
 export type QueryC_ChargeTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77898,8 +78599,10 @@ export type QueryC_ChargeType_DocTypeArgs = {
 export type QueryC_ChargeType_DocTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77913,8 +78616,10 @@ export type QueryC_Charge_AcctArgs = {
 export type QueryC_Charge_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77928,8 +78633,10 @@ export type QueryC_CityArgs = {
 export type QueryC_CityGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77949,8 +78656,10 @@ export type QueryC_CommissionAmtArgs = {
 export type QueryC_CommissionAmtGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77964,8 +78673,10 @@ export type QueryC_CommissionDetailArgs = {
 export type QueryC_CommissionDetailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77973,8 +78684,10 @@ export type QueryC_CommissionDetailGetArgs = {
 export type QueryC_CommissionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -77988,8 +78701,10 @@ export type QueryC_CommissionLineArgs = {
 export type QueryC_CommissionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78003,8 +78718,10 @@ export type QueryC_CommissionRunArgs = {
 export type QueryC_CommissionRunGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78018,8 +78735,10 @@ export type QueryC_ContactActivityArgs = {
 export type QueryC_ContactActivityGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78033,8 +78752,10 @@ export type QueryC_ConversionTypeArgs = {
 export type QueryC_ConversionTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78048,8 +78769,10 @@ export type QueryC_Conversion_RateArgs = {
 export type QueryC_Conversion_RateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78063,8 +78786,10 @@ export type QueryC_CountryArgs = {
 export type QueryC_CountryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78084,8 +78809,10 @@ export type QueryC_CountryGroupCountryArgs = {
 export type QueryC_CountryGroupCountryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78093,8 +78820,10 @@ export type QueryC_CountryGroupCountryGetArgs = {
 export type QueryC_CountryGroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78108,8 +78837,10 @@ export type QueryC_CurrencyArgs = {
 export type QueryC_CurrencyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78123,8 +78854,10 @@ export type QueryC_Currency_AcctArgs = {
 export type QueryC_Currency_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78138,8 +78871,10 @@ export type QueryC_CycleArgs = {
 export type QueryC_CycleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78153,8 +78888,10 @@ export type QueryC_CyclePhaseArgs = {
 export type QueryC_CyclePhaseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78168,8 +78905,10 @@ export type QueryC_CycleStepArgs = {
 export type QueryC_CycleStepGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78183,8 +78922,10 @@ export type QueryC_DepositBatchArgs = {
 export type QueryC_DepositBatchGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78198,8 +78939,10 @@ export type QueryC_DepositBatchLineArgs = {
 export type QueryC_DepositBatchLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78219,8 +78962,10 @@ export type QueryC_DocTypeCounterArgs = {
 export type QueryC_DocTypeCounterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78228,8 +78973,10 @@ export type QueryC_DocTypeCounterGetArgs = {
 export type QueryC_DocTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78243,8 +78990,10 @@ export type QueryC_DunningArgs = {
 export type QueryC_DunningGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78258,8 +79007,10 @@ export type QueryC_DunningLevelArgs = {
 export type QueryC_DunningLevelGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78279,8 +79030,10 @@ export type QueryC_DunningRunEntryArgs = {
 export type QueryC_DunningRunEntryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78288,8 +79041,10 @@ export type QueryC_DunningRunEntryGetArgs = {
 export type QueryC_DunningRunGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78303,8 +79058,10 @@ export type QueryC_DunningRunLineArgs = {
 export type QueryC_DunningRunLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78318,8 +79075,10 @@ export type QueryC_ElementArgs = {
 export type QueryC_ElementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78333,8 +79092,10 @@ export type QueryC_ElementValueArgs = {
 export type QueryC_ElementValueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78348,8 +79109,10 @@ export type QueryC_GreetingArgs = {
 export type QueryC_GreetingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78363,8 +79126,10 @@ export type QueryC_InterOrg_AcctArgs = {
 export type QueryC_InterOrg_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78384,8 +79149,10 @@ export type QueryC_InvoiceBatchArgs = {
 export type QueryC_InvoiceBatchGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78399,8 +79166,10 @@ export type QueryC_InvoiceBatchLineArgs = {
 export type QueryC_InvoiceBatchLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78408,8 +79177,10 @@ export type QueryC_InvoiceBatchLineGetArgs = {
 export type QueryC_InvoiceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78423,8 +79194,10 @@ export type QueryC_InvoiceLineArgs = {
 export type QueryC_InvoiceLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78438,8 +79211,10 @@ export type QueryC_InvoicePayScheduleArgs = {
 export type QueryC_InvoicePayScheduleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78453,8 +79228,10 @@ export type QueryC_InvoiceScheduleArgs = {
 export type QueryC_InvoiceScheduleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78468,8 +79245,10 @@ export type QueryC_InvoiceTaxArgs = {
 export type QueryC_InvoiceTaxGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78489,8 +79268,10 @@ export type QueryC_JobAssignmentArgs = {
 export type QueryC_JobAssignmentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78504,8 +79285,10 @@ export type QueryC_JobCategoryArgs = {
 export type QueryC_JobCategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78513,8 +79296,10 @@ export type QueryC_JobCategoryGetArgs = {
 export type QueryC_JobGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78528,8 +79313,10 @@ export type QueryC_JobRemunerationArgs = {
 export type QueryC_JobRemunerationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78549,8 +79336,10 @@ export type QueryC_LandedCostAllocationArgs = {
 export type QueryC_LandedCostAllocationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78558,8 +79347,10 @@ export type QueryC_LandedCostAllocationGetArgs = {
 export type QueryC_LandedCostGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78573,8 +79364,10 @@ export type QueryC_LocationArgs = {
 export type QueryC_LocationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78588,8 +79381,10 @@ export type QueryC_NonBusinessDayArgs = {
 export type QueryC_NonBusinessDayGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78603,8 +79398,10 @@ export type QueryC_OnlineTrxHistoryArgs = {
 export type QueryC_OnlineTrxHistoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78618,8 +79415,10 @@ export type QueryC_OpportunityArgs = {
 export type QueryC_OpportunityGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78633,8 +79432,10 @@ export type QueryC_OrderArgs = {
 export type QueryC_OrderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78654,8 +79455,10 @@ export type QueryC_OrderLandedCostAllocationArgs = {
 export type QueryC_OrderLandedCostAllocationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78663,8 +79466,10 @@ export type QueryC_OrderLandedCostAllocationGetArgs = {
 export type QueryC_OrderLandedCostGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78678,8 +79483,10 @@ export type QueryC_OrderLineArgs = {
 export type QueryC_OrderLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78693,8 +79500,10 @@ export type QueryC_OrderPayScheduleArgs = {
 export type QueryC_OrderPayScheduleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78708,8 +79517,10 @@ export type QueryC_OrderSourceArgs = {
 export type QueryC_OrderSourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78723,8 +79534,10 @@ export type QueryC_OrderTaxArgs = {
 export type QueryC_OrderTaxGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78738,8 +79551,10 @@ export type QueryC_OrgAssignmentArgs = {
 export type QueryC_OrgAssignmentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78753,8 +79568,10 @@ export type QueryC_PosArgs = {
 export type QueryC_PosGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78768,8 +79585,10 @@ export type QueryC_PosKeyArgs = {
 export type QueryC_PosKeyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78783,8 +79602,10 @@ export type QueryC_PosKeyLayoutArgs = {
 export type QueryC_PosKeyLayoutGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78798,8 +79619,10 @@ export type QueryC_PosPaymentArgs = {
 export type QueryC_PosPaymentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78813,8 +79636,10 @@ export type QueryC_PosTenderTypeArgs = {
 export type QueryC_PosTenderTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78828,8 +79653,10 @@ export type QueryC_PayScheduleArgs = {
 export type QueryC_PayScheduleGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78849,8 +79676,10 @@ export type QueryC_PaySelectionCheckArgs = {
 export type QueryC_PaySelectionCheckGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78858,8 +79687,10 @@ export type QueryC_PaySelectionCheckGetArgs = {
 export type QueryC_PaySelectionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78873,8 +79704,10 @@ export type QueryC_PaySelectionLineArgs = {
 export type QueryC_PaySelectionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78894,8 +79727,10 @@ export type QueryC_PaymentAllocateArgs = {
 export type QueryC_PaymentAllocateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78909,8 +79744,10 @@ export type QueryC_PaymentBatchArgs = {
 export type QueryC_PaymentBatchGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78918,8 +79755,10 @@ export type QueryC_PaymentBatchGetArgs = {
 export type QueryC_PaymentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78933,8 +79772,10 @@ export type QueryC_PaymentProcessorArgs = {
 export type QueryC_PaymentProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78948,8 +79789,10 @@ export type QueryC_PaymentTermArgs = {
 export type QueryC_PaymentTermGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78963,8 +79806,10 @@ export type QueryC_PaymentTransactionArgs = {
 export type QueryC_PaymentTransactionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78984,8 +79829,10 @@ export type QueryC_PeriodControlArgs = {
 export type QueryC_PeriodControlGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -78993,8 +79840,10 @@ export type QueryC_PeriodControlGetArgs = {
 export type QueryC_PeriodGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79008,8 +79857,10 @@ export type QueryC_PhaseArgs = {
 export type QueryC_PhaseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79023,8 +79874,10 @@ export type QueryC_ProjectArgs = {
 export type QueryC_ProjectGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79038,8 +79891,10 @@ export type QueryC_ProjectIssueArgs = {
 export type QueryC_ProjectIssueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79053,8 +79908,10 @@ export type QueryC_ProjectIssueMaArgs = {
 export type QueryC_ProjectIssueMaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79068,8 +79925,10 @@ export type QueryC_ProjectLineArgs = {
 export type QueryC_ProjectLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79083,8 +79942,10 @@ export type QueryC_ProjectPhaseArgs = {
 export type QueryC_ProjectPhaseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79098,8 +79959,10 @@ export type QueryC_ProjectTaskArgs = {
 export type QueryC_ProjectTaskGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79113,8 +79976,10 @@ export type QueryC_ProjectTypeArgs = {
 export type QueryC_ProjectTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79128,8 +79993,10 @@ export type QueryC_Project_AcctArgs = {
 export type QueryC_Project_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79143,8 +80010,10 @@ export type QueryC_RecurringArgs = {
 export type QueryC_RecurringGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79158,8 +80027,10 @@ export type QueryC_RecurringGroupArgs = {
 export type QueryC_RecurringGroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79173,8 +80044,10 @@ export type QueryC_Recurring_RunArgs = {
 export type QueryC_Recurring_RunGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79188,8 +80061,10 @@ export type QueryC_RegionArgs = {
 export type QueryC_RegionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79203,8 +80078,10 @@ export type QueryC_RemunerationArgs = {
 export type QueryC_RemunerationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79218,8 +80095,10 @@ export type QueryC_RevenueRecog_ServiceArgs = {
 export type QueryC_RevenueRecog_ServiceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79233,8 +80112,10 @@ export type QueryC_RevenueRecognitionArgs = {
 export type QueryC_RevenueRecognitionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79248,8 +80129,10 @@ export type QueryC_RevenueRecognition_PlanArgs = {
 export type QueryC_RevenueRecognition_PlanGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79263,8 +80146,10 @@ export type QueryC_RevenueRecognition_RunArgs = {
 export type QueryC_RevenueRecognition_RunGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79278,8 +80163,10 @@ export type QueryC_RfQArgs = {
 export type QueryC_RfQGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79293,8 +80180,10 @@ export type QueryC_RfQLineArgs = {
 export type QueryC_RfQLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79308,8 +80197,10 @@ export type QueryC_RfQLineQtyArgs = {
 export type QueryC_RfQLineQtyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79323,8 +80214,10 @@ export type QueryC_RfQResponseArgs = {
 export type QueryC_RfQResponseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79338,8 +80231,10 @@ export type QueryC_RfQResponseLineArgs = {
 export type QueryC_RfQResponseLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79353,8 +80248,10 @@ export type QueryC_RfQResponseLineQtyArgs = {
 export type QueryC_RfQResponseLineQtyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79368,8 +80265,10 @@ export type QueryC_RfQ_TopicArgs = {
 export type QueryC_RfQ_TopicGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79383,8 +80282,10 @@ export type QueryC_RfQ_TopicSubscriberArgs = {
 export type QueryC_RfQ_TopicSubscriberGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79398,8 +80299,10 @@ export type QueryC_RfQ_TopicSubscriberOnlyArgs = {
 export type QueryC_RfQ_TopicSubscriberOnlyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79413,8 +80316,10 @@ export type QueryC_SalesRegionArgs = {
 export type QueryC_SalesRegionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79428,8 +80333,10 @@ export type QueryC_SalesStageArgs = {
 export type QueryC_SalesStageGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79443,8 +80350,10 @@ export type QueryC_ServiceLevelArgs = {
 export type QueryC_ServiceLevelGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79458,8 +80367,10 @@ export type QueryC_ServiceLevelLineArgs = {
 export type QueryC_ServiceLevelLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79473,8 +80384,10 @@ export type QueryC_SubAcctArgs = {
 export type QueryC_SubAcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79488,8 +80401,10 @@ export type QueryC_SubscriptionArgs = {
 export type QueryC_SubscriptionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79503,8 +80418,10 @@ export type QueryC_SubscriptionTypeArgs = {
 export type QueryC_SubscriptionTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79518,8 +80435,10 @@ export type QueryC_Subscription_DeliveryArgs = {
 export type QueryC_Subscription_DeliveryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79533,8 +80452,10 @@ export type QueryC_TaskArgs = {
 export type QueryC_TaskGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79554,8 +80475,10 @@ export type QueryC_TaxBaseArgs = {
 export type QueryC_TaxBaseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79569,8 +80492,10 @@ export type QueryC_TaxCategoryArgs = {
 export type QueryC_TaxCategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79590,8 +80515,10 @@ export type QueryC_TaxDeclarationAcctArgs = {
 export type QueryC_TaxDeclarationAcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79599,8 +80526,10 @@ export type QueryC_TaxDeclarationAcctGetArgs = {
 export type QueryC_TaxDeclarationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79614,8 +80543,10 @@ export type QueryC_TaxDeclarationLineArgs = {
 export type QueryC_TaxDeclarationLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79629,8 +80560,10 @@ export type QueryC_TaxDefinitionArgs = {
 export type QueryC_TaxDefinitionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79638,8 +80571,10 @@ export type QueryC_TaxDefinitionGetArgs = {
 export type QueryC_TaxGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79653,8 +80588,10 @@ export type QueryC_TaxGroupArgs = {
 export type QueryC_TaxGroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79668,8 +80605,10 @@ export type QueryC_TaxPostalArgs = {
 export type QueryC_TaxPostalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79689,8 +80628,10 @@ export type QueryC_TaxProviderCfgArgs = {
 export type QueryC_TaxProviderCfgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79698,8 +80639,10 @@ export type QueryC_TaxProviderCfgGetArgs = {
 export type QueryC_TaxProviderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79713,8 +80656,10 @@ export type QueryC_TaxTypeArgs = {
 export type QueryC_TaxTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79728,8 +80673,10 @@ export type QueryC_Tax_AcctArgs = {
 export type QueryC_Tax_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79743,8 +80690,10 @@ export type QueryC_UomArgs = {
 export type QueryC_UomGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79758,8 +80707,10 @@ export type QueryC_Uom_ConversionArgs = {
 export type QueryC_Uom_ConversionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79773,8 +80724,10 @@ export type QueryC_UserRemunerationArgs = {
 export type QueryC_UserRemunerationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79788,8 +80741,10 @@ export type QueryC_ValidCombinationArgs = {
 export type QueryC_ValidCombinationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79803,8 +80758,10 @@ export type QueryC_WithholdingArgs = {
 export type QueryC_WithholdingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79818,8 +80775,10 @@ export type QueryC_Withholding_AcctArgs = {
 export type QueryC_Withholding_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79833,8 +80792,10 @@ export type QueryC_YearArgs = {
 export type QueryC_YearGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79848,8 +80809,10 @@ export type QueryDd_NetworkDistributionArgs = {
 export type QueryDd_NetworkDistributionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79863,8 +80826,10 @@ export type QueryDd_NetworkDistributionLineArgs = {
 export type QueryDd_NetworkDistributionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79878,8 +80843,10 @@ export type QueryDd_OrderArgs = {
 export type QueryDd_OrderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -79893,8 +80860,10 @@ export type QueryDd_OrderLineArgs = {
 export type QueryDd_OrderLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80001,8 +80970,10 @@ export type QueryExp_FormatArgs = {
 export type QueryExp_FormatGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80016,8 +80987,10 @@ export type QueryExp_FormatLineArgs = {
 export type QueryExp_FormatLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80031,8 +81004,10 @@ export type QueryExp_ProcessorArgs = {
 export type QueryExp_ProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80046,8 +81021,10 @@ export type QueryExp_ProcessorParameterArgs = {
 export type QueryExp_ProcessorParameterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80061,8 +81038,10 @@ export type QueryExp_Processor_TypeArgs = {
 export type QueryExp_Processor_TypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80076,8 +81055,10 @@ export type QueryFact_AcctArgs = {
 export type QueryFact_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80091,8 +81072,10 @@ export type QueryFact_Acct_SummaryArgs = {
 export type QueryFact_Acct_SummaryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80106,8 +81089,10 @@ export type QueryFact_ReconciliationArgs = {
 export type QueryFact_ReconciliationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80127,8 +81112,10 @@ export type QueryGl_BudgetControlArgs = {
 export type QueryGl_BudgetControlGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80136,8 +81123,10 @@ export type QueryGl_BudgetControlGetArgs = {
 export type QueryGl_BudgetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80151,8 +81140,10 @@ export type QueryGl_CategoryArgs = {
 export type QueryGl_CategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80166,8 +81157,10 @@ export type QueryGl_DistributionArgs = {
 export type QueryGl_DistributionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80181,8 +81174,10 @@ export type QueryGl_DistributionLineArgs = {
 export type QueryGl_DistributionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80196,8 +81191,10 @@ export type QueryGl_FundArgs = {
 export type QueryGl_FundGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80211,8 +81208,10 @@ export type QueryGl_FundRestrictionArgs = {
 export type QueryGl_FundRestrictionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80232,8 +81231,10 @@ export type QueryGl_JournalBatchArgs = {
 export type QueryGl_JournalBatchGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80247,8 +81248,10 @@ export type QueryGl_JournalGeneratorArgs = {
 export type QueryGl_JournalGeneratorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80262,8 +81265,10 @@ export type QueryGl_JournalGeneratorLineArgs = {
 export type QueryGl_JournalGeneratorLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80277,8 +81282,10 @@ export type QueryGl_JournalGeneratorSourceArgs = {
 export type QueryGl_JournalGeneratorSourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80286,8 +81293,10 @@ export type QueryGl_JournalGeneratorSourceGetArgs = {
 export type QueryGl_JournalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80301,8 +81310,10 @@ export type QueryGl_JournalLineArgs = {
 export type QueryGl_JournalLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80316,8 +81327,10 @@ export type QueryHr_AttributeArgs = {
 export type QueryHr_AttributeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80331,8 +81344,10 @@ export type QueryHr_ConceptArgs = {
 export type QueryHr_ConceptGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80346,8 +81361,10 @@ export type QueryHr_Concept_AcctArgs = {
 export type QueryHr_Concept_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80361,8 +81378,10 @@ export type QueryHr_Concept_CategoryArgs = {
 export type QueryHr_Concept_CategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80376,8 +81395,10 @@ export type QueryHr_ContractArgs = {
 export type QueryHr_ContractGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80391,8 +81412,10 @@ export type QueryHr_DepartmentArgs = {
 export type QueryHr_DepartmentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80406,8 +81429,10 @@ export type QueryHr_EmployeeArgs = {
 export type QueryHr_EmployeeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80421,8 +81446,10 @@ export type QueryHr_JobArgs = {
 export type QueryHr_JobGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80436,8 +81463,10 @@ export type QueryHr_ListArgs = {
 export type QueryHr_ListGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80451,8 +81480,10 @@ export type QueryHr_ListLineArgs = {
 export type QueryHr_ListLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80466,8 +81497,10 @@ export type QueryHr_ListTypeArgs = {
 export type QueryHr_ListTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80481,8 +81514,10 @@ export type QueryHr_ListVersionArgs = {
 export type QueryHr_ListVersionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80496,8 +81531,10 @@ export type QueryHr_MovementArgs = {
 export type QueryHr_MovementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80517,8 +81554,10 @@ export type QueryHr_PayrollConceptArgs = {
 export type QueryHr_PayrollConceptGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80526,8 +81565,10 @@ export type QueryHr_PayrollConceptGetArgs = {
 export type QueryHr_PayrollGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80541,8 +81582,10 @@ export type QueryHr_PeriodArgs = {
 export type QueryHr_PeriodGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80556,8 +81599,10 @@ export type QueryHr_ProcessArgs = {
 export type QueryHr_ProcessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80571,8 +81616,10 @@ export type QueryHr_YearArgs = {
 export type QueryHr_YearGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80586,8 +81633,10 @@ export type QueryImp_ProcessorArgs = {
 export type QueryImp_ProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80601,8 +81650,10 @@ export type QueryImp_ProcessorLogArgs = {
 export type QueryImp_ProcessorLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80616,8 +81667,10 @@ export type QueryImp_ProcessorParameterArgs = {
 export type QueryImp_ProcessorParameterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80631,8 +81684,10 @@ export type QueryImp_Processor_TypeArgs = {
 export type QueryImp_Processor_TypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80646,8 +81701,10 @@ export type QueryI_AssetArgs = {
 export type QueryI_AssetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80661,8 +81718,10 @@ export type QueryI_BPartnerArgs = {
 export type QueryI_BPartnerGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80676,8 +81735,10 @@ export type QueryI_BankStatementArgs = {
 export type QueryI_BankStatementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80691,8 +81752,10 @@ export type QueryI_Conversion_RateArgs = {
 export type QueryI_Conversion_RateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80706,8 +81769,10 @@ export type QueryI_ElementValueArgs = {
 export type QueryI_ElementValueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80721,8 +81786,10 @@ export type QueryI_FaJournalArgs = {
 export type QueryI_FaJournalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80736,8 +81803,10 @@ export type QueryI_FixedAssetArgs = {
 export type QueryI_FixedAssetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80751,8 +81820,10 @@ export type QueryI_GlJournalArgs = {
 export type QueryI_GlJournalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80766,8 +81837,10 @@ export type QueryI_Hr_MovementArgs = {
 export type QueryI_Hr_MovementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80781,8 +81854,10 @@ export type QueryI_InOutLineConfirmArgs = {
 export type QueryI_InOutLineConfirmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80796,8 +81871,10 @@ export type QueryI_InventoryArgs = {
 export type QueryI_InventoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80811,8 +81888,10 @@ export type QueryI_InvoiceArgs = {
 export type QueryI_InvoiceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80826,8 +81905,10 @@ export type QueryI_MovementArgs = {
 export type QueryI_MovementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80841,8 +81922,10 @@ export type QueryI_OrderArgs = {
 export type QueryI_OrderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80856,8 +81939,10 @@ export type QueryI_PaymentArgs = {
 export type QueryI_PaymentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80871,8 +81956,10 @@ export type QueryI_PriceListArgs = {
 export type QueryI_PriceListGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80886,8 +81973,10 @@ export type QueryI_ProductArgs = {
 export type QueryI_ProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80901,8 +81990,10 @@ export type QueryI_ProductPlanningArgs = {
 export type QueryI_ProductPlanningGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80916,8 +82007,10 @@ export type QueryI_ReportLineArgs = {
 export type QueryI_ReportLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80940,8 +82033,10 @@ export type QueryM_AttributeArgs = {
 export type QueryM_AttributeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80955,8 +82050,10 @@ export type QueryM_AttributeInstanceArgs = {
 export type QueryM_AttributeInstanceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80970,8 +82067,10 @@ export type QueryM_AttributeSearchArgs = {
 export type QueryM_AttributeSearchGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -80991,8 +82090,10 @@ export type QueryM_AttributeSetExcludeArgs = {
 export type QueryM_AttributeSetExcludeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81000,8 +82101,10 @@ export type QueryM_AttributeSetExcludeGetArgs = {
 export type QueryM_AttributeSetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81015,8 +82118,10 @@ export type QueryM_AttributeSetInstanceArgs = {
 export type QueryM_AttributeSetInstanceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81030,8 +82135,10 @@ export type QueryM_AttributeUseArgs = {
 export type QueryM_AttributeUseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81045,8 +82152,10 @@ export type QueryM_AttributeValueArgs = {
 export type QueryM_AttributeValueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81060,8 +82169,10 @@ export type QueryM_BomAlternativeArgs = {
 export type QueryM_BomAlternativeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81075,8 +82186,10 @@ export type QueryM_Bp_PriceArgs = {
 export type QueryM_Bp_PriceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81090,8 +82203,10 @@ export type QueryM_ChangeNoticeArgs = {
 export type QueryM_ChangeNoticeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81105,8 +82220,10 @@ export type QueryM_ChangeRequestArgs = {
 export type QueryM_ChangeRequestGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81120,8 +82237,10 @@ export type QueryM_CommodityShipmentArgs = {
 export type QueryM_CommodityShipmentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81141,8 +82260,10 @@ export type QueryM_CostDetailArgs = {
 export type QueryM_CostDetailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81156,8 +82277,10 @@ export type QueryM_CostElementArgs = {
 export type QueryM_CostElementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81165,8 +82288,10 @@ export type QueryM_CostElementGetArgs = {
 export type QueryM_CostGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81180,8 +82305,10 @@ export type QueryM_CostHistoryArgs = {
 export type QueryM_CostHistoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81195,8 +82322,10 @@ export type QueryM_CostQueueArgs = {
 export type QueryM_CostQueueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81210,8 +82339,10 @@ export type QueryM_CostTypeArgs = {
 export type QueryM_CostTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81231,8 +82362,10 @@ export type QueryM_DemandDetailArgs = {
 export type QueryM_DemandDetailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81240,8 +82373,10 @@ export type QueryM_DemandDetailGetArgs = {
 export type QueryM_DemandGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81255,8 +82390,10 @@ export type QueryM_DemandLineArgs = {
 export type QueryM_DemandLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81276,8 +82413,10 @@ export type QueryM_DiscountSchemaBreakArgs = {
 export type QueryM_DiscountSchemaBreakGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81285,8 +82424,10 @@ export type QueryM_DiscountSchemaBreakGetArgs = {
 export type QueryM_DiscountSchemaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81300,8 +82441,10 @@ export type QueryM_DiscountSchemaLineArgs = {
 export type QueryM_DiscountSchemaLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81315,8 +82458,10 @@ export type QueryM_DistributionListArgs = {
 export type QueryM_DistributionListGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81330,8 +82475,10 @@ export type QueryM_DistributionListLineArgs = {
 export type QueryM_DistributionListLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81345,8 +82492,10 @@ export type QueryM_DistributionRunArgs = {
 export type QueryM_DistributionRunGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81360,8 +82509,10 @@ export type QueryM_DistributionRunLineArgs = {
 export type QueryM_DistributionRunLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81375,8 +82526,10 @@ export type QueryM_ForecastArgs = {
 export type QueryM_ForecastGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81390,8 +82543,10 @@ export type QueryM_ForecastLineArgs = {
 export type QueryM_ForecastLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81411,8 +82566,10 @@ export type QueryM_FreightCategoryArgs = {
 export type QueryM_FreightCategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81420,8 +82577,10 @@ export type QueryM_FreightCategoryGetArgs = {
 export type QueryM_FreightGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81441,8 +82600,10 @@ export type QueryM_InOutConfirmArgs = {
 export type QueryM_InOutConfirmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81450,8 +82611,10 @@ export type QueryM_InOutConfirmGetArgs = {
 export type QueryM_InOutGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81471,8 +82634,10 @@ export type QueryM_InOutLineConfirmArgs = {
 export type QueryM_InOutLineConfirmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81480,8 +82645,10 @@ export type QueryM_InOutLineConfirmGetArgs = {
 export type QueryM_InOutLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81495,8 +82662,10 @@ export type QueryM_InOutLineMaArgs = {
 export type QueryM_InOutLineMaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81510,8 +82679,10 @@ export type QueryM_InventoryArgs = {
 export type QueryM_InventoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81525,8 +82696,10 @@ export type QueryM_InventoryLineArgs = {
 export type QueryM_InventoryLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81540,8 +82713,10 @@ export type QueryM_InventoryLineMaArgs = {
 export type QueryM_InventoryLineMaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81555,8 +82730,10 @@ export type QueryM_LocatorArgs = {
 export type QueryM_LocatorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81570,8 +82747,10 @@ export type QueryM_LocatorTypeArgs = {
 export type QueryM_LocatorTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81597,8 +82776,10 @@ export type QueryM_LotCtlExcludeArgs = {
 export type QueryM_LotCtlExcludeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81606,8 +82787,10 @@ export type QueryM_LotCtlExcludeGetArgs = {
 export type QueryM_LotCtlGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81615,8 +82798,10 @@ export type QueryM_LotCtlGetArgs = {
 export type QueryM_LotGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81630,8 +82815,10 @@ export type QueryM_MatchInvArgs = {
 export type QueryM_MatchInvGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81645,8 +82832,10 @@ export type QueryM_MatchPoArgs = {
 export type QueryM_MatchPoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81666,8 +82855,10 @@ export type QueryM_MovementConfirmArgs = {
 export type QueryM_MovementConfirmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81675,8 +82866,10 @@ export type QueryM_MovementConfirmGetArgs = {
 export type QueryM_MovementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81696,8 +82889,10 @@ export type QueryM_MovementLineConfirmArgs = {
 export type QueryM_MovementLineConfirmGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81705,8 +82900,10 @@ export type QueryM_MovementLineConfirmGetArgs = {
 export type QueryM_MovementLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81720,8 +82917,10 @@ export type QueryM_MovementLineMaArgs = {
 export type QueryM_MovementLineMaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81735,8 +82934,10 @@ export type QueryM_OperationResourceArgs = {
 export type QueryM_OperationResourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81750,8 +82951,10 @@ export type QueryM_PackageArgs = {
 export type QueryM_PackageGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81765,8 +82968,10 @@ export type QueryM_PackageLineArgs = {
 export type QueryM_PackageLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81780,8 +82985,10 @@ export type QueryM_PackageMpsArgs = {
 export type QueryM_PackageMpsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81795,8 +83002,10 @@ export type QueryM_PartTypeArgs = {
 export type QueryM_PartTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81810,8 +83019,10 @@ export type QueryM_PerpetualInvArgs = {
 export type QueryM_PerpetualInvGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81825,8 +83036,10 @@ export type QueryM_PriceListArgs = {
 export type QueryM_PriceListGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81840,8 +83053,10 @@ export type QueryM_PriceList_VersionArgs = {
 export type QueryM_PriceList_VersionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81861,8 +83076,10 @@ export type QueryM_ProductDownloadArgs = {
 export type QueryM_ProductDownloadGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81870,8 +83087,10 @@ export type QueryM_ProductDownloadGetArgs = {
 export type QueryM_ProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81885,8 +83104,10 @@ export type QueryM_ProductOperationArgs = {
 export type QueryM_ProductOperationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81900,8 +83121,10 @@ export type QueryM_ProductPriceArgs = {
 export type QueryM_ProductPriceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81915,8 +83138,10 @@ export type QueryM_ProductPriceVendorBreakArgs = {
 export type QueryM_ProductPriceVendorBreakGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81930,8 +83155,10 @@ export type QueryM_Product_AcctArgs = {
 export type QueryM_Product_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81945,8 +83172,10 @@ export type QueryM_Product_CategoryArgs = {
 export type QueryM_Product_CategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81960,8 +83189,10 @@ export type QueryM_Product_Category_AcctArgs = {
 export type QueryM_Product_Category_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81975,8 +83206,10 @@ export type QueryM_Product_PoArgs = {
 export type QueryM_Product_PoGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -81990,8 +83223,10 @@ export type QueryM_Product_QualityTestArgs = {
 export type QueryM_Product_QualityTestGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82005,8 +83240,10 @@ export type QueryM_ProductionArgs = {
 export type QueryM_ProductionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82020,8 +83257,10 @@ export type QueryM_ProductionLineArgs = {
 export type QueryM_ProductionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82035,8 +83274,10 @@ export type QueryM_ProductionLineMaArgs = {
 export type QueryM_ProductionLineMaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82050,8 +83291,10 @@ export type QueryM_ProductionPlanArgs = {
 export type QueryM_ProductionPlanGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82065,8 +83308,10 @@ export type QueryM_QualityTestArgs = {
 export type QueryM_QualityTestGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82080,8 +83325,10 @@ export type QueryM_QualityTestResultArgs = {
 export type QueryM_QualityTestResultGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82095,8 +83342,10 @@ export type QueryM_RmaArgs = {
 export type QueryM_RmaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82110,8 +83359,10 @@ export type QueryM_RmaLineArgs = {
 export type QueryM_RmaLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82125,8 +83376,10 @@ export type QueryM_RmaTaxArgs = {
 export type QueryM_RmaTaxGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82140,8 +83393,10 @@ export type QueryM_RmaTypeArgs = {
 export type QueryM_RmaTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82155,8 +83410,10 @@ export type QueryM_RelatedProductArgs = {
 export type QueryM_RelatedProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82170,8 +83427,10 @@ export type QueryM_ReplenishArgs = {
 export type QueryM_ReplenishGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82185,8 +83444,10 @@ export type QueryM_RequisitionArgs = {
 export type QueryM_RequisitionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82200,8 +83461,10 @@ export type QueryM_RequisitionLineArgs = {
 export type QueryM_RequisitionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82221,8 +83484,10 @@ export type QueryM_SerNoCtlExcludeArgs = {
 export type QueryM_SerNoCtlExcludeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82230,8 +83495,10 @@ export type QueryM_SerNoCtlExcludeGetArgs = {
 export type QueryM_SerNoCtlGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82251,8 +83518,10 @@ export type QueryM_ShipperCfgArgs = {
 export type QueryM_ShipperCfgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82260,8 +83529,10 @@ export type QueryM_ShipperCfgGetArgs = {
 export type QueryM_ShipperGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82281,8 +83552,10 @@ export type QueryM_ShipperLabelsCfgArgs = {
 export type QueryM_ShipperLabelsCfgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82290,8 +83563,10 @@ export type QueryM_ShipperLabelsCfgGetArgs = {
 export type QueryM_ShipperLabelsGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82311,8 +83586,10 @@ export type QueryM_ShipperPackagingCfgArgs = {
 export type QueryM_ShipperPackagingCfgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82320,8 +83597,10 @@ export type QueryM_ShipperPackagingCfgGetArgs = {
 export type QueryM_ShipperPackagingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82341,8 +83620,10 @@ export type QueryM_ShipperPickupTypesCfgArgs = {
 export type QueryM_ShipperPickupTypesCfgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82350,8 +83631,10 @@ export type QueryM_ShipperPickupTypesCfgGetArgs = {
 export type QueryM_ShipperPickupTypesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82371,8 +83654,10 @@ export type QueryM_ShippingProcessorCfgArgs = {
 export type QueryM_ShippingProcessorCfgGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82380,8 +83665,10 @@ export type QueryM_ShippingProcessorCfgGetArgs = {
 export type QueryM_ShippingProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82395,8 +83682,10 @@ export type QueryM_ShippingTransactionArgs = {
 export type QueryM_ShippingTransactionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82410,8 +83699,10 @@ export type QueryM_ShippingTransactionLineArgs = {
 export type QueryM_ShippingTransactionLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82425,8 +83716,10 @@ export type QueryM_StorageOnHandArgs = {
 export type QueryM_StorageOnHandGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82440,8 +83733,10 @@ export type QueryM_StorageReservationArgs = {
 export type QueryM_StorageReservationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82455,8 +83750,10 @@ export type QueryM_SubstituteArgs = {
 export type QueryM_SubstituteGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82476,8 +83773,10 @@ export type QueryM_TransactionAllocationArgs = {
 export type QueryM_TransactionAllocationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82485,8 +83784,10 @@ export type QueryM_TransactionAllocationGetArgs = {
 export type QueryM_TransactionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82500,8 +83801,10 @@ export type QueryM_WarehouseArgs = {
 export type QueryM_WarehouseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82515,8 +83818,10 @@ export type QueryM_Warehouse_AcctArgs = {
 export type QueryM_Warehouse_AcctGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82539,8 +83844,10 @@ export type QueryPa_AchievementArgs = {
 export type QueryPa_AchievementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82560,8 +83867,10 @@ export type QueryPa_BenchmarkDataArgs = {
 export type QueryPa_BenchmarkDataGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82569,8 +83878,10 @@ export type QueryPa_BenchmarkDataGetArgs = {
 export type QueryPa_BenchmarkGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82584,8 +83895,10 @@ export type QueryPa_ColorSchemaArgs = {
 export type QueryPa_ColorSchemaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82599,8 +83912,10 @@ export type QueryPa_DashboardContentArgs = {
 export type QueryPa_DashboardContentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82614,8 +83929,10 @@ export type QueryPa_DashboardContent_AccessArgs = {
 export type QueryPa_DashboardContent_AccessGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82629,8 +83946,10 @@ export type QueryPa_DashboardPreferenceArgs = {
 export type QueryPa_DashboardPreferenceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82644,8 +83963,10 @@ export type QueryPa_DocumentStatusArgs = {
 export type QueryPa_DocumentStatusGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82659,8 +83980,10 @@ export type QueryPa_GoalArgs = {
 export type QueryPa_GoalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82674,8 +83997,10 @@ export type QueryPa_GoalRestrictionArgs = {
 export type QueryPa_GoalRestrictionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82689,8 +84014,10 @@ export type QueryPa_HierarchyArgs = {
 export type QueryPa_HierarchyGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82710,8 +84037,10 @@ export type QueryPa_MeasureCalcArgs = {
 export type QueryPa_MeasureCalcGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82719,8 +84048,10 @@ export type QueryPa_MeasureCalcGetArgs = {
 export type QueryPa_MeasureGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82740,8 +84071,10 @@ export type QueryPa_RatioElementArgs = {
 export type QueryPa_RatioElementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82749,8 +84082,10 @@ export type QueryPa_RatioElementGetArgs = {
 export type QueryPa_RatioGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82770,8 +84105,10 @@ export type QueryPa_ReportColumnArgs = {
 export type QueryPa_ReportColumnGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82785,8 +84122,10 @@ export type QueryPa_ReportColumnSetArgs = {
 export type QueryPa_ReportColumnSetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82800,8 +84139,10 @@ export type QueryPa_ReportCubeArgs = {
 export type QueryPa_ReportCubeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82809,8 +84150,10 @@ export type QueryPa_ReportCubeGetArgs = {
 export type QueryPa_ReportGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82824,8 +84167,10 @@ export type QueryPa_ReportLineArgs = {
 export type QueryPa_ReportLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82839,8 +84184,10 @@ export type QueryPa_ReportLineSetArgs = {
 export type QueryPa_ReportLineSetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82854,8 +84201,10 @@ export type QueryPa_ReportSourceArgs = {
 export type QueryPa_ReportSourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82869,8 +84218,10 @@ export type QueryPa_Sla_CriteriaArgs = {
 export type QueryPa_Sla_CriteriaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82884,8 +84235,10 @@ export type QueryPa_Sla_GoalArgs = {
 export type QueryPa_Sla_GoalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82899,8 +84252,10 @@ export type QueryPa_Sla_MeasureArgs = {
 export type QueryPa_Sla_MeasureGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82914,8 +84269,10 @@ export type QueryPp_Cost_CollectorArgs = {
 export type QueryPp_Cost_CollectorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82929,8 +84286,10 @@ export type QueryPp_Cost_CollectorMaArgs = {
 export type QueryPp_Cost_CollectorMaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82944,8 +84303,10 @@ export type QueryPp_MrpArgs = {
 export type QueryPp_MrpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82959,8 +84320,10 @@ export type QueryPp_OrderArgs = {
 export type QueryPp_OrderGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82974,8 +84337,10 @@ export type QueryPp_Order_BomArgs = {
 export type QueryPp_Order_BomGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -82989,8 +84354,10 @@ export type QueryPp_Order_BomLineArgs = {
 export type QueryPp_Order_BomLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83004,8 +84371,10 @@ export type QueryPp_Order_CostArgs = {
 export type QueryPp_Order_CostGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83019,8 +84388,10 @@ export type QueryPp_Order_NodeArgs = {
 export type QueryPp_Order_NodeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83034,8 +84405,10 @@ export type QueryPp_Order_NodeNextArgs = {
 export type QueryPp_Order_NodeNextGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83049,8 +84422,10 @@ export type QueryPp_Order_Node_AssetArgs = {
 export type QueryPp_Order_Node_AssetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83064,8 +84439,10 @@ export type QueryPp_Order_Node_ProductArgs = {
 export type QueryPp_Order_Node_ProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83079,8 +84456,10 @@ export type QueryPp_Order_WorkflowArgs = {
 export type QueryPp_Order_WorkflowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83094,8 +84473,10 @@ export type QueryPp_Product_BomArgs = {
 export type QueryPp_Product_BomGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83109,8 +84490,10 @@ export type QueryPp_Product_BomLineArgs = {
 export type QueryPp_Product_BomLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83124,8 +84507,10 @@ export type QueryPp_Product_PlanningArgs = {
 export type QueryPp_Product_PlanningGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83139,8 +84524,10 @@ export type QueryPp_Wf_Node_AssetArgs = {
 export type QueryPp_Wf_Node_AssetGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83154,8 +84541,10 @@ export type QueryPp_Wf_Node_ProductArgs = {
 export type QueryPp_Wf_Node_ProductGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83179,8 +84568,10 @@ export type QueryQm_SpecificationArgs = {
 export type QueryQm_SpecificationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83194,8 +84585,10 @@ export type QueryQm_SpecificationLineArgs = {
 export type QueryQm_SpecificationLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83209,8 +84602,10 @@ export type QueryRv_BPartnerArgs = {
 export type QueryRv_BPartnerGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83224,8 +84619,10 @@ export type QueryRv_WarehousePriceArgs = {
 export type QueryRv_WarehousePriceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83239,8 +84636,10 @@ export type QueryR_CategoryArgs = {
 export type QueryR_CategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83254,8 +84653,10 @@ export type QueryR_CategoryUpdatesArgs = {
 export type QueryR_CategoryUpdatesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83269,8 +84670,10 @@ export type QueryR_ContactInterestArgs = {
 export type QueryR_ContactInterestGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83284,8 +84687,10 @@ export type QueryR_GroupArgs = {
 export type QueryR_GroupGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83299,8 +84704,10 @@ export type QueryR_GroupUpdatesArgs = {
 export type QueryR_GroupUpdatesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83314,8 +84721,10 @@ export type QueryR_InterestAreaArgs = {
 export type QueryR_InterestAreaGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83329,8 +84738,10 @@ export type QueryR_IssueKnownArgs = {
 export type QueryR_IssueKnownGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83344,8 +84755,10 @@ export type QueryR_IssueProjectArgs = {
 export type QueryR_IssueProjectGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83359,8 +84772,10 @@ export type QueryR_IssueRecommendationArgs = {
 export type QueryR_IssueRecommendationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83374,8 +84789,10 @@ export type QueryR_IssueStatusArgs = {
 export type QueryR_IssueStatusGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83389,8 +84806,10 @@ export type QueryR_IssueSystemArgs = {
 export type QueryR_IssueSystemGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83404,8 +84823,10 @@ export type QueryR_IssueUserArgs = {
 export type QueryR_IssueUserGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83419,8 +84840,10 @@ export type QueryR_MailTextArgs = {
 export type QueryR_MailTextGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83440,8 +84863,10 @@ export type QueryR_RequestActionArgs = {
 export type QueryR_RequestActionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83449,8 +84874,10 @@ export type QueryR_RequestActionGetArgs = {
 export type QueryR_RequestGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83464,8 +84891,10 @@ export type QueryR_RequestProcessorArgs = {
 export type QueryR_RequestProcessorGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83479,8 +84908,10 @@ export type QueryR_RequestProcessorLogArgs = {
 export type QueryR_RequestProcessorLogGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83494,8 +84925,10 @@ export type QueryR_RequestProcessor_RouteArgs = {
 export type QueryR_RequestProcessor_RouteGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83509,8 +84942,10 @@ export type QueryR_RequestTypeArgs = {
 export type QueryR_RequestTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83524,8 +84959,10 @@ export type QueryR_RequestTypeUpdatesArgs = {
 export type QueryR_RequestTypeUpdatesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83539,8 +84976,10 @@ export type QueryR_RequestUpdateArgs = {
 export type QueryR_RequestUpdateGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83554,8 +84993,10 @@ export type QueryR_RequestUpdatesArgs = {
 export type QueryR_RequestUpdatesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83569,8 +85010,10 @@ export type QueryR_ResolutionArgs = {
 export type QueryR_ResolutionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83584,8 +85027,10 @@ export type QueryR_StandardResponseArgs = {
 export type QueryR_StandardResponseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83605,8 +85050,10 @@ export type QueryR_StatusCategoryArgs = {
 export type QueryR_StatusCategoryGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83614,8 +85061,10 @@ export type QueryR_StatusCategoryGetArgs = {
 export type QueryR_StatusGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83629,8 +85078,10 @@ export type QueryS_ExpenseTypeArgs = {
 export type QueryS_ExpenseTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83650,8 +85101,10 @@ export type QueryS_ResourceAssignmentArgs = {
 export type QueryS_ResourceAssignmentGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83659,8 +85112,10 @@ export type QueryS_ResourceAssignmentGetArgs = {
 export type QueryS_ResourceGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83674,8 +85129,10 @@ export type QueryS_ResourceTypeArgs = {
 export type QueryS_ResourceTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83689,8 +85146,10 @@ export type QueryS_ResourceUnAvailableArgs = {
 export type QueryS_ResourceUnAvailableGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83704,8 +85163,10 @@ export type QueryS_TimeExpenseArgs = {
 export type QueryS_TimeExpenseGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83719,8 +85180,10 @@ export type QueryS_TimeExpenseLineArgs = {
 export type QueryS_TimeExpenseLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83734,8 +85197,10 @@ export type QueryS_TimeTypeArgs = {
 export type QueryS_TimeTypeGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83749,8 +85214,10 @@ export type QueryS_TrainingArgs = {
 export type QueryS_TrainingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83764,8 +85231,10 @@ export type QueryS_Training_ClassArgs = {
 export type QueryS_Training_ClassGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83779,8 +85248,10 @@ export type QueryT_1099ExtractArgs = {
 export type QueryT_1099ExtractGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83794,8 +85265,10 @@ export type QueryT_AgingArgs = {
 export type QueryT_AgingGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83809,8 +85282,10 @@ export type QueryT_BomLineArgs = {
 export type QueryT_BomLineGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83824,8 +85299,10 @@ export type QueryT_Bom_IndentedArgs = {
 export type QueryT_Bom_IndentedGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83839,8 +85316,10 @@ export type QueryT_BankRegisterArgs = {
 export type QueryT_BankRegisterGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83854,8 +85333,10 @@ export type QueryT_CashFlowArgs = {
 export type QueryT_CashFlowGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83869,8 +85350,10 @@ export type QueryT_DistributionRunDetailArgs = {
 export type QueryT_DistributionRunDetailGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83884,8 +85367,10 @@ export type QueryT_InventoryValueArgs = {
 export type QueryT_InventoryValueGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83899,8 +85384,10 @@ export type QueryT_InvoiceGlArgs = {
 export type QueryT_InvoiceGlGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83914,8 +85401,10 @@ export type QueryT_Mrp_CrpArgs = {
 export type QueryT_Mrp_CrpGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83929,8 +85418,10 @@ export type QueryT_ReconciliationArgs = {
 export type QueryT_ReconciliationGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83944,8 +85435,10 @@ export type QueryT_ReplenishArgs = {
 export type QueryT_ReplenishGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83959,8 +85452,10 @@ export type QueryT_ReportArgs = {
 export type QueryT_ReportGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83974,8 +85469,10 @@ export type QueryT_ReportStatementArgs = {
 export type QueryT_ReportStatementGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -83989,8 +85486,10 @@ export type QueryT_TransactionArgs = {
 export type QueryT_TransactionGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -84004,8 +85503,10 @@ export type QueryTestArgs = {
 export type QueryTestGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -84019,8 +85520,10 @@ export type QueryU_PosTerminalArgs = {
 export type QueryU_PosTerminalGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -84034,8 +85537,10 @@ export type QueryU_RoleMenuArgs = {
 export type QueryU_RoleMenuGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -84049,8 +85554,10 @@ export type QueryU_WebMenuArgs = {
 export type QueryU_WebMenuGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -84064,8 +85571,10 @@ export type QueryU_Web_PropertiesArgs = {
 export type QueryU_Web_PropertiesGetArgs = {
   Filter?: InputMaybe<Scalars['String']['input']>;
   Page?: InputMaybe<Scalars['Int']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']>>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -88911,6 +90420,8 @@ export type U_Web_PropertiesInput = {
 
 export type VendorPaymentTrail = {
   __typename?: 'VendorPaymentTrail';
+  Base_Reversal_C_Invoice?: Maybe<C_Invoice>;
+  Base_Reversal_C_Payment?: Maybe<C_Payment>;
   C_BPartner: C_BPartner;
   C_Invoice?: Maybe<C_Invoice>;
   C_Order?: Maybe<C_Order>;
@@ -88923,6 +90434,8 @@ export type VendorPaymentTrail = {
   /** Date this record happened */
   Date: Scalars['DateTime']['output'];
   OpenBalance?: Maybe<Scalars['BigDecimal']['output']>;
+  /** Date used for ordering (usually either the created or updated) */
+  OrderingDate: Scalars['DateTime']['output'];
   Paid?: Maybe<Scalars['BigDecimal']['output']>;
   /** Date this record was updated */
   Updated: Scalars['DateTime']['output'];
@@ -88954,7 +90467,7 @@ export type M_InventoryFieldsFragment = { __typename?: 'M_Inventory', UU: string
 
 export type M_MovementFieldsFragment = { __typename?: 'M_Movement', UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string } };
 
-export type M_ProductFieldsFragment = { __typename?: 'M_Product', BH_BuyPrice?: number | null, BH_SellPrice?: number | null, Description?: string | null, HasBeenPurchased: boolean, LastPurchasePrice?: number | null, UU: string, Name: string, TotalQuantity: number, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null, BH_Product_IncludedList?: Array<{ __typename?: 'BH_Product_Included', Qty: number, SeqNo: number, UU: string, Included_Product: { __typename?: 'M_Product', UU: string, Name: string } }> | null, M_Product_Category: { __typename?: 'M_Product_Category', UU: string } };
+export type M_ProductFieldsFragment = { __typename?: 'M_Product', BH_BuyPrice?: number | null, BH_SellPrice?: number | null, Description?: string | null, HasBeenPurchased: boolean, LastPurchasePrice?: number | null, UU: string, Name: string, TotalQuantity: number, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null, BH_Product_IncludedList?: Array<{ __typename?: 'BH_Product_Included', Qty: number, SeqNo: number, UU: string, Included_Product: { __typename?: 'M_Product', UU: string, Name: string } }> | null, BH_SoonToExpireDays?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, M_Product_Category: { __typename?: 'M_Product_Category', UU: string } };
 
 export type Ad_OrgInfoSaveMutationVariables = Exact<{
   AD_OrgInfo: Ad_OrgInfoInput;
@@ -89711,7 +91224,7 @@ export type M_ProductSaveMutationVariables = Exact<{
 }>;
 
 
-export type M_ProductSaveMutation = { __typename?: 'Mutation', M_ProductSave: { __typename?: 'M_Product', BH_BuyPrice?: number | null, BH_SellPrice?: number | null, Description?: string | null, HasBeenPurchased: boolean, LastPurchasePrice?: number | null, UU: string, Name: string, TotalQuantity: number, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null, BH_Product_IncludedList?: Array<{ __typename?: 'BH_Product_Included', Qty: number, SeqNo: number, UU: string, Included_Product: { __typename?: 'M_Product', UU: string, Name: string } }> | null, M_Product_Category: { __typename?: 'M_Product_Category', UU: string } } };
+export type M_ProductSaveMutation = { __typename?: 'Mutation', M_ProductSave: { __typename?: 'M_Product', BH_BuyPrice?: number | null, BH_SellPrice?: number | null, Description?: string | null, HasBeenPurchased: boolean, LastPurchasePrice?: number | null, UU: string, Name: string, TotalQuantity: number, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null, BH_Product_IncludedList?: Array<{ __typename?: 'BH_Product_Included', Qty: number, SeqNo: number, UU: string, Included_Product: { __typename?: 'M_Product', UU: string, Name: string } }> | null, BH_SoonToExpireDays?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, M_Product_Category: { __typename?: 'M_Product_Category', UU: string } } };
 
 export type M_ProductSaveManyMutationVariables = Exact<{
   Entities: Array<M_ProductInput> | M_ProductInput;
@@ -90147,7 +91660,7 @@ export type C_OrderLineGetQueryVariables = Exact<{
 }>;
 
 
-export type C_OrderLineGetQuery = { __typename?: 'Query', C_OrderLineGet: { __typename?: 'C_OrderLineConnection', Results: Array<{ __typename?: 'C_OrderLine', UU: string, Included_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null }> } };
+export type C_OrderLineGetQuery = { __typename?: 'Query', C_OrderLineGet: { __typename?: 'C_OrderLineConnection', Results: Array<{ __typename?: 'C_OrderLine', UU: string, QtyOrdered: number, Included_OrderLine?: { __typename?: 'C_OrderLine', UU: string } | null, M_Product?: { __typename?: 'M_Product', UU: string } | null, M_AttributeSetInstance: { __typename?: 'M_AttributeSetInstance', UU: string } }> } };
 
 export type C_PaymentQueryVariables = Exact<{
   UU: Scalars['String']['input'];
@@ -90281,17 +91794,19 @@ export type M_ProductQueryVariables = Exact<{
 }>;
 
 
-export type M_ProductQuery = { __typename?: 'Query', M_Product?: { __typename?: 'M_Product', BH_BuyPrice?: number | null, BH_SellPrice?: number | null, Description?: string | null, HasBeenPurchased: boolean, LastPurchasePrice?: number | null, UU: string, Name: string, TotalQuantity: number, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null, BH_Product_IncludedList?: Array<{ __typename?: 'BH_Product_Included', Qty: number, SeqNo: number, UU: string, Included_Product: { __typename?: 'M_Product', UU: string, Name: string } }> | null, M_Product_Category: { __typename?: 'M_Product_Category', UU: string } } | null };
+export type M_ProductQuery = { __typename?: 'Query', M_Product?: { __typename?: 'M_Product', BH_BuyPrice?: number | null, BH_SellPrice?: number | null, Description?: string | null, HasBeenPurchased: boolean, LastPurchasePrice?: number | null, UU: string, Name: string, TotalQuantity: number, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null, BH_Product_IncludedList?: Array<{ __typename?: 'BH_Product_Included', Qty: number, SeqNo: number, UU: string, Included_Product: { __typename?: 'M_Product', UU: string, Name: string } }> | null, BH_SoonToExpireDays?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, M_Product_Category: { __typename?: 'M_Product_Category', UU: string } } | null };
 
 export type M_ProductGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
   Size?: InputMaybe<Scalars['Int']['input']>;
   Sort?: InputMaybe<Scalars['String']['input']>;
   Filter?: InputMaybe<Scalars['String']['input']>;
+  Where?: InputMaybe<Scalars['String']['input']>;
+  Parameters?: InputMaybe<Array<Scalars['Object']['input']> | Scalars['Object']['input']>;
 }>;
 
 
-export type M_ProductGetQuery = { __typename?: 'Query', M_ProductGet: { __typename?: 'M_ProductConnection', Results: Array<{ __typename?: 'M_Product', BH_BuyPrice?: number | null, BH_SellPrice?: number | null, Description?: string | null, HasBeenPurchased: boolean, LastPurchasePrice?: number | null, UU: string, Name: string, TotalQuantity: number, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null, BH_Product_IncludedList?: Array<{ __typename?: 'BH_Product_Included', Qty: number, SeqNo: number, UU: string, Included_Product: { __typename?: 'M_Product', UU: string, Name: string } }> | null, M_Product_Category: { __typename?: 'M_Product_Category', UU: string } }>, PagingInfo: { __typename?: 'PagingInfo', Page: number, TotalPages: number } } };
+export type M_ProductGetQuery = { __typename?: 'Query', M_ProductGet: { __typename?: 'M_ProductConnection', Results: Array<{ __typename?: 'M_Product', TotalQuantity: number, BH_BuyPrice?: number | null, BH_SellPrice?: number | null, Description?: string | null, HasBeenPurchased: boolean, LastPurchasePrice?: number | null, UU: string, Name: string, BH_Concept?: { __typename?: 'BH_Concept', UU: string } | null, BH_Product_IncludedList?: Array<{ __typename?: 'BH_Product_Included', Qty: number, SeqNo: number, UU: string, Included_Product: { __typename?: 'M_Product', UU: string, Name: string } }> | null, BH_SoonToExpireDays?: { __typename?: 'AD_Ref_List', UU: string, Value: string } | null, M_Product_Category: { __typename?: 'M_Product_Category', UU: string } }>, PagingInfo: { __typename?: 'PagingInfo', Page: number, TotalCount: number, TotalPages: number } } };
 
 export type M_StorageOnHandGetQueryVariables = Exact<{
   Page?: InputMaybe<Scalars['Int']['input']>;
@@ -90342,7 +91857,7 @@ export type VendorPaymentTrailGetQueryVariables = Exact<{
 }>;
 
 
-export type VendorPaymentTrailGetQuery = { __typename?: 'Query', VendorPaymentTrailGet: { __typename?: 'VendorPaymentTrailConnection', Results: Array<{ __typename?: 'VendorPaymentTrail', Charged?: number | null, Paid?: number | null, OpenBalance?: number | null, C_Invoice?: { __typename?: 'C_Invoice', IsPaid: boolean, UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string } } | null, C_Order?: { __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string } } | null, C_Payment?: { __typename?: 'C_Payment', BH_tender_amount?: number | null, IsAllocated: boolean, PayAmt: number, UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string }, TenderType: { __typename?: 'AD_Ref_List', UU: string, Name: string, Value: string } } | null }> } };
+export type VendorPaymentTrailGetQuery = { __typename?: 'Query', VendorPaymentTrailGet: { __typename?: 'VendorPaymentTrailConnection', Results: Array<{ __typename?: 'VendorPaymentTrail', Charged?: number | null, Paid?: number | null, OpenBalance?: number | null, Base_Reversal_C_Invoice?: { __typename?: 'C_Invoice', UU: string } | null, C_Invoice?: { __typename?: 'C_Invoice', IsPaid: boolean, UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string } } | null, C_Order?: { __typename?: 'C_Order', UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string } } | null, C_Payment?: { __typename?: 'C_Payment', BH_tender_amount?: number | null, IsAllocated: boolean, PayAmt: number, UU: string, DocStatus: { __typename?: 'AD_Ref_List', Value: string }, TenderType: { __typename?: 'AD_Ref_List', UU: string, Name: string, Value: string } } | null }> } };
 
 export const Ad_RoleFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AD_RoleFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AD_Role"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsMasterRole"}},{"kind":"Field","name":{"kind":"Name","value":"AD_Role_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Included_Role"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]} as unknown as DocumentNode<Ad_RoleFieldsFragment, unknown>;
 export const Bh_VisitFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BH_VisitFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BH_Visit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_VisitDate"}},{"kind":"Field","name":{"kind":"Name","value":"Change_Reason"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"DocumentNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Patient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_Date"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Encounter_DiagnosisList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Uncoded_Diagnosis"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Observations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Value"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_BPartner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_InvoiceLines"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"PriceActual"}},{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Scheduled"}}]}}]} as unknown as DocumentNode<Bh_VisitFieldsFragment, unknown>;
@@ -90354,7 +91869,7 @@ export const C_PaymentFieldsFragmentDoc = {"kind":"Document","definitions":[{"ki
 export const M_InOutFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_InOutFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_InOut"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<M_InOutFieldsFragment, unknown>;
 export const M_InventoryFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_InventoryFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_Inventory"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<M_InventoryFieldsFragment, unknown>;
 export const M_MovementFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_MovementFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_Movement"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<M_MovementFieldsFragment, unknown>;
-export const M_ProductFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_ProductFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_BuyPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Product_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_Product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Qty"}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_SellPrice"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"HasBeenPurchased"}},{"kind":"Field","name":{"kind":"Name","value":"LastPurchasePrice"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"M_Product_Category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"TotalQuantity"}}]}}]} as unknown as DocumentNode<M_ProductFieldsFragment, unknown>;
+export const M_ProductFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_ProductFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_BuyPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Product_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_Product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Qty"}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_SellPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_SoonToExpireDays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"HasBeenPurchased"}},{"kind":"Field","name":{"kind":"Name","value":"LastPurchasePrice"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"M_Product_Category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"TotalQuantity"}}]}}]} as unknown as DocumentNode<M_ProductFieldsFragment, unknown>;
 export const Ad_OrgInfoSaveDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AD_OrgInfoSave"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"AD_OrgInfo"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AD_OrgInfoInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_OrgInfoSave"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Entity"},"value":{"kind":"Variable","name":{"kind":"Name","value":"AD_OrgInfo"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]} as unknown as DocumentNode<Ad_OrgInfoSaveMutation, Ad_OrgInfoSaveMutationVariables>;
 export const Ad_ProcessRunDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AD_ProcessRun"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ProcessInfoParameterList"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProcessInfoParameterInput"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_ProcessRun"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}},{"kind":"Argument","name":{"kind":"Name","value":"ProcessInfoParameterList"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ProcessInfoParameterList"}}}]}]}}]} as unknown as DocumentNode<Ad_ProcessRunMutation, Ad_ProcessRunMutationVariables>;
 export const Ad_ProcessRunAndExportDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AD_ProcessRunAndExport"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ProcessInfoParameterList"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProcessInfoParameterInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ReportType"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ReportOutput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_ProcessRunAndExport"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}},{"kind":"Argument","name":{"kind":"Name","value":"ProcessInfoParameterList"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ProcessInfoParameterList"}}},{"kind":"Argument","name":{"kind":"Name","value":"ReportType"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ReportType"}}}]}]}}]} as unknown as DocumentNode<Ad_ProcessRunAndExportMutation, Ad_ProcessRunAndExportMutationVariables>;
@@ -90447,7 +91962,7 @@ export const M_PriceList_VersionSaveDocument = {"kind":"Document","definitions":
 export const M_PriceListSaveDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"M_PriceListSave"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Entity"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"M_PriceListInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_PriceListSave"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Entity"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Entity"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]} as unknown as DocumentNode<M_PriceListSaveMutation, M_PriceListSaveMutationVariables>;
 export const M_ProductMergeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"M_ProductMerge"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"OldUU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"NewUU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_ProductMerge"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"OldUU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"OldUU"}}},{"kind":"Argument","name":{"kind":"Name","value":"NewUU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"NewUU"}}}]}]}}]} as unknown as DocumentNode<M_ProductMergeMutation, M_ProductMergeMutationVariables>;
 export const M_ProductPriceSaveManyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"M_ProductPriceSaveMany"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Entities"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"M_ProductPriceInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_ProductPriceSaveMany"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Entities"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Entities"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]} as unknown as DocumentNode<M_ProductPriceSaveManyMutation, M_ProductPriceSaveManyMutationVariables>;
-export const M_ProductSaveDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"M_ProductSave"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Entity"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"M_ProductInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_ProductSave"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Entity"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Entity"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"M_ProductFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_ProductFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_BuyPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Product_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_Product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Qty"}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_SellPrice"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"HasBeenPurchased"}},{"kind":"Field","name":{"kind":"Name","value":"LastPurchasePrice"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"M_Product_Category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"TotalQuantity"}}]}}]} as unknown as DocumentNode<M_ProductSaveMutation, M_ProductSaveMutationVariables>;
+export const M_ProductSaveDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"M_ProductSave"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Entity"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"M_ProductInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_ProductSave"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Entity"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Entity"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"M_ProductFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_ProductFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_BuyPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Product_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_Product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Qty"}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_SellPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_SoonToExpireDays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"HasBeenPurchased"}},{"kind":"Field","name":{"kind":"Name","value":"LastPurchasePrice"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"M_Product_Category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"TotalQuantity"}}]}}]} as unknown as DocumentNode<M_ProductSaveMutation, M_ProductSaveMutationVariables>;
 export const M_ProductSaveManyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"M_ProductSaveMany"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Entities"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"M_ProductInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_ProductSaveMany"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Entities"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Entities"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_BuyPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_SellPrice"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"M_Product_Category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<M_ProductSaveManyMutation, M_ProductSaveManyMutationVariables>;
 export const M_WarehouseSaveDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"M_WarehouseSave"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"M_Warehouse"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"M_WarehouseInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_WarehouseSave"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Entity"},"value":{"kind":"Variable","name":{"kind":"Name","value":"M_Warehouse"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]} as unknown as DocumentNode<M_WarehouseSaveMutation, M_WarehouseSaveMutationVariables>;
 export const SignInDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignIn"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Credentials"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AuthenticationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"SignIn"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Credentials"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Credentials"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AD_User"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"IsExpired"}}]}}]}}]}}]} as unknown as DocumentNode<SignInMutation, SignInMutationVariables>;
@@ -90494,7 +92009,7 @@ export const C_LocationGetDocument = {"kind":"Document","definitions":[{"kind":"
 export const C_OrderGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_OrderGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_OrderGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_OrderFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_OrderFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Order"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Currency"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"GrandTotal"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_OrderGetQuery, C_OrderGetQueryVariables>;
 export const C_OrderForSalesRepDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_OrderForSalesRep"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Order"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"SalesRep"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<C_OrderForSalesRepQuery, C_OrderForSalesRepQueryVariables>;
 export const C_OrderLineDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_OrderLine"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_OrderLine"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_OrderLineList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]} as unknown as DocumentNode<C_OrderLineQuery, C_OrderLineQueryVariables>;
-export const C_OrderLineGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_OrderLineGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_OrderLineGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<C_OrderLineGetQuery, C_OrderLineGetQueryVariables>;
+export const C_OrderLineGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_OrderLineGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_OrderLineGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_OrderLine"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"QtyOrdered"}},{"kind":"Field","name":{"kind":"Name","value":"M_Product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"M_AttributeSetInstance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}}]} as unknown as DocumentNode<C_OrderLineGetQuery, C_OrderLineGetQueryVariables>;
 export const C_PaymentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_Payment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Payment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_PaymentFields"}},{"kind":"Field","name":{"kind":"Name","value":"DateTrx"}},{"kind":"Field","name":{"kind":"Name","value":"Scheduled"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_PaymentFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Payment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"IsAllocated"}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}},{"kind":"Field","name":{"kind":"Name","value":"TenderType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_PaymentQuery, C_PaymentQueryVariables>;
 export const C_PaymentGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_PaymentGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_PaymentGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_PaymentFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_PaymentFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Payment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"IsAllocated"}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}},{"kind":"Field","name":{"kind":"Name","value":"TenderType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<C_PaymentGetQuery, C_PaymentGetQueryVariables>;
 export const C_TaxCategoryGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"C_TaxCategoryGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_TaxCategoryGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<C_TaxCategoryGetQuery, C_TaxCategoryGetQueryVariables>;
@@ -90511,10 +92026,10 @@ export const M_DiscountSchemaGetDocument = {"kind":"Document","definitions":[{"k
 export const M_PriceList_VersionGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_PriceList_VersionGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_PriceList_VersionGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PagingInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"TotalCount"}}]}}]}}]}}]} as unknown as DocumentNode<M_PriceList_VersionGetQuery, M_PriceList_VersionGetQueryVariables>;
 export const M_PriceListGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_PriceListGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_PriceListGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]} as unknown as DocumentNode<M_PriceListGetQuery, M_PriceListGetQueryVariables>;
 export const M_Product_CategoryGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_Product_CategoryGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_Product_CategoryGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}}]}}]}}]} as unknown as DocumentNode<M_Product_CategoryGetQuery, M_Product_CategoryGetQueryVariables>;
-export const M_ProductDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_Product"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_Product"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"M_ProductFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_ProductFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_BuyPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Product_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_Product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Qty"}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_SellPrice"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"HasBeenPurchased"}},{"kind":"Field","name":{"kind":"Name","value":"LastPurchasePrice"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"M_Product_Category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"TotalQuantity"}}]}}]} as unknown as DocumentNode<M_ProductQuery, M_ProductQueryVariables>;
-export const M_ProductGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_ProductGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_ProductGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"M_ProductFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PagingInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Page"}},{"kind":"Field","name":{"kind":"Name","value":"TotalPages"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_ProductFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_BuyPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Product_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_Product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Qty"}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_SellPrice"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"HasBeenPurchased"}},{"kind":"Field","name":{"kind":"Name","value":"LastPurchasePrice"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"M_Product_Category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"TotalQuantity"}}]}}]} as unknown as DocumentNode<M_ProductGetQuery, M_ProductGetQueryVariables>;
+export const M_ProductDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_Product"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_Product"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"UU"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"M_ProductFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_ProductFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_BuyPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Product_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_Product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Qty"}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_SellPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_SoonToExpireDays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"HasBeenPurchased"}},{"kind":"Field","name":{"kind":"Name","value":"LastPurchasePrice"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"M_Product_Category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"TotalQuantity"}}]}}]} as unknown as DocumentNode<M_ProductQuery, M_ProductQueryVariables>;
+export const M_ProductGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_ProductGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Parameters"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Object"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_ProductGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}},{"kind":"Argument","name":{"kind":"Name","value":"Where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Where"}}},{"kind":"Argument","name":{"kind":"Name","value":"Parameters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Parameters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"M_ProductFields"}},{"kind":"Field","name":{"kind":"Name","value":"TotalQuantity"}}]}},{"kind":"Field","name":{"kind":"Name","value":"PagingInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Page"}},{"kind":"Field","name":{"kind":"Name","value":"TotalCount"}},{"kind":"Field","name":{"kind":"Name","value":"TotalPages"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"M_ProductFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"M_Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_BuyPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Concept"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_Product_IncludedList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Included_Product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Qty"}},{"kind":"Field","name":{"kind":"Name","value":"SeqNo"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"BH_SellPrice"}},{"kind":"Field","name":{"kind":"Name","value":"BH_SoonToExpireDays"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"HasBeenPurchased"}},{"kind":"Field","name":{"kind":"Name","value":"LastPurchasePrice"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"M_Product_Category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"TotalQuantity"}}]}}]} as unknown as DocumentNode<M_ProductGetQuery, M_ProductGetQueryVariables>;
 export const M_StorageOnHandGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_StorageOnHandGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_StorageOnHandGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"M_AttributeSetInstance"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"QtyOnHand"}}]}}]}}]}}]} as unknown as DocumentNode<M_StorageOnHandGetQuery, M_StorageOnHandGetQueryVariables>;
 export const M_WarehouseGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"M_WarehouseGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"M_WarehouseGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"BH_DefaultWarehouse"}},{"kind":"Field","name":{"kind":"Name","value":"IsActive"}},{"kind":"Field","name":{"kind":"Name","value":"M_Locators"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]}}]}}]}}]} as unknown as DocumentNode<M_WarehouseGetQuery, M_WarehouseGetQueryVariables>;
 export const OpenBalanceTransactionGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OpenBalanceTransactionGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"OpenBalanceTransactionGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Amount"}},{"kind":"Field","name":{"kind":"Name","value":"BH_Visit"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"OpenBalance"}}]}}]}}]}}]} as unknown as DocumentNode<OpenBalanceTransactionGetQuery, OpenBalanceTransactionGetQueryVariables>;
 export const PaymentTrailGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PaymentTrailGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"C_BPartner_UU"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"PaymentTrailGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"C_BPartner_UU"},"value":{"kind":"Variable","name":{"kind":"Name","value":"C_BPartner_UU"}}},{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_Visit"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Credits"}},{"kind":"Field","name":{"kind":"Name","value":"Debits"}},{"kind":"Field","name":{"kind":"Name","value":"OpenBalance"}}]}}]}}]}}]} as unknown as DocumentNode<PaymentTrailGetQuery, PaymentTrailGetQueryVariables>;
-export const VendorPaymentTrailGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"VendorPaymentTrailGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"VendorPaymentTrailGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"C_Invoice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"IsPaid"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Order"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_PaymentFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Charged"}},{"kind":"Field","name":{"kind":"Name","value":"Paid"}},{"kind":"Field","name":{"kind":"Name","value":"OpenBalance"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_PaymentFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Payment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"IsAllocated"}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}},{"kind":"Field","name":{"kind":"Name","value":"TenderType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<VendorPaymentTrailGetQuery, VendorPaymentTrailGetQueryVariables>;
+export const VendorPaymentTrailGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"VendorPaymentTrailGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"VendorPaymentTrailGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"Page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Page"}}},{"kind":"Argument","name":{"kind":"Name","value":"Size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Size"}}},{"kind":"Argument","name":{"kind":"Name","value":"Sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"Filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"Filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Base_Reversal_C_Invoice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Invoice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"IsPaid"}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Order"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}},{"kind":"Field","name":{"kind":"Name","value":"C_Payment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"C_PaymentFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Charged"}},{"kind":"Field","name":{"kind":"Name","value":"Paid"}},{"kind":"Field","name":{"kind":"Name","value":"OpenBalance"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"C_PaymentFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"C_Payment"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"BH_tender_amount"}},{"kind":"Field","name":{"kind":"Name","value":"DocStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"IsAllocated"}},{"kind":"Field","name":{"kind":"Name","value":"PayAmt"}},{"kind":"Field","name":{"kind":"Name","value":"TenderType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"UU"}},{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"UU"}}]}}]} as unknown as DocumentNode<VendorPaymentTrailGetQuery, VendorPaymentTrailGetQueryVariables>;

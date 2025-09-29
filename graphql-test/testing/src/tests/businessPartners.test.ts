@@ -20,6 +20,7 @@ import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../
 import { RoleName } from '../types/roleName';
 import {
 	createBusinessPartner,
+	createInOutFromOrder,
 	createInvoice,
 	createOrder,
 	createPayment,
@@ -155,6 +156,11 @@ test(`get method returns the correct data`, async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	const twoDaysAgo = new Date();
@@ -302,6 +308,11 @@ test(`age not cleared after orders processed`, async () => {
 	expect(savedBusinessPartner).toBeTruthy();
 	expect(savedBusinessPartner.BH_Birthday).toBeTruthy();
 
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.stepName = 'Create sales order';
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(
@@ -346,6 +357,11 @@ test(`drafted and re-opened visits don't count in the total visits or affect las
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -442,6 +458,11 @@ test('merging patients', async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create material receipt 1';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.stepName = 'Create visit 1';
 	valueObject.documentAction = undefined;
 	valueObject.setDateOffset(-2);
@@ -491,6 +512,11 @@ test('merging patients', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt 2';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit 2';
 	valueObject.documentAction = undefined;

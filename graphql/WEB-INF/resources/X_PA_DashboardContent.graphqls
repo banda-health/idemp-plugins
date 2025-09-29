@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PA_DashboardContent(UU: String!): PA_DashboardContent
-	PA_DashboardContentGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_DashboardContentConnection!
+	PA_DashboardContentGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PA_DashboardContentConnection!
 }
 
 extend type Mutation {

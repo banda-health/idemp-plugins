@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Product_CategoryDe
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.dataloader.DataLoader;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,7 +29,7 @@ public class X_BH_Product_CategoryDefaultQuery extends POQuery<MBHProductCategor
 	}
 
 	public Connection<MBHProductCategoryDefault> BH_Product_CategoryDefaultGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return super.Get(Page, PageSize, Sort, Filter, environment);
+			String Where, List<Object> Parameters, DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);
 	}
 }

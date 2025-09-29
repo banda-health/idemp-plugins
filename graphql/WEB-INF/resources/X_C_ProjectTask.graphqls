@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_ProjectTask(UU: String!): C_ProjectTask
-	C_ProjectTaskGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectTaskConnection!
+	C_ProjectTaskGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_ProjectTaskConnection!
 }
 
 extend type Mutation {

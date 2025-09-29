@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	A_RegistrationAttribute(UU: String!): A_RegistrationAttribute
-	A_RegistrationAttributeGet(Page: Int, Size: Int, Sort: String, Filter: String): A_RegistrationAttributeConnection!
+	A_RegistrationAttributeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): A_RegistrationAttributeConnection!
 }
 
 extend type Mutation {

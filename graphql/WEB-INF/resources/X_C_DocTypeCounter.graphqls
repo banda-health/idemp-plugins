@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_DocTypeCounter(UU: String!): C_DocTypeCounter
-	C_DocTypeCounterGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DocTypeCounterConnection!
+	C_DocTypeCounterGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_DocTypeCounterConnection!
 }
 
 extend type Mutation {

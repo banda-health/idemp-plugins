@@ -66,6 +66,12 @@ public class StockTransferReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Transfer inventory");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialMovement, null, false, false, false);

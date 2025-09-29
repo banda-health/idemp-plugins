@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_Note(UU: String!): AD_Note
-	AD_NoteGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_NoteConnection!
+	AD_NoteGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_NoteConnection!
 }
 
 extend type Mutation {

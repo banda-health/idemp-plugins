@@ -56,6 +56,12 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 		valueObject.setQuantity(null);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
@@ -184,6 +190,12 @@ public class PaymentTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(BigDecimal.TEN);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create first visit");

@@ -7,9 +7,12 @@ import graphql.execution.instrumentation.InstrumentationContext;
 import graphql.execution.instrumentation.SimpleInstrumentation;
 import graphql.execution.instrumentation.SimpleInstrumentationContext;
 import graphql.execution.instrumentation.parameters.InstrumentationExecutionParameters;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.util.CLogger;
+import org.compiere.util.Env;
 
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
@@ -31,6 +34,7 @@ public class LoggingInstrumentation extends SimpleInstrumentation {
 					return;
 				}
 				String logMessage = StringUtil.stripNewLines(parameters.getQuery());
+				// Skip logging information for sign-ins
 				if (!parameters.getVariables().isEmpty() && !parameters.getQuery().contains("AuthenticationInput")) {
 					String variablesString;
 					try {
@@ -41,6 +45,16 @@ public class LoggingInstrumentation extends SimpleInstrumentation {
 								.map((entry) -> entry.getKey() + ": " + entry.getValue().toString()).collect(Collectors.joining(", "));
 					}
 					logMessage += ", variables: " + variablesString;
+				}
+				// Add the user context for debugging & tracking purposes
+				try {
+					Properties idempiereContext = ((BandaGraphQLContext) parameters.getContext()).getIdempiereContext();
+					logMessage += ", userId: " + Env.getAD_User_ID(idempiereContext) + ", clientId: " +
+							Env.getAD_Client_ID(idempiereContext) + ", organizationId: " + Env.getAD_Org_ID(idempiereContext) +
+							", roleId: " + Env.getAD_Role_ID(idempiereContext) + ", warehouseId: " +
+							Env.getContextAsInt(idempiereContext, Env.M_WAREHOUSE_ID);
+				} catch (Exception e) {
+					logger.warning(e.getMessage());
 				}
 				logger.info(logMessage + ", execution time (ms): " + (System.currentTimeMillis() - startMillis));
 			}

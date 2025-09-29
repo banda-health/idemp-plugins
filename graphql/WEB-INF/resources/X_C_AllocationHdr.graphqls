@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_AllocationHdr(UU: String!): C_AllocationHdr
-	C_AllocationHdrGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AllocationHdrConnection!
+	C_AllocationHdrGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_AllocationHdrConnection!
 }
 
 extend type Mutation {
