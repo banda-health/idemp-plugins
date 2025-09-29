@@ -480,11 +480,10 @@ test('cashier/registration basic role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: true,
-	// 	BH_CanDeactivate: true,
-	// });
+	expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
+		IsReadWrite: true,
+		BH_CanDeactivate: true,
+	});
 });
 
 test('cashier/registration basic plus role has correct access', async () => {
@@ -630,11 +629,10 @@ test('cashier/registration basic plus role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: true,
-	// 	BH_CanDeactivate: true,
-	// });
+	expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
+		IsReadWrite: true,
+		BH_CanDeactivate: true,
+	});
 });
 
 test('cashier/registration advanced role has correct access', async () => {
@@ -780,11 +778,10 @@ test('cashier/registration advanced role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: true,
-	// 	BH_CanDeactivate: true,
-	// });
+	expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
+		IsReadWrite: true,
+		BH_CanDeactivate: true,
+	});
 });
 
 test('inventory/pharmacy advanced role has correct access', async () => {
@@ -930,11 +927,10 @@ test('inventory/pharmacy advanced role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: true,
-	// 	BH_CanDeactivate: true,
-	// });
+	expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
+		IsReadWrite: true,
+		BH_CanDeactivate: true,
+	});
 });
 
 test('inventory/pharmacy basic role has correct access', async () => {
@@ -1371,11 +1367,10 @@ test('clinician/nurse advanced role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: true,
-	// 	BH_CanDeactivate: true,
-	// });
+	expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
+		IsReadWrite: false,
+		BH_CanDeactivate: false,
+	});
 });
 
 test('triage role has correct access', async () => {
@@ -1661,11 +1656,10 @@ test('lab/radiology basic role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: false,
-	// 	BH_CanDeactivate: false,
-	// });
+	expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
+		IsReadWrite: false,
+		BH_CanDeactivate: false,
+	});
 });
 
 test('lab/radiology advanced role has correct access', async () => {
@@ -1811,11 +1805,10 @@ test('lab/radiology advanced role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: false,
-	// 	BH_CanDeactivate: false,
-	// });
+	expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
+		IsReadWrite: false,
+		BH_CanDeactivate: false,
+	});
 });
 
 test('accounting role has correct access', async () => {
@@ -1958,11 +1951,10 @@ test('accounting role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.billingHistoryManageDebt]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: true,
-	// 	BH_CanDeactivate: true,
-	// });
+	expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
+		IsReadWrite: true,
+		BH_CanDeactivate: true,
+	});
 });
 
 test('otc only role has correct access', async () => {
@@ -2259,11 +2251,10 @@ test('clinic user role has correct access', async () => {
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
-	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
-	// 	IsReadWrite: true,
-	// 	BH_CanDeactivate: true,
-	// });
+	expect(windowAccess?.[windowUuid.supplierPayments]).toMatchObject({
+		IsReadWrite: true,
+		BH_CanDeactivate: true,
+	});
 });
 
 test('registration role has correct access', async () => {
