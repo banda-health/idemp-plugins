@@ -828,6 +828,9 @@ query PaymentTrailGet($C_BPartner_UU: String!, $Page: Int, $Size: Int, $Sort: St
 query VendorPaymentTrailGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	VendorPaymentTrailGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
+			Base_Reversal_C_Invoice {
+				UU
+			}
 			C_Invoice {
 				DocStatus {
 					Value

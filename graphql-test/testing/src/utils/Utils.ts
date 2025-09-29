@@ -42,7 +42,7 @@ import {
 	ReportOutput,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
-import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
+import { documentAction, documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import { formatApiDate } from './DateUtil';
 
 export async function loadBankAccount(valueObject: ValueObject) {
@@ -556,7 +556,11 @@ export async function createInOutFromOrder(valueObject: ValueObject) {
 		throw new Error('BP is Null');
 	} else if (!valueObject.warehouse) {
 		throw new Error('Warehouse is Null');
-	} else if (valueObject.order?.DocStatus.Value !== documentStatus.Completed) {
+	} else if (
+		!valueObject.order ||
+		(valueObject.order.DocStatus.Value !== documentStatus.Completed &&
+			valueObject.documentAction === documentAction.Complete)
+	) {
 		throw new Error('Order Not Completed');
 	}
 
@@ -666,6 +670,7 @@ export async function createInvoice(valueObject: ValueObject) {
 	} else if (
 		valueObject.order &&
 		valueObject.order.DocStatus.Value !== documentStatus.Completed &&
+		valueObject.documentAction === documentAction.Complete &&
 		!valueObject.visit
 	) {
 		throw new Error('Order Not Completed');

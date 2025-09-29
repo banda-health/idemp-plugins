@@ -56,7 +56,6 @@ FROM
 			i.updated,
 			CASE
 				WHEN i.docstatus IN ('CO', 'CL') THEN i.updated
-				WHEN i.docstatus IN ('DR', 'IP') THEN i.created - '2010-01-01' + NOW()
 				ELSE i.created END                                                    AS ordering_date,
 			i.createdby,
 			o.c_order_id,
@@ -130,7 +129,6 @@ FROM
 			i.updated,
 			CASE
 				WHEN i.docstatus IN ('CO', 'CL') THEN i.updated
-				WHEN i.docstatus IN ('DR', 'IP') THEN i.created - '2010-01-01' + NOW()
 				ELSE i.created END                      AS ordering_date,
 			i.createdby,
 			NULL,
@@ -204,7 +202,6 @@ FROM
 			updated,
 			CASE
 				WHEN docstatus IN ('CO', 'CL') THEN updated
-				WHEN docstatus IN ('DR', 'IP') THEN created - '2010-01-01' + NOW()
 				ELSE created END,
 			createdby,
 			NULL,
