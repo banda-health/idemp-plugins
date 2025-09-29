@@ -39,7 +39,7 @@ VALUES
 	 ), 0, 0, 'Y', '2025-09-25 09:52:43.072000', '2025-09-25 10:09:15.016000', 100, 100, 'Original Invoice ID', NULL,
 	 NULL, 0, 'U', 'BH_Original_C_Invoice_ID', 335, 18, 336, 220, 22, NULL, 'N', 'N', 'N', 'Y',
 	 '@C_Order_ID@!0 | @C_Charge_ID@!0', 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
-		 SELECT MAX(ad_element_id) + 1 FROM ad_element WHERE ad_element_uu = '7c1b243d-de8b-4fd4-b0b6-4deb3dbd40af'
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '7c1b243d-de8b-4fd4-b0b6-4deb3dbd40af'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, 'f6653906-ed4d-40ba-82c1-ca12e9df4914', 'Y', 0, 'N', 'N', NULL,
 	 'cinvoiceoriginal_cpayment', 'N', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL);
 
