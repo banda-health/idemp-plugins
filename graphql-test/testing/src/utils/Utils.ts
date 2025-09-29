@@ -42,7 +42,7 @@ import {
 	ReportOutput,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
-import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
+import { documentAction, documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import { formatApiDate } from './DateUtil';
 
 export async function loadBankAccount(valueObject: ValueObject) {
@@ -556,7 +556,11 @@ export async function createInOutFromOrder(valueObject: ValueObject) {
 		throw new Error('BP is Null');
 	} else if (!valueObject.warehouse) {
 		throw new Error('Warehouse is Null');
-	} else if (valueObject.order?.DocStatus.Value !== documentStatus.Completed) {
+	} else if (
+		!valueObject.order ||
+		(valueObject.order.DocStatus.Value !== documentStatus.Completed &&
+			valueObject.documentAction === documentAction.Complete)
+	) {
 		throw new Error('Order Not Completed');
 	}
 
@@ -666,6 +670,7 @@ export async function createInvoice(valueObject: ValueObject) {
 	} else if (
 		valueObject.order &&
 		valueObject.order.DocStatus.Value !== documentStatus.Completed &&
+		valueObject.documentAction === documentAction.Complete &&
 		!valueObject.visit
 	) {
 		throw new Error('Order Not Completed');
@@ -771,10 +776,19 @@ export async function createPayment(valueObject: ValueObject) {
 			variables: {
 				Entity: {
 					AD_Org: { UU: valueObject.organization!.UU },
+					BH_Original_C_Invoice: valueObject.invoice?.UU ? { UU: valueObject.invoice.UU } : undefined,
+					BH_tender_amount: tenderAmount || 1,
+					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
+					C_BankAccount: { UU: valueObject.bankAccount.UU },
 					C_BPartner: { UU: valueObject.businessPartner.UU },
+					C_DocType: valueObject.documentType ? { UU: valueObject.documentType.UU } : undefined,
+					C_Invoice: valueObject.invoice ? { UU: valueObject.invoice.UU } : undefined,
+					C_Order: !valueObject.invoice && valueObject.order ? { UU: valueObject.order.UU } : undefined,
+					C_Currency: {
+						UU: valueObject.invoice?.C_Currency.UU || valueObject.order?.C_Currency.UU || valueObject.currency.UU,
+					},
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: paymentTotal || 1,
-					BH_tender_amount: tenderAmount || 1,
 					TenderType: {
 						UU: (
 							valueObject.tenderType ||
@@ -791,14 +805,6 @@ export async function createPayment(valueObject: ValueObject) {
 								})
 							).data.AD_Ref_ListGet.Results[0]
 						)?.UU,
-					},
-					C_DocType: valueObject.documentType ? { UU: valueObject.documentType.UU } : undefined,
-					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
-					C_BankAccount: { UU: valueObject.bankAccount.UU },
-					C_Invoice: valueObject.invoice ? { UU: valueObject.invoice.UU } : undefined,
-					C_Order: !valueObject.invoice && valueObject.order ? { UU: valueObject.order.UU } : undefined,
-					C_Currency: {
-						UU: valueObject.invoice?.C_Currency.UU || valueObject.order?.C_Currency.UU || valueObject.currency.UU,
 					},
 				},
 			},

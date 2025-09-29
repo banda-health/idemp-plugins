@@ -64,6 +64,21 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 
 
 	/**
+	 * Get Original Invoice ID.
+	 *
+	 * @return Original Invoice ID
+	 */
+	public CompletableFuture<MInvoice_BH> BH_Original_C_Invoice(MPayment_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getBH_Original_C_Invoice_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MInvoice_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
+		return dataLoader.load(entity.getBH_Original_C_Invoice_ID());
+	}
+
+
+	/**
 	 * Get Visit.
 	 *
 	 * @return Visit

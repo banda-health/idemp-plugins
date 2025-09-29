@@ -1,3 +1,82 @@
+-- Add the new column
+ALTER TABLE C_Payment
+	ADD COLUMN BH_Original_C_Invoice_ID NUMERIC DEFAULT NULL;
+ALTER TABLE C_Payment
+	ADD CONSTRAINT cinvoiceoriginal_cpayment FOREIGN KEY (BH_Original_C_Invoice_ID) REFERENCES c_invoice (c_invoice_id) DEFERRABLE INITIALLY DEFERRED;
+
+-- Add the new element for the new original invoice column to the payment table
+INSERT INTO
+	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
+	            entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help,
+	            ad_element_uu, placeholder)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_element_id) + 1
+		 FROM
+			 ad_element
+	 ), 0, 0, 'Y', '2025-09-25 09:50:40.259000', 100, '2025-09-25 09:50:40.259000', 100, 'BH_Original_C_Invoice_ID', 'U',
+	 'Original Invoice ID', 'Original Invoice ID', NULL, NULL, NULL, NULL, NULL, NULL,
+	 '7c1b243d-de8b-4fd4-b0b6-4deb3dbd40af', NULL);
+
+-- Now add the new column
+INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml,
+	           ad_val_rule_lookup_id, ad_infowindow_id, alwaysupdatablelogic, fkconstraintmsg_id, partitioningmethod,
+	           ispartitionkey, seqnopartition, rangepartitioninterval)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
+	 ), 0, 0, 'Y', '2025-09-25 09:52:43.072000', '2025-09-25 10:09:15.016000', 100, 100, 'Original Invoice ID', NULL,
+	 NULL, 0, 'U', 'BH_Original_C_Invoice_ID', 335, 18, 336, 220, 22, NULL, 'N', 'N', 'N', 'Y',
+	 '@C_Order_ID@!0 | @C_Charge_ID@!0', 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+		 SELECT MAX(ad_element_id) + 1 FROM ad_element WHERE ad_element_uu = '7c1b243d-de8b-4fd4-b0b6-4deb3dbd40af'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, 'f6653906-ed4d-40ba-82c1-ca12e9df4914', 'Y', 0, 'N', 'N', NULL,
+	 'cinvoiceoriginal_cpayment', 'N', NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL);
+
+-- Assign access for users for the supplier payment window
+INSERT INTO
+	ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+	                  isreadwrite, ad_window_access_uu, bh_candeactivate)
+SELECT
+	ad_window_id,
+	ad_role_id,
+	0,
+	0,
+	'Y',
+	NOW(),
+	100,
+	NOW(),
+	100,
+	CASE
+		WHEN ad_role_uu IN ('c54253cf-c86b-4aaa-b472-ed8880635c62', '097feff0-3aa6-41fe-bf76-936b03859846',
+		                    '17ccea57-1131-4d51-83ca-1824182e4493') THEN 'N'
+		ELSE 'Y' END,
+	uuid_generate_v4(),
+	CASE
+		WHEN ad_role_uu IN ('c54253cf-c86b-4aaa-b472-ed8880635c62', '097feff0-3aa6-41fe-bf76-936b03859846',
+		                    '17ccea57-1131-4d51-83ca-1824182e4493') THEN 'N'
+		ELSE 'Y' END
+FROM
+	ad_role r
+		JOIN ad_window
+			ON ad_window_uu = 'be24b4d5-987f-4aa5-ae14-38375b0d6bf2'
+WHERE
+	r.ad_role_uu IN ('93365778-a2d9-433b-b962-87fb150db4fa', 'ee008abc-2c16-4230-b48c-b1f5577ea270',
+	                 '09eb7fc8-9cc5-44b0-9d14-15258a066038', 'c0e72e44-9cc9-4a0a-b5cd-6cc923678c1a',
+	                 'e1a9a87d-dc61-4d9e-a6c9-f91d5f42e33e', '461b31c5-cae2-449d-8a0c-7385b12f4685',
+	                 'c54253cf-c86b-4aaa-b472-ed8880635c62', 'ec17fee0-a53a-4dbb-b946-423ce14880eb',
+	                 '097feff0-3aa6-41fe-bf76-936b03859846', '17ccea57-1131-4d51-83ca-1824182e4493');
+
 DROP FUNCTION IF EXISTS bh_get_vendor_payment_trail(_ad_client_id numeric);
 CREATE OR REPLACE FUNCTION bh_get_vendor_payment_trail(_ad_client_id numeric)
 	RETURNS table
@@ -285,3 +364,8 @@ FROM
 		GROUP BY bp.c_bpartner_id, bp.createdby
 	) b
 $$;
+
+SELECT
+	register_migration_script('202509291177_GO-984.sql')
+FROM
+	dual;
