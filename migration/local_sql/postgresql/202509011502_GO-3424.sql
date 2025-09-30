@@ -6,7 +6,7 @@ FROM
 	(
 		SELECT
 			r.ad_role_id,
-			r.name || '-' || STRING_AGG(SUBSTR(w.name, 1) || SUBSTR(w.m_warehouse_uu, 2), ',') AS name
+			r.name || '-' || STRING_AGG(SUBSTR(w.name, 1, 1) || SUBSTR(w.m_warehouse_uu, 1, 2), ',') AS name
 		FROM
 			ad_role r
 				JOIN bh_warehouse_access wa
