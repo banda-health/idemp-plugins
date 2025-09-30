@@ -37,7 +37,7 @@ FROM
 			ON r.ad_role_uu = 'd162fcdb-22ff-4004-8685-f9ebef1aa273'
 WHERE
 	u.ad_user_uu IN ('775cf2b6-988f-46bc-a7d0-47721a9ffd97', '7f805ff3-65ce-4283-838b-154def453c98',
-	                 '7f805ff3-65ce-4283-838b-154def453c98');
+	                 'f284b016-052f-4f81-b28c-fb918b5ff173');
 
 SELECT
 	register_migration_script('202509231134_GO-3422.sql')
