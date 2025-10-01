@@ -13,7 +13,15 @@ public class QueryUtil {
 			List.of("\\", "--", ";", "'", "\"", "?", "=", "!", "^", "&", "$", "#", "@", "`", "~", "DROP", "DELETE",
 					"UPDATE", "SELECT", "FROM", "WHERE");
 	public static final List<String> DISALLOWED_WHERE_CLAUSE_TOKENS =
-			List.of("\\", "--", ";", "'", "DROP ", "DELETE ", "UPDATE ", "CREATE ", "INDEX ");
+			List.of(
+					"\\", "--", ";", "'", "\"",
+					"DROP ", "DELETE ", "UPDATE ", "CREATE ", "INDEX ",
+					"ALTER ", "TRUNCATE ", "EXEC ", "EXECUTE ",
+					"xp_", "sp_", "0x",  // Common SQL injection patterns
+					"/*", "*/",  // Block comments
+					"UNION ", "INSERT ", "MERGE ",
+					"GRANT ", "REVOKE "
+			);
 
 	/**
 	 * This generates a parameter list based on a number of items (i.e. for items [1,2,3], this generates a where clause

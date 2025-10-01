@@ -5,22 +5,15 @@
 -- First, identify purchase orders that don't have invoices yet
 DROP TABLE IF EXISTS tmp_po_without_invoices;
 SELECT DISTINCT
-	o.c_order_id,
-	o.ad_client_id,
-	o.ad_org_id,
-	o.c_bpartner_id,
-	o.c_bpartner_location_id,
-	o.dateordered,
-	o.dateacct,
-	o.grandtotal,
-	o.totallines,
-	o.c_currency_id,
-	o.m_pricelist_id,
-	o.bh_visit_id
-INTO TEMP TABLE tmp_po_without_invoices
-FROM c_order o
-	LEFT JOIN c_invoice i ON o.c_order_id = i.c_order_id AND i.docstatus IN ('CO', 'CL')
-WHERE o.issotrx = 'N'
+	o.c_order_id
+INTO TEMP TABLE
+	tmp_po_without_invoices
+FROM
+	c_order o
+		LEFT JOIN c_invoice i
+			ON o.c_order_id = i.c_order_id AND i.docstatus IN ('CO', 'CL')
+WHERE
+	o.issotrx = 'N'
 	AND o.docstatus IN ('CO', 'CL')
 	AND o.bh_visit_id IS NULL
 	AND i.c_invoice_id IS NULL
@@ -35,8 +28,12 @@ CREATE TEMP TABLE tmp_c_invoice
 	c_invoice_id           serial                           NOT NULL,
 	ad_client_id           numeric(10)                      NOT NULL,
 	ad_org_id              numeric(10)                      NOT NULL,
+-- 	isactive               char         DEFAULT 'Y'::bpchar NOT NULL,
+-- 	created                timestamp    DEFAULT NOW()       NOT NULL,
 	createdby              numeric(10)  DEFAULT 100         NOT NULL,
+-- 	updated                timestamp    DEFAULT NOW()       NOT NULL,
 	updatedby              numeric(10)  DEFAULT 100         NOT NULL,
+	issotrx                char         DEFAULT 'N'::bpchar NOT NULL,
 	documentno             numeric                          NOT NULL,
 	docstatus              char(2)      DEFAULT 'CO'        NOT NULL,
 	docaction              char(2)      DEFAULT 'CL'        NOT NULL,
@@ -47,63 +44,108 @@ CREATE TEMP TABLE tmp_c_invoice
 	c_doctypetarget_id     numeric(10)                      NOT NULL,
 	c_order_id             numeric(10),
 	description            varchar(255) DEFAULT 'Purchase Order Invoice - Auto Generated',
-	dateinvoiced           timestamp    DEFAULT date(NOW()) NOT NULL,
-	dateacct               timestamp    DEFAULT date(NOW()) NOT NULL,
+-- 	isapproved             char         DEFAULT 'N'::bpchar NOT NULL,
+-- 	istransferred          char         DEFAULT 'N'::bpchar NOT NULL,
+-- 	isprinted              char         DEFAULT 'N'::bpchar NOT NULL,
+	salesrep_id            numeric(10),
+	dateinvoiced           timestamp                        NOT NULL,
+-- 	dateprinted            timestamp,
+	dateacct               timestamp                        NOT NULL,
 	c_bpartner_id          numeric(10)                      NOT NULL,
 	c_bpartner_location_id numeric(10)                      NOT NULL,
-	isdiscountprinted      char         DEFAULT 'N'::bpchar NOT NULL,
+	poreference            varchar(20)                      NULL,
+	isdiscountprinted      char         DEFAULT 'Y'::bpchar NOT NULL,
+	dateordered            timestamp                        NOT NULL,
 	c_currency_id          numeric(10)                      NOT NULL,
 	paymentrule            char         DEFAULT 'P'         NOT NULL,
 	c_paymentterm_id       numeric(10)                      NOT NULL,
+-- 	c_charge_id            numeric(10),
+-- 	chargeamt              numeric      DEFAULT 0,
 	totallines             numeric                          NOT NULL,
 	grandtotal             numeric                          NOT NULL,
 	m_pricelist_id         numeric(10)                      NOT NULL,
+-- 	istaxincluded          char         DEFAULT 'N'::bpchar NOT NULL,
+-- 	c_campaign_id          numeric(10),
+-- 	c_project_id           numeric(10),
+-- 	c_activity_id          numeric(10),
 	ispaid                 char         DEFAULT 'Y'::bpchar NOT NULL,
-	processedon            numeric      DEFAULT EXTRACT(EPOCH FROM NOW()) * 1000,
-	c_invoice_uu           uuid         DEFAULT uuid_generate_v4(),
-	isfixedassetinvoice    char         DEFAULT 'N',
-	bh_visit_id            numeric(10)
+-- 	c_payment_id           numeric(10),
+-- 	c_cashline_id          numeric(10),
+-- 	createfrom             char,
+-- 	generateto             char,
+-- 	sendemail              char         DEFAULT 'N'::bpchar NOT NULL,
+-- 	ad_user_id             numeric(10),
+-- 	copyfrom               char,
+-- 	isselfservice          char         DEFAULT 'N'::bpchar NOT NULL,
+-- 	ad_orgtrx_id           numeric(10),
+-- 	user1_id               numeric(10),
+-- 	user2_id               numeric(10),
+-- 	c_conversiontype_id    numeric(10),
+-- 	ispayschedulevalid     char         DEFAULT 'N'::bpchar NOT NULL,
+-- 	ref_invoice_id         numeric(10),
+-- 	isindispute            char         DEFAULT 'N'::bpchar NOT NULL,
+-- 	invoicecollectiontype  char,
+-- 	m_rma_id               numeric(10),
+-- 	dunninggrace           timestamp,
+-- 	c_dunninglevel_id      numeric(10),
+-- 	reversal_id            numeric(10),
+	processedon            numeric,
+-- 	c_cashplanline_id      numeric(10)  DEFAULT NULL::numeric,
+	c_invoice_uu           varchar(36)  DEFAULT uuid_generate_v4(),
+	isfixedassetinvoice    char         DEFAULT 'N'
+-- 	relatedinvoice_id      numeric(10)  DEFAULT NULL::numeric,
+-- 	bh_voided_reason_id    numeric(10)  DEFAULT NULL::numeric,
+-- 	bh_visit_id            numeric(10)  DEFAULT NULL::numeric,
+-- 	isoverridecurrencyrate char         DEFAULT 'N'::bpchar NOT NULL,
+-- 	currencyrate           numeric,
+-- 	createlinesfrom        char         DEFAULT NULL::bpchar
 );
 
 SELECT
 	SETVAL(
-		'tmp_c_invoice_c_invoice_id_seq',
-		(
-			SELECT
-				COALESCE(MAX(c_invoice_id), 0) + 1
-			FROM
-				c_invoice
-		)::INT,
-		FALSE
+			'tmp_c_invoice_c_invoice_id_seq',
+			(
+				SELECT
+					COALESCE(MAX(c_invoice_id), 0) + 1
+				FROM
+					c_invoice
+			)::INT,
+			FALSE
 	);
 
 INSERT INTO
 	tmp_c_invoice (ad_client_id, ad_org_id, documentno, c_doctype_id, c_doctypetarget_id, c_order_id,
-	               c_bpartner_id, c_bpartner_location_id, c_currency_id, c_paymentterm_id, m_pricelist_id,
-	               totallines, grandtotal, bh_visit_id)
+	               salesrep_id, dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, dateordered, c_currency_id,
+	               c_paymentterm_id, totallines, grandtotal, m_pricelist_id, processedon)
 SELECT
-	po.ad_client_id,
-	po.ad_org_id,
+	o.ad_client_id,
+	o.ad_org_id,
 	seq.currentnext - 1, -- We'll put the correct one when do a row numbering partitioned by ad_client_id below
 	dt.c_doctype_id,
 	dt.c_doctype_id,
-	po.c_order_id,
-	po.c_bpartner_id,
-	po.c_bpartner_location_id,
-	po.c_currency_id,
+	o.c_order_id,
+	o.salesrep_id,
+	o.dateordered,
+	o.dateacct,
+	o.c_bpartner_id,
+	o.c_bpartner_location_id,
+	o.dateordered,
+	o.c_currency_id,
 	pt.c_paymentterm_id,
-	po.m_pricelist_id,
-	po.totallines,
-	po.grandtotal,
-	po.bh_visit_id
+	o.totallines,
+	o.grandtotal,
+	o.m_pricelist_id,
+	EXTRACT(EPOCH FROM o.dateordered) * 1000
 FROM
 	tmp_po_without_invoices po
+		JOIN c_order o
+			ON po.c_order_id = o.c_order_id
 		JOIN ad_sequence seq
-			ON seq.ad_client_id = po.ad_client_id AND seq.name = 'DocumentNo_C_Invoice'
+			ON seq.ad_client_id = o.ad_client_id AND seq.name = 'DocumentNo_C_Invoice'
 		JOIN c_doctype dt
-			ON po.ad_client_id = dt.ad_client_id AND dt.name = 'AP Invoice'
+			ON o.ad_client_id = dt.ad_client_id AND dt.name = 'AP Invoice'
 		JOIN c_paymentterm pt
-			ON pt.ad_client_id = po.ad_client_id AND pt.value = 'Immediate';
+			ON pt.ad_client_id = o.ad_client_id AND pt.value = 'Immediate';
 
 -- Update the document numbers
 UPDATE tmp_c_invoice i
@@ -122,16 +164,18 @@ WHERE
 
 -- Insert the real invoices!
 INSERT INTO
-	c_invoice (c_invoice_id, ad_client_id, ad_org_id, createdby, updatedby, documentno, docstatus, docaction, processing,
-	           processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, dateinvoiced, dateacct,
-	           c_bpartner_id, c_bpartner_location_id, isdiscountprinted, c_currency_id, paymentrule, c_paymentterm_id,
-	           totallines, grandtotal, m_pricelist_id, processedon, c_invoice_uu, isfixedassetinvoice, bh_visit_id, ispaid)
+	c_invoice (c_invoice_id, ad_client_id, ad_org_id, createdby, updatedby, issotrx, documentno, docstatus, docaction,
+	           processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id,
+	           dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference, isdiscountprinted, dateordered,
+	           c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal, m_pricelist_id, ispaid, processedon,
+	           c_invoice_uu, isfixedassetinvoice)
 SELECT
 	c_invoice_id,
 	ad_client_id,
 	ad_org_id,
 	createdby,
 	updatedby,
+	issotrx,
 	documentno,
 	docstatus,
 	docaction,
@@ -142,22 +186,24 @@ SELECT
 	c_doctypetarget_id,
 	c_order_id,
 	description,
+	salesrep_id,
 	dateinvoiced,
 	dateacct,
 	c_bpartner_id,
 	c_bpartner_location_id,
+	poreference,
 	isdiscountprinted,
+	dateordered,
 	c_currency_id,
 	paymentrule,
 	c_paymentterm_id,
 	totallines,
 	grandtotal,
 	m_pricelist_id,
+	ispaid,
 	processedon,
 	c_invoice_uu,
-	isfixedassetinvoice,
-	bh_visit_id,
-	ispaid
+	isfixedassetinvoice
 FROM
 	tmp_c_invoice;
 
@@ -167,83 +213,127 @@ FROM
 DROP TABLE IF EXISTS tmp_c_invoiceline;
 CREATE TEMP TABLE tmp_c_invoiceline
 (
-	c_invoiceline_id    serial                          NOT NULL,
-	ad_client_id        numeric(10)                     NOT NULL,
-	ad_org_id           numeric(10)                     NOT NULL,
-	createdby           numeric(10) DEFAULT 100         NOT NULL,
-	updatedby           numeric(10) DEFAULT 100         NOT NULL,
-	c_invoice_id        numeric(10)                     NOT NULL,
-	c_orderline_id      numeric(10),
-	line                numeric(10)                     NOT NULL,
-	qtyinvoiced         numeric                         NOT NULL,
-	priceactual         numeric                         NOT NULL,
-	linenetamt          numeric                         NOT NULL,
-	m_product_id        numeric(10),
-	c_charge_id         numeric(10),
-	c_uom_id            numeric(10) DEFAULT 100,
-	c_tax_id            numeric(10),
-	processed           char        DEFAULT 'Y'::bpchar NOT NULL,
-	qtyentered          numeric                         NOT NULL,
-	priceentered        numeric                         NOT NULL,
-	c_invoiceline_uu    uuid        DEFAULT uuid_generate_v4(),
-	isfixedassetinvoice char        DEFAULT 'N'
+	c_invoiceline_id          serial                          NOT NULL,
+	ad_client_id              numeric(10)                     NOT NULL,
+	ad_org_id                 numeric(10)                     NOT NULL,
+	isactive                  char        DEFAULT 'Y'::bpchar NOT NULL,
+-- 	created                   timestamp   DEFAULT NOW()       NOT NULL,
+	createdby                 numeric(10) DEFAULT 100         NOT NULL,
+-- 	updated                   timestamp   DEFAULT NOW()       NOT NULL,
+	updatedby                 numeric(10) DEFAULT 100         NOT NULL,
+	c_invoice_id              numeric(10)                     NOT NULL,
+	c_orderline_id            numeric(10)                     NOT NULL,
+	m_inoutline_id            numeric(10),
+	line                      numeric(10)                     NOT NULL,
+--	description               varchar(255),
+	m_product_id              numeric(10)                     NOT NULL,
+	qtyinvoiced               numeric                         NOT NULL,
+	pricelist                 numeric                         NOT NULL,
+	priceactual               numeric                         NOT NULL,
+	pricelimit                numeric                         NOT NULL,
+	linenetamt                numeric                         NOT NULL,
+--	c_charge_id               numeric(10),
+	c_uom_id                  numeric(10)                     NOT NULL,
+	c_tax_id                  numeric(10)                     NOT NULL,
+--	s_resourceassignment_id   numeric(10),
+--	a_asset_id                numeric(10),
+--	taxamt                    numeric     DEFAULT 0,
+	m_attributesetinstance_id numeric(10)                     NOT NULL,
+--	isdescription             char        DEFAULT 'N'::bpchar NOT NULL,
+--	isprinted                 char        DEFAULT 'Y'::bpchar NOT NULL,
+	linetotalamt              numeric                         NOT NULL,
+--	ref_invoiceline_id        numeric(10),
+	processed                 char        DEFAULT 'Y'::bpchar NOT NULL,
+	qtyentered                numeric                         NOT NULL,
+	priceentered              numeric                         NOT NULL,
+--	c_project_id              numeric(10),
+--	c_projectphase_id         numeric(10),
+--	c_projecttask_id          numeric(10),
+--	rrstartdate               timestamp,
+--	rramt                     numeric,
+--	c_campaign_id             numeric(10),
+--	c_activity_id             numeric(10),
+--	user1_id                  numeric(10),
+--	user2_id                  numeric(10),
+--	ad_orgtrx_id              numeric(10),
+--	m_rmaline_id              numeric(10),
+--	a_createasset             char        DEFAULT 'N'::bpchar,
+--	a_processed               char        DEFAULT 'N'::bpchar,
+--	a_capvsexp                varchar(3),
+--	a_asset_group_id          numeric(10),
+	c_invoiceline_uu          varchar(36) DEFAULT uuid_generate_v4(),
+	isfixedassetinvoice       char        DEFAULT 'N'
+--	c_1099box_id              numeric(10) DEFAULT NULL::numeric
 );
 
 SELECT
 	SETVAL(
-		'tmp_c_invoiceline_c_invoiceline_id_seq',
-		(
-			SELECT
-				COALESCE(MAX(c_invoiceline_id), 0) + 1
-			FROM
-				c_invoiceline
-		)::INT,
-		FALSE
+			'tmp_c_invoiceline_c_invoiceline_id_seq',
+			(
+				SELECT
+					COALESCE(MAX(c_invoiceline_id), 0) + 1
+				FROM
+					c_invoiceline
+			)::INT,
+			FALSE
 	);
 
 INSERT INTO
-	tmp_c_invoiceline (ad_client_id, ad_org_id, c_invoice_id, c_orderline_id, line, qtyinvoiced, priceactual,
-	                   linenetamt, m_product_id, c_charge_id, c_tax_id, qtyentered, priceentered)
+	tmp_c_invoiceline (ad_client_id, ad_org_id, c_invoice_id, c_orderline_id, m_inoutline_id, line, m_product_id,
+	                   qtyinvoiced, pricelist, priceactual, pricelimit, linenetamt, c_uom_id, c_tax_id,
+	                   m_attributesetinstance_id, linetotalamt, qtyentered, priceentered)
 SELECT
 	ti.ad_client_id,
 	ti.ad_org_id,
 	ti.c_invoice_id,
 	ol.c_orderline_id,
+	iol.m_inoutline_id,
 	ol.line,
-	ol.qtyordered,
-	ol.priceactual,
-	ol.linenetamt,
 	ol.m_product_id,
-	ol.c_charge_id,
+	ol.qtyordered,
+	ol.pricelist,
+	ol.priceactual,
+	ol.pricelimit,
+	ol.linenetamt,
+	ol.c_uom_id,
 	ol.c_tax_id,
-	ol.qtyentered,
-	ol.priceentered
+	ol.m_attributesetinstance_id,
+	ol.linenetamt,
+	ol.qtyentered
 FROM
 	tmp_c_invoice ti
 		JOIN c_orderline ol
-			ON ti.c_order_id = ol.c_order_id;
+			ON ti.c_order_id = ol.c_order_id
+		LEFT JOIN m_inoutline iol
+			ON ol.c_orderline_id = iol.c_orderline_id;
 
 -- Insert the real invoice lines!
 INSERT INTO
-	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, createdby, updatedby, c_invoice_id, c_orderline_id,
-	               line, qtyinvoiced, priceactual, linenetamt, m_product_id, c_charge_id, c_uom_id, c_tax_id,
-	               processed, qtyentered, priceentered, c_invoiceline_uu, isfixedassetinvoice)
+	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, isactive, createdby, updatedby, c_invoice_id,
+	               c_orderline_id, m_inoutline_id, line, m_product_id, qtyinvoiced, pricelist, priceactual, pricelimit,
+	               linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt, processed, qtyentered,
+	               priceentered, c_invoiceline_uu, isfixedassetinvoice)
 SELECT
 	c_invoiceline_id,
 	ad_client_id,
 	ad_org_id,
+	isactive,
 	createdby,
 	updatedby,
 	c_invoice_id,
 	c_orderline_id,
+	m_inoutline_id,
 	line,
-	qtyinvoiced,
-	priceactual,
-	linenetamt,
 	m_product_id,
-	c_charge_id,
+	qtyinvoiced,
+	pricelist,
+	priceactual,
+	pricelimit,
+	linenetamt,
 	c_uom_id,
 	c_tax_id,
+	m_attributesetinstance_id,
+	linetotalamt,
 	processed,
 	qtyentered,
 	priceentered,
@@ -292,17 +382,17 @@ CREATE TEMP TABLE tmp_c_payment
 
 SELECT
 	SETVAL(
-		'tmp_c_payment_c_payment_id_seq',
-		(
-			SELECT
-				currentnext
-			FROM
-				ad_sequence
-			WHERE
-				name = 'C_Payment'
-			LIMIT 1
-		)::INT,
-		FALSE
+			'tmp_c_payment_c_payment_id_seq',
+			(
+				SELECT
+					currentnext
+				FROM
+					ad_sequence
+				WHERE
+					name = 'C_Payment'
+				LIMIT 1
+			)::INT,
+			FALSE
 	);
 
 INSERT INTO
@@ -417,14 +507,14 @@ CREATE TEMP TABLE tmp_fact_acct
 
 SELECT
 	SETVAL(
-		'tmp_fact_acct_fact_acct_id_seq',
-		(
-			SELECT
-				COALESCE(MAX(fact_acct_id), 0) + 1
-			FROM
-				fact_acct
-		)::INT,
-		FALSE
+			'tmp_fact_acct_fact_acct_id_seq',
+			(
+				SELECT
+					COALESCE(MAX(fact_acct_id), 0) + 1
+				FROM
+					fact_acct
+			)::INT,
+			FALSE
 	);
 
 -- Enter the accounting for payments
@@ -533,14 +623,14 @@ CREATE TEMP TABLE tmp_c_allocationhdr
 
 SELECT
 	SETVAL(
-		'tmp_c_allocationhdr_c_allocationhdr_id_seq',
-		(
-			SELECT
-				COALESCE(MAX(c_allocationhdr_id), 0) + 1
-			FROM
-				c_allocationhdr
-		)::INT,
-		FALSE
+			'tmp_c_allocationhdr_c_allocationhdr_id_seq',
+			(
+				SELECT
+					COALESCE(MAX(c_allocationhdr_id), 0) + 1
+				FROM
+					c_allocationhdr
+			)::INT,
+			FALSE
 	);
 
 INSERT INTO
@@ -624,14 +714,14 @@ CREATE TEMP TABLE tmp_c_allocationline
 
 SELECT
 	SETVAL(
-		'tmp_c_allocationline_c_allocationline_id_seq',
-		(
-			SELECT
-				COALESCE(MAX(c_allocationline_id), 0) + 1
-			FROM
-				c_allocationline
-		)::INT,
-		FALSE
+			'tmp_c_allocationline_c_allocationline_id_seq',
+			(
+				SELECT
+					COALESCE(MAX(c_allocationline_id), 0) + 1
+				FROM
+					c_allocationline
+			)::INT,
+			FALSE
 	);
 
 INSERT INTO

@@ -141,9 +141,19 @@ public class Repository {
 			}
 			String filterWhereClause =
 					FilterUtil.getWhereClauseFromFilter(tableName, filter, parameters, idempiereContext);
+			StringBuilder dynamicJoinBuilder = new StringBuilder();
 			if (StringUtil.isNullOrEmpty(whereClause)) {
 				whereClause = filterWhereClause;
 			} else {
+				// If we already have a where clause, we may need to add dynamic joins
+				String finalWhereClause = whereClause;
+				if (dynamicJoins != null) {
+					dynamicJoins.forEach((joinTableName, joinClause) -> {
+						if (finalWhereClause.toLowerCase().contains(joinTableName.toLowerCase() + ".")) {
+							dynamicJoinBuilder.append(joinClause).append(" ");
+						}
+					});
+				}
 				whereClause += " AND " + filterWhereClause;
 				// Since the WHERE clause was passed in, we're going to make sure that we have client access added
 				if (isApplyAccessFilterNeeded.get()) {
@@ -157,15 +167,15 @@ public class Repository {
 			// If we need dynamic joins (or an auto-generated join), we can't guarantee that the access SQL will work
 			// (i.e. what is set in via the fully qualified where clause in the query builder). So we'll have to generate
 			// that ourselves and add it to the WHERE clause
-			StringBuilder dynamicJoinBuilder = new StringBuilder();
 			String orderByClause = SortUtil.getOrderByClauseFromSort(tableName, sort);
 			// TODO: Remove this when we can dynamically generate sorts
-			if (!StringUtil.isNullOrEmpty(sort)) {
+			if (!StringUtil.isNullOrEmpty(sort) && dynamicJoins != null) {
 				Set<String> tablesNeedingJoins = SortUtil.getTablesNeedingJoins(sort);
 				tablesNeedingJoins.forEach(tableNeedingJoin -> {
 					// If this isn't the current table, it's not empty, and it's not in the current JOIN clause (the table
 					// will need spaces around its name for SQL to differentiate, so check that)
-					if (!tableNeedingJoin.equalsIgnoreCase(tableName)) {
+					if (!tableNeedingJoin.equalsIgnoreCase(tableName) &&
+							!dynamicJoinBuilder.toString().toLowerCase().contains(tableNeedingJoin.toLowerCase())) {
 						dynamicJoinBuilder.append(dynamicJoins.get(tableNeedingJoin)).append(" ");
 					}
 				});

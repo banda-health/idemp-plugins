@@ -757,8 +757,11 @@ query M_ProductGet($Page: Int, $Size: Int, $Sort: String, $Filter: String, $Wher
 	}
 }
 
-query M_StorageOnHandGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
-	M_StorageOnHandGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+query M_StorageOnHandGet($Page: Int, $Size: Int, $Sort: String, $Filter: String, $Where: String) {
+	M_StorageOnHandGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter, Where: $Where) {
+		PagingInfo {
+			TotalCount
+		}
 		Results {
 			UU
 			M_AttributeSetInstance {
