@@ -1,3 +1,4 @@
+-- Update sorting when data is the same across multiple
 DROP FUNCTION IF EXISTS bh_get_vendor_payment_trail(_ad_client_id numeric);
 CREATE OR REPLACE FUNCTION bh_get_vendor_payment_trail(_ad_client_id numeric)
 	RETURNS table
@@ -285,3 +286,11 @@ FROM
 		GROUP BY bp.c_bpartner_id, bp.createdby
 	) b
 $$;
+
+-- Create an index to speed up queries
+CREATE INDEX cpayment_bhoriginalcinvoiceid ON c_payment (bh_original_c_invoice_id);
+
+SELECT
+	register_migration_script('202510011624_GO-984.sql')
+FROM
+	dual;
