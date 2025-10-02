@@ -155,7 +155,7 @@ FROM
 	(
 		SELECT
 			c_invoice_id,
-			ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_invoice_id) AS row_num
+					ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_invoice_id) AS row_num
 		FROM
 			tmp_c_invoice
 	) ti
@@ -299,7 +299,8 @@ SELECT
 	ol.c_tax_id,
 	ol.m_attributesetinstance_id,
 	ol.linenetamt,
-	ol.qtyentered
+	ol.qtyentered,
+	ol.priceentered
 FROM
 	tmp_c_invoice ti
 		JOIN c_orderline ol
@@ -425,7 +426,7 @@ FROM
 	(
 		SELECT
 			c_payment_id,
-			ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_payment_id) AS row_num
+					ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_payment_id) AS row_num
 		FROM
 			tmp_c_payment
 	) tpc
@@ -658,7 +659,7 @@ FROM
 	(
 		SELECT
 			c_allocationhdr_id,
-			ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_allocationhdr_id) AS row_num
+					ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_allocationhdr_id) AS row_num
 		FROM
 			tmp_c_allocationhdr
 	) tahc
