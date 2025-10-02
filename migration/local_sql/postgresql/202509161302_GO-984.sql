@@ -17,7 +17,10 @@ WHERE
 	AND o.docstatus IN ('CO', 'CL')
 	AND o.bh_visit_id IS NULL
 	AND i.c_invoice_id IS NULL
-	AND o.ad_client_id > 999999;
+	AND o.ad_client_id > 999999
+	AND NOT EXISTS (
+		SELECT 1 FROM c_orderline WHERE c_order_id = o.c_order_id AND m_product_id IS NULL
+	);
 
 /**********************************************************************************************************/
 -- Create invoices for purchase orders
@@ -155,7 +158,7 @@ FROM
 	(
 		SELECT
 			c_invoice_id,
-					ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_invoice_id) AS row_num
+			ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_invoice_id) AS row_num
 		FROM
 			tmp_c_invoice
 	) ti
@@ -426,7 +429,7 @@ FROM
 	(
 		SELECT
 			c_payment_id,
-					ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_payment_id) AS row_num
+			ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_payment_id) AS row_num
 		FROM
 			tmp_c_payment
 	) tpc
@@ -659,7 +662,7 @@ FROM
 	(
 		SELECT
 			c_allocationhdr_id,
-					ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_allocationhdr_id) AS row_num
+			ROW_NUMBER() OVER ( PARTITION BY ad_client_id ORDER BY c_allocationhdr_id) AS row_num
 		FROM
 			tmp_c_allocationhdr
 	) tahc
