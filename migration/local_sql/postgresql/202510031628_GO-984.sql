@@ -1,3 +1,4 @@
+-- Ensure the payment created for reversal isn't also pulled in
 DROP FUNCTION IF EXISTS bh_get_vendor_payment_trail(_ad_client_id numeric);
 CREATE OR REPLACE FUNCTION bh_get_vendor_payment_trail(_ad_client_id numeric)
 	RETURNS table
@@ -285,3 +286,9 @@ FROM
 		GROUP BY bp.c_bpartner_id, bp.createdby
 	) b
 $$;
+
+
+SELECT
+	register_migration_script('202510031628_GO-984.sql')
+FROM
+	dual;
