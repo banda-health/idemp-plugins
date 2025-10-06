@@ -15,6 +15,7 @@ import {
 	C_InvoiceProcessDocument,
 	C_InvoiceSaveWithInvoiceLinesDocument,
 	C_OrderGetDocument,
+	C_OrderLineGetDocument,
 	C_OrderProcessDocument,
 	C_OrderSaveWithOrderLinesDocument,
 	C_PaymentProcessDocument,
@@ -41,7 +42,7 @@ import {
 	ReportOutput,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
-import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
+import { documentAction, documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import { formatApiDate } from './DateUtil';
 
 export async function loadBankAccount(valueObject: ValueObject) {
@@ -466,6 +467,13 @@ export async function createInOut(valueObject: ValueObject) {
 		throw new Error('Order Not Completed');
 	}
 
+	const movementTypes = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.MOVEMENT_TYPES } }) },
+		})
+	).data.AD_Ref_ListGet.Results;
+
 	//create inout header
 	valueObject.inOut = (
 		await mutate(valueObject)({
@@ -484,7 +492,11 @@ export async function createInOut(valueObject: ValueObject) {
 					IsSOTrx: valueObject.documentType.IsSOTrx,
 					M_Warehouse: { UU: valueObject.warehouse.UU },
 					MovementDate: formatApiDate(valueObject.date),
-					MovementType: { UU: '' },
+					MovementType: {
+						UU: movementTypes.find(
+							(movementType) => movementType.Value === (valueObject.documentType?.IsSOTrx ? 'C+' : 'V+'),
+						)?.UU!,
+					},
 				},
 			},
 		})
@@ -528,6 +540,121 @@ export async function createInOut(valueObject: ValueObject) {
 } //create inout
 
 /**
+ * Create an InOut record based on the order. This will create both the InOut header and lines
+ * from the completed order, matching the Java createInOutFromOrder method exactly.
+ * This creates lines for ALL order lines in the order, just like the Java version.
+ * @param valueObject The value object containing information to create the entity
+ * @returns Nothing
+ */
+export async function createInOutFromOrder(valueObject: ValueObject) {
+	valueObject.validate();
+
+	//perform further validation if needed based on business logic
+	if (!valueObject.documentType) {
+		throw new Error('DocType is Null');
+	} else if (!valueObject.businessPartner) {
+		throw new Error('BP is Null');
+	} else if (!valueObject.warehouse) {
+		throw new Error('Warehouse is Null');
+	} else if (
+		!valueObject.order ||
+		(valueObject.order.DocStatus.Value !== documentStatus.Completed &&
+			valueObject.documentAction === documentAction.Complete)
+	) {
+		throw new Error('Order Not Completed');
+	}
+
+	// Get all order lines from the order - matching Java behavior
+	const orderLines = (
+		await query(valueObject)({
+			query: C_OrderLineGetDocument,
+			variables: {
+				Filter: JSON.stringify({ c_order: { c_order_uu: valueObject.order.UU } }),
+				Size: 1000, // Get all order lines
+			},
+		})
+	).data.C_OrderLineGet.Results as any[]; // Type assertion until GraphQL types are regenerated
+
+	if (orderLines.length === 0) {
+		throw new Error('Order has no lines');
+	}
+
+	const movementTypes = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.MOVEMENT_TYPES } }) },
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	//create inout header
+	valueObject.inOut = (
+		await mutate(valueObject)({
+			mutation: M_InOutSaveDocument,
+			variables: {
+				M_InOut: {
+					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
+					AD_User: { UU: valueObject.user!.UU },
+					BH_Visit:
+						valueObject.documentType.IsSOTrx && valueObject.visit?.UU ? { UU: valueObject.visit.UU } : undefined,
+					C_BPartner: { UU: valueObject.businessPartner.UU },
+					C_DocType: { UU: valueObject.documentType.UU },
+					C_Order: { UU: valueObject.order.UU },
+					DateAcct: formatApiDate(valueObject.date),
+					Description: valueObject.getStepMessageLong(),
+					IsSOTrx: valueObject.documentType.IsSOTrx,
+					M_Warehouse: { UU: valueObject.warehouse.UU },
+					MovementDate: formatApiDate(valueObject.date),
+					MovementType: {
+						UU: movementTypes.find(
+							(movementType) => movementType.Value === (valueObject.documentType?.IsSOTrx ? 'C+' : 'V+'),
+						)?.UU!,
+					},
+				},
+			},
+		})
+	).data?.M_InOutSave;
+
+	//create inout lines for all order lines - matching Java behavior exactly
+	const locatorToUse = valueObject.warehouse.M_Locators?.[0];
+	const defaultUOM = (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UU;
+
+	// Create lines for all remaining order lines (if any)
+	for (const orderLine of orderLines) {
+		await mutate(valueObject)({
+			mutation: M_InOutLineSaveDocument,
+			variables: {
+				M_InOutLine: {
+					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
+					C_OrderLine: { UU: orderLine.UU },
+					C_UOM: { UU: defaultUOM },
+					Description: valueObject.getStepMessageLong(),
+					M_AttributeSetInstance: orderLine.M_AttributeSetInstance?.UU
+						? { UU: orderLine.M_AttributeSetInstance.UU }
+						: undefined,
+					M_InOut: { UU: valueObject.inOut!.UU },
+					M_Locator: locatorToUse?.UU ? { UU: locatorToUse.UU } : undefined,
+					M_Product: { UU: orderLine.M_Product!.UU },
+					Qty: orderLine.QtyOrdered,
+				},
+			},
+		});
+	}
+
+	if (valueObject.documentAction) {
+		valueObject.inOut =
+			(
+				await mutate(valueObject)({
+					mutation: M_InOutProcessDocument,
+					variables: { UU: valueObject.inOut!.UU, DocumentAction: valueObject.documentAction },
+				})
+			).data?.M_InOutProcess || undefined;
+		if (!valueObject.inOut) {
+			throw new Error('InOut not processed');
+		}
+	}
+} //create inout from order
+
+/**
  * Create an invoice. This requires a document type, a business partner, and either no order or a completed order
  * be selected on the value object.
  * @param valueObject The value object containing information to create the entity
@@ -543,6 +670,7 @@ export async function createInvoice(valueObject: ValueObject) {
 	} else if (
 		valueObject.order &&
 		valueObject.order.DocStatus.Value !== documentStatus.Completed &&
+		valueObject.documentAction === documentAction.Complete &&
 		!valueObject.visit
 	) {
 		throw new Error('Order Not Completed');
@@ -648,10 +776,19 @@ export async function createPayment(valueObject: ValueObject) {
 			variables: {
 				Entity: {
 					AD_Org: { UU: valueObject.organization!.UU },
+					BH_Original_C_Invoice: valueObject.invoice?.UU ? { UU: valueObject.invoice.UU } : undefined,
+					BH_tender_amount: tenderAmount || 1,
+					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
+					C_BankAccount: { UU: valueObject.bankAccount.UU },
 					C_BPartner: { UU: valueObject.businessPartner.UU },
+					C_DocType: valueObject.documentType ? { UU: valueObject.documentType.UU } : undefined,
+					C_Invoice: valueObject.invoice ? { UU: valueObject.invoice.UU } : undefined,
+					C_Order: !valueObject.invoice && valueObject.order ? { UU: valueObject.order.UU } : undefined,
+					C_Currency: {
+						UU: valueObject.invoice?.C_Currency.UU || valueObject.order?.C_Currency.UU || valueObject.currency.UU,
+					},
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: paymentTotal || 1,
-					BH_tender_amount: tenderAmount || 1,
 					TenderType: {
 						UU: (
 							valueObject.tenderType ||
@@ -668,14 +805,6 @@ export async function createPayment(valueObject: ValueObject) {
 								})
 							).data.AD_Ref_ListGet.Results[0]
 						)?.UU,
-					},
-					C_DocType: valueObject.documentType ? { UU: valueObject.documentType.UU } : undefined,
-					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
-					C_BankAccount: { UU: valueObject.bankAccount.UU },
-					C_Invoice: valueObject.invoice ? { UU: valueObject.invoice.UU } : undefined,
-					C_Order: !valueObject.invoice && valueObject.order ? { UU: valueObject.order.UU } : undefined,
-					C_Currency: {
-						UU: valueObject.invoice?.C_Currency.UU || valueObject.order?.C_Currency.UU || valueObject.currency.UU,
 					},
 				},
 			},

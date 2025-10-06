@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_InvoiceLine(UU: String!): C_InvoiceLine
-	C_InvoiceLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceLineConnection!
+	C_InvoiceLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_InvoiceLineConnection!
 }
 
 extend type Mutation {

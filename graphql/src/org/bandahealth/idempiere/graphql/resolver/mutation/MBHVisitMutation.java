@@ -59,7 +59,14 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 							visitsOrders.stream().map(MOrder_BH::getC_DocTypeTarget_ID).collect(Collectors.toSet()));
 			// TODO: Update this when we have multiple orders, since we may not want to process all at the same time
 			for (MOrder_BH order : visitsOrders) {
-				// Before processing anything, get invoices and payments to work with
+				// Before processing anything, get the shipments, invoices, and payments to work with
+				// Get inouts outside the transaction since the order will automatically reverse current invoices
+				List<MInOut_BH> existingInouts =
+						Repository.getGroupsByIds(idempiereProperties, MInOut_BH.Table_Name,
+										processVisitTransaction.getTrxName(), MInOut_BH::getBH_Visit_ID,
+										MInOut_BH.COLUMNNAME_BH_Visit_ID, Collections.singleton(visit.get_ID()))
+								.getOrDefault(visit.get_ID(), new ArrayList<>());
+				//
 				// Get invoices outside the transaction since the order will automatically reverse current invoices
 				List<MInvoice_BH> existingInvoices =
 						Repository.getGroupsByIds(idempiereProperties, MInvoice_BH.Table_Name,

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Remuneration(UU: String!): C_Remuneration
-	C_RemunerationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RemunerationConnection!
+	C_RemunerationGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_RemunerationConnection!
 }
 
 extend type Mutation {

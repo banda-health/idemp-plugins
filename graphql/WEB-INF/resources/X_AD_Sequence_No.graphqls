@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_Sequence_No(UU: String!): AD_Sequence_No
-	AD_Sequence_NoGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Sequence_NoConnection!
+	AD_Sequence_NoGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_Sequence_NoConnection!
 }
 
 extend type Mutation {

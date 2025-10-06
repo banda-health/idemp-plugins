@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_AddressTransaction(UU: String!): C_AddressTransaction
-	C_AddressTransactionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AddressTransactionConnection!
+	C_AddressTransactionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_AddressTransactionConnection!
 }
 
 extend type Mutation {

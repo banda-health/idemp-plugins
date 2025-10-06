@@ -42,6 +42,7 @@ import java.sql.ResultSet;
 public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_Original_C_Invoice;
 	private ForeignEntityInput mBH_Visit;
 	private ForeignEntityInput mC_Activity;
 	private ForeignEntityInput mC_BP_BankAccount;
@@ -120,6 +121,40 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+
+	/**
+	 * Set Original Invoice ID.
+	 *
+	 * @param BH_Original_C_Invoice Original Invoice ID
+	 */
+	@JsonProperty("BH_Original_C_Invoice")
+	public void setBH_Original_C_InvoiceInput(ForeignEntityInput BH_Original_C_Invoice) {
+		this.mBH_Original_C_Invoice = BH_Original_C_Invoice;
+		if (BH_Original_C_Invoice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
+							.setParameters(BH_Original_C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setBH_Original_C_Invoice_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Invoice with UU " + BH_Original_C_Invoice.getUU());
+			}
+		} else {
+			this.setBH_Original_C_Invoice_ID(0);
+		}
+	}
+
+	/**
+	 * Get Original Invoice ID.
+	 *
+	 * @return Original Invoice ID
+	 */
+	@JsonProperty("BH_Original_C_Invoice")
+	public ForeignEntityInput BH_Original_C_Invoice() {
+		return mBH_Original_C_Invoice;
 	}
 
 	/**

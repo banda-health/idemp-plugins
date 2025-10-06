@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PP_Cost_Collector(UU: String!): PP_Cost_Collector
-	PP_Cost_CollectorGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Cost_CollectorConnection!
+	PP_Cost_CollectorGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PP_Cost_CollectorConnection!
 }
 
 extend type Mutation {

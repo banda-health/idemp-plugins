@@ -13,6 +13,7 @@ import { mutate, query } from '../../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../../models';
 import {
 	createBusinessPartner,
+	createInOutFromOrder,
 	createOrder,
 	createProduct,
 	createVisit,
@@ -64,7 +65,7 @@ test('diagnosis report is runnable', async () => {
 	];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text).toBeTruthy();
 });
 
 test('can filter by tags', async () => {
@@ -77,13 +78,17 @@ test('can filter by tags', async () => {
 
 	valueObject.stepName = 'Create product';
 	await createProduct(valueObject);
-	const firstBusinessPartnerName = valueObject.businessPartner!.Name;
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.quantity = 10;
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create first coded diagnosis';
 	let conceptUU = (
@@ -257,7 +262,7 @@ test('can filter by tags', async () => {
 	];
 	await runReport(valueObject);
 
-	const reportText = (await PdfData.extract(valueObject.report!)).text?.[0].replaceAll(' ', '');
+	const reportText = (await PdfData.extract(new Uint8Array(valueObject.report!))).text?.[0].replaceAll(' ', '');
 	expect(reportText).toBeTruthy();
 	expect(reportText?.includes(businessPartner1.Name.replaceAll(' ', ''))).toBeFalsy();
 	expect(reportText?.includes(valueObject.businessPartner!.Name.replaceAll(' ', ''))).toBeTruthy();

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_SubAcct(UU: String!): C_SubAcct
-	C_SubAcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_SubAcctConnection!
+	C_SubAcctGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_SubAcctConnection!
 }
 
 extend type Mutation {

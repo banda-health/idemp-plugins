@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PP_Order_Node_Product(UU: String!): PP_Order_Node_Product
-	PP_Order_Node_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_Node_ProductConnection!
+	PP_Order_Node_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PP_Order_Node_ProductConnection!
 }
 
 extend type Mutation {

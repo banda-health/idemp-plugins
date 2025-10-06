@@ -21,6 +21,24 @@ import java.util.concurrent.CompletableFuture;
 
 public class VendorPaymentTrailResolver implements GraphQLResolver<VendorPaymentTrail> {
 
+	public CompletableFuture<MInvoice_BH> Base_Reversal_C_Invoice(VendorPaymentTrail entity, DataFetchingEnvironment environment) {
+		if (entity.getBaseReversalInvoiceId() == null || entity.getBaseReversalInvoiceId() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MInvoice_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(MInvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
+		return dataLoader.load(entity.getBaseReversalInvoiceId());
+	}
+
+	public CompletableFuture<MPayment_BH> Base_Reversal_C_Payment(VendorPaymentTrail entity, DataFetchingEnvironment environment) {
+		if (entity.getBaseReversalPaymentId() == null || entity.getBaseReversalPaymentId() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MPayment_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(MPaymentDataLoader.DATALOADER_C_Payment_BY_ID);
+		return dataLoader.load(entity.getBaseReversalPaymentId());
+	}
+
 	/**
 	 * Get Business Partner.
 	 *
@@ -53,6 +71,7 @@ public class VendorPaymentTrailResolver implements GraphQLResolver<VendorPayment
 				environment.getDataLoaderRegistry().getDataLoader(MPaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(entity.getPaymentId());
 	}
+
 	public CompletableFuture<MOrder_BH> C_Order(VendorPaymentTrail entity, DataFetchingEnvironment environment) {
 		if (entity.getOrderId() == null || entity.getOrderId() < 1) {
 			return null;

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PP_Product_BOMLine(UU: String!): PP_Product_BOMLine
-	PP_Product_BOMLineGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Product_BOMLineConnection!
+	PP_Product_BOMLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PP_Product_BOMLineConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_PaymentTransaction(UU: String!): C_PaymentTransaction
-	C_PaymentTransactionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaymentTransactionConnection!
+	C_PaymentTransactionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_PaymentTransactionConnection!
 }
 
 extend type Mutation {

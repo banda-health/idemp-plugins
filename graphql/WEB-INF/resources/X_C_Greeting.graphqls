@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Greeting(UU: String!): C_Greeting
-	C_GreetingGet(Page: Int, Size: Int, Sort: String, Filter: String): C_GreetingConnection!
+	C_GreetingGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_GreetingConnection!
 }
 
 extend type Mutation {

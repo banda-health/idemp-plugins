@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	ASP_Module(UU: String!): ASP_Module
-	ASP_ModuleGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ModuleConnection!
+	ASP_ModuleGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): ASP_ModuleConnection!
 }
 
 extend type Mutation {

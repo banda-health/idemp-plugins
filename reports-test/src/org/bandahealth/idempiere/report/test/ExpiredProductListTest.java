@@ -146,6 +146,12 @@ public class ExpiredProductListTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrder().saveEx();
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Generate the report");
 		valueObject.setProcessUuid("808a1aaa-f38a-4a90-87dc-5ab2ebe2f7e6");
 		valueObject.setProcessRecordId(0);

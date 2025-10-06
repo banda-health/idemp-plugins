@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	GL_Fund(UU: String!): GL_Fund
-	GL_FundGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_FundConnection!
+	GL_FundGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): GL_FundConnection!
 }
 
 extend type Mutation {

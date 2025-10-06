@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_POSKey(UU: String!): C_POSKey
-	C_POSKeyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_POSKeyConnection!
+	C_POSKeyGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_POSKeyConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_DunningLevel(UU: String!): C_DunningLevel
-	C_DunningLevelGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DunningLevelConnection!
+	C_DunningLevelGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_DunningLevelConnection!
 }
 
 extend type Mutation {

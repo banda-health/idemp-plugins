@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_CommodityShipment(UU: String!): M_CommodityShipment
-	M_CommodityShipmentGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CommodityShipmentConnection!
+	M_CommodityShipmentGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_CommodityShipmentConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	DD_Order(UU: String!): DD_Order
-	DD_OrderGet(Page: Int, Size: Int, Sort: String, Filter: String): DD_OrderConnection!
+	DD_OrderGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): DD_OrderConnection!
 }
 
 extend type Mutation {

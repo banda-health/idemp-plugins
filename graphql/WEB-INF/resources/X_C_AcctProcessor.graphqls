@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_AcctProcessor(UU: String!): C_AcctProcessor
-	C_AcctProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctProcessorConnection!
+	C_AcctProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_AcctProcessorConnection!
 }
 
 extend type Mutation {

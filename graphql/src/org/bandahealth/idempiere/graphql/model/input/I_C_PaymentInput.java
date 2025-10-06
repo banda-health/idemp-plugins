@@ -27,6 +27,20 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Set BH_Original_C_Invoice.
+	 *
+	 * @param BH_Original_C_Invoice BH_Original_C_Invoice
+	 */
+	void setBH_Original_C_InvoiceInput(ForeignEntityInput BH_Original_C_Invoice);
+
+	/**
+	 * Get BH_Original_C_Invoice.
+	 *
+	 * @return BH_Original_C_Invoice
+	 */
+	ForeignEntityInput BH_Original_C_Invoice();
+
+	/**
 	 * Column name BH_tender_amount
 	 */
 	static final String COLUMNNAME_BH_tender_amount = "BH_tender_amount";

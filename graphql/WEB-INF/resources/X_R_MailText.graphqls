@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	R_MailText(UU: String!): R_MailText
-	R_MailTextGet(Page: Int, Size: Int, Sort: String, Filter: String): R_MailTextConnection!
+	R_MailTextGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): R_MailTextConnection!
 }
 
 extend type Mutation {

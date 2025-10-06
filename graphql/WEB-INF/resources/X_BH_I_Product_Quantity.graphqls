@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	BH_I_Product_Quantity(UU: String!): BH_I_Product_Quantity
-	BH_I_Product_QuantityGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_I_Product_QuantityConnection!
+	BH_I_Product_QuantityGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_I_Product_QuantityConnection!
 }
 
 extend type Mutation {

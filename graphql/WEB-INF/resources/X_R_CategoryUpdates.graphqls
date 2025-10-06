@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	R_CategoryUpdates(UU: String!): R_CategoryUpdates
-	R_CategoryUpdatesGet(Page: Int, Size: Int, Sort: String, Filter: String): R_CategoryUpdatesConnection!
+	R_CategoryUpdatesGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): R_CategoryUpdatesConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	I_BPartner(UU: String!): I_BPartner
-	I_BPartnerGet(Page: Int, Size: Int, Sort: String, Filter: String): I_BPartnerConnection!
+	I_BPartnerGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): I_BPartnerConnection!
 }
 
 extend type Mutation {

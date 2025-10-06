@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	GL_Budget(UU: String!): GL_Budget
-	GL_BudgetGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_BudgetConnection!
+	GL_BudgetGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): GL_BudgetConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Subscription_Delivery(UU: String!): C_Subscription_Delivery
-	C_Subscription_DeliveryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Subscription_DeliveryConnection!
+	C_Subscription_DeliveryGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_Subscription_DeliveryConnection!
 }
 
 extend type Mutation {

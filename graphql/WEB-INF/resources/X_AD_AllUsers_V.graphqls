@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_AllUsers_V(UU: String!): AD_AllUsers_V
-	AD_AllUsers_VGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AllUsers_VConnection!
+	AD_AllUsers_VGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_AllUsers_VConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	I_InOutLineConfirm(UU: String!): I_InOutLineConfirm
-	I_InOutLineConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): I_InOutLineConfirmConnection!
+	I_InOutLineConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): I_InOutLineConfirmConnection!
 }
 
 extend type Mutation {

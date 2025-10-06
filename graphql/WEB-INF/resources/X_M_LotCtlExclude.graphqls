@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_LotCtlExclude(UU: String!): M_LotCtlExclude
-	M_LotCtlExcludeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_LotCtlExcludeConnection!
+	M_LotCtlExcludeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_LotCtlExcludeConnection!
 }
 
 extend type Mutation {

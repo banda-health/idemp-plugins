@@ -38,5 +38,7 @@ test('stock transfer report is runnable', async () => {
 	];
 	await runReport(valueObject);
 
-	expect((await PdfData.extract(valueObject.report!)).text?.join('')).toContain('Stock Transfers Between');
+	expect((await PdfData.extract(new Uint8Array(valueObject.report!))).text?.join('')).toContain(
+		'Stock Transfers Between',
+	);
 });

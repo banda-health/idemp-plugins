@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	R_Group(UU: String!): R_Group
-	R_GroupGet(Page: Int, Size: Int, Sort: String, Filter: String): R_GroupConnection!
+	R_GroupGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): R_GroupConnection!
 }
 
 extend type Mutation {

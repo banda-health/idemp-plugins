@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Element(UU: String!): C_Element
-	C_ElementGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ElementConnection!
+	C_ElementGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_ElementConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	T_InventoryValue(UU: String!): T_InventoryValue
-	T_InventoryValueGet(Page: Int, Size: Int, Sort: String, Filter: String): T_InventoryValueConnection!
+	T_InventoryValueGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): T_InventoryValueConnection!
 }
 
 extend type Mutation {

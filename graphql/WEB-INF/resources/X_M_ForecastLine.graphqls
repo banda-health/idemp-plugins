@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_ForecastLine(UU: String!): M_ForecastLine
-	M_ForecastLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ForecastLineConnection!
+	M_ForecastLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_ForecastLineConnection!
 }
 
 extend type Mutation {

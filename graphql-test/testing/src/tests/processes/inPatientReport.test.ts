@@ -44,7 +44,7 @@ test('in-patient report with date range parameters works correctly', async () =>
 	];
 	await runReport(valueObject);
 
-	const text = (await PdfData.extract(valueObject.report!)).text;
+	const text = (await PdfData.extract(new Uint8Array(valueObject.report!))).text;
 	expect(text).toBeTruthy();
 	expect(text?.join('')).toContain('In-Patient Report');
 });

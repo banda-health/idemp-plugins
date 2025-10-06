@@ -26,11 +26,13 @@ public class BandaReportTestFactory implements IChuBoePopulateFactory {
 		tests.add(new InPatientReportTest());
 		tests.add(new InventoryQuantityReportTest());
 		tests.add(new InventorySoldReportTest());
+		tests.add(new LaboratoryReportTest());
 		tests.add(new MoH705AOutPatientUnder5yrSummaryTest());
 		tests.add(new MoH705BOutPatientOver5yrSummaryTest());
 		tests.add(new MoH706LabTestsSummaryTest());
 		tests.add(new MoH717NewAndRevisitPatientCountTest());
 		tests.add(new MoH747AContraceptivesConsumptionReportTest());
+		tests.add(new NonPatientPaymentReportTest());
 		tests.add(new OpenBalanceListTest());
 		tests.add(new OpenBalanceInvoiceTest());
 		tests.add(new OpenBalanceReceiptTest());
@@ -39,6 +41,7 @@ public class BandaReportTestFactory implements IChuBoePopulateFactory {
 		tests.add(new PatientTransactionsTest());
 		tests.add(new PatientVisitsAndReferralsTest());
 		tests.add(new PaymentTrailTest());
+		tests.add(new PrescriptionFormReportTest());
 		tests.add(new ProductsAndPricesTest());
 		tests.add(new ServiceListReportTest());
 		tests.add(new ServicesChargedReportTest());
@@ -48,9 +51,6 @@ public class BandaReportTestFactory implements IChuBoePopulateFactory {
 		tests.add(new VisitInvoiceTest());
 		tests.add(new VisitReceiptTest());
 		tests.add(new VoidedTransactionsListTest());
-		tests.add(new NonPatientPaymentReportTest());
-		tests.add(new PrescriptionFormReportTest());
-		tests.add(new LaboratoryReportTest());
 
 		// Report cross-checking
 		tests.add(new CostOfGoodsSoldTest());

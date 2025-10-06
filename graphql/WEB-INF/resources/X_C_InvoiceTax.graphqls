@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_InvoiceTax(UU: String!): C_InvoiceTax
-	C_InvoiceTaxGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceTaxConnection!
+	C_InvoiceTaxGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_InvoiceTaxConnection!
 }
 
 extend type Mutation {
