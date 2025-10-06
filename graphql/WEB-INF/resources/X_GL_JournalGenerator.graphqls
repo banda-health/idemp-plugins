@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	GL_JournalGenerator(UU: String!): GL_JournalGenerator
-	GL_JournalGeneratorGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_JournalGeneratorConnection!
+	GL_JournalGeneratorGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): GL_JournalGeneratorConnection!
 }
 
 extend type Mutation {

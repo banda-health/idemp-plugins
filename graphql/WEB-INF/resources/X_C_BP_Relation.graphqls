@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_BP_Relation(UU: String!): C_BP_Relation
-	C_BP_RelationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_RelationConnection!
+	C_BP_RelationGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_BP_RelationConnection!
 }
 
 extend type Mutation {

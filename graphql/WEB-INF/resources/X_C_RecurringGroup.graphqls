@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_RecurringGroup(UU: String!): C_RecurringGroup
-	C_RecurringGroupGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RecurringGroupConnection!
+	C_RecurringGroupGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_RecurringGroupConnection!
 }
 
 extend type Mutation {

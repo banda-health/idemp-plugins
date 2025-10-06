@@ -1379,6 +1379,12 @@ public class MoH747AContraceptivesConsumptionReportTest extends ChuBoePopulateFa
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt - " + conceptExtraValue);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		// Sell products one at a time until we're on the last order
 		int inventorySold = 0;
 		for (int i = (int) conceptCounts.newClients; i > 0; i--) {

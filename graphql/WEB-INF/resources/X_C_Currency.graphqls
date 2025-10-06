@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Currency(UU: String!): C_Currency
-	C_CurrencyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CurrencyConnection!
+	C_CurrencyGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_CurrencyConnection!
 }
 
 extend type Mutation {

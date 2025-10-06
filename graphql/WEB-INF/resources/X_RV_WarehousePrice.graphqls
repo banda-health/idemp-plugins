@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	RV_WarehousePrice(UU: String!): RV_WarehousePrice
-	RV_WarehousePriceGet(Page: Int, Size: Int, Sort: String, Filter: String): RV_WarehousePriceConnection!
+	RV_WarehousePriceGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): RV_WarehousePriceConnection!
 }
 
 extend type Mutation {

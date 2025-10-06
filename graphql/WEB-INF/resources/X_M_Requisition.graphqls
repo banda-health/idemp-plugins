@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_Requisition(UU: String!): M_Requisition
-	M_RequisitionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_RequisitionConnection!
+	M_RequisitionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_RequisitionConnection!
 }
 
 extend type Mutation {

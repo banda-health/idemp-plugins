@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_ProductPriceVendorBreak(UU: String!): M_ProductPriceVendorBreak
-	M_ProductPriceVendorBreakGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductPriceVendorBreakConnection!
+	M_ProductPriceVendorBreakGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_ProductPriceVendorBreakConnection!
 }
 
 extend type Mutation {

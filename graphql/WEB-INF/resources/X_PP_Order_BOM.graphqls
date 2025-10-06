@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PP_Order_BOM(UU: String!): PP_Order_BOM
-	PP_Order_BOMGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_BOMConnection!
+	PP_Order_BOMGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PP_Order_BOMConnection!
 }
 
 extend type Mutation {

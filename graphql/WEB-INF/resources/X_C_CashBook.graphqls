@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_CashBook(UU: String!): C_CashBook
-	C_CashBookGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CashBookConnection!
+	C_CashBookGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_CashBookConnection!
 }
 
 extend type Mutation {

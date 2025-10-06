@@ -78,6 +78,12 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
@@ -148,6 +154,12 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(30));
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create visit");
@@ -254,7 +266,7 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setAttributeSetInstance(firstAttributeSetInstance);
 		valueObject.setDateOffset(-5);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(5));
 		ChuBoeCreateEntity.createInventory(valueObject);
 		commitEx();
@@ -292,6 +304,12 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(10));
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create second sales order");
@@ -425,6 +443,12 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create second sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -515,6 +539,12 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setQuantity(new BigDecimal(100));
 		valueObject.setDate(earlyDate);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -627,6 +657,12 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
@@ -703,6 +739,12 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create first material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
@@ -743,6 +785,12 @@ public class InventorySoldReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create second visit");

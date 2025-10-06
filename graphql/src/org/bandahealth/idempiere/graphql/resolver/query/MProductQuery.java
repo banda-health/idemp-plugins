@@ -8,13 +8,15 @@ import org.bandahealth.idempiere.graphql.model.PagingInfo;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.compiere.util.Env;
 
+import java.util.List;
 import java.util.TreeMap;
 
 public class MProductQuery extends X_M_ProductQuery {
 	@Override
-	public Connection<MProduct_BH> M_ProductGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return Repository.get(getTableName(), null, new PagingInfo(Page, PageSize), Sort, Filter, null, null,
+	public Connection<MProduct_BH> M_ProductGet(int Page, int PageSize, String Sort, String Filter, String Where,
+			List<Object> Parameters, DataFetchingEnvironment environment) {
+		return Repository.get(getTableName(), null, new PagingInfo(Page, PageSize), Sort, Filter,
+				Repository.parseApiWhereClauseAndParameters(Where, Parameters), Parameters,
 				new TreeMap<>(String.CASE_INSENSITIVE_ORDER) {{
 					put("product_costs",
 							"LEFT JOIN (SELECT m_product_id, m_attributesetinstance_id, purchase_price, purchase_date, row_number" +

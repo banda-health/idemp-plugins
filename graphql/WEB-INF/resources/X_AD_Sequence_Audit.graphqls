@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_Sequence_Audit(UU: String!): AD_Sequence_Audit
-	AD_Sequence_AuditGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Sequence_AuditConnection!
+	AD_Sequence_AuditGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_Sequence_AuditConnection!
 }
 
 extend type Mutation {

@@ -207,6 +207,12 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrder().saveEx();
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Adjust inventory for product with second expiration date");
 		valueObject.setQuantity(productExpirationDate2QuantityAfterAdjustment);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
@@ -340,6 +346,12 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create first sales order");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
@@ -413,6 +425,12 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setQuantity(new BigDecimal(20));
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Update the updated & created dates of the shipment from the last purchase order");
@@ -521,6 +539,12 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Update the updated & created dates of the shipment from the last purchase order");
 		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		DB.executeUpdate("UPDATE m_transaction SET created = '" + dbDateFormat.format(earlyDate) + "', updated = '" +
@@ -584,6 +608,12 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		valueObject.setQuantity(new BigDecimal(10)); // + 10
 		valueObject.setDate(lateDate);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Update the updated & created dates of the inventory from the last purchase order");
@@ -749,6 +779,12 @@ public class ValueOfOpeningAndClosingStockTest extends ChuBoePopulateFactoryVO {
 		valueObject.setQuantity(BigDecimal.TEN);
 		valueObject.setAttributeSetInstance(attributeSetInstance);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create first sales order");

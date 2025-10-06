@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	PA_GoalRestriction(UU: String!): PA_GoalRestriction
-	PA_GoalRestrictionGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_GoalRestrictionConnection!
+	PA_GoalRestrictionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): PA_GoalRestrictionConnection!
 }
 
 extend type Mutation {

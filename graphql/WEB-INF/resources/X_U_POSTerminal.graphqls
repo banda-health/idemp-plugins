@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	U_POSTerminal(UU: String!): U_POSTerminal
-	U_POSTerminalGet(Page: Int, Size: Int, Sort: String, Filter: String): U_POSTerminalConnection!
+	U_POSTerminalGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): U_POSTerminalConnection!
 }
 
 extend type Mutation {

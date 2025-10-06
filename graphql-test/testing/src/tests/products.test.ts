@@ -1,11 +1,13 @@
 import { v4 } from 'uuid';
 import {
+	Ad_Ref_ListGetDocument,
 	Bh_ConceptGetForProductCatalogueDocument,
 	Bh_Product_IncludedDeleteDocument,
 	Bh_Product_IncludedSaveManyDocument,
 	Bh_VisitProcessDocument,
 	C_OrderProcessDocument,
 	C_UomGetDefaultDocument,
+	M_InOutProcessDocument,
 	M_ProductDocument,
 	M_ProductGetDocument,
 	M_ProductMergeDocument,
@@ -13,9 +15,17 @@ import {
 	M_ProductSaveManyDocument,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
+import {
+	documentAction,
+	documentBaseType,
+	documentSubTypeInventory,
+	documentSubTypeSalesOrder,
+	referenceUuid,
+} from '../models';
 import {
 	createBusinessPartner,
+	createInOutFromOrder,
+	createInventory,
 	createInvoice,
 	createOrder,
 	createPayment,
@@ -41,6 +51,11 @@ test('inactive products and services not returned from the search method', async
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.stepName = 'Create product 2';
 	valueObject.product = undefined;
 	const oldRandom = valueObject.random;
@@ -64,6 +79,11 @@ test('inactive products and services not returned from the search method', async
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create service 1';
 	let service1 = (
@@ -236,6 +256,13 @@ test('buying price can only be updated on new items or items without completed P
 		mutation: C_OrderProcessDocument,
 		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.Complete },
 	});
+	await valueObject.refreshOrder();
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.product = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
@@ -256,11 +283,18 @@ test('buying price can only be updated on new items or items without completed P
 	expect(valueObject.product!.HasBeenPurchased).toBeTruthy();
 	expect(valueObject.product!.LastPurchasePrice).toBe(120);
 
+	valueObject.stepName = 'Reactivate the material receipt';
+	await mutate(valueObject)({
+		mutation: M_InOutProcessDocument,
+		variables: { UU: valueObject.inOut!.UU, DocumentAction: documentAction.ReverseAccrual },
+	});
+
 	valueObject.stepName = 'Reactivate the PO';
 	await mutate(valueObject)({
 		mutation: C_OrderProcessDocument,
 		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.ReActivate },
 	});
+
 	valueObject.product = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
@@ -285,6 +319,13 @@ test('buying price can only be updated on new items or items without completed P
 		mutation: C_OrderProcessDocument,
 		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.Complete },
 	});
+	await valueObject.refreshOrder();
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.product = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
@@ -313,6 +354,11 @@ test('can sort by last purchase price', async () => {
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create material receipt for first product';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
 	valueObject.stepName = 'Create second product';
 	valueObject.product = undefined;
 	valueObject.setRandom();
@@ -324,6 +370,11 @@ test('can sort by last purchase price', async () => {
 	valueObject.setPurchasePrice(140);
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt for second product';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	const secondProduct = valueObject.product!;
 	let productSorts = (
@@ -368,6 +419,11 @@ test('merging patients', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt 1';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit 1';
 	valueObject.documentAction = undefined;
@@ -418,6 +474,11 @@ test('merging patients', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt 2';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit 2';
 	valueObject.documentAction = undefined;
@@ -603,4 +664,168 @@ test('product concept can be updated', async () => {
 		.M_Product!;
 
 	expect(savedProduct.BH_Concept?.UU).toBe(concepts[1].UU);
+});
+
+test('soon to expire days field can be set and updated', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product with 30 days soon to expire';
+	await createProduct(valueObject);
+	const product = valueObject.product!;
+
+	const soonToExpireList = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: {
+				Size: 3,
+				Filter: JSON.stringify({
+					ad_reference: { ad_reference_uu: referenceUuid.SOON_TO_EXPIRE_TYPES },
+				}),
+			},
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	const ref30Days = soonToExpireList.filter((ref) => ref.Value === '30')[0];
+
+	// Set BH_SoonToExpireDays to 30
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.product!.UU,
+					BH_SoonToExpireDays: {
+						UU: ref30Days.UU,
+					},
+				},
+			},
+		})
+	).data?.M_ProductSave;
+
+	expect(valueObject.product!.BH_SoonToExpireDays?.Value).toBe('30');
+
+	// // Verify the value is persisted
+	let savedProduct = (await query(valueObject)({ query: M_ProductDocument, variables: { UU: product.UU } })).data
+		.M_Product!;
+	expect(savedProduct.BH_SoonToExpireDays?.Value).toBe('30');
+
+	valueObject.stepName = 'Update BH_SoonToExpireDays to null';
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: valueObject.product!.UU,
+					BH_SoonToExpireDays: null,
+				},
+			},
+		})
+	).data?.M_ProductSave;
+
+	expect(valueObject.product!.BH_SoonToExpireDays).toBeNull();
+});
+
+test('filtering to products with less than quantity in stock', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const firstResults = (
+		await query(valueObject)({
+			query: M_ProductGetDocument,
+			variables: {
+				Page: 0,
+				Size: 1,
+				// The \n\t to ensure the where checks are correct
+				Where:
+					'bh_reorder_level IS NOT NULL AND m_product_id IN (\n\t SELECT m_product_id FROM m_storageonhand WHERE m_storageonhand.m_product_id = m_product.m_product_id GROUP BY m_product_id, bh_reorder_level HAVING SUM(qtyonhand) <= bh_reorder_level )',
+			},
+		})
+	).data.M_ProductGet.PagingInfo.TotalCount;
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product above reorder level';
+	await createProduct(valueObject);
+	const firstProduct = valueObject.product!;
+	await mutate(valueObject)({
+		mutation: M_ProductSaveDocument,
+		variables: { Entity: { UU: valueObject.product!.UU, bh_reorder_level: 10 } },
+	});
+
+	valueObject.stepName = 'Create inventory 1';
+	valueObject.quantity = 20;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.MaterialPhysicalInventory,
+		{ inventory: documentSubTypeInventory.PhysicalInventory },
+		false,
+		false,
+		false,
+	);
+	await createInventory(valueObject);
+
+	valueObject.stepName = 'Create product below reorder level';
+	valueObject.clearProduct();
+	await createProduct(valueObject);
+	await mutate(valueObject)({
+		mutation: M_ProductSaveDocument,
+		variables: { Entity: { UU: valueObject.product!.UU, bh_reorder_level: 10 } },
+	});
+
+	valueObject.stepName = 'Create inventory 1';
+	valueObject.quantity = 5;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.MaterialPhysicalInventory,
+		{ inventory: documentSubTypeInventory.PhysicalInventory },
+		false,
+		false,
+		false,
+	);
+	await createInventory(valueObject);
+
+	expect(
+		(
+			await query(valueObject)({
+				query: M_ProductGetDocument,
+				variables: {
+					Page: 0,
+					Size: 1,
+					Where:
+						'bh_reorder_level IS NOT NULL AND m_product_id IN (SELECT m_product_id FROM m_storageonhand WHERE m_storageonhand.m_product_id = m_product.m_product_id GROUP BY m_product_id, bh_reorder_level HAVING SUM(qtyonhand) <= bh_reorder_level )',
+				},
+			})
+		).data.M_ProductGet.PagingInfo.TotalCount,
+	).toBe(firstResults + 1);
+	expect(
+		(
+			await query(valueObject)({
+				query: M_ProductGetDocument,
+				variables: {
+					Page: 0,
+					Size: 1,
+					Filter: JSON.stringify({ m_product_uu: firstProduct.UU }),
+					Where:
+						'bh_reorder_level IS NOT NULL AND m_product_id IN (SELECT m_product_id FROM m_storageonhand WHERE m_storageonhand.m_product_id = m_product.m_product_id GROUP BY m_product_id, bh_reorder_level HAVING SUM(qtyonhand) <= bh_reorder_level )',
+				},
+			})
+		).data.M_ProductGet.Results,
+	).toHaveLength(0);
+	expect(
+		(
+			await query(valueObject)({
+				query: M_ProductGetDocument,
+				variables: {
+					Page: 0,
+					Size: 1,
+					Filter: JSON.stringify({ m_product_uu: valueObject.product!.UU }),
+					Where:
+						'bh_reorder_level IS NOT NULL AND m_product_id IN (SELECT m_product_id FROM m_storageonhand WHERE m_storageonhand.m_product_id = m_product.m_product_id GROUP BY m_product_id, bh_reorder_level HAVING SUM(qtyonhand) <= bh_reorder_level )',
+				},
+			})
+		).data.M_ProductGet.Results,
+	).toHaveLength(1);
 });

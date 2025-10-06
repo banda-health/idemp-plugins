@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_MatchInv(UU: String!): M_MatchInv
-	M_MatchInvGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MatchInvConnection!
+	M_MatchInvGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_MatchInvConnection!
 }
 
 extend type Mutation {

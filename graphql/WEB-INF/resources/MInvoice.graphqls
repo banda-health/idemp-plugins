@@ -3,6 +3,7 @@ extend type Mutation {
 }
 
 extend type C_Invoice {
+	BH_Original_C_Payments: [C_Payment!]
 	C_AllocationLines: [C_AllocationLine!]
 	C_InvoiceLines: [C_InvoiceLine!]
 	C_InvoiceTaxes: [C_InvoiceTax!]

@@ -8,6 +8,8 @@ type VendorPaymentTrailConnection {
 }
 
 type VendorPaymentTrail {
+	Base_Reversal_C_Invoice: C_Invoice
+	Base_Reversal_C_Payment: C_Payment
 	C_BPartner: C_BPartner!
 	C_Invoice: C_Invoice
 	C_Order: C_Order
@@ -20,6 +22,8 @@ type VendorPaymentTrail {
 	Date: DateTime!
 	Charged: BigDecimal
 	OpenBalance: BigDecimal
+	# Date used for ordering (usually either the created or updated)
+	OrderingDate: DateTime!
 	Paid: BigDecimal
 	# Date this record was updated
 	Updated: DateTime!

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_POSTenderType(UU: String!): C_POSTenderType
-	C_POSTenderTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): C_POSTenderTypeConnection!
+	C_POSTenderTypeGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_POSTenderTypeConnection!
 }
 
 extend type Mutation {

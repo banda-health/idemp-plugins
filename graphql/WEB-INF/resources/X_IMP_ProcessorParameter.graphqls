@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	IMP_ProcessorParameter(UU: String!): IMP_ProcessorParameter
-	IMP_ProcessorParameterGet(Page: Int, Size: Int, Sort: String, Filter: String): IMP_ProcessorParameterConnection!
+	IMP_ProcessorParameterGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): IMP_ProcessorParameterConnection!
 }
 
 extend type Mutation {

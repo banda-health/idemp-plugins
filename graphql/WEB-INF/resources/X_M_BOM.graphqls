@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_BOM(UU: String!): M_BOM
-	M_BOMGet(Page: Int, Size: Int, Sort: String, Filter: String): M_BOMConnection!
+	M_BOMGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_BOMConnection!
 }
 
 extend type Mutation {

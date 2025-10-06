@@ -103,6 +103,12 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrder().saveEx();
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Generate the report");
 		valueObject.setProcessUuid("3edf67b9-ee3d-4b73-a02e-deb1c1811db5");
 		valueObject.setProcessRecordId(0);
@@ -178,6 +184,12 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setAttributeSetInstance(validAttributeSetInstance);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
@@ -266,6 +278,12 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setAttributeSetInstance(validAttributeSetInstance);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
@@ -363,6 +381,12 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		valueObject.setAttributeSetInstance(validAttributeSetInstance);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Generate the report");

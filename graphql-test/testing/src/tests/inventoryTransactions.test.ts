@@ -1,7 +1,15 @@
+import { Bh_VisitProcessDocument, InventoryTransactionGetDocument } from '../__generated__/graphql';
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
-import { createBusinessPartner, createInvoice, createOrder, createPayment, createProduct, createVisit } from '../utils';
-import { Bh_VisitProcessDocument, InventoryTransactionGetDocument } from '../__generated__/graphql';
+import {
+	createBusinessPartner,
+	createInOutFromOrder,
+	createInvoice,
+	createOrder,
+	createPayment,
+	createProduct,
+	createVisit,
+} from '../utils';
 
 test('re-opened visits appear in the list', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -18,6 +26,11 @@ test('re-opened visits appear in the list', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -89,6 +102,11 @@ test('drafted sales orders come back as negative quantities', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;

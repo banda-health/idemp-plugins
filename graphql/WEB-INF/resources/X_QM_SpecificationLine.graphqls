@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	QM_SpecificationLine(UU: String!): QM_SpecificationLine
-	QM_SpecificationLineGet(Page: Int, Size: Int, Sort: String, Filter: String): QM_SpecificationLineConnection!
+	QM_SpecificationLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): QM_SpecificationLineConnection!
 }
 
 extend type Mutation {

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_BP_Specific_Payer_
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.dataloader.DataLoader;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,7 +29,7 @@ public class X_BH_BP_Specific_Payer_InfoQuery extends POQuery<MBHBPSpecificPayer
 	}
 
 	public Connection<MBHBPSpecificPayerInfo> BH_BP_Specific_Payer_InfoGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return super.Get(Page, PageSize, Sort, Filter, environment);
+			String Where, List<Object> Parameters, DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);
 	}
 }

@@ -12,7 +12,9 @@ import {
 	C_InvoiceGetQuery,
 	C_InvoiceSaveWithInvoiceLinesMutation,
 	C_LocationGetQuery,
+	C_OrderGetDocument,
 	C_OrderGetQuery,
+	C_OrderLineGetDocument,
 	C_OrderSaveWithOrderLinesMutation,
 	C_PaymentSaveMutation,
 	ChangeAccessDocument,
@@ -328,5 +330,20 @@ export class ValueObject {
 	clearCharge() {
 		this.charge = undefined;
 		this.setRandom();
+	}
+
+	async refreshOrder() {
+		this.order = (
+			await query(this)({
+				query: C_OrderGetDocument,
+				variables: { Filter: JSON.stringify({ c_order_uu: this.order!.UU }) },
+			})
+		).data.C_OrderGet.Results[0];
+		this.orderLine = (
+			await query(this)({
+				query: C_OrderLineGetDocument,
+				variables: { Filter: JSON.stringify({ c_orderline_uu: this.orderLine!.UU }) },
+			})
+		).data.C_OrderLineGet.Results[0];
 	}
 }

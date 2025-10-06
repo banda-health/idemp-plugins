@@ -129,6 +129,12 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		valueObject.getOrder().saveEx();
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Adjust inventory for product 2");
 		BigDecimal endingProduct2Inventory = NumberUtils.randomBigDecimal(1, 250);
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
@@ -243,6 +249,12 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		valueObject.setQuantity(new BigDecimal(10));
 		valueObject.setDateOffset(-1);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
 		commitEx();
 
 		Timestamp earlyDate = TimestampUtils.startOfYesterday();

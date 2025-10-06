@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_RevenueRecog_Service(UU: String!): C_RevenueRecog_Service
-	C_RevenueRecog_ServiceGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RevenueRecog_ServiceConnection!
+	C_RevenueRecog_ServiceGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_RevenueRecog_ServiceConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	GL_DistributionLine(UU: String!): GL_DistributionLine
-	GL_DistributionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_DistributionLineConnection!
+	GL_DistributionLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): GL_DistributionLineConnection!
 }
 
 extend type Mutation {

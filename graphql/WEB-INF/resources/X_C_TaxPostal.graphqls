@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_TaxPostal(UU: String!): C_TaxPostal
-	C_TaxPostalGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxPostalConnection!
+	C_TaxPostalGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_TaxPostalConnection!
 }
 
 extend type Mutation {

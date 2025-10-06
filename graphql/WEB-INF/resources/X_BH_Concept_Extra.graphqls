@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	BH_Concept_Extra(UU: String!): BH_Concept_Extra
-	BH_Concept_ExtraGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Concept_ExtraConnection!
+	BH_Concept_ExtraGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Concept_ExtraConnection!
 }
 
 extend type Mutation {

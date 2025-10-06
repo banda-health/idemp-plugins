@@ -62,6 +62,11 @@ public class MPayment_BH extends MPayment {
 	 */
 	public static final String COLUMNNAME_Scheduled = "Scheduled";
 
+	/**
+	 * Column name BH_Original_C_Invoice_ID
+	 */
+	public static final String COLUMNNAME_BH_Original_C_Invoice_ID = "BH_Original_C_Invoice_ID";
+
 	private static final long serialVersionUID = 1L;
 
 	public MPayment_BH(Properties ctx, String C_Payment_UU, String trxName) {
@@ -330,5 +335,34 @@ public class MPayment_BH extends MPayment {
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	public org.compiere.model.I_C_Invoice getBH_Original_C_Invoice() throws RuntimeException {
+		return (org.compiere.model.I_C_Invoice) MTable.get(getCtx(), org.compiere.model.I_C_Invoice.Table_ID)
+				.getPO(getBH_Original_C_Invoice_ID(), get_TrxName());
+	}
+
+	/**
+	 * Set Original Invoice ID.
+	 *
+	 * @param BH_Original_C_Invoice_ID Original Invoice ID
+	 */
+	public void setBH_Original_C_Invoice_ID(int BH_Original_C_Invoice_ID) {
+		if (BH_Original_C_Invoice_ID < 1)
+			set_Value(COLUMNNAME_BH_Original_C_Invoice_ID, null);
+		else
+			set_Value(COLUMNNAME_BH_Original_C_Invoice_ID, Integer.valueOf(BH_Original_C_Invoice_ID));
+	}
+
+	/**
+	 * Get Original Invoice ID.
+	 *
+	 * @return Original Invoice ID
+	 */
+	public int getBH_Original_C_Invoice_ID() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_Original_C_Invoice_ID);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
 	}
 }

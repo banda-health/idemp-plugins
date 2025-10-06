@@ -8,6 +8,7 @@ import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../
 import {
 	createBusinessPartner,
 	createCharge,
+	createInOutFromOrder,
 	createInvoice,
 	createOrder,
 	createPayment,
@@ -31,6 +32,11 @@ test('everything is shown', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;

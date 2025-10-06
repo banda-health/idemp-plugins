@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_ShipperLabelsCfg(UU: String!): M_ShipperLabelsCfg
-	M_ShipperLabelsCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperLabelsCfgConnection!
+	M_ShipperLabelsCfgGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_ShipperLabelsCfgConnection!
 }
 
 extend type Mutation {

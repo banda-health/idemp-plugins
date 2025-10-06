@@ -102,7 +102,8 @@ public class GraphQLSchemaGenerator {
 				// Default Queries
 				.append("extend type Query {\n")
 				.append("\t").append(tableName).append("(UU: String!): ").append(tableName).append("\n")
-				.append("\t").append(tableName).append("Get(Page: Int, Size: Int, Sort: String, Filter: String): ")
+				.append("\t").append(tableName).append("Get(Page: Int, Size: Int, Sort: String, Filter: String, Where: String")
+				.append(", Parameters: [Object!]): ")
 				.append(tableName).append("Connection!\n")
 				.append("}\n\n")
 

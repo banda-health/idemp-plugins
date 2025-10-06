@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	R_RequestProcessorLog(UU: String!): R_RequestProcessorLog
-	R_RequestProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestProcessorLogConnection!
+	R_RequestProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): R_RequestProcessorLogConnection!
 }
 
 extend type Mutation {

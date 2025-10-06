@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_ShipperPackaging(UU: String!): M_ShipperPackaging
-	M_ShipperPackagingGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperPackagingConnection!
+	M_ShipperPackagingGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_ShipperPackagingConnection!
 }
 
 extend type Mutation {

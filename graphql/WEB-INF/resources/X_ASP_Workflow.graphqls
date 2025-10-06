@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	ASP_Workflow(UU: String!): ASP_Workflow
-	ASP_WorkflowGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_WorkflowConnection!
+	ASP_WorkflowGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): ASP_WorkflowConnection!
 }
 
 extend type Mutation {

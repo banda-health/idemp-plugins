@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.dataloader.DataLoader;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,7 +29,7 @@ public class X_M_ProductQuery extends POQuery<MProduct_BH> implements GraphQLQue
 	}
 
 	public Connection<MProduct_BH> M_ProductGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return super.Get(Page, PageSize, Sort, Filter, environment);
+			String Where, List<Object> Parameters, DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);
 	}
 }

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_AcctSchema(UU: String!): C_AcctSchema
-	C_AcctSchemaGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctSchemaConnection!
+	C_AcctSchemaGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_AcctSchemaConnection!
 }
 
 extend type Mutation {

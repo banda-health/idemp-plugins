@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	GL_JournalLine(UU: String!): GL_JournalLine
-	GL_JournalLineGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_JournalLineConnection!
+	GL_JournalLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): GL_JournalLineConnection!
 }
 
 extend type Mutation {

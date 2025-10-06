@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	ASP_Form(UU: String!): ASP_Form
-	ASP_FormGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_FormConnection!
+	ASP_FormGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): ASP_FormConnection!
 }
 
 extend type Mutation {

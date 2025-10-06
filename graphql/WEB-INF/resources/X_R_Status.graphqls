@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	R_Status(UU: String!): R_Status
-	R_StatusGet(Page: Int, Size: Int, Sort: String, Filter: String): R_StatusConnection!
+	R_StatusGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): R_StatusConnection!
 }
 
 extend type Mutation {

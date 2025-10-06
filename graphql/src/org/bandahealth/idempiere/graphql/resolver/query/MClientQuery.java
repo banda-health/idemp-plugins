@@ -53,8 +53,8 @@ public class MClientQuery extends X_AD_ClientQuery {
 	}
 
 	@Override
-	public Connection<MClient_BH> AD_ClientGet(int page, int pageSize, String sort, String filter,
-			DataFetchingEnvironment environment) {
+	public Connection<MClient_BH> AD_ClientGet(int page, int pageSize, String sort, String filter, String Where,
+			List<Object> Parameters, DataFetchingEnvironment environment) {
 		Properties iDempiereContext = BandaGraphQLContext.getCtx(environment);
 		try {
 			List<Object> parameters = new ArrayList<>();

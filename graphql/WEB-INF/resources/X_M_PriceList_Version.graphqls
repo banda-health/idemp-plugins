@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_PriceList_Version(UU: String!): M_PriceList_Version
-	M_PriceList_VersionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PriceList_VersionConnection!
+	M_PriceList_VersionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_PriceList_VersionConnection!
 }
 
 extend type Mutation {

@@ -591,6 +591,13 @@ query C_OrderLineGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 				UU
 			}
 			UU
+			QtyOrdered
+			M_Product {
+				UU
+			}
+			M_AttributeSetInstance {
+				UU
+			}
 		}
 	}
 }
@@ -736,20 +743,25 @@ query M_Product($UU: String!) {
 	}
 }
 
-query M_ProductGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
-	M_ProductGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+query M_ProductGet($Page: Int, $Size: Int, $Sort: String, $Filter: String, $Where: String, $Parameters: [Object!]) {
+	M_ProductGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter, Where: $Where, Parameters: $Parameters) {
 		Results {
 			...M_ProductFields
+			TotalQuantity
 		}
 		PagingInfo {
 			Page
+			TotalCount
 			TotalPages
 		}
 	}
 }
 
-query M_StorageOnHandGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
-	M_StorageOnHandGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+query M_StorageOnHandGet($Page: Int, $Size: Int, $Sort: String, $Filter: String, $Where: String) {
+	M_StorageOnHandGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter, Where: $Where) {
+		PagingInfo {
+			TotalCount
+		}
 		Results {
 			UU
 			M_AttributeSetInstance {
@@ -799,7 +811,7 @@ query OpenBalanceTransactionGet($Page: Int, $Size: Int, $Sort: String, $Filter: 
 }
 
 query PaymentTrailGet($C_BPartner_UU: String!, $Page: Int, $Size: Int, $Sort: String, $Filter: String) {
-	PaymentTrailGet(C_BPartner_UU: $C_BPartner_UU Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+	PaymentTrailGet(C_BPartner_UU: $C_BPartner_UU, Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			BH_Visit {
 				UU
@@ -819,6 +831,9 @@ query PaymentTrailGet($C_BPartner_UU: String!, $Page: Int, $Size: Int, $Sort: St
 query VendorPaymentTrailGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	VendorPaymentTrailGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
+			Base_Reversal_C_Invoice {
+				UU
+			}
 			C_Invoice {
 				DocStatus {
 					Value

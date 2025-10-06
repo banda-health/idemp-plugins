@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.process.DocAction;
+import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.Env;
 import org.hamcrest.Matchers;
@@ -80,6 +81,12 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
@@ -90,7 +97,8 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Uncoded_Diagnosis("pain");
 		encounterDiagnosis.setLineNo(10);
@@ -221,6 +229,13 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
 
 		Timestamp earlyDate = TimestampUtils.startOfYesterday();
 		Timestamp beginDate = TimestampUtils.add(earlyDate, Calendar.HOUR, 2);
@@ -237,7 +252,8 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.setBH_Encounter_Date(TimestampUtils.today());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Uncoded_Diagnosis("pain");
 		encounterDiagnosis.setLineNo(10);
@@ -246,7 +262,8 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create SO");
 		valueObject.setQuantity(BigDecimal.ONE);
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_WarehouseOrder, true, false,
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_WarehouseOrder, true,
+				false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
@@ -318,7 +335,8 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create SO");
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_WarehouseOrder, true, false,
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_WarehouseOrder, true,
+				false,
 				false);
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_SerNoCtlDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.dataloader.DataLoader;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,7 +29,7 @@ public class X_M_SerNoCtlQuery extends POQuery<MSerNoCtl_BH> implements GraphQLQ
 	}
 
 	public Connection<MSerNoCtl_BH> M_SerNoCtlGet(int Page, int PageSize, String Sort, String Filter,
-			DataFetchingEnvironment environment) {
-		return super.Get(Page, PageSize, Sort, Filter, environment);
+			String Where, List<Object> Parameters, DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);
 	}
 }

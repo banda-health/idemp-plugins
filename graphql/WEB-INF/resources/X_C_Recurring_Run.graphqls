@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_Recurring_Run(UU: String!): C_Recurring_Run
-	C_Recurring_RunGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Recurring_RunConnection!
+	C_Recurring_RunGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_Recurring_RunConnection!
 }
 
 extend type Mutation {

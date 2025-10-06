@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_OrgAssignment(UU: String!): C_OrgAssignment
-	C_OrgAssignmentGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrgAssignmentConnection!
+	C_OrgAssignmentGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_OrgAssignmentConnection!
 }
 
 extend type Mutation {

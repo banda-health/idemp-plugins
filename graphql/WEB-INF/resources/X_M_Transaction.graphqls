@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_Transaction(UU: String!): M_Transaction
-	M_TransactionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_TransactionConnection!
+	M_TransactionGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_TransactionConnection!
 }
 
 extend type Mutation {

@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	M_MatchPO(UU: String!): M_MatchPO
-	M_MatchPOGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MatchPOConnection!
+	M_MatchPOGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): M_MatchPOConnection!
 }
 
 extend type Mutation {

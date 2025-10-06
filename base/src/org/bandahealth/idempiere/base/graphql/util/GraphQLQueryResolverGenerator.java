@@ -108,6 +108,7 @@ public class GraphQLQueryResolverGenerator {
 		classesToImport.add("java.util.concurrent.CompletableFuture");
 		classesToImport.add(dataLoaderPackageName + "." + GraphQLDataLoaderGenerator.getGeneratedName(tableName));
 		classesToImport.add("org.dataloader.DataLoader");
+		classesToImport.add("java.util.List");
 		GraphQLUtil.createImports(classesToImport, generatedClass);
 		generatedClass
 				.append("/**\n * Generated Query Resolver for ").append(tableName).append(" - DO NOT CHANGE\n *\n")
@@ -138,8 +139,8 @@ public class GraphQLQueryResolverGenerator {
 				.append("\tpublic Connection<").append(tableStructureExtensions.getClassName()).append("> ")
 				.append(tableStructureExtensions.getTableName())
 				.append("Get(int Page, int PageSize, String Sort, String Filter,\n")
-				.append("\t\t\tDataFetchingEnvironment environment) {\n")
-				.append("\t\treturn super.Get(Page, PageSize, Sort, Filter, environment);\n")
+				.append("\t\t\tString Where, List<Object> Parameters, DataFetchingEnvironment environment) {\n")
+				.append("\t\treturn super.Get(Page, PageSize, Sort, Filter, Where, Parameters, environment);\n")
 				.append("\t}\n")
 				.append("}\n");
 

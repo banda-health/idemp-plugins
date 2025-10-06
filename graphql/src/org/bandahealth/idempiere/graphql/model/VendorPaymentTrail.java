@@ -11,11 +11,14 @@ public class VendorPaymentTrail {
 	private Timestamp date;
 	private Timestamp created;
 	private Timestamp updated;
+	private Timestamp orderingDate;
 	private Integer createdBy;
 	private Integer orderId;
 	private BigDecimal charged;
 	private BigDecimal paid;
 	private BigDecimal openBalance;
+	private Integer baseReversalInvoiceId;
+	private Integer baseReversalPaymentId;
 
 	public Integer getClientId() {
 		return clientId;
@@ -111,5 +114,29 @@ public class VendorPaymentTrail {
 
 	public void setPaid(BigDecimal paid) {
 		this.paid = paid;
+	}
+
+	public Integer getBaseReversalInvoiceId() {
+		return baseReversalInvoiceId;
+	}
+
+	public void setBaseReversalInvoiceId(Integer baseReversalInvoiceId) {
+		this.baseReversalInvoiceId = baseReversalInvoiceId;
+	}
+
+	public Integer getBaseReversalPaymentId() {
+		return baseReversalPaymentId;
+	}
+
+	public void setBaseReversalPaymentId(Integer baseReversalPaymentId) {
+		this.baseReversalPaymentId = baseReversalPaymentId;
+	}
+
+	public Timestamp getOrderingDate() {
+		return orderingDate;
+	}
+
+	public void setOrderingDate(Timestamp orderingDate) {
+		this.orderingDate = orderingDate;
 	}
 }

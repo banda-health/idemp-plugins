@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	AD_StatusLine(UU: String!): AD_StatusLine
-	AD_StatusLineGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StatusLineConnection!
+	AD_StatusLineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): AD_StatusLineConnection!
 }
 
 extend type Mutation {

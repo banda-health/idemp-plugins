@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_OrderLandedCost(UU: String!): C_OrderLandedCost
-	C_OrderLandedCostGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrderLandedCostConnection!
+	C_OrderLandedCostGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_OrderLandedCostConnection!
 }
 
 extend type Mutation {

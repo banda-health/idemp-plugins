@@ -3,7 +3,7 @@
 #		@version Release 12 - $Id$
 extend type Query {
 	C_AcctSchema_GL(UU: String!): C_AcctSchema_GL
-	C_AcctSchema_GLGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctSchema_GLConnection!
+	C_AcctSchema_GLGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): C_AcctSchema_GLConnection!
 }
 
 extend type Mutation {
