@@ -577,6 +577,7 @@ query C_OrderForSalesRep($UU: String!) {
 
 query C_OrderLine($UU: String!) {
 	C_OrderLine(UU: $UU) {
+		...C_OrderLineFields
 		Included_OrderLineList {
 			UU
 		}
@@ -587,6 +588,7 @@ query C_OrderLine($UU: String!) {
 query C_OrderLineGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	C_OrderLineGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
+			...C_OrderLineFields
 			Included_OrderLine {
 				UU
 			}

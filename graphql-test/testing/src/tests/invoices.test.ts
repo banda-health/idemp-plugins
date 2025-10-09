@@ -1,12 +1,25 @@
 import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentStatus } from '../models';
-import { createBusinessPartner, createCharge, createInvoice, createPayment, createProduct } from '../utils';
+import { documentAction, documentBaseType, documentStatus, documentSubTypeSalesOrder } from '../models';
+import {
+	createBusinessPartner,
+	createCharge,
+	createInvoice,
+	createOrder,
+	createPayment,
+	createProduct,
+	formatApiDate,
+} from '../utils';
 import {
 	C_BPartnerGetDocument,
 	C_InvoiceDeleteDocument,
 	C_InvoiceGetDocument,
+	C_OrderGetDocument,
+	C_OrderProcessDocument,
+	C_OrderSaveWithOrderLinesDocument,
 	C_PaymentProcessDocument,
+	C_InvoiceSaveWithInvoiceLinesDocument,
 } from '../__generated__/graphql';
+import { v4 } from 'uuid';
 
 test('creating an invoice with a charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -241,4 +254,99 @@ test('a payment for more than open invoice amounts causes the BP total open bala
 			})
 		).data.C_BPartnerGet.Results[0]?.TotalOpenBalance,
 	).toBe(10);
+});
+
+test('price is not automatically set when pricelist property is sent on invoice line', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product with specific prices';
+	valueObject.salesStandardPrice = 50;
+	valueObject.purchaseStandardPrice = 30;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+
+	const orderUU = v4();
+	const savedData = (
+		await mutate(valueObject)({
+			mutation: C_OrderSaveWithOrderLinesDocument,
+			variables: {
+				C_Order: {
+					UU: orderUU,
+					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
+					C_DocTypeTarget: { UU: valueObject.documentType!.UU },
+					DateOrdered: formatApiDate(valueObject.date),
+					Description: valueObject.getStepMessageLong(),
+					IsSOTrx: valueObject.documentType!.IsSOTrx,
+					M_Warehouse: { UU: valueObject.warehouse!.UU },
+					SalesRep: { UU: valueObject.user?.UU! },
+				},
+				C_OrderLine: {
+					C_Order: { UU: orderUU },
+					Description: valueObject.getStepMessageLong(),
+					M_Product: { UU: valueObject.product!.UU },
+					Price: 0,
+					PriceList: 1,
+					Qty: 1,
+					M_AttributeSetInstance: valueObject.attributeSetInstance
+						? { UU: valueObject.attributeSetInstance.UU }
+						: undefined,
+				},
+			},
+		})
+	).data;
+
+	valueObject.order =
+		(
+			await mutate(valueObject)({
+				mutation: C_OrderProcessDocument,
+				variables: { UU: orderUU, DocumentAction: valueObject.documentAction },
+			})
+		).data?.C_OrderProcess || undefined;
+	valueObject.orderLine = savedData?.C_OrderLineSave;
+
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const invoiceUU = v4();
+	const savedInvoiceData = (
+		await mutate(valueObject)({
+			mutation: C_InvoiceSaveWithInvoiceLinesDocument,
+			variables: {
+				C_Invoice: {
+					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
+					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
+					C_DocTypeTarget: { UU: valueObject.documentType!.UU },
+					C_Order: valueObject.order ? { UU: valueObject.order.UU } : undefined,
+					DateInvoiced: formatApiDate(valueObject.date),
+					Description: valueObject.getStepMessageLong(),
+					IsSOTrx: valueObject.documentType!.IsSOTrx,
+					UU: invoiceUU,
+				},
+				C_InvoiceLine: {
+					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
+					C_Charge: !valueObject.product && valueObject.charge ? { UU: valueObject.charge.UU } : undefined,
+					C_Invoice: { UU: invoiceUU },
+					C_OrderLine: valueObject.orderLine ? { UU: valueObject.orderLine.UU } : undefined,
+					Description: valueObject.getStepMessageLong(),
+					M_Product: valueObject.product ? { UU: valueObject.product.UU } : undefined,
+					Price: 0,
+					PriceList: 1,
+					Qty: valueObject.quantity || 1,
+				},
+			},
+		})
+	).data;
+
+	// Verify that the price was NOT set automatically when pricelist is specified
+	expect(valueObject.orderLine!.PriceEntered).toBe(0);
+	expect(savedInvoiceData!.C_InvoiceLineSave!.PriceEntered).toBe(0);
 });

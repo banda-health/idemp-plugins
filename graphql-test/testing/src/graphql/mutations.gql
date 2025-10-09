@@ -114,7 +114,7 @@ mutation BH_BPartner_TagsSave($Entity: BH_BPartner_TagsInput!) {
 	}
 }
 
-mutation BH_BPartner_TagsDelete($UUs: [String!]!){
+mutation BH_BPartner_TagsDelete($UUs: [String!]!) {
 	BH_BPartner_TagsDelete(UUs: $UUs)
 }
 
@@ -226,13 +226,13 @@ mutation BH_ObservationsDeleteAndSaveManyAndEncounterDiagnosesSaveMany(
 	}
 }
 
-mutation BH_TagSave($Entity: BH_TagInput!){
+mutation BH_TagSave($Entity: BH_TagInput!) {
 	BH_TagSave(Entity: $Entity) {
 		UU
 	}
 }
 
-mutation BH_TagDelete($UUs: [String!]!){
+mutation BH_TagDelete($UUs: [String!]!) {
 	BH_TagDelete(UUs: $UUs)
 }
 
@@ -319,7 +319,7 @@ mutation BH_VisitSaveAndProcessWithOrdersInvoicesAndPayments(
 		UU
 	}
 	C_OrderLineSaveMany(Entities: $C_OrderLines) {
-		UU
+		...C_OrderLineFields
 	}
 	C_InvoiceSaveMany(Entities: $C_Invoices) {
 		UU
@@ -362,7 +362,7 @@ mutation BH_VisitSaveWithEncountersObservationsOrdersInvoicesAndPayments(
 		UU
 	}
 	C_OrderLineSaveMany(Entities: $C_OrderLines) {
-		UU
+		...C_OrderLineFields
 	}
 	C_InvoiceSaveMany(Entities: $C_Invoices) {
 		UU
@@ -393,7 +393,7 @@ mutation BH_VisitSaveWithEncountersOrdersAndInvoices(
 		UU
 	}
 	C_OrderLineSaveMany(Entities: $C_OrderLines) {
-		UU
+		...C_OrderLineFields
 	}
 	C_InvoiceSaveMany(Entities: $C_Invoices) {
 		UU
@@ -431,7 +431,7 @@ mutation BH_VisitSaveWithEncountersObservationsOrdersInvoicesInsuranceAndPayment
 		UU
 	}
 	C_OrderLineSaveMany(Entities: $C_OrderLines) {
-		UU
+		...C_OrderLineFields
 	}
 	C_InvoiceSaveMany(Entities: $C_Invoices) {
 		UU
@@ -462,7 +462,7 @@ mutation BH_VisitSaveWithOrdersInvoicesAndPayments(
 		UU
 	}
 	C_OrderLineSaveMany(Entities: $C_OrderLines) {
-		UU
+		...C_OrderLineFields
 	}
 	C_InvoiceSaveMany(Entities: $C_Invoices) {
 		UU
@@ -491,7 +491,7 @@ mutation BH_VisitSaveWithOrdersInvoicesPayerInformationAndPayments(
 		UU
 	}
 	C_OrderLineSaveMany(Entities: $C_OrderLines) {
-		UU
+		...C_OrderLineFields
 	}
 	C_InvoiceSaveMany(Entities: $C_Invoices) {
 		UU
@@ -646,6 +646,7 @@ mutation C_InvoiceSaveWithInvoiceLines($C_Invoice: C_InvoiceInput!, $C_InvoiceLi
 		UU
 	}
 	C_InvoiceLineSave(Entity: $C_InvoiceLine) {
+		PriceEntered
 		UU
 	}
 }
@@ -662,14 +663,13 @@ mutation C_OrderLineDelete($UUS: [String!]!) {
 
 mutation C_OrderLineSave($Entity: C_OrderLineInput!) {
 	C_OrderLineSave(Entity: $Entity) {
-		UU
+		...C_OrderLineFields
 	}
 }
 
 mutation C_OrderLineSaveMany($Entities: [C_OrderLineInput!]!) {
 	C_OrderLineSaveMany(Entities: $Entities) {
-		PriceEntered
-		UU
+		...C_OrderLineFields
 	}
 }
 
@@ -690,7 +690,7 @@ mutation C_OrderSaveWithOrderLines($C_Order: C_OrderInput!, $C_OrderLine: C_Orde
 		UU
 	}
 	C_OrderLineSave(Entity: $C_OrderLine) {
-		UU
+		...C_OrderLineFields
 	}
 }
 
