@@ -74,6 +74,7 @@ FROM
 			i.ad_client_id = _ad_client_id
 			AND i.docstatus = 'CO'
 			AND i.issotrx = 'N'
+			AND i.c_order_id IS NULL
 			AND i.bh_visit_id IS NULL
 			AND i.dateinvoiced::date + i.updated::time BETWEEN _begin_date AND _end_date
 	) AS expenses

@@ -26,6 +26,7 @@ WITH months AS (
 			i.ad_client_id = _ad_client_id
 			AND i.docstatus = 'CO'
 			AND i.issotrx = 'N'
+			AND i.c_order_id IS NULL
 			AND i.bh_visit_id IS NULL
 			AND i.dateinvoiced >= DATE_TRUNC('month', NOW() - '5 months'::interval)
 		GROUP BY DATE_TRUNC('month', i.dateinvoiced)
