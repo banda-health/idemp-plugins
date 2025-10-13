@@ -79,9 +79,13 @@ FROM
 	) AS debtPayments
 		CROSS JOIN (
 		SELECT
-			COALESCE(SUM(i.grandtotal), 0) AS totalexpenses
+			COALESCE(SUM(il.linenetamt) FILTER ( WHERE c.name != 'Medications & Supplies' ), 0) AS totalexpenses
 		FROM
 			c_invoice i
+				JOIN c_invoiceline il
+					ON i.c_invoice_id = il.c_invoice_id
+				JOIN c_charge c
+					ON il.c_charge_id = c.c_charge_id
 				JOIN params
 					ON i.ad_client_id = params.ad_client_id
 		WHERE

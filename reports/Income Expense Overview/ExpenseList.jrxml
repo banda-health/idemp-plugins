@@ -26,7 +26,7 @@
 FROM
 	(
 		SELECT
-			COALESCE(SUM(il.linenetamt), 0) AS total_expenses,
+			COALESCE(SUM(il.linenetamt) FILTER ( WHERE c.name != 'Medications & Supplies' ), 0) AS total_expenses,
 			COALESCE(SUM(il.linenetamt) FILTER ( WHERE c.name LIKE 'Facilities -%' ),
 			         0)                     AS sum_facility,
 			COALESCE(SUM(il.linenetamt) FILTER ( WHERE c.name = 'Facilities - Rent' ),
