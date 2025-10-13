@@ -11,6 +11,10 @@ WHERE
 				JOIN c_order o
 					ON i.c_order_id = o.c_order_id AND o.docstatus = 'CO' AND i.docstatus IN ('DR', 'IN', 'IP') AND
 					   o.issotrx = 'N'
+				LEFT JOIN c_payment p
+					ON i.c_invoice_id = p.c_invoice_id
+		WHERE
+			p.c_payment_id IS NULL
 	);
 DELETE
 FROM
@@ -24,6 +28,10 @@ WHERE
 				JOIN c_order o
 					ON i.c_order_id = o.c_order_id AND o.docstatus = 'CO' AND i.docstatus IN ('DR', 'IN', 'IP') AND
 					   o.issotrx = 'N'
+				LEFT JOIN c_payment p
+					ON i.c_invoice_id = p.c_invoice_id
+		WHERE
+			p.c_payment_id IS NULL
 	);
 DELETE
 FROM
