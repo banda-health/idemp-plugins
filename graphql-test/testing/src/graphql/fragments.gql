@@ -120,6 +120,11 @@ fragment C_BPartnerFields on C_BPartner {
 	TotalVisits
 }
 
+fragment C_OrderLineFields on C_OrderLine {
+	PriceEntered
+	UU
+}
+
 fragment C_LocationFields on C_Location {
 	C_Country {
 		UU

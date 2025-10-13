@@ -26,6 +26,7 @@ WHERE
 	i.ad_client_id = $P{AD_CLIENT_ID}
 	AND i.docstatus = 'CO'
 	AND i.issotrx = 'N'
+	AND i.c_order_id IS NULL
 	AND i.bh_visit_id IS NULL
 	AND i.dateinvoiced::date + i.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
 	AND c.name != 'Medications & Supplies'

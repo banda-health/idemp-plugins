@@ -52,24 +52,16 @@ public class SqlUtil {
 
 		Integer count = null;
 
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try {
-			statement = DB.prepareStatement(sql.toString(), null);
+		try (PreparedStatement statement = DB.prepareStatement(sql.toString(), null)) {
 			DB.setParameters(statement, parameters);
-
-			resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				count = resultSet.getInt(1);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				if (resultSet.next()) {
+					count = resultSet.getInt(1);
+				}
 			}
-
 		} catch (SQLException e) {
 			log.log(Level.SEVERE, sql.toString(), e);
 			throw new DBException(e, sql.toString());
-		} finally {
-			DB.close(resultSet, statement);
-			resultSet = null;
-			statement = null;
 		}
 
 		return count;
@@ -122,23 +114,18 @@ public class SqlUtil {
 
 		Map<Integer, Integer> counts = idsToGroupBy.stream().collect(Collectors.toMap(id -> id, id -> 0));
 
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try {
-			statement = DB.prepareStatement(sql.toString(), null);
+		try (PreparedStatement statement = DB.prepareStatement(sql.toString(), null)) {
 			DB.setParameters(statement, parameters);
 
-			resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				int idColumn = resultSet.getInt(1);
-				counts.put(idColumn, resultSet.getInt(2));
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					int idColumn = resultSet.getInt(1);
+					counts.put(idColumn, resultSet.getInt(2));
+				}
 			}
-
 		} catch (SQLException e) {
 			log.log(Level.SEVERE, sql.toString(), e);
 			throw new DBException(e, sql.toString());
-		} finally {
-			DB.close(resultSet, statement);
 		}
 
 		return counts;
@@ -148,22 +135,16 @@ public class SqlUtil {
 		String sql = "SELECT COUNT(*) " + sqlFromAndWhereClause;
 		Integer count = null;
 
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try {
-			statement = DB.prepareStatement(sql.toString(), null);
+		try (PreparedStatement statement = DB.prepareStatement(sql.toString(), null)) {
 			DB.setParameters(statement, parameters);
-
-			resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				count = resultSet.getInt(1);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				if (resultSet.next()) {
+					count = resultSet.getInt(1);
+				}
 			}
-
 		} catch (SQLException e) {
 			log.log(Level.SEVERE, sql.toString(), e);
 			throw new DBException(e, sql.toString());
-		} finally {
-			DB.close(resultSet, statement);
 		}
 
 		return count;
@@ -208,29 +189,23 @@ public class SqlUtil {
 	 */
 	public static void executeQueryWithDynamicColumns(String sql, List<Object> parameters, String transactionName,
 			List<String> unknownColumnNames, VoidFunction<ResultSet> handler) {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, transactionName);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, transactionName)) {
 			DB.setParameters(preparedStatement, parameters);
-			resultSet = preparedStatement.executeQuery();
-			if (unknownColumnNames != null) {
-				ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-				int totalColumnsInQuery = resultSetMetaData.getColumnCount();
-				for (int columnIndex = 0; columnIndex < totalColumnsInQuery; columnIndex++) {
-					unknownColumnNames.add(resultSetMetaData.getColumnName(columnIndex + 1));
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (unknownColumnNames != null) {
+					ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+					int totalColumnsInQuery = resultSetMetaData.getColumnCount();
+					for (int columnIndex = 0; columnIndex < totalColumnsInQuery; columnIndex++) {
+						unknownColumnNames.add(resultSetMetaData.getColumnName(columnIndex + 1));
+					}
 				}
-			}
-			while (resultSet.next()) {
-				handler.apply(resultSet);
+				while (resultSet.next()) {
+					handler.apply(resultSet);
+				}
 			}
 		} catch (SQLException e) {
 			log.log(Level.SEVERE, sql, e);
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
-			resultSet = null;
-			preparedStatement = null;
 		}
 	}
 
