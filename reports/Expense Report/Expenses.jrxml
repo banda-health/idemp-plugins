@@ -61,6 +61,7 @@ FROM
 		ON rl.ad_reference_id = r.ad_reference_id AND r.ad_reference_uu = 'af0136e2-1ec4-4b60-a8a1-dc6c252e4878'
 WHERE
 	i.issotrx = 'N'
+	AND i.c_order_id IS NULL
 	AND i.bh_visit_id IS NULL
 	AND i.docstatus IN ('CO', 'CL')
 	AND i.ad_client_id = $P{AD_CLIENT_ID}

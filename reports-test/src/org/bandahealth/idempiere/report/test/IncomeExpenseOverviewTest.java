@@ -43,6 +43,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
+	private static final String reportUU = "f777f042-3907-4293-94c4-49fe6eb58780";
+
 	private MProductCategory_BH getProductCategory(ChuBoePopulateVO valueObject, String productCategoryName,
 			String productCategoryType)
 			throws SQLException {
@@ -78,7 +80,7 @@ public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessUuid(reportUU);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(Arrays.asList(
@@ -101,7 +103,7 @@ public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 		Timestamp endDate = new Timestamp(System.currentTimeMillis());
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessUuid(reportUU);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
@@ -215,7 +217,7 @@ public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessUuid(reportUU);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
@@ -250,7 +252,7 @@ public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 		Timestamp endDate = new Timestamp(System.currentTimeMillis());
 		//
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessUuid(reportUU);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
@@ -452,7 +454,7 @@ public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessUuid(reportUU);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
@@ -518,7 +520,7 @@ public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessUuid(reportUU);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
@@ -568,7 +570,7 @@ public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessUuid(reportUU);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
@@ -611,7 +613,7 @@ public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessUuid(reportUU);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
@@ -719,7 +721,7 @@ public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessUuid(reportUU);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
@@ -731,5 +733,97 @@ public class IncomeExpenseOverviewTest extends ChuBoePopulateFactoryVO {
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		assertTrue(reportContent.contains(valueObject.getBusinessPartner().getName().substring(0, 10)),
 				"Insurer shows up on the report");
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void purchaseInvoicesAreOnlyIncludedOnceInExpenses() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Generate the income & expense overview report");
+		valueObject.setProcessUuid(reportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		double totalExpenses = 0;
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			totalExpenses = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equalsIgnoreCase("Total expenses"))).findFirst().map(
+					row -> StreamSupport.stream(row.spliterator(), false)
+							.filter(cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC)).findFirst()
+							.map(Cell::getNumericCellValue).orElse(0.0)).orElse(0.0);
+		}
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create PO");
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create invoice");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the income & expense overview report");
+		valueObject.setProcessUuid(reportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			double newTotalExpenses = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equalsIgnoreCase("Total expenses"))).findFirst().map(
+					row -> StreamSupport.stream(row.spliterator(), false)
+							.filter(cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC)).findFirst()
+							.map(Cell::getNumericCellValue).orElse(0.0)).orElse(0.0);
+			//
+			assertEquals(totalExpenses + 100, newTotalExpenses, "Total expenses didn't change");
+
+			double totalExpensesUnderExpenses = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equalsIgnoreCase("Total expenses during this period"))).findFirst().map(
+					row -> StreamSupport.stream(row.spliterator(), false)
+							.filter(cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC)).findFirst()
+							.map(Cell::getNumericCellValue).orElse(0.0)).orElse(0.0);
+			assertEquals(totalExpenses + 100, totalExpensesUnderExpenses, "Expense values match");
+		}
 	}
 }
