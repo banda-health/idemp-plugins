@@ -40,20 +40,24 @@ public class CreditManagerInvoice_BH implements ICreditManager {
 	@Override
 	public CreditStatus checkCreditStatus(String docAction) {
 		String errorMsg = null;
+
+		MBPartner_BH bp = new MBPartner_BH(mInvoice.getCtx(), mInvoice.getC_BPartner_ID(), mInvoice.get_TrxName());
 		// check if the invoice contains a visit
 		if (mInvoice.getBH_Visit_ID() > 0) {
-			// confirm that the invoice total is not greater than the payments
-			List<MPayment_BH> payments = new Query(mInvoice.getCtx(), MPayment_BH.Table_Name,
-					MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?", mInvoice.get_TrxName())
-					.setParameters(mInvoice.getBH_Visit_ID()).list();
+			if (!MBPartner_BH.SOCREDITSTATUS_NoCreditCheck.equals(bp.getSOCreditStatus())) {
+				// confirm that the invoice total is not greater than the payments
+				List<MPayment_BH> payments = new Query(mInvoice.getCtx(), MPayment_BH.Table_Name,
+						MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?", mInvoice.get_TrxName())
+						.setParameters(mInvoice.getBH_Visit_ID()).list();
 
-			BigDecimal totalPaymentAmount = payments.stream().map(MPayment_BH::getPayAmt).reduce(BigDecimal.ZERO,
-					BigDecimal::add);
+				BigDecimal totalPaymentAmount = payments.stream().map(MPayment_BH::getPayAmt).reduce(BigDecimal.ZERO,
+						BigDecimal::add);
 
-			// Check if total payments cover the order amount
-			if (mInvoice.getGrandTotal().compareTo(totalPaymentAmount) > 0) {
-				errorMsg = "@InvoiceTotalExceedsPayments@ - @GrandTotal@=" + mInvoice.getGrandTotal() + ", @TotalPayments@="
-						+ totalPaymentAmount;
+				// Check if total payments cover the order amount
+				if (mInvoice.getGrandTotal().compareTo(totalPaymentAmount) > 0) {
+					errorMsg = "@InvoiceTotalExceedsPayments@ - @GrandTotal@=" + mInvoice.getGrandTotal()
+							+ ", @TotalPayments@=" + totalPaymentAmount;
+				}
 			}
 			return new CreditStatus(errorMsg, !Util.isEmpty(errorMsg));
 		}
@@ -65,8 +69,6 @@ public class CreditManagerInvoice_BH implements ICreditManager {
 					&& mInvoice.getGrandTotal().signum() < 0)
 					|| (doc.getDocBaseType().equals(MDocType.DOCBASETYPE_ARInvoice)
 							&& mInvoice.getGrandTotal().signum() > 0)) {
-				MBPartner_BH bp = new MBPartner_BH(mInvoice.getCtx(), mInvoice.getC_BPartner_ID(),
-						mInvoice.get_TrxName());
 				if (MBPartner_BH.SOCREDITSTATUS_CreditStop.equals(bp.getSOCreditStatus())) {
 					errorMsg = "@BPartnerCreditStop@ - @TotalOpenBalance@=" + bp.getTotalOpenBalance()
 							+ ", @SO_CreditLimit@=" + bp.getSO_CreditLimit();
@@ -79,7 +81,7 @@ public class CreditManagerInvoice_BH implements ICreditManager {
 				fromPOS = mInvoice.getC_Order().getC_POS_ID() > 0;
 			}
 			// Update BP Statistics
-			MBPartner_BH bp = new MBPartner_BH(mInvoice.getCtx(), mInvoice.getC_BPartner_ID(), mInvoice.get_TrxName());
+
 			DB.getDatabase().forUpdate(bp, 0);
 			// Update total revenue and balance / credit limit (reversed on
 			// AllocationLine.processIt)
