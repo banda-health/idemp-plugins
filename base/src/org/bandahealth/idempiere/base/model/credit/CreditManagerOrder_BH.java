@@ -18,7 +18,7 @@ import org.compiere.util.Util;
 public class CreditManagerOrder_BH implements ICreditManager {
 
 	private final MOrder_BH order;
-
+	
 	/**
 	 * Order Credit Manager Load Constructor
 	 * 

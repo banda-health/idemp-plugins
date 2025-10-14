@@ -59,10 +59,7 @@ public class CreditManagerInvoice_BH implements ICreditManager {
 							+ ", @TotalPayments@=" + totalPaymentAmount;
 				}
 			}
-			return new CreditStatus(errorMsg, !Util.isEmpty(errorMsg));
-		}
-
-		if (MInvoice_BH.DOCACTION_Prepare.equals(docAction) && mInvoice.isSOTrx()) {
+		} else if (MInvoice_BH.DOCACTION_Prepare.equals(docAction) && mInvoice.isSOTrx()) {
 			MDocType doc = (MDocType) mInvoice.getC_DocTypeTarget();
 			// IDEMPIERE-365 - just check credit if is going to increase the debt
 			if ((doc.getDocBaseType().equals(MDocType.DOCBASETYPE_ARCreditMemo)
@@ -74,7 +71,9 @@ public class CreditManagerInvoice_BH implements ICreditManager {
 							+ ", @SO_CreditLimit@=" + bp.getSO_CreditLimit();
 				}
 			}
-		} else if (MInvoice_BH.DOCACTION_Complete.equals(docAction)) {
+		}
+
+		if (MInvoice_BH.DOCACTION_Complete.equals(docAction)) {
 			// POS supports multiple payments
 			boolean fromPOS = false;
 			if (mInvoice.getC_Order_ID() > 0) {
