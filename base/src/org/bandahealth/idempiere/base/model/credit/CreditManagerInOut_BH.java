@@ -37,25 +37,29 @@ public class CreditManagerInOut_BH implements ICreditManager {
 		MInOut_BH inout = new Query(mInOut.getCtx(), MInOut_BH.Table_Name, MInOut_BH.COLUMNNAME_M_InOut_ID + "=?",
 				mInOut.get_TrxName()).setParameters(mInOut.get_ID()).first();
 
+		MBPartner_BH bp = new MBPartner_BH(mInOut.getCtx(), mInOut.getC_BPartner_ID(), mInOut.get_TrxName());
+
 		// check if the invoice contains a visit
 		if (inout.getBH_Visit_ID() > 0) {
-			// confirm that the invoice total is not greater than the payments
-			List<MPayment_BH> payments = new Query(inout.getCtx(), MPayment_BH.Table_Name,
-					MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?", inout.get_TrxName())
-					.setParameters(inout.getBH_Visit_ID()).list();
+			if (!MBPartner_BH.SOCREDITSTATUS_NoCreditCheck.equals(bp.getSOCreditStatus())) {
+				// confirm that the invoice total is not greater than the payments
+				List<MPayment_BH> payments = new Query(inout.getCtx(), MPayment_BH.Table_Name,
+						MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?", inout.get_TrxName())
+						.setParameters(inout.getBH_Visit_ID()).list();
 
-			BigDecimal totalPaymentAmount = payments.stream().map(MPayment_BH::getPayAmt).reduce(BigDecimal.ZERO,
-					BigDecimal::add);
+				BigDecimal totalPaymentAmount = payments.stream().map(MPayment_BH::getPayAmt).reduce(BigDecimal.ZERO,
+						BigDecimal::add);
 
-			// get the invoice grand total
-			MInvoice_BH mInvoice = new Query(inout.getCtx(), MInvoice_BH.Table_Name,
-					MInvoice_BH.COLUMNNAME_BH_Visit_ID + "=?", inout.get_TrxName())
-					.setParameters(inout.getBH_Visit_ID()).first();
+				// get the invoice grand total
+				MInvoice_BH mInvoice = new Query(inout.getCtx(), MInvoice_BH.Table_Name,
+						MInvoice_BH.COLUMNNAME_BH_Visit_ID + "=?", inout.get_TrxName())
+						.setParameters(inout.getBH_Visit_ID()).first();
 
-			// Check if total payments cover the order amount
-			if (mInvoice != null && mInvoice.getGrandTotal().compareTo(totalPaymentAmount) > 0) {
-				errorMsg = "@InvoiceTotalExceedsPayments@ - @GrandTotal@=" + mInvoice.getGrandTotal()
-						+ ", @TotalPayments@=" + totalPaymentAmount;
+				// Check if total payments cover the order amount
+				if (mInvoice != null && mInvoice.getGrandTotal().compareTo(totalPaymentAmount) > 0) {
+					errorMsg = "@InvoiceTotalExceedsPayments@ - @GrandTotal@=" + mInvoice.getGrandTotal()
+							+ ", @TotalPayments@=" + totalPaymentAmount;
+				}
 			}
 
 			return new CreditStatus(errorMsg, !Util.isEmpty(errorMsg));
@@ -69,7 +73,6 @@ public class CreditManagerInOut_BH implements ICreditManager {
 							mInOut.getAD_Client_ID(), mInOut.getAD_Org_ID())) {
 				// ignore -- don't validate Prepay Orders depending on sysconfig parameter
 			} else {
-				MBPartner_BH bp = new MBPartner_BH(mInOut.getCtx(), mInOut.getC_BPartner_ID(), mInOut.get_TrxName());
 				if (MBPartner_BH.SOCREDITSTATUS_CreditStop.equals(bp.getSOCreditStatus())) {
 					errorMsg = "@BPartnerCreditStop@ - @TotalOpenBalance@=" + bp.getTotalOpenBalance()
 							+ ", @SO_CreditLimit@=" + bp.getSO_CreditLimit();

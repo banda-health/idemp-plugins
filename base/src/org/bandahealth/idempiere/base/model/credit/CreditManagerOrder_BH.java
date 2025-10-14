@@ -32,25 +32,29 @@ public class CreditManagerOrder_BH implements ICreditManager {
 	public CreditStatus checkCreditStatus(String docAction) {
 		String errorMsg = null;
 
+		MBPartner_BH bp = new MBPartner_BH(order.getCtx(), order.getBill_BPartner_ID(), order.get_TrxName());
+
 		// check if visit is present
 		if (order.getBH_Visit_ID() > 0) {
-			// confirm that the invoice total is not greater than the payments
-			List<MPayment_BH> payments = new Query(order.getCtx(), MPayment_BH.Table_Name,
-					MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?", order.get_TrxName()).setParameters(order.getBH_Visit_ID())
-					.list();
+			if (!MBPartner_BH.SOCREDITSTATUS_NoCreditCheck.equals(bp.getSOCreditStatus())) {
+				// confirm that the invoice total is not greater than the payments
+				List<MPayment_BH> payments = new Query(order.getCtx(), MPayment_BH.Table_Name,
+						MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?", order.get_TrxName())
+						.setParameters(order.getBH_Visit_ID()).list();
 
-			BigDecimal totalPaymentAmount = payments.stream().map(MPayment_BH::getPayAmt).reduce(BigDecimal.ZERO,
-					BigDecimal::add);
+				BigDecimal totalPaymentAmount = payments.stream().map(MPayment_BH::getPayAmt).reduce(BigDecimal.ZERO,
+						BigDecimal::add);
 
-			// Check if total payments cover the order amount
-			if (order.getGrandTotal().compareTo(totalPaymentAmount) > 0) {
-				errorMsg = "@OrderTotalExceedsPayments@ - @GrandTotal@=" + order.getGrandTotal() + ", @TotalPayments@="
-						+ totalPaymentAmount;
+				// Check if total payments cover the order amount
+				if (order.getGrandTotal().compareTo(totalPaymentAmount) > 0) {
+					errorMsg = "@OrderTotalExceedsPayments@ - @GrandTotal@=" + order.getGrandTotal()
+							+ ", @TotalPayments@=" + totalPaymentAmount;
+				}
 			}
 
 			return new CreditStatus(errorMsg, !Util.isEmpty(errorMsg));
 		}
-		
+
 		// can't extend CreditManagerOrder so copying this here.
 		if (MOrder_BH.DOCACTION_Prepare.equals(docAction) && order.isSOTrx()) {
 			Properties ctx = order.getCtx();
@@ -66,7 +70,6 @@ public class CreditManagerOrder_BH implements ICreditManager {
 				// ignore -- don't validate Prepay Orders depending on sysconfig parameter
 			} else {
 				// bill bp is guaranteed on beforeSave
-				MBPartner_BH bp = new MBPartner_BH(ctx, order.getBill_BPartner_ID(), order.get_TrxName());
 				// IDEMPIERE-365 - just check credit if is going to increase the debt
 				if (order.getGrandTotal().signum() > 0) {
 					if (MBPartner_BH.SOCREDITSTATUS_CreditStop.equals(bp.getSOCreditStatus())) {
