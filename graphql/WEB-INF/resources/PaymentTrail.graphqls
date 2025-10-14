@@ -1,5 +1,5 @@
 extend type Query {
-	PaymentTrailGet(C_BPartner_UU: String!, Page: Int, Size: Int, Sort: String, Filter: String): PaymentTrailConnection!
+	PaymentTrailGet(Page: Int, Size: Int, Sort: String, Filter: String): PaymentTrailConnection!
 }
 
 type PaymentTrailConnection {
@@ -8,17 +8,24 @@ type PaymentTrailConnection {
 }
 
 type PaymentTrail {
-	C_BPartner: C_BPartner
-	C_Invoice: C_Invoice
-	C_Payment: C_Payment
-	Created: DateTime!
-	Debits: BigDecimal
-	Credits: BigDecimal
+	Base_Reversal_C_Invoice: C_Invoice
+	Base_Reversal_C_Payment: C_Payment
 	BH_Visit: BH_Visit
-	TransactionDate: Date!
-	PatientName: String
+	C_BPartner: C_BPartner!
+	C_Invoice: C_Invoice
+	C_Order: C_Order
+	C_Payment: C_Payment
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
 	CreatedBy: AD_User!
+	# Date this record happened
+	Date: DateTime!
+	Charged: BigDecimal
 	OpenBalance: BigDecimal
-	Item: String!
+	# Date used for ordering (usually either the created or updated)
+	OrderingDate: DateTime!
+	Paid: BigDecimal
+	# Date this record was updated
 	Updated: DateTime!
 }

@@ -20,34 +20,37 @@ import org.compiere.util.DB;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.compiere.util.Env;
 
 public class PaymentTrailQuery implements GraphQLQueryResolver {
 
-	public Connection<PaymentTrail> PaymentTrailGet(String C_BPartner_UU, int Page, int PageSize, String Sort,
+	public Connection<PaymentTrail> PaymentTrailGet(int Page, int PageSize, String Sort,
 			String Filter, DataFetchingEnvironment environment) {
 		PagingInfo pagingInfo = new PagingInfo(Page, PageSize);
 		String functionName = "bh_get_payment_trail";
 		List<Object> parameters = new ArrayList<>();
-		parameters.add(C_BPartner_UU);
 
 		// validate filter
 		String whereClause =
 				FilterUtil.getWhereClauseFromFilter(new FilterTableData(BandaGraphQLContext.getCtx(environment),
 						functionName,
 						Map.ofEntries(
-								Map.entry("c_bpartner_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
-								Map.entry("patient_name", SystemIDs.REFERENCE_DATATYPE_STRING),
-								Map.entry("transaction_date", SystemIDs.REFERENCE_DATATYPE_DATETIME),
-								Map.entry("created", SystemIDs.REFERENCE_DATATYPE_DATETIME),
-								Map.entry("updated", SystemIDs.REFERENCE_DATATYPE_DATETIME),
-								Map.entry("item", SystemIDs.REFERENCE_DATATYPE_STRING),
-								Map.entry("debits", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
-								Map.entry("credits", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
-								Map.entry("patient_open_balance", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
+								Map.entry("ad_client_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("bh_visit_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("c_invoice_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("c_bpartner_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
 								Map.entry("c_payment_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
-								Map.entry("createdby", SystemIDs.REFERENCE_DATATYPE_INTEGER)
+								Map.entry("date", SystemIDs.REFERENCE_DATATYPE_DATETIME),
+								Map.entry("created", SystemIDs.REFERENCE_DATATYPE_DATETIME),
+								Map.entry("updated", SystemIDs.REFERENCE_DATATYPE_DATETIME),
+								Map.entry("ordering_date", SystemIDs.REFERENCE_DATATYPE_DATETIME),
+								Map.entry("createdby", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("c_order_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("charged", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
+								Map.entry("paid", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
+								Map.entry("open_balance", SystemIDs.REFERENCE_DATATYPE_AMOUNT),
+								Map.entry("base_reversal_c_invoice_id", SystemIDs.REFERENCE_DATATYPE_INTEGER),
+								Map.entry("base_reversal_c_payment_id", SystemIDs.REFERENCE_DATATYPE_INTEGER)
 						)
 				), Filter, parameters);
 
@@ -60,7 +63,8 @@ public class PaymentTrailQuery implements GraphQLQueryResolver {
 		// If the paging info wasn't requested in the payload, don't do an extra DB call to get it
 		if (QueryUtil.isTotalCountRequested(environment)) {
 			pagingInfo.setTotalCount(
-					SqlUtil.getCount("FROM " + functionName + "(?)", parameters));
+					SqlUtil.getCount(functionName + "(" + Env.getAD_Client_ID(Env.getCtx()) + ") WHERE ", whereClause,
+							parameters));
 		}
 
 		List<PaymentTrail> results = new ArrayList<>();
@@ -82,27 +86,31 @@ public class PaymentTrailQuery implements GraphQLQueryResolver {
 			int pageSize = pagingInfo.getPageSize();
 			int recordsToSkip = pagingInfo.getPage() * pageSize;
 			String query =
-					"SELECT c_bpartner_id, patient_name, transaction_date, item, debits, credits, patient_open_balance, " +
-							"bh_visit_id, c_payment_id, createdby, created, updated, c_invoice_id FROM " +
-							functionName + "(?) WHERE " + whereClause + orderByClause;
+					"SELECT ad_client_id, c_invoice_id, c_bpartner_id, c_payment_id, date, created, updated, createdby, " +
+							"c_order_id, charged, paid, open_balance, base_reversal_c_invoice_id, base_reversal_c_payment_id, " +
+							"ordering_date, bh_visit_id FROM " + functionName + "(" + Env.getAD_Client_ID(Env.getCtx()) + ") WHERE " +
+							whereClause + orderByClause;
 			query = DB.getDatabase().addPagingSQL(query, recordsToSkip + 1, pageSize <= 0 ? 0 : recordsToSkip + pageSize);
 			SqlUtil.executeQuery(query, parameters, null, resultSet -> {
 				PaymentTrail result = new PaymentTrail();
 				//
 				try {
-					result.setBusinessPartnerId(resultSet.getInt(1));
-					result.setPatientName(resultSet.getString(2));
-					result.setTransactionDate(resultSet.getTimestamp(3));
-					result.setItem(resultSet.getString(4));
-					result.setDebits(resultSet.getBigDecimal(5));
-					result.setCredits(resultSet.getBigDecimal(6));
-					result.setOpenBalance(resultSet.getBigDecimal(7));
-					result.setVisitId(resultSet.getInt(8));
-					result.setPaymentId(resultSet.getInt(9));
-					result.setCreatedBy(resultSet.getInt(10));
-					result.setCreated(resultSet.getTimestamp(11));
-					result.setUpdated(resultSet.getTimestamp(12));
-					result.setInvoiceId(resultSet.getInt(13));
+					result.setClientId(resultSet.getInt(1));
+					result.setInvoiceId(resultSet.getInt(2));
+					result.setBusinessPartnerId(resultSet.getInt(3));
+					result.setPaymentId(resultSet.getInt(4));
+					result.setDate(resultSet.getTimestamp(5));
+					result.setCreated(resultSet.getTimestamp(6));
+					result.setUpdated(resultSet.getTimestamp(7));
+					result.setCreatedBy(resultSet.getInt(8));
+					result.setOrderId(resultSet.getInt(9));
+					result.setCharged(resultSet.getBigDecimal(10));
+					result.setPaid(resultSet.getBigDecimal(11));
+					result.setOpenBalance(resultSet.getBigDecimal(12));
+					result.setBaseReversalInvoiceId(resultSet.getInt(13));
+					result.setBaseReversalPaymentId(resultSet.getInt(14));
+					result.setOrderingDate(resultSet.getTimestamp(15));
+					result.setVisitId(resultSet.getInt(16));
 				} catch (SQLException e) {
 					throw new RuntimeException(e);
 				}

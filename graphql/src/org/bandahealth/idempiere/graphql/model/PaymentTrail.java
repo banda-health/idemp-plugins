@@ -4,21 +4,22 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class PaymentTrail {
-
 	private Integer clientId;
-	private Integer businessPartnerId;
-	private Integer invoiceId;
-	private Integer paymentId;
-	private BigDecimal debits;
-	private BigDecimal credits;
 	private Integer visitId;
-	private Timestamp transactionDate;
+	private Integer invoiceId;
+	private Integer businessPartnerId;
+	private Integer paymentId;
+	private Timestamp date;
 	private Timestamp created;
 	private Timestamp updated;
-	private String patientName;
+	private Timestamp orderingDate;
 	private Integer createdBy;
+	private Integer orderId;
+	private BigDecimal charged;
+	private BigDecimal paid;
 	private BigDecimal openBalance;
-	private String item;
+	private Integer baseReversalInvoiceId;
+	private Integer baseReversalPaymentId;
 
 	public Integer getClientId() {
 		return clientId;
@@ -26,6 +27,14 @@ public class PaymentTrail {
 
 	public void setClientId(Integer clientId) {
 		this.clientId = clientId;
+	}
+
+	public Integer getInvoiceId() {
+		return invoiceId;
+	}
+
+	public void setInvoiceId(Integer invoiceId) {
+		this.invoiceId = invoiceId;
 	}
 
 	public Integer getBusinessPartnerId() {
@@ -44,44 +53,12 @@ public class PaymentTrail {
 		this.paymentId = paymentId;
 	}
 
-	public BigDecimal getDebits() {
-		return debits;
+	public Timestamp getDate() {
+		return date;
 	}
 
-	public void setDebits(BigDecimal debits) {
-		this.debits = debits;
-	}
-
-	public BigDecimal getCredits() {
-		return credits;
-	}
-
-	public void setCredits(BigDecimal credits) {
-		this.credits = credits;
-	}
-
-	public Integer getVisitId() {
-		return visitId;
-	}
-
-	public void setVisitId(Integer visitId) {
-		this.visitId = visitId;
-	}
-
-	public Timestamp getTransactionDate() {
-		return transactionDate;
-	}
-
-	public void setTransactionDate(Timestamp transactionDate) {
-		this.transactionDate = transactionDate;
-	}
-
-	public String getPatientName() {
-		return patientName;
-	}
-
-	public void setPatientName(String patientName) {
-		this.patientName = patientName;
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 
 	public Integer getCreatedBy() {
@@ -100,14 +77,6 @@ public class PaymentTrail {
 		this.openBalance = openBalance;
 	}
 
-	public String getItem() {
-		return item;
-	}
-
-	public void setItem(String item) {
-		this.item = item;
-	}
-
 	public Timestamp getCreated() {
 		return created;
 	}
@@ -124,11 +93,59 @@ public class PaymentTrail {
 		this.updated = updated;
 	}
 
-	public Integer getInvoiceId() {
-		return invoiceId;
+	public Integer getOrderId() {
+		return orderId;
 	}
 
-	public void setInvoiceId(Integer invoiceId) {
-		this.invoiceId = invoiceId;
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public BigDecimal getCharged() {
+		return charged;
+	}
+
+	public void setCharged(BigDecimal charged) {
+		this.charged = charged;
+	}
+
+	public BigDecimal getPaid() {
+		return paid;
+	}
+
+	public void setPaid(BigDecimal paid) {
+		this.paid = paid;
+	}
+
+	public Integer getBaseReversalInvoiceId() {
+		return baseReversalInvoiceId;
+	}
+
+	public void setBaseReversalInvoiceId(Integer baseReversalInvoiceId) {
+		this.baseReversalInvoiceId = baseReversalInvoiceId;
+	}
+
+	public Integer getBaseReversalPaymentId() {
+		return baseReversalPaymentId;
+	}
+
+	public void setBaseReversalPaymentId(Integer baseReversalPaymentId) {
+		this.baseReversalPaymentId = baseReversalPaymentId;
+	}
+
+	public Timestamp getOrderingDate() {
+		return orderingDate;
+	}
+
+	public void setOrderingDate(Timestamp orderingDate) {
+		this.orderingDate = orderingDate;
+	}
+
+	public Integer getVisitId() {
+		return visitId;
+	}
+
+	public void setVisitId(Integer visitId) {
+		this.visitId = visitId;
 	}
 }

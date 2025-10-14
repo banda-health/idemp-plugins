@@ -1,3 +1,90 @@
+-- For payments with invoice IDs, just set them
+UPDATE c_payment
+SET
+	bh_original_c_invoice_id = c_invoice_id
+WHERE
+	c_invoice_id IS NOT NULL
+	AND bh_original_c_invoice_id IS NULL;
+
+-- Update completed payments
+UPDATE c_payment p
+SET
+	bh_original_c_invoice_id = al.c_invoice_id
+FROM
+	c_allocationline al
+WHERE
+	p.c_payment_id = al.c_payment_id
+	AND p.docstatus IN ('CO', 'CL')
+	AND p.reversal_id IS NULL
+	AND p.c_invoice_id IS NULL
+	AND p.bh_original_c_invoice_id IS NULL
+	AND al.c_invoice_id IS NOT NULL
+	AND p.bh_visit_id IS NOT NULL;
+
+-- Update all payments to included original invoice IDs
+UPDATE c_payment p
+SET
+	bh_original_c_invoice_id = al.c_invoice_id
+FROM
+	c_allocationline al
+WHERE
+	p.c_payment_id = al.c_payment_id
+	AND p.c_payment_id < p.reversal_id
+	AND al.amount >= 0
+	AND al.c_invoice_id IS NOT NULL
+	AND p.bh_original_c_invoice_id IS NULL;
+
+-- For all reversal payments, set their original invoice IDs to match the reversal
+UPDATE c_payment p_r
+SET
+	bh_original_c_invoice_id = p_o.bh_original_c_invoice_id
+FROM
+	c_payment p_o
+WHERE
+	p_o.reversal_id = p_r.c_payment_id
+	AND p_o.c_payment_id < p_o.reversal_id
+	AND p_r.bh_original_c_invoice_id IS NULL
+	AND p_o.bh_original_c_invoice_id IS NOT NULL;
+
+-- Now for remaining visit things, let's assign it to the first completed invoices
+UPDATE c_payment p
+SET
+	bh_original_c_invoice_id = i.c_invoice_id
+FROM
+	bh_visit v
+		JOIN c_invoice i
+			ON v.bh_visit_id = i.bh_visit_id AND v.patient_id = i.c_bpartner_id AND i.docstatus IN ('CO', 'CL')
+WHERE
+	p.bh_visit_id = v.bh_visit_id
+	AND p.bh_original_c_invoice_id IS NULL
+	AND p.docstatus IN ('CO', 'CL');
+
+-- For remaining visit payments, try to connect them based on totals
+UPDATE c_payment p
+SET
+	bh_original_c_invoice_id = i.c_invoice_id
+FROM
+	bh_visit v
+		JOIN c_invoice i
+			ON v.bh_visit_id = i.bh_visit_id AND v.patient_id = i.c_bpartner_id
+WHERE
+	p.bh_visit_id = v.bh_visit_id
+	AND (p.reversal_id IS NULL OR p.c_payment_id < p.reversal_id)
+	AND p.bh_original_c_invoice_id IS NULL
+	AND p.payamt = i.grandtotal;
+
+-- For all reversal payments, set their original invoice IDs to match the reversal
+UPDATE c_payment p_r
+SET
+	bh_original_c_invoice_id = p_o.bh_original_c_invoice_id
+FROM
+	c_payment p_o
+WHERE
+	p_o.reversal_id = p_r.c_payment_id
+	AND p_o.c_payment_id < p_o.reversal_id
+	AND p_r.bh_original_c_invoice_id IS NULL
+	AND p_o.bh_original_c_invoice_id IS NOT NULL;
+
 DROP FUNCTION IF EXISTS bh_get_payment_trail(_ad_client_id numeric);
 CREATE OR REPLACE FUNCTION bh_get_payment_trail(_ad_client_id numeric)
 	RETURNS table
@@ -321,3 +408,8 @@ FROM
 		GROUP BY bp.c_bpartner_id, bp.createdby
 	) b
 $$;
+
+SELECT
+	register_migration_script('202510131543_GO-3404.sql')
+FROM
+	dual;

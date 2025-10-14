@@ -71,18 +71,14 @@ test('everything is shown', async () => {
 			fetchPolicy: 'network-only',
 			query: PaymentTrailGetDocument,
 			variables: {
-				C_BPartner_UU: valueObject.businessPartner!.UU,
 				Size: 1,
-				Sort: JSON.stringify([
-					['transaction_date', 'desc'],
-					['updated', 'desc'],
-				]),
+				Sort: JSON.stringify([['ordering_date', 'desc']]),
 			},
 		})
 	).data.PaymentTrailGet.Results;
 	expect(paymentTrail[0].OpenBalance).toBe(0);
-	expect(paymentTrail[0].Credits).toBe(100);
-	expect(paymentTrail[0].Debits).toBe(100);
+	expect(paymentTrail[0].Paid).toBe(100);
+	expect(paymentTrail[0].Charged).toBe(100);
 
 	valueObject.stepName = 'Reactivate visit';
 	await mutate(valueObject)({
@@ -96,11 +92,11 @@ test('everything is shown', async () => {
 				fetchPolicy: 'network-only',
 				query: PaymentTrailGetDocument,
 				variables: {
-					C_BPartner_UU: valueObject.businessPartner!.UU,
+					Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }),
 				},
 			})
 		).data.PaymentTrailGet.Results,
-	).toHaveLength(1);
+	).toHaveLength(4);
 });
 
 test('filtering by visits', async () => {
@@ -191,31 +187,30 @@ test('filtering by visits', async () => {
 			fetchPolicy: 'network-only',
 			query: PaymentTrailGetDocument,
 			variables: {
-				C_BPartner_UU: valueObject.businessPartner!.UU,
 				Filter: JSON.stringify({ bh_visit: { bh_visit_uu: firstVisit.UU } }),
+				Sort: JSON.stringify([['ordering_date', 'desc']]),
 			},
 		})
 	).data.PaymentTrailGet.Results;
 	expect(paymentTrail[0].OpenBalance).toBe(0);
-	expect(paymentTrail[0].Credits).toBe(100);
-	expect(paymentTrail[0].Debits).toBe(100);
+	expect(paymentTrail[0].Charged).toBe(100);
+	expect(paymentTrail[0].Paid).toBe(100);
 
 	paymentTrail = (
 		await query(valueObject)({
 			fetchPolicy: 'network-only',
 			query: PaymentTrailGetDocument,
 			variables: {
-				C_BPartner_UU: valueObject.businessPartner!.UU,
 				Filter: JSON.stringify({ bh_visit: { bh_visit_uu: valueObject.visit!.UU } }),
 			},
 		})
 	).data.PaymentTrailGet.Results;
 	expect(paymentTrail[0].OpenBalance).toBe(100);
-	expect(paymentTrail[0].Credits).toBe(0);
-	expect(paymentTrail[0].Debits).toBe(100);
+	expect(paymentTrail[0].Charged).toBe(100);
+	expect(paymentTrail[0].Paid).toBe(0);
 });
 
-test('scheduled payments are not included in total balance calculation', async () => {
+test('scheduled payments are included in total balance calculation', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
@@ -266,6 +261,8 @@ test('scheduled payments are not included in total balance calculation', async (
 
 	valueObject.stepName = 'Schedule payment';
 	valueObject.visit = undefined;
+	valueObject.order = undefined;
+	valueObject.invoice = undefined;
 	valueObject.documentAction = documentAction.Prepare;
 	await createPayment(valueObject);
 	await mutate(valueObject)({
@@ -280,16 +277,13 @@ test('scheduled payments are not included in total balance calculation', async (
 			fetchPolicy: 'network-only',
 			query: PaymentTrailGetDocument,
 			variables: {
-				C_BPartner_UU: valueObject.businessPartner!.UU,
+				Filter: JSON.stringify({ c_bpartner: { c_bpartner_uu: valueObject.businessPartner!.UU } }),
 				Size: 1,
-				Sort: JSON.stringify([
-					['transaction_date', 'desc'],
-					['updated', 'desc'],
-				]),
+				Sort: JSON.stringify([['ordering_date', 'desc']]),
 			},
 		})
 	).data.PaymentTrailGet.Results;
 	expect(paymentTrail[0].OpenBalance).toBeNull();
-	expect(paymentTrail[0].Credits).toBe(100);
-	expect(paymentTrail[0].Debits).toBe(0);
+	expect(paymentTrail[0].Charged).toBe(0);
+	expect(paymentTrail[0].Paid).toBe(100);
 });

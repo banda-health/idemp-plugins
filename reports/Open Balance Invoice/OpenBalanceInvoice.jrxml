@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Open Balance Invoice" pageWidth="620" pageHeight="842" columnWidth="580" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="5" isIgnorePagination="true" uuid="6e49e449-f464-4e17-beae-8db588ba1614">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -41,24 +41,40 @@
 		<parameter name="c_bpartner_uu" class="java.lang.String">
 			<parameterDescription><![CDATA[Patient UUID]]></parameterDescription>
 		</parameter>
-		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
+		<parameter name="AD_CLIENT_ID" class="java.lang.Integer">
+			<parameterDescription><![CDATA[]]></parameterDescription>
+		</parameter>
 		<queryString language="SQL">
 			<![CDATA[WITH payment_trail AS (
 	SELECT
-		pt.patient_name,
+		bp.name                                       AS patient_name,
 		bp.totalopenbalance,
-		pt.transaction_date,
-		pt.item,
-		pt.debits,
-		pt.credits,
-		pt.patient_open_balance,
-		row_number() OVER (order by pt.transaction_date) as row_num
+		pt.ordering_date                              AS transaction_date,
+		CASE
+			WHEN pt.bh_visit_id IS NOT NULL THEN CASE WHEN paid > 0 THEN 'Visit charges and payments' ELSE 'Visit' END
+			WHEN pt.c_order_id IS NULL AND pt.c_invoice_id IS NOT NULL THEN 'Waived Open Balance'
+			WHEN pt.c_payment_id IS NOT NULL THEN 'Outstanding Balance Payment'
+			ELSE 'Starting balance' END
+		                                              AS item,
+		pt.charged                                    AS debits,
+		pt.paid                                       AS credits,
+		COALESCE(pt.open_balance, 0)                  AS patient_open_balance,
+		ROW_NUMBER() OVER (ORDER BY pt.ordering_date) AS row_num
 	FROM
 		c_bpartner bp
-			LEFT JOIN bh_get_payment_trail($P{c_bpartner_uu}) pt
+			LEFT JOIN bh_get_payment_trail($P{AD_CLIENT_ID}) pt
 				ON pt.c_bpartner_id = bp.c_bpartner_id
+			LEFT JOIN c_order o
+				ON pt.c_order_id = o.c_order_id
+			LEFT JOIN c_invoice i
+				ON pt.c_invoice_id = i.c_invoice_id
+			LEFT JOIN c_payment p
+				ON pt.c_payment_id = p.c_payment_id
 	WHERE
 		bp.c_bpartner_uu = $P{c_bpartner_uu}
+		AND (pt.c_order_id IS NULL OR o.docstatus IN ('CO', 'CL'))
+		AND (pt.c_invoice_id IS NULL OR i.docstatus IN ('CO', 'CL'))
+		AND (pt.c_payment_id IS NULL OR p.docstatus IN ('CO', 'CL'))
 )
 SELECT
 	payment_trail.patient_name                       AS name,
@@ -70,7 +86,7 @@ SELECT
 FROM
 	payment_trail
 WHERE
-		row_num > (
+	row_num > (
 		SELECT
 			row_num
 		FROM

@@ -684,6 +684,7 @@ public class ChuBoeCreateEntity {
 		BigDecimal tenderAmount = null;
 		if (valueObject.getInvoice() != null) {
 			payment.setC_Invoice_ID(valueObject.getInvoice().get_ID());
+			payment.setBH_Original_C_Invoice_ID(valueObject.getInvoice().getC_Invoice_ID());
 			payment.setC_Currency_ID(valueObject.getInvoice().getC_Currency_ID());
 			if (valueObject.getPaymentAmount() != null) {
 				tenderAmount = valueObject.getPaymentAmount();
