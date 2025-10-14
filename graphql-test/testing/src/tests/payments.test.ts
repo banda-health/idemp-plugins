@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 import {
 	Ad_Ref_ListGetDocument,
+	Bh_VisitProcessDocument,
 	Bh_VisitSaveWithPaymentsDocument,
 	C_BPartnerGetDocument,
 	C_PaymentDocument,
@@ -8,9 +9,18 @@ import {
 	C_PaymentSaveDocument,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentStatus, referenceUuid, tenderTypeName } from '../models';
+import {
+	documentAction,
+	documentBaseType,
+	documentStatus,
+	documentSubTypeSalesOrder,
+	referenceUuid,
+	tenderTypeName,
+} from '../models';
 import {
 	createBusinessPartner,
+	createInOutFromOrder,
+	createInvoice,
 	createOrder,
 	createPayment,
 	createProduct,
@@ -291,4 +301,105 @@ test('can schedule and change a payment', async () => {
 	expect(payment).toBeTruthy();
 	expect(payment.Scheduled).toBe(true);
 	expect(new Date(payment.DateTrx).getTime()).toBe(valueObject.date?.getTime());
+});
+
+test('tender amount is copied and not original invoice when visit is reactivated', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.quantity = 5;
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.quantity = 5;
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = documentAction.Prepare;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create sales order';
+	valueObject.documentAction = documentAction.Prepare;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	valueObject.quantity = 1;
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = documentAction.Prepare;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment with tender amount';
+	valueObject.paymentAmount = 150; // Tender amount is 150 (more than invoice total of 100)
+	valueObject.documentAction = documentAction.Prepare;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	await createPayment(valueObject);
+	const originalPaymentUU = valueObject.payment!.UU;
+
+	// Verify the original payment has tender amount set
+	let originalPayment = (
+		await query(valueObject)({
+			query: C_PaymentDocument,
+			variables: { UU: originalPaymentUU },
+		})
+	).data.C_Payment!;
+	expect(originalPayment.BH_tender_amount).toBe(150);
+	expect(originalPayment.PayAmt).toBe(100);
+	expect(originalPayment.BH_Original_C_Invoice?.UU).toBe(valueObject.invoice!.UU);
+
+	valueObject.stepName = 'Complete visit';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+	});
+
+	valueObject.stepName = 'Reactivate visit';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.ReActivate },
+	});
+
+	// Get all payments for this visit (should include the new copied payment)
+	const paymentsForVisit = (
+		await query(valueObject)({
+			fetchPolicy: 'network-only',
+			query: C_PaymentGetDocument,
+			variables: {
+				Filter: JSON.stringify({ bh_visit: { bh_visit_uu: valueObject.visit!.UU } }),
+				Sort: JSON.stringify([['created', 'desc']]),
+			},
+		})
+	).data.C_PaymentGet.Results;
+
+	// Should have 3 payments (original, reversed, + new copy)
+	expect(paymentsForVisit.length).toBeGreaterThanOrEqual(2);
+
+	// Find the newest non-reversed payment (the copy created during reactivation)
+	const newPayment = paymentsForVisit.find(
+		(p) => p.UU !== originalPaymentUU && p.DocStatus.Value !== documentStatus.Reversed,
+	);
+
+	expect(newPayment).toBeTruthy();
+	expect(newPayment!.BH_tender_amount).toBe(150);
+	expect(newPayment!.PayAmt).toBe(100);
+	// The invoice should either be set or not, but not copied
+	expect(newPayment!.BH_Original_C_Invoice?.UU).not.toBe(valueObject.invoice!.UU);
 });
