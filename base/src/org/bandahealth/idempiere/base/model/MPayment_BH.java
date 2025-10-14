@@ -246,6 +246,7 @@ public class MPayment_BH extends MPayment {
 
 		// Banda-specific fields
 		newPayment.setBH_Visit_ID(getBH_Visit_ID());
+		newPayment.setBH_tender_amount(getBH_tender_amount());
 
 		newPayment.saveEx(get_TrxName());
 		if (log.isLoggable(Level.FINE)) {

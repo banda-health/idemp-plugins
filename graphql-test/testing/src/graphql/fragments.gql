@@ -159,6 +159,9 @@ fragment C_OrderFields on C_Order {
 }
 
 fragment C_PaymentFields on C_Payment {
+	BH_Original_C_Invoice {
+		UU
+	}
 	BH_tender_amount
 	DocStatus {
 		Value
