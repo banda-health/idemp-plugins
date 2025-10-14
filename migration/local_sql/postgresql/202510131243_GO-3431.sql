@@ -103,3 +103,8 @@ FROM
 			AND v.bh_visitdate BETWEEN _begin_date AND _end_date
 	) AS revenue
 $$;
+
+SELECT
+	register_migration_script('202510131243_GO-3431.sql')
+FROM
+	dual;

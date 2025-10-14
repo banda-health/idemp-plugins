@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.report.test;
 
+import com.chuboe.test.assertion.ChuBoeAssert;
 import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
@@ -24,13 +25,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This is meant to test all reports related to income so numbers can be
@@ -61,6 +65,103 @@ public class ExpenseTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Open needed periods");
 		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
 		commitEx();
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void purchaseInvoicesAreOnlyIncludedOnceInExpenses() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create invoice");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the income & expense overview report");
+		valueObject.setProcessUuid(incomeAndExpenseReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		double totalExpenses, medicationsAndSupplies;
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			medicationsAndSupplies = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equalsIgnoreCase("Medications & Supplies"))).findFirst().map(
+					row -> StreamSupport.stream(row.spliterator(), false)
+							.filter(cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC)).findFirst()
+							.map(Cell::getNumericCellValue).orElse(0.0)).orElse(0.0);
+			//
+			totalExpenses = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equalsIgnoreCase("Total expenses"))).findFirst().map(
+					row -> StreamSupport.stream(row.spliterator(), false)
+							.filter(cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC)).findFirst()
+							.map(Cell::getNumericCellValue).orElse(0.0)).orElse(0.0);
+		}
+
+		valueObject.setStepName("Generate the income statement report");
+		valueObject.setProcessUuid(incomeStatementReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Item");
+			int amountColumnIndex = TableUtils.getColumnIndex(headerRow, "Amount");
+
+			assertEquals(totalExpenses - medicationsAndSupplies, StreamSupport.stream(sheet.spliterator(), false).filter(
+									row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+											cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+													cell.getStringCellValue().contains("Total Operating Expenses"))).findFirst()
+							.map(row -> row.getCell(amountColumnIndex).getNumericCellValue() * -1).orElse(0.0),
+					"Total Operating expense totals match");
+		}
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		addAssertionSQL("SELECT 'expense totals match', total_expenses = " + totalExpenses +
+				" FROM bh_dashboard_get_financial_general_metrics(" + valueObject.getClient().getAD_Client_ID() + ", '" +
+				dateFormat.format(TimestampUtils.startOfYesterday()) + "', '" +
+				dateFormat.format(TimestampUtils.endOfTomorrow()) + "')");
+		ChuBoeAssert.executeSQLAsserts(getAssertionSQL(), valueObject.getContext(), valueObject.getTransactionName());
 	}
 
 	@IPopulateAnnotation.CanRun
