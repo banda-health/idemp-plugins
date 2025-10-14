@@ -13,8 +13,11 @@ WHERE
 					   o.issotrx = 'N'
 				LEFT JOIN c_payment p
 					ON i.c_invoice_id = p.c_invoice_id
+				LEFT JOIN c_allocationline al
+					ON i.c_invoice_id = al.c_invoice_id
 		WHERE
 			p.c_payment_id IS NULL
+			AND al.c_allocationline_id IS NULL
 	);
 DELETE
 FROM
@@ -30,8 +33,11 @@ WHERE
 					   o.issotrx = 'N'
 				LEFT JOIN c_payment p
 					ON i.c_invoice_id = p.c_invoice_id
+				LEFT JOIN c_allocationline al
+					ON i.c_invoice_id = al.c_invoice_id
 		WHERE
 			p.c_payment_id IS NULL
+			AND al.c_allocationline_id IS NULL
 	);
 DELETE
 FROM
