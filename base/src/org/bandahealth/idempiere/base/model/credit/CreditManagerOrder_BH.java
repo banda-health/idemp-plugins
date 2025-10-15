@@ -35,7 +35,7 @@ public class CreditManagerOrder_BH implements ICreditManager {
 		MBPartner_BH bp = new MBPartner_BH(order.getCtx(), order.getBill_BPartner_ID(), order.get_TrxName());
 
 		// check if visit is present
-		if (order.getBH_Visit_ID() > 0) {
+		if (MOrder_BH.DOCACTION_Prepare.equals(docAction) &&  order.getBH_Visit_ID() > 0) {
 			if (!MBPartner_BH.SOCREDITSTATUS_NoCreditCheck.equals(bp.getSOCreditStatus())) {
 				// confirm that the invoice total is not greater than the payments
 				List<MPayment_BH> payments = new Query(order.getCtx(), MPayment_BH.Table_Name,
@@ -55,7 +55,7 @@ public class CreditManagerOrder_BH implements ICreditManager {
 			return new CreditStatus(errorMsg, !Util.isEmpty(errorMsg));
 		}
 
-		// can't extend CreditManagerOrder so copying this here.
+		// Can't extend CreditManagerOrder, so we've copied the logic over.
 		if (MOrder_BH.DOCACTION_Prepare.equals(docAction) && order.isSOTrx()) {
 			Properties ctx = order.getCtx();
 			MDocType dt = MDocType.get(ctx, order.getC_DocTypeTarget_ID());
