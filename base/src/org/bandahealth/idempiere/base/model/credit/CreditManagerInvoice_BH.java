@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import org.adempiere.base.CreditStatus;
 import org.adempiere.base.ICreditManager;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.compiere.model.MClient;
@@ -24,7 +25,7 @@ import org.compiere.util.Util;
 public class CreditManagerInvoice_BH implements ICreditManager {
 
 	/** Logger */
-	protected transient CLogger log = CLogger.getCLogger(CreditManagerInvoice_BH.class);
+	private final transient CLogger log = CLogger.getCLogger(CreditManagerInvoice_BH.class);
 
 	private final MInvoice_BH mInvoice;
 
@@ -43,7 +44,7 @@ public class CreditManagerInvoice_BH implements ICreditManager {
 
 		MBPartner_BH bp = new MBPartner_BH(mInvoice.getCtx(), mInvoice.getC_BPartner_ID(), mInvoice.get_TrxName());
 		// check if the invoice contains a visit
-		if (mInvoice.getBH_Visit_ID() > 0) {
+		if (MInOut_BH.DOCACTION_Prepare.equals(docAction) && mInvoice.getBH_Visit_ID() > 0) {
 			if (!MBPartner_BH.SOCREDITSTATUS_NoCreditCheck.equals(bp.getSOCreditStatus())) {
 				// confirm that the invoice total is not greater than the payments
 				List<MPayment_BH> payments = new Query(mInvoice.getCtx(), MPayment_BH.Table_Name,
@@ -59,6 +60,7 @@ public class CreditManagerInvoice_BH implements ICreditManager {
 							+ ", @TotalPayments@=" + totalPaymentAmount;
 				}
 			}
+			// Can't extend CreditManagerInvoice, so we've copied the logic over.
 		} else if (MInvoice_BH.DOCACTION_Prepare.equals(docAction) && mInvoice.isSOTrx()) {
 			MDocType doc = (MDocType) mInvoice.getC_DocTypeTarget();
 			// IDEMPIERE-365 - just check credit if is going to increase the debt

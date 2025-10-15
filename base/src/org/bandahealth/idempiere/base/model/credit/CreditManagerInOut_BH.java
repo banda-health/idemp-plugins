@@ -40,7 +40,7 @@ public class CreditManagerInOut_BH implements ICreditManager {
 		MBPartner_BH bp = new MBPartner_BH(mInOut.getCtx(), mInOut.getC_BPartner_ID(), mInOut.get_TrxName());
 
 		// check if the invoice contains a visit
-		if (inout.getBH_Visit_ID() > 0) {
+		if (MInOut_BH.DOCACTION_Prepare.equals(docAction) && inout.getBH_Visit_ID() > 0) {
 			if (!MBPartner_BH.SOCREDITSTATUS_NoCreditCheck.equals(bp.getSOCreditStatus())) {
 				// confirm that the invoice total is not greater than the payments
 				List<MPayment_BH> payments = new Query(inout.getCtx(), MPayment_BH.Table_Name,
@@ -65,6 +65,7 @@ public class CreditManagerInOut_BH implements ICreditManager {
 			return new CreditStatus(errorMsg, !Util.isEmpty(errorMsg));
 		}
 
+		// Can't extend CreditManagerInOut, so we've copied the logic over.
 		if (MInOut_BH.DOCACTION_Prepare.equals(docAction) && mInOut.isSOTrx() && !mInOut.isReversal()
 				&& !mInOut.isCustomerReturn()) {
 			I_C_Order order = mInOut.getC_Order();
