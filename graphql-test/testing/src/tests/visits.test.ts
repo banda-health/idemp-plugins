@@ -3508,4 +3508,41 @@ test('does not extend credit to patient', async () => {
 
 	const errorMessage = '@OrderTotalExceedsPayments@ - @GrandTotal@=';
 	expect(creditCheckError.message).toContain(errorMessage);
+
+	expect(
+		(
+			await query(valueObject)({
+				query: C_BPartnerGetDocument,
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
+			})
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
+	).toBe(0);
+
+	// settle the entire amount
+	await mutate(valueObject)({
+		mutation: C_PaymentSaveDocument,
+		variables: {
+			Entity: {
+				UU: valueObject.payment!.UU,
+				PayAmt: valueObject?.invoice?.GrandTotal,
+			},
+		},
+	});
+
+	valueObject.stepName = 'Complete visit again';
+	
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+	});
+
+	// check total open balance
+	expect(
+		(
+			await query(valueObject)({
+				query: C_BPartnerGetDocument,
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
+			})
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
+	).toBe(0);
 });
