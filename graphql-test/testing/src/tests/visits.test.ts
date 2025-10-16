@@ -3431,3 +3431,81 @@ test('search by not exists works', async () => {
 		).data.BH_VisitGet.PagingInfo.TotalCount,
 	).not.toBe((await query(valueObject)({ query: Bh_VisitCountDocument })).data.BH_VisitGet.PagingInfo.TotalCount);
 });
+
+test('does not extend credit to patient', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	// set credit status to credit stop
+	await mutate(valueObject)({
+		mutation: C_BPartnerSaveDocument,
+		variables: {
+			Entity: {
+				UU: valueObject.businessPartner!.UU,
+				SOCreditStatus: {
+					UU: 'ebd6f716-efbe-4a4f-9d3a-e3848f4a3b75',
+				},
+			},
+		},
+	});
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	// this call should succeed.
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	valueObject.paymentAmount = 0.01; // set a neglible amount.
+	await createPayment(valueObject);
+
+	valueObject.stepName = 'Complete visit';
+	let creditCheckError: Error;
+	try {
+		await mutate(valueObject)({
+			mutation: Bh_VisitProcessDocument,
+			variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+		});
+		expect(false).toBe(true);
+		return;
+	} catch (error) {
+		creditCheckError = error as Error;
+	}
+
+	const errorMessage = '@OrderTotalExceedsPayments@ - @GrandTotal@=';
+	expect(creditCheckError.message).toContain(errorMessage);
+});
