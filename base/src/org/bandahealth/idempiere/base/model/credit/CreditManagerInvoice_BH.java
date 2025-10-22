@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.base.model.credit;
 import org.adempiere.base.CreditStatus;
 import org.adempiere.base.ICreditManager;
 import org.bandahealth.idempiere.base.model.MBHVisit;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.compiere.model.MBPartner;
@@ -48,7 +49,8 @@ public class CreditManagerInvoice_BH implements ICreditManager {
 		if (visitId > 0) {
 			// Confirm this invoice is for the visit's patient
 			var visit = new MBHVisit(invoice.getCtx(), visitId, invoice.get_TrxName());
-			if (invoice.getC_BPartner_ID() == visit.getPatient_ID()) {
+			if (invoice.getC_BPartner_ID() == visit.getPatient_ID() &&
+					MBPartner_BH.SOCREDITSTATUS_NoCreditCheck.equalsIgnoreCase(invoice.getC_BPartner().getSOCreditStatus())) {
 				// Now we need to confirm that all the payments entered pay for the whole invoice
 				List<MPayment_BH> invoicesPayments =
 						new Query(invoice.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_Original_C_Invoice_ID +
