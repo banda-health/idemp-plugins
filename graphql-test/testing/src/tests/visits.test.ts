@@ -3506,7 +3506,7 @@ test('does not extend credit to patient', async () => {
 		creditCheckError = error as Error;
 	}
 
-	const errorMessage = '@OrderTotalExceedsPayments@ - @GrandTotal@=';
+	const errorMessage = '@InvoiceTotalExceedsPayments@ - @GrandTotal@=';
 	expect(creditCheckError.message).toContain(errorMessage);
 
 	expect(
