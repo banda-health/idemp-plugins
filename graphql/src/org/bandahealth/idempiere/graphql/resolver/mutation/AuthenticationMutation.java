@@ -59,11 +59,21 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	 * The sign-in method to authentication a user
 	 *
 	 * @param credentials The login information passed in by a user.
-	 * @param environment The environment associated with all calls, containing context.
+	 * @param environment The environment associated with all calls, containing
+	 *                    context.
 	 * @return An appropriate response containing a JWT token and user information.
 	 */
 	public AuthenticationResponse SignIn(AuthenticationInput credentials, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
+		// check number of failed attempts.
+		MUser checkUser = new Query(idempiereContext, MUser_BH.Table_Name,
+				MUser_BH.COLUMNNAME_Name + "=? AND " + MUser_BH.COLUMNNAME_Password + " IS NOT NULL", null)
+				.setParameters(credentials.getUsername()).first();
+		if (checkUser != null && checkUser.getFailedLoginCount() > 3) {
+			throw new AdempiereException(
+					"Account temporarily locked due to multiple failed login attempts. Please contact your administrator to restore access.");
+		}
+
 		Login login = new Login(idempiereContext);
 		// retrieve list of clients the user has access to.
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
@@ -92,14 +102,18 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			return response;
 		}
 
+		// reset failed login count
+		user.setFailedLoginCount(0);
+		user.saveEx();
+
 		JWTCreator.Builder builder = JWT.create();
 		handleAccessChange(credentials, user, builder, idempiereContext);
 		// Only fetch the clients if they were requested
 		if (environment.getSelectionSet().contains("AD_Clients")) {
 			List<Object> parameters = new ArrayList<>();
 			String whereClause = new MClientQuery().getClientLimitingWhereClause(parameters, environment);
-			response.setAD_Clients(
-					new Query(idempiereContext, MClient_BH.Table_Name, whereClause, null).setParameters(parameters).list());
+			response.setAD_Clients(new Query(idempiereContext, MClient_BH.Table_Name, whereClause, null)
+					.setParameters(parameters).list());
 		}
 
 		try {
@@ -115,8 +129,10 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	/**
 	 * The method that allows a user to change their password.
 	 *
-	 * @param changePasswordInput The login and change-password information passed in by a user.
-	 * @param environment         The environment associated with all calls, containing context.
+	 * @param changePasswordInput The login and change-password information passed
+	 *                            in by a user.
+	 * @param environment         The environment associated with all calls,
+	 *                            containing context.
 	 * @return An appropriate response containing a JWT token and user information.
 	 */
 	public Boolean ChangePassword(ChangePasswordInput changePasswordInput, DataFetchingEnvironment environment) {
@@ -182,8 +198,8 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 
 			try {
 				// generate session cookie
-				((GraphQLServletContext) environment.getContext()).getHttpServletResponse()
-						.addCookie(new AuthenticationCookie(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret()))));
+				((GraphQLServletContext) environment.getContext()).getHttpServletResponse().addCookie(
+						new AuthenticationCookie(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret()))));
 				return true;
 			} catch (Exception e) {
 				throw new AdempiereException("Bad request");
@@ -207,16 +223,18 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			try {
 				session.logout();
 			} catch (Exception e) {
-				log.warning("Could not log session out with ID : " +
-						MSession.get(BandaGraphQLContext.getCtx(environment)).getAD_Session_ID() + " - " + e.getMessage());
+				log.warning("Could not log session out with ID : "
+						+ MSession.get(BandaGraphQLContext.getCtx(environment)).getAD_Session_ID() + " - "
+						+ e.getMessage());
 			}
 		} else {
-			log.warning("No session found for session ID : " +
-					Env.getContextAsInt(BandaGraphQLContext.getCtx(environment), Env.AD_SESSION_ID));
+			log.warning("No session found for session ID : "
+					+ Env.getContextAsInt(BandaGraphQLContext.getCtx(environment), Env.AD_SESSION_ID));
 		}
 		Cookie authenticationCookieToClear = new AuthenticationCookie("");
 		authenticationCookieToClear.setMaxAge(0);
-		((GraphQLServletContext) environment.getContext()).getHttpServletResponse().addCookie(authenticationCookieToClear);
+		((GraphQLServletContext) environment.getContext()).getHttpServletResponse()
+				.addCookie(authenticationCookieToClear);
 		return true;
 	}
 
@@ -260,23 +278,23 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		List<MRole> roles = Arrays.asList(user.getRoles(organization.get_ID()));
 		MRole role;
 		if (roles.isEmpty() || (role = roles.stream()
-				.filter(availableRole -> availableRole.getAD_Role_UU().equals(changeAccessInput.getAD_Role_UU())).findFirst()
-				.orElse(null)) == null) {
+				.filter(availableRole -> availableRole.getAD_Role_UU().equals(changeAccessInput.getAD_Role_UU()))
+				.findFirst().orElse(null)) == null) {
 			throw new AdempiereException("Unauthorized");
 		}
 
 		// check warehouse access
-		List<MBHWarehouseAccess> warehouseAccessList =
-				new Query(idempiereContext, MBHWarehouseAccess.Table_Name, MBHWarehouseAccess.COLUMNNAME_AD_Role_ID + "=?",
-						null).setParameters(role.getAD_Role_ID()).list();
-		MWarehouse warehouse = Arrays.stream(MWarehouse.getForOrg(idempiereContext, organization.get_ID())).filter(
-						organizationWarehouse -> organizationWarehouse.getM_Warehouse_UU()
-								.equals(changeAccessInput.getM_Warehouse_UU()))
+		List<MBHWarehouseAccess> warehouseAccessList = new Query(idempiereContext, MBHWarehouseAccess.Table_Name,
+				MBHWarehouseAccess.COLUMNNAME_AD_Role_ID + "=?", null).setParameters(role.getAD_Role_ID()).list();
+		MWarehouse warehouse = Arrays.stream(MWarehouse.getForOrg(idempiereContext, organization.get_ID()))
+				.filter(organizationWarehouse -> organizationWarehouse.getM_Warehouse_UU()
+						.equals(changeAccessInput.getM_Warehouse_UU()))
 				.findFirst().orElse(null);
-		// If we didn't find a warehouse, or the user doesn't have access to it, unauthorized
-		if (warehouse == null || (!warehouseAccessList.isEmpty() && warehouseAccessList.stream().noneMatch(
-				warehouseAccess -> warehouseAccess.getAD_Role_ID() == role.getAD_Role_ID() &&
-						warehouse.get_ID() == warehouseAccess.getM_Warehouse_ID()))) {
+		// If we didn't find a warehouse, or the user doesn't have access to it,
+		// unauthorized
+		if (warehouse == null || (!warehouseAccessList.isEmpty() && warehouseAccessList.stream()
+				.noneMatch(warehouseAccess -> warehouseAccess.getAD_Role_ID() == role.getAD_Role_ID()
+						&& warehouse.get_ID() == warehouseAccess.getM_Warehouse_ID()))) {
 			throw new AdempiereException("Unauthorized");
 		}
 		PO.clearCrossTenantSafe();
@@ -326,8 +344,8 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 				int clientId = client.getKey();
 				Env.setContext(idempiereContext, Env.AD_CLIENT_ID, clientId);
 				PO.setCrossTenantSafe();
-				MUser clientUser =
-						MUser.get(idempiereContext, changePasswordInput.getUsername(), changePasswordInput.getPassword());
+				MUser clientUser = MUser.get(idempiereContext, changePasswordInput.getUsername(),
+						changePasswordInput.getPassword());
 				PO.clearCrossTenantSafe();
 				if (clientUser == null) {
 					trx.rollback();
@@ -376,13 +394,15 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	}
 
 	/**
-	 * Check if a particular username and password have access to any clients other than this one.
-	 * This is used when creating or updating a username and/or password, to try to ensure someone
-	 * doesn't accidentally set up a user at one client that matches one at a DIFFERENT client,
-	 * inadvertantly giving them access to both.
+	 * Check if a particular username and password have access to any clients other
+	 * than this one. This is used when creating or updating a username and/or
+	 * password, to try to ensure someone doesn't accidentally set up a user at one
+	 * client that matches one at a DIFFERENT client, inadvertantly giving them
+	 * access to both.
 	 *
 	 * @param credentials
-	 * @return true if the username/password has access to other clients, false if they don't
+	 * @return true if the username/password has access to other clients, false if
+	 *         they don't
 	 */
 	public boolean LoginCheckOtherClients(AuthenticationInput credentials, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
@@ -390,7 +410,8 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 
 		int currentClient = Env.getAD_Client_ID(idempiereContext);
 
-		// Retrieve list of clients that the passed in username and password already has access to.
+		// Retrieve list of clients that the passed in username and password already has
+		// access to.
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
 		if (clients == null) {
 			return false;
@@ -398,7 +419,8 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 
 		for (KeyNamePair client : clients) {
 			if (client.getKey() != currentClient) {
-				// We found a client that the given username and password has access to, that is NOT the same is THIS client.
+				// We found a client that the given username and password has access to, that is
+				// NOT the same is THIS client.
 				return true;
 			}
 		}
