@@ -50,7 +50,7 @@ public class CreditManagerInvoice_BH implements ICreditManager {
 			// Confirm this invoice is for the visit's patient
 			var visit = new MBHVisit(invoice.getCtx(), visitId, invoice.get_TrxName());
 			if (invoice.getC_BPartner_ID() == visit.getPatient_ID() &&
-					MBPartner_BH.SOCREDITSTATUS_NoCreditCheck.equalsIgnoreCase(invoice.getC_BPartner().getSOCreditStatus())) {
+					MBPartner_BH.SOCREDITSTATUS_CreditStop.equalsIgnoreCase(invoice.getC_BPartner().getSOCreditStatus())) {
 				// Now we need to confirm that all the payments entered pay for the whole invoice
 				List<MPayment_BH> invoicesPayments =
 						new Query(invoice.getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_BH_Original_C_Invoice_ID +
