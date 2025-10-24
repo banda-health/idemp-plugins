@@ -1,8 +1,5 @@
 import {
 	Ad_ClientGetDocument,
-	Ad_UserGetDocument,
-	Ad_UserSaveDocument,
-	Ad_UserWithRoleSaveDocument,
 	ChangeAccessDocument,
 	SignInDocument,
 	SignInWithClientsDocument,
@@ -76,55 +73,4 @@ test('change access call works', async () => {
 
 	//Expect the token to change
 	expect(valueObject.sessionToken).not.toBe(originalCookie);
-});
-
-test('user is locked after multiple failed login attempts', async () => {
-	const valueObject = globalThis.__VALUE_OBJECT__;
-	await valueObject.login();
-
-	// Create a test user with a password
-	const testUserName = `test_user_lockout_${Date.now()}`;
-	await mutate(valueObject)({
-		mutation: Ad_UserWithRoleSaveDocument,
-		variables: {
-			AD_User: {
-				UU: `test-user-lockout-${Date.now()}`,
-				Name: testUserName,
-				IsActive: true,
-				Password: 'testpassword123',
-			},
-			AD_User_Roles: [], // Empty roles array for simplicity
-		},
-	});
-
-	// Get the created user and set FailedLoginCount to 4 (above the threshold of 3)
-	const createdUser = (
-		await query(valueObject)({
-			query: Ad_UserGetDocument,
-			variables: { Filter: JSON.stringify({ name: testUserName }) },
-		})
-	).data.AD_UserGet.Results[0];
-	expect(createdUser).toBeTruthy();
-
-	// Set the failed login count to 4 to simulate multiple failed attempts
-	await mutate(valueObject)({
-		mutation: Ad_UserSaveDocument,
-		variables: {
-			AD_User: {
-				UU: createdUser.UU,
-				FailedLoginCount: 4,
-			},
-		},
-	});
-
-	// Now try to login with correct credentials - should be blocked due to too many failed attempts
-	try {
-		await mutate(valueObject)({
-			mutation: SignInDocument,
-			variables: { Credentials: { Username: testUserName, Password: 'testpassword123', AD_Language: 'en_US' } },
-		});
-		expect(true).toBe(false); // Should not reach here
-	} catch (e: any) {
-		expect(e.message).toContain('Account temporarily locked due to multiple failed login attempts');
-	}
 });

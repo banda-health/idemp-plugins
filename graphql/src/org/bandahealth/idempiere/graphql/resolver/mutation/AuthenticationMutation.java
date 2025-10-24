@@ -64,15 +64,6 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	 */
 	public AuthenticationResponse SignIn(AuthenticationInput credentials, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
-		// check number of failed attempts.
-		MUser checkUser = new Query(idempiereContext, MUser_BH.Table_Name,
-				MUser_BH.COLUMNNAME_Name + "=? AND " + MUser_BH.COLUMNNAME_Password + " IS NOT NULL", null)
-				.setParameters(credentials.getUsername()).first();
-		if (checkUser != null && checkUser.getFailedLoginCount() > 3) {
-			throw new AdempiereException(
-					"Account temporarily locked due to multiple failed login attempts. Please contact your administrator to restore access.");
-		}
-				
 		Login login = new Login(idempiereContext);
 		// retrieve list of clients the user has access to.
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
@@ -101,10 +92,6 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			return response;
 		}
 
-		// reset failed login count
-		user.setFailedLoginCount(0);
-		user.saveEx();
-				
 		JWTCreator.Builder builder = JWT.create();
 		handleAccessChange(credentials, user, builder, idempiereContext);
 		// Only fetch the clients if they were requested
