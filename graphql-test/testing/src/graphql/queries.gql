@@ -224,6 +224,7 @@ query AD_UserGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 					}
 				}
 			}
+			DateLastLogin
 			FailedLoginCount
 			IsActive
 			Name
