@@ -1,11 +1,14 @@
 package org.bandahealth.idempiere.graphql.resolver.mutation;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
-import com.auth0.jwt.algorithms.Algorithm;
-import graphql.kickstart.servlet.context.GraphQLServletContext;
-import graphql.kickstart.tools.GraphQLMutationResolver;
-import graphql.schema.DataFetchingEnvironment;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.util.LogAuthFailure;
 import org.bandahealth.idempiere.base.config.Transaction;
@@ -41,19 +44,13 @@ import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.algorithms.Algorithm;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-import java.util.stream.Collectors;
+import graphql.kickstart.servlet.context.GraphQLServletContext;
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
 
 /**
  * Handle all mutations relating to authentication
@@ -78,7 +75,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
 		if (clients == null || clients.length == 0) {
 			String remoteIp = getRemoteIp(environment);
-			logAuthFailure(remoteIp, credentials.getUsername(), idempiereContext,
+			logAuthFailure(login, remoteIp, credentials.getUsername(), idempiereContext,
 					"Invalid credentials - no clients found", environment);
 			throw new AdempiereException("Unauthorized");
 		}
@@ -87,14 +84,14 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		PO.clearCrossTenantSafe();
 		if (user == null) {
 			String remoteIp = getRemoteIp(environment);
-			logAuthFailure(remoteIp, credentials.getUsername(), idempiereContext,
+			logAuthFailure(login, remoteIp, credentials.getUsername(), idempiereContext,
 					"Invalid credentials - user not found", environment);
 			throw new AdempiereException("Unauthorized");
 		}
 
 		if (user.isLocked()) {
 			String remoteIp = getRemoteIp(environment);
-			logAuthFailure(remoteIp, credentials.getUsername(), idempiereContext,
+			logAuthFailure(login, remoteIp, credentials.getUsername(), idempiereContext,
 					"Account locked - userId=" + user.getAD_User_ID(), environment);
 			throw new AdempiereException("Forbidden");
 		}
@@ -154,7 +151,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		// username/password combo incorrect
 		if (clients == null || clients.length == 0) {
 			String remoteIp = getRemoteIp(environment);
-			logAuthFailure(remoteIp, changePasswordInput.getUsername(), idempiereContext,
+			logAuthFailure(login, remoteIp, changePasswordInput.getUsername(), idempiereContext,
 					"Wrong credentials during password change", environment);
 			throw new AdempiereException(Msg.getMsg(idempiereContext, MMessage_BH.WRONG_CREDENTIALS));
 		}
