@@ -319,3 +319,8 @@ FROM
 			bp.ad_client_id = _ad_client_id
 	) b
 $$;
+
+SELECT
+	register_migration_script('202511101701_GO-3448.sql')
+FROM
+	dual;
