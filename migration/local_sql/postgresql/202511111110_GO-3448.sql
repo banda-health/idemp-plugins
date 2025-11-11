@@ -321,6 +321,6 @@ FROM
 $$;
 
 SELECT
-	register_migration_script('202511101701_GO-3448.sql')
+	register_migration_script('202511111110_GO-3448.sql')
 FROM
 	dual;
