@@ -265,7 +265,7 @@ FROM
 			NULL,
 			0,
 			0,
-			'CO'                   AS docstatus,
+			'CO' AS docstatus,
 			NULL,
 			NULL,
 			NULL
@@ -273,37 +273,31 @@ FROM
 			c_bpartner bp
 		WHERE
 			bp.ad_client_id = _ad_client_id
+			-- only get a starting balance if there is an order, invoice, or payment in the system
 			AND (
 				EXISTS (
-					SELECT
-						1
-					FROM
-						c_order o
-					WHERE
-						o.c_bpartner_id = bp.c_bpartner_id
+					SELECT 1 FROM c_order o 
+					WHERE o.c_bpartner_id = bp.c_bpartner_id 
 						AND o.issotrx = 'N'
 						AND o.bh_visit_id IS NULL
 				)
-					OR EXISTS (
-					SELECT
-						1
-					FROM
-						c_invoice i
-					WHERE
-						i.c_bpartner_id = bp.c_bpartner_id
+				OR EXISTS (
+					SELECT 1 FROM c_invoice i
+					WHERE i.c_bpartner_id = bp.c_bpartner_id
 						AND i.issotrx = 'N'
 						AND i.bh_visit_id IS NULL
 				)
-					OR EXISTS (
-					SELECT
-						1
-					FROM
-						c_payment p
-					WHERE
-						p.c_bpartner_id = bp.c_bpartner_id
+				OR EXISTS (
+					SELECT 1 FROM c_payment p
+					WHERE p.c_bpartner_id = bp.c_bpartner_id
 						AND p.isreceipt = 'N'
 						AND p.bh_visit_id IS NULL
 				)
-				)
+			)
 	) b
 $$;
+
+SELECT
+	register_migration_script('202511111110_GO-3448.sql')
+FROM
+	dual;
