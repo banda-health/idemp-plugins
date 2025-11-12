@@ -266,7 +266,7 @@ FROM
 			0,
 			0,
 			'CO' AS docstatus,
-			0,
+			NULL,
 			NULL,
 			NULL
 		FROM
