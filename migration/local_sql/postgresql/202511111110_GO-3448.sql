@@ -257,66 +257,43 @@ FROM
 			NULL,
 			bp.c_bpartner_id,
 			NULL,
-			LEAST(
-				bp.created,
-				COALESCE(order_dates.min_date, bp.created),
-				COALESCE(invoice_dates.min_date, bp.created),
-				COALESCE(payment_dates.min_date, bp.created)
-			) AS min_date,
-			LEAST(
-				bp.created,
-				COALESCE(order_dates.min_date, bp.created),
-				COALESCE(invoice_dates.min_date, bp.created),
-				COALESCE(payment_dates.min_date, bp.created)
-			) AS created,
-			LEAST(
-				bp.created,
-				COALESCE(order_dates.min_date, bp.created),
-				COALESCE(invoice_dates.min_date, bp.created),
-				COALESCE(payment_dates.min_date, bp.created)
-			) AS updated,
-			LEAST(
-				bp.created,
-				COALESCE(order_dates.min_date, bp.created),
-				COALESCE(invoice_dates.min_date, bp.created),
-				COALESCE(payment_dates.min_date, bp.created)
-			) AS ordering_date,
+			'-infinity'::TIMESTAMP AS date,
+			bp.created,
+			bp.updated,
+			'-infinity'::TIMESTAMP AS ordering_date,
 			bp.createdby,
 			NULL,
 			0,
 			0,
-			NULL,
+			'CO' AS docstatus,
 			0,
 			NULL,
 			NULL
 		FROM
 			c_bpartner bp
-			LEFT JOIN (
-				SELECT c_bpartner_id, MIN(dateordered) as min_date
-				FROM c_order
-				WHERE ad_client_id = _ad_client_id
-					AND issotrx = 'N'
-					AND bh_visit_id IS NULL
-				GROUP BY c_bpartner_id
-			) order_dates ON order_dates.c_bpartner_id = bp.c_bpartner_id
-			LEFT JOIN (
-				SELECT c_bpartner_id, MIN(dateinvoiced) as min_date
-				FROM c_invoice
-				WHERE ad_client_id = _ad_client_id
-					AND issotrx = 'N'
-					AND bh_visit_id IS NULL
-				GROUP BY c_bpartner_id
-			) invoice_dates ON invoice_dates.c_bpartner_id = bp.c_bpartner_id
-			LEFT JOIN (
-				SELECT c_bpartner_id, MIN(datetrx) as min_date
-				FROM c_payment
-				WHERE ad_client_id = _ad_client_id
-					AND isreceipt = 'N'
-					AND bh_visit_id IS NULL
-				GROUP BY c_bpartner_id
-			) payment_dates ON payment_dates.c_bpartner_id = bp.c_bpartner_id
 		WHERE
 			bp.ad_client_id = _ad_client_id
+			-- only get a starting balance if there is an order, invoice, or payment in the system
+			AND (
+				EXISTS (
+					SELECT 1 FROM c_order o 
+					WHERE o.c_bpartner_id = bp.c_bpartner_id 
+						AND o.issotrx = 'N'
+						AND o.bh_visit_id IS NULL
+				)
+				OR EXISTS (
+					SELECT 1 FROM c_invoice i
+					WHERE i.c_bpartner_id = bp.c_bpartner_id
+						AND i.issotrx = 'N'
+						AND i.bh_visit_id IS NULL
+				)
+				OR EXISTS (
+					SELECT 1 FROM c_payment p
+					WHERE p.c_bpartner_id = bp.c_bpartner_id
+						AND p.isreceipt = 'N'
+						AND p.bh_visit_id IS NULL
+				)
+			)
 	) b
 $$;
 
