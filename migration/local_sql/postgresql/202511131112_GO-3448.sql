@@ -275,3 +275,8 @@ FROM
 			ad_client_id = _ad_client_id
 	) b
 $$;
+
+SELECT
+	register_migration_script('202511131112_GO-3448.sql')
+FROM
+	dual;
