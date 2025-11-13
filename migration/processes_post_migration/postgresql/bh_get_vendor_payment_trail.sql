@@ -275,4 +275,3 @@ FROM
 			ad_client_id = _ad_client_id
 	) b
 $$;
-
