@@ -257,53 +257,31 @@ FROM
 			NULL,
 			bp.c_bpartner_id,
 			NULL,
-			'-infinity'::TIMESTAMP AS date,
-			bp.created,
-			bp.updated,
-			'-infinity'::TIMESTAMP AS ordering_date,
+			MIN(LEAST(bp.created, o.dateordered, i.dateinvoiced, p.datetrx)),
+			MIN(LEAST(bp.created, o.dateordered, i.dateinvoiced, p.datetrx)),
+			MIN(LEAST(bp.created, o.dateordered, i.dateinvoiced, p.datetrx)),
+			MIN(LEAST(bp.created, o.dateordered, i.dateinvoiced, p.datetrx)),
 			bp.createdby,
 			NULL,
 			0,
 			0,
-			'CO'                   AS docstatus,
 			NULL,
+			0,
 			NULL,
 			NULL
 		FROM
 			c_bpartner bp
+				LEFT JOIN c_order o
+					ON o.c_bpartner_id = bp.c_bpartner_id AND o.issotrx = 'N' AND
+					   o.bh_visit_id IS NULL
+				LEFT JOIN c_invoice i
+					ON bp.c_bpartner_id = i.c_bpartner_id AND i.issotrx = 'N' AND
+					   i.bh_visit_id IS NULL
+				LEFT JOIN c_payment p
+					ON bp.c_bpartner_id = p.c_bpartner_id AND p.isreceipt = 'N' AND
+					   p.bh_visit_id IS NULL
 		WHERE
 			bp.ad_client_id = _ad_client_id
-			AND (
-				EXISTS (
-					SELECT
-						1
-					FROM
-						c_order o
-					WHERE
-						o.c_bpartner_id = bp.c_bpartner_id
-						AND o.issotrx = 'N'
-						AND o.bh_visit_id IS NULL
-				)
-					OR EXISTS (
-					SELECT
-						1
-					FROM
-						c_invoice i
-					WHERE
-						i.c_bpartner_id = bp.c_bpartner_id
-						AND i.issotrx = 'N'
-						AND i.bh_visit_id IS NULL
-				)
-					OR EXISTS (
-					SELECT
-						1
-					FROM
-						c_payment p
-					WHERE
-						p.c_bpartner_id = bp.c_bpartner_id
-						AND p.isreceipt = 'N'
-						AND p.bh_visit_id IS NULL
-				)
-				)
+		GROUP BY bp.c_bpartner_id, bp.createdby
 	) b
 $$;
