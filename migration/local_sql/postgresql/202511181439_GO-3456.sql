@@ -219,8 +219,8 @@ CREATE TEMP TABLE tmp_c_payment_otc
 	createdby          numeric(10)  DEFAULT 100         NOT NULL,
 	updatedby          numeric(10)  DEFAULT 100         NOT NULL,
 	documentno         numeric                          NOT NULL,
-	datetrx            timestamp   DEFAULT NOW()        NOT NULL,
-	dateacct           timestamp   DEFAULT NOW()        NOT NULL,
+	datetrx            timestamp                        NOT NULL,
+	dateacct           timestamp                        NOT NULL,
 	isreceipt          char        DEFAULT 'Y'::bpchar NOT NULL,
 	c_doctype_id       numeric(10)                      NOT NULL,
 	trxtype            char        DEFAULT 'P'         NOT NULL,
@@ -238,7 +238,7 @@ CREATE TEMP TABLE tmp_c_payment_otc
 	processed          char        DEFAULT 'Y'::bpchar NOT NULL,
 	posted             char        DEFAULT 'Y'::bpchar NOT NULL,
 	isoverunderpayment char        DEFAULT 'N'::bpchar NOT NULL,
-	processedon        numeric     DEFAULT EXTRACT(EPOCH FROM NOW()) * 1000,
+	processedon        numeric,
 	c_payment_uu       varchar(36) DEFAULT uuid_generate_v4(),
 	bh_tender_amount   numeric     DEFAULT 0
 );
@@ -257,19 +257,20 @@ SELECT
 
 INSERT INTO
 	tmp_c_payment_otc (ad_client_id, ad_org_id, documentno, datetrx, dateacct, c_doctype_id, c_bankaccount_id,
-	                   c_bpartner_id, c_invoice_id, c_currency_id, payamt)
+	                   c_bpartner_id, c_invoice_id, c_currency_id, payamt, processedon)
 SELECT
 	i.ad_client_id,
 	i.ad_org_id,
 	seq.currentnext - 1, -- We'll put the correct one when do a row numbering partitioned by ad_client_id below
-	i.dateinvoiced, -- Use invoice date instead of current date
-	i.dateacct, -- Use invoice accounting date instead of current date
+	i.dateinvoiced,
+	i.dateacct,
 	dt.c_doctype_id,
 	ba.c_bankaccount_id,
 	i.c_bpartner_id,
 	i.c_invoice_id,
 	i.c_currency_id,
-	i.grandtotal
+	i.grandtotal,
+	EXTRACT(EPOCH FROM i.dateinvoiced) * 1000
 FROM
 	tmp_c_invoice_otc i
 		JOIN c_doctype dt
@@ -343,8 +344,8 @@ CREATE TEMP TABLE tmp_c_allocationhdr_otc
 	updatedby          numeric(10) DEFAULT 100         NOT NULL,
 	documentno         numeric                         NOT NULL,
 	description        varchar(255),
-	datetrx            timestamp   DEFAULT date(NOW()) NOT NULL,
-	dateacct           timestamp   DEFAULT date(NOW()) NOT NULL,
+	datetrx            timestamp                        NOT NULL,
+	dateacct           timestamp                        NOT NULL,
 	c_currency_id      numeric(10)                     NOT NULL,
 	docstatus          char(2)     DEFAULT 'CO'        NOT NULL,
 	docaction          char(2)     DEFAULT 'CL'        NOT NULL,
@@ -352,7 +353,7 @@ CREATE TEMP TABLE tmp_c_allocationhdr_otc
 	processing         char        DEFAULT 'N',
 	processed          char        DEFAULT 'Y'::bpchar NOT NULL,
 	posted             char        DEFAULT 'Y'::bpchar NOT NULL,
-	processedon        numeric     DEFAULT EXTRACT(EPOCH FROM NOW()) * 1000,
+	processedon        numeric,
 	c_allocationhdr_uu uuid        DEFAULT uuid_generate_v4(),
 	c_doctype_id       numeric(10)                     NOT NULL,
 	tmp_c_payment_id   numeric(10)                     NOT NULL
@@ -372,17 +373,18 @@ SELECT
 
 INSERT INTO
 	tmp_c_allocationhdr_otc (ad_client_id, ad_org_id, documentno, description, datetrx, dateacct, c_currency_id,
-	                         c_doctype_id, tmp_c_payment_id)
+	                         c_doctype_id, tmp_c_payment_id, processedon)
 SELECT
 	tp.ad_client_id,
 	tp.ad_org_id,
 	seq.currentnext - 1, -- We'll put the correct one when do a row numbering partitioned by ad_client_id below
 	'Payment: ' || tp.documentno,
-	tp.datetrx, -- Use payment transaction date instead of current date
-	tp.dateacct, -- Use payment accounting date instead of current date
+	tp.datetrx,
+	tp.dateacct,
 	tp.c_currency_id,
 	dt.c_doctype_id,
-	tp.c_payment_id
+	tp.c_payment_id,
+	tp.processedon
 FROM
 	tmp_c_payment_otc tp
 		JOIN c_doctype dt
