@@ -9,7 +9,10 @@ SELECT DISTINCT
 	v.bh_visit_id,
 	v.bh_visitdate,
 	o.c_order_id,
-	o.grandtotal,
+	CASE
+		WHEN ROUND(o.grandtotal - COALESCE(SUM(p.payamt), 0)) > 0
+			THEN ROUND(o.grandtotal - COALESCE(SUM(p.payamt), 0))
+		ELSE o.grandtotal END AS grandtotal,
 	o.ad_client_id,
 	o.ad_org_id,
 	o.c_bpartner_id,
@@ -29,8 +32,26 @@ FROM
 			ON bp.c_bp_group_id = bpg.c_bp_group_id AND bpg.name = 'OTC Patient'
 		LEFT JOIN c_payment p
 			ON v.bh_visit_id = p.bh_visit_id
-WHERE
-	p.c_payment_id IS NULL;
+GROUP BY
+	v.documentno,
+	v.bh_visit_id,
+	v.bh_visitdate,
+	o.c_order_id,
+	o.grandtotal,
+	o.ad_client_id,
+	o.ad_org_id,
+	o.c_bpartner_id,
+	o.c_bpartner_location_id,
+	o.c_currency_id,
+	o.dateordered,
+	o.dateacct
+HAVING
+	o.grandtotal > 0
+	AND (SUM(p.payamt) IS NULL OR SUM(p.payamt) != o.grandtotal)
+	AND (CASE
+		     WHEN ROUND(o.grandtotal - COALESCE(SUM(p.payamt), 0)) > 0
+			     THEN ROUND(o.grandtotal - COALESCE(SUM(p.payamt), 0))
+		     ELSE o.grandtotal END) > 0;
 
 -- Create invoices for these visits if they don't exist
 DROP TABLE IF EXISTS tmp_c_invoice_otc;
@@ -104,7 +125,7 @@ SELECT
 	mp.c_currency_id,
 	pt.c_paymentterm_id,
 	o.totallines,
-	o.grandtotal,
+	mp.grandtotal,
 	o.m_pricelist_id,
 	EXTRACT(EPOCH FROM mp.dateordered) * 1000
 FROM
@@ -181,7 +202,7 @@ FROM
 INSERT INTO c_invoiceline (
 	ad_client_id, ad_org_id, createdby, updatedby, c_invoice_id, c_orderline_id, line,
 	description, m_product_id, qtyinvoiced, qtyentered, pricelist, priceactual, pricelimit,
-	linenetamt, c_charge_id, c_uom_id, c_currency_id, processed, c_invoice_uu
+	linenetamt, c_charge_id, c_uom_id, processed, c_invoice_uu
 )
 SELECT
 	i.ad_client_id,
@@ -201,7 +222,6 @@ SELECT
 	ol.linenetamt,
 	ol.c_charge_id,
 	ol.c_uom_id,
-	i.c_currency_id,
 	'Y',
 	i.c_invoice_uu
 FROM
@@ -221,26 +241,26 @@ CREATE TEMP TABLE tmp_c_payment_otc
 	documentno         numeric                          NOT NULL,
 	datetrx            timestamp                        NOT NULL,
 	dateacct           timestamp                        NOT NULL,
-	isreceipt          char        DEFAULT 'Y'::bpchar NOT NULL,
+	isreceipt          char        DEFAULT 'Y'::bpchar  NOT NULL,
 	c_doctype_id       numeric(10)                      NOT NULL,
-	trxtype            char        DEFAULT 'P'         NOT NULL,
+	trxtype            char        DEFAULT 'P'          NOT NULL,
 	c_bankaccount_id   numeric(10)                      NOT NULL,
 	c_bpartner_id      numeric(10)                      NOT NULL,
 	c_invoice_id       numeric(10),
-	tendertype         char        DEFAULT 'X'         NOT NULL,
+	tendertype         char        DEFAULT 'X'          NOT NULL,
 	c_currency_id      numeric(10)                      NOT NULL,
 	payamt             numeric                          NOT NULL,
-	isapproved         char        DEFAULT 'Y'::bpchar NOT NULL,
+	isapproved         char        DEFAULT 'Y'::bpchar  NOT NULL,
 	processing         char        DEFAULT 'N',
-	docstatus          char(2)     DEFAULT 'CO'        NOT NULL,
-	docaction          char(2)     DEFAULT 'CL'        NOT NULL,
-	isallocated        char        DEFAULT 'Y'::bpchar NOT NULL,
-	processed          char        DEFAULT 'Y'::bpchar NOT NULL,
-	posted             char        DEFAULT 'Y'::bpchar NOT NULL,
-	isoverunderpayment char        DEFAULT 'N'::bpchar NOT NULL,
+	docstatus          char(2)     DEFAULT 'CO'         NOT NULL,
+	docaction          char(2)     DEFAULT 'CL'         NOT NULL,
+	isallocated        char        DEFAULT 'Y'::bpchar  NOT NULL,
+	processed          char        DEFAULT 'Y'::bpchar  NOT NULL,
+	posted             char        DEFAULT 'Y'::bpchar  NOT NULL,
+	isoverunderpayment char        DEFAULT 'N'::bpchar  NOT NULL,
 	processedon        numeric,
 	c_payment_uu       varchar(36) DEFAULT uuid_generate_v4(),
-	bh_tender_amount   numeric     DEFAULT 0
+	bh_tender_amount   numeric     						NOT NULL
 );
 
 SELECT
@@ -257,7 +277,7 @@ SELECT
 
 INSERT INTO
 	tmp_c_payment_otc (ad_client_id, ad_org_id, documentno, datetrx, dateacct, c_doctype_id, c_bankaccount_id,
-	                   c_bpartner_id, c_invoice_id, c_currency_id, payamt, processedon)
+	                   c_bpartner_id, c_invoice_id, c_currency_id, payamt, processedon, bh_tender_amount)
 SELECT
 	i.ad_client_id,
 	i.ad_org_id,
@@ -270,7 +290,8 @@ SELECT
 	i.c_invoice_id,
 	i.c_currency_id,
 	i.grandtotal,
-	EXTRACT(EPOCH FROM i.dateinvoiced) * 1000
+	EXTRACT(EPOCH FROM i.dateinvoiced) * 1000,
+	i.grandtotal
 FROM
 	tmp_c_invoice_otc i
 		JOIN c_doctype dt
