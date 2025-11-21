@@ -198,36 +198,141 @@ SELECT
 FROM
 	tmp_c_invoice_otc;
 
--- Create invoice lines from order lines
-INSERT INTO c_invoiceline (
-	ad_client_id, ad_org_id, createdby, updatedby, c_invoice_id, c_orderline_id, line,
-	description, m_product_id, qtyinvoiced, qtyentered, pricelist, priceactual, pricelimit,
-	linenetamt, c_charge_id, c_uom_id, processed, c_invoice_uu
-)
+/**********************************************************************************************************/
+DROP TABLE IF EXISTS tmp_c_invoiceline_otc;
+CREATE TEMP TABLE tmp_c_invoiceline_otc
+(
+	c_invoiceline_id          serial                          NOT NULL,
+	ad_client_id              numeric(10)                     NOT NULL,
+	ad_org_id                 numeric(10)                     NOT NULL,
+	isactive                  char        DEFAULT 'Y'::bpchar NOT NULL,
+-- 	created                   timestamp   DEFAULT NOW()       NOT NULL,
+	createdby                 numeric(10) DEFAULT 100         NOT NULL,
+-- 	updated                   timestamp   DEFAULT NOW()       NOT NULL,
+	updatedby                 numeric(10) DEFAULT 100         NOT NULL,
+	c_invoice_id              numeric(10)                     NOT NULL,
+	c_orderline_id            numeric(10)                     NOT NULL,
+	m_inoutline_id            numeric(10),
+	line                      numeric(10)                     NOT NULL,
+	description               varchar(255) DEFAULT 'OTC Patient Invoice line - Auto Generated',
+	m_product_id              numeric(10)                     NOT NULL,
+	qtyinvoiced               numeric                         NOT NULL,
+	pricelist                 numeric                         NOT NULL,
+	priceactual               numeric                         NOT NULL,
+	pricelimit                numeric                         NOT NULL,
+	linenetamt                numeric                         NOT NULL,
+--	c_charge_id               numeric(10),
+	c_uom_id                  numeric(10)                     NOT NULL,
+	c_tax_id                  numeric(10)                     NOT NULL,
+--	s_resourceassignment_id   numeric(10),
+--	a_asset_id                numeric(10),
+--	taxamt                    numeric     DEFAULT 0,
+	m_attributesetinstance_id numeric(10)                     NOT NULL,
+--	isdescription             char        DEFAULT 'N'::bpchar NOT NULL,
+--	isprinted                 char        DEFAULT 'Y'::bpchar NOT NULL,
+	linetotalamt              numeric                         NOT NULL,
+--	ref_invoiceline_id        numeric(10),
+	processed                 char        DEFAULT 'Y'::bpchar NOT NULL,
+	qtyentered                numeric                         NOT NULL,
+	priceentered              numeric                         NOT NULL,
+--	c_project_id              numeric(10),
+--	c_projectphase_id         numeric(10),
+--	c_projecttask_id          numeric(10),
+--	rrstartdate               timestamp,
+--	rramt                     numeric,
+--	c_campaign_id             numeric(10),
+--	c_activity_id             numeric(10),
+--	user1_id                  numeric(10),
+--	user2_id                  numeric(10),
+--	ad_orgtrx_id              numeric(10),
+--	m_rmaline_id              numeric(10),
+--	a_createasset             char        DEFAULT 'N'::bpchar,
+--	a_processed               char        DEFAULT 'N'::bpchar,
+--	a_capvsexp                varchar(3),
+--	a_asset_group_id          numeric(10),
+	c_invoiceline_uu          varchar(36) DEFAULT uuid_generate_v4(),
+	isfixedassetinvoice       char        DEFAULT 'N'
+--	c_1099box_id              numeric(10) DEFAULT NULL::numeric
+);
+
 SELECT
-	i.ad_client_id,
-	i.ad_org_id,
-	i.createdby,
-	i.updatedby,
-	i.c_invoice_id,
+	SETVAL(
+			'tmp_c_invoiceline_c_invoiceline_id_seq',
+			(
+				SELECT
+					COALESCE(MAX(c_invoiceline_id), 0) + 1
+				FROM
+					c_invoiceline
+			)::INT,
+			FALSE
+	);
+
+INSERT INTO
+	tmp_c_invoiceline_otc (ad_client_id, ad_org_id, c_invoice_id, c_orderline_id, m_inoutline_id, line, m_product_id,
+	                   qtyinvoiced, pricelist, priceactual, pricelimit, linenetamt, c_uom_id, c_tax_id,
+	                   m_attributesetinstance_id, linetotalamt, qtyentered, priceentered)
+SELECT
+	ti.ad_client_id,
+	ti.ad_org_id,
+	ti.c_invoice_id,
 	ol.c_orderline_id,
+	iol.m_inoutline_id,
 	ol.line,
-	ol.description,
 	ol.m_product_id,
 	ol.qtyordered,
-	ol.qtyentered,
 	ol.pricelist,
 	ol.priceactual,
 	ol.pricelimit,
 	ol.linenetamt,
-	ol.c_charge_id,
 	ol.c_uom_id,
-	'Y',
-	i.c_invoice_uu
+	ol.c_tax_id,
+	ol.m_attributesetinstance_id,
+	ol.linenetamt,
+	ol.qtyentered,
+	ol.priceentered
 FROM
-	tmp_c_invoice_otc i
+	tmp_c_invoice_otc ti
 		JOIN c_orderline ol
-			ON i.c_order_id = ol.c_order_id;
+			ON ti.c_order_id = ol.c_order_id
+		LEFT JOIN m_inoutline iol
+			ON ol.c_orderline_id = iol.c_orderline_id;
+
+
+-- Insert the real invoice lines!
+INSERT INTO
+	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, isactive, createdby, updatedby, c_invoice_id,
+	               c_orderline_id, m_inoutline_id, line, m_product_id, qtyinvoiced, pricelist, priceactual, pricelimit,
+	               linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt, processed, qtyentered,
+	               priceentered, c_invoiceline_uu, isfixedassetinvoice, description)
+SELECT
+	c_invoiceline_id,
+	ad_client_id,
+	ad_org_id,
+	isactive,
+	createdby,
+	updatedby,
+	c_invoice_id,
+	c_orderline_id,
+	m_inoutline_id,
+	line,
+	m_product_id,
+	qtyinvoiced,
+	pricelist,
+	priceactual,
+	pricelimit,
+	linenetamt,
+	c_uom_id,
+	c_tax_id,
+	m_attributesetinstance_id,
+	linetotalamt,
+	processed,
+	qtyentered,
+	priceentered,
+	c_invoiceline_uu,
+	isfixedassetinvoice,
+	description
+FROM
+	tmp_c_invoiceline_otc;
 
 -- Create payments for these invoices
 DROP TABLE IF EXISTS tmp_c_payment_otc;
@@ -353,6 +458,127 @@ SELECT
 	bh_tender_amount
 FROM
 	tmp_c_payment_otc;
+
+/**********************************************************************************************************/
+-- Create accounting entries for payments
+/**********************************************************************************************************/
+DROP TABLE IF EXISTS tmp_fact_acct_otc;
+CREATE TEMP TABLE tmp_fact_acct_otc
+(
+	fact_acct_id    serial                          NOT NULL,
+	ad_client_id    numeric(10)                     NOT NULL,
+	ad_org_id       numeric(10)                     NOT NULL,
+	createdby       numeric(10) DEFAULT 100         NOT NULL,
+	updatedby       numeric(10) DEFAULT 100         NOT NULL,
+	c_acctschema_id numeric(10)                     NOT NULL,
+	account_id      numeric(10)                     NOT NULL,
+	datetrx         timestamp   DEFAULT date(NOW()) NOT NULL,
+	dateacct        timestamp   DEFAULT date(NOW()) NOT NULL,
+	c_period_id     numeric(10),
+	ad_table_id     numeric(10) DEFAULT 335         NOT NULL,
+	record_id       numeric(10)                     NOT NULL,
+	line_id         numeric(10),
+	gl_category_id  numeric(10),
+	c_tax_id        numeric(10),
+	postingtype     char        DEFAULT 'A'         NOT NULL,
+	c_currency_id   numeric(10)                     NOT NULL,
+	amtsourcedr     numeric                         NOT NULL,
+	amtsourcecr     numeric                         NOT NULL,
+	amtacctdr       numeric                         NOT NULL,
+	amtacctcr       numeric                         NOT NULL,
+	qty             numeric     DEFAULT 0,
+	c_bpartner_id   numeric(10),
+	description     varchar(255),
+	fact_acct_uu    uuid        DEFAULT uuid_generate_v4()
+);
+
+SELECT
+	SETVAL(
+			'tmp_fact_acct_otc_fact_acct_id_seq',
+			(
+				SELECT
+					COALESCE(MAX(fact_acct_id), 0) + 1
+				FROM
+					fact_acct
+			)::INT,
+			FALSE
+	);
+
+-- Enter the accounting for payments
+INSERT INTO
+	tmp_fact_acct_otc (ad_client_id, ad_org_id, c_acctschema_id, account_id, datetrx, c_period_id, ad_table_id, record_id,
+	               gl_category_id, c_currency_id, amtsourcedr, amtsourcecr, amtacctdr, amtacctcr, qty,
+	               c_bpartner_id, description)
+SELECT
+	tp.ad_client_id,
+	tp.ad_org_id,
+	accts.c_acctschema_id,
+	CASE WHEN drcr.sign = 'CR' THEN ev_11100.c_elementvalue_id ELSE ev_21100.c_elementvalue_id END,
+	tp.datetrx,
+	p.c_period_id,
+	335,
+	tp.c_payment_id,
+	cat.gl_category_id,
+	tp.c_currency_id,
+	CASE WHEN drcr.sign = 'CR' THEN 0 ELSE tp.payamt END,
+	CASE WHEN drcr.sign = 'CR' THEN tp.payamt ELSE 0 END,
+	CASE WHEN drcr.sign = 'CR' THEN 0 ELSE tp.payamt END,
+	CASE WHEN drcr.sign = 'CR' THEN tp.payamt ELSE 0 END,
+	0,
+	tp.c_bpartner_id,
+	tp.documentno
+FROM
+	tmp_c_payment_otc tp
+		JOIN c_acctschema accts
+			ON tp.ad_client_id = accts.ad_client_id
+		JOIN c_period p
+			ON tp.ad_client_id = p.ad_client_id AND NOW() BETWEEN startdate AND enddate
+		CROSS JOIN (
+		VALUES ('DR'), ('CR')
+	) drcr (sign)
+		JOIN gl_category cat
+			ON cat.ad_client_id = tp.ad_client_id AND cat.name = 'AP Payment'
+		JOIN c_elementvalue ev_21100
+			ON tp.ad_client_id = ev_21100.ad_client_id AND ev_21100.value = '21100'
+		JOIN c_elementvalue ev_11100
+			ON tp.ad_client_id = ev_11100.ad_client_id AND ev_11100.value = '11100'
+		JOIN c_tax t
+			ON t.ad_client_id = tp.ad_client_id;
+
+-- Insert the real accounts
+INSERT INTO
+	fact_acct (fact_acct_id, ad_client_id, ad_org_id, createdby, updatedby, c_acctschema_id, account_id, datetrx,
+	           dateacct, c_period_id, ad_table_id, record_id, line_id, gl_category_id, c_tax_id, postingtype,
+	           c_currency_id, amtsourcedr, amtsourcecr, amtacctdr, amtacctcr, qty, c_bpartner_id, description,
+	           fact_acct_uu)
+SELECT
+	fact_acct_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	c_acctschema_id,
+	account_id,
+	datetrx,
+	dateacct,
+	c_period_id,
+	ad_table_id,
+	record_id,
+	line_id,
+	gl_category_id,
+	c_tax_id,
+	postingtype,
+	c_currency_id,
+	amtsourcedr,
+	amtsourcecr,
+	amtacctdr,
+	amtacctcr,
+	qty,
+	c_bpartner_id,
+	description,
+	fact_acct_uu
+FROM
+	tmp_fact_acct_otc;
 
 -- Create allocation headers
 DROP TABLE IF EXISTS tmp_c_allocationhdr_otc;
@@ -550,7 +776,10 @@ WHERE
 -- Clean up temporary tables
 DROP TABLE IF EXISTS tmp_missing_otc_payments;
 DROP TABLE IF EXISTS tmp_c_invoice_otc;
+DROP TABLE IF EXISTS tmp_c_invoiceline_otc;
 DROP TABLE IF EXISTS tmp_c_payment_otc;
+DROP TABLE IF EXISTS tmp_fact_acct_otc;
+DROP TABLE IF EXISTS tmp_c_allocationline_otc;
 DROP TABLE IF EXISTS tmp_c_allocationhdr_otc;
 DROP TABLE IF EXISTS tmp_c_allocationline_otc;
 
