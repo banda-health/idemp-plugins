@@ -257,7 +257,7 @@ CREATE TEMP TABLE tmp_c_invoiceline_otc
 
 SELECT
 	SETVAL(
-			'tmp_c_invoiceline_c_invoiceline_id_seq',
+			'tmp_c_invoiceline_otc_c_invoiceline_id_seq',
 			(
 				SELECT
 					COALESCE(MAX(c_invoiceline_id), 0) + 1
