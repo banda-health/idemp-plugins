@@ -80,15 +80,15 @@ WHERE
 
 /**********************************************************************************************************/
 -- Scenarios we have to deal with (problem exits on order) of 20676 cases
--- 1. Bill waiver that already exists on an invoice (14096 of these - just delete and update order total)
+-- 1. Bill waiver that already exists on an invoice (14098 of these - just delete and update order total)
 -- 2. Bill waiver that isn't on an invoice and the visit has an invoice (9 of these - add an invoice line)
 -- 3. Bill waiver that isn't on an invoice and the visit has no invoice (506 of these - create an invoice and possibly payments)
 -- 4. Insurer/donor on invoice and additional invoice already generated (12 of these - just delete and update the order total)
--- 5. Insurer/donor on invoice and additional invoice not generated (5366 of these - delete and update the order total, and generate new invoice)
+-- 5. Insurer/donor on invoice and additional invoice not generated (5326 of these - delete and update the order total, and generate new invoice)
 -- 6. Insurer/donor not on invoice and additional invoice is generated (0 of these - delete and update the order total and add to the invoice)
 -- 7. Insurer/donor not on invoice and additional invoice not generated (717 of these - delete and update the order total and add to the invoice)
--- 8. Insurer/donor with no invoice and additional invoice is generated (delete and update the order total and create an invoice)
--- 9. Insurer/donor with on invoice and additional invoice not generated (delete and update the order total, create an invoice and create a new invoice)
+-- 8. Insurer/donor with no invoice and additional invoice is generated (0 of these - delete and update the order total and create an invoice)
+-- 9. Insurer/donor with on invoice and additional invoice not generated (661 of these - delete and update the order total, create an invoice and create a new invoice)
 /**********************************************************************************************************/
 
 -- Get the orders with erroneous order lines
@@ -105,18 +105,17 @@ WHERE
 		SELECT
 			1
 		FROM
-			c_orderline ol
-				JOIN c_charge c
-					ON ol.c_charge_id = c.c_charge_id
+			c_orderline
 		WHERE
-			ol.c_order_id = c_order.c_order_id
-			AND c.name NOT IN ('Finances - Miscellaneous/Other', 'Charge Test')
+			c_order_id = c_order.c_order_id
+			AND c_charge_id IS NOT NULL
 	);
 
 /**********************************************************************************************************/
--- 1. Bill waiver that already exists on an invoice (14096 of these - just delete and update order total)
+-- 1. Bill waiver that already exists on an invoice (14098 of these - just delete and update order total)
 /**********************************************************************************************************/
 -- Get the order lines we're working with
+DROP TABLE IF EXISTS tmp_c_orderline_to_work_with;
 SELECT DISTINCT
 	ol.c_orderline_id,
 	FALSE AS need_to_create_invoice
@@ -127,7 +126,7 @@ FROM
 		JOIN tmp_c_orders_to_update totu
 			ON ol.c_order_id = totu.c_order_id
 		JOIN c_charge c
-			ON ol.c_charge_id = c.c_charge_id AND c.name = 'Bill Waiver'
+			ON ol.c_charge_id = c.c_charge_id AND c.name IN ('Bill Waiver', 'Finances - Miscellaneous/Other', 'Charge Test')
 		JOIN c_invoiceline il
 			ON ol.c_orderline_id = il.c_orderline_id;
 
@@ -300,14 +299,14 @@ SELECT
 	NULL,
 	'DR',
 	'CO',
-	'Visit Invoice - Auto Generated',
+	'Visit Invoice - System Generated',
 	o.bh_visit_id
 FROM
 	c_order o
 		JOIN ad_sequence seq
 			ON seq.ad_client_id = o.ad_client_id AND seq.name = 'DocumentNo_C_Invoice'
 		JOIN c_doctype dt
-			ON o.ad_client_id = dt.ad_client_id AND dt.name = 'AP Invoice'
+			ON o.ad_client_id = dt.ad_client_id AND dt.name = 'AR Invoice'
 		JOIN c_paymentterm pt
 			ON pt.ad_client_id = o.ad_client_id AND pt.value = 'Immediate'
 WHERE
@@ -563,7 +562,121 @@ WHERE
 /**********************************************************************************************************/
 -- 4. Insurer/donor on invoice and additional invoice already generated (12 of these - just delete and update the order total)
 /**********************************************************************************************************/
+-- Get the order lines we're working with
+DROP TABLE tmp_c_orderline_to_work_with;
+SELECT DISTINCT
+	ol.c_orderline_id,
+	FALSE AS need_to_create_invoice
+INTO TEMP TABLE
+	tmp_c_orderline_to_work_with
+FROM
+	c_orderline ol
+		JOIN tmp_c_orders_to_update totu
+			ON ol.c_order_id = totu.c_order_id
+		JOIN c_charge c
+			ON ol.c_charge_id = c.c_charge_id
+		JOIN c_invoiceline il
+			ON ol.c_orderline_id = il.c_orderline_id
+		JOIN c_order o
+			ON ol.c_order_id = o.c_order_id
+WHERE
+	EXISTS (
+		SELECT
+			1
+		FROM
+			c_invoiceline
+				JOIN c_invoice
+					ON c_invoice.c_invoice_id = c_invoiceline.c_invoice_id
+		WHERE
+			c_invoiceline.c_charge_id = ol.c_charge_id
+			AND c_invoiceline.linenetamt = -1 * ol.linenetamt
+			AND c_invoice.c_bpartner_id != o.c_bpartner_id
+			AND c_invoice.bh_visit_id = o.bh_visit_id
+			AND (c_invoice.docstatus NOT IN ('RE', 'RA', 'VO') OR o.docstatus = 'VO')
+	);
 
+-- Update any invoice lines pointing to this order line to not point there
+UPDATE c_invoiceline il
+SET
+	c_orderline_id = NULL,
+	m_inoutline_id = NULL
+FROM
+	tmp_c_orderline_to_work_with toltww
+WHERE
+	toltww.c_orderline_id = il.c_orderline_id;
+-- Now remove the unnecessary order lines and inout lines
+SELECT
+	bh_execute_statement_without_indexes($$
+DELETE
+FROM
+	m_inoutline iol
+	USING tmp_c_orderline_to_work_with toltww
+WHERE
+	iol.c_orderline_id = toltww.c_orderline_id;$$, 'm_inoutline_id');
+SELECT
+	bh_execute_statement_without_indexes($$
+DELETE
+FROM
+	c_orderline ol
+	USING tmp_c_orderline_to_work_with toltww
+WHERE
+	ol.c_orderline_id = toltww.c_orderline_id;$$, 'c_orderline_id');
+
+/**********************************************************************************************************/
+-- 5. Insurer/donor on invoice and additional invoice not generated (5326 of these - delete and update the order total, and generate new invoice)
+/**********************************************************************************************************/
+-- Find the insurer/donor to use matching the charge
+SELECT
+	ol.c_orderline_id,
+	o.c_bpartner_id,
+	ol.c_charge_id,
+	COALESCE(bp_general.c_bpartner_id, bp_payor.c_bpartner_id) AS bh_payor_id
+INTO TEMP TABLE
+	tmp_charge_to_donor_mapping
+FROM
+	c_orderline ol
+		JOIN c_order o
+			ON ol.c_order_id = o.c_order_id AND o.bh_visit_id IS NOT NULL
+		JOIN c_charge c
+			ON ol.c_charge_id = c.c_charge_id
+		JOIN c_charge_acct ca
+			ON c.c_charge_id = ca.c_charge_id
+		JOIN c_validcombination vc_c
+			ON ca.ch_expense_acct = vc_c.c_validcombination_id
+		JOIN c_elementvalue ev_c
+			ON vc_c.account_id = ev_c.c_elementvalue_id
+		JOIN c_elementvalue ev_p
+			ON ev_c.value = ev_p.value AND ev_c.ad_client_id = ev_p.ad_client_id
+		JOIN c_validcombination vc_p
+			ON ev_p.c_elementvalue_id = vc_p.account_id
+		JOIN c_bp_group_acct bpga
+			ON vc_p.c_validcombination_id = bpga.c_receivable_acct
+		JOIN c_bp_group bpg
+			ON bpga.c_bp_group_id = bpg.c_bp_group_id
+		JOIN c_bpartner bp_payor
+			ON bpg.c_bp_group_id = bp_payor.c_bp_group_id AND bp_payor.created < '2023-12-01' AND
+			   CASE
+				   WHEN bpg.bh_subtype = 'I' THEN bp_payor.name IN ('NHIF FFS', 'NHIF National Scheme')
+				   WHEN bpg.bh_subtype = 'D' THEN bp_payor.name = 'Donor Fund'
+				   ELSE FALSE
+				   END
+		JOIN c_bpartner bp_patient
+			ON o.c_bpartner_id = bp_patient.c_bpartner_id
+		LEFT JOIN LATERAL (
+		SELECT
+			c_bpartner_id,
+			bh_payer_id,
+			ROW_NUMBER() OVER (PARTITION BY c_bpartner_id ORDER BY created DESC) AS row_num
+		FROM
+			bh_bp_payer_info
+		WHERE
+			created < o.created
+		) bppi
+			ON bp_patient.c_bpartner_id = bppi.c_bpartner_id AND bppi.row_num = 1
+		LEFT JOIN c_bpartner bp_general
+			ON bppi.bh_payer_id = bp_general.c_bpartner_id AND bp_general.c_bp_group_id = bpg.c_bp_group_id;
+
+-- Generate invoices for each of the above, handling drafted, completed, and voided accordingly
 
 /**********************************************************************************************************/
 -- FINAL
