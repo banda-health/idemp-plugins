@@ -32,7 +32,7 @@ FROM
 		JOIN c_bp_group bpg
 			ON bp.c_bp_group_id = bpg.c_bp_group_id AND bpg.name = 'OTC Patient'
 		LEFT JOIN c_payment p
-			ON v.bh_visit_id = p.bh_visit_id
+			ON v.bh_visit_id = p.bh_visit_id AND p.isallocated = 'Y'
 GROUP BY
 	v.documentno,
 	v.bh_visit_id,
@@ -58,7 +58,7 @@ HAVING
 DROP TABLE IF EXISTS tmp_c_invoice_otc;
 CREATE TEMP TABLE tmp_c_invoice_otc
 (
-	c_invoice_id           serial                           NOT NULL,
+	c_invoice_id           serial                      		NOT NULL,
 	ad_client_id           numeric(10)                      NOT NULL,
 	ad_org_id              numeric(10)                      NOT NULL,
 	createdby              numeric(10)  DEFAULT 100         NOT NULL,
@@ -90,7 +90,8 @@ CREATE TEMP TABLE tmp_c_invoice_otc
 	ispaid                 char         DEFAULT 'Y'::bpchar NOT NULL,
 	processedon            numeric,
 	c_invoice_uu           varchar(36)  DEFAULT uuid_generate_v4(),
-	isfixedassetinvoice    char         DEFAULT 'N'
+	isfixedassetinvoice    char         DEFAULT 'N',
+	bh_visit_id            numeric(10)                      NOT NULL
 );
 
 SELECT
@@ -105,11 +106,11 @@ SELECT
 			FALSE
 	);
 
--- Create invoices from the orders
+-- Create invoices from the orders ONLY for those without invoices
 INSERT INTO
 	tmp_c_invoice_otc (ad_client_id, ad_org_id, documentno, c_doctype_id, c_doctypetarget_id, c_order_id,
 	                   salesrep_id, dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, dateordered, c_currency_id,
-	                   c_paymentterm_id, totallines, grandtotal, m_pricelist_id, processedon)
+	                   c_paymentterm_id, totallines, grandtotal, m_pricelist_id, processedon, bh_visit_id)
 SELECT
 	mp.ad_client_id,
 	mp.ad_org_id,
@@ -128,7 +129,8 @@ SELECT
 	o.totallines,
 	mp.grandtotal,
 	o.m_pricelist_id,
-	EXTRACT(EPOCH FROM mp.dateordered) * 1000
+	EXTRACT(EPOCH FROM mp.dateordered) * 1000,
+	mp.bh_visit_id,
 FROM
 	tmp_missing_otc_payments mp
 		JOIN c_order o
@@ -139,6 +141,8 @@ FROM
 			ON mp.ad_client_id = dt.ad_client_id AND dt.name = 'AR Invoice'
 		JOIN c_paymentterm pt
 			ON pt.ad_client_id = mp.ad_client_id AND pt.value = 'Immediate';
+		LEFT JOIN c_invoice i
+			ON mp.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL') AND i.c_invoice_id IS NULL
 
 -- Update the document numbers
 UPDATE tmp_c_invoice_otc i
@@ -161,7 +165,7 @@ INSERT INTO
 	           processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id,
 	           dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, isdiscountprinted, dateordered,
 	           c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal, m_pricelist_id, ispaid, processedon,
-	           c_invoice_uu, isfixedassetinvoice)
+	           c_invoice_uu, isfixedassetinvoice, bh_visit_id)
 SELECT
 	c_invoice_id,
 	ad_client_id,
@@ -195,7 +199,8 @@ SELECT
 	ispaid,
 	processedon,
 	c_invoice_uu,
-	isfixedassetinvoice
+	isfixedassetinvoice,
+	bh_visit_id
 FROM
 	tmp_c_invoice_otc;
 
@@ -366,7 +371,8 @@ CREATE TEMP TABLE tmp_c_payment_otc
 	isoverunderpayment char        DEFAULT 'N'::bpchar  NOT NULL,
 	processedon        numeric,
 	c_payment_uu       varchar(36) DEFAULT uuid_generate_v4(),
-	bh_tender_amount   numeric     						NOT NULL
+	bh_tender_amount   numeric     						NOT NULL,
+	bh_visit_id        numeric(10)                      NOT NULL
 );
 
 SELECT
@@ -383,7 +389,7 @@ SELECT
 
 INSERT INTO
 	tmp_c_payment_otc (ad_client_id, ad_org_id, documentno, datetrx, dateacct, c_doctype_id, c_bankaccount_id,
-	                   c_bpartner_id, c_invoice_id, c_currency_id, payamt, processedon, bh_tender_amount, tendertype)
+	                   c_bpartner_id, c_invoice_id, c_currency_id, payamt, processedon, bh_tender_amount, tendertype, bh_visit_id)
 SELECT
 	i.ad_client_id,
 	i.ad_org_id,
@@ -393,24 +399,27 @@ SELECT
 	dt.c_doctype_id,
 	ba.c_bankaccount_id,
 	i.c_bpartner_id,
-	i.c_invoice_id,
+	COALESCE(ti.c_invoice_id, i.c_invoice_id) AS c_invoice_id,
 	i.c_currency_id,
 	i.grandtotal,
 	EXTRACT(EPOCH FROM i.dateinvoiced) * 1000,
 	i.grandtotal,
-	p.tendertype
+	p.tendertype,
+	p.bh_visit_id
 FROM
-	tmp_c_invoice_otc i
+	tmp_missing_otc_payments p
+		LEFT JOIN tmp_c_invoice_otc ti
+			ON p.bh_visit_id = ti.bh_visit_id
 		JOIN c_doctype dt
-			ON i.ad_client_id = dt.ad_client_id AND docbasetype = 'ARR'
+			ON ti.ad_client_id = dt.ad_client_id AND docbasetype = 'ARR'
 		JOIN ad_sequence seq
-			ON i.ad_client_id = seq.ad_client_id AND seq.name = 'DocumentNo_C_Payment'
+			ON ti.ad_client_id = seq.ad_client_id AND seq.name = 'DocumentNo_C_Payment'
 		JOIN c_bankaccount ba
-			ON i.ad_client_id = ba.ad_client_id AND ba.isdefault = 'Y'
+			ON ti.ad_client_id = ba.ad_client_id AND ba.isdefault = 'Y'
 		JOIN c_order c
-			ON i.c_order_id = c.c_order_id
-		JOIN tmp_missing_otc_payments p
-			ON c.c_order_id = p.c_order_id;
+			ON ti.c_order_id = c.c_order_id
+		LEFT JOIN c_invoice i
+			ON p.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL')
 
 -- Update the document numbers
 UPDATE tmp_c_payment_otc tp
@@ -432,7 +441,7 @@ INSERT INTO
 	c_payment (c_payment_id, ad_client_id, ad_org_id, createdby, updatedby, documentno, datetrx, isreceipt,
 	           c_doctype_id, trxtype, c_bankaccount_id, c_bpartner_id, c_invoice_id, tendertype, c_currency_id,
 	           payamt, isapproved, processing, docstatus, docaction, isallocated, processed,
-	           posted, isoverunderpayment, dateacct, processedon, c_payment_uu, bh_tender_amount)
+	           posted, isoverunderpayment, dateacct, processedon, c_payment_uu, bh_tender_amount, bh_visit_id)
 SELECT
 	c_payment_id,
 	ad_client_id,
@@ -461,8 +470,9 @@ SELECT
 	dateacct,
 	processedon,
 	c_payment_uu,
-	bh_tender_amount
-FROM
+	bh_tender_amount,
+	bh_visit_id
+FROM	
 	tmp_c_payment_otc;
 
 /**********************************************************************************************************/
@@ -787,7 +797,6 @@ DROP TABLE IF EXISTS tmp_c_payment_otc;
 DROP TABLE IF EXISTS tmp_fact_acct_otc;
 DROP TABLE IF EXISTS tmp_c_allocationline_otc;
 DROP TABLE IF EXISTS tmp_c_allocationhdr_otc;
-DROP TABLE IF EXISTS tmp_c_allocationline_otc;
 
 SELECT
 	register_migration_script('202511181439_GO-3456.sql')
