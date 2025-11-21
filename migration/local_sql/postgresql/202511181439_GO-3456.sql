@@ -19,7 +19,8 @@ SELECT DISTINCT
 	o.c_bpartner_location_id,
 	o.c_currency_id,
 	o.dateordered,
-	o.dateacct
+	o.dateacct,
+	COALESCE(MAX(p.tendertype), 'X') AS tendertype
 INTO TEMP TABLE
 	tmp_missing_otc_payments
 FROM
@@ -382,7 +383,7 @@ SELECT
 
 INSERT INTO
 	tmp_c_payment_otc (ad_client_id, ad_org_id, documentno, datetrx, dateacct, c_doctype_id, c_bankaccount_id,
-	                   c_bpartner_id, c_invoice_id, c_currency_id, payamt, processedon, bh_tender_amount)
+	                   c_bpartner_id, c_invoice_id, c_currency_id, payamt, processedon, bh_tender_amount, tendertype)
 SELECT
 	i.ad_client_id,
 	i.ad_org_id,
@@ -396,7 +397,8 @@ SELECT
 	i.c_currency_id,
 	i.grandtotal,
 	EXTRACT(EPOCH FROM i.dateinvoiced) * 1000,
-	i.grandtotal
+	i.grandtotal,
+	p.tendertype
 FROM
 	tmp_c_invoice_otc i
 		JOIN c_doctype dt
@@ -404,7 +406,11 @@ FROM
 		JOIN ad_sequence seq
 			ON i.ad_client_id = seq.ad_client_id AND seq.name = 'DocumentNo_C_Payment'
 		JOIN c_bankaccount ba
-			ON i.ad_client_id = ba.ad_client_id AND ba.isdefault = 'Y';
+			ON i.ad_client_id = ba.ad_client_id AND ba.isdefault = 'Y'
+		JOIN c_order c
+			ON i.c_order_id = c.c_order_id
+		JOIN tmp_missing_otc_payments p
+			ON c.c_order_id = p.c_order_id;
 
 -- Update the document numbers
 UPDATE tmp_c_payment_otc tp
