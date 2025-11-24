@@ -10,9 +10,9 @@ SELECT DISTINCT
 	v.bh_visitdate,
 	o.c_order_id,
 	CASE
-		WHEN ROUND(o.grandtotal - COALESCE(SUM(p.payamt), 0)) > 0
-			THEN ROUND(o.grandtotal - COALESCE(SUM(p.payamt), 0))
-		ELSE o.grandtotal END AS grandtotal,
+		WHEN ROUND(o.grandtotal) - COALESCE(SUM(ROUND(p.payamt)), 0) > 0
+			THEN ROUND(o.grandtotal) - COALESCE(SUM(ROUND(p.payamt)), 0)
+		ELSE o.grandtotal END          AS grandtotal,
 	o.ad_client_id,
 	o.ad_org_id,
 	o.c_bpartner_id,
@@ -48,23 +48,23 @@ GROUP BY
 	o.dateacct
 HAVING
 	o.grandtotal > 0
-	AND (SUM(p.payamt) IS NULL OR SUM(p.payamt) != o.grandtotal)
+	AND (SUM(ROUND(p.payamt)) IS NULL OR SUM(ROUND(p.payamt)) != ROUND(o.grandtotal))
 	AND (CASE
-		     WHEN ROUND(o.grandtotal - COALESCE(SUM(p.payamt), 0)) > 0
-			     THEN ROUND(o.grandtotal - COALESCE(SUM(p.payamt), 0))
+		     WHEN ROUND(o.grandtotal) - COALESCE(SUM(ROUND(p.payamt)), 0) > 0
+			     THEN ROUND(o.grandtotal) - COALESCE(SUM(ROUND(p.payamt)), 0)
 		     ELSE o.grandtotal END) > 0;
 
--- Create invoices for these visits if they don't exist
+-- Create or collect invoices for these visits (use existing or create new)
 DROP TABLE IF EXISTS tmp_c_invoice_otc;
 CREATE TEMP TABLE tmp_c_invoice_otc
 (
-	c_invoice_id           serial                      		NOT NULL,
+	c_invoice_id           numeric(10),
 	ad_client_id           numeric(10)                      NOT NULL,
 	ad_org_id              numeric(10)                      NOT NULL,
 	createdby              numeric(10)  DEFAULT 100         NOT NULL,
 	updatedby              numeric(10)  DEFAULT 100         NOT NULL,
 	issotrx                char         DEFAULT 'Y'::bpchar NOT NULL,
-	documentno             numeric                          NOT NULL,
+	documentno             numeric                         NOT NULL,
 	docstatus              char(2)      DEFAULT 'CO'        NOT NULL,
 	docaction              char(2)      DEFAULT 'CL'        NOT NULL,
 	processing             char         DEFAULT 'N',
@@ -91,26 +91,48 @@ CREATE TEMP TABLE tmp_c_invoice_otc
 	processedon            numeric,
 	c_invoice_uu           varchar(36)  DEFAULT uuid_generate_v4(),
 	isfixedassetinvoice    char         DEFAULT 'N',
-	bh_visit_id            numeric(10)                      NOT NULL
+	bh_visit_id            numeric(10)                      NOT NULL,
+	is_new                 char         DEFAULT 'Y'::bpchar NOT NULL
 );
 
+-- Check invoices for OTC patient visits
+-- First, collect existing invoices
+INSERT INTO
+	tmp_c_invoice_otc (c_invoice_id, ad_client_id, ad_org_id, documentno, c_doctype_id, c_doctypetarget_id, c_order_id,
+	                   salesrep_id, dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, dateordered, c_currency_id,
+	                   c_paymentterm_id, totallines, grandtotal, m_pricelist_id, processedon, bh_visit_id, is_new)
 SELECT
-	SETVAL(
-			'tmp_c_invoice_otc_c_invoice_id_seq',
-			(
-				SELECT
-					COALESCE(MAX(c_invoice_id), 0) + 1
-				FROM
-					c_invoice
-			)::INT,
-			FALSE
-	);
+	i.c_invoice_id,
+	i.ad_client_id,
+	i.ad_org_id,
+	i.documentno::numeric,
+	i.c_doctype_id,
+	i.c_doctypetarget_id,
+	i.c_order_id,
+	i.salesrep_id,
+	i.dateinvoiced,
+	i.dateacct,
+	i.c_bpartner_id,
+	i.c_bpartner_location_id,
+	i.dateordered,
+	i.c_currency_id,
+	i.c_paymentterm_id,
+	i.totallines,
+	i.grandtotal,
+	i.m_pricelist_id,
+	i.processedon,
+	i.bh_visit_id,
+	'N'
+FROM
+	tmp_missing_otc_payments mp
+		JOIN c_invoice i
+			ON mp.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL');
 
--- Create invoices from the orders ONLY for those without invoices
+-- Then, create new invoices for visits that don't have existing invoices
 INSERT INTO
 	tmp_c_invoice_otc (ad_client_id, ad_org_id, documentno, c_doctype_id, c_doctypetarget_id, c_order_id,
 	                   salesrep_id, dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, dateordered, c_currency_id,
-	                   c_paymentterm_id, totallines, grandtotal, m_pricelist_id, processedon, bh_visit_id)
+	                   c_paymentterm_id, totallines, grandtotal, m_pricelist_id, processedon, bh_visit_id, c_invoice_id)
 SELECT
 	mp.ad_client_id,
 	mp.ad_org_id,
@@ -131,6 +153,7 @@ SELECT
 	o.m_pricelist_id,
 	EXTRACT(EPOCH FROM mp.dateordered) * 1000,
 	mp.bh_visit_id,
+	(SELECT MAX(c_invoice_id)+1 FROM c_invoice)
 FROM
 	tmp_missing_otc_payments mp
 		JOIN c_order o
@@ -140,9 +163,11 @@ FROM
 		JOIN c_doctype dt
 			ON mp.ad_client_id = dt.ad_client_id AND dt.name = 'AR Invoice'
 		JOIN c_paymentterm pt
-			ON pt.ad_client_id = mp.ad_client_id AND pt.value = 'Immediate';
+			ON pt.ad_client_id = mp.ad_client_id AND pt.value = 'Immediate'
 		LEFT JOIN c_invoice i
-			ON mp.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL') AND i.c_invoice_id IS NULL
+			ON mp.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL')
+WHERE
+	i.c_invoice_id IS NULL
 
 -- Update the document numbers
 UPDATE tmp_c_invoice_otc i
@@ -159,7 +184,7 @@ FROM
 WHERE
 	i.c_invoice_id = ti.c_invoice_id;
 
--- Insert the invoices
+-- Insert only the NEW invoices (existing ones are already in the database)
 INSERT INTO
 	c_invoice (c_invoice_id, ad_client_id, ad_org_id, createdby, updatedby, issotrx, documentno, docstatus, docaction,
 	           processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id,
@@ -202,13 +227,15 @@ SELECT
 	isfixedassetinvoice,
 	bh_visit_id
 FROM
-	tmp_c_invoice_otc;
+	tmp_c_invoice_otc
+WHERE
+	is_new = 'Y';
 
 /**********************************************************************************************************/
 DROP TABLE IF EXISTS tmp_c_invoiceline_otc;
 CREATE TEMP TABLE tmp_c_invoiceline_otc
 (
-	c_invoiceline_id          serial                          NOT NULL,
+	c_invoiceline_id          numeric(10),
 	ad_client_id              numeric(10)                     NOT NULL,
 	ad_org_id                 numeric(10)                     NOT NULL,
 	isactive                  char        DEFAULT 'Y'::bpchar NOT NULL,
@@ -261,22 +288,53 @@ CREATE TEMP TABLE tmp_c_invoiceline_otc
 --	c_1099box_id              numeric(10) DEFAULT NULL::numeric
 );
 
+-- First, collect existing invoice lines for existing invoices
+INSERT INTO
+	tmp_c_invoiceline_otc (c_invoiceline_id, ad_client_id, ad_org_id, isactive, createdby, updatedby, c_invoice_id,
+	                       c_orderline_id, m_inoutline_id, line, description, m_product_id, qtyinvoiced,
+	                       pricelist, priceactual, pricelimit, linenetamt, c_uom_id, c_tax_id,
+	                       m_attributesetinstance_id, linetotalamt, processed, qtyentered, priceentered,
+	                       c_invoiceline_uu, isfixedassetinvoice)
 SELECT
-	SETVAL(
-			'tmp_c_invoiceline_otc_c_invoiceline_id_seq',
-			(
-				SELECT
-					COALESCE(MAX(c_invoiceline_id), 0) + 1
-				FROM
-					c_invoiceline
-			)::INT,
-			FALSE
-	);
+	il.c_invoiceline_id,
+	il.ad_client_id,
+	il.ad_org_id,
+	il.isactive,
+	il.createdby,
+	il.updatedby,
+	il.c_invoice_id,
+	il.c_orderline_id,
+	il.m_inoutline_id,
+	il.line,
+	il.description,
+	il.m_product_id,
+	il.qtyinvoiced,
+	il.pricelist,
+	il.priceactual,
+	il.pricelimit,
+	il.linenetamt,
+	il.c_uom_id,
+	il.c_tax_id,
+	il.m_attributesetinstance_id,
+	il.linetotalamt,
+	il.processed,
+	il.qtyentered,
+	il.priceentered,
+	il.c_invoiceline_uu,
+	il.isfixedassetinvoice
+FROM
+	tmp_c_invoice_otc ti
+		JOIN c_invoiceline il
+			ON ti.c_invoice_id = il.c_invoice_id
+WHERE
+	ti.is_new = 'N'; -- Only for existing invoices
 
+-- Then, create new invoice lines for new invoices
 INSERT INTO
 	tmp_c_invoiceline_otc (ad_client_id, ad_org_id, c_invoice_id, c_orderline_id, m_inoutline_id, line, m_product_id,
-	                   qtyinvoiced, pricelist, priceactual, pricelimit, linenetamt, c_uom_id, c_tax_id,
-	                   m_attributesetinstance_id, linetotalamt, qtyentered, priceentered)
+	                       qtyinvoiced, pricelist, priceactual, pricelimit, linenetamt, c_uom_id, c_tax_id,
+	                       m_attributesetinstance_id, linetotalamt, qtyentered, priceentered, c_invoiceline_id,
+	                       description, isactive, createdby, updatedby, processed, c_invoiceline_uu, isfixedassetinvoice)
 SELECT
 	ti.ad_client_id,
 	ti.ad_org_id,
@@ -295,50 +353,63 @@ SELECT
 	ol.m_attributesetinstance_id,
 	ol.linenetamt,
 	ol.qtyentered,
-	ol.priceentered
+	ol.priceentered,
+	(SELECT COALESCE(MAX(c_invoiceline_id), 0) + 1 FROM c_invoiceline),
+	'OTC Patient Invoice line - Auto Generated',
+	'Y',
+	100,
+	100,
+	'Y',
+	uuid_generate_v4(),
+	'N'
 FROM
 	tmp_c_invoice_otc ti
 		JOIN c_orderline ol
 			ON ti.c_order_id = ol.c_order_id
 		LEFT JOIN m_inoutline iol
-			ON ol.c_orderline_id = iol.c_orderline_id;
+			ON ol.c_orderline_id = iol.c_orderline_id
+WHERE
+	ti.is_new = 'Y'; -- Only for new invoices
 
 
--- Insert the real invoice lines!
+-- Insert only the NEW invoice lines (existing ones are already in the database)
 INSERT INTO
 	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, isactive, createdby, updatedby, c_invoice_id,
 	               c_orderline_id, m_inoutline_id, line, m_product_id, qtyinvoiced, pricelist, priceactual, pricelimit,
 	               linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt, processed, qtyentered,
 	               priceentered, c_invoiceline_uu, isfixedassetinvoice, description)
 SELECT
-	c_invoiceline_id,
-	ad_client_id,
-	ad_org_id,
-	isactive,
-	createdby,
-	updatedby,
-	c_invoice_id,
-	c_orderline_id,
-	m_inoutline_id,
-	line,
-	m_product_id,
-	qtyinvoiced,
-	pricelist,
-	priceactual,
-	pricelimit,
-	linenetamt,
-	c_uom_id,
-	c_tax_id,
-	m_attributesetinstance_id,
-	linetotalamt,
-	processed,
-	qtyentered,
-	priceentered,
-	c_invoiceline_uu,
-	isfixedassetinvoice,
-	description
+	til.c_invoiceline_id,
+	til.ad_client_id,
+	til.ad_org_id,
+	til.isactive,
+	til.createdby,
+	til.updatedby,
+	til.c_invoice_id,
+	til.c_orderline_id,
+	til.m_inoutline_id,
+	til.line,
+	til.m_product_id,
+	til.qtyinvoiced,
+	til.pricelist,
+	til.priceactual,
+	til.pricelimit,
+	til.linenetamt,
+	til.c_uom_id,
+	til.c_tax_id,
+	til.m_attributesetinstance_id,
+	til.linetotalamt,
+	til.processed,
+	til.qtyentered,
+	til.priceentered,
+	til.c_invoiceline_uu,
+	til.isfixedassetinvoice,
+	til.description
 FROM
-	tmp_c_invoiceline_otc;
+	tmp_c_invoiceline_otc til
+		JOIN tmp_c_invoice_otc ti
+			ON til.c_invoice_id = ti.c_invoice_id
+	WHERE ti.is_new = 'Y';
 
 -- Create payments for these invoices
 DROP TABLE IF EXISTS tmp_c_payment_otc;
@@ -401,9 +472,9 @@ SELECT
 	i.c_bpartner_id,
 	COALESCE(ti.c_invoice_id, i.c_invoice_id) AS c_invoice_id,
 	i.c_currency_id,
-	i.grandtotal,
+	p.grandtotal,
 	EXTRACT(EPOCH FROM i.dateinvoiced) * 1000,
-	i.grandtotal,
+	p.grandtotal,
 	p.tendertype,
 	p.bh_visit_id
 FROM
@@ -419,7 +490,7 @@ FROM
 		JOIN c_order c
 			ON ti.c_order_id = c.c_order_id
 		LEFT JOIN c_invoice i
-			ON p.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL')
+			ON p.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL');
 
 -- Update the document numbers
 UPDATE tmp_c_payment_otc tp
@@ -765,11 +836,11 @@ FROM
 UPDATE ad_sequence
 SET
 	currentnext = currentnext + (
-		SELECT COUNT(*) FROM tmp_c_invoice_otc WHERE ad_client_id = ad_sequence.ad_client_id
+		SELECT COUNT(*) FROM tmp_c_invoice_otc WHERE ad_client_id = ad_sequence.ad_client_id AND is_new = 'Y'
 	)
 WHERE
 	name = 'DocumentNo_C_Invoice'
-	AND ad_client_id IN (SELECT DISTINCT ad_client_id FROM tmp_c_invoice_otc);
+	AND ad_client_id IN (SELECT DISTINCT ad_client_id FROM tmp_c_invoice_otc WHERE is_new = 'Y');
 
 UPDATE ad_sequence
 SET
