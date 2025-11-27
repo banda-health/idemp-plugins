@@ -167,7 +167,7 @@ FROM
 		LEFT JOIN c_invoice i
 			ON mp.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL')
 WHERE
-	i.c_invoice_id IS NULL
+	i.c_invoice_id IS NULL;
 
 -- Update the document numbers
 UPDATE tmp_c_invoice_otc i
