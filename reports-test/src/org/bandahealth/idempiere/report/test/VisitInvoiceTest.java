@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -574,8 +573,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create visit");
-		Timestamp date = Timestamp.valueOf(LocalDateTime.of(2024, 11, 30, 0, 0));
-		valueObject.setDate(date);
+		valueObject.setDateOffset(-21);
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
@@ -669,8 +667,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create visit");
-		Timestamp date = Timestamp.valueOf(LocalDateTime.of(2024, 11, 30, 0, 0));
-		valueObject.setDate(date);
+		valueObject.setDateOffset(-21);
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
