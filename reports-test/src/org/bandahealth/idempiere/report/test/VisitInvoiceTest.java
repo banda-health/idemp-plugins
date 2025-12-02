@@ -1,9 +1,22 @@
 package org.bandahealth.idempiere.report.test;
 
-import com.chuboe.test.populate.ChuBoeCreateEntity;
-import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
-import com.chuboe.test.populate.ChuBoePopulateVO;
-import com.chuboe.test.populate.IPopulateAnnotation;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
+
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -23,23 +36,10 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.Env;
 import org.hamcrest.Matchers;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.chuboe.test.populate.ChuBoeCreateEntity;
+import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
+import com.chuboe.test.populate.ChuBoePopulateVO;
+import com.chuboe.test.populate.IPopulateAnnotation;
 
 public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 	@IPopulateAnnotation.CanRunBeforeClass
@@ -479,8 +479,8 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create visit");
-		Timestamp date = Timestamp.valueOf(LocalDateTime.of(2024, 11, 30, 0, 0));
-		valueObject.setDate(date);
+		valueObject.setDateOffset(-21);
+        Timestamp date = valueObject.getDate();
 		ChuBoeCreateEntity.createVisit(valueObject);
 		commitEx();
 
