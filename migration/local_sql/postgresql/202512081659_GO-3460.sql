@@ -84,11 +84,11 @@ WHERE
 -- 2. Bill waiver that isn't on an invoice and the visit has an invoice (9 of these - add an invoice line)
 -- 3. Bill waiver that isn't on an invoice and the visit has no invoice (506 of these - create an invoice and possibly payments)
 -- 4. Insurer/donor on invoice and additional invoice already generated (12 of these - just delete and update the order total)
--- 5. Insurer/donor on invoice and additional invoice not generated (5326 of these - delete and update the order total, and generate new invoice)
+-- 5. Insurer/donor on invoice and additional invoice not generated (5354 of these - delete and update the order total, and generate new invoice)
 -- 6. Insurer/donor not on invoice and additional invoice is generated (0 of these - add an invoice line and add to the invoice)
--- 7. Insurer/donor not on invoice and additional invoice not generated (717 of these - add an invoice line and generate new invoice)
+-- 7. Insurer/donor not on invoice and additional invoice not generated (55 of these - add an invoice line and generate new invoice)
 -- 8. Insurer/donor with no invoice and additional invoice is generated (0 of these - create an invoice)
--- 9. Insurer/donor with on invoice and additional invoice not generated (661 of these - create an invoice, and generate new invoice)
+-- 9. Insurer/donor with on invoice and additional invoice not generated (662 of these - create an invoice, and generate new invoice)
 /**********************************************************************************************************/
 
 -- Get the orders with erroneous order lines
@@ -200,9 +200,9 @@ CREATE TEMP TABLE tmp_c_invoice
 	ad_client_id           numeric(10)                     NOT NULL,
 	ad_org_id              numeric(10)                     NOT NULL,
 -- 	isactive               char         DEFAULT 'Y'::bpchar NOT NULL,
--- 	created                timestamp    DEFAULT NOW()       NOT NULL,
+	created                timestamp                       NOT NULL,
 	createdby              numeric(10) DEFAULT 100         NOT NULL,
--- 	updated                timestamp    DEFAULT NOW()       NOT NULL,
+	updated                timestamp                       NOT NULL,
 	updatedby              numeric(10) DEFAULT 100         NOT NULL,
 	issotrx                char        DEFAULT 'Y'::bpchar NOT NULL,
 	documentno             numeric                         NOT NULL,
@@ -287,13 +287,15 @@ SELECT
 	);
 
 INSERT INTO
-	tmp_c_invoice (ad_client_id, ad_org_id, documentno, docstatus, docaction, processing, processed, posted, c_doctype_id,
-	               c_doctypetarget_id, c_order_id, description, salesrep_id, dateinvoiced, dateacct, c_bpartner_id,
-	               c_bpartner_location_id, poreference, dateordered, c_currency_id, c_paymentterm_id, totallines,
-	               grandtotal, m_pricelist_id, ispaid, processedon, bh_visit_id)
+	tmp_c_invoice (ad_client_id, ad_org_id, created, updated, documentno, docstatus, docaction, processing, processed,
+	               posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id, dateinvoiced, dateacct,
+	               c_bpartner_id, c_bpartner_location_id, poreference, dateordered, c_currency_id, c_paymentterm_id,
+	               totallines, grandtotal, m_pricelist_id, ispaid, processedon, bh_visit_id)
 SELECT
 	o.ad_client_id,
 	o.ad_org_id,
+	o.created + '1 minute'::interval,
+	o.updated + '1 minute'::interval,
 	seq.currentnext - 1, -- We'll put the correct one when do a row numbering partitioned by ad_client_id below
 	'DR',
 	'CO',
@@ -354,16 +356,18 @@ WHERE
 
 -- Insert the real invoices!
 INSERT INTO
-	c_invoice (c_invoice_id, ad_client_id, ad_org_id, createdby, updatedby, issotrx, documentno, docstatus, docaction,
-	           processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id,
-	           dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference, isdiscountprinted, dateordered,
-	           c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal, m_pricelist_id, ispaid, processedon,
-	           c_invoice_uu, isfixedassetinvoice, bh_visit_id)
+	c_invoice (c_invoice_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, issotrx, documentno,
+	           docstatus, docaction, processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id,
+	           description, salesrep_id, dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference,
+	           isdiscountprinted, dateordered, c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal,
+	           m_pricelist_id, ispaid, processedon, c_invoice_uu, isfixedassetinvoice, bh_visit_id)
 SELECT
 	c_invoice_id,
 	ad_client_id,
 	ad_org_id,
+	created,
 	createdby,
+	updated,
 	updatedby,
 	issotrx,
 	documentno,
@@ -406,9 +410,9 @@ CREATE TEMP TABLE tmp_c_invoiceline
 	ad_client_id              numeric(10)                     NOT NULL,
 	ad_org_id                 numeric(10)                     NOT NULL,
 	isactive                  char        DEFAULT 'Y'::bpchar NOT NULL,
--- 	created                   timestamp   DEFAULT NOW()       NOT NULL,
+	created                   timestamp                       NOT NULL,
 	createdby                 numeric(10) DEFAULT 100         NOT NULL,
--- 	updated                   timestamp   DEFAULT NOW()       NOT NULL,
+	updated                   timestamp                       NOT NULL,
 	updatedby                 numeric(10) DEFAULT 100         NOT NULL,
 	c_invoice_id              numeric(10)                     NOT NULL,
 	c_orderline_id            numeric(10),
@@ -469,12 +473,14 @@ SELECT
 
 -- Insert new invoice lines where we don't need to create an invoice
 INSERT INTO
-	tmp_c_invoiceline (ad_client_id, ad_org_id, c_invoice_id, line, c_charge_id, qtyinvoiced, pricelist, priceactual,
-	                   pricelimit, linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt, qtyentered,
-	                   priceentered, c_orderline_id)
+	tmp_c_invoiceline (ad_client_id, ad_org_id, created, updated, c_invoice_id, line, c_charge_id, qtyinvoiced, pricelist,
+	                   priceactual, pricelimit, linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt,
+	                   qtyentered, priceentered, c_orderline_id)
 SELECT
 	ol.ad_client_id,
 	ol.ad_org_id,
+	ol.created + '1 minute'::interval,
+	ol.updated + '1 minute'::interval,
 	i.c_invoice_id,
 	ol.line,
 	ol.c_charge_id,
@@ -501,12 +507,14 @@ FROM
 
 -- Add invoice lines for the other stuff on invoices we're creating
 INSERT INTO
-	tmp_c_invoiceline (ad_client_id, ad_org_id, c_invoice_id, line, c_charge_id, qtyinvoiced, pricelist, priceactual,
-	                   pricelimit, linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt, qtyentered,
-	                   priceentered, c_orderline_id)
+	tmp_c_invoiceline (ad_client_id, ad_org_id, created, updated, c_invoice_id, line, c_charge_id, qtyinvoiced, pricelist,
+	                   priceactual, pricelimit, linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt,
+	                   qtyentered, priceentered, c_orderline_id)
 SELECT
 	ol.ad_client_id,
 	ol.ad_org_id,
+	ol.created + '1 minute'::interval,
+	ol.updated + '1 minute'::interval,
 	i.c_invoice_id,
 	ol.line,
 	ol.c_charge_id,
@@ -539,13 +547,15 @@ WHERE
 	);
 
 INSERT INTO
-	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, createdby, updatedby, c_invoice_id, line, c_charge_id,
-	               c_uom_id, c_tax_id, qtyentered, priceentered, isfixedassetinvoice, c_orderline_id)
+	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, c_invoice_id, line,
+	               c_charge_id, c_uom_id, c_tax_id, qtyentered, priceentered, isfixedassetinvoice, c_orderline_id)
 SELECT
 	c_invoiceline_id,
 	ad_client_id,
 	ad_org_id,
+	created,
 	createdby,
+	updated,
 	updatedby,
 	c_invoice_id,
 	line,
@@ -642,11 +652,11 @@ WHERE
 
 /**********************************************************************************************************/
 -- Handle the new insurer/donor invoices needed for the following scenarios:
--- 5. Insurer/donor on invoice and additional invoice not generated (5326 of these - delete and update the order total, and generate new invoice)
+-- 5. Insurer/donor on invoice and additional invoice not generated (5354 of these - delete and update the order total, and generate new invoice)
 -- 6. Insurer/donor not on invoice and additional invoice is generated (0 of these - add an invoice line and add to the invoice)
--- 7. Insurer/donor not on invoice and additional invoice not generated (717 of these - add an invoice line and generate new invoice)
+-- 7. Insurer/donor not on invoice and additional invoice not generated (55 of these - add an invoice line and generate new invoice)
 -- 8. Insurer/donor with no invoice and additional invoice is generated (0 of these - create an invoice)
--- 9. Insurer/donor with no invoice and additional invoice not generated (661 of these - create an invoice, and generate new invoice)
+-- 9. Insurer/donor with no invoice and additional invoice not generated (662 of these - create an invoice, and generate new invoice)
 /**********************************************************************************************************/
 -- Find the insurer/donor to use matching the charge
 SELECT
@@ -723,13 +733,15 @@ WHERE
 -- Insert drafted invoices for payers
 TRUNCATE tmp_c_invoice;
 INSERT INTO
-	tmp_c_invoice (ad_client_id, ad_org_id, documentno, docstatus, docaction, processing, processed, posted, c_doctype_id,
-	               c_doctypetarget_id, c_order_id, description, salesrep_id, dateinvoiced, dateacct, c_bpartner_id,
-	               c_bpartner_location_id, poreference, dateordered, c_currency_id, c_paymentterm_id, totallines,
-	               grandtotal, m_pricelist_id, ispaid, processedon, bh_visit_id, c_orderline_id)
+	tmp_c_invoice (ad_client_id, ad_org_id, created, updated, documentno, docstatus, docaction, processing, processed,
+	               posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id, dateinvoiced, dateacct,
+	               c_bpartner_id, c_bpartner_location_id, poreference, dateordered, c_currency_id, c_paymentterm_id,
+	               totallines, grandtotal, m_pricelist_id, ispaid, processedon, bh_visit_id, c_orderline_id)
 SELECT
 	o.ad_client_id,
 	o.ad_org_id,
+	o.created + '1 minute'::interval,
+	o.updated + '1 minute'::interval,
 	seq.currentnext - 1, -- We'll put the correct one when do a row numbering partitioned by ad_client_id below
 	CASE WHEN o.docstatus IN ('DR', 'IP') THEN 'DR' WHEN o.docstatus = 'CO' THEN 'CO' ELSE 'RE' END,
 	CASE WHEN o.docstatus IN ('DR', 'IP') THEN 'CO' WHEN o.docstatus = 'CO' THEN 'CL' ELSE '--' END,
@@ -784,15 +796,17 @@ WHERE
 
 -- Now insert the opposing voided invoices
 INSERT INTO
-	tmp_c_invoice (ad_client_id, ad_org_id, createdby, updatedby, issotrx, documentno, docstatus, docaction, processing,
-	               processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id,
-	               dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference, isdiscountprinted,
-	               dateordered, c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal, m_pricelist_id,
-	               ispaid, processedon, isfixedassetinvoice, bh_visit_id, c_orderline_id, reversal_id)
+	tmp_c_invoice (ad_client_id, ad_org_id, created, createdby, updated, updatedby, issotrx, documentno, docstatus,
+	               docaction, processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description,
+	               salesrep_id, dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference,
+	               isdiscountprinted, dateordered, c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal,
+	               m_pricelist_id, ispaid, processedon, isfixedassetinvoice, bh_visit_id, c_orderline_id, reversal_id)
 SELECT
 	ti.ad_client_id,
 	ti.ad_org_id,
+	ti.created,
 	ti.createdby,
+	ti.updated,
 	ti.updatedby,
 	issotrx,
 	seq.currentnext - 1, -- We'll put the correct one when do a row numbering partitioned by ad_client_id below
@@ -863,16 +877,18 @@ WHERE
 	ti_o.c_invoice_id = ti_r.reversal_id;
 
 INSERT INTO
-	c_invoice (c_invoice_id, ad_client_id, ad_org_id, createdby, updatedby, issotrx, documentno, docstatus, docaction,
-	           processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id,
-	           dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference, isdiscountprinted, dateordered,
-	           c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal, m_pricelist_id, ispaid, processedon,
-	           c_invoice_uu, isfixedassetinvoice, bh_visit_id)
+	c_invoice (c_invoice_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, issotrx, documentno,
+	           docstatus, docaction, processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id,
+	           description, salesrep_id, dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference,
+	           isdiscountprinted, dateordered, c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal,
+	           m_pricelist_id, ispaid, processedon, c_invoice_uu, isfixedassetinvoice, bh_visit_id)
 SELECT
 	c_invoice_id,
 	ad_client_id,
 	ad_org_id,
+	created,
 	createdby,
+	updated,
 	updatedby,
 	issotrx,
 	documentno,
@@ -909,12 +925,14 @@ FROM
 
 TRUNCATE tmp_c_invoiceline;
 INSERT INTO
-	tmp_c_invoiceline (ad_client_id, ad_org_id, c_invoice_id, c_orderline_id, m_inoutline_id, line, qtyinvoiced,
-	                   pricelist, priceactual, pricelimit, linenetamt, c_charge_id, c_uom_id, c_tax_id,
+	tmp_c_invoiceline (ad_client_id, ad_org_id, created, updated, c_invoice_id, c_orderline_id, m_inoutline_id, line,
+	                   qtyinvoiced, pricelist, priceactual, pricelimit, linenetamt, c_charge_id, c_uom_id, c_tax_id,
 	                   m_attributesetinstance_id, linetotalamt, qtyentered, priceentered)
 SELECT
 	ti.ad_client_id,
 	ti.ad_org_id,
+	ti.created,
+	ti.updated,
 	ti.c_invoice_id,
 	NULL,
 	NULL,
@@ -939,16 +957,18 @@ FROM
 			ON ol.c_orderline_id = ti.c_orderline_id;
 
 INSERT INTO
-	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, isactive, createdby, updatedby, c_invoice_id,
-	               c_orderline_id, m_inoutline_id, line, qtyinvoiced, pricelist, priceactual, pricelimit, linenetamt,
-	               c_charge_id, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt, processed, qtyentered,
-	               priceentered, c_invoiceline_uu, isfixedassetinvoice)
+	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+	               c_invoice_id, c_orderline_id, m_inoutline_id, line, qtyinvoiced, pricelist, priceactual, pricelimit,
+	               linenetamt, c_charge_id, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt, processed,
+	               qtyentered, priceentered, c_invoiceline_uu, isfixedassetinvoice)
 SELECT
 	c_invoiceline_id,
 	ad_client_id,
 	ad_org_id,
 	isactive,
+	created,
 	createdby,
+	updated,
 	updatedby,
 	c_invoice_id,
 	c_orderline_id,
@@ -980,9 +1000,9 @@ CREATE TEMP TABLE tmp_fact_acct
 	ad_client_id    numeric(10)                     NOT NULL,
 	ad_org_id       numeric(10)                     NOT NULL,
 -- 	isactive          char        DEFAULT 'Y'::bpchar NOT NULL,
--- 	created           timestamp   DEFAULT NOW()       NOT NULL,
+	created         timestamp                       NOT NULL,
 	createdby       numeric(10) DEFAULT 100         NOT NULL,
--- 	updated           timestamp   DEFAULT NOW()       NOT NULL,
+	updated         timestamp                       NOT NULL,
 	updatedby       numeric(10) DEFAULT 100         NOT NULL,
 	c_acctschema_id numeric(10)                     NOT NULL,
 	account_id      numeric(10)                     NOT NULL,
@@ -1041,12 +1061,14 @@ SELECT
 	);
 
 INSERT INTO
-	tmp_fact_acct (ad_client_id, ad_org_id, c_acctschema_id, account_id, c_period_id, record_id, line_id, gl_category_id,
-	               c_tax_id, c_currency_id, amtsourcedr, amtsourcecr, amtacctdr, amtacctcr, c_uom_id, qty, c_bpartner_id,
-	               c_locfrom_id, c_locto_id, description)
+	tmp_fact_acct (ad_client_id, ad_org_id, created, updated, c_acctschema_id, account_id, c_period_id, record_id,
+	               line_id, gl_category_id, c_tax_id, c_currency_id, amtsourcedr, amtsourcecr, amtacctdr, amtacctcr,
+	               c_uom_id, qty, c_bpartner_id, c_locfrom_id, c_locto_id, description)
 SELECT
 	til.ad_client_id,
 	til.ad_org_id,
+	til.created,
+	til.updated,
 	accts.c_acctschema_id,
 	vc.account_id,
 	p.c_period_id,
@@ -1093,15 +1115,17 @@ FROM
 
 -- Insert the real accounts
 INSERT INTO
-	fact_acct (fact_acct_id, ad_client_id, ad_org_id, createdby, updatedby, c_acctschema_id, account_id, datetrx,
-	           dateacct, c_period_id, ad_table_id, record_id, line_id, gl_category_id, c_tax_id, postingtype,
+	fact_acct (fact_acct_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, c_acctschema_id, account_id,
+	           datetrx, dateacct, c_period_id, ad_table_id, record_id, line_id, gl_category_id, c_tax_id, postingtype,
 	           c_currency_id, amtsourcedr, amtsourcecr, amtacctdr, amtacctcr, c_uom_id, qty, c_bpartner_id, c_locfrom_id,
 	           c_locto_id, description, fact_acct_uu)
 SELECT
 	fact_acct_id,
 	ad_client_id,
 	ad_org_id,
+	created,
 	createdby,
+	updated,
 	updatedby,
 	c_acctschema_id,
 	account_id,
@@ -1130,7 +1154,7 @@ FROM
 	tmp_fact_acct;
 
 /**********************************************************************************************************/
--- 5. Insurer/donor on invoice and additional invoice not generated (5326 of these - delete and update the order total, and generate new invoice)
+-- 5. Insurer/donor on invoice and additional invoice not generated (5354 of these - delete and update the order total, and generate new invoice)
 /**********************************************************************************************************/
 -- Get the order lines we're working with
 DROP TABLE tmp_c_orderline_to_work_with;
@@ -1156,7 +1180,8 @@ WHERE
 		FROM
 			c_invoiceline
 				JOIN c_invoice
-					ON c_invoice.c_invoice_id = c_invoiceline.c_invoice_id
+					ON c_invoice.c_invoice_id = c_invoiceline.c_invoice_id AND
+					   c_invoice.description NOT ILIKE 'Auto-generated insurer/donor invoice%'
 		WHERE
 			c_invoiceline.c_charge_id = ol.c_charge_id
 			AND c_invoiceline.linenetamt = -1 * ol.linenetamt
@@ -1194,9 +1219,9 @@ WHERE
 
 /**********************************************************************************************************/
 -- 6. ~~Insurer/donor not on invoice and additional invoice is generated (0 of these - add an invoice line and add to the invoice)~~
--- 7. Insurer/donor not on invoice and additional invoice not generated (717 of these - add an invoice line ~~and generate new invoice~~)
+-- 7. Insurer/donor not on invoice and additional invoice not generated (55 of these - add an invoice line ~~and generate new invoice~~)
 -- 8. ~~Insurer/donor with no invoice and additional invoice is generated (0 of these - create an invoice)~~
--- 9. Insurer/donor with no invoice and additional invoice not generated (661 of these - create an invoice~~, and generate new invoice~~)
+-- 9. Insurer/donor with no invoice and additional invoice not generated (662 of these - create an invoice~~, and generate new invoice~~)
 /**********************************************************************************************************/
 DROP TABLE tmp_c_orderline_to_work_with;
 SELECT DISTINCT
@@ -1223,7 +1248,8 @@ WHERE
 		FROM
 			c_invoiceline
 				JOIN c_invoice
-					ON c_invoice.c_invoice_id = c_invoiceline.c_invoice_id
+					ON c_invoice.c_invoice_id = c_invoiceline.c_invoice_id AND
+					   c_invoice.description NOT ILIKE 'Auto-generated insurer/donor invoice%'
 		WHERE
 			c_invoiceline.c_charge_id = ol.c_charge_id
 			AND c_invoiceline.linenetamt = -1 * ol.linenetamt
@@ -1234,13 +1260,15 @@ WHERE
 
 TRUNCATE tmp_c_invoice;
 INSERT INTO
-	tmp_c_invoice (ad_client_id, ad_org_id, documentno, docstatus, docaction, processing, processed, posted, c_doctype_id,
-	               c_doctypetarget_id, c_order_id, description, salesrep_id, dateinvoiced, dateacct, c_bpartner_id,
-	               c_bpartner_location_id, poreference, dateordered, c_currency_id, c_paymentterm_id, totallines,
-	               grandtotal, m_pricelist_id, ispaid, processedon, bh_visit_id)
+	tmp_c_invoice (ad_client_id, ad_org_id, created, updated, documentno, docstatus, docaction, processing, processed,
+	               posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id, dateinvoiced, dateacct,
+	               c_bpartner_id, c_bpartner_location_id, poreference, dateordered, c_currency_id, c_paymentterm_id,
+	               totallines, grandtotal, m_pricelist_id, ispaid, processedon, bh_visit_id)
 SELECT
 	o.ad_client_id,
 	o.ad_org_id,
+	o.created + '1 minute'::interval,
+	o.updated + '1 minute'::interval,
 	seq.currentnext - 1, -- We'll put the correct one when do a row numbering partitioned by ad_client_id below
 	CASE WHEN o.docstatus IN ('DR', 'IP') THEN 'DR' WHEN o.docstatus = 'CO' THEN 'CO' ELSE 'RE' END,
 	CASE WHEN o.docstatus IN ('DR', 'IP') THEN 'CO' WHEN o.docstatus = 'CO' THEN 'CL' ELSE '--' END,
@@ -1296,15 +1324,18 @@ WHERE
 
 -- Now insert the opposing voided invoices
 INSERT INTO
-	tmp_c_invoice (ad_client_id, ad_org_id, createdby, updatedby, issotrx, documentno, docstatus, docaction, processing,
-	               processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id,
-	               dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference, isdiscountprinted,
-	               dateordered, c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal, m_pricelist_id,
-	               ispaid, processedon, c_invoice_uu, isfixedassetinvoice, bh_visit_id, c_orderline_id, reversal_id)
+	tmp_c_invoice (ad_client_id, ad_org_id, created, createdby, updated, updatedby, issotrx, documentno, docstatus,
+	               docaction, processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description,
+	               salesrep_id, dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference,
+	               isdiscountprinted, dateordered, c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal,
+	               m_pricelist_id, ispaid, processedon, c_invoice_uu, isfixedassetinvoice, bh_visit_id, c_orderline_id,
+	               reversal_id)
 SELECT
 	ti.ad_client_id,
 	ti.ad_org_id,
+	ti.created,
 	ti.createdby,
+	ti.updated,
 	ti.updatedby,
 	issotrx,
 	seq.currentnext - 1, -- We'll put the correct one when do a row numbering partitioned by ad_client_id below
@@ -1374,16 +1405,18 @@ WHERE
 
 -- Insert the real invoices!
 INSERT INTO
-	c_invoice (c_invoice_id, ad_client_id, ad_org_id, createdby, updatedby, issotrx, documentno, docstatus, docaction,
-	           processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id, description, salesrep_id,
-	           dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference, isdiscountprinted, dateordered,
-	           c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal, m_pricelist_id, ispaid, processedon,
-	           c_invoice_uu, isfixedassetinvoice, bh_visit_id)
+	c_invoice (c_invoice_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, issotrx, documentno,
+	           docstatus, docaction, processing, processed, posted, c_doctype_id, c_doctypetarget_id, c_order_id,
+	           description, salesrep_id, dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, poreference,
+	           isdiscountprinted, dateordered, c_currency_id, paymentrule, c_paymentterm_id, totallines, grandtotal,
+	           m_pricelist_id, ispaid, processedon, c_invoice_uu, isfixedassetinvoice, bh_visit_id)
 SELECT
 	c_invoice_id,
 	ad_client_id,
 	ad_org_id,
+	created,
 	createdby,
+	updated,
 	updatedby,
 	issotrx,
 	documentno,
@@ -1420,12 +1453,14 @@ FROM
 
 -- Insert new invoice lines where we don't need to create an invoice
 INSERT INTO
-	tmp_c_invoiceline (ad_client_id, ad_org_id, c_invoice_id, line, c_charge_id, qtyinvoiced, pricelist, priceactual,
-	                   pricelimit, linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt, qtyentered,
-	                   priceentered, c_orderline_id)
+	tmp_c_invoiceline (ad_client_id, ad_org_id, created, updated, c_invoice_id, line, c_charge_id, qtyinvoiced, pricelist,
+	                   priceactual, pricelimit, linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt,
+	                   qtyentered, priceentered, c_orderline_id)
 SELECT
 	ol.ad_client_id,
 	ol.ad_org_id,
+	ol.created + '1 minute'::interval,
+	ol.updated + '1 minute'::interval,
 	i.c_invoice_id,
 	ol.line,
 	ol.c_charge_id,
@@ -1453,12 +1488,14 @@ FROM
 -- Add invoice lines for the other stuff on invoices we're creating
 TRUNCATE tmp_c_invoiceline;
 INSERT INTO
-	tmp_c_invoiceline (ad_client_id, ad_org_id, c_invoice_id, line, c_charge_id, qtyinvoiced, pricelist, priceactual,
-	                   pricelimit, linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt, qtyentered,
-	                   priceentered, c_orderline_id)
+	tmp_c_invoiceline (ad_client_id, ad_org_id, created, updated, c_invoice_id, line, c_charge_id, qtyinvoiced, pricelist,
+	                   priceactual, pricelimit, linenetamt, c_uom_id, c_tax_id, m_attributesetinstance_id, linetotalamt,
+	                   qtyentered, priceentered, c_orderline_id)
 SELECT
 	ol.ad_client_id,
 	ol.ad_org_id,
+	ol.created + '1 minute'::interval,
+	ol.updated + '1 minute'::interval,
 	i.c_invoice_id,
 	ol.line,
 	ol.c_charge_id,
@@ -1491,13 +1528,15 @@ WHERE
 	);
 
 INSERT INTO
-	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, createdby, updatedby, c_invoice_id, line, c_charge_id,
-	               c_uom_id, c_tax_id, qtyentered, priceentered, isfixedassetinvoice, c_orderline_id)
+	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, created, createdby, updated, updatedby, c_invoice_id, line,
+	               c_charge_id, c_uom_id, c_tax_id, qtyentered, priceentered, isfixedassetinvoice, c_orderline_id)
 SELECT
 	c_invoiceline_id,
 	ad_client_id,
 	ad_org_id,
+	created,
 	createdby,
+	updated,
 	updatedby,
 	c_invoice_id,
 	line,
