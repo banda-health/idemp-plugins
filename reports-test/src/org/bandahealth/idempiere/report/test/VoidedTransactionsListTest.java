@@ -13,12 +13,14 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.DB;
+import org.compiere.util.Env;
 import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
@@ -374,6 +376,212 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 
 			assertEquals(1, patientRows.size(), "Only one voided visit appears");
 			assertThat("Voided reason is present", patientRows.get(0).getCell(4).getStringCellValue(),
+					containsStringIgnoringCase(voidedReason.getName()));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void voidedVisitsWithoutPaymentsAppearCorrectlyOnTheReport() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setName(String.valueOf(valueObject.getRandomNumber()));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		PO.setCrossTenantSafe();
+		MBHVoidedReason voidedReason = new Query(valueObject.getContext(), MBHVoidedReason.Table_Name, null,
+				valueObject.getTransactionName()).setOnlyActiveRecords(true).first();
+		PO.clearCrossTenantSafe();
+		assertTrue(!voidedReason.getName().isEmpty() && !voidedReason.getName().isBlank(), "Voiding reason has a name");
+
+		valueObject.setStepName("Void visit");
+		valueObject.refresh();
+		valueObject.getVisit().setBH_Voided_Reason_ID(voidedReason.get_ID());
+		valueObject.getVisit().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Void order");
+		valueObject.refresh();
+		valueObject.getOrder().setBH_Voided_Reason_ID(voidedReason.get_ID());
+		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Void);
+		valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void);
+		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("20a623fb-e127-4c26-98d5-3604a6d100b2");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			String businessPartnerName = valueObject.getBusinessPartner().getName();
+			Optional<Row> patientRow =
+					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(1) != null &&
+									row.getCell(1).getStringCellValue().contains(businessPartnerName))
+							.findFirst();
+
+			assertTrue(patientRow.isPresent(), "Voided record exists");
+			assertEquals(0.0, patientRow.get().getCell(2).getNumericCellValue(), "Payment amount is 0");
+			assertThat("Voided reason is present", patientRow.get().getCell(4).getStringCellValue(),
+					containsStringIgnoringCase(voidedReason.getName()));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void visitVoidedByADifferentUserAppearsCorrectlyOnTheReport() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setName(String.valueOf(valueObject.getRandomNumber()));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create payment");
+		MInvoice_BH invoice =
+				new Query(valueObject.getContext(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + "=?",
+						valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
+		valueObject.setInvoice(invoice);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Get a different user to void the visit");
+		MUser_BH currentUser = valueObject.getUser();
+		MUser_BH differentUser =
+				new Query(valueObject.getContext(), MUser_BH.Table_Name,
+						MUser_BH.COLUMNNAME_AD_User_ID + "!=? AND " + MUser_BH.COLUMNNAME_AD_Client_ID + "=?",
+						valueObject.getTransactionName())
+						.setParameters(currentUser.get_ID(), valueObject.getClient().get_ID())
+						.setOnlyActiveRecords(true)
+						.first();
+		assertTrue(differentUser != null, "A different user exists");
+		String differentUserName = differentUser.getName();
+
+		valueObject.setStepName("Change context to different user");
+		Env.setContext(valueObject.getContext(), Env.AD_USER_ID, differentUser.get_ID());
+		valueObject.setUser(differentUser);
+
+		PO.setCrossTenantSafe();
+		MBHVoidedReason voidedReason = new Query(valueObject.getContext(), MBHVoidedReason.Table_Name, null,
+				valueObject.getTransactionName()).setOnlyActiveRecords(true).first();
+		PO.clearCrossTenantSafe();
+		assertTrue(!voidedReason.getName().isEmpty() && !voidedReason.getName().isBlank(), "Voiding reason has a name");
+
+		valueObject.setStepName("Void visit");
+		valueObject.refresh();
+		valueObject.getVisit().setBH_Voided_Reason_ID(voidedReason.get_ID());
+		valueObject.getVisit().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Void order");
+		valueObject.refresh();
+		valueObject.getOrder().setBH_Voided_Reason_ID(voidedReason.get_ID());
+		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Void);
+		valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void);
+		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Reverse payment");
+		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
+		assertTrue(valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Reverse_Accrual), "Payment was reversed");
+		valueObject.getPayment().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("20a623fb-e127-4c26-98d5-3604a6d100b2");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			String businessPartnerName = valueObject.getBusinessPartner().getName();
+			Optional<Row> patientRow =
+					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(1) != null &&
+									row.getCell(1).getStringCellValue().contains(businessPartnerName))
+							.findFirst();
+
+			assertTrue(patientRow.isPresent(), "Voided record exists");
+			assertEquals(differentUserName, patientRow.get().getCell(3).getStringCellValue(),
+					"Voided by different user name appears correctly");
+			assertThat("Voided reason is present", patientRow.get().getCell(4).getStringCellValue(),
 					containsStringIgnoringCase(voidedReason.getName()));
 		}
 	}

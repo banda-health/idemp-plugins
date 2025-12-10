@@ -1,7 +1,10 @@
+import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
-import { query } from '../../api';
-import { runReport, tomorrow, yesterday } from '../../utils';
-import { Ad_ProcessGetDocument } from '../../__generated__/graphql';
+import { Ad_ProcessGetDocument, Ad_UserGetDocument, Bh_VisitProcessDocument, Bh_VisitSaveAndProcessWithOrdersDocument, Bh_Voided_ReasonGetDocument, C_BPartnerGetDocument, ReportOutput } from '../../__generated__/graphql';
+import { mutate, query } from '../../api';
+import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../../models';
+import { RoleName } from '../../types/roleName';
+import { createBusinessPartner, createInOutFromOrder, createInvoice, createOrder, createPayment, createProduct, createVisit, runReport, tomorrow, yesterday } from '../../utils';
 
 const reportUuid = '20a623fb-e127-4c26-98d5-3604a6d100b2';
 
