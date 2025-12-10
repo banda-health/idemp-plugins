@@ -13,8 +13,10 @@ public class LoggingMutation implements GraphQLMutationResolver {
 
 	public boolean Log(String LogObject, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
-		log.info(LogObject + ", AD_Client_ID: " + Env.getAD_Client_ID(idempiereContext) + ", AD_Org_ID: " +
-				Env.getAD_Org_ID(idempiereContext) + ", AD_User_ID: " + Env.getAD_User_ID(idempiereContext));
+		log.info(LogObject + ", userId: " + Env.getAD_User_ID(idempiereContext) + ", clientId: " +
+				Env.getAD_Client_ID(idempiereContext) + ", organizationId: " + Env.getAD_Org_ID(idempiereContext) +
+				", roleId: " + Env.getAD_Role_ID(idempiereContext) + ", warehouseId: " +
+				Env.getContextAsInt(idempiereContext, Env.M_WAREHOUSE_ID));
 		return true;
 	}
 }
