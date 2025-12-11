@@ -829,3 +829,56 @@ test('filtering to products with less than quantity in stock', async () => {
 		).data.M_ProductGet.Results,
 	).toHaveLength(1);
 });
+
+test('deactivation message correct when product is reserved', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
+	valueObject.stepName = 'Create sales order';
+	valueObject.documentAction = documentAction.Prepare;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Reactivate sales order';
+	await mutate(valueObject)({
+		mutation: C_OrderProcessDocument,
+		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.ReActivate },
+	});
+
+	valueObject.stepName = 'Deactivate product';
+	let productReservedError: Error;
+	try {
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: { Entity: { UU: valueObject.product!.UU, IsActive: false } },
+		});
+		expect(false).toBe(true);
+	} catch (error) {
+		productReservedError = error as Error;
+	}
+	// Since we'll be using this message in the front-end, it needs to be this exact value
+	const productReservedMessage = /Reserved Quantity(\d+(?:\.\d+)?)/;
+	expect(productReservedMessage.test(productReservedError!.message.split(' : ')[1])).toBe(true);
+});
