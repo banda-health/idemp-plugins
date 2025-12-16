@@ -1,7 +1,7 @@
 import { PdfData } from 'pdfdataextract';
+import { Ad_ProcessGetDocument } from '../../__generated__/graphql';
 import { query } from '../../api';
 import { runReport, tomorrow, yesterday } from '../../utils';
-import { Ad_ProcessGetDocument } from '../../__generated__/graphql';
 
 const reportUuid = '20a623fb-e127-4c26-98d5-3604a6d100b2';
 

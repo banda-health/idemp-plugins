@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="voided transactions" pageWidth="940" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="940" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table">
@@ -54,32 +54,36 @@
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
-	o.dateordered::date + o.updated::time AS voiddate,
-	bp.name                               AS patientname,
-	COALESCE(cashier.name, '')            AS cashiername,
-	COALESCE(SUM(p.payamt), 0)            AS paymentamount,
-	COALESCE(SUM(p.bh_tender_amount), 0)  AS tenderamount,
-	vr.name                               AS voidedreason
+    o.dateordered::date + o.updated::time                   AS voiddate,
+    bp.name                                                 AS patientname,
+    COALESCE(COALESCE(cl_updater.name, o_updater.name), '') AS voidername,
+    COALESCE(SUM(p.payamt), 0)                              AS paymentamount,
+    COALESCE(SUM(p.bh_tender_amount), 0)                    AS tenderamount,
+    vr.name                                                 AS voidedreason
 FROM
-	bh_visit v
-		JOIN c_order o
-		ON v.bh_visit_id = o.bh_visit_id
-		LEFT JOIN c_payment p
-		ON v.bh_visit_id = p.bh_visit_id AND p.documentno NOT LIKE '%^'
-		LEFT JOIN ad_user cashier
-		ON p.updatedby = cashier.ad_user_id
-		JOIN c_bpartner bp
-		ON v.patient_id = bp.c_bpartner_id
-		LEFT JOIN bh_voided_reason vr
-		ON o.bh_voided_reason_id = vr.bh_voided_reason_id OR v.bh_voided_reason_id = vr.bh_voided_reason_id
+    bh_visit v
+        JOIN c_order o
+            ON v.bh_visit_id = o.bh_visit_id AND o.docstatus = 'VO'
+        LEFT JOIN c_payment p
+            ON v.bh_visit_id = p.bh_visit_id AND p.documentno NOT LIKE '%^'
+        JOIN ad_user o_updater
+            ON o.updatedby = o_updater.ad_user_id
+        LEFT JOIN ad_changelog cl
+            ON cl.record_id = o.c_order_id AND ad_table_id = 259 AND ad_column_id = 2170 AND newvalue = 'VO'
+        JOIN c_bpartner bp
+            ON v.patient_id = bp.c_bpartner_id
+        LEFT JOIN bh_voided_reason vr
+            ON o.bh_voided_reason_id = vr.bh_voided_reason_id OR v.bh_voided_reason_id = vr.bh_voided_reason_id
+        LEFT JOIN ad_user cl_updater
+            ON cl.updatedby = cl_updater.ad_user_id
 WHERE
-	o.docstatus = 'VO'
-	AND o.ad_client_id = $P{AD_CLIENT_ID}
-	AND o.dateordered::date + o.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
+    o.ad_client_id = $P{AD_CLIENT_ID}
+    AND o.dateordered::date + o.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
 GROUP BY
-	o.dateordered::date + o.updated::time, bp.name, cashier.name, vr.name
+    o.dateordered::date + o.updated::time,
+    bp.name, COALESCE(cl_updater.name, o_updater.name), vr.name
 ORDER BY
-	1;]]>
+    1;]]>
 		</queryString>
 		<field name="voiddate" class="java.sql.Timestamp">
 			<property name="com.jaspersoft.studio.field.label" value="voiddate"/>
@@ -89,8 +93,8 @@ ORDER BY
 			<property name="com.jaspersoft.studio.field.label" value="patientname"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
-		<field name="cashiername" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="cashiername"/>
+		<field name="voidername" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="voidername"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
 		</field>
 		<field name="paymentamount" class="java.math.BigDecimal">
@@ -277,7 +281,7 @@ ORDER BY
 									<font fontName="DejaVu Sans" size="12"/>
 									<paragraph leftIndent="5"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{cashiername}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{voidername}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
