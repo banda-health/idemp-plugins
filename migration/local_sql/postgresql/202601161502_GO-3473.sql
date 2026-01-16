@@ -10,13 +10,9 @@ VALUES
 	 ), 0, 0, 'Y',
 	 '2026-01-16 12:11:21.444000', 100, '2026-01-16 12:11:21.444000', 100, 'Y',
 	 'f79bb09b-48a0-463d-b0f3-be0f4e9e2ef1');
--- Add role to client
-SELECT
-	add_roles_to_clients('93365778-a2d9-433b-b962-87fb150db4fa', 'Y');
 
 -- Register migration script
 SELECT
 	register_migration_script('202601161502_GO-3473.sql')
 FROM
 	dual;
-	     
