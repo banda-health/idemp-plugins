@@ -18,4 +18,5 @@ SELECT
 SELECT
 	register_migration_script('202601161502_GO-3473.sql')
 FROM
-	dual;     
+	dual;
+	     
