@@ -667,6 +667,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
+		valueObject.clearBusinessPartner();
 		valueObject.setStepName("Create second business partner for Inpatient");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		String secondBusinessPartnerName = valueObject.getBusinessPartner().getName();
