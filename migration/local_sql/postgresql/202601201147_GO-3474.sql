@@ -7,7 +7,10 @@ INSERT INTO
 	                 ad_fieldgroup_id, query, daterangeoption, isshownegatebutton)
 VALUES
 	((
-		 SELECT MAX(ad_process_para_id) + 1
+		 SELECT
+			 MAX(ad_process_para_id) + 1
+		 FROM
+			 ad_process_para
 	 ), 0, 0, 'Y', '2026-01-20 08:26:39.096000', 100, '2026-01-20 08:26:39.096000', 100, 'Referral', NULL, NULL,
 	 (
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '7c29028a-8dd3-4025-a5af-87701748d81f'
@@ -24,7 +27,10 @@ INSERT INTO
 	                 ad_fieldgroup_id, query, daterangeoption, isshownegatebutton)
 VALUES
 	((
-		 SELECT MAX(ad_process_para_id) + 1
+		 SELECT
+			 MAX(ad_process_para_id) + 1
+		 FROM
+			 ad_process_para
 	 ), 0, 0, 'Y', '2026-01-20 08:23:36.481000', 100, '2026-01-20 08:23:36.481000', 100, 'Patient Type', NULL, NULL,
 	 (
 		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = '7c29028a-8dd3-4025-a5af-87701748d81f'
