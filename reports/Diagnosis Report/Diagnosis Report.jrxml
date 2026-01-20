@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Diagnosis Report" pageWidth="1365" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1365" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -53,6 +53,8 @@
 		<parameter name="Diagnosis" class="java.lang.String"/>
 		<parameter name="BH_Concept_UU" class="java.lang.String"/>
 		<parameter name="Patient Tags" class="java.util.List"/>
+		<parameter name="Patient Type" class="java.lang.String"/>
+		<parameter name="Referral" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[WITH visit_diagnoses AS (
 	SELECT
@@ -127,6 +129,16 @@ WHERE
 				)
 		)
 		)
+	AND (
+		$P{Patient Type} IS NULL OR
+		$P{Patient Type} = '' OR
+		v.bh_patienttype = $P{Patient Type}
+		)
+	AND (
+		$P{Referral} IS NULL OR
+		$P{Referral} = '' OR
+		v.bh_referral = $P{Referral}
+		)
 	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 ORDER BY
 	bp.name;]]>
@@ -155,6 +167,8 @@ ORDER BY
 	<parameter name="Diagnosis" class="java.lang.String"/>
 	<parameter name="BH_Concept_UU" class="java.lang.String"/>
 	<parameter name="Patient Tags" class="java.util.List"/>
+	<parameter name="Patient Type" class="java.lang.String"/>
+	<parameter name="Referral" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
@@ -213,8 +227,12 @@ ORDER BY
 						</datasetParameter>
 						<datasetParameter name="Patient Tags">
 							<datasetParameterExpression><![CDATA[$P{Patient Tags}]]></datasetParameterExpression>
-						</datasetParameter>
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetParameter>					<datasetParameter name="Patient Type">
+						<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
+					</datasetParameter>
+					<datasetParameter name="Referral">
+						<datasetParameterExpression><![CDATA[$P{Referral}]]></datasetParameterExpression>
+					</datasetParameter>						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="100" uuid="b6d02186-f130-41c1-b83b-c6ee7d80988a">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
