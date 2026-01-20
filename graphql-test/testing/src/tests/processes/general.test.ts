@@ -2538,8 +2538,8 @@ test(`accounting role has correct access`, async () => {
 
 	expect(
 		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.dailyCashierCollections),
-	).toBeUndefined();
-	expect(processes.find((process) => process.UU === processUuid.dailyCashierCollections)).toBeUndefined();
+	).toBeDefined();
+	expect(processes.find((process) => process.UU === processUuid.dailyCashierCollections)).toBeDefined();
 
 	expect(
 		reportMenuList.find((reportMenu) => reportMenu.AD_Process?.UU === processUuid.expiredProductsList),
