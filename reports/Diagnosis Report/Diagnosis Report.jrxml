@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Diagnosis Report" pageWidth="1365" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1365" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Diagnosis Report" pageWidth="1500" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="1365" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KEUAT"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DOcker-Adapter"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -53,6 +53,8 @@
 		<parameter name="Diagnosis" class="java.lang.String"/>
 		<parameter name="BH_Concept_UU" class="java.lang.String"/>
 		<parameter name="Patient Tags" class="java.util.List"/>
+		<parameter name="Patient Type" class="java.lang.String"/>
+		<parameter name="Referral" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[WITH visit_diagnoses AS (
 	SELECT
@@ -78,6 +80,7 @@ SELECT
 	DATE_PART('year', AGE(bp.bh_birthday)) AS age,
 	bp.bh_gender                           AS gender,
 	bp.bh_phone                            AS phonenumber,
+	cl.address1							   AS address,
 	primary_cd.bh_display_name             AS primary_coded_diagnosis,
 	pd.bh_uncoded_diagnosis                AS primary_uncoded_diagnosis,
 	secondary_cd.bh_display_name           AS secondary_coded_diagnosis,
@@ -94,6 +97,10 @@ FROM
 		ON primary_cd.bh_concept_id = pd.bh_concept_id
 		LEFT JOIN bh_concept secondary_cd
 		ON secondary_cd.bh_concept_id = sd.bh_concept_id
+		LEFT JOIN c_bpartner_location cbl
+		ON bp.c_bpartner_id = cbl.c_bpartner_id
+		LEFT JOIN c_location cl
+		ON cbl.c_location_id = cl.c_location_id
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 	AND (
@@ -127,6 +134,16 @@ WHERE
 				)
 		)
 		)
+	AND (
+		$P{Patient Type} IS NULL OR
+		$P{Patient Type} = '' OR
+		v.bh_patienttype = $P{Patient Type}
+		)
+	AND (
+		$P{Referral} IS NULL OR
+		$P{Referral} = '' OR
+		v.bh_referral = $P{Referral}
+		)
 	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 ORDER BY
 	bp.name;]]>
@@ -144,6 +161,7 @@ ORDER BY
 			<property name="com.jaspersoft.studio.field.label" value="phonenumber"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
+		<field name="address" class="java.lang.String"/>
 		<field name="primary_coded_diagnosis" class="java.lang.String"/>
 		<field name="primary_uncoded_diagnosis" class="java.lang.String"/>
 		<field name="secondary_coded_diagnosis" class="java.lang.String"/>
@@ -155,15 +173,17 @@ ORDER BY
 	<parameter name="Diagnosis" class="java.lang.String"/>
 	<parameter name="BH_Concept_UU" class="java.lang.String"/>
 	<parameter name="Patient Tags" class="java.util.List"/>
+	<parameter name="Patient Type" class="java.lang.String"/>
+	<parameter name="Referral" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
 	</queryString>
 	<title>
 		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="1365" height="25" uuid="bc5ec145-c9ee-4ff8-a235-13d0a283676f">
+				<reportElement x="0" y="0" width="1500" height="25" uuid="bc5ec145-c9ee-4ff8-a235-13d0a283676f">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -189,10 +209,11 @@ ORDER BY
 				<text><![CDATA[No data was found to display on the report.]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="0" y="0" width="1365" height="35" uuid="40d9d022-72d1-4af5-a6d2-780a1e4696bb">
+				<reportElement x="0" y="0" width="1500" height="35" uuid="40d9d022-72d1-4af5-a6d2-780a1e4696bb">
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="tableDataset" uuid="5f11ea5b-b177-46f3-a31b-2a637e745787">
@@ -214,13 +235,19 @@ ORDER BY
 						<datasetParameter name="Patient Tags">
 							<datasetParameterExpression><![CDATA[$P{Patient Tags}]]></datasetParameterExpression>
 						</datasetParameter>
+						<datasetParameter name="Patient Type">
+							<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="Referral">
+							<datasetParameterExpression><![CDATA[$P{Referral}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="100" uuid="b6d02186-f130-41c1-b83b-c6ee7d80988a">
+					<jr:column width="110" uuid="b6d02186-f130-41c1-b83b-c6ee7d80988a">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="100" height="20" uuid="71065a74-f902-43b5-8971-0bee20723459">
+								<reportElement x="0" y="0" width="110" height="20" uuid="71065a74-f902-43b5-8971-0bee20723459">
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
@@ -233,7 +260,7 @@ ORDER BY
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="100" height="15" uuid="3a20ba97-a2a6-436a-8c8e-184c84bcedde">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="110" height="15" uuid="3a20ba97-a2a6-436a-8c8e-184c84bcedde">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
@@ -349,12 +376,38 @@ ORDER BY
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="220" uuid="c6a269f0-4f12-4299-a1c9-db1fb6210ef0">
+					<jr:column width="140" uuid="ea50cb39-4965-44b5-95ed-97976db9106f">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="140" height="20" uuid="e8351460-0c09-4ac0-a1b3-5c5142beb8b4"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Address]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="140" height="15" uuid="8e84f013-28a4-4795-b291-add3c2926b77">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="DejaVu Sans" size="12"/>
+									<paragraph rightIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="225" uuid="c6a269f0-4f12-4299-a1c9-db1fb6210ef0">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="220" height="20" uuid="b10f7f9a-6ab7-4746-88ed-f41ee1baa12b"/>
+								<reportElement x="0" y="0" width="225" height="20" uuid="b10f7f9a-6ab7-4746-88ed-f41ee1baa12b"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -364,7 +417,7 @@ ORDER BY
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="220" height="15" uuid="2b0765e8-a282-4d86-8ceb-735a8b24f689">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="225" height="15" uuid="2b0765e8-a282-4d86-8ceb-735a8b24f689">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
@@ -376,12 +429,12 @@ ORDER BY
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="220" uuid="47df3e96-14df-454c-a3f8-ca586dceddcd">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+					<jr:column width="225" uuid="47df3e96-14df-454c-a3f8-ca586dceddcd">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="220" height="20" uuid="64a6b29c-ba80-45ba-8672-ff59fcdb2f95"/>
+								<reportElement x="0" y="0" width="225" height="20" uuid="64a6b29c-ba80-45ba-8672-ff59fcdb2f95"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -391,7 +444,7 @@ ORDER BY
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="220" height="15" uuid="78c4cca1-fd78-4191-8442-54fd17314df9">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="225" height="15" uuid="78c4cca1-fd78-4191-8442-54fd17314df9">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
@@ -403,12 +456,12 @@ ORDER BY
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="220" uuid="29059875-5dfa-4bf4-a408-60546da22413">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+					<jr:column width="215" uuid="29059875-5dfa-4bf4-a408-60546da22413">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="220" height="20" uuid="be685e80-a8ea-4583-911d-c8ca19ce1789"/>
+								<reportElement x="0" y="0" width="215" height="20" uuid="be685e80-a8ea-4583-911d-c8ca19ce1789"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12" isBold="true"/>
@@ -418,7 +471,7 @@ ORDER BY
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="220" height="15" uuid="28a355d3-7427-4fd2-b932-97537f581e19">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="215" height="15" uuid="28a355d3-7427-4fd2-b932-97537f581e19">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
@@ -430,11 +483,11 @@ ORDER BY
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="240" uuid="b487641b-7873-4eb8-8c63-4af6aa7b90cd">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
+					<jr:column width="215" uuid="b487641b-7873-4eb8-8c63-4af6aa7b90cd">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
 						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="240" height="20" uuid="98e7ac6c-ab0c-41d4-86a8-dee5854b4c35">
+								<reportElement x="0" y="0" width="215" height="20" uuid="98e7ac6c-ab0c-41d4-86a8-dee5854b4c35">
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
@@ -446,7 +499,7 @@ ORDER BY
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="240" height="15" uuid="83123a70-e09e-4b99-a215-c32626630a4b">
+								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="215" height="15" uuid="83123a70-e09e-4b99-a215-c32626630a4b">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>

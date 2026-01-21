@@ -599,4 +599,233 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 			assertTrue(businessPartnerRow.isPresent(), "Second business partner is on the report");
 		}
 	}
+
+	@IPopulateAnnotation.CanRun
+	public void canFilterByPatientTypeAndReferral() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create first business partner for Outpatient");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		String firstBusinessPartnerName = valueObject.getBusinessPartner().getName();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setQuantity(BigDecimal.TEN);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create coded diagnosis for first patient");
+		valueObject.setRandom();
+		MBHConcept codedDiagnosis =
+				new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create first visit with Outpatient type and health facility referral");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setBH_PatientType("O"); // Outpatient (OPD)
+		valueObject.getVisit().setbh_referral("hf"); // Referral from health facilities
+		valueObject.getVisit().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create diagnoses for first visit");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Uncoded_Diagnosis("First patient diagnosis");
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create first sales order");
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.clearBusinessPartner();
+		valueObject.setStepName("Create second business partner for Inpatient");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		String secondBusinessPartnerName = valueObject.getBusinessPartner().getName();
+		commitEx();
+
+		valueObject.setStepName("Create second coded diagnosis");
+		valueObject.setRandom();
+		codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second visit with Inpatient type and community unit referral");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setBH_PatientType("I"); // Inpatient (IPD)
+		valueObject.getVisit().setbh_referral("fcu"); // Referral from Community Unit
+		valueObject.getVisit().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create diagnoses for second visit");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Uncoded_Diagnosis("Second patient diagnosis");
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create second sales order");
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate report without filters - should show both patients");
+		valueObject.setProcessUuid("7c29028a-8dd3-4025-a5af-87701748d81f");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		commitEx();
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Visit Date");
+			int nameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+
+			Optional<Row> firstPatientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue().contains(firstBusinessPartnerName)).findFirst();
+			assertTrue(firstPatientRow.isPresent(), "First patient (Outpatient) is on the report");
+
+			Optional<Row> secondPatientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue().contains(secondBusinessPartnerName)).findFirst();
+			assertTrue(secondPatientRow.isPresent(), "Second patient (Inpatient) is on the report");
+		}
+
+		valueObject.setStepName("Generate report filtering by Outpatient type - should show only first patient");
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+						new ProcessInfoParameter("Patient Type", "O", null, null, null)
+				));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		commitEx();
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Visit Date");
+			int nameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+
+			Optional<Row> firstPatientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue().contains(firstBusinessPartnerName)).findFirst();
+			assertTrue(firstPatientRow.isPresent(), "First patient (Outpatient) is on the report");
+
+			Optional<Row> secondPatientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue().contains(secondBusinessPartnerName)).findFirst();
+			assertTrue(secondPatientRow.isEmpty(), "Second patient (Inpatient) is NOT on the report");
+		}
+
+		valueObject.setStepName("Generate report filtering by health facility referral - should show only first patient");
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+						new ProcessInfoParameter("Referral", "hf", null, null, null)
+				));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		commitEx();
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Visit Date");
+			int nameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+
+			Optional<Row> firstPatientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue().contains(firstBusinessPartnerName)).findFirst();
+			assertTrue(firstPatientRow.isPresent(), "First patient (health facility referral) is on the report");
+
+			Optional<Row> secondPatientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue().contains(secondBusinessPartnerName)).findFirst();
+			assertTrue(secondPatientRow.isEmpty(), "Second patient (community unit referral) is NOT on the report");
+		}
+
+		valueObject.setStepName("Generate report filtering by both Inpatient type AND community unit referral");
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
+						new ProcessInfoParameter("Patient Type", "I", null, null, null),
+						new ProcessInfoParameter("Referral", "fcu", null, null, null)
+				));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		commitEx();
+
+		file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Visit Date");
+			int nameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+
+			Optional<Row> firstPatientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue().contains(firstBusinessPartnerName)).findFirst();
+			assertTrue(firstPatientRow.isEmpty(), "First patient (Outpatient) is NOT on the report");
+
+			Optional<Row> secondPatientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue().contains(secondBusinessPartnerName)).findFirst();
+			assertTrue(secondPatientRow.isPresent(), "Second patient (Inpatient with community unit referral) is on the report");
+		}
+	}
 }
