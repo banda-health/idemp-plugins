@@ -480,6 +480,7 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		MBHConceptMapping conceptMapping = new MBHConceptMapping(valueObject.getContext(), 0, valueObject.getTransactionName());
 		conceptMapping.setTo_BH_Concept_ID(diagnostic.getBH_Concept_ID());
 		conceptMapping.setFrom_BH_Concept_ID(randomConcept.getBH_Concept_ID());
+		conceptMapping.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
 		conceptMapping.saveEx();
 		commitEx();
 
