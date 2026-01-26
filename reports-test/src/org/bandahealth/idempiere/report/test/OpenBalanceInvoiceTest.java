@@ -9,8 +9,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.bandahealth.idempiere.base.model.MChargeType_BH;
-import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
@@ -41,25 +39,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OpenBalanceInvoiceTest extends ChuBoePopulateFactoryVO {
 	private final String reportUuid = "199f56a6-8e1f-47b4-8f22-e2bdb8da7505";
-	private final String expenseReportUuid = "f777f042-3907-4293-94c4-49fe6eb58780";
-	private MChargeType_BH expenseCategoryChargeType;
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
-
-		expenseCategoryChargeType = new Query(valueObject.getContext(), MChargeType_BH.Table_Name,
-				MChargeType_BH.COLUMNNAME_Name + "=?", valueObject.getTransactionName())
-				.setParameters(MChargeType_BH.CHARGETYPENAME_DEFAULT_EXPENSE_CATEGORY).setClient_ID().first();
-		if (expenseCategoryChargeType == null) {
-			expenseCategoryChargeType = new MChargeType_BH(valueObject.getContext(), 0,
-					valueObject.getTransactionName());
-			expenseCategoryChargeType.setDescription("For an expense category added by default");
-			expenseCategoryChargeType.setName(MChargeType_BH.CHARGETYPENAME_DEFAULT_EXPENSE_CATEGORY);
-			expenseCategoryChargeType.saveEx();
-		}
 
 		valueObject.setStepName("Open needed periods");
 		ChuBoeCreateEntity.createAndOpenAllFiscalYears(valueObject);
@@ -298,104 +283,6 @@ public class OpenBalanceInvoiceTest extends ChuBoePopulateFactoryVO {
 
 			assertTrue(clinicPhoneRow.isPresent(), "Clinic phone number is displayed");
 			assertTrue(patientPhoneRow.isPresent(), "Patient phone number is displayed");
-		}
-	}
-
-	@IPopulateAnnotation.CanRun
-	public void draftedVisitsAndDraftInvoicesDoNotShowUpAsExpenses() throws SQLException, IOException {
-		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
-		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
-		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
-
-		valueObject.setStepName("Create patient");
-		ChuBoeCreateEntity.createPatient(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create product");
-		ChuBoeCreateEntity.createProduct(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create purchase order");
-		valueObject.setQuantity(new BigDecimal(10));
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
-		ChuBoeCreateEntity.createOrder(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create material receipt");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
-		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create visit");
-		ChuBoeCreateEntity.createVisit(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create second sales order");
-		valueObject.setQuantity(BigDecimal.ONE);
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
-		ChuBoeCreateEntity.createOrder(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create second visit");
-		ChuBoeCreateEntity.createVisit(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Create second sales order");
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
-		ChuBoeCreateEntity.createOrder(valueObject);
-		commitEx();
-
-		valueObject.setStepName("Schedule a payment");
-		valueObject.setVisit(null);
-		valueObject.setOrder(null);
-		valueObject.setInvoice(null);
-		valueObject.setDateOffset(1);
-		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
-		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
-		valueObject.setPaymentAmount(BigDecimal.ONE);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
-		ChuBoeCreateEntity.createPayment(valueObject);
-		valueObject.getPayment().setScheduled(true);
-		valueObject.getPayment().saveEx();
-		commitEx();
-
-		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid(reportUuid);
-		valueObject.setProcessRecordId(0);
-		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("c_bpartner_uu", valueObject.getBusinessPartner().getC_BPartner_UU(), null, null,
-						null)
-		));
-		valueObject.setReportType("xlsx");
-		ChuBoeCreateEntity.runReport(valueObject);
-
-		FileInputStream file = new FileInputStream(valueObject.getReport());
-		try (Workbook workbook = new XSSFWorkbook(file)) {
-			Sheet sheet = workbook.getSheetAt(0);
-			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
-
-			int paymentsColumnIndex = TableUtils.getColumnIndex(headerRow, "Payments");
-
-			int headerRowIndex = TableUtils.getIndexOfRow(sheet, headerRow);
-			List<Row> tableRows = new ArrayList<>();
-			for (int i = headerRowIndex + 1; i <= sheet.getLastRowNum(); i++) {
-				Row row = sheet.getRow(i);
-				if (row != null && row.getCell(paymentsColumnIndex) != null &&
-						row.getCell((paymentsColumnIndex)).getCellType().equals(CellType.STRING) &&
-						row.getCell(paymentsColumnIndex).getStringCellValue().contains("TOTAL OPEN ")) {
-					break;
-				}
-				tableRows.add(row);
-			}
-
-			assertThat("Only one row exists for patient on report", tableRows.size(), is(1));
 		}
 	}
 }

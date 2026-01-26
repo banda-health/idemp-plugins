@@ -1,323 +1,235 @@
-DROP FUNCTION IF EXISTS bh_get_payment_trail(_ad_client_id numeric);
-CREATE OR REPLACE FUNCTION bh_get_payment_trail(_ad_client_id numeric)
-	RETURNS table
+DROP FUNCTION IF EXISTS bh_get_payment_trail(character varying);
+CREATE FUNCTION bh_get_payment_trail(_c_bpartner_uu character varying)
+	RETURNS TABLE
 	        (
-		        ad_client_id               numeric,
-		        bh_visit_id                numeric,
-		        c_invoice_id               numeric,
-		        c_bpartner_id              numeric,
-		        c_payment_id               numeric,
-		        date                       timestamp,
-		        created                    timestamp,
-		        updated                    timestamp,
-		        ordering_date              timestamp,
-		        createdby                  numeric,
-		        c_order_id                 numeric,
-		        charged                    numeric,
-		        paid                       numeric,
-		        open_balance               numeric,
-		        base_reversal_c_invoice_id numeric,
-		        base_reversal_c_payment_id numeric
+		        c_bpartner_id        numeric,
+		        patient_name         character varying,
+		        transaction_date     timestamp WITHOUT TIME ZONE,
+		        created              timestamp WITHOUT TIME ZONE,
+		        updated              timestamp WITHOUT TIME ZONE,
+		        item                 text,
+		        debits               numeric,
+		        credits              numeric,
+		        patient_open_balance numeric,
+		        bh_visit_id          numeric,
+		        c_invoice_id         numeric,
+		        c_payment_id         numeric,
+		        createdby            numeric
 	        )
-	LANGUAGE sql
 	STABLE
+	LANGUAGE sql
 AS
 $$
-SELECT
-	ad_client_id,
-	bh_visit_id,
-	c_invoice_id,
-	c_bpartner_id,
-	c_payment_id,
-	DATE,
-	created,
-	updated,
-	ordering_date,
-	createdby,
-	c_order_id,
-	charged,
-	paid,
-			SUM(net) FILTER ( WHERE docstatus NOT IN ('DR', 'IP') )
-		OVER ( PARTITION BY c_bpartner_id ORDER BY CASE
-			                                           WHEN docstatus IN ('DR', 'IP')
-				                                           THEN '-infinity'::TIMESTAMP
-			                                           ELSE ordering_date END, date ROWS UNBOUNDED PRECEDING) AS open_balance,
-	base_reversal_c_invoice_id,
-	base_reversal_c_payment_id
-FROM
-	(
-		-- Visits
+WITH visit_payments AS (
+	SELECT
+		c_order_id,
+		SUM(payamt) AS payamt
+	FROM
+		c_bpartner bp
+			JOIN bh_get_visit_payments(bp.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) gvp
+				ON gvp.patient_id = bp.c_bpartner_id
+	WHERE
+		bp.c_bpartner_uu = _c_bpartner_uu
+	GROUP BY c_order_id
+),
+	transactions AS (
+		-- Sum all the payments and group them by date
 		SELECT
-			v.bh_visit_id,
-			o.ad_client_id,
-			i.c_invoice_id,
-			o.c_bpartner_id,
-			NULL::NUMERIC                                                           AS c_payment_id,
-			-- Add time so the starting balance can be first
-			v.bh_visitdate + '1 microsecond'::INTERVAL                              AS date,
-			i.created,
-			i.updated,
-			i.created                                                               AS ordering_date,
-			i.createdby,
-			o.c_order_id,
-			il.charged                                                              AS charged,
-			COALESCE(SUM(p.payamt), 0) + il.insurance                               AS paid,
-			i.docstatus,
-			il.charged - COALESCE(SUM(p.payamt), 0) - il.insurance                  AS net,
-			CASE WHEN i.docstatus = 'RE' THEN i.c_invoice_id ELSE NULL::NUMERIC END AS base_reversal_c_invoice_id,
-			NULL::NUMERIC                                                           AS base_reversal_c_payment_id
-		FROM
-			bh_visit v
-				JOIN c_order o
-					ON v.bh_visit_id = o.bh_visit_id
-				JOIN c_invoice i
-					ON i.c_order_id = o.c_order_id AND (i.reversal_id IS NULL OR i.reversal_id > i.c_invoice_id)
-				JOIN LATERAL (SELECT
-					              i.c_invoice_id,
-					              COALESCE(SUM(linenetamt) FILTER ( WHERE c_charge_id IS NULL ), 0)          AS charged,
-					              COALESCE(SUM(linenetamt) FILTER ( WHERE c_charge_id IS NOT NULL ), 0) * -1 AS insurance
-				              FROM
-					              c_invoiceline
-				              WHERE
-					              c_invoice_id = i.c_invoice_id) il
-					ON i.c_invoice_id = il.c_invoice_id
-				LEFT JOIN c_payment p
-					ON i.c_invoice_id = p.bh_original_c_invoice_id AND (p.reversal_id IS NULL OR p.reversal_id > p.c_payment_id)
-		WHERE
-			o.ad_client_id = _ad_client_id
-		GROUP BY
-			v.bh_visit_id, o.ad_client_id, i.c_invoice_id, o.c_bpartner_id, v.bh_visitdate + '1 microsecond'::INTERVAL,
-			i.created, i.updated, i.createdby, o.c_order_id, il.charged, il.insurance, i.docstatus
-		UNION ALL
-		-- Visit reversions
-		SELECT
-			v.bh_visit_id,
-			o.ad_client_id,
-			i_r.c_invoice_id,
-			o.c_bpartner_id,
-			NULL,
-			-- Add time so the starting balance can be first
-			v.bh_visitdate + '1 microsecond'::INTERVAL,
-			i_r.created,
-			i_r.updated,
-			i_r.created,
-			i_r.createdby,
-			o.c_order_id,
-			il.charged                                               AS charged,
-			COALESCE(SUM(p_r.payamt), 0) + il.insurance              AS paid,
-			i_r.docstatus,
-			il.charged - COALESCE(SUM(p_r.payamt), 0) - il.insurance AS net,
-			i.c_invoice_id,
-			NULL
-		FROM
-			bh_visit v
-				JOIN c_order o
-					ON v.bh_visit_id = o.bh_visit_id
-				JOIN c_invoice i
-					ON i.c_order_id = o.c_order_id AND i.reversal_id > i.c_invoice_id
-				JOIN c_invoice i_r
-					ON i.reversal_id = i_r.c_invoice_id
-				JOIN LATERAL (SELECT
-					              i_r.c_invoice_id,
-					              COALESCE(SUM(linenetamt) FILTER ( WHERE c_charge_id IS NULL ), 0)          AS charged,
-					              COALESCE(SUM(linenetamt) FILTER ( WHERE c_charge_id IS NOT NULL ), 0) * -1 AS insurance
-				              FROM
-					              c_invoiceline
-				              WHERE
-					              c_invoice_id = i_r.c_invoice_id) il
-					ON i_r.c_invoice_id = il.c_invoice_id
-				LEFT JOIN c_payment p
-					ON i.c_invoice_id = p.bh_original_c_invoice_id
-				LEFT JOIN c_payment p_r
-					ON p.reversal_id = p_r.c_payment_id AND p.reversal_id > p.c_payment_id
-		WHERE
-			o.ad_client_id = _ad_client_id
-			AND i.docstatus = 'RE'
-		GROUP BY
-			v.bh_visit_id, o.ad_client_id, i_r.c_invoice_id, o.c_bpartner_id, v.bh_visitdate, i_r.created, i_r.updated,
-			i_r.createdby, o.c_order_id, il.charged, il.insurance, i_r.docstatus, i.c_invoice_id
-		UNION ALL
-		-- Waived Open Balances
-		SELECT
-			NULL,
-			i.ad_client_id,
-			i.c_invoice_id,
-			i.c_bpartner_id,
-			NULL,
-			-- Add time so the starting balance can be first
-			i.dateinvoiced::DATE + '1 microsecond'::INTERVAL,
-			i.created,
-			i.updated,
-			CASE
-				WHEN i.docstatus IN ('CO', 'CL') THEN i.updated
-				ELSE i.created END AS ordering_date,
-			i.createdby,
-			NULL,
-			0,
-			i.grandtotal,
-			i.docstatus,
-			i.grandtotal * -1    AS net,
-			CASE WHEN i.docstatus = 'RE' THEN i.c_invoice_id END,
-			NULL
-		FROM
-			c_invoice i
-				JOIN c_invoiceline il
-					ON i.c_invoice_id = il.c_invoice_id
-				JOIN c_charge c
-					ON il.c_charge_id = c.c_charge_id
-				JOIN c_chargetype ct
-					ON c.c_chargetype_id = ct.c_chargetype_id
-		WHERE
-			i.ad_client_id = _ad_client_id
-			AND (i.reversal_id IS NULL OR i.reversal_id > i.c_invoice_id)
-			AND i.issotrx = 'Y'
-			AND i.bh_visit_id IS NULL
-			AND i.c_order_id IS NULL
-			AND c.name = 'Bad debt write-off - DO NOT CHANGE'
-			AND ct.name = 'One-offs - DO NOT CHANGE'
-		GROUP BY
-			i.ad_client_id, i.c_invoice_id, i.c_bpartner_id, i.dateinvoiced, i.created, i.updated, i.createdby, i.grandtotal,
-			i.docstatus
-		UNION ALL
-		-- Open Debt Payment reversals
-		SELECT
-			NULL,
-			i_r.ad_client_id,
-			i_r.c_invoice_id,
-			i_r.c_bpartner_id,
-			NULL,
-			-- Add time so the starting balance can be first
-			i_r.dateinvoiced::DATE + '1 microsecond'::INTERVAL,
-			i_r.created,
-			i_r.updated,
-			i_r.created,
-			i_r.createdby,
-			NULL,
-			0,
-			i_r.grandtotal,
-			i_r.docstatus,
-			i_r.grandtotal * -1 AS net,
-			i.c_invoice_id,
-			NULL
-		FROM
-			c_invoice i
-				JOIN c_invoice i_r
-					ON i.reversal_id = i_r.c_invoice_id AND i.reversal_id > i.c_invoice_id
-				JOIN c_invoiceline il
-					ON i_r.c_invoice_id = il.c_invoice_id
-				JOIN c_charge c
-					ON il.c_charge_id = c.c_charge_id
-				JOIN c_chargetype ct
-					ON c.c_chargetype_id = ct.c_chargetype_id
-		WHERE
-			i.ad_client_id = _ad_client_id
-			AND i.reversal_id IS NOT NULL
-			AND i.reversal_id < i.c_invoice_id
-			AND i.issotrx = 'Y'
-			AND i.bh_visit_id IS NULL
-			AND i.c_order_id IS NULL
-			AND c.name = 'Bad debt write-off - DO NOT CHANGE'
-			AND ct.name = 'One-offs - DO NOT CHANGE'
-		GROUP BY
-			i_r.ad_client_id, i_r.c_invoice_id, i_r.c_bpartner_id, i_r.dateinvoiced, i_r.created, i_r.updated, i_r.createdby,
-			i_r.grandtotal, i_r.docstatus, i_r.grandtotal, i.c_invoice_id
-		UNION ALL
-		-- Outstanding Open Balances
-		SELECT
-			NULL,
-			ad_client_id,
-			NULL,
-			c_bpartner_id,
+			bh_visit_id,
+			c_invoice_id,
 			c_payment_id,
-			-- Add time so the starting balance can be first
-			datetrx::DATE + '1 microsecond'::INTERVAL,
+			c_payment_docstatus,
+			createdby,
+			c_bpartner_id,
+			date,
 			created,
 			updated,
-			CASE
-				WHEN docstatus IN ('CO', 'CL') THEN updated
-				ELSE created END,
-			createdby,
-			NULL,
-			0,
-			payamt,
-			docstatus,
-			payamt * -1,
-			NULL,
-			CASE WHEN docstatus = 'RE' THEN c_payment_id ELSE NULL END
+			"type"                                               AS item,
+			COALESCE(SUM(debits), 0)                             AS debits,
+			COALESCE(SUM(credits), 0)                            AS credits,
+			COALESCE(SUM(debits), 0) - COALESCE(SUM(credits), 0) AS net
 		FROM
-			c_payment
-		WHERE
-			ad_client_id = _ad_client_id
-			AND (reversal_id IS NULL OR reversal_id > c_payment_id)
-			AND isreceipt = 'Y'
-			AND c_invoice_id IS NULL
-			AND bh_visit_id IS NULL
-			AND bh_original_c_invoice_id IS NULL
-		UNION ALL
-		-- Outstanding Open Balance payment reversals
+			(
+				-- Bills
+				SELECT
+					v.bh_visit_id,
+					NULL::numeric                                        AS c_invoice_id,
+					NULL::numeric                                        AS c_payment_id,
+					NULL                                                 AS c_payment_docstatus,
+					v.createdby,
+					o.c_bpartner_id,
+					v.bh_visitdate::date                                 AS date,
+					v.created,
+					v.updated,
+					CASE
+						WHEN COALESCE(SUM(vp.payamt), 0) - COALESCE(i.charges, 0) = 0 THEN 'Visit'
+						ELSE 'Visit charges and payments' END              AS "type",
+					i.non_charges                                        AS debits,
+					COALESCE(SUM(vp.payamt), 0) - COALESCE(i.charges, 0) AS credits
+				FROM
+					bh_visit v
+						JOIN c_order o
+							ON v.bh_visit_id = o.bh_visit_id
+						JOIN c_bpartner bp
+							ON v.patient_id = bp.c_bpartner_id
+						LEFT JOIN visit_payments vp
+							ON o.c_order_id = vp.c_order_id
+						JOIN (
+						SELECT
+							i.c_order_id,
+							SUM(il.linenetamt) FILTER ( WHERE il.c_charge_id IS NULL )     AS non_charges,
+							SUM(il.linenetamt) FILTER ( WHERE il.c_charge_id IS NOT NULL ) AS charges
+						FROM
+							c_invoice i
+								JOIN c_invoiceline il
+									ON i.c_invoice_id = il.c_invoice_id
+								JOIN c_bpartner bp
+									ON i.c_bpartner_id = bp.c_bpartner_id
+						WHERE
+							bp.c_bpartner_uu = _c_bpartner_uu
+							AND i.docstatus = 'CO'
+						GROUP BY i.c_order_id
+					) i
+							ON i.c_order_id = o.c_order_id
+				WHERE
+					o.docstatus = 'CO'
+					AND bp.c_bpartner_uu = _c_bpartner_uu
+				GROUP BY
+					o.c_order_id, o.c_bpartner_id, date, non_charges, charges, v.bh_visit_id, v.createdby, v.created, v.updated
+				UNION ALL
+				-- Outstanding Balance Payments
+				SELECT
+					NULL                                     AS bh_visit_id,
+					NULL                                     AS c_invoice_id,
+					gdp.c_payment_id                         AS c_payment_id,
+					p.docstatus                              AS c_payment_docstatus,
+					p.createdby,
+					bp.c_bpartner_id,
+					gdp.payment_date                         AS date,
+					p.created,
+					p.updated,
+					CASE
+						WHEN p.scheduled = 'Y' AND p.docstatus NOT IN ('CO', 'CL') THEN 'Scheduled Payment'
+						ELSE 'Outstanding Balance Payment' END AS "type",
+					NULL                                     AS debits,
+					SUM(payment_amount)                      AS credits
+				FROM
+					c_bpartner bp
+						JOIN bh_get_debt_payments(bp.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) gdp
+							ON gdp.patient_id = bp.c_bpartner_id
+						JOIN c_payment p
+							ON p.c_payment_id = gdp.c_payment_id
+				WHERE
+					bp.c_bpartner_uu = _c_bpartner_uu
+				GROUP BY
+					bp.c_bpartner_id, date, gdp.c_payment_id, p.createdby, p.scheduled, p.docstatus, p.created, p.updated
+				UNION ALL
+				-- Waived open balance
+				SELECT
+					NULL                    AS bh_visit_id,
+					i.c_invoice_id,
+					NULL                    AS c_payment_id,
+					NULL                    AS c_payment_docstatus,
+					i.createdby,
+					i.c_bpartner_id,
+					i.dateinvoiced          AS date,
+					i.created,
+					i.updated,
+					'Waived Open Balance'   AS "type",
+					NULL                    AS debits,
+					SUM(il.linenetamt) * -1 AS credits
+				FROM
+					c_invoice i
+						JOIN c_bpartner bp
+							ON i.c_bpartner_id = bp.c_bpartner_id
+						JOIN c_invoiceline il
+							ON i.c_invoice_id = il.c_invoice_id
+						JOIN c_charge c
+							ON il.c_charge_id = c.c_charge_id
+						JOIN c_chargetype ct
+							ON c.c_chargetype_id = ct.c_chargetype_id
+				WHERE
+					bp.c_bpartner_uu = _c_bpartner_uu
+					AND c.name = 'Bad debt write-off - DO NOT CHANGE'
+					AND ct.name = 'One-offs - DO NOT CHANGE'
+				GROUP BY
+					i.c_invoice_id, bp.c_bpartner_id, i.dateinvoiced::date, i.createdby, i.created, i.updated
+			) AS transactions
+		GROUP BY
+			bh_visit_id, c_payment_id, createdby, c_bpartner_id, date, "type", created, updated, c_invoice_id,
+			c_payment_docstatus
+	),
+	orderings AS (
+-- This categorizes the payments
 		SELECT
-			NULL,
-			p_r.ad_client_id,
-			NULL,
-			p_r.c_bpartner_id,
-			p_r.c_payment_id,
-			-- Add time so the starting balance can be first
-			p_r.datetrx::DATE + '1 microsecond'::INTERVAL,
-			p_r.created,
-			p_r.updated,
-			p_r.created,
-			p_r.createdby,
-			NULL,
-			0,
-			p_r.payamt,
-			p_r.docstatus,
-			p_r.payamt * -1,
-			NULL,
-			p.c_payment_id
+			orderings.*,
+			ROW_NUMBER() OVER (ORDER BY secondary_sort, date, updated) AS row
 		FROM
-			c_payment p
-				JOIN c_payment p_r
-					ON p_r.c_payment_id = p.reversal_id AND p.reversal_id > p.c_payment_id
-		WHERE
-			p.ad_client_id = _ad_client_id
-			AND p.isreceipt = 'Y'
-			AND p.c_invoice_id IS NULL
-			AND p.bh_visit_id IS NULL
-			AND p.bh_original_c_invoice_id IS NULL
-		UNION ALL
-		-- Get a starting balance
-		SELECT
-			NULL,
-			_ad_client_id,
-			NULL,
-			bp.c_bpartner_id,
-			NULL,
-			MIN(LEAST(bp.created, v.bh_visitdate, o.dateordered, i.dateinvoiced, p.datetrx)),
-			MIN(LEAST(bp.created, v.bh_visitdate, o.dateordered, i.dateinvoiced, p.datetrx)),
-			MIN(LEAST(bp.created, v.bh_visitdate, o.dateordered, i.dateinvoiced, p.datetrx)),
-			MIN(LEAST(bp.created, v.bh_visitdate, o.dateordered, i.dateinvoiced, p.datetrx)),
-			bp.createdby,
-			NULL,
-			0,
-			0,
-			NULL,
-			0,
-			NULL,
-			NULL
-		FROM
-			c_bpartner bp
-				LEFT JOIN bh_visit v
-					ON bp.c_bpartner_id = v.patient_id
-				LEFT JOIN c_order o
-					ON v.bh_visit_id = o.bh_visit_id
-				LEFT JOIN c_invoice i
-					ON bp.c_bpartner_id = i.c_bpartner_id AND i.issotrx = 'N' AND
-					   i.bh_visit_id IS NULL
-				LEFT JOIN c_payment p
-					ON bp.c_bpartner_id = p.c_bpartner_id AND p.isreceipt = 'N' AND
-					   p.bh_visit_id IS NULL
-		WHERE
-			bp.ad_client_id = _ad_client_id
-		GROUP BY bp.c_bpartner_id, bp.createdby
-	) b
+			(
+				SELECT
+					bh_visit_id,
+					c_invoice_id,
+					c_payment_id,
+					createdby,
+					c_bpartner_id,
+					date,
+					created,
+					updated,
+					item,
+					debits,
+					credits,
+					net,
+							SUM(net) FILTER ( WHERE c_payment_docstatus IS NULL OR c_payment_docstatus IN ('CO', 'CL') )
+						OVER (PARTITION BY c_bpartner_id ORDER BY CASE
+							                                          WHEN c_payment_docstatus NOT IN ('CO', 'CL') THEN '-infinity'::timestamp
+							                                          ELSE date END, updated ROWS UNBOUNDED PRECEDING) AS open_balance,
+					2                                                                                              AS secondary_sort
+				FROM
+					transactions
+				UNION ALL
+				-- Add another row to show the starting balance of zero when the patient was created
+				SELECT
+					NULL,
+					NULL,
+					NULL,
+					bp.createdby,
+					bp.c_bpartner_id,
+					CASE WHEN MIN(t.date) < bp.created THEN MIN(t.date) ELSE bp.created END,
+					CASE WHEN MIN(t.date) < bp.created THEN MIN(t.date) ELSE bp.created END,
+					CASE WHEN MIN(t.date) < bp.created THEN MIN(t.date) ELSE bp.created END,
+					'Starting balance',
+					0,
+					0,
+					0,
+					0,
+					1 AS sort
+				FROM
+					c_bpartner bp
+						LEFT JOIN transactions t
+							ON t.c_bpartner_id = bp.c_bpartner_id
+				WHERE
+					bp.c_bpartner_uu = _c_bpartner_uu
+				GROUP BY bp.c_bpartner_id
+			) AS orderings
+	)
+SELECT
+	bp.c_bpartner_id,
+	bp.name      AS patient_name,
+	date         AS transaction_date,
+	o.created,
+	o.updated,
+	item         AS item,
+	debits,
+	credits,
+	open_balance AS patient_open_balance,
+	bh_visit_id,
+	c_invoice_id,
+	c_payment_id,
+	o.createdby
+FROM
+	orderings o
+		JOIN c_bpartner bp
+			ON o.c_bpartner_id = bp.c_bpartner_id
+ORDER BY
+	row;
 $$;
