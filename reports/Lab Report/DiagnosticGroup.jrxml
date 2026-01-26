@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabReport" pageWidth="480" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="470" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 11"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -58,13 +58,13 @@
 FROM
 	bh_encounter_diagnostic ed
 		LEFT JOIN bh_concept panel
-		ON ed.selected_panel_id = panel.bh_concept_id
+			ON ed.selected_panel_id = panel.bh_concept_id
 		LEFT JOIN bh_concept_extra pce
-		ON panel.bh_concept_id = pce.bh_concept_id AND pce.bh_key = 'local_name'
+			ON panel.bh_concept_id = pce.bh_concept_id AND pce.bh_key = 'local_name'
 		JOIN bh_concept test
-		ON ed.bh_concept_id = test.bh_concept_id
+			ON ed.bh_concept_id = test.bh_concept_id
 		LEFT JOIN bh_concept_extra tce
-		ON test.bh_concept_id = tce.bh_concept_id AND tce.bh_key = 'local_name'
+			ON test.bh_concept_id = tce.bh_concept_id AND tce.bh_key = 'local_name'
 		LEFT JOIN (
 		SELECT
 			CASE
@@ -91,28 +91,62 @@ FROM
 					c.bh_concept_id,
 					CASE
 						WHEN cce_low.bh_client_concept_extra_id IS NOT NULL THEN cce_low.bh_value
+						WHEN cm_e_values.mapped_low_extra_id IS NOT NULL THEN cm_e_values.mapped_low
 						ELSE ce_low.bh_value END  AS low_normal,
 					CASE
 						WHEN cce_high.bh_client_concept_extra_id IS NOT NULL THEN cce_high.bh_value
+						WHEN cm_e_values.mapped_high_extra_id IS NOT NULL THEN cm_e_values.mapped_high
 						ELSE ce_high.bh_value END AS high_normal
 				FROM
 					bh_concept c
 						JOIN bh_encounter_diagnostic ed
-						ON c.bh_concept_id = ed.bh_concept_id
+							ON c.bh_concept_id = ed.bh_concept_id
 						LEFT JOIN bh_concept_extra ce_low
-						ON c.bh_concept_id = ce_low.bh_concept_id AND ce_low.bh_key = 'low_normal'
+							ON c.bh_concept_id = ce_low.bh_concept_id AND ce_low.bh_key = 'low_normal'
 						LEFT JOIN bh_client_concept_extra cce_low
-						ON ce_low.bh_concept_extra_id = cce_low.bh_concept_extra_id AND cce_low.ad_client_id = ed.ad_client_id
+							ON ce_low.bh_concept_extra_id = cce_low.bh_concept_extra_id AND cce_low.ad_client_id = ed.ad_client_id
 						LEFT JOIN bh_concept_extra ce_high
-						ON c.bh_concept_id = ce_high.bh_concept_id AND ce_high.bh_key = 'hi_normal'
+							ON c.bh_concept_id = ce_high.bh_concept_id AND ce_high.bh_key = 'hi_normal'
 						LEFT JOIN bh_client_concept_extra cce_high
-						ON ce_high.bh_concept_extra_id = cce_high.bh_concept_extra_id AND cce_high.ad_client_id = ed.ad_client_id
+							ON ce_high.bh_concept_extra_id = cce_high.bh_concept_extra_id AND cce_high.ad_client_id = ed.ad_client_id
+						LEFT JOIN LATERAL (SELECT
+							                   cm.to_bh_concept_id                                                              AS bh_concept_id,
+							                   COALESCE(cm_cce_low.bh_client_concept_extra_id,
+							                            cm_ce_low.bh_concept_extra_id)                                          AS mapped_low_extra_id,
+							                   CASE
+								                   WHEN cm_cce_low.bh_client_concept_extra_id IS NOT NULL THEN cm_cce_low.bh_value
+								                   ELSE cm_ce_low.bh_value END                                                    AS mapped_low,
+							                   COALESCE(cm_cce_high.bh_client_concept_extra_id,
+							                            cm_ce_high.bh_concept_extra_id)                                         AS mapped_high_extra_id,
+							                   CASE
+								                   WHEN cm_cce_high.bh_client_concept_extra_id IS NOT NULL THEN cm_cce_high.bh_value
+								                   ELSE cm_ce_high.bh_value END                                                   AS mapped_high
+						                   FROM
+							                   bh_concept_mapping cm
+								                   JOIN bh_concept_extra ce
+									                   ON cm.bh_concept_mapping_id = ce.bh_concept_mapping_id AND
+									                      ce.bh_key IN ('low_normal', 'high_normal')
+								                   LEFT JOIN bh_concept_extra cm_ce_low
+									                   ON cm.bh_concept_mapping_id = cm_ce_low.bh_concept_mapping_id AND
+									                      cm_ce_low.bh_key = 'low_normal'
+								                   LEFT JOIN bh_client_concept_extra cm_cce_low
+									                   ON cm_ce_low.bh_concept_extra_id = cm_cce_low.bh_concept_extra_id AND
+									                      cm_cce_low.ad_client_id = ed.ad_client_id
+								                   LEFT JOIN bh_concept_extra cm_ce_high
+									                   ON cm.bh_concept_mapping_id = cm_ce_high.bh_concept_mapping_id AND
+									                      cm_ce_high.bh_key = 'hi_normal'
+								                   LEFT JOIN bh_client_concept_extra cm_cce_high
+									                   ON cm_ce_high.bh_concept_extra_id = cm_cce_high.bh_concept_extra_id AND
+									                      cm_cce_high.ad_client_id = ed.ad_client_id
+						                   WHERE
+							                   cm.to_bh_concept_id = c.bh_concept_id) cm_e_values
+							ON c.bh_concept_id = cm_e_values.bh_concept_id
 				WHERE
 					ed.group1 = $P{Group1}
 					AND ed.bh_value IS NOT NULL
 			) t
 	) AS test_ref_range
-		ON test_ref_range.bh_concept_id = test.bh_concept_id
+			ON test_ref_range.bh_concept_id = test.bh_concept_id
 WHERE
 	group1 = $P{Group1}
 	AND ed.bh_value IS NOT NULL

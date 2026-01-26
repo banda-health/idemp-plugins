@@ -1,12 +1,16 @@
 package org.bandahealth.idempiere.graphql.resolver.mutation;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
-import com.auth0.jwt.algorithms.Algorithm;
-import graphql.kickstart.servlet.context.GraphQLServletContext;
-import graphql.kickstart.tools.GraphQLMutationResolver;
-import graphql.schema.DataFetchingEnvironment;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.util.LogAuthFailure;
 import org.bandahealth.idempiere.base.config.Transaction;
 import org.bandahealth.idempiere.base.model.MBHWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MClient_BH;
@@ -40,13 +44,13 @@ import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
 
-import javax.servlet.http.Cookie;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-import java.util.stream.Collectors;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.algorithms.Algorithm;
+
+import graphql.kickstart.servlet.context.GraphQLServletContext;
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
 
 /**
  * Handle all mutations relating to authentication
@@ -54,6 +58,8 @@ import java.util.stream.Collectors;
 public class AuthenticationMutation implements GraphQLMutationResolver {
 
 	private static final CLogger log = CLogger.getCLogger(AuthenticationMutation.class);
+	
+	private static final LogAuthFailure logAuthFailure = new LogAuthFailure();
 
 	/**
 	 * The sign-in method to authentication a user
@@ -68,16 +74,25 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		// retrieve list of clients the user has access to.
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
 		if (clients == null || clients.length == 0) {
+			String remoteIp = getRemoteIp(environment);
+			logAuthFailure(login, remoteIp, credentials.getUsername(), idempiereContext,
+					"Invalid credentials - no clients found", environment);
 			throw new AdempiereException("Unauthorized");
 		}
 		PO.setCrossTenantSafe();
 		MUser user = MUser.get(idempiereContext, credentials.getUsername(), credentials.getPassword());
 		PO.clearCrossTenantSafe();
 		if (user == null) {
+			String remoteIp = getRemoteIp(environment);
+			logAuthFailure(login, remoteIp, credentials.getUsername(), idempiereContext,
+					"Invalid credentials - user not found", environment);
 			throw new AdempiereException("Unauthorized");
 		}
 
 		if (user.isLocked()) {
+			String remoteIp = getRemoteIp(environment);
+			logAuthFailure(login, remoteIp, credentials.getUsername(), idempiereContext,
+					"Account locked - userId=" + user.getAD_User_ID(), environment);
 			throw new AdempiereException("Forbidden");
 		}
 
@@ -135,6 +150,9 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		// If we're here and they don't have access to clients, it means the
 		// username/password combo incorrect
 		if (clients == null || clients.length == 0) {
+			String remoteIp = getRemoteIp(environment);
+			logAuthFailure(login, remoteIp, changePasswordInput.getUsername(), idempiereContext,
+					"Wrong credentials during password change", environment);
 			throw new AdempiereException(Msg.getMsg(idempiereContext, MMessage_BH.WRONG_CREDENTIALS));
 		}
 
@@ -404,5 +422,55 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		}
 
 		return false;
+	}
+	
+	/**
+	 * Logs authentication failures to AuthFailure.log
+	 *
+	 * @param remoteIp The remote IP address (including forwarded IP if available)
+	 * @param username The username that failed authentication
+	 * @param context The iDempiere context
+	 * @param errorMessage The error message describing the failure
+	 * @param environment The GraphQL environment to get additional context
+	 */
+	private void logAuthFailure(Login login, String remoteIp, String username, Properties context, String errorMessage,
+			DataFetchingEnvironment environment) {
+		String loginErrMsg = login.getLoginErrMsg();
+		if (Util.isEmpty(loginErrMsg)) {
+			loginErrMsg = Msg.getMsg(context,"FailedLogin", true);
+		}
+
+		logAuthFailure.log(getRemoteIp(environment), "/graphql", username, loginErrMsg);
+	}
+
+	/**
+	 * Gets the remote IP address, checking for forwarded headers
+	 *
+	 * @param environment The GraphQL environment
+	 * @return The remote IP address
+	 */
+	private String getRemoteIp(DataFetchingEnvironment environment) {
+		try {
+			BandaGraphQLContext bandaContext = (BandaGraphQLContext) environment.getContext();
+			HttpServletRequest request = bandaContext.getHttpServletRequest();
+
+			// Check for forwarded IP headers
+			String forwardedFor = request.getHeader("X-Forwarded-For");
+			if (forwardedFor != null && !forwardedFor.trim().isEmpty()) {
+				// X-Forwarded-For can contain multiple IPs, take the first one
+				return forwardedFor.split(",")[0].trim();
+			}
+
+			String realIp = request.getHeader("X-Real-IP");
+			if (realIp != null && !realIp.trim().isEmpty()) {
+				return realIp.trim();
+			}
+
+			// Fall back to getRemoteAddr()
+			return request.getRemoteAddr();
+		} catch (Exception e) {
+			log.warning("Could not get remote IP: " + e.getMessage());
+			return "unknown";
+		}
 	}
 }

@@ -224,8 +224,10 @@ query AD_UserGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 					}
 				}
 			}
-			Name
+			DateLastLogin
+			FailedLoginCount
 			IsActive
+			Name
 		}
 	}
 }
@@ -858,3 +860,15 @@ query VendorPaymentTrailGet($Page: Int, $Size: Int, $Sort: String, $Filter: Stri
 		}
 	}
 }
+
+query AD_SysConfigGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_SysConfigGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			IsActive
+			Name
+			UU
+			Value
+		}
+	}
+}
+
