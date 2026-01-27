@@ -58,7 +58,7 @@ HAVING
 DROP TABLE IF EXISTS tmp_c_invoice_otc;
 CREATE TEMP TABLE tmp_c_invoice_otc
 (
-	c_invoice_id           numeric(10),
+	c_invoice_id           serial                           NOT NULL,
 	ad_client_id           numeric(10)                      NOT NULL,
 	ad_org_id              numeric(10)                      NOT NULL,
 	createdby              numeric(10)  DEFAULT 100         NOT NULL,
@@ -132,7 +132,7 @@ FROM
 INSERT INTO
 	tmp_c_invoice_otc (ad_client_id, ad_org_id, documentno, c_doctype_id, c_doctypetarget_id, c_order_id,
 	                   salesrep_id, dateinvoiced, dateacct, c_bpartner_id, c_bpartner_location_id, dateordered, c_currency_id,
-	                   c_paymentterm_id, totallines, grandtotal, m_pricelist_id, processedon, bh_visit_id, c_invoice_id)
+	                   c_paymentterm_id, totallines, grandtotal, m_pricelist_id, processedon, bh_visit_id)
 SELECT
 	mp.ad_client_id,
 	mp.ad_org_id,
@@ -152,8 +152,7 @@ SELECT
 	mp.grandtotal,
 	o.m_pricelist_id,
 	EXTRACT(EPOCH FROM mp.dateordered) * 1000,
-	mp.bh_visit_id,
-	(SELECT MAX(c_invoice_id)+1 FROM c_invoice)
+	mp.bh_visit_id
 FROM
 	tmp_missing_otc_payments mp
 		JOIN c_order o
@@ -235,7 +234,7 @@ WHERE
 DROP TABLE IF EXISTS tmp_c_invoiceline_otc;
 CREATE TEMP TABLE tmp_c_invoiceline_otc
 (
-	c_invoiceline_id          numeric(10),
+	c_invoiceline_id          serial                          NOT NULL,
 	ad_client_id              numeric(10)                     NOT NULL,
 	ad_org_id                 numeric(10)                     NOT NULL,
 	isactive                  char        DEFAULT 'Y'::bpchar NOT NULL,
@@ -244,11 +243,11 @@ CREATE TEMP TABLE tmp_c_invoiceline_otc
 -- 	updated                   timestamp   DEFAULT NOW()       NOT NULL,
 	updatedby                 numeric(10) DEFAULT 100         NOT NULL,
 	c_invoice_id              numeric(10)                     NOT NULL,
-	c_orderline_id            numeric(10)                     NOT NULL,
+	c_orderline_id            numeric(10),
 	m_inoutline_id            numeric(10),
 	line                      numeric(10)                     NOT NULL,
 	description               varchar(255) DEFAULT 'OTC Patient Invoice line - Auto Generated',
-	m_product_id              numeric(10)                     NOT NULL,
+	m_product_id              numeric(10),
 	qtyinvoiced               numeric                         NOT NULL,
 	pricelist                 numeric                         NOT NULL,
 	priceactual               numeric                         NOT NULL,
@@ -333,7 +332,7 @@ WHERE
 INSERT INTO
 	tmp_c_invoiceline_otc (ad_client_id, ad_org_id, c_invoice_id, c_orderline_id, m_inoutline_id, line, m_product_id,
 	                       qtyinvoiced, pricelist, priceactual, pricelimit, linenetamt, c_uom_id, c_tax_id,
-	                       m_attributesetinstance_id, linetotalamt, qtyentered, priceentered, c_invoiceline_id,
+	                       m_attributesetinstance_id, linetotalamt, qtyentered, priceentered,
 	                       description, isactive, createdby, updatedby, processed, c_invoiceline_uu, isfixedassetinvoice)
 SELECT
 	ti.ad_client_id,
@@ -354,7 +353,6 @@ SELECT
 	ol.linenetamt,
 	ol.qtyentered,
 	ol.priceentered,
-	(SELECT COALESCE(MAX(c_invoiceline_id), 0) + 1 FROM c_invoiceline),
 	'OTC Patient Invoice line - Auto Generated',
 	'Y',
 	100,
@@ -460,20 +458,21 @@ SELECT
 
 INSERT INTO
 	tmp_c_payment_otc (ad_client_id, ad_org_id, documentno, datetrx, dateacct, c_doctype_id, c_bankaccount_id,
-	                   c_bpartner_id, c_invoice_id, c_currency_id, payamt, processedon, bh_tender_amount, tendertype, bh_visit_id)
+	                   c_bpartner_id, c_invoice_id, c_currency_id, payamt, processedon, bh_tender_amount, tendertype,
+	                   bh_visit_id)
 SELECT
-	i.ad_client_id,
-	i.ad_org_id,
+	ti.ad_client_id,
+	ti.ad_org_id,
 	seq.currentnext - 1, -- We'll put the correct one when do a row numbering partitioned by ad_client_id below
-	i.dateinvoiced,
-	i.dateacct,
+	COALESCE(ti.dateinvoiced, i.dateinvoiced)   AS datetrx,
+	COALESCE(ti.dateacct, i.dateacct)           AS dateacct,
 	dt.c_doctype_id,
 	ba.c_bankaccount_id,
-	i.c_bpartner_id,
-	COALESCE(ti.c_invoice_id, i.c_invoice_id) AS c_invoice_id,
-	i.c_currency_id,
+	COALESCE(i.c_bpartner_id, ti.c_bpartner_id) AS c_bpartner_id,
+	COALESCE(ti.c_invoice_id, i.c_invoice_id)   AS c_invoice_id,
+	COALESCE(ti.c_currency_id, i.c_currency_id) AS c_currency_id,
 	p.grandtotal,
-	EXTRACT(EPOCH FROM i.dateinvoiced) * 1000,
+	EXTRACT(EPOCH FROM COALESCE(ti.dateinvoiced, i.dateinvoiced)) * 1000,
 	p.grandtotal,
 	p.tendertype,
 	p.bh_visit_id
@@ -490,7 +489,7 @@ FROM
 		JOIN c_order c
 			ON ti.c_order_id = c.c_order_id
 		LEFT JOIN c_invoice i
-			ON p.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL');
+			ON p.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO', 'CL')
 
 -- Update the document numbers
 UPDATE tmp_c_payment_otc tp
