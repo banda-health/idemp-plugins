@@ -258,7 +258,7 @@ SELECT
 	pc.name,
 	pc.c_elementvalue_value
 FROM
-	ad_org o
+	ad_client c
 		CROSS JOIN (
 		VALUES
 			('Pediatric', 'Pediatric Services', '41217'),
@@ -266,7 +266,7 @@ FROM
 			('Therapy', 'Therapy Services', '41219')
 	) pc (value, name, c_elementvalue_value)
 WHERE
-	o.ad_client_id > 999999;
+	c.ad_client_id > 999999;
 
 -- Insert the product categories
 INSERT INTO
