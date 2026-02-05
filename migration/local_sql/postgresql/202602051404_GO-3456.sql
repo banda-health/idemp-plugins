@@ -30,10 +30,6 @@ WHERE
 	o.docstatus IN ('CO', 'CL')
 	AND i.c_invoice_id IS NULL;
 
-SELECT *
-FROM
-	tmp_otc_visits_without_invoices;
-
 /**********************************************************************************************************/
 -- Step 2: Create invoices
 /**********************************************************************************************************/
@@ -125,9 +121,6 @@ FROM
 		JOIN c_paymentterm pt
 			ON pt.ad_client_id = ov.ad_client_id AND pt.value = 'Immediate';
 
-SELECT *
-FROM
-	tmp_c_invoice;
 
 -- Update document numbers with row numbering partitioned by client
 UPDATE tmp_c_invoice i
