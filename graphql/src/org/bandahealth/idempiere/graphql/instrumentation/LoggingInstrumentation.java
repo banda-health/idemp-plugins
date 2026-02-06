@@ -52,7 +52,8 @@ public class LoggingInstrumentation extends SimpleInstrumentation {
 					logMessage += ", userId: " + Env.getAD_User_ID(idempiereContext) + ", clientId: " +
 							Env.getAD_Client_ID(idempiereContext) + ", organizationId: " + Env.getAD_Org_ID(idempiereContext) +
 							", roleId: " + Env.getAD_Role_ID(idempiereContext) + ", warehouseId: " +
-							Env.getContextAsInt(idempiereContext, Env.M_WAREHOUSE_ID);
+							Env.getContextAsInt(idempiereContext, Env.M_WAREHOUSE_ID) + ", sessionId: " +
+							Env.getContextAsInt(idempiereContext, Env.AD_SESSION_ID);
 				} catch (Exception e) {
 					logger.warning(e.getMessage());
 				}
