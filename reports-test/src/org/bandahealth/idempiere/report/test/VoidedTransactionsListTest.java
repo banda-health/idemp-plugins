@@ -40,6 +40,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
@@ -381,7 +382,8 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 	}
 
 	@IPopulateAnnotation.CanRun
-	public void voidedVisitsWithoutPaymentsAppearCorrectlyOnTheReport() throws SQLException, IOException, ParseException {
+	public void voidedVisitsWithoutPaymentsAppearCorrectlyOnTheReport() throws SQLException, IOException,
+			ParseException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
@@ -467,7 +469,8 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 	}
 
 	@IPopulateAnnotation.CanRun
-	public void visitVoidedByADifferentUserAppearsCorrectlyOnTheReport() throws SQLException, IOException, ParseException {
+	public void visitVoidedByADifferentUserAppearsCorrectlyOnTheReport()
+			throws SQLException, IOException, ParseException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
@@ -525,64 +528,68 @@ public class VoidedTransactionsListTest extends ChuBoePopulateFactoryVO {
 						.setParameters(currentUser.get_ID(), valueObject.getClient().get_ID())
 						.setOnlyActiveRecords(true)
 						.first();
-		assertTrue(differentUser != null, "A different user exists");
+		assertNotNull(differentUser, "A different user exists");
 		String differentUserName = differentUser.getName();
 
-		valueObject.setStepName("Change context to different user");
-		Env.setContext(valueObject.getContext(), Env.AD_USER_ID, differentUser.get_ID());
-		valueObject.setUser(differentUser);
+		try {
+			valueObject.setStepName("Change context to different user");
+			Env.setContext(valueObject.getContext(), Env.AD_USER_ID, differentUser.get_ID());
+			valueObject.setUser(differentUser);
 
-		PO.setCrossTenantSafe();
-		MBHVoidedReason voidedReason = new Query(valueObject.getContext(), MBHVoidedReason.Table_Name, null,
-				valueObject.getTransactionName()).setOnlyActiveRecords(true).first();
-		PO.clearCrossTenantSafe();
-		assertTrue(!voidedReason.getName().isEmpty() && !voidedReason.getName().isBlank(), "Voiding reason has a name");
+			PO.setCrossTenantSafe();
+			MBHVoidedReason voidedReason = new Query(valueObject.getContext(), MBHVoidedReason.Table_Name, null,
+					valueObject.getTransactionName()).setOnlyActiveRecords(true).first();
+			PO.clearCrossTenantSafe();
+			assertTrue(!voidedReason.getName().isEmpty() && !voidedReason.getName().isBlank(), "Voiding reason has a name");
 
-		valueObject.setStepName("Void visit");
-		valueObject.refresh();
-		valueObject.getVisit().setBH_Voided_Reason_ID(voidedReason.get_ID());
-		valueObject.getVisit().saveEx();
-		commitEx();
+			valueObject.setStepName("Void visit");
+			valueObject.refresh();
+			valueObject.getVisit().setBH_Voided_Reason_ID(voidedReason.get_ID());
+			valueObject.getVisit().saveEx();
+			commitEx();
 
-		valueObject.setStepName("Void order");
-		valueObject.refresh();
-		valueObject.getOrder().setBH_Voided_Reason_ID(voidedReason.get_ID());
-		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Void);
-		valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void);
-		valueObject.getOrder().saveEx();
-		commitEx();
+			valueObject.setStepName("Void order");
+			valueObject.refresh();
+			valueObject.getOrder().setBH_Voided_Reason_ID(voidedReason.get_ID());
+			valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Void);
+			valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void);
+			valueObject.getOrder().saveEx();
+			commitEx();
 
-		valueObject.setStepName("Reverse payment");
-		valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
-		assertTrue(valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Reverse_Accrual), "Payment was reversed");
-		valueObject.getPayment().saveEx();
-		commitEx();
+			valueObject.setStepName("Reverse payment");
+			valueObject.getPayment().setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
+			assertTrue(valueObject.getPayment().processIt(MPayment_BH.DOCACTION_Reverse_Accrual), "Payment was reversed");
+			valueObject.getPayment().saveEx();
+			commitEx();
 
-		valueObject.setStepName("Generate the report");
-		valueObject.setProcessUuid("20a623fb-e127-4c26-98d5-3604a6d100b2");
-		valueObject.setProcessRecordId(0);
-		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
-				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
-		));
-		valueObject.setReportType("xlsx");
-		ChuBoeCreateEntity.runReport(valueObject);
+			valueObject.setStepName("Generate the report");
+			valueObject.setProcessUuid("20a623fb-e127-4c26-98d5-3604a6d100b2");
+			valueObject.setProcessRecordId(0);
+			valueObject.setProcessTableId(0);
+			valueObject.setProcessInformationParameters(Arrays.asList(
+					new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+					new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+			));
+			valueObject.setReportType("xlsx");
+			ChuBoeCreateEntity.runReport(valueObject);
 
-		FileInputStream file = new FileInputStream(valueObject.getReport());
-		try (Workbook workbook = new XSSFWorkbook(file)) {
-			Sheet sheet = workbook.getSheetAt(0);
-			String businessPartnerName = valueObject.getBusinessPartner().getName();
-			Optional<Row> patientRow =
-					StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(1) != null &&
-									row.getCell(1).getStringCellValue().contains(businessPartnerName))
-							.findFirst();
+			FileInputStream file = new FileInputStream(valueObject.getReport());
+			try (Workbook workbook = new XSSFWorkbook(file)) {
+				Sheet sheet = workbook.getSheetAt(0);
+				String businessPartnerName = valueObject.getBusinessPartner().getName();
+				Optional<Row> patientRow =
+						StreamSupport.stream(sheet.spliterator(), false).filter(row -> row.getCell(1) != null &&
+										row.getCell(1).getStringCellValue().contains(businessPartnerName))
+								.findFirst();
 
-			assertTrue(patientRow.isPresent(), "Voided record exists");
-			assertEquals(differentUserName, patientRow.get().getCell(3).getStringCellValue(),
-					"Voided by different user name appears correctly");
-			assertThat("Voided reason is present", patientRow.get().getCell(4).getStringCellValue(),
-					containsStringIgnoringCase(voidedReason.getName()));
+				assertTrue(patientRow.isPresent(), "Voided record exists");
+				assertEquals(differentUserName, patientRow.get().getCell(3).getStringCellValue(),
+						"Voided by different user name appears correctly");
+				assertThat("Voided reason is present", patientRow.get().getCell(4).getStringCellValue(),
+						containsStringIgnoringCase(voidedReason.getName()));
+			}
+		} finally {
+			Env.setContext(valueObject.getContext(), Env.AD_USER_ID, currentUser.get_ID());
 		}
 	}
 }
