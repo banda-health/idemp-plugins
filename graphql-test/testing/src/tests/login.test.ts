@@ -97,7 +97,7 @@ test('verify system configuration for login security settings', async () => {
 	).data.AD_SysConfigGet.Results[0];
 
 	expect(maxLoginAttemptConfig).toBeTruthy();
-	expect(maxLoginAttemptConfig.Value).toBe('3');
+	expect(maxLoginAttemptConfig.Value).toBe('5');
 
 	// Test that USER_LOCKING_MAX_INACTIVE_PERIOD_DAY is set to 30
 	const maxInactivePeriodConfig = (
