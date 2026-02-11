@@ -101,6 +101,7 @@ fragment C_BPartnerFields on C_BPartner {
 			Address1
 		}
 	}
+	
 	Description
 	UU
 	IsCustomer
@@ -115,6 +116,10 @@ fragment C_BPartnerFields on C_BPartner {
 	NextOfKin_Name
 	PO_PriceList {
 		UU
+	}
+	SOCreditStatus {
+		UU
+		Value
 	}
 	TotalOpenBalance
 	TotalVisits
