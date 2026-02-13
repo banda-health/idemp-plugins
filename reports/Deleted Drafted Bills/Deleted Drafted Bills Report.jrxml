@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 6.21.5  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Deleted Drafted Bills report" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="0b72be3f-d755-462a-8a67-0282dc90d574">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
@@ -70,26 +70,24 @@ FROM
 		CROSS JOIN table_ids
 		CROSS JOIN column_ids
 		JOIN ad_changelog cl
-		ON cl.createdby = u.ad_user_id AND cl.ad_client_id = $P{AD_CLIENT_ID} AND cl.ad_table_id = table_ids.visit AND
-		   cl.ad_column_id = column_ids.visit_visit_id AND cl.newvalue = 'NULL' AND
-		   cl.created BETWEEN $P{Begin Date} AND $P{End Date}
+			ON cl.ad_column_id = column_ids.visit_visit_id AND cl.createdby = u.ad_user_id AND
+			   cl.ad_client_id = $P{AD_CLIENT_ID} AND cl.newvalue = 'NULL' AND cl.created BETWEEN $P{Begin Date} AND $P{End Date}
 		JOIN ad_changelog cl_bp
-		ON cl.record_id = cl_bp.record_id AND
-		   cl_bp.ad_table_id = table_ids.visit AND
-		   cl_bp.ad_column_id = column_ids.patient_id AND
-		   cl_bp.newvalue = 'NULL'
+			ON cl_bp.ad_table_id = table_ids.visit AND
+			   cl.record_id = cl_bp.record_id AND
+			   cl_bp.ad_column_id = column_ids.patient_id AND
+			   cl_bp.newvalue = 'NULL'
 		JOIN c_bpartner bp
-		ON cl_bp.oldvalue::numeric = bp.c_bpartner_id
+			ON cl_bp.oldvalue::numeric = bp.c_bpartner_id
 		LEFT JOIN ad_changelog cl_o
-		ON cl_o.ad_table_id = 259 AND
-		   cl_o.ad_column_id = column_ids.order_visit_id AND
-		   cl_o.oldvalue = cl.oldvalue AND
-		   cl_o.newvalue = 'NULL'
+			ON cl_o.ad_column_id = column_ids.order_visit_id AND
+			   cl_o.oldvalue = cl.oldvalue AND
+			   cl_o.newvalue = 'NULL'
 		LEFT JOIN ad_changelog cl_gt
-		ON cl_o.record_id = cl_gt.record_id AND
-		   cl_gt.ad_table_id = 259 AND
-		   cl_gt.ad_column_id = column_ids.grandtotal AND
-		   cl_gt.newvalue = 'NULL'
+			ON cl_gt.ad_table_id = 259 AND
+			   cl_o.record_id = cl_gt.record_id AND
+			   cl_gt.ad_column_id = column_ids.grandtotal AND
+			   cl_gt.newvalue = 'NULL'
 ORDER BY
 	cl.created DESC;]]>
 	</queryString>

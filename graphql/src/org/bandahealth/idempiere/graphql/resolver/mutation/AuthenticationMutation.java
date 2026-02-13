@@ -1,14 +1,11 @@
 package org.bandahealth.idempiere.graphql.resolver.mutation;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.algorithms.Algorithm;
+import graphql.kickstart.servlet.context.GraphQLServletContext;
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.util.LogAuthFailure;
 import org.bandahealth.idempiere.base.config.Transaction;
@@ -44,13 +41,13 @@ import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
-import com.auth0.jwt.algorithms.Algorithm;
-
-import graphql.kickstart.servlet.context.GraphQLServletContext;
-import graphql.kickstart.tools.GraphQLMutationResolver;
-import graphql.schema.DataFetchingEnvironment;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Handle all mutations relating to authentication
@@ -58,7 +55,7 @@ import graphql.schema.DataFetchingEnvironment;
 public class AuthenticationMutation implements GraphQLMutationResolver {
 
 	private static final CLogger log = CLogger.getCLogger(AuthenticationMutation.class);
-	
+
 	private static final LogAuthFailure logAuthFailure = new LogAuthFailure();
 
 	/**
@@ -423,21 +420,21 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 
 		return false;
 	}
-	
+
 	/**
 	 * Logs authentication failures to AuthFailure.log
 	 *
-	 * @param remoteIp The remote IP address (including forwarded IP if available)
-	 * @param username The username that failed authentication
-	 * @param context The iDempiere context
+	 * @param remoteIp     The remote IP address (including forwarded IP if available)
+	 * @param username     The username that failed authentication
+	 * @param context      The iDempiere context
 	 * @param errorMessage The error message describing the failure
-	 * @param environment The GraphQL environment to get additional context
+	 * @param environment  The GraphQL environment to get additional context
 	 */
 	private void logAuthFailure(Login login, String remoteIp, String username, Properties context, String errorMessage,
 			DataFetchingEnvironment environment) {
 		String loginErrMsg = login.getLoginErrMsg();
 		if (Util.isEmpty(loginErrMsg)) {
-			loginErrMsg = Msg.getMsg(context,"FailedLogin", true);
+			loginErrMsg = Msg.getMsg(context, "FailedLogin", true);
 		}
 
 		logAuthFailure.log(getRemoteIp(environment), "/graphql", username, loginErrMsg);
