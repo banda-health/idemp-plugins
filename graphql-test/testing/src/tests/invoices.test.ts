@@ -1,5 +1,10 @@
 import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentStatus, documentSubTypeSalesOrder } from '../models';
+import {
+	documentAction,
+	documentBaseType,
+	documentStatus,
+	documentSubTypeSalesOrder,
+} from '../models';
 import {
 	createBusinessPartner,
 	createCharge,
@@ -7,12 +12,15 @@ import {
 	createOrder,
 	createPayment,
 	createProduct,
+	createVisit,
 	formatApiDate,
 } from '../utils';
 import {
 	C_BPartnerGetDocument,
+	C_BPartnerSaveDocument,
 	C_InvoiceDeleteDocument,
 	C_InvoiceGetDocument,
+	C_InvoiceProcessDocument,
 	C_OrderGetDocument,
 	C_OrderProcessDocument,
 	C_OrderSaveWithOrderLinesDocument,
@@ -349,4 +357,63 @@ test('price is not automatically set when pricelist property is sent on invoice 
 	// Verify that the price was NOT set automatically when pricelist is specified
 	expect(valueObject.orderLine!.PriceEntered).toBe(0);
 	expect(savedInvoiceData!.C_InvoiceLineSave!.PriceEntered).toBe(0);
+});
+
+test('completing an invoice returns @InvoiceTotalExceedsPayments@ when business partner is not allowed credit', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	// Set credit status to credit stop so BP is not allowed credit
+	await mutate(valueObject)({
+		mutation: C_BPartnerSaveDocument,
+		variables: {
+			Entity: {
+				UU: valueObject.businessPartner!.UU,
+				SOCreditStatus: { UU: 'ebd6f716-efbe-4a4f-9d3a-e3848f4a3b75' },
+			},
+		},
+	});
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice (draft)';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	// Complete invoice: should fail with @InvoiceTotalExceedsPayments@ because BP is in credit stop and payments < grand total
+	let error: Error | undefined;
+	try {
+		await mutate(valueObject)({
+			mutation: C_InvoiceProcessDocument,
+			variables: {
+				UU: valueObject.invoice!.UU,
+				DocumentAction: documentAction.Complete,
+			},
+		});
+	} catch (e) {
+		error = e as Error;
+	}
+
+	expect(error).toBeDefined();
+	expect(error!.message).toContain('@InvoiceTotalExceedsPayments@');
 });
