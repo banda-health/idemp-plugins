@@ -11,7 +11,8 @@ SELECT
 	v.ad_client_id,
 	v.ad_org_id,
 	v.patient_id                AS c_bpartner_id,
-	v.dateacct,
+	i.dateacct,
+	i.c_order_id,
 	ROUND(SUM(i.grandtotal), 2) AS total_invoiced,
 	ROUND(SUM(p.payamt), 2)     AS total_paid,
 	-- Calculate actual unallocated amount on invoices
@@ -52,7 +53,8 @@ GROUP BY
 	v.ad_client_id,
 	v.ad_org_id,
 	v.patient_id,
-	v.dateacct
+	i.dateacct,
+	i.c_order_id
 HAVING
 	-- Only include visits where invoices have remaining balance
 	ROUND(SUM(
@@ -126,7 +128,7 @@ SELECT
 
 INSERT INTO
 	tmp_c_payment (ad_client_id, ad_org_id, bh_visit_id, documentno, datetrx, dateacct, c_doctype_id, c_bankaccount_id,
-	               c_bpartner_id, c_invoice_id, c_currency_id, payamt, description)
+	               c_bpartner_id, c_invoice_id, c_currency_id, payamt, description, bh_tender_amount)
 SELECT
 	tvs.ad_client_id,
 	tvs.ad_org_id,
@@ -140,7 +142,8 @@ SELECT
 	tvs.c_invoice_id,
 	tvs.c_currency_id,
 	tvs.actual_shortfall,
-	'Waived payment for invoice shortfall'
+	'Waived payment for invoice shortfall',
+	tvs.actual_shortfall
 FROM
 	tmp_visits_with_shortfalls tvs
 		JOIN bh_visit v
@@ -148,7 +151,6 @@ FROM
 		JOIN c_doctype dt
 			ON tvs.ad_client_id = dt.ad_client_id
 		AND dt.docbasetype = 'ARR'
-		AND dt.name = 'Customer Payment Waived'
 		JOIN ad_sequence seq
 			ON tvs.ad_client_id = seq.ad_client_id
 		AND seq.name = 'DocumentNo_C_Payment'
@@ -332,6 +334,7 @@ CREATE TEMP TABLE tmp_c_allocationline
 	updatedby           numeric(10) DEFAULT 100 NOT NULL,
 	c_invoice_id        numeric(10)             NOT NULL,
 	c_bpartner_id       numeric(10)             NOT NULL,
+	c_order_id          numeric(10)             NOT NULL,
 	c_payment_id        numeric(10)             NOT NULL,
 	amount              numeric                 NOT NULL,
 	discountamt         numeric     DEFAULT 0   NOT NULL,
@@ -355,12 +358,14 @@ SELECT
 
 -- Allocate new waived payments to invoices (covering the shortfall)
 INSERT INTO
-	tmp_c_allocationline (ad_client_id, ad_org_id, c_invoice_id, c_bpartner_id, c_payment_id, amount, c_allocationhdr_id)
+	tmp_c_allocationline (ad_client_id, ad_org_id, c_invoice_id, c_bpartner_id, c_order_id, c_payment_id, amount,
+	                      c_allocationhdr_id)
 SELECT
 	tp.ad_client_id,
 	tp.ad_org_id,
 	i.c_invoice_id,
 	tp.c_bpartner_id,
+	i.c_order_id,
 	tp.c_payment_id,
 	-- Calculate remaining unallocated amount for this invoice
 	LEAST(
@@ -429,6 +434,7 @@ WHERE
 -- Insert allocation lines
 INSERT INTO
 	c_allocationline (c_allocationline_id, ad_client_id, ad_org_id, createdby, updatedby, c_invoice_id, c_bpartner_id,
+	                  c_order_id,
 	                  c_payment_id, amount, discountamt, writeoffamt, overunderamt, c_allocationhdr_id,
 	                  c_allocationline_uu)
 SELECT
@@ -439,6 +445,7 @@ SELECT
 	updatedby,
 	c_invoice_id,
 	c_bpartner_id,
+	c_order_id,
 	c_payment_id,
 	amount,
 	discountamt,
@@ -506,7 +513,7 @@ WHERE
 -- Step 7: Update AllocatedAmt on invoices
 UPDATE c_invoice
 SET
-	allocatedamt = (
+	grandtotal = (
 		SELECT
 			COALESCE(SUM(al.amount), 0)
 		FROM
@@ -517,8 +524,8 @@ SET
 			al.c_invoice_id = c_invoice.c_invoice_id
 			AND ah.docstatus IN ('CO', 'CL')
 	),
-	updated      = NOW(),
-	updatedby    = 100
+	updated    = NOW(),
+	updatedby  = 100
 WHERE
 	c_invoice_id IN (
 		SELECT DISTINCT
@@ -556,14 +563,13 @@ WHERE
 			tmp_c_allocationhdr
 	);
 
--- Step 9: cleanup temporary tables
 DROP TABLE tmp_visits_with_shortfalls;
 DROP TABLE tmp_c_payment;
 DROP TABLE tmp_c_allocationhdr;
 DROP TABLE tmp_c_allocationline;
 
-
 SELECT
 	register_migration_script('202602051707_GO-3456.sql')
 FROM
 	dual;
+	
