@@ -12,6 +12,8 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -34,12 +36,22 @@ public class LoggingInstrumentation extends SimpleInstrumentation {
 					return;
 				}
 				String logMessage = StringUtil.stripNewLines(parameters.getQuery());
-				// Skip logging information for sign-ins
-				if (!parameters.getVariables().isEmpty() && !parameters.getQuery().contains("AuthenticationInput")) {
+				// Log the variable if any are sent
+				if (!parameters.getVariables().isEmpty()) {
 					String variablesString;
 					try {
 						ObjectMapper mapper = new ObjectMapper();
 						variablesString = mapper.writeValueAsString(parameters.getVariables());
+						// Mask the password for sign-ins
+						if (parameters.getQuery().contains("AuthenticationInput")) {
+							// Replace any value of the "Password" field with "***" in the JSON string, including embedded contexts
+							// This regex will handle escaped double quotes (\") by not stopping the match on an escaped quote sequence.
+							// It matches "Password": "...." where ... may contain any character except unescaped double quotes.
+							variablesString = variablesString.replaceAll(
+									"(\"Password\"\\s*:\\s*\")((?:[^\"\\\\]|\\\\.)*)(\")",
+									"$1***$3"
+							);
+						}
 					} catch (JsonProcessingException e) {
 						variablesString = parameters.getVariables().entrySet().stream()
 								.map((entry) -> entry.getKey() + ": " + entry.getValue().toString()).collect(Collectors.joining(", "));
