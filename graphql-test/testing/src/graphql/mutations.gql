@@ -641,6 +641,12 @@ mutation C_InvoiceDelete($UUs: [String!]!) {
 	C_InvoiceDelete(UUs: $UUs)
 }
 
+mutation C_InvoiceSave($C_Invoice: C_InvoiceInput!) {
+	C_InvoiceSave(Entity: $C_Invoice) {
+		UU
+	}
+}
+
 mutation C_InvoiceSaveWithInvoiceLines($C_Invoice: C_InvoiceInput!, $C_InvoiceLine: C_InvoiceLineInput!) {
 	C_InvoiceSave(Entity: $C_Invoice) {
 		UU

@@ -436,6 +436,14 @@ query C_AcctSchemaGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	}
 }
 
+query C_AllocationLineGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_AllocationLineGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
 query C_BankAccountGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	C_BankAccountGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
@@ -818,6 +826,9 @@ query PaymentTrailGet($C_BPartner_UU: String!, $Page: Int, $Size: Int, $Sort: St
 	PaymentTrailGet(C_BPartner_UU: $C_BPartner_UU, Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			BH_Visit {
+				UU
+			}
+			C_Invoice {
 				UU
 			}
 			C_Payment {
