@@ -420,6 +420,17 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							") AS result"
 			);
 
+			addAssertionSQL(
+					"SELECT " +
+							"'Assert that there are no BPs with a payment rule for sales or purchase of cash' AS name, " +
+							"(" +
+							"	SELECT COUNT(*) = 0 " +
+							"	FROM c_bpartner " +
+							"	WHERE ad_client_id = " + client.get_ID() +
+							"		AND (paymentrule = 'B' OR  paymentrulepo = 'B')" +
+							") AS result"
+			);
+
 			// Confirm log levels correct
 			assertEquals(originalLogLevel, CLogMgt.getLevel(), "Log levels match after creating new client");
 		} finally {
