@@ -31,19 +31,19 @@ WHERE
 	AND ispaid = 'N';
 
 -- Update those invoices
--- UPDATE c_invoice
--- SET
--- 	updated      = NOW(),
--- 	updatedby    = 100,
--- 	ispaid       = 'Y',
--- 	c_payment_id = NULL
--- WHERE
--- 	c_invoice_id IN (
--- 		SELECT
--- 			c_invoice_id
--- 		FROM
--- 			tmp_c_invoices_to_fix
--- 	);
+UPDATE c_invoice
+SET
+	updated      = NOW(),
+	updatedby    = 100,
+	ispaid       = 'Y',
+	c_payment_id = NULL
+WHERE
+	c_invoice_id IN (
+		SELECT
+			c_invoice_id
+		FROM
+			tmp_c_invoices_to_fix
+	);
 
 -- Insert payment reversals
 DROP TABLE IF EXISTS tmp_c_payment;
@@ -356,9 +356,7 @@ FROM
 		JOIN c_allocationline al
 			ON ah.c_allocationhdr_id = al.c_allocationhdr_id
 		JOIN tmp_c_payment tp
-			ON al.c_payment_id = tp.reversal_id
-WHERE
-	ah.description ILIKE '%1004403%';
+			ON al.c_payment_id = tp.reversal_id;
 
 -- Now insert the headers for every single reversal payment
 INSERT INTO
