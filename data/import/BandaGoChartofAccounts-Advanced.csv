@@ -125,6 +125,9 @@
 41214,Service Revenue - Home Care Services,,Revenue,,,No,,412
 41215,Service Revenue - Inpatient,,Revenue,,,No,,412
 41216,Service Revenue - Follow up,,Revenue,,,No,,412
+41217,Service Revenue - Pediatric,,Revenue,,,No,,412																	
+41218,Service Revenue - Emergency,,Revenue,,,No,,412																	
+41219,Service Revenue - Therapy,,Revenue,,,No,,412	
 42,Non Patient Revenue,,Revenue,,,Yes,,4
 42100,Investment Incomes,,Revenue,,,No,,42
 42110,Investment income 1,,Revenue,,,No,,42

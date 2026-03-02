@@ -1566,15 +1566,8 @@ test('lab/radiology basic role has correct access', async () => {
 		documentStatusActionMap[documentBaseType.PurchaseOrder]?.[documentStatus.Completed]?.includes(documentAction.Void),
 	).toBe(false);
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.manageInventory)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.manageInventory]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
-	expect(
-		documentStatusActionMap[documentBaseType.MaterialPhysicalInventory]?.[documentStatus.Completed]?.some(
-			(availableDocumentAction) =>
-				availableDocumentAction === documentAction.ReverseAccrual ||
-				availableDocumentAction === documentAction.ReverseCorrect,
-		),
-	).toBe(false);
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.manageInventory)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.manageInventory]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.debtPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.debtPayments]).toBeUndefined();

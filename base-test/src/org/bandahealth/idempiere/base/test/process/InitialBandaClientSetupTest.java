@@ -406,6 +406,31 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 						pcd.cou;"""
 			);
 
+			// Assert the three new service categories are created: Pediatric, Emergency, and Therapy
+			addAssertionSQL(
+					"SELECT " +
+							"'Assert that Pediatric, Emergency, and Therapy service categories were created' AS name, " +
+							"(" +
+							"	SELECT COUNT(*) = 3 " +
+							"	FROM m_product_category " +
+							"	WHERE ad_client_id = " + client.get_ID() +
+							"		AND isactive = 'Y'" +
+							"		AND bh_product_category_type = 'S'" +
+							"		AND name IN ('Pediatric Services', 'Emergency Services', 'Therapy Services')" +
+							") AS result"
+			);
+
+			addAssertionSQL(
+					"SELECT " +
+							"'Assert that there are no BPs with a payment rule for sales or purchase of cash' AS name, " +
+							"(" +
+							"	SELECT COUNT(*) = 0 " +
+							"	FROM c_bpartner " +
+							"	WHERE ad_client_id = " + client.get_ID() +
+							"		AND (paymentrule = 'B' OR  paymentrulepo = 'B')" +
+							") AS result"
+			);
+
 			// Confirm log levels correct
 			assertEquals(originalLogLevel, CLogMgt.getLevel(), "Log levels match after creating new client");
 		} finally {

@@ -105,7 +105,8 @@ public class MPayment_BH extends MPayment {
 					new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Order_ID + " IN (" + whereClause + ")",
 							get_TrxName()).setParameters(parameters).list();
 			List<MInvoice_BH> unpaidInvoices = invoices.stream()
-					.filter(((Predicate<MInvoice_BH>) MInvoice_BH::isComplete).and(Predicate.not(MInvoice_BH::isPaid)))
+					.filter(invoice -> (DOCSTATUS_Completed.equals(invoice.getDocStatus()) ||
+							DOCSTATUS_Closed.equals(invoice.getDocStatus()) && !invoice.isPaid()))
 					.collect(Collectors.toList());
 			if (unpaidInvoices.isEmpty()) {
 				get_Logger().severe("Invoices aren't complete or are paid for all orders - can't allocate against them");
