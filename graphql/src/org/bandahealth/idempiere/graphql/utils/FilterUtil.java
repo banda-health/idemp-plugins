@@ -582,6 +582,11 @@ public class FilterUtil {
 							whereClause.append("SELECT ").append(idColumn).append(", ").append(aggregateFunction.replace("$", ""))
 									.append(" as ").append(aggregateColumnName).append(",ad_client_id");
 							whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
+							// Add the client check, if it's required
+							whereClause.append("ad_client_id IN (?,?)");
+							parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
+							parameters.add(MClient_BH.CLIENTID_SYSTEM);
+							whereClause.append(") AND (");
 							if (comparisonQuerySelectors.get(aggregateFunction) == null ||
 									((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
 								whereClause.append(DEFAULT_WHERE_CLAUSE);
@@ -596,16 +601,16 @@ public class FilterUtil {
 									whereClause.append(subWhereClause);
 								}
 							}
-							// Add the client check, if it's required
-							whereClause.append(") AND (ad_client_id IN (?,?)");
-							parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
-							parameters.add(MClient_BH.CLIENTID_SYSTEM);
 							// Append the group by clause, since it's an aggregate
 							whereClause.append(") GROUP BY ").append(idColumn).append(",ad_client_id");
 						}
 						whereClause.append(") ");
 					}
 					whereClause.append(foreignTableName).append(" WHERE (");
+					whereClause.append("ad_client_id IN (?,?)");
+					parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
+					parameters.add(MClient_BH.CLIENTID_SYSTEM);
+					whereClause.append(") AND (");
 					// Adjust the comparison string, if need be
 					Map<String, Object> adjustedComparisons = comparisonQuerySelectors;
 					if (remainingDBColumnName != null) {
@@ -625,9 +630,6 @@ public class FilterUtil {
 					} else {
 						whereClause.append(subWhereClause);
 					}
-					whereClause.append(") AND (ad_client_id IN (?,?)");
-					parameters.add(Env.getAD_Client_ID(tableData.getIdempiereContext()));
-					parameters.add(MClient_BH.CLIENTID_SYSTEM);
 					whereClause.append("))");
 				}
 			}

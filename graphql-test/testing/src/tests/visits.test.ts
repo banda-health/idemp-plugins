@@ -1,4 +1,5 @@
 import { randomUUID } from 'crypto';
+import { sortBy } from 'lodash';
 import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
 import { v4 } from 'uuid';
@@ -28,15 +29,18 @@ import {
 	Bh_VisitSaveWithOrdersAndInvoicesDocument,
 	Bh_VisitSaveWithOrdersInvoicesPayerInformationAndPaymentsDocument,
 	Bh_Voided_ReasonGetDocument,
+	C_AllocationLineGetDocument,
 	C_BPartnerGetDocument,
 	C_BPartnerSaveDocument,
 	C_Bp_GroupGetDocument,
 	C_InvoiceAndOrderLineDeleteDocument,
+	C_InvoiceSaveDocument,
 	C_OrderForSalesRepDocument,
 	C_OrderSaveDocument,
 	C_PaymentDeleteDocument,
 	C_PaymentSaveDocument,
 	C_PaymentSaveManyDocument,
+	PaymentTrailGetDocument,
 	ReportOutput,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
@@ -3530,7 +3534,7 @@ test('does not extend credit to patient', async () => {
 	});
 
 	valueObject.stepName = 'Complete visit again';
-	
+
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
 		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
@@ -3545,4 +3549,119 @@ test('does not extend credit to patient', async () => {
 			})
 		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
+});
+
+test(`payments aren't allocated against invoices that are reversed`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	await loadBankAccount(valueObject);
+	await createPayment(valueObject);
+
+	valueObject.stepName = 'Complete visit';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+	});
+
+	const firstInvoiceUU = valueObject.invoice!.UU;
+	expect(
+		(
+			await query(valueObject)({
+				query: C_BPartnerGetDocument,
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
+			})
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
+	).toBe(0);
+
+	valueObject.stepName = 'Reverse visit';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.ReActivate },
+	});
+
+	valueObject.visit = (
+		await query(valueObject)({
+			query: Bh_VisitGetDocument,
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
+		})
+	).data.BH_VisitGet.Results[0];
+
+	const reversedInvoices = sortBy(valueObject.visit!.C_Invoices || [], 'Created').filter((i) => i.DocStatus.Value === documentStatus.Reversed);
+	expect(reversedInvoices.length).toBe(2);
+
+	valueObject.stepName = 'Update draft payment so original reversed invoice is not paid by it';
+	await mutate(valueObject)({
+		mutation: C_InvoiceSaveDocument,
+		variables: {
+			C_Invoice: {
+				IsPaid: false,
+				UU: reversedInvoices[0].UU,
+			},
+		},
+	});
+
+	valueObject.stepName = 'Get allocation lines for invoice';
+	const allocationLines = (await query(valueObject)({
+		query: C_AllocationLineGetDocument,
+		variables: {
+			Filter: JSON.stringify({ c_invoice: { c_invoice_uu: { $in: [reversedInvoices[0].UU, reversedInvoices[1].UU] } } }),
+		},
+	})).data.C_AllocationLineGet.Results;
+	expect(allocationLines).toBeDefined();
+	expect(allocationLines.length).toBe(3);
+
+	valueObject.stepName = 'Complete visit again';
+	await mutate(valueObject)({
+		mutation: Bh_VisitProcessDocument,
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+	});
+
+	// Confirm no new allocations were made
+	expect((await query(valueObject)({
+		query: C_AllocationLineGetDocument,
+		variables: {
+			Filter: JSON.stringify({ c_invoice: { c_invoice_uu: { $in: [reversedInvoices[0].UU, reversedInvoices[1].UU] } } }),
+		},
+	})).data.C_AllocationLineGet.Results).toHaveLength(3);
 });

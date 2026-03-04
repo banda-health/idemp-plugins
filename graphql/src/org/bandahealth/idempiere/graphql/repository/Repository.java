@@ -139,14 +139,24 @@ public class Repository {
 			if (parameters == null) {
 				parameters = new ArrayList<>();
 			}
+			// To help with query performance, we'll always prepend the client check
+			// Since the WHERE clause was passed in, we're going to make sure that we have client access added
+			String clientPreCheck = "1=1 AND ";
+			if (isApplyAccessFilterNeeded.get()) {
+				clientPreCheck = " " + tableName + ".ad_client_id IN (?,?) AND ";
+				int index =
+						parameters.size() - (whereClause == null ? 0 : (int) whereClause.chars().filter(ch -> ch == '?').count());
+				parameters.add(index, MClient_BH.CLIENTID_SYSTEM);
+				parameters.add(index, Env.getAD_Client_ID(idempiereContext));
+			}
 			String filterWhereClause =
 					FilterUtil.getWhereClauseFromFilter(tableName, filter, parameters, idempiereContext);
 			StringBuilder dynamicJoinBuilder = new StringBuilder();
 			if (StringUtil.isNullOrEmpty(whereClause)) {
-				whereClause = filterWhereClause;
+				whereClause = clientPreCheck + filterWhereClause;
 			} else {
 				// If we already have a where clause, we may need to add dynamic joins
-				String finalWhereClause = whereClause;
+				String finalWhereClause = clientPreCheck + whereClause;
 				if (dynamicJoins != null) {
 					dynamicJoins.forEach((joinTableName, joinClause) -> {
 						if (finalWhereClause.toLowerCase().contains(joinTableName.toLowerCase() + ".")) {
@@ -154,13 +164,7 @@ public class Repository {
 						}
 					});
 				}
-				whereClause += " AND " + filterWhereClause;
-				// Since the WHERE clause was passed in, we're going to make sure that we have client access added
-				if (isApplyAccessFilterNeeded.get()) {
-					whereClause += " AND " + tableName + ".ad_client_id IN (?,?)";
-					parameters.add(MClient_BH.CLIENTID_SYSTEM);
-					parameters.add(Env.getAD_Client_ID(idempiereContext));
-				}
+				whereClause = "(" + whereClause + ") AND " + clientPreCheck + filterWhereClause;
 			}
 			setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 
