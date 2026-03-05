@@ -100,6 +100,17 @@ CREATE TEMP TABLE tmp_c_invoice_otc
 	is_new                 char         DEFAULT 'Y'::bpchar NOT NULL
 );
 
+UPDATE ad_sequence s
+SET
+	currentnext = i.documentno + 1
+FROM
+	(
+		SELECT ad_client_id, MAX(documentno::numeric) AS documentno FROM c_invoice GROUP BY ad_client_id
+	) i
+WHERE
+	name = 'DocumentNo_C_Invoice'
+	AND s.ad_client_id = i.ad_client_id;
+
 SELECT
 	SETVAL(
 			'tmp_c_invoice_otc_c_invoice_id_seq',
@@ -187,7 +198,6 @@ FROM
 WHERE
 	i.c_invoice_id IS NULL;
 
-
 -- Update the document numbers
 UPDATE tmp_c_invoice_otc i
 SET
@@ -196,9 +206,7 @@ FROM
 	(
 		SELECT
 			c_invoice_id,
-			ad_client_id,
-			c_doctype_id,
-					ROW_NUMBER() OVER (PARTITION BY ad_client_id, c_doctype_id ORDER BY c_invoice_id) AS row_num
+			ROW_NUMBER() OVER (PARTITION BY ad_client_id ORDER BY c_invoice_id) AS row_num
 		FROM
 			tmp_c_invoice_otc
 		WHERE
@@ -272,7 +280,7 @@ CREATE TEMP TABLE tmp_c_invoiceline_otc
 	m_inoutline_id            numeric(10),
 	line                      numeric(10)                      NOT NULL,
 	description               varchar(255) DEFAULT 'OTC Patient Invoice line - Auto Generated',
-	m_product_id              numeric(10)                      NOT NULL,
+	m_product_id              numeric(10),
 	qtyinvoiced               numeric                          NOT NULL,
 	pricelist                 numeric                          NOT NULL,
 	priceactual               numeric                          NOT NULL,
@@ -407,7 +415,6 @@ WHERE
 	ti.is_new = 'Y';
 -- Only for new invoices
 
-
 -- Insert only the NEW invoice lines (existing ones are already in the database)
 INSERT INTO
 	c_invoiceline (c_invoiceline_id, ad_client_id, ad_org_id, isactive, createdby, updatedby, c_invoice_id,
@@ -443,46 +450,43 @@ SELECT
 	til.description
 FROM
 	tmp_c_invoiceline_otc til
-WHERE
-	til.c_invoiceline_id NOT IN (
-		SELECT c_invoiceline_id
-		FROM c_invoiceline
-	);
+		JOIN tmp_c_invoice_otc ti
+			ON ti.c_invoice_id = til.c_invoice_id AND ti.is_new = 'Y';
 
 -- Create payments for these invoices
 DROP TABLE IF EXISTS tmp_c_payment_otc;
 CREATE TEMP TABLE tmp_c_payment_otc
 (
-	c_payment_id       serial                          NOT NULL,
-	ad_client_id       numeric(10)                     NOT NULL,
-	ad_org_id          numeric(10)                     NOT NULL,
-	createdby          numeric(10) DEFAULT 100         NOT NULL,
-	updatedby          numeric(10) DEFAULT 100         NOT NULL,
-	documentno         numeric						   NOT NULL,
+	c_payment_id       serial                           NOT NULL,
+	ad_client_id       numeric(10)                      NOT NULL,
+	ad_org_id          numeric(10)                      NOT NULL,
+	createdby          numeric(10)  DEFAULT 100         NOT NULL,
+	updatedby          numeric(10)  DEFAULT 100         NOT NULL,
+	documentno         numeric                          NOT NULL,
 	description        varchar(255) DEFAULT 'OTC Patient Payment - Auto Generated',
-	datetrx            timestamp                       NOT NULL,
-	dateacct           timestamp                       NOT NULL,
-	isreceipt          char        DEFAULT 'Y'::bpchar NOT NULL,
-	c_doctype_id       numeric(10)                     NOT NULL,
-	trxtype            char        DEFAULT 'P'         NOT NULL,
-	c_bankaccount_id   numeric(10)                     NOT NULL,
-	c_bpartner_id      numeric(10)                     NOT NULL,
+	datetrx            timestamp                        NOT NULL,
+	dateacct           timestamp                        NOT NULL,
+	isreceipt          char         DEFAULT 'Y'::bpchar NOT NULL,
+	c_doctype_id       numeric(10)                      NOT NULL,
+	trxtype            char         DEFAULT 'P'         NOT NULL,
+	c_bankaccount_id   numeric(10)                      NOT NULL,
+	c_bpartner_id      numeric(10)                      NOT NULL,
 	c_invoice_id       numeric(10),
-	tendertype         char        DEFAULT 'X'         NOT NULL,
-	c_currency_id      numeric(10)                     NOT NULL,
-	payamt             numeric                         NOT NULL,
-	isapproved         char        DEFAULT 'Y'::bpchar NOT NULL,
-	processing         char        DEFAULT 'N',
-	docstatus          char(2)     DEFAULT 'CO'        NOT NULL,
-	docaction          char(2)     DEFAULT 'CL'        NOT NULL,
-	isallocated        char        DEFAULT 'Y'::bpchar NOT NULL,
-	processed          char        DEFAULT 'Y'::bpchar NOT NULL,
-	posted             char        DEFAULT 'Y'::bpchar NOT NULL,
-	isoverunderpayment char        DEFAULT 'N'::bpchar NOT NULL,
+	tendertype         char         DEFAULT 'X'         NOT NULL,
+	c_currency_id      numeric(10)                      NOT NULL,
+	payamt             numeric                          NOT NULL,
+	isapproved         char         DEFAULT 'Y'::bpchar NOT NULL,
+	processing         char         DEFAULT 'N',
+	docstatus          char(2)      DEFAULT 'CO'        NOT NULL,
+	docaction          char(2)      DEFAULT 'CL'        NOT NULL,
+	isallocated        char         DEFAULT 'Y'::bpchar NOT NULL,
+	processed          char         DEFAULT 'Y'::bpchar NOT NULL,
+	posted             char         DEFAULT 'Y'::bpchar NOT NULL,
+	isoverunderpayment char         DEFAULT 'N'::bpchar NOT NULL,
 	processedon        numeric,
-	c_payment_uu       varchar(36) DEFAULT uuid_generate_v4(),
-	bh_tender_amount   numeric                         NOT NULL,
-	bh_visit_id        numeric(10)                     NOT NULL
+	c_payment_uu       varchar(36)  DEFAULT uuid_generate_v4(),
+	bh_tender_amount   numeric                          NOT NULL,
+	bh_visit_id        numeric(10)                      NOT NULL
 );
 
 SELECT
@@ -749,16 +753,7 @@ INSERT INTO
 SELECT
 	tp.ad_client_id,
 	tp.ad_org_id,
-	GREATEST(seq.currentnext - 1, COALESCE((
-		                                       SELECT
-			                                       MAX(CAST(documentno AS numeric))
-		                                       FROM
-			                                       c_allocationhdr
-		                                       WHERE
-			                                       ad_client_id = tp.ad_client_id
-			                                       AND c_doctype_id = dt.c_doctype_id
-	                                       ),
-	                                       0)), -- Use the greater of sequence or max documentno to handle out-of-sync sequences
+	seq.currentnext - 1, -- We'll put the correct one when do a row numbering partitioned by ad_client_id below
 	'Payment: ' || tp.documentno,
 	tp.datetrx,
 	tp.dateacct,
@@ -781,9 +776,7 @@ FROM
 	(
 		SELECT
 			c_allocationhdr_id,
-			ad_client_id,
-			c_doctype_id,
-					ROW_NUMBER() OVER (PARTITION BY ad_client_id, c_doctype_id ORDER BY c_allocationhdr_id) AS row_num
+					ROW_NUMBER() OVER (PARTITION BY ad_client_id ORDER BY c_allocationhdr_id) AS row_num
 		FROM
 			tmp_c_allocationhdr_otc
 	) tahc
@@ -891,23 +884,33 @@ SET
 WHERE
 	name = 'DocumentNo_C_Invoice'
 	AND ad_client_id IN (
-		SELECT DISTINCT ad_client_id
-		FROM tmp_c_invoice_otc
-		WHERE is_new = 'Y'
+		SELECT DISTINCT
+			ad_client_id
+		FROM
+			tmp_c_invoice_otc
+		WHERE
+			is_new = 'Y'
 	);
 
 UPDATE ad_sequence
 SET
 	currentnext = currentnext + (
-		SELECT COUNT(*) FROM tmp_c_invoiceline_otc til
-			JOIN tmp_c_invoice_otc ti ON til.c_invoice_id = ti.c_invoice_id AND ti.is_new = 'Y'
-		    WHERE til.ad_client_id = ad_sequence.ad_client_id
+		SELECT
+			COUNT(*)
+		FROM
+			tmp_c_invoiceline_otc til
+				JOIN tmp_c_invoice_otc ti
+					ON til.c_invoice_id = ti.c_invoice_id AND ti.is_new = 'Y'
+		WHERE
+			til.ad_client_id = ad_sequence.ad_client_id
 	)
 WHERE
 	name = 'DocumentNo_C_InvoiceLine'
 	AND ad_client_id IN (
-		SELECT DISTINCT ad_client_id
-		FROM tmp_c_invoiceline_otc
+		SELECT DISTINCT
+			ad_client_id
+		FROM
+			tmp_c_invoiceline_otc
 	);
 
 UPDATE ad_sequence
@@ -918,8 +921,10 @@ SET
 WHERE
 	name = 'DocumentNo_C_Payment'
 	AND ad_client_id IN (
-		SELECT DISTINCT ad_client_id
-		FROM tmp_c_payment_otc
+		SELECT DISTINCT
+			ad_client_id
+		FROM
+			tmp_c_payment_otc
 	);
 
 UPDATE ad_sequence
@@ -930,8 +935,10 @@ SET
 WHERE
 	name = 'Allocation'
 	AND ad_client_id IN (
-		SELECT DISTINCT ad_client_id
-		FROM tmp_c_allocationhdr_otc
+		SELECT DISTINCT
+			ad_client_id
+		FROM
+			tmp_c_allocationhdr_otc
 	);
 
 -- Clean up temporary tables
@@ -2501,123 +2508,6 @@ DROP TABLE IF EXISTS tmp_visits_with_shortfalls;
 DROP TABLE IF EXISTS tmp_c_payment;
 DROP TABLE IF EXISTS tmp_c_allocationhdr;
 DROP TABLE IF EXISTS tmp_c_allocationline;
-
----- Part 5 fix payments with decimal shortfalls due to currency rounding issues (GO-3456) ----
-/**********************************************************************************************************/
--- Correct OTC payments with decimal amounts
--- OTC payments should be whole numbers; decimal payamt values cause false overpayments
--- This script rounds decimal payment amounts to match their allocated invoice totals
-/**********************************************************************************************************/
-
--- Step 1: Identify OTC CO/CL payments with decimal amounts
--- DROP TABLE IF EXISTS tmp_decimal_otc_payments;
--- CREATE TEMP TABLE tmp_decimal_otc_payments AS
--- SELECT
--- 	p.c_payment_id,
--- 	p.ad_client_id,
--- 	p.ad_org_id,
--- 	p.bh_visit_id,
--- 	p.c_invoice_id,
--- 	p.payamt           AS original_payamt,
--- 	p.bh_tender_amount AS original_tender_amount,
--- 	i_totals.total_invoiced,
--- 	-- Prefer rounding to nearest integer; if still overpaid, cap at invoice total
--- 	CASE
--- 		WHEN ROUND(p.payamt, 0) <= i_totals.total_invoiced THEN ROUND(p.payamt, 0)
--- 		ELSE i_totals.total_invoiced
--- 		END              AS corrected_payamt
--- FROM
--- 	c_payment p
--- 		JOIN bh_visit v
--- 			ON p.bh_visit_id = v.bh_visit_id
--- 		JOIN c_bpartner bp
--- 			ON v.patient_id = bp.c_bpartner_id
--- 		JOIN c_bp_group bpg
--- 			ON bp.c_bp_group_id = bpg.c_bp_group_id AND bpg.name = 'OTC Patient'
--- 		JOIN LATERAL (
--- 		SELECT
--- 			ROUND(SUM(i.grandtotal), 2) AS total_invoiced
--- 		FROM
--- 			c_invoice i
--- 		WHERE
--- 			i.bh_visit_id = p.bh_visit_id
--- 			AND i.docstatus IN ('CO', 'CL')
--- 		) i_totals
--- 			ON TRUE
--- WHERE
--- 	p.docstatus IN ('CO', 'CL')
--- 	AND p.payamt != FLOOR(p.payamt);
--- -- has a decimal component
-
--- -- Step 2: Update payment amounts
--- UPDATE c_payment
--- SET
--- 	payamt           = td.corrected_payamt,
--- 	bh_tender_amount = td.corrected_payamt,
--- 	updated          = NOW(),
--- 	updatedby        = 100
--- FROM
--- 	tmp_decimal_otc_payments td
--- WHERE
--- 	c_payment.c_payment_id = td.c_payment_id;
-
--- -- Step 3: Update allocation line amounts tied to these payments
--- UPDATE c_allocationline al
--- SET
--- 	amount    = LEAST(td.corrected_payamt, al.amount),
--- 	updated   = NOW(),
--- 	updatedby = 100
--- FROM
--- 	tmp_decimal_otc_payments td
--- 		JOIN c_allocationhdr ah
--- 			ON al.c_allocationhdr_id = ah.c_allocationhdr_id
--- WHERE
--- 	al.c_payment_id = td.c_payment_id
--- 	AND ah.docstatus IN ('CO', 'CL');
-
--- -- Step 4: Update invoice IsPaid status for invoices touched by corrected payments
--- UPDATE c_invoice
--- SET
--- 	ispaid    = CASE
--- 		            WHEN (
--- 			                 SELECT
--- 				                 COALESCE(SUM(al.amount), 0)
--- 			                 FROM
--- 				                 c_allocationline al
--- 					                 JOIN c_allocationhdr ah
--- 						                 ON al.c_allocationhdr_id = ah.c_allocationhdr_id
--- 			                 WHERE
--- 				                 al.c_invoice_id = c_invoice.c_invoice_id
--- 				                 AND ah.docstatus IN ('CO', 'CL')
--- 		                 ) >= c_invoice.grandtotal THEN 'Y'
--- 		            ELSE 'N'
--- 		END,
--- 	updated   = NOW(),
--- 	updatedby = 100
--- WHERE
--- 	c_invoice_id IN (
--- 		SELECT DISTINCT
--- 			c_invoice_id
--- 		FROM
--- 			c_allocationline al
--- 				JOIN c_allocationhdr ah
--- 					ON al.c_allocationhdr_id = ah.c_allocationhdr_id
--- 				JOIN tmp_decimal_otc_payments td
--- 					ON al.c_payment_id = td.c_payment_id
--- 		WHERE
--- 			ah.docstatus IN ('CO', 'CL')
--- 	)
--- 	OR c_invoice_id IN (
--- 		SELECT DISTINCT
--- 			c_invoice_id
--- 		FROM
--- 			tmp_decimal_otc_payments
--- 		WHERE
--- 			c_invoice_id IS NOT NULL
--- 	);
-
--- -- Step 5: Cleanup
--- DROP TABLE IF EXISTS tmp_decimal_otc_payments;
 
 SELECT
 	register_migration_script('202602051707_GO-3456.sql')
