@@ -2512,7 +2512,37 @@ DROP TABLE IF EXISTS tmp_c_allocationline;
 
 DROP TABLE IF EXISTS tmp_decimal_otc_payments;
 
--- Step 1: Identify OTC CO/CL payments with decimal amounts
+-- Step 1a: Find OTC visits where invoice totals and summed payments only differ by precision
+DROP TABLE IF EXISTS tmp_otc_visits_precision_issues;
+CREATE TEMP TABLE tmp_otc_visits_precision_issues AS
+SELECT
+    v.bh_visit_id,
+    ROUND(SUM(i.grandtotal), 2) AS total_invoiced,
+    p.calc_paid
+FROM
+    bh_visit v
+    JOIN c_bpartner bp ON v.patient_id = bp.c_bpartner_id
+    JOIN c_bp_group bpg ON bp.c_bp_group_id = bpg.c_bp_group_id AND bpg.name = 'OTC Patient'
+    JOIN c_invoice i ON v.bh_visit_id = i.bh_visit_id AND i.docstatus IN ('CO','CL')
+    JOIN LATERAL (
+        SELECT v.bh_visit_id, COALESCE(SUM(payamt), 0) AS calc_paid
+        FROM c_payment p
+        WHERE p.bh_visit_id = v.bh_visit_id AND p.docstatus IN ('CO','CL')
+        GROUP BY v.bh_visit_id
+    ) p ON v.bh_visit_id = p.bh_visit_id
+WHERE
+    v.ad_client_id IS NOT NULL
+GROUP BY
+    v.bh_visit_id, p.calc_paid
+HAVING
+    -- precision-only mismatches: rounded totals equal but raw sums differ
+    ROUND(SUM(i.grandtotal), 2) = ROUND(p.calc_paid, 2)
+    AND SUM(i.grandtotal) != p.calc_paid;
+
+select * from tmp_otc_visits_precision_issues;
+
+-- Step 1b: Collect payments for those visits and compute invoice-level totals for correction logic
+DROP TABLE IF EXISTS tmp_decimal_otc_payments;
 CREATE TEMP TABLE tmp_decimal_otc_payments AS
 SELECT
     p.c_payment_id,
@@ -2522,34 +2552,37 @@ SELECT
     p.c_invoice_id,
     p.payamt               AS original_payamt,
     p.bh_tender_amount     AS original_tender_amount,
-    i_totals.total_invoiced,
-    -- Prefer rounding to nearest integer; if still overpaid, cap at invoice total
+    inv_totals.total_invoiced,
+    inv_totals.total_paid,
+    -- Prefer rounding to nearest integer for individual payment; if that would exceed
+    -- the invoice total when considered in isolation, cap at invoice total
     CASE
-        WHEN ROUND(p.payamt, 0) <= i_totals.total_invoiced THEN ROUND(p.payamt, 0)
-        ELSE i_totals.total_invoiced
+        WHEN ROUND(p.payamt, 0) <= inv_totals.total_invoiced THEN ROUND(p.payamt, 0)
+        ELSE inv_totals.total_invoiced
     END                    AS corrected_payamt
 FROM
     c_payment p
-    JOIN bh_visit v
-        ON p.bh_visit_id = v.bh_visit_id
-    JOIN c_bpartner bp
-        ON v.patient_id = bp.c_bpartner_id
-    JOIN c_bp_group bpg
-        ON bp.c_bp_group_id = bpg.c_bp_group_id
-        AND bpg.name = 'OTC Patient'
+    JOIN tmp_otc_visits_precision_issues tv
+        ON p.bh_visit_id = tv.bh_visit_id
+    -- compute per-invoice totals for payments linked to the same invoice
     JOIN LATERAL (
         SELECT
-            ROUND(COALESCE(SUM(i.grandtotal), 0), 2) AS total_invoiced
-        FROM
-            c_invoice i
+            ROUND(i.grandtotal, 2) AS total_invoiced,
+            ROUND(COALESCE(SUM(p2.payamt), 0), 2) AS total_paid
+        FROM c_invoice i
+        LEFT JOIN c_payment p2
+            ON p2.c_invoice_id = i.c_invoice_id
+            AND p2.docstatus IN ('CO', 'CL')
         WHERE
-            i.bh_visit_id = p.bh_visit_id
+            i.c_invoice_id = p.c_invoice_id
             AND i.docstatus IN ('CO', 'CL')
-    ) i_totals ON TRUE
+        GROUP BY i.c_invoice_id, i.grandtotal
+    ) inv_totals ON TRUE
 WHERE
     p.docstatus IN ('CO', 'CL')
-    AND p.payamt != FLOOR(p.payamt); -- has a decimal component
+    AND p.c_invoice_id IS NOT NULL;
 
+select * from tmp_decimal_otc_payments;
 
 -- Step 2: Update payment amounts
 UPDATE c_payment
