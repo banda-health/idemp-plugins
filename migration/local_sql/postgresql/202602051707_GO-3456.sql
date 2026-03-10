@@ -2509,6 +2509,130 @@ DROP TABLE IF EXISTS tmp_c_payment;
 DROP TABLE IF EXISTS tmp_c_allocationhdr;
 DROP TABLE IF EXISTS tmp_c_allocationline;
 
+
+DROP TABLE IF EXISTS tmp_decimal_otc_payments;
+
+-- Step 1: Identify OTC CO/CL payments with decimal amounts
+CREATE TEMP TABLE tmp_decimal_otc_payments AS
+SELECT
+    p.c_payment_id,
+    p.ad_client_id,
+    p.ad_org_id,
+    p.bh_visit_id,
+    p.c_invoice_id,
+    p.payamt               AS original_payamt,
+    p.bh_tender_amount     AS original_tender_amount,
+    i_totals.total_invoiced,
+    -- Prefer rounding to nearest integer; if still overpaid, cap at invoice total
+    CASE
+        WHEN ROUND(p.payamt, 0) <= i_totals.total_invoiced THEN ROUND(p.payamt, 0)
+        ELSE i_totals.total_invoiced
+    END                    AS corrected_payamt
+FROM
+    c_payment p
+    JOIN bh_visit v
+        ON p.bh_visit_id = v.bh_visit_id
+    JOIN c_bpartner bp
+        ON v.patient_id = bp.c_bpartner_id
+    JOIN c_bp_group bpg
+        ON bp.c_bp_group_id = bpg.c_bp_group_id
+        AND bpg.name = 'OTC Patient'
+    JOIN LATERAL (
+        SELECT
+            ROUND(COALESCE(SUM(i.grandtotal), 0), 2) AS total_invoiced
+        FROM
+            c_invoice i
+        WHERE
+            i.bh_visit_id = p.bh_visit_id
+            AND i.docstatus IN ('CO', 'CL')
+    ) i_totals ON TRUE
+WHERE
+    p.docstatus IN ('CO', 'CL')
+    AND p.payamt != FLOOR(p.payamt); -- has a decimal component
+
+
+-- Step 2: Update payment amounts
+UPDATE c_payment
+SET
+    payamt           = td.corrected_payamt,
+    bh_tender_amount = td.corrected_payamt,
+    updated          = NOW(),
+    updatedby        = 100
+FROM
+    tmp_decimal_otc_payments td
+WHERE
+    c_payment.c_payment_id = td.c_payment_id;
+
+-- Step 3: Update allocation line amounts tied to these payments (round to 2 decimals)
+UPDATE c_allocationline al
+SET
+    amount    = ROUND(LEAST(td.corrected_payamt, al.amount), 2),
+    updated   = NOW(),
+    updatedby = 100
+FROM
+    tmp_decimal_otc_payments td
+    JOIN c_allocationhdr ah
+        ON al.c_allocationhdr_id = ah.c_allocationhdr_id
+WHERE
+    al.c_payment_id = td.c_payment_id
+    AND ah.docstatus IN ('CO', 'CL');
+
+-- Step 4a: Update invoice grandtotal to the rounded sum of allocation amounts affected
+UPDATE c_invoice
+SET
+    grandtotal = ROUND(
+        (
+            SELECT COALESCE(SUM(al.amount), 0)
+            FROM c_allocationline al
+            JOIN c_allocationhdr ah ON al.c_allocationhdr_id = ah.c_allocationhdr_id
+            WHERE al.c_invoice_id = c_invoice.c_invoice_id
+              AND ah.docstatus IN ('CO', 'CL')
+        ), 2
+    ),
+    updated    = NOW(),
+    updatedby  = 100
+WHERE
+    c_invoice_id IN (
+        SELECT DISTINCT al.c_invoice_id
+        FROM c_allocationline al
+        JOIN c_allocationhdr ah ON al.c_allocationhdr_id = ah.c_allocationhdr_id
+        JOIN tmp_decimal_otc_payments td ON al.c_payment_id = td.c_payment_id
+        WHERE ah.docstatus IN ('CO', 'CL')
+    )
+    OR c_invoice_id IN (
+        SELECT DISTINCT c_invoice_id FROM tmp_decimal_otc_payments WHERE c_invoice_id IS NOT NULL
+    );
+
+-- Step 4b: Update invoice IsPaid status for invoices touched by corrected payments (use rounded sums)
+UPDATE c_invoice
+SET
+    ispaid    = CASE
+                   WHEN (
+                       SELECT ROUND(COALESCE(SUM(al.amount), 0), 2)
+                       FROM c_allocationline al
+                       JOIN c_allocationhdr ah ON al.c_allocationhdr_id = ah.c_allocationhdr_id
+                       WHERE al.c_invoice_id = c_invoice.c_invoice_id
+                         AND ah.docstatus IN ('CO', 'CL')
+                   ) >= ROUND(c_invoice.grandtotal, 2) THEN 'Y'
+                   ELSE 'N'
+               END,
+    updated   = NOW(),
+    updatedby = 100
+WHERE
+    c_invoice_id IN (
+        SELECT DISTINCT al.c_invoice_id
+        FROM c_allocationline al
+        JOIN c_allocationhdr ah ON al.c_allocationhdr_id = ah.c_allocationhdr_id
+        JOIN tmp_decimal_otc_payments td ON al.c_payment_id = td.c_payment_id
+        WHERE ah.docstatus IN ('CO', 'CL')
+    )
+    OR c_invoice_id IN (
+        SELECT DISTINCT c_invoice_id FROM tmp_decimal_otc_payments WHERE c_invoice_id IS NOT NULL
+    );
+
+-- Step 5: Cleanup
+DROP TABLE IF EXISTS tmp_decimal_otc_payments;
+
 SELECT
 	register_migration_script('202602051707_GO-3456.sql')
 FROM
