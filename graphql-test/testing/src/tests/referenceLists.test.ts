@@ -54,8 +54,8 @@ test('document action access is correct for admins', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -82,8 +82,8 @@ test('clinic admin role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -110,8 +110,8 @@ test('cashier/registration basic role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -138,8 +138,8 @@ test('cashier/registration basic plus role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -166,8 +166,8 @@ test('cashier/registration advanced role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -194,8 +194,8 @@ test('inventory/pharmacy role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -222,8 +222,8 @@ test('clinician/nurse basic role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -250,8 +250,8 @@ test('clinician/nurse advanced role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -278,8 +278,8 @@ test('triage role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -306,8 +306,8 @@ test('lab/radiology advanced role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -334,8 +334,8 @@ test('lab/radiology basic role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -362,8 +362,8 @@ test('accounting role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -390,8 +390,8 @@ test('clinic user role has correct access', async () => {
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {
-		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
-	};
+			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+		};
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
 		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
@@ -431,6 +431,29 @@ test('process stage list is correct', async () => {
 	expect(processStageList.find((processStage) => processStage.Name === 'Lab / Imaging')).toBeTruthy();
 	expect(processStageList.find((processStage) => processStage.Name === 'Pharmacy')).toBeTruthy();
 	expect(processStageList.find((processStage) => processStage.Name === 'Triage / Vitals')).toBeTruthy();
+});
+
+test('inventory update reason list is correct', async () => {
+	globalThis.__VALUE_OBJECT__.login();
+
+	const updateReasons = (
+		await query(globalThis.__VALUE_OBJECT__)({
+			query: Ad_Ref_ListGetDocument,
+			variables: {
+				Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.BH_UPDATE_REASON }, isactive: true }),
+			},
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	// Ensure these exist
+	expect(updateReasons.find((updateReason) => updateReason.Name === 'Damaged products')).toBeDefined();
+	expect(updateReasons.find((updateReason) => updateReason.Name === 'Product expired')).toBeDefined();
+	expect(updateReasons.find((updateReason) => updateReason.Name === 'Products used but not charged')).toBeDefined();
+	expect(updateReasons.find((updateReason) => updateReason.Name === 'Lost or stolen products')).toBeDefined();
+	expect(updateReasons.find((updateReason) => updateReason.Name === 'System unavailable at sale')).toBeDefined();
+	expect(updateReasons.find((updateReason) => updateReason.Name === 'Wrong quantity received')).toBeDefined();
+	expect(updateReasons.find((updateReason) => updateReason.Name === 'Wrong expiration received')).toBeDefined();
+	expect(updateReasons.find((updateReason) => updateReason.Name === 'Stock Reconciliation')).toBeDefined();
 });
 
 test('visit type list is correct', async () => {
