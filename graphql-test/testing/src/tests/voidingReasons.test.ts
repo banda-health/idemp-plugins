@@ -26,7 +26,7 @@ test('correct voiding reasons are returned for visits', async () => {
 			},
 		})
 	).data.BH_Voided_ReasonGet.Results;
-	expect(voidingReasons).toHaveLength(7);
+	expect(voidingReasons).toHaveLength(8);
 	expect(voidingReasons[0].Name).toBe('Wrong payment type or amount paid entered');
 	expect(voidingReasons[1].Name).toBe('Prescribed drug is sold out');
 	expect(voidingReasons[2].Name).toBe('Patient could not pay for the bill');
@@ -34,4 +34,5 @@ test('correct voiding reasons are returned for visits', async () => {
 	expect(voidingReasons[4].Name).toBe('Add or Edit clinical information');
 	expect(voidingReasons[5].Name).toBe('Service not offered');
 	expect(voidingReasons[6].Name).toBe('Sample not produced');
+	expect(voidingReasons[7].Name).toBe('Trial Bill');
 });
