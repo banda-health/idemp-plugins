@@ -189,6 +189,10 @@ fragment M_InOutFields on M_InOut {
 }
 
 fragment M_InventoryFields on M_Inventory {
+	bh_update_reason {
+		Name
+		UU
+	}
 	DocStatus {
 		Value
 	}
