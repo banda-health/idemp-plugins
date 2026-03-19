@@ -1,4 +1,5 @@
 export const referenceUuid = {
+	BH_UPDATE_REASON: 'dcdc79d7-8e55-428f-a8a5-e7a6f562404f',
 	ENCOUNTER_TYPES: 'ced05cde-f4e6-4d72-9134-c16e27eb963f',
 	MOVEMENT_TYPES: '195f0059-6433-4e52-8b24-6c1232a8b3f9',
 	PAYMENT_TYPES: 'af0136e2-1ec4-4b60-a8a1-dc6c252e4878',

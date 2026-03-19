@@ -36,6 +36,8 @@ query AD_LanguageGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 			Name
 			PrintName
 			UU
+			IsLoginLocale
+			IsSystemLanguage
 		}
 	}
 }

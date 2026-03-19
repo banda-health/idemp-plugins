@@ -71,6 +71,10 @@ public class MInventory_BH extends MInventory {
 	 * Wrong expiration received = p_wer
 	 */
 	public static final String BH_UPDATE_REASON_WrongExpirationReceived = "p_wer";
+	/**
+	 * Stock reconciliation = p_src
+	 */
+	public static final String BH_UPDATE_REASON_StockReconciliation = "p_src";
 
 	/**
 	 * Set bh_update_reason.

@@ -49,6 +49,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			put("p_sna", "ab87230f-f137-454c-bba2-cd3a60fab3cb"); // System unavailable at sale
 			put("p_bqt", "982d9571-dc08-4335-a379-041403048053"); // Wrong quantity received
 			put("p_wer", "6936f0fa-bf26-4c24-a744-d398e458fd2e"); // Wrong expiration received
+			put("p_src", "a8c3e2f1-5b4d-4e9a-8c7f-2d1e3a4b5c6d"); // Stock reconciliation
 		}
 	};
 	public CompletableFuture<MRefList_BH> bh_update_reason(MInventory_BH entity, DataFetchingEnvironment environment) {
