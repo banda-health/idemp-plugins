@@ -70,36 +70,6 @@ VALUES
 	 ), 0, 0, 'Y', NOW(), 100, NOW(), 100, 'Y', '2fea89ec-fecf-4fef-a9fd-cb22f0665994')
 ON CONFLICT DO NOTHING;
 
-INSERT INTO
-	ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby,
-	         description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id,
-	         ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu,
-	         ad_infowindow_id, iconclassname, predefinedcontextvariables)
-VALUES
-	((
-		 SELECT
-			 MAX(ad_menu_id)
-		 FROM
-			 ad_menu
-	 ) + 1, 0, 0, 'Y', '2026-03-27 15:06:44.325000', 100, '2026-03-27 15:06:44.325000', 'Patients Summary Report', 100,
-	 'Patient Summary', 'N', 'Y', 'N', 'R', NULL, NULL, NULL, (
-		 SELECT ad_process_id FROM ad_process WHERE ad_process_uu = 'c0e1adfc-f743-49e4-9346-4da29f1e9f6c'
-	 ), NULL, NULL, 'U', 'Y',
-	 '84e85424-8401-4341-a0d8-b1331443f3e7', NULL, NULL, NULL);
-
-
-
-INSERT INTO
-	ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated,
-	               updatedby, parent_id, seqno, ad_treenodemm_uu)
-VALUES
-	(10, (
-		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '84e85424-8401-4341-a0d8-b1331443f3e7'
-	), 0, 0, 'Y', '2026-03-27 15:06:44.339308', 100, '2026-03-27 15:08:37.820000', 100, (
-		 SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = 'bcf31f7a-9532-42d2-9bd6-35ebc79f973e'
-	 ), 8,
-	 'c4004e66-a62e-42f9-9b26-ec1a12e16b06');
-
 SELECT
 	register_migration_script('202603271531_GO-3459.sql')
 FROM
