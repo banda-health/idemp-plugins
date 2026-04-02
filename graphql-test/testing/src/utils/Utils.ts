@@ -124,13 +124,13 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 						UU: locationUuid,
 						C_Region: valueObject.region
 							? {
-									UU: valueObject.region.UU,
-							  }
+								UU: valueObject.region.UU,
+							}
 							: undefined,
 						C_Country: valueObject.country
 							? {
-									UU: valueObject.country.UU,
-							  }
+								UU: valueObject.country.UU,
+							}
 							: undefined,
 						City: 'Test',
 					},
@@ -620,7 +620,7 @@ export async function createInOutFromOrder(valueObject: ValueObject) {
 
 	// Create lines for all remaining order lines (if any)
 	for (const orderLine of orderLines) {
-		await mutate(valueObject)({
+		const inOutLine = await mutate(valueObject)({
 			mutation: M_InOutLineSaveDocument,
 			variables: {
 				M_InOutLine: {
@@ -638,6 +638,9 @@ export async function createInOutFromOrder(valueObject: ValueObject) {
 				},
 			},
 		});
+		if (orderLines.length === 1) {
+			valueObject.inOutLine = inOutLine.data?.M_InOutLineSave;
+		}
 	}
 
 	if (valueObject.documentAction) {

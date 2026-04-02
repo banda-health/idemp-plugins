@@ -30,7 +30,7 @@ FROM
 				WHEN p.m_attributeset_id != 0 AND
 				     p_asis.m_attributesetinstance_id = 0 THEN NULL
 				ELSE
-					COALESCE(price_on_reception.date_purchased, soh.datematerialpolicy, p.created) END AS purchase_date
+					COALESCE(price_on_reception.date_purchased, soh.created, p.created) END AS purchase_date
 		FROM
 			m_product p
 				LEFT JOIN (
@@ -43,19 +43,19 @@ FROM
 					t.ad_client_id = $1
 				GROUP BY t.m_product_id, t.m_attributesetinstance_id
 			) p_asis
-				ON p_asis.m_product_id = p.m_product_id
+					ON p_asis.m_product_id = p.m_product_id
 				LEFT JOIN (
 				SELECT
 					soh.m_product_id,
 					soh.m_attributesetinstance_id,
-					soh.datematerialpolicy
+					soh.created
 				FROM
 					m_storageonhand soh
 				WHERE
 					soh.ad_client_id = $1
-				GROUP BY soh.m_product_id, soh.m_attributesetinstance_id, soh.datematerialpolicy
+				GROUP BY soh.m_product_id, soh.m_attributesetinstance_id, soh.created
 			) soh
-				ON p.m_product_id = soh.m_product_id AND soh.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
+					ON p.m_product_id = soh.m_product_id AND soh.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
 					l.m_product_id,
@@ -69,12 +69,12 @@ FROM
 							ol.priceactual                                                                                                  AS po_price,
 							ol.m_attributesetinstance_id,
 							o.dateordered::DATE + o.updated::TIME                                                                           AS date_purchased,
-								ROW_NUMBER()
-								OVER (PARTITION BY ol.m_product_id, ol.m_attributesetinstance_id ORDER BY o.dateordered DESC, o.updated DESC) AS rownum
+									ROW_NUMBER()
+									OVER (PARTITION BY ol.m_product_id, ol.m_attributesetinstance_id ORDER BY o.dateordered DESC, o.updated DESC) AS rownum
 						FROM
 							c_orderline ol
 								JOIN c_order o
-								ON ol.c_order_id = o.c_order_id
+									ON ol.c_order_id = o.c_order_id
 						WHERE
 							o.issotrx = 'N'
 							AND o.docstatus IN ('CL', 'CO')
@@ -84,8 +84,8 @@ FROM
 				WHERE
 					rownum = 1
 			) AS price_on_reception
-				ON price_on_reception.m_product_id = p.m_product_id AND
-				   price_on_reception.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
+					ON price_on_reception.m_product_id = p.m_product_id AND
+					   price_on_reception.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
 					pp.m_product_id,
@@ -94,7 +94,7 @@ FROM
 					(
 						SELECT
 							pl.m_pricelist_id,
-							ROW_NUMBER() OVER (ORDER BY pl.created DESC) AS row_num
+									ROW_NUMBER() OVER (ORDER BY pl.created DESC) AS row_num
 						FROM
 							m_pricelist pl
 						WHERE
@@ -104,13 +104,13 @@ FROM
 							AND pl.ad_client_id = $1
 					) pl
 						JOIN m_pricelist_version plv
-						ON pl.m_pricelist_id = plv.m_pricelist_id
+							ON pl.m_pricelist_id = plv.m_pricelist_id
 						JOIN m_productprice pp
-						ON plv.m_pricelist_version_id = pp.m_pricelist_version_id
+							ON plv.m_pricelist_version_id = pp.m_pricelist_version_id
 				WHERE
 					pl.row_num = 1
 			) AS productPP
-				ON productPP.m_product_id = p.m_product_id
+					ON productPP.m_product_id = p.m_product_id
 		WHERE
 			p.ad_client_id = $1
 	) t

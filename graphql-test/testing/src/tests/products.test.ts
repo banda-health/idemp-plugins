@@ -5,19 +5,26 @@ import {
 	Bh_Product_IncludedDeleteDocument,
 	Bh_Product_IncludedSaveManyDocument,
 	Bh_VisitProcessDocument,
+	C_OrderLineSaveDocument,
 	C_OrderProcessDocument,
 	C_UomGetDefaultDocument,
+	M_AttributeSetGetDocument,
+	M_AttributeSetInstanceSaveDocument,
+	M_InOutLineSaveDocument,
 	M_InOutProcessDocument,
+	M_MovementSaveWithMovementLinesAndProcessDocument,
 	M_ProductDocument,
 	M_ProductGetDocument,
 	M_ProductMergeDocument,
 	M_ProductSaveDocument,
 	M_ProductSaveManyDocument,
+	M_WarehouseGetDocument,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
 import {
 	documentAction,
 	documentBaseType,
+	documentStatus,
 	documentSubTypeInventory,
 	documentSubTypeSalesOrder,
 	referenceUuid,
@@ -31,6 +38,8 @@ import {
 	createPayment,
 	createProduct,
 	createVisit,
+	formatApiDate,
+	getDateOffset,
 	getDefaultProductCategory,
 	getDefaultTaxCategory,
 } from '../utils';
@@ -881,4 +890,146 @@ test('deactivation message correct when product is reserved', async () => {
 	// Since we'll be using this message in the front-end, it needs to be this exact value
 	const productReservedMessage = /Reserved Quantity(\d+(?:\.\d+)?)/;
 	expect(productReservedMessage.test(productReservedError!.message.split(' : ')[1])).toBe(true);
+});
+
+test('product cost reflects latest purchase price, not original product buy price', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const originalBuyPrice = 31;
+	const firstPurchasePrice = 107;
+	const secondPurchasePrice = 263;
+
+	const firstGuaranteeDate = getDateOffset(new Date(), 365);
+	const secondGuaranteeDate = getDateOffset(new Date(), 730);
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Resolve expiring product attribute set';
+	const expiringAttributeSet = (
+		await query(valueObject)({
+			query: M_AttributeSetGetDocument,
+			variables: { Filter: JSON.stringify({ isguaranteedate: true }) },
+		})
+	).data.M_AttributeSetGet.Results[0];
+	expect(expiringAttributeSet).toBeTruthy();
+
+	valueObject.stepName = 'Create product with initial buy price on product record';
+	valueObject.setPurchasePrice(originalBuyPrice);
+	await createProduct(valueObject);
+	const productUu = valueObject.product!.UU;
+
+	valueObject.stepName = 'Assign expiring attribute set to product';
+	valueObject.product = (
+		await mutate(valueObject)({
+			mutation: M_ProductSaveDocument,
+			variables: {
+				Entity: {
+					UU: productUu,
+					M_AttributeSet: { UU: expiringAttributeSet.UU },
+				},
+			},
+		})
+	).data?.M_ProductSave;
+
+	valueObject.stepName = 'Create first ASI';
+	valueObject.attributeSetInstance = (
+		await mutate(valueObject)({
+			mutation: M_AttributeSetInstanceSaveDocument,
+			variables: {
+				Entity: {
+					M_AttributeSet: { UU: expiringAttributeSet.UU },
+					GuaranteeDate: formatApiDate(firstGuaranteeDate),
+					Description: `first-receipt-${valueObject.random}`,
+				},
+			},
+		})
+	).data?.M_AttributeSetInstanceSave;
+	expect(valueObject.attributeSetInstance!.UU).toBeTruthy();
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.setPurchasePrice(secondPurchasePrice);
+	valueObject.documentAction = documentAction.Complete;
+	valueObject.quantity = 100;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
+	valueObject.stepName = 'Create second ASI';
+	valueObject.attributeSetInstance = (
+		await mutate(valueObject)({
+			mutation: M_AttributeSetInstanceSaveDocument,
+			variables: {
+				Entity: {
+					M_AttributeSet: { UU: expiringAttributeSet.UU },
+					GuaranteeDate: formatApiDate(secondGuaranteeDate),
+					Description: `second-order-${valueObject.random}`,
+				},
+			},
+		})
+	).data?.M_AttributeSetInstanceSave;
+	expect(valueObject.attributeSetInstance!.UU).toBeTruthy();
+
+	valueObject.stepName = 'Update order and shipment to have the new ASI';
+	await mutate(valueObject)({
+		mutation: C_OrderLineSaveDocument,
+		variables: {
+			Entity: {
+				UU: valueObject.orderLine!.UU,
+				M_AttributeSetInstance: { UU: valueObject.attributeSetInstance!.UU },
+			},
+		},
+	});
+	await mutate(valueObject)({
+		mutation: M_InOutLineSaveDocument,
+		variables: {
+			M_InOutLine: {
+				UU: valueObject.inOutLine!.UU,
+				M_AttributeSetInstance: { UU: valueObject.attributeSetInstance!.UU },
+			},
+		},
+	});
+
+	valueObject.stepName = 'Create third ASI';
+	valueObject.attributeSetInstance = (
+		await mutate(valueObject)({
+			mutation: M_AttributeSetInstanceSaveDocument,
+			variables: {
+				Entity: {
+					M_AttributeSet: { UU: expiringAttributeSet.UU },
+					GuaranteeDate: formatApiDate(firstGuaranteeDate),
+					Description: `third-receipt-${valueObject.random}`,
+				},
+			},
+		})
+	).data?.M_AttributeSetInstanceSave;
+	expect(valueObject.attributeSetInstance!.UU).toBeTruthy();
+
+	valueObject.stepName = 'Create second purchase order';
+	valueObject.order = undefined;
+	valueObject.setPurchasePrice(secondPurchasePrice);
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create second material receipt';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
+	await createInOutFromOrder(valueObject);
+
+	const productFromApi = (
+		await query(valueObject)({
+			query: M_ProductGetDocument,
+			variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: productUu }) },
+		})
+	).data.M_ProductGet.Results[0];
+
+	expect(productFromApi.BH_BuyPrice).toBe(originalBuyPrice);
+	expect(productFromApi.LastPurchasePrice).toBe(secondPurchasePrice);
+	expect(productFromApi.LastPurchasePrice).not.toBe(firstPurchasePrice);
 });
