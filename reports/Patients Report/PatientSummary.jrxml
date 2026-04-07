@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Summary" pageWidth="595" pageHeight="842" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="20" bottomMargin="20" uuid="f7f5f1f2-1e6c-4f4b-bf9b-0d6b2d8b6b11">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="idempiere_develop"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF" isBlankWhenNull="true">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="MedicationDataSet" uuid="9a1b7d63-4aa2-4b35-a2df-9f9c4b0b9c5a">
+		<parameter name="BH_Visit_UU" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+	ROW_NUMBER() OVER (ORDER BY ol.created) 	AS line_no,
+	p.name                                     	AS medication_name,
+	COALESCE(ol.description, '')           		AS instructions
+FROM
+	bh_visit v
+		JOIN c_order o
+			ON v.bh_visit_id = o.bh_visit_id
+		JOIN c_orderline ol
+			ON o.c_order_id = ol.c_order_id
+		JOIN m_product p
+			ON ol.m_product_id = p.m_product_id AND p.producttype = 'I'
+WHERE
+	o.issotrx = 'Y'
+	AND ol.included_orderline_id IS NULL
+	AND v.bh_visit_uu = $P{BH_Visit_UU}
+ORDER BY
+	ol.created;]]>
+		</queryString>
+		<field name="line_no" class="java.lang.Integer"/>
+		<field name="medication_name" class="java.lang.String"/>
+		<field name="instructions" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="BH_Visit_UU" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[WITH visit AS (
+	SELECT
+		v.bh_visit_id,
+		v.documentno                                          AS ip_op_number,
+		v.bh_visitdate                                        AS visit_date,
+		v.patient_id,
+		v.ad_org_id,
+		v.bh_clinician_user_id,
+		v.bh_referral                                         AS referral_reason,
+		v.bh_referredfromto                                   AS referred_to,
+		(
+			SELECT
+				o.bh_value
+			FROM
+				bh_observation o
+					JOIN bh_encounter e ON o.bh_encounter_id = e.bh_encounter_id
+					JOIN ad_field f ON o.ad_field_id = f.ad_field_id
+			WHERE
+				e.bh_visit_id = v.bh_visit_id
+				AND e.bh_encounter_type = 'C'
+				AND f.ad_field_uu = 'e1d01fe4-16b6-4125-a385-34cf4531c06f'
+			ORDER BY
+				o.created DESC
+			LIMIT 1
+		) AS chief_complaint,
+		(
+			SELECT
+				o.bh_value
+			FROM
+				bh_observation o
+					JOIN bh_encounter e ON o.bh_encounter_id = e.bh_encounter_id
+					JOIN ad_field f ON o.ad_field_id = f.ad_field_id
+					JOIN ad_column c ON f.ad_column_id = c.ad_column_id
+			WHERE
+				e.bh_visit_id = v.bh_visit_id
+				AND e.bh_encounter_type = 'D'
+				AND c.ad_column_uu = '9bcfded3-3af9-41d3-94ae-319d1859bb30'
+			ORDER BY
+				o.created DESC
+			LIMIT 1
+		) AS clinical_notes,
+		NULLIF(
+			COALESCE(
+				(
+					SELECT
+						o.bh_value
+					FROM
+						bh_observation o
+							JOIN bh_encounter e ON o.bh_encounter_id = e.bh_encounter_id
+							JOIN ad_field f ON o.ad_field_id = f.ad_field_id
+							JOIN ad_column c ON f.ad_column_id = c.ad_column_id
+					WHERE
+						e.bh_visit_id = v.bh_visit_id
+						AND e.bh_encounter_type = 'V'
+						AND c.columnname = 'bh_systolic_blood_pressure'
+					ORDER BY
+						o.created DESC
+					LIMIT 1
+				), ''
+			)
+			||
+			CASE
+				WHEN
+					(
+						SELECT
+							o.bh_value
+						FROM
+							bh_observation o
+								JOIN bh_encounter e ON o.bh_encounter_id = e.bh_encounter_id
+								JOIN ad_field f ON o.ad_field_id = f.ad_field_id
+								JOIN ad_column c ON f.ad_column_id = c.ad_column_id
+						WHERE
+							e.bh_visit_id = v.bh_visit_id
+							AND e.bh_encounter_type = 'V'
+							AND c.columnname = 'bh_systolic_blood_pressure'
+						ORDER BY
+							o.created DESC
+						LIMIT 1
+					) IS NOT NULL
+					AND
+					(
+						SELECT
+							o.bh_value
+						FROM
+							bh_observation o
+								JOIN bh_encounter e ON o.bh_encounter_id = e.bh_encounter_id
+								JOIN ad_field f ON o.ad_field_id = f.ad_field_id
+								JOIN ad_column c ON f.ad_column_id = c.ad_column_id
+						WHERE
+							e.bh_visit_id = v.bh_visit_id
+							AND e.bh_encounter_type = 'V'
+							AND c.columnname = 'bh_diastolic_blood_pressure'
+						ORDER BY
+							o.created DESC
+						LIMIT 1
+					) IS NOT NULL
+				THEN '/'
+				ELSE ''
+			END
+			||
+			COALESCE(
+				(
+					SELECT
+						o.bh_value
+					FROM
+						bh_observation o
+							JOIN bh_encounter e ON o.bh_encounter_id = e.bh_encounter_id
+							JOIN ad_field f ON o.ad_field_id = f.ad_field_id
+							JOIN ad_column c ON f.ad_column_id = c.ad_column_id
+					WHERE
+						e.bh_visit_id = v.bh_visit_id
+						AND e.bh_encounter_type = 'V'
+						AND c.columnname = 'bh_diastolic_blood_pressure'
+					ORDER BY
+						o.created DESC
+					LIMIT 1
+				), ''
+			),
+			''
+		) AS blood_pressure,
+		(
+			SELECT
+				o.bh_value
+			FROM
+				bh_observation o
+					JOIN bh_encounter e ON o.bh_encounter_id = e.bh_encounter_id
+					JOIN ad_field f ON o.ad_field_id = f.ad_field_id
+			WHERE
+				e.bh_visit_id = v.bh_visit_id
+				AND e.bh_encounter_type = 'V'
+				AND f.ad_field_uu = 'd3dc091f-ee3d-4607-91d1-4e766cfe5528'
+			ORDER BY
+				o.created DESC
+			LIMIT 1
+		) AS temperature,
+		(
+			SELECT
+				o.bh_value
+			FROM
+				bh_observation o
+					JOIN bh_encounter e ON o.bh_encounter_id = e.bh_encounter_id
+					JOIN ad_field f ON o.ad_field_id = f.ad_field_id
+			WHERE
+				e.bh_visit_id = v.bh_visit_id
+				AND e.bh_encounter_type = 'V'
+				AND f.ad_field_uu = 'c0f0f904-4977-4360-8065-a0e91d4f3a71'
+			ORDER BY
+				o.created DESC
+			LIMIT 1
+		) AS pulse,
+		(
+			SELECT
+				o.bh_value
+			FROM
+				bh_observation o
+					JOIN bh_encounter e ON o.bh_encounter_id = e.bh_encounter_id
+					JOIN ad_field f ON o.ad_field_id = f.ad_field_id
+			WHERE
+				e.bh_visit_id = v.bh_visit_id
+				AND e.bh_encounter_type = 'V'
+				AND f.ad_field_uu = '7bb73318-f6cc-4540-85d7-69672a18cc5f'
+			ORDER BY
+				o.created DESC
+			LIMIT 1
+		) AS spo2
+		,
+		(
+			SELECT
+				MIN(v2.bh_visitdate)
+			FROM
+				bh_visit v2
+			WHERE
+				v2.patient_id = v.patient_id
+				AND v2.bh_visit_id != v.bh_visit_id
+				AND v2.bh_visitdate > v.bh_visitdate
+				AND v2.scheduled = 'Y'
+		) AS next_appointment_date
+	FROM
+		bh_visit v
+	WHERE
+		v.bh_visit_uu = $P{BH_Visit_UU}
+	LIMIT 1
+),
+patient AS (
+	SELECT
+		bp.c_bpartner_id,
+		bp.name                                     AS full_name,
+		bp.bh_patientid                             AS id_passport_number,
+		bp.bh_phone                                 AS contact_number,
+		CAST(DATE_PART('year', AGE(bp.bh_birthday)) AS INTEGER) AS age_years,
+		bp.bh_gender                                AS gender_display
+	FROM
+		visit v
+		JOIN c_bpartner bp
+			ON v.patient_id = bp.c_bpartner_id
+),
+diagnoses AS (
+	SELECT
+		e.bh_visit_id,
+		ev.bh_concept_id,
+		ev.bh_uncoded_diagnosis,
+		ROW_NUMBER() OVER (PARTITION BY e.bh_visit_id ORDER BY ev.lineno) AS diagnosis_rank
+	FROM
+		bh_visit v
+		JOIN bh_encounter e
+			ON v.bh_visit_id = e.bh_visit_id
+		LEFT JOIN bh_encounter_diagnosis ev
+			ON e.bh_encounter_id = ev.bh_encounter_id
+	WHERE
+		v.bh_visit_uu = $P{BH_Visit_UU}
+),
+primary_d AS (
+	SELECT * FROM diagnoses WHERE diagnosis_rank = 1
+),
+secondary_d AS (
+	SELECT * FROM diagnoses WHERE diagnosis_rank = 2
+)
+SELECT
+	p.full_name,
+	v.ip_op_number,
+	p.age_years,
+	p.gender_display,
+	p.id_passport_number,
+	p.contact_number,
+	v.chief_complaint,
+	v.clinical_notes,
+	v.blood_pressure,
+	v.temperature,
+	v.pulse,
+	v.spo2,
+	v.next_appointment_date,
+	v.referral_reason,
+	v.referred_to,
+	COALESCE(pc.bh_display_name, pd.bh_uncoded_diagnosis) AS primary_diagnosis,
+	COALESCE(sc.bh_display_name, sd.bh_uncoded_diagnosis) AS secondary_diagnosis,
+	o.name                                                AS clinic_name,
+	u.name                                                AS clinician_name
+FROM
+	visit v
+	JOIN patient p
+		ON 1 = 1
+	LEFT JOIN primary_d pd
+		ON v.bh_visit_id = pd.bh_visit_id
+	LEFT JOIN secondary_d sd
+		ON v.bh_visit_id = sd.bh_visit_id
+	LEFT JOIN bh_concept pc
+		ON pc.bh_concept_id = pd.bh_concept_id
+	LEFT JOIN bh_concept sc
+		ON sc.bh_concept_id = sd.bh_concept_id
+	JOIN ad_org o
+		ON v.ad_org_id = o.ad_org_id
+	LEFT JOIN ad_user u
+		ON v.bh_clinician_user_id = u.ad_user_id;]]>
+	</queryString>
+	<field name="full_name" class="java.lang.String"/>
+	<field name="ip_op_number" class="java.lang.String"/>
+	<field name="age_years" class="java.lang.Integer"/>
+	<field name="gender_display" class="java.lang.String"/>
+	<field name="id_passport_number" class="java.lang.String"/>
+	<field name="contact_number" class="java.lang.String"/>
+	<field name="chief_complaint" class="java.lang.String"/>
+	<field name="clinical_notes" class="java.lang.String"/>
+	<field name="blood_pressure" class="java.lang.String"/>
+	<field name="temperature" class="java.lang.String"/>
+	<field name="pulse" class="java.lang.String"/>
+	<field name="spo2" class="java.lang.String"/>
+	<field name="next_appointment_date" class="java.sql.Timestamp"/>
+	<field name="referral_reason" class="java.lang.String"/>
+	<field name="referred_to" class="java.lang.String"/>
+	<field name="primary_diagnosis" class="java.lang.String"/>
+	<field name="secondary_diagnosis" class="java.lang.String"/>
+	<field name="clinic_name" class="java.lang.String"/>
+	<field name="clinician_name" class="java.lang.String"/>
+	<title>
+		<band height="92" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="481" height="57" uuid="97f04a1e-fbc8-40c5-94b9-e817756a9140"/>
+				<subreportParameter name="BH_Visit_UU">
+					<subreportParameterExpression><![CDATA[$P{BH_Visit_UU}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PatientSummaryHeader.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="60" width="481" height="22" uuid="b2d2df62-9b12-4d2d-9a12-2b0d0b7a1c3d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PATIENT SUMMARY]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="715" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="105" width="481" height="1" uuid="7e6d9db3-2d3b-4d4d-8bdc-0c0a2d3f9c21"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="112" width="481" height="18" uuid="f6d3e0d1-0b2a-4d4c-9cc3-6c3b4c6d3a11"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1. PATIENT IDENTIFICATION]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="132" width="481" height="14" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Full Name: " + ($F{full_name} != null ? $F{full_name} : "")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="148" width="481" height="14" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["IP / OP Number: " + ($F{ip_op_number} != null ? $F{ip_op_number} : "")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="164" width="481" height="16" uuid="0ad6b2e1-1d3a-4f5c-a5b2-3c4d5e6f7a8b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Age: " + ($F{age_years} != null ? $F{age_years}.toString() : "") + "   Gender: " +
+					(($F{gender_display} != null && $F{gender_display}.equals("male")) ? "[X] Male" : "[ ] Male") + "   " +
+					(($F{gender_display} != null && $F{gender_display}.equals("female")) ? "[X] Female" : "[ ] Female")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="182" width="481" height="14" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6c"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ID/Passport No: " + ($F{id_passport_number} != null ? $F{id_passport_number} : "")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="198" width="481" height="14" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Contact Number: " + ($F{contact_number} != null ? $F{contact_number} : "")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="216" width="481" height="1" uuid="3db1d3d9-1f55-4cf0-94b1-0c2b2c2d3e4f"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="224" width="481" height="18" uuid="f6d3e0d1-0b2a-4d4c-9cc3-6c3b4c6d3a12"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2. CLINICAL SUMMARY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="244" width="260" height="14" uuid="a1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Chief Complaint (Reason for Visit):]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="260" y="244" width="221" height="14" uuid="b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{chief_complaint}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="260" width="210" height="14" uuid="a1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d60"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Brief History & Physical Findings:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="276" width="481" height="48" uuid="b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d61">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clinical_notes}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="326" width="481" height="16" uuid="e2f3a4b5-c6d7-4e5f-8a9b-0c1d2e3f4a5b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Vitals: BP: " + ($F{blood_pressure} != null ? $F{blood_pressure} : "") +
+						"   Temp: " + ($F{temperature} != null ? $F{temperature} : "") +
+						"   Pulse: " + ($F{pulse} != null ? $F{pulse} : "") +
+						"   SpO2: " + ($F{spo2} != null ? $F{spo2} : "")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="344" width="481" height="1" uuid="1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="354" width="481" height="18" uuid="f6d3e0d1-0b2a-4d4c-9cc3-6c3b4c6d3a13"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[3. DIAGNOSIS & TREATMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="374" width="250" height="14" uuid="a1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d70"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Primary Diagnosis (ICD-10 if known):]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="250" y="374" width="231" height="14" uuid="b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d71"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{primary_diagnosis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="390" width="190" height="14" uuid="a1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d72"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Secondary Diagnosis:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="190" y="390" width="291" height="14" uuid="b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d73"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{secondary_diagnosis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="406" width="481" height="14" uuid="a1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d74"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medication / Management Provided (Products and Services):]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="0" y="422" width="481" height="120" uuid="7b9a1c2d-3e4f-4a5b-8c9d-0e1f2a3b4c5e"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="MedicationDataSet" uuid="e9f0a1b2-c3d4-4e5f-8a9b-0c1d2e3f4a5c">
+						<datasetParameter name="BH_Visit_UU">
+							<datasetParameterExpression><![CDATA[$P{BH_Visit_UU}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Line"/>
+						<jr:columnHeader style="Table_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="20" uuid="4f5e6d7c-8b9a-4c5d-8e1f-2a3b4c5d6e7f"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[#]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="18">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="90" height="18" uuid="7a6b5c4d-3e2f-4a1b-8c9d-0e1f2a3b4c5d"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{line_no}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="190" uuid="2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Medication"/>
+						<jr:columnHeader style="Table_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="190" height="20" uuid="5e6d7c8b-9a0b-4c5d-8e1f-2a3b4c5d6e7f"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Medication]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="18">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="190" height="18" uuid="9a0b1c2d-3e4f-4a5b-8c9d-0e1f2a3b4c5d"/>
+								<textElement verticalAlignment="Middle">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{medication_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="201" uuid="3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Instructions"/>
+						<jr:columnHeader style="Table_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="201" height="20" uuid="6f7a8b9c-0d1e-4f5a-8b9c-0d1e2f3a4b5c"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Instructions]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="18">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="201" height="18" uuid="0d1e2f3a-4b5c-4d6e-8f9a-0b1c2d3e4f5a"/>
+								<textElement verticalAlignment="Middle">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{instructions}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<line>
+				<reportElement x="0" y="546" width="481" height="1" uuid="9e8d7c6b-5a4f-4b3c-8d2e-1f0a9b8c7d6e"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="554" width="481" height="18" uuid="f6d3e0d1-0b2a-4d4c-9cc3-6c3b4c6d3a14"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[4. REFERRAL / FOLLOW-UP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="574" width="481" height="14" uuid="a1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d90"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Reason for Referral: ________________________________________________]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="590" width="481" height="14" uuid="a1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d91"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Referred To: " + (($F{referred_to} != null && !$F{referred_to}.trim().isEmpty()) ? $F{referred_to} : "_________________________________________________________")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="606" width="481" height="14" uuid="a1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d92"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Follow-up Appointment Date: " +
+($F{next_appointment_date} != null ? new java.text.SimpleDateFormat("dd / MM / yyyy").format($F{next_appointment_date}) : "____ / ____ / ____")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="624" width="481" height="1" uuid="bbccdde1-2f3a-4b5c-8d9e-0f1a2b3c4d5e"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="632" width="481" height="18" uuid="f6d3e0d1-0b2a-4d4c-9cc3-6c3b4c6d3a15"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[5. CLINICIAN'S DECLARATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="650" width="481" height="34" uuid="d2c3b4a5-6e7f-4a8b-9c0d-1e2f3a4b5c6d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[I, the undersigned, certify that the above information is a true reflection of the clinical findings for the patient named above.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="684" width="250" height="14" uuid="c0a1b2c3-d4e5-4f6a-8b9c-0d1e2f3a4b5c"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Clinician Name: ______________________________"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="698" width="250" height="14" uuid="f1e2d3c4-b5a6-4c7d-8e9f-0a1b2c3d4e5f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Signature: ____________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="698" width="221" height="14" uuid="aa11bb22-cc33-4dd4-8ee5-ff66aa77bb88"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Official Hospital Stamp: ---]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30">
+			<textField>
+				<reportElement x="0" y="8" width="330" height="15" uuid="aabbccdd-eeff-4a5b-8c9d-0e1f2a3b4c5d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Report Generated at " + new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="8" width="141" height="15" uuid="ccddeeff-1122-4a5b-8c9d-0e1f2a3b4c5e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
