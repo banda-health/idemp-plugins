@@ -1,3 +1,135 @@
+-- Get all ASIs that don't have any transactions in the system
+SELECT
+	asi.m_attributesetinstance_id
+INTO TEMP TABLE
+	tmp_unused_asis
+FROM
+	m_attributesetinstance asi
+WHERE
+	asi.m_attributesetinstance_id != 0
+	AND NOT EXISTS(
+		SELECT 1 FROM m_transaction t WHERE t.m_attributesetinstance_id = asi.m_attributesetinstance_id
+	);
+
+-- Get all V+ ASIs that have transactions but aren't used on any shipment
+SELECT
+	t.m_attributesetinstance_id
+INTO TEMP TABLE
+	tmp_unshipped_asis
+FROM
+	m_transaction t
+WHERE
+	t.movementtype = 'V+'
+	AND m_attributesetinstance_id != 0
+	AND NOT EXISTS(
+		SELECT
+			1
+		FROM
+			m_inoutline iol
+		WHERE
+			iol.m_inoutline_id = t.m_inoutline_id
+			AND iol.m_attributesetinstance_id = t.m_attributesetinstance_id
+	);
+
+-- Map them together and update InOuts/Orders to use the transaction ASIs
+SELECT
+	iol.m_attributesetinstance_id AS old_asi,
+	t.m_attributesetinstance_id   AS new_asi
+INTO TEMP TABLE
+	tmp_asi_mappings
+FROM
+	m_transaction t
+		JOIN m_inoutline iol
+			ON t.m_inoutline_id = iol.m_inoutline_id
+WHERE
+	EXISTS(
+		SELECT 1 FROM tmp_unshipped_asis WHERE m_attributesetinstance_id = t.m_attributesetinstance_id
+	)
+	AND EXISTS(
+		SELECT 1 FROM tmp_unused_asis WHERE m_attributesetinstance_id = iol.m_attributesetinstance_id
+	);
+UPDATE m_inoutline iol
+SET
+	m_attributesetinstance_id = tam.new_asi
+FROM
+	tmp_asi_mappings tam
+WHERE
+	iol.m_attributesetinstance_id = tam.old_asi;
+UPDATE c_orderline ol
+SET
+	m_attributesetinstance_id = tam.new_asi
+FROM
+	tmp_asi_mappings tam
+WHERE
+	ol.m_attributesetinstance_id = tam.old_asi;
+UPDATE m_storagereservationlog srl
+SET
+	m_attributesetinstance_id = tam.new_asi
+FROM
+	tmp_asi_mappings tam
+WHERE
+	srl.m_attributesetinstance_id = tam.old_asi;
+DELETE
+FROM
+	m_storagereservation
+WHERE
+	m_attributesetinstance_id IN (
+		SELECT
+			old_asi
+		FROM
+			tmp_asi_mappings
+	);
+UPDATE m_matchpo mpo
+SET
+	m_attributesetinstance_id = tam.new_asi
+FROM
+	tmp_asi_mappings tam
+WHERE
+	mpo.m_attributesetinstance_id = tam.old_asi;
+UPDATE m_matchinv mi
+SET
+	m_attributesetinstance_id = tam.new_asi
+FROM
+	tmp_asi_mappings tam
+WHERE
+	mi.m_attributesetinstance_id = tam.old_asi;
+UPDATE m_costdetail cd
+SET
+	m_attributesetinstance_id = tam.new_asi
+FROM
+	tmp_asi_mappings tam
+WHERE
+	cd.m_attributesetinstance_id = tam.old_asi;
+DELETE
+FROM
+	m_cost
+WHERE
+	m_attributesetinstance_id IN (
+		SELECT
+			old_asi
+		FROM
+			tmp_asi_mappings
+	);
+UPDATE c_invoiceline il
+SET
+	m_attributesetinstance_id = tam.new_asi
+FROM
+	tmp_asi_mappings tam
+WHERE
+	il.m_attributesetinstance_id = tam.old_asi;
+
+-- Delete the ASIs that aren't used anywhere
+SELECT
+	bh_execute_statement_without_indexes($$
+DELETE
+FROM
+	m_attributesetinstance
+WHERE
+	m_attributesetinstance_id IN (
+		SELECT old_asi
+		FROM tmp_asi_mappings
+	);$$, 'm_attributesetinstance_id');
+
 DROP FUNCTION IF EXISTS get_product_costs(numeric);
 CREATE FUNCTION get_product_costs(_ad_client_id numeric)
 	RETURNS TABLE
@@ -115,3 +247,8 @@ FROM
 GROUP BY
 	t.m_product_id, t.m_attributesetinstance_id, t.purchase_price, t.purchase_date;
 $$;
+
+SELECT
+	register_migration_script('202604021100_GO-3534.sql')
+FROM
+	dual;
