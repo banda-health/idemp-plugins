@@ -64,44 +64,20 @@ LIMIT 1]]>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_location"/>
 	</field>
 	<title>
-		<band height="66" splitType="Stretch">
-			<textField textAdjust="CutText" isBlankWhenNull="true">
-				<reportElement x="95" y="22" width="265" height="42" isPrintInFirstWholeBand="true" uuid="f58bd9c1-c4dc-4b63-8f85-2f921f8a7b0b">
-					<printWhenExpression><![CDATA[$F{header} != null && !$F{header}.trim().isEmpty()]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="11" isBold="true"/>
+		<band height="57" splitType="Stretch">
+			<textField textAdjust="CutText" isBlankWhenNull="false">
+				<reportElement x="110" y="0" width="250" height="56" isPrintInFirstWholeBand="true" uuid="b1cec7ed-c752-4275-bf7c-5ba2ab438e41"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{header}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{header} != null && !$F{header}.isEmpty() ? $F{header} :
+  (UPPER($F{client_name}) + "\n" +
+	($F{address} != null && !$F{address}.isEmpty() ? $F{address} + "\n" : "") +
+	($F{phone} != null && !$F{phone}.isEmpty() ? $F{phone} : "")
+  )]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="95" y="2" width="265" height="18" isPrintInFirstWholeBand="true" uuid="b1cec7ed-c752-4275-bf7c-5ba2ab438e41">
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{client_name} != null ? $F{client_name}.toUpperCase() : ""]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="95" y="22" width="265" height="14" uuid="fd42a7a1-57d6-4f43-9f8f-53d9978623cc">
-					<printWhenExpression><![CDATA[$F{header} == null || $F{header}.trim().isEmpty()]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="95" y="38" width="265" height="14" uuid="38e3c2a3-66a5-4e04-b5be-c4a8fb64314f">
-					<printWhenExpression><![CDATA[$F{header} == null || $F{header}.trim().isEmpty()]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
-			</textField>
-			<image scaleImage="RetainShape" hAlign="Left" vAlign="Middle" onErrorType="Blank">
-				<reportElement mode="Transparent" x="0" y="0" width="100" height="65" uuid="bc227f3b-fe3c-41e4-a1cf-1d87a72499f4">
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement mode="Transparent" x="0" y="0" width="100" height="56" uuid="bc227f3b-fe3c-41e4-a1cf-1d87a72499f4">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<printWhenExpression><![CDATA[$F{image} != null]]></printWhenExpression>
 				</reportElement>
