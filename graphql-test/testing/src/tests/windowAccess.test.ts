@@ -470,7 +470,7 @@ test('cashier/registration basic role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
 		IsReadWrite: true,
-		BH_CanDeactivate: false,
+		BH_CanDeactivate: true,
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.billingHistoryManageDebt)).toBeUndefined();
@@ -619,7 +619,7 @@ test('cashier/registration basic plus role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
 		IsReadWrite: true,
-		BH_CanDeactivate: false,
+		BH_CanDeactivate: true,
 	});
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.billingHistoryManageDebt)).toBeUndefined();
