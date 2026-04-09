@@ -367,7 +367,7 @@ test('cashier/registration basic role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.products]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.services)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.services]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+	expect(windowAccess?.[windowUuid.services]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.visitsBills)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.visitsBills]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
@@ -469,7 +469,7 @@ test('cashier/registration basic role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
-		IsReadWrite: false,
+		IsReadWrite: true,
 		BH_CanDeactivate: false,
 	});
 
@@ -618,7 +618,7 @@ test('cashier/registration basic plus role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
-		IsReadWrite: false,
+		IsReadWrite: true,
 		BH_CanDeactivate: false,
 	});
 
