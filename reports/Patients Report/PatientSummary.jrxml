@@ -691,26 +691,12 @@ FROM
 				<text><![CDATA[I, the undersigned, certify that the above information is a true reflection of the clinical findings for the patient named above.]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="0" y="588" width="481" height="14" uuid="c0a1b2c3-d4e5-4f6a-8b9c-0d1e2f3a4b5c"/>
+				<reportElement positionType="Float" x="0" y="596" width="481" height="14" uuid="c0a1b2c3-d4e5-4f6a-8b9c-0d1e2f3a4b5c"/>
 				<textElement>
 					<font size="9" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Clinician Name: " + (($F{clinician_name} != null && !$F{clinician_name}.trim().isEmpty()) ? $F{clinician_name} : "______________________________")]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Clinician Name: " + (($F{clinician_name} != null && !$F{clinician_name}.trim().isEmpty()) ? $F{clinician_name} : "______________________________") + "    Signature: ________________________"]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement positionType="Float" x="0" y="604" width="220" height="14" uuid="f1e2d3c4-b5a6-4c7d-8e9f-0a1b2c3d4e5f"/>
-				<textElement>
-					<font size="9"/>
-				</textElement>
-				<text><![CDATA[Signature: ________________________]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="Float" x="260" y="604" width="221" height="14" uuid="aa11bb22-cc33-4dd4-8ee5-ff66aa77bb88"/>
-				<textElement>
-					<font size="9"/>
-				</textElement>
-				<text><![CDATA[Official Hospital Stamp: __________________]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<pageFooter>
