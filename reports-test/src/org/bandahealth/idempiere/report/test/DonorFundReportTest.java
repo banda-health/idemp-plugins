@@ -168,6 +168,7 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		assertNotNull(valueObject.getReport(), "Report was generated successfully");
@@ -398,6 +399,7 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());

@@ -89,6 +89,7 @@ public class CashierTransactionDifferencesTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
 		));
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		MUser_BH currentUser = new Query(valueObject.getContext(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_ID + "=?",
 				valueObject.getTransactionName()).setParameters(Env.getAD_User_ID(valueObject.getContext())).first();

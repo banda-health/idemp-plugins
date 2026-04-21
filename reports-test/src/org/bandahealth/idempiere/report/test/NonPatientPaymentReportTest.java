@@ -134,6 +134,7 @@ public class NonPatientPaymentReportTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		assertNotNull(valueObject.getReport(), "Report was generated successfully");
@@ -284,6 +285,7 @@ public class NonPatientPaymentReportTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		assertNotNull(valueObject.getReport(), "Report was generated successfully");
@@ -453,6 +455,7 @@ public class NonPatientPaymentReportTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("C_BPartner_UU", donor.getC_BPartner_UU(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		assertNotNull(valueObject.getReport(), "Report was generated successfully");

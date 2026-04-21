@@ -86,6 +86,7 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		valueObject.refresh();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
@@ -188,6 +189,7 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		valueObject.refresh();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
@@ -291,6 +293,7 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		valueObject.refresh();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
@@ -364,6 +367,7 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		valueObject.refresh();
 
 		double runningTotal = 0;
@@ -400,6 +404,7 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setReportType("pdf");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		DecimalFormat decimalFormat = new DecimalFormat("#,###");
