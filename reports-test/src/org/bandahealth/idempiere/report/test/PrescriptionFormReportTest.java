@@ -141,6 +141,7 @@ public class PrescriptionFormReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessInformationParameters(
 				List.of(new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().get_UUID(), null, null, null)));
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
@@ -250,6 +251,7 @@ public class PrescriptionFormReportTest extends ChuBoePopulateFactoryVO {
 				List.of(new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().get_UUID(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());

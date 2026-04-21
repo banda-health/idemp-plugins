@@ -1227,6 +1227,9 @@ public class ChuBoeCreateEntity {
 
 		if (processInfo.getExportFile() == null) {
 			valueObject.appendErrorMessage("Report Generation Failed: " + process.getClassname());
+			if (processInfo.isError()) {
+				valueObject.appendErrorMessage("Report Generation Failure Reason: " + processInfo.getSummary());
+			}
 		}
 
 		valueObject.setReport(processInfo.getExportFile());

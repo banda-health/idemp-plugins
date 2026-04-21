@@ -118,6 +118,7 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 						null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -198,6 +199,7 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		// Get the number of products we should see on the report
 		int productCount = new Query(valueObject.getContext(), MProduct_BH.Table_Name,
@@ -292,6 +294,7 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -398,6 +401,7 @@ public class ProductsAndPricesTest extends ChuBoePopulateFactoryVO {
 						null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {

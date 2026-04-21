@@ -107,6 +107,7 @@ public class OpenBalanceReceiptTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("debtPaymentID", new BigDecimal(valueObject.getPayment().get_ID()), null, null,
 						null)));
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		String receiptContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		assertThat("Patient's name is on the receipt", receiptContent,

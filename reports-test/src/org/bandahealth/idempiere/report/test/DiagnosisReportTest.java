@@ -127,6 +127,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
 		));
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
@@ -250,6 +251,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", endDate, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
@@ -423,6 +425,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
@@ -576,6 +579,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 								null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
@@ -719,6 +723,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
@@ -748,6 +753,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 				));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		file = new FileInputStream(valueObject.getReport());
@@ -777,6 +783,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 				));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		file = new FileInputStream(valueObject.getReport());
@@ -807,6 +814,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 				));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		file = new FileInputStream(valueObject.getReport());

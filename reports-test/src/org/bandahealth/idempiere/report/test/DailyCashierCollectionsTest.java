@@ -98,6 +98,7 @@ public class DailyCashierCollectionsTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
 		));
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		MUser_BH currentUser =
@@ -209,6 +210,7 @@ public class DailyCashierCollectionsTest extends ChuBoePopulateFactoryVO {
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {

@@ -164,6 +164,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -194,6 +195,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		double originalGlucoseCount;
@@ -243,6 +245,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -269,6 +272,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		Map<String, Map<String, Double>> originalBloodChemistryData;
@@ -772,6 +776,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -989,6 +994,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		Map<String, Map<String, Double>> originalMalariaData;
@@ -1054,6 +1060,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -1093,6 +1100,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		Map<String, Map<String, Double>> originalHaematologyData;
@@ -1292,6 +1300,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -1343,6 +1352,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		Map<String, Map<String, Double>> originalBacteriologyData;
@@ -1404,6 +1414,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -1432,6 +1443,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		Map<String, Map<String, Double>> originalSerologyData;
@@ -1493,6 +1505,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -1521,6 +1534,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		Map<String, Map<String, Double>> originalSerologyData;
@@ -1621,6 +1635,7 @@ public class MoH706LabTestsSummaryTest extends ChuBoePopulateFactoryVO {
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
