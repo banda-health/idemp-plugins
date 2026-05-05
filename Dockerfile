@@ -1,6 +1,6 @@
 FROM alpine:latest
 RUN apk update && apk add --no-cache wget libxml2-utils bash postgresql-client nodejs npm jq
-RUN npm install jest@29.7.0 ts-jest typescript ts-node --global
+RUN npm install jest@29.7.0 ts-jest@29.4.9 typescript@6.0.3 ts-node@10.9.2 --global
 
 WORKDIR /app
 COPY ./docker-entrypoint.sh .
