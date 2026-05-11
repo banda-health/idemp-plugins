@@ -119,6 +119,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("ShowInsuranceInfo", false, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -184,6 +185,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("ShowInsuranceInfo", false, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -276,6 +278,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("ShowInsuranceInfo", false, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -411,6 +414,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("ShowInsuranceInfo", true, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -508,6 +512,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("ShowInsuranceInfo", false, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		DateFormat format = new SimpleDateFormat("dd-MM-YYYY hh:mm");
@@ -623,6 +628,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("ShowInsuranceInfo", false, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -702,6 +708,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("ShowInsuranceInfo", false, null, null, null)));
 		valueObject.setReportType("pdf");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		assertTrue(reportContent.contains("HUZZAH!"), "Long header information appears on the report");

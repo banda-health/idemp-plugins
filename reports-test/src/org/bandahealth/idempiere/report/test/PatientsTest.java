@@ -59,6 +59,7 @@ public class PatientsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -104,6 +105,7 @@ public class PatientsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -166,6 +168,7 @@ public class PatientsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessInformationParameters(List.of(
 				new ProcessInfoParameter("Patient Tags", Collections.singletonList(tag.getBH_Tag_UU()), null, null, null)));
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {

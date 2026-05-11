@@ -68,6 +68,7 @@ public class MoH747AContraceptivesConsumptionReportTest extends ChuBoePopulateFa
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -115,6 +116,7 @@ public class MoH747AContraceptivesConsumptionReportTest extends ChuBoePopulateFa
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		Map<String, ConceptCounts> initialData = new HashMap<>();
@@ -550,6 +552,7 @@ public class MoH747AContraceptivesConsumptionReportTest extends ChuBoePopulateFa
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {

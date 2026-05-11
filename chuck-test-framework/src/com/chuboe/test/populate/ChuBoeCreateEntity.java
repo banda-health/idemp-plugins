@@ -90,7 +90,9 @@ import org.compiere.process.ProcessCall;
 import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.eevolution.model.MPPProductBOM;
 import org.eevolution.model.MPPProductBOMLine;
 
@@ -1226,7 +1228,23 @@ public class ChuBoeCreateEntity {
 		ServerProcessCtl.process(processInfo, null);
 
 		if (processInfo.getExportFile() == null) {
-			valueObject.appendErrorMessage("Report Generation Failed: " + process.getClassname());
+			int trlCount = DB.getSQLValueEx(null,
+					"SELECT COUNT(*) FROM AD_Process_Trl WHERE AD_Process_ID=? AND AD_Language=?",
+					process.get_ID(), Env.getAD_Language(Env.getCtx()));
+			String diag = " [AD_PInstance_ID=" + mpi.get_ID()
+					+ ", AD_Process_ID=" + process.get_ID()
+					+ ", ClassName=" + process.getClassname()
+					+ ", JasperReport=" + process.getJasperReport()
+					+ ", ProcedureName=" + process.getProcedureName()
+					+ ", IsReport=" + process.isReport()
+					+ ", AD_Language=" + Env.getAD_Language(Env.getCtx())
+					+ ", isBaseLanguage=" + Language.isBaseLanguage(Env.getAD_Language(Env.getCtx()))
+					+ ", baseAD_Language=" + Language.getBaseAD_Language()
+					+ ", trlCount=" + trlCount + "]";
+			valueObject.appendErrorMessage("Report Generation Failed: " + process.getClassname() + diag);
+			if (processInfo.isError()) {
+				valueObject.appendErrorMessage("Report Generation Failure Reason: " + processInfo.getSummary());
+			}
 		}
 
 		valueObject.setReport(processInfo.getExportFile());

@@ -124,6 +124,7 @@ public class OTCSalesTest extends ChuBoePopulateFactoryVO {
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -238,6 +239,7 @@ public class OTCSalesTest extends ChuBoePopulateFactoryVO {
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -272,6 +274,7 @@ public class OTCSalesTest extends ChuBoePopulateFactoryVO {
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		double cashTotal = 0;
@@ -390,6 +393,7 @@ public class OTCSalesTest extends ChuBoePopulateFactoryVO {
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		double newCashTotal = 0;
@@ -430,6 +434,7 @@ public class OTCSalesTest extends ChuBoePopulateFactoryVO {
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		Map<String, Double> baselineTotals = new HashMap<>();
 		FileInputStream file = new FileInputStream(valueObject.getReport());
@@ -512,6 +517,7 @@ public class OTCSalesTest extends ChuBoePopulateFactoryVO {
 		));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {

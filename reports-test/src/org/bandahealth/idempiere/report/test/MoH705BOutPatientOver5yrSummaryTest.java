@@ -109,6 +109,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		double numberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
@@ -208,6 +209,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		double newNumberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
@@ -265,6 +267,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		double numberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
@@ -399,6 +402,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		double newNumberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
@@ -481,6 +485,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		double numberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
@@ -577,6 +582,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		double newNumberOfDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), diagnosisToSearchFor);
 
@@ -662,6 +668,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		double numberOfFirstDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(), firstDiagnosisName);
 		double numberOfSecondDiagnoses = getDiagnosesCountForDate(valueObject, TimestampUtils.today(),
@@ -733,6 +740,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		double newNumberOfFirstDiagnoses =
 				getDiagnosesCountForDate(valueObject, TimestampUtils.today(), firstDiagnosisName);
@@ -767,6 +775,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
