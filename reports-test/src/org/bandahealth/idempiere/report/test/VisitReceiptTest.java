@@ -113,6 +113,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -273,6 +274,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -387,6 +389,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -528,6 +531,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -646,6 +650,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -795,6 +800,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
@@ -928,6 +934,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("pdf");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		assertTrue(reportContent.contains(valueObject.getBusinessPartner().getName().substring(0, 15)),
@@ -1033,6 +1040,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 				new ProcessInfoParameter("billId", new BigDecimal(valueObject.getVisit().get_ID()), null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 		commitEx();
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());

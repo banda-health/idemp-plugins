@@ -55,6 +55,7 @@ public class MoH717NewAndRevisitPatientCountTest extends ChuBoePopulateFactoryVO
 				new ProcessInfoParameter("End Date", endOfMonth, null, null, null)
 		));
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
 		assertThat("Report contains General Outpatients title", reportContent,
@@ -81,6 +82,7 @@ public class MoH717NewAndRevisitPatientCountTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", endDate, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		MoH717Counts initialOver5YearsMale = new MoH717Counts() {{
 			name = over5YearsMale;
@@ -238,6 +240,7 @@ public class MoH717NewAndRevisitPatientCountTest extends ChuBoePopulateFactoryVO
 						new ProcessInfoParameter("End Date", endDate, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		file = new FileInputStream(valueObject.getReport());
 		try (Workbook workbook = new XSSFWorkbook(file)) {
