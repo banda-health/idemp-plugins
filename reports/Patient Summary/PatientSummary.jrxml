@@ -183,8 +183,25 @@ patient AS (
 		bp.name                                     AS full_name,
 		bp.bh_patientid                             AS id_passport_number,
 		bp.bh_phone                                 AS contact_number,
-		bp.bh_birthday,
-		bp.bh_gender                                AS gender_display
+		bp.bh_gender                                AS gender_display,
+		CASE
+			WHEN bp.bh_birthday IS NULL THEN ''
+			WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) >= 2
+				THEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date))::int || ' years'
+			WHEN (EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) * 12
+				+ EXTRACT(MONTH FROM AGE(CURRENT_DATE, bp.bh_birthday::date)))::int >= 2
+				THEN (EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) * 12
+					+ EXTRACT(MONTH FROM AGE(CURRENT_DATE, bp.bh_birthday::date)))::int || ' months'
+			WHEN (CURRENT_DATE - bp.bh_birthday::date) >= 15
+				THEN (CURRENT_DATE - bp.bh_birthday::date) / 7 || ' weeks'
+					|| CASE
+						WHEN (CURRENT_DATE - bp.bh_birthday::date) % 7 = 0 THEN ''
+						WHEN (CURRENT_DATE - bp.bh_birthday::date) % 7 = 1 THEN ', 1 day'
+						ELSE ', ' || (CURRENT_DATE - bp.bh_birthday::date) % 7 || ' days'
+					END
+			WHEN (CURRENT_DATE - bp.bh_birthday::date) = 1 THEN '1 day'
+			ELSE (CURRENT_DATE - bp.bh_birthday::date) || ' days'
+		END AS age_display
 	FROM
 		visit v
 		JOIN c_bpartner bp
@@ -221,7 +238,7 @@ secondary_d AS (
 SELECT
 	p.full_name,
 	v.ip_op_number,
-	p.bh_birthday,
+	p.age_display,
 	p.gender_display,
 	p.id_passport_number,
 	p.contact_number,
@@ -265,10 +282,9 @@ FROM
 		<property name="com.jaspersoft.studio.field.label" value="ip_op_number"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="bh_visit"/>
 	</field>
-	<field name="bh_birthday" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.name" value="bh_birthday"/>
-		<property name="com.jaspersoft.studio.field.label" value="bh_birthday"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	<field name="age_display" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="age_display"/>
+		<property name="com.jaspersoft.studio.field.label" value="age_display"/>
 	</field>
 	<field name="gender_display" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="gender_display"/>
@@ -349,9 +365,6 @@ FROM
 		<property name="com.jaspersoft.studio.field.label" value="clinician_name"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
 	</field>
-	<variable name="age_display" class="java.lang.String">
-		<variableExpression><![CDATA[$F{bh_birthday} == null ? "" : "value"]]></variableExpression>
-	</variable>
 	<title>
 		<band height="78">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -386,12 +399,15 @@ FROM
 				<text><![CDATA[1. PATIENT IDENTIFICATION]]></text>
 			</staticText>
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
-				<reportElement x="0" y="28" width="240" height="16" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6a">
+				<reportElement x="0" y="28" width="481" height="16" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box rightPadding="3"/>
 				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>Full Name:</b> " + ($F{full_name} != null ? $F{full_name} : "")]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Full Name:</b> " + ($F{full_name} != null ? $F{full_name} : "") + "     <b>Age:</b> " + $F{age_display}+ "     <b>Gender:</b> " +
+					($F{gender_display} != null && !$F{gender_display}.trim().isEmpty()
+						? $F{gender_display}.substring(0,1).toUpperCase() + $F{gender_display}.substring(1).toLowerCase()
+						: "")]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement x="0" y="46" width="240" height="16" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6b">
@@ -399,16 +415,6 @@ FROM
 				</reportElement>
 				<textElement markup="html"/>
 				<textFieldExpression><![CDATA["<b>IP / OP Number:</b> " + ($F{ip_op_number} != null ? $F{ip_op_number} : "")]]></textFieldExpression>
-			</textField>
-			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
-				<reportElement x="240" y="28" width="241" height="16" uuid="0ad6b2e1-1d3a-4f5c-a5b2-3c4d5e6f7a8b">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>Age:</b> " + $V{age_display}+ "   <b>Gender:</b> " +
-					($F{gender_display} != null && !$F{gender_display}.trim().isEmpty()
-						? $F{gender_display}.substring(0,1).toUpperCase() + $F{gender_display}.substring(1).toLowerCase()
-						: "")]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement x="0" y="64" width="240" height="16" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6c">

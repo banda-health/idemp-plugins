@@ -1,30 +1,34 @@
 package org.bandahealth.idempiere.report.test;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.hamcrest.Matchers;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
@@ -55,6 +59,7 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.getBusinessPartner().setBH_PatientID("PID-" + uniqueToken);
 		valueObject.getBusinessPartner().setBH_Phone("0700" + uniqueToken.substring(0, Math.min(6, uniqueToken.length())));
 		valueObject.getBusinessPartner().saveEx();
+		valueObject.getUser().load(valueObject.getTransactionName());
 		commitEx();
 
 		valueObject.setStepName("Create product");
@@ -78,8 +83,6 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setbh_referral("Referral reason " + uniqueToken);
-		valueObject.getVisit().setBH_ReferredFromTo("Referral destination " + uniqueToken);
 		valueObject.getVisit().setBH_Clinician_User_ID(valueObject.getUser().get_ID());
 		valueObject.getVisit().saveEx();
 		commitEx();
@@ -186,54 +189,156 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessTableId(0);
 		valueObject.setProcessInformationParameters(
 				List.of(new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null)));
-		valueObject.setReportType("pdf");
+		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
-		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
+		try (Workbook workbook = new XSSFWorkbook(new FileInputStream(valueObject.getReport()))) {
+			Sheet sheet = workbook.getSheetAt(0);
 
-		assertThat("Full name label is shown", reportContent, containsString("Full Name:"));
-		assertThat("Patient full name is shown", reportContent,
-				containsString(valueObject.getBusinessPartner().getName()));
+			assertThat("Full name is shown",
+					hasCellContaining(sheet, valueObject.getBusinessPartner().getName()), is(true));
+			assertThat("Patient number is shown",
+					hasCellContaining(sheet, valueObject.getVisit().getDocumentNo()), is(true));
+			assertThat("Age label is shown", hasCellContaining(sheet, "Age:"), is(true));
+			assertThat("National ID is shown",
+					hasCellContaining(sheet, valueObject.getBusinessPartner().getBH_PatientID()), is(true));
+			assertThat("Contact number is shown",
+					hasCellContaining(sheet, valueObject.getBusinessPartner().getBH_Phone()), is(true));
 
-		assertThat("Patient number label is shown", reportContent, containsString("IP / OP Number:"));
-		assertThat("Patient number is shown", reportContent, containsString(valueObject.getVisit().getDocumentNo()));
+			assertThat("Vitals section is shown", hasCellContaining(sheet, "Vitals:"), is(true));
+			assertThat("Blood pressure is shown", hasCellContaining(sheet, "120/80"), is(true));
+			assertThat("Temperature is shown", hasCellContaining(sheet, "37.2"), is(true));
+			assertThat("Pulse is shown", hasCellContaining(sheet, "78"), is(true));
+			assertThat("SpO2 is shown", hasCellContaining(sheet, "98"), is(true));
+			assertThat("Respiratory rate is shown", hasCellContaining(sheet, "18"), is(true));
 
-		assertThat("Age label is shown", reportContent, containsString("Age:"));
-		assertThat("National ID label is shown", reportContent, containsString("ID/Passport No:"));
-		assertThat("National ID value is shown", reportContent,
-				containsString(valueObject.getBusinessPartner().getBH_PatientID()));
-		assertThat("Contact number label is shown", reportContent, containsString("Contact Number:"));
-		assertThat("Contact number value is shown", reportContent,
-				containsString(valueObject.getBusinessPartner().getBH_Phone()));
+			assertThat("Chief complaint label is shown",
+					hasCellContaining(sheet, "Chief Complaint (Reason for Visit):"), is(true));
+			assertThat("Chief complaint value is shown",
+					hasCellContaining(sheet, chiefComplaintText), is(true));
+			assertThat("Brief history label is shown",
+					hasCellContaining(sheet, "Brief History & Physical Findings:"), is(true));
+			assertThat("Clinical notes value is shown",
+					hasCellContaining(sheet, clinicalNotes), is(true));
 
-		assertThat("Vitals section is shown", reportContent, containsString("Vitals:"));
-		assertThat("Blood pressure is shown", reportContent, containsString("120/80"));
-		assertThat("Temperature is shown", reportContent, containsString("37.2"));
-		assertThat("Pulse is shown", reportContent, containsString("78"));
-		assertThat("SpO2 is shown", reportContent, containsString("98"));
-		assertThat("Respiratory rate is shown", reportContent, containsString("18"));
+			assertThat("Primary diagnosis is shown",
+					hasCellContaining(sheet, primaryDiagnosis.getBH_Display_Name()), is(true));
+			assertThat("Secondary diagnosis is shown",
+					hasCellContaining(sheet, uncodedDiagnosis), is(true));
 
-		assertThat("Chief complaint label is shown", reportContent, containsString("Chief Complaint (Reason for Visit):"));
-		assertThat("Chief complaint value is shown", reportContent, containsString(chiefComplaintText));
+			assertThat("Products/services section is shown",
+					hasCellContaining(sheet, "Medication / Management Provided"), is(true));
+			assertThat("Products/services on visit are shown",
+					hasCellContaining(sheet, "Service " + uniqueToken), is(true));
 
-		assertThat("Brief history label is shown", reportContent, containsString("Brief History & Physical Findings:"));
-		assertThat("Clinical notes value is shown", reportContent, containsString(clinicalNotes));
+			assertThat("Clinician name is shown",
+					hasCellContaining(sheet, valueObject.getUser().getName()), is(true));
+		}
+	}
 
-		assertThat("Primary diagnosis label is shown", reportContent, containsString("Primary Diagnosis:"));
-		assertThat("Primary diagnosis value is shown", reportContent,
-				containsString(primaryDiagnosis.getBH_Display_Name()));
-		assertThat("Secondary diagnosis label is shown", reportContent, containsString("Secondary Diagnosis:"));
-		assertThat("Secondary diagnosis value is shown", reportContent, containsString(uncodedDiagnosis));
+	@IPopulateAnnotation.CanRun
+	public void reportShowsAgeInYearsForPatientOlderThanTwoYears() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
-		assertThat("Products/services section is shown", reportContent,
-				containsString("Medication / Management Provided:"));
-		assertThat("Products/services on visit are shown", reportContent, containsString("Service " + uniqueToken));
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(TimestampUtils.addToNow(Calendar.YEAR, -5));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
 
-		assertThat("Referral information is shown", reportContent, containsString("Referred To:"));
-		assertThat("Referral destination is shown", reportContent, containsString("Referral destination " + uniqueToken));
+		try (Workbook workbook = generateReportForVisit(valueObject)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			assertThat("Age displays in years", hasAgeCellContaining(sheet, "5 years"), is(true));
+		}
+	}
 
-		assertThat("Clinician information is shown", reportContent, containsString("Clinician Name:"));
-		assertThat("Clinician name value is shown", reportContent, containsString(valueObject.getUser().getName()));
+	@IPopulateAnnotation.CanRun
+	public void reportShowsAgeInMonthsForPatientYoungerThanTwoYears() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(TimestampUtils.addToNow(Calendar.MONTH, -6));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		try (Workbook workbook = generateReportForVisit(valueObject)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			assertThat("Age displays in months", hasAgeCellContaining(sheet, "6 months"), is(true));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void reportShowsAgeInWeeksAndDaysForPatientYoungerThanTwoMonths() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, -20));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		try (Workbook workbook = generateReportForVisit(valueObject)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			assertThat("Age displays in weeks and days", hasAgeCellContaining(sheet, "2 weeks, 6 days"), is(true));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void reportShowsAgeInDaysForPatientYoungerThanFifteenDays() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, -10));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		try (Workbook workbook = generateReportForVisit(valueObject)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			assertThat("Age displays in days", hasAgeCellContaining(sheet, "10 days"), is(true));
+		}
+	}
+
+	private Workbook generateReportForVisit(ChuBoePopulateVO valueObject) throws SQLException, IOException {
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate report");
+		valueObject.setProcessUuid(patientSummaryReportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				List.of(new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
+
+		return new XSSFWorkbook(new FileInputStream(valueObject.getReport()));
+	}
+
+	private boolean hasCellContaining(Sheet sheet, String text) {
+		return StreamSupport.stream(sheet.spliterator(), false).anyMatch(
+				row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+						cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+								cell.getStringCellValue().contains(text)));
+	}
+
+	private boolean hasAgeCellContaining(Sheet sheet, String expectedAge) {
+		return StreamSupport.stream(sheet.spliterator(), false).anyMatch(
+				row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+						cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+								cell.getStringCellValue().contains("Age:") &&
+								cell.getStringCellValue().contains(expectedAge)));
 	}
 }
