@@ -18,6 +18,7 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="mm"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="mm"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<style name="Default" isDefault="true" fontName="Arial"/>
 	<style name="style1" fontName="Courier New" fontSize="12"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>

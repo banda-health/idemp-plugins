@@ -39,7 +39,7 @@
 			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Default" isDefault="true" fontSize="12"/>
+	<style name="Default" isDefault="true" fontName="Arial" fontSize="12"/>
 	<style name="SectionHeading" fontSize="14" isBold="true"/>
 	<style name="Declaration" fontSize="11"/>
 	<style name="Footer" fontSize="9" isBold="true"/>

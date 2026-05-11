@@ -8,6 +8,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="mm"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<style name="Default" isDefault="true" fontName="Arial"/>
 	<parameter name="debtPaymentID" class="java.math.BigDecimal">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
