@@ -464,7 +464,7 @@ FROM
 	.replaceAll("^,\\s*|,\\s*$", "") : "")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="80" width="210" height="16" uuid="414693a6-db8f-4b01-8d02-0652957b9edc">
+				<reportElement x="0" y="80" width="481" height="16" uuid="414693a6-db8f-4b01-8d02-0652957b9edc">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
