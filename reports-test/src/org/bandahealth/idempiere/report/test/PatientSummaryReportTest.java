@@ -196,22 +196,27 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 		try (Workbook workbook = new XSSFWorkbook(new FileInputStream(valueObject.getReport()))) {
 			Sheet sheet = workbook.getSheetAt(0);
 
-			assertThat("Full name is shown",
-					hasCellContaining(sheet, valueObject.getBusinessPartner().getName()), is(true));
-			assertThat("Patient number is shown",
-					hasCellContaining(sheet, valueObject.getVisit().getDocumentNo()), is(true));
-			assertThat("Age label is shown", hasCellContaining(sheet, "Age:"), is(true));
-			assertThat("National ID is shown",
-					hasCellContaining(sheet, valueObject.getBusinessPartner().getBH_PatientID()), is(true));
-			assertThat("Contact number is shown",
-					hasCellContaining(sheet, valueObject.getBusinessPartner().getBH_Phone()), is(true));
+			assertThat("Full name is shown with label",
+					hasCellContaining(sheet, "Full Name:", valueObject.getBusinessPartner().getName()), is(true));
+			assertThat("Patient number is shown with label",
+					hasCellContaining(sheet, "IP / OP Number:", valueObject.getVisit().getDocumentNo()), is(true));
+			assertThat("National ID is shown with label",
+					hasCellContaining(sheet, "ID/Passport No:", valueObject.getBusinessPartner().getBH_PatientID()),
+					is(true));
+			assertThat("Contact number is shown with label",
+					hasCellContaining(sheet, "Contact Number:", valueObject.getBusinessPartner().getBH_Phone()),
+					is(true));
 
-			assertThat("Vitals section is shown", hasCellContaining(sheet, "Vitals:"), is(true));
-			assertThat("Blood pressure is shown", hasCellContaining(sheet, "120/80"), is(true));
-			assertThat("Temperature is shown", hasCellContaining(sheet, "37.2"), is(true));
-			assertThat("Pulse is shown", hasCellContaining(sheet, "78"), is(true));
-			assertThat("SpO2 is shown", hasCellContaining(sheet, "98"), is(true));
-			assertThat("Respiratory rate is shown", hasCellContaining(sheet, "18"), is(true));
+			assertThat("Blood pressure is shown with label",
+					hasCellContaining(sheet, "BP:", "120/80"), is(true));
+			assertThat("Temperature is shown with label",
+					hasCellContaining(sheet, "Temp:", "37.2"), is(true));
+			assertThat("Pulse is shown with label",
+					hasCellContaining(sheet, "Pulse:", "78"), is(true));
+			assertThat("SpO2 is shown with label",
+					hasCellContaining(sheet, "SpO2:", "98"), is(true));
+			assertThat("Respiratory rate is shown with label",
+					hasCellContaining(sheet, "RR:", "18"), is(true));
 
 			assertThat("Chief complaint label is shown",
 					hasCellContaining(sheet, "Chief Complaint (Reason for Visit):"), is(true));
@@ -222,18 +227,18 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 			assertThat("Clinical notes value is shown",
 					hasCellContaining(sheet, clinicalNotes), is(true));
 
-			assertThat("Primary diagnosis is shown",
-					hasCellContaining(sheet, primaryDiagnosis.getBH_Display_Name()), is(true));
-			assertThat("Secondary diagnosis is shown",
-					hasCellContaining(sheet, uncodedDiagnosis), is(true));
+			assertThat("Primary diagnosis is shown with label",
+					hasCellContaining(sheet, "Primary Diagnosis:", primaryDiagnosis.getBH_Display_Name()), is(true));
+			assertThat("Secondary diagnosis is shown with label",
+					hasCellContaining(sheet, "Secondary Diagnosis:", uncodedDiagnosis), is(true));
 
 			assertThat("Products/services section is shown",
 					hasCellContaining(sheet, "Medication / Management Provided"), is(true));
 			assertThat("Products/services on visit are shown",
 					hasCellContaining(sheet, "Service " + uniqueToken), is(true));
 
-			assertThat("Clinician name is shown",
-					hasCellContaining(sheet, valueObject.getUser().getName()), is(true));
+			assertThat("Clinician name is shown with label",
+					hasCellContaining(sheet, "Clinician Name:", valueObject.getUser().getName()), is(true));
 		}
 	}
 
@@ -251,7 +256,7 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 
 		try (Workbook workbook = generateReportForVisit(valueObject)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			assertThat("Age displays in years", hasAgeCellContaining(sheet, "5 years"), is(true));
+			assertThat("Age displays in years", hasCellContaining(sheet, "Age:", "5 years"), is(true));
 		}
 	}
 
@@ -269,7 +274,7 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 
 		try (Workbook workbook = generateReportForVisit(valueObject)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			assertThat("Age displays in months", hasAgeCellContaining(sheet, "6 months"), is(true));
+			assertThat("Age displays in months", hasCellContaining(sheet, "Age:", "6 months"), is(true));
 		}
 	}
 
@@ -287,7 +292,7 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 
 		try (Workbook workbook = generateReportForVisit(valueObject)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			assertThat("Age displays in weeks and days", hasAgeCellContaining(sheet, "2 weeks, 6 days"), is(true));
+			assertThat("Age displays in weeks and days", hasCellContaining(sheet, "Age:", "2 weeks, 6 days"), is(true));
 		}
 	}
 
@@ -305,7 +310,7 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 
 		try (Workbook workbook = generateReportForVisit(valueObject)) {
 			Sheet sheet = workbook.getSheetAt(0);
-			assertThat("Age displays in days", hasAgeCellContaining(sheet, "10 days"), is(true));
+			assertThat("Age displays in days", hasCellContaining(sheet, "Age:", "10 days"), is(true));
 		}
 	}
 
@@ -334,11 +339,11 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 								cell.getStringCellValue().contains(text)));
 	}
 
-	private boolean hasAgeCellContaining(Sheet sheet, String expectedAge) {
+	private boolean hasCellContaining(Sheet sheet, String label, String value) {
 		return StreamSupport.stream(sheet.spliterator(), false).anyMatch(
 				row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 						cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-								cell.getStringCellValue().contains("Age:") &&
-								cell.getStringCellValue().contains(expectedAge)));
+								cell.getStringCellValue().contains(label) &&
+								cell.getStringCellValue().contains(value)));
 	}
 }
