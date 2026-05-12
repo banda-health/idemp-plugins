@@ -121,7 +121,7 @@ ORDER BY
 			<textField>
 				<reportElement x="50" y="30" width="139" height="18" uuid="64ef52a0-6ea4-45e9-a65d-e0b694b21a39"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format(new Date())]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -222,7 +222,7 @@ ORDER BY
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="468" y="12" width="87" height="20" uuid="ad2b78ed-d1db-4f53-9a6c-98bb3d1910d4">
