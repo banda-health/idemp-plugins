@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 6.21.5  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabReport" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter1.jrdax"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -19,9 +19,24 @@
 	v.bh_visitdate  AS date,
 	v.documentno    AS visit_number,
 	bp.name         AS patient,
-	CASE WHEN bp.bh_birthday IS NOT NULL
-		THEN CAST(DATE_PART('year', AGE(bp.bh_birthday)) AS INTEGER) || ' years'
-		ELSE NULL END AS age,
+	CASE
+		WHEN bp.bh_birthday IS NULL THEN NULL
+		WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) >= 2
+			THEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date))::int || ' years'
+		WHEN (EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) * 12
+			+ EXTRACT(MONTH FROM AGE(CURRENT_DATE, bp.bh_birthday::date)))::int >= 2
+			THEN (EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) * 12
+				+ EXTRACT(MONTH FROM AGE(CURRENT_DATE, bp.bh_birthday::date)))::int || ' months'
+		WHEN (CURRENT_DATE - bp.bh_birthday::date) >= 15
+			THEN (CURRENT_DATE - bp.bh_birthday::date) / 7 || ' weeks'
+				|| CASE
+					WHEN (CURRENT_DATE - bp.bh_birthday::date) % 7 = 0 THEN ''
+					WHEN (CURRENT_DATE - bp.bh_birthday::date) % 7 = 1 THEN ', 1 day'
+					ELSE ', ' || (CURRENT_DATE - bp.bh_birthday::date) % 7 || ' days'
+				END
+		WHEN (CURRENT_DATE - bp.bh_birthday::date) = 1 THEN '1 day'
+		ELSE (CURRENT_DATE - bp.bh_birthday::date) || ' days'
+	END AS age,
 	bp.bh_gender    AS gender,
 	bp.bh_patientid AS patient_id,
 	u.name          AS served_by,
@@ -130,7 +145,7 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[PATIENT VISIT]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="80" y="159" width="141" height="16" uuid="f23585fd-2910-4d69-85f6-a4bc27e24ed8">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -274,7 +289,7 @@ ORDER BY
 				<text><![CDATA[LABORATORY REPORT]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="82" y="208" width="141" height="16" uuid="1b76b728-50be-4187-8517-c01e41500a4d">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="207" width="141" height="16" uuid="1b76b728-50be-4187-8517-c01e41500a4d">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -285,7 +300,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{clinician}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="208" width="80" height="16" uuid="fe1c4b55-1ff8-455d-8d6c-224c57b7fd07">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="207" width="80" height="16" uuid="fe1c4b55-1ff8-455d-8d6c-224c57b7fd07">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -296,7 +311,7 @@ ORDER BY
 				<text><![CDATA[Clinician:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="82" y="223" width="141" height="16" uuid="7c72d63e-95ac-4709-b745-0dcb8f859ecd">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="223" width="141" height="16" uuid="7c72d63e-95ac-4709-b745-0dcb8f859ecd">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
