@@ -199,13 +199,12 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 			assertThat("Full name is shown with label",
 					hasCellContaining(sheet, "Full Name:", valueObject.getBusinessPartner().getName()), is(true));
 			assertThat("Patient number is shown with label",
-					hasCellContaining(sheet, "IP / OP Number:", valueObject.getVisit().getDocumentNo()), is(true));
-			assertThat("National ID is shown with label",
-					hasCellContaining(sheet, "ID/Passport No:", valueObject.getBusinessPartner().getBH_PatientID()),
+					hasCellContaining(sheet, "Patient Number:", valueObject.getBusinessPartner().getBH_PatientID()),
 					is(true));
-			assertThat("Contact number is shown with label",
-					hasCellContaining(sheet, "Contact Number:", valueObject.getBusinessPartner().getBH_Phone()),
-					is(true));
+			assertThat("Visit number is shown with label",
+					hasCellContaining(sheet, "Visit Number:", valueObject.getVisit().getDocumentNo()), is(true));
+			assertThat("Visit date is shown with label",
+					hasCellContaining(sheet, "Visit Date:"), is(true));
 
 			assertThat("Blood pressure is shown with label",
 					hasCellContaining(sheet, "BP:", "120/80"), is(true));

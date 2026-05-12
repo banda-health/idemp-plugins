@@ -259,7 +259,7 @@ ORDER BY
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
