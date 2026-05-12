@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 6.21.5  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Summary" pageWidth="595" pageHeight="842" orientation="Landscape" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="5" bottomMargin="0" uuid="f7f5f1f2-1e6c-4f4b-bf9b-0d6b2d8b6b11">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT DB"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -390,7 +390,7 @@ FROM
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PatientSummaryHeader.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement style="SectionHeading" x="0" y="54" width="481" height="20" uuid="791666c6-0153-49cb-b742-c308c9900780"/>
+				<reportElement style="SectionHeading" positionType="FixRelativeToBottom" x="0" y="54" width="481" height="20" uuid="791666c6-0153-49cb-b742-c308c9900780"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[PATIENT DISCHARGE SUMMARY]]></text>
 			</staticText>
@@ -415,7 +415,7 @@ FROM
 				</reportElement>
 				<box rightPadding="3"/>
 				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>Full Name:</b> " + ($F{patient_name} != null ? $F{patient_name} : "") + "     <b>Age:</b> " + $F{age_display}+ "     <b>Gender:</b> " +
+				<textFieldExpression><![CDATA["<b>Full Name:</b> " + ($F{patient_name} != null ? $F{patient_name} : "") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Age:</b> " + $F{age_display}+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Gender:</b> " +
 					($F{bh_gender} != null && !$F{bh_gender}.trim().isEmpty()
 						? $F{bh_gender}.substring(0,1).toUpperCase() + $F{bh_gender}.substring(1).toLowerCase()
 						: "")]]></textFieldExpression>
