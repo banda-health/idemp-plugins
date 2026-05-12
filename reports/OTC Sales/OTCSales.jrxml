@@ -343,7 +343,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

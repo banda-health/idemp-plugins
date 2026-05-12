@@ -515,7 +515,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
 
 		FileInputStream file = new FileInputStream(valueObject.getReport());
-		DateFormat format = new SimpleDateFormat("dd-MM-YYYY hh:mm");
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		try (Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 

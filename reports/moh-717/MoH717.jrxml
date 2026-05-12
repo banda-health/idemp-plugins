@@ -679,7 +679,7 @@ FROM
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Generated at " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="457" y="0" width="90" height="16" uuid="36edd13b-8209-4907-b4c4-6f45fafda4d0"/>
